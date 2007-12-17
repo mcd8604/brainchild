@@ -7,8 +7,17 @@ using Microsoft.Xna.Framework.Content;
 
 namespace project_hook
 {
-	class Sprite
+    /*
+     * Description: This class contains the base information all sprites need.
+     *              It also provides default draw and update method.
+     * 
+     * TODO:
+     *  1. Check if rectangles can have Negative height and width values
+     *  2. Add rotation support in the Draw method
+     */
+    class Sprite
 	{
+        // The identifying name of the sprite
 		private String m_Name;
 		public String Name
 		{
@@ -22,6 +31,8 @@ namespace project_hook
 			}
 		}
 
+        //The start position of the sprite.
+        //This will be used with pathing, distance, and resetting actions.
 		private Vector2 m_StartPosition;
 		public Vector2 StartPosition
 		{
@@ -35,6 +46,10 @@ namespace project_hook
 			}
 		}
 
+        //This is the postion that the sprite will be displayed on the screen.
+        //It is the start position initially.
+        //This vector will be modified to move the sprite around the screen.
+        //The x and y values in the vector are floats. 
 		private Vector2 m_Position;
 		public Vector2 Position
 		{
@@ -48,6 +63,7 @@ namespace project_hook
 			}
 		}		
 
+        //This is the height of the the sprite. 
 		private int m_Height;
 		public int Height
 		{
@@ -61,6 +77,7 @@ namespace project_hook
 			}
 		}
 
+        //This is the width of the sprite that will be displayed
 		private int m_Width;
 		public int Width
 		{
@@ -74,6 +91,8 @@ namespace project_hook
 			}
 		}
 
+        //This is the texture that the sprite will display
+        //This object is retrieved from the TextureLibrary object
 		private GameTexture m_Texture;
 		public GameTexture Texture
 		{
@@ -87,6 +106,8 @@ namespace project_hook
 			}
 		}
 
+        //This is the alpha value of the sprite.
+        //This will determine the sprites transparency
 		private float m_Alpha;
 		public float Alpha
 		{
@@ -100,6 +121,7 @@ namespace project_hook
 			}
 		}
 
+        //This will determine if the sprite is to be drawn on screen.
 		private bool m_Visible;
 		public bool Visible
 		{
@@ -113,7 +135,9 @@ namespace project_hook
 			}
 		}
 
-		//0=12 Oclock
+		
+        //This will determine the amount of rotation applied to a sprite.
+        //0.0 = 12 Oclock all textures should have this orientation.
 		private float m_Degree;
 		public float Degree
 		{
@@ -127,6 +151,8 @@ namespace project_hook
 			}
 		}
 
+        //This will create the destination rectangle sued to draw the sprite to the screen.
+        //The spritebatch objetc needs this as a parameter.
 		public Rectangle Destination
 		{
 			get
@@ -135,8 +161,7 @@ namespace project_hook
 			}
 		}
 
-
-
+        //This is a constructor that has full parameters!
 		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree)
 		{
 			Name = p_Name;
@@ -150,15 +175,26 @@ namespace project_hook
 			Degree = p_Degree;
 		}
 
-
-
+        //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
+            //TODO -  Apply rotation to the sprite based on degree.
 			p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White);
 		}
 
+        //This update method should be overidden 
 		public virtual void Update(float p_Elapsed)
 		{
 		}		
 	}
 }
+
+/*
+  * Class: Sprite
+  * Authors: Karl, Eric, Mike
+  * Date Created: 12/16/2007
+  * 
+  * Change Log:
+  *     12/16/2007 - Eric, Karl, Mike - Initial Creation,  Created properties, constructor, draw and update. 
+  *     12/17/2007 - Karl - Added Comments 
+  */
