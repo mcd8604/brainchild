@@ -1,0 +1,98 @@
+{\rtf1\ansi\ansicpg1252\deff0
+{\fonttbl
+{\f0\fswiss\fcharset0\fprq2\fttruetype Arial;}
+{\f1\froman\fcharset0\fprq2\fttruetype Times New Roman;}
+{\f2\fswiss\fcharset0\fprq2\ftnil Dingbats;}
+{\f3\froman\fcharset0\fprq2\fttruetype Symbol;}
+{\f4\fmodern\fcharset0\fprq1\fttruetype Courier New;}}
+{\colortbl
+\red0\green0\blue0;
+\red255\green255\blue255;}
+{\stylesheet
+{\s1\fi-427\li720\sbasedon31\snext31Contents 1;}
+{\s2\fi-427\li1440\sbasedon31\snext31Contents 2;}
+{\s3\fi-427\li2160\sbasedon31\snext31Contents 3;}
+{\s8\fi-427\li720\sbasedon31Lower Roman List;}
+{\s5\tx431\sbasedon27\snext31Numbered Heading 1;}
+{\s6\tx431\sbasedon28\snext31Numbered Heading 2;}
+{\s7\fi-427\li720Square List;}
+{\s9\fi-279\li566\f1\fs24\lang4105\sbasedon31List 2;}
+{\s4\fi-427\li2880\sbasedon31\snext31Contents 4;}
+{\s10\fi-427\li720Diamond List;}
+{\s11\fi-427\li720Numbered List;}
+{\*\cs12\sbasedon31Endnote Text;}
+{\*\cs13\fs20\superEndnote Reference;}
+{\s14\fi-427\li720Triangle List;}
+{\s15\tx431\sbasedon29\snext31Numbered Heading 3;}
+{\s16\fi-427\li720Dashed List;}
+{\s17\fi-427\li720\sbasedon11Upper Roman List;}
+{\s18\sb440\sa60\f0\fs24\b\sbasedon31\snext31Heading 4;}
+{\s19\fi-427\li720Heart List;}
+{\s34\f0\fs26\b\lang4105Table Normal;}
+{\s21\fi-360\li720\f1\fs24\lang4105\sbasedon31Feature List;}
+{\*\cs22\fs20Reference;}
+{\s23\fi-427\li720\sbasedon11Upper Case List;}
+{\s24\fi-427\li720Bullet List;}
+{\s25\fi-427\li720Hand List;}
+{\*\cs26\fs20\sbasedon31Footnote Text;}
+{\s27\sb240\sa60\f0\fs32\b\lang4105\sbasedon31\snext31Heading 1;}
+{\s28\sb240\sa60\f0\fs28\i\b\lang4105\sbasedon31\snext31Heading 2;}
+{\s20\qc\sb240\sa117\f0\fs32\b\sbasedon31\snext31Contents Header;}
+{\s30\fi-427\li720Tick List;}
+{\s29\sb240\sa60\f0\fs26\b\lang4105\sbasedon31\snext31Heading 3;}
+{\s32\fi-427\li720\sbasedon11Lower Case List;}
+{\s33\li1440\ri1440\sa117\sbasedon31Block Text;}
+{\s35\fi-279\li279\f1\fs24\lang4105\sbasedon31List;}
+{\s41\f4\sbasedon31Plain Text;}
+{\s37\tx1584\sbasedon5\snext31Section Heading;}
+{\s38\fi-427\li720Implies List;}
+{\s31\fi360\f1\fs24\lang4105Normal;}
+{\s40\fi-427\li720Star List;}
+{\*\cs36\fs20\superFootnote Reference;}
+{\s42\tx1584\sbasedon5\snext31Chapter Heading;}
+{\s39\fi-427\li720Box List;}}
+\kerning0\cf0\ftnbj\fet2\ftnstart1\ftnnar\aftnnar\ftnstart1\aftnstart1\aenddoc\revprop3{\info\uc1}\deftab720\viewkind1\paperw12240\paperh15840\margl1440\margr1440\widowctrl
+\sectd\sbknone\colsx360\headery708\footery731\marglsxn1800\margrsxn1800\pgncont\ltrsect
+\pard\plain\ltrpar\ql\fi360\sb240\sa60\s27\sl240\slmult1\itap0{\s27\f0\fs32\b\lang4105{\*\listtag0}\abinodiroverride\ltrch Game Concept}{\s27\f0\fs32\b\lang4105{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs32\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\b\lang1033{\*\listtag0}\abinodiroverride\ltrch Team: Brainchild Games}{\s31\f1\fs24\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\b\lang1033{\*\listtag0}\abinodiroverride\ltrch Code Name:  Project Hook}{\s31\f1\fs24\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\sb240\sa60\s28\sl240\slmult1\itap0{\s28\f0\fs28\i\b\lang4105{\*\listtag0}\abinodiroverride\ltrch Introduction}{\s28\f0\fs28\i\b\lang4105{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang4105{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab There is a virus that could wipe out all life on earth if it isn't contained!!  Genetic engineers have developed a potential counter virus to save humanity.  They are about to test the first strain...}{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\tab }{\s31\f0\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\sb240\sa60\s28\sl240\slmult1\itap0{\s28\f0\fs28\i\b\lang4105{\*\listtag0}\abinodiroverride\ltrch Description}{\s28\f0\fs28\i\b\lang4105{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs24\b\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab  }{\s31\f0\fs24\lang1033{\*\listtag0}A Forced scrolling shooter taking place in a biological creature. The player will fight off the virus invading the hosts body as the counter-virus.   Players will use the counter-virus' poisoned shot, and its grappling tail to control and kill enemies. By destroying enemies and collecting their DNA, players will be able to evolve and become more powerful.  Players will work their way through the body's blood to get to the infestations source.  This will culminate in an epic battle of good and evil!  }{\s31\f0\fs28\lang1033{\*\listtag0}   }{\s31\f0\fs28\b\lang1033{\*\listtag0}\tab }{\s31\f0\fs24\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\sb240\sa60\s28\sl240\slmult1\itap0{\s28\f0\fs28\i\b\lang1033{\*\listtag0}\abinodiroverride\ltrch Gameplay}{\s28\f0\fs28\i\b\lang4105{\*\listtag0} Features}{\s28\f0\fs28\i\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Grappling beam - Used to capture enemy ships and make them your slave.  This will allow you to control them and use them against your foes.  Each enemy will have different powers. You can only have one slave ship at a time.  You can release the slave at an time and it will die.}{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Alternate Weapons -  2 Different types.  You can switch on demand.  Each can be powered up by collecting power ups.  Both will level up at the time.  Level up,  maybe this will affect the grapple.}{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Rechargeable Shields - Shields will absorb a certain amount of enemy fire.  After your shields  are down your ship is susceptible to enemy fire.  Your shields will recharge after a few seconds of not being shot.   Shield recharge rate will be based upon your energy consumption.}{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab   Damage shown - effects will be shown based on ship damage.   \tab }{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Scoring - We will have a combo point system.  Players will be given a rating based on their final score.}{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Mini Bosses -  Mini bosses may appear in the level}{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Achievements -  By completing objectives players will be able to gain achievements.  Achievements will be small tasks that add to your score.}{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab \tab \tab     i.e. Players stay at the top of the screen for  a minute, players \tab \tab only use the tail to attack. Players don't shoot for a 30secs. }{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f1\fs24\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab }{\s31\f1\fs24\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi-360\li720\s21\sl240\slmult1\itap0{\s21\f0\fs28\i\b\lang4105{\*\listtag0}\abinodiroverride\ltrch Genre}{\s21\f0\fs28\i\b\lang4105{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang4105{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab }{\s31\f0\fs28\lang1033{\*\listtag0}Forced Scrolling shooter.   The player will destroy enemies until they come to a boss event .  After defeating the boss event the level will end.}{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\sb240\sa60\s28\sl240\slmult1\itap0{\s28\f0\fs28\i\b\lang4105{\*\listtag0}\abinodiroverride\ltrch Platform}{\s28\f0\fs28\i\b\lang4105{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab }{\s31\f0\fs28\lang1033{\*\listtag0}Windows XP.}{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Windows Vista.}{\s31\f0\fs28\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Possibly : XBox 360}{\s31\f0\fs28\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\abinodiroverride\ltrch Input Devices:}{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Mouse and Keyboard}{\s31\f0\fs28\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\lang1033{\*\listtag0}\abinodiroverride\ltrch \tab Possibly: 360 controller}{\s31\f0\fs28\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi360\s31\sl240\slmult1\itap0{\s31\f0\fs28\i\b\lang1033{\*\listtag0}\par}}
