@@ -1,5 +1,0 @@
-obj\x86\Debug\ResolveAssemblyReference.cache
-bin\x86\Debug\project hook.exe
-bin\x86\Debug\project hook.pdb
-obj\x86\Debug\project hook.exe
-obj\x86\Debug\project hook.pdb
