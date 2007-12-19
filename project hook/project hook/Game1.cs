@@ -18,12 +18,13 @@ namespace project_hook
 	{
 		GraphicsDeviceManager graphics;
 		ContentManager content;
-
+		KeyHandler.KeyHandler keyhandler;
 
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			content = new ContentManager(Services);
+			keyhandler = new KeyHandler.KeyHandler();
 		}
 
 
@@ -84,9 +85,12 @@ namespace project_hook
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+			keyhandler.Update();
 			// Allows the game to exit
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+			if (keyhandler.IsActionDown(KeyHandler.KeyHandler.Actions.Pause))
+			{
 				this.Exit();
+			}
 
 			// TODO: Add your update logic here
 
