@@ -7,26 +7,44 @@ namespace project_hook
 	class Menu
 	{
 
-		private int selectedIndex;
+		private int m_highlightedIndex;
+		public String HighlightedIndex
+		{
+			get
+			{
+				return m_highlightedIndex;
+			}
+			set
+			{
+				m_highlightedIndex = value;
+			}
+		}
+
+		private int m_selectedIndex;
+		public String SelectedIndex
+		{
+			get
+			{
+				return m_selectedIndex;
+			}
+			set
+			{
+				m_selectedIndex = value;
+			}
+		}
+
 		private Sprite background;
-		private ArrayList mMenuSprites;
+		private ArrayList menuSprites;
 
 		public Menu(ArrayList menuItems)
 		{
 			selectedIndex = -1;
 
-			//(test stuff)
-			Vector2 pos = new Vector2();
-			int height = 100;
-			int width = 100;			
-			
-			background = new Sprite("menuBackground", pos, height, width, texture);
-
-			mMenuSprites = new ArrayList();
+			menuSprites = new ArrayList();
 			for(int i = 0; i < menuItems.Capacity; i++)
 			{
-				Sprite s = new Sprite("blah");
-				mMenuSprites.Add(s);
+				//Sprite s = new Sprite("blah");
+				//menuSprites.Add(s);
 			}
 		}
 
@@ -36,10 +54,10 @@ namespace project_hook
 			background.Draw(spriteBatch);
 
 			//draw menu items
-			for (int i = 0; i < mMenuSprites.Capacity; i++)
+			for (int i = 0; i < menuSprites.Capacity; i++)
 			{
-				Sprite s = (Sprite)mMenuSprites[i];
-				s.Draw(spriteBatch);
+				//Sprite s = (Sprite)menuSprites[i];
+				//s.Draw(spriteBatch);
 			}
 		}
 	
