@@ -15,10 +15,10 @@ namespace project_hook
     class Ship : Collidable 
     {
         //variable for the weapon that the ship currently has
-        Weapon m_Weapon = new Weapon();
+		Weapon m_Weapon; //= new Weapon();
 
-        public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
-            : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff)
+        public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius)
+            : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Path, p_Speed, p_DamageEffect, p_Radius)
         {
 
         }
@@ -27,11 +27,11 @@ namespace project_hook
         {
             get
             {
-                return m_Weapon;
+				return null;// m_Weapon;
             }
             set
             {
-                m_Weapon = value;
+				m_Weapon = null;//value;
             }
         }
     }
