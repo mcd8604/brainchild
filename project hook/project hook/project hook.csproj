@@ -199,6 +199,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Courier New.spritefont">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Name>Courier New</Name>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Content\Audio\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
