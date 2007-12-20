@@ -102,10 +102,9 @@ namespace project_hook
 		}
 		#endregion // End of variables and Properties Region
 
-		public Weapon(String p_Name, Vector2 p_StartPosition, int p_Strength, int p_Delay, int p_Speed, GameTexture p_Shot)
+		public Weapon(Ship p_Ship, int p_Strength, int p_Delay, int p_Speed, GameTexture p_Shot)
 		{
-			Name = p_Name;
-			StartPosition = p_StartPosition;
+			Ship = p_Ship;
 			Strength = p_Strength;
 			Delay = p_Delay;
 			Speed = p_Speed;
