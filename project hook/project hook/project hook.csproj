@@ -157,6 +157,18 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>GameThumbnail</Name>
     </Content>
+    <Content Include="libs\KeyHandler.dll">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>KeyHandler</Name>
+    </Content>
+    <Content Include="libs\nunit.framework.dll">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>nunit.framework</Name>
+    </Content>
+    <Content Include="libs\PowerCollections.dll">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PowerCollections</Name>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Audio\" />

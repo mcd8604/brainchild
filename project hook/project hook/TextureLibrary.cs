@@ -20,6 +20,7 @@ namespace project_hook
         private static Hashtable m_Textures;
         private static Hashtable m_GameTextures;
         private static ContentManager m_TextureManager;
+        private static String path = System.Environment.CurrentDirectory  + "\\Content\\Textures\\";
 
         //This method will initialize the Textures      
         public static void iniTextures(GameServiceContainer services)
@@ -70,13 +71,13 @@ namespace project_hook
             try
             {
 
-                Texture2D tTexture = m_TextureManager.Load<Texture2D>("..\\Content\\Texures\\" + textureName);
+                Texture2D tTexture = m_TextureManager.Load<Texture2D>(path + textureName);
                 m_Textures.Add(textureName, tTexture);
 
                 return true;
 
             }
-            catch (Exception e)
+            catch (ContentLoadException e)
             {
 
                 return false;
