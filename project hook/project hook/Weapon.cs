@@ -116,11 +116,9 @@ namespace project_hook
 		//this function will creat a Shot at the current location
 		public void CreatShot()
 		{
-			String t_Name=m_Ship.Name;
-			Vector2 t_Position=m_Ship.Position;
-
-			Shot t_Shot = new Shot(t_Name + m_ShotNumber, t_Position, 10, 10, m_Shot, 100f, true, 0f, 0.31f, 2);
-
+			Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 10, 10, m_Shot, 100f, true, 0f, 0.31f, m_Ship.Faction, -1, null,
+									5, null, 5, 2);
+			
 			++m_ShotNumber;
 		}
 	}
