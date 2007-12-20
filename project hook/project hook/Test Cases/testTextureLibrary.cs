@@ -17,7 +17,7 @@ namespace project_hook.UseCases
         public void Init()
         {
             g= new Game();
-                TextureLibrary.iniTextures(g.Services);
+                //TextureLibrary.iniTextures();
             
         }
 

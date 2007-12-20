@@ -30,11 +30,11 @@ namespace project_hook
         private static String path = System.Environment.CurrentDirectory  + "\\Content\\Textures\\";
         
         //This method will initialize the Textures      
-        public static void iniTextures(GameServiceContainer services)
+		public static void iniTextures(ContentManager content)
         {
             if (m_Textures == null && m_GameTextures == null)
             {
-                m_TextureManager = new ContentManager(services);
+				m_TextureManager  = content;//new ContentManager(services);
                 m_Textures = new OrderedDictionary<String,Texture2D>();   
                 m_GameTextures = new OrderedDictionary<string,OrderedDictionary<string,GameTexture>>();
             }
@@ -100,7 +100,15 @@ namespace project_hook
             {
 
                 Texture2D tTexture = m_TextureManager.Load<Texture2D>(path + textureName);
-                m_Textures.Add(textureName, tTexture);
+				if (m_Textures.ContainsKey(textureName))
+				{
+					m_Textures.Replace(textureName, tTexture);
+
+				}
+				else
+				{
+					m_Textures.Add(textureName, tTexture);
+				}
 
                 //This code will load up a textures rectangle Description
 
@@ -132,21 +140,15 @@ namespace project_hook
 
                         //Stores it in the GameTexture table
                         GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
-                        
-                        OrderedDictionary<String, GameTexture> t_Dic = new OrderedDictionary<string, GameTexture>();
-                        t_Dic.Add(tag, t_GameTexture);
-                        m_GameTextures.Add(name, t_Dic);
+						addGameTexture(name, tag, t_GameTexture);
+             
                     }
 
                 }
                 else
                 {
                     GameTexture t_GameTexture = new GameTexture(textureName, "", tTexture, new Rectangle(0, 0, tTexture.Width, tTexture.Height));
-
-                    
-                    OrderedDictionary<String, GameTexture> t_Dic = new OrderedDictionary<string, GameTexture>();
-                    t_Dic.Add("", t_GameTexture);
-                    m_GameTextures.Add(textureName, t_Dic);
+					addGameTexture(textureName, "", t_GameTexture);
                 }
                     
             }
@@ -162,6 +164,30 @@ namespace project_hook
 
             return true;
         }
+
+		//This method adds the 
+		private static void addGameTexture(string p_name, string p_tag, GameTexture p_GameTexture)
+		{
+			if (m_GameTextures.ContainsKey(p_name))
+			{
+				if ((m_GameTextures[p_name]).ContainsKey(p_tag))
+				{
+					m_GameTextures[p_name].Replace(p_tag, p_GameTexture);
+				}
+				else
+				{
+					m_GameTextures[p_name].Add(p_tag, p_GameTexture);
+				}
+				
+			}
+			else
+			{
+				OrderedDictionary<String, GameTexture> t_Dic = new OrderedDictionary<string, GameTexture>();
+				t_Dic.Add(p_tag, p_GameTexture);
+				m_GameTextures.Add(p_name, t_Dic);
+			}
+
+		}
 
         public static Boolean unloadAll()
         {

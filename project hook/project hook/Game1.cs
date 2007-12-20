@@ -39,8 +39,10 @@ namespace project_hook
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
-            
-            TextureLibrary.iniTextures(Services);
+			
+			TextureLibrary.iniTextures(content);
+			
+			
             graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
 		    	base.Initialize();
 		}
