@@ -1,0 +1,13 @@
+Gameplay		Keyboard/Mouse		360 Controller
+Up			W			Left Stick
+Down			A
+Left			S
+Right			D
+Shoot			Space			Left Trigger
+Change Weapon		F			Left Bumper
+Pause			Esc			Start
+Capture/Fire		Mouse 1			Right Trigger
+Nothing/Release		Mouse 2			Right Bumper
+Cursor			Mouse (X,Y)		Right Stick
+
+
