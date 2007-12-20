@@ -63,22 +63,23 @@ namespace project_hook
 
 		public void MoveRight()
 		{
-			m_PlayerSpeedBuffer.X -= m_PlayerAcceleration;
+			m_PlayerSpeedBuffer.X += m_PlayerAcceleration;
 		}
 
 		public void MoveLeft()
 		{
-			m_PlayerSpeedBuffer.X += m_PlayerAcceleration;
+			m_PlayerSpeedBuffer.X -= m_PlayerAcceleration;
 		}
 
 		private void CalcMovement(GameTime p_GameTime, Vector2 p_PlayerSpeedBuffer)
 		{
-			m_MovementDelay -= p_GameTime.ElapsedGameTime.Seconds;
+			m_MovementDelay -= p_GameTime.ElapsedGameTime.TotalSeconds;
 
 			if (m_MovementDelay < 0)
 			{
-				MathHelper.Clamp(m_PlayerSpeed.X += p_PlayerSpeedBuffer.X, 0, m_PlayerAccelerationMax);
-				MathHelper.Clamp(m_PlayerSpeed.Y += p_PlayerSpeedBuffer.Y, 0, m_PlayerAccelerationMax);
+				MathHelper.Clamp(m_PlayerSpeed.X += p_PlayerSpeedBuffer.X, -m_PlayerAccelerationMax, m_PlayerAccelerationMax);
+				MathHelper.Clamp(m_PlayerSpeed.Y += p_PlayerSpeedBuffer.Y, -m_PlayerAccelerationMax, m_PlayerAccelerationMax);
+				m_MovementDelay = m_MovementDelayReset;
 			}
 		}
 
@@ -91,9 +92,10 @@ namespace project_hook
         {
 			//Calculate player position based on player speed and player friction
 			CalcMovement(p_GameTime, m_PlayerSpeedBuffer);
-			Vector2 tempPlayerSpeed = m_PlayerShip.Position;
-			tempPlayerSpeed.X = ((m_PlayerSpeed.X - m_PlayerFriction) * (float)(p_GameTime.ElapsedGameTime.Seconds));
-			tempPlayerSpeed.Y = ((m_PlayerSpeed.Y - m_PlayerFriction) * (float)(p_GameTime.ElapsedGameTime.Seconds));
+			Vector2 tempPlayerPosition = m_PlayerShip.Position;
+			tempPlayerPosition.X += ((m_PlayerSpeed.X - m_PlayerFriction) * (float)(p_GameTime.ElapsedGameTime.Seconds));
+			tempPlayerPosition.Y += ((m_PlayerSpeed.Y - m_PlayerFriction) * (float)(p_GameTime.ElapsedGameTime.Seconds));
+			m_PlayerShip.Position = tempPlayerPosition;
 
             p_SpriteBatch.Draw(m_PlayerShip.Texture.Texture, m_PlayerShip.Position, Color.White);
         }
