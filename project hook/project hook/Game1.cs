@@ -19,7 +19,7 @@ namespace project_hook
 		GraphicsDeviceManager graphics;
 		ContentManager content;
 		KeyHandler.KeyHandler keyhandler;
-
+        Game1 g;
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -37,7 +37,8 @@ namespace project_hook
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
-			
+            
+            TextureLibrary.iniTextures(Services);
 			base.Initialize();
 		}
 
@@ -52,7 +53,7 @@ namespace project_hook
 		{
 			if (loadAllContent)
 			{
-				// TODO: Load any ResourceManagementMode.Automatic content
+                TextureLibrary.LoadTexture("Ship2");
 			}
 
 			// TODO: Load any ResourceManagementMode.Manual content
