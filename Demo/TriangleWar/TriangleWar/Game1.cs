@@ -29,7 +29,7 @@ namespace TriangleWar
         Boolean shotExists = false;
         Texture2D shotTexture;
         Vector2 shotPosition = Vector2.Zero;
-        Vector2 shotSpeed = new Vector2(0, -200);
+        Vector2 shotSpeed = new Vector2(0, -400);
         Vector2 shotStart = new Vector2(22, -5);
         Boolean targetExists = false;
         Texture2D targetTexture;
@@ -39,18 +39,22 @@ namespace TriangleWar
         Boolean targetShotExists = false;
         Texture2D targetShotTexture;
         Vector2 targetShotPosition = Vector2.Zero;
-        Vector2 targetShotSpeed = new Vector2(0, 200);
+        Vector2 targetShotSpeed = new Vector2(0, 300);
         Vector2 targetShotStart = new Vector2(22, 55);
         float fps;
         float updateInterval = 1.0f;
         float timeSinceLastUpdate = 0.0f;
         int framecount = 0;
 
+		// font
+		DrawText text;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             content = new ContentManager(Services);
             keyboard = new KeyHandler();
+			text = new DrawText();
 
 			graphics.SynchronizeWithVerticalRetrace = false;
 			IsFixedTimeStep = false;
@@ -87,6 +91,8 @@ namespace TriangleWar
                 shotTexture = content.Load<Texture2D>("OjTri");
                 targetTexture = content.Load<Texture2D>("GreenTri");
                 targetShotTexture = content.Load<Texture2D>("PurTri");
+
+				text.Load(content);
             }
 
         }
@@ -140,11 +146,11 @@ namespace TriangleWar
             }
             else if (keyboard.IsActionDown(KeyHandler.Actions.Left))
             {
-                spriteSpeed.X = -100;
+                spriteSpeed.X = -200;
             }
             else if (keyboard.IsActionDown(KeyHandler.Actions.Right))
             {
-                spriteSpeed.X = 100;
+                spriteSpeed.X = 200;
             }
             else
             {
@@ -157,11 +163,11 @@ namespace TriangleWar
             }
             else if (keyboard.IsActionDown(KeyHandler.Actions.Up))
             {
-                spriteSpeed.Y = -100;
+                spriteSpeed.Y = -200;
             }
             else if (keyboard.IsActionDown(KeyHandler.Actions.Down))
             {
-                spriteSpeed.Y = 100;
+                spriteSpeed.Y = 200;
             }
             else
             {
@@ -329,6 +335,8 @@ namespace TriangleWar
                 spriteBatch.Draw(targetShotTexture, targetShotPosition, Color.White);
             }
             spriteBatch.Draw(myTexture, spritePosition, Color.White);
+
+			text.DrawString(spriteBatch, score.ToString());
 
             spriteBatch.End();
 
