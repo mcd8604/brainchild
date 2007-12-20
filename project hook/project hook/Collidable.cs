@@ -11,12 +11,13 @@ namespace project_hook
 	*              will be able to collide with other sprites.
 	* 
 	* TODO:
-	*  1. check for collisions
+	*  1. 
 	*  2. 
 	*  
 	*/
 	public class Collidable:Sprite
 	{
+		#region Variables and Properties
 		//which faction does this sprite belong to
 		private int m_Faction;
 		public int Faction
@@ -100,11 +101,25 @@ namespace project_hook
 				m_Radius = value;
 			}
 		}
+		#endregion // End of variables and Properties Region
 
-        public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, int p_Z)
+        public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, 
+							float p_Degree, float p_Z, int p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius)
             : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
         {
-
+			Faction = p_Faction;
+			Health = p_Health;
+			Path = p_Path;
+			Speed = p_Speed;
+			DamageEffect = p_DamageEffect;
+			Radius = p_Radius;
         }
+
+
+		public virtual void CheckCollision(Collidable p_Sprite)
+		{
+			//to do:	send it's self and p_Sprite to the gameCollision class, and check for a collision.
+			//			if there is a collision do some action.  no action at this point.
+		}
 	}
 }
