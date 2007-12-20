@@ -111,8 +111,8 @@ namespace project_hook
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
              m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
-             Sprite back = new Sprite("back", new Vector2(0.0f, 0.0f), graphics.PreferredBackBufferHeight, 
-                                        graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.15f, 0);
+             Sprite back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, 
+                                        -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.15f, 0);
 
              m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
 
