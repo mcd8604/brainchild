@@ -27,7 +27,7 @@ namespace project_hook.UseCases
             string name = "Ship2";
 
             Assert.IsTrue(TextureLibrary.LoadTexture(name));
-            Texture2D ret = TextureLibrary.get(name);
+            Texture2D ret = TextureLibrary.getTexture(name);
             Assert.IsNotNull(ret);
 
             Assert.IsTrue(ret.Name.Equals(name));

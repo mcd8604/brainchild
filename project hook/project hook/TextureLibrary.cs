@@ -17,18 +17,14 @@ namespace project_hook
    *              Game Texture objects 
    * 
    * TODO:
-   *  1. Convert to the ordered Dictionary
-    * 2. Allow retrieval of gametexture objects
     * 3. Create an easy way to make the XML definitions for the game
    */
     class TextureLibrary
     {
-        private static Hashtable m_Textures;
-        
-        private static Hashtable m_GameTextures;
+        private static OrderedDictionary<String, Texture2D> m_Textures;
 
         //This will be what stores the GameTextures!!
-        private static OrderedDictionary<String, OrderedDictionary<String, GameTexture>> m_GameTexturePower;
+        private static OrderedDictionary<String, OrderedDictionary<String, GameTexture>> m_GameTextures;
 
         private static ContentManager m_TextureManager;
         private static String path = System.Environment.CurrentDirectory  + "\\Content\\Textures\\";
@@ -38,18 +34,36 @@ namespace project_hook
         {
             if (m_Textures == null && m_GameTextures == null)
             {
-                m_Textures = new Hashtable();
-                m_GameTextures = new Hashtable();
                 m_TextureManager = new ContentManager(services);
-                m_GameTexturePower = new OrderedDictionary<string,OrderedDictionary<string,GameTexture>>();
-                
-                
+                m_Textures = new OrderedDictionary<String,Texture2D>();   
+                m_GameTextures = new OrderedDictionary<string,OrderedDictionary<string,GameTexture>>();
             }
+        }
+
+        //This method gets a GameTexture Object
+        public static GameTexture getGameTexture(string name, string tag)
+        {
+            if (m_GameTextures == null)
+            {
+                return null;
+            }
+
+            GameTexture r_Texture = null;
+           
+            if( m_GameTextures.ContainsKey(name)){
+                if (m_GameTextures[name].ContainsKey(tag))
+                {
+                    r_Texture = (m_GameTextures[name])[tag];
+                }
+            }
+            
+            return r_Texture;
+
         }
 
         //This code attempts to get a texture reference
         //It will attempt to load the texture if is not in the hashtable
-        public static Texture2D get(string textureName)
+        public static Texture2D getTexture(string textureName)
         {
             if (m_Textures == null)
             {
@@ -77,7 +91,7 @@ namespace project_hook
         //If it cannot find or load the texture it will return false;
         public static Boolean LoadTexture(string textureName)
         {
-            if (m_Textures == null)
+            if (m_Textures == null || m_GameTextures == null)
             {
                 return false;
             }
@@ -98,7 +112,7 @@ namespace project_hook
                     //Lods the XML file
                     XmlDocument doc = new XmlDocument();
                     doc.Load(strFilename);
-                    
+
                     //Checks gets the Rectangles to load
                     XmlElement elm = doc.DocumentElement;
                     XmlNodeList lstRect = elm.ChildNodes;
@@ -117,16 +131,24 @@ namespace project_hook
                         int height = int.Parse(nodes.Item(j++).InnerText);
 
                         //Stores it in the GameTexture table
-                        GameTexture t_Texture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
-                        m_GameTextures.Add(name, t_Texture);
-                        OrderedDictionary<String,GameTexture> t_Dic = new OrderedDictionary<string,GameTexture>();
-                        t_Dic.Add(tag, t_Texture);
-                        m_GameTexturePower.Add(name,t_Dic);
+                        GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
+                        
+                        OrderedDictionary<String, GameTexture> t_Dic = new OrderedDictionary<string, GameTexture>();
+                        t_Dic.Add(tag, t_GameTexture);
+                        m_GameTextures.Add(name, t_Dic);
                     }
-                    
+
                 }
                 else
-                    return false;
+                {
+                    GameTexture t_GameTexture = new GameTexture(textureName, "", tTexture, new Rectangle(0, 0, tTexture.Width, tTexture.Height));
+
+                    
+                    OrderedDictionary<String, GameTexture> t_Dic = new OrderedDictionary<string, GameTexture>();
+                    t_Dic.Add("", t_GameTexture);
+                    m_GameTextures.Add(textureName, t_Dic);
+                }
+                    
             }
             catch (ContentLoadException e)
             {
@@ -147,6 +169,7 @@ namespace project_hook
             {
                 m_TextureManager.Unload();
                 m_Textures = null;
+                m_GameTextures = null;
                 return true;
             }
             catch (Exception e)
@@ -165,6 +188,9 @@ namespace project_hook
   * Date Created: 12/19/2007
   * 
   * Change Log:
-  *     12/19/2007 - Karl - Initial Creation,  Created properties, constructor, load and Unload. 
+  *     12/19/2007 - Karl - Initial Creation,  Created properties, constructor, load and Unload.
+ *      12/19/2007 - Karl - Added in a load method that looks at an XML definition file and creates a game textures.
+ *      12/20/2007 - Karl - Added Dictionary support, support for textures that have no XML definitions,
+ *                          and a method to get a Game Texture
   *     
   */
