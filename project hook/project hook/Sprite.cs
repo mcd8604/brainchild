@@ -13,7 +13,6 @@ namespace project_hook
      * 
      * TODO:
      *  1. Check if rectangles can have Negative height and width values
-     *  2. Add rotation support in the Draw method
      */
     public class Sprite
 	{
@@ -191,18 +190,22 @@ namespace project_hook
             Z = p_Z;
 		}
 
+        
+        
         //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
-            //TODO -  Apply rotation to the sprite based on degree.
-			
-            p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree, new Vector2(0.0f, 0.0f), SpriteEffects.None, m_Z);
+            Vector2 origin = new Vector2(0.0f,0.0f);
+            p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree,
+                               origin, SpriteEffects.None, m_Z);
             
 		}
 
         //This update method should be overidden 
 		public virtual void Update(float p_Elapsed)
 		{
+         
+
 		}		
 	}
 }
