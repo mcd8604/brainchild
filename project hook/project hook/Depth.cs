@@ -7,7 +7,7 @@ namespace project_hook
 {
     namespace Depth
     {
-        public class BackGround
+        public class ForeGround
         {
             public static float Bottom = 0.0f;
             public static float Mid = 0.15f;
@@ -22,11 +22,11 @@ namespace project_hook
 
         }
 
-        public class ForeGround
+        public class BackGround
         {
-            public static float Bottom = 0.62f;
+            public static float Top = 0.62f;
             public static float Mid = 0.77f;
-            public static float Top = 0.92f;
+            public static float Bottom = 0.92f;
 
         }
 
