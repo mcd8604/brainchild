@@ -152,12 +152,12 @@ namespace project_hook
                 }
                     
             }
-            catch (ContentLoadException e)
+            catch (ContentLoadException )
             {
 
                 return false;
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 return false;
             }
@@ -190,18 +190,12 @@ namespace project_hook
 		}
 
         public static Boolean unloadAll()
-        {
-            try
-            {
+        {           
                 m_TextureManager.Unload();
                 m_Textures = null;
                 m_GameTextures = null;
                 return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
+            
         }
 
 
