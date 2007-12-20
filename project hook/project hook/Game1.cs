@@ -19,7 +19,9 @@ namespace project_hook
 		GraphicsDeviceManager graphics;
 		ContentManager content;
 		KeyHandler.KeyHandler keyhandler;
-        Game1 g;
+        SpriteBatch m_spriteBatch;
+
+
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -54,6 +56,7 @@ namespace project_hook
 			if (loadAllContent)
 			{
                 TextureLibrary.LoadTexture("Ship2");
+                TextureLibrary.LoadTexture("Back");
 			}
 
 			// TODO: Load any ResourceManagementMode.Manual content
@@ -106,7 +109,17 @@ namespace project_hook
 		protected override void Draw(GameTime gameTime)
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+             m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
+             Sprite back = new Sprite("back", new Vector2(0.0f, 0.0f), graphics.PreferredBackBufferHeight, 
+                                        graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0);
+
+             m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
+
+             back.Draw(m_spriteBatch);
+
+             m_spriteBatch.End();
+            
 			// TODO: Add your drawing code here
 
 			base.Draw(gameTime);
