@@ -110,13 +110,22 @@ namespace project_hook
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
              m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-
+            
              Sprite back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, 
-                                        -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.15f, 0);
+                                        -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.BackGround.Bottom, 0);
+
+             Sprite back1 = new Sprite("Ship", new Vector2(100.0f, 100.0f), 100,
+                                         100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, Depth.ForeGround.Bottom, 0);
+             Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500,
+                                          600, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.MidGround.Bottom, 0.60f);
+
 
              m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
 
              back.Draw(m_spriteBatch);
+
+             back2.Draw(m_spriteBatch);
+             back1.Draw(m_spriteBatch);
 
              m_spriteBatch.End();
             
