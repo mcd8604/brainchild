@@ -125,6 +125,16 @@ namespace project_hook
 				m_StartPosition.Y = value;
 			}
 		}
+
+		private Vector2 m_Center;
+		public Vector2 Center
+		{
+			get
+			{
+				return m_Center;
+			}
+		}
+
         #endregion // End of variables and Properties Region
 
         //This initializes the Game texture.
@@ -134,6 +144,7 @@ namespace project_hook
             Tag = p_Tag;
 			Texture = p_Texture;
 			StartPosition = p_StartPosition;
+			m_Center = new Vector2(m_Texture.Width/2.0f,m_Texture.Height/2.0f);
 		}
 	}
 }
