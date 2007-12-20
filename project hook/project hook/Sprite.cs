@@ -151,6 +151,21 @@ namespace project_hook
 			}
 		}
 
+        //This is the Z Depth value
+        private float m_Z;
+        public float Z
+        {
+            get
+            {
+                return m_Z;
+            }
+            set
+            {
+                m_Z = value;
+            }
+
+        }
+
         //This will create the destination rectangle sued to draw the sprite to the screen.
         //The spritebatch objetc needs this as a parameter.
 		public Rectangle Destination
@@ -162,7 +177,7 @@ namespace project_hook
 		}
 
         //This is a constructor that has full parameters!
-		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree)
+		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_Z)
 		{
 			Name = p_Name;
 			StartPosition = p_Position;
@@ -173,13 +188,16 @@ namespace project_hook
 			Alpha = p_Alpha;
 			Visible = p_Visible;
 			Degree = p_Degree;
+            Z = p_Z;
 		}
 
         //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
             //TODO -  Apply rotation to the sprite based on degree.
-			p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White);
+			
+            p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree, new Vector2(0.0f, 0.0f), SpriteEffects.None, m_Z);
+            
 		}
 
         //This update method should be overidden 
