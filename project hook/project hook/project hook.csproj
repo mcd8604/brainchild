@@ -147,7 +147,10 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Shot</Name>
     </Content>
-    <Content Include="Game.ico" />
+    <Content Include="Game.ico">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Game</Name>
+    </Content>
     <Content Include="GameThumbnail.png">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
