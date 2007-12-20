@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>GreenTri.png</Source>
+      <Name>GreenTri</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\GreenTri.xnb</Output>
+      <Time>2007-12-19T23:27:07.9011796-05:00</Time>
+    </Item>
+    <Item>
+      <Source>OjTri.png</Source>
+      <Name>OjTri</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\OjTri.xnb</Output>
+      <Time>2007-12-19T23:27:07.9301796-05:00</Time>
+    </Item>
+    <Item>
+      <Source>PinkTri.png</Source>
+      <Name>PinkTri</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\PinkTri.xnb</Output>
+      <Time>2007-12-19T23:27:07.9741796-05:00</Time>
+    </Item>
+    <Item>
+      <Source>PurTri.png</Source>
+      <Name>PurTri</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\PurTri.xnb</Output>
+      <Time>2007-12-19T23:27:07.9871796-05:00</Time>
+    </Item>
+    <Item>
+      <Source>spaceship2.png</Source>
+      <Name>spaceship2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\spaceship2.xnb</Output>
+      <Time>2007-12-19T23:27:07.8971796-05:00</Time>
+    </Item>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <RootDirectory>C:\Users\Adam\Desktop\2D Project SVN\Demo\TriangleWar\TriangleWar\</RootDirectory>
+      <IntermediateDirectory>C:\Users\Adam\Desktop\2D Project SVN\Demo\TriangleWar\TriangleWar\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Adam\Desktop\2D Project SVN\Demo\TriangleWar\TriangleWar\bin\x86\Debug\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio Express\v1.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2007-04-05T13:17:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio Express\v1.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2007-04-05T13:18:14-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio Express\v1.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2007-04-05T13:18:04-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio Express\v1.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2007-04-05T13:17:16-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\1.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2007-12-06T10:06:21.3798839-05:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
