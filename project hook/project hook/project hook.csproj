@@ -39,10 +39,8 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="KeyHandler, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>libs\KeyHandler.dll</HintPath>
-    </Reference>
+    <Reference Include="DrawText, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="KeyHandler, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework">
       <Private>False</Private>
     </Reference>
@@ -182,6 +180,10 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>GameThumbnail</Name>
+    </Content>
+    <Content Include="libs\DrawText.dll">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>DrawText</Name>
     </Content>
     <Content Include="libs\KeyHandler.dll">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
