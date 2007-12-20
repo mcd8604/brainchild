@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+
 namespace project_hook
 {
     /*
@@ -16,6 +17,7 @@ namespace project_hook
      */
     public class Sprite
 	{
+        
         // The identifying name of the sprite
 		private String m_Name;
 		public String Name
