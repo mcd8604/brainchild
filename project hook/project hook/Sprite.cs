@@ -152,6 +152,7 @@ namespace project_hook
 			}
 		}
 
+
         //This is the Z Depth value
         private float m_Z;
         public float Z
@@ -197,10 +198,10 @@ namespace project_hook
         //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
-            Vector2 origin = new Vector2(0.0f,0.0f);
-            p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree,
-                               origin, SpriteEffects.None, m_Z);
             
+            p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree,
+							  m_Texture.Center, SpriteEffects.None, m_Z);
+             //
 		}
 
         //This update method should be overidden 
