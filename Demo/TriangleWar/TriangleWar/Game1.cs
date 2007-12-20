@@ -51,6 +51,9 @@ namespace TriangleWar
             graphics = new GraphicsDeviceManager(this);
             content = new ContentManager(Services);
             keyboard = new KeyHandler();
+
+			graphics.SynchronizeWithVerticalRetrace = false;
+			IsFixedTimeStep = false;
         }
 
 
@@ -64,9 +67,6 @@ namespace TriangleWar
         {
             spritePosition = new Vector2((graphics.GraphicsDevice.Viewport.Width - 50) / 2,
                 graphics.GraphicsDevice.Viewport.Height - 50);
-
-            graphics.SynchronizeWithVerticalRetrace = false;
-            IsFixedTimeStep = false;
 
             base.Initialize();
         }
