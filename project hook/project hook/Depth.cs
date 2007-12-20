@@ -9,16 +9,16 @@ namespace project_hook
     {
         public class ForeGround
         {
-            public static float Bottom = 0.0f;
+            public static float Top = 0.0f;
             public static float Mid = 0.15f;
-            public static float Top = 0.3f;
+            public static float Bottom = 0.3f;
         }
 
         public class MidGround
         {
-            public static float Bottom = 0.31f;
+            public static float Top = 0.31f;
             public static float Mid = 0.46f;
-            public static float Top = 0.61f;
+            public static float Bottom = 0.61f;
 
         }
 
