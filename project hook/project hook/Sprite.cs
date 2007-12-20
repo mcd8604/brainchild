@@ -15,7 +15,7 @@ namespace project_hook
      *  1. Check if rectangles can have Negative height and width values
      *  2. Add rotation support in the Draw method
      */
-    class Sprite
+    public class Sprite
 	{
         // The identifying name of the sprite
 		private String m_Name;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace project_hook
 {
@@ -8,7 +9,7 @@ namespace project_hook
 	{
 
 		private int m_highlightedIndex;
-		public String HighlightedIndex
+		public int HighlightedIndex
 		{
 			get
 			{
@@ -21,7 +22,7 @@ namespace project_hook
 		}
 
 		private int m_selectedIndex;
-		public String SelectedIndex
+		public int SelectedIndex
 		{
 			get
 			{
@@ -38,7 +39,7 @@ namespace project_hook
 
 		public Menu(ArrayList menuItems)
 		{
-			selectedIndex = -1;
+			m_selectedIndex = -1;
 
 			menuSprites = new ArrayList();
 			for(int i = 0; i < menuItems.Capacity; i++)
