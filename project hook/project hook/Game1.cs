@@ -41,10 +41,9 @@ namespace project_hook
 			// TODO: Add your initialization logic here
 			
 			TextureLibrary.iniTextures(content);
-			
-			
+						
             graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
-		    	base.Initialize();
+			base.Initialize();
 		}
 
 
