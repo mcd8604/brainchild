@@ -41,7 +41,8 @@ namespace project_hook
 			// TODO: Add your initialization logic here
             
             TextureLibrary.iniTextures(Services);
-			base.Initialize();
+            graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
+		    	base.Initialize();
 		}
 
 
@@ -109,7 +110,9 @@ namespace project_hook
 		protected override void Draw(GameTime gameTime)
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            
              m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+             //SpriteSortMode.BackToFront;
             
              Sprite back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, 
                                         -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.BackGround.Bottom, 0);
@@ -119,14 +122,15 @@ namespace project_hook
              Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500,
                                           600, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.MidGround.Bottom, 0.60f);
 
-
+             
              m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
+             
 
              back.Draw(m_spriteBatch);
-
-             back2.Draw(m_spriteBatch);
              back1.Draw(m_spriteBatch);
-
+             back2.Draw(m_spriteBatch);
+             
+            
              m_spriteBatch.End();
             
 			// TODO: Add your drawing code here
