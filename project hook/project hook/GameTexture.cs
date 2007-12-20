@@ -15,7 +15,7 @@ namespace project_hook
      * 
      * 
      */
-	class GameTexture
+	public class GameTexture
 	{
         #region Variables and Properties
         //The Identifying name for the texture

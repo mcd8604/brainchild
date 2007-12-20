@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
@@ -12,7 +13,7 @@ namespace project_hook
 	*  1. move across the screen
 	*  
 	*/
-	class Shot:Collidable
+	public class Shot:Collidable
 	{
 		//how much damage will be done by this shot
 		private int m_Damage;
@@ -28,6 +29,11 @@ namespace project_hook
 			}
 		}
 
+
+        public Shot(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree)
+            : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree)
+        {
+        }
 
 
 		
