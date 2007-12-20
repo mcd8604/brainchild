@@ -53,6 +53,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.4.3.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="PowerCollections, Version=1.0.2141.24679, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -140,6 +141,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Ship2</Name>
+    </Content>
+    <Content Include="Content\Textures\Ship2.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Ship2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Shot.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

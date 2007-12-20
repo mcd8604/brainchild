@@ -33,6 +33,20 @@ namespace project_hook
 			}
 		}
 
+        //The tage associated with the sprite for the Texture
+        private String m_Tag;
+        public String Tag
+        {
+            get
+            {
+                return m_Tag;
+            }
+            set
+            {
+                m_Tag = null;
+            }
+        }
+
         //The 2D Texture the texture will read from
 		private Texture2D m_Texture;
 		public Texture2D Texture
@@ -46,7 +60,7 @@ namespace project_hook
 				m_Texture = value;
 			}
 		}
-
+        
         //The area of the Texture that will be used
         //A rectangle was chosen because it will always be used by the sprite bacth
         //when being drawn.  This will reduce the amount of objects that need to be created.
@@ -114,9 +128,10 @@ namespace project_hook
         #endregion // End of variables and Properties Region
 
         //This initializes the Game texture.
-		public GameTexture(String p_Name, Texture2D p_Texture, Rectangle p_StartPosition)
+		public GameTexture(String p_Name, String p_Tag, Texture2D p_Texture, Rectangle p_StartPosition)
 		{
 			Name = p_Name;
+            Tag = p_Tag;
 			Texture = p_Texture;
 			StartPosition = p_StartPosition;
 		}
