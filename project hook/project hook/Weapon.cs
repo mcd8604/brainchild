@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
@@ -14,6 +16,21 @@ namespace project_hook
 	*/
 	class Weapon
 	{
+		#region Variables and Properties
+		//this is a ref to what ship this weapon is a psrt of.
+		private Ship m_Ship;
+		public Ship Ship
+		{
+			get
+			{
+				return m_Ship;
+			}
+			set
+			{
+				m_Ship = value;
+			}
+		}
+
 		//the strength of the shot fired
 		private int m_Strength;
 		public int Strength
@@ -70,13 +87,37 @@ namespace project_hook
 			}
 		}
 
+		//this is used to keep track of how many shots have been fired by this weapon
+		private int m_ShotNumber;
+		public int ShotNumber
+		{
+			get
+			{
+				return m_ShotNumber;
+			}
+			set
+			{
+				m_ShotNumber=value;
+			}
+		}
+		#endregion // End of variables and Properties Region
 
+		public Weapon(String p_Name, Vector2 p_StartPosition, int p_Strength, int p_Delay, int p_Speed, GameTexture p_Shot)
+		{
+			Name = p_Name;
+			StartPosition = p_StartPosition;
+			Strength = p_Strength;
+			Delay = p_Delay;
+			Speed = p_Speed;
+			Shot = p_Shot;
+			ShotNumber=0;
+		}
 
 
 		//this function will creat a Shot at the current location
 		public void CreatShot()
 		{
-			
+			//Shot t_Shot=new Shot(m_Name+m_ShotNumber,m_StartPosition,
 		}
 	}
 }
