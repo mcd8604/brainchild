@@ -18,7 +18,7 @@ namespace project_hook
 	{
 		GraphicsDeviceManager graphics;
 		ContentManager content;
-		KeyHandler.KeyHandler keyhandler;
+		KeyHandler keyhandler;
         SpriteBatch m_spriteBatch;
 
 
@@ -26,7 +26,7 @@ namespace project_hook
 		{
 			graphics = new GraphicsDeviceManager(this);
 			content = new ContentManager(Services);
-			keyhandler = new KeyHandler.KeyHandler();
+			keyhandler = new KeyHandler();
 		}
 
 
@@ -93,7 +93,7 @@ namespace project_hook
 		{
 			keyhandler.Update();
 			// Allows the game to exit
-			if (keyhandler.IsActionDown(KeyHandler.KeyHandler.Actions.Pause))
+			if (keyhandler.IsActionDown(KeyHandler.Actions.Pause))
 			{
 				this.Exit();
 			}
