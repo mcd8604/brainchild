@@ -123,7 +123,7 @@ namespace project_hook
                                           600, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.MidGround.Bottom, 0.60f);
 
              
-             m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
+             m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend,SpriteSortMode.BackToFront, SaveStateMode.None);
              
 
              back.Draw(m_spriteBatch);
