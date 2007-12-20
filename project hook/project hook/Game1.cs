@@ -20,7 +20,7 @@ namespace project_hook
 		ContentManager content;
 		KeyHandler keyhandler;
         SpriteBatch m_spriteBatch;
-
+		Player back1;
 
 		public Game1()
 		{
@@ -55,10 +55,13 @@ namespace project_hook
 		/// <param name="loadAllContent">Which type of content to load.</param>
 		protected override void LoadGraphicsContent(bool loadAllContent)
 		{
+
 			if (loadAllContent)
 			{
                 TextureLibrary.LoadTexture("Ship2");
                 TextureLibrary.LoadTexture("Back");
+				back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100,
+                                         100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, Depth.ForeGround.Bottom, 0);
 			}
 
 			// TODO: Load any ResourceManagementMode.Manual content
@@ -98,6 +101,23 @@ namespace project_hook
 				this.Exit();
 			}
 
+			if (keyhandler.IsActionDown(KeyHandler.KeyHandler.Actions.Right))
+			{
+				back1.MoveRight();
+			}
+			if (keyhandler.IsActionDown(KeyHandler.KeyHandler.Actions.Left))
+			{
+				back1.MoveLeft();
+			}
+			if (keyhandler.IsActionDown(KeyHandler.KeyHandler.Actions.Up))
+			{
+				back1.MoveUp();
+			}
+			if (keyhandler.IsActionDown(KeyHandler.KeyHandler.Actions.Down))
+			{
+				back1.MoveDown();
+			}
+
 			// TODO: Add your update logic here
 
 			base.Update(gameTime);
@@ -118,20 +138,19 @@ namespace project_hook
              Sprite back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, 
                                         -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.BackGround.Bottom, 0);
 
-             Sprite back1 = new Sprite("Ship", new Vector2(100.0f, 100.0f), 100,
-                                         100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, Depth.ForeGround.Bottom, 0);
+             
              Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500,
                                           600, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.MidGround.Bottom, 0.60f);
+
 
              
              m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend,SpriteSortMode.BackToFront, SaveStateMode.None);
              
-
              back.Draw(m_spriteBatch);
-             back1.Draw(m_spriteBatch);
+			 
+             back1.DrawPlayer(gameTime,m_spriteBatch);
              back2.Draw(m_spriteBatch);
              
-            
              m_spriteBatch.End();
             
 			// TODO: Add your drawing code here
