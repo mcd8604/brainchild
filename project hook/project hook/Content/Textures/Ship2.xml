@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Texture>
+	<Rectangle>
+		<Name>Ship2</Name>
+		<Tag>1</Tag>
+		<PosX>0</PosX>
+		<PosY>0</PosY>
+		<Width>52</Width>
+		<Height>52</Height>
+	</Rectangle>
+</Texture>

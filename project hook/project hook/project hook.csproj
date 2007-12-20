@@ -149,7 +149,7 @@
     <Content Include="Content\Textures\Ship2.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Ship2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Shot.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
