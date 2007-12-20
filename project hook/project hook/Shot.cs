@@ -32,7 +32,7 @@ namespace project_hook
 		#endregion // End of variables and Properties Region
 
 
-		public Shot(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, int p_Z, int p_Damage)
+		public Shot(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_Z, int p_Damage)
             : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
         {
 			Damage = p_Damage;
