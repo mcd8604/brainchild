@@ -24,7 +24,7 @@ namespace project_hook
         Player back1;
         Sprite back2;
 
-        VisualEffect shotEffect;
+        Sprite shotEffect;
 
         // lazy fps code
         DrawText drawtext;
@@ -80,14 +80,13 @@ namespace project_hook
                 TextureLibrary.LoadTexture("RedShot");
                 drawtext.Load(content);
 
-               
-
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
                 back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom);
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
-                shotEffect = new VisualEffect("RedShot", new Vector2(000.0f, 100.0f), 100, 50, null, 100, true, 0, Depth.ForeGround.Top);
-                shotEffect.FramesPerSecond = 10;
+				shotEffect = new Sprite("RedShot", new Vector2(000.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
+				shotEffect.setAnimation("RedShot", 10);
+				shotEffect.Animation.StartAnimation();
             }
 
             // TODO: Load any ResourceManagementMode.Manual content
@@ -128,11 +127,14 @@ namespace project_hook
             }
 
             if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
-            {
+             {
+				
                 Vector2 shot = shotEffect.Position;
                 shot.X = back1.PlayerShip.Position.X;
                 shot.Y = back1.PlayerShip.Position.Y;
                 shotEffect.Position = shot;
+				shotEffect.Degree = shotEffect.Degree + 0.001f;
+				
             }
 
             if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
