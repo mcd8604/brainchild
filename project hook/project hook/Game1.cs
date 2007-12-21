@@ -86,7 +86,7 @@ namespace project_hook
                 back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom);
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
-                shotEffect = new VisualEffect("RedShot", new Vector2(300.0f, 100.0f), 100, 50, null, 100, true, 0, Depth.ForeGround.Top);
+                shotEffect = new VisualEffect("RedShot", new Vector2(000.0f, 100.0f), 100, 50, null, 100, true, 0, Depth.ForeGround.Top);
                 shotEffect.FramesPerSecond = 10;
             }
 
@@ -127,6 +127,14 @@ namespace project_hook
                 this.Exit();
             }
 
+            if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
+            {
+                Vector2 shot = shotEffect.Position;
+                shot.X = back1.getPlayerShip().Position.X;
+                shot.Y = back1.getPlayerShip().Position.Y;
+                shotEffect.Position = shot;
+            }
+
             if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
             {
                 back1.MoveRight();
@@ -144,15 +152,12 @@ namespace project_hook
                 back1.MoveDown();
             }
 
-            if (shotEffect == null)
-            {
-               
-                shotEffect.Update(gameTime);
-            }
-            else
-            {
-                shotEffect.Update(gameTime);
-            }
+
+            Vector2 shotV = shotEffect.Position;
+            shotV.Y += -1;
+            shotEffect.Position = shotV;
+            shotEffect.Update(gameTime);
+            
 
             // lazy fps code
             UpdateFPS(gameTime);
@@ -190,7 +195,10 @@ namespace project_hook
             back1.DrawPlayer(gameTime, m_spriteBatch);
             back2.Draw(m_spriteBatch);
             shotEffect.Draw(m_spriteBatch);
+            drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.MidGround.Mid);
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString());
+
+            
 
             m_spriteBatch.End();
 

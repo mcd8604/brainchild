@@ -221,8 +221,8 @@ namespace project_hook
             }
             //Draws the current sprite.
             p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree,
-							  m_Texture.Center, SpriteEffects.None, m_Z);
-             //
+							  Vector2.Zero, SpriteEffects.None, m_Z);
+             //m_Texture.Center
 		}
 
         //This update method should be overidden 

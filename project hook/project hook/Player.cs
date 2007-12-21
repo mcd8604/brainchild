@@ -71,6 +71,11 @@ namespace project_hook
 			m_PlayerSpeedBuffer.X -= m_PlayerAcceleration;
 		}
 
+        public Sprite getPlayerShip()
+        {
+            return m_PlayerShip;
+        }
+
 		private void CalcMovement(GameTime p_GameTime, Vector2 p_PlayerSpeedBuffer)
 		{
 			//m_MovementDelay -= p_GameTime.ElapsedGameTime.TotalSeconds;
