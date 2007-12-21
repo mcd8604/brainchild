@@ -26,8 +26,8 @@ namespace project_hook
          * 
          * Is this the right collection type? What are 'parts' exactly? - Adam
          */
-        private BigList<Sprite> m_Parts;
-        public BigList<Sprite> Parts
+        private List<Sprite> m_Parts;
+        public List<Sprite> Parts
         {
             get
             {
@@ -213,6 +213,32 @@ namespace project_hook
 			}
 		}
 
+		//This will create the destination rectangle sued to draw the sprite to the screen.
+		//The spritebatch objetc needs this as a parameter.
+		public Rectangle DrawDestination
+		{
+			get
+			{
+				//Rectangle center = center;
+			
+//				Vector2 m_Center = new Vector2(m_Texture.Width / 2.0f, m_Texture.Height / 2.0f);
+				return new Rectangle((int)(Position.X + Width /2), (int)(Position.Y + Height/2 ), Width, Height);
+			}
+		}
+
+		private Vector2 m_Center;
+		public Vector2 Center
+		{
+			get
+			{
+				return m_Center;
+			}
+			set
+			{
+				m_Center = value;
+			}
+		}
+
         //This is a constructor that has full parameters!
 		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_Z)
 		{
@@ -226,8 +252,9 @@ namespace project_hook
 			Visible = p_Visible;
 			Degree = p_Degree;
             Z = p_Z;
+			m_Center = new Vector2(Width / 2.0f, Height / 2.0f);
 		}
-
+				
 		//sets the anmmation for the object.
 		public void setAnimation(string p_Animation, int p_FramesPerSecond)
 		{
@@ -249,10 +276,20 @@ namespace project_hook
 						t_Sprite.Draw(p_SpriteBatch);
 					}
 				}
+				
 
+				Rectangle draw = DrawDestination;
+				Vector2 center = Center;
 				//Draws the current sprite.
-				p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree,
-								  Vector2.Zero, SpriteEffects.None, m_Z);
+				if (rot)
+				{
+					p_SpriteBatch.Draw(m_Texture.Texture, DrawDestination, m_Texture.StartPosition, Color.White, m_Degree,
+									  Texture.Center, SpriteEffects.None, m_Z);
+				}
+				else
+				{
+					p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White,0,Vector2.Zero,SpriteEffects.None,m_Z);
+				}
 				//m_Texture.Center
 			}
 		}
@@ -270,12 +307,18 @@ namespace project_hook
         {
             if (m_Parts == null)
             {
-                m_Parts = new BigList<Sprite>();
+                m_Parts = new List<Sprite>();
             }
 
             m_Parts.Add(p_Sprite);
 
         }
+
+		private static Boolean rot = true;
+		public static void DrawWithRot()
+		{
+			rot = !rot;
+		}
 	}
 }
 

@@ -144,7 +144,7 @@ namespace project_hook
             Tag = p_Tag;
 			Texture = p_Texture;
 			StartPosition = p_StartPosition;
-			m_Center = new Vector2(m_Texture.Width/2.0f,m_Texture.Height/2.0f);
+			m_Center = new Vector2(Width/2.0f,Height/2.0f);
 		}
 	}
 }
