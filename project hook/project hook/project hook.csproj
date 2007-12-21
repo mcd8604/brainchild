@@ -105,6 +105,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Game1</Name>
     </Compile>
+    <Compile Include="Score.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Score</Name>
+    </Compile>
     <Compile Include="Ship.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
