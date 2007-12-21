@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Texture>
+	<Rectangle>
+		<Name>RedShot</Name>
+		<Tag>0</Tag>
+		<PosX>369</PosX>
+		<PosY>0</PosY>
+		<Width>166</Width>
+		<Height>509</Height>
+	</Rectangle>
+	<Rectangle>
+		<Name>RedShot</Name>
+		<Tag>1</Tag>
+		<PosX>536</PosX>
+		<PosY>0</PosY>
+		<Width>182</Width>
+		<Height>509</Height>
+	</Rectangle>
+	<Rectangle>
+		<Name>RedShot</Name>
+		<Tag>2</Tag>
+		<PosX>719</PosX>
+		<PosY>0</PosY>
+		<Width>162</Width>
+		<Height>509</Height>
+	</Rectangle>
+	<Rectangle>
+		<Name>RedShot</Name>
+		<Tag>3</Tag>
+		<PosX>882</PosX>
+		<PosY>0</PosY>
+		<Width>142</Width>
+		<Height>509</Height>
+	</Rectangle>
+</Texture>

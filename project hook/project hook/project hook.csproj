@@ -131,6 +131,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>testTextureLibrary</Name>
     </Compile>
+    <Compile Include="VisualEffect.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>VisualEffect</Name>
+    </Compile>
     <Compile Include="Weapon.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Weapon</Name>
@@ -224,6 +228,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Textures\RedShot.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>RedShot</Name>
+    </Content>
+    <Content Include="Content\Textures\RedShot.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>RedShot</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Courier New.spritefont">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>FontDescriptionImporter</Importer>
