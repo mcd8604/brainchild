@@ -47,44 +47,50 @@ namespace project_hook
 		private ArrayList m_MenuItemNames;
 		private ArrayList m_MenuItemSprites;
 
-		public Menu(ArrayList menuItemNames, String backgroundName)
+		public Menu()
 		{
-			m_selectedIndex = -1;
-			m_MenuItemNames = menuItemNames;
-			m_BackgroundName = backgroundName;			
+			m_selectedIndex = 0;
+
+            //lazy default values
+            m_BackgroundName = "menu_background";
+
+            m_MenuItemNames = new ArrayList();
+            m_MenuItemNames.Add("menu_newgame");
+            m_MenuItemNames.Add("menu_exitgame");
+            //lazy
 		}
 
-		public void Update()
+        public void Load()
+        {
+            TextureLibrary.LoadTexture(m_BackgroundName);
+            for (int i = 0; i < m_MenuItemNames.Count; i++)
+            {
+                TextureLibrary.LoadTexture((String)m_MenuItemNames[i]);
+            }
+            initMenuSprites();
+        }
+
+		private void initMenuSprites()
 		{
 			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
 			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(200.0f, 200.0f), bgTexture.Height, bgTexture.Width, bgTexture, 100.0f, true, Depth.BackGround.Bottom, 0);
 
 			m_MenuItemSprites = new ArrayList();
-			for (int i = 0; i < m_MenuItemNames.Capacity; i++)
+            for (int i = 0; i < m_MenuItemNames.Count; i++)
 			{
 				GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
-				m_MenuItemSprites[i] = new Sprite((String)m_MenuItemNames[i], new Vector2(200.0f, 200.0f + (i * curTexture.Height)), curTexture.Height, curTexture.Width, curTexture, 100.0f, true, Depth.MidGround.Bottom, 0);
+                m_MenuItemSprites.Add(new Sprite((String)m_MenuItemNames[i], new Vector2(200.0f, 200.0f + (i * curTexture.Height)), curTexture.Height, curTexture.Width, curTexture, 100.0f, true, Depth.MidGround.Bottom, 0));
 			}
 		}
 
 		public void Draw(SpriteBatch m_SpriteBatch)
 		{
 			m_BackgroundSprite.Draw(m_SpriteBatch);
-			for (int i = 0; i < m_MenuItemSprites.Capacity; i++)
+            for (int i = 0; i < m_MenuItemSprites.Count; i++)
 			{
 				Sprite curSprite = (Sprite)m_MenuItemSprites[i];
 				curSprite.Draw(m_SpriteBatch);
 			}
-		}
-
-		public void testMouseClick(float mouseX, float mouseY)
-		{
-			//test if a menu item was clicked
-		}
-
-		public void testMouseMove(float mouseX, float mouseY)
-		{
-			//test if the mouse is over a menu item
 		}
 	
 	}
