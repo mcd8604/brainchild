@@ -8,65 +8,71 @@ using Wintellect.PowerCollections;
 
 namespace project_hook
 {
-    class VisualEffect:Sprite
+    public class VisualEffect
     {
+		
         OrderedDictionary<String,GameTexture> frames;
 
-        float frameLength = 1f / 5f;
-        float timer = 0f;
-        int currentFrame = 0;
-        bool updateAnimation = true;
+		Sprite m_BaseSprite;
+		String m_Name;
+
+        float m_FrameLength = 1f / 5f;
+        float m_Timer = 0f;
+        int m_CurrentFrame = 0;
+        bool m_UpdateAnimation = true;
 
 
         public int FramesPerSecond
         {
-            get { return (int)(1f / frameLength); }
-            set { frameLength = 1f / (float)value; }
+            get { return (int)(1f / m_FrameLength); }
+            set { m_FrameLength = 1f / (float)value; }
         }
 
         public GameTexture CurrentFrame
         {
-            get { return frames[currentFrame.ToString()]; }
+            get { return frames[m_CurrentFrame.ToString()]; }
         }
 
-        public VisualEffect(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
-            :base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff)
+        public VisualEffect(String p_Name,Sprite p_Base,int p_FramesPerSecond)
         {
+			m_BaseSprite = p_Base;
+			m_Name = p_Name;
             frames = TextureLibrary.getSpriteSheet(p_Name);
-            Texture = frames[currentFrame.ToString()];
+			m_BaseSprite.Texture = frames[m_CurrentFrame.ToString()];
+			FramesPerSecond = p_FramesPerSecond;
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            if (updateAnimation)
+            if (m_UpdateAnimation)
             {
 
 
-                timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                m_Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                if (timer >= frameLength)
+                if (m_Timer >= m_FrameLength)
                 {
-                    timer = 0f;
-                    currentFrame = (currentFrame + 1) % frames.Count;
-                    Texture = frames[currentFrame.ToString()];
+                    m_Timer = 0f;
+                    m_CurrentFrame = (m_CurrentFrame + 1) % frames.Count;
+					m_BaseSprite.Texture = frames[m_CurrentFrame.ToString()];
                 }
             }
         }
 
         public void Reset()
         {
-            currentFrame = 0;
-            timer = 0f;
+            m_CurrentFrame = 0;
+            m_Timer = 0f;
         }
 
         public void StartAnimation()
         {
-            updateAnimation = true;
+            m_UpdateAnimation = true;
         }
 
         public void StopAnimation()
         {
-            updateAnimation = false;
+            m_UpdateAnimation = false;
         }
 
 
