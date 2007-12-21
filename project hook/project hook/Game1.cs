@@ -26,6 +26,7 @@ namespace project_hook
         Sprite back2;
 
         Sprite shotEffect;
+		Sprite shot2Effect;
 
         // lazy fps code
         DrawText drawtext;
@@ -44,7 +45,7 @@ namespace project_hook
             // lazy fps code
             drawtext = new DrawText();
             graphics.SynchronizeWithVerticalRetrace = false;
-            IsFixedTimeStep = false;
+			IsFixedTimeStep = false;
             // adn
         }
 
@@ -88,9 +89,12 @@ namespace project_hook
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.ForeGround.Top);
+				shot2Effect = new Sprite("RedShot2", new Vector2(000.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
+				shot2Effect.setAnimation("RedShot", 10);
 				shotEffect = new Sprite("RedShot", new Vector2(000.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
 				shotEffect.setAnimation("RedShot", 10);
 				shotEffect.Animation.StartAnimation();
+				shot2Effect.Animation.StartAnimation();
             }
 
             // TODO: Load any ResourceManagementMode.Manual content
@@ -133,16 +137,23 @@ namespace project_hook
             if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
              {
 				
-                Vector2 shot = shotEffect.Position;
-                shot.X = back1.PlayerShip.Position.X;
-                shot.Y = back1.PlayerShip.Position.Y;
-                shotEffect.Position = shot;
+                
 				//back1.Shoot();
-				shotEffect.Degree = shotEffect.Degree + 0.001f;
+				
+
             }
 
 			if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
 			{
+				Vector2 shot = shotEffect.Position;
+				shot.X = back1.PlayerShip.Position.X;
+				shot.Y = back1.PlayerShip.Position.Y;
+				shotEffect.Position = shot;
+
+				shot = shot2Effect.Position;
+				shot.X = back1.PlayerShip.Position.X + 100;
+				shot.Y = back1.PlayerShip.Position.Y;
+				shot2Effect.Position = shot;
 				back1.Shoot();
 			}
 
@@ -168,11 +179,23 @@ namespace project_hook
 			}
 
 
-            Vector2 shotV = shotEffect.Position;
-            shotV.Y += -1;
-            shotEffect.Position = shotV;
-            shotEffect.Update(gameTime);
-            
+            Vector2 shotV = shot2Effect.Position;
+			shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds) * 200;
+            shot2Effect.Position = shotV;
+            shot2Effect.Update(gameTime);
+
+
+			shotV = shotEffect.Position;
+			shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds)*200;
+			shotEffect.Position = shotV;
+			shotEffect.Update(gameTime);
+
+			shotEffect.Degree = shotEffect.Degree + (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
+
+
+
+			//back1.Shoot();
+			shot2Effect.Degree = shot2Effect.Degree - (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
 
             // lazy fps code
             UpdateFPS(gameTime);
@@ -208,9 +231,10 @@ namespace project_hook
             back.Draw(m_spriteBatch);
 
             back1.DrawPlayer(gameTime, m_spriteBatch);
-            back2.Draw(m_spriteBatch);
+         //   back2.Draw(m_spriteBatch);
             shotEffect.Draw(m_spriteBatch);
-            drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.MidGround.Mid);
+			shot2Effect.Draw(m_spriteBatch);
+            drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.ForeGround.Top);
 			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50));
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString());
 			cloud.Draw(m_spriteBatch);
