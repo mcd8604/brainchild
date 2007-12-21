@@ -60,26 +60,36 @@ namespace project_hook
             //lazy
 		}
 
-        public void Load()
+        public void Load(GraphicsDevice gd)
         {
             TextureLibrary.LoadTexture(m_BackgroundName);
             for (int i = 0; i < m_MenuItemNames.Count; i++)
             {
                 TextureLibrary.LoadTexture((String)m_MenuItemNames[i]);
             }
-            initMenuSprites();
+            initMenuSprites(gd);
         }
 
-		private void initMenuSprites()
+        private void initMenuSprites(GraphicsDevice gd)
 		{
-			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
-			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(200.0f, 200.0f), bgTexture.Height, bgTexture.Width, bgTexture, 100.0f, true, Depth.BackGround.Bottom, 0);
+            GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
+            float xPos = (gd.Viewport.Width - bgTexture.Width) / 2;
+            float yPos = (gd.Viewport.Height - bgTexture.Height) / 2;
+            m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 100.0f, true, 0, Depth.ForeGround.Bottom);
 
 			m_MenuItemSprites = new ArrayList();
+            
             for (int i = 0; i < m_MenuItemNames.Count; i++)
-			{
-				GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
-                m_MenuItemSprites.Add(new Sprite((String)m_MenuItemNames[i], new Vector2(200.0f, 200.0f + (i * curTexture.Height)), curTexture.Height, curTexture.Width, curTexture, 100.0f, true, Depth.MidGround.Bottom, 0));
+            {
+                GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
+                xPos = m_BackgroundSprite.Position.X + (m_BackgroundSprite.Width - curTexture.Width) / 2;
+                yPos = m_BackgroundSprite.Position.Y;
+                for (int k = 0; k < m_MenuItemSprites.Count; k++)
+                {
+                    Sprite mis = (Sprite)m_MenuItemSprites[k];
+                    yPos += mis.Height;
+                }
+                m_MenuItemSprites.Add(new Sprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), curTexture.Height, curTexture.Width, curTexture, 100.0f, true, 0, Depth.ForeGround.Top));
 			}
 		}
 
