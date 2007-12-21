@@ -19,6 +19,7 @@ namespace project_hook
         GraphicsDeviceManager graphics;
         ContentManager content;
         KeyHandler keyhandler;
+		Sprite cloud;
         SpriteBatch m_spriteBatch;
         Sprite back;
         Player back1;
@@ -78,12 +79,15 @@ namespace project_hook
                 TextureLibrary.LoadTexture("Ship2");
                 TextureLibrary.LoadTexture("Back");
                 TextureLibrary.LoadTexture("RedShot");
+				TextureLibrary.LoadTexture("Cloud");
                 drawtext.Load(content);
 
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+				GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud","");
                 back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom);
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
+				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.ForeGround.Top);
 				shotEffect = new Sprite("RedShot", new Vector2(000.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
 				shotEffect.setAnimation("RedShot", 10);
 				shotEffect.Animation.StartAnimation();
@@ -126,16 +130,21 @@ namespace project_hook
                 this.Exit();
             }
 
-            if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
+            if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
              {
 				
                 Vector2 shot = shotEffect.Position;
                 shot.X = back1.PlayerShip.Position.X;
                 shot.Y = back1.PlayerShip.Position.Y;
                 shotEffect.Position = shot;
-				back1.Shoot();
+				//back1.Shoot();
 				shotEffect.Degree = shotEffect.Degree + 0.001f;
             }
+
+			if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
+			{
+				back1.Shoot();
+			}
 
             if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
             { 
@@ -200,6 +209,7 @@ namespace project_hook
             drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.MidGround.Mid);
 			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50));
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString());
+			cloud.Draw(m_spriteBatch);
 
             m_spriteBatch.End();
 
