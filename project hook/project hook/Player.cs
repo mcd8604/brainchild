@@ -19,6 +19,9 @@ namespace project_hook
     {
         //variable for storing the player ship sprite and info
         PlayerShip m_PlayerShip;
+
+		Score m_Score;
+
 		public PlayerShip PlayerShip
 		{
 			get
@@ -27,7 +30,20 @@ namespace project_hook
 			}
 			set
 			{
-				m_PlayerShip = value;
+				//m_PlayerShip = value;
+			}
+		}
+
+		public Score Score
+		{
+			get
+			{
+				return m_Score;
+			}
+
+			set
+			{
+				m_Score = value;
 			}
 		}
 
@@ -55,8 +71,16 @@ namespace project_hook
 		/// <param name="p_zBuff"></param>
         public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
         {
-            m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
-        }
+			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
+			m_Score = new Score(0);
+		}
+
+		public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, int p_Score)
+		{
+			//m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
+			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
+			m_Score = new Score(p_Score);
+		}
 
 		/// <summary>
 		/// This is called to alert the player ship that it should move up
@@ -82,9 +106,14 @@ namespace project_hook
 			m_PlayerSpeedBuffer.X -= m_PlayerAcceleration;
 		}
 
+		public void ResetPlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
+		{
+			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
+		}
+
 		public void Shoot()
 		{
-
+			m_Score.RegisterHit();
 		}
 
 		private void CalcMovement(GameTime p_GameTime, Vector2 p_PlayerSpeedBuffer)
@@ -117,7 +146,8 @@ namespace project_hook
 			tempPlayerPosition.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
 			m_PlayerShip.Position = tempPlayerPosition;
 
-            p_SpriteBatch.Draw(m_PlayerShip.Texture.Texture, m_PlayerShip.Position, Color.White);
-        }
+            //p_SpriteBatch.Draw(m_PlayerShip.Texture.Texture, m_PlayerShip.Position, Color.White);
+			m_PlayerShip.Draw(p_SpriteBatch);
+		}
     }
 }

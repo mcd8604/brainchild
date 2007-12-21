@@ -126,19 +126,19 @@ namespace project_hook
                 this.Exit();
             }
 
-            if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
+            if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
              {
 				
                 Vector2 shot = shotEffect.Position;
                 shot.X = back1.PlayerShip.Position.X;
                 shot.Y = back1.PlayerShip.Position.Y;
                 shotEffect.Position = shot;
+				back1.Shoot();
 				shotEffect.Degree = shotEffect.Degree + 0.001f;
-				
             }
 
             if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
-            {
+            { 
                 back1.MoveRight();
             }
             if (keyhandler.IsActionDown(KeyHandler.Actions.Left))
@@ -198,9 +198,8 @@ namespace project_hook
             back2.Draw(m_spriteBatch);
             shotEffect.Draw(m_spriteBatch);
             drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.MidGround.Mid);
+			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50));
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString());
-
-            
 
             m_spriteBatch.End();
 

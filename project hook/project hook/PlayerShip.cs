@@ -24,7 +24,7 @@ namespace project_hook
         }
 
         //stores the current power up effects
-        ArrayList m_EffectsArray = new ArrayList();
+        List<Effect> m_EffectsArray = new List<Effect>();
 
         /*
          * Description: Adds a new power up effec to the player ship.
