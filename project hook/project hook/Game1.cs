@@ -16,6 +16,9 @@ namespace project_hook
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+
+		List<Sprite> spritelist = new List<Sprite>();
+
         GraphicsDeviceManager graphics;
         ContentManager content;
         KeyHandler keyhandler;
@@ -27,6 +30,10 @@ namespace project_hook
 
         Sprite shotEffect;
 		Sprite shot2Effect;
+
+		Collidable enemy;
+
+		Sprite explosion;
 
         // lazy fps code
         DrawText drawtext;
@@ -81,6 +88,8 @@ namespace project_hook
                 TextureLibrary.LoadTexture("Back");
                 TextureLibrary.LoadTexture("RedShot");
 				TextureLibrary.LoadTexture("Cloud");
+				TextureLibrary.LoadTexture("Enemy1");
+				TextureLibrary.LoadTexture("Explosion");
                 drawtext.Load(content);
 
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -89,12 +98,21 @@ namespace project_hook
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.ForeGround.Top);
-				shot2Effect = new Sprite("RedShot2", new Vector2(000.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
+				enemy = new Collidable("Enemy", new Vector2(400f, 100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Enemy, 100, null, 100, null, 100);
+				shot2Effect = new Sprite("RedShot2", new Vector2(-400.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
 				shot2Effect.setAnimation("RedShot", 10);
-				shotEffect = new Sprite("RedShot", new Vector2(000.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
+				shotEffect = new Sprite("RedShot", new Vector2(-100.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
 				shotEffect.setAnimation("RedShot", 10);
 				shotEffect.Animation.StartAnimation();
 				shot2Effect.Animation.StartAnimation();
+
+				explosion = new Sprite("Explosion", new Vector2(-100f, -100f), 100, 100, TextureLibrary.getGameTexture("Explosion", ""), 50f, true, 0, Depth.ForeGround.Mid);
+
+
+				spritelist.Add(enemy);
+				spritelist.Add(shotEffect);
+				spritelist.Add(shot2Effect);
+
             }
 
             // TODO: Load any ResourceManagementMode.Manual content
@@ -201,6 +219,8 @@ namespace project_hook
             UpdateFPS(gameTime);
             // adn
 
+			QuickCheckCollision();
+
             base.Update(gameTime);
         }
 
@@ -217,6 +237,22 @@ namespace project_hook
             }
         }
         // adn
+
+		private void QuickCheckCollision()
+		{
+
+			List<Sprite> temp = new List<Sprite>(spritelist);
+
+			foreach( Sprite item in temp ) {
+				//temp.Remove( item ); // Todo: fix this later
+				foreach ( Sprite item2 in temp ) {
+					if ( item != item2 && Intersection.DoesIntersectDiamond(item.Position + item.Center, item.Height/2.5f, item2.Position + item2.Center, item2.Height/2.5f) ) {
+						explosion.Position = (item.Position + item2.Position) / 2;
+					}
+				}
+			}
+
+		}
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -238,6 +274,9 @@ namespace project_hook
 			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50));
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString());
 			cloud.Draw(m_spriteBatch);
+
+			enemy.Draw(m_spriteBatch);
+			explosion.Draw(m_spriteBatch);
 
             m_spriteBatch.End();
 
