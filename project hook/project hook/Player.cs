@@ -19,6 +19,17 @@ namespace project_hook
     {
         //variable for storing the player ship sprite and info
         PlayerShip m_PlayerShip;
+		public PlayerShip PlayerShip
+		{
+			get
+			{
+				return m_PlayerShip;
+			}
+			set
+			{
+				m_PlayerShip = value;
+			}
+		}
 
         Vector2 m_PlayerSpeed = new Vector2(0, 0); //The distance the player sprite is going to move next time it is drawn
 		Vector2 m_PlayerSpeedBuffer = new Vector2(0, 0);
@@ -71,10 +82,10 @@ namespace project_hook
 			m_PlayerSpeedBuffer.X -= m_PlayerAcceleration;
 		}
 
-        public Sprite getPlayerShip()
-        {
-            return m_PlayerShip;
-        }
+		public void Shoot()
+		{
+
+		}
 
 		private void CalcMovement(GameTime p_GameTime, Vector2 p_PlayerSpeedBuffer)
 		{
