@@ -162,6 +162,10 @@ namespace project_hook
             {
                 back1.MoveDown();
             }
+			if (keyhandler.IsKeyPressed(Keys.F))
+			{
+				graphics.ToggleFullScreen();
+			}
 
 
             Vector2 shotV = shotEffect.Position;
