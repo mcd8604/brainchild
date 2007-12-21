@@ -130,8 +130,8 @@ namespace project_hook
             if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
             {
                 Vector2 shot = shotEffect.Position;
-                shot.X = back1.getPlayerShip().Position.X;
-                shot.Y = back1.getPlayerShip().Position.Y;
+                shot.X = back1.PlayerShip.Position.X;
+                shot.Y = back1.PlayerShip.Position.Y;
                 shotEffect.Position = shot;
             }
 
