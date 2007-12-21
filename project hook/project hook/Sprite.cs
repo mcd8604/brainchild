@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-
+using Wintellect.PowerCollections;
 
 namespace project_hook
 {
@@ -17,6 +17,19 @@ namespace project_hook
      */
     public class Sprite
 	{
+        
+        private BigList<Sprite> m_Parts;
+        public BigList<Sprite> Parts
+        {
+            get
+            {
+                return Parts;
+            }
+            set
+            {
+                Parts = value;
+            }
+        }
         
         // The identifying name of the sprite
 		private String m_Name;
@@ -198,18 +211,37 @@ namespace project_hook
         //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
-            
+            if (m_Parts != null && m_Parts.Count > 0)
+            {
+
+                foreach (Sprite t_Sprite in m_Parts)
+                {
+                    t_Sprite.Draw(p_SpriteBatch);
+                }
+            }
+            //Draws the current sprite.
             p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree,
 							  m_Texture.Center, SpriteEffects.None, m_Z);
              //
 		}
 
         //This update method should be overidden 
-		public virtual void Update(float p_Elapsed)
+		public virtual void Update(GameTime p_Time)
 		{
          
 
-		}		
+		}
+
+        public void attachSpritePart(Sprite p_Sprite)
+        {
+            if (m_Parts == null)
+            {
+                m_Parts = new BigList<Sprite>();
+            }
+
+            m_Parts.Add(p_Sprite);
+
+        }
 	}
 }
 

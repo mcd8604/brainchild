@@ -165,6 +165,18 @@ namespace project_hook
             return true;
         }
 
+        public  static OrderedDictionary<String, GameTexture> getSpriteSheet(String name)
+        {
+            if (m_GameTextures != null && m_GameTextures.ContainsKey(name))
+            {
+                return m_GameTextures[name];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 		//This method adds the 
 		private static void addGameTexture(string p_name, string p_tag, GameTexture p_GameTexture)
 		{

@@ -24,6 +24,8 @@ namespace project_hook
         Player back1;
         Sprite back2;
 
+        VisualEffect shotEffect;
+
         // lazy fps code
         DrawText drawtext;
         float fps;
@@ -75,12 +77,17 @@ namespace project_hook
             {
                 TextureLibrary.LoadTexture("Ship2");
                 TextureLibrary.LoadTexture("Back");
+                TextureLibrary.LoadTexture("RedShot");
                 drawtext.Load(content);
 
+               
+
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-                back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.BackGround.Bottom, 0);
-                back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, Depth.ForeGround.Bottom, 0);
-                back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.MidGround.Bottom, 0.60f);
+                back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom);
+                back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom);
+                back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
+                shotEffect = new VisualEffect("RedShot", new Vector2(300.0f, 100.0f), 100, 50, null, 100, true, 0, Depth.ForeGround.Top);
+                shotEffect.FramesPerSecond = 10;
             }
 
             // TODO: Load any ResourceManagementMode.Manual content
@@ -137,6 +144,16 @@ namespace project_hook
                 back1.MoveDown();
             }
 
+            if (shotEffect == null)
+            {
+               
+                shotEffect.Update(gameTime);
+            }
+            else
+            {
+                shotEffect.Update(gameTime);
+            }
+
             // lazy fps code
             UpdateFPS(gameTime);
             // adn
@@ -172,12 +189,14 @@ namespace project_hook
 
             back1.DrawPlayer(gameTime, m_spriteBatch);
             back2.Draw(m_spriteBatch);
-
+            shotEffect.Draw(m_spriteBatch);
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString());
 
             m_spriteBatch.End();
 
             framecount++;
+
+            
 
             base.Draw(gameTime);
         }
