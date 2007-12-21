@@ -18,6 +18,20 @@ namespace project_hook
     public class Sprite
 	{
 
+		private Path m_Path;
+		public Path Path
+		{
+			get
+			{
+				return m_Path;
+			}
+			set
+			{
+				Path = value;
+			}
+
+		}
+
         /*
          * BigList<T> provides a list of items, in order, with indices of the items
          * ranging from 0 to one less than the count of items in the collection.
@@ -231,11 +245,12 @@ namespace project_hook
 		{
 			get
 			{
-				return m_Center;
+				return new Vector2(Position.X + m_Center.X,Position.Y + m_Center.Y);
 			}
 			set
 			{
-				m_Center = value;
+				m_Position.X = value.X - Center.X;
+				m_Position.Y = value.Y - Center.Y;
 			}
 		}
 
