@@ -4,7 +4,7 @@ using System.Text;
 
 namespace project_hook
 {
-    class Effect
+    public class Effect
     {
         //stub method
         public bool Expired()
