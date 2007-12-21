@@ -95,7 +95,7 @@ namespace project_hook
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 				GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud","");
                 back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom);
-                back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom);
+                back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom, graphics);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.ForeGround.Top);
 				enemy = new Collidable("Enemy", new Vector2(400f, 100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Enemy, 100, null, 100, null, 100);
@@ -172,7 +172,7 @@ namespace project_hook
 				shot.X = back1.PlayerShip.Position.X + 100;
 				shot.Y = back1.PlayerShip.Position.Y;
 				shot2Effect.Position = shot;
-				back1.Shoot();
+				back1.Shoot(gameTime);
 			}
 
             if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
@@ -219,14 +219,14 @@ namespace project_hook
             UpdateFPS(gameTime);
             // adn
 
-			QuickCheckCollision();
+			QuickCheckCollision(gameTime);
 
-            base.Update(gameTime);
+			base.Update(gameTime);
         }
 
 
         // lazy fps code
-        private void UpdateFPS(GameTime gameTime)
+		private void UpdateFPS(GameTime gameTime)
         {
             timeSinceLastUpdate += (float)gameTime.ElapsedRealTime.TotalSeconds;
             if (timeSinceLastUpdate > updateInterval)
@@ -238,7 +238,7 @@ namespace project_hook
         }
         // adn
 
-		private void QuickCheckCollision()
+		private void QuickCheckCollision(GameTime gameTime)
 		{
 
 			List<Sprite> temp = new List<Sprite>(spritelist);
@@ -248,7 +248,7 @@ namespace project_hook
 				foreach ( Sprite item2 in temp ) {
 					if ( item != item2 && Intersection.DoesIntersectDiamond(item.Position + item.Center, item.Height/2.5f, item2.Position + item2.Center, item2.Height/2.5f) ) {
 						explosion.Position = (item.Position + item2.Position) / 2;
-						back1.Score.RegisterHit();
+						back1.Score.RegisterHit(gameTime);
 					}
 				}
 			}
@@ -272,8 +272,8 @@ namespace project_hook
             shotEffect.Draw(m_spriteBatch);
 			shot2Effect.Draw(m_spriteBatch);
             drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.ForeGround.Top);
-			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50));
-            drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString());
+			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50),Color.White);
+            drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(),Vector2.Zero,Color.White);
 			cloud.Draw(m_spriteBatch);
 
 			enemy.Draw(m_spriteBatch);
