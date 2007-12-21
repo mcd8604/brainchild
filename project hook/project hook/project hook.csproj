@@ -84,11 +84,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Menu</Name>
     </Compile>
-    <Compile Include="MenuManager.cs">
-      <SubType>Code</SubType>
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>MenuManager</Name>
-    </Compile>
     <Compile Include="Path.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Path</Name>
