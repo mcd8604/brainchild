@@ -223,6 +223,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Animations\AnimationDefn.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>AnimationDefn</Name>
+    </Content>
     <Content Include="Content\Textures\RedShot.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>

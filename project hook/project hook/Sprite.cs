@@ -38,6 +38,16 @@ namespace project_hook
                 Parts = value;
             }
         }
+
+		//The animation for the sprite
+		private VisualEffect m_Animation;
+		public VisualEffect Animation
+		{
+			get
+			{
+				return m_Animation;
+			}
+		}
         
         // The identifying name of the sprite
 		private String m_Name;
@@ -170,6 +180,10 @@ namespace project_hook
 			set
 			{
 				m_Degree = value;
+				//if (m_Degree > 360)
+				//{
+			//		m_Degree = m_Degree - 360;
+			//	}
 			}
 		}
 
@@ -214,30 +228,42 @@ namespace project_hook
             Z = p_Z;
 		}
 
+		//sets the anmmation for the object.
+		public void setAnimation(string p_Animation, int p_FramesPerSecond)
+		{
+			m_Animation = new VisualEffect(p_Animation, this,p_FramesPerSecond);
+			m_Animation.StopAnimation();
+		}
         
         
         //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
-            if (m_Parts != null && m_Parts.Count > 0)
-            {
+			if (!Visible || Texture != null)
+			{
+				if (m_Parts != null && m_Parts.Count > 0)
+				{
 
-                foreach (Sprite t_Sprite in m_Parts)
-                {
-                    t_Sprite.Draw(p_SpriteBatch);
-                }
-            }
-            //Draws the current sprite.
-            p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree,
-							  Vector2.Zero, SpriteEffects.None, m_Z);
-             //m_Texture.Center
+					foreach (Sprite t_Sprite in m_Parts)
+					{
+						t_Sprite.Draw(p_SpriteBatch);
+					}
+				}
+
+				//Draws the current sprite.
+				p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, m_Degree,
+								  Vector2.Zero, SpriteEffects.None, m_Z);
+				//m_Texture.Center
+			}
 		}
 
         //This update method should be overidden 
 		public virtual void Update(GameTime p_Time)
 		{
-         
-
+			if (m_Animation != null)
+			{
+				m_Animation.Update(p_Time);
+			}
 		}
 
         public void attachSpritePart(Sprite p_Sprite)
