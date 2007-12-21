@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collidable.cs">
+      <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Collidable</Name>
     </Compile>
@@ -83,6 +84,11 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Menu</Name>
     </Compile>
+    <Compile Include="MenuManager.cs">
+      <SubType>Code</SubType>
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>MenuManager</Name>
+    </Compile>
     <Compile Include="Path.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Path</Name>
@@ -105,6 +111,7 @@
       <Name>Game1</Name>
     </Compile>
     <Compile Include="Ship.cs">
+      <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Ship</Name>
     </Compile>
@@ -153,6 +160,24 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Explosion</Name>
+    </Content>
+    <Content Include="Content\Textures\menu_background.PNG">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>menu_background</Name>
+    </Content>
+    <Content Include="Content\Textures\menu_exitgame.PNG">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>menu_exitgame</Name>
+    </Content>
+    <Content Include="Content\Textures\menu_newgame.PNG">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>menu_newgame</Name>
     </Content>
     <Content Include="Content\Textures\Ship2.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
