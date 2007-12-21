@@ -11,177 +11,175 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace project_hook
 {
-	/// <summary>
-	/// This is the main type for your game
-	/// </summary>
-	public class Game1 : Microsoft.Xna.Framework.Game
-	{
-		GraphicsDeviceManager graphics;
-		ContentManager content;
-		KeyHandler keyhandler;
+    /// <summary>
+    /// This is the main type for your game
+    /// </summary>
+    public class Game1 : Microsoft.Xna.Framework.Game
+    {
+        GraphicsDeviceManager graphics;
+        ContentManager content;
+        KeyHandler keyhandler;
         SpriteBatch m_spriteBatch;
-		Sprite back;
-		Player back1;
-		Sprite back2;
+        Sprite back;
+        Player back1;
+        Sprite back2;
 
-		// lazy fps code
-		float fps;
-		float updateInterval = 1.0f;
-		float timeSinceLastUpdate = 0.0f;
-		int framecount = 0;
-		// adn
+        // lazy fps code
+        DrawText drawtext;
+        float fps;
+        float updateInterval = 1.0f;
+        float timeSinceLastUpdate = 0.0f;
+        int framecount = 0;
+        // adn
 
-		public Game1()
-		{
-			graphics = new GraphicsDeviceManager(this);
-			content = new ContentManager(Services);
-			keyhandler = new KeyHandler();
+        public Game1()
+        {
+            graphics = new GraphicsDeviceManager(this);
+            content = new ContentManager(Services);
+            keyhandler = new KeyHandler();
 
-			// lazy fps code
-			graphics.SynchronizeWithVerticalRetrace = false;
-			IsFixedTimeStep = false;
-			// adn
-		}
+            // lazy fps code
+            drawtext = new DrawText();
+            graphics.SynchronizeWithVerticalRetrace = false;
+            IsFixedTimeStep = false;
+            // adn
+        }
 
 
-		/// <summary>
-		/// Allows the game to perform any initialization it needs to before starting to run.
-		/// This is where it can query for any required services and load any non-graphic
-		/// related content.  Calling base.Initialize will enumerate through any components
-		/// and initialize them as well.
-		/// </summary>
-		protected override void Initialize()
-		{
-			// TODO: Add your initialization logic here
-			
-			TextureLibrary.iniTextures(content);
-						
+        /// <summary>
+        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// This is where it can query for any required services and load any non-graphic
+        /// related content.  Calling base.Initialize will enumerate through any components
+        /// and initialize them as well.
+        /// </summary>
+        protected override void Initialize()
+        {
+            TextureLibrary.iniTextures(content);
+
             graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
-			base.Initialize();
-		}
+
+            base.Initialize();
+        }
 
 
-		/// <summary>
-		/// Load your graphics content.  If loadAllContent is true, you should
-		/// load content from both ResourceManagementMode pools.  Otherwise, just
-		/// load ResourceManagementMode.Manual content.
-		/// </summary>
-		/// <param name="loadAllContent">Which type of content to load.</param>
-		protected override void LoadGraphicsContent(bool loadAllContent)
-		{
+        /// <summary>
+        /// Load your graphics content.  If loadAllContent is true, you should
+        /// load content from both ResourceManagementMode pools.  Otherwise, just
+        /// load ResourceManagementMode.Manual content.
+        /// </summary>
+        /// <param name="loadAllContent">Which type of content to load.</param>
+        protected override void LoadGraphicsContent(bool loadAllContent)
+        {
 
-			if (loadAllContent)
-			{
+            if (loadAllContent)
+            {
                 TextureLibrary.LoadTexture("Ship2");
                 TextureLibrary.LoadTexture("Back");
-				back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight,
-										-graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.BackGround.Bottom, 0);
-				back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100,
-                                         100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, Depth.ForeGround.Bottom, 0);
-				back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500,
-											 600, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.MidGround.Bottom, 0.60f);
-			}
+                drawtext.Load(content);
 
-			// TODO: Load any ResourceManagementMode.Manual content
-		}
+                m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+                back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.BackGround.Bottom, 0);
+                back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, Depth.ForeGround.Bottom, 0);
+                back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, Depth.MidGround.Bottom, 0.60f);
+            }
 
-
-		/// <summary>
-		/// Unload your graphics content.  If unloadAllContent is true, you should
-		/// unload content from both ResourceManagementMode pools.  Otherwise, just
-		/// unload ResourceManagementMode.Manual content.  Manual content will get
-		/// Disposed by the GraphicsDevice during a Reset.
-		/// </summary>
-		/// <param name="unloadAllContent">Which type of content to unload.</param>
-		protected override void UnloadGraphicsContent(bool unloadAllContent)
-		{
-			if (unloadAllContent)
-			{
-				// TODO: Unload any ResourceManagementMode.Automatic content
-				content.Unload();
-			}
-
-			// TODO: Unload any ResourceManagementMode.Manual content
-		}
+            // TODO: Load any ResourceManagementMode.Manual content
+        }
 
 
-		/// <summary>
-		/// Allows the game to run logic such as updating the world,
-		/// checking for collisions, gathering input and playing audio.
-		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Update(GameTime gameTime)
-		{
-			keyhandler.Update();
-			// Allows the game to exit
-			if (keyhandler.IsActionDown(KeyHandler.Actions.Pause))
-			{
-				this.Exit();
-			}
+        /// <summary>
+        /// Unload your graphics content.  If unloadAllContent is true, you should
+        /// unload content from both ResourceManagementMode pools.  Otherwise, just
+        /// unload ResourceManagementMode.Manual content.  Manual content will get
+        /// Disposed by the GraphicsDevice during a Reset.
+        /// </summary>
+        /// <param name="unloadAllContent">Which type of content to unload.</param>
+        protected override void UnloadGraphicsContent(bool unloadAllContent)
+        {
+            if (unloadAllContent)
+            {
+                // TODO: Unload any ResourceManagementMode.Automatic content
+                content.Unload();
+            }
 
-			if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
-			{
-				back1.MoveRight();
-			}
-			if (keyhandler.IsActionDown(KeyHandler.Actions.Left))
-			{
-				back1.MoveLeft();
-			}
-			if (keyhandler.IsActionDown(KeyHandler.Actions.Up))
-			{
-				back1.MoveUp();
-			}
-			if (keyhandler.IsActionDown(KeyHandler.Actions.Down))
-			{
-				back1.MoveDown();
-			}
-
-			// lazy fps code
-			UpdateFPS(gameTime);
-			// adn
-
-			base.Update(gameTime);
-		}
+            // TODO: Unload any ResourceManagementMode.Manual content
+        }
 
 
-		// lazy fps code
-		private void UpdateFPS(GameTime gameTime)
-		{
-			framecount++;
-			timeSinceLastUpdate += (float)gameTime.ElapsedRealTime.TotalSeconds;
-			if (timeSinceLastUpdate > updateInterval)
-			{
-				fps = framecount / timeSinceLastUpdate;
-				Window.Title = "FPS: " + fps.ToString();
-				framecount = 0;
-				timeSinceLastUpdate = 0.0f;
-			}
-		}
-		// adn
+        /// <summary>
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input and playing audio.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Update(GameTime gameTime)
+        {
+            keyhandler.Update();
+            // Allows the game to exit
+            if (keyhandler.IsActionDown(KeyHandler.Actions.Pause))
+            {
+                this.Exit();
+            }
 
-		/// <summary>
-		/// This is called when the game should draw itself.
-		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Draw(GameTime gameTime)
-		{
-			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-             m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-             //SpriteSortMode.BackToFront;
+            if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
+            {
+                back1.MoveRight();
+            }
+            if (keyhandler.IsActionDown(KeyHandler.Actions.Left))
+            {
+                back1.MoveLeft();
+            }
+            if (keyhandler.IsActionDown(KeyHandler.Actions.Up))
+            {
+                back1.MoveUp();
+            }
+            if (keyhandler.IsActionDown(KeyHandler.Actions.Down))
+            {
+                back1.MoveDown();
+            }
 
-             m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend,SpriteSortMode.BackToFront, SaveStateMode.None);
-             
-             back.Draw(m_spriteBatch);
-			 
-             back1.DrawPlayer(gameTime,m_spriteBatch);
-             back2.Draw(m_spriteBatch);
-             
-             m_spriteBatch.End();
-            
-			// TODO: Add your drawing code here
+            // lazy fps code
+            UpdateFPS(gameTime);
+            // adn
 
-			base.Draw(gameTime);
-		}
-	}
+            base.Update(gameTime);
+        }
+
+
+        // lazy fps code
+        private void UpdateFPS(GameTime gameTime)
+        {
+            timeSinceLastUpdate += (float)gameTime.ElapsedRealTime.TotalSeconds;
+            if (timeSinceLastUpdate > updateInterval)
+            {
+                fps = framecount / timeSinceLastUpdate;
+                framecount = 0;
+                timeSinceLastUpdate = 0.0f;
+            }
+        }
+        // adn
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
+
+            back.Draw(m_spriteBatch);
+
+            back1.DrawPlayer(gameTime, m_spriteBatch);
+            back2.Draw(m_spriteBatch);
+
+            drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString());
+
+            m_spriteBatch.End();
+
+            framecount++;
+
+            base.Draw(gameTime);
+        }
+    }
 }
