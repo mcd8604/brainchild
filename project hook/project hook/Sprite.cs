@@ -278,8 +278,8 @@ namespace project_hook
 				}
 				
 
-				Rectangle draw = DrawDestination;
-				Vector2 center = Center;
+				//Rectangle draw = DrawDestination;
+				//Vector2 center = Center;
 				//Draws the current sprite.
 				if (rot)
 				{
