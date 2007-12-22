@@ -18,6 +18,7 @@ namespace project_hook
     {
 
 		List<Sprite> spritelist = new List<Sprite>();
+        List<Shot> shots = new List<Shot>();
 
         GraphicsDeviceManager graphics;
         ContentManager content;
@@ -99,7 +100,7 @@ namespace project_hook
                 back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom);
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom, graphics);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
-				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.ForeGround.Top);
+				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
 				enemy = new Collidable("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Enemy, 100, null, 100, null, 100);
 
                 
@@ -112,20 +113,22 @@ namespace project_hook
                 enemy.Path = new Path(Path.Paths.Line,dic);
                 enemy.Update(new GameTime());
 
-
-				shot2Effect = new Sprite("RedShot2", new Vector2(-400.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
-				shot2Effect.setAnimation("RedShot", 10);
-				shotEffect = new Sprite("RedShot", new Vector2(-100.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
-				shotEffect.setAnimation("RedShot", 10);
-				shotEffect.Animation.StartAnimation();
-				shot2Effect.Animation.StartAnimation();
-
+                /*
+                shot2Effect = new Sprite("RedShot2", new Vector2(-400.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
+                shot2Effect.setAnimation("RedShot", 10);
+                shotEffect = new Sprite("RedShot", new Vector2(-100.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
+                shotEffect.setAnimation("RedShot", 10);
+                shotEffect.Animation.StartAnimation();
+                shot2Effect.Animation.StartAnimation();
+                */
 				explosion = new Sprite("Explosion", new Vector2(-100f, -100f), 100, 100, TextureLibrary.getGameTexture("Explosion", ""), 50f, true, 0, Depth.ForeGround.Mid);
 
 
 				spritelist.Add(enemy);
+                /*
 				spritelist.Add(shotEffect);
 				spritelist.Add(shot2Effect);
+                 * */
 
             }
 
@@ -168,6 +171,7 @@ namespace project_hook
 
             if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
              {
+                /*
                  Vector2 shot = shotEffect.Position;
                  shot.X = back1.PlayerShip.Position.X;
                  shot.Y = back1.PlayerShip.Position.Y;
@@ -177,7 +181,7 @@ namespace project_hook
                  shot.X = back1.PlayerShip.Position.X + 100;
                  shot.Y = back1.PlayerShip.Position.Y;
                  shot2Effect.Position = shot;	
-                
+                */
 				//back1.Shoot();
 				
 
@@ -185,7 +189,47 @@ namespace project_hook
 
 			if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
 			{
-			
+                             
+	                
+                Shot shot2 = new Shot("RedShot2", new Vector2(100, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
+                                        ,Collidable.Factions.Player,-1,null,2,null,5,10);
+                Vector2 shot = shot2.Position;
+                shot.X = back1.PlayerShip.Position.X;
+                shot.Y = back1.PlayerShip.Position.Y;
+                shot2.Position = shot;
+
+                shot2.setAnimation("RedShot", 10);
+
+                Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                dic.Add(PathStrategy.ValueKeys.Start, shot2.Center);
+                dic.Add(PathStrategy.ValueKeys.End, new Vector2(shot2.Center.X, -100));
+                dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
+                dic.Add(PathStrategy.ValueKeys.Base, shot2);
+                shot2.Path = new Path(Path.Paths.Shot, dic);
+
+
+                Shot shot1 = new Shot("RedShot", new Vector2(100.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
+                                      ,Collidable.Factions.Player,-1,null,2,null,5,10);
+
+                shot = shot1.Position;
+                shot.X = back1.PlayerShip.Position.X + 50;
+                shot.Y = back1.PlayerShip.Position.Y;
+                shot1.Position = shot;
+
+                shot1.setAnimation("RedShot", 10);
+
+                dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                dic.Add(PathStrategy.ValueKeys.Start, shot1.Center);
+                dic.Add(PathStrategy.ValueKeys.End, new Vector2(shot1.Center.X, -100));
+                dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
+                dic.Add(PathStrategy.ValueKeys.Base, shot1);
+                shot1.Path = new Path(Path.Paths.Shot, dic);
+
+                shot1.Animation.StartAnimation();
+                shot2.Animation.StartAnimation();
+
+                spritelist.Add(shot1);
+                spritelist.Add(shot2);
 				back1.Shoot(gameTime);
 			}
 
@@ -210,7 +254,7 @@ namespace project_hook
 				graphics.ToggleFullScreen();
 			}
 
-
+            /*
             Vector2 shotV = shot2Effect.Position; 
 			shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds) * 200;
             shot2Effect.Position = shotV;
@@ -228,7 +272,7 @@ namespace project_hook
 
 			//back1.Shoot();
 			shot2Effect.Degree = shot2Effect.Degree - (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
-
+            */
             back1.UpdatePlayer(gameTime);
             // lazy fps code
             UpdateFPS(gameTime);
@@ -260,6 +304,24 @@ namespace project_hook
             }
 
 			QuickCheckCollision(gameTime);
+            List<Sprite> toBeRemoved = new List<Sprite>();
+
+            foreach (Sprite s in spritelist)
+            {
+                if (!s.Visible)
+                {
+                    toBeRemoved.Add(s);
+                }
+                else
+                {
+                    s.Update(gameTime);
+                }
+            }
+
+            foreach (Sprite s in toBeRemoved)
+            {
+                spritelist.Remove(s);
+            }
 
 			base.Update(gameTime);
         }
@@ -308,9 +370,14 @@ namespace project_hook
             back.Draw(m_spriteBatch);
 
             back1.DrawPlayer(gameTime, m_spriteBatch);
+
+            foreach (Sprite s in spritelist)
+            {
+                s.Draw(m_spriteBatch);
+            }
          //   back2.Draw(m_spriteBatch);
-            shotEffect.Draw(m_spriteBatch);
-			shot2Effect.Draw(m_spriteBatch);
+           // shotEffect.Draw(m_spriteBatch);
+			//shot2Effect.Draw(m_spriteBatch);
             drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.ForeGround.Top);
 			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50),Color.White);
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(),Vector2.Zero,Color.White);

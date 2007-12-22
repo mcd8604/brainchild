@@ -41,6 +41,17 @@ namespace project_hook
 			Damage = p_Damage;
         }
 
+        public override void Update(GameTime p_Time)
+        {
+            base.Update(p_Time);
+
+            if (Path.isDone())
+            {
+                Visible = false;
+
+            }
+        }
+
 
 		//public override void Update(float p_Elapsed)
 		//{
