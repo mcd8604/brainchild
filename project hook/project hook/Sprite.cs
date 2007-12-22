@@ -249,8 +249,8 @@ namespace project_hook
 			}
 			set
 			{
-				m_Position.X = value.X - Center.X;
-				m_Position.Y = value.Y - Center.Y;
+				m_Position.X = value.X - m_Center.X;
+                m_Position.Y = value.Y - m_Center.Y;
 			}
 		}
 

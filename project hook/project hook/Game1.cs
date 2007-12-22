@@ -155,7 +155,15 @@ namespace project_hook
 
             if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
              {
-				
+                 Vector2 shot = shotEffect.Position;
+                 shot.X = back1.PlayerShip.Position.X;
+                 shot.Y = back1.PlayerShip.Position.Y;
+                 shotEffect.Position = shot;
+
+                 shot = shot2Effect.Position;
+                 shot.X = back1.PlayerShip.Position.X + 100;
+                 shot.Y = back1.PlayerShip.Position.Y;
+                 shot2Effect.Position = shot;	
                 
 				//back1.Shoot();
 				
@@ -164,15 +172,7 @@ namespace project_hook
 
 			if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
 			{
-				Vector2 shot = shotEffect.Position;
-				shot.X = back1.PlayerShip.Position.X;
-				shot.Y = back1.PlayerShip.Position.Y;
-				shotEffect.Position = shot;
-
-				shot = shot2Effect.Position;
-				shot.X = back1.PlayerShip.Position.X + 100;
-				shot.Y = back1.PlayerShip.Position.Y;
-				shot2Effect.Position = shot;
+			
 				back1.Shoot(gameTime);
 			}
 
@@ -216,6 +216,7 @@ namespace project_hook
 			//back1.Shoot();
 			shot2Effect.Degree = shot2Effect.Degree - (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
 
+            back1.UpdatePlayer(gameTime);
             // lazy fps code
             UpdateFPS(gameTime);
             // adn
