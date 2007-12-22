@@ -90,6 +90,7 @@ namespace project_hook
 				TextureLibrary.LoadTexture("Cloud");
 				TextureLibrary.LoadTexture("Enemy1");
 				TextureLibrary.LoadTexture("Explosion");
+				TextureLibrary.LoadTexture("Shield");
                 drawtext.Load(content);
 
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -197,7 +198,7 @@ namespace project_hook
 			}
 
 
-            Vector2 shotV = shot2Effect.Position;
+            Vector2 shotV = shot2Effect.Position; 
 			shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds) * 200;
             shot2Effect.Position = shotV;
             shot2Effect.Update(gameTime);
