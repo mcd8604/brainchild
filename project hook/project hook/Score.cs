@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class Score
+	public class Score
 	{
-		int m_ScoreTotal;
-
-		public int ScoreTotal
+		ulong m_ScoreTotal;
+		int m_Multiplyer = 0;
+		double m_ComboTime = 3;
+		double m_LastFiredTime = 0;
+		
+		public ulong ScoreTotal
 		{
 			get
 			{
@@ -21,14 +25,27 @@ namespace project_hook
 			m_ScoreTotal = 0;
 		}
 
-		public Score(int p_Score)
+		public Score(ulong p_Score)
 		{
 			m_ScoreTotal = p_Score;
 		}
 
-		public int RegisterHit()
+		public ulong RegisterHit(GameTime p_GameTime)
 		{
-			m_ScoreTotal += 10;
+			double timeDiff = p_GameTime.TotalGameTime.TotalSeconds - m_LastFiredTime;
+			
+			if (timeDiff >= m_ComboTime)
+			{
+				m_Multiplyer = 1;
+			}
+			else
+			{
+				m_Multiplyer++;
+			}
+
+			m_ScoreTotal += 10ul * (ulong)m_Multiplyer;
+			m_LastFiredTime = p_GameTime.TotalGameTime.TotalSeconds;
+
 			return m_ScoreTotal;
 		}
 	}
