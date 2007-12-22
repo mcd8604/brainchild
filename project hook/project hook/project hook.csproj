@@ -73,6 +73,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Effect</Name>
     </Compile>
+    <Compile Include="FollowPath.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>FollowPath</Name>
+    </Compile>
     <Compile Include="gameCollision.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>gameCollision</Name>
@@ -88,6 +92,10 @@
     <Compile Include="Path.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Path</Name>
+    </Compile>
+    <Compile Include="PathStrategy.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PathStrategy</Name>
     </Compile>
     <Compile Include="Player.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -242,6 +250,12 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>RedShot</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Shield.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>Shield</Name>
     </Content>
     <Content Include="Courier New.spritefont">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
