@@ -27,7 +27,7 @@ namespace project_hook
 			}
 			set
 			{
-				Path = value;
+				m_Path = value;
 			}
 
 		}
@@ -45,7 +45,7 @@ namespace project_hook
         {
             get
             {
-                return Parts;
+                return m_Parts;
             }
             set
             {
@@ -316,9 +316,22 @@ namespace project_hook
 			{
 				m_Animation.Update(p_Time);
 			}
+			if (Parts != null)
+			{
+				for (int a = 0; a < Parts.Count; a++)
+				{
+					Parts[a].Update(p_Time);
+					
+				}
+			}
+
+			if (Path != null)
+			{
+				Path.CalculateMovement();
+			}
 		}
 
-        public void attachSpritePart(Sprite p_Sprite)
+		public void attachSpritePart(Sprite p_Sprite)
         {
             if (m_Parts == null)
             {
