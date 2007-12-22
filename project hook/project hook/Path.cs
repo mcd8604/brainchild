@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
@@ -9,7 +10,7 @@ namespace project_hook
 		Paths m_Strategy;
 		PathStrategy m_Path;
 
-		public Path(Paths p_Strategy, Dictionary<String,Object> p_Values)
+        public Path(Paths p_Strategy, Dictionary<PathStrategy.ValueKeys, Object> p_Values)
 		{
 			m_Strategy = p_Strategy;
 
@@ -17,12 +18,22 @@ namespace project_hook
 			{
 				m_Path = new FollowPath(p_Values);
 			}
+            else if (m_Strategy == Paths.Line)
+            {
+                m_Path = new PathLine(p_Values);
+            }
+          //  return m_Path;
 		}
 
-		public void CalculateMovement(){
+		public void CalculateMovement(GameTime p_gameTime){
 
-			m_Path.CalculateMovement();
+            m_Path.CalculateMovement(p_gameTime);
 		}
+
+        public bool isDone()
+        {
+           return m_Path.isDone;
+        }
 
 		public enum Paths
 		{

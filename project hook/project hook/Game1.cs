@@ -41,6 +41,7 @@ namespace project_hook
         float updateInterval = 1.0f;
         float timeSinceLastUpdate = 0.0f;
         int framecount = 0;
+        int path = 0;
         // adn
 
         public Game1()
@@ -99,7 +100,19 @@ namespace project_hook
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom, graphics);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.ForeGround.Top);
-				enemy = new Collidable("Enemy", new Vector2(400f, 100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Enemy, 100, null, 100, null, 100);
+				enemy = new Collidable("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Enemy, 100, null, 100, null, 100);
+
+                
+
+                Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
+                dic.Add(PathStrategy.ValueKeys.End, new Vector2(700,200));
+                dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
+                dic.Add(PathStrategy.ValueKeys.Base, enemy);
+                enemy.Path = new Path(Path.Paths.Line,dic);
+                enemy.Update(new GameTime());
+
+
 				shot2Effect = new Sprite("RedShot2", new Vector2(-400.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
 				shot2Effect.setAnimation("RedShot", 10);
 				shotEffect = new Sprite("RedShot", new Vector2(-100.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
@@ -220,6 +233,31 @@ namespace project_hook
             // lazy fps code
             UpdateFPS(gameTime);
             // adn
+            enemy.Update(gameTime);
+            if (enemy.Path.isDone())
+            {
+                if (path == 0)
+                {
+                    Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                    dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
+                    dic.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
+                    dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
+                    dic.Add(PathStrategy.ValueKeys.Base, enemy);
+                    enemy.Path = new Path(Path.Paths.Line, dic);
+                    path++;
+                }
+                else
+                {
+                    Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                    dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
+                    dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
+                    dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
+                    dic.Add(PathStrategy.ValueKeys.Base, enemy);
+                    enemy.Path = new Path(Path.Paths.Line, dic);
+                    path = 0;
+
+                }
+            }
 
 			QuickCheckCollision(gameTime);
 

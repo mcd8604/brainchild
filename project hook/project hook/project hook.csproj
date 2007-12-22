@@ -93,6 +93,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Path</Name>
     </Compile>
+    <Compile Include="PathLine.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PathLine</Name>
+    </Compile>
     <Compile Include="PathStrategy.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathStrategy</Name>

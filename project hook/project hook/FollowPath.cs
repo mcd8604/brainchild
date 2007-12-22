@@ -7,20 +7,21 @@ namespace project_hook
 {
 	public class FollowPath:PathStrategy
 	{
-		public FollowPath(Dictionary<String, Object> p_Values)
-			:base(p_Values){
+        Sprite m_Base; 
+        Sprite m_Target;
 
+		public FollowPath(Dictionary<ValueKeys, Object> p_Values)
+			:base(p_Values){
+                 m_Base = (Sprite)m_Values[ValueKeys.Base];
+                 m_Target = (Sprite)m_Values[ValueKeys.Target];
 		}
 
-		public override void CalculateMovement()
+        public override void CalculateMovement(GameTime p_gameTime)
 		{
-			Sprite t_Base = (Sprite)m_Values["Base"];
-			Sprite t_Target = (Sprite)m_Values["Target"];
-
-			Vector2 basePos = t_Base.Center;
-			basePos.X = t_Target.Center.X;
-			basePos.Y = t_Target.Center.Y;
-			t_Base.Center = basePos;
+			Vector2 basePos = m_Base.Center;
+			basePos.X = m_Target.Center.X;
+			basePos.Y = m_Target.Center.Y;
+			m_Base.Center = basePos;
 		
 		}
 	}

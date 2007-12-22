@@ -17,8 +17,8 @@ namespace project_hook
      */
     public class Sprite
 	{
-
-		private Path m_Path;
+    
+		protected Path m_Path;
 		public Path Path
 		{
 			get
@@ -291,7 +291,7 @@ namespace project_hook
 						t_Sprite.Draw(p_SpriteBatch);
 					}
 				}
-				
+                
 
 				//Rectangle draw = DrawDestination;
 				//Vector2 center = Center;
@@ -327,7 +327,7 @@ namespace project_hook
 
 			if (Path != null)
 			{
-				Path.CalculateMovement();
+				Path.CalculateMovement(p_Time);
 			}
 		}
 

@@ -53,20 +53,6 @@ namespace project_hook
 			}
 		}
 
-		//this is the path that the sprite will fallow
-		private Path m_Path;
-		public Path Path
-		{
-			get
-			{
-				return m_Path;
-			}
-			set
-			{
-				m_Path = value;
-			}
-		}
-
 		//this is the speed of the sprite
 		private int m_Speed;
 		public int Speed

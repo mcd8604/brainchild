@@ -22,11 +22,20 @@ namespace project_hook
         {
 			m_Weapon = new Weapon(this, 10, 0, 5, TextureLibrary.getGameTexture("RedShot", "1"));
 			Sprite shield = new Sprite("Shield", Vector2.Zero, (int)(p_Width *1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield",""), 100, true, 0, Depth.MidGround.Bottom);
-			Dictionary<String,Object> dic = new Dictionary<string,object>();
-			dic.Add("Target",this);
-			dic.Add("Base",shield);
-			shield.Path = new Path(Path.Paths.Follow, dic);
-			attachSpritePart(shield);
+            Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+            
+                dic.Add(PathStrategy.ValueKeys.Target, this);
+                dic.Add(PathStrategy.ValueKeys.Base, shield);
+              shield.Path = new Path(Path.Paths.Follow, dic);
+             
+            /*
+            dic.Add(PathStrategy.ValueKeys.Start, shield.Center);
+            dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, shield.Center.Y));
+            dic.Add(PathStrategy.ValueKeys.Duration, 6000.0f);
+            dic.Add(PathStrategy.ValueKeys.Base, shield);
+            shield.Path = new Path(Path.Paths.Line, dic);
+             * */
+            attachSpritePart(shield);
 			
 			
         }
