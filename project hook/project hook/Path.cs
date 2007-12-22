@@ -22,6 +22,10 @@ namespace project_hook
             {
                 m_Path = new PathLine(p_Values);
             }
+            else if (m_Strategy == Paths.Shot)
+            {
+                m_Path = new ShotPath(p_Values);
+            }
           //  return m_Path;
 		}
 
@@ -38,7 +42,8 @@ namespace project_hook
 		public enum Paths
 		{
 			Follow,
-			Line
+			Line,
+            Shot
 
 		}
 

@@ -131,6 +131,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Shot</Name>
     </Compile>
+    <Compile Include="ShotPath.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>ShotPath</Name>
+    </Compile>
     <Compile Include="Sprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Sprite</Name>
