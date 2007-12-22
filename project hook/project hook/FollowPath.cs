@@ -15,7 +15,7 @@ namespace project_hook
 		public override void CalculateMovement()
 		{
 			Sprite t_Base = (Sprite)m_Values["Base"];
-			Sprite t_Target = (Sprite)m_Values["Base"];
+			Sprite t_Target = (Sprite)m_Values["Target"];
 
 			Vector2 basePos = t_Base.Center;
 			basePos.X = t_Target.Center.X;

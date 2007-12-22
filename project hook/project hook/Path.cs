@@ -6,32 +6,30 @@ namespace project_hook
 {
 	public class Path
 	{
-		string m_Strategy;
+		Paths m_Strategy;
+		PathStrategy m_Path;
 
-		public Path(string p_Strategy, Dictionary<String,Object> p_Values)
+		public Path(Paths p_Strategy, Dictionary<String,Object> p_Values)
 		{
 			m_Strategy = p_Strategy;
 
+			if (m_Strategy == Paths.Follow)
+			{
+				m_Path = new FollowPath(p_Values);
+			}
 		}
 
 		public void CalculateMovement(){
 
-
+			m_Path.CalculateMovement();
 		}
 
-		enum Paths
+		public enum Paths
 		{
 			Follow,
 			Line
 
 		}
-		
 
-		public static PathStrategy CreateStrategy(String strategy)
-		{
-
-
-			return null;
-		}
 	}
 }
