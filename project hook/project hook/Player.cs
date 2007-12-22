@@ -140,19 +140,26 @@ namespace project_hook
 		/// <param name="p_SpriteBatch"></param>
         public void DrawPlayer(GameTime p_GameTime, SpriteBatch p_SpriteBatch)
         {
-			//Calculate player position based on player speed and player friction
-			CalcMovement(p_GameTime, m_PlayerSpeedBuffer);
-			Vector2 tempPlayerPosition = m_PlayerShip.Position;
-			m_PlayerSpeed.X *= m_PlayerFriction;
-			m_PlayerSpeed.Y *= m_PlayerFriction;
-			tempPlayerPosition.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
-			tempPlayerPosition.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
-			tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X,0,m_GraphicsDeviceManager.GraphicsDevice.Viewport.Width);
-			tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y,0,m_GraphicsDeviceManager.GraphicsDevice.Viewport.Height);
-			m_PlayerShip.Position = tempPlayerPosition;
+		
 
             //p_SpriteBatch.Draw(m_PlayerShip.Texture.Texture, m_PlayerShip.Position, Color.White);
 			m_PlayerShip.Draw(p_SpriteBatch);
 		}
+
+        public void UpdatePlayer(GameTime p_GameTime)
+        {
+            //Calculate player position based on player speed and player friction
+            CalcMovement(p_GameTime, m_PlayerSpeedBuffer);
+            Vector2 tempPlayerPosition = m_PlayerShip.Position;
+            m_PlayerSpeed.X *= m_PlayerFriction;
+            m_PlayerSpeed.Y *= m_PlayerFriction;
+            tempPlayerPosition.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
+            tempPlayerPosition.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
+            tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X, 0, m_GraphicsDeviceManager.GraphicsDevice.Viewport.Width);
+            tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y, 0, m_GraphicsDeviceManager.GraphicsDevice.Viewport.Height);
+            m_PlayerShip.Position = tempPlayerPosition;
+
+            PlayerShip.Update(p_GameTime);
+        }
     }
 }
