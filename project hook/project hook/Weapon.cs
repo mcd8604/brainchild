@@ -14,7 +14,7 @@ namespace project_hook
 	*  1. be able to fire a shot
 	*  
 	*/
-	class Weapon
+	public class Weapon
 	{
 		#region Variables and Properties
 		//this is a ref to what ship this weapon is a psrt of.

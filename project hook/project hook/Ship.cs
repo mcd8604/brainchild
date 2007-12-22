@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
      */
 namespace project_hook
 {
-    class Ship : Collidable 
+    public class Ship : Collidable 
     {
         //variable for the weapon that the ship currently has
 		Weapon m_Weapon; 
