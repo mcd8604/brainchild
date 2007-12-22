@@ -15,10 +15,12 @@ using Microsoft.Xna.Framework.Content;
      */
 namespace project_hook
 {
-    class Player
+    public class Player
     {
         //variable for storing the player ship sprite and info
         PlayerShip m_PlayerShip;
+
+		GraphicsDeviceManager m_GraphicsDeviceManager;
 
 		Score m_Score;
 
@@ -69,9 +71,10 @@ namespace project_hook
 		/// <param name="p_Visible"></param>
 		/// <param name="p_Degree"></param>
 		/// <param name="p_zBuff"></param>
-        public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
+        public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, GraphicsDeviceManager p_GraphicsDeviceManager)
         {
 			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
+			m_GraphicsDeviceManager = p_GraphicsDeviceManager;
 			m_Score = new Score(0);
 		}
 
@@ -79,7 +82,7 @@ namespace project_hook
 		{
 			//m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
 			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
-			m_Score = new Score(p_Score);
+			m_Score = new Score((ulong)p_Score);
 		}
 
 		/// <summary>
@@ -111,9 +114,9 @@ namespace project_hook
 			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
 		}
 
-		public void Shoot()
+		public void Shoot(GameTime p_GameTime)
 		{
-			m_Score.RegisterHit();
+			
 		}
 
 		private void CalcMovement(GameTime p_GameTime, Vector2 p_PlayerSpeedBuffer)
@@ -144,6 +147,8 @@ namespace project_hook
 			m_PlayerSpeed.Y *= m_PlayerFriction;
 			tempPlayerPosition.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
 			tempPlayerPosition.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
+			tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X,0,m_GraphicsDeviceManager.GraphicsDevice.Viewport.Width);
+			tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y,0,m_GraphicsDeviceManager.GraphicsDevice.Viewport.Height);
 			m_PlayerShip.Position = tempPlayerPosition;
 
             //p_SpriteBatch.Draw(m_PlayerShip.Texture.Texture, m_PlayerShip.Position, Color.White);
