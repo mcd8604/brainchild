@@ -32,14 +32,6 @@ namespace project_hook
 
 		}
 
-        /*
-         * BigList<T> provides a list of items, in order, with indices of the items
-         * ranging from 0 to one less than the count of items in the collection.
-         * BigList<T> is optimized for efficient operations on large (>1000 items) lists,
-         * especially for insertions, deletions, copies, and concatinations. 
-         * 
-         * Is this the right collection type? What are 'parts' exactly? - Adam
-         */
         private List<Sprite> m_Parts;
         public List<Sprite> Parts
         {
