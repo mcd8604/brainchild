@@ -191,7 +191,7 @@ namespace project_hook
 			{
                              
 	                
-                Shot shot2 = new Shot("RedShot2", new Vector2(100, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
+                Shot shot2 = new Shot("RedShot2", new Vector2(100, 100.0f), 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
                                         ,Collidable.Factions.Player,-1,null,2,null,5,10);
                 Vector2 shot = shot2.Position;
                 shot.X = back1.PlayerShip.Position.X;
@@ -208,7 +208,7 @@ namespace project_hook
                 shot2.Path = new Path(Path.Paths.Shot, dic);
 
 
-                Shot shot1 = new Shot("RedShot", new Vector2(100.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
+                Shot shot1 = new Shot("RedShot", new Vector2(100.0f, 100.0f), 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
                                       ,Collidable.Factions.Player,-1,null,2,null,5,10);
 
                 shot = shot1.Position;
