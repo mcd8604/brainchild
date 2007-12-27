@@ -153,31 +153,6 @@ namespace project_hook
                 ++m_ShotNumber;
                 return t_Shot;
             }
-            else if (m_LastShot == 0)
-            {
-                //creates a temp shot
-                Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true,
-                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 5, 10);
-
-                //adds all the stuff that was in Game1
-                //i just moved it over here.
-                t_Shot.setAnimation("RedShot", 10);
-
-                Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.Start, t_Shot.Center);
-                dic.Add(PathStrategy.ValueKeys.End, new Vector2(t_Shot.Center.X, -100));
-                dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
-                dic.Add(PathStrategy.ValueKeys.Base, t_Shot);
-                t_Shot.Path = new Path(Path.Paths.Shot, dic);
-
-                t_Shot.Animation.StartAnimation();
-
-                //gets the current time in milliseconds
-               // m_LastShot = p_GameTime.
-                m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
-                ++m_ShotNumber;
-                return t_Shot;
-            }
             else
             {
                 Shot t_Shot = new Shot("no_Shot", m_Ship.Center, 0, 0, null, 0, false, 0, Depth.MidGround.Top, Collidable.Factions.Player,
