@@ -45,7 +45,7 @@ namespace project_hook
 			}
 		}
 
-		//this is how long the delay is between shots
+		//this is how long the delay is between shots in millisecnds
 		private int m_Delay;
 		public int Delay
 		{
@@ -100,6 +100,20 @@ namespace project_hook
 				m_ShotNumber=value;
 			}
 		}
+
+        //this will hold the time of the last shot
+        private double m_LastShot = 0;
+        public double LastShot
+        {
+            get
+            {
+                return m_LastShot;
+            }
+            set
+            {
+                m_LastShot = value;
+            }
+        }
 		#endregion // End of variables and Properties Region
 
 		public Weapon(Ship p_Ship, int p_Strength, int p_Delay, int p_Speed, GameTexture p_Shot)
@@ -112,14 +126,65 @@ namespace project_hook
 			ShotNumber=0;
 		}
 
-
 		//this function will creat a Shot at the current location
-		public void CreatShot()
+		public Shot CreatShot(GameTime p_GameTime)
 		{
-			Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 10, 10, m_Shot, 100f, true, 0f, 0.31f, m_Ship.Faction, -1, null,
-									5, null, 5, 2);
-			
-			++m_ShotNumber;
+            if (p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastShot + m_Delay)
+            {
+                //creates a temp shot
+                Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 100, true,
+                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 5, 10);
+
+                //adds all the stuff that was in Game1
+                //i just moved it over here.
+                t_Shot.setAnimation("RedShot", 10);
+
+                Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                dic.Add(PathStrategy.ValueKeys.Start, t_Shot.Center);
+                dic.Add(PathStrategy.ValueKeys.End, new Vector2(t_Shot.Center.X, -100));
+                dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
+                dic.Add(PathStrategy.ValueKeys.Base, t_Shot);
+                t_Shot.Path = new Path(Path.Paths.Shot, dic);
+
+                t_Shot.Animation.StartAnimation();
+
+                //gets the current time in milliseconds
+                m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
+                ++m_ShotNumber;
+                return t_Shot;
+            }
+            else if (m_LastShot == 0)
+            {
+                //creates a temp shot
+                Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true,
+                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 5, 10);
+
+                //adds all the stuff that was in Game1
+                //i just moved it over here.
+                t_Shot.setAnimation("RedShot", 10);
+
+                Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                dic.Add(PathStrategy.ValueKeys.Start, t_Shot.Center);
+                dic.Add(PathStrategy.ValueKeys.End, new Vector2(t_Shot.Center.X, -100));
+                dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
+                dic.Add(PathStrategy.ValueKeys.Base, t_Shot);
+                t_Shot.Path = new Path(Path.Paths.Shot, dic);
+
+                t_Shot.Animation.StartAnimation();
+
+                //gets the current time in milliseconds
+               // m_LastShot = p_GameTime.
+                m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
+                ++m_ShotNumber;
+                return t_Shot;
+            }
+            else
+            {
+                Shot t_Shot = new Shot("no_Shot", m_Ship.Center, 0, 0, null, 0, false, 0, Depth.MidGround.Top, Collidable.Factions.Player,
+                                        -1, null, 0, null, 0, 0);
+
+                return t_Shot;
+            }
 		}
 	}
 }
