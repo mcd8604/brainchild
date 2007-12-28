@@ -31,7 +31,6 @@ namespace project_hook
 		}
 		#endregion // End of variables and Properties Region
 
-
 		public Shot(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, 
 							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect,
 							float p_Radius, int p_Damage)
@@ -48,10 +47,8 @@ namespace project_hook
             if (Path.isDone())
             {
                 Visible = false;
-
             }
         }
-
 
 		//public override void Update(float p_Elapsed)
 		//{

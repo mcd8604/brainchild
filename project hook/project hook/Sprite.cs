@@ -16,9 +16,9 @@ namespace project_hook
      *  1. Check if rectangles can have Negative height and width values
      */
     public class Sprite
-	{
-    
-		protected Path m_Path;
+    {
+        #region Variables and Properties
+        protected Path m_Path;
 		public Path Path
 		{
 			get
@@ -244,10 +244,12 @@ namespace project_hook
 				m_Position.X = value.X - m_Center.X;
                 m_Position.Y = value.Y - m_Center.Y;
 			}
-		}
+        }
+        #endregion // End of variables and Properties Region
 
         //This is a constructor that has full parameters!
-		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_Z)
+		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
+                        float p_Degree, float p_Z)
 		{
 			Name = p_Name;
 			StartPosition = p_Position;
@@ -267,8 +269,7 @@ namespace project_hook
 		{
 			m_Animation = new VisualEffect(p_Animation, this,p_FramesPerSecond);
 			m_Animation.StopAnimation();
-		}
-        
+		}        
         
         //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
@@ -277,13 +278,11 @@ namespace project_hook
 			{
 				if (m_Parts != null && m_Parts.Count > 0)
 				{
-
 					foreach (Sprite t_Sprite in m_Parts)
 					{
 						t_Sprite.Draw(p_SpriteBatch);
 					}
-				}
-                
+				}                
 
 				//Rectangle draw = DrawDestination;
 				//Vector2 center = Center;
@@ -312,8 +311,7 @@ namespace project_hook
 			{
 				for (int a = 0; a < Parts.Count; a++)
 				{
-					Parts[a].Update(p_Time);
-					
+					Parts[a].Update(p_Time);					
 				}
 			}
 
@@ -331,7 +329,6 @@ namespace project_hook
             }
 
             m_Parts.Add(p_Sprite);
-
         }
 
 		private static Boolean rot = true;
@@ -350,4 +347,5 @@ namespace project_hook
   * Change Log:
   *     12/16/2007 - Eric, Karl, Mike - Initial Creation,  Created properties, constructor, draw and update. 
   *     12/17/2007 - Karl - Added Comments 
+ *      12/28/2007 - Eric - cleaned up code
   */

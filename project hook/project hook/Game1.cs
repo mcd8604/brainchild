@@ -182,17 +182,19 @@ namespace project_hook
                  shot.Y = back1.PlayerShip.Position.Y;
                  shot2Effect.Position = shot;	
                 */
-                 Shot t_Shot = back1.Shoot(gameTime);
+                 List<Shot> t_Shots = back1.Shoot(gameTime);
 
-                 if (t_Shot.Name.Equals("no_Shot"))
+                 foreach (Sprite s in t_Shots)
                  {
-                     //used so when the weapon can't shoot
-                 }
-                 else
-                 {
-                     spritelist.Add(t_Shot);
-                 }
-                
+                     if (s.Name.Equals("no_Shot"))
+                     {
+                         //used so when the weapon can't shoot
+                     }
+                     else
+                     {
+                         spritelist.Add(s);
+                     }
+                 }                
             }
 
 			if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
@@ -236,16 +238,21 @@ namespace project_hook
                 
                 //spritelist.Add(back1.Shoot(gameTime));
                 //spritelist.Add(shot2);
-                Shot t_Shot = back1.Shoot(gameTime);
+                //Shot t_Shot = back1.Shoot(gameTime);
 
-                if (t_Shot.Name.Equals("no_Shot"))
+                List<Shot> t_Shots = back1.Shoot(gameTime);
+
+                foreach (Sprite s in t_Shots)
                 {
-                    //used so when the weapon can't shoot
-                }
-                else
-                {
-                    spritelist.Add(t_Shot);
-                }
+                    if (s.Name.Equals("no_Shot"))
+                    {
+                        //used so when the weapon can't shoot
+                    }
+                    else
+                    {
+                        spritelist.Add(s);
+                    }
+                }               
                 
 			}
 
@@ -397,10 +404,6 @@ namespace project_hook
             drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.ForeGround.Top);
 			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50),Color.White);
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(),Vector2.Zero,Color.White);
-            drawtext.DrawString(m_spriteBatch, "Last shot: " + back1.PlayerShip.Weapon.LastShot, new Vector2(0, 150), Color.White);
-            drawtext.DrawString(m_spriteBatch, "Delay: " + back1.PlayerShip.Weapon.Delay, new Vector2(0, 200), Color.White);
-            drawtext.DrawString(m_spriteBatch, "add " + (back1.PlayerShip.Weapon.LastShot + back1.PlayerShip.Weapon.Delay), new Vector2(0, 250), Color.White);
-			cloud.Draw(m_spriteBatch);
 
 			enemy.Draw(m_spriteBatch);
 			explosion.Draw(m_spriteBatch);
