@@ -45,6 +45,8 @@ namespace project_hook
         int path = 0;
         // adn
 
+        Menu menu;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -56,6 +58,8 @@ namespace project_hook
             graphics.SynchronizeWithVerticalRetrace = false;
 			IsFixedTimeStep = false;
             // adn
+
+            menu = new Menu();
         }
 
 
@@ -130,6 +134,8 @@ namespace project_hook
 				spritelist.Add(shot2Effect);
                  * */
 
+                menu.Load(graphics);
+
             }
 
             // TODO: Load any ResourceManagementMode.Manual content
@@ -163,187 +169,197 @@ namespace project_hook
         protected override void Update(GameTime gameTime)
         {
             keyhandler.Update();
-            // Allows the game to exit
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Pause))
+
+            if (menu.visible)
             {
-                this.Exit();
+                menu.checkKeys(keyhandler, this);
             }
+            else
+            {
 
-            if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
-             {
-                /*
-                 Vector2 shot = shotEffect.Position;
-                 shot.X = back1.PlayerShip.Position.X;
-                 shot.Y = back1.PlayerShip.Position.Y;
-                 shotEffect.Position = shot;
-
-                 shot = shot2Effect.Position;
-                 shot.X = back1.PlayerShip.Position.X + 100;
-                 shot.Y = back1.PlayerShip.Position.Y;
-                 shot2Effect.Position = shot;	
-                */
-                 List<Shot> t_Shots = back1.Shoot(gameTime);
-
-                 foreach (Sprite s in t_Shots)
-                 {
-                     if (s.Name.Equals("no_Shot"))
-                     {
-                         //used so when the weapon can't shoot
-                     }
-                     else
-                     {
-                         spritelist.Add(s);
-                     }
-                 }                
-            }
-
-			if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
-			{
-                //Shot shot2 = new Shot("RedShot2", new Vector2(100, 100.0f), 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
-                //                        , Collidable.Factions.Player, -1, null, 2, null, 5, 10);
-                //Vector2 shot = shot2.Position;
-                //shot.X = back1.PlayerShip.Position.X;
-                //shot.Y = back1.PlayerShip.Position.Y;
-                //shot2.Position = shot;
-
-                //shot2.setAnimation("RedShot", 10);
-
-                //Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                //dic.Add(PathStrategy.ValueKeys.Start, shot2.Center);
-                //dic.Add(PathStrategy.ValueKeys.End, new Vector2(shot2.Center.X, -100));
-                //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
-                //dic.Add(PathStrategy.ValueKeys.Base, shot2);
-                //shot2.Path = new Path(Path.Paths.Shot, dic);
-
-
-                //Shot shot1 = new Shot("RedShot", new Vector2(100.0f, 100.0f), 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
-                //                      , Collidable.Factions.Player, -1, null, 2, null, 5, 10);
-
-                //shot = shot1.Position;
-                //shot.X = back1.PlayerShip.Position.X + 50;
-                //shot.Y = back1.PlayerShip.Position.Y;
-                //shot1.Position = shot;
-
-                //shot1.setAnimation("RedShot", 10);
-
-                //dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                //dic.Add(PathStrategy.ValueKeys.Start, shot1.Center);
-                //dic.Add(PathStrategy.ValueKeys.End, new Vector2(shot1.Center.X, -100));
-                //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
-                //dic.Add(PathStrategy.ValueKeys.Base, shot1);
-                //shot1.Path = new Path(Path.Paths.Shot, dic);
-
-                //shot1.Animation.StartAnimation();
-                //shot2.Animation.StartAnimation();
-                
-                //spritelist.Add(back1.Shoot(gameTime));
-                //spritelist.Add(shot2);
-                //Shot t_Shot = back1.Shoot(gameTime);
-
-                List<Shot> t_Shots = back1.Shoot(gameTime);
-
-                foreach (Sprite s in t_Shots)
+                // Allows the game to exit
+                if (keyhandler.IsActionDown(KeyHandler.Actions.Pause))
                 {
-                    if (s.Name.Equals("no_Shot"))
+                    //this.Exit();
+                    menu.visible = true;
+                }
+
+                if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
+                {
+                    /*
+                     Vector2 shot = shotEffect.Position;
+                     shot.X = back1.PlayerShip.Position.X;
+                     shot.Y = back1.PlayerShip.Position.Y;
+                     shotEffect.Position = shot;
+
+                     shot = shot2Effect.Position;
+                     shot.X = back1.PlayerShip.Position.X + 100;
+                     shot.Y = back1.PlayerShip.Position.Y;
+                     shot2Effect.Position = shot;	
+                    */
+                    List<Shot> t_Shots = back1.Shoot(gameTime);
+
+                    foreach (Sprite s in t_Shots)
                     {
-                        //used so when the weapon can't shoot
+                        if (s.Name.Equals("no_Shot"))
+                        {
+                            //used so when the weapon can't shoot
+                        }
+                        else
+                        {
+                            spritelist.Add(s);
+                        }
+                    }
+                }
+
+                if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
+                {
+                    //Shot shot2 = new Shot("RedShot2", new Vector2(100, 100.0f), 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
+                    //                        , Collidable.Factions.Player, -1, null, 2, null, 5, 10);
+                    //Vector2 shot = shot2.Position;
+                    //shot.X = back1.PlayerShip.Position.X;
+                    //shot.Y = back1.PlayerShip.Position.Y;
+                    //shot2.Position = shot;
+
+                    //shot2.setAnimation("RedShot", 10);
+
+                    //Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                    //dic.Add(PathStrategy.ValueKeys.Start, shot2.Center);
+                    //dic.Add(PathStrategy.ValueKeys.End, new Vector2(shot2.Center.X, -100));
+                    //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
+                    //dic.Add(PathStrategy.ValueKeys.Base, shot2);
+                    //shot2.Path = new Path(Path.Paths.Shot, dic);
+
+
+                    //Shot shot1 = new Shot("RedShot", new Vector2(100.0f, 100.0f), 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
+                    //                      , Collidable.Factions.Player, -1, null, 2, null, 5, 10);
+
+                    //shot = shot1.Position;
+                    //shot.X = back1.PlayerShip.Position.X + 50;
+                    //shot.Y = back1.PlayerShip.Position.Y;
+                    //shot1.Position = shot;
+
+                    //shot1.setAnimation("RedShot", 10);
+
+                    //dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                    //dic.Add(PathStrategy.ValueKeys.Start, shot1.Center);
+                    //dic.Add(PathStrategy.ValueKeys.End, new Vector2(shot1.Center.X, -100));
+                    //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
+                    //dic.Add(PathStrategy.ValueKeys.Base, shot1);
+                    //shot1.Path = new Path(Path.Paths.Shot, dic);
+
+                    //shot1.Animation.StartAnimation();
+                    //shot2.Animation.StartAnimation();
+
+                    //spritelist.Add(back1.Shoot(gameTime));
+                    //spritelist.Add(shot2);
+                    //Shot t_Shot = back1.Shoot(gameTime);
+
+                    List<Shot> t_Shots = back1.Shoot(gameTime);
+
+                    foreach (Sprite s in t_Shots)
+                    {
+                        if (s.Name.Equals("no_Shot"))
+                        {
+                            //used so when the weapon can't shoot
+                        }
+                        else
+                        {
+                            spritelist.Add(s);
+                        }
+                    }
+
+                }
+
+                if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
+                {
+                    back1.MoveRight();
+                }
+                if (keyhandler.IsActionDown(KeyHandler.Actions.Left))
+                {
+                    back1.MoveLeft();
+                }
+                if (keyhandler.IsActionDown(KeyHandler.Actions.Up))
+                {
+                    back1.MoveUp();
+                }
+                if (keyhandler.IsActionDown(KeyHandler.Actions.Down))
+                {
+                    back1.MoveDown();
+                }
+                if (keyhandler.IsKeyPressed(Keys.F))
+                {
+                    graphics.ToggleFullScreen();
+                    }
+
+                /*
+                Vector2 shotV = shot2Effect.Position; 
+			    shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds) * 200;
+                shot2Effect.Position = shotV;
+                shot2Effect.Update(gameTime);
+
+
+			    shotV = shotEffect.Position;
+			    shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds)*200;
+			    shotEffect.Position = shotV;
+			    shotEffect.Update(gameTime);
+
+			    shotEffect.Degree = shotEffect.Degree + (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
+
+
+
+			    //back1.Shoot();
+			    shot2Effect.Degree = shot2Effect.Degree - (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
+                */
+                back1.UpdatePlayer(gameTime);
+                // lazy fps code
+                UpdateFPS(gameTime);
+                // adn
+                enemy.Update(gameTime);
+                if (enemy.Path.isDone())
+                {
+                    if (path == 0)
+                    {
+                        Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                        dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
+                        dic.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
+                        dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
+                        dic.Add(PathStrategy.ValueKeys.Base, enemy);
+                        enemy.Path = new Path(Path.Paths.Line, dic);
+                        path++;
                     }
                     else
                     {
-                        spritelist.Add(s);
+                        Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+                        dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
+                        dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
+                        dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
+                        dic.Add(PathStrategy.ValueKeys.Base, enemy);
+                        enemy.Path = new Path(Path.Paths.Line, dic);
+                        path = 0;
+
                     }
-                }               
-                
-			}
-
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
-            { 
-                back1.MoveRight();
-            }
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Left))
-            {
-                back1.MoveLeft();
-            }
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Up))
-            {
-                back1.MoveUp();
-            }
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Down))
-            {
-                back1.MoveDown();
-            }
-			if (keyhandler.IsKeyPressed(Keys.F))
-			{
-				graphics.ToggleFullScreen();
-			}
-
-            /*
-            Vector2 shotV = shot2Effect.Position; 
-			shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds) * 200;
-            shot2Effect.Position = shotV;
-            shot2Effect.Update(gameTime);
-
-
-			shotV = shotEffect.Position;
-			shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds)*200;
-			shotEffect.Position = shotV;
-			shotEffect.Update(gameTime);
-
-			shotEffect.Degree = shotEffect.Degree + (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
-
-
-
-			//back1.Shoot();
-			shot2Effect.Degree = shot2Effect.Degree - (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
-            */
-            back1.UpdatePlayer(gameTime);
-            // lazy fps code
-            UpdateFPS(gameTime);
-            // adn
-            enemy.Update(gameTime);
-            if (enemy.Path.isDone())
-            {
-                if (path == 0)
-                {
-                    Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                    dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
-                    dic.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
-                    dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
-                    dic.Add(PathStrategy.ValueKeys.Base, enemy);
-                    enemy.Path = new Path(Path.Paths.Line, dic);
-                    path++;
                 }
-                else
+
+			    QuickCheckCollision(gameTime);
+                List<Sprite> toBeRemoved = new List<Sprite>();
+
+                foreach (Sprite s in spritelist)
                 {
-                    Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                    dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
-                    dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
-                    dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
-                    dic.Add(PathStrategy.ValueKeys.Base, enemy);
-                    enemy.Path = new Path(Path.Paths.Line, dic);
-                    path = 0;
-
+                    if (!s.Visible)
+                    {
+                        toBeRemoved.Add(s);
+                    }
+                    else
+                    {
+                        s.Update(gameTime);
+                    }
                 }
-            }
 
-			QuickCheckCollision(gameTime);
-            List<Sprite> toBeRemoved = new List<Sprite>();
-
-            foreach (Sprite s in spritelist)
-            {
-                if (!s.Visible)
+                foreach (Sprite s in toBeRemoved)
                 {
-                    toBeRemoved.Add(s);
+                    spritelist.Remove(s);
                 }
-                else
-                {
-                    s.Update(gameTime);
-                }
-            }
-
-            foreach (Sprite s in toBeRemoved)
-            {
-                spritelist.Remove(s);
             }
 
 			base.Update(gameTime);
@@ -406,13 +422,13 @@ namespace project_hook
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(),Vector2.Zero,Color.White);
 
 			enemy.Draw(m_spriteBatch);
-			explosion.Draw(m_spriteBatch);
+            explosion.Draw(m_spriteBatch);
+
+            menu.Draw(m_spriteBatch);
 
             m_spriteBatch.End();
 
             framecount++;
-
-            
 
             base.Draw(gameTime);
         }
