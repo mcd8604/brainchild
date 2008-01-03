@@ -125,23 +125,23 @@ namespace project_hook
         //(should menu have its own KeyHandler?)
         public void checkKeys(KeyHandler keyhandler, Game1 game)
         {
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Pause))
+            if (keyhandler.IsActionPressed(KeyHandler.Actions.Pause))
             {
                 //this.Exit();
                 m_visible = false;
             }
 
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Up))
+            if (keyhandler.IsActionPressed(KeyHandler.Actions.Up))
             {
                 up();
             }
 
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Down))
+            if (keyhandler.IsActionPressed(KeyHandler.Actions.Down))
             {
                 down();
             }
 
-            if (keyhandler.IsActionDown(KeyHandler.Actions.MenuAccept))
+            if (keyhandler.IsActionPressed(KeyHandler.Actions.MenuAccept))
             {
                 accept(game);
             }
