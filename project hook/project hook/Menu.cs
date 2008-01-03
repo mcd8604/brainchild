@@ -98,7 +98,7 @@ namespace project_hook
             //create highlight sprite
             Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
             GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName, "");
-            m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), highlightTexture.Height, highlightTexture.Width, highlightTexture, 100.0f, true, 0, Depth.ForeGround.Top);
+            m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height, selSprite.Texture.Width, highlightTexture, 100.0f, true, 0, Depth.ForeGround.Top);
 
 		}
 
