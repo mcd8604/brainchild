@@ -248,6 +248,12 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>AnimationDefn</Name>
     </Content>
+    <Content Include="Content\Textures\menu_highlight.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>menu_highlight</Name>
+    </Content>
     <Content Include="Content\Textures\RedShot.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
