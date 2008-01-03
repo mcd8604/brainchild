@@ -178,7 +178,7 @@ namespace project_hook
             {
 
                 // Allows the game to exit
-                if (keyhandler.IsActionDown(KeyHandler.Actions.Pause))
+                if (keyhandler.IsActionPressed(KeyHandler.Actions.Pause))
                 {
                     //this.Exit();
                     menu.visible = true;
