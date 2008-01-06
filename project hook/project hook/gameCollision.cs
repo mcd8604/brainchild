@@ -19,12 +19,13 @@ namespace project_hook
 		{
 			//for (int i = 0; i < collidables.length; i++)
 			{
-				//collidable firstCol = i;
+				//Collidable firstCol = collidables[i];
 				//for (int j = 0; j < collidables.length; j++)
 				{
-					//if (firstCol.faction != j.faction)
+                  //  Collidable secondCol = collidables[j];
+                   // if (firstCol.faction != secondCol.faction && Intersection.DoesIntersectDiamond(firstCol.Position + firstCol.Center, firstCol.Height / 2.5f, secondCol.Position + secondCol.Center, secondCol.Height / 2.5f))
 					{
-
+                        //Here be collisions
 					}
 				}
 			}
@@ -40,4 +41,5 @@ namespace project_hook
   * 
   * Change Log:
   *     12/19/2007 - Started class 
+  *     12/29/2007 - Continued
   */
