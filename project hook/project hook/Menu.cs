@@ -67,14 +67,14 @@ namespace project_hook
                 TextureLibrary.LoadTexture((String)m_MenuItemNames[i]);
             }
             TextureLibrary.LoadTexture(m_HighlightName);
-            initMenuSprites(gdm);
+            initMenuSprites();
         }
 
-        private void initMenuSprites(GraphicsDeviceManager gdm)
+        private void initMenuSprites()
 		{
             GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
-            float xPos = (gdm.GraphicsDevice.Viewport.Width - bgTexture.Width) / 2;
-            float yPos = (gdm.GraphicsDevice.Viewport.Height - bgTexture.Height) / 2;
+            float xPos = (Game1.graphics.GraphicsDevice.Viewport.Width - bgTexture.Width) / 2;
+			float yPos = (Game1.graphics.GraphicsDevice.Viewport.Height - bgTexture.Height) / 2;
             m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 100.0f, true, 0, Depth.ForeGround.Bottom);
 
 			m_MenuItemSprites = new ArrayList();
