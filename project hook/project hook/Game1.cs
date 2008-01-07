@@ -97,6 +97,7 @@ namespace project_hook
 				TextureLibrary.LoadTexture("Enemy1");
 				TextureLibrary.LoadTexture("Explosion");
 				TextureLibrary.LoadTexture("Shield");
+                TextureLibrary.LoadTexture("FireBall");
                 drawtext.Load(content);
 
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
