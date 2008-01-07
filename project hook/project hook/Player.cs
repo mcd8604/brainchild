@@ -20,8 +20,6 @@ namespace project_hook
         //variable for storing the player ship sprite and info
         PlayerShip m_PlayerShip;
 
-		GraphicsDeviceManager m_GraphicsDeviceManager;
-
 		Score m_Score;
 
 		public PlayerShip PlayerShip
@@ -71,10 +69,9 @@ namespace project_hook
 		/// <param name="p_Visible"></param>
 		/// <param name="p_Degree"></param>
 		/// <param name="p_zBuff"></param>
-        public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, GraphicsDeviceManager p_GraphicsDeviceManager)
+        public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
         {
 			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
-			m_GraphicsDeviceManager = p_GraphicsDeviceManager;
 			m_Score = new Score(0);
 		}
 
@@ -155,8 +152,8 @@ namespace project_hook
             m_PlayerSpeed.Y *= m_PlayerFriction;
             tempPlayerPosition.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
             tempPlayerPosition.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
-            tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X, 0, m_GraphicsDeviceManager.GraphicsDevice.Viewport.Width);
-            tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y, 0, m_GraphicsDeviceManager.GraphicsDevice.Viewport.Height);
+            tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X, 0, Game1.graphics.GraphicsDevice.Viewport.Width);
+			tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y, 0, Game1.graphics.GraphicsDevice.Viewport.Height);
             m_PlayerShip.Position = tempPlayerPosition;
 
             PlayerShip.Update(p_GameTime);
