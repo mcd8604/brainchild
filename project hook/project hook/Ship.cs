@@ -84,5 +84,11 @@ namespace project_hook
 				m_Weapons = value;
             }
         }
+
+		public override void Update(GameTime p_Time)
+		{
+			base.Update(p_Time);
+			m_ShieldSprite.Visible = (Shield > 0);
+		}
     }
 }
