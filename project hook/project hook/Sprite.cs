@@ -274,7 +274,7 @@ namespace project_hook
         //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
-			if (!Visible || Texture != null)
+			if (Visible && Texture != null)
 			{
 				if (m_Parts != null && m_Parts.Count > 0)
 				{
