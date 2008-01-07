@@ -20,7 +20,7 @@ namespace project_hook
 		List<Sprite> spritelist = new List<Sprite>();
         List<Shot> shots = new List<Shot>();
 
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         ContentManager content;
         KeyHandler keyhandler;
 		Sprite cloud;
