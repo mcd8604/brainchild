@@ -21,7 +21,8 @@ namespace project_hook
             : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Path, p_Speed, p_DamageEffect, p_Radius)
         {
             m_Weapons = new List<Weapon>();
-			m_Weapons.Add(new Weapon(this, 10, 150, 15, TextureLibrary.getGameTexture("RedShot", "1")));
+			m_Weapons.Add(new Weapon(this, 10, 300, 5, TextureLibrary.getGameTexture("RedShot", "1")));
+            m_Weapons.Add(new Weapon_SideShot(this, 10, 200, 15, TextureLibrary.getGameTexture("FireBall", "1")));
 
 			Sprite shield = new Sprite("Shield", Vector2.Zero, (int)(p_Width *1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield",""), 100, true, 0, Depth.MidGround.Bottom);
             Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -48,7 +49,8 @@ namespace project_hook
             foreach (Weapon w in m_Weapons)
             {
                 List<Shot> shots = w.CreatShot(p_GameTime);
-                allShots.AddRange(shots.GetRange(0, shots.Count));
+                
+                allShots.AddRange(shots);
             }
             return allShots;
         }

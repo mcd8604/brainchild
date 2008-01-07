@@ -18,7 +18,7 @@ namespace project_hook
 	{
 		#region Variables and Properties
 		//this is a ref to what ship this weapon is a psrt of.
-		private Ship m_Ship;
+		protected Ship m_Ship;
 		public Ship Ship
 		{
 			get
@@ -32,7 +32,7 @@ namespace project_hook
 		}
 
 		//the strength of the shot fired
-		private int m_Strength;
+		protected int m_Strength;
 		public int Strength
 		{
 			get
@@ -46,7 +46,7 @@ namespace project_hook
 		}
 
 		//this is how long the delay is between shots in millisecnds
-		private int m_Delay;
+		protected int m_Delay;
 		public int Delay
 		{
 			get
@@ -60,7 +60,7 @@ namespace project_hook
 		}
 
 		//this is how fast the shot will travel
-		private int m_Speed;
+		protected int m_Speed;
 		public int Speed
 		{
 			get
@@ -74,7 +74,7 @@ namespace project_hook
 		}
 
 		//this is the texture of this weapon's shot
-		private GameTexture m_Shot;
+		protected GameTexture m_Shot;
 		public GameTexture Shot
 		{
 			get
@@ -88,7 +88,7 @@ namespace project_hook
 		}
 
 		//this is used to keep track of how many shots have been fired by this weapon
-		private int m_ShotNumber;
+		protected int m_ShotNumber;
 		public int ShotNumber
 		{
 			get
@@ -102,7 +102,7 @@ namespace project_hook
 		}
 
         //this will hold the time of the last shot
-        private double m_LastShot = 0;
+        protected double m_LastShot = 0;
         public double LastShot
         {
             get
@@ -127,7 +127,7 @@ namespace project_hook
 		}
 
 		//this function will creat a Shot at the current location
-		public List<Shot> CreatShot(GameTime p_GameTime)
+		public virtual List<Shot> CreatShot(GameTime p_GameTime)
 		{
             if (p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastShot + m_Delay)
             {
@@ -136,7 +136,7 @@ namespace project_hook
                 
                 //first shot
                 Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 100, true,
-                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 5, 10);
+                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 5, 10);
 
                 //adds all the stuff that was in Game1
                 //i just moved it over here.
@@ -153,7 +153,7 @@ namespace project_hook
 
                 //second shot
                 Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 100, true,
-                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 5, 10);
+                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 5, 10);
                 
                 Vector2 shot = t_Shot2.Position;
                 shot.X = m_Ship.Position.X + 50;
