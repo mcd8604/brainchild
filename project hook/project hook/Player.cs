@@ -116,7 +116,7 @@ namespace project_hook
 
 		public List<Shot> Shoot(GameTime p_GameTime)
 		{
-            return m_PlayerShip.Weapon.CreatShot(p_GameTime);
+            return m_PlayerShip.shoot(p_GameTime);
 		}
 
 		private void CalcMovement(GameTime p_GameTime, Vector2 p_PlayerSpeedBuffer)
