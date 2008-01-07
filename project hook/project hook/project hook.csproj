@@ -139,6 +139,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Sprite</Name>
     </Compile>
+    <Compile Include="Tail.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Class1</Name>
+    </Compile>
     <Compile Include="TextureLibrary.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TextureLibrary</Name>
