@@ -159,6 +159,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Weapon</Name>
     </Compile>
+    <Compile Include="Weapon_SideShot.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Weapon_SideShot</Name>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Textures\Back.png">
@@ -251,6 +255,18 @@
     <Content Include="Content\Animations\AnimationDefn.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>AnimationDefn</Name>
+    </Content>
+    <Content Include="Content\Textures\FireBall.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>FireBall</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\FireBall.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>FireBall</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\menu_highlight.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
