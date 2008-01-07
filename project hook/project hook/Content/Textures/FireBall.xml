@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Texture>
+	<Rectangle>
+		<Name>FireBall</Name>
+		<Tag>0</Tag>
+		<PosX>0</PosX>
+		<PosY>0</PosY>
+		<Width>200</Width>
+		<Height>425</Height>
+	</Rectangle>
+	<Rectangle>
+		<Name>FireBall</Name>
+		<Tag>1</Tag>
+		<PosX>250</PosX>
+		<PosY>0</PosY>
+		<Width>200</Width>
+		<Height>425</Height>
+	</Rectangle>
+	<Rectangle>
+		<Name>FireBall</Name>
+		<Tag>2</Tag>
+		<PosX>425</PosX>
+		<PosY>0</PosY>
+		<Width>200</Width>
+		<Height>425</Height>
+	</Rectangle>
+</Texture>
