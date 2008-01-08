@@ -51,52 +51,18 @@ namespace project_hook
         private int m_Friction = 4;
 
 		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius)
+							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius, Ship p_AttachShip)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, -1,p_Path,p_Speed,p_DamageEffect,p_Radius )
         {
+			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+			dic.Add(PathStrategy.ValueKeys.Target, p_AttachShip);
+			dic.Add(PathStrategy.ValueKeys.Base, this);
+			this.Path = new Path(Path.Paths.Bother, dic);
             m_TailTarget = new Vector2(-1, -1);
             m_EnemyCaught = null;
         }
 
-        protected void UpdateTailSpeed()
-        {
-            double distance = Math.Sqrt(Math.Pow((this.Position.X - m_PlayerShip.Position.X), 2) + (Math.Pow((this.Position.Y - m_PlayerShip.Position.Y), 2)));
-            if (m_TailTarget.X == -1 && m_TailTarget.Y == -1)
-            {
-                if (distance > 40)
-                {
-                    m_TailSpeed = (m_PlayerShip.Position*2 - this.Position*2);
-                }
-                else
-                {
-                    if (m_TailSpeed.Y > 0)
-                        m_TailSpeed.Y = MathHelper.Max(m_TailSpeed.Y - (m_Friction/2), 0);
-                    else if (m_TailSpeed.Y < 0)
-                        m_TailSpeed.Y = MathHelper.Min(m_TailSpeed.Y + (m_Friction/2), 0);
-
-                    if (m_TailSpeed.X > 0)
-                        m_TailSpeed.X = MathHelper.Max(m_TailSpeed.X - (m_Friction/2), 0);
-                    else if (m_TailSpeed.X < 0)
-                        m_TailSpeed.X = MathHelper.Min(m_TailSpeed.X + (m_Friction/2), 0);
-                }
-            }
-            else if(m_EnemyCaught == null)
-            {
-                this.Degree = TurnToFace(this.Position, m_TailTarget, this.Degree, 1000);
-                m_TailSpeed.X = (m_TailTarget.X - this.Position.X) * 10;
-                m_TailSpeed.Y = (m_TailTarget.Y - this.Position.Y) * 10;
-            }
-
-            if (MathHelper.Distance(this.Position.X, m_TailTarget.X) < 5 && MathHelper.Distance(this.Position.Y, m_TailTarget.Y) < 5)
-            {
-                m_TailSpeed.X = 0;
-                m_TailSpeed.Y = 0;
-                m_TailTarget.X = -1;
-                m_TailTarget.Y = -1;
-            }
-
-            UpdateEnemyCaught();
-        }
+        
 
         public void TailCollide(Ship p_Ship)
         {
