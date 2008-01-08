@@ -5,34 +5,36 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	/*
-	 * This class will check collisions between all objects given to it by world
-	 * This is just the start, will will work on it later
-	 */
-	class gameCollision
-	{
-		public gameCollision(Array colArray)
-		{
-			Array collidables = colArray;
-		}
+    /*
+     * This class will check collisions between all objects given to it by world
+     * This is just the start, will will work on it later
+     */
+    class gameCollision
+    {
+        public gameCollision(Array colArray)
+        {
+            Array collidables = colArray;
+        }
 
-		public virtual void checkCollisions()
-		{
-			//for (int i = 0; i < collidables.length; i++)
-			{
-				//Collidable firstCol = collidables[i];
-				//for (int j = 0; j < collidables.length; j++)
-				{
-                  //  Collidable secondCol = collidables[j];
-                   // if (firstCol.faction != secondCol.faction && Intersection.DoesIntersectDiamond(firstCol.Position + firstCol.Center, firstCol.Height / 2.5f, secondCol.Position + secondCol.Center, secondCol.Height / 2.5f))
-					{
+        [Obsolete]
+        public virtual void checkCollisions()
+        {
+            //for (int i = 0; i < collidables.length; i++)
+            {
+                //Collidable firstCol = collidables[i];
+                //for (int j = 0; j < collidables.length; j++)
+                {
+                    //  Collidable secondCol = collidables[j];
+                    // if (firstCol.faction != secondCol.faction && Intersection.DoesIntersectDiamond(firstCol.Position + firstCol.Center, firstCol.Height / 2.5f, secondCol.Position + secondCol.Center, secondCol.Height / 2.5f))
+                    {
                         //Here be collisions
-					}
-				}
-			}
-		}
+                    }
+                }
+            }
+        }
 
-        public static void QuickCheckCollision(List<Sprite> temp,GameTime gameTime,Player player)
+        [Obsolete]
+        public static void QuickCheckCollision(List<Sprite> temp, GameTime gameTime, Player player)
         {
 
             for (int a = 0; a < temp.Count; a++)
@@ -64,13 +66,13 @@ namespace project_hook
                         }
                     }
                 }
-            
+
             }
 
         }
 
 
-	}
+    }
 }
 /*
   * Class: Game Collision
