@@ -9,7 +9,7 @@ namespace project_hook
     {
         /// <summary>
         /// Check Everything in list to see if any collisions have occured.
-        /// gametime is _not_ required byt this method, but some collidables require it in their registercollision method
+        /// gametime is _not_ required by this method, but some collidables require it in their registercollision method
         /// </summary>
         /// <param name="list"></param>
         /// <param name="gametime"></param>
