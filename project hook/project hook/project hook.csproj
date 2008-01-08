@@ -151,6 +151,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>testTextureLibrary</Name>
     </Compile>
+    <Compile Include="Visual.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Visual</Name>
+    </Compile>
     <Compile Include="VisualEffect.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>VisualEffect</Name>
