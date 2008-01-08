@@ -21,6 +21,10 @@ namespace project_hook
         int m_CurrentFrame = 0;
         bool m_UpdateAnimation = true;
 
+        //Number of animation cycles the visualeffect exists
+        int m_Cycles;
+        int m_CycleCount;
+        bool m_CycleRemoval;//remove the sprite after cycles are up
 
         public int FramesPerSecond
         {
@@ -40,13 +44,31 @@ namespace project_hook
             frames = TextureLibrary.getSpriteSheet(p_Name);
 			m_BaseSprite.Texture = frames[m_CurrentFrame.ToString()];
 			FramesPerSecond = p_FramesPerSecond;
+            m_CycleRemoval = false;
+        }
+
+        public VisualEffect(String p_Name, Sprite p_Base, int p_FramesPerSecond, int p_Cycles)
+        {
+            m_BaseSprite = p_Base;
+            m_Name = p_Name;
+            frames = TextureLibrary.getSpriteSheet(p_Name);
+            m_BaseSprite.Texture = frames[m_CurrentFrame.ToString()];
+            FramesPerSecond = p_FramesPerSecond;
+            m_Cycles = p_Cycles;
+            m_CycleCount = 0;
+            m_CycleRemoval = true;
         }
 
         public void Update(GameTime gameTime)
         {
             if (m_UpdateAnimation)
             {
-
+                //check if cycles up
+                if (m_CycleRemoval && m_CycleCount >= m_Cycles)
+                {
+                    //lazy sprite removal
+                    m_BaseSprite.Visible = false;
+                }
 
                 m_Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -54,7 +76,13 @@ namespace project_hook
                 {
                     m_Timer = 0f;
                     m_CurrentFrame = (m_CurrentFrame + 1) % frames.Count;
-					m_BaseSprite.Texture = frames[m_CurrentFrame.ToString()];
+                    m_BaseSprite.Texture = frames[m_CurrentFrame.ToString()];
+
+                    //increment cycles if needed
+                    if (m_CurrentFrame == 0)
+                    {
+                        m_CycleCount++;
+                    }
                 }
             }
         }

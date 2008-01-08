@@ -269,7 +269,14 @@ namespace project_hook
 		{
 			m_Animation = new VisualEffect(p_Animation, this,p_FramesPerSecond);
 			m_Animation.StopAnimation();
-		}        
+        }
+
+        //sets the anmmation for the object.
+        public void setAnimation(string p_Animation, int p_FramesPerSecond, int p_Cycles)
+        {
+            m_Animation = new VisualEffect(p_Animation, this, p_FramesPerSecond, p_Cycles);
+            m_Animation.StopAnimation();
+        }             
         
         //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
