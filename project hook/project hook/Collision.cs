@@ -9,11 +9,10 @@ namespace project_hook
     {
         /// <summary>
         /// Check Everything in list to see if any collisions have occured.
-        /// gametime is _not_ required by this method, but some collidables require it in their registercollision method
         /// </summary>
         /// <param name="list"></param>
         /// <param name="gametime"></param>
-        public static void CheckCollisions(List<Sprite> list, GameTime gametime)
+        public static void CheckCollisions(List<Sprite> list)
         {
             MultiDictionary<Collidable.Factions, Collidable> sorter = new MultiDictionary<Collidable.Factions, Collidable>(true);
             foreach (Sprite s in list)
@@ -36,8 +35,8 @@ namespace project_hook
                         {
                             if (DoesIntersect(c, x))
                             {
-                                c.RegisterCollision(x, gametime);
-                                x.RegisterCollision(c, gametime);
+                                c.RegisterCollision(x);
+                                x.RegisterCollision(c);
                             }
                         }
                     }
