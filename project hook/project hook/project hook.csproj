@@ -60,6 +60,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BotherPath.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Class1</Name>
+    </Compile>
     <Compile Include="Collidable.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -294,6 +298,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Shield</Name>
+    </Content>
+    <Content Include="Content\Textures\temptail.PNG">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>temptail</Name>
     </Content>
     <Content Include="Courier New.spritefont">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
