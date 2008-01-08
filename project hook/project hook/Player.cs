@@ -47,6 +47,21 @@ namespace project_hook
 			}
 		}
 
+        private Rectangle m_Bounds;
+
+        public  Rectangle Bounds
+        {
+            get
+            {
+                return m_Bounds;
+            }
+            set
+            {
+                m_Bounds = value;
+            }
+
+        }
+
         Vector2 m_PlayerSpeed = new Vector2(0, 0); //The distance the player sprite is going to move next time it is drawn
 		Vector2 m_PlayerSpeedBuffer = new Vector2(0, 0);
         int m_PlayerAcceleration = 100; //The increase in speed that the will happen upon a movement call
@@ -69,14 +84,16 @@ namespace project_hook
 		/// <param name="p_Visible"></param>
 		/// <param name="p_Degree"></param>
 		/// <param name="p_zBuff"></param>
-        public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
+        public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds)
         {
 			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
+            Bounds = p_Bounds;
 			m_Score = new Score(0);
 		}
 
-		public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, int p_Score)
-		{
+		public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds, int p_Score)
+        {
+            Bounds = p_Bounds;
 			//m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
 			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
 			m_Score = new Score((ulong)p_Score);
@@ -152,8 +169,8 @@ namespace project_hook
             m_PlayerSpeed.Y *= m_PlayerFriction;
             tempPlayerPosition.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
             tempPlayerPosition.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
-            tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X, 0, Game1.graphics.GraphicsDevice.Viewport.Width);
-			tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y, 0, Game1.graphics.GraphicsDevice.Viewport.Height);
+            tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X, m_Bounds.X, m_Bounds.Width);
+			tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y, m_Bounds.Y, m_Bounds.Height);
             m_PlayerShip.Position = tempPlayerPosition;
 
             PlayerShip.Update(p_GameTime);
