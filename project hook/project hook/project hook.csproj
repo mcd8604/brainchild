@@ -57,6 +57,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +81,10 @@
     <Compile Include="FollowPath.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FollowPath</Name>
+    </Compile>
+    <Compile Include="Game.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Game</Name>
     </Compile>
     <Compile Include="gameCollision.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -170,6 +175,10 @@
     <Compile Include="Weapon_SideShot.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Weapon_SideShot</Name>
+    </Compile>
+    <Compile Include="World.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>World</Name>
     </Compile>
   </ItemGroup>
   <ItemGroup>
