@@ -102,6 +102,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Menu</Name>
     </Compile>
+    <Compile Include="Menus.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Menus</Name>
+    </Compile>
     <Compile Include="Path.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Path</Name>
