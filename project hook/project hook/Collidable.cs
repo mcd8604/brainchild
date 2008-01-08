@@ -112,11 +112,11 @@ namespace project_hook
         }
 
 
-		public virtual void CheckCollision(Collidable p_Sprite)
-		{
+		//public virtual void CheckCollision(Collidable p_Sprite)
+		//{
 			//to do:	send it's self and p_Sprite to the gameCollision class, and check for a collision.
 			//			if there is a collision do some action.  no action at this point.
-		}
+		//}
 
 		public virtual void RegisterCollision(Collidable p_Other, GameTime gameTime)
 		{
