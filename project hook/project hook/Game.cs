@@ -57,15 +57,15 @@ namespace project_hook
             m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             // This will initialize any libraries or static classes needed
             TextureLibrary.iniTextures(content);
+            
+            Menus.ini();
+            Menus.setCurrentMenu(Menus.MenuScreens.Main);
+            m_InputHandler = InputHandlerState.Menu;
 
             m_KeyHandler = new KeyHandler();
 
 
-            m_World = new World();
-            m_World.loadLevel(content);
-            m_World.initialize( new Rectangle(0,0,graphics.PreferredBackBufferWidth,graphics.PreferredBackBufferHeight));
-            m_InputHandler = InputHandlerState.World;
-            m_World.changeState(World.GameState.Running);
+//            
             base.Initialize();
         }
 
@@ -114,9 +114,50 @@ namespace project_hook
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (Menus.Exit)
+            {
+                this.Exit();
+            }
+
+            m_KeyHandler.Update();
+
             if (m_KeyHandler.IsKeyPressed(Keys.F))
             {
                 graphics.ToggleFullScreen();
+            }
+
+            if (Menus.HasChanged == true)
+            {
+                m_Menu = Menus.getCurrentMenu();
+                if (m_Menu != null)
+                {
+                    m_Menu.Load(null);
+                    m_InputHandler = InputHandlerState.Menu;
+                    m_Menu.ToggleVisibility();
+                }
+                else
+                {
+
+                    m_InputHandler = InputHandlerState.World;
+                }
+            }
+
+            if (m_Menu != null)
+            {
+                if (m_InputHandler == InputHandlerState.Menu)
+                {
+                    m_Menu.checkKeys(m_KeyHandler);
+                }
+            }
+
+            if (World.CreateWorld == true)
+            {
+                m_World = new World();
+                       m_World.loadLevel(content);
+                        m_World.initialize( new Rectangle(0,0,graphics.PreferredBackBufferWidth,graphics.PreferredBackBufferHeight));
+                      m_World.changeState(World.GameState.Running);
+                      World.CreateWorld = false;
+
             }
 
             //This will check if the game world is created.  
@@ -148,12 +189,17 @@ namespace project_hook
         protected override void Draw(GameTime gameTime)
         {
 
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            graphics.GraphicsDevice.Clear(Color.Black);
 
             if (m_World != null)
             {
                 m_World.draw(m_SpriteBatch);
 
+            }
+
+            if (m_Menu != null)
+            {
+                m_Menu.Draw(m_SpriteBatch);
             }
 
             // TODO: Add your drawing code here
