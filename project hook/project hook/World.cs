@@ -12,6 +12,19 @@ namespace project_hook
 
         private List<Sprite> m_SpriteList;
         
+        private static Boolean m_CreateWorld = false;
+        public static Boolean CreateWorld
+        {
+            get
+            {
+                return m_CreateWorld;
+            }
+            set
+            {
+                m_CreateWorld = value;
+            }
+        }
+
         
         DrawText m_DrawText;
         Player m_Player;
@@ -104,17 +117,13 @@ namespace project_hook
                 {
                     m_SpriteList.Remove(s);
                 }
-
-               
-
             }
-
         }
 
         public void update(GameTime p_GameTime, KeyHandler p_KeyHandler)
         {
 
-            p_KeyHandler.Update();
+            
 
           
                 // Allows the game to exit
@@ -123,10 +132,12 @@ namespace project_hook
                     if (m_State == GameState.Paused)
                     {
                         changeState(m_PreviousState);
+                        Menus.setCurrentMenu(Menus.MenuScreens.None);
                     }
                     else
                     {
                         changeState(GameState.Paused);
+                        Menus.setCurrentMenu(Menus.MenuScreens.Main);
                     }
                 }
 
