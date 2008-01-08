@@ -109,7 +109,7 @@ namespace project_hook
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
 				enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", ""), 100);
-				tail = new Tail("Tail", back1.PlayerShip.Position, 70, 27, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 0, null, 30);
+				tail = new Tail("Tail", back1.PlayerShip.Position, 70, 27, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 0, null, 30, back1.PlayerShip);
 				
 
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -119,12 +119,6 @@ namespace project_hook
                 dic.Add(PathStrategy.ValueKeys.Base, enemy);
                 enemy.Path = new Path(Path.Paths.Line,dic);
                 enemy.Update(new GameTime());
-
-				dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic.Add(PathStrategy.ValueKeys.Target, back1.PlayerShip);
-				dic.Add(PathStrategy.ValueKeys.Base, tail);
-				tail.Path = new Path(Path.Paths.Bother, dic);
-				tail.Update(new GameTime());
 				
 
                 /*
