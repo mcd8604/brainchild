@@ -50,9 +50,9 @@ namespace project_hook
             }
         }
 
-		public override void RegisterCollision(Collidable p_Other, GameTime gameTime)
+		public override void RegisterCollision(Collidable p_Other)
 		{
-			base.RegisterCollision(p_Other, gameTime);
+			base.RegisterCollision(p_Other);
 			Visible = false;
 		}
 

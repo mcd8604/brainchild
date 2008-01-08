@@ -58,8 +58,8 @@ namespace project_hook
                                 {
 
                                     //explosion.Position = (item.Position + item2.Position) / 2;
-                                    item.RegisterCollision(item2, gameTime);
-                                    item2.RegisterCollision(item, gameTime);
+                                    item.RegisterCollision(item2);
+                                    item2.RegisterCollision(item);
                                     player.Score.RegisterHit(gameTime);
                                 }
                             }

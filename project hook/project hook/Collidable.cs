@@ -105,7 +105,7 @@ namespace project_hook
 		}
 
 		//this is the sprite for teh damage effect
-		private Visual m_DamageSprite;
+        private Sprite m_DamageSprite;
 
 		//this is the radius used for collision detection
 		private float m_Radius;
@@ -141,12 +141,12 @@ namespace project_hook
 			//			if there is a collision do some action.  no action at this point.
 		//}
 
-		public virtual void RegisterCollision(Collidable p_Other, GameTime gameTime)
+		public virtual void RegisterCollision(Collidable p_Other)
 		{
 			if (m_DamageEffect != null)
 			{
                
-				m_DamageSprite = new Visual(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 50f, true, 0, Depth.MidGround.Top, gameTime, 1.1f);
+				m_DamageSprite = new Sprite(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 50f, true, 0, Depth.MidGround.Top);
                 m_DamageSprite.setAnimation(m_DamageEffect.Name, 10);
                 m_DamageSprite.Animation.StartAnimation();
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();

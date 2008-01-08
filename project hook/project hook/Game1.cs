@@ -403,8 +403,8 @@ namespace project_hook
 				foreach ( Collidable item2 in temp ) {
 					if ( item != item2 && Intersection.DoesIntersectDiamond(item.Position + item.Center, item.Height/2.5f, item2.Position + item2.Center, item2.Height/2.5f) ) {
 						//explosion.Position = (item.Position + item2.Position) / 2;
-						item.RegisterCollision(item2, gameTime);
-						item2.RegisterCollision(item, gameTime);
+						item.RegisterCollision(item2);
+						item2.RegisterCollision(item);
 						back1.Score.RegisterHit(gameTime);
 					}
 				}
