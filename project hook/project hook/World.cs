@@ -41,7 +41,7 @@ namespace project_hook
             Exiting
         }
 
-        public Rectangle m_ViewPortSize;
+        public static Rectangle m_ViewPortSize;
         
         public World(){
 

@@ -37,8 +37,8 @@ namespace project_hook
             : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Path, p_Speed, p_DamageEffect, p_Radius)
         {
             m_Weapons = new List<Weapon>();
-			m_Weapons.Add(new Weapon(this, 10, 300, 5, TextureLibrary.getGameTexture("RedShot", "1")));
-            m_Weapons.Add(new Weapon_SideShot(this, 10, 200, 15, TextureLibrary.getGameTexture("FireBall", "1")));
+			m_Weapons.Add(new Weapon(this, 10, 300, 250, TextureLibrary.getGameTexture("RedShot", "1")));
+            m_Weapons.Add(new Weapon_SideShot(this, 10, 200, 175, TextureLibrary.getGameTexture("FireBall", "1")));
 
 			m_Shield = p_Shield;
 

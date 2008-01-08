@@ -13,7 +13,7 @@ namespace project_hook
 
         Vector2 m_Delta;
 
-		int m_Delay = 100;
+		//int m_Delay = 100;
 		double m_LastFrame;
 
         public ShotPath(Dictionary<ValueKeys, Object> p_Values)
@@ -31,9 +31,14 @@ namespace project_hook
         public override void CalculateMovement(GameTime p_GameTime)
         {
 			Vector2 t_Cur = m_Base.Center;
-			if (t_Cur.X > 0 && t_Cur.X < Game1.graphics.GraphicsDevice.Viewport.Width &&
-				t_Cur.Y > 0 && t_Cur.Y < Game1.graphics.GraphicsDevice.Viewport.Height)
+			if (t_Cur.X > 0 && t_Cur.X <= m_End.X &&
+				t_Cur.Y > 0 && t_Cur.Y >= m_End.Y)
 			{
+             //   t_Cur.X = t_Cur.X - m_Base.Speed * p_GameTime.ElapsedGameTime.Milliseconds/1000.0f;
+                t_Cur.Y = t_Cur.Y - m_Base.Speed * p_GameTime.ElapsedGameTime.Milliseconds / 1000.0f;
+                m_Base.Center = t_Cur;
+
+                /*
 				if (p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastFrame + m_Delay)
 				{
 					t_Cur.X += (float)(m_Delta.X * p_GameTime.ElapsedGameTime.TotalMilliseconds);
@@ -42,6 +47,7 @@ namespace project_hook
 					m_Base.Center = t_Cur;
 					m_LastFrame = p_GameTime.TotalGameTime.TotalMilliseconds;
 				}
+                 * */
 			}
 			else
 			{
