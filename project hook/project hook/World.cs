@@ -84,9 +84,7 @@ namespace project_hook
             {
                 m_Player.UpdatePlayer(p_GameTime);
 
-
-                gameCollision.QuickCheckCollision(m_SpriteList, p_GameTime, m_Player);
-
+                Collision.CheckCollisions(m_SpriteList, p_GameTime);
 
                 List<Sprite> toBeRemoved = new List<Sprite>();
 
