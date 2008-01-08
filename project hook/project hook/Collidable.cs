@@ -122,7 +122,15 @@ namespace project_hook
 		{
 			if (m_DamageEffect != null)
 			{
-				m_DamageSprite = new Visual(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 50f, true, 0, Depth.MidGround.Top, gameTime, .1f);
+               
+				m_DamageSprite = new Visual(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 50f, true, 0, Depth.MidGround.Top, gameTime, 1.1f);
+                m_DamageSprite.setAnimation(m_DamageEffect.Name, 10);
+                m_DamageSprite.Animation.StartAnimation();
+                Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+
+                dic.Add(PathStrategy.ValueKeys.Target,this);
+                dic.Add(PathStrategy.ValueKeys.Base, m_DamageSprite);
+                m_DamageSprite.Path = new Path(Path.Paths.Follow, dic);
 				attachSpritePart(m_DamageSprite);
 			}
 		}
