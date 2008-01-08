@@ -29,12 +29,12 @@ namespace project_hook
         Player back1;
         Sprite back2;
 
-        Sprite shotEffect;
-		Sprite shot2Effect;
+        //Sprite shotEffect;
+		//Sprite shot2Effect;
 
 		Collidable enemy;
 
-		Sprite explosion;
+		//Sprite explosion;
 
         // lazy fps code
         DrawText drawtext;
@@ -106,7 +106,7 @@ namespace project_hook
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f,Depth.ForeGround.Bottom);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
-				enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, null, 100);
+				enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", ""), 100);
 
                 
 
@@ -126,7 +126,7 @@ namespace project_hook
                 shotEffect.Animation.StartAnimation();
                 shot2Effect.Animation.StartAnimation();
                 */
-				explosion = new Sprite("Explosion", new Vector2(-100f, -100f), 100, 100, TextureLibrary.getGameTexture("Explosion", ""), 50f, true, 0, Depth.ForeGround.Mid);
+				//explosion = new Sprite("Explosion", new Vector2(-100f, -100f), 100, 100, TextureLibrary.getGameTexture("Explosion", ""), 50f, true, 0, Depth.ForeGround.Mid);
 
 
 				spritelist.Add(enemy);
@@ -385,11 +385,13 @@ namespace project_hook
 
 			List<Sprite> temp = new List<Sprite>(spritelist);
 
-			foreach( Sprite item in temp ) {
+			foreach( Collidable item in temp ) {
 				//temp.Remove( item ); // Todo: fix this later
-				foreach ( Sprite item2 in temp ) {
+				foreach ( Collidable item2 in temp ) {
 					if ( item != item2 && Intersection.DoesIntersectDiamond(item.Position + item.Center, item.Height/2.5f, item2.Position + item2.Center, item2.Height/2.5f) ) {
-						explosion.Position = (item.Position + item2.Position) / 2;
+						//explosion.Position = (item.Position + item2.Position) / 2;
+						item.RegisterCollision(item2, gameTime);
+						item2.RegisterCollision(item, gameTime);
 						back1.Score.RegisterHit(gameTime);
 					}
 				}
@@ -423,7 +425,7 @@ namespace project_hook
             drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(),Vector2.Zero,Color.White);
 
 			enemy.Draw(m_spriteBatch);
-            explosion.Draw(m_spriteBatch);
+            //explosion.Draw(m_spriteBatch);
 
             menu.Draw(m_spriteBatch);
 

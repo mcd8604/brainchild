@@ -81,6 +81,9 @@ namespace project_hook
 			}
 		}
 
+		//this is the sprite for teh damage effect
+		private Visual m_DamageSprite;
+
 		//this is the radius used for collision detection
 		private float m_Radius;
 		public float Radius
@@ -113,6 +116,25 @@ namespace project_hook
 		{
 			//to do:	send it's self and p_Sprite to the gameCollision class, and check for a collision.
 			//			if there is a collision do some action.  no action at this point.
+		}
+
+		public virtual void RegisterCollision(Collidable p_Other, GameTime gameTime)
+		{
+			if (m_DamageEffect != null)
+			{
+				m_DamageSprite = new Visual(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 50f, true, 0, Depth.MidGround.Top, gameTime, .1f);
+				attachSpritePart(m_DamageSprite);
+			}
+		}
+
+		public override void Draw(SpriteBatch p_SpriteBatch)
+		{
+			base.Draw(p_SpriteBatch);
+
+			if (m_DamageSprite != null)
+			{
+				m_DamageSprite.Draw(p_SpriteBatch);
+			}
 		}
 	}
 }
