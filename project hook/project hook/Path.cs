@@ -26,6 +26,10 @@ namespace project_hook
             {
                 m_Path = new ShotPath(p_Values);
             }
+			else if (m_Strategy == Paths.Bother)
+			{
+				m_Path = new BotherPath(p_Values);
+			}
           //  return m_Path;
 		}
 
@@ -43,7 +47,8 @@ namespace project_hook
 		{
 			Follow,
 			Line,
-            Shot
+            Shot,
+			Bother
 
 		}
 

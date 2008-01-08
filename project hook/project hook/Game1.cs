@@ -28,6 +28,7 @@ namespace project_hook
         Sprite back;
         Player back1;
         Sprite back2;
+		Tail tail;
 
         //Sprite shotEffect;
 		//Sprite shot2Effect;
@@ -98,6 +99,7 @@ namespace project_hook
 				TextureLibrary.LoadTexture("Explosion");
 				TextureLibrary.LoadTexture("Shield");
                 TextureLibrary.LoadTexture("FireBall");
+				TextureLibrary.LoadTexture("temptail");
                 drawtext.Load(content);
 
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -107,8 +109,8 @@ namespace project_hook
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
 				enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", ""), 100);
-
-                
+				tail = new Tail("Tail", back1.PlayerShip.Position, 70, 27, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 0, null, 30);
+				
 
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
@@ -117,6 +119,13 @@ namespace project_hook
                 dic.Add(PathStrategy.ValueKeys.Base, enemy);
                 enemy.Path = new Path(Path.Paths.Line,dic);
                 enemy.Update(new GameTime());
+
+				dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.Target, back1.PlayerShip);
+				dic.Add(PathStrategy.ValueKeys.Base, tail);
+				tail.Path = new Path(Path.Paths.Bother, dic);
+				tail.Update(new GameTime());
+				
 
                 /*
                 shot2Effect = new Sprite("RedShot2", new Vector2(-400.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
@@ -317,6 +326,7 @@ namespace project_hook
                 UpdateFPS(gameTime);
                 // adn
                 enemy.Update(gameTime);
+				tail.Update(gameTime);
                 if (enemy.Path.isDone())
                 {
                     if (path == 0)
@@ -426,6 +436,7 @@ namespace project_hook
 
 			enemy.Draw(m_spriteBatch);
             //explosion.Draw(m_spriteBatch);
+			tail.Draw(m_spriteBatch);
 
             menu.Draw(m_spriteBatch);
 
