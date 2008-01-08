@@ -34,11 +34,13 @@ namespace project_hook
 			if (t_Cur.X > 0 && t_Cur.X <= m_End.X &&
 				t_Cur.Y > 0 && t_Cur.Y >= m_End.Y)
 			{
+                //This makes the shot mopve in the Y direction based on the speed of the shot relative to the elapsed time
              //   t_Cur.X = t_Cur.X - m_Base.Speed * p_GameTime.ElapsedGameTime.Milliseconds/1000.0f;
                 t_Cur.Y = t_Cur.Y - m_Base.Speed * p_GameTime.ElapsedGameTime.Milliseconds / 1000.0f;
                 m_Base.Center = t_Cur;
 
                 /*
+                 *
 				if (p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastFrame + m_Delay)
 				{
 					t_Cur.X += (float)(m_Delta.X * p_GameTime.ElapsedGameTime.TotalMilliseconds);
