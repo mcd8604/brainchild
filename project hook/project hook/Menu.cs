@@ -73,8 +73,8 @@ namespace project_hook
         private void initMenuSprites()
 		{
             GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
-            float xPos = (Game1.graphics.GraphicsDevice.Viewport.Width - bgTexture.Width) / 2;
-			float yPos = (Game1.graphics.GraphicsDevice.Viewport.Height - bgTexture.Height) / 2;
+            float xPos = (800 - bgTexture.Width) / 2;
+			float yPos = (600 - bgTexture.Height) / 2;
             m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 100.0f, true, 0, Depth.ForeGround.Bottom);
 
 			m_MenuItemSprites = new ArrayList();
@@ -102,17 +102,21 @@ namespace project_hook
 
 		}
 
-		public void Draw(SpriteBatch m_SpriteBatch)
+		public void Draw(SpriteBatch p_SpriteBatch)
 		{
             if (m_visible)
             {
-                m_BackgroundSprite.Draw(m_SpriteBatch);
+                p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
+
+                m_BackgroundSprite.Draw(p_SpriteBatch);
                 for (int i = 0; i < m_MenuItemSprites.Count; i++)
                 {
                     Sprite curSprite = (Sprite)m_MenuItemSprites[i];
-                    curSprite.Draw(m_SpriteBatch);
+                    curSprite.Draw(p_SpriteBatch);
                 }
-                m_HightlightSprite.Draw(m_SpriteBatch);
+                m_HightlightSprite.Draw(p_SpriteBatch);
+
+                p_SpriteBatch.End();
             }
 		}
 
@@ -123,12 +127,12 @@ namespace project_hook
 
         //lazy params
         //(should menu have its own KeyHandler?)
-        public void checkKeys(KeyHandler keyhandler, Game1 game)
+        public void checkKeys(KeyHandler keyhandler)
         {
             if (keyhandler.IsActionPressed(KeyHandler.Actions.Pause))
             {
                 //this.Exit();
-                m_visible = false;
+               
             }
 
             if (keyhandler.IsActionPressed(KeyHandler.Actions.Up))
@@ -143,7 +147,7 @@ namespace project_hook
 
             if (keyhandler.IsActionPressed(KeyHandler.Actions.MenuAccept))
             {
-                accept(game);
+                accept();
             }
         }
 
@@ -198,17 +202,18 @@ namespace project_hook
         }
 
         //override this method
-        public void accept(Game1 game)
+        public void accept()
         {
             //lazy hard coding
             if (m_selectedIndex == 0)
             {
-
+                World.CreateWorld = true;
+                Menus.setCurrentMenu(Menus.MenuScreens.None);
             }
 
             if (m_selectedIndex == 1)
             {
-                game.Exit();
+                Menus.Exit = true;   
             }
 
         }
