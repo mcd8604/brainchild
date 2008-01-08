@@ -181,7 +181,7 @@ namespace project_hook
 
             if (menu.visible)
             {
-                menu.checkKeys(keyhandler, this);
+                menu.checkKeys(keyhandler);
             }
             else
             {
