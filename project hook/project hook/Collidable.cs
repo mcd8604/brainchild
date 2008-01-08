@@ -26,6 +26,29 @@ namespace project_hook
 			Environment
 		}
 
+        /// <summary>
+        /// Set of available mathimatical bounding areas a collidable may have for collision detection.
+        /// </summary>
+        public enum Boundings
+        {
+            Circle,
+            Diamond,
+            Square
+        }
+
+        private Boundings m_Bound = Boundings.Circle;
+        public Boundings Bound
+        {
+            get
+            {
+                return m_Bound;
+            }
+            set
+            {
+                m_Bound = value;
+            }
+        }
+
 		private Factions m_Faction;
 		public Factions Faction
 		{
