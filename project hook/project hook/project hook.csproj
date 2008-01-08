@@ -70,6 +70,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Collidable</Name>
     </Compile>
+    <Compile Include="Collision.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Collision</Name>
+    </Compile>
     <Compile Include="Depth.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Depth</Name>
