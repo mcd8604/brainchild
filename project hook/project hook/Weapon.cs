@@ -136,7 +136,7 @@ namespace project_hook
                 
                 //first shot
                 Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 100, true,
-                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 5, 10);
+                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, m_Speed, 10);
 
                 //adds all the stuff that was in Game1
                 //i just moved it over here.
@@ -153,7 +153,7 @@ namespace project_hook
 
                 //second shot
                 Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 100, true,
-                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 5, 10);
+                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, m_Speed, 10);
                 
                 Vector2 shot = t_Shot2.Position;
                 shot.X = m_Ship.Position.X + 50;

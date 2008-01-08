@@ -38,7 +38,7 @@ namespace project_hook
                 dic.Add(PathStrategy.ValueKeys.End, new Vector2(-100, t_Shot1.Center.Y));
                 dic.Add(PathStrategy.ValueKeys.Duration, 1000.0f);
                 dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
-                t_Shot1.Path = new Path(Path.Paths.Shot, dic);
+                t_Shot1.Path = new Path(Path.Paths.Line, dic);
                      
                 t_Shot1.Animation.StartAnimation();
 
@@ -58,7 +58,7 @@ namespace project_hook
                 dic.Add(PathStrategy.ValueKeys.End, new Vector2(800, t_Shot2.Center.Y));
                 dic.Add(PathStrategy.ValueKeys.Duration, 1000.0f);
                 dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
-                t_Shot2.Path = new Path(Path.Paths.Shot, dic);
+                t_Shot2.Path = new Path(Path.Paths.Line, dic);
                
                 //gets the current time in milliseconds
                 m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
@@ -66,8 +66,6 @@ namespace project_hook
                 r_Shots.Add(t_Shot1);
                 r_Shots.Add(t_Shot2);
                 return r_Shots;
-
-
             }
             else
             {
