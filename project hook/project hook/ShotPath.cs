@@ -7,40 +7,46 @@ namespace project_hook
 {
     class ShotPath:PathStrategy
     {
-           Shot m_Base;
+        Shot m_Base;
         Vector2 m_Start;
         Vector2 m_End;
+
         Vector2 m_Delta;
 
-        public ShotPath(Dictionary<ValueKeys, Object> p_Values)
-			:base(p_Values){
+		int m_Delay = 100;
+		double m_LastFrame;
 
+        public ShotPath(Dictionary<ValueKeys, Object> p_Values)
+			:base(p_Values)
+		{
             m_Base = (Shot)m_Values[ValueKeys.Base];
             m_Start = (Vector2)m_Values[ValueKeys.Start];
             m_End = (Vector2)m_Values[ValueKeys.End];
-            
-            m_Delta = new Vector2(0.0f,m_Base.Speed);
-            
 
+			m_Delta = new Vector2((m_End.X - m_Start.X) / m_Base.Speed,
+								   (m_End.Y - m_Start.Y) / m_Base.Speed);
+			m_LastFrame = 0;
 		}
 
-        public override void CalculateMovement(GameTime p_gameTime)
+        public override void CalculateMovement(GameTime p_GameTime)
         {
-            Vector2 t_Cur = m_Base.Center;
-            if (t_Cur.Y >= m_End.Y)
-             {
-                t_Cur.Y -= m_Delta.Y ;
-                m_Base.Center = t_Cur;
-                
-            }           
-            else
-            {
-                m_Done = true;
-            }
+			Vector2 t_Cur = m_Base.Center;
+			if (t_Cur.X > 0 && t_Cur.X < Game1.graphics.GraphicsDevice.Viewport.Width &&
+				t_Cur.Y > 0 && t_Cur.Y < Game1.graphics.GraphicsDevice.Viewport.Height)
+			{
+				if (p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastFrame + m_Delay)
+				{
+					t_Cur.X += (float)(m_Delta.X * p_GameTime.ElapsedGameTime.TotalMilliseconds);
+					t_Cur.Y += (float)(m_Delta.Y * p_GameTime.ElapsedGameTime.TotalMilliseconds);
 
-
+					m_Base.Center = t_Cur;
+					m_LastFrame = p_GameTime.TotalGameTime.TotalMilliseconds;
+				}
+			}
+			else
+			{
+				m_Done = true;
+			}
         }
-
-
     }
 }
