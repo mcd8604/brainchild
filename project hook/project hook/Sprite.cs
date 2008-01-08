@@ -311,7 +311,15 @@ namespace project_hook
 			{
 				for (int a = 0; a < Parts.Count; a++)
 				{
-					Parts[a].Update(p_Time);					
+                    if (Parts[a].Visible != false)
+                    {
+                        Parts[a].Update(p_Time);
+                    }
+                    else{
+                        Parts.RemoveAt(a);
+                        a--;
+                    }
+					
 				}
 			}
 

@@ -273,6 +273,11 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>AnimationDefn</Name>
     </Content>
+    <Content Include="Content\Textures\Explosion.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Explosion</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\FireBall.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>

@@ -59,7 +59,9 @@ namespace project_hook
                 dic.Add(PathStrategy.ValueKeys.Duration, 1000.0f);
                 dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
                 t_Shot2.Path = new Path(Path.Paths.Line, dic);
-               
+                t_Shot2.Animation.StartAnimation();              
+
+
                 //gets the current time in milliseconds
                 m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
                 ++m_ShotNumber;

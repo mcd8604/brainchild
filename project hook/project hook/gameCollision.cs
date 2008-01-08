@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
@@ -30,6 +31,43 @@ namespace project_hook
 				}
 			}
 		}
+
+        public static void QuickCheckCollision(List<Sprite> temp,GameTime gameTime,Player player)
+        {
+
+            for (int a = 0; a < temp.Count; a++)
+            {
+                if (temp[a] is Collidable)
+                {
+
+                    Collidable item = (Collidable)temp[a];
+
+
+                    //temp.Remove( item ); // Todo: fix this later
+                    for (int b = 0; b < temp.Count; b++)
+                    {
+                        if (temp[b] is Collidable)
+                        {
+
+                            Collidable item2 = (Collidable)temp[b];
+                            if (item.Faction != item2.Faction)
+                            {
+                                if (item != item2 && Intersection.DoesIntersectDiamond(item.Position + item.Center, item.Height / 2.5f, item2.Position + item2.Center, item2.Height / 2.5f))
+                                {
+
+                                    //explosion.Position = (item.Position + item2.Position) / 2;
+                                    item.RegisterCollision(item2, gameTime);
+                                    item2.RegisterCollision(item, gameTime);
+                                    player.Score.RegisterHit(gameTime);
+                                }
+                            }
+                        }
+                    }
+                }
+            
+            }
+
+        }
 
 
 	}
