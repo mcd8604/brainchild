@@ -26,6 +26,8 @@ namespace project_hook
         World m_World;
         Menu m_Menu;
 
+		DrawText m_Text;
+
         InputHandlerState m_InputHandler;
 
         public enum InputHandlerState
@@ -63,6 +65,7 @@ namespace project_hook
             m_InputHandler = InputHandlerState.Menu;
 
             m_KeyHandler = new KeyHandler();
+			m_Text = new DrawText();
 
 
 //            
@@ -82,6 +85,7 @@ namespace project_hook
             {
 				TextureLibrary.reloadAll();
 				m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+				m_Text.Load(content);
             }
 
             
@@ -154,6 +158,8 @@ namespace project_hook
                 }
             }
 
+
+			
             if (World.CreateWorld == true)
             {
                 m_World = new World();
@@ -163,6 +169,11 @@ namespace project_hook
                       World.CreateWorld = false;
 
             }
+
+			if (World.DestroyWorld)
+			{
+				m_World = null;
+			}
 
             //This will check if the game world is created.  
             if (m_World != null)
@@ -194,6 +205,10 @@ namespace project_hook
         {
 
             graphics.GraphicsDevice.Clear(Color.Black);
+
+			m_SpriteBatch.Begin();
+			m_Text.DrawString(m_SpriteBatch, "Test", new Vector2(10, 10), Color.BlueViolet);
+			m_SpriteBatch.End();
 
             if (m_World != null)
             {
