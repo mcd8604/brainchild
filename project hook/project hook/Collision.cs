@@ -127,5 +127,66 @@ namespace project_hook
                 return false;
             return true;
         }
+		public static void DevEnableCollisionDisplay(List<Sprite> list)
+		{
+
+			TextureLibrary.LoadTexture("circ");
+			TextureLibrary.LoadTexture("diamond");
+			TextureLibrary.LoadTexture("square");
+
+			bool skip;
+
+			foreach (Sprite s in list)
+			{
+				skip = false;
+				Collidable temp = s as Collidable;
+				if (temp != null)
+				{
+
+					if (temp.Parts != null)
+					{
+						foreach (Sprite x in temp.Parts)
+						{
+							if (x.Name == "bound")
+							{
+								skip = true;
+							}
+						}
+					}
+
+					if (!skip)
+					{
+
+						if (temp.Bound == Collidable.Boundings.Circle)
+						{
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("circ", ""), 99, true, 0, Depth.ForeGround.Top);
+							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+							dic.Add(PathStrategy.ValueKeys.Target, temp);
+							dic.Add(PathStrategy.ValueKeys.Base, sprite);
+							sprite.Path = new Path(Path.Paths.Follow, dic);
+							temp.attachSpritePart(sprite);
+						}
+						else if (temp.Bound == Collidable.Boundings.Diamond)
+						{
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("diamond", ""), 99, true, 0, Depth.ForeGround.Top);
+							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+							dic.Add(PathStrategy.ValueKeys.Target, temp);
+							dic.Add(PathStrategy.ValueKeys.Base, sprite);
+							sprite.Path = new Path(Path.Paths.Follow, dic);
+							temp.attachSpritePart(sprite);
+						}
+						else if (temp.Bound == Collidable.Boundings.Square)
+						{
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("square", ""), 99, true, 0, Depth.ForeGround.Top);
+							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+							dic.Add(PathStrategy.ValueKeys.Target, temp);
+							dic.Add(PathStrategy.ValueKeys.Base, sprite);
+							sprite.Path = new Path(Path.Paths.Follow, dic);
+							temp.attachSpritePart(sprite);
+						}
+					}
+				}
+			}
+		}
     }
 }
