@@ -12,9 +12,9 @@ namespace project_hook
      * 
      * TODO:
 	 */
-	class Menu
+	class Menu : IMenu
 	{
-        private Boolean m_visible;
+        protected Boolean m_visible;
         public Boolean visible
         {
             get
@@ -31,32 +31,27 @@ namespace project_hook
             }
         }
 
-		private int m_selectedIndex;
+		protected int m_selectedIndex;
 
-        private String m_BackgroundName;
-        private Sprite m_BackgroundSprite;
+		protected String m_BackgroundName;
+		protected Sprite m_BackgroundSprite;
 
-        private String m_HighlightName;
-        private Sprite m_HightlightSprite;
+		protected String m_HighlightName;
+		protected Sprite m_HightlightSprite;
 
-		private ArrayList m_MenuItemNames;
-		private ArrayList m_MenuItemSprites;
+		protected ArrayList m_MenuItemNames;
+		protected ArrayList m_MenuItemSprites;
 
 		public Menu()
 		{
             visible = false;
+			m_selectedIndex = 0;
 
-            m_selectedIndex = 0;
+			//default textures
+			m_BackgroundName = "menu_background";
+			m_HighlightName = "menu_highlight";
 
-            //lazy default values
-            m_BackgroundName = "menu_background";
-
-            m_HighlightName = "menu_highlight";
-
-            m_MenuItemNames = new ArrayList();
-            m_MenuItemNames.Add("menu_newgame");
-            m_MenuItemNames.Add("menu_exitgame");
-            //lazy
+			m_MenuItemNames = new ArrayList();
 		}
 
         public void Load(GraphicsDeviceManager gdm)
@@ -67,10 +62,10 @@ namespace project_hook
                 TextureLibrary.LoadTexture((String)m_MenuItemNames[i]);
             }
             TextureLibrary.LoadTexture(m_HighlightName);
-            initMenuSprites();
+            Init();
         }
 
-        private void initMenuSprites()
+        protected void Init()
 		{
             GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
             float xPos = (800 - bgTexture.Width) / 2;
@@ -151,7 +146,7 @@ namespace project_hook
             }
         }
 
-        private void up()
+		protected void up()
         {
             if (m_selectedIndex < m_MenuItemSprites.Count - 1)
             {
@@ -164,7 +159,7 @@ namespace project_hook
             setHighlightSprite();
         }
 
-        private void down()
+		protected void down()
         {
             if(m_selectedIndex > 0)
             {
@@ -193,7 +188,8 @@ namespace project_hook
             setHighlightSprite();
         }
 
-        private void setHighlightSprite() {
+		protected void setHighlightSprite()
+		{
             if (m_HightlightSprite != null)
             {
                 Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
@@ -202,19 +198,8 @@ namespace project_hook
         }
 
         //override this method
-        public void accept()
+        public virtual void accept()
         {
-            //lazy hard coding
-            if (m_selectedIndex == 0)
-            {
-                World.CreateWorld = true;
-                Menus.setCurrentMenu(Menus.MenuScreens.None);
-            }
-
-            if (m_selectedIndex == 1)
-            {
-                Menus.Exit = true;   
-            }
 
         }
 	
