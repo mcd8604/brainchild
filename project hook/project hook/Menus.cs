@@ -74,8 +74,14 @@ namespace project_hook
         public static Menu getCurrentMenu(){
             if(m_SelectedMenu == MenuScreens.Main){
                 m_HasChanged = false;
-                return new StartMenu();
-            }
+                return new MainMenu();
+			}
+			else
+			if (m_SelectedMenu == MenuScreens.Pause)
+			{
+				m_HasChanged = false;
+				return new PauseMenu();
+			}
 
             return null;
         }

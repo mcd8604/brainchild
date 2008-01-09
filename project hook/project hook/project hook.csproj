@@ -102,6 +102,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>IMenu</Name>
     </Compile>
+    <Compile Include="PauseMenu.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PauseMenu</Name>
+    </Compile>
     <Compile Include="Menu.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Menu</Name>
@@ -160,9 +164,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Sprite</Name>
     </Compile>
-    <Compile Include="StartMenu.cs">
+    <Compile Include="MainMenu.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>StartMenu</Name>
+      <Name>MainMenu</Name>
     </Compile>
     <Compile Include="Tail.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -319,6 +323,18 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>menu_highlight</Name>
+    </Content>
+    <Content Include="Content\Textures\menu_quit.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>menu_quit</Name>
+    </Content>
+    <Content Include="Content\Textures\menu_restart.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>menu_restart</Name>
     </Content>
     <Content Include="Content\Textures\RedShot.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
