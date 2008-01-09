@@ -150,7 +150,7 @@ namespace project_hook
                     else
                     {
                         changeState(GameState.Paused);
-                        Menus.setCurrentMenu(Menus.MenuScreens.Main);
+                        Menus.setCurrentMenu(Menus.MenuScreens.Pause);
                     }
                 }
 

@@ -170,9 +170,10 @@ namespace project_hook
 
             }
 
-			if (World.DestroyWorld)
+			if (World.DestroyWorld == true)
 			{
 				m_World = null;
+				World.DestroyWorld = false;
 			}
 
             //This will check if the game world is created.  

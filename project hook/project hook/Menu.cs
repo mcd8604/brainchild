@@ -146,7 +146,7 @@ namespace project_hook
             }
         }
 
-		protected void up()
+		protected void down()
         {
             if (m_selectedIndex < m_MenuItemSprites.Count - 1)
             {
@@ -159,7 +159,7 @@ namespace project_hook
             setHighlightSprite();
         }
 
-		protected void down()
+		protected void up()
         {
             if(m_selectedIndex > 0)
             {
