@@ -145,7 +145,7 @@ namespace project_hook
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
                 dic.Add(PathStrategy.ValueKeys.End, new Vector2(t_Shot1.Center.X, -100));
-                dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
+                //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
                 dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
                 t_Shot1.Path = new Path(Path.Paths.Shot, dic);
 
@@ -165,7 +165,7 @@ namespace project_hook
                 dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.Start, t_Shot2.Center);
                 dic.Add(PathStrategy.ValueKeys.End, new Vector2(t_Shot2.Center.X, -100));
-                dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
+                //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
                 dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
                 t_Shot2.Path = new Path(Path.Paths.Shot, dic);
                 t_Shot2.Animation.StartAnimation();
