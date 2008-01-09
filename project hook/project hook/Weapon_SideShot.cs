@@ -22,7 +22,7 @@ namespace project_hook
                 List<Shot> r_Shots = new List<Shot>();
 
                 Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 100, true,
-                                      -1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 5, 10);
+                                      -1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 10, 10);
 
                 Vector2 shot = t_Shot1.Position;
                 shot.X = m_Ship.Position.X - 50;
@@ -44,7 +44,7 @@ namespace project_hook
 
                 //second shot
                 Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 100, true,
-                                        1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 5, 10);
+                                        1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 10, 10);
 
                 shot = t_Shot2.Position;
                 shot.X = m_Ship.Position.X + 50;
