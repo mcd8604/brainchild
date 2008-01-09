@@ -130,9 +130,9 @@ namespace project_hook
 		public static void DevEnableCollisionDisplay(List<Sprite> list)
 		{
 
-			TextureLibrary.LoadTexture("circ");
-			TextureLibrary.LoadTexture("diamond");
-			TextureLibrary.LoadTexture("square");
+			TextureLibrary.LoadTexture("debugcirc");
+			TextureLibrary.LoadTexture("debugdiamond");
+			TextureLibrary.LoadTexture("debugsquare");
 
 			bool skip;
 
@@ -159,7 +159,7 @@ namespace project_hook
 
 						if (temp.Bound == Collidable.Boundings.Circle)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("circ", ""), 99, true, 0, Depth.ForeGround.Top);
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""), 99, true, 0, Depth.ForeGround.Top);
 							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 							dic.Add(PathStrategy.ValueKeys.Target, temp);
 							dic.Add(PathStrategy.ValueKeys.Base, sprite);
@@ -168,7 +168,7 @@ namespace project_hook
 						}
 						else if (temp.Bound == Collidable.Boundings.Diamond)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("diamond", ""), 99, true, 0, Depth.ForeGround.Top);
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""), 99, true, 0, Depth.ForeGround.Top);
 							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 							dic.Add(PathStrategy.ValueKeys.Target, temp);
 							dic.Add(PathStrategy.ValueKeys.Base, sprite);
@@ -177,7 +177,7 @@ namespace project_hook
 						}
 						else if (temp.Bound == Collidable.Boundings.Square)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("square", ""), 99, true, 0, Depth.ForeGround.Top);
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""), 99, true, 0, Depth.ForeGround.Top);
 							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 							dic.Add(PathStrategy.ValueKeys.Target, temp);
 							dic.Add(PathStrategy.ValueKeys.Base, sprite);
