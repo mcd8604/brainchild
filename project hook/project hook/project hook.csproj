@@ -98,6 +98,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>GameTexture</Name>
     </Compile>
+    <Compile Include="IMenu.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>IMenu</Name>
+    </Compile>
     <Compile Include="Menu.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Menu</Name>
@@ -155,6 +159,10 @@
     <Compile Include="Sprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Sprite</Name>
+    </Compile>
+    <Compile Include="StartMenu.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>StartMenu</Name>
     </Compile>
     <Compile Include="Tail.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
