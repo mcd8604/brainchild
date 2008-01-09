@@ -285,6 +285,18 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>AnimationDefn</Name>
     </Content>
+    <Content Include="Content\Textures\debugcirc.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>debugcirc</Name>
+    </Content>
+    <Content Include="Content\Textures\debugdiamond.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>debugdiamond</Name>
+    </Content>
     <Content Include="Content\Textures\Explosion.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Explosion</Name>
@@ -324,6 +336,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Shield</Name>
+    </Content>
+    <Content Include="Content\Textures\debugsquare.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>debugsquare</Name>
     </Content>
     <Content Include="Content\Textures\temptail.PNG">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
