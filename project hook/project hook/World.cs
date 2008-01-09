@@ -25,6 +25,19 @@ namespace project_hook
             }
         }
 
+		private static Boolean m_destroyWorld;
+		public static Boolean DestroyWorld
+		{
+			get
+			{
+				return m_destroyWorld;
+			}
+			set
+			{
+				m_destroyWorld = value;
+			}
+		}
+
         
         DrawText m_DrawText;
         Player m_Player;
