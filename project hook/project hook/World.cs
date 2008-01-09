@@ -260,8 +260,11 @@ namespace project_hook
         private void IniDefaults()
         {
             GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
-            Sprite back = new Sprite("back", new Vector2(0.0f, 0.0f), m_ViewPortSize.Height, m_ViewPortSize.Width, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom);
-            m_Player = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom,m_ViewPortSize);
+			
+			//test scrolling background
+			ScrollingBackground back = new ScrollingBackground("back", new Vector2(0.0f, 0 - (m_ViewPortSize.Height * 9)), m_ViewPortSize.Height * 10, m_ViewPortSize.Width, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom, 1);
+            
+			m_Player = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom,m_ViewPortSize);
            // Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
             Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
             Ship enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 50);
