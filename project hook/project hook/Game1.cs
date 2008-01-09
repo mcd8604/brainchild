@@ -92,6 +92,8 @@ namespace project_hook
 
             if (loadAllContent)
             {
+				TextureLibrary.reloadAll();
+
                 TextureLibrary.LoadTexture("Ship2");
                 TextureLibrary.LoadTexture("Back");
                 TextureLibrary.LoadTexture("RedShot");
@@ -144,6 +146,9 @@ namespace project_hook
                  * */
 
                 menu.Load(graphics);
+
+				
+				m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
             }
 
