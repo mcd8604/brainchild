@@ -47,6 +47,16 @@ namespace project_hook
             }
         }
 
+		//Name of the Texture asset
+		private string m_TextureName;
+		public string TextureName
+		{
+			get
+			{
+				return m_TextureName;
+			}
+		}
+
         //The 2D Texture the texture will read from
 		private Texture2D m_Texture;
 		public Texture2D Texture
@@ -143,6 +153,7 @@ namespace project_hook
 			Name = p_Name;
             Tag = p_Tag;
 			Texture = p_Texture;
+			
 			StartPosition = p_StartPosition;
 			m_Center = new Vector2(Width/2.0f,Height/2.0f);
 		}

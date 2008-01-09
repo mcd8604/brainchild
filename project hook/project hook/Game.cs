@@ -80,7 +80,8 @@ namespace project_hook
         {
             if (loadAllContent)
             {
-                // TODO: Load any ResourceManagementMode.Automatic content
+				TextureLibrary.reloadAll();
+				m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             }
 
             
@@ -119,13 +120,16 @@ namespace project_hook
                 this.Exit();
             }
 
+			//This gets the current key state
             m_KeyHandler.Update();
 
+			//Checks for full screen
             if (m_KeyHandler.IsKeyPressed(Keys.F))
             {
                 graphics.ToggleFullScreen();
             }
 
+			//This checks if a new menu is supposed to be loaded.
             if (Menus.HasChanged == true)
             {
                 m_Menu = Menus.getCurrentMenu();
@@ -137,11 +141,11 @@ namespace project_hook
                 }
                 else
                 {
-
                     m_InputHandler = InputHandlerState.World;
                 }
             }
 
+			//If a menu is loaded
             if (m_Menu != null)
             {
                 if (m_InputHandler == InputHandlerState.Menu)

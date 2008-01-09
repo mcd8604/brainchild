@@ -19,87 +19,95 @@ namespace project_hook
    * TODO:
     * 3. Create an easy way to make the XML definitions for the game
    */
-    class TextureLibrary
-    {
-        private static OrderedDictionary<String, Texture2D> m_Textures;
+	class TextureLibrary
+	{
+		private static OrderedDictionary<String, Texture2D> m_Textures;
 
-        //This will be what stores the GameTextures!!
-        private static OrderedDictionary<String, OrderedDictionary<String, GameTexture>> m_GameTextures;
+		//This will be what stores the GameTextures!!
+		private static OrderedDictionary<String, OrderedDictionary<String, GameTexture>> m_GameTextures;
 
-        private static ContentManager m_TextureManager;
-        private static String path = System.Environment.CurrentDirectory  + "\\Content\\Textures\\";
-        
-        //This method will initialize the Textures      
+		private static ContentManager m_TextureManager;
+		private static String path = System.Environment.CurrentDirectory + "\\Content\\Textures\\";
+
+		//This method will initialize the Textures      
 		public static void iniTextures(ContentManager content)
-        {
-            if (m_Textures == null && m_GameTextures == null)
-            {
-				m_TextureManager  = content;//new ContentManager(services);
-                m_Textures = new OrderedDictionary<String,Texture2D>();   
-                m_GameTextures = new OrderedDictionary<string,OrderedDictionary<string,GameTexture>>();
-            }
-        }
+		{
+			if (m_Textures == null && m_GameTextures == null)
+			{
+				m_TextureManager = content;//new ContentManager(services);
+				m_Textures = new OrderedDictionary<String, Texture2D>();
+				m_GameTextures = new OrderedDictionary<string, OrderedDictionary<string, GameTexture>>();
+			}
+		}
 
-        //This method gets a GameTexture Object
-        public static GameTexture getGameTexture(string name, string tag)
-        {
-            if (m_GameTextures == null)
-            {
-                return null;
-            }
+		//This method gets a GameTexture Object
+		public static GameTexture getGameTexture(string name, string tag)
+		{
+			if (m_GameTextures == null)
+			{
+				return null;
+			}
 
-            GameTexture r_Texture = null;
-           
-            if( m_GameTextures.ContainsKey(name)){
-                if (m_GameTextures[name].ContainsKey(tag))
-                {
-                    r_Texture = (m_GameTextures[name])[tag];
-                }
-            }
-            
-            return r_Texture;
+			GameTexture r_Texture = null;
 
-        }
+			if (m_GameTextures.ContainsKey(name))
+			{
+				if (m_GameTextures[name].ContainsKey(tag))
+				{
+					r_Texture = (m_GameTextures[name])[tag];
+				}
+			}
 
-        //This code attempts to get a texture reference
-        //It will attempt to load the texture if is not in the hashtable
-        public static Texture2D getTexture(string textureName)
-        {
-            if (m_Textures == null)
-            {
-                return null;
-            }
+			return r_Texture;
 
-            Texture2D retVal = null;
-        
-            if (m_Textures.ContainsKey(textureName))
-            {
-                retVal = ((Texture2D)(m_Textures[textureName]));
-            }
-            else
-            {
-                if (LoadTexture(textureName))
-                {
-                    retVal = ((Texture2D)(m_Textures[textureName]));
-                }
-            }
-            return retVal;
-        }
+		}
 
-        //This loads a texture and Stores it in the hashtable.
-        //The Textures name is it's key
-        //If it cannot find or load the texture it will return false;
-        public static Boolean LoadTexture(string textureName)
-        {
-            if (m_Textures == null || m_GameTextures == null)
-            {
-                return false;
-            }
+		//This code attempts to get a texture reference
+		//It will attempt to load the texture if is not in the hashtable
+		public static Texture2D getTexture(string textureName)
+		{
+			if (m_Textures == null)
+			{
+				return null;
+			}
 
-            try
-            {
+			Texture2D retVal = null;
 
-                Texture2D tTexture = m_TextureManager.Load<Texture2D>(path + textureName);
+			if (m_Textures.ContainsKey(textureName))
+			{
+				retVal = ((Texture2D)(m_Textures[textureName]));
+			}
+			else
+			{
+				if (LoadTexture(textureName))
+				{
+					retVal = ((Texture2D)(m_Textures[textureName]));
+				}
+			}
+			return retVal;
+		}
+
+		private static Texture2D loadTextureByName(string textureName)
+		{
+			return m_TextureManager.Load<Texture2D>(path + textureName);
+
+		}
+		
+
+		//This loads a texture and Stores it in the hashtable.
+		//The Textures name is it's key
+		//If it cannot find or load the texture it will return false;
+		public static Boolean LoadTexture(string textureName)
+		{
+			if (m_Textures == null || m_GameTextures == null)
+			{
+				return false;
+			}
+
+			try
+			{
+				Texture2D tTexture = loadTextureByName(textureName);
+				
 				if (m_Textures.ContainsKey(textureName))
 				{
 					m_Textures.Replace(textureName, tTexture);
@@ -110,72 +118,72 @@ namespace project_hook
 					m_Textures.Add(textureName, tTexture);
 				}
 
-                //This code will load up a textures rectangle Description
+				//This code will load up a textures rectangle Description
 
-                string strFilename = path + textureName + ".xml";
+				string strFilename = path + textureName + ".xml";
 
-                //Checks for the XML file
-                if (File.Exists(strFilename))
-                {
-                    //Lods the XML file
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load(strFilename);
+				//Checks for the XML file
+				if (File.Exists(strFilename))
+				{
+					//Lods the XML file
+					XmlDocument doc = new XmlDocument();
+					doc.Load(strFilename);
 
-                    //Checks gets the Rectangles to load
-                    XmlElement elm = doc.DocumentElement;
-                    XmlNodeList lstRect = elm.ChildNodes;
+					//Checks gets the Rectangles to load
+					XmlElement elm = doc.DocumentElement;
+					XmlNodeList lstRect = elm.ChildNodes;
 
-                    //Iterates over each rectangle
-                    for (int i = 0; i < lstRect.Count; i++)
-                    {
-                        XmlNodeList nodes = lstRect.Item(i).ChildNodes;
-                        int j = 0;
+					//Iterates over each rectangle
+					for (int i = 0; i < lstRect.Count; i++)
+					{
+						XmlNodeList nodes = lstRect.Item(i).ChildNodes;
+						int j = 0;
 
-                        String name = (String)(nodes.Item(j++).InnerText);
-                        String tag = (String)(nodes.Item(j++).InnerText);
-                        int x = int.Parse(nodes.Item(j++).InnerText);
-                        int y = int.Parse(nodes.Item(j++).InnerText);
-                        int width = int.Parse(nodes.Item(j++).InnerText);
-                        int height = int.Parse(nodes.Item(j++).InnerText);
+						String name = (String)(nodes.Item(j++).InnerText);
+						String tag = (String)(nodes.Item(j++).InnerText);
+						int x = int.Parse(nodes.Item(j++).InnerText);
+						int y = int.Parse(nodes.Item(j++).InnerText);
+						int width = int.Parse(nodes.Item(j++).InnerText);
+						int height = int.Parse(nodes.Item(j++).InnerText);
 
-                        //Stores it in the GameTexture table
-                        GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
+						//Stores it in the GameTexture table
+						GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
 						addGameTexture(name, tag, t_GameTexture);
-             
-                    }
 
-                }
-                else
-                {
-                    GameTexture t_GameTexture = new GameTexture(textureName, "", tTexture, new Rectangle(0, 0, tTexture.Width, tTexture.Height));
+					}
+
+				}
+				else
+				{
+					GameTexture t_GameTexture = new GameTexture(textureName, "", tTexture, new Rectangle(0, 0, tTexture.Width, tTexture.Height));
 					addGameTexture(textureName, "", t_GameTexture);
-                }
-                    
-            }
-            catch (ContentLoadException )
-            {
+				}
 
-                return false;
-            }
-            catch (IOException)
-            {
-                return false;
-            }
+			}
+			catch (ContentLoadException)
+			{
 
-            return true;
-        }
+				return false;
+			}
+			catch (IOException)
+			{
+				return false;
+			}
 
-        public  static OrderedDictionary<String, GameTexture> getSpriteSheet(String name)
-        {
-            if (m_GameTextures != null && m_GameTextures.ContainsKey(name))
-            {
-                return m_GameTextures[name];
-            }
-            else
-            {
-                return null;
-            }
-        }
+			return true;
+		}
+
+		public static OrderedDictionary<String, GameTexture> getSpriteSheet(String name)
+		{
+			if (m_GameTextures != null && m_GameTextures.ContainsKey(name))
+			{
+				return m_GameTextures[name];
+			}
+			else
+			{
+				return null;
+			}
+		}
 
 		//This method adds the 
 		private static void addGameTexture(string p_name, string p_tag, GameTexture p_GameTexture)
@@ -190,7 +198,7 @@ namespace project_hook
 				{
 					m_GameTextures[p_name].Add(p_tag, p_GameTexture);
 				}
-				
+
 			}
 			else
 			{
@@ -201,17 +209,38 @@ namespace project_hook
 
 		}
 
-        public static Boolean unloadAll()
-        {           
-                m_TextureManager.Unload();
-                m_Textures = null;
-                m_GameTextures = null;
-                return true;
-            
-        }
+		public static Boolean unloadAll()
+		{
+			//m_TextureManager.Unload();
+			//m_Textures = null;
+			//m_GameTextures = null;
+			return true;
 
+		}
 
-    }
+		public static void reloadAll()
+		{
+			foreach(String key in m_GameTextures.Keys){
+
+				OrderedDictionary<String, GameTexture> gd = m_GameTextures[key];
+				Texture2D reload = null;
+
+				foreach (string Key2 in gd.Keys)
+				{
+					gd.ContainsKey(Key2);
+					GameTexture gt = gd[Key2];
+					if (reload == null)
+					{
+						reload = loadTextureByName(key); ;
+					}
+					gt.Texture = reload;
+				}
+
+			}
+
+		}
+	}
+    
 }
 
 /*
