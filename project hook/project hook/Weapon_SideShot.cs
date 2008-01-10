@@ -23,8 +23,13 @@ namespace project_hook
 			{
 				List<Shot> r_Shots = new List<Shot>();
 
+<<<<<<< .mine
+				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 100, true,
+									  -1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 500, null, 10, 10);
+=======
 				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 255f, true,
 									  -1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 10, 10);
+>>>>>>> .r217
 
 				Vector2 shot = t_Shot1.Position;
 				shot.X = m_Ship.Position.X - 50;
@@ -35,25 +40,19 @@ namespace project_hook
 				//i just moved it over here.
 				t_Shot1.setAnimation("FireBall", 10);
 
-				/*
-                Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
-                dic.Add(PathStrategy.ValueKeys.End, new Vector2(-100, t_Shot1.Center.Y));
-                // dic.Add(PathStrategy.ValueKeys.Duration, 1000.0f);
-                dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
-                t_Shot1.Path = new Path(Path.Paths.Shot, dic);
-				 */
+
 				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
+				dic.Add(PathStrategy.ValueKeys.End, new Vector2(-100, t_Shot1.Center.Y));
 				dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
-				dic.Add(PathStrategy.ValueKeys.Speed, new Vector2(Speed * -1, 0));
-				dic.Add(PathStrategy.ValueKeys.Duration, 5.0f);
-				t_Shot1.Path = new Path(Path.Paths.Straight, dic);
+				dic.Add(PathStrategy.ValueKeys.Degree, (double)(MathHelper.Pi));
+				t_Shot1.Path = new Path(Path.Paths.Shot, dic);
 
 				t_Shot1.Animation.StartAnimation();
 
 				//second shot
-				Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 255f, true,
-										1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 10, 10);
+				Shot t_Shot2 = new Shot(m_Ship.Name + (m_ShotNumber+1), m_Ship.Center, 75, 30, m_Shot, 255f, true,
+										1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 500, null, 10, 10);
 
 				shot = t_Shot2.Position;
 				shot.X = m_Ship.Position.X + 50;
@@ -62,20 +61,13 @@ namespace project_hook
 
 				t_Shot2.setAnimation("FireBall", 10);
 
-				/*
-                 dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.Start, t_Shot2.Center);
-                dic.Add(PathStrategy.ValueKeys.End, new Vector2(800, t_Shot2.Center.Y));
-                //dic.Add(PathStrategy.ValueKeys.Duration, 1000.0f);
-                dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
-                t_Shot2.Path = new Path(Path.Paths.Shot, dic);
-				 */
 
 				dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.Start, t_Shot2.Center);
+				dic.Add(PathStrategy.ValueKeys.End, new Vector2(800, t_Shot2.Center.Y));
 				dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
-				dic.Add(PathStrategy.ValueKeys.Speed, new Vector2(Speed, 0));
-				dic.Add(PathStrategy.ValueKeys.Duration, 5.0f);
-				t_Shot2.Path = new Path(Path.Paths.Straight, dic);
+				dic.Add(PathStrategy.ValueKeys.Degree, (double)(0));
+				t_Shot2.Path = new Path(Path.Paths.Shot, dic);
 
 				t_Shot2.Animation.StartAnimation();
 
