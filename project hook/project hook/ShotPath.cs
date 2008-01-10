@@ -7,7 +7,7 @@ namespace project_hook
 {
     class ShotPath:PathStrategy
     {
-        Shot m_Base;
+        Collidable m_Base;
         Vector2 m_Start;
         Vector2 m_End;
 		double m_Slope;
@@ -17,7 +17,7 @@ namespace project_hook
         public ShotPath(Dictionary<ValueKeys, Object> p_Values)
 			:base(p_Values)
 		{
-            m_Base = (Shot)m_Values[ValueKeys.Base];
+            m_Base = (Collidable)m_Values[ValueKeys.Base];
             m_Start = (Vector2)m_Values[ValueKeys.Start];
             m_End = (Vector2)m_Values[ValueKeys.End];
 			m_Slope = (double)m_Values[ValueKeys.Degree];

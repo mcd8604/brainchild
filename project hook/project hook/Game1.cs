@@ -29,7 +29,9 @@ namespace project_hook
         Sprite back;
         Player back1;
         Sprite back2;
+		Sprite crosshair;
 		Tail tail;
+		ButtonState lastMouseButton = ButtonState.Released;
 
         //Sprite shotEffect;
 		//Sprite shot2Effect;
@@ -99,6 +101,7 @@ namespace project_hook
 				TextureLibrary.LoadTexture("Shield");
                 TextureLibrary.LoadTexture("FireBall");
 				TextureLibrary.LoadTexture("temptail");
+				TextureLibrary.LoadTexture("crosshairs");
                 drawtext.Load(content);
 
                 Rectangle PlayerBounds = new Rectangle(graphics.GraphicsDevice.Viewport.X,
@@ -107,13 +110,14 @@ namespace project_hook
                                                            graphics.GraphicsDevice.Viewport.Height);
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 				GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud","");
+				GameTexture crosshairs = TextureLibrary.getGameTexture("crosshairs","");
                 back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom);
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom, PlayerBounds);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
 				enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100);
 				tail = new Tail("Tail", back1.PlayerShip.Position, 70, 27, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 0, null, 30, back1.PlayerShip);
-				
+				crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.MidGround.Mid);
 
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
@@ -271,6 +275,14 @@ namespace project_hook
 
             }
 
+			Vector2 temp = new Vector2(Mouse.GetState().X,Mouse.GetState().Y);
+			crosshair.Center = temp;
+			if(Mouse.GetState().LeftButton != lastMouseButton)
+			{
+				if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+					tail.TailAttack(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+			}
+
             if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
             {
                 back1.MoveRight();
@@ -414,6 +426,8 @@ namespace project_hook
             back.Draw(m_spriteBatch);
 
             back1.DrawPlayer(gameTime, m_spriteBatch);
+
+			crosshair.Draw(m_spriteBatch);
 
             foreach (Sprite s in spritelist)
             {

@@ -57,12 +57,24 @@ namespace project_hook
 			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			dic.Add(PathStrategy.ValueKeys.Target, p_AttachShip);
 			dic.Add(PathStrategy.ValueKeys.Base, this);
-			this.Path = new Path(Path.Paths.Tether, dic);
+			this.Path = new Path(Path.Paths.Bother, dic);
             m_TailTarget = new Vector2(-1, -1);
             m_EnemyCaught = null;
         }
 
-        
+		public void TailAttack(Vector2 p_Target)
+		{
+			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+			dic.Add(PathStrategy.ValueKeys.End, p_Target);
+			dic.Add(PathStrategy.ValueKeys.Start, this.Center);
+			dic.Add(PathStrategy.ValueKeys.Base, this);
+			dic.Add(PathStrategy.ValueKeys.Speed, 500f);
+			float x = p_Target.X - this.Center.X;
+            float y = p_Target.Y - this.Center.Y;
+			double degree = (double)Math.Atan2(y, x);
+			dic.Add(PathStrategy.ValueKeys.Degree, degree);
+			this.Path = new Path(Path.Paths.Shot, dic);
+		}
 
         public void TailCollide(Ship p_Ship)
         {
