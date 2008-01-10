@@ -143,21 +143,14 @@ namespace project_hook
 				//i just moved it over here.
 				t_Shot1.setAnimation("RedShot", 10);
 
-				/*
+				
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
-                dic.Add(PathStrategy.ValueKeys.End, new Vector2(t_Shot1.Center.X, -100));
-                //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
+                dic.Add(PathStrategy.ValueKeys.End, new Vector2(-500, -500));				
                 dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
+				dic.Add(PathStrategy.ValueKeys.Degree, (double)(MathHelper.PiOver2 * 3));
                 t_Shot1.Path = new Path(Path.Paths.Shot, dic);
-				 */
-
-				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
-				dic.Add(PathStrategy.ValueKeys.Speed, new Vector2(0, Speed * -1));
-				dic.Add(PathStrategy.ValueKeys.Duration, 5.0f);
-				t_Shot1.Path = new Path(Path.Paths.Straight, dic);
-
+				
 				t_Shot1.Animation.StartAnimation();
 
 				//second shot
@@ -171,20 +164,13 @@ namespace project_hook
 
 				t_Shot2.setAnimation("RedShot", 10);
 
-				/*
-                dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.Start, t_Shot2.Center);
-                dic.Add(PathStrategy.ValueKeys.End, new Vector2(t_Shot2.Center.X, -100));
-                //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
-                dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
-                t_Shot2.Path = new Path(Path.Paths.Shot, dic);
-				 */
 
 				dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.Start, t_Shot2.Center);
+				dic.Add(PathStrategy.ValueKeys.End, new Vector2(900, -500));
 				dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
-				dic.Add(PathStrategy.ValueKeys.Speed, new Vector2(0, Speed * -1));
-				dic.Add(PathStrategy.ValueKeys.Duration, 5.0f);
-				t_Shot2.Path = new Path(Path.Paths.Straight, dic);
+				dic.Add(PathStrategy.ValueKeys.Degree, (double)(MathHelper.PiOver2 * 3));
+				t_Shot2.Path = new Path(Path.Paths.Shot, dic);
 
 				t_Shot2.Animation.StartAnimation();
 
