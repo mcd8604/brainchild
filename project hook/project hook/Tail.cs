@@ -57,7 +57,7 @@ namespace project_hook
 			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			dic.Add(PathStrategy.ValueKeys.Target, p_AttachShip);
 			dic.Add(PathStrategy.ValueKeys.Base, this);
-			this.Path = new Path(Path.Paths.Bother, dic);
+			this.Path = new Path(Path.Paths.Tether, dic);
             m_TailTarget = new Vector2(-1, -1);
             m_EnemyCaught = null;
         }

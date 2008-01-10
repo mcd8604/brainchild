@@ -176,6 +176,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Class1</Name>
     </Compile>
+    <Compile Include="TetherPath.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TetherPath</Name>
+    </Compile>
     <Compile Include="TextureLibrary.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TextureLibrary</Name>

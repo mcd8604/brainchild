@@ -30,6 +30,10 @@ namespace project_hook
 			{
 				m_Path = new BotherPath(p_Values);
 			}
+            else if (m_Strategy == Paths.Tether)
+            {
+                m_Path = new TetherPath(p_Values);
+            }
           //  return m_Path;
 		}
 
@@ -48,7 +52,8 @@ namespace project_hook
 			Follow,
 			Line,
             Shot,
-			Bother
+			Bother,
+            Tether
 
 		}
 
