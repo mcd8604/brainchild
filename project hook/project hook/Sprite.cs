@@ -328,7 +328,7 @@ namespace project_hook
 					}
 					else
 					{
-						p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, 0, Vector2.Zero, SpriteEffects.None, m_Z);
+						p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, new Color(255, 255, 255, (byte)MathHelper.Clamp(Alpha, 0, 255)), 0, Vector2.Zero, SpriteEffects.None, m_Z);
 					}
 				}
 				//m_Texture.Center

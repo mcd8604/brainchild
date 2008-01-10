@@ -176,8 +176,8 @@ namespace project_hook
 		{
 			if (m_DamageEffect != null)
 			{
-               
-				m_DamageSprite = new Sprite(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 50f, true, 0, Depth.MidGround.Top);
+
+				m_DamageSprite = new Sprite(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 255f, true, 0, Depth.MidGround.Top);
                 m_DamageSprite.setAnimation(m_DamageEffect.Name, 100, 1);
                 m_DamageSprite.Animation.StartAnimation();
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
