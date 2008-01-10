@@ -23,13 +23,8 @@ namespace project_hook
 			{
 				List<Shot> r_Shots = new List<Shot>();
 
-<<<<<<< .mine
-				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 100, true,
-									  -1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 500, null, 10, 10);
-=======
 				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 255f, true,
-									  -1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 2, null, 10, 10);
->>>>>>> .r217
+									  -1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 50, null, 10, 10);
 
 				Vector2 shot = t_Shot1.Position;
 				shot.X = m_Ship.Position.X - 50;
