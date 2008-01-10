@@ -21,7 +21,7 @@ namespace project_hook
             m_Start = (Vector2)m_Values[ValueKeys.Start];
             m_End = (Vector2)m_Values[ValueKeys.End];
 			m_Slope = (double)m_Values[ValueKeys.Degree];
-			m_Speed = m_Base.Speed;
+			m_Speed = (float)m_Values[ValueKeys.Speed];
 		}
 
         public override void CalculateMovement(GameTime p_GameTime)
