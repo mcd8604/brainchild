@@ -135,7 +135,7 @@ namespace project_hook
 				List<Shot> t_Shots = new List<Shot>();
 
 				//first shot
-				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 100, true,
+				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 255f, true,
 										0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 20, 10);
 				t_Shot1.CollisonEffect = TextureLibrary.getGameTexture("poisonsplat", "");
 				t_Shot1.Bound = Collidable.Boundings.Diamond;
@@ -161,7 +161,7 @@ namespace project_hook
 				t_Shot1.Animation.StartAnimation();
 
 				//second shot
-				Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 100, true,
+				Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 255f, true,
 										0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 20, 10);
 				t_Shot2.Bound = Collidable.Boundings.Diamond;
 				Vector2 shot = t_Shot2.Position;
