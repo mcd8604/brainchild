@@ -85,17 +85,24 @@ namespace project_hook
 			}
 		}
 
+
+
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
 			m_ShieldSprite.Visible = (Shield > 0);
 		}
-		public virtual void RegisterCollision(Collidable p_Other)
+		public override void RegisterCollision(Collidable p_Other)
 		{
 			if (p_Other is Shot)
 			{
+				if (this.Health <= 0)
+				{
+
+				}
 				Shot shot = (Shot) p_Other;
 				this.Health -= shot.Damage;
+				
 				//Possible attach the explosion sprite to the ship
 			}
 

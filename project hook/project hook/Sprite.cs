@@ -245,6 +245,30 @@ namespace project_hook
                 m_Position.Y = value.Y - m_Center.Y;
 			}
         }
+
+		private Boolean m_ToBeRemoved = false;
+		public Boolean ToBeRemoved
+		{
+			get
+			{
+				return m_ToBeRemoved;
+			}
+			set
+			{
+				m_ToBeRemoved = value;
+			}
+
+		}
+
+		private List<Sprite> m_SpritesToBeAdded;
+		public List<Sprite> SpritesToBeAdded
+		{
+			get
+			{
+				return m_SpritesToBeAdded;
+			}
+
+		}
         #endregion // End of variables and Properties Region
 
         //This is a constructor that has full parameters!
@@ -262,6 +286,7 @@ namespace project_hook
 			Degree = p_Degree;
             Z = p_Z;
 			m_Center = new Vector2(Width / 2.0f, Height / 2.0f);
+			m_SpritesToBeAdded = new List<Sprite>();
 		}
 				
 		//sets the anmmation for the object.
@@ -289,19 +314,22 @@ namespace project_hook
 					{
 						t_Sprite.Draw(p_SpriteBatch);
 					}
-				}                
-
-				//Rectangle draw = DrawDestination;
-				//Vector2 center = Center;
-				//Draws the current sprite.
-				if (rot)
-				{
-					p_SpriteBatch.Draw(m_Texture.Texture, DrawDestination, m_Texture.StartPosition, Color.White, m_Degree,
-									  Texture.Center, SpriteEffects.None, m_Z);
 				}
-				else
+
+				if (Texture != null)
 				{
-					p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White,0,Vector2.Zero,SpriteEffects.None,m_Z);
+					//Rectangle draw = DrawDestination;
+					//Vector2 center = Center;
+					//Draws the current sprite.
+					if (rot)
+					{
+						p_SpriteBatch.Draw(m_Texture.Texture, DrawDestination, m_Texture.StartPosition, Color.White, m_Degree,
+										  Texture.Center, SpriteEffects.None, m_Z);
+					}
+					else
+					{
+						p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, Color.White, 0, Vector2.Zero, SpriteEffects.None, m_Z);
+					}
 				}
 				//m_Texture.Center
 			}
@@ -326,7 +354,6 @@ namespace project_hook
                         Parts.RemoveAt(a);
                         a--;
                     }
-					
 				}
 			}
 

@@ -113,23 +113,26 @@ namespace project_hook
                 Collision.CheckCollisions(m_SpriteList);
 
                 List<Sprite> toBeRemoved = new List<Sprite>();
-
-                foreach (Sprite s in m_SpriteList)
-                {
-                    if (!s.Visible)
-                    {
-                        toBeRemoved.Add(s);
-                    }
-                    else
-                    {
-                        s.Update(p_GameTime);
-                    }
-                }
-
-                foreach (Sprite s in toBeRemoved)
-                {
-                    m_SpriteList.Remove(s);
-                }
+				for (int a = 0; a < m_SpriteList.Count; a++)
+				{
+					Sprite s = m_SpriteList[a];
+					if (s.ToBeRemoved)
+					{
+						m_SpriteList.RemoveAt(a);
+						a--;
+					}
+					else
+					{
+						s.Update(p_GameTime);
+						
+							while(s.SpritesToBeAdded.Count >0){
+								m_SpriteList.Add(s.SpritesToBeAdded[0]);
+								s.SpritesToBeAdded.RemoveAt(0);
+							}
+						
+					}
+				}
+               
             }
         }
 
@@ -253,6 +256,7 @@ namespace project_hook
             TextureLibrary.LoadTexture("Shield");
             TextureLibrary.LoadTexture("FireBall");
             TextureLibrary.LoadTexture("temptail");
+			TextureLibrary.LoadTexture("poisonsplat");
             m_DrawText.Load(p_Content);
 
         }
@@ -269,6 +273,7 @@ namespace project_hook
             Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
             Ship enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 50);
             Tail tail = new Tail("Tail", m_Player.PlayerShip.Position, 70, 27, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 0, null, 20, m_Player.PlayerShip);
+			tail.Health = int.MinValue;
 
 
             Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
