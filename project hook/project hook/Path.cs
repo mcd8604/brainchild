@@ -10,7 +10,7 @@ namespace project_hook
 		Paths m_Strategy;
 		PathStrategy m_Path;
 
-        public Path(Paths p_Strategy, Dictionary<PathStrategy.ValueKeys, Object> p_Values)
+		public Path(Paths p_Strategy, Dictionary<PathStrategy.ValueKeys, Object> p_Values)
 		{
 			m_Strategy = p_Strategy;
 
@@ -18,42 +18,48 @@ namespace project_hook
 			{
 				m_Path = new FollowPath(p_Values);
 			}
-            else if (m_Strategy == Paths.Line)
-            {
-                m_Path = new PathLine(p_Values);
-            }
-            else if (m_Strategy == Paths.Shot)
-            {
-                m_Path = new ShotPath(p_Values);
-            }
+			else if (m_Strategy == Paths.Line)
+			{
+				m_Path = new PathLine(p_Values);
+			}
+			else if (m_Strategy == Paths.Shot)
+			{
+				m_Path = new ShotPath(p_Values);
+			}
 			else if (m_Strategy == Paths.Bother)
 			{
 				m_Path = new BotherPath(p_Values);
 			}
-            else if (m_Strategy == Paths.Tether)
-            {
-                m_Path = new TetherPath(p_Values);
-            }
-          //  return m_Path;
+			else if (m_Strategy == Paths.Tether)
+			{
+				m_Path = new TetherPath(p_Values);
+			}
+			else if (m_Strategy == Paths.Straight)
+			{
+				m_Path = new PathStraight(p_Values);
+			}
+			//  return m_Path;
 		}
 
-		public void CalculateMovement(GameTime p_gameTime){
+		public void CalculateMovement(GameTime p_gameTime)
+		{
 
-            m_Path.CalculateMovement(p_gameTime);
+			m_Path.CalculateMovement(p_gameTime);
 		}
 
-        public bool isDone()
-        {
-           return m_Path.isDone;
-        }
+		public bool isDone()
+		{
+			return m_Path.isDone;
+		}
 
 		public enum Paths
 		{
 			Follow,
 			Line,
-            Shot,
+			Shot,
 			Bother,
-            Tether
+			Tether,
+			Straight
 
 		}
 

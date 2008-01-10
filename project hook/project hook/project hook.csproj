@@ -61,6 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PathStraight.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PathStraight</Name>
+    </Compile>
     <Compile Include="ScrollingBackground.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ScrollingBackground</Name>
