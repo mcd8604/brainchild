@@ -120,6 +120,19 @@ namespace project_hook
 				m_Radius = value;
 			}
 		}
+
+		private GameTexture m_CollisonEffect;
+		public GameTexture CollisonEffect
+		{
+			get
+			{
+				return m_CollisonEffect;
+			}
+			set
+			{
+				m_CollisonEffect = value;
+			}
+		}
 		#endregion // End of variables and Properties Region
 
         public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, 
@@ -134,6 +147,24 @@ namespace project_hook
 			Radius = p_Radius;
         }
 
+		
+		public override void Update(GameTime p_Time)
+		{
+			base.Update(p_Time);
+			ToBeRemoved = AmIDead();
+		}
+		 
+		public virtual Boolean AmIDead(){
+			if(Health == int.MinValue){
+				return false;
+
+			}
+			else if (Health <= 0)
+			{
+				return true;
+			}
+			return false;
+		}
 
 		//public virtual void CheckCollision(Collidable p_Sprite)
 		//{

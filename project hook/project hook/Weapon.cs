@@ -137,6 +137,7 @@ namespace project_hook
 				//first shot
 				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 100, true,
 										0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 20, 10);
+				t_Shot1.CollisonEffect = TextureLibrary.getGameTexture("poisonsplat", "");
 				t_Shot1.Bound = Collidable.Boundings.Diamond;
 				//adds all the stuff that was in Game1
 				//i just moved it over here.

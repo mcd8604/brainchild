@@ -29,6 +29,8 @@ namespace project_hook
 				m_Damage = value;
 			}
 		}
+
+
 		#endregion // End of variables and Properties Region
 
 		public Shot(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, 
@@ -50,10 +52,21 @@ namespace project_hook
             }
         }
 
+		public override Boolean AmIDead()
+		{
+			return false;
+				
+		}
+
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			base.RegisterCollision(p_Other);
+			Vector2 midPoint = new Vector2(Center.X - p_Other.Center.X, Center.Y - p_Other.Center.Y);
+			SpritesToBeAdded.Add(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.MidGround.Top));
+
+			ToBeRemoved = true;
 			Visible = false;
+
 		}
 
 		//public override void Update(float p_Elapsed)
