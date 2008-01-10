@@ -97,23 +97,23 @@ namespace project_hook
 			}
 			set
 			{
-				m_ShotNumber=value;
+				m_ShotNumber = value;
 			}
 		}
 
-        //this will hold the time of the last shot
-        protected double m_LastShot = 0;
-        public double LastShot
-        {
-            get
-            {
-                return m_LastShot;
-            }
-            set
-            {
-                m_LastShot = value;
-            }
-        }
+		//this will hold the time of the last shot
+		protected double m_LastShot = 0;
+		public double LastShot
+		{
+			get
+			{
+				return m_LastShot;
+			}
+			set
+			{
+				m_LastShot = value;
+			}
+		}
 		#endregion // End of variables and Properties Region
 
 		public Weapon(Ship p_Ship, int p_Strength, int p_Delay, int p_Speed, GameTexture p_Shot)
@@ -123,68 +123,85 @@ namespace project_hook
 			Delay = p_Delay;
 			Speed = p_Speed;
 			Shot = p_Shot;
-			ShotNumber=0;
+			ShotNumber = 0;
 		}
 
 		//this function will creat a Shot at the current location
 		public virtual List<Shot> CreatShot(GameTime p_GameTime)
 		{
-            if (p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastShot + m_Delay)
-            {
-                //creates a temp shot
-                List<Shot> t_Shots = new List<Shot>();
-                
-                //first shot
-                Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 100, true,
-                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 20, 10);
-				t_Shot1.Bound = Collidable.Boundings.Diamond;
-                //adds all the stuff that was in Game1
-                //i just moved it over here.
-                t_Shot1.setAnimation("RedShot", 10);
+			if (p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastShot + m_Delay)
+			{
+				//creates a temp shot
+				List<Shot> t_Shots = new List<Shot>();
 
+				//first shot
+				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 100, true,
+										0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 20, 10);
+				t_Shot1.Bound = Collidable.Boundings.Diamond;
+				//adds all the stuff that was in Game1
+				//i just moved it over here.
+				t_Shot1.setAnimation("RedShot", 10);
+
+				/*
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
                 dic.Add(PathStrategy.ValueKeys.End, new Vector2(t_Shot1.Center.X, -100));
                 //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
                 dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
                 t_Shot1.Path = new Path(Path.Paths.Shot, dic);
+				 */
 
-                t_Shot1.Animation.StartAnimation();
+				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
+				dic.Add(PathStrategy.ValueKeys.Speed, new Vector2(0, Speed * -1));
+				dic.Add(PathStrategy.ValueKeys.Duration, 5.0f);
+				t_Shot1.Path = new Path(Path.Paths.Straight, dic);
 
-                //second shot
-                Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 100, true,
-                                        0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 20, 10);
-                t_Shot2.Bound = Collidable.Boundings.Diamond;
-                Vector2 shot = t_Shot2.Position;
-                shot.X = m_Ship.Position.X + 50;
-                shot.Y = m_Ship.Position.Y;
-                t_Shot2.Position = shot;
+				t_Shot1.Animation.StartAnimation();
 
-                t_Shot2.setAnimation("RedShot", 10);
+				//second shot
+				Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 100, true,
+										0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 20, 10);
+				t_Shot2.Bound = Collidable.Boundings.Diamond;
+				Vector2 shot = t_Shot2.Position;
+				shot.X = m_Ship.Position.X + 50;
+				shot.Y = m_Ship.Position.Y;
+				t_Shot2.Position = shot;
 
+				t_Shot2.setAnimation("RedShot", 10);
+
+				/*
                 dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.Start, t_Shot2.Center);
                 dic.Add(PathStrategy.ValueKeys.End, new Vector2(t_Shot2.Center.X, -100));
                 //dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
                 dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
                 t_Shot2.Path = new Path(Path.Paths.Shot, dic);
-                t_Shot2.Animation.StartAnimation();
+				 */
 
-                //gets the current time in milliseconds
-                m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
-                ++m_ShotNumber;
-                t_Shots.Add(t_Shot1);
-                t_Shots.Add(t_Shot2);
-                return t_Shots;
-            }
-            else
-            {
-                List<Shot> t_Shots = new List<Shot>();
-                Shot t_Shot = new Shot("no_Shot", m_Ship.Center, 0, 0, null, 0, false, 0, Depth.MidGround.Top, Collidable.Factions.Player,
-                                        -1, null, 0, null, 0, 0);
+				dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
+				dic.Add(PathStrategy.ValueKeys.Speed, new Vector2(0, Speed * -1));
+				dic.Add(PathStrategy.ValueKeys.Duration, 5.0f);
+				t_Shot2.Path = new Path(Path.Paths.Straight, dic);
 
-                return t_Shots;
-            }
+				t_Shot2.Animation.StartAnimation();
+
+				//gets the current time in milliseconds
+				m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
+				++m_ShotNumber;
+				t_Shots.Add(t_Shot1);
+				t_Shots.Add(t_Shot2);
+				return t_Shots;
+			}
+			else
+			{
+				List<Shot> t_Shots = new List<Shot>();
+				Shot t_Shot = new Shot("no_Shot", m_Ship.Center, 0, 0, null, 0, false, 0, Depth.MidGround.Top, Collidable.Factions.Player,
+										-1, null, 0, null, 0, 0);
+
+				return t_Shots;
+			}
 		}
 	}
 }
