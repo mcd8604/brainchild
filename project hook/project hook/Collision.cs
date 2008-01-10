@@ -164,7 +164,7 @@ namespace project_hook
 
 						if (temp.Bound == Collidable.Boundings.Circle)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""), 100, true, 0, Depth.ForeGround.Top);
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""), 250f, true, 0, Depth.ForeGround.Top);
 							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 							dic.Add(PathStrategy.ValueKeys.Target, temp);
 							dic.Add(PathStrategy.ValueKeys.Base, sprite);
@@ -173,7 +173,7 @@ namespace project_hook
 						}
 						else if (temp.Bound == Collidable.Boundings.Diamond)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""), 100, true, 0, Depth.ForeGround.Top);
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""), 250f, true, 0, Depth.ForeGround.Top);
 							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 							dic.Add(PathStrategy.ValueKeys.Target, temp);
 							dic.Add(PathStrategy.ValueKeys.Base, sprite);
@@ -182,7 +182,7 @@ namespace project_hook
 						}
 						else if (temp.Bound == Collidable.Boundings.Square)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""), 100, true, 0, Depth.ForeGround.Top);
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""), 250f, true, 0, Depth.ForeGround.Top);
 							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 							dic.Add(PathStrategy.ValueKeys.Target, temp);
 							dic.Add(PathStrategy.ValueKeys.Base, sprite);
