@@ -188,6 +188,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Class1</Name>
     </Compile>
+    <Compile Include="TailAttachPath.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TailAttachPath</Name>
+    </Compile>
     <Compile Include="TailAttackPath.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TailAttackPath</Name>

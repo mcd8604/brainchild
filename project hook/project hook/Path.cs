@@ -42,6 +42,10 @@ namespace project_hook
 			{
 				m_Path = new TailAttackPath(p_Values);
 			}
+			else if (m_Strategy == Paths.TailAttach)
+			{
+				m_Path = new TailAttachPath(p_Values);
+			}
 			//  return m_Path;
 		}
 
@@ -64,7 +68,8 @@ namespace project_hook
 			Bother,
 			Tether,
 			Straight,
-			TailAttack
+			TailAttack,
+			TailAttach
 
 		}
 

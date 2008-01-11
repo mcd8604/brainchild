@@ -11,7 +11,7 @@ namespace project_hook
         /// Check Everything in list to see if any collisions have occured.
         /// </summary>
         /// <param name="list">the list to check</param>
-        public static void CheckCollisions(List<Sprite> list)
+        public static void CheckCollisions(List<Sprite> list, GameTime p_GameTime)
         {
             MultiDictionary<Collidable.Factions, Collidable> sorter = new MultiDictionary<Collidable.Factions, Collidable>(true);
             foreach (Sprite s in list)
@@ -34,8 +34,8 @@ namespace project_hook
                         {
                             if (DoesIntersect(c, x))
                             {
-                                c.RegisterCollision(x);
-                                x.RegisterCollision(c);
+                                c.RegisterCollision(x, p_GameTime);
+                                x.RegisterCollision(c, p_GameTime);
                             }
                         }
                     }
