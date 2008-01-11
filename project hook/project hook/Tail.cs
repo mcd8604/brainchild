@@ -46,11 +46,25 @@ namespace project_hook
             }
         }
 
-        private Vector2 m_TailSpeed = new Vector2(0, 0);
+		private double m_TailAttackDelay;
+		public double TailAttackDelay
+		{
+			get
+			{
+				return m_TailAttackDelay;
+			}
+			set
+			{
+				m_TailAttackDelay = value;
+			}
+		}
 
+        private Vector2 m_TailSpeed = new Vector2(0, 0);
+		private double m_LastTailAttack = 0;
+		private bool m_TailReturned = true;
 
 		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius, Ship p_AttachShip)
+							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius, Ship p_AttachShip, double p_TailAttackDelay)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, -1,p_Path,p_Speed,p_DamageEffect,p_Radius )
         {
 			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -60,33 +74,61 @@ namespace project_hook
 			this.Path = new Path(Path.Paths.Tether, dic);
             m_TailTarget = new Vector2(-1, -1);
             m_EnemyCaught = null;
+			m_TailAttackDelay = p_TailAttackDelay;
         }
 
-		public void TailAttack(Vector2 p_Target)
+		public void TailAttack(Vector2 p_Target, GameTime p_GameTime)
 		{
-			m_TailTarget = p_Target;
-			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-			dic.Add(PathStrategy.ValueKeys.End, p_Target);
-			dic.Add(PathStrategy.ValueKeys.Start, this.Center);
-			dic.Add(PathStrategy.ValueKeys.Base, this);
-			dic.Add(PathStrategy.ValueKeys.Speed, 2500f);
-			dic.Add(PathStrategy.ValueKeys.Target, this.PlayerShip);
-			this.Path = new Path(Path.Paths.TailAttack, dic);
+			if (m_EnemyCaught == null && m_TailReturned && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
+			{
+				m_TailTarget = p_Target;
+				Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.End, p_Target);
+				dic.Add(PathStrategy.ValueKeys.Start, this.Center);
+				dic.Add(PathStrategy.ValueKeys.Base, this);
+				dic.Add(PathStrategy.ValueKeys.Speed, 1250f);
+				dic.Add(PathStrategy.ValueKeys.Target, this.PlayerShip);
+				this.Path = new Path(Path.Paths.TailAttack, dic);
+				//gets the current time in milliseconds
+				m_LastTailAttack = p_GameTime.TotalGameTime.TotalMilliseconds;
+				m_TailReturned = false;
+			}
+			else if (m_EnemyCaught != null && m_TailReturned && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
+			{
+				Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.End, p_Target);
+				dic.Add(PathStrategy.ValueKeys.Start, m_EnemyCaught.Center);
+				dic.Add(PathStrategy.ValueKeys.Base, m_EnemyCaught);
+				dic.Add(PathStrategy.ValueKeys.Speed, 500f);
+				m_EnemyCaught.Path = new Path(Path.Paths.Shot, dic);
+				m_EnemyCaught.Faction = Factions.Player;
+				m_EnemyCaught = null;
+			}
 		}
 
 		public void TailReturned()
 		{
+			m_TailTarget.X = -1f;
+			m_TailTarget.Y = -1f;
 			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			dic.Add(PathStrategy.ValueKeys.Target, this.PlayerShip);
 			dic.Add(PathStrategy.ValueKeys.Base, this);
 			this.Path = new Path(Path.Paths.Bother, dic);
+			m_TailReturned = true;
 		}
 
-        public void TailCollide(Ship p_Ship)
+        public override void RegisterCollision(Collidable p_Other, GameTime p_GameTime)
         {
-            m_TailTarget.X = -1f;
-            m_TailTarget.Y = -1f;
-            m_EnemyCaught = p_Ship;
+			//base.RegisterCollision(p_Other);
+			if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_EnemyCaught == null)
+			{
+				TailReturned();
+				Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.Target, p_Other);
+				dic.Add(PathStrategy.ValueKeys.Base, this);
+				m_EnemyCaught = (Ship)p_Other;
+				m_EnemyCaught.Path = new Path(Path.Paths.TailAttach, dic);
+			}
         }
 
         private void UpdateEnemyCaught()

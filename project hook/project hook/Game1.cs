@@ -116,7 +116,7 @@ namespace project_hook
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
 				enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100);
-				tail = new Tail("Tail", back1.PlayerShip.Position, 70, 27, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 0, null, 30, back1.PlayerShip);
+				tail = new Tail("Tail", back1.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 0, null, 30, back1.PlayerShip, 400);
 				crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.MidGround.Mid);
 
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -140,6 +140,7 @@ namespace project_hook
 
 
 				spritelist.Add(enemy);
+				spritelist.Add(tail);
                 /*
 				spritelist.Add(shotEffect);
 				spritelist.Add(shot2Effect);
@@ -280,7 +281,7 @@ namespace project_hook
 			if(Mouse.GetState().LeftButton != lastMouseButton)
 			{
 				if(Mouse.GetState().LeftButton == ButtonState.Pressed)
-					tail.TailAttack(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+					tail.TailAttack(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), gameTime);
 			}
 
             if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
@@ -354,8 +355,8 @@ namespace project_hook
                 }
             }
 
-            gameCollision.QuickCheckCollision( new List<Sprite>(spritelist),gameTime,back1);
-
+            //gameCollision.QuickCheckCollision( new List<Sprite>(spritelist),gameTime,back1);
+			Collision.CheckCollisions(spritelist, gameTime);
 
             List<Sprite> toBeRemoved = new List<Sprite>();
 
@@ -404,8 +405,8 @@ namespace project_hook
 				foreach ( Collidable item2 in temp ) {
 					if ( item != item2 && Intersection.DoesIntersectDiamond(item.Position + item.Center, item.Height/2.5f, item2.Position + item2.Center, item2.Height/2.5f) ) {
 						//explosion.Position = (item.Position + item2.Position) / 2;
-						item.RegisterCollision(item2);
-						item2.RegisterCollision(item);
+						item.RegisterCollision(item2, gameTime);
+						item2.RegisterCollision(item, gameTime);
 						back1.Score.RegisterHit(gameTime);
 					}
 				}

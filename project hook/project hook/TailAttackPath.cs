@@ -34,7 +34,7 @@ namespace project_hook
         public override void CalculateMovement(GameTime p_GameTime)
         {
 			m_CurrentPath.CalculateMovement(p_GameTime);
-			m_Base.Degree  = TurnToFace(m_Base.Center, m_End, m_Base.Degree, 10) + 90;
+			m_Base.Degree  = TurnToFace(m_Base.Center, m_End, m_Base.Degree, 10);
 			if(MathHelper.Distance(m_Base.Center.X,m_End.X) < 10 && MathHelper.Distance(m_Base.Center.Y,m_End.Y) < 10 && !changed)
 			{
 				Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -45,7 +45,7 @@ namespace project_hook
 				m_CurrentPath = new Path(Path.Paths.Shot,dic);
 				changed = true;
 			}
-			if (MathHelper.Distance(m_Base.Center.X, m_PlayerShip.Center.X) < 50 && MathHelper.Distance(m_Base.Center.Y, m_PlayerShip.Center.Y) < 50 && changed)
+			if (MathHelper.Distance(m_Base.Center.X, m_PlayerShip.Center.X) < 75 && MathHelper.Distance(m_Base.Center.Y, m_PlayerShip.Center.Y) < 75 && changed)
 			{
 				m_Base.TailReturned();
 			}
