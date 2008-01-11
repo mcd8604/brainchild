@@ -103,6 +103,7 @@ namespace project_hook
 				m_EnemyCaught.Path = new Path(Path.Paths.Shot, dic);
 				m_EnemyCaught.Faction = Factions.Player;
 				m_EnemyCaught = null;
+				m_LastTailAttack = p_GameTime.TotalGameTime.TotalMilliseconds;
 			}
 		}
 
