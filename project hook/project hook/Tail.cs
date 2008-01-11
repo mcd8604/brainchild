@@ -48,7 +48,6 @@ namespace project_hook
 
         private Vector2 m_TailSpeed = new Vector2(0, 0);
 
-        private int m_Friction = 4;
 
 		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
 							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius, Ship p_AttachShip)
@@ -56,24 +55,31 @@ namespace project_hook
         {
 			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			dic.Add(PathStrategy.ValueKeys.Target, p_AttachShip);
+			this.PlayerShip = (PlayerShip)p_AttachShip;
 			dic.Add(PathStrategy.ValueKeys.Base, this);
-			this.Path = new Path(Path.Paths.Bother, dic);
+			this.Path = new Path(Path.Paths.Tether, dic);
             m_TailTarget = new Vector2(-1, -1);
             m_EnemyCaught = null;
         }
 
 		public void TailAttack(Vector2 p_Target)
 		{
+			m_TailTarget = p_Target;
 			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			dic.Add(PathStrategy.ValueKeys.End, p_Target);
 			dic.Add(PathStrategy.ValueKeys.Start, this.Center);
 			dic.Add(PathStrategy.ValueKeys.Base, this);
-			dic.Add(PathStrategy.ValueKeys.Speed, 500f);
-			float x = p_Target.X - this.Center.X;
-            float y = p_Target.Y - this.Center.Y;
-			double degree = (double)Math.Atan2(y, x);
-			dic.Add(PathStrategy.ValueKeys.Degree, degree);
-			this.Path = new Path(Path.Paths.Shot, dic);
+			dic.Add(PathStrategy.ValueKeys.Speed, 2500f);
+			dic.Add(PathStrategy.ValueKeys.Target, this.PlayerShip);
+			this.Path = new Path(Path.Paths.TailAttack, dic);
+		}
+
+		public void TailReturned()
+		{
+			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+			dic.Add(PathStrategy.ValueKeys.Target, this.PlayerShip);
+			dic.Add(PathStrategy.ValueKeys.Base, this);
+			this.Path = new Path(Path.Paths.Bother, dic);
 		}
 
         public void TailCollide(Ship p_Ship)

@@ -180,6 +180,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Class1</Name>
     </Compile>
+    <Compile Include="TailAttackPath.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TailAttackPath</Name>
+    </Compile>
     <Compile Include="TetherPath.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TetherPath</Name>
@@ -300,6 +304,12 @@
     <Content Include="Content\Animations\AnimationDefn.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>AnimationDefn</Name>
+    </Content>
+    <Content Include="Content\Textures\crosshairs.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>crosshairs</Name>
     </Content>
     <Content Include="Content\Textures\debugcirc.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
