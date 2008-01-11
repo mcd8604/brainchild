@@ -239,6 +239,13 @@ namespace project_hook
 			}
 
 		}
+
+
+        // A Quick Method to get access to what I need - temporary
+        public static SpriteFont getFont( String name ) {
+            return m_TextureManager.Load<SpriteFont>(System.Environment.CurrentDirectory + "\\Content\\Fonts\\" + name);
+        }
+
 	}
     
 }

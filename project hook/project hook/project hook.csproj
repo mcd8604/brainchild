@@ -61,6 +61,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FPS.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>FPS</Name>
+    </Compile>
+    <Compile Include="FPSSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>FPSSprite</Name>
+    </Compile>
     <Compile Include="PathStraight.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathStraight</Name>
@@ -187,6 +195,10 @@
     <Compile Include="TetherPath.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TetherPath</Name>
+    </Compile>
+    <Compile Include="TextSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TextSprite</Name>
     </Compile>
     <Compile Include="TextureLibrary.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -403,15 +415,17 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>temptail</Name>
     </Content>
-    <Content Include="Courier New.spritefont">
+    <Content Include="libs\Intersection.dll">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Intersection</Name>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Fonts\Courier New.spritefont">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Name>Courier New</Name>
-    </Content>
-    <Content Include="libs\Intersection.dll">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Intersection</Name>
     </Content>
   </ItemGroup>
   <ItemGroup>

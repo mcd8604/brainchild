@@ -56,7 +56,7 @@ namespace project_hook
 		}
         
         // The identifying name of the sprite
-		private String m_Name;
+		private String m_Name = "Unnamed Sprite";
 		public String Name
 		{
 			get
@@ -102,8 +102,8 @@ namespace project_hook
 		}		
 
         //This is the height of the the sprite. 
-		private int m_Height;
-		public int Height
+		protected int m_Height;
+		public virtual int Height
 		{
 			get
 			{
@@ -116,8 +116,8 @@ namespace project_hook
 		}
 
         //This is the width of the sprite that will be displayed
-		private int m_Width;
-		public int Width
+		protected int m_Width;
+		public virtual int Width
 		{
 			get
 			{
@@ -232,8 +232,8 @@ namespace project_hook
 			}
 		}
 
-		private Vector2 m_Center;
-		public Vector2 Center
+		protected Vector2 m_Center;
+		public virtual Vector2 Center
 		{
 			get
 			{
@@ -315,7 +315,7 @@ namespace project_hook
 						t_Sprite.Draw(p_SpriteBatch);
 					}
 				}
-
+                
 				if (Texture != null)
 				{
 					//Rectangle draw = DrawDestination;
