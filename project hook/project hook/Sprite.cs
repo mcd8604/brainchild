@@ -29,7 +29,6 @@ namespace project_hook
 			{
 				m_Path = value;
 			}
-
 		}
 
         private List<Sprite> m_Parts;
@@ -206,10 +205,9 @@ namespace project_hook
             {
                 m_Z = value;
             }
-
         }
 
-        //This will create the destination rectangle sued to draw the sprite to the screen.
+        //This will create the destination rectangle used to draw the sprite to the screen.
         //The spritebatch objetc needs this as a parameter.
 		public Rectangle Destination
 		{
@@ -219,7 +217,7 @@ namespace project_hook
 			}
 		}
 
-		//This will create the destination rectangle sued to draw the sprite to the screen.
+		//This will create the destination rectangle used to draw the sprite to the screen.
 		//The spritebatch objetc needs this as a parameter.
 		public Rectangle DrawDestination
 		{
@@ -257,7 +255,6 @@ namespace project_hook
 			{
 				m_ToBeRemoved = value;
 			}
-
 		}
 
 		private List<Sprite> m_SpritesToBeAdded;
@@ -267,7 +264,6 @@ namespace project_hook
 			{
 				return m_SpritesToBeAdded;
 			}
-
 		}
         #endregion // End of variables and Properties Region
 
@@ -328,7 +324,9 @@ namespace project_hook
 					}
 					else
 					{
-						p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, new Color(255, 255, 255, (byte)MathHelper.Clamp(Alpha, 0, 255)), 0, Vector2.Zero, SpriteEffects.None, m_Z);
+						p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition,
+											new Color(255, 255, 255, (byte)MathHelper.Clamp(Alpha, 0, 255)),
+											0, Vector2.Zero, SpriteEffects.None, m_Z);
 					}
 				}
 				//m_Texture.Center
