@@ -25,6 +25,7 @@ namespace project_hook
 			float x = m_End.X - m_Start.X;
 			float y = m_End.Y - m_Start.Y;
 			m_Slope = (double)Math.Atan2(y, x);
+			m_Base.Degree = (float)(m_Slope + MathHelper.PiOver2);
 		}
 
         public override void CalculateMovement(GameTime p_GameTime)
