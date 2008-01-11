@@ -293,6 +293,9 @@ namespace project_hook
             m_SpriteList.Add(m_Player.PlayerShip);
 
 
+            Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
+            m_SpriteList.Add(TextFpsExample);
+
         }
     }
 }

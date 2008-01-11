@@ -48,14 +48,14 @@ namespace project_hook
         }
 
 		//Name of the Texture asset
-		private string m_TextureName;
-		public string TextureName
-		{
-			get
-			{
-				return m_TextureName;
-			}
-		}
+		//private string m_TextureName;
+        //public string TextureName
+        //{
+        //    get
+        //    {
+        //        return m_TextureName;
+        //    }
+        //}
 
         //The 2D Texture the texture will read from
 		private Texture2D m_Texture;
