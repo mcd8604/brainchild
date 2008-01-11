@@ -101,7 +101,6 @@ namespace project_hook
 				dic.Add(PathStrategy.ValueKeys.Base, m_EnemyCaught);
 				dic.Add(PathStrategy.ValueKeys.Speed, 500f);
 				m_EnemyCaught.Path = new Path(Path.Paths.Shot, dic);
-				m_EnemyCaught.Faction = Factions.Player;
 				m_EnemyCaught = null;
 				m_LastTailAttack = p_GameTime.TotalGameTime.TotalMilliseconds;
 			}
@@ -114,7 +113,7 @@ namespace project_hook
 			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			dic.Add(PathStrategy.ValueKeys.Target, this.PlayerShip);
 			dic.Add(PathStrategy.ValueKeys.Base, this);
-			this.Path = new Path(Path.Paths.Bother, dic);
+			this.Path = new Path(Path.Paths.Tether, dic);
 			m_TailReturned = true;
 		}
 
@@ -128,6 +127,7 @@ namespace project_hook
 				dic.Add(PathStrategy.ValueKeys.Target, p_Other);
 				dic.Add(PathStrategy.ValueKeys.Base, this);
 				m_EnemyCaught = (Ship)p_Other;
+				m_EnemyCaught.Faction = Factions.Player;
 				m_EnemyCaught.Path = new Path(Path.Paths.TailAttach, dic);
 			}
         }
