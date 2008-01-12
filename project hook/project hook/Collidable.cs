@@ -107,6 +107,20 @@ namespace project_hook
 		//this is the sprite for teh damage effect
         private Sprite m_DamageSprite;
 
+		private ParticleSystem m_DamageParticleSystem;
+		public ParticleSystem DamageParticleSystem 
+		{
+			get
+			{
+				return m_DamageParticleSystem;
+			}
+
+			set 
+			{
+				m_DamageParticleSystem = value;
+			}
+		}
+
 		//this is the radius used for collision detection
 		private float m_Radius;
 		public float Radius
@@ -144,6 +158,11 @@ namespace project_hook
 			Path = p_Path;
 			Speed = p_Speed;
 			DamageEffect = p_DamageEffect;
+			if (DamageEffect != null)
+			{
+				DamageParticleSystem = new BloodParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
+				attachSpritePart(DamageParticleSystem);
+			}
 			Radius = p_Radius;
         }
 
@@ -174,10 +193,10 @@ namespace project_hook
 
 		public virtual void RegisterCollision(Collidable p_Other, GameTime p_GameTime)
 		{
-			if (m_DamageEffect != null)
+			if (DamageEffect != null)
 			{
 
-				m_DamageSprite = new Sprite(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 255f, true, 0, Depth.MidGround.Top);
+				/*m_DamageSprite = new Sprite(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 255f, true, 0, Depth.MidGround.Top);
                 m_DamageSprite.setAnimation(m_DamageEffect.Name, 100, 1);
                 m_DamageSprite.Animation.StartAnimation();
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -185,7 +204,12 @@ namespace project_hook
                 dic.Add(PathStrategy.ValueKeys.Target,this);
                 dic.Add(PathStrategy.ValueKeys.Base, m_DamageSprite);
                 m_DamageSprite.Path = new Path(Path.Paths.Follow, dic);
-				attachSpritePart(m_DamageSprite);
+				attachSpritePart(m_DamageSprite);*/
+
+				//Vector2 v2 = Position - p_Other;
+				//float direction = v2.Normalize;
+				//DamageParticleSystem.Direction = direction;
+				DamageParticleSystem.AddParticles(p_Other.Center);
 			}
 		}
 

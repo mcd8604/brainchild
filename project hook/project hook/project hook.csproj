@@ -61,6 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BloodParticleSystem.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>BloodParticleSystem</Name>
+    </Compile>
     <Compile Include="FPS.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FPS</Name>
@@ -68,6 +72,14 @@
     <Compile Include="FPSSprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FPSSprite</Name>
+    </Compile>
+    <Compile Include="Particle.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Particle</Name>
+    </Compile>
+    <Compile Include="ParticleSystem.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>ParticleSystem</Name>
     </Compile>
     <Compile Include="PathStraight.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -430,6 +442,12 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Name>Courier New</Name>
+    </Content>
+    <Content Include="Content\Textures\blood.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>blood</Name>
     </Content>
   </ItemGroup>
   <ItemGroup>
