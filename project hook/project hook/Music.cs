@@ -7,15 +7,18 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace project_hook
 {
-	public static class Sound
+	public static class Music
 	{
 		private static AudioEngine engine;
 		private static WaveBank wavebank;
 		private static SoundBank soundbank;
+		private static Hashtable cueTable = new Hashtable();
 
-		public static void Play(string name)
+		public static Cue Play(string name)
 		{
-			soundbank.PlayCue(name);
+			Cue returnVal = soundbank.GetCue(name);
+			cueTable.Add(name, returnVal);
+			return returnVal;
 		}
 
 		/// <summary>
@@ -33,6 +36,12 @@ namespace project_hook
 			engine.Update();
 		}
 
+		public static void Stop(string name)
+		{
+			((Cue)cueTable[name]).Stop(AudioStopOptions.Immediate);
+			cueTable.Remove(name);
+		}
+
 		/// <summary>
 		/// Shuts down the sound code tidily
 		/// </summary>
@@ -41,6 +50,10 @@ namespace project_hook
 			soundbank.Dispose();
 			wavebank.Dispose();
 			engine.Dispose();
+			foreach (Cue it in cueTable)
+				Stop(it.Name);
 		}
 	}
 }
+
+
