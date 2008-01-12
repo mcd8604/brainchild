@@ -18,7 +18,6 @@ namespace project_hook
 
 		void setSelectedIndex(int index);
 
-		void accept();
-	
+		void accept();	
 	}
 }

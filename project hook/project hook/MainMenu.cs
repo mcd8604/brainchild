@@ -7,7 +7,6 @@ namespace project_hook
 {
 	class MainMenu : Menu
 	{
-
 		public MainMenu()
 			: base()
 		{
@@ -32,9 +31,6 @@ namespace project_hook
 			{
 				Menus.Exit = true;   
 			}
-
 		}
-	}
-
-    
+	}    
 }

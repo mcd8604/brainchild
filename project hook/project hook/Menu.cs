@@ -70,7 +70,8 @@ namespace project_hook
             GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
             float xPos = (800 - bgTexture.Width) / 2;
 			float yPos = (600 - bgTexture.Height) / 2;
-			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 200f, true, 0, Depth.ForeGround.Bottom);
+			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 200f, true,
+											0, Depth.ForeGround.Bottom);
 
 			m_MenuItemSprites = new ArrayList();
             
@@ -87,14 +88,15 @@ namespace project_hook
                     yPos += mis.Height;
                 }
 
-				m_MenuItemSprites.Add(new Sprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), curTexture.Height, curTexture.Width, curTexture, 255f, true, 0, Depth.ForeGround.Mid));
+				m_MenuItemSprites.Add(new Sprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), curTexture.Height, curTexture.Width,
+													curTexture, 255f, true, 0, Depth.ForeGround.Mid));
             }
 
             //create highlight sprite
             Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
             GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName, "");
-			m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height, selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.ForeGround.Top);
-
+			m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height,
+											selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.ForeGround.Top);
 		}
 
 		public void Draw(SpriteBatch p_SpriteBatch)
@@ -126,8 +128,7 @@ namespace project_hook
         {
             if (keyhandler.IsActionPressed(KeyHandler.Actions.Pause))
             {
-                //this.Exit();
-               
+                //this.Exit();               
             }
 
             if (keyhandler.IsActionPressed(KeyHandler.Actions.Up))
@@ -156,6 +157,7 @@ namespace project_hook
             {
                 m_selectedIndex = 0;
             }
+
             setHighlightSprite();
         }
 
@@ -200,8 +202,6 @@ namespace project_hook
         //override this method
         public virtual void accept()
         {
-
-        }
-	
+        }	
 	}
 }

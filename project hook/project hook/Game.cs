@@ -157,17 +157,14 @@ namespace project_hook
                     m_Menu.checkKeys(m_KeyHandler);
                 }
             }
-
-
 			
             if (World.CreateWorld == true)
             {
 				m_World = new World();
-                       m_World.loadLevel(content);
-                        m_World.initialize( new Rectangle(0,0,graphics.PreferredBackBufferWidth,graphics.PreferredBackBufferHeight));
-                      m_World.changeState(World.GameState.Running);
-                      World.CreateWorld = false;
-
+                m_World.loadLevel(content);
+                m_World.initialize( new Rectangle(0,0,graphics.PreferredBackBufferWidth,graphics.PreferredBackBufferHeight));
+                m_World.changeState(World.GameState.Running);
+                World.CreateWorld = false;
             }
 
 			if (World.DestroyWorld == true)
@@ -190,7 +187,6 @@ namespace project_hook
                     m_World.update(gameTime);
                 }
             }
-
         
             // TODO: Add your update logic here
 
@@ -204,7 +200,6 @@ namespace project_hook
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-
             graphics.GraphicsDevice.Clear(Color.Black);
 
 			m_SpriteBatch.Begin();
@@ -214,7 +209,6 @@ namespace project_hook
             if (m_World != null)
             {
                 m_World.draw(m_SpriteBatch);
-
             }
 
             if (m_Menu != null)
