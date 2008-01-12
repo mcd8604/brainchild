@@ -391,10 +391,38 @@ namespace project_hook
         }
 
 
+		private float m_Scale= -1.0f;
+		public float Scale
+		{
+			get
+			{
+				return m_Scale;
+			}
+			set
+			{
+				m_Scale = value;
+			}
+		}
+
 
 
         #endregion // End of variables and Properties Region
 
+
+		public Sprite()
+		{
+			m_Name = "";
+			StartPosition = Vector2.Zero;
+			Position = Vector2.Zero;
+			Height = 0;
+			Width = 0;
+			Texture = null;
+			Transparency = 255;
+			Visible = false;
+			Rotation = 0.0f;
+			Z = Depth.ForeGround.Top;
+
+		}
 
         public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture)
         {
@@ -467,11 +495,25 @@ namespace project_hook
                     //Draws the current sprite.
                     if (rot)
                     {
-                        p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, SpriteEffects.None, m_Z);
+						if (Scale >= 0)
+						{
+							p_SpriteBatch.Draw(m_Texture.Texture, Position, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, Scale, SpriteEffects.None, m_Z);
+						}
+						else
+						{
+							p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, SpriteEffects.None, m_Z);
+						}
                     }
                     else
                     {
-                        p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, 0, Vector2.Zero, SpriteEffects.None, m_Z);
+						if (Scale >= 0)
+						{
+								p_SpriteBatch.Draw(m_Texture.Texture, Position, m_Texture.StartPosition, m_Color, 0, Vector2.Zero, Scale, SpriteEffects.None, m_Z);
+						}
+						else
+						{
+								p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, 0, Vector2.Zero, SpriteEffects.None, m_Z);
+						}
                     }
 
                 }
