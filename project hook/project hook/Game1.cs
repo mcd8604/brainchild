@@ -78,6 +78,8 @@ namespace project_hook
             base.Initialize();
 
 			Sprite.DrawWithRot();
+
+			Sound.Initialize();
         }
 
 
@@ -183,6 +185,7 @@ namespace project_hook
         protected override void Update(GameTime gameTime)
         {
             keyhandler.Update();
+			Sound.Update();
 
             // Allows the game to exit
             if (keyhandler.IsActionPressed(KeyHandler.Actions.Pause))
