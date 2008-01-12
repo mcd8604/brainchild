@@ -63,6 +63,26 @@ namespace project_hook
         private double m_LastTailAttack = 0;
         private bool m_TailReturned = true;
 
+		public enum TailState
+		{
+			Neutral,
+			Attacking,
+			Returning
+		}
+
+		private TailState m_TailState = TailState.Neutral;
+		public TailState StateOfTail
+		{
+			get
+			{
+				return m_TailState;
+			}
+			set
+			{
+				m_TailState = value;
+			}
+		}
+
         public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
                             float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius, Ship p_AttachShip, double p_TailAttackDelay)
             : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, -1, p_Path, p_Speed, p_DamageEffect, p_Radius)
@@ -79,6 +99,7 @@ namespace project_hook
 
         public void TailAttack(Vector2 p_Target, GameTime p_GameTime)
         {
+			//attack with tail
             if (m_EnemyCaught == null && m_TailReturned && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
             {
                 m_TailTarget = p_Target;
@@ -93,6 +114,7 @@ namespace project_hook
                 m_LastTailAttack = p_GameTime.TotalGameTime.TotalMilliseconds;
                 m_TailReturned = false;
             }
+				//throw enemy
             else if (m_EnemyCaught != null && m_TailReturned && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
             {
                 Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -120,7 +142,7 @@ namespace project_hook
         public override void RegisterCollision(Collidable p_Other, GameTime p_GameTime)
         {
             //base.RegisterCollision(p_Other);
-            if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_EnemyCaught == null)
+            if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_TailState == TailState.Attacking)
             {
                 TailReturned();
                 Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -137,7 +159,7 @@ namespace project_hook
             if (m_EnemyCaught != null)
             {
                 m_EnemyCaught.Position = this.Position;
-                m_EnemyCaught.Degree = this.Degree;
+                m_EnemyCaught.Rotation = this.Rotation;
             }
         }
     }
