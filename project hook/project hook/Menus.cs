@@ -14,7 +14,6 @@ namespace project_hook
                 return m_HasChanged;
             }
         }
-
         
         private static Boolean m_Exit = false;
         public static Boolean Exit
@@ -26,11 +25,11 @@ namespace project_hook
             set
             {
                 m_Exit = value;
-
             }
         }
 
         private static List<MenuScreens> m_PreviousMenus;
+
         private static MenuScreens m_SelectedMenu;
         public static MenuScreens SelectedMenu
         {
@@ -38,11 +37,9 @@ namespace project_hook
             {
                 return m_SelectedMenu;
             }
-
         }
 
         public enum MenuScreens{
-
             Main,
             Pause,
             Options,
@@ -51,7 +48,8 @@ namespace project_hook
             None
         }
 
-        public static void ini(){
+        public static void ini()
+		{
             m_PreviousMenus = new List<MenuScreens>();
             m_SelectedMenu = MenuScreens.None;
             m_HasChanged = false;
@@ -76,8 +74,7 @@ namespace project_hook
                 m_HasChanged = false;
                 return new MainMenu();
 			}
-			else
-			if (m_SelectedMenu == MenuScreens.Pause)
+			else if (m_SelectedMenu == MenuScreens.Pause)
 			{
 				m_HasChanged = false;
 				return new PauseMenu();
