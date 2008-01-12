@@ -107,8 +107,8 @@ namespace project_hook
 		//this is the sprite for teh damage effect
         private Sprite m_DamageSprite;
 
-		private ParticleSystem m_DamageParticleSystem;
-		public ParticleSystem DamageParticleSystem 
+		private SpriteParticleSystem m_DamageParticleSystem;
+		public SpriteParticleSystem DamageParticleSystem 
 		{
 			get
 			{
@@ -160,7 +160,9 @@ namespace project_hook
 			DamageEffect = p_DamageEffect;
 			if (DamageEffect != null)
 			{
-				DamageParticleSystem = new BloodParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
+				 DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
+				DamageParticleSystem.setAnimation("Explosion", 10);
+				DamageParticleSystem.Animation.StartAnimation();
 				attachSpritePart(DamageParticleSystem);
 			}
 			Radius = p_Radius;

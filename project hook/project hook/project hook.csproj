@@ -73,9 +73,17 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FPSSprite</Name>
     </Compile>
+    <Compile Include="ExplosionSpriteParticleSystem.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>ExplosionSpriteParticleSystem</Name>
+    </Compile>
     <Compile Include="Particle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Particle</Name>
+    </Compile>
+    <Compile Include="ParticleSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>ParticleSprite</Name>
     </Compile>
     <Compile Include="ParticleSystem.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -195,6 +203,10 @@
     <Compile Include="MainMenu.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>MainMenu</Name>
+    </Compile>
+    <Compile Include="SpriteParticleSystem.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>SpriteParticleSystem</Name>
     </Compile>
     <Compile Include="Tail.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
