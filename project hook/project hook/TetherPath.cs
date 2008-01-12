@@ -56,8 +56,9 @@ namespace project_hook
 			Vector2 previousPos = Object.Center;
             Object.Center = Vector2.Add(Object.Center, temp);
 
+            
 			if (MathHelper.Distance(Object.Center.X, AttachedTo.Center.X) > 5 && MathHelper.Distance(Object.Center.Y, AttachedTo.Center.Y) > 5)
-				Object.Degree = TurnToFace(Object.Center, previousPos, Object.Degree, .5f);			
+				Object.Rotation = TurnToFace(Object.Center, previousPos, Object.Rotation, .5f);
 
         }
 

@@ -8,193 +8,340 @@ using Wintellect.PowerCollections;
 
 namespace project_hook
 {
-    /*
-     * Description: This class contains the base information all sprites need.
-     *              It also provides default draw and update method.
-     * 
-     * TODO:
-     *  1. Check if rectangles can have Negative height and width values
-     */
+    /// <summary>
+    /// This class contains the base information all sprites need.
+    /// It also provides default draw and update method.
+    /// </summary>
     public class Sprite
     {
         #region Variables and Properties
-        protected Path m_Path;
-		public Path Path
-		{
-			get
-			{
-				return m_Path;
-			}
-			set
-			{
-				m_Path = value;
-			}
-		}
 
-        private List<Sprite> m_Parts;
+        /// <summary>
+        /// This is the alpha byte value of the sprite.
+        /// </summary>
+        public byte Alpha
+        {
+            get
+            {
+                return m_Color.A;
+            }
+            set
+            {
+                m_Color = new Color(m_Color.R, m_Color.G, m_Color.B, value);
+            }
+        }
+
+
+        protected VisualEffect m_Animation = null;
+        /// <summary>
+        /// The animation for the sprite.
+        /// </summary>
+        public VisualEffect Animation
+        {
+            get
+            {
+                return m_Animation;
+            }
+            set
+            {
+                m_Animation = value;
+            }
+
+        }
+
+
+        /// <summary>
+        /// A point representing the center of the sprite on the screen.
+        /// </summary>
+        public virtual Vector2 Center
+        {
+            get
+            {
+                return new Vector2(Position.X + (Width / 2.0f), Position.Y + (Height / 2.0f));
+            }
+            set
+            {
+                m_Position.X = value.X - (Width / 2.0f);
+                m_Position.Y = value.Y - (Height/2.0f);
+            }
+        }
+
+
+        protected Color m_Color = Color.White;
+        /// <summary>
+        /// The color of the sprite, the default white uses the texture directly.
+        /// </summary>
+        public Color Color
+        {
+            get
+            {
+                return m_Color;
+            }
+            set
+            {
+                m_Color = value;
+            }
+        }
+
+
+
+        /// <summary>
+        /// This will create the destination rectangle used to draw the sprite to the screen.
+        /// </summary>
+        public Rectangle Destination
+        {
+            get
+            {
+                return new Rectangle((int)Position.X, (int)Position.Y, Width, Height);
+            }
+        }
+
+
+        protected int m_Height = 0;
+        /// <summary>
+        /// This is the height of the the sprite.
+        /// </summary>
+        public virtual int Height
+        {
+            get
+            {
+                return m_Height;
+            }
+            set
+            {
+                m_Height = value;
+            }
+        }
+
+
+        protected String m_Name = "Unnamed Sprite";
+        /// <summary>
+        /// The identifying name of the sprite
+        /// </summary>
+        public String Name
+        {
+            get
+            {
+                return m_Name;
+            }
+            set
+            {
+                m_Name = value;
+            }
+        }
+
+
+        protected Path m_Path = null;
+        /// <summary>
+        /// The Path for this sprite.
+        /// </summary>
+        public Path Path
+        {
+            get
+            {
+                return m_Path;
+            }
+            set
+            {
+                m_Path = value;
+            }
+        }
+
+
+        protected List<Sprite> m_Parts = null;
+        /// <summary>
+        /// Subsprites that are 'attached' to this sprite
+        /// </summary>
         public List<Sprite> Parts
         {
             get
             {
                 return m_Parts;
             }
+        }
+        /// <summary>
+        /// Add a sprite to the list of parts
+        /// </summary>
+        /// <param name="p_Sprite">The Sprite to add</param>
+        public void attachSpritePart(Sprite p_Sprite)
+        {
+            if (m_Parts == null)
+            {
+                m_Parts = new List<Sprite>();
+            }
+
+            m_Parts.Add(p_Sprite);
+        }
+
+
+        protected Vector2 m_Position = Vector2.Zero;
+        /// <summary>
+        /// This is the postion that the sprite is displayed on the screen.
+        /// This vector will be modified to move the sprite around the screen.
+        /// </summary>
+        public Vector2 Position
+        {
+            get
+            {
+                return m_Position;
+            }
             set
             {
-                Parts = value;
+                m_Position = value;
             }
         }
 
-		//The animation for the sprite
-		private VisualEffect m_Animation;
-		public VisualEffect Animation
-		{
-			get
-			{
-				return m_Animation;
-			}
-		}
-        
-        // The identifying name of the sprite
-		private String m_Name = "Unnamed Sprite";
-		public String Name
-		{
-			get
-			{
-				return m_Name;
-			}
-			set
-			{
-				m_Name = value;
-			}
-		}
 
-        //The start position of the sprite.
-        //This will be used with pathing, distance, and resetting actions.
-		private Vector2 m_StartPosition;
-		public Vector2 StartPosition
-		{
-			get
-			{
-				return m_StartPosition;
-			}
-			set
-			{
-				m_StartPosition = value;
-			}
-		}
-
-        //This is the postion that the sprite will be displayed on the screen.
-        //It is the start position initially.
-        //This vector will be modified to move the sprite around the screen.
-        //The x and y values in the vector are floats. 
-		private Vector2 m_Position;
-		public Vector2 Position
-		{
-			get
-			{
-				return m_Position;
-			}
-			set
-			{
-				m_Position = value;
-			}
-		}		
-
-        //This is the height of the the sprite. 
-		protected int m_Height;
-		public virtual int Height
-		{
-			get
-			{
-				return m_Height;
-			}
-			set
-			{
-				m_Height = value;
-			}
-		}
-
-        //This is the width of the sprite that will be displayed
-		protected int m_Width;
-		public virtual int Width
-		{
-			get
-			{
-				return m_Width;
-			}
-			set
-			{
-				m_Width = value;
-			}
-		}
-
-        //This is the texture that the sprite will display
-        //This object is retrieved from the TextureLibrary object
-		private GameTexture m_Texture;
-		public GameTexture Texture
-		{
-			get
-			{
-				return m_Texture;
-			}
-			set
-			{
-				m_Texture = value;
-			}
-		}
-
-        //This is the alpha value of the sprite.
-        //This will determine the sprites transparency
-		private float m_Alpha;
-		public float Alpha
-		{
-			get
-			{
-				return m_Alpha;
-			}
-			set
-			{
-				m_Alpha = value;
-			}
-		}
-
-        //This will determine if the sprite is to be drawn on screen.
-		private bool m_Visible;
-		public bool Visible
-		{
-			get
-			{
-				return m_Visible;
-			}
-			set
-			{
-				m_Visible = value;
-			}
-		}
-
-		
-        //This will determine the amount of rotation applied to a sprite.
-        //0.0 = 12 Oclock all textures should have this orientation.
-		private float m_Degree;
-		public float Degree
-		{
-			get
-			{
-				return m_Degree;
-			}
-			set
-			{
-				m_Degree = value;
-				//if (m_Degree > 360)
-				//{
-			//		m_Degree = m_Degree - 360;
-			//	}
-			}
-		}
+        protected float m_Rotation = 0f;
+        /// <summary>
+        /// This will determine the amount of rotation applied to a sprite.
+        /// </summary>
+        public float Rotation
+        {
+            get
+            {
+                return m_Rotation;
+            }
+            set
+            {
+                m_Rotation = value;
+            }
+        }
 
 
-        //This is the Z Depth value
-        private float m_Z;
+        protected List<Sprite> m_SpritesToBeAdded = null;
+        /// <summary>
+        /// A list of seperate sprites to be added to the main list
+        /// </summary>
+        public List<Sprite> SpritesToBeAdded
+        {
+            get
+            {
+                return m_SpritesToBeAdded;
+            }
+        }
+        /// <summary>
+        /// Add a sprite to the 'to be added' list
+        /// </summary>
+        /// <param name="p_Sprite">The Sprite</param>
+        public void addSprite(Sprite p_Sprite)
+        {
+            if (m_SpritesToBeAdded == null)
+            {
+                m_SpritesToBeAdded = new List<Sprite>();
+            }
+
+            m_SpritesToBeAdded.Add(p_Sprite);
+        }
+
+
+        protected Vector2 m_StartPosition = Vector2.Zero;
+        /// <summary>
+        /// The start position of the sprite.
+        /// </summary>
+        public Vector2 StartPosition
+        {
+            get
+            {
+                return m_StartPosition;
+            }
+            protected set
+            {
+                m_StartPosition = value;
+            }
+
+        }
+
+
+        protected GameTexture m_Texture = null;
+        /// <summary>
+        /// This is the texture that the sprite will display
+        /// The GameTexture is retrieved from the TextureLibrary object
+        /// </summary>
+        public GameTexture Texture
+        {
+            get
+            {
+                return m_Texture;
+            }
+            set
+            {
+                m_Texture = value;
+            }
+        }
+
+
+        protected Boolean m_ToBeRemoved = false;
+        /// <summary>
+        /// Mark this sprite for removal
+        /// </summary>
+        public Boolean ToBeRemoved
+        {
+            get
+            {
+                return m_ToBeRemoved;
+            }
+            set
+            {
+                m_ToBeRemoved = value;
+            }
+        }
+
+
+        /// <summary>
+        /// The Transparency of the sprite, as a float between 0 and 1, where 1 is completely opaque.
+        /// </summary>
+        public float Transparency
+        {
+            get
+            {
+                return m_Color.A / 255.0f;
+            }
+            set
+            {
+                m_Color = new Color(m_Color.R, m_Color.G, m_Color.B, (byte)MathHelper.Clamp(255 * value, 0, 255));
+            }
+        }
+
+
+        protected int m_Width = 0;
+        /// <summary>
+        /// This is the width of the sprite that will be displayed
+        /// </summary>
+        public virtual int Width
+        {
+            get
+            {
+                return m_Width;
+            }
+            set
+            {
+                m_Width = value;
+            }
+        }
+
+
+        protected bool m_Visible = true;
+        /// <summary>
+        /// This will determine if the sprite is to be drawn on screen.
+        /// </summary>
+        public bool Visible
+        {
+            get
+            {
+                return m_Visible;
+            }
+            set
+            {
+                m_Visible = value;
+            }
+        }
+
+
+        protected float m_Z = 0f;
+        /// <summary>
+        /// This is the Z Depth value
+        /// </summary>
         public float Z
         {
             get
@@ -207,71 +354,47 @@ namespace project_hook
             }
         }
 
-        //This will create the destination rectangle used to draw the sprite to the screen.
-        //The spritebatch objetc needs this as a parameter.
-		public Rectangle Destination
-		{
-			get
-			{
-				return new Rectangle((int)Position.X, (int)Position.Y, Width, Height);
-			}
-		}
 
-		//This will create the destination rectangle used to draw the sprite to the screen.
-		//The spritebatch objetc needs this as a parameter.
-		public Rectangle DrawDestination
-		{
-			get
-			{
-				//Rectangle center = center;
-			
-//				Vector2 m_Center = new Vector2(m_Texture.Width / 2.0f, m_Texture.Height / 2.0f);
-				return new Rectangle((int)(Position.X + Width /2), (int)(Position.Y + Height/2 ), Width, Height);
-			}
-		}
 
-		protected Vector2 m_Center;
-		public virtual Vector2 Center
-		{
-			get
-			{
-				return new Vector2(Position.X + m_Center.X,Position.Y + m_Center.Y);
-			}
-			set
-			{
-				m_Position.X = value.X - m_Center.X;
-                m_Position.Y = value.Y - m_Center.Y;
-			}
+
+        /// <summary>
+        /// This will determine the amount of rotation applied to a sprite.
+        /// <b>NOTE!</b> Values in Radians, <b>not</b> Degrees
+        /// </summary>
+        [Obsolete]
+        public float Degree
+        {
+            get
+            {
+                return m_Rotation;
+            }
+            set
+            {
+                m_Rotation = value;
+            }
         }
 
-		private Boolean m_ToBeRemoved = false;
-		public Boolean ToBeRemoved
-		{
-			get
-			{
-				return m_ToBeRemoved;
-			}
-			set
-			{
-				m_ToBeRemoved = value;
-			}
-		}
 
-		private List<Sprite> m_SpritesToBeAdded;
-		public List<Sprite> SpritesToBeAdded
-		{
-			get
-			{
-				return m_SpritesToBeAdded;
-			}
-		}
+
+
         #endregion // End of variables and Properties Region
 
+
+        public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture)
+        {
+            m_Name = p_Name;
+            StartPosition = p_Position;
+            Position = StartPosition;
+            Height = p_Height;
+            Width = p_Width;
+            Texture = p_Texture;
+        }
+
+        
         //This is a constructor that has full parameters!
-		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-                        float p_Degree, float p_Z)
+		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, byte p_Alpha, bool p_Visible, float p_Rotation, float p_Z)
 		{
-			Name = p_Name;
+			m_Name = p_Name;
 			StartPosition = p_Position;
 			Position = StartPosition;
 			Height = p_Height;
@@ -279,11 +402,23 @@ namespace project_hook
 			Texture = p_Texture;
 			Alpha = p_Alpha;
 			Visible = p_Visible;
-			Degree = p_Degree;
+			Rotation = p_Rotation;
             Z = p_Z;
-			m_Center = new Vector2(Width / 2.0f, Height / 2.0f);
-			m_SpritesToBeAdded = new List<Sprite>();
 		}
+
+        public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_Z)
+        {
+            m_Name = p_Name;
+            StartPosition = p_Position;
+            Position = StartPosition;
+            Height = p_Height;
+            Width = p_Width;
+            Texture = p_Texture;
+            Transparency = p_Transparency;
+            Visible = p_Visible;
+            Rotation = p_Rotation;
+            Z = p_Z;
+        }
 				
 		//sets the anmmation for the object.
 		public void setAnimation(string p_Animation, int p_FramesPerSecond)
@@ -302,80 +437,74 @@ namespace project_hook
         //This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
-			if (Visible && Texture != null)
-			{
-				if (m_Parts != null && m_Parts.Count > 0)
-				{
-					foreach (Sprite t_Sprite in m_Parts)
-					{
-						t_Sprite.Draw(p_SpriteBatch);
-					}
-				}
-                
-				if (Texture != null)
-				{
-					//Rectangle draw = DrawDestination;
-					//Vector2 center = Center;
-					//Draws the current sprite.
-					if (rot)
-					{
-						p_SpriteBatch.Draw(m_Texture.Texture, DrawDestination, m_Texture.StartPosition, Color.White, m_Degree,
-										  Texture.Center, SpriteEffects.None, m_Z);
-					}
-					else
-					{
-						p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition,
-											new Color(255, 255, 255, (byte)MathHelper.Clamp(Alpha, 0, 255)),
-											0, Vector2.Zero, SpriteEffects.None, m_Z);
-					}
-				}
-				//m_Texture.Center
-			}
+            if (m_Visible)
+            {
+                if (m_Parts != null)
+                {
+                    foreach (Sprite part in m_Parts)
+                    {
+                        part.Draw(p_SpriteBatch);
+                    }
+                }
+                if (m_Texture != null)
+                {
+                    //Draws the current sprite.
+                    if (rot)
+                    {
+                        p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, SpriteEffects.None, m_Z);
+                    }
+                    else
+                    {
+                        p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, 0, Vector2.Zero, SpriteEffects.None, m_Z);
+                    }
+
+                }
+
+            }
+
 		}
 
         //This update method should be overidden 
 		public virtual void Update(GameTime p_Time)
 		{
-			if (m_Animation != null)
-			{
-				m_Animation.Update(p_Time);
-			}
-			if (Parts != null)
-			{
-				for (int a = 0; a < Parts.Count; a++)
-				{
-                    if (Parts[a].Visible != false)
-                    {
-                        Parts[a].Update(p_Time);
-                    }
-                    else{
-                        Parts.RemoveAt(a);
-                        a--;
-                    }
-				}
-			}
-
-			if (Path != null)
-			{
-				Path.CalculateMovement(p_Time);
-			}
+            if (m_Animation != null)
+            {
+                m_Animation.Update(p_Time);
+            }
+            if (m_Path != null)
+            {
+                m_Path.CalculateMovement(p_Time);
+            }
+            if (m_Parts != null)
+            {
+                m_Parts.RemoveAll(isToBeRemoved);
+                foreach (Sprite part in m_Parts)
+                {
+                    part.Update(p_Time);
+                }
+            }
 		}
 
-		public void attachSpritePart(Sprite p_Sprite)
-        {
-            if (m_Parts == null)
-            {
-                m_Parts = new List<Sprite>();
-            }
 
-            m_Parts.Add(p_Sprite);
-        }
 
-		private static Boolean rot = true;
+
+
+		private static Boolean rot = false;
 		public static void DrawWithRot()
 		{
 			rot = !rot;
 		}
+
+
+
+
+
+        public static bool isToBeRemoved(Sprite spr)
+        {
+            return spr.m_ToBeRemoved;
+        }
+
+
 	}
 }
 

@@ -49,7 +49,7 @@ namespace project_hook
 
             }
         }
-
+        /*
         private Color m_Color;
         public Color Color
         {
@@ -62,8 +62,9 @@ namespace project_hook
                 m_Color = value;
             }
         }
-
-        //protected override Vector2 m_Center;
+        */
+        
+        protected Vector2 m_Center;
         public override Vector2 Center
         {
             get
@@ -75,10 +76,12 @@ namespace project_hook
                 m_Center = value;
             }
         }
+        
 
         private Vector2 m_Origin;
 
         protected bool sized = false;
+        
         protected Vector2 m_Scale = new Vector2(1, 1);
         public Vector2 Scale
         {
@@ -127,7 +130,7 @@ namespace project_hook
         }
 
         public TextSprite(String p_Text, Vector2 p_Center)
-            : base("String: " + p_Text, p_Center, 0, 0, null, 255f, true, 0, 0f)
+            : base("String: " + p_Text, p_Center, 0, 0, null, 1f, true, 0, 0f)
         {
             setFont("Courier New");
             Text = p_Text;
@@ -136,7 +139,7 @@ namespace project_hook
         }
 
         public TextSprite(String p_Text, Vector2 p_Center, Color p_Color)
-            : base("String: " + p_Text, p_Center, 0, 0, null, 255f, true, 0, 0f)
+            : base("String: " + p_Text, p_Center, 0, 0, null, 1f, true, 0, 0f)
         {
             setFont("Courier New");
             Text = p_Text;
@@ -145,7 +148,7 @@ namespace project_hook
         }
 
         public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z)
-            : base("String: " + p_Text, p_Center, 0, 0, null, 255f, true, 0, p_Z)
+            : base("String: " + p_Text, p_Center, 0, 0, null, 1f, true, 0, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
@@ -153,8 +156,8 @@ namespace project_hook
             Color = p_Color;
         }
 
-        public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Alpha)
-            : base("String: " + p_Text, p_Center, 0, 0, null, p_Alpha, true, 0, p_Z)
+        public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency)
+            : base("String: " + p_Text, p_Center, 0, 0, null, p_Transparency, true, 0, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
@@ -162,8 +165,8 @@ namespace project_hook
             Color = p_Color;
         }
 
-        public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Alpha, float p_Rotation)
-            : base("String: " + p_Text, p_Center, 0, 0, null, p_Alpha, true, p_Rotation, p_Z)
+        public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation)
+            : base("String: " + p_Text, p_Center, 0, 0, null, p_Transparency, true, p_Rotation, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
@@ -171,8 +174,8 @@ namespace project_hook
             Color = p_Color;
         }
 
-        public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Alpha, float p_Rotation, Vector2 p_Scale)
-            : base("String: " + p_Text, p_Center, 0, 0, null, p_Alpha, true, p_Rotation, p_Z)
+        public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, Vector2 p_Scale)
+            : base("String: " + p_Text, p_Center, 0, 0, null, p_Transparency, true, p_Rotation, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
@@ -181,8 +184,8 @@ namespace project_hook
             Scale = p_Scale;
         }
 
-        public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Alpha, float p_Rotation, int p_Height, int p_Width)
-            : base("String: " + p_Text, p_Center, p_Height, p_Width, null, p_Alpha, true, p_Rotation, p_Z)
+        public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, int p_Height, int p_Width)
+            : base("String: " + p_Text, p_Center, p_Height, p_Width, null, p_Transparency, true, p_Rotation, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
@@ -196,7 +199,7 @@ namespace project_hook
         {
             if (Visible)
             {
-                p_SpriteBatch.DrawString(Font, Text, Center, Color, base.Degree, m_Origin, Scale, SpriteEffects.None, base.Z);
+                p_SpriteBatch.DrawString(Font, Text, Center, Color, base.Rotation, m_Origin, Scale, SpriteEffects.None, base.Z);
             }
         }
 

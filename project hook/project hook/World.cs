@@ -112,27 +112,22 @@ namespace project_hook
 
                 Collision.CheckCollisions(m_SpriteList, p_GameTime);
 
-                List<Sprite> toBeRemoved = new List<Sprite>();
-				for (int a = 0; a < m_SpriteList.Count; a++)
-				{
-					Sprite s = m_SpriteList[a];
-					if (s.ToBeRemoved)
-					{
-						m_SpriteList.RemoveAt(a);
-						a--;
-					}
-					else
-					{
-						s.Update(p_GameTime);
-						
-							while(s.SpritesToBeAdded.Count >0){
-								m_SpriteList.Add(s.SpritesToBeAdded[0]);
-								s.SpritesToBeAdded.RemoveAt(0);
-							}
-						
-					}
-				}
-               
+                List<Sprite> toAdd = new List<Sprite>();
+
+                m_SpriteList.RemoveAll(Sprite.isToBeRemoved);
+                foreach (Sprite s in m_SpriteList)
+                {
+                    s.Update(p_GameTime);
+
+                    if (s.SpritesToBeAdded != null)
+                    {
+
+                        toAdd.AddRange(s.SpritesToBeAdded);
+
+                    }
+                }
+                m_SpriteList.AddRange(toAdd);
+
             }
         }
 
@@ -203,6 +198,10 @@ namespace project_hook
 			if ( p_KeyHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C) ) {
 				Collision.DevEnableCollisionDisplay(m_SpriteList);
 			}
+            if (p_KeyHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.X))
+            {
+                Sprite.DrawWithRot();
+            }
 
                 update(p_GameTime);
             

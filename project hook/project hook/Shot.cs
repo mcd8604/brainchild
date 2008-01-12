@@ -62,7 +62,7 @@ namespace project_hook
 		{
 			base.RegisterCollision(p_Other, p_GameTime);
 			Vector2 midPoint = new Vector2(Center.X - p_Other.Center.X, Center.Y - p_Other.Center.Y);
-			SpritesToBeAdded.Add(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.MidGround.Top));
+            addSprite(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.MidGround.Top));
 
 			ToBeRemoved = true;
 			Visible = false;
