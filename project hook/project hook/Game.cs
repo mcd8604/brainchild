@@ -162,7 +162,7 @@ namespace project_hook
 			
             if (World.CreateWorld == true)
             {
-                m_World = new World();
+				m_World = new World();
                        m_World.loadLevel(content);
                         m_World.initialize( new Rectangle(0,0,graphics.PreferredBackBufferWidth,graphics.PreferredBackBufferHeight));
                       m_World.changeState(World.GameState.Running);
