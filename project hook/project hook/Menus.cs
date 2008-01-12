@@ -45,7 +45,10 @@ namespace project_hook
             Options,
             Loading,
             Start,
-            None
+            None,
+			Title,
+			DevLogo,
+			RITLogo
         }
 
         public static void ini()
@@ -78,6 +81,21 @@ namespace project_hook
 			{
 				m_HasChanged = false;
 				return new PauseMenu();
+			}
+			else if (m_SelectedMenu == MenuScreens.Title)
+			{
+				m_HasChanged = false;
+				return new TitleScreen();
+			}
+			else if (m_SelectedMenu == MenuScreens.DevLogo)
+			{
+				m_HasChanged = false;
+				return new BrainChildLogo();
+			}
+			else if (m_SelectedMenu == MenuScreens.RITLogo)
+			{
+				m_HasChanged = false;
+				return new RITLogo();
 			}
 
             return null;

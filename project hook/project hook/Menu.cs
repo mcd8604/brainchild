@@ -65,41 +65,43 @@ namespace project_hook
             Init();
         }
 
-        protected void Init()
+        protected virtual void Init()
 		{
             GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
             float xPos = (800 - bgTexture.Width) / 2;
 			float yPos = (600 - bgTexture.Height) / 2;
 			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 200f, true,
 											0, Depth.ForeGround.Bottom);
+			m_MenuItemSprites = new ArrayList();			
 
-			m_MenuItemSprites = new ArrayList();
-            
-            //create each menu sprite
-            for (int i = 0; i < m_MenuItemNames.Count; i++)
-            {
-                GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
-                xPos = m_BackgroundSprite.Position.X + (m_BackgroundSprite.Width - curTexture.Width) / 2;
-                yPos = m_BackgroundSprite.Position.Y;
-                //set position based on other menu sprites
-                for (int k = 0; k < m_MenuItemSprites.Count; k++)
-                {
-                    Sprite mis = (Sprite)m_MenuItemSprites[k];
-                    yPos += mis.Height;
-                }
+			if (m_MenuItemNames.Count != 0)
+			{
+				//create each menu sprite
+				for (int i = 0; i < m_MenuItemNames.Count; i++)
+				{
+					GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
+					xPos = m_BackgroundSprite.Position.X + (m_BackgroundSprite.Width - curTexture.Width) / 2;
+					yPos = m_BackgroundSprite.Position.Y;
+					//set position based on other menu sprites
+					for (int k = 0; k < m_MenuItemSprites.Count; k++)
+					{
+						Sprite mis = (Sprite)m_MenuItemSprites[k];
+						yPos += mis.Height;
+					}
 
-				m_MenuItemSprites.Add(new Sprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), curTexture.Height, curTexture.Width,
-													curTexture, 255f, true, 0, Depth.ForeGround.Mid));
-            }
+					m_MenuItemSprites.Add(new Sprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), curTexture.Height, curTexture.Width,
+														curTexture, 255f, true, 0, Depth.ForeGround.Mid));
+				}
 
-            //create highlight sprite
-            Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
-            GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName, "");
-			m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height,
-											selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.ForeGround.Top);
+				//create highlight sprite
+				Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
+				GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName, "");
+				m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height,
+												selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.ForeGround.Top);
+			}
 		}
 
-		public void Draw(SpriteBatch p_SpriteBatch)
+		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
             if (m_visible)
             {
@@ -111,7 +113,10 @@ namespace project_hook
                     Sprite curSprite = (Sprite)m_MenuItemSprites[i];
                     curSprite.Draw(p_SpriteBatch);
                 }
-                m_HightlightSprite.Draw(p_SpriteBatch);
+				if (m_HightlightSprite != null)
+				{
+					m_HightlightSprite.Draw(p_SpriteBatch);
+				}
 
                 p_SpriteBatch.End();
             }
@@ -124,7 +129,7 @@ namespace project_hook
 
         //lazy params
         //(should menu have its own KeyHandler?)
-        public void checkKeys(KeyHandler keyhandler)
+        public virtual void checkKeys(KeyHandler keyhandler)
         {
             if (keyhandler.IsActionPressed(KeyHandler.Actions.Pause))
             {
@@ -190,7 +195,7 @@ namespace project_hook
             setHighlightSprite();
         }
 
-		protected void setHighlightSprite()
+		protected virtual void setHighlightSprite()
 		{
             if (m_HightlightSprite != null)
             {
