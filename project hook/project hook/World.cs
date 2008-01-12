@@ -119,11 +119,11 @@ namespace project_hook
                 {
                     s.Update(p_GameTime);
 
-                    if (s.SpritesToBeAdded.Count != 0)
+                    if (s.SpritesToBeAdded != null)
                     {
 
                         toAdd.AddRange(s.SpritesToBeAdded);
-						s.SpritesToBeAdded.RemoveRange(0,s.SpritesToBeAdded.Count);
+                        s.SpritesToBeAdded.Clear();
                     }
                 }
                 m_SpriteList.AddRange(toAdd);

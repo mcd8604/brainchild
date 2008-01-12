@@ -225,7 +225,7 @@ namespace project_hook
         }
 
 
-        protected List<Sprite> m_SpritesToBeAdded = new List<Sprite>();
+        protected List<Sprite> m_SpritesToBeAdded = null;
         /// <summary>
         /// A list of seperate sprites to be added to the main list
         /// </summary>
@@ -391,6 +391,7 @@ namespace project_hook
         }
 
 
+        // Why does it have a 'Scale' and Height / Width ??
 		private float m_Scale= -1.0f;
 		public float Scale
 		{
@@ -410,19 +411,7 @@ namespace project_hook
 
 
 		public Sprite()
-		{
-			m_Name = "";
-			StartPosition = Vector2.Zero;
-			Position = Vector2.Zero;
-			Height = 0;
-			Width = 0;
-			Texture = null;
-			Transparency = 255;
-			Visible = false;
-			Rotation = 0.0f;
-			Z = Depth.ForeGround.Top;
-
-		}
+		{}
 
         public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture)
         {

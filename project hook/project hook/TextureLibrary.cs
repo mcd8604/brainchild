@@ -160,9 +160,9 @@ namespace project_hook
 				}
 
 			}
-			catch (ContentLoadException)
+			catch (ContentLoadException e)
 			{
-
+                Console.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e.Message);
 				return false;
 			}
 			catch (IOException)
