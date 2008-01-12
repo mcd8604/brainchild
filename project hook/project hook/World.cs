@@ -82,7 +82,7 @@ namespace project_hook
         {
             m_ViewPortSize = p_DrawArea;
             IniDefaults();
-            
+			Sprite.DrawWithRot();
         }
 
         //This method will load the level
@@ -231,12 +231,11 @@ namespace project_hook
                 {
                     if (s.Visible == true)
                     {
-                        s.Draw(p_SpriteBatch);                    }
+                        s.Draw(p_SpriteBatch);                    
+					}
                 }
-
              
                 p_SpriteBatch.End();
-
             }
         }
 

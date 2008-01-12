@@ -76,6 +76,8 @@ namespace project_hook
             graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
 
             base.Initialize();
+
+			Sprite.DrawWithRot();
         }
 
 
@@ -434,8 +436,8 @@ namespace project_hook
             {
                 s.Draw(m_spriteBatch);
             }
-         //   back2.Draw(m_spriteBatch);
-           // shotEffect.Draw(m_spriteBatch);
+			//back2.Draw(m_spriteBatch);
+			//shotEffect.Draw(m_spriteBatch);
 			//shot2Effect.Draw(m_spriteBatch);
             drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.ForeGround.Top);
 			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50),Color.White);
