@@ -12,8 +12,8 @@ Global Settings
     Header File = HookSound.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 0;
-    Last Modified High = 0;
+    Last Modified Low = 272162360;
+    Last Modified High = 29906291;
 
     Category
     {
@@ -221,10 +221,8 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 0;
-    PC Bank Last Modified High = 0;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
+    PC Bank Last Modified Low = 272162360;
+    PC Bank Last Modified High = 29906291;
 
     Wave
     {
@@ -255,6 +253,8 @@ Sound Bank
     Name = Sound Bank;
     Xbox File = Xbox\Sound Bank.xsb;
     Windows File = Win\Sound Bank.xsb;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
