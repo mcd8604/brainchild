@@ -204,6 +204,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ShotPath</Name>
     </Compile>
+    <Compile Include="Sound.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Sound</Name>
+    </Compile>
     <Compile Include="Sprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Sprite</Name>
@@ -477,23 +481,31 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>blood</Name>
     </Content>
-    <Content Include="Content\Textures\Menu_Title.png">
+    <Content Include="Menu_Title.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Menu_Title</Name>
     </Content>
-    <Content Include="Content\Textures\RITLogo.png">
+    <Content Include="RITLogo.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>RITLogo</Name>
     </Content>
-    <Content Include="Content\Textures\virus.png">
+    <Content Include="virus.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>virus</Name>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HookSound.xap">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>XactImporter</Importer>
+      <Processor>XactProcessor</Processor>
+      <Name>HookSound</Name>
     </Content>
   </ItemGroup>
   <ItemGroup>

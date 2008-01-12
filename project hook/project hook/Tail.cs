@@ -113,6 +113,7 @@ namespace project_hook
                 //gets the current time in milliseconds
                 m_LastTailAttack = p_GameTime.TotalGameTime.TotalMilliseconds;
                 m_TailReturned = false;
+				Sound.Play("slap");
             }
 				//throw enemy
             else if (m_EnemyCaught != null && m_TailReturned && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
