@@ -225,7 +225,7 @@ namespace project_hook
         }
 
 
-        protected List<Sprite> m_SpritesToBeAdded = null;
+        protected List<Sprite> m_SpritesToBeAdded = new List<Sprite>();
         /// <summary>
         /// A list of seperate sprites to be added to the main list
         /// </summary>

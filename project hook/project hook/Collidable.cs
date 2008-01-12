@@ -160,10 +160,10 @@ namespace project_hook
 			DamageEffect = p_DamageEffect;
 			if (DamageEffect != null)
 			{
-				 DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
+				DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
 				DamageParticleSystem.setAnimation("Explosion", 10);
 				DamageParticleSystem.Animation.StartAnimation();
-				attachSpritePart(DamageParticleSystem);
+				m_SpritesToBeAdded.Add(DamageParticleSystem);
 			}
 			Radius = p_Radius;
         }
@@ -209,7 +209,7 @@ namespace project_hook
 				attachSpritePart(m_DamageSprite);*/
 
 				//DamageParticleSystem.Direction = v2.;
-				DamageParticleSystem.AddParticles(p_Other.Center);
+				DamageParticleSystem.AddParticles(Collision.getMidpoint(this,p_Other));
 			}
 		}
 

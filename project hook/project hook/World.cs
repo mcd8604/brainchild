@@ -119,11 +119,11 @@ namespace project_hook
                 {
                     s.Update(p_GameTime);
 
-                    if (s.SpritesToBeAdded != null)
+                    if (s.SpritesToBeAdded.Count != 0)
                     {
 
                         toAdd.AddRange(s.SpritesToBeAdded);
-
+						s.SpritesToBeAdded.RemoveRange(0,s.SpritesToBeAdded.Count);
                     }
                 }
                 m_SpriteList.AddRange(toAdd);
@@ -293,6 +293,7 @@ namespace project_hook
 
             Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
             m_SpriteList.Add(TextFpsExample);
+
 
         }
     }
