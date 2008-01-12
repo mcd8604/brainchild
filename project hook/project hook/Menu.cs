@@ -195,7 +195,8 @@ namespace project_hook
             if (m_HightlightSprite != null)
             {
                 Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
-                m_HightlightSprite.Position = new Vector2(m_HightlightSprite.Position.X, selSprite.Position.Y);
+				m_HightlightSprite.Width = selSprite.Width;
+				m_HightlightSprite.Position = selSprite.Position;
             }
         }
 
