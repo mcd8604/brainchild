@@ -208,6 +208,22 @@ namespace project_hook
             }
         }
 
+        /// <summary>
+        /// TThe Rotation if the Sprite, in degrees
+        /// </summary>
+        public float RotationDegrees
+        {
+            get
+            {
+                return MathHelper.ToDegrees(m_Rotation);
+                
+            }
+            set
+            {
+                m_Rotation = MathHelper.ToRadians(value);
+            }
+        }
+
 
         protected List<Sprite> m_SpritesToBeAdded = null;
         /// <summary>
@@ -361,7 +377,7 @@ namespace project_hook
         /// This will determine the amount of rotation applied to a sprite.
         /// <b>NOTE!</b> Values in Radians, <b>not</b> Degrees
         /// </summary>
-        [Obsolete]
+        [Obsolete ("The Name 'Degree' is misleading, since the value is in Radians")]
         public float Degree
         {
             get

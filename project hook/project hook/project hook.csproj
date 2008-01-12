@@ -196,6 +196,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>MainMenu</Name>
     </Compile>
+    <Compile Include="SpriteNew.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>SpriteNew</Name>
+    </Compile>
     <Compile Include="Tail.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Class1</Name>
@@ -223,6 +227,10 @@
     <Compile Include="Test Cases\testTextureLibrary.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>testTextureLibrary</Name>
+    </Compile>
+    <Compile Include="TrigHelper.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TrigHelper</Name>
     </Compile>
     <Compile Include="VisualEffect.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

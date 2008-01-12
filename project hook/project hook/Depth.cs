@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 //This class contains the z-Buffering definitions for the sprites.  It is broken up into 9 layers.
 namespace project_hook
