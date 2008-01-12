@@ -202,9 +202,7 @@ namespace project_hook
         {
             graphics.GraphicsDevice.Clear(Color.Black);
 
-			m_SpriteBatch.Begin();
-			m_Text.DrawString(m_SpriteBatch, "Test", new Vector2(10, 10), Color.BlueViolet);
-			m_SpriteBatch.End();
+		
 
             if (m_World != null)
             {
