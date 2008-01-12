@@ -68,7 +68,7 @@ namespace project_hook
             // high initial speed with lots of variance.  make the values closer
             // together to have more consistently circular explosions.
             minInitialSpeed = 40;
-            maxInitialSpeed = 200;
+			maxInitialSpeed = 80;
 
             // doesn't matter what these values are set to, acceleration is tweaked in
             // the override of InitializeParticle.
@@ -82,11 +82,16 @@ namespace project_hook
             minScale = .01f;
             maxScale = .2f;
 
-            minNumParticles = 175;
-            maxNumParticles = 500;
+            minNumParticles = 50;
+            maxNumParticles = 100;
 
             minRotationSpeed = -MathHelper.PiOver4;
             maxRotationSpeed = MathHelper.PiOver4;
+
+			//default to 360 degree range
+			Direction = 0;
+			Theta = (float)Math.PI;
+
         }
 
         protected override void InitializeParticle(Particle p, Vector2 where)
@@ -109,10 +114,10 @@ namespace project_hook
 		/// <summary>
 		/// 
 		/// </summary>
-		/*protected override Vector2  PickRandomDirection()
+		protected override Vector2  PickRandomDirection()
 		{
 			float angle = RandomBetween(Direction - Theta, Direction + Theta);
 			return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-		}*/
+		}
     }
 }

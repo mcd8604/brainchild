@@ -206,9 +206,7 @@ namespace project_hook
                 m_DamageSprite.Path = new Path(Path.Paths.Follow, dic);
 				attachSpritePart(m_DamageSprite);*/
 
-				//Vector2 v2 = Position - p_Other;
-				//float direction = v2.Normalize;
-				//DamageParticleSystem.Direction = direction;
+				//DamageParticleSystem.Direction = v2.;
 				DamageParticleSystem.AddParticles(p_Other.Center);
 			}
 		}
