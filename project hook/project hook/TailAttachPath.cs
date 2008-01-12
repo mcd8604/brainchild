@@ -21,7 +21,7 @@ namespace project_hook
         public override void CalculateMovement(GameTime p_GameTime)
         {
 			m_Enemy.Center = m_Tail.Center;
-			m_Enemy.Degree = m_Tail.Degree;
+			m_Enemy.Rotation = m_Tail.Rotation;
         }
 	}
 }
