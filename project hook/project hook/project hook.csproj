@@ -81,6 +81,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ExplosionSpriteParticleSystem</Name>
     </Compile>
+    <Compile Include="Music.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Music</Name>
+    </Compile>
     <Compile Include="Particle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Particle</Name>
