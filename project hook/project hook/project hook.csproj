@@ -65,6 +65,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BloodParticleSystem</Name>
     </Compile>
+    <Compile Include="BrainChildLogo.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>BrainChildLogo</Name>
+    </Compile>
     <Compile Include="FPS.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FPS</Name>
@@ -92,6 +96,10 @@
     <Compile Include="PathStraight.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathStraight</Name>
+    </Compile>
+    <Compile Include="RITLogo.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>RITLogo</Name>
     </Compile>
     <Compile Include="ScrollingBackground.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -235,6 +243,10 @@
     <Compile Include="Test Cases\testTextureLibrary.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>testTextureLibrary</Name>
+    </Compile>
+    <Compile Include="TitleScreen.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TitleScreen</Name>
     </Compile>
     <Compile Include="TrigHelper.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -464,6 +476,24 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>blood</Name>
+    </Content>
+    <Content Include="Content\Textures\Menu_Title.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>Menu_Title</Name>
+    </Content>
+    <Content Include="Content\Textures\RITLogo.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>RITLogo</Name>
+    </Content>
+    <Content Include="Content\Textures\virus.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>virus</Name>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -61,7 +61,7 @@ namespace project_hook
             TextureLibrary.iniTextures(content);
             
             Menus.ini();
-            Menus.setCurrentMenu(Menus.MenuScreens.Main);
+            Menus.setCurrentMenu(Menus.MenuScreens.DevLogo);
             m_InputHandler = InputHandlerState.Menu;
 
             m_KeyHandler = new KeyHandler();
