@@ -196,11 +196,5 @@ namespace project_hook
                 }
             }
         }
-
-		public static Vector2 getMidpoint(Sprite s1, Sprite s2)
-		{
-			return new Vector2((s1.Center.X + s2.Center.X) / 2.0f, (s1.Center.Y + s2.Center.Y) / 2.0f);
-
-		}
     }
 }
