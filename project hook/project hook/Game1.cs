@@ -32,6 +32,7 @@ namespace project_hook
 		Sprite crosshair;
 		Tail tail;
 		ButtonState lastMouseButton = ButtonState.Released;
+		ButtonState lastRightMouseButton = ButtonState.Released;
 
         //Sprite shotEffect;
 		//Sprite shot2Effect;
@@ -80,6 +81,8 @@ namespace project_hook
 			Sprite.DrawWithRot();
 
 			Sound.Initialize();
+
+			Music.Initialize();
         }
 
 
@@ -153,7 +156,6 @@ namespace project_hook
 				m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
             }
-
             // TODO: Load any ResourceManagementMode.Manual content
         }
 
@@ -186,6 +188,7 @@ namespace project_hook
         {
             keyhandler.Update();
 			Sound.Update();
+			Music.Update();
 
             // Allows the game to exit
             if (keyhandler.IsActionPressed(KeyHandler.Actions.Pause))
@@ -285,9 +288,29 @@ namespace project_hook
 			crosshair.Center = temp;
 			if(Mouse.GetState().LeftButton != lastMouseButton)
 			{
-				if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+				if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+				{
 					tail.TailAttack(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), gameTime);
+				}
+				lastMouseButton = Mouse.GetState().LeftButton;
+					
 			}
+			if (Mouse.GetState().RightButton != lastRightMouseButton)
+			{
+				if (Mouse.GetState().RightButton == ButtonState.Pressed)
+				{
+					if (Music.IsPlaying("bg2"))
+					{
+						Music.Stop("bg2");
+					}
+					else
+					{
+						Music.Play("bg2");
+					}
+				}
+				lastRightMouseButton = Mouse.GetState().RightButton;
+			}
+
 
             if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
             {

@@ -505,6 +505,8 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>virus</Name>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="HookSound.xap">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>XactImporter</Importer>
