@@ -46,6 +46,10 @@ namespace project_hook
 			{
 				m_Path = new TailAttachPath(p_Values);
 			}
+			else if (m_Strategy == Paths.TailBody)
+			{
+				m_Path = new TailBodyPath(p_Values);
+			}
 			//  return m_Path;
 		}
 
@@ -69,7 +73,8 @@ namespace project_hook
 			Tether,
 			Straight,
 			TailAttack,
-			TailAttach
+			TailAttach,
+			TailBody
 
 		}
 
