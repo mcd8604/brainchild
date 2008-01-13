@@ -140,7 +140,18 @@ namespace project_hook
 		/// different effects can use different blend modes. fire and explosions work
 		/// well with additive blending, for example.
 		/// </summary>
-		protected SpriteBlendMode spriteBlendMode;
+		protected SpriteBlendMode spriteBlendMode = SpriteBlendMode.AlphaBlend;
+		public SpriteBlendMode BlendMode
+		{
+			get
+			{
+				return spriteBlendMode;
+			}
+			set
+			{
+				spriteBlendMode = value;
+			}
+		}
 
 		#endregion
 
@@ -292,7 +303,8 @@ namespace project_hook
 		{
 			// tell sprite batch to begin, using the spriteBlendMode specified in
 			// initializeConstants
-			//p_SpriteBatch.Begin(spriteBlendMode);
+			p_SpriteBatch.End();
+			p_SpriteBatch.Begin(spriteBlendMode);
 
 			foreach (ParticleSprite p in particles)
 			{
@@ -328,8 +340,6 @@ namespace project_hook
 				
 				
 			}
-
-			//p_SpriteBatch.End();
 
 			//base.Draw(p_SpriteBatch);
 		}
