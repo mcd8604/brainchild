@@ -16,9 +16,17 @@ namespace project_hook
 
 		public static Cue Play(string name)
 		{
-			Cue returnVal = soundbank.GetCue(name);
-			cueTable.Add(name, returnVal);
-			return returnVal;
+			try
+			{
+				Cue returnVal = soundbank.GetCue(name);
+				cueTable.Add(name, returnVal);
+				returnVal.Play();
+				return returnVal;
+			}
+			catch (ArgumentException ae)
+			{
+				return null;
+			}
 		}
 
 		/// <summary>
@@ -40,6 +48,11 @@ namespace project_hook
 		{
 			((Cue)cueTable[name]).Stop(AudioStopOptions.Immediate);
 			cueTable.Remove(name);
+		}
+
+		public static bool IsPlaying(string name)
+		{
+			return cueTable.Contains(name);
 		}
 
 		/// <summary>
