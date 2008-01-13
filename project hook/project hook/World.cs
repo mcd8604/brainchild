@@ -39,7 +39,6 @@ namespace project_hook
 		}
 
         
-        DrawText m_DrawText;
         Player m_Player;
 
         GameState m_PreviousState;
@@ -74,7 +73,7 @@ namespace project_hook
             m_SpriteList = new List<Sprite>();
            
             m_State = GameState.Nothing;
-            m_DrawText = new DrawText();
+
         }
 
         //This method will initialize all the objects needed to run the game
@@ -255,7 +254,6 @@ namespace project_hook
             TextureLibrary.LoadTexture("temptail");
 			TextureLibrary.LoadTexture("poisonsplat");
 			TextureLibrary.LoadTexture("blood");
-            m_DrawText.Load(p_Content);
 
         }
 
