@@ -26,8 +26,6 @@ namespace project_hook
         World m_World;
         Menu m_Menu;
 
-		DrawText m_Text;
-
         InputHandlerState m_InputHandler;
 
         public enum InputHandlerState
@@ -40,6 +38,12 @@ namespace project_hook
         {
             graphics = new GraphicsDeviceManager(this);
             content = new ContentManager(Services);
+
+            // uncap frame rate to see our true performance
+            //graphics.SynchronizeWithVerticalRetrace = false;
+            //IsFixedTimeStep = false;
+            
+
         }
 
 
@@ -51,9 +55,7 @@ namespace project_hook
         /// </summary>
         protected override void Initialize()
         {
-            //This sets our graphics options
-            graphics.SynchronizeWithVerticalRetrace = false;
-            IsFixedTimeStep = false;
+
             graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
 
             m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -65,11 +67,9 @@ namespace project_hook
             m_InputHandler = InputHandlerState.Menu;
 
             m_KeyHandler = new KeyHandler();
-			m_Text = new DrawText();
 
-
-//            
             base.Initialize();
+
         }
 
 
@@ -85,7 +85,6 @@ namespace project_hook
             {
 				TextureLibrary.reloadAll();
 				m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-				m_Text.Load(content);
             }
 
             
@@ -200,9 +199,7 @@ namespace project_hook
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.Black);
-
-		
+            graphics.GraphicsDevice.Clear(Color.LimeGreen);
 
             if (m_World != null)
             {

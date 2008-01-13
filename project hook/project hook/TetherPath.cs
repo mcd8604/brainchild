@@ -12,6 +12,7 @@ namespace project_hook
         Sprite AttachedTo;
 
         Vector2 speed = Vector2.Zero;
+        // TODO: Better implementation of friction..
         float friction = 0.95f;
         int deathzone = 50;
         Vector2 minaccel = new Vector2(-1000, -1000);

@@ -9,7 +9,7 @@ namespace project_hook
     class TextSprite : Sprite
     {
 
-        private SpriteFont m_Font;
+        private SpriteFont m_Font = null;
         protected SpriteFont Font
         {
             get
@@ -27,7 +27,7 @@ namespace project_hook
             m_Font = TextureLibrary.getFont(value);
         }
 
-        protected String m_Text;
+        protected String m_Text = "Blank String";
         public String Text
         {
             get
@@ -49,22 +49,8 @@ namespace project_hook
 
             }
         }
-        /*
-        private Color m_Color;
-        public Color Color
-        {
-            get
-            {
-                return m_Color;
-            }
-            set
-            {
-                m_Color = value;
-            }
-        }
-        */
         
-        protected Vector2 m_Center;
+        protected Vector2 m_Center = Vector2.Zero;
         public override Vector2 Center
         {
             get
@@ -78,12 +64,12 @@ namespace project_hook
         }
         
 
-        private Vector2 m_Origin;
+        protected Vector2 m_Origin = Vector2.Zero;
 
         protected bool sized = false;
         
-        protected Vector2 m_Scale = new Vector2(1, 1);
-        public Vector2 Scale
+        protected Vector2 m_Scale = Vector2.One;
+        public new Vector2 Scale
         {
             get
             {
@@ -130,67 +116,79 @@ namespace project_hook
         }
 
         public TextSprite(String p_Text, Vector2 p_Center)
-            : base("String: " + p_Text, p_Center, 0, 0, null, 1f, true, 0, 0f)
         {
             setFont("Courier New");
             Text = p_Text;
+            Name = "String: " + p_Text;
             Center = p_Center;
             Color = Color.Black;
         }
 
         public TextSprite(String p_Text, Vector2 p_Center, Color p_Color)
-            : base("String: " + p_Text, p_Center, 0, 0, null, 1f, true, 0, 0f)
         {
             setFont("Courier New");
             Text = p_Text;
+            Name = "String: " + p_Text;
             Center = p_Center;
             Color = p_Color;
         }
 
         public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z)
-            : base("String: " + p_Text, p_Center, 0, 0, null, 1f, true, 0, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
+            Name = "String: " + p_Text;
             Center = p_Center;
             Color = p_Color;
+            Z = p_Z;
         }
 
         public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency)
-            : base("String: " + p_Text, p_Center, 0, 0, null, p_Transparency, true, 0, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
+            Name = "String: " + p_Text;
             Center = p_Center;
             Color = p_Color;
+            Z = p_Z;
+            Transparency = p_Transparency;
         }
 
         public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation)
-            : base("String: " + p_Text, p_Center, 0, 0, null, p_Transparency, true, p_Rotation, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
+            Name = "String: " + p_Text;
             Center = p_Center;
             Color = p_Color;
+            Z = p_Z;
+            Transparency = p_Transparency;
+            Rotation = p_Rotation;
         }
 
         public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, Vector2 p_Scale)
-            : base("String: " + p_Text, p_Center, 0, 0, null, p_Transparency, true, p_Rotation, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
+            Name = "String: " + p_Text;
             Center = p_Center;
             Color = p_Color;
+            Z = p_Z;
+            Transparency = p_Transparency;
+            Rotation = p_Rotation;
             Scale = p_Scale;
         }
 
         public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, int p_Height, int p_Width)
-            : base("String: " + p_Text, p_Center, p_Height, p_Width, null, p_Transparency, true, p_Rotation, p_Z)
         {
             setFont("Courier New");
             Text = p_Text;
+            Name = "String: " + p_Text;
             Center = p_Center;
             Color = p_Color;
+            Z = p_Z;
+            Transparency = p_Transparency;
+            Rotation = p_Rotation;
             Height = p_Height;
             Width = p_Width;
         }
