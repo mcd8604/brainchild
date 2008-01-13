@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using Microsoft.Xna.Framework;
 
@@ -83,9 +84,12 @@ namespace project_hook
 			}
 		}
 
+		private ArrayList m_BodySprites = new ArrayList();
+
+
         public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-                            float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius, Ship p_AttachShip, double p_TailAttackDelay)
-            : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, -1, p_Path, p_Speed, p_DamageEffect, p_Radius)
+                            float p_Degree, float p_Z, Factions p_Faction, int p_Health, int p_Speed, GameTexture p_DamageEffect, float p_Radius, Ship p_AttachShip, double p_TailAttackDelay, ArrayList p_BodySprites)
+            : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, -1, null, p_Speed, p_DamageEffect, p_Radius)
         {
             Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
             dic.Add(PathStrategy.ValueKeys.Target, p_AttachShip);
@@ -95,6 +99,13 @@ namespace project_hook
             m_TailTarget = new Vector2(-1, -1);
             m_EnemyCaught = null;
             m_TailAttackDelay = p_TailAttackDelay;
+			m_BodySprites = p_BodySprites;
+
+			dic = new Dictionary<PathStrategy.ValueKeys, object>();
+			dic.Add(PathStrategy.ValueKeys.End, m_PlayerShip);
+			dic.Add(PathStrategy.ValueKeys.Base, m_BodySprites);
+			dic.Add(PathStrategy.ValueKeys.Target, this);
+			((Sprite)m_BodySprites[0]).Path = new Path(Path.Paths.TailBody, dic);
         }
 
         public void TailAttack(Vector2 p_Target, GameTime p_GameTime)
