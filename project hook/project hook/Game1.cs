@@ -115,7 +115,7 @@ namespace project_hook
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 				GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud","");
 				GameTexture crosshairs = TextureLibrary.getGameTexture("crosshairs","");
-                back = new Sprite("back", new Vector2(800.0f, 600.0f), -graphics.PreferredBackBufferHeight, -graphics.PreferredBackBufferWidth, TextureLibrary.getGameTexture("Back", ""), 100, true, 0, Depth.BackGround.Bottom);
+                back = new YScrollingBackground(TextureLibrary.getGameTexture("Back", ""));
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom, PlayerBounds);
                 back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
@@ -142,7 +142,7 @@ namespace project_hook
                 */
 				//explosion = new Sprite("Explosion", new Vector2(-100f, -100f), 100, 100, TextureLibrary.getGameTexture("Explosion", ""), 50f, true, 0, Depth.ForeGround.Mid);
 
-
+				spritelist.Add(back);
 				spritelist.Add(enemy);
 				spritelist.Add(tail);
                 /*

@@ -262,7 +262,7 @@ namespace project_hook
             GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
 			
 			//test scrolling background
-			ScrollingBackground back = new ScrollingBackground("back", new Vector2(0.0f, 0 - (m_ViewPortSize.Height * 9)), m_ViewPortSize.Height * 10, m_ViewPortSize.Width, TextureLibrary.getGameTexture("Back", ""), 255f, true, 0, Depth.BackGround.Bottom, 1);
+			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("Back", ""));
 
 			m_Player = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.ForeGround.Bottom, m_ViewPortSize);
            // Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);

@@ -105,9 +105,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>RITLogo</Name>
     </Compile>
-    <Compile Include="ScrollingBackground.cs">
+    <Compile Include="YScrollingBackground.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>ScrollingBackground</Name>
+      <Name>YScrollingBackground</Name>
     </Compile>
     <Compile Include="BotherPath.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
