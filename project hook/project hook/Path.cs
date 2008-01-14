@@ -55,7 +55,6 @@ namespace project_hook
 
 		public void CalculateMovement(GameTime p_gameTime)
 		{
-
 			m_Path.CalculateMovement(p_gameTime);
 		}
 
@@ -75,8 +74,6 @@ namespace project_hook
 			TailAttack,
 			TailAttach,
 			TailBody
-
 		}
-
 	}
 }
