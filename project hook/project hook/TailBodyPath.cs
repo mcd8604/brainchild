@@ -31,7 +31,7 @@ namespace project_hook
 			foreach (Sprite s in m_BodySprites)
 			{
 				int index = m_BodySprites.IndexOf(s);
-				Vector2 temp = new Vector2((index + 1) * tick.X, (index + 1) * tick.Y);
+				Vector2 temp = new Vector2(m_Ship.Center.X+(index + 1) * tick.X, m_Ship.Center.Y+(index + 1) * tick.Y);
 				s.Center = temp;
 			}
         }
