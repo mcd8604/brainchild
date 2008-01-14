@@ -128,7 +128,7 @@ namespace project_hook
 				crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.MidGround.Mid);
 				for (int i = 0; i < 6; i++)
 				{
-					Sprite tailBodySprite = new Sprite("TailBody", new Vector2(100f, 100f),TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
+					Sprite tailBodySprite = new Sprite("TailBody", new Vector2(100f, 100f),TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
 					m_TailBodySprites.Add(tailBodySprite);
 				}
 				tail = new Tail("Tail", back1.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, back1.PlayerShip, 400, m_TailBodySprites);
