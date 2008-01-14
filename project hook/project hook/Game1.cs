@@ -60,8 +60,8 @@ namespace project_hook
 
             // lazy fps code
             drawtext = new DrawText();
-            graphics.SynchronizeWithVerticalRetrace = false;
-			IsFixedTimeStep = false;
+            //graphics.SynchronizeWithVerticalRetrace = false;
+			//IsFixedTimeStep = false;
             // adn
         }
 
