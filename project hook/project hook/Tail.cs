@@ -111,7 +111,7 @@ namespace project_hook
         public void TailAttack(Vector2 p_Target, GameTime p_GameTime)
         {
 			//attack with tail
-            if (m_EnemyCaught == null && m_TailReturned && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
+            if (m_EnemyCaught == null && m_TailReturned && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay && Vector2.DistanceSquared(p_Target,this.Center) < 213333)
             {
                 m_TailTarget = p_Target;
                 Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();

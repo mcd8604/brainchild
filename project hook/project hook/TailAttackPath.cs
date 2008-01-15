@@ -14,6 +14,7 @@ namespace project_hook
         PlayerShip m_PlayerShip;
         float m_Speed;
         bool changed = false;
+		float m_Distance = 0;
 
         public TailAttackPath(Dictionary<ValueKeys, Object> p_Values)
             : base(p_Values)
@@ -30,13 +31,14 @@ namespace project_hook
             dic.Add(PathStrategy.ValueKeys.Speed, (float)m_Values[ValueKeys.Speed]);
             m_CurrentPath = new Path(Path.Paths.Shot, dic);
 			m_Base.StateOfTail = Tail.TailState.Attacking;
+			m_Distance = Vector2.DistanceSquared(m_PlayerShip.Center, m_End);
         }
 
         public override void CalculateMovement(GameTime p_GameTime)
         {
             m_CurrentPath.CalculateMovement(p_GameTime);
             m_Base.Rotation = TrigHelper.TurnToFace(m_Base.Center, m_End, m_Base.Rotation, 10);
-            if (MathHelper.Distance(m_Base.Center.X, m_End.X) < 10 && MathHelper.Distance(m_Base.Center.Y, m_End.Y) < 10 && !changed)
+            if (Vector2.DistanceSquared(m_Base.Center, m_PlayerShip.Center) > m_Distance && !changed)
             {
                 Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.End, m_PlayerShip.Center);
