@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
 	class RITLogo : Menu
 	{
 		int m_Delay;
-		double m_Created;
 		double m_Time;
 
 		public RITLogo()
@@ -15,9 +15,12 @@ namespace project_hook
 		{
 			//change to so texture that is is made for our title screen
 			m_BackgroundName = "RITLogo";
+
+			m_Time = 0;
+			m_Delay = 5;
 		}
 
-		protected override void Init()
+		/*protected override void Init()
 		{
 			base.Init();
 			m_Created = 0;
@@ -25,16 +28,18 @@ namespace project_hook
 
 			//60fps*5sec=300mil sec
 			m_Delay = 300;
-		}
+		}*/
 
-		public override void checkKeys(KeyHandler keyhandler)
+		public override void Update(GameTime p_Time)
 		{
-			if (keyhandler.IsActionPressed(KeyHandler.Actions.Pause) || m_Time >= m_Created + m_Delay)
+			base.Update(p_Time);
+
+			m_Time += p_Time.ElapsedGameTime.TotalSeconds;
+
+			if (Game.m_KeyHandler.IsActionPressed(KeyHandler.Actions.Pause) || m_Time >= m_Delay)
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.Title);
 			}
-
-			++m_Time;
 		}
 	}
 }

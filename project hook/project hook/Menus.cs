@@ -52,11 +52,26 @@ namespace project_hook
         }
 
         public static void ini()
-		{
+		{		
+			iniTextures();
             m_PreviousMenus = new List<MenuScreens>();
             m_SelectedMenu = MenuScreens.None;
             m_HasChanged = false;
         }
+
+		public static void iniTextures()
+		{
+			//load all menu textures here instead of during instansiation
+			TextureLibrary.LoadTexture("menu_background");
+			TextureLibrary.LoadTexture("menu_highlight");
+			TextureLibrary.LoadTexture("menu_newgame");
+			TextureLibrary.LoadTexture("menu_exitgame");
+			TextureLibrary.LoadTexture("menu_restart");
+			TextureLibrary.LoadTexture("menu_quit");
+			TextureLibrary.LoadTexture("RITLogo");
+			TextureLibrary.LoadTexture("menu_Title");
+			TextureLibrary.LoadTexture("virus");
+		}
 
         public static void setCurrentMenu(MenuScreens p_NewMenu)
         {
