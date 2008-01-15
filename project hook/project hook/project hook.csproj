@@ -109,6 +109,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TailBodyPath</Name>
     </Compile>
+    <Compile Include="SeekPath.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>SeekPath</Name>
+    </Compile>
     <Compile Include="YScrollingBackground.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>YScrollingBackground</Name>

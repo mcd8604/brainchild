@@ -132,7 +132,7 @@ namespace project_hook
 					Sprite tailBodySprite = new Sprite("poisonsplat", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("poisonsplat", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
 					m_TailBodySprites.Add(tailBodySprite);
 				}
-				tail = new Tail("Tail", back1.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, back1.PlayerShip, 400, m_TailBodySprites);
+				tail = new Tail("Tail", back1.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, back1.PlayerShip, 700, m_TailBodySprites);
 				
 
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();

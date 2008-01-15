@@ -41,11 +41,11 @@ namespace project_hook
             if (Vector2.DistanceSquared(m_Base.Center, m_PlayerShip.Center) > m_Distance && !changed)
             {
                 Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.End, m_PlayerShip.Center);
-                dic.Add(PathStrategy.ValueKeys.Start, m_End);
+                dic.Add(PathStrategy.ValueKeys.Target, m_PlayerShip);
+                //dic.Add(PathStrategy.ValueKeys.Start, m_End);
                 dic.Add(PathStrategy.ValueKeys.Base, m_Base);
-                dic.Add(PathStrategy.ValueKeys.Speed, (m_Speed * 2.5f));
-                m_CurrentPath = new Path(Path.Paths.Shot, dic);
+                dic.Add(PathStrategy.ValueKeys.Speed, new Vector2(30,30));
+                m_CurrentPath = new Path(Path.Paths.Seek, dic);
                 changed = true;
 				m_Base.StateOfTail = Tail.TailState.Returning;
             }
