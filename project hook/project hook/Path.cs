@@ -50,6 +50,10 @@ namespace project_hook
 			{
 				m_Path = new TailBodyPath(p_Values);
 			}
+			else if (m_Strategy == Paths.Seek)
+			{
+				m_Path = new SeekPath(p_Values);
+			}
 			//  return m_Path;
 		}
 
@@ -73,7 +77,8 @@ namespace project_hook
 			Straight,
 			TailAttack,
 			TailAttach,
-			TailBody
+			TailBody,
+			Seek
 		}
 	}
 }
