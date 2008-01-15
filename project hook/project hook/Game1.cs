@@ -308,13 +308,13 @@ namespace project_hook
 			{
 				if (Mouse.GetState().RightButton == ButtonState.Pressed)
 				{
-					if (Music.IsPlaying("bg2"))
+					if (Music.IsPlaying("bg1"))
 					{
-						Music.Stop("bg2");
+						Music.Stop("bg1");
 					}
 					else
 					{
-						Music.Play("bg2");
+						Music.Play("bg1");
 					}
 				}
 				lastRightMouseButton = Mouse.GetState().RightButton;
