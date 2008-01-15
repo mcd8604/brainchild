@@ -23,7 +23,7 @@ namespace project_hook
 				returnVal.Play();
 				return returnVal;
 			}
-			catch (ArgumentException ae)
+			catch (ArgumentException)
 			{
 				return null;
 			}
