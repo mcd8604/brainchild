@@ -21,7 +21,7 @@ namespace project_hook
         ContentManager content;
         SpriteBatch m_SpriteBatch;
 
-        KeyHandler m_KeyHandler;
+        public static KeyHandler m_KeyHandler;
 
         World m_World;
         Menu m_Menu;
@@ -61,8 +61,8 @@ namespace project_hook
             m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             // This will initialize any libraries or static classes needed
             TextureLibrary.iniTextures(content);
-            
-            Menus.ini();
+
+			Menus.ini();
             Menus.setCurrentMenu(Menus.MenuScreens.DevLogo);
             m_InputHandler = InputHandlerState.Menu;
 
@@ -138,9 +138,9 @@ namespace project_hook
                 m_Menu = Menus.getCurrentMenu();
                 if (m_Menu != null)
                 {
-                    m_Menu.Load(null);
+                    m_Menu.Load(graphics);
                     m_InputHandler = InputHandlerState.Menu;
-                    m_Menu.ToggleVisibility();
+                    m_Menu.Visible = true;
                 }
                 else
                 {
@@ -153,7 +153,7 @@ namespace project_hook
             {
                 if (m_InputHandler == InputHandlerState.Menu)
                 {
-                    m_Menu.checkKeys(m_KeyHandler);
+                    m_Menu.Update(gameTime);
                 }
             }
 			
