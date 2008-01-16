@@ -12,8 +12,6 @@ namespace project_hook
 		Vector2 Velocity;
         Vector2 End;
         float speed;
-        double angle;
-        Vector2 temp;
         bool flag;
 		bool timed;
 		float Duration;
@@ -33,10 +31,6 @@ namespace project_hook
                 flag = false;
                 End = (Vector2)m_Values[ValueKeys.End];
                 speed = (float)m_Values[ValueKeys.Speed];
-
-                temp = End - Object.Center;
-                angle = (double)Math.Atan2(temp.Y, temp.X);
-                Object.Rotation = (float)angle;
             }
 
 			timed = m_Values.ContainsKey(ValueKeys.Duration);
@@ -49,6 +43,7 @@ namespace project_hook
 
 		public override void CalculateMovement(GameTime p_gameTime)
 		{
+			m_Done = false;
             if (flag)
             {
                 Vector2 temp = Vector2.Multiply(Velocity, (float)p_gameTime.ElapsedGameTime.TotalSeconds);
@@ -56,13 +51,17 @@ namespace project_hook
             }
             else
             {
+				Vector2 temp = End - Object.Center;
+				double angle = (double)Math.Atan2(temp.Y, temp.X);
+				Object.Rotation = (float)angle;
+
                 double delta = speed * (p_gameTime.ElapsedGameTime.TotalSeconds);
 
                 Vector2 temp2 = new Vector2();
                 temp2.X = (float)(delta * Math.Cos(angle));
                 temp2.Y = (float)(delta * Math.Sin(angle));
 
-                if ( (Math.Abs(temp2.X) > Math.Abs(temp.X)) || (Math.Abs(temp2.Y) > Math.Abs(temp.Y) ) )
+                if ( (Math.Abs(temp2.X) > Math.Abs(temp.X)) && (Math.Abs(temp2.Y) > Math.Abs(temp.Y) ) )
                 {
                     m_Done = true;
                 }
@@ -79,6 +78,14 @@ namespace project_hook
 				}
 			}
 
+		}
+
+		public override void resetDuration()
+		{
+			if (timed)
+			{
+				Duration = (float)m_Values[ValueKeys.Duration];
+			}
 		}
 
 	}

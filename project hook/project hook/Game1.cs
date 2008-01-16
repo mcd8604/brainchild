@@ -137,12 +137,21 @@ namespace project_hook
 
 
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
+				dic.Add(PathStrategy.ValueKeys.Base, enemy);
+				dic.Add(PathStrategy.ValueKeys.Speed, 100f);
                 dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
-                dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
-                dic.Add(PathStrategy.ValueKeys.Base, enemy);
-                enemy.Path = new Path(Path.Paths.Line, dic);
-                enemy.Update(new GameTime());
+                dic.Add(PathStrategy.ValueKeys.Duration, 5f);
+                enemy.PathList.AddPath(new Path(Paths.Straight, dic));
+
+				Dictionary<PathStrategy.ValueKeys, Object> dic2 = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic2.Add(PathStrategy.ValueKeys.Base, enemy);
+				dic2.Add(PathStrategy.ValueKeys.Speed, 100f);
+				dic2.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
+				dic2.Add(PathStrategy.ValueKeys.Duration, 5f);
+				enemy.PathList.AddPath(new Path(Paths.Straight, dic2));
+
+				enemy.PathList.Mode = ListModes.Repeat;
+
 
 
                 /*
@@ -413,30 +422,6 @@ namespace project_hook
             enemy.Update(gameTime);
             tail.Update(gameTime);
             ((Sprite)m_TailBodySprites[0]).Update(gameTime);
-            if (enemy.Path.isDone())
-            {
-                if (path == 0)
-                {
-                    Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                    dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
-                    dic.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
-                    dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
-                    dic.Add(PathStrategy.ValueKeys.Base, enemy);
-                    enemy.Path = new Path(Path.Paths.Line, dic);
-                    path++;
-                }
-                else
-                {
-                    Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                    dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
-                    dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
-                    dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
-                    dic.Add(PathStrategy.ValueKeys.Base, enemy);
-                    enemy.Path = new Path(Path.Paths.Line, dic);
-                    path = 0;
-
-                }
-            }
 
             Collision.CheckCollisions(spritelist);
 

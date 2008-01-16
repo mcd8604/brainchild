@@ -168,7 +168,7 @@ namespace project_hook
                             Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                             dic.Add(PathStrategy.ValueKeys.Target, temp);
                             dic.Add(PathStrategy.ValueKeys.Base, sprite);
-                            sprite.Path = new Path(Path.Paths.Follow, dic);
+                            sprite.Path = new Path(Paths.Follow, dic);
                             temp.attachSpritePart(sprite);
                         }
                         else if (temp.Bound == Collidable.Boundings.Diamond)
@@ -177,7 +177,7 @@ namespace project_hook
                             Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                             dic.Add(PathStrategy.ValueKeys.Target, temp);
                             dic.Add(PathStrategy.ValueKeys.Base, sprite);
-                            sprite.Path = new Path(Path.Paths.Follow, dic);
+                            sprite.Path = new Path(Paths.Follow, dic);
                             temp.attachSpritePart(sprite);
                         }
                         else if (temp.Bound == Collidable.Boundings.Square)
@@ -186,7 +186,7 @@ namespace project_hook
                             Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                             dic.Add(PathStrategy.ValueKeys.Target, temp);
                             dic.Add(PathStrategy.ValueKeys.Base, sprite);
-                            sprite.Path = new Path(Path.Paths.Follow, dic);
+                            sprite.Path = new Path(Paths.Follow, dic);
                             temp.attachSpritePart(sprite);
                         }
                     }

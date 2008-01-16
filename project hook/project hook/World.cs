@@ -289,7 +289,7 @@ namespace project_hook
             dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
             dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
             dic.Add(PathStrategy.ValueKeys.Base, enemy);
-            enemy.Path = new Path(Path.Paths.Line, dic);
+            enemy.Path = new Path(Paths.Line, dic);
             enemy.Update(new GameTime());
 
 

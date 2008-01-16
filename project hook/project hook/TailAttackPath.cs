@@ -25,7 +25,7 @@ namespace project_hook
             dic.Add(PathStrategy.ValueKeys.Speed, m_Speed);
             dic.Add(PathStrategy.ValueKeys.End, m_End);
             dic.Add(PathStrategy.ValueKeys.Duration, (float)m_Values[ValueKeys.Duration]);
-            m_CurrentPath = new Path(Path.Paths.Seek, dic);
+            m_CurrentPath = new Path(Paths.Seek, dic);
 			m_Base.StateOfTail = Tail.TailState.Attacking;
         }
 
@@ -51,7 +51,7 @@ namespace project_hook
                 dic.Add(PathStrategy.ValueKeys.Base, m_Base);
                 dic.Add(PathStrategy.ValueKeys.Speed, m_Speed / 2.0f);
                 dic.Add(PathStrategy.ValueKeys.Target, m_PlayerShip);
-                m_CurrentPath = new Path(Path.Paths.Seek, dic);
+                m_CurrentPath = new Path(Paths.Seek, dic);
                 m_Base.StateOfTail = Tail.TailState.Returning;
             }
 
