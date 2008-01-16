@@ -15,7 +15,8 @@ namespace project_hook
             Degree,  //The Degree of rotation, float 
             Base,    //The that will recieve this information, Sprite 
             Target,  //The target sprite, Sprite
-            Speed,   //The speed of the movement 
+            Speed,   //The scalar speed of the movement 
+            Velocity,//The vector speed of the movement
             Duration //The duration of the movement.
         }
 
