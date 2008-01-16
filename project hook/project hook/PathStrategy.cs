@@ -51,5 +51,7 @@ namespace project_hook
 		public virtual void CalculateMovement(GameTime p_gameTime){
 
 		}
+
+		public virtual void resetDuration() { }
 	}
 }

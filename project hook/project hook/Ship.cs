@@ -47,7 +47,7 @@ namespace project_hook
 
 			dic.Add(PathStrategy.ValueKeys.Target, this);
 			dic.Add(PathStrategy.ValueKeys.Base, m_ShieldSprite);
-			m_ShieldSprite.Path = new Path(Path.Paths.Follow, dic);
+			m_ShieldSprite.Path = new Path(Paths.Follow, dic);
 
 			/*
 			dic.Add(PathStrategy.ValueKeys.Start, m_ShieldSprite.Center);

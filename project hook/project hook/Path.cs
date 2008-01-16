@@ -5,6 +5,21 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
+
+	public enum Paths
+	{
+		Follow,
+		Line,
+		Shot,
+		Bother,
+		Tether,
+		Straight,
+		TailAttack,
+		TailAttach,
+		TailBody,
+		Seek
+	}
+
 	public class Path
 	{
 		Paths m_Strategy;
@@ -67,18 +82,9 @@ namespace project_hook
 			return m_Path.isDone;
 		}
 
-		public enum Paths
+		public void resetDuration()
 		{
-			Follow,
-			Line,
-			Shot,
-			Bother,
-			Tether,
-			Straight,
-			TailAttack,
-			TailAttach,
-			TailBody,
-			Seek
+			m_Path.resetDuration();
 		}
 	}
 }

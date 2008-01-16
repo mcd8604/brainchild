@@ -101,6 +101,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ParticleSystem</Name>
     </Compile>
+    <Compile Include="PathList.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PathList</Name>
+    </Compile>
     <Compile Include="PathSeek.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathSeek</Name>

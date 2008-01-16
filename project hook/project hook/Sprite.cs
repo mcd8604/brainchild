@@ -131,7 +131,19 @@ namespace project_hook
         }
 
 
-        protected Path m_Path = null;
+        protected PathList m_PathList = new PathList();
+		public PathList PathList
+		{
+			get
+			{
+				return m_PathList;
+			}
+			set
+			{
+				m_PathList = value;
+			}
+		}
+
         /// <summary>
         /// The Path for this sprite.
         /// </summary>
@@ -139,11 +151,11 @@ namespace project_hook
         {
             get
             {
-                return m_Path;
+                return m_PathList.CurrentPath;
             }
             set
             {
-                m_Path = value;
+				m_PathList.CurrentPath = value;
             }
         }
 
@@ -514,13 +526,10 @@ namespace project_hook
         //This update method should be overidden 
 		public virtual void Update(GameTime p_Time)
 		{
+			m_PathList.CalculateMovement(p_Time);
             if (m_Animation != null)
             {
                 m_Animation.Update(p_Time);
-            }
-            if (m_Path != null)
-            {
-                m_Path.CalculateMovement(p_Time);
             }
             if (m_Parts != null)
             {

@@ -41,7 +41,7 @@ namespace project_hook
 				dic.Add(PathStrategy.ValueKeys.End, new Vector2(-100, t_Shot1.Center.Y));
 				dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
 				dic.Add(PathStrategy.ValueKeys.Speed, (float)500);
-				t_Shot1.Path = new Path(Path.Paths.Shot, dic);
+				t_Shot1.Path = new Path(Paths.Shot, dic);
 
 				t_Shot1.Animation.StartAnimation();
 
@@ -62,7 +62,7 @@ namespace project_hook
 				dic.Add(PathStrategy.ValueKeys.End, new Vector2(800, t_Shot2.Center.Y));
 				dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
 				dic.Add(PathStrategy.ValueKeys.Speed, (float)500);
-				t_Shot2.Path = new Path(Path.Paths.Shot, dic);
+				t_Shot2.Path = new Path(Paths.Shot, dic);
 
 				t_Shot2.Animation.StartAnimation();
 
