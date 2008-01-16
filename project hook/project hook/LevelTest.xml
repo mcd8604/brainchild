@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<tiles>
+		<tile name="tile_1" dist="0.0" texture="Back"/>
+		<tile name="tile_1" dist="1.0" texture="Back"/>
+		<tile name="tile_1" dist="2.0" texture="Back"/>
+	</tiles>
+	<actions>
+		<distance value="1.5">
+			<enemy/>
+			<enemy/>
+		</distance>
+	</actions>
+</level>
