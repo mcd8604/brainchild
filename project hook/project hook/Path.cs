@@ -17,7 +17,8 @@ namespace project_hook
 		TailAttack,
 		TailAttach,
 		TailBody,
-		Seek
+		Seek,
+		Throw
 	}
 
 	public class Path
@@ -68,6 +69,10 @@ namespace project_hook
 			else if (m_Strategy == Paths.Seek)
 			{
 				m_Path = new PathSeek(p_Values);
+			}
+			else if (m_Strategy == Paths.Throw)
+			{
+				m_Path = new ThrowPath(p_Values);
 			}
 			//  return m_Path;
 		}
