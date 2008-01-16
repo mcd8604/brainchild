@@ -44,30 +44,18 @@ namespace project_hook
 		public override void CalculateMovement(GameTime p_gameTime)
 		{
 			m_Done = false;
-            if (flag)
-            {
-                Vector2 temp = Vector2.Multiply(Velocity, (float)p_gameTime.ElapsedGameTime.TotalSeconds);
-                Object.Center = Vector2.Add(Object.Center, temp);
-            }
-            else
-            {
-				Vector2 temp = End - Object.Center;
-				double angle = (double)Math.Atan2(temp.Y, temp.X);
-				Object.Rotation = (float)angle;
 
-                double delta = speed * (p_gameTime.ElapsedGameTime.TotalSeconds);
+			Vector2 temp = Vector2.Multiply(Velocity, (float)p_gameTime.ElapsedGameTime.TotalSeconds);
 
-                Vector2 temp2 = new Vector2();
-                temp2.X = (float)(delta * Math.Cos(angle));
-                temp2.Y = (float)(delta * Math.Sin(angle));
+			if (!flag)
+			{
+				if ((Math.Abs(temp.X) > Math.Abs((End - Object.Center).X)) && (Math.Abs(temp.Y) > Math.Abs((End - Object.Center).Y)))
+				{
+					m_Done = true;
+				}
+			}
 
-                if ( (Math.Abs(temp2.X) > Math.Abs(temp.X)) && (Math.Abs(temp2.Y) > Math.Abs(temp.Y) ) )
-                {
-                    m_Done = true;
-                }
-
-                Object.Center = Vector2.Add(Object.Center, temp2);
-            }
+			Object.Center = Vector2.Add(Object.Center, temp);
 
 			if (timed)
 			{
@@ -80,13 +68,20 @@ namespace project_hook
 
 		}
 
-		public override void resetDuration()
+		public override void Set()
 		{
+			Vector2 temp = End - Object.Center;
+			double angle = (double)Math.Atan2(temp.Y, temp.X);
+			Object.Rotation = (float)angle;
+
+			Velocity = new Vector2();
+			Velocity.X = (float)(speed * Math.Cos(angle));
+			Velocity.Y = (float)(speed * Math.Sin(angle));
+
 			if (timed)
 			{
 				Duration = (float)m_Values[ValueKeys.Duration];
 			}
 		}
-
 	}
 }
