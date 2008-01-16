@@ -40,34 +40,43 @@ namespace project_hook
 
 		public LevelReader()
 		{
-			Path = System.Environment.CurrentDirectory + "\\Content\\Textures\\";
+			Path = System.Environment.CurrentDirectory + "\\Content\\Levels\\";
 		}
-		public LevelReader(String p_Path)
+		public LevelReader(String p_FileName)
 		{
-			Path = p_Path;
-		}
-		public LevelReader(String p_Path, String p_FileName)
-		{
-			Path = p_Path;
+			Path = System.Environment.CurrentDirectory + "\\Content\\Levels\\";
 			FileName = p_FileName;
 		}
 
 		public void ReadFile()
 		{
+			String t_Name = m_Path + m_FileName;
+			
 			//Checks for the XML file
-			if (File.Exists(m_Path+m_FileName))
+			if (File.Exists(t_Name))
 			{
-				//Lods the XML file
-				XmlDocument doc = new XmlDocument();
-				doc.Load(m_Path + m_FileName);
+				XmlReaderSettings t_Settings = new XmlReaderSettings();
+				t_Settings.ConformanceLevel = ConformanceLevel.Fragment;
+				t_Settings.IgnoreWhitespace = true;
+				t_Settings.IgnoreComments = true;
+				XmlReader reader = XmlReader.Create(m_Path + m_FileName, t_Settings);
 
-				//Checks gets the Rectangles to load
-				XmlElement elm = doc.DocumentElement;
-				XmlNodeList lstRect = elm.ChildNodes;
+				reader.Read();
+				reader.ReadStartElement("level");
+				Console.WriteLine(reader.Name);
+
+				////Lods the XML file
+				//XmlDocument doc = new XmlDocument();
+				//doc.Load(m_Path + m_FileName);
+
+				////Checks gets the Rectangles to load
+				//XmlElement elm = doc.DocumentElement;
+				//XmlNodeList lstRect = elm.ChildNodes;
 
 				//Iterates over each rectangle
-				for (int i = 0; i < lstRect.Count; i++)
-				{
+				//for (int i = 0; i < lstRect.Count; i++)
+				//{
+					
 					//XmlNodeList nodes = lstRect.Item(i).ChildNodes;
 					//int j = 0;
 
@@ -81,7 +90,7 @@ namespace project_hook
 					////Stores it in the GameTexture table
 					//GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
 					//addGameTexture(name, tag, t_GameTexture);
-				}
+				//}
 			}
 			else
 			{

@@ -533,9 +533,10 @@
       <Processor>XactProcessor</Processor>
       <Name>HookSound</Name>
     </Content>
-    <Content Include="LevelTest.xml">
+    <Content Include="Content\Levels\LevelTest.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LevelTest</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

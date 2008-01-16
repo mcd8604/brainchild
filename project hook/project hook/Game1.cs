@@ -72,6 +72,9 @@ namespace project_hook
         /// </summary>
         protected override void Initialize()
         {
+			//test
+			LevelReader t_LR = new LevelReader("LevelTest.xml");
+			t_LR.ReadFile();
 
             InputHandler.LoadDefaultBindings();
 
