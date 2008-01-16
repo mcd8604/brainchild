@@ -56,9 +56,6 @@ namespace project_hook
             graphics = new GraphicsDeviceManager(this);
             content = new ContentManager(Services);
 
-            InputHandler.LoadDefaultBindings();
-
-
             // lazy fps code
             drawtext = new DrawText();
             //graphics.SynchronizeWithVerticalRetrace = false;
@@ -75,6 +72,9 @@ namespace project_hook
         /// </summary>
         protected override void Initialize()
         {
+
+            InputHandler.LoadDefaultBindings();
+
             TextureLibrary.iniTextures(content);
 
             graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
