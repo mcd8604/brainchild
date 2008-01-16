@@ -15,8 +15,12 @@ namespace project_hook
 			m_HighlightName = "menu_highlight";
 
 			m_MenuItemNames = new ArrayList();
-			m_MenuItemNames.Add("menu_newgame");
-			m_MenuItemNames.Add("menu_quit");
+			//m_MenuItemNames.Add("menu_newgame");
+			//m_MenuItemNames.Add("menu_quit");
+
+			usingTextSprite = true;
+			m_MenuItemNames.Add("New Game");
+			m_MenuItemNames.Add("Quit");
 		}
 
 		public override void accept()

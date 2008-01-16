@@ -25,6 +25,8 @@ namespace project_hook
 		protected ArrayList m_MenuItemNames;
 		protected ArrayList m_MenuItemSprites;
 
+		protected Boolean usingTextSprite;
+
 		public Menu()
 		{
 			m_selectedIndex = 0;
@@ -61,31 +63,67 @@ namespace project_hook
 			m_MenuItemSprites = new ArrayList();			
 			if (m_MenuItemNames.Count != 0)
 			{
-				//create each menu sprite
-				for (int i = 0; i < m_MenuItemNames.Count; i++)
+				if (usingTextSprite)
 				{
-					GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
-					xPos = m_BackgroundSprite.Position.X + (m_BackgroundSprite.Width - curTexture.Width) / 2;
-					yPos = m_BackgroundSprite.Position.Y;
-					//set position based on other menu sprites
-					for (int k = 0; k < m_MenuItemSprites.Count; k++)
-					{
-						Sprite s = (Sprite)m_MenuItemSprites[k];
-						yPos += s.Height;
-					}
-					Sprite mis = new Sprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), curTexture.Height, curTexture.Width,
-														curTexture, 255f, true, 0, Depth.ForeGround.Mid);
-					m_MenuItemSprites.Add(mis);
-					attachSpritePart(mis);
+					createTextSprites();
 				}
-
-				//create highlight sprite
-				Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
-				GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName, "");
-				m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height,
-												selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.ForeGround.Top);
-				attachSpritePart(m_HightlightSprite);
+				else
+				{
+					createImageSprites();
+				}
 			}
+		}
+
+		private void createTextSprites()
+		{
+			int textHeight = 32;
+			int topBuffer = 32;
+
+			//create each menu item from TextSprites
+			for (int i = 0; i < m_MenuItemNames.Count; i++)
+			{
+				float xPos = m_BackgroundSprite.Center.X;
+				float yPos = topBuffer + m_BackgroundSprite.Position.Y + (textHeight * i);
+
+				TextSprite mis = new TextSprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), Color.White, Depth.ForeGround.Top);
+
+				m_MenuItemSprites.Add(mis);
+				attachSpritePart(mis);
+			}
+
+			//set highlighted
+			setHighlightSprite();
+			TextSprite selSprite = (TextSprite)m_MenuItemSprites[m_selectedIndex];
+			selSprite.Color = Color.Yellow;
+		}
+
+		private void createImageSprites()
+		{
+
+			//create each menu sprite - image textures
+			for (int i = 0; i < m_MenuItemNames.Count; i++)
+			{
+				GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
+				float xPos = m_BackgroundSprite.Position.X + (m_BackgroundSprite.Width - curTexture.Width) / 2;
+				float yPos = m_BackgroundSprite.Position.Y;
+				//set position based on other menu sprites
+				for (int k = 0; k < m_MenuItemSprites.Count; k++)
+				{
+					Sprite s = (Sprite)m_MenuItemSprites[k];
+					yPos += s.Height;
+				}
+				Sprite mis = new Sprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), curTexture.Height, curTexture.Width,
+													curTexture, 255f, true, 0, Depth.ForeGround.Mid);
+				m_MenuItemSprites.Add(mis);
+				attachSpritePart(mis);
+			}
+
+			//create highlight sprite
+			Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
+			GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName, "");
+			m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height,
+											selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.ForeGround.Top);
+			attachSpritePart(m_HightlightSprite);
 		}
 
 		public override void Update(GameTime p_Time)
@@ -164,11 +202,22 @@ namespace project_hook
 
 		protected virtual void setHighlightSprite()
 		{
-            if (m_HightlightSprite != null)
-            {
-                Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
-				m_HightlightSprite.Width = selSprite.Width;
-				m_HightlightSprite.Position = selSprite.Position;
+			Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
+			if (usingTextSprite)
+			{
+				foreach (TextSprite s in m_MenuItemSprites)
+				{
+					s.Color = Color.White;
+				}
+				selSprite.Color = Color.Yellow;
+			}
+			else
+			{
+				if (m_HightlightSprite != null)
+				{
+					m_HightlightSprite.Width = selSprite.Width;
+					m_HightlightSprite.Position = selSprite.Position;
+				}
             }
         }
 

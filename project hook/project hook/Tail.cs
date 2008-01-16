@@ -105,7 +105,7 @@ namespace project_hook
 			dic.Add(PathStrategy.ValueKeys.End, m_PlayerShip);
 			dic.Add(PathStrategy.ValueKeys.Base, m_BodySprites);
 			dic.Add(PathStrategy.ValueKeys.Target, this);
-			((Sprite)m_BodySprites[0]).Path = new Path(Path.Paths.TailBody, dic);
+			//((Sprite)m_BodySprites[0]).Path = new Path(Path.Paths.TailBody, dic);
         }
 
         public void TailAttack(Vector2 p_Target, GameTime p_GameTime)
