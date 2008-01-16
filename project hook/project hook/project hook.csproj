@@ -85,6 +85,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>InputHandler</Name>
     </Compile>
+    <Compile Include="LevelReader.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>LevelReader</Name>
+    </Compile>
     <Compile Include="Music.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Music</Name>

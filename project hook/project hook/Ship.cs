@@ -26,7 +26,6 @@ namespace project_hook
 			{
 				return m_Shield;
 			}
-
 			set
 			{
 				m_Shield = value;
@@ -49,16 +48,7 @@ namespace project_hook
 			dic.Add(PathStrategy.ValueKeys.Base, m_ShieldSprite);
 			m_ShieldSprite.Path = new Path(Paths.Follow, dic);
 
-			/*
-			dic.Add(PathStrategy.ValueKeys.Start, m_ShieldSprite.Center);
-			dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, m_ShieldSprite.Center.Y));
-			dic.Add(PathStrategy.ValueKeys.Duration, 6000.0f);
-			dic.Add(PathStrategy.ValueKeys.Base, m_ShieldSprite);
-			m_ShieldSprite.Path = new Path(Path.Paths.Line, dic);
-			 * */
 			attachSpritePart(m_ShieldSprite);
-
-
 		}
 
 		public List<Shot> shoot(GameTime p_GameTime)
@@ -85,20 +75,18 @@ namespace project_hook
 			}
 		}
 
-
-
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
 			m_ShieldSprite.Visible = (Shield > 0);
 		}
+
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			if (p_Other is Shot)
 			{
 				if (this.Health <= 0)
 				{
-
 				}
 				Shot shot = (Shot) p_Other;
 				this.Health -= shot.Damage;
@@ -108,6 +96,5 @@ namespace project_hook
 
 			base.RegisterCollision(p_Other);
 		}
-
 	}
 }

@@ -1,14 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
-	<tiles>
-		<tile name="tile_1" dist="0.0" texture="Back"/>
-		<tile name="tile_1" dist="1.0" texture="Back"/>
-		<tile name="tile_1" dist="2.0" texture="Back"/>
-	</tiles>
-	<actions>
-		<distance value="1.5">
-			<enemy/>
-			<enemy/>
-		</distance>
-	</actions>
+	<action dist="1">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="200"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alphs>255</alphs>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<path>
+				<type>Straight</type>
+				<end x="700" y="200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+			</path>
+			<path>
+				<type>Straight</type>
+				<end x="100" y="200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+			</path>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+		</createShip>
+	</action>
 </level>
