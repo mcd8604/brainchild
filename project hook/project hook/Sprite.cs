@@ -92,7 +92,7 @@ namespace project_hook
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, Width, Height);
+				return new Rectangle((int)Position.X + Width/2, (int)Position.Y +Height /2, Width, Height);
             }
         }
 
@@ -494,17 +494,19 @@ namespace project_hook
                 if (m_Texture != null)
                 {
                     //Draws the current sprite.
-                    if (rot)
-                    {
+                  //  if (rot)
+                   // {
 						if (Scale >= 0)
 						{
 							p_SpriteBatch.Draw(m_Texture.Texture, Position, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, Scale, SpriteEffects.None, m_Z);
 						}
 						else
 						{
+							
 							p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, SpriteEffects.None, m_Z);
 						}
-                    }
+                   
+					/*}
                     else
                     {
 						if (Scale >= 0)
@@ -516,6 +518,7 @@ namespace project_hook
 								p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, 0, Vector2.Zero, SpriteEffects.None, m_Z);
 						}
                     }
+					 * */
 
                 }
 
