@@ -53,11 +53,6 @@ namespace project_hook
                 }
             }
 
-            if (m_Values.ContainsKey(ValueKeys.Start))
-            {
-                Object.Center = (Vector2)m_Values[ValueKeys.Start];
-            }
-
         }
 
         public override void CalculateMovement(GameTime p_gameTime)
@@ -116,6 +111,18 @@ namespace project_hook
             }
 
         }
+
+		public override void Set()
+		{
+			if (m_Values.ContainsKey(ValueKeys.Start))
+			{
+				Object.Center = (Vector2)m_Values[ValueKeys.Start];
+			}
+			if (timed)
+			{
+				Duration = (float)m_Values[ValueKeys.Duration];
+			}
+		}
 
     }
 }

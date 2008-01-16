@@ -52,6 +52,6 @@ namespace project_hook
 
 		}
 
-		public virtual void resetDuration() { }
+		public virtual void Set() { }
 	}
 }

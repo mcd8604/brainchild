@@ -82,9 +82,9 @@ namespace project_hook
 			return m_Path.isDone;
 		}
 
-		public void resetDuration()
+		public void Set()
 		{
-			m_Path.resetDuration();
+			m_Path.Set();
 		}
 	}
 }
