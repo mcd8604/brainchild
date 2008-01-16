@@ -61,7 +61,9 @@ namespace project_hook
         }
 
         private Vector2 m_TailSpeed = new Vector2(0, 0);
+
         private double m_LastTailAttack = 0;
+
         private bool m_TailReturned = true;
 
 		public enum TailState
@@ -86,9 +88,9 @@ namespace project_hook
 
 		private ArrayList m_BodySprites = new ArrayList();
 
-
         public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-                            float p_Degree, float p_Z, Factions p_Faction, int p_Health, int p_Speed, GameTexture p_DamageEffect, float p_Radius, Ship p_AttachShip, double p_TailAttackDelay, ArrayList p_BodySprites)
+					float p_Degree, float p_Z, Factions p_Faction, int p_Health, int p_Speed, GameTexture p_DamageEffect, float p_Radius,
+					Ship p_AttachShip, double p_TailAttackDelay, ArrayList p_BodySprites)
             : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, -1, null, p_Speed, p_DamageEffect, p_Radius)
         {
             Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -105,7 +107,7 @@ namespace project_hook
 			dic.Add(PathStrategy.ValueKeys.End, m_PlayerShip);
 			dic.Add(PathStrategy.ValueKeys.Base, m_BodySprites);
 			dic.Add(PathStrategy.ValueKeys.Target, this);
-			//((Sprite)m_BodySprites[0]).Path = new Path(Path.Paths.TailBody, dic);
+			((Sprite)m_BodySprites[0]).Path = new Path(Path.Paths.TailBody, dic);
         }
 
         public void TailAttack(Vector2 p_Target, GameTime p_GameTime)
