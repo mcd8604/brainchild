@@ -393,7 +393,6 @@ namespace project_hook
                 }
             }
 
-            //gameCollision.QuickCheckCollision( new List<Sprite>(spritelist),gameTime,back1);
 			Collision.CheckCollisions(spritelist);
 
             List<Sprite> toBeRemoved = new List<Sprite>();
@@ -432,25 +431,6 @@ namespace project_hook
             }
         }
         // adn
-
-		private void QuickCheckCollision(GameTime gameTime)
-		{
-
-			List<Sprite> temp = new List<Sprite>(spritelist);
-
-			foreach( Collidable item in temp ) {
-				//temp.Remove( item ); // Todo: fix this later
-				foreach ( Collidable item2 in temp ) {
-					if ( item != item2 && Intersection.DoesIntersectDiamond(item.Position + item.Center, item.Height/2.5f, item2.Position + item2.Center, item2.Height/2.5f) ) {
-						//explosion.Position = (item.Position + item2.Position) / 2;
-						item.RegisterCollision(item2);
-						item2.RegisterCollision(item);
-						back1.Score.RegisterHit(gameTime);
-					}
-				}
-			}
-
-		}
 
         /// <summary>
         /// This is called when the game should draw itself.
