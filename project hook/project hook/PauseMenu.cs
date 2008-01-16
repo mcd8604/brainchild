@@ -27,11 +27,22 @@ namespace project_hook
 			m_MenuItemNames.Add("Quit to Windows");
 		}
 
+		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
+		{
+			base.Update(p_Time);
+			if (Game.m_KeyHandler.IsActionPressed(KeyHandler.Actions.Pause))
+			{
+				Menus.setCurrentMenu(Menus.MenuScreens.None);
+				World.ResumeWorld = true;
+			}
+		}
+
 		public override void accept()
 		{
 			if (m_selectedIndex == 0)
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.None);
+				World.ResumeWorld = true;
 			}
 
 			if (m_selectedIndex == 1)

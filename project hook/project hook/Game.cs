@@ -172,6 +172,12 @@ namespace project_hook
 				World.DestroyWorld = false;
 			}
 
+			if (World.ResumeWorld == true)
+			{
+				m_World.changeState(World.GameState.Running);
+				World.ResumeWorld = false;
+			}
+
             //This will check if the game world is created.  
             if (m_World != null)
             {
