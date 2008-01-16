@@ -9,6 +9,8 @@ namespace project_hook
     class TextSprite : Sprite
     {
 
+        public delegate String StringFunction();
+
         private SpriteFont m_Font = null;
         protected SpriteFont Font
         {
@@ -49,7 +51,17 @@ namespace project_hook
 
             }
         }
-        
+
+        private StringFunction m_Func = null;
+        public StringFunction Func
+        {
+            set
+            {
+                m_Func = value;
+            }
+
+        }
+
         protected Vector2 m_Center = Vector2.Zero;
         public override Vector2 Center
         {
@@ -193,11 +205,98 @@ namespace project_hook
             Width = p_Width;
         }
 
+
+
+        public TextSprite(StringFunction p_Func, Vector2 p_Center)
+        {
+            setFont("Courier New");
+            Func = p_Func;
+            Name = "String: " + p_Text;
+            Center = p_Center;
+            Color = Color.Black;
+        }
+
+        public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color)
+        {
+            setFont("Courier New");
+            Func = p_Func;
+            Name = "String: " + p_Text;
+            Center = p_Center;
+            Color = p_Color;
+        }
+
+        public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z)
+        {
+            setFont("Courier New");
+            Func = p_Func;
+            Name = "String: " + p_Text;
+            Center = p_Center;
+            Color = p_Color;
+            Z = p_Z;
+        }
+
+        public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency)
+        {
+            setFont("Courier New");
+            Func = p_Func;
+            Name = "String: " + p_Text;
+            Center = p_Center;
+            Color = p_Color;
+            Z = p_Z;
+            Transparency = p_Transparency;
+        }
+
+        public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation)
+        {
+            setFont("Courier New");
+            Func = p_Func;
+            Name = "String: " + p_Text;
+            Center = p_Center;
+            Color = p_Color;
+            Z = p_Z;
+            Transparency = p_Transparency;
+            Rotation = p_Rotation;
+        }
+
+        public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, Vector2 p_Scale)
+        {
+            setFont("Courier New");
+            Func = p_Func;
+            Name = "String: " + p_Text;
+            Center = p_Center;
+            Color = p_Color;
+            Z = p_Z;
+            Transparency = p_Transparency;
+            Rotation = p_Rotation;
+            Scale = p_Scale;
+        }
+
+        public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, int p_Height, int p_Width)
+        {
+            setFont("Courier New");
+            Func = p_Func;
+            Name = "String: " + p_Text;
+            Center = p_Center;
+            Color = p_Color;
+            Z = p_Z;
+            Transparency = p_Transparency;
+            Rotation = p_Rotation;
+            Height = p_Height;
+            Width = p_Width;
+        }
+
+
+
         public override void Draw(SpriteBatch p_SpriteBatch)
         {
             if (Visible)
             {
-                p_SpriteBatch.DrawString(Font, Text, Center, Color, base.Rotation, m_Origin, Scale, SpriteEffects.None, base.Z);
+                if (m_Func == null)
+                {
+                    p_SpriteBatch.DrawString(Font, Text, Center, Color, base.Rotation, m_Origin, Scale, SpriteEffects.None, base.Z);
+                } else {
+                    p_SpriteBatch.DrawString(Font, m_Func.Invoke(), Center, Color, base.Rotation, m_Origin, Scale, SpriteEffects.None, base.Z);
+                }
             }
         }
 
