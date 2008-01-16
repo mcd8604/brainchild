@@ -59,7 +59,10 @@ namespace project_hook
             InputHandler.LoadDefaultBindings();
 
             graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
-
+			graphics.PreferredBackBufferHeight = 768;
+			graphics.PreferredBackBufferWidth = 1024;
+			graphics.ApplyChanges();
+			
             m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             // This will initialize any libraries or static classes needed
             TextureLibrary.iniTextures(content);
