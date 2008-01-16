@@ -121,7 +121,7 @@ namespace project_hook
             {
                 m_Player.UpdatePlayer(p_GameTime);
 
-                Collision.CheckCollisions(m_SpriteList, p_GameTime);
+                Collision.CheckCollisions(m_SpriteList);
 
                 List<Sprite> toAdd = new List<Sprite>();
 
