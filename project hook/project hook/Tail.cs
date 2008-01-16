@@ -131,11 +131,12 @@ namespace project_hook
 				//throw enemy
             else if (m_EnemyCaught != null && m_TailReturned && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
             {
-                Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.Base, m_EnemyCaught);
-                dic.Add(PathStrategy.ValueKeys.Speed, 500f);
-                dic.Add(PathStrategy.ValueKeys.End, p_Target);
-                m_EnemyCaught.PathList = new PathList(Paths.Straight, dic, ListModes.Continuous);
+				Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.Base, this);
+				dic.Add(PathStrategy.ValueKeys.Speed, 1000f);
+				dic.Add(PathStrategy.ValueKeys.End, m_EnemyCaught);
+				dic.Add(PathStrategy.ValueKeys.Target, p_Target);
+				this.Path = new Path(Paths.Throw, dic);
                 m_EnemyCaught = null;
                 m_LastTailAttack = p_GameTime.TotalGameTime.TotalMilliseconds;
             }
