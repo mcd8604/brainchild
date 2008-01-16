@@ -81,6 +81,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ExplosionSpriteParticleSystem</Name>
     </Compile>
+    <Compile Include="InputHandler.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>InputHandler</Name>
+    </Compile>
     <Compile Include="Music.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Music</Name>
@@ -97,6 +101,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ParticleSystem</Name>
     </Compile>
+    <Compile Include="PathSeek.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PathSeek</Name>
+    </Compile>
     <Compile Include="PathStraight.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathStraight</Name>
@@ -108,10 +116,6 @@
     <Compile Include="TailBodyPath.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TailBodyPath</Name>
-    </Compile>
-    <Compile Include="SeekPath.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>SeekPath</Name>
     </Compile>
     <Compile Include="YScrollingBackground.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

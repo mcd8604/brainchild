@@ -1,4 +1,4 @@
-  #region Using Statements
+#region Using Statements
 using System;
 using System.Collections.Generic;
 using System.Collections;
@@ -19,29 +19,28 @@ namespace project_hook
     public class Game1 : Microsoft.Xna.Framework.Game
     {
 
-		List<Sprite> spritelist = new List<Sprite>();
+        List<Sprite> spritelist = new List<Sprite>();
         List<Shot> shots = new List<Shot>();
 
         public static GraphicsDeviceManager graphics;
         ContentManager content;
-        KeyHandler keyhandler;
-		Sprite cloud;
+        Sprite cloud;
         SpriteBatch m_spriteBatch;
         Sprite back;
         Player back1;
         Sprite back2;
-		Sprite crosshair;
-		ArrayList m_TailBodySprites = new ArrayList();
-		Tail tail;
-		ButtonState lastMouseButton = ButtonState.Released;
-		ButtonState lastRightMouseButton = ButtonState.Released;
+        Sprite crosshair;
+        ArrayList m_TailBodySprites = new ArrayList();
+        Tail tail;
+        //ButtonState lastMouseButton = ButtonState.Released;
+        //ButtonState lastRightMouseButton = ButtonState.Released;
 
         //Sprite shotEffect;
-		//Sprite shot2Effect;
+        //Sprite shot2Effect;
 
-		Collidable enemy;
+        Collidable enemy;
 
-		//Sprite explosion;
+        //Sprite explosion;
 
         // lazy fps code
         DrawText drawtext;
@@ -56,12 +55,14 @@ namespace project_hook
         {
             graphics = new GraphicsDeviceManager(this);
             content = new ContentManager(Services);
-            keyhandler = new KeyHandler();
+
+            InputHandler.LoadDefaultBindings();
+
 
             // lazy fps code
             drawtext = new DrawText();
             //graphics.SynchronizeWithVerticalRetrace = false;
-			//IsFixedTimeStep = false;
+            //IsFixedTimeStep = false;
             // adn
         }
 
@@ -80,11 +81,11 @@ namespace project_hook
 
             base.Initialize();
 
-			Sprite.DrawWithRot();
+            Sprite.DrawWithRot();
 
-			Sound.Initialize();
+            Sound.Initialize();
 
-			Music.Initialize();
+            Music.Initialize();
         }
 
 
@@ -99,19 +100,19 @@ namespace project_hook
 
             if (loadAllContent)
             {
-				TextureLibrary.reloadAll();
+                TextureLibrary.reloadAll();
 
                 TextureLibrary.LoadTexture("Ship2");
                 TextureLibrary.LoadTexture("Back");
                 TextureLibrary.LoadTexture("RedShot");
-				TextureLibrary.LoadTexture("Cloud");
-				TextureLibrary.LoadTexture("Enemy1");
-				TextureLibrary.LoadTexture("Explosion");
-				TextureLibrary.LoadTexture("Shield");
+                TextureLibrary.LoadTexture("Cloud");
+                TextureLibrary.LoadTexture("Enemy1");
+                TextureLibrary.LoadTexture("Explosion");
+                TextureLibrary.LoadTexture("Shield");
                 TextureLibrary.LoadTexture("FireBall");
-				TextureLibrary.LoadTexture("temptail");
-				TextureLibrary.LoadTexture("crosshairs");
-				TextureLibrary.LoadTexture("poisonsplat");
+                TextureLibrary.LoadTexture("temptail");
+                TextureLibrary.LoadTexture("crosshairs");
+                TextureLibrary.LoadTexture("poisonsplat");
                 drawtext.Load(content);
 
                 Rectangle PlayerBounds = new Rectangle(graphics.GraphicsDevice.Viewport.X,
@@ -119,30 +120,30 @@ namespace project_hook
                                                          graphics.GraphicsDevice.Viewport.Width,
                                                            graphics.GraphicsDevice.Viewport.Height);
                 m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-				GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud","");
-				GameTexture crosshairs = TextureLibrary.getGameTexture("crosshairs","");
+                GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
+                GameTexture crosshairs = TextureLibrary.getGameTexture("crosshairs", "");
                 back = new YScrollingBackground(TextureLibrary.getGameTexture("Back", ""));
                 back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom, PlayerBounds);
-                back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f,Depth.MidGround.Bottom);
-				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
-				enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100);
-				crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.MidGround.Mid);
-				for (int i = 0; i < 6; i++)
-				{
-					Sprite tailBodySprite = new Sprite("poisonsplat", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("poisonsplat", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
-					m_TailBodySprites.Add(tailBodySprite);
-				}
-				tail = new Tail("Tail", back1.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, back1.PlayerShip, 700, m_TailBodySprites);
-				
+                back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
+                cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
+                enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100);
+                crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.MidGround.Mid);
+                for (int i = 0; i < 6; i++)
+                {
+                    Sprite tailBodySprite = new Sprite("poisonsplat", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("poisonsplat", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
+                    m_TailBodySprites.Add(tailBodySprite);
+                }
+                tail = new Tail("Tail", back1.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, back1.PlayerShip, 700, m_TailBodySprites);
+
 
                 Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
-                dic.Add(PathStrategy.ValueKeys.End, new Vector2(700,200));
+                dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
                 dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
                 dic.Add(PathStrategy.ValueKeys.Base, enemy);
-                enemy.Path = new Path(Path.Paths.Line,dic);
+                enemy.Path = new Path(Path.Paths.Line, dic);
                 enemy.Update(new GameTime());
-				
+
 
                 /*
                 shot2Effect = new Sprite("RedShot2", new Vector2(-400.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
@@ -152,17 +153,17 @@ namespace project_hook
                 shotEffect.Animation.StartAnimation();
                 shot2Effect.Animation.StartAnimation();
                 */
-				//explosion = new Sprite("Explosion", new Vector2(-100f, -100f), 100, 100, TextureLibrary.getGameTexture("Explosion", ""), 50f, true, 0, Depth.ForeGround.Mid);
+                //explosion = new Sprite("Explosion", new Vector2(-100f, -100f), 100, 100, TextureLibrary.getGameTexture("Explosion", ""), 50f, true, 0, Depth.ForeGround.Mid);
 
-				spritelist.Add(back);
-				spritelist.Add(enemy);
-				spritelist.Add(tail);
+                spritelist.Add(back);
+                spritelist.Add(enemy);
+                spritelist.Add(tail);
                 /*
 				spritelist.Add(shotEffect);
 				spritelist.Add(shot2Effect);
                  * */
-				
-				m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+
+                m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
             }
             // TODO: Load any ResourceManagementMode.Manual content
@@ -195,17 +196,17 @@ namespace project_hook
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            keyhandler.Update();
-			Sound.Update();
-			Music.Update();
+            InputHandler.Update();
+            Sound.Update();
+            Music.Update();
 
             // Allows the game to exit
-            if (keyhandler.IsActionPressed(KeyHandler.Actions.Pause))
+            if (InputHandler.IsActionPressed(Actions.Pause))
             {
                 this.Exit();
             }
 
-            if (keyhandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
+            if (InputHandler.IsActionDown(Actions.ShipPrimary))
             {
                 /*
                  Vector2 shot = shotEffect.Position;
@@ -233,7 +234,7 @@ namespace project_hook
                 }
             }
 
-            if (keyhandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
+            if (InputHandler.IsActionPressed(Actions.ShipPrimary))
             {
                 //Shot shot2 = new Shot("RedShot2", new Vector2(100, 100.0f), 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
                 //                        , Collidable.Factions.Player, -1, null, 2, null, 5, 10);
@@ -275,72 +276,116 @@ namespace project_hook
                 //spritelist.Add(back1.Shoot(gameTime));
                 //spritelist.Add(shot2);
                 //Shot t_Shot = back1.Shoot(gameTime);
-/*
-                List<Shot> t_Shots = back1.Shoot(gameTime);
+                /*
+                                List<Shot> t_Shots = back1.Shoot(gameTime);
 
-                foreach (Sprite s in t_Shots)
-                {
-                    if (s.Name.Equals("no_Shot"))
-                    {
-                        //used so when the weapon can't shoot
-                    }
-                    else
-                    {
-                        spritelist.Add(s);
-                    }
-                }
-* */
+                                foreach (Sprite s in t_Shots)
+                                {
+                                    if (s.Name.Equals("no_Shot"))
+                                    {
+                                        //used so when the weapon can't shoot
+                                    }
+                                    else
+                                    {
+                                        spritelist.Add(s);
+                                    }
+                                }
+                * */
 
             }
 
-			Vector2 temp = new Vector2(Mouse.GetState().X,Mouse.GetState().Y);
-			crosshair.Center = temp;
-			if(Mouse.GetState().LeftButton != lastMouseButton)
-			{
-				if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-				{
-					tail.TailAttack(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), gameTime);
-				}
-				lastMouseButton = Mouse.GetState().LeftButton;
-					
-			}
-			if (Mouse.GetState().RightButton != lastRightMouseButton)
-			{
-				if (Mouse.GetState().RightButton == ButtonState.Pressed)
-				{
-					if (Music.IsPlaying("bg1"))
-					{
-						Music.Stop("bg1");
-					}
-					else
-					{
-						Music.Play("bg1");
-					}
-				}
-				lastRightMouseButton = Mouse.GetState().RightButton;
-			}
 
 
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Right))
+
+
+
+            //Vector2 temp = new Vector2(Mouse.GetState().X,Mouse.GetState().Y);
+            //crosshair.Center = temp;
+
+            if (InputHandler.HasMouseMoved())
+            {
+                crosshair.Center = InputHandler.MousePostion;
+            }
+
+
+
+
+
+
+            //if(Mouse.GetState().LeftButton != lastMouseButton)
+            //{
+            //    if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            //    {
+            //        tail.TailAttack(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), gameTime);
+            //    }
+            //    lastMouseButton = Mouse.GetState().LeftButton;
+
+            //}
+
+
+            if (InputHandler.IsActionPressed(Actions.TailPrimary))
+            {
+                tail.TailAttack(InputHandler.MousePostion, gameTime);
+            }
+
+
+
+
+
+
+            //if (Mouse.GetState().RightButton != lastRightMouseButton)
+            //{
+            //    if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            //    {
+            //        if (Music.IsPlaying("bg1"))
+            //        {
+            //            Music.Stop("bg1");
+            //        }
+            //        else
+            //        {
+            //            Music.Play("bg1");
+            //        }
+            //    }
+            //    lastRightMouseButton = Mouse.GetState().RightButton;
+            //}
+
+            if (InputHandler.IsActionPressed(Actions.TailSecondary))
+            {
+                if (Music.IsPlaying("bg1"))
+                {
+                    Music.Stop("bg1");
+                }
+                else
+                {
+                    Music.Play("bg1");
+                }
+            }
+
+
+
+
+
+
+            if (InputHandler.IsActionDown(Actions.Right))
             {
                 back1.MoveRight();
             }
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Left))
+            if (InputHandler.IsActionDown(Actions.Left))
             {
                 back1.MoveLeft();
             }
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Up))
+            if (InputHandler.IsActionDown(Actions.Up))
             {
                 back1.MoveUp();
             }
-            if (keyhandler.IsActionDown(KeyHandler.Actions.Down))
+            if (InputHandler.IsActionDown(Actions.Down))
             {
                 back1.MoveDown();
             }
-            if (keyhandler.IsKeyPressed(Keys.F))
+            if (InputHandler.IsKeyPressed(Keys.F))
             {
                 graphics.ToggleFullScreen();
-                }
+            }
 
             /*
             Vector2 shotV = shot2Effect.Position; 
@@ -366,8 +411,8 @@ namespace project_hook
             UpdateFPS(gameTime);
             // adn
             enemy.Update(gameTime);
-			tail.Update(gameTime);
-			((Sprite)m_TailBodySprites[0]).Update(gameTime);
+            tail.Update(gameTime);
+            ((Sprite)m_TailBodySprites[0]).Update(gameTime);
             if (enemy.Path.isDone())
             {
                 if (path == 0)
@@ -393,7 +438,7 @@ namespace project_hook
                 }
             }
 
-			Collision.CheckCollisions(spritelist);
+            Collision.CheckCollisions(spritelist);
 
             List<Sprite> toBeRemoved = new List<Sprite>();
 
@@ -413,14 +458,14 @@ namespace project_hook
             {
                 spritelist.Remove(s);
             }
-        //    enemy.RegisterCollision(null, null);
+            //    enemy.RegisterCollision(null, null);
 
-			base.Update(gameTime);
+            base.Update(gameTime);
         }
 
 
         // lazy fps code
-		private void UpdateFPS(GameTime gameTime)
+        private void UpdateFPS(GameTime gameTime)
         {
             timeSinceLastUpdate += (float)gameTime.ElapsedRealTime.TotalSeconds;
             if (timeSinceLastUpdate > updateInterval)
@@ -430,7 +475,6 @@ namespace project_hook
                 timeSinceLastUpdate = 0.0f;
             }
         }
-        // adn
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -443,27 +487,27 @@ namespace project_hook
             m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
 
             back.Draw(m_spriteBatch);
-			foreach (Sprite s in m_TailBodySprites)
-				s.Draw(m_spriteBatch);
+            foreach (Sprite s in m_TailBodySprites)
+                s.Draw(m_spriteBatch);
 
             back1.DrawPlayer(gameTime, m_spriteBatch);
 
-			crosshair.Draw(m_spriteBatch);
+            crosshair.Draw(m_spriteBatch);
 
             foreach (Sprite s in spritelist)
             {
                 s.Draw(m_spriteBatch);
             }
-			//back2.Draw(m_spriteBatch);
-			//shotEffect.Draw(m_spriteBatch);
-			//shot2Effect.Draw(m_spriteBatch);
+            //back2.Draw(m_spriteBatch);
+            //shotEffect.Draw(m_spriteBatch);
+            //shot2Effect.Draw(m_spriteBatch);
             drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.ForeGround.Top);
-			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0,50),Color.White);
-            drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(),Vector2.Zero,Color.White);
+            drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0, 50), Color.White);
+            drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(), Vector2.Zero, Color.White);
 
-			enemy.Draw(m_spriteBatch);
+            enemy.Draw(m_spriteBatch);
             //explosion.Draw(m_spriteBatch);
-			tail.Draw(m_spriteBatch);
+            tail.Draw(m_spriteBatch);
 
             m_spriteBatch.End();
 
@@ -473,5 +517,5 @@ namespace project_hook
         }
     }
 
-    
+
 }
