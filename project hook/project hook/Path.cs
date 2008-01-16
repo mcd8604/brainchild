@@ -52,7 +52,7 @@ namespace project_hook
 			}
 			else if (m_Strategy == Paths.Seek)
 			{
-				m_Path = new SeekPath(p_Values);
+				m_Path = new PathSeek(p_Values);
 			}
 			//  return m_Path;
 		}

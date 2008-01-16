@@ -211,7 +211,7 @@ namespace project_hook
         {
             setFont("Courier New");
             Func = p_Func;
-            Name = "String: " + p_Text;
+            Name = "String: " + p_Func.ToString();
             Center = p_Center;
             Color = Color.Black;
         }
@@ -220,7 +220,7 @@ namespace project_hook
         {
             setFont("Courier New");
             Func = p_Func;
-            Name = "String: " + p_Text;
+            Name = "String: " + p_Func.ToString();
             Center = p_Center;
             Color = p_Color;
         }
@@ -229,7 +229,7 @@ namespace project_hook
         {
             setFont("Courier New");
             Func = p_Func;
-            Name = "String: " + p_Text;
+            Name = "String: " + p_Func.ToString();
             Center = p_Center;
             Color = p_Color;
             Z = p_Z;
@@ -239,7 +239,7 @@ namespace project_hook
         {
             setFont("Courier New");
             Func = p_Func;
-            Name = "String: " + p_Text;
+            Name = "String: " + p_Func.ToString();
             Center = p_Center;
             Color = p_Color;
             Z = p_Z;
@@ -250,7 +250,7 @@ namespace project_hook
         {
             setFont("Courier New");
             Func = p_Func;
-            Name = "String: " + p_Text;
+            Name = "String: " + p_Func.ToString();
             Center = p_Center;
             Color = p_Color;
             Z = p_Z;
@@ -262,7 +262,7 @@ namespace project_hook
         {
             setFont("Courier New");
             Func = p_Func;
-            Name = "String: " + p_Text;
+            Name = "String: " + p_Func.ToString();
             Center = p_Center;
             Color = p_Color;
             Z = p_Z;
@@ -275,7 +275,7 @@ namespace project_hook
         {
             setFont("Courier New");
             Func = p_Func;
-            Name = "String: " + p_Text;
+            Name = "String: " + p_Func.ToString();
             Center = p_Center;
             Color = p_Color;
             Z = p_Z;
