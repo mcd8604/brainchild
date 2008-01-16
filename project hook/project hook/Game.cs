@@ -42,7 +42,7 @@ namespace project_hook
             // uncap frame rate to see our true performance
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;
-            
+
 
         }
 
@@ -56,13 +56,15 @@ namespace project_hook
         protected override void Initialize()
         {
 
+            InputHandler.LoadDefaultBindings();
+
             graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
 
             m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             // This will initialize any libraries or static classes needed
             TextureLibrary.iniTextures(content);
 
-			Menus.ini();
+            Menus.ini();
             Menus.setCurrentMenu(Menus.MenuScreens.DevLogo);
             m_InputHandler = InputHandlerState.Menu;
 
@@ -83,11 +85,11 @@ namespace project_hook
         {
             if (loadAllContent)
             {
-				TextureLibrary.reloadAll();
-				m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+                TextureLibrary.reloadAll();
+                m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             }
 
-            
+
             // TODO: Load any ResourceManagementMode.Manual content
         }
 
@@ -118,21 +120,24 @@ namespace project_hook
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+            InputHandler.Update();
+
             if (Menus.Exit)
             {
                 this.Exit();
             }
 
-			//This gets the current key state
+            //This gets the current key state
             m_KeyHandler.Update();
 
-			//Checks for full screen
+            //Checks for full screen
             if (m_KeyHandler.IsKeyPressed(Keys.F))
             {
                 graphics.ToggleFullScreen();
             }
 
-			//This checks if a new menu is supposed to be loaded.
+            //This checks if a new menu is supposed to be loaded.
             if (Menus.HasChanged == true)
             {
                 m_Menu = Menus.getCurrentMenu();
@@ -148,7 +153,7 @@ namespace project_hook
                 }
             }
 
-			//If a menu is loaded
+            //If a menu is loaded
             if (m_Menu != null)
             {
                 if (m_InputHandler == InputHandlerState.Menu)
@@ -156,27 +161,27 @@ namespace project_hook
                     m_Menu.Update(gameTime);
                 }
             }
-			
+
             if (World.CreateWorld == true)
             {
-				m_World = new World();
+                m_World = new World();
                 m_World.loadLevel(content);
-                m_World.initialize( new Rectangle(0,0,graphics.PreferredBackBufferWidth,graphics.PreferredBackBufferHeight));
+                m_World.initialize(new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
                 m_World.changeState(World.GameState.Running);
                 World.CreateWorld = false;
             }
 
-			if (World.DestroyWorld == true)
-			{
-				m_World = null;
-				World.DestroyWorld = false;
-			}
+            if (World.DestroyWorld == true)
+            {
+                m_World = null;
+                World.DestroyWorld = false;
+            }
 
-			if (World.ResumeWorld == true)
-			{
-				m_World.changeState(World.GameState.Running);
-				World.ResumeWorld = false;
-			}
+            if (World.ResumeWorld == true)
+            {
+                m_World.changeState(World.GameState.Running);
+                World.ResumeWorld = false;
+            }
 
             //This will check if the game world is created.  
             if (m_World != null)
@@ -192,7 +197,7 @@ namespace project_hook
                     m_World.update(gameTime);
                 }
             }
-        
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
