@@ -193,7 +193,7 @@ namespace project_hook
 			//			if there is a collision do some action.  no action at this point.
 		//}
 
-		public virtual void RegisterCollision(Collidable p_Other, GameTime p_GameTime)
+		public virtual void RegisterCollision(Collidable p_Other)
 		{
 			if (DamageEffect != null)
 			{

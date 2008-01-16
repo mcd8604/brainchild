@@ -151,7 +151,7 @@ namespace project_hook
             m_TailReturned = true;
         }
 
-        public override void RegisterCollision(Collidable p_Other, GameTime p_GameTime)
+        public override void RegisterCollision(Collidable p_Other)
         {
             //base.RegisterCollision(p_Other);
             if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_TailState == TailState.Attacking)
