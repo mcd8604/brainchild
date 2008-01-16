@@ -111,15 +111,15 @@ namespace project_hook
         public void TailAttack(Vector2 p_Target, GameTime p_GameTime)
         {
 			//attack with tail
-            if (m_EnemyCaught == null && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay && Vector2.DistanceSquared(p_Target,this.Center) < 213333)
+            if (m_EnemyCaught == null && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
             {
                 m_TailTarget = p_Target;
                 Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.End, p_Target);
-                dic.Add(PathStrategy.ValueKeys.Start, this.Center);
                 dic.Add(PathStrategy.ValueKeys.Base, this);
-                dic.Add(PathStrategy.ValueKeys.Speed, 1250f);
+                dic.Add(PathStrategy.ValueKeys.Speed, 1000f);
                 dic.Add(PathStrategy.ValueKeys.Target, this.PlayerShip);
+                dic.Add(PathStrategy.ValueKeys.End, p_Target);
+                dic.Add(PathStrategy.ValueKeys.Duration, 0.5f);
                 this.Path = new Path(Path.Paths.TailAttack, dic);
                 //gets the current time in milliseconds
                 m_LastTailAttack = p_GameTime.TotalGameTime.TotalMilliseconds;
@@ -130,11 +130,10 @@ namespace project_hook
             else if (m_EnemyCaught != null && m_TailReturned && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
             {
                 Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.End, p_Target);
-                dic.Add(PathStrategy.ValueKeys.Start, m_EnemyCaught.Center);
                 dic.Add(PathStrategy.ValueKeys.Base, m_EnemyCaught);
                 dic.Add(PathStrategy.ValueKeys.Speed, 500f);
-                m_EnemyCaught.Path = new Path(Path.Paths.Shot, dic);
+                dic.Add(PathStrategy.ValueKeys.End, p_Target);
+                m_EnemyCaught.Path = new Path(Path.Paths.Straight, dic);
                 m_EnemyCaught = null;
                 m_LastTailAttack = p_GameTime.TotalGameTime.TotalMilliseconds;
             }
