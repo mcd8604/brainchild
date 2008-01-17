@@ -31,7 +31,7 @@ namespace project_hook
             dic2.Add(PathStrategy.ValueKeys.Base, m_Base);
             dic2.Add(PathStrategy.ValueKeys.Speed, m_Speed / 2.0f);
             dic2.Add(PathStrategy.ValueKeys.Target, m_PlayerShip);
-            m_ReturnPath = new Path(Paths.Seek, dic);
+            m_ReturnPath = new Path(Paths.Seek, dic2);
 
             m_Base.StateOfTail = Tail.TailState.Attacking;
             m_AttackPath.Set();

@@ -8,8 +8,17 @@ namespace project_hook
 
     /// <summary>
     /// A path that seeks to it's target.
+    /// Specifically, This path will move the base towards the goal, even if this or the goal sprite are in motion.
     /// Specify either an End point, or a Target Sprite.
-    /// Path will be 'Done' when it reaches the end, or if the optional duration expires.
+    /// Path will be 'Done' when it reaches the goal, or if the optional duration expires.
+    /// 
+    /// Parameters:
+    /// Base - Required - The Sprite this Path should act on.
+    /// Speed - Required - The Scalar Speed the sprite should travel, float Pixels per Seconds.
+    /// Target - Optional - The Sprite this Path should seek out, Specify either a Target or an End.
+    /// End - Optional - The Vector2 point this Path should seek out, Specify either a Target or an End.
+    /// Duration - Optional - How Long this Path should try to seek for, float Seconds.
+    /// 
     /// </summary>
     class PathSeek : PathStrategy
     {
@@ -66,19 +75,16 @@ namespace project_hook
 
             Vector2 temp = goal - Object.Center;
 
+            Vector2 debug = Vector2.Normalize(temp);
+
             if (temp.Equals(Vector2.Zero))
             {
                 m_Done = true;
             }
 
-            double angle = (double)Math.Atan2(temp.Y, temp.X);
-            Object.Rotation = (float)angle;
+            Object.Rotation = (float)Math.Atan2(temp.Y, temp.X);
 
-            double delta = Speed * (p_gameTime.ElapsedGameTime.TotalSeconds);
-
-            Vector2 temp2 = new Vector2();
-            temp2.X = (float)(delta * Math.Cos(angle));
-            temp2.Y = (float)(delta * Math.Sin(angle));
+            Vector2 temp2 = Vector2.Multiply(Vector2.Normalize(temp), (float)(Speed * (p_gameTime.ElapsedGameTime.TotalSeconds)));
 
             if (Math.Abs(temp2.X) > Math.Abs(temp.X))
             {
