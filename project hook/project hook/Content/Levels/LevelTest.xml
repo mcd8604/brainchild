@@ -14,6 +14,9 @@
 			<faction>enemy</faction>
 			<health>100</health>
 			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
 			<path>
 				<type>Straight</type>
 				<end x="700" y="200"/>
@@ -26,9 +29,6 @@
 				<duration>5</duration>
 				<speed>100</speed>
 			</path>
-			<speed>100</speed>
-			<damageTexture name="Explosion" pos="3"/>
-			<radius>50</radius>
 		</createShip>
 	</action>
 </level>

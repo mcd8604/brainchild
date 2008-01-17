@@ -37,7 +37,7 @@ namespace project_hook
 
         //Sprite shotEffect;
         //Sprite shot2Effect;
-
+		
         Collidable enemy;
 
         //Sprite explosion;
