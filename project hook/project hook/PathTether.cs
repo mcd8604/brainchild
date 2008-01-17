@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-    class TetherPath : PathStrategy
+    class PathTether : PathStrategy
     {
 
         Sprite Object;
@@ -20,7 +20,7 @@ namespace project_hook
         Vector2 minspeed = new Vector2(-500, -500);
         Vector2 maxspeed = new Vector2(500, 500);
 
-        public TetherPath(Dictionary<ValueKeys, Object> p_Values)
+        public PathTether(Dictionary<ValueKeys, Object> p_Values)
             : base(p_Values)
         {
             Object = (Sprite)m_Values[ValueKeys.Base];
@@ -54,12 +54,12 @@ namespace project_hook
 
             Vector2 temp = Vector2.Multiply(speed, (float)p_gameTime.ElapsedGameTime.TotalSeconds);
 
-			Vector2 previousPos = Object.Center;
+            Vector2 previousPos = Object.Center;
             Object.Center = Vector2.Add(Object.Center, temp);
 
-            
-			if (MathHelper.Distance(Object.Center.X, AttachedTo.Center.X) > 5 && MathHelper.Distance(Object.Center.Y, AttachedTo.Center.Y) > 5)
-				Object.Rotation = TrigHelper.TurnToFace(Object.Center, previousPos, Object.Rotation, .5f);
+
+            if (MathHelper.Distance(Object.Center.X, AttachedTo.Center.X) > 5 && MathHelper.Distance(Object.Center.Y, AttachedTo.Center.Y) > 5)
+                Object.Rotation = TrigHelper.TurnToFace(Object.Center, previousPos, Object.Rotation, .5f);
 
         }
 

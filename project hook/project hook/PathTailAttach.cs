@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TailAttachPath : PathStrategy
+	class PathTailAttach : PathStrategy
 	{
 
 		Tail m_Tail;
 		Collidable m_Enemy;
 
-		public TailAttachPath(Dictionary<ValueKeys, Object> p_Values)
+		public PathTailAttach(Dictionary<ValueKeys, Object> p_Values)
 			:base(p_Values)
 		{
 			m_Tail = (Tail)m_Values[ValueKeys.Base];

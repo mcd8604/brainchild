@@ -28,10 +28,6 @@ namespace project_hook
             Speed = (float)m_Values[ValueKeys.Speed];
 
             timed = m_Values.ContainsKey(ValueKeys.Duration);
-            if (timed)
-            {
-                Duration = (float)m_Values[ValueKeys.Duration];
-            }
 
             if (m_Values.ContainsKey(ValueKeys.Target))
             {
