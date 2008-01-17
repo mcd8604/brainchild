@@ -144,12 +144,20 @@ namespace project_hook
 				t_Shot1.setAnimation("RedShot", 10);
 
 
-				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
-				dic.Add(PathStrategy.ValueKeys.End, new Vector2(-500, -500));
-				dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
-				dic.Add(PathStrategy.ValueKeys.Speed, (float)500);
-				t_Shot1.Path = new Path(Paths.Shot, dic);
+				//Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				//dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
+				//dic.Add(PathStrategy.ValueKeys.End, new Vector2(-500, -500));
+				//dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
+				//dic.Add(PathStrategy.ValueKeys.Speed, (float)500);
+				//t_Shot1.Path = new Path(Paths.Shot, dic);
+
+				Dictionary<PathStrategy.ValueKeys, Object> dic1 = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic1.Add(PathStrategy.ValueKeys.Base, t_Shot1);
+				dic1.Add(PathStrategy.ValueKeys.Velocity, new Vector2(-353, -353));
+				dic1.Add(PathStrategy.ValueKeys.Duration, 5f);
+				t_Shot1.Path = new Path(Paths.Straight, dic1);
+
+				t_Shot1.Rotation = (float)-Math.PI / 4f;
 
 				t_Shot1.Animation.StartAnimation();
 
@@ -165,12 +173,20 @@ namespace project_hook
 				t_Shot2.setAnimation("RedShot", 10);
 
 
-				dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic.Add(PathStrategy.ValueKeys.Start, t_Shot2.Center);
-				dic.Add(PathStrategy.ValueKeys.End, new Vector2(900, -500));
-				dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
-				dic.Add(PathStrategy.ValueKeys.Speed, (float)500);
-				t_Shot2.Path = new Path(Paths.Shot, dic);
+				//dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				//dic.Add(PathStrategy.ValueKeys.Start, t_Shot2.Center);
+				//dic.Add(PathStrategy.ValueKeys.End, new Vector2(900, -500));
+				//dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
+				//dic.Add(PathStrategy.ValueKeys.Speed, (float)500);
+				//t_Shot2.Path = new Path(Paths.Shot, dic);
+
+				Dictionary<PathStrategy.ValueKeys, Object> dic2 = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic2.Add(PathStrategy.ValueKeys.Base, t_Shot2);
+				dic2.Add(PathStrategy.ValueKeys.Velocity, new Vector2(353, -353));
+				dic2.Add(PathStrategy.ValueKeys.Duration, 5f);
+				t_Shot2.Path = new Path(Paths.Straight, dic2);
+
+				t_Shot2.Rotation = (float)Math.PI / 4f;
 
 				t_Shot2.Animation.StartAnimation();
 

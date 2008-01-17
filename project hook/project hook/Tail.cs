@@ -164,7 +164,7 @@ namespace project_hook
 				dic.Add(PathStrategy.ValueKeys.Base, this);
 				m_EnemyCaught = (Ship)p_Other;
 				m_EnemyCaught.Faction = Factions.Player;
-				m_EnemyCaught.Path = new Path(Paths.TailAttach, dic);
+				m_EnemyCaught.PathList = new PathList(Paths.TailAttach, dic);
 			}
 		}
 
