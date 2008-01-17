@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class BotherPath : PathStrategy
+	class PathBother : PathStrategy
 	{
 		Tail m_Base;
 		Collidable m_BotherTarget;
@@ -14,7 +14,7 @@ namespace project_hook
 
         private float m_Friction = .025f;
 
-		public BotherPath(Dictionary<ValueKeys, Object> p_Values)
+		public PathBother(Dictionary<ValueKeys, Object> p_Values)
 			: base(p_Values)
 		{
 			m_BotherTarget = (Collidable)m_Values[ValueKeys.Target];

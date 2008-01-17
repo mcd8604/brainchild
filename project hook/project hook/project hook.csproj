@@ -117,13 +117,13 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathStraight</Name>
     </Compile>
+    <Compile Include="PathTailBody.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PathTailBody</Name>
+    </Compile>
     <Compile Include="RITLogo.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>RITLogo</Name>
-    </Compile>
-    <Compile Include="TailBodyPath.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TailBodyPath</Name>
     </Compile>
     <Compile Include="TailBodySprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -137,7 +137,7 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>YScrollingBackground</Name>
     </Compile>
-    <Compile Include="BotherPath.cs">
+    <Compile Include="PathBother.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Class1</Name>
     </Compile>
@@ -158,9 +158,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Effect</Name>
     </Compile>
-    <Compile Include="FollowPath.cs">
+    <Compile Include="PathFollow.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>FollowPath</Name>
+      <Name>PathFollow</Name>
     </Compile>
     <Compile Include="Game.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -256,13 +256,13 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Class1</Name>
     </Compile>
-    <Compile Include="TailAttachPath.cs">
+    <Compile Include="PathTailAttach.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TailAttachPath</Name>
+      <Name>PathTailAttach</Name>
     </Compile>
-    <Compile Include="TailAttackPath.cs">
+    <Compile Include="PathTailAttack.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TailAttackPath</Name>
+      <Name>PathTailAttack</Name>
     </Compile>
     <Compile Include="TetherPath.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
