@@ -69,6 +69,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
+    <Compile Include="CursorSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>CursorSprite</Name>
+    </Compile>
     <Compile Include="FPS.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FPS</Name>

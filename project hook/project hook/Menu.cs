@@ -25,6 +25,9 @@ namespace project_hook
 		protected ArrayList m_MenuItemNames;
 		protected ArrayList m_MenuItemSprites;
 
+		protected String m_MenuCursorName;
+		protected CursorSprite m_MenuCursorSprite;
+
 		protected Boolean usingTextSprite;
 
 		public Menu()
@@ -36,6 +39,8 @@ namespace project_hook
 			m_HighlightName = "menu_highlight";
 
 			m_MenuItemNames = new ArrayList();
+
+			m_MenuCursorName = "crosshairs";
 		}
 
 		/*public Menu(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, 
@@ -53,12 +58,19 @@ namespace project_hook
 
 		public virtual void Load(GraphicsDeviceManager gdm)
 		{
+			//background sprite
 			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
 			float xPos = (gdm.GraphicsDevice.Viewport.Width - bgTexture.Width) / 2;
 			float yPos = (gdm.GraphicsDevice.Viewport.Height - bgTexture.Height) / 2;
 			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 200f, true,
 											0, Depth.ForeGround.Bottom);
 			attachSpritePart(m_BackgroundSprite);
+
+			//cursor sprite
+			GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName, "");
+			m_MenuCursorSprite = new CursorSprite(m_MenuCursorName, InputHandler.MousePostion, cursorTexture.Height, cursorTexture.Width, cursorTexture, 255f, true,
+											0, Depth.ForeGround.Top);
+			attachSpritePart(m_MenuCursorSprite);
 
 			m_MenuItemSprites = new ArrayList();
 			if (m_MenuItemNames.Count != 0)
@@ -147,6 +159,34 @@ namespace project_hook
 			if (InputHandler.IsActionPressed(Actions.MenuAccept))
 			{
 				accept();
+			}
+
+			if (InputHandler.HasMouseMoved())
+			{
+				if(spriteContainsMouse(InputHandler.MousePostion)) {
+					setSelectedIndex(i);
+				}
+			}
+
+			if (InputHandler.IsActionPressed(MouseButtons.Left))
+			{
+				if(spriteContainsMouse(InputHandler.MousePostion) {
+					accept();
+				}
+			}
+		}
+
+		protected Boolean spriteContainsMouse(Vector2 mousePos)
+		{
+			for (int i = 0; i < m_MenuItemSprites.Count; i++)
+			{
+				TextSprite s = (TextSprite)m_MenuItemSprites[i];
+				if (mousePos.X >= s.Position.X && mousePos.Y >= s.Position.Y && 
+					mousePos.X <= s.Position.X + s.Width && mousePos.Y <= s.Position.Y + s.Height)
+				{
+					return true;
+					break;
+				}
 			}
 		}
 
