@@ -85,7 +85,7 @@ namespace project_hook
 			// set rotation to some random value between 0 and 360 degrees.
 			this.Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
 			this.Texture = TextureLibrary.getGameTexture(p_Texture, "");
-			this.setAnimation(p_Texture,23);
+			this.setAnimation(p_Texture, (int)(23));
 			this.Animation.StartAnimation();
 			this.Visible = true;
 			

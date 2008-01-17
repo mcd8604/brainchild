@@ -304,7 +304,7 @@ namespace project_hook
 			// tell sprite batch to begin, using the spriteBlendMode specified in
 			// initializeConstants
 			p_SpriteBatch.End();
-			p_SpriteBatch.Begin(spriteBlendMode);
+			p_SpriteBatch.Begin(SpriteBlendMode.Additive);
 
 			foreach (ParticleSprite p in particles)
 			{
@@ -337,9 +337,11 @@ namespace project_hook
 				float scale = p.Scale * (.75f + .25f * normalizedLifetime);
 
 				p.Draw(p_SpriteBatch);
-				
-				
+
+
 			}
+			p_SpriteBatch.End();
+			p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend);
 
 			//base.Draw(p_SpriteBatch);
 		}
