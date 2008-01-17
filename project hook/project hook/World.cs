@@ -292,6 +292,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("poisonsplat");
 			TextureLibrary.LoadTexture("blood");
 			TextureLibrary.LoadTexture("crosshairs");
+			TextureLibrary.LoadTexture("tailbody");
         }
 
         private void IniDefaults()
@@ -308,9 +309,9 @@ namespace project_hook
 			ArrayList m_TailBodySprites = new ArrayList();
 
 			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.MidGround.Mid);   
-			for (int i = 0; i < 6; i++)
+			for (int i = 0; i < 60; i++)
 			{
-				Sprite tailBodySprite = new Sprite("poisonsplat", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("poisonsplat", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
+				TailBodySprite tailBodySprite = new TailBodySprite("tailbody", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tailbody", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
 				m_TailBodySprites.Add(tailBodySprite);
 			}
 			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);

@@ -125,6 +125,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TailBodyPath</Name>
     </Compile>
+    <Compile Include="TailBodySprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TailBodySprite</Name>
+    </Compile>
     <Compile Include="ThrowPath.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ThrowPath</Name>
@@ -541,6 +545,12 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LevelTest</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\tailbody.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>tailbody</Name>
     </Content>
     <Content Include="Content\Textures\veinbg.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
