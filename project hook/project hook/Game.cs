@@ -21,8 +21,6 @@ namespace project_hook
         ContentManager content;
         SpriteBatch m_SpriteBatch;
 
-        public static KeyHandler m_KeyHandler;
-
         World m_World;
         Menu m_Menu;
 
@@ -70,8 +68,6 @@ namespace project_hook
             Menus.ini();
             Menus.setCurrentMenu(Menus.MenuScreens.DevLogo);
             m_InputHandler = InputHandlerState.Menu;
-
-            m_KeyHandler = new KeyHandler();
 
             base.Initialize();
 
@@ -131,11 +127,8 @@ namespace project_hook
                 this.Exit();
             }
 
-            //This gets the current key state
-            m_KeyHandler.Update();
-
             //Checks for full screen
-            if (m_KeyHandler.IsKeyPressed(Keys.F))
+            if (InputHandler.IsKeyPressed(Keys.F))
             {
                 graphics.ToggleFullScreen();
             }
@@ -193,7 +186,7 @@ namespace project_hook
                 //If it's not it will just update the game without key input
                 if (m_InputHandler == InputHandlerState.World)
                 {
-                    m_World.update(gameTime, m_KeyHandler);
+                    m_World.checkKeys(gameTime);
                 }
                 else
                 {
