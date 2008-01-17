@@ -5,6 +5,18 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
+    /// <summary>
+    /// A Path that travels in a straight line.
+    /// Path will be 'Done' if the optional duration expires, or if a velocity is not specified, when it reaches the end point.
+    /// 
+    /// Parameters:
+    /// Base - Required - The Sprite this Path should act on.
+    /// Velocity - Optional - The Vector2 Velocity this sprite should move, Pixels per Seconds.
+    /// Speed - Optional - If Velocity is not specified, The Scalar Speed the sprite should travel, float Pixels per Seconds.
+    /// End - Optional - If Velocity is not specified, The Vector2 point this Path should travel to.
+    /// Duration - Optional - How Long this Path should try to seek for, float Seconds.
+    /// 
+    /// </summary>
 	class PathStraight : PathStrategy
 	{
 
@@ -34,17 +46,11 @@ namespace project_hook
             }
 
 			timed = m_Values.ContainsKey(ValueKeys.Duration);
-			if (timed)
-			{
-				Duration = (float)m_Values[ValueKeys.Duration];
-			}
 
 		}
 
 		public override void CalculateMovement(GameTime p_gameTime)
 		{
-			m_Done = false;
-
 			Vector2 temp = Vector2.Multiply(Velocity, (float)p_gameTime.ElapsedGameTime.TotalSeconds);
 
 			if (!flag)
@@ -70,6 +76,8 @@ namespace project_hook
 
 		public override void Set()
 		{
+            m_Done = false;
+
 			Vector2 temp = End - Object.Center;
 			double angle = (double)Math.Atan2(temp.Y, temp.X);
 			Object.Rotation = (float)angle;

@@ -5,7 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
 	public enum ListModes { Continuous, Once, Repeat, Random };
 
 	public class PathList
