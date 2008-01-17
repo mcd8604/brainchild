@@ -72,6 +72,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("RITLogo");
 			TextureLibrary.LoadTexture("menu_Title");
 			TextureLibrary.LoadTexture("virus");
+			TextureLibrary.LoadTexture("crosshairs");
 		}
 
 		public static void setCurrentMenu(MenuScreens p_NewMenu)
