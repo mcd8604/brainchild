@@ -14,7 +14,7 @@ namespace project_hook
 
 		Boolean ToggleVisibility();
 
-		void checkKeys(KeyHandler keyhandler);
+		void checkKeys();
 
 		void setSelectedIndex(int index);
 
