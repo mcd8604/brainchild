@@ -54,6 +54,10 @@ namespace project_hook
 
 			Vector2 temp = Vector2.Multiply(speed, (float)p_gameTime.ElapsedGameTime.TotalSeconds);
 
+			if ( float.IsNaN(temp.X) || float.IsNaN(temp.Y) ){
+				throw new ArithmeticException( "This shouldn't happen" );
+			}
+
 			Vector2 previousPos = Object.Center;
 			Object.Center = Vector2.Add(Object.Center, temp);
 
