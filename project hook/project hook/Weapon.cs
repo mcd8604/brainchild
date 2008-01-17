@@ -143,14 +143,14 @@ namespace project_hook
 				//i just moved it over here.
 				t_Shot1.setAnimation("RedShot", 10);
 
-				
-                Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-                dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
-                dic.Add(PathStrategy.ValueKeys.End, new Vector2(-500, -500));				
-                dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
+
+				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+				dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
+				dic.Add(PathStrategy.ValueKeys.End, new Vector2(-500, -500));
+				dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
 				dic.Add(PathStrategy.ValueKeys.Speed, (float)500);
-                t_Shot1.Path = new Path(Paths.Shot, dic);
-				
+				t_Shot1.Path = new Path(Paths.Shot, dic);
+
 				t_Shot1.Animation.StartAnimation();
 
 				//second shot

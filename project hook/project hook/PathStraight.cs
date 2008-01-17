@@ -5,26 +5,26 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-    /// <summary>
-    /// A Path that travels in a straight line.
-    /// Path will be 'Done' if the optional duration expires, or if a velocity is not specified, when it reaches the end point.
-    /// 
-    /// Parameters:
-    /// Base - Required - The Sprite this Path should act on.
-    /// Velocity - Optional - The Vector2 Velocity this sprite should move, Pixels per Seconds.
-    /// Speed - Optional - If Velocity is not specified, The Scalar Speed the sprite should travel, float Pixels per Seconds.
-    /// End - Optional - If Velocity is not specified, The Vector2 point this Path should travel to.
-    /// Duration - Optional - How Long this Path should try to seek for, float Seconds.
-    /// 
-    /// </summary>
+	/// <summary>
+	/// A Path that travels in a straight line.
+	/// Path will be 'Done' if the optional duration expires, or if a velocity is not specified, when it reaches the end point.
+	/// 
+	/// Parameters:
+	/// Base - Required - The Sprite this Path should act on.
+	/// Velocity - Optional - The Vector2 Velocity this sprite should move, Pixels per Seconds.
+	/// Speed - Optional - If Velocity is not specified, The Scalar Speed the sprite should travel, float Pixels per Seconds.
+	/// End - Optional - If Velocity is not specified, The Vector2 point this Path should travel to.
+	/// Duration - Optional - How Long this Path should try to seek for, float Seconds.
+	/// 
+	/// </summary>
 	class PathStraight : PathStrategy
 	{
 
 		Sprite Object;
 		Vector2 Velocity;
-        Vector2 End;
-        float speed;
-        bool flag;
+		Vector2 End;
+		float speed;
+		bool flag;
 		bool timed;
 		float Duration;
 
@@ -33,17 +33,17 @@ namespace project_hook
 		{
 			Object = (Sprite)m_Values[ValueKeys.Base];
 
-            if (m_Values.ContainsKey(ValueKeys.Velocity))
-            {
-                flag = true;
-                Velocity = (Vector2)m_Values[ValueKeys.Velocity];
-            }
-            else
-            {
-                flag = false;
-                End = (Vector2)m_Values[ValueKeys.End];
-                speed = (float)m_Values[ValueKeys.Speed];
-            }
+			if (m_Values.ContainsKey(ValueKeys.Velocity))
+			{
+				flag = true;
+				Velocity = (Vector2)m_Values[ValueKeys.Velocity];
+			}
+			else
+			{
+				flag = false;
+				End = (Vector2)m_Values[ValueKeys.End];
+				speed = (float)m_Values[ValueKeys.Speed];
+			}
 
 			timed = m_Values.ContainsKey(ValueKeys.Duration);
 
@@ -76,7 +76,7 @@ namespace project_hook
 
 		public override void Set()
 		{
-            m_Done = false;
+			m_Done = false;
 
 			Vector2 temp = End - Object.Center;
 			double angle = (double)Math.Atan2(temp.Y, temp.X);

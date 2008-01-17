@@ -23,12 +23,12 @@ namespace project_hook
 	/// such as position, velocity, acceleration, and rotation. They'll be drawn as
 	/// sprites, all layered on top of one another, and will be very pretty.
 	/// </summary>
-	public class ParticleSprite:Sprite
+	public class ParticleSprite : Sprite
 	{
 		// Position, Velocity, and Acceleration represent exactly what their names
 		// indicate. They are public fields rather than properties so that users
 		// can directly access their .X and .Y properties.
-	
+
 		public Vector2 Velocity;
 		public Vector2 Acceleration;
 
@@ -68,7 +68,7 @@ namespace project_hook
 		// initialize is called by ParticleSystem to set up the particle, and prepares
 		// the particle for use.
 		public void Initialize(Vector2 position, Vector2 velocity, Vector2 acceleration,
-			float lifetime, float scale, float rotationSpeed,String p_Texture)
+			float lifetime, float scale, float rotationSpeed, String p_Texture)
 		{
 			// set the values to the requested values
 			this.Position = position;
@@ -88,7 +88,7 @@ namespace project_hook
 			this.setAnimation(p_Texture, (int)(23));
 			this.Animation.StartAnimation();
 			this.Visible = true;
-			
+
 		}
 
 		// update is called by the ParticleSystem on every frame. This is where the
@@ -104,7 +104,7 @@ namespace project_hook
 			TimeSinceStart += dt;
 		}
 
-	
+
 	}
 }
 

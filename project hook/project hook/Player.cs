@@ -5,20 +5,20 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-    /*
-     * Description: This class contains information regarding the player 
-     * 
-     * TODO:
-     *  1. Create a function to tell the player to move in each direction
-     *  2. Create a function to tell the player to shoot
-     *  3. Implement all tail functionality
-     */
+/*
+ * Description: This class contains information regarding the player 
+ * 
+ * TODO:
+ *  1. Create a function to tell the player to move in each direction
+ *  2. Create a function to tell the player to shoot
+ *  3. Implement all tail functionality
+ */
 namespace project_hook
 {
-    public class Player
-    {
-        //variable for storing the player ship sprite and info
-        PlayerShip m_PlayerShip;
+	public class Player
+	{
+		//variable for storing the player ship sprite and info
+		PlayerShip m_PlayerShip;
 
 		Score m_Score;
 
@@ -47,28 +47,28 @@ namespace project_hook
 			}
 		}
 
-        private Rectangle m_Bounds;
+		private Rectangle m_Bounds;
 
-        public  Rectangle Bounds
-        {
-            get
-            {
-                return m_Bounds;
-            }
-            set
-            {
-                m_Bounds = value;
-            }
+		public Rectangle Bounds
+		{
+			get
+			{
+				return m_Bounds;
+			}
+			set
+			{
+				m_Bounds = value;
+			}
 
-        }
+		}
 
-        Vector2 m_PlayerSpeed = new Vector2(0, 0); //The distance the player sprite is going to move next time it is drawn
+		Vector2 m_PlayerSpeed = new Vector2(0, 0); //The distance the player sprite is going to move next time it is drawn
 		Vector2 m_PlayerSpeedBuffer = new Vector2(0, 0);
-        int m_PlayerAcceleration = 100; //The increase in speed that the will happen upon a movement call
+		int m_PlayerAcceleration = 100; //The increase in speed that the will happen upon a movement call
 		int m_PlayerSpeedMax = 400;
-        float m_PlayerFriction = .75f; //The rate at which the player sprite slows down
+		float m_PlayerFriction = .75f; //The rate at which the player sprite slows down
 
-        //delay between swimming animation (and possibly bursts)
+		//delay between swimming animation (and possibly bursts)
 		double m_MovementDelay = 0;
 		double m_MovementDelayReset = .2;
 
@@ -84,16 +84,16 @@ namespace project_hook
 		/// <param name="p_Visible"></param>
 		/// <param name="p_Degree"></param>
 		/// <param name="p_zBuff"></param>
-        public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds)
-        {
+		public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds)
+		{
 			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
-            Bounds = p_Bounds;
+			Bounds = p_Bounds;
 			m_Score = new Score(0);
 		}
 
 		public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds, int p_Score)
-        {
-            Bounds = p_Bounds;
+		{
+			Bounds = p_Bounds;
 			//m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
 			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
 			m_Score = new Score((ulong)p_Score);
@@ -103,10 +103,10 @@ namespace project_hook
 		/// This is called to alert the player ship that it should move up
 		/// </summary>
 		/// <param name="p_GameTime"></param>
-        public void MoveUp()
-        {
+		public void MoveUp()
+		{
 			m_PlayerSpeedBuffer.Y -= m_PlayerAcceleration;
-        }
+		}
 
 		public void MoveDown()
 		{
@@ -130,7 +130,7 @@ namespace project_hook
 
 		public List<Shot> Shoot(GameTime p_GameTime)
 		{
-            return m_PlayerShip.shoot(p_GameTime);
+			return m_PlayerShip.shoot(p_GameTime);
 		}
 
 		private void CalcMovement(GameTime p_GameTime, Vector2 p_PlayerSpeedBuffer)
@@ -139,11 +139,11 @@ namespace project_hook
 
 			//if (m_MovementDelay < 0)
 			//{
-				MathHelper.Clamp(m_PlayerSpeed.X += p_PlayerSpeedBuffer.X, -m_PlayerSpeedMax, m_PlayerSpeedMax);
-				MathHelper.Clamp(m_PlayerSpeed.Y += p_PlayerSpeedBuffer.Y, -m_PlayerSpeedMax, m_PlayerSpeedMax);
-				m_MovementDelay = m_MovementDelayReset;
-				m_PlayerSpeedBuffer.X = 0;
-				m_PlayerSpeedBuffer.Y = 0;
+			MathHelper.Clamp(m_PlayerSpeed.X += p_PlayerSpeedBuffer.X, -m_PlayerSpeedMax, m_PlayerSpeedMax);
+			MathHelper.Clamp(m_PlayerSpeed.Y += p_PlayerSpeedBuffer.Y, -m_PlayerSpeedMax, m_PlayerSpeedMax);
+			m_MovementDelay = m_MovementDelayReset;
+			m_PlayerSpeedBuffer.X = 0;
+			m_PlayerSpeedBuffer.Y = 0;
 			//}
 		}
 
@@ -152,28 +152,28 @@ namespace project_hook
 		/// </summary>
 		/// <param name="p_GameTime"></param>
 		/// <param name="p_SpriteBatch"></param>
-        public void DrawPlayer(GameTime p_GameTime, SpriteBatch p_SpriteBatch)
-        {
-		
+		public void DrawPlayer(GameTime p_GameTime, SpriteBatch p_SpriteBatch)
+		{
 
-            //p_SpriteBatch.Draw(m_PlayerShip.Texture.Texture, m_PlayerShip.Position, Color.White);
+
+			//p_SpriteBatch.Draw(m_PlayerShip.Texture.Texture, m_PlayerShip.Position, Color.White);
 			m_PlayerShip.Draw(p_SpriteBatch);
 		}
 
-        public void UpdatePlayer(GameTime p_GameTime)
-        {
-            //Calculate player position based on player speed and player friction
-            CalcMovement(p_GameTime, m_PlayerSpeedBuffer);
-            Vector2 tempPlayerPosition = m_PlayerShip.Position;
-            m_PlayerSpeed.X *= m_PlayerFriction;
-            m_PlayerSpeed.Y *= m_PlayerFriction;
-            tempPlayerPosition.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
-            tempPlayerPosition.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
-            tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X, m_Bounds.X, m_Bounds.Width);
+		public void UpdatePlayer(GameTime p_GameTime)
+		{
+			//Calculate player position based on player speed and player friction
+			CalcMovement(p_GameTime, m_PlayerSpeedBuffer);
+			Vector2 tempPlayerPosition = m_PlayerShip.Position;
+			m_PlayerSpeed.X *= m_PlayerFriction;
+			m_PlayerSpeed.Y *= m_PlayerFriction;
+			tempPlayerPosition.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
+			tempPlayerPosition.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
+			tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X, m_Bounds.X, m_Bounds.Width);
 			tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y, m_Bounds.Y, m_Bounds.Height);
-            m_PlayerShip.Position = tempPlayerPosition;
+			m_PlayerShip.Position = tempPlayerPosition;
 
-            PlayerShip.Update(p_GameTime);
-        }
-    }
+			PlayerShip.Update(p_GameTime);
+		}
+	}
 }

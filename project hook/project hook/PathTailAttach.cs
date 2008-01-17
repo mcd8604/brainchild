@@ -12,16 +12,16 @@ namespace project_hook
 		Collidable m_Enemy;
 
 		public PathTailAttach(Dictionary<ValueKeys, Object> p_Values)
-			:base(p_Values)
+			: base(p_Values)
 		{
 			m_Tail = (Tail)m_Values[ValueKeys.Base];
 			m_Enemy = (Collidable)m_Values[ValueKeys.Target];
 		}
 
-        public override void CalculateMovement(GameTime p_GameTime)
-        {
+		public override void CalculateMovement(GameTime p_GameTime)
+		{
 			m_Enemy.Center = m_Tail.Center;
 			m_Enemy.Rotation = m_Tail.Rotation;
-        }
+		}
 	}
 }

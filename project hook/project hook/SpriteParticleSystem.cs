@@ -210,7 +210,7 @@ namespace project_hook
 			{
 				// grab a particle from the freeParticles queue, and Initialize it.
 				ParticleSprite p = freeParticles.Dequeue();
-				InitializeParticle(p, where,Texture.Name);
+				InitializeParticle(p, where, Texture.Name);
 			}
 		}
 
@@ -224,7 +224,7 @@ namespace project_hook
 		/// <param name="p">the particle to initialize</param>
 		/// <param name="where">the position on the screen that the particle should be
 		/// </param>
-		protected virtual void InitializeParticle(ParticleSprite p, Vector2 where,string p_Texture)
+		protected virtual void InitializeParticle(ParticleSprite p, Vector2 where, string p_Texture)
 		{
 			// first, call PickRandomDirection to figure out which way the particle
 			// will be moving. velocity and acceleration's values will come from this.

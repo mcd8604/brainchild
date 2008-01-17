@@ -15,7 +15,7 @@ namespace project_hook
 	*  2. 
 	*  
 	*/
-	public class Collidable:Sprite
+	public class Collidable : Sprite
 	{
 		#region Variables and Properties
 		//which faction does this sprite belong to
@@ -26,28 +26,28 @@ namespace project_hook
 			Environment
 		}
 
-        /// <summary>
-        /// Set of available mathimatical bounding areas a collidable may have for collision detection.
-        /// </summary>
-        public enum Boundings
-        {
-            Circle,
-            Diamond,
-            Square
-        }
+		/// <summary>
+		/// Set of available mathimatical bounding areas a collidable may have for collision detection.
+		/// </summary>
+		public enum Boundings
+		{
+			Circle,
+			Diamond,
+			Square
+		}
 
-        private Boundings m_Bound = Boundings.Circle;
-        public Boundings Bound
-        {
-            get
-            {
-                return m_Bound;
-            }
-            set
-            {
-                m_Bound = value;
-            }
-        }
+		private Boundings m_Bound = Boundings.Circle;
+		public Boundings Bound
+		{
+			get
+			{
+				return m_Bound;
+			}
+			set
+			{
+				m_Bound = value;
+			}
+		}
 
 		private Factions m_Faction;
 		public Factions Faction
@@ -105,17 +105,17 @@ namespace project_hook
 		}
 
 		//this is the sprite for teh damage effect
-        private Sprite m_DamageSprite;
+		private Sprite m_DamageSprite;
 
 		private SpriteParticleSystem m_DamageParticleSystem;
-		public SpriteParticleSystem DamageParticleSystem 
+		public SpriteParticleSystem DamageParticleSystem
 		{
 			get
 			{
 				return m_DamageParticleSystem;
 			}
 
-			set 
+			set
 			{
 				m_DamageParticleSystem = value;
 			}
@@ -149,10 +149,10 @@ namespace project_hook
 		}
 		#endregion // End of variables and Properties Region
 
-        public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, 
+		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
 							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius)
-            : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
-        {
+			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
+		{
 			Faction = p_Faction;
 			Health = p_Health;
 			Path = p_Path;
@@ -163,20 +163,22 @@ namespace project_hook
 				DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
 				DamageParticleSystem.setAnimation("Explosion", 10);
 				DamageParticleSystem.Animation.StartAnimation();
-                addSprite(DamageParticleSystem);
+				addSprite(DamageParticleSystem);
 			}
 			Radius = p_Radius;
-        }
+		}
 
-		
+
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
 			ToBeRemoved = AmIDead();
 		}
-		 
-		public virtual Boolean AmIDead(){
-			if(Health == int.MinValue){
+
+		public virtual Boolean AmIDead()
+		{
+			if (Health == int.MinValue)
+			{
 				return false;
 
 			}
@@ -189,8 +191,8 @@ namespace project_hook
 
 		//public virtual void CheckCollision(Collidable p_Sprite)
 		//{
-			//to do:	send it's self and p_Sprite to the gameCollision class, and check for a collision.
-			//			if there is a collision do some action.  no action at this point.
+		//to do:	send it's self and p_Sprite to the gameCollision class, and check for a collision.
+		//			if there is a collision do some action.  no action at this point.
 		//}
 
 		public virtual void RegisterCollision(Collidable p_Other)
@@ -209,8 +211,8 @@ namespace project_hook
 				attachSpritePart(m_DamageSprite);*/
 
 				//DamageParticleSystem.Direction = v2.;
-                //DamageParticleSystem.AddParticles(Collision.getMidpoint(this,p_Other));
-                DamageParticleSystem.AddParticles( Vector2.Lerp(this.Center, p_Other.Center, 0.5f ) );
+				//DamageParticleSystem.AddParticles(Collision.getMidpoint(this,p_Other));
+				DamageParticleSystem.AddParticles(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
 			}
 		}
 

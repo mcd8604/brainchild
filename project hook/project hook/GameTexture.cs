@@ -7,19 +7,19 @@ using Microsoft.Xna.Framework.Content;
 
 namespace project_hook
 {
-    /*
-     * Description: This class holds a reference to a 2D Texture
-     *              and what area of that texture should be displayed. 
-     * 
-     * TODO: 
-     * 
-     * 
-     */
+	/*
+	 * Description: This class holds a reference to a 2D Texture
+	 *              and what area of that texture should be displayed. 
+	 * 
+	 * TODO: 
+	 * 
+	 * 
+	 */
 	public class GameTexture
 	{
-        #region Variables and Properties
-        //The Identifying name for the texture
-        //This should be unique
+		#region Variables and Properties
+		//The Identifying name for the texture
+		//This should be unique
 		private String m_Name;
 		public String Name
 		{
@@ -33,31 +33,31 @@ namespace project_hook
 			}
 		}
 
-        //The tage associated with the sprite for the Texture
-        private String m_Tag;
-        public String Tag
-        {
-            get
-            {
-                return m_Tag;
-            }
-            set
-            {
-                m_Tag = null;
-            }
-        }
+		//The tage associated with the sprite for the Texture
+		private String m_Tag;
+		public String Tag
+		{
+			get
+			{
+				return m_Tag;
+			}
+			set
+			{
+				m_Tag = null;
+			}
+		}
 
 		//Name of the Texture asset
 		//private string m_TextureName;
-        //public string TextureName
-        //{
-        //    get
-        //    {
-        //        return m_TextureName;
-        //    }
-        //}
+		//public string TextureName
+		//{
+		//    get
+		//    {
+		//        return m_TextureName;
+		//    }
+		//}
 
-        //The 2D Texture the texture will read from
+		//The 2D Texture the texture will read from
 		private Texture2D m_Texture;
 		public Texture2D Texture
 		{
@@ -70,10 +70,10 @@ namespace project_hook
 				m_Texture = value;
 			}
 		}
-        
-        //The area of the Texture that will be used
-        //A rectangle was chosen because it will always be used by the sprite bacth
-        //when being drawn.  This will reduce the amount of objects that need to be created.
+
+		//The area of the Texture that will be used
+		//A rectangle was chosen because it will always be used by the sprite bacth
+		//when being drawn.  This will reduce the amount of objects that need to be created.
 		private Rectangle m_StartPosition;
 		public Rectangle StartPosition
 		{
@@ -86,8 +86,8 @@ namespace project_hook
 				m_StartPosition = value;
 			}
 		}
-        //The height of the texture capture rectangle
-        public int Height
+		//The height of the texture capture rectangle
+		public int Height
 		{
 			get
 			{
@@ -98,7 +98,7 @@ namespace project_hook
 				m_StartPosition.Height = value;
 			}
 		}
-        //The width of the texture capture area
+		//The width of the texture capture area
 		public int Width
 		{
 			get
@@ -110,7 +110,7 @@ namespace project_hook
 				m_StartPosition.Width = value;
 			}
 		}
-        //The x position of the texture capture rectangle
+		//The x position of the texture capture rectangle
 		public int X
 		{
 			get
@@ -122,9 +122,9 @@ namespace project_hook
 				m_StartPosition.X = value;
 			}
 		}
-        
-        //The Y position of the texture capture rectangle
-        public int Y
+
+		//The Y position of the texture capture rectangle
+		public int Y
 		{
 			get
 			{
@@ -145,17 +145,17 @@ namespace project_hook
 			}
 		}
 
-        #endregion // End of variables and Properties Region
+		#endregion // End of variables and Properties Region
 
-        //This initializes the Game texture.
+		//This initializes the Game texture.
 		public GameTexture(String p_Name, String p_Tag, Texture2D p_Texture, Rectangle p_StartPosition)
 		{
 			Name = p_Name;
-            Tag = p_Tag;
+			Tag = p_Tag;
 			Texture = p_Texture;
-			
+
 			StartPosition = p_StartPosition;
-			m_Center = new Vector2(Width/2.0f,Height/2.0f);
+			m_Center = new Vector2(Width / 2.0f, Height / 2.0f);
 		}
 	}
 }

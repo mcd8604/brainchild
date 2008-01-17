@@ -46,7 +46,7 @@ namespace project_hook
 				t_Shot1.Animation.StartAnimation();
 
 				//second shot
-				Shot t_Shot2 = new Shot(m_Ship.Name + (m_ShotNumber+1), m_Ship.Center, 75, 30, m_Shot, 255f, true,
+				Shot t_Shot2 = new Shot(m_Ship.Name + (m_ShotNumber + 1), m_Ship.Center, 75, 30, m_Shot, 255f, true,
 										1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 500, null, 10, 10);
 
 				shot = t_Shot2.Position;

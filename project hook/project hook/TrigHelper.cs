@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-    public static class TrigHelper
-    {
+	public static class TrigHelper
+	{
 
 		/// <summary>
 		/// Calculates the angle that an object should face, given its position, its
@@ -76,6 +76,6 @@ namespace project_hook
 			return radians;
 		}
 
-    }
+	}
 
 }

@@ -33,8 +33,8 @@ namespace project_hook
 
 			if (m_selectedIndex == 1)
 			{
-				Menus.Exit = true;   
+				Menus.Exit = true;
 			}
 		}
-	}    
+	}
 }
