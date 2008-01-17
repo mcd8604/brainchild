@@ -46,9 +46,10 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 
-			if (Path.isDone())
+			if (PathList.isDone())
 			{
 				Visible = false;
+				ToBeRemoved = true;
 			}
 		}
 

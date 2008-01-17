@@ -78,13 +78,18 @@ namespace project_hook
 		{
 			m_Done = false;
 
-			Vector2 temp = End - Object.Center;
-			double angle = (double)Math.Atan2(temp.Y, temp.X);
-			Object.Rotation = (float)angle;
+			if (!flag)
+			{
 
-			Velocity = new Vector2();
-			Velocity.X = (float)(speed * Math.Cos(angle));
-			Velocity.Y = (float)(speed * Math.Sin(angle));
+				Vector2 temp = End - Object.Center;
+				double angle = (double)Math.Atan2(temp.Y, temp.X);
+				Object.Rotation = (float)angle;
+
+				Velocity = new Vector2();
+				Velocity.X = (float)(speed * Math.Cos(angle));
+				Velocity.Y = (float)(speed * Math.Sin(angle));
+
+			}
 
 			if (timed)
 			{
