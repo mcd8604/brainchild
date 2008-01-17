@@ -129,22 +129,22 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
-            if (Game.m_KeyHandler.IsActionPressed(KeyHandler.Actions.Pause))
+            if (InputHandler.IsActionPressed(Actions.Pause))
             {
                 //this.Exit();               
             }
 
-			if (Game.m_KeyHandler.IsActionPressed(KeyHandler.Actions.Up))
+            if (InputHandler.IsActionPressed(Actions.Up))
             {
                 up();
             }
 
-			if (Game.m_KeyHandler.IsActionPressed(KeyHandler.Actions.Down))
+            if (InputHandler.IsActionPressed(Actions.Down))
             {
                 down();
             }
 
-			if (Game.m_KeyHandler.IsActionPressed(KeyHandler.Actions.MenuAccept))
+            if (InputHandler.IsActionPressed(Actions.MenuAccept))
             {
                 accept();
 			}
