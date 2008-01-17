@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
@@ -52,6 +53,8 @@ namespace project_hook
 		}
         
         Player m_Player;
+		Tail tail;
+		Sprite crosshairs;
 
         GameState m_PreviousState;
         GameState m_State;
@@ -94,6 +97,8 @@ namespace project_hook
             m_ViewPortSize = p_DrawArea;
             IniDefaults();
 			Sprite.DrawWithRot();
+			Music.Initialize();
+			Sound.Initialize();
         }
 
         //This method will load the level
@@ -148,64 +153,83 @@ namespace project_hook
             
 
           
-                // Allows the game to exit
-                if (p_KeyHandler.IsActionPressed(KeyHandler.Actions.Pause))
+            // Allows the game to exit
+            if (p_KeyHandler.IsActionPressed(KeyHandler.Actions.Pause))
+            {
+                if (m_State == GameState.Paused)
                 {
-                    if (m_State == GameState.Paused)
-                    {
-                        changeState(m_PreviousState);
-						Menus.setCurrentMenu(Menus.MenuScreens.None);
-                    }
-                    else
-                    {
-                        changeState(GameState.Paused);
-						Menus.setCurrentMenu(Menus.MenuScreens.Pause);
-                    }
+                    changeState(m_PreviousState);
+					Menus.setCurrentMenu(Menus.MenuScreens.None);
                 }
-
-                if (m_State != GameState.Paused)
+                else
                 {
-                    if (p_KeyHandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
+                    changeState(GameState.Paused);
+					Menus.setCurrentMenu(Menus.MenuScreens.Pause);
+                }
+            }
+
+            if (m_State != GameState.Paused)
+            {
+                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
+                {
+
+                    List<Shot> t_Shots = m_Player.Shoot(p_GameTime);
+
+                    foreach (Sprite s in t_Shots)
                     {
-
-                        List<Shot> t_Shots = m_Player.Shoot(p_GameTime);
-
-                        foreach (Sprite s in t_Shots)
+                        if (s.Name.Equals("no_Shot"))
                         {
-                            if (s.Name.Equals("no_Shot"))
-                            {
-                                //used so when the weapon can't shoot
-                            }
-                            else
-                            {
-                                m_SpriteList.Add(s);
-                            }
+                            //used so when the weapon can't shoot
                         }
-
+                        else
+                        {
+                            m_SpriteList.Add(s);
+                        }
                     }
 
-                    if (p_KeyHandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
-                    {
-
-                    }
-
-                    if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Right))
-                    {
-                        m_Player.MoveRight();
-                    }
-                    if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Left))
-                    {
-                        m_Player.MoveLeft();
-                    }
-                    if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Up))
-                    {
-                        m_Player.MoveUp();
-                    }
-                    if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Down))
-                    {
-                        m_Player.MoveDown();
-                    }
                 }
+
+                if (p_KeyHandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
+                {
+
+                }
+
+                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Right))
+                {
+                    m_Player.MoveRight();
+                }
+                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Left))
+                {
+                    m_Player.MoveLeft();
+                }
+                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Up))
+                {
+                    m_Player.MoveUp();
+                }
+                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Down))
+                {
+                    m_Player.MoveDown();
+                }
+				if (InputHandler.HasMouseMoved())
+				{
+					crosshairs.Center = InputHandler.MousePostion;
+				}
+				if (InputHandler.IsActionPressed(Actions.TailPrimary))
+				{
+					tail.TailAttack(InputHandler.MousePostion, p_GameTime);
+				}
+				if (InputHandler.IsActionPressed(Actions.TailSecondary))
+				{
+					if (Music.IsPlaying("bg1"))
+					{
+						Music.Stop("bg1");
+					}
+					else
+					{
+						Music.Play("bg1");
+					}
+				}
+            }
 			if ( p_KeyHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C) ) {
 				Collision.DevEnableCollisionDisplay(m_SpriteList);
 			}
@@ -267,7 +291,7 @@ namespace project_hook
             TextureLibrary.LoadTexture("temptail");
 			TextureLibrary.LoadTexture("poisonsplat");
 			TextureLibrary.LoadTexture("blood");
-
+			TextureLibrary.LoadTexture("crosshairs");
         }
 
         private void IniDefaults()
@@ -281,7 +305,15 @@ namespace project_hook
            // Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGround.Top);
 			Ship enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "3"), 50);
-			Tail tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 255f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 20, m_Player.PlayerShip, 200, null);
+			ArrayList m_TailBodySprites = new ArrayList();
+
+			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.MidGround.Mid);   
+			for (int i = 0; i < 6; i++)
+			{
+				Sprite tailBodySprite = new Sprite("poisonsplat", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("poisonsplat", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
+				m_TailBodySprites.Add(tailBodySprite);
+			}
+			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);
 			tail.Health = int.MinValue;
 
 
@@ -300,6 +332,9 @@ namespace project_hook
             m_SpriteList.Add(enemy);
             m_SpriteList.Add(tail);
             m_SpriteList.Add(m_Player.PlayerShip);
+			m_SpriteList.Add(crosshairs);
+			foreach (Sprite s in m_TailBodySprites)
+				m_SpriteList.Add(s);
 
 
             Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
