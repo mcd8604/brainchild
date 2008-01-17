@@ -97,7 +97,14 @@ namespace project_hook
 		{
 			get
 			{
-				return m_Height;
+				if (sized)
+				{
+					return m_Height;
+				}
+				else
+				{
+					return (int)Font.MeasureString(Text).Y;
+				}
 			}
 			set
 			{
@@ -114,7 +121,14 @@ namespace project_hook
 		{
 			get
 			{
-				return m_Width;
+				if (sized)
+				{
+					return m_Width;
+				}
+				else
+				{
+					return (int)Font.MeasureString(Text).X;
+				}
 			}
 			set
 			{
@@ -124,6 +138,18 @@ namespace project_hook
 					m_Scale.X = value / Font.MeasureString(Text).X;
 					sized = true;
 				}
+			}
+		}
+
+		public override Vector2 Position
+		{
+			get
+			{
+				return m_Center - new Vector2(Width / 2f, Height / 2f);
+			}
+			set
+			{
+				m_Center = value + new Vector2(Width / 2f, Height / 2f);
 			}
 		}
 
