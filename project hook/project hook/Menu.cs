@@ -165,31 +165,20 @@ namespace project_hook
 			{
 				selectSpriteByCoord(InputHandler.MousePostion);
 			}
-
-			/*if (InputHandler.IsActionPressed(MouseButtons.Left))
-			{
-				if (selectSpriteByCoord(InputHandler.MousePostion))
-				{
-					accept();
-				}
-			}*/
 		}
 
 		protected Boolean selectSpriteByCoord(Vector2 mousePos)
 		{
-			Boolean ret = false;
-			for (int i = 0; i < m_MenuItemSprites.Count; i++)
+			foreach (Sprite s in m_MenuItemSprites)
 			{
-				TextSprite s = (TextSprite)m_MenuItemSprites[i];
-				if (mousePos.X >= s.Position.X && mousePos.Y >= s.Position.Y && 
+				if (mousePos.X >= s.Position.X && mousePos.Y >= s.Position.Y &&
 					mousePos.X <= s.Position.X + s.Width && mousePos.Y <= s.Position.Y + s.Height)
 				{
-					setSelectedIndex(i);
-					ret = true;
-					break;
+					setSelectedIndex(m_MenuItemSprites.IndexOf(s));
+					return true;
 				}
 			}
-			return ret;
+			return false;
 		}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
@@ -262,6 +251,8 @@ namespace project_hook
 				}
 			}
 		}
+
+		
 
 		//override this method
 		public virtual void accept()

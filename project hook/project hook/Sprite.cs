@@ -191,7 +191,7 @@ namespace project_hook
 		/// This is the postion that the sprite is displayed on the screen.
 		/// This vector will be modified to move the sprite around the screen.
 		/// </summary>
-		public Vector2 Position
+		public virtual Vector2 Position
 		{
 			get
 			{

@@ -52,6 +52,7 @@ namespace project_hook
 
 			MouseMap.Add(Actions.TailPrimary, MouseButtons.Left);
 			MouseMap.Add(Actions.TailSecondary, MouseButtons.Right);
+			MouseMap.Add(Actions.MenuAccept, MouseButtons.Left);
 
 			GamePadMap.Add(Actions.Down, GamePadButtons.Down);
 			GamePadMap.Add(Actions.Left, GamePadButtons.Left);
