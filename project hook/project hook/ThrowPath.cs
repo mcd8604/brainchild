@@ -22,12 +22,12 @@ namespace project_hook
 			m_EnemyCaught = (Sprite)m_Values[ValueKeys.End];
 
 			m_Distance = Vector2.Subtract(m_Base.Center, m_Target);
-			m_BackPos = Vector2.Add(m_Base.Center, Vector2.Divide(m_Distance, 2f));
+			m_BackPos = Vector2.Add(m_Base.Center, Vector2.Divide(m_Distance, 2.75f));
 
 			Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			dic.Add(PathStrategy.ValueKeys.Base, m_Base);
 			dic.Add(PathStrategy.ValueKeys.End, m_BackPos);
-			dic.Add(PathStrategy.ValueKeys.Speed, 1500f);
+			dic.Add(PathStrategy.ValueKeys.Speed, 2500f);
 			m_CurrentPath = new Path(Paths.Seek, dic);
 			m_Base.StateOfTail = Tail.TailState.Neutral;
 		}
@@ -44,7 +44,7 @@ namespace project_hook
 					Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 					dic.Add(PathStrategy.ValueKeys.Base, m_Base);
 					dic.Add(PathStrategy.ValueKeys.End, Vector2.Add(m_Base.Center,Vector2.Multiply(m_Distance,-1)));
-					dic.Add(PathStrategy.ValueKeys.Speed, 1500f);
+					dic.Add(PathStrategy.ValueKeys.Speed, 2500f);
 					m_CurrentPath = new Path(Paths.Seek, dic);
 					m_Base.StateOfTail = Tail.TailState.Returning;
 				}

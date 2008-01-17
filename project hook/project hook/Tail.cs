@@ -118,7 +118,7 @@ namespace project_hook
                 m_TailTarget = p_Target;
                 Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
                 dic.Add(PathStrategy.ValueKeys.Base, this);
-                dic.Add(PathStrategy.ValueKeys.Speed, 1000f);
+                dic.Add(PathStrategy.ValueKeys.Speed, 2000f);
                 dic.Add(PathStrategy.ValueKeys.Target, this.PlayerShip);
                 dic.Add(PathStrategy.ValueKeys.End, p_Target);
                 dic.Add(PathStrategy.ValueKeys.Duration, 0.5f);
