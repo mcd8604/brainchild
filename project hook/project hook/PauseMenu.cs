@@ -30,7 +30,7 @@ namespace project_hook
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
 			base.Update(p_Time);
-			if (Game.m_KeyHandler.IsActionPressed(KeyHandler.Actions.Pause))
+            if (InputHandler.IsActionPressed(Actions.Pause))
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.None);
 				World.ResumeWorld = true;
