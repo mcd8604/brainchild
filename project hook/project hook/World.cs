@@ -12,7 +12,7 @@ namespace project_hook
     {
 
         private List<Sprite> m_SpriteList;
-        
+
         private static Boolean m_CreateWorld = false;
         public static Boolean CreateWorld
         {
@@ -26,35 +26,35 @@ namespace project_hook
             }
         }
 
-		private static Boolean m_destroyWorld;
-		public static Boolean DestroyWorld
-		{
-			get
-			{
-				return m_destroyWorld;
-			}
-			set
-			{
-				m_destroyWorld = value;
-			}
-		}
+        private static Boolean m_destroyWorld;
+        public static Boolean DestroyWorld
+        {
+            get
+            {
+                return m_destroyWorld;
+            }
+            set
+            {
+                m_destroyWorld = value;
+            }
+        }
 
-		private static Boolean m_ResumeWorld;
-		public static Boolean ResumeWorld
-		{
-			get
-			{
-				return m_ResumeWorld;
-			}
-			set
-			{
-				m_ResumeWorld = value;
-			}
-		}
-        
+        private static Boolean m_ResumeWorld;
+        public static Boolean ResumeWorld
+        {
+            get
+            {
+                return m_ResumeWorld;
+            }
+            set
+            {
+                m_ResumeWorld = value;
+            }
+        }
+
         Player m_Player;
-		Tail tail;
-		Sprite crosshairs;
+        Tail tail;
+        Sprite crosshairs;
 
         GameState m_PreviousState;
         GameState m_State;
@@ -67,7 +67,7 @@ namespace project_hook
 
         }
 
-       public enum GameState
+        public enum GameState
         {
             Nothing,
             DoNotRender,
@@ -82,11 +82,12 @@ namespace project_hook
         }
 
         public static Rectangle m_ViewPortSize;
-        
-        public World(){
+
+        public World()
+        {
 
             m_SpriteList = new List<Sprite>();
-           
+
             m_State = GameState.Nothing;
 
         }
@@ -96,9 +97,9 @@ namespace project_hook
         {
             m_ViewPortSize = p_DrawArea;
             IniDefaults();
-			Sprite.DrawWithRot();
-			Music.Initialize();
-			Sound.Initialize();
+            Sprite.DrawWithRot();
+            Music.Initialize();
+            Sound.Initialize();
         }
 
         //This method will load the level
@@ -119,8 +120,9 @@ namespace project_hook
 
         //This will update the game world.  
         //Different update methdos can be run based on the game state.
-        public void update(GameTime p_GameTime){
-            
+        public void update(GameTime p_GameTime)
+        {
+
             //This will be for normal everyday update operations.  
             if (m_State == GameState.Running)
             {
@@ -147,30 +149,27 @@ namespace project_hook
             }
         }
 
-        public void update(GameTime p_GameTime, KeyHandler p_KeyHandler)
+        public void checkKeys(GameTime p_GameTime)
         {
 
-            
-
-          
             // Allows the game to exit
-            if (p_KeyHandler.IsActionPressed(KeyHandler.Actions.Pause))
+            if (InputHandler.IsActionPressed(Actions.Pause))
             {
                 if (m_State == GameState.Paused)
                 {
                     changeState(m_PreviousState);
-					Menus.setCurrentMenu(Menus.MenuScreens.None);
+                    Menus.setCurrentMenu(Menus.MenuScreens.None);
                 }
                 else
                 {
                     changeState(GameState.Paused);
-					Menus.setCurrentMenu(Menus.MenuScreens.Pause);
+                    Menus.setCurrentMenu(Menus.MenuScreens.Pause);
                 }
             }
 
             if (m_State != GameState.Paused)
             {
-                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.PrimaryShoot))
+                if (InputHandler.IsActionDown(Actions.ShipPrimary))
                 {
 
                     List<Shot> t_Shots = m_Player.Shoot(p_GameTime);
@@ -189,57 +188,58 @@ namespace project_hook
 
                 }
 
-                if (p_KeyHandler.IsActionPressed(KeyHandler.Actions.PrimaryShoot))
+                if (InputHandler.IsActionPressed(Actions.ShipPrimary))
                 {
 
                 }
 
-                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Right))
+                if (InputHandler.IsActionDown(Actions.Right))
                 {
                     m_Player.MoveRight();
                 }
-                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Left))
+                if (InputHandler.IsActionDown(Actions.Left))
                 {
                     m_Player.MoveLeft();
                 }
-                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Up))
+                if (InputHandler.IsActionDown(Actions.Up))
                 {
                     m_Player.MoveUp();
                 }
-                if (p_KeyHandler.IsActionDown(KeyHandler.Actions.Down))
+                if (InputHandler.IsActionDown(Actions.Down))
                 {
                     m_Player.MoveDown();
                 }
-				if (InputHandler.IsActionPressed(Actions.TailPrimary))
-				{
-					tail.TailAttack(InputHandler.MousePostion, p_GameTime);
-				}
-				if (InputHandler.HasMouseMoved())
-				{
-					crosshairs.Center = InputHandler.MousePostion;
-				}
-				if (InputHandler.IsActionPressed(Actions.TailSecondary))
-				{
-					if (Music.IsPlaying("bg1"))
-					{
-						Music.Stop("bg1");
-					}
-					else
-					{
-						Music.Play("bg1");
-					}
-				}
+                if (InputHandler.HasMouseMoved())
+                {
+                    crosshairs.Center = InputHandler.MousePostion;
+                }
+                if (InputHandler.IsActionPressed(Actions.TailPrimary))
+                {
+                    tail.TailAttack(InputHandler.MousePostion, p_GameTime);
+                }
+                if (InputHandler.IsActionPressed(Actions.TailSecondary))
+                {
+                    if (Music.IsPlaying("bg1"))
+                    {
+                        Music.Stop("bg1");
+                    }
+                    else
+                    {
+                        Music.Play("bg1");
+                    }
+                }
             }
-			if ( p_KeyHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C) ) {
-				Collision.DevEnableCollisionDisplay(m_SpriteList);
-			}
-            if (p_KeyHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.X))
+            if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C))
+            {
+                Collision.DevEnableCollisionDisplay(m_SpriteList);
+            }
+            if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.X))
             {
                 Sprite.DrawWithRot();
             }
 
-                update(p_GameTime);
-            
+            update(p_GameTime);
+
         }
 
 
@@ -266,10 +266,10 @@ namespace project_hook
                 {
                     if (s.Visible == true)
                     {
-                        s.Draw(p_SpriteBatch);                    
-					}
+                        s.Draw(p_SpriteBatch);
+                    }
                 }
-             
+
                 p_SpriteBatch.End();
             }
         }
@@ -280,8 +280,8 @@ namespace project_hook
         public void LoadDefaults(ContentManager p_Content)
         {
             TextureLibrary.LoadTexture("Ship2");
-			TextureLibrary.LoadTexture("Back");
-			TextureLibrary.LoadTexture("veinbg");
+            TextureLibrary.LoadTexture("Back");
+            TextureLibrary.LoadTexture("veinbg");
             TextureLibrary.LoadTexture("RedShot");
             TextureLibrary.LoadTexture("Cloud");
             TextureLibrary.LoadTexture("Enemy1");
@@ -289,33 +289,33 @@ namespace project_hook
             TextureLibrary.LoadTexture("Shield");
             TextureLibrary.LoadTexture("FireBall");
             TextureLibrary.LoadTexture("temptail");
-			TextureLibrary.LoadTexture("poisonsplat");
-			TextureLibrary.LoadTexture("blood");
-			TextureLibrary.LoadTexture("crosshairs");
-			TextureLibrary.LoadTexture("tailbody");
+            TextureLibrary.LoadTexture("poisonsplat");
+            TextureLibrary.LoadTexture("blood");
+            TextureLibrary.LoadTexture("crosshairs");
+            TextureLibrary.LoadTexture("tailbody");
         }
 
         private void IniDefaults()
         {
             GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
-			
-			//test scrolling background
-			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""));
 
-			m_Player = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.ForeGround.Bottom, m_ViewPortSize);
-           // Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
-			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGround.Top);
-			Ship enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "3"), 50);
-			ArrayList m_TailBodySprites = new ArrayList();
+            //test scrolling background
+            YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""));
 
-			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.MidGround.Mid);   
-			for (int i = 0; i < 60; i++)
-			{
-				TailBodySprite tailBodySprite = new TailBodySprite("tailbody", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tailbody", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
-				m_TailBodySprites.Add(tailBodySprite);
-			}
-			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);
-			tail.Health = int.MinValue;
+            m_Player = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.ForeGround.Bottom, m_ViewPortSize);
+            // Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
+            Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGround.Top);
+            Ship enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+            ArrayList m_TailBodySprites = new ArrayList();
+
+            crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.MidGround.Mid);
+            for (int i = 0; i < 60; i++)
+            {
+                TailBodySprite tailBodySprite = new TailBodySprite("tailbody", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tailbody", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
+                m_TailBodySprites.Add(tailBodySprite);
+            }
+            tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);
+            tail.Health = int.MinValue;
 
 
             Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -328,14 +328,14 @@ namespace project_hook
 
 
             m_SpriteList.Add(back);
-          //s  m_SpriteList.Add(back2);
+            //s  m_SpriteList.Add(back2);
             m_SpriteList.Add(cloud);
             m_SpriteList.Add(enemy);
             m_SpriteList.Add(tail);
             m_SpriteList.Add(m_Player.PlayerShip);
-			m_SpriteList.Add(crosshairs);
-			foreach (Sprite s in m_TailBodySprites)
-				m_SpriteList.Add(s);
+            m_SpriteList.Add(crosshairs);
+            foreach (Sprite s in m_TailBodySprites)
+                m_SpriteList.Add(s);
 
 
             Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
