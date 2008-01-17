@@ -67,7 +67,7 @@ namespace project_hook
 		{
 			// high initial speed with lots of variance.  make the values closer
 			// together to have more consistently circular explosions.
-			minInitialSpeed = 40;
+			minInitialSpeed = 4;
 			maxInitialSpeed = 80;
 
 			// doesn't matter what these values are set to, acceleration is tweaked in
@@ -76,14 +76,14 @@ namespace project_hook
 			maxAcceleration = 0;
 
 			// explosions should be relatively short lived
-			minLifetime = .5f;
+			minLifetime = 0.5f;
 			maxLifetime = 1.0f;
 
-			minScale = 0.1f;
-			maxScale = 1.1f;
+			minScale = 0.01f;
+			maxScale = 1.0f;
 
-			minNumParticles = 50;
-			maxNumParticles = 100;
+			minNumParticles = 10;
+			maxNumParticles = 40;
 
 			minRotationSpeed = -MathHelper.PiOver4;
 			maxRotationSpeed = MathHelper.PiOver4;
