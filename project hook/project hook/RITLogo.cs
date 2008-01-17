@@ -36,7 +36,7 @@ namespace project_hook
 
 			m_Time += p_Time.ElapsedGameTime.TotalSeconds;
 
-			if (Game.m_KeyHandler.IsActionPressed(KeyHandler.Actions.Pause) || m_Time >= m_Delay)
+            if (InputHandler.IsActionPressed(Actions.Pause) || m_Time >= m_Delay)
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.Title);
 			}
