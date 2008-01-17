@@ -163,31 +163,33 @@ namespace project_hook
 
 			if (InputHandler.HasMouseMoved())
 			{
-				if(spriteContainsMouse(InputHandler.MousePostion)) {
-					setSelectedIndex(i);
-				}
+				selectSpriteByCoord(InputHandler.MousePostion);
 			}
 
-			if (InputHandler.IsActionPressed(MouseButtons.Left))
+			/*if (InputHandler.IsActionPressed(MouseButtons.Left))
 			{
-				if(spriteContainsMouse(InputHandler.MousePostion) {
+				if (selectSpriteByCoord(InputHandler.MousePostion))
+				{
 					accept();
 				}
-			}
+			}*/
 		}
 
-		protected Boolean spriteContainsMouse(Vector2 mousePos)
+		protected Boolean selectSpriteByCoord(Vector2 mousePos)
 		{
+			Boolean ret = false;
 			for (int i = 0; i < m_MenuItemSprites.Count; i++)
 			{
 				TextSprite s = (TextSprite)m_MenuItemSprites[i];
 				if (mousePos.X >= s.Position.X && mousePos.Y >= s.Position.Y && 
 					mousePos.X <= s.Position.X + s.Width && mousePos.Y <= s.Position.Y + s.Height)
 				{
-					return true;
+					setSelectedIndex(i);
+					ret = true;
 					break;
 				}
 			}
+			return ret;
 		}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
