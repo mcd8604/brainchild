@@ -256,7 +256,8 @@ namespace project_hook
         public void LoadDefaults(ContentManager p_Content)
         {
             TextureLibrary.LoadTexture("Ship2");
-            TextureLibrary.LoadTexture("Back");
+			TextureLibrary.LoadTexture("Back");
+			TextureLibrary.LoadTexture("veinbg");
             TextureLibrary.LoadTexture("RedShot");
             TextureLibrary.LoadTexture("Cloud");
             TextureLibrary.LoadTexture("Enemy1");
@@ -274,7 +275,7 @@ namespace project_hook
             GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
 			
 			//test scrolling background
-			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("Back", ""));
+			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""));
 
 			m_Player = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.ForeGround.Bottom, m_ViewPortSize);
            // Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
