@@ -48,8 +48,6 @@ namespace project_hook
         float updateInterval = 1.0f;
         float timeSinceLastUpdate = 0.0f;
         int framecount = 0;
-        int path = 0;
-        // adn
 
         public Game1()
         {
