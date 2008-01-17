@@ -129,9 +129,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TailBodySprite</Name>
     </Compile>
-    <Compile Include="ThrowPath.cs">
+    <Compile Include="PathThrow.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>ThrowPath</Name>
+      <Name>PathThrow</Name>
     </Compile>
     <Compile Include="YScrollingBackground.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -232,9 +232,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Shot</Name>
     </Compile>
-    <Compile Include="ShotPath.cs">
+    <Compile Include="PathShot.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>ShotPath</Name>
+      <Name>PathShot</Name>
     </Compile>
     <Compile Include="Sound.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -264,9 +264,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathTailAttack</Name>
     </Compile>
-    <Compile Include="TetherPath.cs">
+    <Compile Include="PathTether.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TetherPath</Name>
+      <Name>PathTether</Name>
     </Compile>
     <Compile Include="TextSprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
