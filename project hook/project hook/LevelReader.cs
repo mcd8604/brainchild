@@ -5,6 +5,7 @@ using System.Xml;
 using Wintellect.PowerCollections;
 using System.Collections;
 using System.IO;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
@@ -51,6 +52,7 @@ namespace project_hook
 		public void ReadFile()
 		{
 			String t_Name = m_Path + m_FileName;
+			int t_Dist = 0;
 			
 			//Checks for the XML file
 			if (File.Exists(t_Name))
@@ -63,7 +65,17 @@ namespace project_hook
 
 				reader.Read();
 				reader.ReadStartElement("level");
-				Console.WriteLine(reader.Name);
+
+				if (reader.Name.Equals("action"))
+				{
+					t_Dist = int.Parse(reader.GetAttribute(0));
+					reader.ReadStartElement("action");
+					if (reader.Name.Equals("createShip"))
+					{
+						reader.ReadStartElement("createShip");
+						LoadEnemy(reader);
+					}
+				}
 
 				////Lods the XML file
 				//XmlDocument doc = new XmlDocument();
@@ -98,8 +110,29 @@ namespace project_hook
 			}
 		}
 
-		private void LoadEnemy(XmlNodeList p_NodeList)
+		private void LoadEnemy(XmlReader p_Reader)
 		{
+			String m_Name;
+			Vector2 m_StartPos = new Vector2();
+			int m_Height;
+			int m_Width;
+			GameTexture m_Texture;
+			float m_Alpha;
+			bool m_Visible;
+			float m_Degree;
+			float m_ZBuff;
+			//Factions m_Faction;
+			int m_Health;
+			int m_Shield;
+			Path m_Path;
+			int m_Speed;
+			GameTexture m_DamageTexture;
+			float m_Radius;
+			
+			//read in name
+			Console.WriteLine(p_Reader.ReadInnerXml());
+			m_Name = p_Reader.ReadInnerXml();
+		
 		}
 	}
 }

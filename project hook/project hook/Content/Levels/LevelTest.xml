@@ -7,7 +7,7 @@
 			<height>100</height>
 			<width>100</width>
 			<texture name="Enemy1"/>
-			<alphs>255</alphs>
+			<alpha>255</alpha>
 			<visible>true</visible>
 			<degree>0</degree>
 			<zBuff ground="MidGround" level="Bottom"/>
