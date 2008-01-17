@@ -121,7 +121,7 @@ namespace project_hook
                 dic.Add(PathStrategy.ValueKeys.Speed, 2000f);
                 dic.Add(PathStrategy.ValueKeys.Target, this.PlayerShip);
                 dic.Add(PathStrategy.ValueKeys.End, p_Target);
-                dic.Add(PathStrategy.ValueKeys.Duration, 0.5f);
+                dic.Add(PathStrategy.ValueKeys.Duration, 0.25f);
                 this.Path = new Path(Paths.TailAttack, dic);
                 //gets the current time in milliseconds
                 m_LastTailAttack = p_GameTime.TotalGameTime.TotalMilliseconds;
