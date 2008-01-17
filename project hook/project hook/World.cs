@@ -210,13 +210,13 @@ namespace project_hook
                 {
                     m_Player.MoveDown();
                 }
-				if (InputHandler.HasMouseMoved())
-				{
-					crosshairs.Center = InputHandler.MousePostion;
-				}
 				if (InputHandler.IsActionPressed(Actions.TailPrimary))
 				{
 					tail.TailAttack(InputHandler.MousePostion, p_GameTime);
+				}
+				if (InputHandler.HasMouseMoved())
+				{
+					crosshairs.Center = InputHandler.MousePostion;
 				}
 				if (InputHandler.IsActionPressed(Actions.TailSecondary))
 				{
