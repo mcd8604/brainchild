@@ -30,7 +30,7 @@ namespace project_hook
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
 			base.Update(p_Time);
-            if (InputHandler.IsActionPressed(Actions.Pause))
+			if (InputHandler.IsActionPressed(Actions.Pause))
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.None);
 				World.ResumeWorld = true;
@@ -59,7 +59,7 @@ namespace project_hook
 
 			if (m_selectedIndex == 3)
 			{
-				Menus.Exit = true; 
+				Menus.Exit = true;
 			}
 		}
 	}

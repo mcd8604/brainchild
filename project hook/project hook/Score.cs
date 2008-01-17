@@ -11,7 +11,7 @@ namespace project_hook
 		int m_Multiplyer = 0;
 		double m_ComboTime = 3;
 		double m_LastFiredTime = 0;
-		
+
 		public ulong ScoreTotal
 		{
 			get
@@ -33,7 +33,7 @@ namespace project_hook
 		public ulong RegisterHit(GameTime p_GameTime)
 		{
 			double timeDiff = p_GameTime.TotalGameTime.TotalSeconds - m_LastFiredTime;
-			
+
 			if (timeDiff >= m_ComboTime)
 			{
 				m_Multiplyer = 1;

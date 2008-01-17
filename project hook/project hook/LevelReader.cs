@@ -53,7 +53,7 @@ namespace project_hook
 		{
 			String t_Name = m_Path + m_FileName;
 			int t_Dist = 0;
-			
+
 			//Checks for the XML file
 			if (File.Exists(t_Name))
 			{
@@ -88,20 +88,20 @@ namespace project_hook
 				//Iterates over each rectangle
 				//for (int i = 0; i < lstRect.Count; i++)
 				//{
-					
-					//XmlNodeList nodes = lstRect.Item(i).ChildNodes;
-					//int j = 0;
 
-					//String name = (String)(nodes.Item(j++).InnerText);
-					//String tag = (String)(nodes.Item(j++).InnerText);
-					//int x = int.Parse(nodes.Item(j++).InnerText);
-					//int y = int.Parse(nodes.Item(j++).InnerText);
-					//int width = int.Parse(nodes.Item(j++).InnerText);
-					//int height = int.Parse(nodes.Item(j++).InnerText);
+				//XmlNodeList nodes = lstRect.Item(i).ChildNodes;
+				//int j = 0;
 
-					////Stores it in the GameTexture table
-					//GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
-					//addGameTexture(name, tag, t_GameTexture);
+				//String name = (String)(nodes.Item(j++).InnerText);
+				//String tag = (String)(nodes.Item(j++).InnerText);
+				//int x = int.Parse(nodes.Item(j++).InnerText);
+				//int y = int.Parse(nodes.Item(j++).InnerText);
+				//int width = int.Parse(nodes.Item(j++).InnerText);
+				//int height = int.Parse(nodes.Item(j++).InnerText);
+
+				////Stores it in the GameTexture table
+				//GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
+				//addGameTexture(name, tag, t_GameTexture);
 				//}
 			}
 			else
@@ -166,12 +166,12 @@ namespace project_hook
 			m_Width = int.Parse(p_Reader.ReadString());
 			p_Reader.ReadEndElement();
 			//Console.WriteLine(m_Width);
-			
+
 			//read in texture
-			gtName=p_Reader.GetAttribute(0);
-			if(p_Reader.AttributeCount>1)
+			gtName = p_Reader.GetAttribute(0);
+			if (p_Reader.AttributeCount > 1)
 			{
-				gtTag=p_Reader.GetAttribute(1);
+				gtTag = p_Reader.GetAttribute(1);
 			}
 			m_Texture = TextureLibrary.getGameTexture(gtName, gtTag);
 
@@ -217,9 +217,9 @@ namespace project_hook
 
 			//read in damage texture
 			dtName = p_Reader.GetAttribute(0);
-			if (p_Reader.AttributeCount>1)
+			if (p_Reader.AttributeCount > 1)
 			{
-			    dtTag = p_Reader.GetAttribute(1);
+				dtTag = p_Reader.GetAttribute(1);
 			}
 			m_DamageTexture = TextureLibrary.getGameTexture(dtName, dtTag);
 

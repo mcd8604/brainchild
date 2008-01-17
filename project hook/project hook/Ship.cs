@@ -88,9 +88,9 @@ namespace project_hook
 				if (this.Health <= 0)
 				{
 				}
-				Shot shot = (Shot) p_Other;
+				Shot shot = (Shot)p_Other;
 				this.Health -= shot.Damage;
-				
+
 				//Possible attach the explosion sprite to the ship
 			}
 

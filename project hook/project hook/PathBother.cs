@@ -12,7 +12,7 @@ namespace project_hook
 		Vector2 m_PullScaler = new Vector2(.85f, .85f);
 		Vector2 m_TailSpeed = new Vector2(0, 0);
 
-        private float m_Friction = .025f;
+		private float m_Friction = .025f;
 
 		public PathBother(Dictionary<ValueKeys, Object> p_Values)
 			: base(p_Values)
@@ -28,7 +28,7 @@ namespace project_hook
 			double distance = Math.Sqrt(Math.Pow((m_Base.Position.X - m_BotherTarget.Position.X), 2) + (Math.Pow((m_Base.Position.Y - m_BotherTarget.Position.Y), 2)));
 			if (distance > 150)
 			{
-				m_TailSpeed = m_PullScaler*(m_BotherTarget.Position - m_Base.Position);
+				m_TailSpeed = m_PullScaler * (m_BotherTarget.Position - m_Base.Position);
 			}
 			else
 			{

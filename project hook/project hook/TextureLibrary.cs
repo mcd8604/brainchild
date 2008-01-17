@@ -12,13 +12,13 @@ using Wintellect.PowerCollections;
 namespace project_hook
 {
 
-   /*
-   * Description: This class will laod and store all texture data as well as creating
-   *              Game Texture objects 
-   * 
-   * TODO:
-    * 3. Create an easy way to make the XML definitions for the game
-   */
+	/*
+	* Description: This class will laod and store all texture data as well as creating
+	*              Game Texture objects 
+	* 
+	* TODO:
+	 * 3. Create an easy way to make the XML definitions for the game
+	*/
 	class TextureLibrary
 	{
 		private static OrderedDictionary<String, Texture2D> m_Textures;
@@ -92,7 +92,7 @@ namespace project_hook
 			return m_TextureManager.Load<Texture2D>(path + textureName);
 
 		}
-		
+
 
 		//This loads a texture and Stores it in the hashtable.
 		//The Textures name is it's key
@@ -107,7 +107,7 @@ namespace project_hook
 			try
 			{
 				Texture2D tTexture = loadTextureByName(textureName);
-				
+
 				if (m_Textures.ContainsKey(textureName))
 				{
 					m_Textures.Replace(textureName, tTexture);
@@ -162,7 +162,7 @@ namespace project_hook
 			}
 			catch (ContentLoadException e)
 			{
-                Console.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e.Message);
+				Console.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e.Message);
 				return false;
 			}
 			catch (IOException)
@@ -220,7 +220,8 @@ namespace project_hook
 
 		public static void reloadAll()
 		{
-			foreach(String key in m_GameTextures.Keys){
+			foreach (String key in m_GameTextures.Keys)
+			{
 
 				OrderedDictionary<String, GameTexture> gd = m_GameTextures[key];
 				Texture2D reload = null;
@@ -241,13 +242,14 @@ namespace project_hook
 		}
 
 
-        // A Quick Method to get access to what I need - temporary
-        public static SpriteFont getFont( String name ) {
-            return m_TextureManager.Load<SpriteFont>(System.Environment.CurrentDirectory + "\\Content\\Fonts\\" + name);
-        }
+		// A Quick Method to get access to what I need - temporary
+		public static SpriteFont getFont(String name)
+		{
+			return m_TextureManager.Load<SpriteFont>(System.Environment.CurrentDirectory + "\\Content\\Fonts\\" + name);
+		}
 
 	}
-    
+
 }
 
 /*

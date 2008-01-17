@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace project_hook
 {
-    /*
-     * Description: 
-     * 
-     * TODO:
+	/*
+	 * Description: 
+	 * 
+	 * TODO:
 	 */
 	class Menu : Sprite
 	{
@@ -51,16 +51,16 @@ namespace project_hook
 			m_MenuItemNames = new ArrayList();
 		}*/
 
-        public virtual void Load(GraphicsDeviceManager gdm)
-        {
-            GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
+		public virtual void Load(GraphicsDeviceManager gdm)
+		{
+			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
 			float xPos = (gdm.GraphicsDevice.Viewport.Width - bgTexture.Width) / 2;
 			float yPos = (gdm.GraphicsDevice.Viewport.Height - bgTexture.Height) / 2;
 			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 200f, true,
 											0, Depth.ForeGround.Bottom);
 			attachSpritePart(m_BackgroundSprite);
 
-			m_MenuItemSprites = new ArrayList();			
+			m_MenuItemSprites = new ArrayList();
 			if (m_MenuItemNames.Count != 0)
 			{
 				if (usingTextSprite)
@@ -129,26 +129,26 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
-            if (InputHandler.IsActionPressed(Actions.Pause))
-            {
-                //this.Exit();               
-            }
-
-            if (InputHandler.IsActionPressed(Actions.Up))
-            {
-                up();
-            }
-
-            if (InputHandler.IsActionPressed(Actions.Down))
-            {
-                down();
-            }
-
-            if (InputHandler.IsActionPressed(Actions.MenuAccept))
-            {
-                accept();
+			if (InputHandler.IsActionPressed(Actions.Pause))
+			{
+				//this.Exit();               
 			}
-        }
+
+			if (InputHandler.IsActionPressed(Actions.Up))
+			{
+				up();
+			}
+
+			if (InputHandler.IsActionPressed(Actions.Down))
+			{
+				down();
+			}
+
+			if (InputHandler.IsActionPressed(Actions.MenuAccept))
+			{
+				accept();
+			}
+		}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
 		{
@@ -158,47 +158,47 @@ namespace project_hook
 		}
 
 		protected void down()
-        {
-            if (m_selectedIndex < m_MenuItemSprites.Count - 1)
-            {
-                m_selectedIndex++;
-            }
-            else
-            {
-                m_selectedIndex = 0;
-            }
+		{
+			if (m_selectedIndex < m_MenuItemSprites.Count - 1)
+			{
+				m_selectedIndex++;
+			}
+			else
+			{
+				m_selectedIndex = 0;
+			}
 
-            setHighlightSprite();
-        }
+			setHighlightSprite();
+		}
 
 		protected void up()
-        {
-            if(m_selectedIndex > 0)
-            {
-                m_selectedIndex--;    
-            }
-            else
-            {
-                m_selectedIndex = m_MenuItemSprites.Count - 1;
-            }
-            
-            setHighlightSprite();
-        }
+		{
+			if (m_selectedIndex > 0)
+			{
+				m_selectedIndex--;
+			}
+			else
+			{
+				m_selectedIndex = m_MenuItemSprites.Count - 1;
+			}
 
-        public void setSelectedIndex(int index)
-        {
-            if (index < 0)
-            {
-                index = 0;
-            }
-            else if(index > m_MenuItemSprites.Count - 1)
-            {
-                index = m_MenuItemSprites.Count - 1;
-            }
+			setHighlightSprite();
+		}
 
-            m_selectedIndex = index;
-            setHighlightSprite();
-        }
+		public void setSelectedIndex(int index)
+		{
+			if (index < 0)
+			{
+				index = 0;
+			}
+			else if (index > m_MenuItemSprites.Count - 1)
+			{
+				index = m_MenuItemSprites.Count - 1;
+			}
+
+			m_selectedIndex = index;
+			setHighlightSprite();
+		}
 
 		protected virtual void setHighlightSprite()
 		{
@@ -218,12 +218,12 @@ namespace project_hook
 					m_HightlightSprite.Width = selSprite.Width;
 					m_HightlightSprite.Position = selSprite.Position;
 				}
-            }
-        }
+			}
+		}
 
-        //override this method
-        public virtual void accept()
-        {
-        }	
+		//override this method
+		public virtual void accept()
+		{
+		}
 	}
 }

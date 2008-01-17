@@ -6,113 +6,113 @@ using Microsoft.Xna.Framework;
 namespace project_hook
 {
 
-    /// <summary>
-    /// A path that seeks to it's target.
-    /// Specifically, This path will move the base towards the goal, even if this or the goal sprite are in motion.
-    /// Specify either an End point, or a Target Sprite.
-    /// Path will be 'Done' when it reaches the goal, or if the optional duration expires.
-    /// 
-    /// Parameters:
-    /// Base - Required - The Sprite this Path should act on.
-    /// Speed - Required - The Scalar Speed the sprite should travel, float Pixels per Seconds.
-    /// Target - Optional - The Sprite this Path should seek out, Specify either a Target or an End.
-    /// End - Optional - The Vector2 point this Path should seek out, Specify either a Target or an End.
-    /// Duration - Optional - How Long this Path should try to seek for, float Seconds.
-    /// 
-    /// </summary>
-    class PathSeek : PathStrategy
-    {
+	/// <summary>
+	/// A path that seeks to it's target.
+	/// Specifically, This path will move the base towards the goal, even if this or the goal sprite are in motion.
+	/// Specify either an End point, or a Target Sprite.
+	/// Path will be 'Done' when it reaches the goal, or if the optional duration expires.
+	/// 
+	/// Parameters:
+	/// Base - Required - The Sprite this Path should act on.
+	/// Speed - Required - The Scalar Speed the sprite should travel, float Pixels per Seconds.
+	/// Target - Optional - The Sprite this Path should seek out, Specify either a Target or an End.
+	/// End - Optional - The Vector2 point this Path should seek out, Specify either a Target or an End.
+	/// Duration - Optional - How Long this Path should try to seek for, float Seconds.
+	/// 
+	/// </summary>
+	class PathSeek : PathStrategy
+	{
 
-        Sprite Object = null;
-        Sprite Target = null;
-        Vector2 End;
-        float Speed = 0f;
-        bool timed = false;
-        float Duration = 0f;
+		Sprite Object = null;
+		Sprite Target = null;
+		Vector2 End;
+		float Speed = 0f;
+		bool timed = false;
+		float Duration = 0f;
 
-        public PathSeek(Dictionary<ValueKeys, Object> p_Values)
-            : base(p_Values)
-        {
-            Object = (Sprite)m_Values[ValueKeys.Base];
-            Speed = (float)m_Values[ValueKeys.Speed];
+		public PathSeek(Dictionary<ValueKeys, Object> p_Values)
+			: base(p_Values)
+		{
+			Object = (Sprite)m_Values[ValueKeys.Base];
+			Speed = (float)m_Values[ValueKeys.Speed];
 
-            timed = m_Values.ContainsKey(ValueKeys.Duration);
+			timed = m_Values.ContainsKey(ValueKeys.Duration);
 
-            if (m_Values.ContainsKey(ValueKeys.Target))
-            {
-                Target = (Sprite)m_Values[ValueKeys.Target];
-            }
-            if (m_Values.ContainsKey(ValueKeys.End))
-            {
-                if (Target != null)
-                {
-                    throw new ArgumentException("Seek may not have both a Target and an End.");
-                }
-                End = (Vector2)m_Values[ValueKeys.End];
-            }
-            else
-            {
-                if (Target == null)
-                {
-                    throw new ArgumentException("Seek must have either a Target or an End.");
-                }
-            }
+			if (m_Values.ContainsKey(ValueKeys.Target))
+			{
+				Target = (Sprite)m_Values[ValueKeys.Target];
+			}
+			if (m_Values.ContainsKey(ValueKeys.End))
+			{
+				if (Target != null)
+				{
+					throw new ArgumentException("Seek may not have both a Target and an End.");
+				}
+				End = (Vector2)m_Values[ValueKeys.End];
+			}
+			else
+			{
+				if (Target == null)
+				{
+					throw new ArgumentException("Seek must have either a Target or an End.");
+				}
+			}
 
-        }
+		}
 
-        public override void CalculateMovement(GameTime p_gameTime)
-        {
-            m_Done = false;
-            Vector2 goal;
-            if (Target != null)
-            {
-                goal = Target.Center;
-            }
-            else
-            {
-                goal = End;
-            }
+		public override void CalculateMovement(GameTime p_gameTime)
+		{
+			m_Done = false;
+			Vector2 goal;
+			if (Target != null)
+			{
+				goal = Target.Center;
+			}
+			else
+			{
+				goal = End;
+			}
 
-            Vector2 temp = goal - Object.Center;
+			Vector2 temp = goal - Object.Center;
 
-            Vector2 debug = Vector2.Normalize(temp);
+			Vector2 debug = Vector2.Normalize(temp);
 
-            if (temp.Equals(Vector2.Zero))
-            {
-                m_Done = true;
-            }
+			if (temp.Equals(Vector2.Zero))
+			{
+				m_Done = true;
+			}
 
-            Object.Rotation = (float)Math.Atan2(temp.Y, temp.X);
+			Object.Rotation = (float)Math.Atan2(temp.Y, temp.X);
 
-            Vector2 temp2 = Vector2.Multiply(Vector2.Normalize(temp), (float)(Speed * (p_gameTime.ElapsedGameTime.TotalSeconds)));
+			Vector2 temp2 = Vector2.Multiply(Vector2.Normalize(temp), (float)(Speed * (p_gameTime.ElapsedGameTime.TotalSeconds)));
 
-            if (Math.Abs(temp2.X) > Math.Abs(temp.X))
-            {
-                temp2.X = temp.X;
-            }
+			if (Math.Abs(temp2.X) > Math.Abs(temp.X))
+			{
+				temp2.X = temp.X;
+			}
 
-            if (Math.Abs(temp2.Y) > Math.Abs(temp.Y))
-            {
-                temp2.Y = temp.Y;
-            }
+			if (Math.Abs(temp2.Y) > Math.Abs(temp.Y))
+			{
+				temp2.Y = temp.Y;
+			}
 
-            Object.Center = Vector2.Add(Object.Center, temp2);
+			Object.Center = Vector2.Add(Object.Center, temp2);
 
-            if (temp2.Equals(temp))
-            {
-                m_Done = true;
-            }
+			if (temp2.Equals(temp))
+			{
+				m_Done = true;
+			}
 
-            if (timed)
-            {
-                Duration -= (float)p_gameTime.ElapsedGameTime.TotalSeconds;
-                if (Duration <= 0)
-                {
-                    m_Done = true;
-                }
-            }
+			if (timed)
+			{
+				Duration -= (float)p_gameTime.ElapsedGameTime.TotalSeconds;
+				if (Duration <= 0)
+				{
+					m_Done = true;
+				}
+			}
 
-        }
+		}
 
 		public override void Set()
 		{
@@ -126,5 +126,5 @@ namespace project_hook
 			}
 		}
 
-    }
+	}
 }
