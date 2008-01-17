@@ -209,8 +209,8 @@ namespace project_hook
 				attachSpritePart(m_DamageSprite);*/
 
 				//DamageParticleSystem.Direction = v2.;
-                DamageParticleSystem.AddParticles(Collision.getMidpoint(this,p_Other));
-                //DamageParticleSystem.AddParticles( Vector2.Lerp(this.Center, p_Other.Center, 0.5f ) );
+                //DamageParticleSystem.AddParticles(Collision.getMidpoint(this,p_Other));
+                DamageParticleSystem.AddParticles( Vector2.Lerp(this.Center, p_Other.Center, 0.5f ) );
 			}
 		}
 
