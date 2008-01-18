@@ -13,6 +13,7 @@ namespace project_hook
 		Line,
 		Seek,
 		Shot,
+		Shoot,
 		Straight,
 		TailAttach,
 		TailAttack,
@@ -25,6 +26,8 @@ namespace project_hook
 	{
 		Paths m_Strategy;
 		PathStrategy m_Path;
+
+		public Path() { }
 
 		public Path(Paths p_Strategy, Dictionary<PathStrategy.ValueKeys, Object> p_Values)
 		{
@@ -43,6 +46,9 @@ namespace project_hook
 					break;
 				case Paths.Seek:
 					m_Path = new PathSeek(p_Values);
+					break;
+				case Paths.Shoot:
+					m_Path = new PathShoot(p_Values);
 					break;
 				case Paths.Shot:
 					m_Path = new PathShot(p_Values);
@@ -68,19 +74,31 @@ namespace project_hook
 			}
 		}
 
-		public void CalculateMovement(GameTime p_gameTime)
+		public virtual void CalculateMovement(GameTime p_gameTime)
 		{
 			m_Path.CalculateMovement(p_gameTime);
 		}
 
-		public bool isDone()
+		public virtual bool isDone()
 		{
 			return m_Path.isDone;
 		}
 
-		public void Set()
+		public virtual void Set()
 		{
 			m_Path.Set();
 		}
+
+		public override string ToString()
+		{
+			return m_Path.ToString();
+		}
+
+
+		public static bool isDone(Path p)
+		{
+			return p.isDone();
+		}
+
 	}
 }

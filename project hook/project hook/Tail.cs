@@ -156,7 +156,7 @@ namespace project_hook
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			//base.RegisterCollision(p_Other);
-			if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_TailState == TailState.Attacking)
+			if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_TailState == TailState.Attacking && p_Other is Ship)
 			{
 				TailReturned();
 				Dictionary<PathStrategy.ValueKeys, object> dic = new Dictionary<PathStrategy.ValueKeys, object>();

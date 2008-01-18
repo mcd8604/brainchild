@@ -27,7 +27,7 @@ namespace project_hook
 		Sprite cloud;
 		SpriteBatch m_spriteBatch;
 		Sprite back;
-		Player back1;
+		Player player;
 		Sprite back2;
 		Sprite crosshair;
 		ArrayList m_TailBodySprites = new ArrayList();
@@ -124,7 +124,7 @@ namespace project_hook
 				GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
 				GameTexture crosshairs = TextureLibrary.getGameTexture("crosshairs", "");
 				back = new YScrollingBackground(TextureLibrary.getGameTexture("Back", ""));
-				back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom, PlayerBounds);
+				player = new Player("Ship", new Vector2(300.0f, 400.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom, PlayerBounds);
 				back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
 				spawnEnemy();
@@ -134,7 +134,7 @@ namespace project_hook
 					Sprite tailBodySprite = new Sprite("poisonsplat", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("poisonsplat", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
 					m_TailBodySprites.Add(tailBodySprite);
 				}
-				tail = new Tail("Tail", back1.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, back1.PlayerShip, 700, m_TailBodySprites);
+				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, player.PlayerShip, 700, m_TailBodySprites);
 
 
 
@@ -171,22 +171,34 @@ namespace project_hook
 		{
 			enemy = new Ship("Enemy", new Vector2(100f, -100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100);
 
-			Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-			dic.Add(PathStrategy.ValueKeys.Base, enemy);
-			dic.Add(PathStrategy.ValueKeys.Speed, 100f);
-			dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
-			dic.Add(PathStrategy.ValueKeys.Duration, (float)rand.Next(1, 6));
-			enemy.PathList.AddPath(new Path(Paths.Straight, dic));
+			PathGroup group1 = new PathGroup();
+			Dictionary<PathStrategy.ValueKeys, Object> dicS = new Dictionary<PathStrategy.ValueKeys, object>();
+			dicS.Add(PathStrategy.ValueKeys.Base, (Ship)enemy);
+			group1.AddPath(new Path(Paths.Shoot, dicS));
+
+			Dictionary<PathStrategy.ValueKeys, Object> dic1 = new Dictionary<PathStrategy.ValueKeys, object>();
+			dic1.Add(PathStrategy.ValueKeys.Base, enemy);
+			dic1.Add(PathStrategy.ValueKeys.Speed, 100f);
+			dic1.Add(PathStrategy.ValueKeys.End, new Vector2(600, 200));
+			dic1.Add(PathStrategy.ValueKeys.Duration, (float)rand.Next(1, 6));
+			dic1.Add(PathStrategy.ValueKeys.Rotation, false);
+			group1.AddPath(new Path(Paths.Straight, dic1));
+
+			enemy.PathList.AddPath(group1);
+
+			PathGroup group2 = new PathGroup();
+
+			group2.AddPath(new Path(Paths.Shoot, dicS));
 
 			Dictionary<PathStrategy.ValueKeys, Object> dic2 = new Dictionary<PathStrategy.ValueKeys, object>();
 			dic2.Add(PathStrategy.ValueKeys.Base, enemy);
 			dic2.Add(PathStrategy.ValueKeys.Speed, 100f);
 			dic2.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
 			dic2.Add(PathStrategy.ValueKeys.Duration, (float)rand.Next(1, 6));
-			enemy.PathList.AddPath(new Path(Paths.Straight, dic2));
+			dic2.Add(PathStrategy.ValueKeys.Rotation, false);
+			group2.AddPath(new Path(Paths.Straight, dic2));
 
-			//Console.WriteLine("1: " + dic[PathStrategy.ValueKeys.Duration]);
-			//Console.WriteLine("2: " + dic2[PathStrategy.ValueKeys.Duration]);
+			enemy.PathList.AddPath(group2);
 
 			enemy.PathList.Mode = ListModes.Repeat;
 
@@ -237,7 +249,7 @@ namespace project_hook
 
 			if (InputHandler.IsActionDown(Actions.ShipPrimary))
 			{
-				spritelist.AddRange(back1.Shoot(gameTime));
+				player.Shoot(gameTime);
 			}
 
 
@@ -276,7 +288,7 @@ namespace project_hook
 			{
 				if (tail.EnemyCaught != null)
 				{
-					spritelist.AddRange(tail.EnemyCaught.shoot(gameTime));
+					tail.EnemyCaught.shoot(gameTime);
 				}
 			}
 
@@ -318,19 +330,19 @@ namespace project_hook
 
 			if (InputHandler.IsActionDown(Actions.Right))
 			{
-				back1.MoveRight();
+				player.MoveRight();
 			}
 			if (InputHandler.IsActionDown(Actions.Left))
 			{
-				back1.MoveLeft();
+				player.MoveLeft();
 			}
 			if (InputHandler.IsActionDown(Actions.Up))
 			{
-				back1.MoveUp();
+				player.MoveUp();
 			}
 			if (InputHandler.IsActionDown(Actions.Down))
 			{
-				back1.MoveDown();
+				player.MoveDown();
 			}
 			if (InputHandler.IsKeyPressed(Keys.F))
 			{
@@ -356,7 +368,7 @@ namespace project_hook
 			//back1.Shoot();
 			shot2Effect.Degree = shot2Effect.Degree - (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
 			*/
-			back1.UpdatePlayer(gameTime);
+			player.UpdatePlayer(gameTime);
 			// lazy fps code
 			UpdateFPS(gameTime);
 			// adn
@@ -366,6 +378,12 @@ namespace project_hook
 
 			Collision.CheckCollisions(spritelist);
 
+			List<Sprite> toAdd = new List<Sprite>();
+			if (player.PlayerShip.SpritesToBeAdded != null)
+			{
+				toAdd.AddRange(player.PlayerShip.SpritesToBeAdded);
+				player.PlayerShip.SpritesToBeAdded.Clear();
+			}
 			List<Sprite> toBeRemoved = new List<Sprite>();
 
 			foreach (Sprite s in spritelist)
@@ -378,7 +396,15 @@ namespace project_hook
 				{
 					s.Update(gameTime);
 				}
+				if (s.SpritesToBeAdded != null)
+				{
+
+					toAdd.AddRange(s.SpritesToBeAdded);
+					s.SpritesToBeAdded.Clear();
+				}
 			}
+
+			spritelist.AddRange(toAdd);
 
 			foreach (Sprite s in toBeRemoved)
 			{
@@ -396,7 +422,7 @@ namespace project_hook
 			{
 				spawnEnemy();
 			}
-			spritelist.AddRange(((Ship)enemy).shoot(gameTime));
+			//((Ship)enemy).shoot(gameTime);
 
 			base.Update(gameTime);
 		}
@@ -428,7 +454,7 @@ namespace project_hook
 			foreach (Sprite s in m_TailBodySprites)
 				s.Draw(m_spriteBatch);
 
-			back1.DrawPlayer(gameTime, m_spriteBatch);
+			player.DrawPlayer(gameTime, m_spriteBatch);
 
 			crosshair.Draw(m_spriteBatch);
 
@@ -440,7 +466,7 @@ namespace project_hook
 			//shotEffect.Draw(m_spriteBatch);
 			//shot2Effect.Draw(m_spriteBatch);
 			drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.ForeGround.Top);
-			drawtext.DrawString(m_spriteBatch, "Score: " + back1.Score.ScoreTotal, new Vector2(0, 50), Color.White);
+			drawtext.DrawString(m_spriteBatch, "Score: " + player.Score.ScoreTotal, new Vector2(0, 50), Color.White);
 			drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(), Vector2.Zero, Color.White);
 
 			enemy.Draw(m_spriteBatch);

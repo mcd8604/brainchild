@@ -17,7 +17,8 @@ namespace project_hook
 			Target,  //The target sprite, Sprite
 			Speed,   //The scalar speed of the movement 
 			Velocity,//The vector speed of the movement
-			Duration //The duration of the movement.
+			Duration,//The duration of the movement.
+			Rotation //Should the path rotate the sprite.
 		}
 
 		protected Dictionary<ValueKeys, Object> m_Values;

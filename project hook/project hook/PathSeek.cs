@@ -18,6 +18,7 @@ namespace project_hook
 	/// Target - Optional - The Sprite this Path should seek out, Specify either a Target or an End.
 	/// End - Optional - The Vector2 point this Path should seek out, Specify either a Target or an End.
 	/// Duration - Optional - How Long this Path should try to seek for, float Seconds.
+	/// Rotation - Optional - Should the sprite be rotated to direction of travel, defaults to true
 	/// 
 	/// </summary>
 	class PathSeek : PathStrategy
@@ -29,6 +30,7 @@ namespace project_hook
 		float Speed = 0f;
 		bool timed = false;
 		float Duration = 0f;
+		bool Rotation = true;
 
 		public PathSeek(Dictionary<ValueKeys, Object> p_Values)
 			: base(p_Values)
@@ -37,6 +39,10 @@ namespace project_hook
 			Speed = (float)m_Values[ValueKeys.Speed];
 
 			timed = m_Values.ContainsKey(ValueKeys.Duration);
+			if (m_Values.ContainsKey(ValueKeys.Rotation))
+			{
+				Rotation = (bool)m_Values[ValueKeys.Rotation];
+			}
 
 			if (m_Values.ContainsKey(ValueKeys.Target))
 			{
@@ -75,14 +81,14 @@ namespace project_hook
 
 			Vector2 temp = goal - Object.Center;
 
-			Vector2 debug = Vector2.Normalize(temp);
-
 			if (temp.Equals(Vector2.Zero))
 			{
 				m_Done = true;
 			}
-
-			Object.Rotation = (float)Math.Atan2(temp.Y, temp.X);
+			if (Rotation)
+			{
+				Object.Rotation = (float)Math.Atan2(temp.Y, temp.X);
+			}
 
 			Vector2 temp2 = Vector2.Multiply(Vector2.Normalize(temp), (float)(Speed * (p_gameTime.ElapsedGameTime.TotalSeconds)));
 

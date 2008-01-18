@@ -261,6 +261,15 @@ namespace project_hook
 
 			m_SpritesToBeAdded.Add(p_Sprite);
 		}
+		public void addSprites(IEnumerable<Sprite> p_Sprites )
+		{
+			if (m_SpritesToBeAdded == null)
+			{
+				m_SpritesToBeAdded = new List<Sprite>();
+			}
+
+			m_SpritesToBeAdded.AddRange(p_Sprites);
+		}
 
 
 		protected Vector2 m_StartPosition = Vector2.Zero;

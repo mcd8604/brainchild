@@ -15,6 +15,7 @@ namespace project_hook
 	/// Speed - Optional - If Velocity is not specified, The Scalar Speed the sprite should travel, float Pixels per Seconds.
 	/// End - Optional - If Velocity is not specified, The Vector2 point this Path should travel to.
 	/// Duration - Optional - How Long this Path should try to seek for, float Seconds.
+	/// Rotation - Optional - Should the path rotate the sprite, defaults to true;
 	/// 
 	/// </summary>
 	class PathStraight : PathStrategy
@@ -27,6 +28,7 @@ namespace project_hook
 		bool flag;
 		bool timed;
 		float Duration;
+		bool Rotation = true;
 
 		public PathStraight(Dictionary<ValueKeys, Object> p_Values)
 			: base(p_Values)
@@ -46,6 +48,11 @@ namespace project_hook
 			}
 
 			timed = m_Values.ContainsKey(ValueKeys.Duration);
+
+			if (m_Values.ContainsKey(ValueKeys.Rotation))
+			{
+				Rotation = (bool)m_Values[ValueKeys.Rotation];
+			}
 
 		}
 
@@ -82,12 +89,12 @@ namespace project_hook
 			{
 
 				Vector2 temp = End - Object.Center;
-				double angle = (double)Math.Atan2(temp.Y, temp.X);
-				Object.Rotation = (float)angle;
+				if (Rotation)
+				{
+					Object.Rotation = (float)Math.Atan2(temp.Y, temp.X);
+				}
 
-				Velocity = new Vector2();
-				Velocity.X = (float)(speed * Math.Cos(angle));
-				Velocity.Y = (float)(speed * Math.Sin(angle));
+				Velocity = Vector2.Multiply(Vector2.Normalize(temp), (float)speed);
 
 			}
 
