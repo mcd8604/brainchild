@@ -11,8 +11,15 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace project_hook
 {
+
+
+
+	// Something to consider for handling world vs menu:
+	// http://blogs.msdn.com/etayrien/archive/2006/12/12/game-engine-structure.aspx
+
+
+
 	/// <summary>
-	/// This is the main type for your game
 	/// This will be for our main game code
 	/// </summary>
 	public class Game : Microsoft.Xna.Framework.Game
