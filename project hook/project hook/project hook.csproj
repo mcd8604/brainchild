@@ -109,6 +109,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ParticleSystem</Name>
     </Compile>
+    <Compile Include="PathGroup.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PathGroup</Name>
+    </Compile>
     <Compile Include="PathList.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathList</Name>
@@ -116,6 +120,10 @@
     <Compile Include="PathSeek.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathSeek</Name>
+    </Compile>
+    <Compile Include="PathShoot.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PathShoot</Name>
     </Compile>
     <Compile Include="PathStraight.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

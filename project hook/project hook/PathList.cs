@@ -147,7 +147,6 @@ namespace project_hook
 
 		public void CalculateMovement(GameTime p_gameTime)
 		{
-
 			if (m_current < m_list.Count && (!m_done || m_mode == ListModes.Continuous))
 			{
 				m_list[m_current].CalculateMovement(p_gameTime);

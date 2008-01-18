@@ -51,18 +51,16 @@ namespace project_hook
 			attachSpritePart(m_ShieldSprite);
 		}
 
-		public List<Sprite> shoot(GameTime p_GameTime)
+		public void shoot(GameTime p_GameTime)
 		{
-			List<Sprite> allShots = new List<Sprite>(); ;
 			foreach (Weapon w in m_Weapons)
 			{
 				List<Sprite> shots = w.CreateShots(p_GameTime);
 				if (shots != null)
 				{
-					allShots.AddRange(shots);
+					addSprites(shots);
 				}
 			}
-			return allShots;
 		}
 
 		public List<Weapon> Weapons
