@@ -120,6 +120,9 @@ namespace project_hook
 		protected override void Update(GameTime gameTime)
 		{
 
+			if (!IsActive)
+				return;
+
 			InputHandler.Update();
 
 			if (Menus.Exit)

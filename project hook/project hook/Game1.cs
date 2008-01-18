@@ -221,6 +221,10 @@ namespace project_hook
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+
+			if(!IsActive)
+				return;
+
 			InputHandler.Update();
 			Sound.Update();
 			Music.Update();
