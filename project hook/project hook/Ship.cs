@@ -51,14 +51,16 @@ namespace project_hook
 			attachSpritePart(m_ShieldSprite);
 		}
 
-		public List<Shot> shoot(GameTime p_GameTime)
+		public List<Sprite> shoot(GameTime p_GameTime)
 		{
-			List<Shot> allShots = new List<Shot>(); ;
+			List<Sprite> allShots = new List<Sprite>(); ;
 			foreach (Weapon w in m_Weapons)
 			{
-				List<Shot> shots = w.CreatShot(p_GameTime);
-
-				allShots.AddRange(shots);
+				List<Sprite> shots = w.CreateShots(p_GameTime);
+				if (shots != null)
+				{
+					allShots.AddRange(shots);
+				}
 			}
 			return allShots;
 		}
@@ -87,6 +89,7 @@ namespace project_hook
 			{
 				if (this.Health <= 0)
 				{
+					// death effect, and remove?
 				}
 				Shot shot = (Shot)p_Other;
 				this.Health -= shot.Damage;

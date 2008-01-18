@@ -171,21 +171,7 @@ namespace project_hook
 			{
 				if (InputHandler.IsActionDown(Actions.ShipPrimary))
 				{
-
-					List<Shot> t_Shots = m_Player.Shoot(p_GameTime);
-
-					foreach (Sprite s in t_Shots)
-					{
-						if (s.Name.Equals("no_Shot"))
-						{
-							//used so when the weapon can't shoot
-						}
-						else
-						{
-							m_SpriteList.Add(s);
-						}
-					}
-
+					m_SpriteList.AddRange(m_Player.Shoot(p_GameTime));
 				}
 
 				if (InputHandler.IsActionPressed(Actions.ShipPrimary))
@@ -306,6 +292,7 @@ namespace project_hook
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGround.Top);
 			Ship enemy = new Ship("Enemy", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+			Ship enemy2 = new Ship("Enemy", new Vector2(400f, 150f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			ArrayList m_TailBodySprites = new ArrayList();
 
 			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.MidGround.Mid);
@@ -331,6 +318,7 @@ namespace project_hook
 			//s  m_SpriteList.Add(back2);
 			m_SpriteList.Add(cloud);
 			m_SpriteList.Add(enemy);
+			m_SpriteList.Add(enemy2);
 			m_SpriteList.Add(tail);
 			m_SpriteList.Add(m_Player.PlayerShip);
 			m_SpriteList.Add(crosshairs);
