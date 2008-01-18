@@ -222,7 +222,7 @@ namespace project_hook
 		protected override void Update(GameTime gameTime)
 		{
 
-			if(!IsActive)
+			if (!IsActive)
 				return;
 
 			InputHandler.Update();
@@ -274,7 +274,10 @@ namespace project_hook
 
 			if (InputHandler.IsActionDown(Actions.TailSecondary))
 			{
-				spritelist.AddRange(tail.EnemyCaught.shoot(gameTime));
+				if (tail.EnemyCaught != null)
+				{
+					spritelist.AddRange(tail.EnemyCaught.shoot(gameTime));
+				}
 			}
 
 
