@@ -16,15 +16,17 @@ namespace project_hook
 
 		}
 
-		public override List<Shot> CreatShot(GameTime p_GameTime)
+		public override List<Sprite> CreateShots(GameTime p_GameTime)
 		{
 
-			if (p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastShot + m_Delay)
+			if (p_GameTime.TotalGameTime.TotalMilliseconds < m_LastShot + m_Delay)
 			{
-				List<Shot> r_Shots = new List<Shot>();
+				return null;
+			}
+				List<Sprite> r_Shots = new List<Sprite>();
 
 				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 255f, true,
-									  -1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 50, null, 10, 10);
+									  -1.50f, Depth.MidGround.Top, Ship.Faction, -1, null, 50, null, 10, 10);
 
 				Vector2 shot = t_Shot1.Position;
 				shot.X = m_Ship.Position.X - 50;
@@ -55,7 +57,7 @@ namespace project_hook
 
 				//second shot
 				Shot t_Shot2 = new Shot(m_Ship.Name + (m_ShotNumber + 1), m_Ship.Center, 75, 30, m_Shot, 255f, true,
-										1.50f, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, 500, null, 10, 10);
+										1.50f, Depth.MidGround.Top, Ship.Faction, -1, null, 500, null, 10, 10);
 
 				shot = t_Shot2.Position;
 				shot.X = m_Ship.Position.X + 50;
@@ -89,16 +91,7 @@ namespace project_hook
 				r_Shots.Add(t_Shot1);
 				r_Shots.Add(t_Shot2);
 				return r_Shots;
-			}
-			else
-			{
-				List<Shot> t_Shots = new List<Shot>();
-				Shot t_Shot = new Shot("no_Shot", m_Ship.Center, 0, 0, null, 0, false, 0, Depth.MidGround.Top, Collidable.Factions.Player,
-										-1, null, 0, null, 0, 0);
 
-				return t_Shots;
-
-			}
 
 		}
 	}

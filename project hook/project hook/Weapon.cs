@@ -127,16 +127,18 @@ namespace project_hook
 		}
 
 		//this function will creat a Shot at the current location
-		public virtual List<Shot> CreatShot(GameTime p_GameTime)
+		public virtual List<Sprite> CreateShots(GameTime p_GameTime)
 		{
-			if (p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastShot + m_Delay)
+			if (p_GameTime.TotalGameTime.TotalMilliseconds < m_LastShot + m_Delay)
 			{
+				return null;
+			}
 				//creates a temp shot
-				List<Shot> t_Shots = new List<Shot>();
+				List<Sprite> t_Shots = new List<Sprite>();
 
 				//first shot
 				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 255f, true,
-										0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 20, 10);
+										0, Depth.MidGround.Top, Ship.Faction, -1, null, m_Speed, null, 20, 10);
 				t_Shot1.CollisonEffect = TextureLibrary.getGameTexture("poisonsplat", "");
 				t_Shot1.Bound = Collidable.Boundings.Diamond;
 				//adds all the stuff that was in Game1
@@ -163,7 +165,7 @@ namespace project_hook
 
 				//second shot
 				Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 255f, true,
-										0, Depth.MidGround.Top, Collidable.Factions.Player, -1, null, m_Speed, null, 20, 10);
+										0, Depth.MidGround.Top, Ship.Faction, -1, null, m_Speed, null, 20, 10);
 				t_Shot2.Bound = Collidable.Boundings.Diamond;
 				Vector2 shot = t_Shot2.Position;
 				shot.X = m_Ship.Position.X + 50;
@@ -196,15 +198,6 @@ namespace project_hook
 				t_Shots.Add(t_Shot1);
 				t_Shots.Add(t_Shot2);
 				return t_Shots;
-			}
-			else
-			{
-				List<Shot> t_Shots = new List<Shot>();
-				Shot t_Shot = new Shot("no_Shot", m_Ship.Center, 0, 0, null, 0, false, 0, Depth.MidGround.Top, Collidable.Factions.Player,
-										-1, null, 0, null, 0, 0);
-
-				return t_Shots;
-			}
 		}
 	}
 }
