@@ -127,7 +127,7 @@ namespace project_hook
 				back1 = new Player("Ship", new Vector2(100.0f, 100.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom, PlayerBounds);
 				back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
-				enemy = new Ship("Enemy", new Vector2(100f, -200f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100);
+				spawnEnemy();
 				crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.MidGround.Mid);
 				for (int i = 0; i < 6; i++)
 				{
@@ -137,21 +137,7 @@ namespace project_hook
 				tail = new Tail("Tail", back1.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, back1.PlayerShip, 700, m_TailBodySprites);
 
 
-				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic.Add(PathStrategy.ValueKeys.Base, enemy);
-				dic.Add(PathStrategy.ValueKeys.Speed, 100f);
-				dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
-				dic.Add(PathStrategy.ValueKeys.Duration, 5f);
-				enemy.PathList.AddPath(new Path(Paths.Straight, dic));
 
-				Dictionary<PathStrategy.ValueKeys, Object> dic2 = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic2.Add(PathStrategy.ValueKeys.Base, enemy);
-				dic2.Add(PathStrategy.ValueKeys.Speed, 100f);
-				dic2.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
-				dic2.Add(PathStrategy.ValueKeys.Duration, 5f);
-				enemy.PathList.AddPath(new Path(Paths.Straight, dic2));
-
-				enemy.PathList.Mode = ListModes.Repeat;
 
 
 
@@ -166,7 +152,7 @@ namespace project_hook
 				//explosion = new Sprite("Explosion", new Vector2(-100f, -100f), 100, 100, TextureLibrary.getGameTexture("Explosion", ""), 50f, true, 0, Depth.ForeGround.Mid);
 
 				spritelist.Add(back);
-				spritelist.Add(enemy);
+
 				spritelist.Add(tail);
 				/*
 				spritelist.Add(shotEffect);
@@ -177,6 +163,35 @@ namespace project_hook
 
 			}
 			// TODO: Load any ResourceManagementMode.Manual content
+		}
+
+		private static Random rand = new Random();
+
+		private void spawnEnemy()
+		{
+			enemy = new Ship("Enemy", new Vector2(100f, -100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100);
+
+			Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+			dic.Add(PathStrategy.ValueKeys.Base, enemy);
+			dic.Add(PathStrategy.ValueKeys.Speed, 100f);
+			dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
+			dic.Add(PathStrategy.ValueKeys.Duration, (float)rand.Next(1, 6));
+			enemy.PathList.AddPath(new Path(Paths.Straight, dic));
+
+			Dictionary<PathStrategy.ValueKeys, Object> dic2 = new Dictionary<PathStrategy.ValueKeys, object>();
+			dic2.Add(PathStrategy.ValueKeys.Base, enemy);
+			dic2.Add(PathStrategy.ValueKeys.Speed, 100f);
+			dic2.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
+			dic2.Add(PathStrategy.ValueKeys.Duration, (float)rand.Next(1, 6));
+			enemy.PathList.AddPath(new Path(Paths.Straight, dic2));
+
+			//Console.WriteLine("1: " + dic[PathStrategy.ValueKeys.Duration]);
+			//Console.WriteLine("2: " + dic2[PathStrategy.ValueKeys.Duration]);
+
+			enemy.PathList.Mode = ListModes.Repeat;
+
+			spritelist.Add(enemy);
+
 		}
 
 
@@ -218,94 +233,8 @@ namespace project_hook
 
 			if (InputHandler.IsActionDown(Actions.ShipPrimary))
 			{
-				/*
-				 Vector2 shot = shotEffect.Position;
-				 shot.X = back1.PlayerShip.Position.X;
-				 shot.Y = back1.PlayerShip.Position.Y;
-				 shotEffect.Position = shot;
-
-				 shot = shot2Effect.Position;
-				 shot.X = back1.PlayerShip.Position.X + 100;
-				 shot.Y = back1.PlayerShip.Position.Y;
-				 shot2Effect.Position = shot;	
-				*/
-				List<Shot> t_Shots = back1.Shoot(gameTime);
-
-				foreach (Sprite s in t_Shots)
-				{
-					if (s.Name.Equals("no_Shot"))
-					{
-						//used so when the weapon can't shoot
-					}
-					else
-					{
-						spritelist.Add(s);
-					}
-				}
+				spritelist.AddRange(back1.Shoot(gameTime));
 			}
-
-			if (InputHandler.IsActionPressed(Actions.ShipPrimary))
-			{
-				//Shot shot2 = new Shot("RedShot2", new Vector2(100, 100.0f), 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
-				//                        , Collidable.Factions.Player, -1, null, 2, null, 5, 10);
-				//Vector2 shot = shot2.Position;
-				//shot.X = back1.PlayerShip.Position.X;
-				//shot.Y = back1.PlayerShip.Position.Y;
-				//shot2.Position = shot;
-
-				//shot2.setAnimation("RedShot", 10);
-
-				//Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				//dic.Add(PathStrategy.ValueKeys.Start, shot2.Center);
-				//dic.Add(PathStrategy.ValueKeys.End, new Vector2(shot2.Center.X, -100));
-				//dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
-				//dic.Add(PathStrategy.ValueKeys.Base, shot2);
-				//shot2.Path = new Path(Path.Paths.Shot, dic);
-
-
-				//Shot shot1 = new Shot("RedShot", new Vector2(100.0f, 100.0f), 75, 30, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top
-				//                      , Collidable.Factions.Player, -1, null, 2, null, 5, 10);
-
-				//shot = shot1.Position;
-				//shot.X = back1.PlayerShip.Position.X + 50;
-				//shot.Y = back1.PlayerShip.Position.Y;
-				//shot1.Position = shot;
-
-				//shot1.setAnimation("RedShot", 10);
-
-				//dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				//dic.Add(PathStrategy.ValueKeys.Start, shot1.Center);
-				//dic.Add(PathStrategy.ValueKeys.End, new Vector2(shot1.Center.X, -100));
-				//dic.Add(PathStrategy.ValueKeys.Duration, -1.0f);
-				//dic.Add(PathStrategy.ValueKeys.Base, shot1);
-				//shot1.Path = new Path(Path.Paths.Shot, dic);
-
-				//shot1.Animation.StartAnimation();
-				//shot2.Animation.StartAnimation();
-
-				//spritelist.Add(back1.Shoot(gameTime));
-				//spritelist.Add(shot2);
-				//Shot t_Shot = back1.Shoot(gameTime);
-				/*
-								List<Shot> t_Shots = back1.Shoot(gameTime);
-
-								foreach (Sprite s in t_Shots)
-								{
-									if (s.Name.Equals("no_Shot"))
-									{
-										//used so when the weapon can't shoot
-									}
-									else
-									{
-										spritelist.Add(s);
-									}
-								}
-				* */
-
-			}
-
-
-
 
 
 
@@ -420,7 +349,7 @@ namespace project_hook
 			// lazy fps code
 			UpdateFPS(gameTime);
 			// adn
-			enemy.Update(gameTime);
+			//enemy.Update(gameTime);
 			tail.Update(gameTime);
 			((Sprite)m_TailBodySprites[0]).Update(gameTime);
 
@@ -445,6 +374,18 @@ namespace project_hook
 				spritelist.Remove(s);
 			}
 			//    enemy.RegisterCollision(null, null);
+
+			if (enemy.AmIDead())
+			{
+				spritelist.Remove(enemy);
+				spawnEnemy();
+			}
+
+			if (enemy.Faction == Collidable.Factions.Player) // hack check if it's been tail-grabbed
+			{
+				spawnEnemy();
+			}
+			spritelist.AddRange(((Ship)enemy).shoot(gameTime));
 
 			base.Update(gameTime);
 		}
