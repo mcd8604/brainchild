@@ -272,6 +272,10 @@ namespace project_hook
 			}
 
 
+			if (InputHandler.IsActionDown(Actions.TailSecondary))
+			{
+				spritelist.AddRange(tail.EnemyCaught.shoot(gameTime));
+			}
 
 
 
@@ -292,7 +296,7 @@ namespace project_hook
 			//    lastRightMouseButton = Mouse.GetState().RightButton;
 			//}
 
-			if (InputHandler.IsActionPressed(Actions.TailSecondary))
+			if (InputHandler.IsKeyPressed(Keys.M))
 			{
 				if (Music.IsPlaying("bg1"))
 				{
