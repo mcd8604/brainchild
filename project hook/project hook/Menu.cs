@@ -32,8 +32,6 @@ namespace project_hook
 
 		public Menu()
 		{
-			m_selectedIndex = 0;
-
 			//default textures
 			m_BackgroundName = "menu_background";
 			m_HighlightName = "menu_highlight";
@@ -97,7 +95,7 @@ namespace project_hook
 				float xPos = m_BackgroundSprite.Center.X;
 				float yPos = topBuffer + m_BackgroundSprite.Position.Y + (textHeight * i);
 
-				TextSprite mis = new TextSprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), Color.White, Depth.ForeGround.Top);
+				TextSprite mis = new TextSprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos));
 
 				m_MenuItemSprites.Add(mis);
 				attachSpritePart(mis);
@@ -234,9 +232,9 @@ namespace project_hook
 		protected virtual void setHighlightSprite()
 		{
 			Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
-			if (usingTextSprite)
+			if (selSprite is TextSprite)
 			{
-				foreach (TextSprite s in m_MenuItemSprites)
+				foreach (Sprite s in m_MenuItemSprites)
 				{
 					s.Color = Color.White;
 				}
@@ -251,8 +249,6 @@ namespace project_hook
 				}
 			}
 		}
-
-		
 
 		//override this method
 		public virtual void accept()
