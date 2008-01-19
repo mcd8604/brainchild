@@ -39,15 +39,29 @@ namespace project_hook
 			}
 			else
 			{
-				deltaX += (-deathzone * Math.Sign(deltaX));
+                try
+                {
+                    deltaX += (-deathzone * Math.Sign(deltaX));
+                }
+                catch (ArithmeticException e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                }
 			}
 			if (Math.Abs(deltaY) < deathzone)
 			{
 				deltaY = 0;
 			}
 			else
-			{
-				deltaY += (-deathzone * Math.Sign(deltaY));
+            {
+                try
+                {
+				    deltaY += (-deathzone * Math.Sign(deltaY));
+                }
+                catch (ArithmeticException e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                }
 			}
 
 			speed = Vector2.Multiply(Vector2.Clamp(Vector2.Add(speed, Vector2.Multiply(Vector2.Clamp(new Vector2(deltaX * Math.Abs(deltaX), deltaY * Math.Abs(deltaY)), minaccel, maxaccel), (float)p_gameTime.ElapsedGameTime.TotalSeconds)), minspeed, maxspeed), friction);
