@@ -558,11 +558,23 @@
       <Name>LevelTest</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\shot_energy.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>shot_energy</Name>
+    </Content>
     <Content Include="Content\Textures\tailbody.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>tailbody</Name>
+    </Content>
+    <Content Include="Content\Textures\tail_segment.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>tail_segment</Name>
     </Content>
     <Content Include="Content\Textures\veinbg.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

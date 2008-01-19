@@ -113,7 +113,9 @@ namespace project_hook
 				TextureLibrary.LoadTexture("FireBall");
 				TextureLibrary.LoadTexture("temptail");
 				TextureLibrary.LoadTexture("crosshairs");
-				TextureLibrary.LoadTexture("poisonsplat");
+                TextureLibrary.LoadTexture("poisonsplat");
+                TextureLibrary.LoadTexture("tail_segment");
+                TextureLibrary.LoadTexture("shot_energy");
 				drawtext.Load(content);
 
 				Rectangle PlayerBounds = new Rectangle(graphics.GraphicsDevice.Viewport.X,
@@ -129,11 +131,24 @@ namespace project_hook
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
 				spawnEnemy();
 				crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.MidGround.Mid);
-				for (int i = 0; i < 6; i++)
-				{
-					Sprite tailBodySprite = new Sprite("poisonsplat", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("poisonsplat", ""), 255, true, 0.0f, Depth.MidGround.Bottom);
-					m_TailBodySprites.Add(tailBodySprite);
-				}
+                for (int i = 0; i < 60; i++)
+                {
+                    if (i % 5 == 0)
+                    {
+                        TailBodySprite tailBodySprite = new TailBodySprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+                        tailBodySprite.Transparency = 0.5f;
+                        tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
+                        m_TailBodySprites.Add(tailBodySprite);
+                    }
+                    else
+                    {
+                        TailBodySprite tailBodySprite = new TailBodySprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+                        tailBodySprite.Transparency = 0.2f;
+                        tailBodySprite.BlendMode = SpriteBlendMode.Additive;
+                        m_TailBodySprites.Add(tailBodySprite);
+                    }
+
+                }
 				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, player.PlayerShip, 700, m_TailBodySprites);
 
 
