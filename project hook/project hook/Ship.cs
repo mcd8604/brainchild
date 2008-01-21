@@ -19,6 +19,20 @@ namespace project_hook
 
 		private Sprite m_ShieldSprite;
 
+		private int m_MaxShield;
+		public int MaxShield
+		{
+			get
+			{
+				return m_MaxShield;
+			}
+			set
+			{
+				m_MaxShield = value;
+			}
+
+		}
+
 		private int m_Shield;
 		public int Shield
 		{
@@ -40,11 +54,20 @@ namespace project_hook
 			m_Weapons.Add(new Weapon_SideShot(this, 10, 200, 500, TextureLibrary.getGameTexture("FireBall", "1")));
 
 			m_Shield = p_Shield;
+			
+			m_MaxShield = m_Shield;
 
+<<<<<<< .mine
+			if (m_MaxShield > 0)
+			{
+				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.MidGround.Bottom);
+				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+=======
 			if (m_Shield > 0)
 			{
 				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.MidGround.Bottom);
 				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+>>>>>>> .r343
 
 				dic.Add(PathStrategy.ValueKeys.Target, this);
 				dic.Add(PathStrategy.ValueKeys.Base, m_ShieldSprite);
@@ -81,10 +104,17 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
+<<<<<<< .mine
+			if (m_MaxShield > 0 && m_ShieldSprite !=null)
+			{
+				m_ShieldSprite.Transparency = (m_Shield + 0.0f) / (m_MaxShield+ 0.0f);
+			}
+=======
 			if (m_ShieldSprite != null)
 			{
 				m_ShieldSprite.Visible = (Shield > 0);
 			}
+>>>>>>> .r343
 		}
 
 		public override void RegisterCollision(Collidable p_Other)
@@ -95,8 +125,25 @@ namespace project_hook
 				{
 					// death effect, and remove?
 				}
+
 				Shot shot = (Shot)p_Other;
-				this.Health -= shot.Damage;
+				int damage = shot.Damage;
+
+				if (Shield < damage)
+				{
+					damage -= Shield;
+					Shield = 0;
+				}
+				else{
+					Shield -= damage;
+					damage = 0;
+				}
+
+				if (damage > 0)
+				{
+					this.Health -= damage;
+					damage = 0;
+				}
 
 				//Possible attach the explosion sprite to the ship
 			}

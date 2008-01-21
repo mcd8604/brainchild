@@ -99,6 +99,7 @@ namespace project_hook
 		protected override void LoadGraphicsContent(bool loadAllContent)
 		{
 
+			
 			if (loadAllContent)
 			{
 				TextureLibrary.reloadAll();
