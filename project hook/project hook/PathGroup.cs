@@ -9,6 +9,17 @@ namespace project_hook
 	{
 
 		private List<Path> m_list = new List<Path>();
+		private List<Path> List
+		{
+			get
+			{
+				return m_list;
+			}
+			set
+			{
+				m_list = value;
+			}
+		}
 
 		public PathGroup() { }
 

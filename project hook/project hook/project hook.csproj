@@ -73,6 +73,14 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>CursorSprite</Name>
     </Compile>
+    <Compile Include="Event.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Event</Name>
+    </Compile>
+    <Compile Include="EventCreateShip.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>EventCreateShip</Name>
+    </Compile>
     <Compile Include="FPS.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FPS</Name>
