@@ -10,7 +10,6 @@ namespace project_hook
 {
 	public class World
 	{
-
 		private List<Sprite> m_SpriteList;
 
 		private static Boolean m_CreateWorld = false;

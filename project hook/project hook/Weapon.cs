@@ -114,90 +114,65 @@ namespace project_hook
 				m_LastShot = value;
 			}
 		}
+
+		//the angle that the shot is to be fired at
+		private float m_Degree;
+		public float Degree
+		{
+			get
+			{
+				return m_Degree;
+			}
+			set
+			{
+				m_Degree = value;
+			}
+		}
 		#endregion // End of variables and Properties Region
 
-		public Weapon(Ship p_Ship, int p_Strength, int p_Delay, int p_Speed, GameTexture p_Shot)
+		public Weapon(Ship p_Ship, int p_Strength, int p_Delay, int p_Speed, GameTexture p_Shot, float p_Degree)
 		{
 			Ship = p_Ship;
 			Strength = p_Strength;
 			Delay = p_Delay;
 			Speed = p_Speed;
 			Shot = p_Shot;
+			Degree = p_Degree;
+
 			ShotNumber = 0;
 		}
 
 		//this function will creat a Shot at the current location
-		public virtual List<Sprite> CreateShots(GameTime p_GameTime)
+		public virtual Sprite CreateShot(GameTime p_GameTime, Vector2 p_Position)
 		{
 			if (p_GameTime.TotalGameTime.TotalMilliseconds < m_LastShot + m_Delay)
 			{
 				return null;
 			}
-				//creates a temp shot
-				List<Sprite> t_Shots = new List<Sprite>();
 
-				//first shot
-				Shot t_Shot1 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Position, 75, 30, m_Shot, 255f, true,
-										0, Depth.MidGround.Top, Ship.Faction, -1, null, m_Speed, null, 20, 10);
-				t_Shot1.CollisonEffect = TextureLibrary.getGameTexture("poisonsplat", "");
-				t_Shot1.Bound = Collidable.Boundings.Diamond;
-				//adds all the stuff that was in Game1
-				//i just moved it over here.
-				t_Shot1.setAnimation("RedShot", 10);
+			Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber, p_Position, 75, 30, m_Shot, 255f, true,
+								  m_Degree, Depth.MidGround.Top, Ship.Faction, -1, null, 50, null, 10, 10);
 
+			//adds all the stuff that was in Game1
+			//i just moved it over here.
+			t_Shot.setAnimation("FireBall", 10);
 
-				//Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				//dic.Add(PathStrategy.ValueKeys.Start, t_Shot1.Center);
-				//dic.Add(PathStrategy.ValueKeys.End, new Vector2(-500, -500));
-				//dic.Add(PathStrategy.ValueKeys.Base, t_Shot1);
-				//dic.Add(PathStrategy.ValueKeys.Speed, (float)500);
-				//t_Shot1.Path = new Path(Paths.Shot, dic);
+			Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
+			dic.Add(PathStrategy.ValueKeys.Base, t_Shot);
+			dic.Add(PathStrategy.ValueKeys.Start, p_Position);
+			dic.Add(PathStrategy.ValueKeys.Speed, m_Speed);
+			dic.Add(PathStrategy.ValueKeys.Degree, m_Degree);
+			t_Shot.Path = new Path(Paths.Shot, dic);
 
-				Dictionary<PathStrategy.ValueKeys, Object> dic1 = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic1.Add(PathStrategy.ValueKeys.Base, t_Shot1);
-				dic1.Add(PathStrategy.ValueKeys.Velocity, new Vector2(-353, -353));
-				dic1.Add(PathStrategy.ValueKeys.Duration, 5f);
-				t_Shot1.Path = new Path(Paths.Straight, dic1);
+			t_Shot.Animation.StartAnimation();
 
-				t_Shot1.Rotation = (float)-Math.PI / 4f;
+			//gets the current time in milliseconds
+			m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
+			++m_ShotNumber;
 
-				t_Shot1.Animation.StartAnimation();
+			Console.WriteLine(m_ShotNumber);
 
-				//second shot
-				Shot t_Shot2 = new Shot(m_Ship.Name + m_ShotNumber, m_Ship.Center, 75, 30, m_Shot, 255f, true,
-										0, Depth.MidGround.Top, Ship.Faction, -1, null, m_Speed, null, 20, 10);
-				t_Shot2.Bound = Collidable.Boundings.Diamond;
-				Vector2 shot = t_Shot2.Position;
-				shot.X = m_Ship.Position.X + 50;
-				shot.Y = m_Ship.Position.Y;
-				t_Shot2.Position = shot;
-
-				t_Shot2.setAnimation("RedShot", 10);
-
-
-				//dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				//dic.Add(PathStrategy.ValueKeys.Start, t_Shot2.Center);
-				//dic.Add(PathStrategy.ValueKeys.End, new Vector2(900, -500));
-				//dic.Add(PathStrategy.ValueKeys.Base, t_Shot2);
-				//dic.Add(PathStrategy.ValueKeys.Speed, (float)500);
-				//t_Shot2.Path = new Path(Paths.Shot, dic);
-
-				Dictionary<PathStrategy.ValueKeys, Object> dic2 = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic2.Add(PathStrategy.ValueKeys.Base, t_Shot2);
-				dic2.Add(PathStrategy.ValueKeys.Velocity, new Vector2(353, -353));
-				dic2.Add(PathStrategy.ValueKeys.Duration, 5f);
-				t_Shot2.Path = new Path(Paths.Straight, dic2);
-
-				t_Shot2.Rotation = (float)Math.PI / 4f;
-
-				t_Shot2.Animation.StartAnimation();
-
-				//gets the current time in milliseconds
-				m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
-				++m_ShotNumber;
-				t_Shots.Add(t_Shot1);
-				t_Shots.Add(t_Shot2);
-				return t_Shots;
+			return t_Shot;
 		}
 	}
 }
