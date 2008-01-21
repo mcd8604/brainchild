@@ -44,7 +44,7 @@ namespace project_hook
 				float newY = s.Position.Y + (m_ScrollSpeed);
 				if (s.Position.Y >= World.m_ViewPortSize.Height)
 				{
-					newY = 0 - s.Height;
+					newY = 0 - s.Height + (m_ScrollSpeed);
 				}
 				s.Position = new Vector2(s.Position.X, newY);
 			}
