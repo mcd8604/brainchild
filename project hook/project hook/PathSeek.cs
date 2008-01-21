@@ -84,6 +84,7 @@ namespace project_hook
 			if (temp.Equals(Vector2.Zero))
 			{
 				m_Done = true;
+				return;
 			}
 			if (Rotation)
 			{
@@ -91,6 +92,11 @@ namespace project_hook
 			}
 
 			Vector2 temp2 = Vector2.Multiply(Vector2.Normalize(temp), (float)(Speed * (p_gameTime.ElapsedGameTime.TotalSeconds)));
+
+			if (float.IsNaN(temp2.X) || float.IsNaN(temp2.Y))
+			{
+				throw new ArithmeticException("This shouldn't happen");
+			}
 
 			if (Math.Abs(temp2.X) > Math.Abs(temp.X))
 			{
