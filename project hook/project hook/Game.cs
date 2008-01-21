@@ -232,5 +232,25 @@ namespace project_hook
 
 			base.Draw(gameTime);
 		}
+
+		protected override void OnActivated(object sender, EventArgs args)
+		{
+			base.OnActivated(sender, args);
+			Console.WriteLine("ACTIVATED");
+		}
+
+		protected override void OnDeactivated(object sender, EventArgs args)
+		{
+			base.OnDeactivated(sender, args);
+			Console.WriteLine("DEACTIVATED");
+			if (m_World != null)
+			{
+				if (m_World.State == World.GameState.Running)
+				{
+					m_World.changeState(World.GameState.Paused);
+					Menus.setCurrentMenu(Menus.MenuScreens.Pause);
+				}
+			}
+		}
 	}
 }
