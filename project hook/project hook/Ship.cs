@@ -57,18 +57,11 @@ namespace project_hook
 			
 			m_MaxShield = m_Shield;
 
-<<<<<<< .mine
+
 			if (m_MaxShield > 0)
 			{
 				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.MidGround.Bottom);
 				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-=======
-			if (m_Shield > 0)
-			{
-				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.MidGround.Bottom);
-				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
->>>>>>> .r343
-
 				dic.Add(PathStrategy.ValueKeys.Target, this);
 				dic.Add(PathStrategy.ValueKeys.Base, m_ShieldSprite);
 				m_ShieldSprite.Path = new Path(Paths.Follow, dic);
@@ -104,17 +97,11 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
-<<<<<<< .mine
+
 			if (m_MaxShield > 0 && m_ShieldSprite !=null)
 			{
 				m_ShieldSprite.Transparency = (m_Shield + 0.0f) / (m_MaxShield+ 0.0f);
 			}
-=======
-			if (m_ShieldSprite != null)
-			{
-				m_ShieldSprite.Visible = (Shield > 0);
-			}
->>>>>>> .r343
 		}
 
 		public override void RegisterCollision(Collidable p_Other)
