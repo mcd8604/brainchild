@@ -216,7 +216,7 @@ namespace project_hook
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			graphics.GraphicsDevice.Clear(Color.LimeGreen);
+			graphics.GraphicsDevice.Clear(Color.Black);
 
 			if (m_World != null)
 			{

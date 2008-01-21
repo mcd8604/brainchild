@@ -113,6 +113,7 @@ namespace project_hook
 		public void TailAttack(Vector2 p_Target, GameTime p_GameTime)
 		{
 			//attack with tail
+			//I need to be changed to elapsed time
 			if (m_EnemyCaught == null && p_GameTime.TotalGameTime.TotalMilliseconds >= m_LastTailAttack + m_TailAttackDelay)
 			{
 				m_TailTarget = p_Target;
