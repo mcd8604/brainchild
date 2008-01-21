@@ -185,7 +185,7 @@ namespace project_hook
 
 		private void spawnEnemy()
 		{
-			enemy = new Ship("Enemy", new Vector2(100f, -100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100);
+			enemy = new Ship("Enemy", new Vector2(100f, -100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100,"OneShot");
 
 			PathGroup group1 = new PathGroup();
 			Dictionary<PathStrategy.ValueKeys, Object> dicS = new Dictionary<PathStrategy.ValueKeys, object>();

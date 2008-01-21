@@ -9,9 +9,8 @@ namespace project_hook
 	{
 		Collidable m_Base;
 		Vector2 m_Start;
-		Vector2 m_End;
-		double m_Slope;
-		float m_Speed;
+		float m_Slope;
+		int m_Speed;
 		double m_Delta;
 
 		public PathShot(Dictionary<ValueKeys, Object> p_Values)
@@ -19,12 +18,8 @@ namespace project_hook
 		{
 			m_Base = (Collidable)m_Values[ValueKeys.Base];
 			m_Start = (Vector2)m_Values[ValueKeys.Start];
-			m_End = (Vector2)m_Values[ValueKeys.End];
-			m_Speed = (float)m_Values[ValueKeys.Speed];
-
-			float x = m_End.X - m_Start.X;
-			float y = m_End.Y - m_Start.Y;
-			m_Slope = (double)Math.Atan2(y, x);
+			m_Speed = (int)m_Values[ValueKeys.Speed];
+			m_Slope = (float)m_Values[ValueKeys.Degree];
 			m_Base.Rotation = (float)(m_Slope + MathHelper.PiOver2);
 		}
 

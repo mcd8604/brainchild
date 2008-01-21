@@ -316,10 +316,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Weapon</Name>
     </Compile>
-    <Compile Include="Weapon_SideShot.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Weapon_SideShot</Name>
-    </Compile>
     <Compile Include="World.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>World</Name>
