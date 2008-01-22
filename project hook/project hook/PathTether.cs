@@ -33,12 +33,10 @@ namespace project_hook
 			if (float.IsNaN(Object.Center.X) || float.IsNaN(Object.Center.Y))
 			{
 				throw new ArgumentException("Object location is invalid.");
-				return;
 			}
 			if (float.IsNaN(AttachedTo.Center.X) || float.IsNaN(AttachedTo.Center.Y))
 			{
 				throw new ArgumentException("Target location is invalid.");
-				return;
 			}
 
 			float deltaX = AttachedTo.Center.X - Object.Center.X;

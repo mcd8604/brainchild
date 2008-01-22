@@ -153,9 +153,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathThrow</Name>
     </Compile>
-    <Compile Include="Wall.cs">
+    <Compile Include="WeaponExample.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Wall</Name>
+      <Name>WeaponExample</Name>
     </Compile>
     <Compile Include="YScrollingBackground.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

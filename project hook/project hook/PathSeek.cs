@@ -83,12 +83,10 @@ namespace project_hook
 			if (float.IsNaN(Object.Center.X) || float.IsNaN(Object.Center.Y))
 			{
 				throw new ArgumentException("Object location is invalid.");
-				return;
 			}
 			if (float.IsNaN(goal.X) || float.IsNaN(goal.Y))
 			{
 				throw new ArgumentException("Target location is invalid.");
-				return;
 			}
 
 			Vector2 temp = goal - Object.Center;

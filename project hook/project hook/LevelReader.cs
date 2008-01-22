@@ -261,7 +261,7 @@ namespace project_hook
 
 			//create ship
 			t_Ship = new Ship(m_Name, m_StartPos, m_Health, m_Width, m_Texture, m_Alpha, m_Visible, m_Degree, m_ZBuff, m_Faction, m_Health,
-								m_Shield, null, m_Speed, m_DamageTexture, m_Radius);
+								m_Shield, m_DamageTexture, m_Radius);
 
 			//read in paths
 			do

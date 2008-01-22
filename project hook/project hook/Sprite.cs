@@ -371,23 +371,6 @@ namespace project_hook
 			}
 		}
 
-		/// <summary>
-		/// This will determine the amount of rotation applied to a sprite.
-		/// <b>NOTE!</b> Values in Radians, <b>not</b> Degrees
-		/// </summary>
-		[Obsolete("The Name 'Degree' is misleading, since the value is in Radians")]
-		public float Degree
-		{
-			get
-			{
-				return m_Rotation;
-			}
-			set
-			{
-				m_Rotation = value;
-			}
-		}
-
 		// Why does it have a 'Scale' and Height / Width ??
 		private float m_Scale = -1.0f;
 		public float Scale
