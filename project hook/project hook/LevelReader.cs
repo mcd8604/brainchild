@@ -11,20 +11,7 @@ namespace project_hook
 {
 	class LevelReader
 	{
-		private OrderedDictionary<int, ArrayList> m_events;
-
-		private String m_Path;
-		public String Path
-		{
-			get
-			{
-				return m_Path;
-			}
-			set
-			{
-				m_Path = value;
-			}
-		}
+		private Dictionary<int, List<Event>> m_Events=new Dictionary<int, List<Event>>();
 
 		private String m_FileName;
 		public String FileName
@@ -39,20 +26,20 @@ namespace project_hook
 			}
 		}
 
+		private int m_Distance;
+
 		public LevelReader()
 		{
-			Path = System.Environment.CurrentDirectory + "\\Content\\Levels\\";
+			FileName = System.Environment.CurrentDirectory + "\\Content\\Levels\\";
 		}
 		public LevelReader(String p_FileName)
 		{
-			Path = System.Environment.CurrentDirectory + "\\Content\\Levels\\";
-			FileName = p_FileName;
+			FileName = System.Environment.CurrentDirectory + "\\Content\\Levels\\"+p_FileName;
 		}
 
 		public void ReadFile()
 		{
-			String t_Name = m_Path + m_FileName;
-			int t_Dist = 0;
+			String t_Name = m_FileName;
 
 			//Checks for the XML file
 			if (File.Exists(t_Name))
@@ -61,14 +48,14 @@ namespace project_hook
 				t_Settings.ConformanceLevel = ConformanceLevel.Fragment;
 				t_Settings.IgnoreWhitespace = true;
 				t_Settings.IgnoreComments = true;
-				XmlReader reader = XmlReader.Create(m_Path + m_FileName, t_Settings);
+				XmlReader reader = XmlReader.Create( m_FileName, t_Settings);
 
 				reader.Read();
 				reader.ReadStartElement("level");
-
+				//needs to be placed in a loop
 				if (reader.Name.Equals("action"))
 				{
-					t_Dist = int.Parse(reader.GetAttribute(0));
+					m_Distance = int.Parse(reader.GetAttribute(0));
 					reader.ReadStartElement("action");
 					if (reader.Name.Equals("createShip"))
 					{
@@ -76,33 +63,7 @@ namespace project_hook
 						LoadEnemy(reader);
 					}
 				}
-
-				////Lods the XML file
-				//XmlDocument doc = new XmlDocument();
-				//doc.Load(m_Path + m_FileName);
-
-				////Checks gets the Rectangles to load
-				//XmlElement elm = doc.DocumentElement;
-				//XmlNodeList lstRect = elm.ChildNodes;
-
-				//Iterates over each rectangle
-				//for (int i = 0; i < lstRect.Count; i++)
-				//{
-
-				//XmlNodeList nodes = lstRect.Item(i).ChildNodes;
-				//int j = 0;
-
-				//String name = (String)(nodes.Item(j++).InnerText);
-				//String tag = (String)(nodes.Item(j++).InnerText);
-				//int x = int.Parse(nodes.Item(j++).InnerText);
-				//int y = int.Parse(nodes.Item(j++).InnerText);
-				//int width = int.Parse(nodes.Item(j++).InnerText);
-				//int height = int.Parse(nodes.Item(j++).InnerText);
-
-				////Stores it in the GameTexture table
-				//GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
-				//addGameTexture(name, tag, t_GameTexture);
-				//}
+				//that reads to the end of the file
 			}
 			else
 			{
@@ -112,6 +73,11 @@ namespace project_hook
 
 		private void LoadEnemy(XmlReader p_Reader)
 		{
+			Ship t_Ship;
+
+			Dictionary<Events.ValueKeys, object> t_dic = new Dictionary<Events.ValueKeys, object>();
+			List<Event> t_List = new List<Event>();
+
 			String m_Name;
 			Vector2 m_StartPos = new Vector2();
 			int m_Height;
@@ -124,17 +90,25 @@ namespace project_hook
 			float m_Alpha;
 			bool m_Visible;
 			float m_Degree;
-			float m_ZBuff;
-			Collidable.Factions m_Faction;
+
+			float m_ZBuff=0;
+			String zbGround;
+			String zbLevel;
+
+			Collidable.Factions m_Faction=0;
+			String faction;
+
 			int m_Health;
 			int m_Shield;
 
+			PathGroup m_Path = new PathGroup();
 			Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			//dic.Add(PathStrategy.ValueKeys.Base, enemy);
 			float pSpeed;//dic.Add(PathStrategy.ValueKeys.Speed, 100f);
 			Vector2 pEndPos = new Vector2();//dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
 			float pDuration;//dic.Add(PathStrategy.ValueKeys.Duration, 5f);
 			String pType;
+			bool pRotation;
 
 			int m_Speed;
 
@@ -191,12 +165,69 @@ namespace project_hook
 			p_Reader.ReadEndElement();
 
 			//read in zBuff
-			Console.WriteLine(p_Reader.Name);
+			zbGround = p_Reader.GetAttribute(0);
+			zbLevel = p_Reader.GetAttribute(1);
+			if (zbGround.Equals("ForeGround"))
+			{
+				if (zbLevel.Equals("Top"))
+				{
+					m_ZBuff = Depth.ForeGround.Top;
+				}
+				else if (zbLevel.Equals("Mid"))
+				{
+					m_ZBuff = Depth.ForeGround.Mid;
+				}
+				else if (zbLevel.Equals("Bottom"))
+				{
+					m_ZBuff = Depth.ForeGround.Bottom;
+				}
+			}
+			else if (zbGround.Equals("BackGround"))
+			{
+				if (zbLevel.Equals("Top"))
+				{
+					m_ZBuff = Depth.BackGround.Top;
+				}
+				else if (zbLevel.Equals("Mid"))
+				{
+					m_ZBuff = Depth.BackGround.Mid;
+				}
+				else if (zbLevel.Equals("Bottom"))
+				{
+					m_ZBuff = Depth.BackGround.Bottom;
+				}
+			}
+			else if (zbGround.Equals("MidGround"))
+			{
+				if (zbLevel.Equals("Top"))
+				{
+					m_ZBuff = Depth.MidGround.Top;
+				}
+				else if (zbLevel.Equals("Mid"))
+				{
+					m_ZBuff = Depth.MidGround.Mid;
+				}
+				else if (zbLevel.Equals("Bottom"))
+				{
+					m_ZBuff = Depth.MidGround.Bottom;
+				}
+			}
 
 			//read in faction
 			p_Reader.ReadStartElement();
-			p_Reader.ReadString();
-			Console.WriteLine(p_Reader.Name);
+			faction = p_Reader.ReadString();
+			if (faction.Equals("Enemy"))
+			{
+				m_Faction = Collidable.Factions.Enemy;
+			}
+			else if (faction.Equals("Player"))
+			{
+				m_Faction = Collidable.Factions.Player;
+			}
+			else if (faction.Equals("Environment"))
+			{
+				m_Faction = Collidable.Factions.Environment;
+			}
 			p_Reader.ReadEndElement();
 
 			//read in health
@@ -230,29 +261,57 @@ namespace project_hook
 			//Console.WriteLine(m_Radius);
 
 			//create ship
-
+			t_Ship = new Ship(m_Name, m_StartPos, m_Health, m_Width, m_Texture, m_Alpha, m_Visible, m_Degree, m_ZBuff, m_Faction, m_Health,
+								m_Shield, null, m_Speed, m_DamageTexture, m_Radius);
 
 			//read in paths
 			do
 			{
+				dic = new Dictionary<PathStrategy.ValueKeys, object>();
 				//type
 				p_Reader.ReadStartElement("path");
 				pType = p_Reader.ReadString();
 				p_Reader.ReadEndElement();
-				Console.WriteLine(pType);
-				//x y
-				pEndPos.X = int.Parse(p_Reader.GetAttribute(0));
-				pEndPos.Y = int.Parse(p_Reader.GetAttribute(1));
-				//duration
-				p_Reader.ReadStartElement();
-				pDuration = float.Parse(p_Reader.ReadString());
-				p_Reader.ReadEndElement();
-				//speed
-				p_Reader.ReadStartElement();
-				pSpeed = int.Parse(p_Reader.ReadString());
-				p_Reader.ReadEndElement();
+				if(pType.Equals("Straight"))
+				{					
+					//x y
+					pEndPos.X = int.Parse(p_Reader.GetAttribute(0));
+					pEndPos.Y = int.Parse(p_Reader.GetAttribute(1));
+					//duration
+					p_Reader.ReadStartElement();
+					pDuration = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+					//speed
+					p_Reader.ReadStartElement();
+					pSpeed = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+					//rotation
+					p_Reader.ReadStartElement();
+					pRotation = bool.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+
+					dic.Add(PathStrategy.ValueKeys.Base, t_Ship);
+					dic.Add(PathStrategy.ValueKeys.Speed, pSpeed);
+					dic.Add(PathStrategy.ValueKeys.End, pEndPos);
+					dic.Add(PathStrategy.ValueKeys.Duration, pDuration);
+					dic.Add(PathStrategy.ValueKeys.Rotation, false);
+					t_Ship.PathList.AddPath(new Path(Paths.Straight, dic));
+				}
+				//t_Ship.PathList.AddPath(m_Path);
 				p_Reader.ReadEndElement();
 			} while (p_Reader.Name.Equals("path"));
+			
+			//add the ship to the event list
+			t_dic.Add(Events.ValueKeys.Sprite,t_Ship);
+			if (m_Events.ContainsKey(m_Distance))
+			{
+				m_Events[m_Distance].Add(new Event(Type.create, t_dic));
+			}
+			else
+			{
+				t_List.Add(new Event(Type.create, t_dic));
+				m_Events.Add(m_Distance, t_List);
+			}
 		}
 	}
 }

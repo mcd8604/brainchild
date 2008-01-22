@@ -1,22 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
-	<Asset Type="project hook.EventCreateShip">
-		<Distance>1</Distance>
-		<Name>Enemy</Name>
-		<StartPos>100 100</StartPos> 
-		<Height>100</Height>
-		<Width>100</Width>
-		<TextureName>Enemy1</TextureName>
-		<Alpha>255</Alpha>
-		<Visible>true</Visible>
-		<Degree>0</Degree>
-		<ZBuffSpecs>MidGround Bottom</ZBuffSpecs>
-		<Faction>enemy</Faction>
-		<Health>100</Health>
-		<Shield>0</Shield>
-		<Speed>100</Speed>
-		<DamageTexture>Explosion 3</DamageTexture>
-		<Radius>50</Radius>
-		<PathGroup>null</PathGroup>
-	</Asset>
+<<<<<<< .mine
+	<action dist="1">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="200"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+			<path>
+				<type>Straight</type>
+				<end x="100" y="200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
 </level>
