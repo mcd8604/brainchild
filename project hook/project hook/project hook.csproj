@@ -153,6 +153,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathThrow</Name>
     </Compile>
+    <Compile Include="Wall.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Wall</Name>
+    </Compile>
     <Compile Include="YScrollingBackground.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>YScrollingBackground</Name>
@@ -585,6 +589,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>veinbg</Name>
+    </Content>
+    <Content Include="Content\Textures\virus1.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>virus1</Name>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
