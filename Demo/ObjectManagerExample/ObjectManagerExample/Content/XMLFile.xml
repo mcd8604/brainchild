@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<settings>
+	<templates>
+		<template name="CompAttribs">
+			<DrawOrder>100</DrawOrder>
+			<UpdateOrder>200</UpdateOrder>
+		</template>
+	</templates>
+
+	<objects>
+		<object name="Player" type="ObjectManagerExample.AnimatedSprite">
+			<ComponentAttributes template="CompAttribs" />
+			
+			<Position>
+				<GetRandomPosition refObjectName="Game1"></GetRandomPosition>			 
+			</Position>
+			
+			<AddAnimation>
+				<Animation>
+					<Name>center</Name>
+					<Texture customLoader="TextureLoader">player</Texture>
+					<TimesToPlay>0</TimesToPlay>
+					<Frames>
+						<Frame>
+							<Region>
+								<X>0</X>
+								<Y>0</Y>
+								<Width>64</Width>
+								<Height>116</Height>
+							</Region>
+							<Duration>75</Duration>
+						</Frame>
+					</Frames>
+					<ApplyFrameExpansion>horizontal</ApplyFrameExpansion>
+				</Animation>
+				<IsDefault>true</IsDefault>
+			</AddAnimation>
+
+			<AddAnimation>
+				<Animation>
+					<Name>die</Name>
+					<Texture customLoader="TextureLoader">player_death</Texture>
+					<TimesToPlay>1</TimesToPlay>
+					<Frames>
+						<Frame>
+							<Region>
+								<X>0</X>
+								<Y>0</Y>
+								<Width>64</Width>
+								<Height>116</Height>
+							</Region>
+							<Duration>75</Duration>
+						</Frame>
+					</Frames>
+					<ApplyFrameExpansion>horizontal</ApplyFrameExpansion>
+				</Animation>
+				<IsDefault>false</IsDefault>
+			</AddAnimation>
+		</object>
+	</objects>
+</settings>
