@@ -296,7 +296,7 @@ namespace project_hook
 
 			if (InputHandler.IsActionPressed(Actions.TailPrimary))
 			{
-				tail.TailAttack(InputHandler.MousePostion, gameTime);
+				tail.TailAttack(InputHandler.MousePostion);
 			}
 
 
