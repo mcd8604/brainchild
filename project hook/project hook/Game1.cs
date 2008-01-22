@@ -265,7 +265,7 @@ namespace project_hook
 
 			if (InputHandler.IsActionDown(Actions.ShipPrimary))
 			{
-				player.Shoot(gameTime);
+				player.Shoot();
 			}
 
 
@@ -304,7 +304,7 @@ namespace project_hook
 			{
 				if (tail.EnemyCaught != null)
 				{
-					tail.EnemyCaught.shoot(gameTime);
+					tail.EnemyCaught.shoot();
 				}
 			}
 

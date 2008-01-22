@@ -170,7 +170,7 @@ namespace project_hook
 			{
 				if (InputHandler.IsActionDown(Actions.ShipPrimary))
 				{
-					m_Player.Shoot(p_GameTime);
+					m_Player.Shoot();
 				}
 
 				if (InputHandler.IsActionPressed(Actions.ShipPrimary))
@@ -202,7 +202,14 @@ namespace project_hook
 				{
 					tail.TailAttack(InputHandler.MousePostion);
 				}
-				if (InputHandler.IsActionPressed(Actions.TailSecondary))
+				if (InputHandler.IsActionDown(Actions.TailSecondary))
+				{
+					if (tail.EnemyCaught != null)
+					{
+						tail.EnemyCaught.shoot();
+					}
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
 					if (Music.IsPlaying("bg1"))
 					{

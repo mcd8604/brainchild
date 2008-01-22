@@ -77,8 +77,8 @@ namespace project_hook
 		}
 
 		//this is the speed of the sprite
-		private int m_Speed;
-		public int Speed
+		private float m_Speed;
+		public float Speed
 		{
 			get
 			{
@@ -150,7 +150,7 @@ namespace project_hook
 		#endregion // End of variables and Properties Region
 
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, int p_Speed, GameTexture p_DamageEffect, float p_Radius)
+							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, float p_Speed, GameTexture p_DamageEffect, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
 		{
 			Faction = p_Faction;

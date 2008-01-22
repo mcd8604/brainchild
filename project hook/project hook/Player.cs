@@ -128,9 +128,9 @@ namespace project_hook
 			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, null, 0, null, 50);
 		}
 
-		public void Shoot(GameTime p_GameTime)
+		public void Shoot()
 		{
-			m_PlayerShip.shoot(p_GameTime);
+			m_PlayerShip.shoot();
 		}
 
 		private void CalcMovement(GameTime p_GameTime, Vector2 p_PlayerSpeedBuffer)

@@ -19,7 +19,7 @@ namespace project_hook
 			m_Base = (Collidable)m_Values[ValueKeys.Base];
 			m_Start = (Vector2)m_Values[ValueKeys.Start];
 			m_Speed = (int)m_Values[ValueKeys.Speed];
-			m_Slope = (float)m_Values[ValueKeys.Degree];
+			m_Slope = (float)m_Values[ValueKeys.Angle];
 			m_Base.Rotation = (float)(m_Slope + MathHelper.PiOver2);
 		}
 

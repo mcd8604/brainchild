@@ -60,8 +60,8 @@ namespace project_hook
 		}
 
 		//this is how fast the shot will travel
-		protected int m_Speed;
-		public int Speed
+		protected float m_Speed;
+		public float Speed
 		{
 			get
 			{
@@ -88,7 +88,7 @@ namespace project_hook
 		}
 
 		//this is used to keep track of how many shots have been fired by this weapon
-		protected int m_ShotNumber;
+		protected int m_ShotNumber = 0;
 		public int ShotNumber
 		{
 			get
@@ -116,42 +116,41 @@ namespace project_hook
 		}
 
 		//the angle that the shot is to be fired at
-		private float m_Degree;
-		public float Degree
+		private float m_Angle;
+		public float Angle
 		{
 			get
 			{
-				return m_Degree;
+				return m_Angle;
 			}
 			set
 			{
-				m_Degree = value;
+				m_Angle = value;
 			}
 		}
 		#endregion // End of variables and Properties Region
 
-		public Weapon(Ship p_Ship, int p_Strength, int p_Delay, int p_Speed, GameTexture p_Shot, float p_Degree)
+		public Weapon(Ship p_Ship, int p_Strength, int p_Delay, float p_Speed, GameTexture p_Shot, float p_Angle)
 		{
 			Ship = p_Ship;
 			Strength = p_Strength;
 			Delay = p_Delay;
 			Speed = p_Speed;
 			Shot = p_Shot;
-			Degree = p_Degree;
-
-			ShotNumber = 0;
+			Angle = p_Angle;
 		}
 
-		//this function will creat a Shot at the current location
-		public virtual Sprite CreateShot(GameTime p_GameTime, Vector2 p_Position)
+		//this function will create a Shot at the current location
+		// Only a single shot? 
+		public virtual Sprite CreateShot()
 		{
-			if (p_GameTime.TotalGameTime.TotalMilliseconds < m_LastShot + m_Delay)
+			if (m_LastShot < m_Delay)
 			{
 				return null;
 			}
 
-			Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber, p_Position, 75, 30, m_Shot, 255f, true,
-								  m_Degree, Depth.MidGround.Top, Ship.Faction, -1, null, 50, null, 10, 10);
+			Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber++, Ship.Center, 30, 75, m_Shot, 255f, true,
+								  m_Angle, Depth.MidGround.Top, Ship.Faction, -1, null, 50f, null, 10, 10);
 
 			//adds all the stuff that was in Game1
 			//i just moved it over here.
@@ -159,20 +158,24 @@ namespace project_hook
 
 			Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			dic.Add(PathStrategy.ValueKeys.Base, t_Shot);
-			dic.Add(PathStrategy.ValueKeys.Start, p_Position);
 			dic.Add(PathStrategy.ValueKeys.Speed, m_Speed);
-			dic.Add(PathStrategy.ValueKeys.Degree, m_Degree);
-			t_Shot.Path = new Path(Paths.Shot, dic);
+			dic.Add(PathStrategy.ValueKeys.Angle, m_Angle);
+			dic.Add(PathStrategy.ValueKeys.Rotation, true);
+			t_Shot.Path = new Path(Paths.Straight, dic);
 
 			t_Shot.Animation.StartAnimation();
 
 			//gets the current time in milliseconds
-			m_LastShot = p_GameTime.TotalGameTime.TotalMilliseconds;
-			++m_ShotNumber;
+			m_LastShot = 0;
 
-			Console.WriteLine(m_ShotNumber);
+			//Console.WriteLine(m_ShotNumber);
 
 			return t_Shot;
+		}
+
+		public void Update(GameTime p_Time)
+		{
+			m_LastShot += p_Time.ElapsedGameTime.TotalMilliseconds;
 		}
 	}
 }
