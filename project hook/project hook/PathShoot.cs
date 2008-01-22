@@ -18,7 +18,7 @@ namespace project_hook
 
 		public override void CalculateMovement(GameTime p_gameTime)
 		{
-			m_Base.shoot(p_gameTime);
+			m_Base.shoot();
 		}
 	}
 }

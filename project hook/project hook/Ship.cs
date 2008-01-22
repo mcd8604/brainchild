@@ -98,11 +98,11 @@ namespace project_hook
 			}
 		}
 
-		public void shoot(GameTime p_GameTime)
+		public void shoot()
 		{
 			foreach (Weapon w in m_Weapons)
 			{
-				Sprite shot = w.CreateShot(p_GameTime,m_Position);
+				Sprite shot = w.CreateShot();
 				if (shot != null)
 				{
 					addSprite(shot);
@@ -129,6 +129,10 @@ namespace project_hook
 			if (m_MaxShield > 0 && m_ShieldSprite !=null)
 			{
 				m_ShieldSprite.Transparency = (m_Shield + 0.0f) / (m_MaxShield+ 0.0f);
+			}
+			foreach (Weapon w in m_Weapons)
+			{
+				w.Update(p_Time);
 			}
 		}
 

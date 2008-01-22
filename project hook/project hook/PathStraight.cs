@@ -21,14 +21,15 @@ namespace project_hook
 	class PathStraight : PathStrategy
 	{
 
+
 		Sprite Object;
 		Vector2 Velocity;
 		Vector2 End;
 		float speed;
-		bool flag;
 		bool timed;
 		float Duration;
 		bool Rotation = true;
+		bool DerivedVelocity = false;
 
 		public PathStraight(Dictionary<ValueKeys, Object> p_Values)
 			: base(p_Values)
@@ -37,14 +38,21 @@ namespace project_hook
 
 			if (m_Values.ContainsKey(ValueKeys.Velocity))
 			{
-				flag = true;
 				Velocity = (Vector2)m_Values[ValueKeys.Velocity];
 			}
-			else
+			else if (m_Values.ContainsKey(ValueKeys.Angle) ){
+				float angle = (float)m_Values[ValueKeys.Angle];
+				speed = (float)m_Values[ValueKeys.Speed];
+				Velocity.X = speed * (float)Math.Cos(angle);
+				Velocity.Y = speed * (float)Math.Sin(angle);
+			}
+			else if (m_Values.ContainsKey(ValueKeys.End) )
 			{
-				flag = false;
+				DerivedVelocity = true;
 				End = (Vector2)m_Values[ValueKeys.End];
 				speed = (float)m_Values[ValueKeys.Speed];
+			} else {
+				throw new ArgumentException("Path Straight dictionary did not contain required parameters");
 			}
 
 			timed = m_Values.ContainsKey(ValueKeys.Duration);
@@ -67,7 +75,7 @@ namespace project_hook
 
 			Vector2 temp = Vector2.Multiply(Velocity, (float)p_gameTime.ElapsedGameTime.TotalSeconds);
 
-			if (!flag)
+			if (DerivedVelocity)
 			{
 				if ((Math.Abs(temp.X) > Math.Abs((End - Object.Center).X)) && (Math.Abs(temp.Y) > Math.Abs((End - Object.Center).Y)))
 				{
@@ -98,7 +106,7 @@ namespace project_hook
 		{
 			m_Done = false;
 
-			if (!flag)
+			if (DerivedVelocity)
 			{
 
 				if (float.IsNaN(Object.Center.X) || float.IsNaN(Object.Center.Y))
@@ -113,13 +121,14 @@ namespace project_hook
 				}
 
 				Vector2 temp = End - Object.Center;
-				if (Rotation)
-				{
-					Object.Rotation = (float)Math.Atan2(temp.Y, temp.X);
-				}
 
 				Velocity = Vector2.Multiply(Vector2.Normalize(temp), (float)speed);
 
+			}
+
+			if (Rotation)
+			{
+				Object.Rotation = (float)Math.Atan2(Velocity.Y, Velocity.X);
 			}
 
 			if (timed)

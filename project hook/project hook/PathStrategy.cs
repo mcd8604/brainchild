@@ -12,7 +12,7 @@ namespace project_hook
 		{
 			Start,   //The starting point, Vector2
 			End,     //The Ending point 
-			Degree,  //The Degree of rotation, float 
+			Angle,  //The Degree of rotation, float 
 			Base,    //The that will recieve this information, Sprite 
 			Target,  //The target sprite, Sprite
 			Speed,   //The scalar speed of the movement 

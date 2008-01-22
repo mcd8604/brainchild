@@ -6,23 +6,23 @@
 		<Tag>0</Tag>
 		<PosX>0</PosX>
 		<PosY>0</PosY>
-		<Width>200</Width>
-		<Height>425</Height>
+		<Width>425</Width>
+		<Height>200</Height>
 	</Rectangle>
 	<Rectangle>
 		<Name>FireBall</Name>
 		<Tag>1</Tag>
-		<PosX>250</PosX>
-		<PosY>0</PosY>
-		<Width>200</Width>
-		<Height>425</Height>
+		<PosX>0</PosX>
+		<PosY>250</PosY>
+		<Width>425</Width>
+		<Height>200</Height>
 	</Rectangle>
 	<Rectangle>
 		<Name>FireBall</Name>
 		<Tag>2</Tag>
-		<PosX>425</PosX>
-		<PosY>0</PosY>
-		<Width>200</Width>
-		<Height>425</Height>
+		<PosX>0</PosX>
+		<PosY>425</PosY>
+		<Width>425</Width>
+		<Height>200</Height>
 	</Rectangle>
 </Texture>
