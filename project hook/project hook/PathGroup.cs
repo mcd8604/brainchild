@@ -9,6 +9,7 @@ namespace project_hook
 	{
 
 		private List<Path> m_list = new List<Path>();
+		// What's the pupose of this? It's not used? Who wrote it?
 		private List<Path> List
 		{
 			get
