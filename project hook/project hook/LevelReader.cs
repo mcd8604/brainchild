@@ -13,6 +13,8 @@ namespace project_hook
 	{
 		private Dictionary<int, List<Event>> m_Events=new Dictionary<int, List<Event>>();
 
+        private int m_Distance;
+
 		private String m_FileName;
 		public String FileName
 		{
@@ -25,8 +27,6 @@ namespace project_hook
 				m_FileName = value;
 			}
 		}
-
-		private int m_Distance;
 
 		public LevelReader()
 		{
@@ -48,7 +48,7 @@ namespace project_hook
 				t_Settings.ConformanceLevel = ConformanceLevel.Fragment;
 				t_Settings.IgnoreWhitespace = true;
 				t_Settings.IgnoreComments = true;
-				XmlReader reader = XmlReader.Create( m_FileName, t_Settings);
+				XmlReader reader = XmlReader.Create(m_FileName, t_Settings);
 
 				reader.Read();
 				reader.ReadStartElement("level");
@@ -101,7 +101,6 @@ namespace project_hook
 			int m_Health;
 			int m_Shield;
 
-			PathGroup m_Path = new PathGroup();
 			Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			//dic.Add(PathStrategy.ValueKeys.Base, enemy);
 			float pSpeed;//dic.Add(PathStrategy.ValueKeys.Speed, 100f);
