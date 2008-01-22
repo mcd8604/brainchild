@@ -150,13 +150,11 @@ namespace project_hook
 		#endregion // End of variables and Properties Region
 
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-							float p_Degree, float p_Z, Factions p_Faction, int p_Health, Path p_Path, float p_Speed, GameTexture p_DamageEffect, float p_Radius)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
+							float p_Rotation, float p_Z, Factions p_Faction, int p_Health, GameTexture p_DamageEffect, float p_Radius)
+			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_Z)
 		{
 			Faction = p_Faction;
 			Health = p_Health;
-			Path = p_Path;
-			Speed = p_Speed;
 			DamageEffect = p_DamageEffect;
 			if (DamageEffect != null)
 			{

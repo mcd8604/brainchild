@@ -72,7 +72,7 @@ namespace project_hook
 		{
 			//test
 			LevelReader t_LR = new LevelReader("LevelTest.xml");
-			t_LR.ReadFile();
+			//t_LR.ReadFile();
 
 			InputHandler.LoadDefaultBindings();
 
@@ -150,7 +150,7 @@ namespace project_hook
                     }
 
                 }
-				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, 0, null, 30, player.PlayerShip, 700, m_TailBodySprites);
+				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 30, player.PlayerShip, 700, m_TailBodySprites);
 
 
 
@@ -170,6 +170,9 @@ namespace project_hook
 				spritelist.Add(back);
 
 				spritelist.Add(tail);
+
+				spritelist.Add(player.PlayerShip);
+
 				/*
 				spritelist.Add(shotEffect);
 				spritelist.Add(shot2Effect);
@@ -185,7 +188,7 @@ namespace project_hook
 
 		private void spawnEnemy()
 		{
-			enemy = new Ship("Enemy", new Vector2(100f, -100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, null, 100, TextureLibrary.getGameTexture("Explosion", "1"), 100,"OneShot");
+			enemy = new Ship("Enemy", new Vector2(100f, -100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "1"), 100, "OneShot");
 
 			PathGroup group1 = new PathGroup();
 			Dictionary<PathStrategy.ValueKeys, Object> dicS = new Dictionary<PathStrategy.ValueKeys, object>();
@@ -363,6 +366,11 @@ namespace project_hook
 			if (InputHandler.IsKeyPressed(Keys.F))
 			{
 				graphics.ToggleFullScreen();
+			}
+
+			if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C))
+			{
+				Collision.DevEnableCollisionDisplay(spritelist);
 			}
 
 			/*
