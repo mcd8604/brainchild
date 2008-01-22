@@ -29,7 +29,8 @@ namespace project_hook
 		{
 			m_ScoreTotal = p_Score;
 		}
-
+		
+		// TODO: Needs to be refactored off global time.
 		public ulong RegisterHit(GameTime p_GameTime)
 		{
 			double timeDiff = p_GameTime.TotalGameTime.TotalSeconds - m_LastFiredTime;
