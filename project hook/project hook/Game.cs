@@ -127,6 +127,7 @@ namespace project_hook
 		protected override void Update(GameTime gameTime)
 		{
 
+			// Suspend updating (by returning out of the method) if we are not the active window focus.
 			if (!IsActive)
 				return;
 
@@ -239,6 +240,8 @@ namespace project_hook
 			Console.WriteLine("ACTIVATED");
 		}
 
+		// I am /slightly/ concerned about these events, what happens if we change the state and the menu in the middle of doing something else?
+		// Additional Note - This code /did not/ pause the game on my home machine, It was being called, but to no effect.
 		protected override void OnDeactivated(object sender, EventArgs args)
 		{
 			base.OnDeactivated(sender, args);
