@@ -15,7 +15,6 @@ namespace project_hook
 	public class Sprite
 	{
 		#region Variables and Properties
-
 		/// <summary>
 		/// This is the alpha byte value of the sprite.
 		/// </summary>
@@ -31,7 +30,6 @@ namespace project_hook
 			}
 		}
 
-
 		protected VisualEffect m_Animation = null;
 		/// <summary>
 		/// The animation for the sprite.
@@ -46,9 +44,7 @@ namespace project_hook
 			{
 				m_Animation = value;
 			}
-
 		}
-
 
 		/// <summary>
 		/// A point representing the center of the sprite on the screen.
@@ -66,7 +62,6 @@ namespace project_hook
 			}
 		}
 
-
 		protected Color m_Color = Color.White;
 		/// <summary>
 		/// The color of the sprite, the default white uses the texture directly.
@@ -83,8 +78,6 @@ namespace project_hook
 			}
 		}
 
-
-
 		/// <summary>
 		/// This will create the destination rectangle used to draw the sprite to the screen.
 		/// </summary>
@@ -95,7 +88,6 @@ namespace project_hook
 				return new Rectangle((int)Position.X + Width / 2, (int)Position.Y + Height / 2, Width, Height);
 			}
 		}
-
 
 		protected int m_Height = 0;
 		/// <summary>
@@ -113,7 +105,6 @@ namespace project_hook
 			}
 		}
 
-
 		protected String m_Name = "Unnamed Sprite";
 		/// <summary>
 		/// The identifying name of the sprite
@@ -129,7 +120,6 @@ namespace project_hook
 				m_Name = value;
 			}
 		}
-
 
 		protected PathList m_PathList = new PathList();
 		public PathList PathList
@@ -159,7 +149,6 @@ namespace project_hook
 			}
 		}
 
-
 		protected List<Sprite> m_Parts = null;
 		/// <summary>
 		/// Subsprites that are 'attached' to this sprite
@@ -171,6 +160,7 @@ namespace project_hook
 				return m_Parts;
 			}
 		}
+
 		/// <summary>
 		/// Add a sprite to the list of parts
 		/// </summary>
@@ -184,7 +174,6 @@ namespace project_hook
 
 			m_Parts.Add(p_Sprite);
 		}
-
 
 		protected Vector2 m_Position = Vector2.Zero;
 		/// <summary>
@@ -202,7 +191,6 @@ namespace project_hook
 				m_Position = value;
 			}
 		}
-
 
 		protected float m_Rotation = 0f;
 		/// <summary>
@@ -228,14 +216,12 @@ namespace project_hook
 			get
 			{
 				return MathHelper.ToDegrees(m_Rotation);
-
 			}
 			set
 			{
 				m_Rotation = MathHelper.ToRadians(value);
 			}
 		}
-
 
 		protected List<Sprite> m_SpritesToBeAdded = null;
 		/// <summary>
@@ -248,6 +234,7 @@ namespace project_hook
 				return m_SpritesToBeAdded;
 			}
 		}
+
 		/// <summary>
 		/// Add a sprite to the 'to be added' list
 		/// </summary>
@@ -271,7 +258,6 @@ namespace project_hook
 			m_SpritesToBeAdded.AddRange(p_Sprites);
 		}
 
-
 		protected Vector2 m_StartPosition = Vector2.Zero;
 		/// <summary>
 		/// The start position of the sprite.
@@ -288,7 +274,6 @@ namespace project_hook
 			}
 
 		}
-
 
 		protected GameTexture m_Texture = null;
 		/// <summary>
@@ -307,7 +292,6 @@ namespace project_hook
 			}
 		}
 
-
 		protected Boolean m_ToBeRemoved = false;
 		/// <summary>
 		/// Mark this sprite for removal
@@ -324,7 +308,6 @@ namespace project_hook
 			}
 		}
 
-
 		/// <summary>
 		/// The Transparency of the sprite, as a float between 0 and 1, where 1 is completely opaque.
 		/// </summary>
@@ -339,7 +322,6 @@ namespace project_hook
 				m_Color = new Color(m_Color.R, m_Color.G, m_Color.B, (byte)MathHelper.Clamp(255 * value, 0, 255));
 			}
 		}
-
 
 		protected int m_Width = 0;
 		/// <summary>
@@ -357,7 +339,6 @@ namespace project_hook
 			}
 		}
 
-
 		protected bool m_Visible = true;
 		/// <summary>
 		/// This will determine if the sprite is to be drawn on screen.
@@ -374,7 +355,6 @@ namespace project_hook
 			}
 		}
 
-
 		protected float m_Z = 0f;
 		/// <summary>
 		/// This is the Z Depth value
@@ -390,9 +370,6 @@ namespace project_hook
 				m_Z = value;
 			}
 		}
-
-
-
 
 		/// <summary>
 		/// This will determine the amount of rotation applied to a sprite.
@@ -411,7 +388,6 @@ namespace project_hook
 			}
 		}
 
-
 		// Why does it have a 'Scale' and Height / Width ??
 		private float m_Scale = -1.0f;
 		public float Scale
@@ -425,11 +401,7 @@ namespace project_hook
 				m_Scale = value;
 			}
 		}
-
-
-
 		#endregion // End of variables and Properties Region
-
 
 		public Sprite()
 		{ }

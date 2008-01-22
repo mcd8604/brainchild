@@ -32,7 +32,6 @@ namespace project_hook
 			{
 				m_Values = value;
 			}
-
 		}
 
 		protected bool m_Done = false;
@@ -51,9 +50,10 @@ namespace project_hook
 
 		public virtual void CalculateMovement(GameTime p_gameTime)
 		{
-
 		}
 
-		public virtual void Set() { }
+		public virtual void Set() 
+		{
+		}
 	}
 }

@@ -67,7 +67,6 @@ namespace project_hook
 					}
 					m_list[m_current].Set();
 				}
-
 			}
 		}
 
@@ -198,6 +197,5 @@ namespace project_hook
 			m_current = 0;
 			m_done = false;
 		}
-
 	}
 }
