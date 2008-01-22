@@ -50,7 +50,15 @@ namespace project_hook
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Path, p_Speed, p_DamageEffect, p_Radius)
 		{
 			m_Weapons = new List<Weapon>();
-			m_Weapons.Add(new Weapon(this, 10, 300, 500, TextureLibrary.getGameTexture("RedShot", "1"), MathHelper.PiOver2*3));
+
+			// fake logic:
+			float tempangle = MathHelper.PiOver2;
+			if (Faction == Factions.Player)
+			{
+				tempangle = -MathHelper.PiOver2;
+			}
+
+			m_Weapons.Add(new Weapon(this, 10, 300, 500, TextureLibrary.getGameTexture("RedShot", "1"), tempangle));
 			//m_Weapons.Add(new Weapon(this, 10, 300, 500, TextureLibrary.getGameTexture("RedShot", "1")));
 			//m_Weapons.Add(new Weapon_SideShot(this, 10, 200, 500, TextureLibrary.getGameTexture("FireBall", "1")));
 
