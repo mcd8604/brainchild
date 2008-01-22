@@ -173,7 +173,7 @@ namespace project_hook
 			tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y, m_Bounds.Y, m_Bounds.Height);
 			m_PlayerShip.Position = tempPlayerPosition;
 
-			PlayerShip.Update(p_GameTime);
+			//PlayerShip.Update(p_GameTime);
 		}
 	}
 }

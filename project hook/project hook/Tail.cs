@@ -164,6 +164,11 @@ namespace project_hook
 				m_EnemyCaught = (Ship)p_Other;
 				m_EnemyCaught.Faction = Factions.Player;
 				m_EnemyCaught.PathList = new PathList(Paths.TailAttach, dic);
+				// example:  Reverse enemy weapons
+				foreach (Weapon w in m_EnemyCaught.Weapons)
+				{
+					w.Angle += (float)Math.PI;
+				}
 			}
 		}
 

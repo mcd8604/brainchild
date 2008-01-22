@@ -6,14 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	/*
-	* Description: 
-	*              
-	* 
-	* TODO:
-	*  1. be able to fire a shot
-	*  
-	*/
+
+	// TODO: Extract Weapon out as a superclass, of which this is a subclass, say, exampleweapon
+
 	public class Weapon
 	{
 		#region Variables and Properties
