@@ -58,6 +58,13 @@ namespace project_hook
 
 		public override void CalculateMovement(GameTime p_gameTime)
 		{
+
+			if (float.IsNaN(Object.Center.X) || float.IsNaN(Object.Center.Y))
+			{
+				throw new ArgumentException("Object location is invalid.");
+				return;
+			}
+
 			Vector2 temp = Vector2.Multiply(Velocity, (float)p_gameTime.ElapsedGameTime.TotalSeconds);
 
 			if (!flag)
@@ -66,6 +73,12 @@ namespace project_hook
 				{
 					m_Done = true;
 				}
+			}
+
+			if (float.IsNaN(temp.X) || float.IsNaN(temp.Y))
+			{
+				// Last chance catch, this literally should not happen under any circumstances.
+				throw new ArithmeticException("This shouldn't happen");
 			}
 
 			Object.Center = Vector2.Add(Object.Center, temp);
@@ -87,6 +100,17 @@ namespace project_hook
 
 			if (!flag)
 			{
+
+				if (float.IsNaN(Object.Center.X) || float.IsNaN(Object.Center.Y))
+				{
+					throw new ArgumentException("Object location is invalid.");
+					return;
+				}
+				if (float.IsNaN(End.X) || float.IsNaN(End.Y))
+				{
+					throw new ArgumentException("Target location is invalid.");
+					return;
+				}
 
 				Vector2 temp = End - Object.Center;
 				if (Rotation)

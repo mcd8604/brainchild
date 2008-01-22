@@ -69,6 +69,7 @@ namespace project_hook
 		public override void CalculateMovement(GameTime p_gameTime)
 		{
 			m_Done = false;
+
 			Vector2 goal;
 			if (Target != null)
 			{
@@ -79,12 +80,23 @@ namespace project_hook
 				goal = End;
 			}
 
+			if (float.IsNaN(Object.Center.X) || float.IsNaN(Object.Center.Y))
+			{
+				throw new ArgumentException("Object location is invalid.");
+				return;
+			}
+			if (float.IsNaN(goal.X) || float.IsNaN(goal.Y))
+			{
+				throw new ArgumentException("Target location is invalid.");
+				return;
+			}
+
 			Vector2 temp = goal - Object.Center;
 
 			if (temp.Equals(Vector2.Zero))
 			{
 				m_Done = true;
-				return;
+				return; // If we are at the goal, we're done, the end.
 			}
 			if (Rotation)
 			{
@@ -92,11 +104,6 @@ namespace project_hook
 			}
 
 			Vector2 temp2 = Vector2.Multiply(Vector2.Normalize(temp), (float)(Speed * (p_gameTime.ElapsedGameTime.TotalSeconds)));
-
-			if (float.IsNaN(temp2.X) || float.IsNaN(temp2.Y))
-			{
-				throw new ArithmeticException("This shouldn't happen");
-			}
 
 			if (Math.Abs(temp2.X) > Math.Abs(temp.X))
 			{
@@ -106,6 +113,12 @@ namespace project_hook
 			if (Math.Abs(temp2.Y) > Math.Abs(temp.Y))
 			{
 				temp2.Y = temp.Y;
+			}
+
+			if (float.IsNaN(temp2.X) || float.IsNaN(temp2.Y))
+			{
+				// Last chance catch, this literally should not happen under any circumstances.
+				throw new ArithmeticException("This shouldn't happen");
 			}
 
 			Object.Center = Vector2.Add(Object.Center, temp2);

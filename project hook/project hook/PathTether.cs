@@ -30,6 +30,17 @@ namespace project_hook
 		public override void CalculateMovement(GameTime p_gameTime)
 		{
 
+			if (float.IsNaN(Object.Center.X) || float.IsNaN(Object.Center.Y))
+			{
+				throw new ArgumentException("Object location is invalid.");
+				return;
+			}
+			if (float.IsNaN(AttachedTo.Center.X) || float.IsNaN(AttachedTo.Center.Y))
+			{
+				throw new ArgumentException("Target location is invalid.");
+				return;
+			}
+
 			float deltaX = AttachedTo.Center.X - Object.Center.X;
 			float deltaY = AttachedTo.Center.Y - Object.Center.Y;
 
@@ -39,14 +50,7 @@ namespace project_hook
 			}
 			else
 			{
-                try
-                {
                     deltaX += (-deathzone * Math.Sign(deltaX));
-                }
-                catch (ArithmeticException e)
-                {
-                    Console.WriteLine(e.StackTrace);
-                }
 			}
 			if (Math.Abs(deltaY) < deathzone)
 			{
@@ -54,22 +58,17 @@ namespace project_hook
 			}
 			else
             {
-                try
-                {
 				    deltaY += (-deathzone * Math.Sign(deltaY));
-                }
-                catch (ArithmeticException e)
-                {
-                    Console.WriteLine(e.StackTrace);
-                }
 			}
 
 			speed = Vector2.Multiply(Vector2.Clamp(Vector2.Add(speed, Vector2.Multiply(Vector2.Clamp(new Vector2(deltaX * Math.Abs(deltaX), deltaY * Math.Abs(deltaY)), minaccel, maxaccel), (float)p_gameTime.ElapsedGameTime.TotalSeconds)), minspeed, maxspeed), friction);
 
 			Vector2 temp = Vector2.Multiply(speed, (float)p_gameTime.ElapsedGameTime.TotalSeconds);
 
-			if ( float.IsNaN(temp.X) || float.IsNaN(temp.Y) ){
-				throw new ArithmeticException( "This shouldn't happen" );
+			if (float.IsNaN(temp.X) || float.IsNaN(temp.Y))
+			{
+				// Last chance catch, this literally should not happen under any circumstances.
+				throw new ArithmeticException("This shouldn't happen");
 			}
 
 			Vector2 previousPos = Object.Center;
