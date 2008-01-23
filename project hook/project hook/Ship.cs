@@ -119,6 +119,18 @@ namespace project_hook
 			}
 		}
 
+		public void shoot( Vector2 target )
+		{
+			foreach (Weapon w in m_Weapons)
+			{
+				Sprite shot = w.CreateShot(target);
+				if (shot != null)
+				{
+					addSprite(shot);
+				}
+			}
+		}
+
 		public List<Weapon> Weapons
 		{
 			get

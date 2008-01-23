@@ -146,6 +146,7 @@ namespace project_hook
 				m_SpriteList.AddRange(toAdd);
 
 			}
+
 		}
 
 		public void checkKeys(GameTime p_GameTime)
@@ -206,7 +207,7 @@ namespace project_hook
 				{
 					if (tail.EnemyCaught != null)
 					{
-						tail.EnemyCaught.shoot();
+						tail.EnemyCaught.shoot(InputHandler.MousePostion);
 					}
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
