@@ -93,6 +93,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>InputHandler</Name>
     </Compile>
+    <Compile Include="LevelHandler.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>LevelHandler</Name>
+    </Compile>
     <Compile Include="LevelReader.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LevelReader</Name>
@@ -560,6 +564,11 @@
       <Importer>XactImporter</Importer>
       <Processor>XactProcessor</Processor>
       <Name>HookSound</Name>
+    </Content>
+    <Content Include="Content\Levels\Level2.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Level2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\LevelTest.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

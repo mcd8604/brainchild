@@ -280,15 +280,15 @@ namespace project_hook
 			//read in faction
 			p_Reader.ReadStartElement();
 			faction = p_Reader.ReadString();
-			if (faction.Equals("Enemy"))
+			if (faction.Equals("enemy"))
 			{
 				m_Faction = Collidable.Factions.Enemy;
 			}
-			else if (faction.Equals("Player"))
+			else if (faction.Equals("player"))
 			{
 				m_Faction = Collidable.Factions.Player;
 			}
-			else if (faction.Equals("Environment"))
+			else if (faction.Equals("environment"))
 			{
 				m_Faction = Collidable.Factions.Environment;
 			}

@@ -32,6 +32,9 @@
 				<rotation>false</rotation>
 			</path>
 		</createShip>
+		<changeSpeed>
+			<speed>10</speed>
+		</changeSpeed>
 	</action>
 	<action dist="5">
 		<createShip>
@@ -65,10 +68,5 @@
 				<rotation>false</rotation>
 			</path>
 		</createShip>
-	</action>
-	<action dist="100">
-		<changeFile>
-			<fileName>Level2.xml</fileName>
-		</changeFile>
 	</action>
 </level>

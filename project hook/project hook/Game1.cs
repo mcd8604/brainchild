@@ -18,9 +18,14 @@ namespace project_hook
 	/// </summary>
 	public class Game1 : Microsoft.Xna.Framework.Game
 	{
-
-		List<Sprite> spritelist = new List<Sprite>();
+		static List<Sprite> spritelist = new List<Sprite>();
 		List<Shot> shots = new List<Shot>();
+
+		//level stuff
+		static LevelReader m_LReader;
+		static LevelHandler m_LHandler;
+		static float m_Distance = 0;
+		public static int m_Speed = 10;
 
 		public static GraphicsDeviceManager graphics;
 		ContentManager content;
@@ -70,9 +75,7 @@ namespace project_hook
 		/// </summary>
 		protected override void Initialize()
 		{
-			//test
-			LevelReader t_LR = new LevelReader("LevelTest.xml");
-			t_LR.ReadFile();
+			
 
 			InputHandler.LoadDefaultBindings();
 
@@ -87,6 +90,10 @@ namespace project_hook
 			Sound.Initialize();
 
 			Music.Initialize();
+
+			//test
+			m_LReader = new LevelReader("LevelTest.xml");
+			m_LHandler = new LevelHandler(m_LReader.ReadFile());
 		}
 
 
@@ -256,6 +263,7 @@ namespace project_hook
 			if (!IsActive)
 				return;
 
+			m_LHandler.CheckEvents(Convert.ToInt32(m_Distance));
 			InputHandler.Update();
 			Sound.Update();
 			Music.Update();
@@ -448,6 +456,11 @@ namespace project_hook
 			}
 			//((Ship)enemy).shoot(gameTime);
 
+			//change the distance
+			//m_Delta = m_Speed * p_GameTime.ElapsedGameTime.TotalSeconds;
+			m_Distance += m_Speed * (float)(gameTime.ElapsedGameTime.TotalSeconds);
+			//Console.WriteLine(m_Distance);
+
 			base.Update(gameTime);
 		}
 
@@ -503,7 +516,18 @@ namespace project_hook
 
 			base.Draw(gameTime);
 		}
+
+		static public void ChangeFile(String p_FileName)
+		{
+			m_LReader = new LevelReader(p_FileName);
+			m_Distance = 0;
+			m_LHandler = new LevelHandler(m_LReader.ReadFile());
+		}
+
+		static public void AddCollidable(Collidable p_Collidable)
+		{
+			Console.WriteLine("hey i was called");
+			spritelist.Add(p_Collidable);
+		}
 	}
-
-
 }
