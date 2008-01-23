@@ -6,9 +6,28 @@ namespace project_hook
 {
 	class Level
 	{
+		private int m_Distance;
+		public int Distance
+		{
+			get
+			{
+				return m_Distance;
+			}
+			set
+			{
+				m_Distance = value;
+			}
+		}
+
+
 		public Level()
 		{
+			m_Distance = 0;
+		}
 
+		public Level(int p_Distance)
+		{
+			m_Distance = p_Distance;
 		}
 
 		public void Load(String p_LevelName)
@@ -19,7 +38,9 @@ namespace project_hook
 
 		public void Update(GameTime p_GameTime)
 		{
+			//increment distance
 
+			//check levelreader for new events
 		}
 	}
 }
