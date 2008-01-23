@@ -23,7 +23,9 @@ namespace project_hook
 			}
 
 			Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber++, m_Ship.Center, 30, 75, m_Texture, 255f, true,
-								  m_Angle, Depth.MidGround.Top, m_Ship.Faction, -1, null, 10, 10);
+								  m_Angle, Depth.MidGround.Top, m_Ship.Faction, -1, null, 15, 10);
+
+			t_Shot.Bound = Collidable.Boundings.Diamond;
 
 			t_Shot.setAnimation(m_ShotName, 10);
 			t_Shot.Animation.StartAnimation();
