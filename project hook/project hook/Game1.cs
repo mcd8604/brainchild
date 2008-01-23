@@ -92,8 +92,12 @@ namespace project_hook
 			Music.Initialize();
 
 			//test
+			System.Diagnostics.Stopwatch t_Time = new System.Diagnostics.Stopwatch();
+			t_Time.Start();
 			m_LReader = new LevelReader("LevelTest.xml");
 			m_LHandler = new LevelHandler(m_LReader.ReadFile());
+			t_Time.Stop();
+			Console.WriteLine(t_Time.ElapsedMilliseconds);
 		}
 
 
@@ -137,7 +141,7 @@ namespace project_hook
 				player = new Player("Ship", new Vector2(300.0f, 400.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom, PlayerBounds);
 				back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
-				spawnEnemy();
+				//spawnEnemy();
 				crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.MidGround.Mid);
                 for (int i = 0; i < 60; i++)
                 {
@@ -229,7 +233,6 @@ namespace project_hook
 			enemy.PathList.Mode = ListModes.Repeat;
 
 			spritelist.Add(enemy);
-
 		}
 
 
@@ -444,16 +447,16 @@ namespace project_hook
 			}
 			//    enemy.RegisterCollision(null, null);
 
-			if (enemy.AmIDead())
-			{
-				spritelist.Remove(enemy);
-				spawnEnemy();
-			}
+			//if (enemy.AmIDead())
+			//{
+			//    spritelist.Remove(enemy);
+			//    spawnEnemy();
+			//}
 
-			if (enemy.Faction == Collidable.Factions.Player) // hack check if it's been tail-grabbed
-			{
-				spawnEnemy();
-			}
+			//if (enemy.Faction == Collidable.Factions.Player) // hack check if it's been tail-grabbed
+			//{
+			//    spawnEnemy();
+			//}
 			//((Ship)enemy).shoot(gameTime);
 
 			//change the distance
@@ -506,7 +509,7 @@ namespace project_hook
 			drawtext.DrawString(m_spriteBatch, "Score: " + player.Score.ScoreTotal, new Vector2(0, 50), Color.White);
 			drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(), Vector2.Zero, Color.White);
 
-			enemy.Draw(m_spriteBatch);
+			//enemy.Draw(m_spriteBatch);
 			//explosion.Draw(m_spriteBatch);
 			tail.Draw(m_spriteBatch);
 
@@ -526,7 +529,6 @@ namespace project_hook
 
 		static public void AddCollidable(Collidable p_Collidable)
 		{
-			Console.WriteLine("hey i was called");
 			spritelist.Add(p_Collidable);
 		}
 	}
