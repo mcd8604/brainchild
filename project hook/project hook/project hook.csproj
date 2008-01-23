@@ -57,6 +57,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -72,6 +73,10 @@
     <Compile Include="CursorSprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>CursorSprite</Name>
+    </Compile>
+    <Compile Include="EnvironmentLoader.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>EnvironmentLoader</Name>
     </Compile>
     <Compile Include="Event.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -574,6 +579,12 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LevelTest</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\testBMP.bmp">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>testBMP</Name>
     </Content>
     <Content Include="Content\Textures\bloodcell.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
