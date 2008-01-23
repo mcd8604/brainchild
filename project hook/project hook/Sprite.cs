@@ -161,20 +161,6 @@ namespace project_hook
 			}
 		}
 
-		/// <summary>
-		/// Add a sprite to the list of parts
-		/// </summary>
-		/// <param name="p_Sprite">The Sprite to add</param>
-		public void attachSpritePart(Sprite p_Sprite)
-		{
-			if (m_Parts == null)
-			{
-				m_Parts = new List<Sprite>();
-			}
-
-			m_Parts.Add(p_Sprite);
-		}
-
 		protected Vector2 m_Position = Vector2.Zero;
 		/// <summary>
 		/// This is the postion that the sprite is displayed on the screen.
@@ -233,29 +219,6 @@ namespace project_hook
 			{
 				return m_SpritesToBeAdded;
 			}
-		}
-
-		/// <summary>
-		/// Add a sprite to the 'to be added' list
-		/// </summary>
-		/// <param name="p_Sprite">The Sprite</param>
-		public void addSprite(Sprite p_Sprite)
-		{
-			if (m_SpritesToBeAdded == null)
-			{
-				m_SpritesToBeAdded = new List<Sprite>();
-			}
-
-			m_SpritesToBeAdded.Add(p_Sprite);
-		}
-		public void addSprites(IEnumerable<Sprite> p_Sprites )
-		{
-			if (m_SpritesToBeAdded == null)
-			{
-				m_SpritesToBeAdded = new List<Sprite>();
-			}
-
-			m_SpritesToBeAdded.AddRange(p_Sprites);
 		}
 
 		protected Vector2 m_StartPosition = Vector2.Zero;
@@ -483,11 +446,8 @@ namespace project_hook
 						}
 					}
 					 * */
-
 				}
-
 			}
-
 		}
 
 		//This update method should be overidden 
@@ -508,26 +468,53 @@ namespace project_hook
 			}
 		}
 
-
-
-
-
 		private static Boolean rot = false;
 		public static void DrawWithRot()
 		{
 			rot = !rot;
 		}
 
-
-
-
-
 		public static bool isToBeRemoved(Sprite spr)
 		{
 			return spr.m_ToBeRemoved;
 		}
 
+		/// <summary>
+		/// Add a sprite to the list of parts
+		/// </summary>
+		/// <param name="p_Sprite">The Sprite to add</param>
+		public void attachSpritePart(Sprite p_Sprite)
+		{
+			if (m_Parts == null)
+			{
+				m_Parts = new List<Sprite>();
+			}
 
+			m_Parts.Add(p_Sprite);
+		}
+
+		/// <summary>
+		/// Add a sprite to the 'to be added' list
+		/// </summary>
+		/// <param name="p_Sprite">The Sprite</param>
+		public void addSprite(Sprite p_Sprite)
+		{
+			if (m_SpritesToBeAdded == null)
+			{
+				m_SpritesToBeAdded = new List<Sprite>();
+			}
+
+			m_SpritesToBeAdded.Add(p_Sprite);
+		}
+		public void addSprites(IEnumerable<Sprite> p_Sprites)
+		{
+			if (m_SpritesToBeAdded == null)
+			{
+				m_SpritesToBeAdded = new List<Sprite>();
+			}
+
+			m_SpritesToBeAdded.AddRange(p_Sprites);
+		}
 	}
 }
 

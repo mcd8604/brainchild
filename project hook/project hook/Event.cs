@@ -7,16 +7,47 @@ namespace project_hook
 {
 	public class Event
 	{
-		String m_Type;
-		Sprite m_Sprite;
-		int m_Speed;
-		String m_FileName;
-
-		public Event(Sprite p_Sprite)
+		private String m_Type;
+		public String Type
 		{
-			m_Type = "Sprite";
+			get
+			{
+				return m_Type;
+			}
+		}
 
-			m_Sprite = p_Sprite;
+		private Collidable m_Collidable;
+		public Collidable Collidable
+		{
+			get
+			{
+				return m_Collidable;
+			}
+		}
+
+		private int m_Speed;
+		public int Speed
+		{
+			get
+			{
+				return m_Speed;
+			}
+		}
+
+		private String m_FileName;
+		public String FileName
+		{
+			get
+			{
+				return m_FileName;
+			}
+		}
+
+		public Event(Collidable p_Collidable)
+		{
+			m_Type = "Collidable";
+
+			m_Collidable = p_Collidable;
 		}
 		public Event(String p_FileName)
 		{
