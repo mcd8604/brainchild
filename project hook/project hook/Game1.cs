@@ -18,7 +18,7 @@ namespace project_hook
 	/// </summary>
 	public class Game1 : Microsoft.Xna.Framework.Game
 	{
-		List<Sprite> spritelist = new List<Sprite>();
+		public List<Sprite> spritelist = new List<Sprite>();
 		List<Shot> shots = new List<Shot>();
 
 		//level stuff
@@ -109,6 +109,9 @@ namespace project_hook
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			t_Time.Stop();
 			Console.WriteLine(t_Time.ElapsedMilliseconds);
+			EnvironmentLoader.Initialize();
+			EnvironmentLoader.ReadLevelBmp("C:/Documents and Settings/mxd1365/Desktop/temp/project hook/project hook/Content/Levels/testBMP.bmp", this.spritelist);
+
 		}
 
 
@@ -194,7 +197,7 @@ namespace project_hook
 				spritelist.Add(tail);
 
 				spritelist.Add(player.PlayerShip);
-
+				
 				/*
 				spritelist.Add(shotEffect);
 				spritelist.Add(shot2Effect);
