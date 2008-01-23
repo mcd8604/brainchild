@@ -141,6 +141,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>RITLogo</Name>
     </Compile>
+    <Compile Include="SpawnPoint.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>SpawnPoint</Name>
+    </Compile>
     <Compile Include="TailBodySprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TailBodySprite</Name>
