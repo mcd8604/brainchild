@@ -19,12 +19,26 @@ namespace project_hook
 			}
 		}
 
+		private Game1 m_Game;
+		public Game1 Game
+		{
+			get
+			{
+				return m_Game;
+			}
+			set
+			{
+				m_Game = value;
+			}
+		}
+
 		public LevelHandler()
 		{
 		}
-		public LevelHandler(Dictionary<int, List<Event>> p_Events)
+		public LevelHandler(Dictionary<int, List<Event>> p_Events, Game1 p_Game)
 		{
 			Events = p_Events;
+			Game = p_Game;
 		}
 
 		public void CheckEvents(int p_Distance)
@@ -56,19 +70,19 @@ namespace project_hook
 		public void CreateCollidable(Collidable p_Collidable)
 		{
 			//add the sprtie to the sprtiebatch in the game class
-			Game1.AddCollidable(p_Collidable);
+			m_Game.AddCollidable(p_Collidable);
 		}
 
 		public void ChangeSpeed(int p_Speed)
 		{
 			//change the speed in the game file
-			Game1.m_Speed = p_Speed;
+			m_Game.Speed = p_Speed;
 		}
 
 		public void ChangeFile(String p_FileName)
 		{
 			//change the fileName in the levelReader class
-			Game1.ChangeFile(p_FileName);
+			m_Game.ChangeFile(p_FileName);
 			//tell it to read the file
 		}
 	}

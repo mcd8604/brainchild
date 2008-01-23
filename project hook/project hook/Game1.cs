@@ -18,14 +18,25 @@ namespace project_hook
 	/// </summary>
 	public class Game1 : Microsoft.Xna.Framework.Game
 	{
-		static List<Sprite> spritelist = new List<Sprite>();
+		List<Sprite> spritelist = new List<Sprite>();
 		List<Shot> shots = new List<Shot>();
 
 		//level stuff
-		static LevelReader m_LReader;
-		static LevelHandler m_LHandler;
-		static float m_Distance = 0;
-		public static int m_Speed = 10;
+		LevelReader m_LReader;
+		LevelHandler m_LHandler;
+		float m_Distance = 0;
+		int m_Speed = 10;
+		public int Speed
+		{
+			get
+			{
+				return m_Speed;
+			}
+			set
+			{
+				m_Speed = value;
+			}
+		}
 
 		public static GraphicsDeviceManager graphics;
 		ContentManager content;
@@ -95,7 +106,7 @@ namespace project_hook
 			System.Diagnostics.Stopwatch t_Time = new System.Diagnostics.Stopwatch();
 			t_Time.Start();
 			m_LReader = new LevelReader("LevelTest.xml");
-			m_LHandler = new LevelHandler(m_LReader.ReadFile());
+			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			t_Time.Stop();
 			Console.WriteLine(t_Time.ElapsedMilliseconds);
 		}
@@ -520,14 +531,14 @@ namespace project_hook
 			base.Draw(gameTime);
 		}
 
-		static public void ChangeFile(String p_FileName)
+		public void ChangeFile(String p_FileName)
 		{
 			m_LReader = new LevelReader(p_FileName);
 			m_Distance = 0;
-			m_LHandler = new LevelHandler(m_LReader.ReadFile());
+			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 
-		static public void AddCollidable(Collidable p_Collidable)
+		public void AddCollidable(Collidable p_Collidable)
 		{
 			spritelist.Add(p_Collidable);
 		}
