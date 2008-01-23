@@ -15,7 +15,7 @@ namespace project_hook
 	public class Ship : Collidable
 	{
 		//variable for the weapon that the ship currently has
-		List<Weapon> m_Weapons;
+		protected List<Weapon> m_Weapons = new List<Weapon>();
 
 		private Sprite m_ShieldSprite;
 
@@ -46,10 +46,9 @@ namespace project_hook
 			}
 		}
 
-		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, GameTexture p_DamageEffect, float p_Radius)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_DamageEffect, p_Radius)
+		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, GameTexture p_DamageEffect, float p_Radius)
+			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_zBuff, p_Faction, p_Health, p_DamageEffect, p_Radius)
 		{
-			m_Weapons = new List<Weapon>();
 
 			// fake logic:
 			float tempangle = MathHelper.PiOver2;
@@ -58,7 +57,7 @@ namespace project_hook
 				tempangle = -MathHelper.PiOver2;
 			}
 
-			m_Weapons.Add(new WeaponExample(this, "FireBall", 10, 300, 500, tempangle));
+			m_Weapons.Add(new WeaponExample(this, "RedShot", 10, 300, 500, tempangle));
 			//m_Weapons.Add(new Weapon(this, 10, 300, 500, TextureLibrary.getGameTexture("RedShot", "1")));
 			//m_Weapons.Add(new Weapon_SideShot(this, 10, 200, 500, TextureLibrary.getGameTexture("FireBall", "1")));
 
@@ -81,10 +80,12 @@ namespace project_hook
 		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, GameTexture p_DamageEffect, float p_Radius, String p_WeaponType)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_DamageEffect, p_Radius)
 		{
-			m_Weapons = new List<Weapon>();
+			// I don't think 'this' is a good idea for assigning weapons.
 			if (p_WeaponType.Equals("OneShot"))
 			{
 				m_Weapons.Add(new WeaponExample(this, "FireBall" ,10,300,500,MathHelper.PiOver2));
+				m_Weapons.Add(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4));
+				m_Weapons.Add(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4 * 3));
 			}
 			else if (p_WeaponType.Equals("SideShot"))
 			{
@@ -136,7 +137,7 @@ namespace project_hook
 
 			if (m_MaxShield > 0 && m_ShieldSprite !=null)
 			{
-				m_ShieldSprite.Transparency = (m_Shield + 0.0f) / (m_MaxShield+ 0.0f);
+				m_ShieldSprite.Transparency = ((float)m_Shield) / ((float)m_MaxShield);
 			}
 			foreach (Weapon w in m_Weapons)
 			{
