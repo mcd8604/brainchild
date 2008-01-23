@@ -315,7 +315,7 @@ namespace project_hook
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
 		{
-			if (Visible)
+			if (Enabled)
 			{
 				if (m_Func == null)
 				{

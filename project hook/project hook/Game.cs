@@ -152,7 +152,7 @@ namespace project_hook
 				{
 					m_Menu.Load(graphics);
 					m_InputHandler = InputHandlerState.Menu;
-					m_Menu.Visible = true;
+					m_Menu.Enabled = true;
 				}
 				else
 				{

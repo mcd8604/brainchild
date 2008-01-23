@@ -302,19 +302,19 @@ namespace project_hook
 			}
 		}
 
-		protected bool m_Visible = true;
+		protected bool m_Enabled = true;
 		/// <summary>
-		/// This will determine if the sprite is to be drawn on screen.
+		/// This will determine if the sprite is currently active.
 		/// </summary>
-		public bool Visible
+		public bool Enabled
 		{
 			get
 			{
-				return m_Visible;
+				return m_Enabled;
 			}
 			set
 			{
-				m_Visible = value;
+				m_Enabled = value;
 			}
 		}
 
@@ -373,7 +373,7 @@ namespace project_hook
 			Width = p_Width;
 			Texture = p_Texture;
 			Alpha = p_Alpha;
-			Visible = p_Visible;
+			Enabled = p_Visible;
 			Rotation = p_Rotation;
 			Z = p_Z;
 		}
@@ -387,7 +387,7 @@ namespace project_hook
 			Width = p_Width;
 			Texture = p_Texture;
 			Transparency = p_Transparency;
-			Visible = p_Visible;
+			Enabled = p_Visible;
 			Rotation = p_Rotation;
 			Z = p_Z;
 		}
@@ -409,7 +409,7 @@ namespace project_hook
 		//This will draw the sprite to the screen
 		public virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
-			if (m_Visible)
+			if (m_Enabled)
 			{
 				if (m_Parts != null)
 				{

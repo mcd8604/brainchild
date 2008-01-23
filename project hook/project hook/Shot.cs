@@ -47,7 +47,7 @@ namespace project_hook
 
 			if (PathList.isDone())
 			{
-				Visible = false;
+				Enabled = false;
 				ToBeRemoved = true;
 			}
 		}
@@ -66,7 +66,7 @@ namespace project_hook
 			addSprite(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.MidGround.Top));
 
 			ToBeRemoved = true;
-			Visible = false;
+			Enabled = false;
 			}
 
 		}

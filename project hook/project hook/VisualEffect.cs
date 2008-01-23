@@ -67,7 +67,7 @@ namespace project_hook
 				if (m_CycleRemoval && m_CycleCount >= m_Cycles)
 				{
 					//lazy sprite removal
-					m_BaseSprite.Visible = false;
+					m_BaseSprite.Enabled = false;
 				}
 
 				m_Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;

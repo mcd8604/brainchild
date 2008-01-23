@@ -420,7 +420,7 @@ namespace project_hook
 
 			foreach (Sprite s in spritelist)
 			{
-				if (!s.Visible)
+				if (!s.Enabled)
 				{
 					toBeRemoved.Add(s);
 				}
