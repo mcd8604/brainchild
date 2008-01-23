@@ -3,7 +3,7 @@
 	<action dist="1">
 		<createShip>
 			<name>Enemy</name>
-			<startPos x="100" y="200"/>
+			<startPos x="100" y="0"/>
 			<height>100</height>
 			<width>100</width>
 			<texture name="Enemy1"/>
@@ -19,14 +19,181 @@
 			<radius>50</radius>
 			<path>
 				<type>Straight</type>
-				<end x="600" y="200"/>
+				<end x="600" y="1024"/>
 				<duration>5</duration>
 				<speed>100</speed>
 				<rotation>false</rotation>
 			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
 			<path>
 				<type>Straight</type>
-				<end x="100" y="200"/>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="2">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="3">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="4">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
 				<duration>5</duration>
 				<speed>100</speed>
 				<rotation>false</rotation>
@@ -36,7 +203,7 @@
 	<action dist="5">
 		<createShip>
 			<name>Enemy</name>
-			<startPos x="100" y="200"/>
+			<startPos x="100" y="0"/>
 			<height>100</height>
 			<width>100</width>
 			<texture name="Enemy1"/>
@@ -52,23 +219,1285 @@
 			<radius>50</radius>
 			<path>
 				<type>Straight</type>
-				<end x="600" y="200"/>
+				<end x="600" y="1024"/>
 				<duration>5</duration>
 				<speed>100</speed>
 				<rotation>false</rotation>
 			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
 			<path>
 				<type>Straight</type>
-				<end x="100" y="200"/>
+				<end x="600" y="1200"/>
 				<duration>5</duration>
 				<speed>100</speed>
 				<rotation>false</rotation>
 			</path>
 		</createShip>
 	</action>
-	<action dist="100">
-		<changeFile>
-			<fileName>Level2.xml</fileName>
-		</changeFile>
+	<action dist="6">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="7">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="8">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="9">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="10">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="11">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="12">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="13">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="14">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="15">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="16">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="17">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="18">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="19">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="20">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="21">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="22">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="23">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="24">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="25">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="26">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="27">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="28">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="29">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+	</action>
+	<action dist="30">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="100" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1024"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="700" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<path>
+				<type>Straight</type>
+				<end x="600" y="1200"/>
+				<duration>5</duration>
+				<speed>100</speed>
+				<rotation>false</rotation>
+			</path>
+		</createShip>
 	</action>
 </level>
