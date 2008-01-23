@@ -174,6 +174,11 @@ namespace project_hook
 			//return t_Shot;
 		}
 
+		public virtual Sprite CreateShot(Vector2 target)
+		{
+			return null;
+		}
+
 		public void Update(GameTime p_Time)
 		{
 			m_Cooldown -= p_Time.ElapsedGameTime.TotalMilliseconds;
