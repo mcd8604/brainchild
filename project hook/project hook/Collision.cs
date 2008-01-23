@@ -16,10 +16,13 @@ namespace project_hook
 			MultiDictionary<Collidable.Factions, Collidable> sorter = new MultiDictionary<Collidable.Factions, Collidable>(true);
 			foreach (Sprite s in list)
 			{
-				Collidable temp = s as Collidable;
-				if (temp != null)
+				if (s.Enabled)
 				{
-					sorter.Add(temp.Faction, temp);
+					Collidable temp = s as Collidable;
+					if (temp != null)
+					{
+						sorter.Add(temp.Faction, temp);
+					}
 				}
 			}
 

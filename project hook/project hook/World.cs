@@ -257,7 +257,7 @@ namespace project_hook
 
 				foreach (Sprite s in m_SpriteList)
 				{
-					if (s.Visible == true)
+					if (s.Enabled == true)
 					{
 						s.Draw(p_SpriteBatch);
 					}

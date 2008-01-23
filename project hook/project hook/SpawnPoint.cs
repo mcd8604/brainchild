@@ -93,7 +93,7 @@ namespace project_hook
 						Ship s = m_Spawned[a];
 						s.ToBeRemoved = false;
 						s.Center = this.Center;
-						s.Visible = true;
+						s.Enabled = true;
 
 						PathGroup group2b = new PathGroup();
 

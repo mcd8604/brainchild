@@ -87,7 +87,7 @@ namespace project_hook
 			this.Texture = TextureLibrary.getGameTexture(p_Texture, "");
 			this.setAnimation(p_Texture, (int)(23));
 			this.Animation.StartAnimation();
-			this.Visible = true;
+			this.Enabled = true;
 
 		}
 
