@@ -37,7 +37,7 @@ namespace project_hook
 			FileName = System.Environment.CurrentDirectory + "\\Content\\Levels\\"+p_FileName;
 		}
 
-		public void ReadFile()
+		public Dictionary<int, List<Event>> ReadFile()
 		{
 			String t_Name = m_FileName;
 
@@ -52,22 +52,88 @@ namespace project_hook
 
 				reader.Read();
 				reader.ReadStartElement("level");
-				//needs to be placed in a loop
-				if (reader.Name.Equals("action"))
+				do
 				{
-					m_Distance = int.Parse(reader.GetAttribute(0));
-					reader.ReadStartElement("action");
-					if (reader.Name.Equals("createShip"))
+					if (reader.Name.Equals("action"))
 					{
-						reader.ReadStartElement("createShip");
-						LoadEnemy(reader);
+						m_Distance = int.Parse(reader.GetAttribute(0));
+						reader.ReadStartElement();
+						do
+						{
+							if (reader.Name.Equals("createShip"))
+							{
+								reader.ReadStartElement();
+								LoadEnemy(reader);
+								reader.ReadEndElement();
+							}
+							if (reader.Name.Equals("changeSpeed"))
+							{
+								reader.ReadStartElement();
+								ChangeSpeed(reader);
+								reader.ReadEndElement();
+							}
+							if (reader.Name.Equals("changeFile"))
+							{
+								reader.ReadStartElement();
+								NextFile(reader);
+								reader.ReadEndElement();
+							}
+						} while (reader.IsStartElement());
+						reader.ReadEndElement();
 					}
-				}
-				//that reads to the end of the file
+				} while (reader.Name.Equals("action"));
 			}
 			else
 			{
 				//cann't do anything no file name
+			}
+
+			return m_Events;
+		}
+
+		private void NextFile(XmlReader p_Reader)
+		{
+			String m_FileName;
+
+			List<Event> t_List = new List<Event>();
+
+			//read speed
+			p_Reader.ReadStartElement();
+			m_FileName = p_Reader.ReadString();
+			p_Reader.ReadEndElement();
+
+			//add the change speed to the event list
+			if (m_Events.ContainsKey(m_Distance))
+			{
+				m_Events[m_Distance].Add(new Event(m_FileName));
+			}
+			else
+			{
+				t_List.Add(new Event(m_FileName));
+				m_Events.Add(m_Distance, t_List);
+			}
+		}
+
+		private void ChangeSpeed(XmlReader p_Reader)
+		{
+			int m_Speed;
+
+			List<Event> t_List = new List<Event>();
+
+			//read speed
+			p_Reader.ReadStartElement();
+			m_Speed = int.Parse(p_Reader.ReadString());
+			p_Reader.ReadEndElement();
+
+			//add the change speed to the event list
+			if (m_Events.ContainsKey(m_Distance))
+			{
+				m_Events[m_Distance].Add(new Event(m_Speed));
+			}
+			else
+			{
+				t_List.Add(new Event(m_Speed));
+				m_Events.Add(m_Distance, t_List);
 			}
 		}
 
@@ -75,7 +141,6 @@ namespace project_hook
 		{
 			Ship t_Ship;
 
-			Dictionary<Events.ValueKeys, object> t_dic = new Dictionary<Events.ValueKeys, object>();
 			List<Event> t_List = new List<Event>();
 
 			String m_Name;
@@ -301,14 +366,13 @@ namespace project_hook
 			} while (p_Reader.Name.Equals("path"));
 			
 			//add the ship to the event list
-			t_dic.Add(Events.ValueKeys.Sprite,t_Ship);
 			if (m_Events.ContainsKey(m_Distance))
 			{
-				m_Events[m_Distance].Add(new Event(Type.create, t_dic));
+				m_Events[m_Distance].Add(new Event(t_Ship));
 			}
 			else
 			{
-				t_List.Add(new Event(Type.create, t_dic));
+				t_List.Add(new Event(t_Ship));
 				m_Events.Add(m_Distance, t_List);
 			}
 		}

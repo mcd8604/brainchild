@@ -72,7 +72,7 @@ namespace project_hook
 		{
 			//test
 			LevelReader t_LR = new LevelReader("LevelTest.xml");
-			//t_LR.ReadFile();
+			t_LR.ReadFile();
 
 			InputHandler.LoadDefaultBindings();
 

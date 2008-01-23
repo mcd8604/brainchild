@@ -77,10 +77,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Event</Name>
     </Compile>
-    <Compile Include="Events.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Events</Name>
-    </Compile>
     <Compile Include="FPS.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FPS</Name>
