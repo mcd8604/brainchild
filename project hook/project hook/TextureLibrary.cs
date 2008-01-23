@@ -131,25 +131,61 @@ namespace project_hook
 
 					//Checks gets the Rectangles to load
 					XmlElement elm = doc.DocumentElement;
-					XmlNodeList lstRect = elm.ChildNodes;
 
-					//Iterates over each rectangle
-					for (int i = 0; i < lstRect.Count; i++)
+					if (elm.HasChildNodes)
 					{
-						XmlNodeList nodes = lstRect.Item(i).ChildNodes;
-						int j = 0;
+						XmlNodeList lstRect = elm.ChildNodes;
 
-						String name = (String)(nodes.Item(j++).InnerText);
-						String tag = (String)(nodes.Item(j++).InnerText);
-						int x = int.Parse(nodes.Item(j++).InnerText);
-						int y = int.Parse(nodes.Item(j++).InnerText);
-						int width = int.Parse(nodes.Item(j++).InnerText);
-						int height = int.Parse(nodes.Item(j++).InnerText);
+						//Iterates over each rectangle
+						for (int i = 0; i < lstRect.Count; i++)
+						{
+							XmlNodeList nodes = lstRect.Item(i).ChildNodes;
+							int j = 0;
 
-						//Stores it in the GameTexture table
-						GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
-						addGameTexture(name, tag, t_GameTexture);
+							String name = (String)(nodes.Item(j++).InnerText);
+							Console.WriteLine("name: " + name);
+							String tag = (String)(nodes.Item(j++).InnerText);
+							int x = int.Parse(nodes.Item(j++).InnerText);
+							int y = int.Parse(nodes.Item(j++).InnerText);
+							int width = int.Parse(nodes.Item(j++).InnerText);
+							int height = int.Parse(nodes.Item(j++).InnerText);
 
+							//Stores it in the GameTexture table
+							GameTexture t_GameTexture = new GameTexture(name, tag, tTexture, new Rectangle(x, y, width, height));
+							addGameTexture(name, tag, t_GameTexture);
+
+						}
+					}
+					else
+					{
+						if (elm.HasAttribute("cellWidth") &&
+							elm.HasAttribute("cellHeight") &&
+							elm.HasAttribute("numRows") &&
+							elm.HasAttribute("numCols"))
+						{
+							int cellWidth = int.Parse(elm.GetAttribute("cellWidth"));
+							int cellHeight = int.Parse(elm.GetAttribute("cellHeight"));
+							int numRows = int.Parse(elm.GetAttribute("numRows"));
+							int numCols = int.Parse(elm.GetAttribute("numCols"));
+							for (int row = 0; row < numRows; row++)
+							{
+								for (int col = 0; col < numCols; col++)
+								{
+									int index = (row * numCols) + col;
+									String tag = index.ToString();
+									int x = col * cellWidth;
+									int y = row * cellHeight;
+
+									//Stores it in the GameTexture table
+									GameTexture t_GameTexture = new GameTexture(textureName, tag, tTexture, new Rectangle(x, y, cellWidth, cellHeight));
+									addGameTexture(textureName, tag, t_GameTexture);
+								}
+							}
+						}
+						else
+						{
+							throw new ContentLoadException("Invalid Texture XML: " + strFilename);
+						}
 					}
 
 				}

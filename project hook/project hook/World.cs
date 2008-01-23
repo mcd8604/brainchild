@@ -288,7 +288,8 @@ namespace project_hook
             TextureLibrary.LoadTexture("tailbody");
             TextureLibrary.LoadTexture("tail_segment");
             TextureLibrary.LoadTexture("shot_energy");
-            TextureLibrary.LoadTexture("virus1");
+			TextureLibrary.LoadTexture("virus1");
+			TextureLibrary.LoadTexture("bloodcell");
 		}
 
 		private void IniDefaults()
@@ -301,7 +302,9 @@ namespace project_hook
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.ForeGround.Bottom, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGround.Top);
-            Ship enemy = new Ship("virus1", new Vector2(100f, 200f), 100, 100, TextureLibrary.getGameTexture("virus1", ""), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+			Ship enemy = new Ship("bloodcell", new Vector2(100f, 200f), 96, 128, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+			enemy.setAnimation("bloodcell", 60);
+			enemy.Animation.StartAnimation();
 			Ship enemy2 = new Ship("Enemy", new Vector2(800f, 150f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			ArrayList m_TailBodySprites = new ArrayList();
 
