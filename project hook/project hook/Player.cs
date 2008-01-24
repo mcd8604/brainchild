@@ -164,14 +164,14 @@ namespace project_hook
 		{
 			//Calculate player position based on player speed and player friction
 			CalcMovement(p_GameTime, m_PlayerSpeedBuffer);
-			Vector2 tempPlayerPosition = m_PlayerShip.Position;
+			Vector2 tempPlayerCenter = m_PlayerShip.Center;
 			m_PlayerSpeed.X *= m_PlayerFriction;
 			m_PlayerSpeed.Y *= m_PlayerFriction;
-			tempPlayerPosition.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
-			tempPlayerPosition.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
-			tempPlayerPosition.X = MathHelper.Clamp(tempPlayerPosition.X, m_Bounds.X, m_Bounds.Width);
-			tempPlayerPosition.Y = MathHelper.Clamp(tempPlayerPosition.Y, m_Bounds.Y, m_Bounds.Height);
-			m_PlayerShip.Position = tempPlayerPosition;
+			tempPlayerCenter.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
+			tempPlayerCenter.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
+			tempPlayerCenter.X = MathHelper.Clamp(tempPlayerCenter.X, m_Bounds.X + (float)PlayerShip.Width / 2f, m_Bounds.Width - (float)PlayerShip.Width / 2f);
+			tempPlayerCenter.Y = MathHelper.Clamp(tempPlayerCenter.Y, m_Bounds.Y + (float)PlayerShip.Height / 2f, m_Bounds.Height - (float)PlayerShip.Height / 2f);
+			m_PlayerShip.Center = tempPlayerCenter;
 
 			//PlayerShip.Update(p_GameTime);
 		}
