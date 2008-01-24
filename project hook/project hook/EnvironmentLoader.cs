@@ -14,12 +14,18 @@ namespace project_hook
 		private static System.Drawing.Color[,] m_LevelArray;
 		private static Collidable[,] m_CurrentView = new Collidable[16,14];
 		private static int m_CurTopRow;
+		private static int m_CurTopBuffer;
+		private static int m_CurBottomBuffer;
+		private static int m_ScrollSpeed;
+		private static Tile curTile;
 		private static int m_TileDimension = Game1.graphics.GraphicsDevice.Viewport.Width/m_CurrentView.GetLength(0);
+		private static List<Sprite> m_SpriteList;
 
-		public static void Initialize()
+		public static void Initialize(int p_ScrollSpeed)
 		{
 			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("crosshairs", ""),0,true));
 			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.White).ToArgb(), new Tile(null, 0, false));
+			m_ScrollSpeed = p_ScrollSpeed;
 		}
 
 		public static void ReadLevelBmp(string p_FileName, List<Sprite> p_SpriteList)
@@ -28,6 +34,7 @@ namespace project_hook
 			int bmpHeight = bmp.Height;
 			int bmpWidth = bmp.Width;
 			m_LevelArray = new System.Drawing.Color[bmpWidth, bmpHeight];
+			m_SpriteList = p_SpriteList;
 
 			for (int height = 0; height < bmpHeight; height++)
 			{
@@ -41,26 +48,61 @@ namespace project_hook
 			{
 				for (int x = 0; x < m_CurrentView.GetLength(0); x++)
 				{
-					Tile curTile = ((Tile)m_ColorMap[m_LevelArray[x, y].ToArgb()]);
+					curTile = ((Tile)m_ColorMap[m_LevelArray[x, bmpHeight-m_CurrentView.GetLength(1) + y].ToArgb()]);
 
 					m_CurrentView[x, y] = new Collidable("environment", new Vector2(x * m_TileDimension, (y-1) * m_TileDimension), m_TileDimension, m_TileDimension, curTile.GTexture,
 						1, curTile.Enabled, curTile.Rotation, Depth.ForeGround.Bottom, Collidable.Factions.Environment, -1,null,m_TileDimension/2);
 
 					m_CurrentView[x, y].Bound = Collidable.Boundings.Square;
-					p_SpriteList.Add(m_CurrentView[x, y]);
 				}
 			}
 
 			m_CurTopRow = bmpHeight - m_CurrentView.GetLength(1);
+			m_CurBottomBuffer = m_CurrentView.GetLength(1) - 1;
+			m_CurTopBuffer = 0;
 		}
 
-		public static void Update()
+		public static void Update(GameTime p_GameTime)
 		{
-			for (int y = 0; y < m_CurrentView.GetLength(0); y++)
+			for (int y = 0; y < m_CurrentView.GetLength(1); y++)
 			{
-				for (int x = 0; y < m_CurrentView.GetLength(1); y++)
+				for(int x = 0; x < m_CurrentView.GetLength(0); x++)
 				{
-					
+					Vector2 temp = m_CurrentView[x,y].Position;
+					temp.Y += (m_ScrollSpeed * (float)p_GameTime.ElapsedGameTime.TotalSeconds);
+					m_CurrentView[x, y].Position = temp;
+				}
+			}
+			if (m_CurrentView[m_CurrentView.GetLength(0)-1, m_CurBottomBuffer].Position.Y >= Game1.graphics.GraphicsDevice.Viewport.Height)
+			{
+				m_CurBottomBuffer -= 1;
+				if (m_CurBottomBuffer == -1)
+					m_CurBottomBuffer = m_CurrentView.GetLength(1)-1;
+
+				m_CurTopBuffer -= 1;
+				if (m_CurTopBuffer == -1)
+					m_CurTopBuffer = m_CurrentView.GetLength(1)-1;
+
+				for (int i = 0; i < m_CurrentView.GetLength(0); i++)
+				{
+					curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
+					m_CurrentView[i, m_CurTopBuffer].Texture = curTile.GTexture;
+					m_CurrentView[i, m_CurTopBuffer].Rotation = curTile.Rotation;
+					m_CurrentView[i, m_CurTopBuffer].Enabled = curTile.Enabled;
+					m_CurrentView[i, m_CurTopBuffer].Position = new Vector2(i * m_TileDimension, 0 - m_TileDimension);
+				}
+
+				m_CurTopRow--;
+			}
+		}
+
+		public static void Draw(SpriteBatch p_SpriteBatch)
+		{
+			for (int y = 0; y < m_CurrentView.GetLength(1); y++)
+			{
+				for (int x = 0; x < m_CurrentView.GetLength(0); x++)
+				{
+					m_CurrentView[x, y].Draw(p_SpriteBatch);
 				}
 			}
 		}
