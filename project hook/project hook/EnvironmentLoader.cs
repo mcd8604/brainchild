@@ -8,27 +8,31 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	static class EnvironmentLoader
+	class EnvironmentLoader
 	{
-		private static Hashtable m_ColorMap = new Hashtable();
-		private static System.Drawing.Color[,] m_LevelArray;
-		private static Collidable[,] m_CurrentView = new Collidable[16,14];
-		private static int m_CurTopRow;
-		private static int m_CurTopBuffer;
-		private static int m_CurBottomBuffer;
-		private static int m_ScrollSpeed;
-		private static Tile curTile;
-		private static int m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width/m_CurrentView.GetLength(0);
-		private static List<Sprite> m_SpriteList;
+		private Hashtable m_ColorMap = new Hashtable();
+		private System.Drawing.Color[,] m_LevelArray;
+		private Collidable[,] m_CurrentView = new Collidable[16,14];
+		private int m_CurTopRow;
+		private int m_CurTopBuffer;
+		private int m_CurBottomBuffer;
+		private int m_ScrollSpeed;
+		private Tile curTile;
+		private int m_TileDimension;
+		private List<Sprite> m_SpriteList;
+		private Random m_Index;
 
-		public static void Initialize(int p_ScrollSpeed)
+		public void Initialize(int p_ScrollSpeed)
 		{
-			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("wall1", ""),0,true));
-			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.White).ToArgb(), new Tile(null, 0, false));
+			
+			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(new GameTexture[4] {TextureLibrary.getGameTexture("wall_rand2", ""), TextureLibrary.getGameTexture("wall_flat", ""), TextureLibrary.getGameTexture("wall_rand1", ""), TextureLibrary.getGameTexture("wall_rand3", "")}, 0, true));
+			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.White).ToArgb(), new Tile(new GameTexture[1] { null }, 0, false));
 			m_ScrollSpeed = p_ScrollSpeed;
+			m_Index = new Random();
+			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_CurrentView.GetLength(0);
 		}
 
-		public static void ReadLevelBmp(string p_FileName, List<Sprite> p_SpriteList)
+		public void ReadLevelBmp(string p_FileName, List<Sprite> p_SpriteList)
 		{
 			Bitmap bmp = new Bitmap(p_FileName);
 			int bmpHeight = bmp.Height;
@@ -50,7 +54,7 @@ namespace project_hook
 				{
 					curTile = ((Tile)m_ColorMap[m_LevelArray[x, bmpHeight-m_CurrentView.GetLength(1) + y].ToArgb()]);
 
-					m_CurrentView[x, y] = new Collidable("environment", new Vector2(x * m_TileDimension, (y-1) * m_TileDimension), m_TileDimension, m_TileDimension, curTile.GTexture,
+					m_CurrentView[x, y] = new Collidable("environment", new Vector2(x * m_TileDimension, (y-1) * m_TileDimension), m_TileDimension, m_TileDimension, curTile.GTexture[m_Index.Next(curTile.GTexture.GetLength(0)-1)],
 						1, curTile.Enabled, curTile.Rotation, Depth.ForeGround.Bottom, Collidable.Factions.Environment, -1,null,m_TileDimension/2);
 
 					m_CurrentView[x, y].Bound = Collidable.Boundings.Square;
@@ -62,7 +66,7 @@ namespace project_hook
 			m_CurTopBuffer = 0;
 		}
 
-		public static void Update(GameTime p_GameTime)
+		public void Update(GameTime p_GameTime)
 		{
 			for (int y = 0; y < m_CurrentView.GetLength(1); y++)
 			{
@@ -86,7 +90,7 @@ namespace project_hook
 				for (int i = 0; i < m_CurrentView.GetLength(0); i++)
 				{
 					curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
-					m_CurrentView[i, m_CurTopBuffer].Texture = curTile.GTexture;
+					m_CurrentView[i, m_CurTopBuffer].Texture = curTile.GTexture[m_Index.Next(curTile.GTexture.GetLength(0) - 1)];
 					m_CurrentView[i, m_CurTopBuffer].Rotation = curTile.Rotation;
 					m_CurrentView[i, m_CurTopBuffer].Enabled = curTile.Enabled;
 					m_CurrentView[i, m_CurTopBuffer].Position = new Vector2(i * m_TileDimension, 0 - m_TileDimension);
@@ -96,7 +100,7 @@ namespace project_hook
 			}
 		}
 
-		public static void Draw(SpriteBatch p_SpriteBatch)
+		public void Draw(SpriteBatch p_SpriteBatch)
 		{
 			for (int y = 0; y < m_CurrentView.GetLength(1); y++)
 			{
@@ -110,11 +114,11 @@ namespace project_hook
 
 	public struct Tile
 	{
-		public GameTexture GTexture;
+		public GameTexture[] GTexture;
 		public int Rotation;
 		public bool Enabled;
 
-		public Tile(GameTexture p_Texture, int p_Rotation, bool p_Enabled)
+		public Tile(GameTexture[] p_Texture, int p_Rotation, bool p_Enabled)
 		{
 			GTexture = p_Texture;
 			Rotation = p_Rotation;

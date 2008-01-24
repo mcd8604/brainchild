@@ -83,7 +83,7 @@ namespace project_hook
 		public static Rectangle m_ViewPortSize;
 
 		public float m_Distance = 0;
-		public int m_Speed = 100;
+		public int m_Speed = 80;
 		public int Speed
 		{
 			get
@@ -95,6 +95,10 @@ namespace project_hook
 				m_Speed = value;
 			}
 		}
+
+		LevelReader m_LReader;
+		LevelHandler m_LHandler;
+		EnvironmentLoader m_ELoader=new EnvironmentLoader();
 
 		public World()
 		{
@@ -113,8 +117,10 @@ namespace project_hook
 			Sprite.DrawWithRot();
 			Music.Initialize();
 			Sound.Initialize();
-			EnvironmentLoader.Initialize(m_Speed);
-			EnvironmentLoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp", this.m_SpriteList);
+			this.m_LReader = new LevelReader("LevelTest.xml");
+			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+			this.m_ELoader.Initialize(this.m_Speed);
+			this.m_ELoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp", this.m_SpriteList);
 		}
 
 		//This method will load the level
@@ -141,6 +147,8 @@ namespace project_hook
 			//This will be for normal everyday update operations.  
 			if (m_State == GameState.Running)
 			{
+				m_LHandler.CheckEvents(Convert.ToInt32(m_Distance));
+
 				m_Player.UpdatePlayer(p_GameTime);
 
 				Collision.CheckCollisions(m_SpriteList);
@@ -162,7 +170,7 @@ namespace project_hook
 				m_SpriteList.AddRange(toAdd);
 
 				m_Distance += m_Speed * (float)(p_GameTime.ElapsedGameTime.TotalSeconds);
-				EnvironmentLoader.Update(p_GameTime);
+				this.m_ELoader.Update(p_GameTime);
 			}
 
 		}
@@ -281,7 +289,7 @@ namespace project_hook
 					}
 				}
 
-				EnvironmentLoader.Draw(p_SpriteBatch);
+				this.m_ELoader.Draw(p_SpriteBatch);
 
 				p_SpriteBatch.End();
 			}
@@ -457,6 +465,18 @@ namespace project_hook
 			m_SpriteList.Add(sp);
 
 
+		}
+
+		public void ChangeFile(String p_FileName)
+		{
+			m_LReader = new LevelReader(p_FileName);
+			m_Distance = 0;
+			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+		}
+
+		public void AddSprite(Collidable p_Sprite)
+		{
+			this.m_SpriteList.Add(p_Sprite);
 		}
 	}
 }

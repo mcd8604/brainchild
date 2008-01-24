@@ -19,8 +19,8 @@ namespace project_hook
 			}
 		}
 
-		private Game1 m_Game;
-		public Game1 Game
+		private World m_Game;
+		public World Game
 		{
 			get
 			{
@@ -35,7 +35,7 @@ namespace project_hook
 		public LevelHandler()
 		{
 		}
-		public LevelHandler(Dictionary<int, List<Event>> p_Events, Game1 p_Game)
+		public LevelHandler(Dictionary<int, List<Event>> p_Events, World p_Game)
 		{
 			Events = p_Events;
 			Game = p_Game;
@@ -70,6 +70,7 @@ namespace project_hook
 		public void CreateCollidable(Collidable p_Collidable)
 		{
 			//add the sprtie to the sprtiebatch in the game class
+			//Sprite.addSprite(p_Collidable);
 			m_Game.AddSprite(p_Collidable);
 		}
 
