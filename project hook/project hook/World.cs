@@ -82,6 +82,20 @@ namespace project_hook
 
 		public static Rectangle m_ViewPortSize;
 
+		public float m_Distance = 0;
+		public int m_Speed = 100;
+		public int Speed
+		{
+			get
+			{
+				return m_Speed;
+			}
+			set
+			{
+				m_Speed = value;
+			}
+		}
+
 		public World()
 		{
 
@@ -298,7 +312,7 @@ namespace project_hook
 			GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
 
 			//test scrolling background
-			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""));
+			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Speed);
 
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.ForeGround.Bottom, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);

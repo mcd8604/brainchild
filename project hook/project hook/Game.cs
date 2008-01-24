@@ -45,8 +45,8 @@ namespace project_hook
 			content = new ContentManager(Services);
 
 			// uncap frame rate to see our true performance
-			//graphics.SynchronizeWithVerticalRetrace = false;
-			//IsFixedTimeStep = false;
+			graphics.SynchronizeWithVerticalRetrace = false;
+			IsFixedTimeStep = false;
 
 
 		}
