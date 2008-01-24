@@ -119,8 +119,8 @@ namespace project_hook
 			Sound.Initialize();
 			this.m_LReader = new LevelReader("LevelTest.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			this.m_ELoader.Initialize(this.m_Speed);
-			this.m_ELoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp", this.m_SpriteList);
+			m_SpriteList.AddRange( this.m_ELoader.Initialize(this.m_Speed) );
+			this.m_ELoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp");
 		}
 
 		//This method will load the level
@@ -289,7 +289,7 @@ namespace project_hook
 					}
 				}
 
-				this.m_ELoader.Draw(p_SpriteBatch);
+				//this.m_ELoader.Draw(p_SpriteBatch);
 
 				p_SpriteBatch.End();
 			}
