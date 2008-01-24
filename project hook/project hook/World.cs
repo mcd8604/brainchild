@@ -113,6 +113,8 @@ namespace project_hook
 			Sprite.DrawWithRot();
 			Music.Initialize();
 			Sound.Initialize();
+			EnvironmentLoader.Initialize(m_Speed);
+			EnvironmentLoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp", this.m_SpriteList);
 		}
 
 		//This method will load the level
@@ -159,6 +161,8 @@ namespace project_hook
 				}
 				m_SpriteList.AddRange(toAdd);
 
+				m_Distance += m_Speed * (float)(p_GameTime.ElapsedGameTime.TotalSeconds);
+				EnvironmentLoader.Update(p_GameTime);
 			}
 
 		}
@@ -276,6 +280,8 @@ namespace project_hook
 						s.Draw(p_SpriteBatch);
 					}
 				}
+
+				EnvironmentLoader.Draw(p_SpriteBatch);
 
 				p_SpriteBatch.End();
 			}

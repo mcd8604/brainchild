@@ -18,7 +18,7 @@ namespace project_hook
 		private static int m_CurBottomBuffer;
 		private static int m_ScrollSpeed;
 		private static Tile curTile;
-		private static int m_TileDimension = Game1.graphics.GraphicsDevice.Viewport.Width/m_CurrentView.GetLength(0);
+		private static int m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width/m_CurrentView.GetLength(0);
 		private static List<Sprite> m_SpriteList;
 
 		public static void Initialize(int p_ScrollSpeed)
@@ -73,7 +73,7 @@ namespace project_hook
 					m_CurrentView[x, y].Position = temp;
 				}
 			}
-			if (m_CurrentView[m_CurrentView.GetLength(0)-1, m_CurBottomBuffer].Position.Y >= Game1.graphics.GraphicsDevice.Viewport.Height)
+			if (m_CurrentView[m_CurrentView.GetLength(0)-1, m_CurBottomBuffer].Position.Y >= Game.graphics.GraphicsDevice.Viewport.Height)
 			{
 				m_CurBottomBuffer -= 1;
 				if (m_CurBottomBuffer == -1)
