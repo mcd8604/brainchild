@@ -338,21 +338,16 @@ namespace project_hook
 				p_Reader.ReadEndElement();
 				if(pType.Equals("Straight"))
 				{					
-					//x y
-					pEndPos.X = int.Parse(p_Reader.GetAttribute(0));
-					pEndPos.Y = int.Parse(p_Reader.GetAttribute(1));
-					//duration
+					//x
 					p_Reader.ReadStartElement();
-					pDuration = float.Parse(p_Reader.ReadString());
+					pEndPos.X = int.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
-					//speed
+					//y
 					p_Reader.ReadStartElement();
-					pSpeed = int.Parse(p_Reader.ReadString());
+					pEndPos.Y = int.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
-					//rotation
-					p_Reader.ReadStartElement();
-					pRotation = bool.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
+
+					t_Ship.Task = new TaskStraightVelocity(pEndPos);
 
 					//dic.Add(PathStrategy.ValueKeys.Base, t_Ship);
 					//dic.Add(PathStrategy.ValueKeys.Speed, pSpeed);
