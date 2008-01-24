@@ -23,7 +23,7 @@ namespace project_hook
 
 		private ArrayList scrollingSprites;
 
-		public YScrollingBackground(GameTexture p_BackgroundTexture)
+		public YScrollingBackground(GameTexture p_BackgroundTexture, int p_Speed)
 			: base("scrollingBackground", new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGround.Bottom)
 		{
 			scrollingSprites = new ArrayList((World.m_ViewPortSize.Height / p_BackgroundTexture.Height) + 2);
@@ -33,7 +33,7 @@ namespace project_hook
 				scrollingSprites.Add(s);
 				attachSpritePart(s);
 			}
-			m_ScrollSpeed = 1;
+			m_ScrollSpeed = p_Speed;
 		}
 
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
@@ -41,10 +41,11 @@ namespace project_hook
 			base.Update(p_Time);
 			foreach (Sprite s in scrollingSprites)
 			{
-				float newY = s.Position.Y + (m_ScrollSpeed);
+				float dist = m_ScrollSpeed * (float)p_Time.ElapsedGameTime.TotalSeconds;
+				float newY = s.Position.Y + (dist);
 				if (s.Position.Y >= World.m_ViewPortSize.Height)
 				{
-					newY = 0 - s.Height + (m_ScrollSpeed);
+					newY = 0 - s.Height + (dist);
 				}
 				s.Position = new Vector2(s.Position.X, newY);
 			}
