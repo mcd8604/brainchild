@@ -25,7 +25,7 @@ namespace project_hook
 		LevelReader m_LReader;
 		LevelHandler m_LHandler;
 		float m_Distance = 0;
-		int m_Speed = 10;
+		int m_Speed = 100;
 		public int Speed
 		{
 			get
@@ -109,7 +109,7 @@ namespace project_hook
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			t_Time.Stop();
 			Console.WriteLine(t_Time.ElapsedMilliseconds);
-			EnvironmentLoader.Initialize();
+			EnvironmentLoader.Initialize(m_Speed);
 			EnvironmentLoader.ReadLevelBmp("C:/Documents and Settings/mxd1365/Desktop/temp/project hook/project hook/Content/Levels/testBMP.bmp", this.spritelist);
 
 		}
@@ -476,6 +476,7 @@ namespace project_hook
 			//change the distance
 			//m_Delta = m_Speed * p_GameTime.ElapsedGameTime.TotalSeconds;
 			m_Distance += m_Speed * (float)(gameTime.ElapsedGameTime.TotalSeconds);
+			EnvironmentLoader.Update(gameTime);
 			//Console.WriteLine(m_Distance);
 
 			base.Update(gameTime);
@@ -516,6 +517,8 @@ namespace project_hook
 			{
 				s.Draw(m_spriteBatch);
 			}
+
+			EnvironmentLoader.Draw(m_spriteBatch);
 			//back2.Draw(m_spriteBatch);
 			//shotEffect.Draw(m_spriteBatch);
 			//shot2Effect.Draw(m_spriteBatch);
