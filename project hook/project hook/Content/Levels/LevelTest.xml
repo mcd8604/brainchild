@@ -19,10 +19,8 @@
 			<radius>50</radius>
 			<path>
 				<type>Straight</type>
-				<end x="600" y="2000"/>
-				<duration>5</duration>
-				<speed>100</speed>
-				<rotation>false</rotation>
+				<x>700</x>
+				<y>1000</y>
 			</path>
 		</createShip>
 	</action>
