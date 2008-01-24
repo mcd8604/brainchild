@@ -585,6 +585,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>testBMP</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\bloodcell.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

@@ -110,7 +110,7 @@ namespace project_hook
 			t_Time.Stop();
 			Console.WriteLine(t_Time.ElapsedMilliseconds);
 			EnvironmentLoader.Initialize(m_Speed);
-			EnvironmentLoader.ReadLevelBmp("C:/Documents and Settings/mxd1365/Desktop/temp/project hook/project hook/Content/Levels/testBMP.bmp", this.spritelist);
+			EnvironmentLoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp", this.spritelist);
 
 		}
 
