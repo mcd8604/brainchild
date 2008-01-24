@@ -106,11 +106,11 @@ namespace project_hook
 			System.Diagnostics.Stopwatch t_Time = new System.Diagnostics.Stopwatch();
 			t_Time.Start();
 			m_LReader = new LevelReader("LevelTest.xml");
-			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+			//m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			t_Time.Stop();
 			Console.WriteLine(t_Time.ElapsedMilliseconds);
-			EnvironmentLoader.Initialize(m_Speed);
-			EnvironmentLoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp", this.spritelist);
+			//EnvironmentLoader.Initialize(m_Speed);
+			//EnvironmentLoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp");
 
 		}
 
@@ -476,7 +476,7 @@ namespace project_hook
 			//change the distance
 			//m_Delta = m_Speed * p_GameTime.ElapsedGameTime.TotalSeconds;
 			m_Distance += m_Speed * (float)(gameTime.ElapsedGameTime.TotalSeconds);
-			EnvironmentLoader.Update(gameTime);
+			//EnvironmentLoader.Update(gameTime);
 			//Console.WriteLine(m_Distance);
 
 			base.Update(gameTime);
@@ -518,7 +518,7 @@ namespace project_hook
 				s.Draw(m_spriteBatch);
 			}
 
-			EnvironmentLoader.Draw(m_spriteBatch);
+			//EnvironmentLoader.Draw(m_spriteBatch);
 			//back2.Draw(m_spriteBatch);
 			//shotEffect.Draw(m_spriteBatch);
 			//shot2Effect.Draw(m_spriteBatch);
@@ -541,7 +541,7 @@ namespace project_hook
 		{
 			m_LReader = new LevelReader(p_FileName);
 			m_Distance = 0;
-			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+			//m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 
 		public void AddSprite(Sprite p_Sprite)

@@ -8,37 +8,52 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class EnvironmentLoader
+	public class EnvironmentLoader
 	{
-		private Hashtable m_ColorMap = new Hashtable();
+		private static int m_ScreenSpaceWidth = 16;
+		private static int m_ScreenSpaceHeight = 14;
+
+		private Hashtable m_ColorMap;
 		private System.Drawing.Color[,] m_LevelArray;
-		private Collidable[,] m_CurrentView = new Collidable[16,14];
+		private List<Sprite> m_CurrentView;
 		private int m_CurTopRow;
 		private int m_CurTopBuffer;
 		private int m_CurBottomBuffer;
 		private int m_ScrollSpeed;
 		private Tile curTile;
 		private int m_TileDimension;
-		private List<Sprite> m_SpriteList;
-		private Random m_Index;
 
-		public void Initialize(int p_ScrollSpeed)
+		public List<Sprite> Initialize(int p_ScrollSpeed)
 		{
-			
-			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(new GameTexture[4] {TextureLibrary.getGameTexture("wall_rand2", ""), TextureLibrary.getGameTexture("wall_flat", ""), TextureLibrary.getGameTexture("wall_rand1", ""), TextureLibrary.getGameTexture("wall_rand3", "")}, 0, true));
-			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.White).ToArgb(), new Tile(new GameTexture[1] { null }, 0, false));
+			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
+			m_ColorMap = new Hashtable();
+			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("wall1", ""), 0, true));
+			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.White).ToArgb(), new Tile(null, 0, false));
 			m_ScrollSpeed = p_ScrollSpeed;
-			m_Index = new Random();
-			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_CurrentView.GetLength(0);
+
+			m_CurrentView = new List<Sprite>();
+
+			for (int y = 0; y < m_ScreenSpaceHeight; y++)
+			{
+				for (int x = 0; x < m_ScreenSpaceWidth; x++)
+				{
+					Collidable temp = new Collidable("environment", new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension), m_TileDimension, m_TileDimension, null,
+						1, true, 0, Depth.ForeGround.Bottom, Collidable.Factions.Environment, int.MinValue, null, m_TileDimension / 2);
+					temp.Bound = Collidable.Boundings.Square;
+					m_CurrentView.Add(temp);
+				}
+			}
+
+			return m_CurrentView;
+
 		}
 
-		public void ReadLevelBmp(string p_FileName, List<Sprite> p_SpriteList)
+		public void ReadLevelBmp(string p_FileName)
 		{
 			Bitmap bmp = new Bitmap(p_FileName);
 			int bmpHeight = bmp.Height;
 			int bmpWidth = bmp.Width;
 			m_LevelArray = new System.Drawing.Color[bmpWidth, bmpHeight];
-			m_SpriteList = p_SpriteList;
 
 			for (int height = 0; height < bmpHeight; height++)
 			{
@@ -48,77 +63,79 @@ namespace project_hook
 				}
 			}
 
-			for (int y = 0; y < m_CurrentView.GetLength(1); y++)
+			for (int y = 0; y < m_ScreenSpaceHeight; y++)
 			{
-				for (int x = 0; x < m_CurrentView.GetLength(0); x++)
+				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
-					curTile = ((Tile)m_ColorMap[m_LevelArray[x, bmpHeight-m_CurrentView.GetLength(1) + y].ToArgb()]);
+					curTile = ((Tile)m_ColorMap[m_LevelArray[x, bmpHeight - m_ScreenSpaceHeight + y].ToArgb()]);
 
-					m_CurrentView[x, y] = new Collidable("environment", new Vector2(x * m_TileDimension, (y-1) * m_TileDimension), m_TileDimension, m_TileDimension, curTile.GTexture[m_Index.Next(curTile.GTexture.GetLength(0)-1)],
-						1, curTile.Enabled, curTile.Rotation, Depth.ForeGround.Bottom, Collidable.Factions.Environment, -1,null,m_TileDimension/2);
+					//m_CurrentView[x, y] = new Collidable("environment", new Vector2(x * m_TileDimension, (y-1) * m_TileDimension), m_TileDimension, m_TileDimension, curTile.GTexture,
+					//    1, curTile.Enabled, curTile.Rotation, Depth.ForeGround.Bottom, Collidable.Factions.Environment, -1,null,m_TileDimension/2);
 
-					m_CurrentView[x, y].Bound = Collidable.Boundings.Square;
+					m_CurrentView[getPosition(x, y)].Texture = curTile.GTexture;
+					m_CurrentView[getPosition(x, y)].Rotation = curTile.Rotation;
+					m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
+
+					m_CurrentView[getPosition(x, y)].Position = new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension);
+
+
 				}
 			}
 
-			m_CurTopRow = bmpHeight - m_CurrentView.GetLength(1);
-			m_CurBottomBuffer = m_CurrentView.GetLength(1) - 1;
+			m_CurTopRow = bmpHeight - m_ScreenSpaceHeight;
+			m_CurBottomBuffer = m_ScreenSpaceHeight - 1;
 			m_CurTopBuffer = 0;
 		}
 
 		public void Update(GameTime p_GameTime)
 		{
-			for (int y = 0; y < m_CurrentView.GetLength(1); y++)
+			for (int y = 0; y < m_ScreenSpaceHeight; y++)
 			{
-				for(int x = 0; x < m_CurrentView.GetLength(0); x++)
+				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
-					Vector2 temp = m_CurrentView[x,y].Position;
+					Vector2 temp = m_CurrentView[getPosition(x, y)].Position;
 					temp.Y += (m_ScrollSpeed * (float)p_GameTime.ElapsedGameTime.TotalSeconds);
-					m_CurrentView[x, y].Position = temp;
+					m_CurrentView[getPosition(x, y)].Position = temp;
 				}
 			}
-			if (m_CurrentView[m_CurrentView.GetLength(0)-1, m_CurBottomBuffer].Position.Y >= Game.graphics.GraphicsDevice.Viewport.Height)
+			if (m_CurrentView[getPosition(m_ScreenSpaceWidth - 1, m_CurBottomBuffer)].Position.Y >= Game.graphics.GraphicsDevice.Viewport.Height)
 			{
 				m_CurBottomBuffer -= 1;
 				if (m_CurBottomBuffer == -1)
-					m_CurBottomBuffer = m_CurrentView.GetLength(1)-1;
+					m_CurBottomBuffer = m_ScreenSpaceHeight - 1;
 
 				m_CurTopBuffer -= 1;
 				if (m_CurTopBuffer == -1)
-					m_CurTopBuffer = m_CurrentView.GetLength(1)-1;
+					m_CurTopBuffer = m_ScreenSpaceHeight - 1;
 
-				for (int i = 0; i < m_CurrentView.GetLength(0); i++)
+				for (int i = 0; i < m_ScreenSpaceWidth; i++)
 				{
 					curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
-					m_CurrentView[i, m_CurTopBuffer].Texture = curTile.GTexture[m_Index.Next(curTile.GTexture.GetLength(0) - 1)];
-					m_CurrentView[i, m_CurTopBuffer].Rotation = curTile.Rotation;
-					m_CurrentView[i, m_CurTopBuffer].Enabled = curTile.Enabled;
-					m_CurrentView[i, m_CurTopBuffer].Position = new Vector2(i * m_TileDimension, 0 - m_TileDimension);
+
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = curTile.GTexture;
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].Rotation = curTile.Rotation;
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].Position = new Vector2(i * m_TileDimension, 0 - m_TileDimension);
 				}
 
 				m_CurTopRow--;
 			}
 		}
 
-		public void Draw(SpriteBatch p_SpriteBatch)
+		public static int getPosition(int x, int y)
 		{
-			for (int y = 0; y < m_CurrentView.GetLength(1); y++)
-			{
-				for (int x = 0; x < m_CurrentView.GetLength(0); x++)
-				{
-					m_CurrentView[x, y].Draw(p_SpriteBatch);
-				}
-			}
+			return (y * m_ScreenSpaceWidth) + x;
 		}
+
 	}
 
 	public struct Tile
 	{
-		public GameTexture[] GTexture;
+		public GameTexture GTexture;
 		public int Rotation;
 		public bool Enabled;
 
-		public Tile(GameTexture[] p_Texture, int p_Rotation, bool p_Enabled)
+		public Tile(GameTexture p_Texture, int p_Rotation, bool p_Enabled)
 		{
 			GTexture = p_Texture;
 			Rotation = p_Rotation;
