@@ -307,7 +307,7 @@ namespace project_hook
 			enemy.setAnimation("bloodcell", 60);
 			enemy.Animation.StartAnimation();
 			Ship enemy2 = new Ship("Enemy", new Vector2(800f, 150f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, MathHelper.PiOver2, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
-			ArrayList m_TailBodySprites = new ArrayList();
+			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
 			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.MidGround.Mid);
 			for (int i = 0; i < 60; i++)
@@ -343,69 +343,69 @@ namespace project_hook
 
 			//enemy pathing:
 
-			PathGroup group1a = new PathGroup();
-			Dictionary<PathStrategy.ValueKeys, Object> dicS = new Dictionary<PathStrategy.ValueKeys, object>();
-			dicS.Add(PathStrategy.ValueKeys.Base, enemy);
-			group1a.AddPath(new Path(Paths.Shoot, dicS));
+			//PathGroup group1a = new PathGroup();
+			//Dictionary<PathStrategy.ValueKeys, Object> dicS = new Dictionary<PathStrategy.ValueKeys, object>();
+			//dicS.Add(PathStrategy.ValueKeys.Base, enemy);
+			//group1a.AddPath(new Path(Paths.Shoot, dicS));
 
-			Dictionary<PathStrategy.ValueKeys, Object> dic1a = new Dictionary<PathStrategy.ValueKeys, object>();
-			dic1a.Add(PathStrategy.ValueKeys.Base, enemy);
-			dic1a.Add(PathStrategy.ValueKeys.Speed, 100f);
-			dic1a.Add(PathStrategy.ValueKeys.End, new Vector2(500, 200));
-			dic1a.Add(PathStrategy.ValueKeys.Duration, 4f);
-			dic1a.Add(PathStrategy.ValueKeys.Rotation, false);
-			group1a.AddPath(new Path(Paths.Straight, dic1a));
+			//Dictionary<PathStrategy.ValueKeys, Object> dic1a = new Dictionary<PathStrategy.ValueKeys, object>();
+			//dic1a.Add(PathStrategy.ValueKeys.Base, enemy);
+			//dic1a.Add(PathStrategy.ValueKeys.Speed, 100f);
+			//dic1a.Add(PathStrategy.ValueKeys.End, new Vector2(500, 200));
+			//dic1a.Add(PathStrategy.ValueKeys.Duration, 4f);
+			//dic1a.Add(PathStrategy.ValueKeys.Rotation, false);
+			//group1a.AddPath(new Path(Paths.Straight, dic1a));
 
-			enemy.PathList.AddPath(group1a);
+			//enemy.PathList.AddPath(group1a);
 
-			PathGroup group1b = new PathGroup();
+			//PathGroup group1b = new PathGroup();
 
-			group1b.AddPath(new Path(Paths.Shoot, dicS));
+			//group1b.AddPath(new Path(Paths.Shoot, dicS));
 
-			Dictionary<PathStrategy.ValueKeys, Object> dic1b = new Dictionary<PathStrategy.ValueKeys, object>();
-			dic1b.Add(PathStrategy.ValueKeys.Base, enemy);
-			dic1b.Add(PathStrategy.ValueKeys.Speed, 100f);
-			dic1b.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
-			dic1b.Add(PathStrategy.ValueKeys.Duration, 4f);
-			dic1b.Add(PathStrategy.ValueKeys.Rotation, false);
-			group1b.AddPath(new Path(Paths.Straight, dic1b));
+			//Dictionary<PathStrategy.ValueKeys, Object> dic1b = new Dictionary<PathStrategy.ValueKeys, object>();
+			//dic1b.Add(PathStrategy.ValueKeys.Base, enemy);
+			//dic1b.Add(PathStrategy.ValueKeys.Speed, 100f);
+			//dic1b.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
+			//dic1b.Add(PathStrategy.ValueKeys.Duration, 4f);
+			//dic1b.Add(PathStrategy.ValueKeys.Rotation, false);
+			//group1b.AddPath(new Path(Paths.Straight, dic1b));
 
-			enemy.PathList.AddPath(group1b);
+			//enemy.PathList.AddPath(group1b);
 
-			enemy.PathList.Mode = ListModes.Repeat;
+			//enemy.PathList.Mode = ListModes.Repeat;
 
 
 
-			PathGroup group2a = new PathGroup();
-			Dictionary<PathStrategy.ValueKeys, Object> dicS2 = new Dictionary<PathStrategy.ValueKeys, object>();
-			dicS2.Add(PathStrategy.ValueKeys.Base, enemy2);
-			group2a.AddPath(new Path(Paths.Shoot, dicS2));
+			//PathGroup group2a = new PathGroup();
+			//Dictionary<PathStrategy.ValueKeys, Object> dicS2 = new Dictionary<PathStrategy.ValueKeys, object>();
+			//dicS2.Add(PathStrategy.ValueKeys.Base, enemy2);
+			//group2a.AddPath(new Path(Paths.Shoot, dicS2));
 
-			Dictionary<PathStrategy.ValueKeys, Object> dic2a = new Dictionary<PathStrategy.ValueKeys, object>();
-			dic2a.Add(PathStrategy.ValueKeys.Base, enemy2);
-			dic2a.Add(PathStrategy.ValueKeys.Speed, 100f);
-			dic2a.Add(PathStrategy.ValueKeys.End, new Vector2(300, 150));
-			dic2a.Add(PathStrategy.ValueKeys.Duration, 3f);
-			dic2a.Add(PathStrategy.ValueKeys.Rotation, false);
-			group2a.AddPath(new Path(Paths.Straight, dic2a));
+			//Dictionary<PathStrategy.ValueKeys, Object> dic2a = new Dictionary<PathStrategy.ValueKeys, object>();
+			//dic2a.Add(PathStrategy.ValueKeys.Base, enemy2);
+			//dic2a.Add(PathStrategy.ValueKeys.Speed, 100f);
+			//dic2a.Add(PathStrategy.ValueKeys.End, new Vector2(300, 150));
+			//dic2a.Add(PathStrategy.ValueKeys.Duration, 3f);
+			//dic2a.Add(PathStrategy.ValueKeys.Rotation, false);
+			//group2a.AddPath(new Path(Paths.Straight, dic2a));
 
-			enemy2.PathList.AddPath(group2a);
+			//enemy2.PathList.AddPath(group2a);
 
-			PathGroup group2b = new PathGroup();
+			//PathGroup group2b = new PathGroup();
 
-			group2b.AddPath(new Path(Paths.Shoot, dicS2));
+			//group2b.AddPath(new Path(Paths.Shoot, dicS2));
 
-			Dictionary<PathStrategy.ValueKeys, Object> dic2b = new Dictionary<PathStrategy.ValueKeys, object>();
-			dic2b.Add(PathStrategy.ValueKeys.Base, enemy2);
-			dic2b.Add(PathStrategy.ValueKeys.Speed, 100f);
-			dic2b.Add(PathStrategy.ValueKeys.End, new Vector2(800, 150));
-			dic2b.Add(PathStrategy.ValueKeys.Duration, 3f);
-			dic2b.Add(PathStrategy.ValueKeys.Rotation, false);
-			group2b.AddPath(new Path(Paths.Straight, dic2b));
+			//Dictionary<PathStrategy.ValueKeys, Object> dic2b = new Dictionary<PathStrategy.ValueKeys, object>();
+			//dic2b.Add(PathStrategy.ValueKeys.Base, enemy2);
+			//dic2b.Add(PathStrategy.ValueKeys.Speed, 100f);
+			//dic2b.Add(PathStrategy.ValueKeys.End, new Vector2(800, 150));
+			//dic2b.Add(PathStrategy.ValueKeys.Duration, 3f);
+			//dic2b.Add(PathStrategy.ValueKeys.Rotation, false);
+			//group2b.AddPath(new Path(Paths.Straight, dic2b));
 
-			enemy2.PathList.AddPath(group2b);
+			//enemy2.PathList.AddPath(group2b);
 
-			enemy2.PathList.Mode = ListModes.Repeat;
+			//enemy2.PathList.Mode = ListModes.Repeat;
 
 			// end enemy pathing
 

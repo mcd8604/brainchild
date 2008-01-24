@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
+	[Obsolete]
 	class PathTailBody : PathStrategy
 	{
 

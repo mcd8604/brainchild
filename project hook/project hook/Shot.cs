@@ -33,9 +33,9 @@ namespace project_hook
 
 		#endregion // End of variables and Properties Region
 
-		public Shot(String p_Name, Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
+		public Shot(String p_Name, Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, int p_Health, GameTexture p_DamageEffect, float p_Radius, int p_Damage)
-			: base(p_Name, Vector2.Zero, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_Z, p_Faction, p_Health, p_DamageEffect, p_Radius)
+			: base(p_Name, Vector2.Zero, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_DamageEffect, p_Radius)
 		{
 			Damage = p_Damage;
 			Center = p_Center;
@@ -45,10 +45,10 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 
-			if (PathList.isDone())
+			if (Task.Complete)
 			{
 				Enabled = false;
-				ToBeRemoved = true;
+				//ToBeRemoved = true;
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace project_hook
 			Vector2 midPoint = new Vector2(Center.X - p_Other.Center.X, Center.Y - p_Other.Center.Y);
 			addSprite(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.MidGround.Top));
 
-			ToBeRemoved = true;
+			//ToBeRemoved = true;
 			Enabled = false;
 			}
 

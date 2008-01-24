@@ -8,70 +8,63 @@ namespace project_hook
 	class WeaponExample : Weapon
 	{
 
-		private Dictionary<PathStrategy.ValueKeys, Object> dic;
-
 		public WeaponExample(Ship p_Ship, string p_ShotName, int p_Damage, int p_Delay, float p_Speed, float p_Angle)
 			: base(p_Ship, p_ShotName, p_Damage, p_Delay, p_Speed, p_Angle)
 		{
-			dic = new Dictionary<PathStrategy.ValueKeys, object>();
-		}
+			TaskParallel task = new TaskParallel();
+			task.addTask(new TaskStraightAngle(p_Angle, p_Speed));
+			task.addTask(new TaskRotateAngle(p_Angle));
 
-		public override Sprite CreateShot()
-		{
-			if (m_Cooldown > 0)
+			m_Shots = new List<Shot>();
+			// temp
+			for (int i = 0; i <= (int)(2500f / m_Speed); i++)
 			{
-				return null;
-			}
-
-			Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber++, m_Ship.Center, 30, 75, m_Texture, 255f, true,
+				Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber++, Vector2.Zero, 30, 75, m_Texture, 1, false,
 								  m_Angle, Depth.MidGround.Top, m_Ship.Faction, -1, null, 15, 10);
-
-			t_Shot.Bound = Collidable.Boundings.Diamond;
-
-			t_Shot.setAnimation(m_ShotName, 10);
-			t_Shot.Animation.StartAnimation();
-
-			dic[PathStrategy.ValueKeys.Base] = t_Shot;
-			dic[PathStrategy.ValueKeys.Speed] = m_Speed;
-			dic[PathStrategy.ValueKeys.Angle] = m_Angle;
-			dic[PathStrategy.ValueKeys.Duration] = 5f;
-			dic[PathStrategy.ValueKeys.Rotation] = true;
-			t_Shot.Path = new Path(Paths.Straight, dic);
-
-			m_Cooldown = m_Delay;
-
-			return t_Shot;
+				t_Shot.Bound = Collidable.Boundings.Diamond;
+				t_Shot.Task = task;
+				m_Shots.Add(t_Shot);
+			}
 		}
 
-		public override Sprite CreateShot(Vector2 target)
+		public override void CreateShot()
 		{
-
-			if (m_Cooldown > 0)
+			if (m_Cooldown <= 0)
 			{
-				return null;
+				m_Shots[m_NextShot].Enabled = true;
+				m_Shots[m_NextShot].Center = m_Ship.Center;
+
+				m_Shots[m_NextShot].setAnimation(m_ShotName, 10);
+				m_Shots[m_NextShot].Animation.StartAnimation();
+
+				m_Cooldown = m_Delay;
+
+				m_NextShot = (m_NextShot + 1) % m_Shots.Count;
 			}
-
-			Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber++, m_Ship.Center, 30, 75, m_Texture, 255f, true,
-								  m_Angle, Depth.MidGround.Top, m_Ship.Faction, -1, null, 15, 10);
-
-			Vector2 Velocity = Vector2.Multiply(Vector2.Normalize(target - m_Ship.Center), (float)m_Speed);
-
-			t_Shot.Bound = Collidable.Boundings.Diamond;
-
-			t_Shot.setAnimation(m_ShotName, 10);
-			t_Shot.Animation.StartAnimation();
-
-			dic[PathStrategy.ValueKeys.Base] = t_Shot;
-			dic[PathStrategy.ValueKeys.Velocity] = Velocity;
-			dic[PathStrategy.ValueKeys.Duration] = 5f;
-			dic[PathStrategy.ValueKeys.Rotation] = true;
-			t_Shot.Path = new Path(Paths.Straight, dic);
-
-			m_Cooldown = m_Delay;
-
-			return t_Shot;
-
 		}
+
+		//public override void Update(GameTime p_Time)
+		//{
+		//    base.Update(p_Time);
+		//    foreach (Shot s in m_Shots)
+		//    {
+		//        if (s.Enabled)
+		//        {
+		//            s.Update(p_Time);
+		//        }
+		//    }
+		//}
+
+		//public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
+		//{
+		//    foreach (Shot s in m_Shots)
+		//    {
+		//        if (s.Enabled)
+		//        {
+		//            s.Draw(p_SpriteBatch);
+		//        }
+		//    }
+		//}
 
 	}
 }

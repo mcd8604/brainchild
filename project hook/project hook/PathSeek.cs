@@ -21,6 +21,7 @@ namespace project_hook
 	/// Rotation - Optional - Should the sprite be rotated to direction of travel, defaults to true
 	/// 
 	/// </summary>
+	[Obsolete]
 	class PathSeek : PathStrategy
 	{
 

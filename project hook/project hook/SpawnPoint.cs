@@ -95,28 +95,18 @@ namespace project_hook
 						s.Center = this.Center;
 						s.Enabled = true;
 
-						PathGroup group2b = new PathGroup();
 
-						
-
-						Dictionary<PathStrategy.ValueKeys, Object> dic2b = new Dictionary<PathStrategy.ValueKeys, object>();
-						dic2b.Add(PathStrategy.ValueKeys.Base, s);
 						
 
 						if (Target == null)
 						{
-							dic2b.Add(PathStrategy.ValueKeys.Velocity, new Vector2(0,100));
+							s.Task = new TaskStraightVelocity(new Vector2(0, 100));
 						}
 						else
 						{
-							dic2b.Add(PathStrategy.ValueKeys.Rotation, true);
-							dic2b.Add(PathStrategy.ValueKeys.Speed, 100f);
-							dic2b.Add(PathStrategy.ValueKeys.End, Target.Center);
+							s.Task = new TaskSeekPoint(Target.Center, 100);
 						}
 						
-						group2b.AddPath(new Path(Paths.Straight, dic2b));
-
-						s.PathList.AddPath(group2b);
 						s.setAnimation("bloodcell", 60);
 						s.Animation.StartAnimation();
 						this.addSprite(s);

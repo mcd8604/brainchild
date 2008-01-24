@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
+	[Obsolete]
 	class PathThrow : PathStrategy
 	{
 		Path m_CurrentPath;
@@ -54,7 +55,7 @@ namespace project_hook
 					dic.Add(PathStrategy.ValueKeys.Base, m_EnemyCaught);
 					dic.Add(PathStrategy.ValueKeys.Speed, 1000f);
 					dic.Add(PathStrategy.ValueKeys.End, m_Target);
-					m_EnemyCaught.PathList = new PathList(Paths.Straight, dic, ListModes.Continuous);
+					//m_EnemyCaught.PathList = new PathList(Paths.Straight, dic, ListModes.Continuous);
 					m_Base.TailReturned();
 				}
 			}
