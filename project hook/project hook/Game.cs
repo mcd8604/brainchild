@@ -24,7 +24,7 @@ namespace project_hook
 	/// </summary>
 	public class Game : Microsoft.Xna.Framework.Game
 	{
-		GraphicsDeviceManager graphics;
+		public static GraphicsDeviceManager graphics;
 		ContentManager content;
 		SpriteBatch m_SpriteBatch;
 
