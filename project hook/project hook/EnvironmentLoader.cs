@@ -23,7 +23,7 @@ namespace project_hook
 
 		public static void Initialize(int p_ScrollSpeed)
 		{
-			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("crosshairs", ""),0,true));
+			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("wall1", ""),0,true));
 			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.White).ToArgb(), new Tile(null, 0, false));
 			m_ScrollSpeed = p_ScrollSpeed;
 		}
