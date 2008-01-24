@@ -121,31 +121,19 @@ namespace project_hook
 			}
 		}
 
-		protected PathList m_PathList = new PathList();
-		public PathList PathList
-		{
-			get
-			{
-				return m_PathList;
-			}
-			set
-			{
-				m_PathList = value;
-			}
-		}
-
+		protected Task m_Task = null;
 		/// <summary>
-		/// The Path for this sprite.
+		/// The Task for this sprite.
 		/// </summary>
-		public Path Path
+		public Task Task
 		{
 			get
 			{
-				return m_PathList.CurrentPath;
+				return m_Task;
 			}
 			set
 			{
-				m_PathList.CurrentPath = value;
+				m_Task = value;
 			}
 		}
 
@@ -453,7 +441,10 @@ namespace project_hook
 		//This update method should be overidden 
 		public virtual void Update(GameTime p_Time)
 		{
-			m_PathList.CalculateMovement(p_Time);
+			if (m_Task != null)
+			{
+				m_Task.Update(this, p_Time);
+			}
 			if (m_Animation != null)
 			{
 				m_Animation.Update(p_Time);

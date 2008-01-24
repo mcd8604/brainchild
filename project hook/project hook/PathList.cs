@@ -10,6 +10,7 @@ namespace project_hook
 	/// </summary>
 	public enum ListModes { Continuous, Once, Repeat, Random };
 
+	[Obsolete]
 	public class PathList
 	{
 

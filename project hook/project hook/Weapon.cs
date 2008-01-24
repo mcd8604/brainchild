@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework;
 namespace project_hook
 {
 
-	// TODO: Extract Weapon out as a superclass, of which this is a subclass, say, exampleweapon
-
 	public class Weapon
 	{
 		#region Variables and Properties
@@ -127,6 +125,9 @@ namespace project_hook
 
 		protected GameTexture m_Texture = null;
 
+		protected IList<Shot> m_Shots;
+		protected int m_NextShot = 0;
+
 		#endregion // End of variables and Properties Region
 
 		public Weapon(Ship p_Ship, string p_ShotName, int p_Damage, int p_Delay, float p_Speed, float p_Angle)
@@ -142,9 +143,8 @@ namespace project_hook
 
 		//this function will create a Shot at the current location
 		// Only a single shot? 
-		public virtual Sprite CreateShot()
+		public virtual void CreateShot()
 		{
-			return null;
 			//if (m_Cooldown > 0 )
 			//{
 			//    return null;
@@ -174,14 +174,17 @@ namespace project_hook
 			//return t_Shot;
 		}
 
-		public virtual Sprite CreateShot(Vector2 target)
-		{
-			return null;
-		}
+		public virtual void CreateShot(Vector2 target){}
 
 		public void Update(GameTime p_Time)
 		{
 			m_Cooldown -= p_Time.ElapsedGameTime.TotalMilliseconds;
 		}
+
+		public IList<Shot> getShots()
+		{
+			return m_Shots;
+		}
+
 	}
 }

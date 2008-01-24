@@ -7,13 +7,16 @@ namespace project_hook
 {
 	public static class Collision
 	{
+		private static MultiDictionary<Collidable.Factions, Collidable> sorter = new MultiDictionary<Collidable.Factions, Collidable>(true);
+
 		/// <summary>
 		/// Check Everything in list to see if any collisions have occured.
 		/// </summary>
 		/// <param name="list">the list to check</param>
 		public static void CheckCollisions(List<Sprite> list)
 		{
-			MultiDictionary<Collidable.Factions, Collidable> sorter = new MultiDictionary<Collidable.Factions, Collidable>(true);
+			sorter.Clear();
+
 			foreach (Sprite s in list)
 			{
 				if (s.Enabled)
@@ -167,29 +170,20 @@ namespace project_hook
 
 						if (temp.Bound == Collidable.Boundings.Circle)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""), 250f, true, 0, Depth.ForeGround.Top);
-							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-							dic.Add(PathStrategy.ValueKeys.Target, temp);
-							dic.Add(PathStrategy.ValueKeys.Base, sprite);
-							sprite.Path = new Path(Paths.Follow, dic);
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""));
+							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}
 						else if (temp.Bound == Collidable.Boundings.Diamond)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""), 250f, true, 0, Depth.ForeGround.Top);
-							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-							dic.Add(PathStrategy.ValueKeys.Target, temp);
-							dic.Add(PathStrategy.ValueKeys.Base, sprite);
-							sprite.Path = new Path(Paths.Follow, dic);
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""));
+							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}
 						else if (temp.Bound == Collidable.Boundings.Square)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""), 250f, true, 0, Depth.ForeGround.Top);
-							Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-							dic.Add(PathStrategy.ValueKeys.Target, temp);
-							dic.Add(PathStrategy.ValueKeys.Base, sprite);
-							sprite.Path = new Path(Paths.Follow, dic);
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""));
+							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}
 					}

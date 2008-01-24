@@ -70,6 +70,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
+    <Compile Include="TaskRotateWithTarget.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskRotateWithTarget</Name>
+    </Compile>
     <Compile Include="CursorSprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>CursorSprite</Name>
@@ -142,6 +146,42 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathStraight</Name>
     </Compile>
+    <Compile Include="TaskLerp.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskLerp</Name>
+    </Compile>
+    <Compile Include="TaskParallel.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskParallel</Name>
+    </Compile>
+    <Compile Include="TaskRotateAngle.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskRotateAngle</Name>
+    </Compile>
+    <Compile Include="TaskRotateFacePoint.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskRotateFacePoint</Name>
+    </Compile>
+    <Compile Include="TaskRotateFaceTarget.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskRotateFaceTarget</Name>
+    </Compile>
+    <Compile Include="TaskSeekTarget.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskSeekTarget</Name>
+    </Compile>
+    <Compile Include="TaskSpecialTailAttack.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskSpecialTailAttack</Name>
+    </Compile>
+    <Compile Include="TaskSpecialTailThrow.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskSpecialTailThrow</Name>
+    </Compile>
+    <Compile Include="TaskStraightAngle.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskStraightAngle</Name>
+    </Compile>
     <Compile Include="PathTailBody.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathTailBody</Name>
@@ -161,6 +201,50 @@
     <Compile Include="PathThrow.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathThrow</Name>
+    </Compile>
+    <Compile Include="Task.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Task</Name>
+    </Compile>
+    <Compile Include="TaskComposite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskComposite</Name>
+    </Compile>
+    <Compile Include="TaskAttach.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskAttach</Name>
+    </Compile>
+    <Compile Include="TaskQueue.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskQueue</Name>
+    </Compile>
+    <Compile Include="TaskRepeatingSequence.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskRepeatingSequence</Name>
+    </Compile>
+    <Compile Include="TaskSequence.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskSequence</Name>
+    </Compile>
+    <Compile Include="TaskFire.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskFire</Name>
+    </Compile>
+    <Compile Include="TaskSeekPoint.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskSeekPoint</Name>
+    </Compile>
+    <Compile Include="TaskStraightVelocity.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskStraightVelocity</Name>
+    </Compile>
+    <Compile Include="TaskTether.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskTether</Name>
+    </Compile>
+    <Compile Include="TaskTimer.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskTimer</Name>
     </Compile>
     <Compile Include="WeaponExample.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

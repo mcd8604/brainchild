@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-
+	[Obsolete]
 	public enum Paths
 	{
 		Bother,
@@ -22,6 +22,7 @@ namespace project_hook
 		Throw
 	}
 
+	[Obsolete]
 	public class Path
 	{
 		Paths m_Strategy;

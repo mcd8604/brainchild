@@ -60,6 +60,13 @@ namespace project_hook
 			m_Weapons.Add(new WeaponExample(this, "RedShot", 10, 300, 500, tempangle));
 			//m_Weapons.Add(new Weapon(this, 10, 300, 500, TextureLibrary.getGameTexture("RedShot", "1")));
 			//m_Weapons.Add(new Weapon_SideShot(this, 10, 200, 500, TextureLibrary.getGameTexture("FireBall", "1")));
+			foreach (Weapon w in m_Weapons)
+			{
+				foreach (Shot s in w.getShots())
+				{
+					addSprite(s);
+				}
+			}
 
 			m_Shield = p_Shield;
 			
@@ -69,11 +76,7 @@ namespace project_hook
 			if (m_MaxShield > 0)
 			{
 				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.MidGround.Bottom);
-				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic.Add(PathStrategy.ValueKeys.Target, this);
-				dic.Add(PathStrategy.ValueKeys.Base, m_ShieldSprite);
-				m_ShieldSprite.Path = new Path(Paths.Follow, dic);
-
+				m_ShieldSprite.Task = new TaskAttach(this);
 				attachSpritePart(m_ShieldSprite);
 			}
 		}
@@ -86,6 +89,13 @@ namespace project_hook
 				m_Weapons.Add(new WeaponExample(this, "FireBall" ,10,300,500,MathHelper.PiOver2));
 				m_Weapons.Add(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4));
 				m_Weapons.Add(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4 * 3));
+				foreach (Weapon w in m_Weapons)
+				{
+					foreach (Shot s in w.getShots())
+					{
+						addSprite(s);
+					}
+				}
 			}
 			else if (p_WeaponType.Equals("SideShot"))
 			{
@@ -98,11 +108,7 @@ namespace project_hook
 			if (m_MaxShield > 0)
 			{
 				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.MidGround.Bottom);
-				Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-				dic.Add(PathStrategy.ValueKeys.Target, this);
-				dic.Add(PathStrategy.ValueKeys.Base, m_ShieldSprite);
-				m_ShieldSprite.Path = new Path(Paths.Follow, dic);
-
+				m_ShieldSprite.Task = new TaskAttach(this);
 				attachSpritePart(m_ShieldSprite);
 			}
 		}
@@ -111,11 +117,7 @@ namespace project_hook
 		{
 			foreach (Weapon w in m_Weapons)
 			{
-				Sprite shot = w.CreateShot();
-				if (shot != null)
-				{
-					addSprite(shot);
-				}
+				w.CreateShot();
 			}
 		}
 
@@ -123,11 +125,7 @@ namespace project_hook
 		{
 			foreach (Weapon w in m_Weapons)
 			{
-				Sprite shot = w.CreateShot(target);
-				if (shot != null)
-				{
-					addSprite(shot);
-				}
+				w.CreateShot(target);
 			}
 		}
 
@@ -156,6 +154,15 @@ namespace project_hook
 				w.Update(p_Time);
 			}
 		}
+
+		//public override void Draw(SpriteBatch p_SpriteBatch)
+		//{
+		//    base.Draw(p_SpriteBatch);
+		//    foreach (Weapon w in m_Weapons)
+		//    {
+		//        w.Draw(p_SpriteBatch);
+		//    }
+		//}
 
 		public override void RegisterCollision(Collidable p_Other)
 		{

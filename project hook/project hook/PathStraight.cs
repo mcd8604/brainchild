@@ -18,6 +18,7 @@ namespace project_hook
 	/// Rotation - Optional - Should the path rotate the sprite, defaults to true;
 	/// 
 	/// </summary>
+	[Obsolete]
 	class PathStraight : PathStrategy
 	{
 

@@ -18,7 +18,7 @@ namespace project_hook
 	/// </summary>
 	public class Game1 : Microsoft.Xna.Framework.Game
 	{
-		public List<Sprite> spritelist = new List<Sprite>();
+		private List<Sprite> spritelist = new List<Sprite>();
 		List<Shot> shots = new List<Shot>();
 
 		//level stuff
@@ -46,7 +46,7 @@ namespace project_hook
 		Player player;
 		Sprite back2;
 		Sprite crosshair;
-		ArrayList m_TailBodySprites = new ArrayList();
+		ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 		Tail tail;
 		//ButtonState lastMouseButton = ButtonState.Released;
 		//ButtonState lastRightMouseButton = ButtonState.Released;
@@ -211,42 +211,43 @@ namespace project_hook
 
 		private static Random rand = new Random();
 
+		
 		private void spawnEnemy()
 		{
-			enemy = new Ship("Enemy", new Vector2(100f, -100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, MathHelper.PiOver2, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "1"), 100, "OneShot");
+			//enemy = new Ship("Enemy", new Vector2(100f, -100f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 100f, true, MathHelper.PiOver2, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "1"), 100, "OneShot");
 
-			PathGroup group1 = new PathGroup();
-			Dictionary<PathStrategy.ValueKeys, Object> dicS = new Dictionary<PathStrategy.ValueKeys, object>();
-			dicS.Add(PathStrategy.ValueKeys.Base, (Ship)enemy);
-			group1.AddPath(new Path(Paths.Shoot, dicS));
+			//PathGroup group1 = new PathGroup();
+			//Dictionary<PathStrategy.ValueKeys, Object> dicS = new Dictionary<PathStrategy.ValueKeys, object>();
+			//dicS.Add(PathStrategy.ValueKeys.Base, (Ship)enemy);
+			//group1.AddPath(new Path(Paths.Shoot, dicS));
 
-			Dictionary<PathStrategy.ValueKeys, Object> dic1 = new Dictionary<PathStrategy.ValueKeys, object>();
-			dic1.Add(PathStrategy.ValueKeys.Base, enemy);
-			dic1.Add(PathStrategy.ValueKeys.Speed, 100f);
-			dic1.Add(PathStrategy.ValueKeys.End, new Vector2(600, 200));
-			dic1.Add(PathStrategy.ValueKeys.Duration, (float)rand.Next(1, 6));
-			dic1.Add(PathStrategy.ValueKeys.Rotation, false);
-			group1.AddPath(new Path(Paths.Straight, dic1));
+			//Dictionary<PathStrategy.ValueKeys, Object> dic1 = new Dictionary<PathStrategy.ValueKeys, object>();
+			//dic1.Add(PathStrategy.ValueKeys.Base, enemy);
+			//dic1.Add(PathStrategy.ValueKeys.Speed, 100f);
+			//dic1.Add(PathStrategy.ValueKeys.End, new Vector2(600, 200));
+			//dic1.Add(PathStrategy.ValueKeys.Duration, (float)rand.Next(1, 6));
+			//dic1.Add(PathStrategy.ValueKeys.Rotation, false);
+			//group1.AddPath(new Path(Paths.Straight, dic1));
 
-			enemy.PathList.AddPath(group1);
+			//enemy.PathList.AddPath(group1);
 
-			PathGroup group2 = new PathGroup();
+			//PathGroup group2 = new PathGroup();
 
-			group2.AddPath(new Path(Paths.Shoot, dicS));
+			//group2.AddPath(new Path(Paths.Shoot, dicS));
 
-			Dictionary<PathStrategy.ValueKeys, Object> dic2 = new Dictionary<PathStrategy.ValueKeys, object>();
-			dic2.Add(PathStrategy.ValueKeys.Base, enemy);
-			dic2.Add(PathStrategy.ValueKeys.Speed, 100f);
-			dic2.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
-			dic2.Add(PathStrategy.ValueKeys.Duration, (float)rand.Next(1, 6));
-			dic2.Add(PathStrategy.ValueKeys.Rotation, false);
-			group2.AddPath(new Path(Paths.Straight, dic2));
+			//Dictionary<PathStrategy.ValueKeys, Object> dic2 = new Dictionary<PathStrategy.ValueKeys, object>();
+			//dic2.Add(PathStrategy.ValueKeys.Base, enemy);
+			//dic2.Add(PathStrategy.ValueKeys.Speed, 100f);
+			//dic2.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
+			//dic2.Add(PathStrategy.ValueKeys.Duration, (float)rand.Next(1, 6));
+			//dic2.Add(PathStrategy.ValueKeys.Rotation, false);
+			//group2.AddPath(new Path(Paths.Straight, dic2));
 
-			enemy.PathList.AddPath(group2);
+			//enemy.PathList.AddPath(group2);
 
-			enemy.PathList.Mode = ListModes.Repeat;
+			//enemy.PathList.Mode = ListModes.Repeat;
 
-			spritelist.Add(enemy);
+			//spritelist.Add(enemy);
 		}
 
 
@@ -423,7 +424,6 @@ namespace project_hook
 			// adn
 			//enemy.Update(gameTime);
 			tail.Update(gameTime);
-			((Sprite)m_TailBodySprites[0]).Update(gameTime);
 
 			Collision.CheckCollisions(spritelist);
 
@@ -544,9 +544,9 @@ namespace project_hook
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 
-		public void AddCollidable(Collidable p_Collidable)
+		public void AddSprite(Sprite p_Sprite)
 		{
-			spritelist.Add(p_Collidable);
+			spritelist.Add(p_Sprite);
 		}
 	}
 }

@@ -354,12 +354,12 @@ namespace project_hook
 					pRotation = bool.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 
-					dic.Add(PathStrategy.ValueKeys.Base, t_Ship);
-					dic.Add(PathStrategy.ValueKeys.Speed, pSpeed);
-					dic.Add(PathStrategy.ValueKeys.End, pEndPos);
-					dic.Add(PathStrategy.ValueKeys.Duration, pDuration);
-					dic.Add(PathStrategy.ValueKeys.Rotation, false);
-					t_Ship.PathList.AddPath(new Path(Paths.Straight, dic));
+					//dic.Add(PathStrategy.ValueKeys.Base, t_Ship);
+					//dic.Add(PathStrategy.ValueKeys.Speed, pSpeed);
+					//dic.Add(PathStrategy.ValueKeys.End, pEndPos);
+					//dic.Add(PathStrategy.ValueKeys.Duration, pDuration);
+					//dic.Add(PathStrategy.ValueKeys.Rotation, false);
+					//t_Ship.PathList.AddPath(new Path(Paths.Straight, dic));
 				}
 				//t_Ship.PathList.AddPath(m_Path);
 				p_Reader.ReadEndElement();

@@ -70,7 +70,7 @@ namespace project_hook
 		public void CreateCollidable(Collidable p_Collidable)
 		{
 			//add the sprtie to the sprtiebatch in the game class
-			m_Game.AddCollidable(p_Collidable);
+			m_Game.AddSprite(p_Collidable);
 		}
 
 		public void ChangeSpeed(int p_Speed)
