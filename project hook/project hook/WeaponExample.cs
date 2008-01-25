@@ -8,6 +8,9 @@ namespace project_hook
 	class WeaponExample : Weapon
 	{
 
+		private float m_LastAngle = 0f;
+		private float m_LastSpeed = 0f;
+
 		public override float Angle
 		{
 			get
@@ -16,14 +19,7 @@ namespace project_hook
 			}
 			set
 			{
-				if (value != base.Angle)
-				{
-					base.Angle = value;
-					TaskParallel task = new TaskParallel();
-					task.addTask(new TaskStraightAngle(Angle, Speed));
-					task.addTask(new TaskRotateAngle(Angle));
-					m_ShotTask = task;
-				}
+				base.Angle = value;
 			}
 		}
 
@@ -35,14 +31,7 @@ namespace project_hook
 			}
 			set
 			{
-				if (value != base.Speed)
-				{
-					base.Speed = value;
-					TaskParallel task = new TaskParallel();
-					task.addTask(new TaskStraightAngle(Angle, Speed));
-					task.addTask(new TaskRotateAngle(Angle));
-					m_ShotTask = task;
-				}
+				base.Speed = value;
 			}
 		}
 
@@ -91,6 +80,14 @@ namespace project_hook
 		{
 			if (m_Cooldown <= 0)
 			{
+				float thisAngle = (who.Rotation + Angle);
+				if ( m_LastAngle != thisAngle || m_LastSpeed != Speed ) {
+					TaskParallel task = new TaskParallel();
+					task.addTask(new TaskStraightAngle(thisAngle, Speed));
+					task.addTask(new TaskRotateAngle(thisAngle));
+					m_ShotTask = task;
+				}
+
 				m_Shots[m_NextShot].Enabled = true;
 				m_Shots[m_NextShot].Center = who.Center;
 				m_Shots[m_NextShot].Faction = who.Faction;
