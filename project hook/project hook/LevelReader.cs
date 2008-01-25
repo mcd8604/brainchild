@@ -11,9 +11,9 @@ namespace project_hook
 {
 	class LevelReader
 	{
-		private Dictionary<int, List<Event>> m_Events=new Dictionary<int, List<Event>>();
+		private Dictionary<int, List<Event>> m_Events = new Dictionary<int, List<Event>>();
 
-        private int m_Distance;
+		private int m_Distance;
 
 		private String m_FileName;
 		public String FileName
@@ -34,7 +34,7 @@ namespace project_hook
 		}
 		public LevelReader(String p_FileName)
 		{
-			FileName = System.Environment.CurrentDirectory + "\\Content\\Levels\\"+p_FileName;
+			FileName = System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName;
 		}
 
 		public Dictionary<int, List<Event>> ReadFile()
@@ -52,36 +52,30 @@ namespace project_hook
 
 				reader.Read();
 				reader.ReadStartElement("level");
-				do
+				while (reader.IsStartElement("action"))
 				{
-					if (reader.Name.Equals("action"))
-					{
-						m_Distance = int.Parse(reader.GetAttribute(0));
-						reader.ReadStartElement();
-						do
+					m_Distance = int.Parse(reader.GetAttribute(0));
+					reader.ReadStartElement();
+						while (reader.IsStartElement("createShip"))
 						{
-							if (reader.Name.Equals("createShip"))
-							{
-								reader.ReadStartElement();
-								LoadEnemy(reader);
-								reader.ReadEndElement();
-							}
-							if (reader.Name.Equals("changeSpeed"))
-							{
-								reader.ReadStartElement();
-								ChangeSpeed(reader);
-								reader.ReadEndElement();
-							}
-							if (reader.Name.Equals("changeFile"))
-							{
-								reader.ReadStartElement();
-								NextFile(reader);
-								reader.ReadEndElement();
-							}
-						} while (reader.IsStartElement());
-						reader.ReadEndElement();
-					}
-				} while (reader.Name.Equals("action"));
+							reader.ReadStartElement();
+							LoadEnemy(reader);
+							reader.ReadEndElement();
+						}
+						while (reader.IsStartElement("changeSpeed"))
+						{
+							reader.ReadStartElement();
+							ChangeSpeed(reader);
+							reader.ReadEndElement();
+						}
+						while (reader.IsStartElement("changeFile"))
+						{
+							reader.ReadStartElement();
+							NextFile(reader);
+							reader.ReadEndElement();
+						}
+					reader.ReadEndElement();
+				}
 			}
 			else
 			{
@@ -156,11 +150,11 @@ namespace project_hook
 			bool m_Visible;
 			float m_Degree;
 
-			float m_ZBuff=0;
+			float m_ZBuff = 0;
 			String zbGround;
 			String zbLevel;
 
-			Collidable.Factions m_Faction=0;
+			Collidable.Factions m_Faction = 0;
 			String faction;
 
 			int m_Health;
@@ -177,7 +171,7 @@ namespace project_hook
 			Weapon t_Wep;		//Ship p_Ship, string p_ShotName, int p_Damage, int p_Delay, float p_Speed, float p_Angle
 			String wShotName;
 			int wDamage;
-			int wDelay;
+			float wDelay;
 			float wSpeed;
 			float wAngle;
 
@@ -335,71 +329,23 @@ namespace project_hook
 			t_Ship = new Ship(m_Name, m_StartPos, m_Health, m_Width, m_Texture, m_Alpha, m_Visible, m_Degree, m_ZBuff, m_Faction, m_Health,
 								m_Shield, m_DamageTexture, m_Radius);
 
-			//read in weapons
-			do
+
+
+
+			while (p_Reader.IsStartElement("weapon"))
 			{
-				//type
-				p_Reader.ReadStartElement("weapon");
-				pType = p_Reader.ReadString();
-				p_Reader.ReadEndElement();
-				if (pType.Equals("Single"))
-				{
-					//shotName
-					p_Reader.ReadStartElement();
-					wShotName = p_Reader.ReadString();
-					p_Reader.ReadEndElement();
-					//damage
-					p_Reader.ReadStartElement();
-					wDamage = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-					//delay
-					p_Reader.ReadStartElement();
-					wDelay = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-					//speed
-					p_Reader.ReadStartElement();
-					wSpeed = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-					//angle
-					p_Reader.ReadStartElement();
-					wAngle = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
+				t_Ship.addWeapon(readWeapon(p_Reader));
+			}
 
-					t_Wep = new WeaponExample(t_Ship, wShotName, wDamage, wDelay, wSpeed, wAngle);
-
-					t_Ship.Weapons.Add(t_Wep);
-				}
-				//t_Ship.PathList.AddPath(m_Path);
-				p_Reader.ReadEndElement();
-			} while (p_Reader.Name.Equals("weapon"));
-
-			//read in paths
-			do
+			if (p_Reader.IsStartElement("task"))
 			{
-				//type
-				p_Reader.ReadStartElement("path");
-				pType = p_Reader.ReadString();
-				p_Reader.ReadEndElement();
-				if(pType.Equals("Straight"))
-				{					
-					//x
-					p_Reader.ReadStartElement();
-					pEndPos.X = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-					//y
-					p_Reader.ReadStartElement();
-					pEndPos.Y = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
+				t_Ship.Task = readTask(p_Reader);
+			}
 
-					t_Ship.Task = new TaskStraightVelocity(pEndPos);
-				}
-				else if (pType.Equals("Shoot"))
-				{
-					t_Ship.Task = new TaskFire();
-				}
-				p_Reader.ReadEndElement();
-			} while (p_Reader.Name.Equals("path"));
-			
+
+
+
+
 			//add the ship to the event list
 			if (m_Events.ContainsKey(m_Distance))
 			{
@@ -410,6 +356,115 @@ namespace project_hook
 				t_List.Add(new Event(t_Ship));
 				m_Events.Add(m_Distance, t_List);
 			}
+		}
+
+
+
+		private static Weapon readWeapon(XmlReader p_Reader)
+		{
+			Weapon weapon = null;
+			string pType = p_Reader.GetAttribute("type");
+			p_Reader.ReadStartElement("weapon");
+
+			switch (pType)
+			{
+				case "Example":
+					weapon = new WeaponExample();
+					break;
+				default:
+					throw new NotImplementedException("'" + pType + "' is not a recognized Weapon");
+			}
+
+			while (p_Reader.IsStartElement())
+			{
+				if (p_Reader.IsStartElement("shotName"))
+				{
+					p_Reader.ReadStartElement("shotName");
+					weapon.ShotName = p_Reader.ReadString();
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("damage"))
+				{
+					p_Reader.ReadStartElement("damage");
+					weapon.Damage = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("delay"))
+				{
+					p_Reader.ReadStartElement("delay");
+					weapon.Delay = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("speed"))
+				{
+					p_Reader.ReadStartElement("speed");
+					weapon.Speed = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("angle"))
+				{
+					p_Reader.ReadStartElement("angle");
+					weapon.Angle = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+			}
+
+			p_Reader.ReadEndElement();
+			return weapon;
+
+		}
+
+		private static Task readTask(XmlReader p_Reader)
+		{
+			Task task;
+			string pType = p_Reader.GetAttribute("type");
+			p_Reader.ReadStartElement("task");
+
+			switch (pType)
+			{
+				case "Fire":
+					return new TaskFire();
+				case "Parallel":
+					TaskParallel parallel = new TaskParallel();
+					while (p_Reader.IsStartElement("task"))
+					{
+						parallel.addTask(readTask(p_Reader));
+					}
+					task = parallel;
+					break;
+				case "RotateAngle":
+					TaskRotateAngle rotateAngle = new TaskRotateAngle();
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("angle"))
+						{
+							p_Reader.ReadStartElement("angle");
+							rotateAngle.Angle = float.Parse(p_Reader.ReadString());
+							p_Reader.ReadEndElement();
+						}
+					}
+					task = rotateAngle;
+					break;
+				case "StraightVelocity":
+					TaskStraightVelocity straightVelocity = new TaskStraightVelocity();
+					Vector2 v = Vector2.Zero;
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("velocity"))
+						{
+							v = new Vector2( float.Parse(p_Reader.GetAttribute("x")), float.Parse(p_Reader.GetAttribute("y")));
+							p_Reader.ReadStartElement("velocity");
+						}
+					}
+					straightVelocity.Velocity = v;
+					task = straightVelocity;
+					break;
+				default:
+					throw new NotImplementedException("'" + pType + "' is not a recognized Task");
+			}
+
+			p_Reader.ReadEndElement();
+			return task;
 		}
 	}
 }

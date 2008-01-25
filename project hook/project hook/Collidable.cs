@@ -23,7 +23,8 @@ namespace project_hook
 		{
 			Player,
 			Enemy,
-			Environment
+			Environment,
+			None
 		}
 
 		/// <summary>

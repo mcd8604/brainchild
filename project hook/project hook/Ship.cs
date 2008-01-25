@@ -57,7 +57,13 @@ namespace project_hook
 				tempangle = -MathHelper.PiOver2;
 			}
 
-			addWeapon(new WeaponExample(this, "RedShot", 10, 300, 500, tempangle));
+
+			//addWeapon(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver2));
+			//addWeapon(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4));
+			//addWeapon(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4 * 3));
+
+			//addWeapon(new WeaponExample(this, "RedShot", 10, 300, 500, tempangle));
+
 			//m_Weapons.Add(new Weapon(this, 10, 300, 500, TextureLibrary.getGameTexture("RedShot", "1")));
 			//m_Weapons.Add(new Weapon_SideShot(this, 10, 200, 500, TextureLibrary.getGameTexture("FireBall", "1")));
 
@@ -65,31 +71,6 @@ namespace project_hook
 			
 			m_MaxShield = m_Shield;
 
-
-			if (m_MaxShield > 0)
-			{
-				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.MidGround.Bottom);
-				m_ShieldSprite.Task = new TaskAttach(this);
-				attachSpritePart(m_ShieldSprite);
-			}
-		}
-		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, GameTexture p_DamageEffect, float p_Radius, String p_WeaponType)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_DamageEffect, p_Radius)
-		{
-			// I don't think 'this' is a good idea for assigning weapons.
-			if (p_WeaponType.Equals("OneShot"))
-			{
-				addWeapon(new WeaponExample(this, "FireBall" ,10,300,500,MathHelper.PiOver2));
-				addWeapon(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4));
-				addWeapon(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4 * 3));
-			}
-			else if (p_WeaponType.Equals("SideShot"))
-			{
-			}
-
-			m_Shield = p_Shield;
-
-			m_MaxShield = m_Shield;
 
 			if (m_MaxShield > 0)
 			{
@@ -112,15 +93,7 @@ namespace project_hook
 		{
 			foreach (Weapon w in m_Weapons)
 			{
-				w.CreateShot();
-			}
-		}
-
-		public void shoot( Vector2 target )
-		{
-			foreach (Weapon w in m_Weapons)
-			{
-				w.CreateShot(target);
+				w.CreateShot( this );
 			}
 		}
 
@@ -129,10 +102,6 @@ namespace project_hook
 			get
 			{
 				return m_Weapons;
-			}
-			set
-			{
-				m_Weapons = value;
 			}
 		}
 
@@ -149,15 +118,6 @@ namespace project_hook
 				w.Update(p_Time);
 			}
 		}
-
-		//public override void Draw(SpriteBatch p_SpriteBatch)
-		//{
-		//    base.Draw(p_SpriteBatch);
-		//    foreach (Weapon w in m_Weapons)
-		//    {
-		//        w.Draw(p_SpriteBatch);
-		//    }
-		//}
 
 		public override void RegisterCollision(Collidable p_Other)
 		{

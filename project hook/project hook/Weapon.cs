@@ -7,26 +7,13 @@ using Microsoft.Xna.Framework;
 namespace project_hook
 {
 
-	public class Weapon
+	public abstract class Weapon
 	{
 		#region Variables and Properties
-		//this is a ref to what ship this weapon is a psrt of.
-		protected Ship m_Ship = null;
-		public Ship Ship
-		{
-			get
-			{
-				return m_Ship;
-			}
-			set
-			{
-				m_Ship = value;
-			}
-		}
 
 		//the strength of the shot fired
-		protected int m_Damage = 0;
-		public int Damage
+		protected float m_Damage = 0;
+		public virtual float Damage
 		{
 			get
 			{
@@ -38,9 +25,9 @@ namespace project_hook
 			}
 		}
 
-		//this is how long the delay is between shots in millisecnds
-		protected int m_Delay = 1000;
-		public int Delay
+		//this is how long the delay is between shots in seconds
+		protected float m_Delay = 10;
+		public virtual float Delay
 		{
 			get
 			{
@@ -52,8 +39,8 @@ namespace project_hook
 			}
 		}
 
-		//this is how fast the shot will travel
-		protected float m_Speed = 100;
+		//this is how fast the shot will travel, pixels per second
+		protected float m_Speed = 0;
 		public virtual float Speed
 		{
 			get
@@ -68,7 +55,7 @@ namespace project_hook
 
 		//this is the texture of this weapon's shot
 		protected string m_ShotName = null;
-		public string ShotName
+		public virtual string ShotName
 		{
 			get
 			{
@@ -77,35 +64,17 @@ namespace project_hook
 			set
 			{
 				m_ShotName = value;
-			}
-		}
-
-		//this is used to keep track of how many shots have been fired by this weapon
-		// Why?
-		protected int m_ShotNumber = 0;
-		public int ShotNumber
-		{
-			get
-			{
-				return m_ShotNumber;
-			}
-			set
-			{
-				m_ShotNumber = value;
+				m_Texture = TextureLibrary.getGameTexture(m_ShotName, "");
 			}
 		}
 
 		//this will hold the time of the last shot
-		protected double m_Cooldown = 0;
-		public double LastShot
+		protected float m_Cooldown = 0;
+		public virtual float Cooldown
 		{
 			get
 			{
 				return m_Cooldown;
-			}
-			set
-			{
-				m_Cooldown = value;
 			}
 		}
 
@@ -125,26 +94,25 @@ namespace project_hook
 
 		protected GameTexture m_Texture = null;
 
-		protected IList<Shot> m_Shots;
+		protected IList<Shot> m_Shots = new List<Shot>();
 		protected int m_NextShot = 0;
 
 		#endregion // End of variables and Properties Region
 
-		public Weapon(Ship p_Ship, string p_ShotName, int p_Damage, int p_Delay, float p_Speed, float p_Angle)
+		public Weapon() { }
+
+		public Weapon(string p_ShotName, float p_Damage, float p_Delay, float p_Speed, float p_Angle)
 		{
-			m_Ship = p_Ship;
 			m_ShotName = p_ShotName;
 			m_Damage = p_Damage;
 			m_Delay = p_Delay;
 			m_Speed = p_Speed;
 			m_Angle = p_Angle;
-			m_Texture = TextureLibrary.getGameTexture(m_ShotName, "");
 		}
 
 		//this function will create a Shot at the current location
 		// Only a single shot? 
-		public virtual void CreateShot()
-		{
+		public abstract void CreateShot( Ship who );
 			//if (m_Cooldown > 0 )
 			//{
 			//    return null;
@@ -172,13 +140,10 @@ namespace project_hook
 			////Console.WriteLine(m_ShotNumber);
 
 			//return t_Shot;
-		}
-
-		public virtual void CreateShot(Vector2 target){}
 
 		public void Update(GameTime p_Time)
 		{
-			m_Cooldown -= p_Time.ElapsedGameTime.TotalMilliseconds;
+			m_Cooldown -= (float)p_Time.ElapsedGameTime.TotalSeconds;
 		}
 
 		public IList<Shot> getShots()

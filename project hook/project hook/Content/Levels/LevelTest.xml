@@ -17,22 +17,75 @@
 			<speed>100</speed>
 			<damageTexture name="Explosion" pos="3"/>
 			<radius>50</radius>
-			<weapon>
-				<type>Single</type>
+			<weapon type="Example">
 				<shotName>FireBall</shotName>
 				<damage>2</damage>
-				<delay>1</delay>
-				<speed>100</speed>
+				<delay>0.5</delay>
+				<speed>500</speed>
 				<angle>1.57</angle>
 			</weapon>
-			<path>
-				<type>Straight</type>
-				<x>400</x>
-				<y>400</y>
-			</path>
-			<path>
-				<type>Shoot</type>
-			</path>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="200" y="200"/>
+				</task>
+				<task type="RotateAngle">
+					<angle>0.785</angle>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="1200">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="200" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<alpha>255</alpha>
+			<visible>true</visible>
+			<degree>0</degree>
+			<zBuff ground="MidGround" level="Bottom"/>
+			<faction>enemy</faction>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<weapon type="Example">
+				<damage>1</damage>
+				<shotName>FireBall</shotName>
+				<delay>0.45</delay>
+				<speed>300</speed>
+				<angle>0.785</angle>
+			</weapon>
+			<weapon type="Example">
+				<damage>1</damage>
+				<delay>0.45</delay>
+				<shotName>FireBall</shotName>
+				<speed>300</speed>
+				<angle>2.356</angle>
+			</weapon>
+			<weapon type="Example">
+				<damage>1</damage>
+				<delay>0.45</delay>
+				<speed>300</speed>
+				<shotName>FireBall</shotName>
+				<angle>-2.356</angle>
+			</weapon>
+			<weapon type="Example">
+				<damage>1</damage>
+				<delay>0.45</delay>
+				<speed>300</speed>
+				<angle>-0.785</angle>
+				<shotName>FireBall</shotName>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity y="0" x="100"/>
+				</task>
+				<task type="Fire"/>
+			</task>
 		</createShip>
 	</action>
 </level>
