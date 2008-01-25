@@ -173,7 +173,10 @@ namespace project_hook
 			tempPlayerCenter.Y = MathHelper.Clamp(tempPlayerCenter.Y, m_Bounds.Y + (float)PlayerShip.Height / 2f, m_Bounds.Height - (float)PlayerShip.Height / 2f);
 			m_PlayerShip.Center = tempPlayerCenter;
 
-			//PlayerShip.Update(p_GameTime);
+			if (m_PlayerShip.Health <= 0)
+			{
+				World.PlayerDead = true;
+			}
 		}
 	}
 }
