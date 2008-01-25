@@ -134,6 +134,7 @@ namespace project_hook
 		private void LoadEnemy(XmlReader p_Reader)
 		{
 			Ship t_Ship=new Ship();
+			t_Ship.Faction = Collidable.Factions.Enemy;
 
 			List<Event> t_List = new List<Event>();
 
@@ -150,6 +151,12 @@ namespace project_hook
 					t_Ship.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
 													float.Parse(p_Reader.GetAttribute(1)));
 					p_Reader.ReadStartElement("startPos");
+				}
+				else if (p_Reader.IsStartElement("startCenter"))
+				{
+					t_Ship.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
+													float.Parse(p_Reader.GetAttribute(1)));
+					p_Reader.ReadStartElement("startCenter");
 				}
 				else if (p_Reader.IsStartElement("height"))
 				{
@@ -180,15 +187,15 @@ namespace project_hook
 					
 					p_Reader.ReadStartElement("texture");
 				}
-				else if (p_Reader.IsStartElement("alpha"))
+				else if (p_Reader.IsStartElement("transparency"))
 				{
-					p_Reader.ReadStartElement("alpha");
+					p_Reader.ReadStartElement("transparency");
 					t_Ship.Transparency = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
-				else if (p_Reader.IsStartElement("visible"))
+				else if (p_Reader.IsStartElement("enabled"))
 				{
-					p_Reader.ReadStartElement("visible");
+					p_Reader.ReadStartElement("enabled");
 					t_Ship.Enabled = bool.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
@@ -243,8 +250,11 @@ namespace project_hook
 				{
 					t_Ship.Task = readTask(p_Reader);
 				}
+				else
+				{
+					throw new NotImplementedException("LevelReader LoadEnemy could not understand tag '" + p_Reader.Name + "'");
+				}
 			}
-			t_Ship.Faction = Collidable.Factions.Enemy;
 			
 			//add the ship to the event list
 			if (m_Events.ContainsKey(m_Distance))
@@ -299,11 +309,15 @@ namespace project_hook
 					weapon.Speed = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
-				else if (p_Reader.IsStartElement("angle"))
+				else if (p_Reader.IsStartElement("offset"))
 				{
-					p_Reader.ReadStartElement("angle");
-					weapon.Angle = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadStartElement("offset");
+					weapon.AngleDegrees = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
+				}
+				else
+				{
+					throw new NotImplementedException("LevelReader readWeapon could not understand tag '" + p_Reader.Name + "'");
 				}
 			}
 
@@ -338,6 +352,12 @@ namespace project_hook
 						{
 							p_Reader.ReadStartElement("angle");
 							rotateAngle.Angle = float.Parse(p_Reader.ReadString());
+							p_Reader.ReadEndElement();
+						}
+						else if (p_Reader.IsStartElement("degree"))
+						{
+							p_Reader.ReadStartElement("degree");
+							rotateAngle.Angle = MathHelper.ToRadians( float.Parse(p_Reader.ReadString() ));
 							p_Reader.ReadEndElement();
 						}
 					}

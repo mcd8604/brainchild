@@ -92,6 +92,18 @@ namespace project_hook
 			}
 		}
 
+		public virtual float AngleDegrees
+		{
+			get
+			{
+				return MathHelper.ToDegrees(Angle);
+			}
+			set
+			{
+				Angle = MathHelper.ToRadians(value);
+			}
+		}
+
 		protected GameTexture m_Texture = null;
 
 		protected IList<Shot> m_Shots = new List<Shot>();

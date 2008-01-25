@@ -7,8 +7,8 @@
 			<height>100</height>
 			<width>100</width>
 			<texture name="Enemy1"/>
-			<alpha>255</alpha>
-			<visible>true</visible>
+			<transparency>1</transparency>
+			<enabled>true</enabled>
 			<degree>0</degree>
 			<health>100</health>
 			<shield>0</shield>
@@ -20,14 +20,14 @@
 				<damage>2</damage>
 				<delay>0.5</delay>
 				<speed>500</speed>
-				<angle>1.57</angle>
+				<offset>0</offset>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
 					<velocity x="200" y="200"/>
 				</task>
 				<task type="RotateAngle">
-					<angle>0.785</angle>
+					<degree>45</degree>
 				</task>
 				<task type="Fire"/>
 			</task>
@@ -40,8 +40,8 @@
 			<height>100</height>
 			<width>100</width>
 			<texture name="Enemy1"/>
-			<alpha>255</alpha>
-			<visible>true</visible>
+			<transparency>1</transparency>
+			<enabled>true</enabled>
 			<degree>0</degree>
 			<health>100</health>
 			<shield>0</shield>
@@ -53,27 +53,27 @@
 				<shotName>FireBall</shotName>
 				<delay>0.45</delay>
 				<speed>300</speed>
-				<angle>0.785</angle>
+				<offset>45</offset>
 			</weapon>
 			<weapon type="Example">
 				<damage>1</damage>
 				<delay>0.45</delay>
 				<shotName>FireBall</shotName>
 				<speed>300</speed>
-				<angle>2.356</angle>
+				<offset>135</offset>
 			</weapon>
 			<weapon type="Example">
 				<damage>1</damage>
 				<delay>0.45</delay>
 				<speed>300</speed>
 				<shotName>FireBall</shotName>
-				<angle>-2.356</angle>
+				<offset>-135</offset>
 			</weapon>
 			<weapon type="Example">
 				<damage>1</damage>
 				<delay>0.45</delay>
 				<speed>300</speed>
-				<angle>-0.785</angle>
+				<offset>-45</offset>
 				<shotName>FireBall</shotName>
 			</weapon>
 			<task type="Parallel">
