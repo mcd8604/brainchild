@@ -166,13 +166,20 @@ namespace project_hook
 			int m_Health;
 			int m_Shield;
 
-			Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-			//dic.Add(PathStrategy.ValueKeys.Base, enemy);
-			float pSpeed;//dic.Add(PathStrategy.ValueKeys.Speed, 100f);
-			Vector2 pEndPos = new Vector2();//dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
-			float pDuration;//dic.Add(PathStrategy.ValueKeys.Duration, 5f);
+			//stuff for task
+			float pSpeed;
+			Vector2 pEndPos = new Vector2();
+			float pDuration;
 			String pType;
 			bool pRotation;
+
+			//stuff for weapon
+			Weapon t_Wep;		//Ship p_Ship, string p_ShotName, int p_Damage, int p_Delay, float p_Speed, float p_Angle
+			String wShotName;
+			int wDamage;
+			int wDelay;
+			float wSpeed;
+			float wAngle;
 
 			int m_Speed;
 
@@ -328,10 +335,47 @@ namespace project_hook
 			t_Ship = new Ship(m_Name, m_StartPos, m_Health, m_Width, m_Texture, m_Alpha, m_Visible, m_Degree, m_ZBuff, m_Faction, m_Health,
 								m_Shield, m_DamageTexture, m_Radius);
 
+			//read in weapons
+			do
+			{
+				//type
+				p_Reader.ReadStartElement("weapon");
+				pType = p_Reader.ReadString();
+				p_Reader.ReadEndElement();
+				if (pType.Equals("Single"))
+				{
+					//shotName
+					p_Reader.ReadStartElement();
+					wShotName = p_Reader.ReadString();
+					p_Reader.ReadEndElement();
+					//damage
+					p_Reader.ReadStartElement();
+					wDamage = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+					//delay
+					p_Reader.ReadStartElement();
+					wDelay = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+					//speed
+					p_Reader.ReadStartElement();
+					wSpeed = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+					//angle
+					p_Reader.ReadStartElement();
+					wAngle = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+
+					t_Wep = new Weapon(t_Ship, wShotName, wDamage, wDelay, wSpeed, wAngle);
+
+					t_Ship.Weapons.Add(t_Wep);
+				}
+				//t_Ship.PathList.AddPath(m_Path);
+				p_Reader.ReadEndElement();
+			} while (p_Reader.Name.Equals("weapon"));
+
 			//read in paths
 			do
 			{
-				dic = new Dictionary<PathStrategy.ValueKeys, object>();
 				//type
 				p_Reader.ReadStartElement("path");
 				pType = p_Reader.ReadString();
@@ -348,15 +392,11 @@ namespace project_hook
 					p_Reader.ReadEndElement();
 
 					t_Ship.Task = new TaskStraightVelocity(pEndPos);
-
-					//dic.Add(PathStrategy.ValueKeys.Base, t_Ship);
-					//dic.Add(PathStrategy.ValueKeys.Speed, pSpeed);
-					//dic.Add(PathStrategy.ValueKeys.End, pEndPos);
-					//dic.Add(PathStrategy.ValueKeys.Duration, pDuration);
-					//dic.Add(PathStrategy.ValueKeys.Rotation, false);
-					//t_Ship.PathList.AddPath(new Path(Paths.Straight, dic));
 				}
-				//t_Ship.PathList.AddPath(m_Path);
+				else if (pType.Equals("Shoot"))
+				{
+					//t_Ship.Task
+				}
 				p_Reader.ReadEndElement();
 			} while (p_Reader.Name.Equals("path"));
 			
