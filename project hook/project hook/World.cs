@@ -454,9 +454,9 @@ namespace project_hook
 			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4));
 			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4 * 3));
 
-			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver2));
+			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, 0f));
+			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, -MathHelper.PiOver4));
 			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4));
-			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4 * 3));
 
 			//Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			//dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
