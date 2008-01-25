@@ -233,7 +233,8 @@ namespace project_hook
 				{
 					if (tail.EnemyCaught != null)
 					{
-						tail.EnemyCaught.shoot(InputHandler.MousePostion);
+						//tail.EnemyCaught.shoot(InputHandler.MousePostion);
+						tail.EnemyCaught.shoot();
 					}
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
@@ -373,6 +374,7 @@ namespace project_hook
 			//enemy.Path = new Path(Paths.Line, dic);
 			//enemy.Update(new GameTime());
 
+			enemy.Task = new TaskFire();
 
 			//enemy pathing:
 
@@ -407,6 +409,8 @@ namespace project_hook
 
 			//enemy.PathList.Mode = ListModes.Repeat;
 
+
+			enemy2.Task = new TaskFire();
 
 
 			//PathGroup group2a = new PathGroup();

@@ -33,6 +33,7 @@ namespace project_hook
 			{
 				m_Shots[m_NextShot].Enabled = true;
 				m_Shots[m_NextShot].Center = m_Ship.Center;
+				m_Shots[m_NextShot].Faction = m_Ship.Faction;
 
 				m_Shots[m_NextShot].setAnimation(m_ShotName, 10);
 				m_Shots[m_NextShot].Animation.StartAnimation();
