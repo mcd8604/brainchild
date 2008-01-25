@@ -9,7 +9,6 @@
 			<texture name="Enemy1"/>
 			<transparency>1</transparency>
 			<enabled>true</enabled>
-			<degree>0</degree>
 			<health>100</health>
 			<shield>0</shield>
 			<speed>100</speed>
@@ -33,7 +32,85 @@
 			</task>
 		</createShip>
 	</action>
-	<action dist="1200">
+	<action dist="2000">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="300" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<transparency>1</transparency>
+			<enabled>true</enabled>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>2</damage>
+				<delay>0.5</delay>
+				<speed>500</speed>
+				<offset>-45</offset>
+			</weapon>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>2</damage>
+				<delay>0.5</delay>
+				<speed>500</speed>
+				<offset>45</offset>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="0" y="100"/>
+				</task>
+				<task type="RotateAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="2000">
+		<createShip>
+			<name>Enemy</name>
+			<startPos x="500" y="0"/>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<transparency>1</transparency>
+			<enabled>true</enabled>
+			<health>100</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>2</damage>
+				<delay>0.5</delay>
+				<speed>500</speed>
+				<offset>-45</offset>
+			</weapon>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>2</damage>
+				<delay>0.5</delay>
+				<speed>500</speed>
+				<offset>45</offset>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="0" y="100"/>
+				</task>
+				<task type="RotateAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="4000">
 		<createShip>
 			<name>Enemy</name>
 			<startPos x="200" y="0"/>
@@ -42,7 +119,6 @@
 			<texture name="Enemy1"/>
 			<transparency>1</transparency>
 			<enabled>true</enabled>
-			<degree>0</degree>
 			<health>100</health>
 			<shield>0</shield>
 			<speed>100</speed>
@@ -78,7 +154,7 @@
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
-					<velocity y="0" x="100"/>
+					<velocity y="0" x="50"/>
 				</task>
 				<task type="Fire"/>
 			</task>
