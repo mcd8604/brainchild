@@ -91,6 +91,9 @@ namespace project_hook
 		private Task m_ThrowTask;
 		private Task m_ReleaseTask;
 
+		public Sprite m_TargetObject;
+		
+
 		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
 					float p_Degree, float p_Z, Factions p_Faction, int p_Health, GameTexture p_DamageEffect, float p_Radius,
 					Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites)
@@ -119,15 +122,15 @@ namespace project_hook
 			StateOfTail = TailState.Ready;
 		}
 
-		public void TailAttack(Vector2 p_Target)
+		public void TailAttack()
 		{
 			//attack with tail
 			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
 				TaskParallel temp = new TaskParallel();
-				temp.addTask(new TaskSeekPoint(p_Target, 2000f));
+				temp.addTask(new TaskSeekPoint(m_TargetObject.Center, 2000f));
 				temp.addTask(new TaskTimer(0.25f));
-				temp.addTask(new TaskRotateFacePoint(p_Target));
+				temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
 				m_AttackTask = temp;
 
 				Task = m_AttackTask;
@@ -139,22 +142,22 @@ namespace project_hook
 			//throw enemy
 			else if (m_EnemyCaught != null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
-				Vector2 goal = Center - p_Target;
+				Vector2 goal = Center - m_TargetObject.Center;
 
 				TaskQueue res = new TaskQueue();
 				TaskParallel temp = new TaskParallel();
 				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(goal, 2.75f)), 2000f));
-				temp.addTask(new TaskRotateFacePoint(p_Target));
+				temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
 				res.addTask(temp);
 				temp = new TaskParallel();
 				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(Vector2.Negate(goal), 2.75f)), 2000f));
-				temp.addTask(new TaskRotateFacePoint(p_Target));
+				temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
 				res.addTask(temp);
 				m_ThrowTask = res;
 
 				Task = m_ThrowTask;
 
-				float releaseAngle = (float)Math.Atan2(p_Target.Y - m_EnemyCaught.Center.Y, p_Target.X - m_EnemyCaught.Center.X);
+				float releaseAngle = (float)Math.Atan2(m_TargetObject.Center.Y - m_EnemyCaught.Center.Y, m_TargetObject.Center.X - m_EnemyCaught.Center.X);
 				temp = new TaskParallel();
 				temp.addTask(new TaskStraightAngle( releaseAngle, 800f));
 				temp.addTask(new TaskRotateAngle(releaseAngle));
@@ -189,14 +192,8 @@ namespace project_hook
 
 				TaskParallel temp = new TaskParallel();
 				temp.addTask(new TaskAttach(this));
-				temp.addTask(new TaskRotateWithTarget(this));
+				temp.addTask(new TaskRotateFaceTarget(m_TargetObject));
 				m_EnemyCaught.Task = temp;
-
-				// example:  Reverse enemy weapons
-				foreach (Weapon w in m_EnemyCaught.Weapons)
-				{
-					w.Angle += (float)Math.PI;
-				}
 			}
 		}
 

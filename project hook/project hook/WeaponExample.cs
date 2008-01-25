@@ -81,7 +81,8 @@ namespace project_hook
 			if (m_Cooldown <= 0)
 			{
 				float thisAngle = (who.Rotation + Angle);
-				if ( m_LastAngle != thisAngle || m_LastSpeed != Speed ) {
+				if (m_LastAngle != thisAngle || m_LastSpeed != Speed)
+				{
 					TaskParallel task = new TaskParallel();
 					task.addTask(new TaskStraightAngle(thisAngle, Speed));
 					task.addTask(new TaskRotateAngle(thisAngle));
