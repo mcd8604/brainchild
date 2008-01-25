@@ -10,7 +10,6 @@
 			<alpha>255</alpha>
 			<visible>true</visible>
 			<degree>0</degree>
-			<faction>enemy</faction>
 			<health>100</health>
 			<shield>0</shield>
 			<speed>100</speed>
@@ -44,7 +43,6 @@
 			<alpha>255</alpha>
 			<visible>true</visible>
 			<degree>0</degree>
-			<faction>enemy</faction>
 			<health>100</health>
 			<shield>0</shield>
 			<speed>100</speed>

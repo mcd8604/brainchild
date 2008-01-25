@@ -79,7 +79,7 @@ namespace project_hook
 			}
 			else
 			{
-				//cann't do anything no file name
+				throw new Exception("file not there");
 			}
 
 			return m_Events;
@@ -133,212 +133,118 @@ namespace project_hook
 
 		private void LoadEnemy(XmlReader p_Reader)
 		{
-			Ship t_Ship;
+			Ship t_Ship=new Ship();
 
 			List<Event> t_List = new List<Event>();
 
-			String m_Name;
-			Vector2 m_StartPos = new Vector2();
-			int m_Height;
-			int m_Width;
-
-			GameTexture m_Texture;
-			String gtName;
-			String gtTag = "";
-
-			float m_Alpha;
-			bool m_Visible;
-			float m_Degree;
-
-			//float m_ZBuff = 0;
-			//String zbGround;
-			//String zbLevel;
-
-			Collidable.Factions m_Faction = 0;
-			String faction;
-
-			int m_Health;
-			int m_Shield;
-
-			//stuff for task
-			//float pSpeed;
-			//Vector2 pEndPos = new Vector2();
-			//float pDuration;
-			//String pType;
-			//bool pRotation;
-
-			//stuff for weapon
-			//Weapon t_Wep;
-			//String wShotName;
-			//int wDamage;
-			//float wDelay;
-			//float wSpeed;
-			//float wAngle;
-
-			int m_Speed;
-
-			GameTexture m_DamageTexture;
-			String dtName;
-			String dtTag = "";
-			float m_Radius;
-
-			//read in name
-			p_Reader.ReadStartElement();
-			m_Name = p_Reader.ReadString();
-			p_Reader.ReadEndElement();
-			//Console.WriteLine(m_Name);
-
-			//read in start position x y
-			m_StartPos.X = int.Parse(p_Reader.GetAttribute(0));
-			m_StartPos.Y = int.Parse(p_Reader.GetAttribute(1));
-			//Console.WriteLine(m_StartPos.X);
-			//Console.WriteLine(m_StartPos.Y);
-
-			//read in height
-			p_Reader.ReadStartElement();
-			m_Height = int.Parse(p_Reader.ReadString());
-			p_Reader.ReadEndElement();
-			//Console.WriteLine(m_Height);
-
-			//read in width
-			p_Reader.ReadStartElement();
-			m_Width = int.Parse(p_Reader.ReadString());
-			p_Reader.ReadEndElement();
-			//Console.WriteLine(m_Width);
-
-			//read in texture
-			gtName = p_Reader.GetAttribute(0);
-			if (p_Reader.AttributeCount > 1)
+			while (p_Reader.IsStartElement())
 			{
-				gtTag = p_Reader.GetAttribute(1);
+				if (p_Reader.IsStartElement("name"))
+				{
+					p_Reader.ReadStartElement("name");
+					t_Ship.Name = p_Reader.ReadString();
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("startPos"))
+				{
+					t_Ship.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
+													float.Parse(p_Reader.GetAttribute(1)));
+					p_Reader.ReadStartElement("startPos");
+				}
+				else if (p_Reader.IsStartElement("height"))
+				{
+					p_Reader.ReadStartElement("height");
+					t_Ship.Height = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("width"))
+				{
+					p_Reader.ReadStartElement();
+					t_Ship.Width = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("texture"))
+				{
+					String t_Name = p_Reader.GetAttribute(0);
+					if (p_Reader.AttributeCount == 1)
+					{
+						t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+						Console.WriteLine("1");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
+																		p_Reader.GetAttribute(1));
+						Console.WriteLine("2");
+					}
+					
+					p_Reader.ReadStartElement("texture");
+				}
+				else if (p_Reader.IsStartElement("alpha"))
+				{
+					p_Reader.ReadStartElement("alpha");
+					t_Ship.Transparency = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("visible"))
+				{
+					p_Reader.ReadStartElement("visible");
+					t_Ship.Enabled = bool.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("degree"))
+				{
+					p_Reader.ReadStartElement("degree");
+					t_Ship.RotationDegrees = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("health"))
+				{
+					p_Reader.ReadStartElement("health");
+					t_Ship.Health = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("shield"))
+				{
+					p_Reader.ReadStartElement("shield");
+					t_Ship.Shield = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("speed"))
+				{
+					p_Reader.ReadStartElement("speed");
+					t_Ship.Speed = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("damageTexture"))
+				{
+					if (p_Reader.AttributeCount == 1)
+					{
+						t_Ship.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						t_Ship.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
+																		p_Reader.GetAttribute(1));
+					}
+					p_Reader.ReadStartElement("damageTexture");
+				}
+				else if (p_Reader.IsStartElement("radius"))
+				{
+					p_Reader.ReadStartElement();
+					t_Ship.Radius = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("weapon"))
+				{
+					t_Ship.addWeapon(readWeapon(p_Reader));
+				}
+				else if (p_Reader.IsStartElement("task"))
+				{
+					t_Ship.Task = readTask(p_Reader);
+				}
 			}
-			m_Texture = TextureLibrary.getGameTexture(gtName, gtTag);
-
-			//read in alpha
-			p_Reader.ReadStartElement();
-			m_Alpha = float.Parse(p_Reader.ReadString());
-			p_Reader.ReadEndElement();
-
-			//read in visible
-			p_Reader.ReadStartElement();
-			m_Visible = bool.Parse(p_Reader.ReadString());
-			p_Reader.ReadEndElement();
-
-			//read in degree
-			p_Reader.ReadStartElement();
-			m_Degree = float.Parse(p_Reader.ReadString());
-			p_Reader.ReadEndElement();
-
-			//read in zBuff
-			//zbGround = p_Reader.GetAttribute(0);
-			//zbLevel = p_Reader.GetAttribute(1);
-			//if (zbGround.Equals("ForeGround"))
-			//{
-			//    if (zbLevel.Equals("Top"))
-			//    {
-			//        m_ZBuff = Depth.ForeGround.Top;
-			//    }
-			//    else if (zbLevel.Equals("Mid"))
-			//    {
-			//        m_ZBuff = Depth.ForeGround.Mid;
-			//    }
-			//    else if (zbLevel.Equals("Bottom"))
-			//    {
-			//        m_ZBuff = Depth.ForeGround.Bottom;
-			//    }
-			//}
-			//else if (zbGround.Equals("BackGround"))
-			//{
-			//    if (zbLevel.Equals("Top"))
-			//    {
-			//        m_ZBuff = Depth.BackGround.Top;
-			//    }
-			//    else if (zbLevel.Equals("Mid"))
-			//    {
-			//        m_ZBuff = Depth.BackGround.Mid;
-			//    }
-			//    else if (zbLevel.Equals("Bottom"))
-			//    {
-			//        m_ZBuff = Depth.BackGround.Bottom;
-			//    }
-			//}
-			//else if (zbGround.Equals("MidGround"))
-			//{
-			//    if (zbLevel.Equals("Top"))
-			//    {
-			//        m_ZBuff = Depth.MidGround.Top;
-			//    }
-			//    else if (zbLevel.Equals("Mid"))
-			//    {
-			//        m_ZBuff = Depth.MidGround.Mid;
-			//    }
-			//    else if (zbLevel.Equals("Bottom"))
-			//    {
-			//        m_ZBuff = Depth.MidGround.Bottom;
-			//    }
-			//}
-
-			//read in faction
-			p_Reader.ReadStartElement();
-			faction = p_Reader.ReadString();
-			if (faction.Equals("enemy"))
-			{
-				m_Faction = Collidable.Factions.Enemy;
-			}
-			else if (faction.Equals("player"))
-			{
-				m_Faction = Collidable.Factions.Player;
-			}
-			else if (faction.Equals("environment"))
-			{
-				m_Faction = Collidable.Factions.Environment;
-			}
-			p_Reader.ReadEndElement();
-
-			//read in health
-			p_Reader.ReadStartElement();
-			m_Health = int.Parse(p_Reader.ReadString());
-			p_Reader.ReadEndElement();
-
-			//read in shield
-			p_Reader.ReadStartElement();
-			m_Shield = int.Parse(p_Reader.ReadString());
-			p_Reader.ReadEndElement();
-
-			//read in speed
-			p_Reader.ReadStartElement();
-			m_Speed = int.Parse(p_Reader.ReadString());
-			p_Reader.ReadEndElement();
-			//Console.WriteLine(m_Speed);
-
-			//read in damage texture
-			dtName = p_Reader.GetAttribute(0);
-			if (p_Reader.AttributeCount > 1)
-			{
-				dtTag = p_Reader.GetAttribute(1);
-			}
-			m_DamageTexture = TextureLibrary.getGameTexture(dtName, dtTag);
-
-			//read in radius
-			p_Reader.ReadStartElement();
-			m_Radius = float.Parse(p_Reader.ReadString());
-			p_Reader.ReadEndElement();
-			//Console.WriteLine(m_Radius);
-
-			//create ship
-			t_Ship = new Ship(m_Name, m_StartPos, m_Health, m_Width, m_Texture, m_Alpha, m_Visible, m_Degree, Depth.GameLayer.Ships, m_Faction, m_Health,
-								m_Shield, m_DamageTexture, m_Radius);
-
-			while (p_Reader.IsStartElement("weapon"))
-			{
-				t_Ship.addWeapon(readWeapon(p_Reader));
-			}
-
-			if (p_Reader.IsStartElement("task"))
-			{
-				t_Ship.Task = readTask(p_Reader);
-			}
-
+			
 			//add the ship to the event list
 			if (m_Events.ContainsKey(m_Distance))
 			{
@@ -350,8 +256,6 @@ namespace project_hook
 				m_Events.Add(m_Distance, t_List);
 			}
 		}
-
-
 
 		private static Weapon readWeapon(XmlReader p_Reader)
 		{
@@ -403,8 +307,8 @@ namespace project_hook
 			}
 
 			p_Reader.ReadEndElement();
-			return weapon;
 
+			return weapon;
 		}
 
 		private static Task readTask(XmlReader p_Reader)
