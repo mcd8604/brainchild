@@ -27,7 +27,7 @@ namespace project_hook
 		{
 			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
 			m_ColorMap = new Hashtable();
-			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("wall1", ""), 0, true));
+			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("plaque", ""), 0, true));
 			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.White).ToArgb(), new Tile(null, 0, false));
 			m_ScrollSpeed = p_ScrollSpeed;
 
