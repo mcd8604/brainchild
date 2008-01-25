@@ -84,7 +84,7 @@ namespace project_hook
 
 			m_CurTopRow = bmpHeight - m_ScreenSpaceHeight;
 			m_CurBottomBuffer = m_ScreenSpaceHeight - 1;
-			m_CurTopBuffer = 0;
+			m_CurTopBuffer = 1;
 		}
 
 		public void Update(GameTime p_GameTime)
