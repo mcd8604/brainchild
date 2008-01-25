@@ -34,6 +34,19 @@ namespace project_hook
 			}
 		}
 
+		private float m_CloseEnough = 0f;
+		public float CloseEnough
+		{
+			get
+			{
+				return m_CloseEnough;
+			}
+			set
+			{
+				m_CloseEnough = value;
+			}
+		}
+
 		private bool m_ReachedGoal = false;
 
 		public TaskSeekPoint() { }
@@ -41,6 +54,12 @@ namespace project_hook
 		{
 			Goal = p_Goal;
 			Speed = p_Speed;
+		}
+		public TaskSeekPoint(Vector2 p_Goal, float p_Speed, float p_CloseEnough)
+		{
+			Goal = p_Goal;
+			Speed = p_Speed;
+			CloseEnough = p_CloseEnough;
 		}
 
 		public override bool Complete
@@ -51,7 +70,7 @@ namespace project_hook
 		public override void Update(Sprite on, GameTime at)
 		{
 			Vector2 temp = m_Goal - on.Center;
-			if (temp == Vector2.Zero)
+			if (Math.Abs(temp.X) <= CloseEnough && Math.Abs(temp.Y) <= CloseEnough)
 			{
 				m_ReachedGoal = true;
 				return;

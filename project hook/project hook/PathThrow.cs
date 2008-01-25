@@ -30,7 +30,7 @@ namespace project_hook
 			dic.Add(PathStrategy.ValueKeys.End, m_BackPos);
 			dic.Add(PathStrategy.ValueKeys.Speed, 2500f);
 			m_CurrentPath = new Path(Paths.Seek, dic);
-			m_Base.StateOfTail = Tail.TailState.Neutral;
+			m_Base.StateOfTail = Tail.TailState.Throwing;
 		}
 
 		public override void CalculateMovement(GameTime p_GameTime)

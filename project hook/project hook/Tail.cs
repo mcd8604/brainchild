@@ -47,33 +47,29 @@ namespace project_hook
 			}
 		}
 
-		private double m_TailAttackDelay;
-		public double TailAttackDelay
+		private float m_TailAttackDelay;
+		public float TailAttackDelay
 		{
 			get
 			{
 				return m_TailAttackDelay;
 			}
-			set
-			{
-				m_TailAttackDelay = value;
-			}
 		}
 
-		private Vector2 m_TailSpeed = new Vector2(0, 0);
+		private Vector2 m_TailSpeed = Vector2.Zero;
 
 		private double m_LastTailAttack = 0;
 
-		private bool m_TailReturned = true;
-
 		public enum TailState
 		{
-			Neutral,
+			Ready,
 			Attacking,
-			Returning
+			Returning,
+			Throwing,
+			None
 		}
 
-		private TailState m_TailState = TailState.Neutral;
+		private TailState m_TailState = TailState.None;
 		public TailState StateOfTail
 		{
 			get
@@ -90,52 +86,86 @@ namespace project_hook
 		private Task m_BodyTask;
 
 		private Task m_NormalTask;
+		private Task m_AttackTask;
+		private Task m_ReturnTask;
+		private Task m_ThrowTask;
+		private Task m_ReleaseTask;
 
 		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
 					float p_Degree, float p_Z, Factions p_Faction, int p_Health, GameTexture p_DamageEffect, float p_Radius,
-					Ship p_AttachShip, double p_TailAttackDelay, ICollection<Sprite> p_BodySprites)
+					Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, -1, p_DamageEffect, p_Radius)
 		{
+
 			TaskParallel temp = new TaskParallel();
 			temp.addTask(new TaskTether(p_AttachShip));
 			temp.addTask(new TaskRotateFaceTarget(p_AttachShip, (float)Math.PI));
 			m_NormalTask = temp;
+
 			Task = m_NormalTask;
+
+			temp = new TaskParallel();
+			temp.addTask(new TaskSeekTarget(p_AttachShip, 1000f, 25f));
+			temp.addTask(new TaskRotateFaceTarget(p_AttachShip, (float)Math.PI));
+			m_ReturnTask = temp;
+
 			this.PlayerShip = (PlayerShip)p_AttachShip;
 			m_TailTarget = new Vector2(-1, -1);
 			m_EnemyCaught = null;
 			m_TailAttackDelay = p_TailAttackDelay;
 			m_BodySprites = p_BodySprites;
 			m_BodyTask = new TaskLerp(p_AttachShip, this);
+
+			StateOfTail = TailState.Ready;
 		}
 
 		public void TailAttack(Vector2 p_Target)
 		{
 			//attack with tail
-			if (m_EnemyCaught == null && m_TailReturned && m_LastTailAttack >= m_TailAttackDelay)
+			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
-				m_TailTarget = p_Target;
+				TaskParallel temp = new TaskParallel();
+				temp.addTask(new TaskSeekPoint(p_Target, 2000f));
+				temp.addTask(new TaskTimer(0.25f));
+				temp.addTask(new TaskRotateFacePoint(p_Target));
+				m_AttackTask = temp;
 
-				Task = new TaskSpecialTailAttack(p_Target, 2000f, 0.25f, PlayerShip, 1000f);
+				Task = m_AttackTask;
 
-				StateOfTail = Tail.TailState.Attacking;
+				StateOfTail = TailState.Attacking;
 				m_LastTailAttack = 0;
-				m_TailReturned = false;
 				Sound.Play("slap");
 			}
 			//throw enemy
-			else if (m_EnemyCaught != null && m_TailReturned && m_LastTailAttack >= m_TailAttackDelay)
+			else if (m_EnemyCaught != null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
-				Vector2 temp = Center - p_Target;
+				Vector2 goal = Center - p_Target;
 
-				Task = new TaskSpecialTailThrow(Vector2.Add(Center, Vector2.Divide(temp, 2.75f)), Vector2.Add(Center, Vector2.Divide(Vector2.Negate(temp), 2.75f)), 2500f, p_Target, 1000f, this.m_EnemyCaught);
+				TaskQueue res = new TaskQueue();
+				TaskParallel temp = new TaskParallel();
+				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(goal, 2.75f)), 2000f));
+				temp.addTask(new TaskRotateFacePoint(p_Target));
+				res.addTask(temp);
+				temp = new TaskParallel();
+				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(Vector2.Negate(goal), 2.75f)), 2000f));
+				temp.addTask(new TaskRotateFacePoint(p_Target));
+				res.addTask(temp);
+				m_ThrowTask = res;
 
-				StateOfTail = Tail.TailState.Neutral;
-				//m_EnemyCaught = null;
+				Task = m_ThrowTask;
+
+				float releaseAngle = (float)Math.Atan2(p_Target.Y - m_EnemyCaught.Center.Y, p_Target.X - m_EnemyCaught.Center.X);
+				temp = new TaskParallel();
+				temp.addTask(new TaskStraightAngle( releaseAngle, 800f));
+				temp.addTask(new TaskRotateAngle(releaseAngle));
+				m_ReleaseTask = temp;
+
+				StateOfTail = Tail.TailState.Throwing;
 				m_LastTailAttack = 0;
 			}
 		}
 
+		[Obsolete]
 		public void TailReturned()
 		{
 			m_TailTarget.X = -1f;
@@ -143,7 +173,7 @@ namespace project_hook
 
 			Task = m_NormalTask;
 
-			m_TailReturned = true;
+			StateOfTail = TailState.Ready;
 		}
 
 		public override void RegisterCollision(Collidable p_Other)
@@ -151,7 +181,8 @@ namespace project_hook
 			//base.RegisterCollision(p_Other);
 			if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_TailState == TailState.Attacking && p_Other is Ship)
 			{
-				TailReturned();
+				StateOfTail = Tail.TailState.Returning;
+				Task = m_ReturnTask;
 
 				m_EnemyCaught = (Ship)p_Other;
 				m_EnemyCaught.Faction = Factions.Player;
@@ -161,7 +192,6 @@ namespace project_hook
 				temp.addTask(new TaskRotateWithTarget(this));
 				m_EnemyCaught.Task = temp;
 
-
 				// example:  Reverse enemy weapons
 				foreach (Weapon w in m_EnemyCaught.Weapons)
 				{
@@ -170,19 +200,40 @@ namespace project_hook
 			}
 		}
 
-		private void UpdateEnemyCaught()
-		{
-			if (m_EnemyCaught != null)
-			{
-				m_EnemyCaught.Position = this.Position;
-				m_EnemyCaught.Rotation = this.Rotation;
-			}
-		}
-
 		public override void Update(GameTime p_Time)
 		{
+			switch (StateOfTail)
+			{
+				case TailState.Attacking:
+
+					if (Task.Complete)
+					{
+						StateOfTail = Tail.TailState.Returning;
+						Task = m_ReturnTask;
+					}
+					break;
+				case TailState.Throwing:
+					if (Task.Complete)
+					{
+						StateOfTail = Tail.TailState.Returning;
+						Task = m_ReturnTask;
+
+						EnemyCaught.Task = m_ReleaseTask;
+						EnemyCaught = null;
+					}
+					break;
+				case TailState.Returning:
+
+					if (Task.Complete)
+					{
+						StateOfTail = TailState.Ready;
+						Task = m_NormalTask;
+					}
+					break;
+			}
+
 			m_BodyTask.Update(m_BodySprites, p_Time);
-			m_LastTailAttack += p_Time.ElapsedGameTime.TotalMilliseconds;
+			m_LastTailAttack += (float)p_Time.ElapsedGameTime.TotalMilliseconds;
 			base.Update(p_Time);
 		}
 	}

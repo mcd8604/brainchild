@@ -19,17 +19,17 @@ namespace project_hook
 		private int m_CurTopRow;
 		private int m_CurTopBuffer;
 		private int m_CurBottomBuffer;
-		private int m_ScrollSpeed;
+		private World m_World;
 		private Tile curTile;
 		private int m_TileDimension;
 
-		public List<Sprite> Initialize(int p_ScrollSpeed)
+		public List<Sprite> Initialize(World world)
 		{
+			m_World = world;
 			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
 			m_ColorMap = new Hashtable();
 			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("plaque", ""), 0, true));
 			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.White).ToArgb(), new Tile(null, 0, false));
-			m_ScrollSpeed = p_ScrollSpeed;
 
 			m_CurrentView = new List<Sprite>();
 
@@ -94,7 +94,7 @@ namespace project_hook
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
 					Vector2 temp = m_CurrentView[getPosition(x, y)].Position;
-					temp.Y += (m_ScrollSpeed * (float)p_GameTime.ElapsedGameTime.TotalSeconds);
+					temp.Y += (m_World.Speed * (float)p_GameTime.ElapsedGameTime.TotalSeconds);
 					m_CurrentView[getPosition(x, y)].Position = temp;
 				}
 			}
@@ -112,7 +112,8 @@ namespace project_hook
 				{
                     if (m_CurTopRow < 0)
                     {
-                        m_CurTopRow = 0;
+                       m_CurTopRow = 0;
+					   m_World.Speed = 0;
                     }
 
 					curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);

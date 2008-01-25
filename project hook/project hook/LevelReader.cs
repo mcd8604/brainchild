@@ -161,19 +161,19 @@ namespace project_hook
 			int m_Shield;
 
 			//stuff for task
-			float pSpeed;
-			Vector2 pEndPos = new Vector2();
-			float pDuration;
-			String pType;
-			bool pRotation;
+			//float pSpeed;
+			//Vector2 pEndPos = new Vector2();
+			//float pDuration;
+			//String pType;
+			//bool pRotation;
 
 			//stuff for weapon
-			Weapon t_Wep;		//Ship p_Ship, string p_ShotName, int p_Damage, int p_Delay, float p_Speed, float p_Angle
-			String wShotName;
-			int wDamage;
-			float wDelay;
-			float wSpeed;
-			float wAngle;
+			//Weapon t_Wep;
+			//String wShotName;
+			//int wDamage;
+			//float wDelay;
+			//float wSpeed;
+			//float wAngle;
 
 			int m_Speed;
 
