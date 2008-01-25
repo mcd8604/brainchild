@@ -365,7 +365,7 @@ namespace project_hook
 					wAngle = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 
-					t_Wep = new Weapon(t_Ship, wShotName, wDamage, wDelay, wSpeed, wAngle);
+					t_Wep = new WeaponExample(t_Ship, wShotName, wDamage, wDelay, wSpeed, wAngle);
 
 					t_Ship.Weapons.Add(t_Wep);
 				}
@@ -395,7 +395,7 @@ namespace project_hook
 				}
 				else if (pType.Equals("Shoot"))
 				{
-					//t_Ship.Task
+					t_Ship.Task = new TaskFire();
 				}
 				p_Reader.ReadEndElement();
 			} while (p_Reader.Name.Equals("path"));
