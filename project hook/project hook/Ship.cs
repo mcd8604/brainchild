@@ -57,16 +57,9 @@ namespace project_hook
 				tempangle = -MathHelper.PiOver2;
 			}
 
-			m_Weapons.Add(new WeaponExample(this, "RedShot", 10, 300, 500, tempangle));
+			addWeapon(new WeaponExample(this, "RedShot", 10, 300, 500, tempangle));
 			//m_Weapons.Add(new Weapon(this, 10, 300, 500, TextureLibrary.getGameTexture("RedShot", "1")));
 			//m_Weapons.Add(new Weapon_SideShot(this, 10, 200, 500, TextureLibrary.getGameTexture("FireBall", "1")));
-			foreach (Weapon w in m_Weapons)
-			{
-				foreach (Shot s in w.getShots())
-				{
-					addSprite(s);
-				}
-			}
 
 			m_Shield = p_Shield;
 			
@@ -86,16 +79,9 @@ namespace project_hook
 			// I don't think 'this' is a good idea for assigning weapons.
 			if (p_WeaponType.Equals("OneShot"))
 			{
-				m_Weapons.Add(new WeaponExample(this, "FireBall" ,10,300,500,MathHelper.PiOver2));
-				m_Weapons.Add(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4));
-				m_Weapons.Add(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4 * 3));
-				foreach (Weapon w in m_Weapons)
-				{
-					foreach (Shot s in w.getShots())
-					{
-						addSprite(s);
-					}
-				}
+				addWeapon(new WeaponExample(this, "FireBall" ,10,300,500,MathHelper.PiOver2));
+				addWeapon(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4));
+				addWeapon(new WeaponExample(this, "FireBall", 10, 300, 500, MathHelper.PiOver4 * 3));
 			}
 			else if (p_WeaponType.Equals("SideShot"))
 			{
@@ -110,6 +96,15 @@ namespace project_hook
 				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.MidGround.Bottom);
 				m_ShieldSprite.Task = new TaskAttach(this);
 				attachSpritePart(m_ShieldSprite);
+			}
+		}
+
+		public void addWeapon(Weapon w)
+		{
+			m_Weapons.Add(w);
+			foreach (Shot s in w.getShots())
+			{
+				addSprite(s);
 			}
 		}
 
