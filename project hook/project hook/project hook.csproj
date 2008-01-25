@@ -70,6 +70,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
+    <Compile Include="GameOver.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>GameOver</Name>
+    </Compile>
     <Compile Include="TaskRotateWithTarget.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskRotateWithTarget</Name>

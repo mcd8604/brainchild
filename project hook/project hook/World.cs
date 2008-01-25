@@ -54,6 +54,19 @@ namespace project_hook
 			}
 		}
 
+		private static Boolean m_PlayerDead;
+		public static Boolean PlayerDead
+		{
+			get
+			{
+				return m_PlayerDead;
+			}
+			set
+			{
+				m_PlayerDead = value;
+			}
+		}
+
 		Player m_Player;
 		Tail tail;
 		Sprite crosshairs;
