@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
+	[Obsolete]
 	class TaskSpecialTailThrow : Task
 	{
 
@@ -40,7 +41,7 @@ namespace project_hook
 			if (tail != null)
 			{
 
-				if (tail.StateOfTail == Tail.TailState.Neutral)
+				if (tail.StateOfTail == Tail.TailState.Throwing)
 				{
 
 					m_WindupTask.Update(on, at);

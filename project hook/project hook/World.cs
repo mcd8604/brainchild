@@ -70,6 +70,7 @@ namespace project_hook
 		Player m_Player;
 		Tail tail;
 		Sprite crosshairs;
+		YScrollingBackground back;
 
 		GameState m_PreviousState;
 		GameState m_State;
@@ -99,7 +100,7 @@ namespace project_hook
 		public static Rectangle m_ViewPortSize;
 
 		public float m_Distance = 0;
-		public int m_Speed = 80;
+		private int m_Speed = 80;
 		public int Speed
 		{
 			get
@@ -109,6 +110,7 @@ namespace project_hook
 			set
 			{
 				m_Speed = value;
+				back.ScrollSpeed = m_Speed;
 			}
 		}
 
@@ -136,7 +138,7 @@ namespace project_hook
 			Sound.Initialize();
 			this.m_LReader = new LevelReader("LevelTest.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			AddSprites( this.m_ELoader.Initialize(this.m_Speed) );
+			AddSprites( this.m_ELoader.Initialize(this) );
 			this.m_ELoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp");
 		}
 
@@ -412,7 +414,7 @@ namespace project_hook
 			GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
 
 			//test scrolling background
-			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Speed);
+			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Speed);
 
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.ForeGround.Bottom, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);

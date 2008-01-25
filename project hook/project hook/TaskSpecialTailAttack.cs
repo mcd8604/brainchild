@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
+	[Obsolete]
 	class TaskSpecialTailAttack : Task
 	{
 
