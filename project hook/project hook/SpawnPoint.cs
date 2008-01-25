@@ -62,6 +62,7 @@ namespace project_hook
 			Count = count;
 			m_Delay = delay;
 			m_CurTime = 0;
+			base.Bound = Boundings.Square;
 		}
 
 		public void setShips(String p_Name, Vector2 p_Position, int p_Height,

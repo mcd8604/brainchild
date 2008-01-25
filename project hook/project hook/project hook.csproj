@@ -198,10 +198,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>SpawnPoint</Name>
     </Compile>
-    <Compile Include="TailBodySprite.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TailBodySprite</Name>
-    </Compile>
     <Compile Include="PathThrow.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PathThrow</Name>

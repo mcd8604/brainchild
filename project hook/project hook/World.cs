@@ -136,7 +136,7 @@ namespace project_hook
 			Sound.Initialize();
 			this.m_LReader = new LevelReader("LevelTest.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			m_SpriteList.AddRange( this.m_ELoader.Initialize(this.m_Speed) );
+			AddSprites( this.m_ELoader.Initialize(this.m_Speed) );
 			this.m_ELoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp");
 		}
 
@@ -171,8 +171,17 @@ namespace project_hook
 				Collision.CheckCollisions(m_SpriteList);
 
 				List<Sprite> toAdd = new List<Sprite>();
-
+#if DEBUG
+				int count = m_SpriteList.Count;
+#endif
 				m_SpriteList.RemoveAll(Sprite.isToBeRemoved);
+#if DEBUG
+				int diff = (count - m_SpriteList.Count);
+				if (diff != 0)
+				{
+					Console.WriteLine("Removed " + diff + " AlphaBlended Sprites");
+				}
+#endif
 				foreach (Sprite s in m_SpriteList)
 				{
 					s.Update(p_GameTime);
@@ -184,7 +193,53 @@ namespace project_hook
 						s.SpritesToBeAdded.Clear();
 					}
 				}
-				m_SpriteList.AddRange(toAdd);
+#if DEBUG
+				if (toAdd.Count != 0)
+				{
+					Console.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
+				}
+#endif
+				AddSprites(toAdd);
+
+
+
+
+
+				//Additive:
+
+				toAdd.Clear();
+#if DEBUG
+				count = m_SpriteListA.Count;
+#endif
+				m_SpriteListA.RemoveAll(Sprite.isToBeRemoved);
+#if DEBUG
+				diff = (count - m_SpriteListA.Count);
+				if (diff != 0)
+				{
+					Console.WriteLine("Removed " + diff + " Additive Sprites");
+				}
+#endif
+				foreach (Sprite s in m_SpriteListA)
+				{
+					s.Update(p_GameTime);
+
+					if (s.SpritesToBeAdded != null)
+					{
+
+						toAdd.AddRange(s.SpritesToBeAdded);
+						s.SpritesToBeAdded.Clear();
+					}
+				}
+#if DEBUG
+				if (toAdd.Count != 0)
+				{
+					Console.WriteLine("Added " + toAdd.Count + " Additive Sprites");
+				}
+#endif
+				AddSprites(toAdd);
+
+
+
 
 				m_Distance += m_Speed * (float)(p_GameTime.ElapsedGameTime.TotalSeconds);
 				this.m_ELoader.Update(p_GameTime);
@@ -274,6 +329,10 @@ namespace project_hook
 			{
 				Sprite.DrawWithRot();
 			}
+			if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.B))
+			{
+				String Breakpoint = this.ToString();
+			}
 
 			update(p_GameTime);
 
@@ -295,6 +354,7 @@ namespace project_hook
 		{
 			if (!(m_State == GameState.DoNotRender))
 			{
+
 				p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
 
 				foreach (Sprite s in m_SpriteList)
@@ -373,14 +433,14 @@ namespace project_hook
 			{
                 if (i % 5 == 0)
                 {
-                    TailBodySprite tailBodySprite = new TailBodySprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+					Sprite tailBodySprite = new Sprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
                     tailBodySprite.Transparency = 0.5f;
                     tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
                     m_TailBodySprites.Add(tailBodySprite);
                 }
                 else
                 {
-                    TailBodySprite tailBodySprite = new TailBodySprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+					Sprite tailBodySprite = new Sprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
                     tailBodySprite.Transparency = 0.2f;
                     tailBodySprite.BlendMode = SpriteBlendMode.Additive;
                     m_TailBodySprites.Add(tailBodySprite);
@@ -473,25 +533,23 @@ namespace project_hook
 
 
 
-			m_SpriteList.Add(back);
-			//s  m_SpriteList.Add(back2);
-			m_SpriteList.Add(cloud);
-			m_SpriteList.Add(enemy);
-			m_SpriteList.Add(enemy2);
-			m_SpriteList.Add(tail);
-			m_SpriteList.Add(m_Player.PlayerShip);
-			m_SpriteList.Add(crosshairs);
-			foreach (Sprite s in m_TailBodySprites)
-				m_SpriteListA.Add(s);
+			AddSprite(back);
+			AddSprite(cloud);
+			AddSprite(enemy);
+			AddSprite(enemy2);
+			AddSprite(tail);
+			AddSprite(m_Player.PlayerShip);
+			AddSprite(crosshairs);
+			AddSprites(m_TailBodySprites);
 
 
 			Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
-			m_SpriteList.Add(TextFpsExample);
+			AddSprite(TextFpsExample);
 
 			SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.MidGround.Mid,Collidable.Factions.Enemy,10000,null,50);
 			sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			sp.Target= m_Player.PlayerShip;
-			m_SpriteList.Add(sp);
+			AddSprite(sp);
 
 
 		}
@@ -503,15 +561,23 @@ namespace project_hook
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 
-		public void AddSprite(Collidable p_Sprite)
+		public void AddSprite(Sprite p_Sprite)
 		{
-			this.m_SpriteList.Add(p_Sprite);
+			if (p_Sprite.BlendMode == SpriteBlendMode.AlphaBlend)
+			{
+				m_SpriteList.Add(p_Sprite);
+			}
+			else if (p_Sprite.BlendMode == SpriteBlendMode.Additive)
+			{
+				m_SpriteListA.Add(p_Sprite);
+			}
 		}
-
-		public void AddAdditiveSprite(Collidable p_Sprite)
+		public void AddSprites(IEnumerable<Sprite> p_Sprites)
 		{
-			this.m_SpriteListA.Add(p_Sprite);
+			foreach (Sprite s in p_Sprites)
+			{
+				AddSprite(s);
+			}
 		}
-
 	}
 }

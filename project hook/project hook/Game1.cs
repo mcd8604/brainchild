@@ -161,14 +161,14 @@ namespace project_hook
                 {
                     if (i % 5 == 0)
                     {
-                        TailBodySprite tailBodySprite = new TailBodySprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+                        Sprite tailBodySprite = new Sprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
                         tailBodySprite.Transparency = 0.5f;
                         tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
                         m_TailBodySprites.Add(tailBodySprite);
                     }
                     else
                     {
-                        TailBodySprite tailBodySprite = new TailBodySprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+						Sprite tailBodySprite = new Sprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
                         tailBodySprite.Transparency = 0.2f;
                         tailBodySprite.BlendMode = SpriteBlendMode.Additive;
                         m_TailBodySprites.Add(tailBodySprite);
