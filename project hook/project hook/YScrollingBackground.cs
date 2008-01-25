@@ -8,32 +8,20 @@ namespace project_hook
 {
 	class YScrollingBackground : Sprite
 	{
-		private float m_ScrollSpeed;
-		public float ScrollSpeed
-		{
-			get
-			{
-				return m_ScrollSpeed;
-			}
-			set
-			{
-				m_ScrollSpeed = value;
-			}
-		}
-
 		private ArrayList scrollingSprites;
+		private WorldPosition m_WorldPosition;
 
-		public YScrollingBackground(GameTexture p_BackgroundTexture, int p_Speed)
-			: base("scrollingBackground", new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGround.Bottom)
+		public YScrollingBackground(GameTexture p_BackgroundTexture, WorldPosition p_WorldPosition)
+			: base("scrollingBackground", new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGroundLayer.Background)
 		{
+			m_WorldPosition = p_WorldPosition;
 			scrollingSprites = new ArrayList((World.m_ViewPortSize.Height / p_BackgroundTexture.Height) + 2);
 			for (int i = 0; i < scrollingSprites.Capacity; i++)
 			{
-				Sprite s = new Sprite("back", new Vector2(0.0f, i * p_BackgroundTexture.Height), p_BackgroundTexture.Height, World.m_ViewPortSize.Width, p_BackgroundTexture, 255f, true, 0, Depth.BackGround.Bottom);
+				Sprite s = new Sprite("back", new Vector2(0.0f, i * p_BackgroundTexture.Height), p_BackgroundTexture.Height, World.m_ViewPortSize.Width, p_BackgroundTexture, 255f, true, 0, Depth.BackGroundLayer.Background);
 				scrollingSprites.Add(s);
 				attachSpritePart(s);
 			}
-			m_ScrollSpeed = p_Speed;
 		}
 
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
@@ -41,7 +29,7 @@ namespace project_hook
 			base.Update(p_Time);
 			foreach (Sprite s in scrollingSprites)
 			{
-				float dist = m_ScrollSpeed * (float)p_Time.ElapsedGameTime.TotalSeconds;
+				float dist = m_WorldPosition.BackgroundSpeed * (float)p_Time.ElapsedGameTime.TotalSeconds;
 				float newY = s.Position.Y + (dist);
 				if (s.Position.Y >= World.m_ViewPortSize.Height)
 				{

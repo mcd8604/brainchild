@@ -151,31 +151,31 @@ namespace project_hook
 				m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 				GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
 				GameTexture crosshairs = TextureLibrary.getGameTexture("crosshairs", "");
-				back = new YScrollingBackground(TextureLibrary.getGameTexture("Back", ""), m_Speed);
-				player = new Player("Ship", new Vector2(300.0f, 400.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.ForeGround.Bottom, PlayerBounds);
-				back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
-				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGround.Top);
+				//back = new YScrollingBackground(TextureLibrary.getGameTexture("Back", ""), );
+				player = new Player("Ship", new Vector2(300.0f, 400.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 100, true, 0.0f, Depth.GameLayer.Ships, PlayerBounds);
+				back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.BackGroundLayer.Background);
+				cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 100f, true, 0, Depth.BackGroundLayer.Upper);
 				//spawnEnemy();
-				crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.MidGround.Mid);
+				crosshair = new Sprite("crosshair", new Vector2(100f, 100f), crosshairs.Height, crosshairs.Width, crosshairs, 100f, true, 0f, Depth.GameLayer.Cursor);
                 for (int i = 0; i < 60; i++)
                 {
                     if (i % 5 == 0)
                     {
-                        Sprite tailBodySprite = new Sprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+                        Sprite tailBodySprite = new Sprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
                         tailBodySprite.Transparency = 0.5f;
                         tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
                         m_TailBodySprites.Add(tailBodySprite);
                     }
                     else
                     {
-						Sprite tailBodySprite = new Sprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+						Sprite tailBodySprite = new Sprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
                         tailBodySprite.Transparency = 0.2f;
                         tailBodySprite.BlendMode = SpriteBlendMode.Additive;
                         m_TailBodySprites.Add(tailBodySprite);
                     }
 
                 }
-				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 30, player.PlayerShip, 700, m_TailBodySprites);
+				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, -1, null, 30, player.PlayerShip, 700, m_TailBodySprites);
 
 
 
@@ -522,7 +522,7 @@ namespace project_hook
 			//back2.Draw(m_spriteBatch);
 			//shotEffect.Draw(m_spriteBatch);
 			//shot2Effect.Draw(m_spriteBatch);
-			drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.ForeGround.Top);
+			drawtext.DrawString(m_spriteBatch, "Press Space!!!!", new Vector2(100, 100), Color.Yellow, Depth.HUDLayer.Midground);
 			drawtext.DrawString(m_spriteBatch, "Score: " + player.Score.ScoreTotal, new Vector2(0, 50), Color.White);
 			drawtext.DrawString(m_spriteBatch, "FPS: " + fps.ToString(), Vector2.Zero, Color.White);
 

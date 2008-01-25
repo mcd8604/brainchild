@@ -250,6 +250,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponExample</Name>
     </Compile>
+    <Compile Include="WorldPosition.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>WorldPosition</Name>
+    </Compile>
     <Compile Include="YScrollingBackground.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>YScrollingBackground</Name>

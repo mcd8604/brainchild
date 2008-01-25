@@ -73,7 +73,7 @@ namespace project_hook
 		YScrollingBackground back;
 
 		GameState m_PreviousState;
-		GameState m_State;
+		GameState m_State = GameState.Nothing;
 		public GameState State
 		{
 			get
@@ -99,38 +99,39 @@ namespace project_hook
 
 		public static Rectangle m_ViewPortSize;
 
-		public float m_Distance = 0;
-		private int m_Speed = 80;
-		public int Speed
+		//public float m_Distance = 0;
+		//private int m_Speed = 80;
+		//public int Speed
+		//{
+		//    get
+		//    {
+		//        return m_Speed;
+		//    }
+		//    set
+		//    {
+		//        m_Speed = value;
+		//        back.ScrollSpeed = m_Speed;
+		//    }
+		//}
+
+		private WorldPosition m_Position;
+		public WorldPosition Position
 		{
-			get
-			{
-				return m_Speed;
-			}
-			set
-			{
-				m_Speed = value;
-				back.ScrollSpeed = m_Speed;
-			}
+			get { return m_Position; }
 		}
 
 		LevelReader m_LReader;
 		LevelHandler m_LHandler;
 		EnvironmentLoader m_ELoader=new EnvironmentLoader();
 
-		public World()
-		{
-
-			m_SpriteList = new List<Sprite>();
-			m_SpriteListA = new List<Sprite>();
-
-			m_State = GameState.Nothing;
-
-		}
+		public World() {}
 
 		//This method will initialize all the objects needed to run the game
 		public void initialize(Rectangle p_DrawArea)
 		{
+			m_SpriteList = new List<Sprite>();
+			m_SpriteListA = new List<Sprite>();
+			m_Position = new WorldPosition( 80f );
 			m_ViewPortSize = p_DrawArea;
 			IniDefaults();
 			Sprite.DrawWithRot();
@@ -138,7 +139,7 @@ namespace project_hook
 			Sound.Initialize();
 			this.m_LReader = new LevelReader("LevelTest.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			AddSprites( this.m_ELoader.Initialize(this) );
+			AddSprites( this.m_ELoader.Initialize(m_Position) );
 			this.m_ELoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp");
 		}
 
@@ -166,7 +167,11 @@ namespace project_hook
 			//This will be for normal everyday update operations.  
 			if (m_State == GameState.Running)
 			{
-				m_LHandler.CheckEvents(Convert.ToInt32(m_Distance));
+				m_Position.Update(p_GameTime);
+
+				m_ELoader.Update(p_GameTime);
+
+				m_LHandler.CheckEvents(Convert.ToInt32(m_Position.Distance));
 
 				m_Player.UpdatePlayer(p_GameTime);
 
@@ -240,11 +245,6 @@ namespace project_hook
 #endif
 				AddSprites(toAdd);
 
-
-
-
-				m_Distance += m_Speed * (float)(p_GameTime.ElapsedGameTime.TotalSeconds);
-				this.m_ELoader.Update(p_GameTime);
 			}
 
 		}
@@ -414,37 +414,37 @@ namespace project_hook
 			GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
 
 			//test scrolling background
-			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Speed);
+			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
 
-			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.ForeGround.Bottom, m_ViewPortSize);
+			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.Ships, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
-			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGround.Top);
-			Ship enemy = new Ship("bloodcell", new Vector2(100f, 200f), 96, 128, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGroundLayer.Upper);
+			Ship enemy = new Ship("bloodcell", new Vector2(100f, 200f), 96, 128, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			enemy.setAnimation("bloodcell", 60);
 			enemy.Animation.StartAnimation();
-			Ship enemy2 = new Ship("Enemy", new Vector2(800f, 150f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, MathHelper.PiOver2, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+			Ship enemy2 = new Ship("Enemy", new Vector2(800f, 150f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, MathHelper.PiOver2, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
-			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.MidGround.Mid);
+			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.GameLayer.Cursor);
 			for (int i = 0; i < 60; i++)
 			{
                 if (i % 5 == 0)
                 {
-					Sprite tailBodySprite = new Sprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+					Sprite tailBodySprite = new Sprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
                     tailBodySprite.Transparency = 0.5f;
                     tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
                     m_TailBodySprites.Add(tailBodySprite);
                 }
                 else
                 {
-					Sprite tailBodySprite = new Sprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.MidGround.Bottom);
+					Sprite tailBodySprite = new Sprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
                     tailBodySprite.Transparency = 0.2f;
                     tailBodySprite.BlendMode = SpriteBlendMode.Additive;
                     m_TailBodySprites.Add(tailBodySprite);
                 }
 
 			}
-			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.ForeGround.Bottom, Collidable.Factions.Player, -1, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);
+			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, -1, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);
 			tail.Health = int.MinValue;
 
 
@@ -553,8 +553,8 @@ namespace project_hook
 			Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
 			AddSprite(TextFpsExample);
 
-			SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.MidGround.Mid,Collidable.Factions.Enemy,10000,null,50);
-			sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.MidGround.Bottom, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+			SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);
+			sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			sp.Target= m_Player.PlayerShip;
 			AddSprite(sp);
 
@@ -564,7 +564,7 @@ namespace project_hook
 		public void ChangeFile(String p_FileName)
 		{
 			m_LReader = new LevelReader(p_FileName);
-			m_Distance = 0;
+			m_Position = new WorldPosition();
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 

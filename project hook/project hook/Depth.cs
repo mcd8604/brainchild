@@ -4,26 +4,50 @@ namespace project_hook
 {
 	namespace Depth
 	{
-		public class ForeGround
-		{
-			public static float Top = 0.0f;
-			public static float Mid = 0.15f;
-			public static float Bottom = 0.3f;
-		}
 
-		public class MidGround
+		public static class MenuLayer
 		{
-			public static float Top = 0.31f;
-			public static float Mid = 0.46f;
-			public static float Bottom = 0.61f;
+
+			public static float Cursor = 0.0f;
+			public static float Highlight = 0.025f;
+			public static float Text = 0.05f;
+			public static float Background = 0.075f;
 
 		}
 
-		public class BackGround
+		public static class HUDLayer
 		{
-			public static float Top = 0.62f;
-			public static float Mid = 0.77f;
-			public static float Bottom = 0.92f;
+
+			public static float Foreground = 0.1f;
+			public static float Midground = 0.133f;
+			public static float Background = 0.166f;
+
+		}
+
+		public static class GameLayer
+		{
+			public static float Cursor = 0.3f;
+
+			public static float Explosion = 0.4f;
+
+			public static float Shot = 0.5f;
+
+			public static float Tail = 0.55f;
+
+			public static float Ships = 0.6f;
+
+			public static float TailBody = 0.65f;
+
+			public static float Shields = 0.7f;
+
+			public static float Environment = 0.8f;
+
+		}
+
+		public static class BackGroundLayer
+		{
+			public static float Upper = 0.9f;
+			public static float Background = 1.0f;
 
 		}
 

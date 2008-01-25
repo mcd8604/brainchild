@@ -61,13 +61,13 @@ namespace project_hook
 			float xPos = (gdm.GraphicsDevice.Viewport.Width - bgTexture.Width) / 2;
 			float yPos = (gdm.GraphicsDevice.Viewport.Height - bgTexture.Height) / 2;
 			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 200f, true,
-											0, Depth.ForeGround.Bottom);
+											0, Depth.MenuLayer.Background);
 			attachSpritePart(m_BackgroundSprite);
 
 			//cursor sprite
 			GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName, "");
 			m_MenuCursorSprite = new CursorSprite(m_MenuCursorName, InputHandler.MousePostion, cursorTexture.Height, cursorTexture.Width, cursorTexture, 255f, true,
-											0, Depth.ForeGround.Top);
+											0, Depth.MenuLayer.Cursor);
 			attachSpritePart(m_MenuCursorSprite);
 
 			m_MenuItemSprites = new ArrayList();
@@ -123,7 +123,7 @@ namespace project_hook
 					yPos += s.Height;
 				}
 				Sprite mis = new Sprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), curTexture.Height, curTexture.Width,
-													curTexture, 255f, true, 0, Depth.ForeGround.Mid);
+													curTexture, 255f, true, 0, Depth.MenuLayer.Text);
 				m_MenuItemSprites.Add(mis);
 				attachSpritePart(mis);
 			}
@@ -132,7 +132,7 @@ namespace project_hook
 			Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
 			GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName, "");
 			m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height,
-											selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.ForeGround.Top);
+											selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.MenuLayer.Highlight);
 			attachSpritePart(m_HightlightSprite);
 		}
 

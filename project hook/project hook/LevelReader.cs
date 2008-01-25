@@ -150,9 +150,9 @@ namespace project_hook
 			bool m_Visible;
 			float m_Degree;
 
-			float m_ZBuff = 0;
-			String zbGround;
-			String zbLevel;
+			//float m_ZBuff = 0;
+			//String zbGround;
+			//String zbLevel;
 
 			Collidable.Factions m_Faction = 0;
 			String faction;
@@ -230,53 +230,53 @@ namespace project_hook
 			p_Reader.ReadEndElement();
 
 			//read in zBuff
-			zbGround = p_Reader.GetAttribute(0);
-			zbLevel = p_Reader.GetAttribute(1);
-			if (zbGround.Equals("ForeGround"))
-			{
-				if (zbLevel.Equals("Top"))
-				{
-					m_ZBuff = Depth.ForeGround.Top;
-				}
-				else if (zbLevel.Equals("Mid"))
-				{
-					m_ZBuff = Depth.ForeGround.Mid;
-				}
-				else if (zbLevel.Equals("Bottom"))
-				{
-					m_ZBuff = Depth.ForeGround.Bottom;
-				}
-			}
-			else if (zbGround.Equals("BackGround"))
-			{
-				if (zbLevel.Equals("Top"))
-				{
-					m_ZBuff = Depth.BackGround.Top;
-				}
-				else if (zbLevel.Equals("Mid"))
-				{
-					m_ZBuff = Depth.BackGround.Mid;
-				}
-				else if (zbLevel.Equals("Bottom"))
-				{
-					m_ZBuff = Depth.BackGround.Bottom;
-				}
-			}
-			else if (zbGround.Equals("MidGround"))
-			{
-				if (zbLevel.Equals("Top"))
-				{
-					m_ZBuff = Depth.MidGround.Top;
-				}
-				else if (zbLevel.Equals("Mid"))
-				{
-					m_ZBuff = Depth.MidGround.Mid;
-				}
-				else if (zbLevel.Equals("Bottom"))
-				{
-					m_ZBuff = Depth.MidGround.Bottom;
-				}
-			}
+			//zbGround = p_Reader.GetAttribute(0);
+			//zbLevel = p_Reader.GetAttribute(1);
+			//if (zbGround.Equals("ForeGround"))
+			//{
+			//    if (zbLevel.Equals("Top"))
+			//    {
+			//        m_ZBuff = Depth.ForeGround.Top;
+			//    }
+			//    else if (zbLevel.Equals("Mid"))
+			//    {
+			//        m_ZBuff = Depth.ForeGround.Mid;
+			//    }
+			//    else if (zbLevel.Equals("Bottom"))
+			//    {
+			//        m_ZBuff = Depth.ForeGround.Bottom;
+			//    }
+			//}
+			//else if (zbGround.Equals("BackGround"))
+			//{
+			//    if (zbLevel.Equals("Top"))
+			//    {
+			//        m_ZBuff = Depth.BackGround.Top;
+			//    }
+			//    else if (zbLevel.Equals("Mid"))
+			//    {
+			//        m_ZBuff = Depth.BackGround.Mid;
+			//    }
+			//    else if (zbLevel.Equals("Bottom"))
+			//    {
+			//        m_ZBuff = Depth.BackGround.Bottom;
+			//    }
+			//}
+			//else if (zbGround.Equals("MidGround"))
+			//{
+			//    if (zbLevel.Equals("Top"))
+			//    {
+			//        m_ZBuff = Depth.MidGround.Top;
+			//    }
+			//    else if (zbLevel.Equals("Mid"))
+			//    {
+			//        m_ZBuff = Depth.MidGround.Mid;
+			//    }
+			//    else if (zbLevel.Equals("Bottom"))
+			//    {
+			//        m_ZBuff = Depth.MidGround.Bottom;
+			//    }
+			//}
 
 			//read in faction
 			p_Reader.ReadStartElement();
@@ -326,7 +326,7 @@ namespace project_hook
 			//Console.WriteLine(m_Radius);
 
 			//create ship
-			t_Ship = new Ship(m_Name, m_StartPos, m_Health, m_Width, m_Texture, m_Alpha, m_Visible, m_Degree, m_ZBuff, m_Faction, m_Health,
+			t_Ship = new Ship(m_Name, m_StartPos, m_Health, m_Width, m_Texture, m_Alpha, m_Visible, m_Degree, Depth.GameLayer.Ships, m_Faction, m_Health,
 								m_Shield, m_DamageTexture, m_Radius);
 
 			while (p_Reader.IsStartElement("weapon"))

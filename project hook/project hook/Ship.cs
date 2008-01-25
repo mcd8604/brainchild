@@ -57,7 +57,7 @@ namespace project_hook
 
 			if (m_MaxShield > 0)
 			{
-				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.MidGround.Bottom);
+				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.GameLayer.Shields);
 				m_ShieldSprite.Task = new TaskAttach(this);
 				attachSpritePart(m_ShieldSprite);
 			}
