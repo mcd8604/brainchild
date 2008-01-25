@@ -64,7 +64,7 @@ namespace project_hook
 		}
 
 		//this is how much health this sprite has
-		private int m_Health;
+		private int m_Health = int.MinValue;
 		public int Health
 		{
 			get
@@ -78,7 +78,7 @@ namespace project_hook
 		}
 
 		//this is the speed of the sprite
-		private float m_Speed;
+		private float m_Speed = 0f;
 		public float Speed
 		{
 			get
@@ -92,7 +92,7 @@ namespace project_hook
 		}
 
 		//this is what effect will be shown on the sprite when it takes damage
-		private GameTexture m_DamageEffect;
+		private GameTexture m_DamageEffect = null;
 		public GameTexture DamageEffect
 		{
 			get
@@ -102,6 +102,13 @@ namespace project_hook
 			set
 			{
 				m_DamageEffect = value;
+				if (DamageEffect != null)
+				{
+					m_DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
+					DamageParticleSystem.setAnimation("Explosion", 10);
+					DamageParticleSystem.Animation.StartAnimation();
+					addSprite(DamageParticleSystem);
+				}
 			}
 		}
 
@@ -115,15 +122,10 @@ namespace project_hook
 			{
 				return m_DamageParticleSystem;
 			}
-
-			set
-			{
-				m_DamageParticleSystem = value;
-			}
 		}
 
 		//this is the radius used for collision detection
-		private float m_Radius;
+		private float m_Radius = 100f;
 		public float Radius
 		{
 			get
@@ -150,6 +152,8 @@ namespace project_hook
 		}
 		#endregion // End of variables and Properties Region
 
+		public Collidable() { }
+
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, int p_Health, GameTexture p_DamageEffect, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z)
@@ -159,7 +163,7 @@ namespace project_hook
 			DamageEffect = p_DamageEffect;
 			if (DamageEffect != null)
 			{
-				DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
+				m_DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
 				DamageParticleSystem.setAnimation("Explosion", 10);
 				DamageParticleSystem.Animation.StartAnimation();
 				addSprite(DamageParticleSystem);
