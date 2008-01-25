@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace project_hook
 {
-	class TextSprite : Sprite
+	public class TextSprite : Sprite
 	{
 
 		public delegate String StringFunction();

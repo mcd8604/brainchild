@@ -329,9 +329,6 @@ namespace project_hook
 			t_Ship = new Ship(m_Name, m_StartPos, m_Health, m_Width, m_Texture, m_Alpha, m_Visible, m_Degree, m_ZBuff, m_Faction, m_Health,
 								m_Shield, m_DamageTexture, m_Radius);
 
-
-
-
 			while (p_Reader.IsStartElement("weapon"))
 			{
 				t_Ship.addWeapon(readWeapon(p_Reader));
@@ -341,10 +338,6 @@ namespace project_hook
 			{
 				t_Ship.Task = readTask(p_Reader);
 			}
-
-
-
-
 
 			//add the ship to the event list
 			if (m_Events.ContainsKey(m_Distance))
