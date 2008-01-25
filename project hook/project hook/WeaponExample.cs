@@ -8,12 +8,54 @@ namespace project_hook
 	class WeaponExample : Weapon
 	{
 
+		public override float Angle
+		{
+			get
+			{
+				return base.Angle;
+			}
+			set
+			{
+				if (value != base.Angle)
+				{
+					base.Angle = value;
+					TaskParallel task = new TaskParallel();
+					task.addTask(new TaskStraightAngle(Angle, Speed));
+					task.addTask(new TaskRotateAngle(Angle));
+					m_ShotTask = task;
+				}
+			}
+		}
+
+		public override float Speed
+		{
+			get
+			{
+				return base.Speed;
+			}
+			set
+			{
+				if (value != base.Speed)
+				{
+					base.Speed = value;
+					TaskParallel task = new TaskParallel();
+					task.addTask(new TaskStraightAngle(Angle, Speed));
+					task.addTask(new TaskRotateAngle(Angle));
+					m_ShotTask = task;
+				}
+			}
+		}
+
+		Task m_ShotTask;
+
 		public WeaponExample(Ship p_Ship, string p_ShotName, int p_Damage, int p_Delay, float p_Speed, float p_Angle)
 			: base(p_Ship, p_ShotName, p_Damage, p_Delay, p_Speed, p_Angle)
 		{
 			TaskParallel task = new TaskParallel();
 			task.addTask(new TaskStraightAngle(p_Angle, p_Speed));
 			task.addTask(new TaskRotateAngle(p_Angle));
+
+			m_ShotTask = task;
 
 			m_Shots = new List<Shot>();
 			// temp
@@ -22,7 +64,6 @@ namespace project_hook
 				Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber++, Vector2.Zero, 30, 75, m_Texture, 1, false,
 								  m_Angle, Depth.MidGround.Top, m_Ship.Faction, -1, null, 15, 10);
 				t_Shot.Bound = Collidable.Boundings.Diamond;
-				t_Shot.Task = task;
 				m_Shots.Add(t_Shot);
 			}
 		}
@@ -34,7 +75,7 @@ namespace project_hook
 				m_Shots[m_NextShot].Enabled = true;
 				m_Shots[m_NextShot].Center = m_Ship.Center;
 				m_Shots[m_NextShot].Faction = m_Ship.Faction;
-
+				m_Shots[m_NextShot].Task = m_ShotTask;
 				m_Shots[m_NextShot].setAnimation(m_ShotName, 10);
 				m_Shots[m_NextShot].Animation.StartAnimation();
 
