@@ -419,10 +419,10 @@ namespace project_hook
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.Ships, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGroundLayer.Upper);
-			Ship enemy = new Ship("bloodcell", new Vector2(100f, 200f), 96, 128, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+			Ship enemy = new Ship("bloodcell", new Vector2(100f, 200f), 96, 128, TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, MathHelper.PiOver2, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			enemy.setAnimation("bloodcell", 60);
 			enemy.Animation.StartAnimation();
-			Ship enemy2 = new Ship("Enemy", new Vector2(800f, 150f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 255f, true, MathHelper.PiOver2, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+			Ship enemy2 = new Ship("Enemy", new Vector2(800f, 150f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 1f, true, MathHelper.PiOver2, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
 			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.GameLayer.Cursor);
@@ -451,9 +451,9 @@ namespace project_hook
 
 
 
-			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver2));
+			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, 0f));
+			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, -MathHelper.PiOver4));
 			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4));
-			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4 * 3));
 
 			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, 0f));
 			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, -MathHelper.PiOver4));
