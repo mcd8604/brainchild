@@ -10,7 +10,10 @@ namespace project_hook
 {
 	public class World
 	{
+		// Alpha sprites
 		private List<Sprite> m_SpriteList;
+		// Additive Sprites;
+		private List<Sprite> m_SpriteListA;
 
 		private static Boolean m_CreateWorld = false;
 		public static Boolean CreateWorld
@@ -104,6 +107,7 @@ namespace project_hook
 		{
 
 			m_SpriteList = new List<Sprite>();
+			m_SpriteListA = new List<Sprite>();
 
 			m_State = GameState.Nothing;
 
@@ -280,8 +284,6 @@ namespace project_hook
 			{
 				p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
 
-				//back1.DrawPlayer(gameTime, m_spriteBatch);
-
 				foreach (Sprite s in m_SpriteList)
 				{
 					if (s.Enabled == true)
@@ -290,7 +292,17 @@ namespace project_hook
 					}
 				}
 
-				//this.m_ELoader.Draw(p_SpriteBatch);
+				p_SpriteBatch.End();
+
+				p_SpriteBatch.Begin(SpriteBlendMode.Additive, SpriteSortMode.BackToFront, SaveStateMode.None);
+
+				foreach (Sprite s in m_SpriteListA)
+				{
+					if (s.Enabled == true)
+					{
+						s.Draw(p_SpriteBatch);
+					}
+				}
 
 				p_SpriteBatch.End();
 			}
@@ -457,7 +469,7 @@ namespace project_hook
 			m_SpriteList.Add(m_Player.PlayerShip);
 			m_SpriteList.Add(crosshairs);
 			foreach (Sprite s in m_TailBodySprites)
-				m_SpriteList.Add(s);
+				m_SpriteListA.Add(s);
 
 
 			Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
@@ -482,5 +494,11 @@ namespace project_hook
 		{
 			this.m_SpriteList.Add(p_Sprite);
 		}
+
+		public void AddAdditiveSprite(Collidable p_Sprite)
+		{
+			this.m_SpriteListA.Add(p_Sprite);
+		}
+
 	}
 }

@@ -29,11 +29,11 @@ namespace project_hook
 
 		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
 		{
-			p_SpriteBatch.End();
-            p_SpriteBatch.Begin(BlendMode);
+			//p_SpriteBatch.End();
+            //p_SpriteBatch.Begin(BlendMode);
 			base.Draw(p_SpriteBatch);
-			p_SpriteBatch.End();
-            p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend);
+			//p_SpriteBatch.End();
+            //p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend);
 		}
 	}
 }
