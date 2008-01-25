@@ -3,7 +3,7 @@
 	<action dist="560">
 		<createShip>
 			<name>Enemy</name>
-			<startPos x="400" y="00"/>
+			<startPos x="400" y="0"/>
 			<height>100</height>
 			<width>100</width>
 			<texture name="Enemy1"/>
@@ -17,10 +17,21 @@
 			<speed>100</speed>
 			<damageTexture name="Explosion" pos="3"/>
 			<radius>50</radius>
+			<weapon>
+				<type>Single</type>
+				<shotName>FireBall</shotName>
+				<damage>2</damage>
+				<delay>1</delay>
+				<speed>100</speed>
+				<angle>1.57</angle>
+			</weapon>
 			<path>
 				<type>Straight</type>
 				<x>400</x>
 				<y>400</y>
+			</path>
+			<path>
+				<type>Shoot</type>
 			</path>
 		</createShip>
 	</action>
