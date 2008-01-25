@@ -244,6 +244,7 @@ namespace project_hook
 					t_Ship.Task = readTask(p_Reader);
 				}
 			}
+			t_Ship.Faction = Collidable.Factions.Enemy;
 			
 			//add the ship to the event list
 			if (m_Events.ContainsKey(m_Distance))
