@@ -189,6 +189,13 @@ namespace project_hook
 				m_World.changeState(World.GameState.Running);
 				World.ResumeWorld = false;
 			}
+			if (World.PlayerDead == true)
+			{
+				m_World.changeState(World.GameState.Paused);
+				Menus.setCurrentMenu(Menus.MenuScreens.GameOver);
+				World.DestroyWorld = true;
+				World.PlayerDead = false;
+			}
 
 			//This will check if the game world is created.  
 			if (m_World != null)
@@ -254,6 +261,6 @@ namespace project_hook
 					Menus.setCurrentMenu(Menus.MenuScreens.Pause);
 				}
 			}
-		}
+		}		
 	}
 }
