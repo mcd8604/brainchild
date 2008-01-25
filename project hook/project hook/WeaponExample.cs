@@ -58,7 +58,7 @@ namespace project_hook
 				for (int i = 0; i < 10; i++)
 				{
 					Shot t_Shot = new Shot("WeaponExampleShot", Vector2.Zero, 30, 75, m_Texture, 1, false,
-									  0f, Depth.MidGround.Top, Collidable.Factions.None, -1, null, 15, 10);
+									  0f, Depth.GameLayer.Shot, Collidable.Factions.None, -1, null, 15, 10);
 					t_Shot.Bound = Collidable.Boundings.Diamond;
 					m_Shots.Add(t_Shot);
 				}
@@ -81,7 +81,7 @@ namespace project_hook
 			for (int i = 0; i <= (int)(2500f / m_Speed); i++)
 			{
 				Shot t_Shot = new Shot("WeaponExampleShot", Vector2.Zero, 30, 75, m_Texture, 1, false,
-								  0f, Depth.MidGround.Top, Collidable.Factions.None, -1, null, 15, 10);
+								  0f, Depth.GameLayer.Shot, Collidable.Factions.None, -1, null, 15, 10);
 				t_Shot.Bound = Collidable.Boundings.Diamond;
 				m_Shots.Add(t_Shot);
 			}

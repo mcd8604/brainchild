@@ -77,7 +77,7 @@ namespace project_hook
 		public void ChangeSpeed(int p_Speed)
 		{
 			//change the speed in the game file
-			m_Game.Speed = p_Speed;
+			m_Game.Position.setSpeed(p_Speed);
 		}
 
 		public void ChangeFile(String p_FileName)

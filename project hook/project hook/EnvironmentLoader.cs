@@ -19,13 +19,13 @@ namespace project_hook
 		private int m_CurTopRow;
 		private int m_CurTopBuffer;
 		private int m_CurBottomBuffer;
-		private World m_World;
+		private WorldPosition m_Position;
 		private Tile curTile;
 		private int m_TileDimension;
 
-		public List<Sprite> Initialize(World world)
+		public List<Sprite> Initialize(WorldPosition p_Position)
 		{
-			m_World = world;
+			m_Position = p_Position;
 			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
 			m_ColorMap = new Hashtable();
 			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("plaque", ""), 0, true));
@@ -38,7 +38,7 @@ namespace project_hook
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
 					Collidable temp = new Collidable("environment", new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension), m_TileDimension, m_TileDimension, null,
-						1, false, 0, Depth.MidGround.Bottom, Collidable.Factions.Environment, int.MinValue, null, m_TileDimension / 2);
+						1, false, 0, Depth.GameLayer.Environment, Collidable.Factions.Environment, int.MinValue, null, m_TileDimension / 2);
 					temp.Bound = Collidable.Boundings.Square;
 					m_CurrentView.Add(temp);
 				}
@@ -94,7 +94,7 @@ namespace project_hook
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
 					Vector2 temp = m_CurrentView[getPosition(x, y)].Position;
-					temp.Y += (m_World.Speed * (float)p_GameTime.ElapsedGameTime.TotalSeconds);
+					temp.Y += (m_Position.Speed * (float)p_GameTime.ElapsedGameTime.TotalSeconds);
 					m_CurrentView[getPosition(x, y)].Position = temp;
 				}
 			}
@@ -113,7 +113,7 @@ namespace project_hook
                     if (m_CurTopRow < 0)
                     {
                        m_CurTopRow = 0;
-					   m_World.Speed = 0;
+					   m_Position.setSpeed(0);
                     }
 
 					curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
@@ -130,7 +130,7 @@ namespace project_hook
 
 		public static int getPosition(int x, int y)
 		{
-			return (y * m_ScreenSpaceWidth) + x;
+			return ((y * m_ScreenSpaceWidth) + x);
 		}
 
 	}
