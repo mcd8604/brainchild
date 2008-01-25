@@ -19,7 +19,7 @@ namespace project_hook
 
 		private Sprite m_ShieldSprite;
 
-		private int m_MaxShield;
+		private int m_MaxShield = 0;
 		public int MaxShield
 		{
 			get
@@ -33,7 +33,7 @@ namespace project_hook
 
 		}
 
-		private int m_Shield;
+		private int m_Shield = 0;
 		public int Shield
 		{
 			get
@@ -44,6 +44,11 @@ namespace project_hook
 			{
 				m_Shield = value;
 			}
+		}
+
+		public Ship()
+		{
+			Z = Depth.GameLayer.Ships;
 		}
 
 		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, GameTexture p_DamageEffect, float p_Radius)
