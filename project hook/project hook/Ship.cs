@@ -194,6 +194,46 @@ namespace project_hook
 
 				//Possible attach the explosion sprite to the ship
 			}
+			else if (p_Other.Faction == Factions.Environment)
+			{
+				// really bad collision pushback stuff..
+				// temporary?
+				Vector2 temp = Center;
+				float deltaX = Center.X - p_Other.Center.X;
+				float deltaY = Center.Y - p_Other.Center.Y;
+
+				if (Math.Abs(deltaX) > Math.Abs(deltaY))
+				{
+
+					// horizontal collision
+					if (temp.X > p_Other.Center.X)
+					{
+						temp.X = p_Other.Center.X + Radius + p_Other.Radius;
+					}
+					else
+					{
+						temp.X = p_Other.Center.X - (Radius + p_Other.Radius);
+					}
+
+				}
+				else
+				{
+
+					// vertical
+					if (temp.Y > p_Other.Center.Y)
+					{
+						temp.Y = p_Other.Center.Y + Radius + p_Other.Radius;
+					}
+					else
+					{
+						temp.Y = p_Other.Center.Y - (Radius + p_Other.Radius);
+					}
+
+				}
+
+				Center = temp;
+
+			}
 
 			base.RegisterCollision(p_Other);
 		}

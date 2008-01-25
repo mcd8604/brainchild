@@ -109,7 +109,9 @@ namespace project_hook
 		}
 		private static bool DoesIntersectCircleSquare(Vector2 circ, float circrad, Vector2 square, float squarerad)
 		{
-			return (DoesIntersectSquares(circ, circrad, square, squarerad)) && (Math.Pow((circrad + ((float)(squarerad * (1 / Math.Cos((float)Math.Atan2((circ.Y - square.Y), (circ.X - square.X))))))), 2) > Math.Pow((circ.X - square.X), 2) + Math.Pow((circ.Y - square.Y), 2));
+			// broken!
+			// return (DoesIntersectSquares(circ, circrad, square, squarerad)) && (Math.Pow((circrad + ((float)(squarerad * (1 / Math.Cos((float)Math.Atan2((circ.Y - square.Y), (circ.X - square.X))))))), 2) > Math.Pow((circ.X - square.X), 2) + Math.Pow((circ.Y - square.Y), 2));
+			return DoesIntersectCircles(circ, circrad, square, squarerad);
 		}
 		private static bool DoesIntersectDiamonds(Vector2 pos1, float radiustopoint1, Vector2 pos2, float radiustopoint2)
 		{
