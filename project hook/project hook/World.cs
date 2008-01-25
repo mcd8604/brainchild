@@ -301,7 +301,7 @@ namespace project_hook
 				}
 				if (InputHandler.IsActionPressed(Actions.TailPrimary))
 				{
-					tail.TailAttack(InputHandler.MousePostion);
+					tail.TailAttack();
 				}
 				if (InputHandler.IsActionDown(Actions.TailSecondary))
 				{
@@ -446,6 +446,7 @@ namespace project_hook
 			}
 			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, -1, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);
 			tail.Health = int.MinValue;
+			tail.m_TargetObject = crosshairs;
 
 
 
