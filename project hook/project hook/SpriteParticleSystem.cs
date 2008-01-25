@@ -303,8 +303,8 @@ namespace project_hook
 		{
 			// tell sprite batch to begin, using the spriteBlendMode specified in
 			// initializeConstants
-			p_SpriteBatch.End();
-			p_SpriteBatch.Begin(SpriteBlendMode.Additive);
+			//p_SpriteBatch.End();
+			//p_SpriteBatch.Begin(SpriteBlendMode.Additive);
 
 			foreach (ParticleSprite p in particles)
 			{
@@ -340,8 +340,8 @@ namespace project_hook
 
 
 			}
-			p_SpriteBatch.End();
-			p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend);
+			//p_SpriteBatch.End();
+			//p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend);
 
 			//base.Draw(p_SpriteBatch);
 		}
