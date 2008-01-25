@@ -403,13 +403,8 @@ namespace project_hook
             TextureLibrary.LoadTexture("tailbody");
             TextureLibrary.LoadTexture("tail_segment");
             TextureLibrary.LoadTexture("shot_energy");
-			TextureLibrary.LoadTexture("virus1");
-			TextureLibrary.LoadTexture("bloodcell");
-			TextureLibrary.LoadTexture("wall1");
-			TextureLibrary.LoadTexture("wall_flat");
-			TextureLibrary.LoadTexture("wall_rand1");
-			TextureLibrary.LoadTexture("wall_rand2");
-			TextureLibrary.LoadTexture("wall_rand3");
+            TextureLibrary.LoadTexture("bloodcell");
+            TextureLibrary.LoadTexture("plaque");
 		}
 
 		private void IniDefaults()
