@@ -166,6 +166,7 @@ namespace project_hook
 				if (this.Health <= 0)
 				{
 					// death effect, and remove?
+					Enabled = false;
 				}
 
 				Shot shot = (Shot)p_Other;
