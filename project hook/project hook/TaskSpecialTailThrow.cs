@@ -12,7 +12,7 @@ namespace project_hook
 		Task m_ThrowTask;
 		Task m_ReleaseTask;
 
-		public TaskSpecialTailThrow(Vector2 p_WindupTo, Vector2 p_ThrowTo, float p_TailSpeed, Vector2 p_ThrowAt, float p_ThrownSpeed)
+		public TaskSpecialTailThrow(Vector2 p_WindupTo, Vector2 p_ThrowTo, float p_TailSpeed, Vector2 p_ThrowAt, float p_ThrownSpeed, Sprite p_Enemy)
 		{
 			TaskParallel temp = new TaskParallel();
 			temp.addTask(new TaskSeekPoint(p_WindupTo, p_TailSpeed));
@@ -23,7 +23,7 @@ namespace project_hook
 			temp.addTask(new TaskRotateFacePoint(p_ThrowAt));
 			m_ThrowTask = temp;
 			temp = new TaskParallel();
-			temp.addTask(new TaskSeekPoint(p_ThrowAt, p_ThrownSpeed));
+			temp.addTask(new TaskStraightAngle((float)Math.Atan2(p_ThrowTo.Y - p_Enemy.Position.Y,p_ThrowTo.X - p_Enemy.Position.X), p_TailSpeed));
 			temp.addTask(new TaskRotateFacePoint(p_ThrowAt));
 			m_ReleaseTask = temp;
 

@@ -128,7 +128,7 @@ namespace project_hook
 			{
 				Vector2 temp = Center - p_Target;
 
-				Task = new TaskSpecialTailThrow(Vector2.Add(Center, Vector2.Divide(temp, 2.75f)), Vector2.Add(Center, Vector2.Divide(Vector2.Negate(temp), 2.75f)), 2500f, p_Target, 1000f);
+				Task = new TaskSpecialTailThrow(Vector2.Add(Center, Vector2.Divide(temp, 2.75f)), Vector2.Add(Center, Vector2.Divide(Vector2.Negate(temp), 2.75f)), 2500f, p_Target, 1000f, this.m_EnemyCaught);
 
 				StateOfTail = Tail.TailState.Neutral;
 				//m_EnemyCaught = null;
