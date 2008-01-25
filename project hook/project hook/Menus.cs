@@ -49,7 +49,8 @@ namespace project_hook
 			None,
 			Title,
 			DevLogo,
-			RITLogo
+			RITLogo,
+			GameOver
 		}
 
 		public static void ini()
@@ -115,6 +116,11 @@ namespace project_hook
 			{
 				m_HasChanged = false;
 				return new RITLogo();
+			}
+			else if (m_SelectedMenu == MenuScreens.GameOver)
+			{
+				m_HasChanged = false;
+				return new GameOver();
 			}
 
 			return null;
