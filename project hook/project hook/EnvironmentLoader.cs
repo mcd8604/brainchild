@@ -110,6 +110,11 @@ namespace project_hook
 
 				for (int i = 0; i < m_ScreenSpaceWidth; i++)
 				{
+                    if (m_CurTopRow < 0)
+                    {
+                        m_CurTopRow = 0;
+                    }
+
 					curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
 
 					m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = curTile.GTexture;
