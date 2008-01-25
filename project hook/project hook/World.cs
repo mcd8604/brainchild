@@ -451,6 +451,16 @@ namespace project_hook
 			tail.Health = int.MinValue;
 
 
+
+
+			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver2));
+			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4));
+			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4 * 3));
+
+			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver2));
+			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4));
+			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4 * 3));
+
 			//Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
 			//dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
 			//dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
