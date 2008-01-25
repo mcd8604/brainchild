@@ -136,23 +136,6 @@ namespace project_hook
 		protected float minScale;
 		protected float maxScale;
 
-		/// <summary>
-		/// different effects can use different blend modes. fire and explosions work
-		/// well with additive blending, for example.
-		/// </summary>
-		protected SpriteBlendMode spriteBlendMode = SpriteBlendMode.AlphaBlend;
-		public SpriteBlendMode BlendMode
-		{
-			get
-			{
-				return spriteBlendMode;
-			}
-			set
-			{
-				spriteBlendMode = value;
-			}
-		}
-
 		#endregion
 
 		/// <summary>
@@ -170,6 +153,8 @@ namespace project_hook
 		{
 			this.howManyEffects = p_HowManyEffects;
 			InitializeConstants();
+
+			base.BlendMode = SpriteBlendMode.Additive;
 
 			// calculate the total number of particles we will ever need, using the
 			// max number of effects and the max number of particles per effect.
@@ -301,10 +286,6 @@ namespace project_hook
 		/// </summary>
 		public override void Draw(SpriteBatch p_SpriteBatch)
 		{
-			// tell sprite batch to begin, using the spriteBlendMode specified in
-			// initializeConstants
-			//p_SpriteBatch.End();
-			//p_SpriteBatch.Begin(SpriteBlendMode.Additive);
 
 			foreach (ParticleSprite p in particles)
 			{
@@ -328,22 +309,19 @@ namespace project_hook
 				// .25
 				// since we want the maximum alpha to be 1, not .25, we'll scale the 
 				// entire equation by 4.
-				float alpha = 4 * normalizedLifetime * (1 - normalizedLifetime);
-				p.Alpha = (Byte)(255 * alpha);
-				//Color color = new Color(new Vector4(1, 1, 1, alpha));
+
+				 p.Transparency = 4 * normalizedLifetime * (1 - normalizedLifetime);
 
 				// make particles grow as they age. they'll start at 75% of their size,
 				// and increase to 100% once they're finished.
-				float scale = p.Scale * (.75f + .25f * normalizedLifetime);
+				
+				 p.Scale = (.75f + .25f * normalizedLifetime);
 
 				p.Draw(p_SpriteBatch);
 
 
 			}
-			//p_SpriteBatch.End();
-			//p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend);
 
-			//base.Draw(p_SpriteBatch);
 		}
 	}
 }
