@@ -54,7 +54,7 @@ namespace project_hook
 
 		//this is how fast the shot will travel
 		protected float m_Speed = 100;
-		public float Speed
+		public virtual float Speed
 		{
 			get
 			{
@@ -111,7 +111,7 @@ namespace project_hook
 
 		//the angle that the shot is to be fired at
 		protected float m_Angle = 0;
-		public float Angle
+		public virtual float Angle
 		{
 			get
 			{

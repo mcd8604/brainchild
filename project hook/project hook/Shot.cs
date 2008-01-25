@@ -45,7 +45,7 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 
-			if (Task.Complete)
+			if (Task == null || Task.Complete)
 			{
 				Enabled = false;
 				//ToBeRemoved = true;
