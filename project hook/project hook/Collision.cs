@@ -356,7 +356,7 @@ namespace project_hook
 						}
 						else
 						{
-
+							// This would only occur if the circle was inside the square..
 							//throw new ArithmeticException("Math failed");
 							temp.Y = solid.Center.Y + solid.Radius + movable.Radius;
 

@@ -123,7 +123,15 @@ namespace project_hook
 		LevelHandler m_LHandler;
 		EnvironmentLoader m_ELoader=new EnvironmentLoader();
 
+
 		Random m_RanX = new Random();
+
+#if DEBUG
+		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+		TextSprite coll = new TextSprite("", new Vector2(100, 50), Color.GreenYellow);
+		double colltotal;
+		int collcount;
+#endif
 
 		public World() {}
 
@@ -138,7 +146,7 @@ namespace project_hook
 			Sprite.DrawWithRot();
 			Music.Initialize();
 			Sound.Initialize();
-			this.m_LReader = new LevelReader("Level2.xml");
+			this.m_LReader = new LevelReader("LevelTest.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
 		}
@@ -173,7 +181,18 @@ namespace project_hook
 
 				this.CreateBloodCell();
 
+#if DEBUG
+				timer.Reset();
+				timer.Start();
+#endif
 				Collision.CheckCollisions(m_SpriteList);
+#if DEBUG
+				timer.Stop();
+				//colltotal += timer.Elapsed.TotalMilliseconds;
+				//collcount++;
+				//coll.Text = (colltotal / collcount).ToString();
+				coll.Text = timer.Elapsed.TotalMilliseconds.ToString();
+#endif
 
 				List<Sprite> toAdd = new List<Sprite>();
 #if DEBUG
@@ -291,7 +310,7 @@ namespace project_hook
 					if (tail.EnemyCaught != null)
 					{
 						//tail.EnemyCaught.shoot(InputHandler.MousePostion);
-						tail.EnemyCaught.shoot();
+						tail.EnemyShoot();
 					}
 				}
 #if DEBUG
@@ -469,10 +488,13 @@ namespace project_hook
 			Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
 			AddSprite(TextFpsExample);
 
+			AddSprite(coll);
+
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);
 			//sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			//sp.Target= m_Player.PlayerShip;
 			//AddSprite(sp);
+
 		}
 
 		public void ChangeFile(String p_FileName)
@@ -507,9 +529,9 @@ namespace project_hook
 			{
 				//"bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 				//new Collidable(
-				Ship t_Blood = new Ship("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
-										TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.BackGroundLayer.Upper,
-										Collidable.Factions.Blood, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
+										TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, 0f, Depth.BackGroundLayer.Upper,
+										Collidable.Factions.Blood, 100, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
 				t_Blood.setAnimation("bloodcell", 60);
 				t_Blood.Animation.StartAnimation();

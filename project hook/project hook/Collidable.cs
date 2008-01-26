@@ -214,6 +214,12 @@ namespace project_hook
 
 		public virtual void RegisterCollision(Collidable p_Other)
 		{
+
+			if (p_Other is Shot && Health != float.NaN)
+			{
+				this.Health -= ((Shot)p_Other).Damage;
+			}
+
 			if (DamageEffect != null)
 			{
 
