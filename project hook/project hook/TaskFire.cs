@@ -1,32 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
 	class TaskFire : Task
 	{
 		public TaskFire() { }
-		public override bool Complete
+		protected override void Do(Sprite on, GameTime at)
 		{
-			get { return true; }
-		}
-		public override void Update(Sprite on, Microsoft.Xna.Framework.GameTime at)
-		{
-			if (on.Enabled)
+			Ship temp = on as Ship;
+			if (temp != null)
 			{
-				Ship temp = on as Ship;
-				if (temp != null)
-				{
-					temp.shoot();
-				}
-#if DEBUG
-				else
-				{
-					throw new Exception("TaskFire assigned to a non-shooting object");
-				}
-#endif
+				temp.shoot();
 			}
+#if DEBUG
+			else
+			{
+				throw new Exception("TaskFire assigned to a non-ship object");
+			}
+#endif
 		}
 	}
 }

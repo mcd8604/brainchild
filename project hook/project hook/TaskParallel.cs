@@ -25,21 +25,18 @@ namespace project_hook
 		{
 			m_Tasks.AddRange(t);
 		}
-		public override bool Complete
+		public override bool IsComplete(Sprite on)
 		{
-			get
+			foreach (Task t in m_Tasks)
 			{
-				foreach (Task t in m_Tasks)
+				if (t.IsComplete(on))
 				{
-					if (t.Complete)
-					{
-						return true;
-					}
+					return true;
 				}
-				return false;
 			}
+			return false;
 		}
-		public override void Update(Sprite on, GameTime at)
+		protected override void Do(Sprite on, GameTime at)
 		{
 			foreach (Task t in m_Tasks)
 			{

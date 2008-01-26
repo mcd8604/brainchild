@@ -37,17 +37,12 @@ namespace project_hook
 		public TaskLerp() { }
 		public TaskLerp(Sprite p_From, Sprite p_To) {
 			From = p_From;
-		To = p_To;
-		}
-
-		public override bool Complete
-		{
-			get { return false; }
+			To = p_To;
 		}
 
 		public override void Update(Sprite on, GameTime at)
 		{
-			throw new Exception("The method or operation is not implemented.");
+			throw new NotImplementedException("The method or operation is not supported.");
 		}
 
 		public override void Update(ICollection<Sprite> on, GameTime at)

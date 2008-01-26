@@ -32,6 +32,8 @@ namespace project_hook
 			}
 		}
 
+		private int m_EventDistance = 0;
+
 		public LevelHandler()
 		{
 		}
@@ -41,29 +43,34 @@ namespace project_hook
 			Game = p_Game;
 		}
 
-		public void CheckEvents(int p_Distance)
+		public void CheckEvents(float p_UpToDistance)
 		{
-			if (m_Events.ContainsKey(p_Distance))
+			int CurrentPosition = Convert.ToInt32( Math.Ceiling(p_UpToDistance) );
+
+			for (; m_EventDistance < CurrentPosition; m_EventDistance++)
 			{
-				//read events
-				Event[] t_List = new Event[m_Events[p_Distance].Count];
-				m_Events[p_Distance].CopyTo(t_List);
-				for (int i = 0; i < m_Events[p_Distance].Count; ++i)
+				if (m_Events.ContainsKey(m_EventDistance))
 				{
-					if (t_List[i].Type.Equals("Collidable"))
+					//read events
+					Event[] t_List = new Event[m_Events[m_EventDistance].Count];
+					m_Events[m_EventDistance].CopyTo(t_List);
+					for (int i = 0; i < m_Events[m_EventDistance].Count; ++i)
 					{
-						CreateCollidable(t_List[i].Collidable);
+						if (t_List[i].Type.Equals("Collidable"))
+						{
+							CreateCollidable(t_List[i].Collidable);
+						}
+						else if (t_List[i].Type.Equals("FileChange"))
+						{
+							ChangeFile(t_List[i].FileName);
+						}
+						else if (t_List[i].Type.Equals("ChangeSpeed"))
+						{
+							ChangeSpeed(t_List[i].Speed);
+						}
 					}
-					else if (t_List[i].Type.Equals("FileChange"))
-					{
-						ChangeFile(t_List[i].FileName);
-					}
-					else if (t_List[i].Type.Equals("ChangeSpeed"))
-					{
-						ChangeSpeed(t_List[i].Speed);
-					}
+					m_Events[m_EventDistance].Clear();
 				}
-				m_Events[p_Distance].Clear();
 			}
 		}
 

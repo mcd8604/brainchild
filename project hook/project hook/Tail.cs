@@ -95,9 +95,9 @@ namespace project_hook
 		
 
 		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-					float p_Degree, float p_Z, Factions p_Faction, int p_Health, GameTexture p_DamageEffect, float p_Radius,
+					float p_Degree, float p_Z, Factions p_Faction, float p_Health, GameTexture p_DamageEffect, float p_Radius,
 					Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, -1, p_DamageEffect, p_Radius)
+			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, p_Health, p_DamageEffect, p_Radius)
 		{
 
 			TaskParallel temp = new TaskParallel();
@@ -160,7 +160,7 @@ namespace project_hook
 				float releaseAngle = (float)Math.Atan2(m_TargetObject.Center.Y - m_EnemyCaught.Center.Y, m_TargetObject.Center.X - m_EnemyCaught.Center.X);
 				temp = new TaskParallel();
 				temp.addTask(new TaskStraightAngle( releaseAngle, 800f));
-				temp.addTask(new TaskRotateAngle(releaseAngle));
+				temp.addTask(new TaskRotateToAngle(releaseAngle));
 				m_ReleaseTask = temp;
 
 				StateOfTail = Tail.TailState.Throwing;
@@ -181,12 +181,10 @@ namespace project_hook
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
-			//base.RegisterCollision(p_Other);
-			if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_TailState == TailState.Attacking && p_Other is Ship)
-			{
-				StateOfTail = Tail.TailState.Returning;
-				Task = m_ReturnTask;
 
+			//base.RegisterCollision(p_Other);
+			if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_TailState == TailState.Attacking && p_Other is Ship && ((Ship)p_Other).Shield <= 0)
+			{
 				m_EnemyCaught = (Ship)p_Other;
 				m_EnemyCaught.Faction = Factions.Player;
 
@@ -195,6 +193,14 @@ namespace project_hook
 				temp.addTask(new TaskRotateFaceTarget(m_TargetObject));
 				m_EnemyCaught.Task = temp;
 			}
+
+			if (m_TailState == TailState.Throwing)
+			{
+				EnemyCaught.Task = m_ReleaseTask;
+				EnemyCaught = null;
+			}
+			StateOfTail = Tail.TailState.Returning;
+			Task = m_ReturnTask;
 		}
 
 		public override void Update(GameTime p_Time)
@@ -203,14 +209,14 @@ namespace project_hook
 			{
 				case TailState.Attacking:
 
-					if (Task.Complete)
+					if (Task.IsComplete(this))
 					{
 						StateOfTail = Tail.TailState.Returning;
 						Task = m_ReturnTask;
 					}
 					break;
 				case TailState.Throwing:
-					if (Task.Complete)
+					if (Task.IsComplete(this))
 					{
 						StateOfTail = Tail.TailState.Returning;
 						Task = m_ReturnTask;
@@ -221,7 +227,7 @@ namespace project_hook
 					break;
 				case TailState.Returning:
 
-					if (Task.Complete)
+					if (Task.IsComplete(this))
 					{
 						StateOfTail = TailState.Ready;
 						Task = m_NormalTask;
@@ -231,6 +237,10 @@ namespace project_hook
 
 			m_BodyTask.Update(m_BodySprites, p_Time);
 			m_LastTailAttack += (float)p_Time.ElapsedGameTime.TotalMilliseconds;
+			if ( m_EnemyCaught != null && m_EnemyCaught.IsDead())
+			{
+				m_EnemyCaught = null;
+			}
 			base.Update(p_Time);
 		}
 	}

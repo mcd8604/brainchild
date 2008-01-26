@@ -17,20 +17,16 @@ namespace project_hook
 		{
 			m_Tasks.Enqueue(t);
 		}
-		public override bool Complete
+		public override bool IsComplete(Sprite on)
 		{
-			get
-			{
-				return m_Tasks.Count == 0;
-			}
-
+			return m_Tasks.Count == 0;
 		}
-		public override void Update(Sprite on, GameTime at)
+		protected override void Do(Sprite on, GameTime at)
 		{
 			if (m_Tasks.Count > 0)
 			{
 				m_Tasks.Peek().Update(on, at);
-				if (m_Tasks.Peek().Complete)
+				if (m_Tasks.Peek().IsComplete(on))
 				{
 					m_Tasks.Dequeue();
 				}

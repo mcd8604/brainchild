@@ -70,6 +70,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
+    <Compile Include="TaskRotateByAngle.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskRotateByAngle</Name>
+    </Compile>
     <Compile Include="GameOver.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>GameOver</Name>
@@ -158,9 +162,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskParallel</Name>
     </Compile>
-    <Compile Include="TaskRotateAngle.cs">
+    <Compile Include="TaskRotateToAngle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TaskRotateAngle</Name>
+      <Name>TaskRotateToAngle</Name>
     </Compile>
     <Compile Include="TaskRotateFacePoint.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -173,14 +177,6 @@
     <Compile Include="TaskSeekTarget.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskSeekTarget</Name>
-    </Compile>
-    <Compile Include="TaskSpecialTailAttack.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TaskSpecialTailAttack</Name>
-    </Compile>
-    <Compile Include="TaskSpecialTailThrow.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TaskSpecialTailThrow</Name>
     </Compile>
     <Compile Include="TaskStraightAngle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -397,7 +393,7 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TextureLibrary</Name>
     </Compile>
-    <Compile Include="Test Cases\testTextureLibrary.cs">
+    <Compile Include="libs\Test Cases\testTextureLibrary.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>testTextureLibrary</Name>
     </Compile>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
@@ -18,25 +19,32 @@ namespace project_hook
 				m_Duration = value;
 			}
 		}
-
-		public TaskTimer() { }
-
-		public TaskTimer(float p_Duration)
-		{
-			Duration = p_Duration;
-		}
-
-		public override bool Complete
+		private float m_DurationRemaining = 0f;
+		public float DurationRemaining
 		{
 			get
 			{
-				return Duration <= 0;
+				return m_DurationRemaining;
 			}
 		}
-
-		public override void Update(Sprite on, Microsoft.Xna.Framework.GameTime at)
+		public TaskTimer() { }
+		public TaskTimer(float p_Duration)
 		{
-			Duration -= (float)at.ElapsedGameTime.TotalSeconds;
+			Duration = p_Duration;
+			m_DurationRemaining = Duration;
+		}
+		public override bool IsComplete(Sprite on)
+		{
+			if (DurationRemaining <= 0)
+			{
+				m_DurationRemaining = Duration;
+				return true;
+			}
+			return false;
+		}
+		protected override void Do(Sprite on, GameTime at)
+		{
+			m_DurationRemaining -= (float)at.ElapsedGameTime.TotalSeconds;
 		}
 	}
 }

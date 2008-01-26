@@ -38,7 +38,7 @@ namespace project_hook
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
 					Collidable temp = new Collidable("environment", new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension), m_TileDimension, m_TileDimension, null,
-						1, false, 0, Depth.GameLayer.Environment, Collidable.Factions.Environment, int.MinValue, null, m_TileDimension / 2);
+						1, false, 0, Depth.GameLayer.Environment, Collidable.Factions.Environment, float.NaN, null, m_TileDimension / 2);
 					temp.Bound = Collidable.Boundings.Square;
 					m_CurrentView.Add(temp);
 				}

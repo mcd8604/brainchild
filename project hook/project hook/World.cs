@@ -171,7 +171,7 @@ namespace project_hook
 
 				m_ELoader.Update(p_GameTime);
 
-				m_LHandler.CheckEvents(Convert.ToInt32(m_Position.Distance));
+				m_LHandler.CheckEvents(m_Position.Distance);
 
 				m_Player.UpdatePlayer(p_GameTime);
 
@@ -274,11 +274,6 @@ namespace project_hook
 					m_Player.Shoot();
 				}
 
-				if (InputHandler.IsActionPressed(Actions.ShipPrimary))
-				{
-
-				}
-
 				if (InputHandler.IsActionDown(Actions.Right))
 				{
 					m_Player.MoveRight();
@@ -311,6 +306,7 @@ namespace project_hook
 						tail.EnemyCaught.shoot();
 					}
 				}
+#if DEBUG
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
 					if (Music.IsPlaying("bg1"))
@@ -322,18 +318,31 @@ namespace project_hook
 						Music.Play("bg1");
 					}
 				}
-			}
-			if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C))
-			{
-				Collision.DevEnableCollisionDisplay(m_SpriteList);
-			}
-			if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.X))
-			{
-				Sprite.DrawWithRot();
-			}
-			if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.B))
-			{
-				String Breakpoint = this.ToString();
+				if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C))
+				{
+					Collision.DevEnableCollisionDisplay(m_SpriteList);
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageUp))
+				{
+					m_Position.setSpeed(m_Position.Speed * 2f);
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageDown))
+				{
+					m_Position.setSpeed(m_Position.Speed / 2f);
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.End))
+				{
+					m_Position.setSpeed(m_Position.Speed * 200f);
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.X))
+				{
+					Sprite.DrawWithRot();
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.B))
+				{
+					String Breakpoint = this.ToString();
+				}
+#endif
 			}
 
 			update(p_GameTime);
@@ -394,6 +403,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("RedShot");
 			TextureLibrary.LoadTexture("Cloud");
 			TextureLibrary.LoadTexture("Enemy1");
+			TextureLibrary.LoadTexture("virus1");
 			TextureLibrary.LoadTexture("Explosion");
 			TextureLibrary.LoadTexture("Shield");
 			TextureLibrary.LoadTexture("FireBall");
@@ -416,13 +426,12 @@ namespace project_hook
 			//test scrolling background
 			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
 
-			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.Ships, m_ViewPortSize);
+			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGroundLayer.Upper);
-			Ship enemy = new Ship("bloodcell", new Vector2(100f, 200f), 96, 128, TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, MathHelper.PiOver2, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
-			enemy.setAnimation("bloodcell", 60);
-			enemy.Animation.StartAnimation();
-			Ship enemy2 = new Ship("Enemy", new Vector2(800f, 150f), 100, 100, TextureLibrary.getGameTexture("Enemy1", ""), 1f, true, MathHelper.PiOver2, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+			
+			
+			
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
 			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.GameLayer.Cursor);
@@ -444,107 +453,14 @@ namespace project_hook
                 }
 
 			}
-			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, -1, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);
-			tail.Health = int.MinValue;
+			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);
 			tail.m_TargetObject = crosshairs;
 
 
 
 
-			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, 0f));
-			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, -MathHelper.PiOver4));
-			enemy.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4));
-
-			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, 0f));
-			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, -MathHelper.PiOver4));
-			enemy2.addWeapon(new WeaponExample("FireBall", 1, 1, 400, MathHelper.PiOver4));
-
-			//Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-			//dic.Add(PathStrategy.ValueKeys.Start, enemy.Center);
-			//dic.Add(PathStrategy.ValueKeys.End, new Vector2(700, 200));
-			//dic.Add(PathStrategy.ValueKeys.Duration, 5000.0f);
-			//dic.Add(PathStrategy.ValueKeys.Base, enemy);
-			//enemy.Path = new Path(Paths.Line, dic);
-			//enemy.Update(new GameTime());
-
-			enemy.Task = new TaskFire();
-
-			//enemy pathing:
-
-			//PathGroup group1a = new PathGroup();
-			//Dictionary<PathStrategy.ValueKeys, Object> dicS = new Dictionary<PathStrategy.ValueKeys, object>();
-			//dicS.Add(PathStrategy.ValueKeys.Base, enemy);
-			//group1a.AddPath(new Path(Paths.Shoot, dicS));
-
-			//Dictionary<PathStrategy.ValueKeys, Object> dic1a = new Dictionary<PathStrategy.ValueKeys, object>();
-			//dic1a.Add(PathStrategy.ValueKeys.Base, enemy);
-			//dic1a.Add(PathStrategy.ValueKeys.Speed, 100f);
-			//dic1a.Add(PathStrategy.ValueKeys.End, new Vector2(500, 200));
-			//dic1a.Add(PathStrategy.ValueKeys.Duration, 4f);
-			//dic1a.Add(PathStrategy.ValueKeys.Rotation, false);
-			//group1a.AddPath(new Path(Paths.Straight, dic1a));
-
-			//enemy.PathList.AddPath(group1a);
-
-			//PathGroup group1b = new PathGroup();
-
-			//group1b.AddPath(new Path(Paths.Shoot, dicS));
-
-			//Dictionary<PathStrategy.ValueKeys, Object> dic1b = new Dictionary<PathStrategy.ValueKeys, object>();
-			//dic1b.Add(PathStrategy.ValueKeys.Base, enemy);
-			//dic1b.Add(PathStrategy.ValueKeys.Speed, 100f);
-			//dic1b.Add(PathStrategy.ValueKeys.End, new Vector2(100, 200));
-			//dic1b.Add(PathStrategy.ValueKeys.Duration, 4f);
-			//dic1b.Add(PathStrategy.ValueKeys.Rotation, false);
-			//group1b.AddPath(new Path(Paths.Straight, dic1b));
-
-			//enemy.PathList.AddPath(group1b);
-
-			//enemy.PathList.Mode = ListModes.Repeat;
-
-
-			enemy2.Task = new TaskFire();
-
-
-			//PathGroup group2a = new PathGroup();
-			//Dictionary<PathStrategy.ValueKeys, Object> dicS2 = new Dictionary<PathStrategy.ValueKeys, object>();
-			//dicS2.Add(PathStrategy.ValueKeys.Base, enemy2);
-			//group2a.AddPath(new Path(Paths.Shoot, dicS2));
-
-			//Dictionary<PathStrategy.ValueKeys, Object> dic2a = new Dictionary<PathStrategy.ValueKeys, object>();
-			//dic2a.Add(PathStrategy.ValueKeys.Base, enemy2);
-			//dic2a.Add(PathStrategy.ValueKeys.Speed, 100f);
-			//dic2a.Add(PathStrategy.ValueKeys.End, new Vector2(300, 150));
-			//dic2a.Add(PathStrategy.ValueKeys.Duration, 3f);
-			//dic2a.Add(PathStrategy.ValueKeys.Rotation, false);
-			//group2a.AddPath(new Path(Paths.Straight, dic2a));
-
-			//enemy2.PathList.AddPath(group2a);
-
-			//PathGroup group2b = new PathGroup();
-
-			//group2b.AddPath(new Path(Paths.Shoot, dicS2));
-
-			//Dictionary<PathStrategy.ValueKeys, Object> dic2b = new Dictionary<PathStrategy.ValueKeys, object>();
-			//dic2b.Add(PathStrategy.ValueKeys.Base, enemy2);
-			//dic2b.Add(PathStrategy.ValueKeys.Speed, 100f);
-			//dic2b.Add(PathStrategy.ValueKeys.End, new Vector2(800, 150));
-			//dic2b.Add(PathStrategy.ValueKeys.Duration, 3f);
-			//dic2b.Add(PathStrategy.ValueKeys.Rotation, false);
-			//group2b.AddPath(new Path(Paths.Straight, dic2b));
-
-			//enemy2.PathList.AddPath(group2b);
-
-			//enemy2.PathList.Mode = ListModes.Repeat;
-
-			// end enemy pathing
-
-
-
 			AddSprite(back);
 			AddSprite(cloud);
-			AddSprite(enemy);
-			AddSprite(enemy2);
 			AddSprite(tail);
 			AddSprite(m_Player.PlayerShip);
 			AddSprite(crosshairs);

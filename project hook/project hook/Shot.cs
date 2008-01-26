@@ -17,8 +17,8 @@ namespace project_hook
 	{
 		#region Variables and Properties
 		//how much damage will be done by this shot
-		private int m_Damage;
-		public int Damage
+		private float m_Damage;
+		public float Damage
 		{
 			get
 			{
@@ -34,7 +34,7 @@ namespace project_hook
 		#endregion // End of variables and Properties Region
 
 		public Shot(String p_Name, Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
-							float p_Rotation, float p_Z, Factions p_Faction, int p_Health, GameTexture p_DamageEffect, float p_Radius, int p_Damage)
+							float p_Rotation, float p_Z, Factions p_Faction, int p_Health, GameTexture p_DamageEffect, float p_Radius, float p_Damage)
 			: base(p_Name, Vector2.Zero, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_DamageEffect, p_Radius)
 		{
 			Damage = p_Damage;
@@ -45,14 +45,14 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 
-			if (Task == null || Task.Complete)
+			if (Task == null || Task.IsComplete(this))
 			{
 				Enabled = false;
 				//ToBeRemoved = true;
 			}
 		}
 
-		public override Boolean AmIDead()
+		public override Boolean IsDead()
 		{
 			return false;
 
@@ -70,13 +70,5 @@ namespace project_hook
 			}
 
 		}
-
-		//public override void Update(float p_Elapsed)
-		//{
-		//    //
-		//    //
-		//    //
-		//    if(m_Faction==
-		//}
 	}
 }
