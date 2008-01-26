@@ -11,6 +11,10 @@ namespace project_hook
 {
 	class LevelReader
 	{
+#if DEBUG
+		private static int maxLoops = 100;
+		private static int curLoop = 0;
+#endif
 		private Dictionary<int, List<Event>> m_Events = new Dictionary<int, List<Event>>();
 
 		private int m_Distance;
@@ -61,26 +65,64 @@ namespace project_hook
 						reader.ReadStartElement();
 						LoadEnemy(reader);
 						reader.ReadEndElement();
+#if DEBUG
+						if (++curLoop > maxLoops)
+						{
+							throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+						}
+#endif
 					}
+#if DEBUG
+					curLoop = 0;
+#endif
 					while (reader.IsStartElement("changeSpeed"))
 					{
 						reader.ReadStartElement();
 						ChangeSpeed(reader);
 						reader.ReadEndElement();
+#if DEBUG
+						if (++curLoop > maxLoops)
+						{
+							throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+						}
+#endif
 					}
+#if DEBUG
+					curLoop = 0;
+#endif
 					while (reader.IsStartElement("changeFile"))
 					{
 						reader.ReadStartElement();
 						NextFile(reader);
 						reader.ReadEndElement();
+#if DEBUG
+						if (++curLoop > maxLoops)
+						{
+							throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+						}
+#endif
 					}
+#if DEBUG
+					curLoop = 0;
+#endif
 					reader.ReadEndElement();
+#if DEBUG
+					if (++curLoop > maxLoops)
+					{
+						throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+					}
+#endif
 				}
+#if DEBUG
+				curLoop = 0;
+#endif
 			}
+#if DEBUG
 			else
 			{
-				throw new Exception("file not there");
+				throw new Exception("file not found: " + t_Name);
 			}
+#endif
 
 			return m_Events;
 		}
@@ -252,15 +294,26 @@ namespace project_hook
 				}
 				else if (p_Reader.IsStartElement("animation"))
 				{
-					t_Ship.setAnimation(p_Reader.GetAttribute("name"), int.Parse( p_Reader.GetAttribute("fps") ));
+					t_Ship.setAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
 					t_Ship.Animation.StartAnimation();
 					p_Reader.ReadStartElement("animation");
 				}
+#if DEBUG
 				else
 				{
 					throw new NotImplementedException("LevelReader LoadEnemy could not understand tag '" + p_Reader.Name + "'");
 				}
+#endif
+#if DEBUG
+				if (++curLoop > maxLoops)
+				{
+					throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+				}
+#endif
 			}
+#if DEBUG
+			curLoop = 0;
+#endif
 
 			//add the ship to the event list
 			if (m_Events.ContainsKey(m_Distance))
@@ -286,7 +339,9 @@ namespace project_hook
 					weapon = new WeaponExample();
 					break;
 				default:
+#if DEBUG
 					throw new NotImplementedException("'" + pType + "' is not a recognized Weapon");
+#endif
 			}
 
 			while (p_Reader.IsStartElement())
@@ -321,11 +376,22 @@ namespace project_hook
 					weapon.AngleDegrees = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
+#if DEBUG
 				else
 				{
 					throw new NotImplementedException("LevelReader readWeapon could not understand tag '" + p_Reader.Name + "'");
 				}
+#endif
+#if DEBUG
+				if (++curLoop > maxLoops)
+				{
+					throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+				}
+#endif
 			}
+#if DEBUG
+			curLoop = 0;
+#endif
 
 			p_Reader.ReadEndElement();
 
@@ -424,11 +490,14 @@ namespace project_hook
 					task = timer;
 					break;
 				default:
+#if DEBUG
 					throw new NotImplementedException("'" + pType + "' is not a recognized Task");
+#endif
 			}
 
 			p_Reader.ReadEndElement();
 			return task;
 		}
+
 	}
 }
