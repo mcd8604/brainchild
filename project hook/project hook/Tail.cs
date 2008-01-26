@@ -229,8 +229,11 @@ namespace project_hook
 						StateOfTail = Tail.TailState.Returning;
 						Task = m_ReturnTask;
 
-						EnemyCaught.Task = m_ReleaseTask;
-						EnemyCaught = null;
+						if (EnemyCaught != null)
+						{
+							EnemyCaught.Task = m_ReleaseTask;
+							EnemyCaught = null;
+						}
 					}
 					break;
 				case TailState.Returning:

@@ -458,7 +458,6 @@ namespace project_hook
 				Collidable temp = s as Collidable;
 				if (temp != null)
 				{
-
 					if (temp.Parts != null)
 					{
 						foreach (Sprite x in temp.Parts)
@@ -466,36 +465,68 @@ namespace project_hook
 							if (x.Name == "bound")
 							{
 								skip = true;
+								if (temp.Faction != Collidable.Factions.None)
+								{
+									x.Enabled = true;
+								}
+								else
+								{
+									x.Enabled = false;
+								}
 							}
 						}
 					}
 
 					if (!skip)
 					{
-
-						if (temp.Bound == Collidable.Boundings.Circle)
+						if (temp.Faction != Collidable.Factions.None)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""));
-							sprite.Task = new TaskAttach(temp);
-							temp.attachSpritePart(sprite);
-						}
-						else if (temp.Bound == Collidable.Boundings.Diamond)
-						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""));
-							sprite.Task = new TaskAttach(temp);
-							temp.attachSpritePart(sprite);
-						}
-						else if (temp.Bound == Collidable.Boundings.Square)
-						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""));
-							sprite.Task = new TaskAttach(temp);
-							temp.attachSpritePart(sprite);
+							if (temp.Bound == Collidable.Boundings.Circle)
+							{
+								Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""));
+								sprite.Task = new TaskAttach(temp);
+								temp.attachSpritePart(sprite);
+							}
+							else if (temp.Bound == Collidable.Boundings.Diamond)
+							{
+								Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""));
+								sprite.Task = new TaskAttach(temp);
+								temp.attachSpritePart(sprite);
+							}
+							else if (temp.Bound == Collidable.Boundings.Square)
+							{
+								Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""));
+								sprite.Task = new TaskAttach(temp);
+								temp.attachSpritePart(sprite);
+							}
 						}
 					}
 				}
 			}
 		}
 
+		public static void DevDisableCollisionDisplay(List<Sprite> list)
+		{
+			foreach (Sprite s in list)
+			{
+				Collidable temp = s as Collidable;
+				if (temp != null)
+				{
+
+					if (temp.Parts != null)
+					{
+						foreach (Sprite x in temp.Parts)
+						{
+							if (x.Name == "bound")
+							{
+								x.Enabled = false;
+							}
+						}
+					}
+				}
+			}
+
+		}
 
 		public static void SelfTest()
 		{
