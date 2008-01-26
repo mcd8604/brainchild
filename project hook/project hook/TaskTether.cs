@@ -24,12 +24,7 @@ namespace project_hook
 			m_AttachedTo = p_AttachedTo;
 		}
 
-		public override bool Complete
-		{
-			get { return false; }
-		}
-
-		public override void Update(Sprite on, Microsoft.Xna.Framework.GameTime at)
+		protected override void Do(Sprite on, Microsoft.Xna.Framework.GameTime at)
 		{
 
 			// Not as dependant on framerate, still not good

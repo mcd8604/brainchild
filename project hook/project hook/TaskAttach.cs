@@ -21,16 +21,9 @@ namespace project_hook
 		{
 			Target = p_Target;
 		}
-		public override bool Complete
+		protected override void Do(Sprite on, GameTime at)
 		{
-			get { return true; }
-		}
-		public override void Update(Sprite on, GameTime at)
-		{
-			if (on.Enabled)
-			{
 				on.Center = m_Target.Center;
-			}
 		}
 	}
 }

@@ -65,6 +65,18 @@ namespace project_hook
 			{
 				m_ShotName = value;
 				m_Texture = TextureLibrary.getGameTexture(m_ShotName, "");
+
+				if (m_Shots == null)
+				{
+					m_Shots = new List<Shot>();
+					for (int i = 0; i < 10; i++)
+					{
+						Shot t_Shot = new Shot("WeaponExampleShot", Vector2.Zero, 30, 75, m_Texture, 1, false,
+										  0f, Depth.GameLayer.Shot, Collidable.Factions.None, -1, null, 15, 10);
+						t_Shot.Bound = Collidable.Boundings.Diamond;
+						m_Shots.Add(t_Shot);
+					}
+				}
 			}
 		}
 
@@ -106,12 +118,12 @@ namespace project_hook
 
 		protected GameTexture m_Texture = null;
 
-		protected IList<Shot> m_Shots = new List<Shot>();
+		protected IList<Shot> m_Shots;
 		protected int m_NextShot = 0;
 
 		#endregion // End of variables and Properties Region
 
-		public Weapon() { }
+		public Weapon() {}
 
 		public Weapon(string p_ShotName, float p_Damage, float p_Delay, float p_Speed, float p_Angle)
 		{
@@ -120,38 +132,20 @@ namespace project_hook
 			m_Delay = p_Delay;
 			m_Speed = p_Speed;
 			m_Angle = p_Angle;
+
+			m_Shots = new List<Shot>();
+			for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow( Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
+			{
+				Shot t_Shot = new Shot("WeaponShot", Vector2.Zero, 30, 75, m_Texture, 1, false,
+								  0f, Depth.GameLayer.Shot, Collidable.Factions.None, -1, null, 15, m_Damage);
+				t_Shot.Bound = Collidable.Boundings.Diamond;
+				m_Shots.Add(t_Shot);
+			}
 		}
 
 		//this function will create a Shot at the current location
 		// Only a single shot? 
 		public abstract void CreateShot( Ship who );
-			//if (m_Cooldown > 0 )
-			//{
-			//    return null;
-			//}
-
-			//Shot t_Shot = new Shot(m_Ship.Name + m_ShotNumber++, m_Ship.Center, 30, 75, TextureLibrary.getGameTexture(m_ShotName, ""), 255f, true,
-			//                      m_Angle, Depth.MidGround.Top, m_Ship.Faction, -1, null, 50f, null, 10, 10);
-
-			////adds all the stuff that was in Game1
-			////i just moved it over here.
-			//t_Shot.setAnimation(m_ShotName, 10);
-
-			//Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-			//dic.Add(PathStrategy.ValueKeys.Base, t_Shot);
-			//dic.Add(PathStrategy.ValueKeys.Speed, m_Speed);
-			//dic.Add(PathStrategy.ValueKeys.Angle, m_Angle);
-			//dic.Add(PathStrategy.ValueKeys.Rotation, true);
-			//t_Shot.Path = new Path(Paths.Straight, dic);
-
-			//t_Shot.Animation.StartAnimation();
-
-			////gets the current time in milliseconds
-			//m_Cooldown = m_Delay;
-
-			////Console.WriteLine(m_ShotNumber);
-
-			//return t_Shot;
 
 		public void Update(GameTime p_Time)
 		{

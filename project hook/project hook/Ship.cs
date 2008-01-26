@@ -19,8 +19,8 @@ namespace project_hook
 
 		private Sprite m_ShieldSprite;
 
-		private int m_MaxShield = 0;
-		public int MaxShield
+		private float m_MaxShield = 0;
+		public float MaxShield
 		{
 			get
 			{
@@ -29,12 +29,19 @@ namespace project_hook
 			set
 			{
 				m_MaxShield = value;
+				m_Shield = m_MaxShield;
+				if (m_MaxShield > 0)
+				{
+					m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(Width * 1.30), (int)(Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
+					m_ShieldSprite.Task = new TaskAttach(this);
+					attachSpritePart(m_ShieldSprite);
+				}
 			}
 
 		}
 
-		private int m_Shield = 0;
-		public int Shield
+		private float m_Shield = 0;
+		public float Shield
 		{
 			get
 			{
@@ -50,21 +57,10 @@ namespace project_hook
 		{
 			Z = Depth.GameLayer.Ships;
 		}
-		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, GameTexture p_DamageEffect, float p_Radius)
+		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_Health, int p_MaxShield, GameTexture p_DamageEffect, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_zBuff, p_Faction, p_Health, p_DamageEffect, p_Radius)
 		{
-
-			m_Shield = p_Shield;
-			
-			m_MaxShield = m_Shield;
-
-
-			if (m_MaxShield > 0)
-			{
-				m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(p_Width * 1.30), (int)(p_Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 255f, true, 0, Depth.GameLayer.Shields);
-				m_ShieldSprite.Task = new TaskAttach(this);
-				attachSpritePart(m_ShieldSprite);
-			}
+			MaxShield = p_MaxShield;
 		}
 
 		public void addWeapon(Weapon w)
@@ -117,7 +113,7 @@ namespace project_hook
 				}
 
 				Shot shot = (Shot)p_Other;
-				int damage = shot.Damage;
+				float damage = shot.Damage;
 
 				if (Shield < damage)
 				{

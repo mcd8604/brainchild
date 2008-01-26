@@ -56,24 +56,24 @@ namespace project_hook
 				{
 					m_Distance = int.Parse(reader.GetAttribute(0));
 					reader.ReadStartElement();
-						while (reader.IsStartElement("createShip"))
-						{
-							reader.ReadStartElement();
-							LoadEnemy(reader);
-							reader.ReadEndElement();
-						}
-						while (reader.IsStartElement("changeSpeed"))
-						{
-							reader.ReadStartElement();
-							ChangeSpeed(reader);
-							reader.ReadEndElement();
-						}
-						while (reader.IsStartElement("changeFile"))
-						{
-							reader.ReadStartElement();
-							NextFile(reader);
-							reader.ReadEndElement();
-						}
+					while (reader.IsStartElement("createShip"))
+					{
+						reader.ReadStartElement();
+						LoadEnemy(reader);
+						reader.ReadEndElement();
+					}
+					while (reader.IsStartElement("changeSpeed"))
+					{
+						reader.ReadStartElement();
+						ChangeSpeed(reader);
+						reader.ReadEndElement();
+					}
+					while (reader.IsStartElement("changeFile"))
+					{
+						reader.ReadStartElement();
+						NextFile(reader);
+						reader.ReadEndElement();
+					}
 					reader.ReadEndElement();
 				}
 			}
@@ -133,7 +133,7 @@ namespace project_hook
 
 		private void LoadEnemy(XmlReader p_Reader)
 		{
-			Ship t_Ship=new Ship();
+			Ship t_Ship = new Ship();
 			t_Ship.Faction = Collidable.Factions.Enemy;
 
 			List<Event> t_List = new List<Event>();
@@ -184,7 +184,7 @@ namespace project_hook
 																		p_Reader.GetAttribute(1));
 						Console.WriteLine("2");
 					}
-					
+
 					p_Reader.ReadStartElement("texture");
 				}
 				else if (p_Reader.IsStartElement("transparency"))
@@ -208,13 +208,13 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("health"))
 				{
 					p_Reader.ReadStartElement("health");
-					t_Ship.Health = int.Parse(p_Reader.ReadString());
+					t_Ship.MaxHealth = int.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("shield"))
 				{
 					p_Reader.ReadStartElement("shield");
-					t_Ship.Shield = int.Parse(p_Reader.ReadString());
+					t_Ship.MaxShield = int.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("speed"))
@@ -250,12 +250,18 @@ namespace project_hook
 				{
 					t_Ship.Task = readTask(p_Reader);
 				}
+				else if (p_Reader.IsStartElement("animation"))
+				{
+					t_Ship.setAnimation(p_Reader.GetAttribute("name"), int.Parse( p_Reader.GetAttribute("fps") ));
+					t_Ship.Animation.StartAnimation();
+					p_Reader.ReadStartElement("animation");
+				}
 				else
 				{
 					throw new NotImplementedException("LevelReader LoadEnemy could not understand tag '" + p_Reader.Name + "'");
 				}
 			}
-			
+
 			//add the ship to the event list
 			if (m_Events.ContainsKey(m_Distance))
 			{
@@ -344,24 +350,51 @@ namespace project_hook
 					}
 					task = parallel;
 					break;
-				case "RotateAngle":
-					TaskRotateAngle rotateAngle = new TaskRotateAngle();
+				case "RepeatingSequence":
+					TaskRepeatingSequence repeatingSequence = new TaskRepeatingSequence();
+					while (p_Reader.IsStartElement("task"))
+					{
+						repeatingSequence.addTask(readTask(p_Reader));
+					}
+					task = repeatingSequence;
+					break;
+				case "RotateToAngle":
+					TaskRotateToAngle rotateToAngle = new TaskRotateToAngle();
 					while (p_Reader.IsStartElement())
 					{
 						if (p_Reader.IsStartElement("angle"))
 						{
 							p_Reader.ReadStartElement("angle");
-							rotateAngle.Angle = float.Parse(p_Reader.ReadString());
+							rotateToAngle.Angle = float.Parse(p_Reader.ReadString());
 							p_Reader.ReadEndElement();
 						}
 						else if (p_Reader.IsStartElement("degree"))
 						{
 							p_Reader.ReadStartElement("degree");
-							rotateAngle.Angle = MathHelper.ToRadians( float.Parse(p_Reader.ReadString() ));
+							rotateToAngle.Angle = MathHelper.ToRadians(float.Parse(p_Reader.ReadString()));
 							p_Reader.ReadEndElement();
 						}
 					}
-					task = rotateAngle;
+					task = rotateToAngle;
+					break;
+				case "RotateByAngle":
+					TaskRotateByAngle rotateByAngle = new TaskRotateByAngle();
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("angle"))
+						{
+							p_Reader.ReadStartElement("angle");
+							rotateByAngle.Angle = float.Parse(p_Reader.ReadString());
+							p_Reader.ReadEndElement();
+						}
+						else if (p_Reader.IsStartElement("degree"))
+						{
+							p_Reader.ReadStartElement("degree");
+							rotateByAngle.Angle = MathHelper.ToRadians(float.Parse(p_Reader.ReadString()));
+							p_Reader.ReadEndElement();
+						}
+					}
+					task = rotateByAngle;
 					break;
 				case "StraightVelocity":
 					TaskStraightVelocity straightVelocity = new TaskStraightVelocity();
@@ -370,12 +403,25 @@ namespace project_hook
 					{
 						if (p_Reader.IsStartElement("velocity"))
 						{
-							v = new Vector2( float.Parse(p_Reader.GetAttribute("x")), float.Parse(p_Reader.GetAttribute("y")));
+							v = new Vector2(float.Parse(p_Reader.GetAttribute("x")), float.Parse(p_Reader.GetAttribute("y")));
 							p_Reader.ReadStartElement("velocity");
 						}
 					}
 					straightVelocity.Velocity = v;
 					task = straightVelocity;
+					break;
+				case "Timer":
+					TaskTimer timer = new TaskTimer();
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("duration"))
+						{
+							p_Reader.ReadStartElement("duration");
+							timer.Duration = float.Parse(p_Reader.ReadString());
+							p_Reader.ReadEndElement();
+						}
+					}
+					task = timer;
 					break;
 				default:
 					throw new NotImplementedException("'" + pType + "' is not a recognized Task");

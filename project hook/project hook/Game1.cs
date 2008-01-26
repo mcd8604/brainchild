@@ -175,7 +175,7 @@ namespace project_hook
                     }
 
                 }
-				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, -1, null, 30, player.PlayerShip, 700, m_TailBodySprites);
+				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 30, player.PlayerShip, 700, m_TailBodySprites);
 
 
 
@@ -281,7 +281,7 @@ namespace project_hook
 			if (!IsActive)
 				return;
 
-			m_LHandler.CheckEvents(Convert.ToInt32(m_Distance));
+			m_LHandler.CheckEvents(m_Distance);
 			InputHandler.Update();
 			Sound.Update();
 			Music.Update();

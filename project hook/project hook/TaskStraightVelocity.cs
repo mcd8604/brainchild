@@ -24,17 +24,9 @@ namespace project_hook
 		{
 			Velocity = p_Velocity;
 		}
-
-		public override bool Complete
+		protected override void Do(Sprite on, GameTime at)
 		{
-			get { return false; }
-		}
-		public override void Update(Sprite on, GameTime at)
-		{
-			if (on.Enabled)
-			{
 				on.Center += Vector2.Multiply(Velocity, (float)at.ElapsedGameTime.TotalSeconds);
-			}
 		}
 	}
 }

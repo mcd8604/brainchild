@@ -63,9 +63,23 @@ namespace project_hook
 			}
 		}
 
+		private float m_MaxHealth = float.NaN;
+		public float MaxHealth
+		{
+			get
+			{
+				return m_MaxHealth;
+			}
+			set
+			{
+				m_MaxHealth = value;
+				m_Health = m_MaxHealth;
+			}
+		}
+
 		//this is how much health this sprite has
-		private int m_Health = int.MinValue;
-		public int Health
+		private float m_Health = 0;
+		public float Health
 		{
 			get
 			{
@@ -154,11 +168,11 @@ namespace project_hook
 
 		public Collidable() { }
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
-							float p_Rotation, float p_Z, Factions p_Faction, int p_Health, GameTexture p_DamageEffect, float p_Radius)
+							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, GameTexture p_DamageEffect, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z)
 		{
 			Faction = p_Faction;
-			Health = p_Health;
+			MaxHealth = p_MaxHealth;
 			DamageEffect = p_DamageEffect;
 			if (DamageEffect != null)
 			{
@@ -174,12 +188,12 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
-			ToBeRemoved = AmIDead();
+			ToBeRemoved = IsDead();
 		}
 
-		public virtual Boolean AmIDead()
+		public virtual Boolean IsDead()
 		{
-			if (Health == int.MinValue)
+			if (MaxHealth == float.NaN)
 			{
 				return false;
 

@@ -11,17 +11,20 @@ namespace project_hook
 		/// <summary>
 		/// Returns if this task has been completed.
 		/// </summary>
-		public abstract bool Complete
-		{
-			get;
-		}
+		public virtual bool IsComplete(Sprite on) { return false; }
 
 		/// <summary>
 		/// Request that this Task take action on a Sprite.
 		/// </summary>
 		/// <param name="on">The Sprite for this Task to effect.</param>
 		/// <param name="at">The Current GameTime.</param>
-		public abstract void Update(Sprite on, GameTime at);
+		public virtual void Update(Sprite on, GameTime at)
+		{
+			if (on.Enabled)
+			{
+				Do(on, at);
+			}
+		}
 
 		public virtual void Update(ICollection<Sprite> on, GameTime at)
 		{
@@ -31,14 +34,9 @@ namespace project_hook
 			}
 		}
 
-		/// <summary>
-		/// Check if a task has been completed.
-		/// </summary>
-		/// <param name="t">The task to check.</param>
-		/// <returns>If the task has been completed.</returns>
-		public static bool isComplete(Task t)
+		protected virtual void Do(Sprite on, GameTime at)
 		{
-			return t.Complete;
+			throw new NotImplementedException();
 		}
 
 	}

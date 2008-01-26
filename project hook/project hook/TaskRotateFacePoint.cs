@@ -7,22 +7,18 @@ namespace project_hook
 {
 	class TaskRotateFacePoint : Task
 	{
-
 		private float m_Offset = 0f;
 		public float Offset
 		{
 			get { return m_Offset; }
 			set { m_Offset = value; }
 		}
-
 		private Vector2 m_Point;
 		public Vector2 Point
 		{
 			get { return m_Point; }
 			set { m_Point = value; }
 		}
-
-
 		public TaskRotateFacePoint() { }
 		public TaskRotateFacePoint(Vector2 p_Point) {
 			Point = p_Point;
@@ -31,12 +27,7 @@ namespace project_hook
 			Point = p_Point;
 			Offset = p_Offset;
 		}
-
-		public override bool Complete
-		{
-			get { return false; }
-		}
-		public override void Update(Sprite on, Microsoft.Xna.Framework.GameTime at)
+		protected override void Do(Sprite on,GameTime at)
 		{
 			on.Rotation = (float)Math.Atan2(Point.Y - on.Center.Y, Point.X - on.Center.X) + Offset;
 		}

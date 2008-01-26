@@ -57,6 +57,10 @@ namespace project_hook
 					r_Texture = (m_GameTextures[name])[tag];
 				}
 			}
+			else
+			{
+				throw new Exception("Texture not loaded: " + name);
+			}
 
 			return r_Texture;
 

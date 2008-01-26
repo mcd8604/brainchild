@@ -26,17 +26,10 @@ namespace project_hook
 		{
 			m_Tasks.AddRange(t);
 		}
-		public override bool Complete
-		{
-			get
-			{
-				return false;
-			}
-		}
-		public override void Update(Sprite on, GameTime at)
+		protected override void Do(Sprite on, GameTime at)
 		{
 			m_Tasks[m_Current].Update(on, at);
-			if (m_Tasks[m_Current].Complete)
+			if (m_Tasks[m_Current].IsComplete(on))
 			{
 				m_Current = (m_Current + 1) % m_Tasks.Count;
 			}

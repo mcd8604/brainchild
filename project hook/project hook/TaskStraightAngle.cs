@@ -36,16 +36,9 @@ namespace project_hook
 			Angle = p_Angle;
 			Speed = p_Speed;
 		}
-		public override bool Complete
+		protected override void Do(Sprite on, GameTime at)
 		{
-			get { return false; }
-		}
-		public override void Update(Sprite on, GameTime at)
-		{
-			if (on.Enabled)
-			{
-				on.Center = new Vector2(on.Center.X + (m_Speed * (float)Math.Cos(m_Angle) * (float)at.ElapsedGameTime.TotalSeconds), on.Center.Y + (m_Speed * (float)Math.Sin(m_Angle) * (float)at.ElapsedGameTime.TotalSeconds));
-			}
+			on.Center = new Vector2(on.Center.X + (m_Speed * (float)Math.Cos(m_Angle) * (float)at.ElapsedGameTime.TotalSeconds), on.Center.Y + (m_Speed * (float)Math.Sin(m_Angle) * (float)at.ElapsedGameTime.TotalSeconds));
 		}
 	}
 }

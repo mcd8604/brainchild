@@ -30,7 +30,9 @@ namespace project_hook
 
 			public static float Explosion = 0.4f;
 
-			public static float Shot = 0.5f;
+			public static float Shot = 0.45f;
+
+			public static float PlayerShip = 0.5f;
 
 			public static float Tail = 0.55f;
 

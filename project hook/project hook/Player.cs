@@ -127,7 +127,7 @@ namespace project_hook
 		{
 			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, null, 60);
 
-			m_PlayerShip.addWeapon(new WeaponExample("RedShot", 10, 0.3f, 500, -MathHelper.PiOver2));
+			m_PlayerShip.addWeapon(new WeaponExample("RedShot", 1, 0.15f, 600, -MathHelper.PiOver2));
 		}
 
 		public void Shoot()

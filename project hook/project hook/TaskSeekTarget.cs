@@ -19,7 +19,6 @@ namespace project_hook
 				m_Target = value;
 			}
 		}
-
 		private float m_Speed = 0f;
 		public float Speed
 		{
@@ -32,7 +31,6 @@ namespace project_hook
 				m_Speed = value;
 			}
 		}
-
 		private float m_CloseEnough = 0f;
 		public float CloseEnough
 		{
@@ -45,9 +43,6 @@ namespace project_hook
 				m_CloseEnough = value;
 			}
 		}
-
-		private bool m_ReachedGoal = false;
-
 		public TaskSeekTarget() { }
 		public TaskSeekTarget(Sprite p_Target, float p_Speed)
 		{
@@ -61,20 +56,19 @@ namespace project_hook
 			CloseEnough = p_CloseEnough;
 		}
 
-		public override bool Complete
+		public override bool IsComplete(Sprite on)
 		{
-			get { return m_ReachedGoal; }
+			Vector2 temp = m_Target.Center - on.Center;
+			return (Math.Abs(temp.X) <= CloseEnough && Math.Abs(temp.Y) <= CloseEnough);
 		}
 
-		public override void Update(Sprite on, GameTime at)
+		protected override void Do(Sprite on, GameTime at)
 		{
 			Vector2 temp = m_Target.Center - on.Center;
 			if (Math.Abs(temp.X) <= CloseEnough && Math.Abs(temp.Y) <= CloseEnough)
 			{
-				m_ReachedGoal = true;
 				return;
 			}
-			m_ReachedGoal = false;
 			Vector2 temp2 = Vector2.Multiply(Vector2.Normalize(temp), (float)(Speed * (at.ElapsedGameTime.TotalSeconds)));
 			if (Math.Abs(temp2.X) > Math.Abs(temp.X))
 			{
