@@ -4,16 +4,15 @@ using System.Collections;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-/*
- * Description: This class contains the information regarding the player ship,
- *              i.e. power up effects
- * 
- * TODO:
- *  
- */
-
 namespace project_hook
 {
+	/// <summary>
+	/// Description: This class contains the information regarding the player ship,
+	///              i.e. power up effects
+	/// 
+	/// TODO:
+	/// 
+	/// </summary>
 	public class PlayerShip : Ship
 	{
 
@@ -26,17 +25,18 @@ namespace project_hook
 		//stores the current power up effects
 		List<Effect> m_EffectsArray = new List<Effect>();
 
-		/*
-		 * Description: Adds a new power up effec to the player ship.
-		 */
+		/// <summary>
+		/// Description: Adds a new power up effec to the player ship.
+		/// </summary>
+		/// <param name="p_Effect"></param>
 		public void AddEffect(Effect p_Effect)
 		{
 			m_EffectsArray.Add(p_Effect);
 		}
 
-		/*
-		 * Description: This removes any effects that have expired.
-		 */
+		/// <summary>
+		/// Description: This removes any effects that have expired.
+		/// </summary>
 		public void CheckEffects()
 		{
 			foreach (Effect i_Effect in m_EffectsArray)

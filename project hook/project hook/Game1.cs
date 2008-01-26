@@ -96,19 +96,17 @@ namespace project_hook
 
 			base.Initialize();
 
-			Sprite.DrawWithRot();
-
 			Sound.Initialize();
 
 			Music.Initialize();
 
 			//test
-			System.Diagnostics.Stopwatch t_Time = new System.Diagnostics.Stopwatch();
-			t_Time.Start();
-			m_LReader = new LevelReader("LevelTest.xml");
+			//System.Diagnostics.Stopwatch t_Time = new System.Diagnostics.Stopwatch();
+			//t_Time.Start();
+			//m_LReader = new LevelReader("LevelTest.xml");
 			//m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			t_Time.Stop();
-			Console.WriteLine(t_Time.ElapsedMilliseconds);
+			//t_Time.Stop();
+			//Console.WriteLine(t_Time.ElapsedMilliseconds);
 			//EnvironmentLoader.Initialize(m_Speed);
 			//EnvironmentLoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp");
 
@@ -129,20 +127,52 @@ namespace project_hook
 			{
 				TextureLibrary.reloadAll();
 
-				TextureLibrary.LoadTexture("Ship2");
-				TextureLibrary.LoadTexture("Back");
-				TextureLibrary.LoadTexture("RedShot");
-				TextureLibrary.LoadTexture("Cloud");
-				TextureLibrary.LoadTexture("Enemy1");
-				TextureLibrary.LoadTexture("Explosion");
-				TextureLibrary.LoadTexture("Shield");
-				TextureLibrary.LoadTexture("FireBall");
-				TextureLibrary.LoadTexture("temptail");
-				TextureLibrary.LoadTexture("crosshairs");
-                TextureLibrary.LoadTexture("poisonsplat");
-                TextureLibrary.LoadTexture("tail_segment");
-                TextureLibrary.LoadTexture("shot_energy");
+
+
+			TextureLibrary.LoadTexture("Cloud");
+			TextureLibrary.LoadTexture("Ship2");
+			TextureLibrary.LoadTexture("veinbg");
+			TextureLibrary.LoadTexture("RedShot");
+			TextureLibrary.LoadTexture("Enemy1");
+			TextureLibrary.LoadTexture("virus1");
+			TextureLibrary.LoadTexture("Explosion");
+			TextureLibrary.LoadTexture("Shield");
+			TextureLibrary.LoadTexture("FireBall");
+			TextureLibrary.LoadTexture("temptail");
+			TextureLibrary.LoadTexture("blood");
+			TextureLibrary.LoadTexture("crosshairs");
+            TextureLibrary.LoadTexture("tailbody");
+            TextureLibrary.LoadTexture("tail_segment");
+            TextureLibrary.LoadTexture("shot_energy");
+            TextureLibrary.LoadTexture("bloodcell");
+            TextureLibrary.LoadTexture("plaque");
+			TextureLibrary.LoadTexture("wall_flat");
+            TextureLibrary.LoadTexture("Explosion2");
+            TextureLibrary.LoadTexture("walls\\wall_left");
+            TextureLibrary.LoadTexture("wall_rand1");
+            TextureLibrary.LoadTexture("wall_rand2");
+            TextureLibrary.LoadTexture("wall_rand3");
+            TextureLibrary.LoadTexture("walls\\plaque");
+            TextureLibrary.LoadTexture("walls\\plaque2");
+            TextureLibrary.LoadTexture("walls\\plaque3");
+            TextureLibrary.LoadTexture("walls\\plaque4");
+            TextureLibrary.LoadTexture("walls\\plaque_left");
+            TextureLibrary.LoadTexture("walls\\plaque_right");
+            TextureLibrary.LoadTexture("walls\\plaque_top");
+            TextureLibrary.LoadTexture("walls\\plaque_top_left");
+            TextureLibrary.LoadTexture("walls\\plaque_top_left_invert");
+            TextureLibrary.LoadTexture("walls\\plaque_top_right");
+            TextureLibrary.LoadTexture("walls\\plaque_top_right_invert");
+            TextureLibrary.LoadTexture("walls\\plaque_btm");
+            TextureLibrary.LoadTexture("walls\\plaque_btm_left");
+            TextureLibrary.LoadTexture("walls\\plaque_btm_left_invert");
+            TextureLibrary.LoadTexture("walls\\plaque_btm_right");
+            TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
+
 				drawtext.Load(content);
+
+
+
 
 				Rectangle PlayerBounds = new Rectangle(graphics.GraphicsDevice.Viewport.X,
 														graphics.GraphicsDevice.Viewport.Y,
@@ -177,32 +207,12 @@ namespace project_hook
                 }
 				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 30, player.PlayerShip, 700, m_TailBodySprites);
 
-
-
-
-
-
-				/*
-				shot2Effect = new Sprite("RedShot2", new Vector2(-400.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
-				shot2Effect.setAnimation("RedShot", 10);
-				shotEffect = new Sprite("RedShot", new Vector2(-100.0f, 100.0f), 100, 50, TextureLibrary.getGameTexture("RedShot", "1"), 100, true, 0, Depth.MidGround.Top);
-				shotEffect.setAnimation("RedShot", 10);
-				shotEffect.Animation.StartAnimation();
-				shot2Effect.Animation.StartAnimation();
-				*/
-				//explosion = new Sprite("Explosion", new Vector2(-100f, -100f), 100, 100, TextureLibrary.getGameTexture("Explosion", ""), 50f, true, 0, Depth.ForeGround.Mid);
-
 				spritelist.Add(back);
 
 				spritelist.Add(tail);
 
 				spritelist.Add(player.PlayerShip);
 				
-				/*
-				spritelist.Add(shotEffect);
-				spritelist.Add(shot2Effect);
-				 * */
-
 				m_spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
 			}
@@ -399,25 +409,7 @@ namespace project_hook
 				Collision.DevEnableCollisionDisplay(spritelist);
 			}
 
-			/*
-			Vector2 shotV = shot2Effect.Position; 
-			shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds) * 200;
-			shot2Effect.Position = shotV;
-			shot2Effect.Update(gameTime);
 
-
-			shotV = shotEffect.Position;
-			shotV.Y += -(float)(gameTime.ElapsedGameTime.TotalSeconds)*200;
-			shotEffect.Position = shotV;
-			shotEffect.Update(gameTime);
-
-			shotEffect.Degree = shotEffect.Degree + (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
-
-
-
-			//back1.Shoot();
-			shot2Effect.Degree = shot2Effect.Degree - (float)(gameTime.ElapsedGameTime.TotalSeconds)*4;
-			*/
 			player.UpdatePlayer(gameTime);
 			// lazy fps code
 			UpdateFPS(gameTime);

@@ -5,14 +5,14 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	/*
-	* Description: 
-	*              
-	* 
-	* TODO:
-	*  1. move across the screen
-	*  
-	*/
+
+	/// <summary>
+	/// Description: 
+	/// 
+	/// TODO:
+	/// 1. move across the screen
+	/// 
+	/// </summary>
 	public class Shot : Collidable
 	{
 

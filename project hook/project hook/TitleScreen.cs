@@ -42,13 +42,5 @@ namespace project_hook
 			base.Update(p_Time);
 		}
 
-		/*public override void Draw(SpriteBatch p_SpriteBatch)
-		{
-			base.Draw(p_SpriteBatch);
-
-			p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
-			m_Text.Draw(p_SpriteBatch);
-			p_SpriteBatch.End();
-		}*/
 	}
 }

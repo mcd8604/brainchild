@@ -283,10 +283,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Game</Name>
     </Compile>
-    <Compile Include="gameCollision.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>gameCollision</Name>
-    </Compile>
     <Compile Include="GameTexture.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>GameTexture</Name>

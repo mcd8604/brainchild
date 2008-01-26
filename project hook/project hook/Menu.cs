@@ -7,11 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace project_hook
 {
-	/*
-	 * Description: 
-	 * 
-	 * TODO:
-	 */
+	/// <summary>
+	/// 
+	/// </summary>
 	class Menu : Sprite
 	{
 		protected int m_selectedIndex;
@@ -40,19 +38,6 @@ namespace project_hook
 
 			m_MenuCursorName = "crosshairs";
 		}
-
-		/*public Menu(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, 
-							float p_Degree, float p_Z)
-            : base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
-		{
-			m_selectedIndex = 0;
-
-			//default textures
-			m_BackgroundName = "menu_background";
-			m_HighlightName = "menu_highlight";
-
-			m_MenuItemNames = new ArrayList();
-		}*/
 
 		public virtual void Load(GraphicsDeviceManager gdm)
 		{

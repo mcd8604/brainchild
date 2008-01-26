@@ -7,14 +7,10 @@ using Microsoft.Xna.Framework.Content;
 
 namespace project_hook
 {
-	/*
-	 * Description: This class holds a reference to a 2D Texture
-	 *              and what area of that texture should be displayed. 
-	 * 
-	 * TODO: 
-	 * 
-	 * 
-	 */
+	/// <summary>
+	/// This class holds a reference to a 2D Texture
+	/// and what area of that texture should be displayed. 
+	/// </summary>
 	public class GameTexture
 	{
 		#region Variables and Properties
@@ -159,12 +155,3 @@ namespace project_hook
 		}
 	}
 }
-/*
-  * Class: Game Texture
-  * Authors: Karl, Eric, Mike
-  * Date Created: 12/16/2007
-  * 
-  * Change Log:
-  *     12/16/2007 - Eric, Karl, Mike - Initial Creation,  Created properties, constructor. 
-  *     12/17/2007 - Karl - Added Comments 
-  */

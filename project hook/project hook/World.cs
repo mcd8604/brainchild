@@ -144,7 +144,6 @@ namespace project_hook
 			m_Position = new WorldPosition( 80f );
 			m_ViewPortSize = p_DrawArea;
 			IniDefaults();
-			Sprite.DrawWithRot();
 			Music.Initialize();
 			Sound.Initialize();
 			this.m_LReader = new LevelReader("LevelTest.xml");
@@ -363,10 +362,6 @@ namespace project_hook
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Home))
 				{
 					m_Position.setSpeed(0);
-				}
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.X))
-				{
-					Sprite.DrawWithRot();
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.B))
 				{
