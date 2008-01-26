@@ -23,6 +23,13 @@ namespace project_hook
 		private Tile curTile;
 		private int m_TileDimension;
 
+#if DEBUG
+        private static Random random = new Random(0);
+#else 
+        private static Random random = new Random();
+#endif
+
+
 		public List<Sprite> Initialize(WorldPosition p_Position, string p_FileName)
 		{
 			// Set up variables
@@ -37,11 +44,29 @@ namespace project_hook
 			m_ScreenSpaceHeight = (Game.graphics.GraphicsDevice.Viewport.Height / m_TileDimension) + 1;
 			
 			// Color mapping
-			m_ColorMap = new Hashtable();
-			m_ColorMap.Add(System.Drawing.Color.Black.ToArgb(), new Tile(TextureLibrary.getGameTexture("plaque", ""), 0, true));
-			m_ColorMap.Add(System.Drawing.Color.White.ToArgb(), new Tile(null, 0, false));
-			m_ColorMap.Add(System.Drawing.Color.Green.ToArgb(), new Tile(TextureLibrary.getGameTexture("wall_flat", ""), 0, true));
-			m_ColorMap.Add(System.Drawing.Color.Red.ToArgb(), new Tile(TextureLibrary.getGameTexture("wall_flat", ""), 180, true));
+            m_ColorMap = new Hashtable();
+
+            ArrayList gts = new ArrayList();
+            gts = new ArrayList();
+            gts.Add(TextureLibrary.getGameTexture("walls\\plaque", ""));
+            gts.Add(TextureLibrary.getGameTexture("walls\\plaque2", ""));
+            gts.Add(TextureLibrary.getGameTexture("walls\\plaque3", ""));
+            gts.Add(TextureLibrary.getGameTexture("walls\\plaque4", ""));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 0, 0).ToArgb(), new Tile(gts, 0, true, true));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 150, 100).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\wall_left", ""), 0, true, true));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 0, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_right", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 255, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_left", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 255, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 255, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 0, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right_invert", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 100, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 100, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left_invert", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 100, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 0, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(100, 100, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right_invert", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(100, 0, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(200, 200, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert", ""), 0, true, false));
+            m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 255, 255).ToArgb(), new Tile(0, false, false));
 				
 
 			// Create all sprites
@@ -77,7 +102,16 @@ namespace project_hook
 					{
 						curTile = ((Tile)m_ColorMap[m_LevelArray[x, bmpHeight - m_ScreenSpaceHeight + y].ToArgb()]);
 
-						m_CurrentView[getPosition(x, y)].Texture = curTile.GTexture;
+                        int randIndex = random.Next(0, curTile.gameTextures.Count);
+                        m_CurrentView[getPosition(x, y)].Texture = (GameTexture)curTile.gameTextures[randIndex];
+                        if (curTile.Collidable)
+                        {
+                            ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.Environment;
+                        }
+                        else
+                        {
+                            ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.None;
+                        }
 						m_CurrentView[getPosition(x, y)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
 
@@ -140,7 +174,7 @@ namespace project_hook
 					{
 						curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
 
-						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = curTile.GTexture;
+                        m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = (GameTexture)curTile.gameTextures[0];
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
 
@@ -169,17 +203,39 @@ namespace project_hook
 
 	}
 
-	public struct Tile
-	{
-		public GameTexture GTexture;
-		public int Rotation;
-		public bool Enabled;
 
-		public Tile(GameTexture p_Texture, int p_Rotation, bool p_Enabled)
-		{
-			GTexture = p_Texture;
-			Rotation = p_Rotation;
-			Enabled = p_Enabled;
-		}
-	}
+
+    public struct Tile
+    {
+        public ArrayList gameTextures;
+        public int Rotation;
+        public bool Enabled;
+        public bool Collidable;
+
+        public Tile(int p_Rotation, bool p_Enabled, bool p_Collidable)
+        {
+            gameTextures = new ArrayList();
+            gameTextures.Add(null);
+            Rotation = p_Rotation;
+            Enabled = p_Enabled;
+            Collidable = p_Collidable;
+        }
+
+        public Tile(ArrayList p_GameTextures, int p_Rotation, bool p_Enabled, bool p_Collidable)
+        {
+            gameTextures = p_GameTextures;
+            Rotation = p_Rotation;
+            Enabled = p_Enabled;
+            Collidable = p_Collidable;
+        }
+
+        public Tile(GameTexture p_GameTexture, int p_Rotation, bool p_Enabled, bool p_Collidable)
+        {
+            gameTextures = new ArrayList();
+            gameTextures.Add(p_GameTexture);
+            Rotation = p_Rotation;
+            Enabled = p_Enabled;
+            Collidable = p_Collidable;
+        }
+    }
 }

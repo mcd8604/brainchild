@@ -421,7 +421,27 @@ namespace project_hook
             TextureLibrary.LoadTexture("bloodcell");
             TextureLibrary.LoadTexture("plaque");
 			TextureLibrary.LoadTexture("wall_flat");
-			TextureLibrary.LoadTexture("Explosion2");
+            TextureLibrary.LoadTexture("Explosion2");
+            TextureLibrary.LoadTexture("walls\\wall_left");
+            TextureLibrary.LoadTexture("wall_rand1");
+            TextureLibrary.LoadTexture("wall_rand2");
+            TextureLibrary.LoadTexture("wall_rand3");
+            TextureLibrary.LoadTexture("walls\\plaque");
+            TextureLibrary.LoadTexture("walls\\plaque2");
+            TextureLibrary.LoadTexture("walls\\plaque3");
+            TextureLibrary.LoadTexture("walls\\plaque4");
+            TextureLibrary.LoadTexture("walls\\plaque_left");
+            TextureLibrary.LoadTexture("walls\\plaque_right");
+            TextureLibrary.LoadTexture("walls\\plaque_top");
+            TextureLibrary.LoadTexture("walls\\plaque_top_left");
+            TextureLibrary.LoadTexture("walls\\plaque_top_left_invert");
+            TextureLibrary.LoadTexture("walls\\plaque_top_right");
+            TextureLibrary.LoadTexture("walls\\plaque_top_right_invert");
+            TextureLibrary.LoadTexture("walls\\plaque_btm");
+            TextureLibrary.LoadTexture("walls\\plaque_btm_left");
+            TextureLibrary.LoadTexture("walls\\plaque_btm_left_invert");
+            TextureLibrary.LoadTexture("walls\\plaque_btm_right");
+            TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
 		}
 
 		private void IniDefaults()
