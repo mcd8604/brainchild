@@ -333,7 +333,7 @@ namespace project_hook
 			{
 				if (tail.EnemyCaught != null)
 				{
-					tail.EnemyCaught.shoot();
+					tail.EnemyShoot();
 				}
 			}
 

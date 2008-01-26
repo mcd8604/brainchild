@@ -179,14 +179,10 @@ namespace project_hook
 					}
 				}
 
-				//Possible attach the explosion sprite to the ship
 			}
 			else if (p_Other is Ship)
 			{
-				if (p_Other.Faction == Factions.Enemy)
-				{
-					didCollide = p_Other.Health;
-				}
+				didCollide = p_Other.Health;
 			}
 			else if (p_Other.Faction == Factions.Environment)
 			{

@@ -21,8 +21,8 @@ namespace project_hook
 			}
 		}
 
-		private Ship m_EnemyCaught;
-		public Ship EnemyCaught
+		private Collidable m_EnemyCaught;
+		public Collidable EnemyCaught
 		{
 			get
 			{
@@ -179,12 +179,21 @@ namespace project_hook
 			StateOfTail = TailState.Ready;
 		}
 
+		public void EnemyShoot()
+		{
+			Ship temp = m_EnemyCaught as Ship;
+			if (temp != null)
+			{
+				temp.shoot();
+			}
+		}
+
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			//base.RegisterCollision(p_Other);
-			if ((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking && p_Other is Ship && ((Ship)p_Other).Shield <= 0)
+			if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && ( !(p_Other is Ship) || ((Ship)p_Other).Shield <= 0))
 			{
-				m_EnemyCaught = (Ship)p_Other;
+				m_EnemyCaught = p_Other;
 				m_EnemyCaught.Faction = Factions.Player;
 
 				TaskParallel temp = new TaskParallel();
