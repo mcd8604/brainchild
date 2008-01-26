@@ -217,35 +217,35 @@
 			<transparency>1</transparency>
 			<startCenter x="200" y="0"/>
 			<enabled>true</enabled>
-			<health>200</health>
-			<shield>200</shield>
+			<health>20</health>
+			<shield>100</shield>
 			<speed>100</speed>
 			<damageTexture name="Explosion" pos="3"/>
 			<radius>50</radius>
 			<weapon type="Example">
 				<damage>10</damage>
 				<shotName>FireBall</shotName>
-				<delay>0.25</delay>
+				<delay>0.5</delay>
 				<speed>300</speed>
 				<offset>45</offset>
 			</weapon>
 			<weapon type="Example">
 				<damage>10</damage>
-				<delay>0.25</delay>
+				<delay>0.5</delay>
 				<shotName>FireBall</shotName>
 				<speed>300</speed>
 				<offset>135</offset>
 			</weapon>
 			<weapon type="Example">
 				<damage>10</damage>
-				<delay>0.25</delay>
+				<delay>0.5</delay>
 				<speed>300</speed>
 				<shotName>FireBall</shotName>
 				<offset>-135</offset>
 			</weapon>
 			<weapon type="Example">
 				<damage>10</damage>
-				<delay>0.25</delay>
+				<delay>0.5</delay>
 				<speed>300</speed>
 				<offset>-45</offset>
 				<shotName>FireBall</shotName>

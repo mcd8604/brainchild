@@ -28,20 +28,77 @@ namespace project_hook
 					}
 				}
 			}
-
+			//we need to change this so is only check certain factions
 			List<Collidable.Factions> keys = new List<Collidable.Factions>(sorter.Keys);
 			for (int i = 0; i < keys.Count - 1; ++i)
 			{
 				foreach (Collidable c in sorter[keys[i]])
 				{
-					for (int j = i + 1; j < keys.Count; ++j)
+					for (int j = 0; j < keys.Count; ++j)
 					{
-						foreach (Collidable x in sorter[keys[j]])
+						if (i != j)
 						{
-							if (DoesIntersect(c, x))
+							if (keys[i].ToString().Equals("Player"))
 							{
-								c.RegisterCollision(x);
-								x.RegisterCollision(c);
+								if (keys[j].ToString().Equals("Environment"))
+								{
+									foreach (Collidable x in sorter[keys[j]])
+									{
+										if (DoesIntersect(c, x))
+										{
+											c.RegisterCollision(x);
+											x.RegisterCollision(c);
+										}
+									}
+								}
+								else if (keys[j].ToString().Equals("Enemy"))
+								{
+									foreach (Collidable x in sorter[keys[j]])
+									{
+										if (DoesIntersect(c, x))
+										{
+											c.RegisterCollision(x);
+											x.RegisterCollision(c);
+										}
+									}
+								}
+								else if (keys[j].ToString().Equals("Blood"))
+								{
+									Console.WriteLine("hey");
+									foreach (Collidable x in sorter[keys[j]])
+									{
+										if (DoesIntersect(c, x))
+										{
+											c.RegisterCollision(x);
+											x.RegisterCollision(c);
+										}
+									}
+								}
+							}
+							else if (keys[i].ToString().Equals("Enemy"))
+							{
+								if (keys[j].ToString().Equals("Environment"))
+								{
+									foreach (Collidable x in sorter[keys[j]])
+									{
+										if (DoesIntersect(c, x))
+										{
+											c.RegisterCollision(x);
+											x.RegisterCollision(c);
+										}
+									}
+								}
+								else if (keys[j].ToString().Equals("Blood"))
+								{
+									foreach (Collidable x in sorter[keys[j]])
+									{
+										if (DoesIntersect(c, x))
+										{
+											c.RegisterCollision(x);
+											x.RegisterCollision(c);
+										}
+									}
+								}
 							}
 						}
 					}

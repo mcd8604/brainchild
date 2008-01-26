@@ -177,15 +177,12 @@ namespace project_hook
                         m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = (GameTexture)curTile.gameTextures[0];
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
-
 					}
 					else
 					{
-
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = null;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = 0;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = false;
-
 					}
 
 					m_CurrentView[getPosition(i, m_CurTopBuffer)].Position = new Vector2(i * m_TileDimension, 0 - m_TileDimension);
