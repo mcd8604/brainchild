@@ -393,10 +393,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TextureLibrary</Name>
     </Compile>
-    <Compile Include="libs\Test Cases\testTextureLibrary.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>testTextureLibrary</Name>
-    </Compile>
     <Compile Include="TitleScreen.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TitleScreen</Name>
@@ -693,13 +689,6 @@
       <Name>Explosion2</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\plaque.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>plaque</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Textures\shot_energy.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -737,6 +726,108 @@
       <Name>wall1</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\walls\plaque.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque2.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque2</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque3.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque3</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque4.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque4</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_btm.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_btm</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_btm_left.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_btm_left</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_btm_left_invert.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_btm_left_invert</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_btm_right.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_btm_right</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_btm_right_invert.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_btm_right_invert</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_left.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_left</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_right.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_right</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_top.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_top</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_top_left.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_top_left</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_top_left_invert.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_top_left_invert</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_top_right.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_top_right</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\plaque_top_right_invert.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_top_right_invert</Name>
+    </Content>
+    <Content Include="Content\Textures\walls\wall_left.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>wall_left</Name>
+    </Content>
     <Content Include="Content\Textures\wall_flat.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -765,6 +856,10 @@
       <Name>wall_rand3</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Textures\NewFolder1\" />
+    <Folder Include="libs\Test Cases\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA\Game Studio Express\v1.0\Microsoft.Xna.ContentPipeline.targets" />
