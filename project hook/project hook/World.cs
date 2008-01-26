@@ -131,6 +131,7 @@ namespace project_hook
 		TextSprite coll = new TextSprite("", new Vector2(100, 50), Color.GreenYellow);
 		double colltotal;
 		int collcount;
+		bool DisplayCollision = false;
 #endif
 
 		public World() {}
@@ -259,6 +260,12 @@ namespace project_hook
 				}
 #endif
 				AddSprites(toAdd);
+
+#if DEBUG
+				if (DisplayCollision) {
+					Collision.DevEnableCollisionDisplay(m_SpriteList);
+				}
+#endif
 			}
 		}
 
@@ -329,9 +336,17 @@ namespace project_hook
 						Music.Play("bg1");
 					}
 				}
-				if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C))
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.C))
 				{
-					Collision.DevEnableCollisionDisplay(m_SpriteList);
+					if (!DisplayCollision)
+					{
+						DisplayCollision = true;
+					}
+					else
+					{
+						DisplayCollision = false;
+						Collision.DevDisableCollisionDisplay(m_SpriteList);
+					}
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageUp))
 				{
@@ -535,7 +550,7 @@ namespace project_hook
 				//new Collidable(
 				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
 										TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, 0f, Depth.BackGroundLayer.Upper,
-										Collidable.Factions.Blood, 100, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+										Collidable.Factions.Blood, 45, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
 				t_Blood.setAnimation("bloodcell", 60);
 				t_Blood.Animation.StartAnimation();

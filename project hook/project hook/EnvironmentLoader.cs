@@ -104,14 +104,16 @@ namespace project_hook
 
                         int randIndex = random.Next(0, curTile.gameTextures.Count);
                         m_CurrentView[getPosition(x, y)].Texture = (GameTexture)curTile.gameTextures[randIndex];
-						//if (curTile.Collidable)
-						//{
-						//    ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.Environment;
-						//}
-						//else
-						//{
-						//    ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.None;
-						//}
+
+						if (curTile.Collidable)
+						{
+						    ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.Environment;
+						}
+						else
+						{
+						    ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.None;
+						}
+
 						m_CurrentView[getPosition(x, y)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
 
@@ -119,6 +121,7 @@ namespace project_hook
 					else
 					{
 
+						((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.None;
 						m_CurrentView[getPosition(x, y)].Texture = null;
 						m_CurrentView[getPosition(x, y)].RotationDegrees = 0f;
 						m_CurrentView[getPosition(x, y)].Enabled = false;
@@ -174,12 +177,22 @@ namespace project_hook
 					{
 						curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
 
+						if (curTile.Collidable)
+						{
+							((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = Collidable.Factions.Environment;
+						}
+						else
+						{
+							((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = Collidable.Factions.None;
+						}
+
                         m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = (GameTexture)curTile.gameTextures[0];
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
 					}
 					else
 					{
+						((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = Collidable.Factions.None;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = null;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = 0;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = false;

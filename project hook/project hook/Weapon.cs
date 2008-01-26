@@ -12,7 +12,7 @@ namespace project_hook
 		#region Variables and Properties
 
 		//the strength of the shot fired
-		protected float m_Damage = 0;
+		protected float m_Damage = float.NaN;
 		public virtual float Damage
 		{
 			get
@@ -22,6 +22,8 @@ namespace project_hook
 			set
 			{
 				m_Damage = value;
+
+				generateShots();
 			}
 		}
 
@@ -142,13 +144,13 @@ namespace project_hook
 		private void generateShots()
 		{
 
-			if (m_ShotName != null && m_Delay != float.NaN && m_Speed != float.NaN)
+			if (m_ShotName != null && m_Delay != float.NaN && m_Speed != float.NaN && m_Damage != float.NaN)
 			{
 				m_Shots = new List<Shot>();
 				for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
 				{
 					Shot t_Shot = new Shot("WeaponShot", Vector2.Zero, 30, 75, m_Texture, 1, false,
-									  0f, Depth.GameLayer.Shot, Collidable.Factions.None, -1, null, 15, m_Damage);
+									  0f, Depth.GameLayer.Shot, Collidable.Factions.None, m_Damage, null, 15, m_Damage * 1000);
 					t_Shot.Bound = Collidable.Boundings.Diamond;
 					m_Shots.Add(t_Shot);
 				}

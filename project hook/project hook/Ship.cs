@@ -62,7 +62,6 @@ namespace project_hook
 			}
 		}
 
-		private float didCollide = 0;
 		private float timeSinceLastDamage = 0;
 
 		public Ship()
@@ -103,12 +102,6 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 
-			if (didCollide > 0)
-			{
-				takeDamage( (float)Math.Min(100 * p_Time.ElapsedGameTime.TotalSeconds, didCollide));
-				didCollide = 0;
-			}
-
 			base.Update(p_Time);
 
 			if (m_MaxShield > 0 && m_ShieldSprite !=null)
@@ -128,7 +121,7 @@ namespace project_hook
 
 		}
 
-		private void takeDamage(float damage)
+		protected override void takeDamage(float damage)
 		{
 
 			timeSinceLastDamage = 0;
@@ -158,36 +151,48 @@ namespace project_hook
 
 		}
 
-		public override void RegisterCollision(Collidable p_Other)
+		protected override void SpawnDamageEffect(Vector2 where)
 		{
-			if (p_Other is Shot)
-			{
-				takeDamage( ((Shot)p_Other).Damage );
-
-				if (m_Shield > 0)
+			if (m_Shield > 0)
 				{
 					if (m_ShieldDamageParticleSystem != null)
 					{
-						m_ShieldDamageParticleSystem.AddParticles(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
+						m_ShieldDamageParticleSystem.AddParticles(where);
 					}
 				}
 				else
 				{
 					if (DamageParticleSystem != null)
 					{
-						DamageParticleSystem.AddParticles(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
+						DamageParticleSystem.AddParticles(where);
 					}
 				}
-
-			}
-			else if (p_Other is Ship)
-			{
-				didCollide = p_Other.Health;
-			}
-			else if (p_Other.Faction == Factions.Environment)
-			{
-				Center = Collision.GetMinNonCollidingCenter(this, p_Other);
-			}
 		}
+
+		//public override void RegisterCollision(Collidable p_Other)
+		//{
+
+			
+
+				
+
+
+
+		//    }
+
+
+		//    if (p_Other is Shot)
+		//    {
+		//        takeDamage( ((Shot)p_Other).Damage );
+
+				
+
+		//    }
+		//    else if (p_Other is Ship)
+		//    {
+		//        didCollide = p_Other.Health;
+		//    }
+		//    else 
+		//}
 	}
 }

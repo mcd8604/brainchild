@@ -165,6 +165,23 @@ namespace project_hook
 				m_CollisonEffect = value;
 			}
 		}
+
+		// The damage that should be incurred on a collision against this collidable, in damage per second
+		private float m_Damage = 100;
+		public float Damage
+		{
+			get
+			{
+				return m_Damage;
+			}
+			set
+			{
+				m_Damage = value;
+			}
+		}
+
+		protected Collidable didCollide = null;
+
 		#endregion // End of variables and Properties Region
 
 		public Collidable() { }
@@ -189,6 +206,17 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
+
+			if (didCollide != null)
+			{
+				float d = (float)Math.Min(didCollide.Damage * p_Time.ElapsedGameTime.TotalSeconds, didCollide.Health);
+				if (d > 0)
+				{
+					takeDamage(d);
+				}
+				didCollide = null;
+			}
+
 			ToBeRemoved = IsDead();
 		}
 
@@ -206,6 +234,11 @@ namespace project_hook
 			return false;
 		}
 
+		protected virtual void takeDamage(float damage)
+		{
+			Health -= damage;
+		}
+
 		//public virtual void CheckCollision(Collidable p_Sprite)
 		//{
 		//to do:	send it's self and p_Sprite to the gameCollision class, and check for a collision.
@@ -215,28 +248,27 @@ namespace project_hook
 		public virtual void RegisterCollision(Collidable p_Other)
 		{
 
-			if (p_Other is Shot && Health != float.NaN)
+			if (p_Other.Faction == Factions.Environment)
 			{
-				this.Health -= ((Shot)p_Other).Damage;
+				Center = Collision.GetMinNonCollidingCenter(this, p_Other);
 			}
+			else
+			{
+				if (Health != float.NaN)
+				{
+					didCollide = p_Other;
+					SpawnDamageEffect(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
+				}
+			}
+		}
 
+		protected virtual void SpawnDamageEffect(Vector2 where)
+		{
 			if (DamageEffect != null)
 			{
-
-				/*m_DamageSprite = new Sprite(Name + "_DamageSprite", Position, 100, 100, m_DamageEffect, 255f, true, 0, Depth.MidGround.Top);
-                m_DamageSprite.setAnimation(m_DamageEffect.Name, 100, 1);
-                m_DamageSprite.Animation.StartAnimation();
-                Dictionary<PathStrategy.ValueKeys, Object> dic = new Dictionary<PathStrategy.ValueKeys, object>();
-
-                dic.Add(PathStrategy.ValueKeys.Target,this);
-                dic.Add(PathStrategy.ValueKeys.Base, m_DamageSprite);
-                m_DamageSprite.Path = new Path(Path.Paths.Follow, dic);
-				attachSpritePart(m_DamageSprite);*/
-
-				//DamageParticleSystem.Direction = v2.;
-				//DamageParticleSystem.AddParticles(Collision.getMidpoint(this,p_Other));
-				DamageParticleSystem.AddParticles(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
+				DamageParticleSystem.AddParticles(where);
 			}
+
 		}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
