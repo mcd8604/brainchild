@@ -191,24 +191,28 @@ namespace project_hook
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			//base.RegisterCollision(p_Other);
-			if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && ( !(p_Other is Ship) || ((Ship)p_Other).Shield <= 0))
+			if (p_Other is Ship)
 			{
-				m_EnemyCaught = p_Other;
-				m_EnemyCaught.Faction = Factions.Player;
+				if ((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking && p_Other is Ship && ((Ship)p_Other).Shield <= 0)
+				{
+					m_EnemyCaught = (Ship)p_Other;
+					m_EnemyCaught.Faction = Factions.Player;
 
-				TaskParallel temp = new TaskParallel();
-				temp.addTask(new TaskAttach(this));
-				temp.addTask(new TaskRotateFaceTarget(m_TargetObject));
-				m_EnemyCaught.Task = temp;
-			}
+					TaskParallel temp = new TaskParallel();
+					temp.addTask(new TaskAttach(this));
+					temp.addTask(new TaskRotateFaceTarget(m_TargetObject));
+					m_EnemyCaught.Task = temp;
+				}
 
-			if (m_TailState == TailState.Throwing)
-			{
-				EnemyCaught.Task = m_ReleaseTask;
-				EnemyCaught = null;
+
+				if (m_TailState == TailState.Throwing)
+				{
+					EnemyCaught.Task = m_ReleaseTask;
+					EnemyCaught = null;
+				}
+				StateOfTail = Tail.TailState.Returning;
+				Task = m_ReturnTask;
 			}
-			StateOfTail = Tail.TailState.Returning;
-			Task = m_ReturnTask;
 		}
 
 		public override void Update(GameTime p_Time)
