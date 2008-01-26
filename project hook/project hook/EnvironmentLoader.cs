@@ -104,14 +104,14 @@ namespace project_hook
 
                         int randIndex = random.Next(0, curTile.gameTextures.Count);
                         m_CurrentView[getPosition(x, y)].Texture = (GameTexture)curTile.gameTextures[randIndex];
-                        if (curTile.Collidable)
-                        {
-                            ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.Environment;
-                        }
-                        else
-                        {
-                            ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.None;
-                        }
+						//if (curTile.Collidable)
+						//{
+						//    ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.Environment;
+						//}
+						//else
+						//{
+						//    ((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.None;
+						//}
 						m_CurrentView[getPosition(x, y)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
 
