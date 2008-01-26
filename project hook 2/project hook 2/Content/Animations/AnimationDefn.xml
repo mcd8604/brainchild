@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Animation>
+	<Name></Name>
+	<Texture></Texture>
+	<FPS></FPS>
+
+	<Frames>
+		<Tag></Tag>
+		<Tag></Tag>
+		<Tag></Tag>
+		<Tag></Tag>
+		<Tag></Tag>
+		<Tag></Tag>
+	</Frames>
+</Animation>
