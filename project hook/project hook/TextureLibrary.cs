@@ -147,7 +147,7 @@ namespace project_hook
 							int j = 0;
 
 							String name = (String)(nodes.Item(j++).InnerText);
-							Console.WriteLine("name: " + name);
+							//Console.WriteLine("name: " + name);
 							String tag = (String)(nodes.Item(j++).InnerText);
 							int x = int.Parse(nodes.Item(j++).InnerText);
 							int y = int.Parse(nodes.Item(j++).InnerText);
@@ -205,8 +205,9 @@ namespace project_hook
 				Console.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e.Message);
 				return false;
 			}
-			catch (IOException)
+			catch (IOException e)
 			{
+				Console.WriteLine("TextureLibrary.LoadTexure.IOException: " + e.Message);
 				return false;
 			}
 

@@ -241,5 +241,12 @@ namespace project_hook
 				m_DamageSprite.Draw(p_SpriteBatch);
 			}
 		}
+
+
+		public override string ToString()
+		{
+			return Name.ToString() + " " + Center.ToString() + " " + Bound.ToString() + " " + Radius.ToString();
+		}
+
 	}
 }

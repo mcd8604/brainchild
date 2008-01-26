@@ -139,8 +139,7 @@ namespace project_hook
 			Sound.Initialize();
 			this.m_LReader = new LevelReader("LevelTest.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			AddSprites( this.m_ELoader.Initialize(m_Position) );
-			this.m_ELoader.ReadLevelBmp(System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp");
+			AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
 		}
 
 		//This method will load the level
@@ -334,6 +333,10 @@ namespace project_hook
 				{
 					m_Position.setSpeed(m_Position.Speed * 200f);
 				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Home))
+				{
+					m_Position.setSpeed(0);
+				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.X))
 				{
 					Sprite.DrawWithRot();
@@ -417,6 +420,8 @@ namespace project_hook
             TextureLibrary.LoadTexture("shot_energy");
             TextureLibrary.LoadTexture("bloodcell");
             TextureLibrary.LoadTexture("plaque");
+			TextureLibrary.LoadTexture("wall_flat");
+			TextureLibrary.LoadTexture("Explosion2");
 		}
 
 		private void IniDefaults()
@@ -453,7 +458,7 @@ namespace project_hook
                 }
 
 			}
-			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 30, m_Player.PlayerShip, 700, m_TailBodySprites);
+			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 25, m_Player.PlayerShip, 1, m_TailBodySprites);
 			tail.m_TargetObject = crosshairs;
 
 

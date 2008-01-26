@@ -95,7 +95,7 @@ namespace project_hook
 					return DoesIntersectSquares(one.Center, one.Radius, two.Center, two.Radius);
 				}
 			}
-			throw new Exception("unimplemented bounds collision exception");
+			throw new NotImplementedException("unimplemented bounds collision exception");
 		}
 
 		private static bool DoesIntersectCircles(Vector2 pos1, float radiustopoint1, Vector2 pos2, float radiustopoint2)
@@ -109,7 +109,105 @@ namespace project_hook
 		}
 		private static bool DoesIntersectCircleSquare(Vector2 circ, float circrad, Vector2 square, float squarerad)
 		{
-			return DoesIntersectCircles(circ, circrad, square, squarerad);
+
+			if (!DoesIntersectSquares(circ, circrad, square, squarerad))
+			{
+				return false;
+			}
+
+			if (DoesIntersectCircles(circ, circrad, square, squarerad))
+			{
+				return true;
+			}
+
+			if (circ.X > square.X + squarerad)
+			{
+
+				// 1, 2, 8 
+
+				if (circ.Y > square.Y + squarerad)
+				{
+
+					// 2
+					float dsquared = Vector2.DistanceSquared(new Vector2(square.X + (squarerad), square.Y + (squarerad)), circ);
+					return dsquared < Math.Pow(circrad, 2);
+
+				}
+				else if (circ.Y < square.Y - squarerad)
+				{
+
+					// 8
+					float dsquared = Vector2.DistanceSquared(new Vector2(square.X + (squarerad), square.Y - (squarerad)), circ);
+					return dsquared < Math.Pow(circrad, 2);
+
+				}
+				else
+				{
+
+					// 1
+					return (circ.X - circrad < square.X + squarerad);
+
+				}
+
+			}
+			else if (circ.X < square.X - squarerad)
+			{
+
+				// 4, 5, 6
+
+				if (circ.Y > square.Y + squarerad)
+				{
+
+					// 4
+					float dsquared = Vector2.DistanceSquared(new Vector2(square.X - (squarerad), square.Y + (squarerad)), circ);
+					return dsquared < Math.Pow(circrad, 2);
+
+				}
+				else if (circ.Y < square.Y - squarerad)
+				{
+
+					// 6
+					float dsquared = Vector2.DistanceSquared(new Vector2(square.X - (squarerad), square.Y - (squarerad)), circ);
+					return dsquared < Math.Pow(circrad, 2);
+
+				}
+				else
+				{
+
+					// 5
+					return (circ.X + circrad > square.X - squarerad);
+
+				}
+
+			}
+			else
+			{
+
+				//3, 7
+
+				if (circ.Y > square.Y + squarerad)
+				{
+
+					// 3
+					return (circ.Y - circrad < square.Y + squarerad);
+
+				}
+				else if (circ.Y < square.Y - squarerad)
+				{
+
+					// 7
+					return (circ.Y + circrad > square.Y - squarerad);
+
+				}
+				else
+				{
+
+					throw new ArithmeticException("Math failed");
+
+				}
+
+			}
+
 			// still broken :
 			//if (Math.Abs(circ.X) > Math.Abs(square.X))
 			//{
@@ -140,6 +238,203 @@ namespace project_hook
 			if (pos2.Y + radiustopoint2 < pos1.Y - radiustopoint1)
 				return false;
 			return true;
+		}
+
+
+		public static Vector2 GetMinNonCollidingCenter(Collidable movable, Collidable solid)
+		{
+
+			if (movable.Bound == Collidable.Boundings.Circle)
+			{
+				if (solid.Bound == Collidable.Boundings.Circle)
+				{
+
+				}
+				else if (solid.Bound == Collidable.Boundings.Diamond)
+				{
+
+				}
+				else if (solid.Bound == Collidable.Boundings.Square)
+				{
+
+					Vector2 temp = movable.Center;
+
+					if (movable.Center.X > solid.Center.X + solid.Radius)
+					{
+
+						// 1, 2, 8 
+
+						if (movable.Center.Y > solid.Center.Y + solid.Radius)
+						{
+
+							// 2
+							Vector2 cornerpoint = new Vector2(solid.Center.X + (solid.Radius), solid.Center.Y + (solid.Radius));
+							//float d = Vector2.Distance(cornerpoint, movable.Center);
+							Vector2 dir = movable.Center - cornerpoint;
+							dir.Normalize();
+							temp = cornerpoint + Vector2.Multiply(dir, movable.Radius);
+
+						}
+						else if (movable.Center.Y < solid.Center.Y - solid.Radius)
+						{
+
+							// 8
+							Vector2 cornerpoint = new Vector2(solid.Center.X + (solid.Radius), solid.Center.Y - (solid.Radius));
+							//float d = Vector2.Distance(cornerpoint, movable.Center);
+							Vector2 dir = movable.Center - cornerpoint;
+							dir.Normalize();
+							temp = cornerpoint + Vector2.Multiply(dir, movable.Radius);
+
+						}
+						else
+						{
+
+							// 1
+							//return (circ.X - circrad < square.X + squarerad);
+							temp.X = solid.Center.X + solid.Radius + movable.Radius;
+
+						}
+
+					}
+					else if (movable.Center.X < solid.Center.X - solid.Radius)
+					{
+
+						// 4, 5, 6
+
+						if (movable.Center.Y > solid.Center.Y + solid.Radius)
+						{
+
+							// 4
+							Vector2 cornerpoint = new Vector2(solid.Center.X - (solid.Radius), solid.Center.Y + (solid.Radius));
+							//float d = Vector2.Distance(cornerpoint, movable.Center);
+							Vector2 dir = movable.Center - cornerpoint;
+							dir.Normalize();
+							temp = cornerpoint + Vector2.Multiply(dir, movable.Radius);
+
+						}
+						else if (movable.Center.Y < solid.Center.Y - solid.Radius)
+						{
+
+							// 6
+							Vector2 cornerpoint = new Vector2(solid.Center.X - (solid.Radius), solid.Center.Y - (solid.Radius));
+							//float d = Vector2.Distance(cornerpoint, movable.Center);
+							Vector2 dir = movable.Center - cornerpoint;
+							dir.Normalize();
+							temp = cornerpoint + Vector2.Multiply(dir, movable.Radius);
+
+						}
+						else
+						{
+
+							// 5
+							//return (circ.X + circrad > square.X - squarerad);
+							temp.X = solid.Center.X - (solid.Radius + movable.Radius);
+
+						}
+
+					}
+					else
+					{
+
+						//3, 7
+
+						if (movable.Center.Y > solid.Center.Y + solid.Radius)
+						{
+
+							// 3
+							//return (circ.Y - circrad < square.Y + squarerad);
+							temp.Y = solid.Center.Y + solid.Radius + movable.Radius;
+
+						}
+						else if (movable.Center.Y < solid.Center.Y - solid.Radius)
+						{
+
+							// 7
+							//return (circ.Y + circrad > square.Y - squarerad);
+							temp.Y = solid.Center.Y - (solid.Radius + movable.Radius);
+
+						}
+						else
+						{
+
+							throw new ArithmeticException("Math failed");
+
+						}
+
+					}
+
+
+					return temp;
+
+
+
+				}
+			}
+			else if (movable.Bound == Collidable.Boundings.Diamond)
+			{
+				if (solid.Bound == Collidable.Boundings.Circle)
+				{
+
+				}
+				else if (solid.Bound == Collidable.Boundings.Diamond)
+				{
+
+				}
+				else if (solid.Bound == Collidable.Boundings.Square)
+				{
+
+				}
+			}
+			else if (movable.Bound == Collidable.Boundings.Square)
+			{
+				if (solid.Bound == Collidable.Boundings.Circle)
+				{
+
+				}
+				else if (solid.Bound == Collidable.Boundings.Diamond)
+				{
+
+				}
+				else if (solid.Bound == Collidable.Boundings.Square)
+				{
+					Vector2 temp = movable.Center;
+					float deltaX = movable.Center.X - solid.Center.X;
+					float deltaY = movable.Center.Y - solid.Center.Y;
+
+					if (Math.Abs(deltaX) > Math.Abs(deltaY))
+					{
+
+						// horizontal collision
+						if (temp.X > solid.Center.X)
+						{
+							temp.X = solid.Center.X + movable.Radius + solid.Radius;
+						}
+						else
+						{
+							temp.X = solid.Center.X - (movable.Radius + solid.Radius);
+						}
+
+					}
+					else
+					{
+
+						// vertical
+						if (temp.Y > solid.Center.Y)
+						{
+							temp.Y = solid.Center.Y + movable.Radius + solid.Radius;
+						}
+						else
+						{
+							temp.Y = solid.Center.Y - (movable.Radius + solid.Radius);
+						}
+
+					}
+					return temp;
+				}
+			}
+			throw new NotImplementedException("unimplemented bounds collision exception");
+
+
 		}
 
 
@@ -199,5 +494,126 @@ namespace project_hook
 				}
 			}
 		}
+
+
+		public static void SelfTest()
+		{
+
+			// small, disparate objects
+
+			List<Collidable> list = new List<Collidable>();
+
+			Collidable smallcirc = new Collidable();
+			smallcirc.Bound = Collidable.Boundings.Circle;
+			smallcirc.Center = new Vector2(100, 100);
+			smallcirc.Radius = 1;
+			list.Add(smallcirc);
+
+			Collidable smalldia = new Collidable();
+			smalldia.Bound = Collidable.Boundings.Diamond;
+			smalldia.Center = new Vector2(200, 200);
+			smalldia.Radius = 1;
+			list.Add(smalldia);
+
+			Collidable smallsqa = new Collidable();
+			smallsqa.Bound = Collidable.Boundings.Square;
+			smallsqa.Center = new Vector2(300, 300);
+			smallsqa.Radius = 1;
+			list.Add(smallsqa);
+
+			foreach (Collidable one in list)
+			{
+				foreach (Collidable two in list)
+				{
+					if (one != two)
+					{
+						System.Diagnostics.Debug.Assert(!DoesIntersect(one, two), "Collision Self Test Failure", one.ToString() + " " + two.ToString());
+					}
+				}
+			}
+
+
+			// large, overlapping objects
+
+			list.Clear();
+
+			Collidable largecirc = new Collidable();
+			largecirc.Bound = Collidable.Boundings.Circle;
+			largecirc.Center = new Vector2(1, 1);
+			largecirc.Radius = 100;
+			list.Add(largecirc);
+
+			Collidable largedia = new Collidable();
+			largedia.Bound = Collidable.Boundings.Diamond;
+			largedia.Center = new Vector2(2, 2);
+			largedia.Radius = 100;
+			list.Add(largedia);
+
+			Collidable largesqa = new Collidable();
+			largesqa.Bound = Collidable.Boundings.Square;
+			largesqa.Center = new Vector2(3, 3);
+			largesqa.Radius = 100;
+			list.Add(largesqa);
+
+			foreach (Collidable one in list)
+			{
+				foreach (Collidable two in list)
+				{
+					if (one != two)
+					{
+						System.Diagnostics.Debug.Assert(DoesIntersect(one, two), "Collision Self Test Failure", one.ToString() + " " + two.ToString());
+					}
+				}
+			}
+
+
+			Collidable Circle = new Collidable();
+			Circle.Bound = Collidable.Boundings.Circle;
+			Circle.Radius = 10;
+
+			Collidable Square = new Collidable();
+			Square.Bound = Collidable.Boundings.Square;
+			Square.Radius = 10;
+
+
+			Circle.Center = new Vector2(0, 0);
+			Square.Center = new Vector2(20, 0);
+
+			System.Diagnostics.Debug.Assert(!DoesIntersect(Circle, Square), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+
+			Circle.Center = new Vector2(0, 0);
+			Square.Center = new Vector2(17, 17);
+
+			System.Diagnostics.Debug.Assert(DoesIntersect(Circle, Square), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+			Vector2 result = GetMinNonCollidingCenter(Circle, Square);
+			System.Diagnostics.Debug.Assert(result != new Vector2(0, 0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+			
+
+			Circle.Center = new Vector2(0, 0);
+			Square.Center = new Vector2(18, 18);
+
+			System.Diagnostics.Debug.Assert(!DoesIntersect(Circle, Square), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+
+
+			Circle.Center = new Vector2(0, 0);
+			Square.Center = new Vector2(15, 0);
+			System.Diagnostics.Debug.Assert(DoesIntersect(Circle, Square), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+			result = GetMinNonCollidingCenter(Circle, Square);
+			System.Diagnostics.Debug.Assert(result == new Vector2(-5,0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+
+
+			Circle.Center = new Vector2(0, 0);
+			Square.Center = new Vector2(15, 15);
+			System.Diagnostics.Debug.Assert(DoesIntersect(Circle, Square), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+			result = GetMinNonCollidingCenter(Circle, Square);
+			System.Diagnostics.Debug.Assert(result != new Vector2(0, 0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+			
+			
+
+
+			//Console.WriteLine("Collision Self Test Completed");
+
+		}
+
 	}
 }

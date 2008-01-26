@@ -26,7 +26,7 @@ namespace project_hook
 		}
 
 		//this is how long the delay is between shots in seconds
-		protected float m_Delay = 10;
+		protected float m_Delay = float.NaN;
 		public virtual float Delay
 		{
 			get
@@ -35,12 +35,17 @@ namespace project_hook
 			}
 			set
 			{
-				m_Delay = value;
+				if (value != m_Delay)
+				{
+					m_Delay = value;
+
+					generateShots();
+				}
 			}
 		}
 
 		//this is how fast the shot will travel, pixels per second
-		protected float m_Speed = 0;
+		protected float m_Speed = float.NaN;
 		public virtual float Speed
 		{
 			get
@@ -49,7 +54,12 @@ namespace project_hook
 			}
 			set
 			{
-				m_Speed = value;
+				if (value != m_Speed)
+				{
+					m_Speed = value;
+
+					generateShots();
+				}
 			}
 		}
 
@@ -63,19 +73,12 @@ namespace project_hook
 			}
 			set
 			{
-				m_ShotName = value;
-				m_Texture = TextureLibrary.getGameTexture(m_ShotName, "");
-
-				if (m_Shots == null)
+				if (value != m_ShotName)
 				{
-					m_Shots = new List<Shot>();
-					for (int i = 0; i < 10; i++)
-					{
-						Shot t_Shot = new Shot("WeaponExampleShot", Vector2.Zero, 30, 75, m_Texture, 1, false,
-										  0f, Depth.GameLayer.Shot, Collidable.Factions.None, -1, null, 15, 10);
-						t_Shot.Bound = Collidable.Boundings.Diamond;
-						m_Shots.Add(t_Shot);
-					}
+					m_ShotName = value;
+					m_Texture = TextureLibrary.getGameTexture(m_ShotName, "");
+
+					generateShots();
 				}
 			}
 		}
@@ -133,14 +136,25 @@ namespace project_hook
 			m_Speed = p_Speed;
 			m_Angle = p_Angle;
 
-			m_Shots = new List<Shot>();
-			for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow( Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
+			generateShots();
+		}
+
+		private void generateShots()
+		{
+
+			if (m_ShotName != null && m_Delay != float.NaN && m_Speed != float.NaN)
 			{
-				Shot t_Shot = new Shot("WeaponShot", Vector2.Zero, 30, 75, m_Texture, 1, false,
-								  0f, Depth.GameLayer.Shot, Collidable.Factions.None, -1, null, 15, m_Damage);
-				t_Shot.Bound = Collidable.Boundings.Diamond;
-				m_Shots.Add(t_Shot);
+				m_Shots = new List<Shot>();
+				for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
+				{
+					Shot t_Shot = new Shot("WeaponShot", Vector2.Zero, 30, 75, m_Texture, 1, false,
+									  0f, Depth.GameLayer.Shot, Collidable.Factions.None, -1, null, 15, m_Damage);
+					t_Shot.Bound = Collidable.Boundings.Diamond;
+					m_Shots.Add(t_Shot);
+				}
 			}
+
+
 		}
 
 		//this function will create a Shot at the current location

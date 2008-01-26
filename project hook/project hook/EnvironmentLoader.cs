@@ -23,16 +23,29 @@ namespace project_hook
 		private Tile curTile;
 		private int m_TileDimension;
 
-		public List<Sprite> Initialize(WorldPosition p_Position)
+		public List<Sprite> Initialize(WorldPosition p_Position, string p_FileName)
 		{
+			// Set up variables
 			m_Position = p_Position;
+			Bitmap bmp = new Bitmap(p_FileName);
+
+			int bmpHeight = bmp.Height;
+			int bmpWidth = bmp.Width;
+
+			m_ScreenSpaceWidth = bmpWidth;
 			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
+			m_ScreenSpaceHeight = (Game.graphics.GraphicsDevice.Viewport.Height / m_TileDimension) + 1;
+			
+			// Color mapping
 			m_ColorMap = new Hashtable();
-			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.Black).ToArgb(), new Tile(TextureLibrary.getGameTexture("plaque", ""), 0, true));
-			m_ColorMap.Add(System.Drawing.Color.FromKnownColor(KnownColor.White).ToArgb(), new Tile(null, 0, false));
+			m_ColorMap.Add(System.Drawing.Color.Black.ToArgb(), new Tile(TextureLibrary.getGameTexture("plaque", ""), 0, true));
+			m_ColorMap.Add(System.Drawing.Color.White.ToArgb(), new Tile(null, 0, false));
+			m_ColorMap.Add(System.Drawing.Color.Green.ToArgb(), new Tile(TextureLibrary.getGameTexture("wall_flat", ""), 0, true));
+			m_ColorMap.Add(System.Drawing.Color.Red.ToArgb(), new Tile(TextureLibrary.getGameTexture("wall_flat", ""), 180, true));
+				
 
+			// Create all sprites
 			m_CurrentView = new List<Sprite>();
-
 			for (int y = 0; y < m_ScreenSpaceHeight; y++)
 			{
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
@@ -44,15 +57,7 @@ namespace project_hook
 				}
 			}
 
-			return m_CurrentView;
-
-		}
-
-		public void ReadLevelBmp(string p_FileName)
-		{
-			Bitmap bmp = new Bitmap(p_FileName);
-			int bmpHeight = bmp.Height;
-			int bmpWidth = bmp.Width;
+			// read in level
 			m_LevelArray = new System.Drawing.Color[bmpWidth, bmpHeight];
 
 			for (int height = 0; height < bmpHeight; height++)
@@ -63,28 +68,43 @@ namespace project_hook
 				}
 			}
 
+			// create initial screen
 			for (int y = 0; y < m_ScreenSpaceHeight; y++)
 			{
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
-					curTile = ((Tile)m_ColorMap[m_LevelArray[x, bmpHeight - m_ScreenSpaceHeight + y].ToArgb()]);
+					if (m_ColorMap.ContainsKey(m_LevelArray[x, bmpHeight - m_ScreenSpaceHeight + y].ToArgb()))
+					{
+						curTile = ((Tile)m_ColorMap[m_LevelArray[x, bmpHeight - m_ScreenSpaceHeight + y].ToArgb()]);
 
-					//m_CurrentView[x, y] = new Collidable("environment", new Vector2(x * m_TileDimension, (y-1) * m_TileDimension), m_TileDimension, m_TileDimension, curTile.GTexture,
-					//    1, curTile.Enabled, curTile.Rotation, Depth.ForeGround.Bottom, Collidable.Factions.Environment, -1,null,m_TileDimension/2);
+						m_CurrentView[getPosition(x, y)].Texture = curTile.GTexture;
+						m_CurrentView[getPosition(x, y)].RotationDegrees = curTile.Rotation;
+						m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
 
-					m_CurrentView[getPosition(x, y)].Texture = curTile.GTexture;
-					m_CurrentView[getPosition(x, y)].Rotation = curTile.Rotation;
-					m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
+					}
+					else
+					{
+
+						m_CurrentView[getPosition(x, y)].Texture = null;
+						m_CurrentView[getPosition(x, y)].RotationDegrees = 0f;
+						m_CurrentView[getPosition(x, y)].Enabled = false;
+
+					}
 
 					m_CurrentView[getPosition(x, y)].Position = new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension);
-
-
 				}
 			}
 
 			m_CurTopRow = bmpHeight - m_ScreenSpaceHeight;
 			m_CurBottomBuffer = m_ScreenSpaceHeight - 1;
-			m_CurTopBuffer = 1;
+			m_CurTopBuffer = 0;
+
+
+
+
+
+			return m_CurrentView;
+
 		}
 
 		public void Update(GameTime p_GameTime)
@@ -116,12 +136,26 @@ namespace project_hook
 					   m_Position.setSpeed(0);
                     }
 
-					curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
+					if (m_ColorMap.ContainsKey(m_LevelArray[i, m_CurTopRow].ToArgb())) 
+					{
+						curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
 
-					m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = curTile.GTexture;
-					m_CurrentView[getPosition(i, m_CurTopBuffer)].Rotation = curTile.Rotation;
-					m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
+						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = curTile.GTexture;
+						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = curTile.Rotation;
+						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
+
+					}
+					else
+					{
+
+						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = null;
+						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = 0;
+						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = false;
+
+					}
+
 					m_CurrentView[getPosition(i, m_CurTopBuffer)].Position = new Vector2(i * m_TileDimension, 0 - m_TileDimension);
+
 				}
 
 				m_CurTopRow--;
