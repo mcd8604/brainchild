@@ -5,16 +5,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-/*
- * Description: This class contains information regarding the player 
- * 
- * TODO:
- *  1. Create a function to tell the player to move in each direction
- *  2. Create a function to tell the player to shoot
- *  3. Implement all tail functionality
- */
 namespace project_hook
 {
+	/// <summary>
+	/// Description: This class contains information regarding the player 
+	/// 
+	/// TODO:
+	/// 1. Create a function to tell the player to move in each direction
+	/// 2. Create a function to tell the player to shoot
+	/// 3. Implement all tail functionality
+	/// </summary>
 	public class Player
 	{
 		//variable for storing the player ship sprite and info

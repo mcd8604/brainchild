@@ -20,16 +20,6 @@ namespace project_hook
 			m_Delay = 5;
 		}
 
-		/*protected override void Init()
-		{
-			base.Init();
-			m_Created = 0;
-			m_Time = 0;
-
-			//60fps*5sec=300mil sec
-			m_Delay = 300;
-		}*/
-
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);

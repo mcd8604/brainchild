@@ -6,15 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	/*
-	* Description: this class is a basic structure for all sprites that
-	*              will be able to collide with other sprites.
-	* 
-	* TODO:
-	*  1. 
-	*  2. 
-	*  
-	*/
+	/// <summary>
+	/// A Subclass of Sprite, representing those sprites that are checked for collision
+	/// </summary>
 	public class Collidable : Sprite
 	{
 		#region Variables and Properties

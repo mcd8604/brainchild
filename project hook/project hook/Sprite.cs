@@ -421,9 +421,6 @@ namespace project_hook
 				}
 				if (m_Texture != null)
 				{
-					//Draws the current sprite.
-					//  if (rot)
-					// {
 					if (Scale >= 0)
 					{
 						p_SpriteBatch.Draw(m_Texture.Texture, Position, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, Scale, SpriteEffects.None, m_Z);
@@ -433,20 +430,6 @@ namespace project_hook
 
 						p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, SpriteEffects.None, m_Z);
 					}
-
-					/*}
-					else
-					{
-						if (Scale >= 0)
-						{
-								p_SpriteBatch.Draw(m_Texture.Texture, Position, m_Texture.StartPosition, m_Color, 0, Vector2.Zero, Scale, SpriteEffects.None, m_Z);
-						}
-						else
-						{
-								p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, 0, Vector2.Zero, SpriteEffects.None, m_Z);
-						}
-					}
-					 * */
 				}
 			}
 		}
@@ -470,12 +453,6 @@ namespace project_hook
 					part.Update(p_Time);
 				}
 			}
-		}
-
-		private static Boolean rot = false;
-		public static void DrawWithRot()
-		{
-			rot = !rot;
 		}
 
 		public static bool isToBeRemoved(Sprite spr)
@@ -521,14 +498,3 @@ namespace project_hook
 		}
 	}
 }
-
-/*
-  * Class: Sprite
-  * Authors: Karl, Eric, Mike
-  * Date Created: 12/16/2007
-  * 
-  * Change Log:
-  *     12/16/2007 - Eric, Karl, Mike - Initial Creation,  Created properties, constructor, draw and update. 
-  *     12/17/2007 - Karl - Added Comments 
- *      12/28/2007 - Eric - cleaned up code
-  */

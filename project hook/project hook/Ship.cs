@@ -4,14 +4,15 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-/*
- * Description: This class contians all information regarding ships, both player and enemy
- * 
- * TODO:
- *  
- */
 namespace project_hook
 {
+
+	/// <summary>
+	/// Description: This class contians all information regarding ships, both player and enemy
+	/// 
+	/// TODO:
+	/// 
+	/// </summary>
 	public class Ship : Collidable
 	{
 		//variable for the weapon that the ship currently has

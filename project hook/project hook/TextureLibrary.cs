@@ -12,13 +12,14 @@ using Wintellect.PowerCollections;
 namespace project_hook
 {
 
-	/*
-	* Description: This class will laod and store all texture data as well as creating
-	*              Game Texture objects 
-	* 
-	* TODO:
-	 * 3. Create an easy way to make the XML definitions for the game
-	*/
+	/// <summary>
+	/// Description: This class will laod and store all texture data as well as creating
+	///              Game Texture objects 
+	/// 
+	/// TODO:
+	/// 3. Create an easy way to make the XML definitions for the game
+	/// 
+	/// </summary>
 	class TextureLibrary
 	{
 		private static OrderedDictionary<String, Texture2D> m_Textures;
@@ -292,16 +293,3 @@ namespace project_hook
 	}
 
 }
-
-/*
-  * Class: TextureLibrary
-  * Authors: Karl
-  * Date Created: 12/19/2007
-  * 
-  * Change Log:
-  *     12/19/2007 - Karl - Initial Creation,  Created properties, constructor, load and Unload.
- *      12/19/2007 - Karl - Added in a load method that looks at an XML definition file and creates a game textures.
- *      12/20/2007 - Karl - Added Dictionary support, support for textures that have no XML definitions,
- *                          and a method to get a Game Texture
-  *     
-  */
