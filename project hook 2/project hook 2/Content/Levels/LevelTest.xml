@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<action dist="0">
+		<createShip>
+			<name>Enemy</name>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<transparency>1</transparency>
+			<startCenter x="700" y="150"/>
+			<enabled>true</enabled>
+			<health>50</health>
+			<shield>0</shield>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>10</damage>
+				<delay>0.75</delay>
+				<speed>400</speed>
+				<offset>0</offset>
+			</weapon>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>10</damage>
+				<delay>0.75</delay>
+				<speed>400</speed>
+				<offset>-30</offset>
+			</weapon>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>10</damage>
+				<delay>0.75</delay>
+				<speed>400</speed>
+				<offset>30</offset>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="0" y="20"/>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="0">
+		<createShip>
+			<name>Enemy</name>
+			<height>96</height>
+			<width>128</width>
+			<texture name="bloodcell"/>
+			<transparency>1</transparency>
+			<startCenter x="200" y="200"/>
+			<enabled>true</enabled>
+			<health>50</health>
+			<shield>0</shield>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<animation name="bloodcell" fps="60"/>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>10</damage>
+				<delay>1</delay>
+				<speed>400</speed>
+				<offset>15</offset>
+			</weapon>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>10</damage>
+				<delay>1</delay>
+				<speed>400</speed>
+				<offset>45</offset>
+			</weapon>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>10</damage>
+				<delay>1</delay>
+				<speed>400</speed>
+				<offset>-15</offset>
+			</weapon>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>10</damage>
+				<delay>1</delay>
+				<speed>400</speed>
+				<offset>-45</offset>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="0" y="40"/>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="560">
+		<createShip>
+			<name>Enemy</name>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<transparency>1</transparency>
+			<startCenter x="400" y="0"/>
+			<enabled>true</enabled>
+			<health>50</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>20</damage>
+				<delay>0.25</delay>
+				<speed>500</speed>
+				<offset>0</offset>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="200" y="200"/>
+				</task>
+				<task type="RotateToAngle">
+					<degree>45</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="2000">
+		<createShip>
+			<name>Enemy</name>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<transparency>1</transparency>
+			<startCenter x="300" y="0"/>
+			<enabled>true</enabled>
+			<health>50</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>20</damage>
+				<delay>0.5</delay>
+				<speed>500</speed>
+				<offset>-25</offset>
+			</weapon>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>20</damage>
+				<delay>0.5</delay>
+				<speed>500</speed>
+				<offset>25</offset>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="0" y="100"/>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="2000">
+		<createShip>
+			<name>Enemy</name>
+			<height>100</height>
+			<width>100</width>
+			<texture name="Enemy1"/>
+			<transparency>1</transparency>
+			<startCenter x="500" y="0"/>
+			<enabled>true</enabled>
+			<health>50</health>
+			<shield>0</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>20</damage>
+				<delay>0.5</delay>
+				<speed>500</speed>
+				<offset>-25</offset>
+			</weapon>
+			<weapon type="Example">
+				<shotName>FireBall</shotName>
+				<damage>20</damage>
+				<delay>0.5</delay>
+				<speed>500</speed>
+				<offset>25</offset>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="0" y="100"/>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<!--The 'Boss' is supposed to be a little hard-->
+	<action dist="4000">
+		<createShip>
+			<name>Enemy</name>
+			<height>100</height>
+			<width>100</width>
+			<texture name="virus1"/>
+			<transparency>1</transparency>
+			<startCenter x="300" y="0"/>
+			<enabled>true</enabled>
+			<health>200</health>
+			<shield>200</shield>
+			<speed>100</speed>
+			<damageTexture name="Explosion" pos="3"/>
+			<radius>50</radius>
+			<weapon type="Example">
+				<damage>10</damage>
+				<shotName>FireBall</shotName>
+				<delay>0.25</delay>
+				<speed>300</speed>
+				<offset>45</offset>
+			</weapon>
+			<weapon type="Example">
+				<damage>10</damage>
+				<delay>0.25</delay>
+				<shotName>FireBall</shotName>
+				<speed>300</speed>
+				<offset>135</offset>
+			</weapon>
+			<weapon type="Example">
+				<damage>10</damage>
+				<delay>0.25</delay>
+				<speed>300</speed>
+				<shotName>FireBall</shotName>
+				<offset>-135</offset>
+			</weapon>
+			<weapon type="Example">
+				<damage>10</damage>
+				<delay>0.25</delay>
+				<speed>300</speed>
+				<offset>-45</offset>
+				<shotName>FireBall</shotName>
+			</weapon>
+			<task type="Parallel">
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity y="5" x="50"/>
+						</task>
+						<task type="Timer">
+							<duration>10</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity y="10" x="-50"/>
+						</task>
+						<task type="Timer">
+							<duration>10</duration>
+						</task>
+					</task>
+				</task>
+				<task type="Fire"/>
+				<task type="RotateByAngle">
+					<degree>60</degree>
+				</task>
+			</task>
+		</createShip>
+	</action>
+</level>

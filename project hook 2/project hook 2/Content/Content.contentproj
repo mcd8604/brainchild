@@ -1,0 +1,354 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{b92799c4-6053-48f1-802e-c2b35371762b}</ProjectGuid>
+    <ProjectTypeGuids>{96E2B04D-8817-42c6-938A-82C39BA4D311};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>project_hook</RootNamespace>
+    <AssemblyName>project hook</AssemblyName>
+    <XnaFrameworkVersion>v2.0</XnaFrameworkVersion>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <OutputPath>bin\$(Platform)\$(Configuration)</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <XnaPlatform>Windows</XnaPlatform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <XnaPlatform>Windows</XnaPlatform>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Back.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>Back</Name>
+    </Compile>
+    <Compile Include="Textures\Cloud.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>Cloud</Name>
+    </Compile>
+    <Compile Include="Textures\Enemy1.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>Enemy1</Name>
+    </Compile>
+    <Compile Include="Textures\Explosion.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>Explosion</Name>
+    </Compile>
+    <Compile Include="Textures\menu_background.PNG">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>menu_background</Name>
+    </Compile>
+    <Compile Include="Textures\menu_exitgame.PNG">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>menu_exitgame</Name>
+    </Compile>
+    <Compile Include="Textures\menu_newgame.PNG">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>menu_newgame</Name>
+    </Compile>
+    <Compile Include="Textures\Ship2.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>Ship2</Name>
+    </Compile>
+    <Compile Include="Textures\Shot.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>Shot</Name>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\crosshairs.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>crosshairs</Name>
+    </Compile>
+    <Compile Include="Textures\debugcirc.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>debugcirc</Name>
+    </Compile>
+    <Compile Include="Textures\debugdiamond.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>debugdiamond</Name>
+    </Compile>
+    <Compile Include="Textures\FireBall.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>FireBall</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Textures\glow.jpg">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>glow</Name>
+    </Compile>
+    <Compile Include="Textures\menu_highlight.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>menu_highlight</Name>
+    </Compile>
+    <Compile Include="Textures\menu_quit.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>menu_quit</Name>
+    </Compile>
+    <Compile Include="Textures\menu_restart.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>menu_restart</Name>
+    </Compile>
+    <Compile Include="Textures\poison-splat-sprite.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>poisonsplat</Name>
+    </Compile>
+    <Compile Include="Textures\RedShot.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>RedShot</Name>
+    </Compile>
+    <Compile Include="Textures\Shield.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>Shield</Name>
+    </Compile>
+    <Compile Include="Textures\debugsquare.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>debugsquare</Name>
+    </Compile>
+    <Compile Include="Textures\temptail.PNG">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>temptail</Name>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fonts\Courier New.spritefont">
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Name>Courier New</Name>
+    </Compile>
+    <Compile Include="Textures\blood.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>blood</Name>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Menu_Title.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>Menu_Title</Name>
+    </Compile>
+    <Compile Include="Textures\RITLogo.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>RITLogo</Name>
+    </Compile>
+    <Compile Include="Textures\virus.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>virus</Name>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\HookSound.xap">
+      <Importer>XactImporter</Importer>
+      <Processor>XactProcessor</Processor>
+      <Name>HookSound</Name>
+    </Compile>
+    <Compile Include="Levels\testBMP.bmp">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>testBMP</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Textures\bloodcell.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>bloodcell</Name>
+    </Compile>
+    <Compile Include="Textures\Explosion2.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>Explosion2</Name>
+    </Compile>
+    <Compile Include="Textures\shot_energy.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>shot_energy</Name>
+    </Compile>
+    <Compile Include="Textures\tailbody.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>tailbody</Name>
+    </Compile>
+    <Compile Include="Textures\tail_segment.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>tail_segment</Name>
+    </Compile>
+    <Compile Include="Textures\veinbg.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>veinbg</Name>
+    </Compile>
+    <Compile Include="Textures\virus1.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>virus1</Name>
+    </Compile>
+    <Compile Include="Textures\wall1.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>wall1</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Textures\walls\plaque.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque2.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque2</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque3.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque3</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque4.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque4</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_btm.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_btm</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_btm_left.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_btm_left</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_btm_left_invert.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_btm_left_invert</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_btm_right.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_btm_right</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_btm_right_invert.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_btm_right_invert</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_left.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_left</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_right.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_right</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_top.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_top</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_top_left.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_top_left</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_top_left_invert.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_top_left_invert</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_top_right.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_top_right</Name>
+    </Compile>
+    <Compile Include="Textures\walls\plaque_top_right_invert.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>plaque_top_right_invert</Name>
+    </Compile>
+    <Compile Include="Textures\walls\wall_left.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>wall_left</Name>
+    </Compile>
+    <Compile Include="Textures\wall_flat.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>wall_flat</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Textures\wall_rand1.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>wall_rand1</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Textures\wall_rand2.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>wall_rand2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Textures\wall_rand3.png">
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Name>wall_rand3</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.EffectImporter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.FBXImporter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.TextureImporter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.XImporter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
+</Project>

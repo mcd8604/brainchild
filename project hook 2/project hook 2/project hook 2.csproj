@@ -1,0 +1,448 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{9A594FD6-D729-481A-B2B2-1D6FF863CF9C}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>project_hook</RootNamespace>
+    <AssemblyName>project hook</AssemblyName>
+    <XnaFrameworkVersion>v2.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <XnaCrossPlatformGroupID>{d2f84590-7583-41d4-967a-1b1068c426b9}</XnaCrossPlatformGroupID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DrawText, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="Intersection, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="KeyHandler, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.4.3.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="PowerCollections, Version=1.0.2141.24679, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BloodParticleSystem.cs">
+      <Name>BloodParticleSystem</Name>
+    </Compile>
+    <Compile Include="BrainChildLogo.cs">
+      <Name>BrainChildLogo</Name>
+    </Compile>
+    <Compile Include="TaskRotateByAngle.cs">
+      <Name>TaskRotateByAngle</Name>
+    </Compile>
+    <Compile Include="GameOver.cs">
+      <Name>GameOver</Name>
+    </Compile>
+    <Compile Include="TaskRotateWithTarget.cs">
+      <Name>TaskRotateWithTarget</Name>
+    </Compile>
+    <Compile Include="CursorSprite.cs">
+      <Name>CursorSprite</Name>
+    </Compile>
+    <Compile Include="EnvironmentLoader.cs">
+      <Name>EnvironmentLoader</Name>
+    </Compile>
+    <Compile Include="Event.cs">
+      <Name>Event</Name>
+    </Compile>
+    <Compile Include="FPS.cs">
+      <Name>FPS</Name>
+    </Compile>
+    <Compile Include="FPSSprite.cs">
+      <Name>FPSSprite</Name>
+    </Compile>
+    <Compile Include="ExplosionSpriteParticleSystem.cs">
+      <Name>ExplosionSpriteParticleSystem</Name>
+    </Compile>
+    <Compile Include="InputHandler.cs">
+      <Name>InputHandler</Name>
+    </Compile>
+    <Compile Include="LevelHandler.cs">
+      <Name>LevelHandler</Name>
+    </Compile>
+    <Compile Include="LevelReader.cs">
+      <Name>LevelReader</Name>
+    </Compile>
+    <Compile Include="Music.cs">
+      <Name>Music</Name>
+    </Compile>
+    <Compile Include="Particle.cs">
+      <Name>Particle</Name>
+    </Compile>
+    <Compile Include="ParticleSprite.cs">
+      <Name>ParticleSprite</Name>
+    </Compile>
+    <Compile Include="ParticleSystem.cs">
+      <Name>ParticleSystem</Name>
+    </Compile>
+    <Compile Include="PathGroup.cs">
+      <Name>PathGroup</Name>
+    </Compile>
+    <Compile Include="PathList.cs">
+      <Name>PathList</Name>
+    </Compile>
+    <Compile Include="PathSeek.cs">
+      <Name>PathSeek</Name>
+    </Compile>
+    <Compile Include="PathShoot.cs">
+      <Name>PathShoot</Name>
+    </Compile>
+    <Compile Include="PathStraight.cs">
+      <Name>PathStraight</Name>
+    </Compile>
+    <Compile Include="TaskLerp.cs">
+      <Name>TaskLerp</Name>
+    </Compile>
+    <Compile Include="TaskParallel.cs">
+      <Name>TaskParallel</Name>
+    </Compile>
+    <Compile Include="TaskRotateToAngle.cs">
+      <Name>TaskRotateToAngle</Name>
+    </Compile>
+    <Compile Include="TaskRotateFacePoint.cs">
+      <Name>TaskRotateFacePoint</Name>
+    </Compile>
+    <Compile Include="TaskRotateFaceTarget.cs">
+      <Name>TaskRotateFaceTarget</Name>
+    </Compile>
+    <Compile Include="TaskSeekTarget.cs">
+      <Name>TaskSeekTarget</Name>
+    </Compile>
+    <Compile Include="TaskStraightAngle.cs">
+      <Name>TaskStraightAngle</Name>
+    </Compile>
+    <Compile Include="PathTailBody.cs">
+      <Name>PathTailBody</Name>
+    </Compile>
+    <Compile Include="RITLogo.cs">
+      <Name>RITLogo</Name>
+    </Compile>
+    <Compile Include="SpawnPoint.cs">
+      <Name>SpawnPoint</Name>
+    </Compile>
+    <Compile Include="PathThrow.cs">
+      <Name>PathThrow</Name>
+    </Compile>
+    <Compile Include="Task.cs">
+      <Name>Task</Name>
+    </Compile>
+    <Compile Include="TaskComposite.cs">
+      <Name>TaskComposite</Name>
+    </Compile>
+    <Compile Include="TaskAttach.cs">
+      <Name>TaskAttach</Name>
+    </Compile>
+    <Compile Include="TaskQueue.cs">
+      <Name>TaskQueue</Name>
+    </Compile>
+    <Compile Include="TaskRepeatingSequence.cs">
+      <Name>TaskRepeatingSequence</Name>
+    </Compile>
+    <Compile Include="TaskSequence.cs">
+      <Name>TaskSequence</Name>
+    </Compile>
+    <Compile Include="TaskFire.cs">
+      <Name>TaskFire</Name>
+    </Compile>
+    <Compile Include="TaskSeekPoint.cs">
+      <Name>TaskSeekPoint</Name>
+    </Compile>
+    <Compile Include="TaskStraightVelocity.cs">
+      <Name>TaskStraightVelocity</Name>
+    </Compile>
+    <Compile Include="TaskTether.cs">
+      <Name>TaskTether</Name>
+    </Compile>
+    <Compile Include="TaskTimer.cs">
+      <Name>TaskTimer</Name>
+    </Compile>
+    <Compile Include="WeaponExample.cs">
+      <Name>WeaponExample</Name>
+    </Compile>
+    <Compile Include="WorldPosition.cs">
+      <Name>WorldPosition</Name>
+    </Compile>
+    <Compile Include="YScrollingBackground.cs">
+      <Name>YScrollingBackground</Name>
+    </Compile>
+    <Compile Include="PathBother.cs">
+      <Name>Class1</Name>
+    </Compile>
+    <Compile Include="Collidable.cs">
+      <SubType>Code</SubType>
+      <Name>Collidable</Name>
+    </Compile>
+    <Compile Include="Collision.cs">
+      <Name>Collision</Name>
+    </Compile>
+    <Compile Include="Depth.cs">
+      <Name>Depth</Name>
+    </Compile>
+    <Compile Include="Effect.cs">
+      <Name>Effect</Name>
+    </Compile>
+    <Compile Include="PathFollow.cs">
+      <Name>PathFollow</Name>
+    </Compile>
+    <Compile Include="Game.cs">
+      <Name>Game</Name>
+    </Compile>
+    <Compile Include="GameTexture.cs">
+      <Name>GameTexture</Name>
+    </Compile>
+    <Compile Include="IMenu.cs">
+      <Name>IMenu</Name>
+    </Compile>
+    <Compile Include="PauseMenu.cs">
+      <Name>PauseMenu</Name>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <Name>Menu</Name>
+    </Compile>
+    <Compile Include="Menus.cs">
+      <Name>Menus</Name>
+    </Compile>
+    <Compile Include="Path.cs">
+      <Name>Path</Name>
+    </Compile>
+    <Compile Include="PathLine.cs">
+      <Name>PathLine</Name>
+    </Compile>
+    <Compile Include="PathStrategy.cs">
+      <Name>PathStrategy</Name>
+    </Compile>
+    <Compile Include="Player.cs">
+      <Name>Player</Name>
+    </Compile>
+    <Compile Include="PlayerShip.cs">
+      <Name>PlayerShip</Name>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Program.cs">
+      <Name>Program</Name>
+    </Compile>
+    <Compile Include="Game1.cs">
+      <Name>Game1</Name>
+    </Compile>
+    <Compile Include="Score.cs">
+      <Name>Score</Name>
+    </Compile>
+    <Compile Include="Ship.cs">
+      <SubType>Code</SubType>
+      <Name>Ship</Name>
+    </Compile>
+    <Compile Include="Shot.cs">
+      <Name>Shot</Name>
+    </Compile>
+    <Compile Include="PathShot.cs">
+      <Name>PathShot</Name>
+    </Compile>
+    <Compile Include="Sound.cs">
+      <Name>Sound</Name>
+    </Compile>
+    <Compile Include="Sprite.cs">
+      <Name>Sprite</Name>
+    </Compile>
+    <Compile Include="MainMenu.cs">
+      <Name>MainMenu</Name>
+    </Compile>
+    <Compile Include="SpriteParticleSystem.cs">
+      <Name>SpriteParticleSystem</Name>
+    </Compile>
+    <Compile Include="Tail.cs">
+      <Name>Class1</Name>
+    </Compile>
+    <Compile Include="PathTailAttach.cs">
+      <Name>PathTailAttach</Name>
+    </Compile>
+    <Compile Include="PathTailAttack.cs">
+      <Name>PathTailAttack</Name>
+    </Compile>
+    <Compile Include="PathTether.cs">
+      <Name>PathTether</Name>
+    </Compile>
+    <Compile Include="TextSprite.cs">
+      <Name>TextSprite</Name>
+    </Compile>
+    <Compile Include="TextureLibrary.cs">
+      <Name>TextureLibrary</Name>
+    </Compile>
+    <Compile Include="TitleScreen.cs">
+      <Name>TitleScreen</Name>
+    </Compile>
+    <Compile Include="TrigHelper.cs">
+      <Name>TrigHelper</Name>
+    </Compile>
+    <Compile Include="VisualEffect.cs">
+      <Name>VisualEffect</Name>
+    </Compile>
+    <Compile Include="Weapon.cs">
+      <Name>Weapon</Name>
+    </Compile>
+    <Compile Include="World.cs">
+      <Name>World</Name>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Textures\Ship2.xml">
+      <Name>Ship2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Game.ico">
+      <Name>Game</Name>
+    </Content>
+    <Content Include="GameThumbnail.png">
+    </Content>
+    <Content Include="libs\DrawText.dll">
+      <Name>DrawText</Name>
+    </Content>
+    <Content Include="libs\KeyHandler.dll">
+      <Name>KeyHandler</Name>
+    </Content>
+    <Content Include="libs\nunit.framework.dll">
+      <Name>nunit.framework</Name>
+    </Content>
+    <Content Include="libs\PowerCollections.dll">
+      <Name>PowerCollections</Name>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Animations\AnimationDefn.xml">
+      <Name>AnimationDefn</Name>
+    </Content>
+    <Content Include="Content\Textures\Explosion.xml">
+      <Name>Explosion</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\FireBall.xml">
+      <Name>FireBall</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\RedShot.xml">
+      <Name>RedShot</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\smokeeffect.gif">
+      <Name>smokeeffect</Name>
+    </Content>
+    <Content Include="libs\Intersection.dll">
+      <Name>Intersection</Name>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Audio\slap.wav" />
+    <Content Include="Content\Audio\TechNRG_Galloping _Bass_001.wav" />
+    <Content Include="Content\Levels\Level2.xml">
+      <Name>Level2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\LevelTest.xml">
+      <Name>LevelTest</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\bloodcell.xml">
+      <Name>bloodcell</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Explosion2.xml">
+      <Name>Explosion2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <NestedContentProject Include="Content\Content.contentproj">
+      <Project>{b92799c4-6053-48f1-802e-c2b35371762b}</Project>
+      <Visible>False</Visible>
+    </NestedContentProject>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Content\Audio\.svn\all-wcprops" />
+    <None Include="Content\Audio\.svn\entries" />
+    <None Include="Content\Audio\.svn\format" />
+    <None Include="Content\Audio\.svn\prop-base\slap.wav.svn-base" />
+    <None Include="Content\Audio\.svn\prop-base\TechNRG_Galloping _Bass_001.wav.svn-base" />
+    <None Include="Content\Audio\.svn\text-base\HookSound.xap.svn-base" />
+    <None Include="Content\Audio\.svn\text-base\slap.wav.svn-base" />
+    <None Include="Content\Audio\.svn\text-base\TechNRG_Galloping _Bass_001.wav.svn-base" />
+    <None Include="Content\Audio\HookSound.xap" />
+    <None Include="Content\Audio\Win\.svn\all-wcprops" />
+    <None Include="Content\Audio\Win\.svn\entries" />
+    <None Include="Content\Audio\Win\.svn\format" />
+    <None Include="Content\Audio\Win\.svn\prop-base\HookSound.xgs.svn-base" />
+    <None Include="Content\Audio\Win\.svn\prop-base\Sound Bank.xsb.svn-base" />
+    <None Include="Content\Audio\Win\.svn\prop-base\Wave Bank.xwb.svn-base" />
+    <None Include="Content\Audio\Win\.svn\text-base\HookSound.xgs.svn-base" />
+    <None Include="Content\Audio\Win\.svn\text-base\Sound Bank.xsb.svn-base" />
+    <None Include="Content\Audio\Win\.svn\text-base\Wave Bank.xwb.svn-base" />
+    <None Include="Content\Audio\Win\HookSound.xgs" />
+    <None Include="Content\Audio\Win\Sound Bank.xsb" />
+    <None Include="Content\Audio\Win\Wave Bank.xwb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Audio\.svn\props\" />
+    <Folder Include="Content\Audio\.svn\tmp\prop-base\" />
+    <Folder Include="Content\Audio\.svn\tmp\props\" />
+    <Folder Include="Content\Audio\.svn\tmp\text-base\" />
+    <Folder Include="Content\Audio\Win\.svn\props\" />
+    <Folder Include="Content\Audio\Win\.svn\tmp\prop-base\" />
+    <Folder Include="Content\Audio\Win\.svn\tmp\props\" />
+    <Folder Include="Content\Audio\Win\.svn\tmp\text-base\" />
+    <Folder Include="Content\Textures\NewFolder1\" />
+    <Folder Include="libs\Test Cases\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.Common.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.NestedContent.targets" />
+</Project>
