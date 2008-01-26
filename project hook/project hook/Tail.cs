@@ -128,7 +128,7 @@ namespace project_hook
 			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
 				TaskParallel temp = new TaskParallel();
-				temp.addTask(new TaskSeekPoint(m_TargetObject.Center, 2000f));
+				temp.addTask(new TaskSeekPoint(m_TargetObject.Center, 1600f));
 				temp.addTask(new TaskTimer(0.25f));
 				temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
 				m_AttackTask = temp;
@@ -146,11 +146,11 @@ namespace project_hook
 
 				TaskQueue res = new TaskQueue();
 				TaskParallel temp = new TaskParallel();
-				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(goal, 2.75f)), 2000f));
+				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(goal, 2.75f)), 1200f));
 				temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
 				res.addTask(temp);
 				temp = new TaskParallel();
-				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(Vector2.Negate(goal), 2.75f)), 2000f));
+				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(Vector2.Negate(goal), 2.75f)), 1600f));
 				temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
 				res.addTask(temp);
 				m_ThrowTask = res;
@@ -159,7 +159,7 @@ namespace project_hook
 
 				float releaseAngle = (float)Math.Atan2(m_TargetObject.Center.Y - m_EnemyCaught.Center.Y, m_TargetObject.Center.X - m_EnemyCaught.Center.X);
 				temp = new TaskParallel();
-				temp.addTask(new TaskStraightAngle( releaseAngle, 800f));
+				temp.addTask(new TaskStraightAngle( releaseAngle, 600f));
 				temp.addTask(new TaskRotateToAngle(releaseAngle));
 				m_ReleaseTask = temp;
 
@@ -236,7 +236,7 @@ namespace project_hook
 			}
 
 			m_BodyTask.Update(m_BodySprites, p_Time);
-			m_LastTailAttack += (float)p_Time.ElapsedGameTime.TotalMilliseconds;
+			m_LastTailAttack += (float)p_Time.ElapsedGameTime.TotalSeconds;
 			if ( m_EnemyCaught != null && m_EnemyCaught.IsDead())
 			{
 				m_EnemyCaught = null;

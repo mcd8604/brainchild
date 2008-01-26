@@ -682,6 +682,17 @@
       <Name>bloodcell</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\Explosion2.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>Explosion2</Name>
+    </Content>
+    <Content Include="Content\Textures\Explosion2.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Explosion2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\plaque.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>

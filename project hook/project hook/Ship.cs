@@ -19,6 +19,8 @@ namespace project_hook
 
 		private Sprite m_ShieldSprite;
 
+		private SpriteParticleSystem m_ShieldDamageParticleSystem;
+
 		private float m_MaxShield = 0;
 		public float MaxShield
 		{
@@ -35,6 +37,13 @@ namespace project_hook
 					m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(Width * 1.30), (int)(Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
 					m_ShieldSprite.Task = new TaskAttach(this);
 					attachSpritePart(m_ShieldSprite);
+
+					GameTexture DamageEffect = TextureLibrary.getGameTexture("Explosion2", "3");
+					m_ShieldDamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, (int)(DamageEffect.Width / 2f), (int)(DamageEffect.Height / 2f), DamageEffect, 1.0f, true, 0, Depth.GameLayer.Explosion, 1);
+					m_ShieldDamageParticleSystem.setAnimation("Explosion2", 10);
+					m_ShieldDamageParticleSystem.Animation.StartAnimation();
+					addSprite(m_ShieldDamageParticleSystem);
+					
 				}
 			}
 
@@ -52,6 +61,9 @@ namespace project_hook
 				m_Shield = value;
 			}
 		}
+
+		private float didCollide = 0;
+		private float timeSinceLastDamage = 0;
 
 		public Ship()
 		{
@@ -90,6 +102,13 @@ namespace project_hook
 
 		public override void Update(GameTime p_Time)
 		{
+
+			if (didCollide > 0)
+			{
+				takeDamage( (float)Math.Min(100 * p_Time.ElapsedGameTime.TotalSeconds, didCollide));
+				didCollide = 0;
+			}
+
 			base.Update(p_Time);
 
 			if (m_MaxShield > 0 && m_ShieldSprite !=null)
@@ -100,81 +119,76 @@ namespace project_hook
 			{
 				w.Update(p_Time);
 			}
+
+			if (timeSinceLastDamage > 5 && m_Shield < m_MaxShield)
+			{
+				m_Shield = MathHelper.Clamp(m_Shield + (m_MaxShield / 10f) * (float)p_Time.ElapsedGameTime.TotalSeconds, 0, m_MaxShield);
+			}
+			timeSinceLastDamage += (float)p_Time.ElapsedGameTime.TotalSeconds;
+
+		}
+
+		private void takeDamage(float damage)
+		{
+
+			timeSinceLastDamage = 0;
+
+			if (Shield > damage)
+			{
+				Shield -= damage;
+				damage = 0;
+			}
+			else
+			{
+				damage -= Shield;
+				Shield = 0;
+			}
+
+			if (damage > 0)
+			{
+				this.Health -= damage;
+				damage = 0;
+			}
+
+			if (this.Health <= 0)
+			{
+				// death effect, and remove?
+				Enabled = false;
+			}
+
 		}
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			if (p_Other is Shot)
 			{
-				if (this.Health <= 0)
-				{
-					// death effect, and remove?
-					Enabled = false;
-				}
+				takeDamage( ((Shot)p_Other).Damage );
 
-				Shot shot = (Shot)p_Other;
-				float damage = shot.Damage;
-
-				if (Shield < damage)
+				if (m_Shield > 0)
 				{
-					damage -= Shield;
-					Shield = 0;
+					if (m_ShieldDamageParticleSystem != null)
+					{
+						m_ShieldDamageParticleSystem.AddParticles(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
+					}
 				}
-				else{
-					Shield -= damage;
-					damage = 0;
-				}
-
-				if (damage > 0)
+				else
 				{
-					this.Health -= damage;
-					damage = 0;
+					if (DamageParticleSystem != null)
+					{
+						DamageParticleSystem.AddParticles(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
+					}
 				}
 
 				//Possible attach the explosion sprite to the ship
 			}
+			else if (p_Other is Ship)
+			{
+				didCollide = p_Other.Health;
+			}
 			else if (p_Other.Faction == Factions.Environment)
 			{
-				// really bad collision pushback stuff..
-				// temporary?
-				Vector2 temp = Center;
-				float deltaX = Center.X - p_Other.Center.X;
-				float deltaY = Center.Y - p_Other.Center.Y;
-
-				if (Math.Abs(deltaX) > Math.Abs(deltaY))
-				{
-
-					// horizontal collision
-					if (temp.X > p_Other.Center.X)
-					{
-						temp.X = p_Other.Center.X + Radius + p_Other.Radius;
-					}
-					else
-					{
-						temp.X = p_Other.Center.X - (Radius + p_Other.Radius);
-					}
-
-				}
-				else
-				{
-
-					// vertical
-					if (temp.Y > p_Other.Center.Y)
-					{
-						temp.Y = p_Other.Center.Y + Radius + p_Other.Radius;
-					}
-					else
-					{
-						temp.Y = p_Other.Center.Y - (Radius + p_Other.Radius);
-					}
-
-				}
-
-				Center = temp;
-
+				Center = Collision.GetMinNonCollidingCenter(this, p_Other);
 			}
-
-			base.RegisterCollision(p_Other);
 		}
 	}
 }

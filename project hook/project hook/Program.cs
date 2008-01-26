@@ -11,6 +11,10 @@ namespace project_hook
 		static void Main(string[] args)
 		{
 
+#if DEBUG
+			Collision.SelfTest();
+#endif
+
 			DialogResult result = MessageBox.Show("Test(Yes) or Development (No)?", "Choose a version", MessageBoxButtons.YesNoCancel);
 
 			if (result == DialogResult.Yes)

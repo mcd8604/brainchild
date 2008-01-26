@@ -89,7 +89,7 @@
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
-					<velocity x="0" y="20"/>
+					<velocity x="0" y="40"/>
 				</task>
 				<task type="RotateToAngle">
 					<degree>90</degree>
