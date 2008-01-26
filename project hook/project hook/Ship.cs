@@ -183,7 +183,10 @@ namespace project_hook
 			}
 			else if (p_Other is Ship)
 			{
-				didCollide = p_Other.Health;
+				if (p_Other.Faction == Factions.Enemy)
+				{
+					didCollide = p_Other.Health;
+				}
 			}
 			else if (p_Other.Faction == Factions.Environment)
 			{

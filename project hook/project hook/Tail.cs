@@ -181,9 +181,8 @@ namespace project_hook
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
-
 			//base.RegisterCollision(p_Other);
-			if (p_Other.Faction == Factions.Enemy && m_EnemyCaught == null && m_TailState == TailState.Attacking && p_Other is Ship && ((Ship)p_Other).Shield <= 0)
+			if ((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking && p_Other is Ship && ((Ship)p_Other).Shield <= 0)
 			{
 				m_EnemyCaught = (Ship)p_Other;
 				m_EnemyCaught.Faction = Factions.Player;

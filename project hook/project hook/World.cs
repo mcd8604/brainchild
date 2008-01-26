@@ -80,7 +80,6 @@ namespace project_hook
 			{
 				return m_State;
 			}
-
 		}
 
 		public enum GameState
@@ -124,6 +123,8 @@ namespace project_hook
 		LevelHandler m_LHandler;
 		EnvironmentLoader m_ELoader=new EnvironmentLoader();
 
+		Random m_RanX = new Random();
+
 		public World() {}
 
 		//This method will initialize all the objects needed to run the game
@@ -137,7 +138,7 @@ namespace project_hook
 			Sprite.DrawWithRot();
 			Music.Initialize();
 			Sound.Initialize();
-			this.m_LReader = new LevelReader("LevelTest.xml");
+			this.m_LReader = new LevelReader("Level2.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
 		}
@@ -148,21 +149,17 @@ namespace project_hook
 		public void loadLevel(ContentManager p_Content)
 		{
 			LoadDefaults(p_Content);
-
 		}
 
 		//This will deallocate any variables that need de allocation
 		public void unload()
 		{
-
-
 		}
 
 		//This will update the game world.  
 		//Different update methdos can be run based on the game state.
 		public void update(GameTime p_GameTime)
 		{
-
 			//This will be for normal everyday update operations.  
 			if (m_State == GameState.Running)
 			{
@@ -173,6 +170,8 @@ namespace project_hook
 				m_LHandler.CheckEvents(m_Position.Distance);
 
 				m_Player.UpdatePlayer(p_GameTime);
+
+				this.CreateBloodCell();
 
 				Collision.CheckCollisions(m_SpriteList);
 
@@ -194,7 +193,6 @@ namespace project_hook
 
 					if (s.SpritesToBeAdded != null)
 					{
-
 						toAdd.AddRange(s.SpritesToBeAdded);
 						s.SpritesToBeAdded.Clear();
 					}
@@ -206,11 +204,7 @@ namespace project_hook
 				}
 #endif
 				AddSprites(toAdd);
-
-
-
-
-
+				
 				//Additive:
 
 				toAdd.Clear();
@@ -231,7 +225,6 @@ namespace project_hook
 
 					if (s.SpritesToBeAdded != null)
 					{
-
 						toAdd.AddRange(s.SpritesToBeAdded);
 						s.SpritesToBeAdded.Clear();
 					}
@@ -243,14 +236,11 @@ namespace project_hook
 				}
 #endif
 				AddSprites(toAdd);
-
 			}
-
 		}
 
 		public void checkKeys(GameTime p_GameTime)
 		{
-
 			// Allows the game to exit
 			if (InputHandler.IsActionPressed(Actions.Pause))
 			{
@@ -272,7 +262,6 @@ namespace project_hook
 				{
 					m_Player.Shoot();
 				}
-
 				if (InputHandler.IsActionDown(Actions.Right))
 				{
 					m_Player.MoveRight();
@@ -349,9 +338,7 @@ namespace project_hook
 			}
 
 			update(p_GameTime);
-
 		}
-
 
 		//This method will be called to change the games state.
 		//This method will determine what actions need to be executed
@@ -360,7 +347,6 @@ namespace project_hook
 		{
 			m_PreviousState = m_State;
 			m_State = p_State;
-
 		}
 
 		//This will draw the 
@@ -368,7 +354,6 @@ namespace project_hook
 		{
 			if (!(m_State == GameState.DoNotRender))
 			{
-
 				p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
 
 				foreach (Sprite s in m_SpriteList)
@@ -395,26 +380,21 @@ namespace project_hook
 			}
 		}
 
-
-
 		//This method will load some default values for the game
 		public void LoadDefaults(ContentManager p_Content)
 		{
+			TextureLibrary.LoadTexture("Cloud");
 			TextureLibrary.LoadTexture("Ship2");
-			TextureLibrary.LoadTexture("Back");
 			TextureLibrary.LoadTexture("veinbg");
 			TextureLibrary.LoadTexture("RedShot");
-			TextureLibrary.LoadTexture("Cloud");
 			TextureLibrary.LoadTexture("Enemy1");
 			TextureLibrary.LoadTexture("virus1");
 			TextureLibrary.LoadTexture("Explosion");
 			TextureLibrary.LoadTexture("Shield");
 			TextureLibrary.LoadTexture("FireBall");
 			TextureLibrary.LoadTexture("temptail");
-			TextureLibrary.LoadTexture("poisonsplat");
 			TextureLibrary.LoadTexture("blood");
 			TextureLibrary.LoadTexture("crosshairs");
-            TextureLibrary.LoadTexture("tailbody");
             TextureLibrary.LoadTexture("tailbody");
             TextureLibrary.LoadTexture("tail_segment");
             TextureLibrary.LoadTexture("shot_energy");
@@ -455,8 +435,6 @@ namespace project_hook
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGroundLayer.Upper);
 			
-			
-			
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
 			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.GameLayer.Cursor);
@@ -481,16 +459,12 @@ namespace project_hook
 			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 25, m_Player.PlayerShip, 1, m_TailBodySprites);
 			tail.m_TargetObject = crosshairs;
 
-
-
-
 			AddSprite(back);
 			AddSprite(cloud);
 			AddSprite(tail);
 			AddSprite(m_Player.PlayerShip);
 			AddSprite(crosshairs);
 			AddSprites(m_TailBodySprites);
-
 
 			Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
 			AddSprite(TextFpsExample);
@@ -499,8 +473,6 @@ namespace project_hook
 			//sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			//sp.Target= m_Player.PlayerShip;
 			//AddSprite(sp);
-
-
 		}
 
 		public void ChangeFile(String p_FileName)
@@ -526,6 +498,22 @@ namespace project_hook
 			foreach (Sprite s in p_Sprites)
 			{
 				AddSprite(s);
+			}
+		}
+
+		public void CreateBloodCell()
+		{
+			if (m_RanX.Next(0, 500) == 5)
+			{
+				//"bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+				//new Collidable(
+				Ship t_Blood = new Ship("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
+										TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.BackGroundLayer.Upper,
+										Collidable.Factions.Blood, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
+				t_Blood.setAnimation("bloodcell", 60);
+				t_Blood.Animation.StartAnimation();
+				m_SpriteList.Add(t_Blood);
 			}
 		}
 	}

@@ -24,7 +24,8 @@ namespace project_hook
 			Player,
 			Enemy,
 			Environment,
-			None
+			None,
+			Blood
 		}
 
 		/// <summary>
