@@ -22,7 +22,7 @@ namespace project_hook
 				if (s.Enabled)
 				{
 					Collidable temp = s as Collidable;
-					if (temp != null)
+					if (temp != null && temp.Faction != Collidable.Factions.None)
 					{
 						sorter.Add(temp.Faction, temp);
 					}

@@ -188,10 +188,14 @@ namespace project_hook
 				Collision.CheckCollisions(m_SpriteList);
 #if DEBUG
 				timer.Stop();
-				//colltotal += timer.Elapsed.TotalMilliseconds;
-				//collcount++;
-				//coll.Text = (colltotal / collcount).ToString();
-				coll.Text = timer.Elapsed.TotalMilliseconds.ToString();
+				colltotal += timer.Elapsed.TotalMilliseconds;
+				collcount++;
+				if (collcount >= 50)
+				{
+					coll.Text = (colltotal / collcount).ToString();
+					colltotal = 0;
+					collcount = 0;
+				}
 #endif
 
 				List<Sprite> toAdd = new List<Sprite>();
