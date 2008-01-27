@@ -46,7 +46,7 @@ namespace project_hook
 						m_Scale.X = Width / Font.MeasureString(Text).X;
 						m_Scale.Y = Height / Font.MeasureString(Text).Y;
 					}
-					m_Origin = (Font.MeasureString(Text) / 2);
+					m_Origin = (Font.MeasureString(Text) * 0.5f);
 				}
 
 			}
@@ -145,11 +145,11 @@ namespace project_hook
 		{
 			get
 			{
-				return m_Center - new Vector2(Width / 2f, Height / 2f);
+				return m_Center - new Vector2(Width * 0.5f, Height * 0.5f);
 			}
 			set
 			{
-				m_Center = value + new Vector2(Width / 2f, Height / 2f);
+				m_Center = value + new Vector2(Width * 0.5f, Height * 0.5f);
 			}
 		}
 

@@ -43,8 +43,8 @@ namespace project_hook
 		{
 			//background sprite
 			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
-			float xPos = (gdm.GraphicsDevice.Viewport.Width - bgTexture.Width) / 2;
-			float yPos = (gdm.GraphicsDevice.Viewport.Height - bgTexture.Height) / 2;
+			float xPos = (gdm.GraphicsDevice.Viewport.Width - bgTexture.Width) * 0.5f;
+			float yPos = (gdm.GraphicsDevice.Viewport.Height - bgTexture.Height) * 0.5f;
 			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 200f, true,
 											0, Depth.MenuLayer.Background);
 			attachSpritePart(m_BackgroundSprite);
@@ -99,7 +99,7 @@ namespace project_hook
 			for (int i = 0; i < m_MenuItemNames.Count; i++)
 			{
 				GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
-				float xPos = m_BackgroundSprite.Position.X + (m_BackgroundSprite.Width - curTexture.Width) / 2;
+				float xPos = m_BackgroundSprite.Position.X + (m_BackgroundSprite.Width - curTexture.Width) * 0.5f;
 				float yPos = m_BackgroundSprite.Position.Y;
 				//set position based on other menu sprites
 				for (int k = 0; k < m_MenuItemSprites.Count; k++)

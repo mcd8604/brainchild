@@ -118,7 +118,7 @@ namespace project_hook
 			m_TailAttackDelay = p_TailAttackDelay;
 			m_BodySprites = p_BodySprites;
 			m_BodyTask = new TaskLerp(p_AttachShip, this);
-
+			Damage = 0;
 			StateOfTail = TailState.Ready;
 		}
 

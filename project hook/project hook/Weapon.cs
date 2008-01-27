@@ -121,6 +121,71 @@ namespace project_hook
 			}
 		}
 
+		protected int m_ShotHeight = 30;
+		public virtual int ShotHeight
+		{
+			get
+			{
+				return m_ShotHeight;
+			}
+			set
+			{
+				m_ShotHeight = value;
+			}
+		}
+
+		protected int m_ShotWidth = 75;
+		public virtual int ShotWidth
+		{
+			get
+			{
+				return m_ShotWidth;
+			}
+			set
+			{
+				m_ShotWidth = value;
+			}
+		}
+
+		protected float m_ShotRadius = 15f;
+		public virtual float ShotRadius
+		{
+			get
+			{
+				return m_ShotRadius;
+			}
+			set
+			{
+				m_ShotRadius = value;
+			}
+		}
+
+		protected string m_ShotAnimation = null;
+		public virtual string ShotAnimation
+		{
+			get
+			{
+				return m_ShotAnimation;
+			}
+			set
+			{
+				m_ShotAnimation = value;
+			}
+		}
+
+		protected int m_ShotAnimationFPS;
+		public virtual int ShotAnimationFPS
+		{
+			get
+			{
+				return m_ShotAnimationFPS;
+			}
+			set
+			{
+				m_ShotAnimationFPS = value;
+			}
+		}
+
 		protected GameTexture m_Texture = null;
 
 		protected IList<Shot> m_Shots;
@@ -149,8 +214,8 @@ namespace project_hook
 				m_Shots = new List<Shot>();
 				for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
 				{
-					Shot t_Shot = new Shot("WeaponShot", Vector2.Zero, 30, 75, m_Texture, 1, false,
-									  0f, Depth.GameLayer.Shot, Collidable.Factions.None, m_Damage, null, 15, m_Damage * 1000);
+					Shot t_Shot = new Shot("WeaponShot", Vector2.Zero, ShotHeight, ShotWidth, m_Texture, 1f, false,
+									  0f, Depth.GameLayer.Shot, Collidable.Factions.None, m_Damage, null, m_ShotRadius, m_Damage * 1000);
 					t_Shot.Bound = Collidable.Boundings.Diamond;
 					m_Shots.Add(t_Shot);
 				}

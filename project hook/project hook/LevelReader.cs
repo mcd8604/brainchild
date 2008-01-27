@@ -376,6 +376,36 @@ namespace project_hook
 					weapon.AngleDegrees = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
+				else if (p_Reader.IsStartElement("height"))
+				{
+					p_Reader.ReadStartElement("height");
+					weapon.ShotHeight = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("width"))
+				{
+					p_Reader.ReadStartElement("width");
+					weapon.ShotWidth = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("radius"))
+				{
+					p_Reader.ReadStartElement();
+					weapon.ShotRadius = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("shotAnimation"))
+				{
+					p_Reader.ReadStartElement();
+					weapon.ShotAnimation = p_Reader.ReadString();
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("shotAnimationFPS"))
+				{
+					p_Reader.ReadStartElement();
+					weapon.ShotAnimationFPS = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
 #if DEBUG
 				else
 				{
@@ -461,6 +491,46 @@ namespace project_hook
 						}
 					}
 					task = rotateByAngle;
+					break;
+				case "RotateFaceTarget":
+					TaskRotateFaceTarget rotateFaceTarget = new TaskRotateFaceTarget();
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("target"))
+						{
+							p_Reader.ReadStartElement("target");
+							string target = p_Reader.ReadString();
+							if (target == "Player")
+							{
+								rotateFaceTarget.Target = World.m_Player.PlayerShip;
+							}
+							p_Reader.ReadEndElement();
+						}
+					}
+					task = rotateFaceTarget;
+					break;
+				case "SeekTarget":
+					TaskSeekTarget seekTarget = new TaskSeekTarget();
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("target"))
+						{
+							p_Reader.ReadStartElement("target");
+							string target = p_Reader.ReadString();
+							if (target == "Player")
+							{
+								seekTarget.Target = World.m_Player.PlayerShip;
+							}
+							p_Reader.ReadEndElement();
+						}
+						else if (p_Reader.IsStartElement("speed"))
+						{
+							p_Reader.ReadStartElement("speed");
+							seekTarget.Speed = float.Parse(p_Reader.ReadString());
+							p_Reader.ReadEndElement();
+						}
+					}
+					task = seekTarget;
 					break;
 				case "StraightVelocity":
 					TaskStraightVelocity straightVelocity = new TaskStraightVelocity();

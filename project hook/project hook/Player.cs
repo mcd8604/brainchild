@@ -127,7 +127,10 @@ namespace project_hook
 		{
 			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, TextureLibrary.getGameTexture("Explosion", "3"), 70);
 
-			m_PlayerShip.addWeapon(new WeaponExample("RedShot", 1, 0.15f, 600, -MathHelper.PiOver2));
+			Weapon temp = new WeaponExample("RedShot", 1, 0.15f, 600, -MathHelper.PiOver2);
+			temp.ShotAnimation = "RedShot";
+			temp.ShotAnimationFPS = 10;
+			m_PlayerShip.addWeapon(temp);
 		}
 
 		public void Shoot()
@@ -171,8 +174,8 @@ namespace project_hook
 			m_PlayerSpeed.Y *= m_PlayerFriction;
 			tempPlayerCenter.X += ((m_PlayerSpeed.X) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
 			tempPlayerCenter.Y += ((m_PlayerSpeed.Y) * (float)(p_GameTime.ElapsedGameTime.TotalSeconds));
-			tempPlayerCenter.X = MathHelper.Clamp(tempPlayerCenter.X, m_Bounds.X + (float)PlayerShip.Width / 2f, m_Bounds.Width - (float)PlayerShip.Width / 2f);
-			tempPlayerCenter.Y = MathHelper.Clamp(tempPlayerCenter.Y, m_Bounds.Y + (float)PlayerShip.Height / 2f, m_Bounds.Height - (float)PlayerShip.Height / 2f);
+			tempPlayerCenter.X = MathHelper.Clamp(tempPlayerCenter.X, m_Bounds.X + (float)PlayerShip.Width * 0.5f, m_Bounds.Width - (float)PlayerShip.Width * 0.5f);
+			tempPlayerCenter.Y = MathHelper.Clamp(tempPlayerCenter.Y, m_Bounds.Y + (float)PlayerShip.Height * 0.5f, m_Bounds.Height - (float)PlayerShip.Height * 0.5f);
 			m_PlayerShip.Center = tempPlayerCenter;
 
 			if (m_PlayerShip.Health <= 0)

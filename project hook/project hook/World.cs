@@ -67,7 +67,8 @@ namespace project_hook
 			}
 		}
 
-		Player m_Player;
+		public static Player m_Player;
+		public static SimpleScore m_Score;
 		Tail tail;
 		Sprite crosshairs;
 		YScrollingBackground back;
@@ -353,7 +354,7 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageDown))
 				{
-					m_Position.setSpeed(m_Position.Speed / 2f);
+					m_Position.setSpeed(m_Position.Speed * 0.5f);
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.End))
 				{
@@ -435,6 +436,7 @@ namespace project_hook
             TextureLibrary.LoadTexture("plaque");
 			TextureLibrary.LoadTexture("wall_flat");
             TextureLibrary.LoadTexture("Explosion2");
+			TextureLibrary.LoadTexture("poisonsplat");
             TextureLibrary.LoadTexture("walls\\wall_left");
             TextureLibrary.LoadTexture("wall_rand1");
             TextureLibrary.LoadTexture("wall_rand2");
@@ -466,7 +468,7 @@ namespace project_hook
 
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
-			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 255f, true, 0, Depth.BackGroundLayer.Upper);
+			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
 			
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
@@ -503,6 +505,10 @@ namespace project_hook
 			AddSprite(TextFpsExample);
 
 			AddSprite(coll);
+
+			m_Score = new SimpleScore();
+			Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.CornflowerBlue);
+			AddSprite(score);
 
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);
 			//sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
@@ -545,7 +551,7 @@ namespace project_hook
 				//new Collidable(
 				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
 										TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, 0f, Depth.BackGroundLayer.Upper,
-										Collidable.Factions.Blood, 45, TextureLibrary.getGameTexture("Explosion", "3"), 50);
+										Collidable.Factions.Blood, 45, TextureLibrary.getGameTexture("Explosion", "3"), 25);
 				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
 				t_Blood.setAnimation("bloodcell", 60);
 				t_Blood.Animation.StartAnimation();
