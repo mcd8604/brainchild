@@ -40,7 +40,7 @@ namespace project_hook
 					attachSpritePart(m_ShieldSprite);
 
 					GameTexture DamageEffect = TextureLibrary.getGameTexture("Explosion2", "3");
-					m_ShieldDamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, (int)(DamageEffect.Width / 2f), (int)(DamageEffect.Height / 2f), DamageEffect, 1.0f, true, 0, Depth.GameLayer.Explosion, 1);
+					m_ShieldDamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, (int)(DamageEffect.Width * 0.5f), (int)(DamageEffect.Height * 0.5f), DamageEffect, 1.0f, true, 0, Depth.GameLayer.Explosion, 1);
 					m_ShieldDamageParticleSystem.setAnimation("Explosion2", 10);
 					m_ShieldDamageParticleSystem.Animation.StartAnimation();
 					addSprite(m_ShieldDamageParticleSystem);
@@ -116,7 +116,7 @@ namespace project_hook
 
 			if (timeSinceLastDamage > 5 && m_Shield < m_MaxShield)
 			{
-				m_Shield = MathHelper.Clamp(m_Shield + (m_MaxShield / 10f) * (float)p_Time.ElapsedGameTime.TotalSeconds, 0, m_MaxShield);
+				m_Shield = MathHelper.Clamp(m_Shield + (m_MaxShield * 0.1f) * (float)p_Time.ElapsedGameTime.TotalSeconds, 0, m_MaxShield);
 			}
 			timeSinceLastDamage += (float)p_Time.ElapsedGameTime.TotalSeconds;
 

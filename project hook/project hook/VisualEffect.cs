@@ -16,7 +16,7 @@ namespace project_hook
 		Sprite m_BaseSprite;
 		String m_Name;
 
-		float m_FrameLength = 1f / 5f;
+		float m_FrameLength = 0.2f;
 		float m_Timer = 0f;
 		int m_CurrentFrame = 0;
 		bool m_UpdateAnimation = true;

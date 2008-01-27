@@ -70,6 +70,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
+    <Compile Include="SimpleScore.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>SimpleScore</Name>
+    </Compile>
     <Compile Include="TaskRotateByAngle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskRotateByAngle</Name>
@@ -852,10 +856,6 @@
       <Name>wall_rand3</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Textures\NewFolder1\" />
-    <Folder Include="libs\Test Cases\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA\Game Studio Express\v1.0\Microsoft.Xna.ContentPipeline.targets" />

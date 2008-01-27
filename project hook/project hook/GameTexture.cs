@@ -151,7 +151,7 @@ namespace project_hook
 			Texture = p_Texture;
 
 			StartPosition = p_StartPosition;
-			m_Center = new Vector2(Width / 2.0f, Height / 2.0f);
+			m_Center = new Vector2(Width * 0.5f, Height * 0.5f);
 		}
 	}
 }

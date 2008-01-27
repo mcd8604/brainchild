@@ -52,8 +52,11 @@ namespace project_hook
 				m_Shots[m_NextShot].Center = who.Center;
 				m_Shots[m_NextShot].Faction = who.Faction;
 				m_Shots[m_NextShot].Task = m_ShotTask;
-				m_Shots[m_NextShot].setAnimation(m_ShotName, 10);
-				m_Shots[m_NextShot].Animation.StartAnimation();
+				if (m_ShotAnimation != null)
+				{
+					m_Shots[m_NextShot].setAnimation(m_ShotAnimation, m_ShotAnimationFPS);
+					m_Shots[m_NextShot].Animation.StartAnimation();
+				}
 
 				m_Cooldown = m_Delay;
 

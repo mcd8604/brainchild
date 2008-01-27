@@ -54,7 +54,7 @@ namespace project_hook
 		public void setSpeed(float p_Speed)
 		{
 			m_Speed = p_Speed;
-			m_BackgroundSpeed = p_Speed / 2f;
+			m_BackgroundSpeed = p_Speed * 0.5f;
 		}
 
 		public void Update(GameTime p_GameTime) {

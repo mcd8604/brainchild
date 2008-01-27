@@ -207,16 +207,6 @@ namespace project_hook
 				}
 
 			}
-
-			// still broken :
-			//if (Math.Abs(circ.X) > Math.Abs(square.X))
-			//{
-			//    return (Math.Pow((circrad + ((float)(squarerad * (1 / Math.Cos((float)Math.Atan2((circ.Y - square.Y), (circ.X - square.X))))))), 2) > Math.Pow((circ.X - square.X), 2) + Math.Pow((circ.Y - square.Y), 2));
-			//}
-			//else
-			//{
-			//    return (Math.Pow((circrad + ((float)(squarerad * (1 / Math.Cos((float)Math.Atan2((square.Y - circ.Y), (square.X - circ.X))))))), 2) > Math.Pow((square.X - circ.X), 2) + Math.Pow((square.Y - circ.Y), 2));
-			//}
 		}
 		private static bool DoesIntersectDiamonds(Vector2 pos1, float radiustopoint1, Vector2 pos2, float radiustopoint2)
 		{

@@ -53,12 +53,12 @@ namespace project_hook
 		{
 			get
 			{
-				return new Vector2(Position.X + (Width / 2.0f), Position.Y + (Height / 2.0f));
+				return new Vector2(Position.X + (Width * 0.5f), Position.Y + (Height * 0.5f));
 			}
 			set
 			{
-				m_Position.X = value.X - (Width / 2.0f);
-				m_Position.Y = value.Y - (Height / 2.0f);
+				m_Position.X = value.X - (Width * 0.5f);
+				m_Position.Y = value.Y - (Height * 0.5f);
 			}
 		}
 
@@ -85,7 +85,7 @@ namespace project_hook
 		{
 			get
 			{
-				return new Rectangle((int)Position.X + Width / 2, (int)Position.Y + Height / 2, Width, Height);
+				return new Rectangle((int)(Position.X + (Width * 0.5f)), (int)(Position.Y + (Height * 0.5f)), Width, Height);
 			}
 		}
 

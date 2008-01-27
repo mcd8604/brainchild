@@ -203,11 +203,20 @@ namespace project_hook
 
 			if (didCollide != null)
 			{
-				float d = (float)Math.Min(didCollide.Damage * p_Time.ElapsedGameTime.TotalSeconds, didCollide.Health);
+				float d;
+				if (float.IsNaN(didCollide.Health))
+				{
+					d = didCollide.Damage * (float)p_Time.ElapsedGameTime.TotalSeconds;
+				}
+				else
+				{
+					d = (float)Math.Min(didCollide.Damage * p_Time.ElapsedGameTime.TotalSeconds, didCollide.Health);
+				}
 				if (d > 0)
 				{
 					takeDamage(d);
 				}
+				World.m_Score.evaluateCollision(this, didCollide, d, Health <= 0);
 				didCollide = null;
 			}
 
@@ -248,7 +257,7 @@ namespace project_hook
 			}
 			else
 			{
-				if (Health != float.NaN)
+				if ( !float.IsNaN( Health ))
 				{
 					didCollide = p_Other;
 					SpawnDamageEffect(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
