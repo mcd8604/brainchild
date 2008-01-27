@@ -10,7 +10,7 @@
 			<startCenter x="800" y="150"/>
 			<health>50</health>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Angle" angle="0">
+			<weapon type="Straight" angle="0">
 				<delay>0.75</delay>
 				<speed>400</speed>
 				<shot>
@@ -22,7 +22,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-30">
+			<weapon type="Straight" angle="-30">
 				<delay>0.75</delay>
 				<speed>400</speed>
 				<shot>
@@ -34,7 +34,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="30">
+			<weapon type="Straight" angle="30">
 				<delay>0.75</delay>
 				<speed>400</speed>
 				<shot>
@@ -68,7 +68,7 @@
 			<health>50</health>
 			<damageTexture name="Explosion" pos="3"/>
 			<animation name="bloodcell" fps="60"/>
-			<weapon type="Angle" angle="10">
+			<weapon type="Straight" angle="10">
 				<delay>1</delay>
 				<speed>400</speed>
 				<shot>
@@ -80,7 +80,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="30">
+			<weapon type="Straight" angle="30">
 				<delay>1</delay>
 				<speed>400</speed>
 				<shot>
@@ -92,7 +92,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-10">
+			<weapon type="Straight" angle="-10">
 				<delay>1</delay>
 				<speed>400</speed>
 				<shot>
@@ -104,7 +104,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-30">
+			<weapon type="Straight" angle="-30">
 				<delay>1</delay>
 				<speed>400</speed>
 				<shot>
@@ -137,7 +137,7 @@
 			<startCenter x="400" y="0"/>
 			<health>50</health>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Angle" angle="0">
+			<weapon type="Straight" angle="0">
 				<delay>0.25</delay>
 				<speed>450</speed>
 				<shot>
@@ -170,7 +170,7 @@
 			<startCenter x="500" y="1000"/>
 			<health>50</health>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Angle" angle="5">
+			<weapon type="Straight" angle="5">
 				<delay>1</delay>
 				<speed>200</speed>
 				<shot>
@@ -182,9 +182,10 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-5">
+			<weapon type="Straight" angle="-5">
 				<delay>1</delay>
 				<speed>200</speed>
+				<initialCooldown>0.5</initialCooldown>
 				<shot>
 					<damage>10</damage>
 					<height>15</height>
@@ -216,7 +217,7 @@
 			<startCenter x="300" y="0"/>
 			<health>50</health>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Angle" angle="20">
+			<weapon type="Straight" angle="20">
 				<delay>0.5</delay>
 				<speed>500</speed>
 				<shot>
@@ -228,7 +229,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-20">
+			<weapon type="Straight" angle="-20">
 				<delay>0.5</delay>
 				<speed>500</speed>
 				<shot>
@@ -261,7 +262,7 @@
 			<startCenter x="500" y="0"/>
 			<health>50</health>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Angle" angle="20">
+			<weapon type="Straight" angle="20">
 				<delay>0.5</delay>
 				<speed>500</speed>
 				<shot>
@@ -273,7 +274,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-20">
+			<weapon type="Straight" angle="-20">
 				<delay>0.5</delay>
 				<speed>500</speed>
 				<shot>
@@ -327,7 +328,7 @@
 			<startCenter x="700" y="0"/>
 			<health>125</health>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Angle" angle="0">
+			<weapon type="Straight" angle="0">
 				<delay>2</delay>
 				<speed>200</speed>
 				<shot>
@@ -383,7 +384,7 @@
 			<health>200</health>
 			<shield>200</shield>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Angle" angle="45">
+			<weapon type="Straight" angle="45">
 				<delay>0.1</delay>
 				<speed>300</speed>
 				<shot>
@@ -394,7 +395,7 @@
 					<texture name="poisonsplat"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="135">
+			<weapon type="Straight" angle="135">
 				<delay>0.1</delay>
 				<speed>300</speed>
 				<shot>
@@ -405,7 +406,7 @@
 					<texture name="poisonsplat"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-45">
+			<weapon type="Straight" angle="-45">
 				<delay>0.1</delay>
 				<speed>300</speed>
 				<shot>
@@ -416,7 +417,7 @@
 					<texture name="poisonsplat"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-135">
+			<weapon type="Straight" angle="-135">
 				<delay>0.1</delay>
 				<speed>300</speed>
 				<shot>
@@ -463,7 +464,7 @@
 			<startCenter x="500" y="0"/>
 			<health>150</health>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Angle" angle="0">
+			<weapon type="Straight" angle="0">
 				<delay>1</delay>
 				<speed>350</speed>
 				<shot>
@@ -475,7 +476,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="5">
+			<weapon type="Straight" angle="5">
 				<delay>1</delay>
 				<speed>350</speed>
 				<shot>
@@ -487,7 +488,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="10">
+			<weapon type="Straight" angle="10">
 				<delay>1</delay>
 				<speed>350</speed>
 				<shot>
@@ -499,7 +500,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="15">
+			<weapon type="Straight" angle="15">
 				<delay>1</delay>
 				<speed>350</speed>
 				<shot>
@@ -511,7 +512,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="20">
+			<weapon type="Straight" angle="20">
 				<delay>1</delay>
 				<speed>350</speed>
 				<shot>
@@ -523,7 +524,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-5">
+			<weapon type="Straight" angle="-5">
 				<delay>1</delay>
 				<speed>350</speed>
 				<shot>
@@ -535,7 +536,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-10">
+			<weapon type="Straight" angle="-10">
 				<delay>1</delay>
 				<speed>350</speed>
 				<shot>
@@ -547,7 +548,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-15">
+			<weapon type="Straight" angle="-15">
 				<delay>1</delay>
 				<speed>350</speed>
 				<shot>
@@ -559,7 +560,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Angle" angle="-20">
+			<weapon type="Straight" angle="-20">
 				<delay>1</delay>
 				<speed>350</speed>
 				<shot>

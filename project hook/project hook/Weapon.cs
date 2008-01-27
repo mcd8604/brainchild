@@ -33,6 +33,7 @@ namespace project_hook
 			{
 				return m_Cooldown;
 			}
+			set { m_Cooldown += value; }
 		}
 
 		// this is how fast the shot will travel, pixels per second

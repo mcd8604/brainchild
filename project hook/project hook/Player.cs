@@ -137,7 +137,7 @@ namespace project_hook
 			shot.Bound = Collidable.Boundings.Diamond;
 			shot.setAnimation( "RedShot", 10 );
 
-			Weapon wep = new WeaponAngle( shot, 0.15f, 600, -MathHelper.PiOver2);
+			Weapon wep = new WeaponStraight( shot, 0.15f, 600, -MathHelper.PiOver2);
 			m_PlayerShip.addWeapon(wep);
 		}
 
