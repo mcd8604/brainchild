@@ -448,7 +448,7 @@
 				</task>
 				<task type="Fire"/>
 				<task type="RotateByAngle">
-					<degree>60</degree>
+					<degree>45</degree>
 				</task>
 			</task>
 		</createShip>
