@@ -462,7 +462,7 @@ namespace project_hook
 		private void IniDefaults()
 		{
 			GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
-
+			
 			//test scrolling background
 			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
 
@@ -507,7 +507,7 @@ namespace project_hook
 			AddSprite(coll);
 
 			m_Score = new SimpleScore();
-			Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.CornflowerBlue);
+			Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.LightBlue);
 			AddSprite(score);
 
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);

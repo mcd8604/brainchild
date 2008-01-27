@@ -11,24 +11,8 @@ namespace project_hook
 	{
 		#region Variables and Properties
 
-		//the strength of the shot fired
-		protected float m_Damage = float.NaN;
-		public virtual float Damage
-		{
-			get
-			{
-				return m_Damage;
-			}
-			set
-			{
-				m_Damage = value;
-
-				generateShots();
-			}
-		}
-
-		//this is how long the delay is between shots in seconds
-		protected float m_Delay = float.NaN;
+		// this is how long the delay is between shots in seconds
+		protected float m_Delay = 100;
 		public virtual float Delay
 		{
 			get
@@ -37,55 +21,11 @@ namespace project_hook
 			}
 			set
 			{
-				if (value != m_Delay)
-				{
-					m_Delay = value;
-
-					generateShots();
-				}
+				m_Delay = value;
 			}
 		}
 
-		//this is how fast the shot will travel, pixels per second
-		protected float m_Speed = float.NaN;
-		public virtual float Speed
-		{
-			get
-			{
-				return m_Speed;
-			}
-			set
-			{
-				if (value != m_Speed)
-				{
-					m_Speed = value;
-
-					generateShots();
-				}
-			}
-		}
-
-		//this is the texture of this weapon's shot
-		protected string m_ShotName = null;
-		public virtual string ShotName
-		{
-			get
-			{
-				return m_ShotName;
-			}
-			set
-			{
-				if (value != m_ShotName)
-				{
-					m_ShotName = value;
-					m_Texture = TextureLibrary.getGameTexture(m_ShotName, "");
-
-					generateShots();
-				}
-			}
-		}
-
-		//this will hold the time of the last shot
+		// this will hold the time of the last shot
 		protected float m_Cooldown = 0;
 		public virtual float Cooldown
 		{
@@ -95,98 +35,31 @@ namespace project_hook
 			}
 		}
 
-		//the angle that the shot is to be fired at
-		protected float m_Angle = 0;
-		public virtual float Angle
+		// this is how fast the shot will travel, pixels per second
+		protected float m_Speed = 1000;
+		public virtual float Speed
 		{
 			get
 			{
-				return m_Angle;
+				return m_Speed;
 			}
 			set
 			{
-				m_Angle = value;
+					m_Speed = value;
 			}
 		}
 
-		public virtual float AngleDegrees
+		public Shot ShotType
 		{
-			get
-			{
-				return MathHelper.ToDegrees(Angle);
-			}
 			set
 			{
-				Angle = MathHelper.ToRadians(value);
+				m_Shots = new List<Shot>();
+				for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
+				{
+					m_Shots.Add(new Shot(value));
+				}
 			}
 		}
-
-		protected int m_ShotHeight = 30;
-		public virtual int ShotHeight
-		{
-			get
-			{
-				return m_ShotHeight;
-			}
-			set
-			{
-				m_ShotHeight = value;
-			}
-		}
-
-		protected int m_ShotWidth = 75;
-		public virtual int ShotWidth
-		{
-			get
-			{
-				return m_ShotWidth;
-			}
-			set
-			{
-				m_ShotWidth = value;
-			}
-		}
-
-		protected float m_ShotRadius = 15f;
-		public virtual float ShotRadius
-		{
-			get
-			{
-				return m_ShotRadius;
-			}
-			set
-			{
-				m_ShotRadius = value;
-			}
-		}
-
-		protected string m_ShotAnimation = null;
-		public virtual string ShotAnimation
-		{
-			get
-			{
-				return m_ShotAnimation;
-			}
-			set
-			{
-				m_ShotAnimation = value;
-			}
-		}
-
-		protected int m_ShotAnimationFPS;
-		public virtual int ShotAnimationFPS
-		{
-			get
-			{
-				return m_ShotAnimationFPS;
-			}
-			set
-			{
-				m_ShotAnimationFPS = value;
-			}
-		}
-
-		protected GameTexture m_Texture = null;
 
 		protected IList<Shot> m_Shots;
 		protected int m_NextShot = 0;
@@ -195,33 +68,11 @@ namespace project_hook
 
 		public Weapon() {}
 
-		public Weapon(string p_ShotName, float p_Damage, float p_Delay, float p_Speed, float p_Angle)
+		public Weapon(Shot p_Shot, float p_Delay, float p_Speed)
 		{
-			m_ShotName = p_ShotName;
-			m_Damage = p_Damage;
-			m_Delay = p_Delay;
-			m_Speed = p_Speed;
-			m_Angle = p_Angle;
-
-			generateShots();
-		}
-
-		private void generateShots()
-		{
-
-			if (m_ShotName != null && m_Delay != float.NaN && m_Speed != float.NaN && m_Damage != float.NaN)
-			{
-				m_Shots = new List<Shot>();
-				for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
-				{
-					Shot t_Shot = new Shot("WeaponShot", Vector2.Zero, ShotHeight, ShotWidth, m_Texture, 1f, false,
-									  0f, Depth.GameLayer.Shot, Collidable.Factions.None, m_Damage, null, m_ShotRadius, m_Damage * 1000);
-					t_Shot.Bound = Collidable.Boundings.Diamond;
-					m_Shots.Add(t_Shot);
-				}
-			}
-
-
+			Delay = p_Delay;
+			Speed = p_Speed;
+			ShotType = p_Shot;
 		}
 
 		//this function will create a Shot at the current location

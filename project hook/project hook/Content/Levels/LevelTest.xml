@@ -5,40 +5,46 @@
 			<name>Enemy</name>
 			<height>75</height>
 			<width>100</width>
-			<texture name="Enemy1"/>
-			<transparency>1</transparency>
-			<startCenter x="800" y="150"/>
-			<enabled>true</enabled>
-			<health>50</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>40</radius>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<texture name="Enemy1"/>
+			<startCenter x="800" y="150"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Angle" angle="0">
 				<delay>0.75</delay>
 				<speed>400</speed>
-				<offset>0</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="-30">
 				<delay>0.75</delay>
 				<speed>400</speed>
-				<offset>-30</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="30">
 				<delay>0.75</delay>
 				<speed>400</speed>
-				<offset>30</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
@@ -56,50 +62,59 @@
 			<name>Enemy</name>
 			<height>96</height>
 			<width>128</width>
-			<texture name="bloodcell"/>
-			<transparency>1</transparency>
-			<startCenter x="200" y="200"/>
-			<enabled>true</enabled>
-			<health>50</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>50</radius>
+			<texture name="bloodcell"/>
+			<startCenter x="200" y="200"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
 			<animation name="bloodcell" fps="60"/>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="10">
 				<delay>1</delay>
 				<speed>400</speed>
-				<offset>15</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="30">
 				<delay>1</delay>
 				<speed>400</speed>
-				<offset>45</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="-10">
 				<delay>1</delay>
 				<speed>400</speed>
-				<offset>-15</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="-30">
 				<delay>1</delay>
 				<speed>400</speed>
-				<offset>-45</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
@@ -117,22 +132,22 @@
 			<name>Enemy</name>
 			<height>75</height>
 			<width>100</width>
-			<texture name="Enemy1"/>
-			<transparency>1</transparency>
-			<startCenter x="400" y="0"/>
-			<enabled>true</enabled>
-			<health>50</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>40</radius>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>20</damage>
+			<texture name="Enemy1"/>
+			<startCenter x="400" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Angle" angle="0">
 				<delay>0.25</delay>
-				<speed>500</speed>
-				<offset>0</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>450</speed>
+				<shot>
+					<damage>20</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
@@ -150,31 +165,34 @@
 			<name>Enemy</name>
 			<height>50</height>
 			<width>75</width>
-			<texture name="Enemy1"/>
-			<transparency>1</transparency>
-			<startCenter x="500" y="1000"/>
-			<enabled>true</enabled>
-			<health>50</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>30</radius>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<texture name="Enemy1"/>
+			<startCenter x="500" y="1000"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Angle" angle="5">
 				<delay>1</delay>
 				<speed>200</speed>
-				<offset>-10</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>10</damage>
+					<height>15</height>
+					<width>50</width>
+					<radius>10</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="-5">
 				<delay>1</delay>
 				<speed>200</speed>
-				<offset>10</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>10</damage>
+					<height>15</height>
+					<width>50</width>
+					<radius>10</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="SeekTarget">
@@ -193,31 +211,34 @@
 			<name>Enemy</name>
 			<height>75</height>
 			<width>100</width>
-			<texture name="Enemy1"/>
-			<transparency>1</transparency>
-			<startCenter x="300" y="0"/>
-			<enabled>true</enabled>
-			<health>50</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>40</radius>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>20</damage>
+			<texture name="Enemy1"/>
+			<startCenter x="300" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Angle" angle="20">
 				<delay>0.5</delay>
 				<speed>500</speed>
-				<offset>-25</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>20</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>20</damage>
+			<weapon type="Angle" angle="-20">
 				<delay>0.5</delay>
 				<speed>500</speed>
-				<offset>25</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>20</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
@@ -235,31 +256,34 @@
 			<name>Enemy</name>
 			<height>75</height>
 			<width>100</width>
-			<texture name="Enemy1"/>
-			<transparency>1</transparency>
-			<startCenter x="500" y="0"/>
-			<enabled>true</enabled>
-			<health>50</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>40</radius>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>20</damage>
+			<texture name="Enemy1"/>
+			<startCenter x="500" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Angle" angle="20">
 				<delay>0.5</delay>
 				<speed>500</speed>
-				<offset>-25</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>20</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>20</damage>
+			<weapon type="Angle" angle="-20">
 				<delay>0.5</delay>
 				<speed>500</speed>
-				<offset>25</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>20</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
@@ -277,14 +301,11 @@
 			<name>Enemy</name>
 			<height>50</height>
 			<width>50</width>
-			<texture name="virus1"/>
-			<transparency>1</transparency>
-			<startCenter x="300" y="1000"/>
-			<enabled>true</enabled>
-			<health>50</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>25</radius>
+			<texture name="virus1"/>
+			<startCenter x="300" y="1000"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -301,25 +322,22 @@
 			<name>Enemy</name>
 			<height>100</height>
 			<width>100</width>
-			<texture name="Enemy1"/>
-			<transparency>1</transparency>
-			<startCenter x="700" y="0"/>
-			<enabled>true</enabled>
-			<health>125</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>50</radius>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<height>75</height>
-				<width>150</width>
-				<radius>30</radius>
-				<damage>200</damage>
+			<texture name="Enemy1"/>
+			<startCenter x="700" y="0"/>
+			<health>125</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Angle" angle="0">
 				<delay>2</delay>
 				<speed>200</speed>
-				<offset>0</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<shot>
+					<damage>200</damage>
+					<height>75</height>
+					<width>150</width>
+					<radius>30</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
@@ -337,14 +355,11 @@
 			<name>Enemy</name>
 			<height>50</height>
 			<width>50</width>
-			<texture name="virus1"/>
-			<transparency>1</transparency>
-			<startCenter x="600" y="1000"/>
-			<enabled>true</enabled>
-			<health>50</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>25</radius>
+			<texture name="virus1"/>
+			<startCenter x="600" y="1000"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -360,55 +375,57 @@
 	<action dist="4000">
 		<createShip>
 			<name>Enemy</name>
-			<height>100</height>
-			<width>100</width>
+			<height>120</height>
+			<width>120</width>
+			<radius>60</radius>
 			<texture name="virus1"/>
-			<transparency>1</transparency>
 			<startCenter x="300" y="0"/>
-			<enabled>true</enabled>
 			<health>200</health>
 			<shield>200</shield>
 			<damageTexture name="Explosion" pos="3"/>
-			<radius>50</radius>
-			<weapon type="Example">
-				<height>40</height>
-				<width>40</width>
-				<radius>10</radius>
-				<damage>5</damage>
-				<shotName>poisonsplat</shotName>
-				<delay>0.125</delay>
+			<weapon type="Angle" angle="45">
+				<delay>0.1</delay>
 				<speed>300</speed>
-				<offset>45</offset>
+				<shot>
+					<damage>4</damage>
+					<height>40</height>
+					<width>40</width>
+					<radius>10</radius>
+					<texture name="poisonsplat"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<height>40</height>
-				<width>40</width>
-				<radius>10</radius>
-				<damage>5</damage>
-				<delay>0.125</delay>
-				<shotName>poisonsplat</shotName>
+			<weapon type="Angle" angle="135">
+				<delay>0.1</delay>
 				<speed>300</speed>
-				<offset>135</offset>
+				<shot>
+					<damage>4</damage>
+					<height>40</height>
+					<width>40</width>
+					<radius>10</radius>
+					<texture name="poisonsplat"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<height>40</height>
-				<width>40</width>
-				<radius>10</radius>
-				<damage>5</damage>
-				<delay>0.125</delay>
+			<weapon type="Angle" angle="-45">
+				<delay>0.1</delay>
 				<speed>300</speed>
-				<shotName>poisonsplat</shotName>
-				<offset>-135</offset>
+				<shot>
+					<damage>4</damage>
+					<height>40</height>
+					<width>40</width>
+					<radius>10</radius>
+					<texture name="poisonsplat"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<height>40</height>
-				<width>40</width>
-				<radius>10</radius>
-				<damage>5</damage>
-				<delay>0.125</delay>
+			<weapon type="Angle" angle="-135">
+				<delay>0.1</delay>
 				<speed>300</speed>
-				<offset>-45</offset>
-				<shotName>poisonsplat</shotName>
+				<shot>
+					<damage>4</damage>
+					<height>40</height>
+					<width>40</width>
+					<radius>10</radius>
+					<texture name="poisonsplat"/>
+				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="RepeatingSequence">
@@ -441,94 +458,118 @@
 			<name>Enemy</name>
 			<height>100</height>
 			<width>100</width>
-			<texture name="Enemy1"/>
-			<transparency>1</transparency>
-			<startCenter x="500" y="0"/>
-			<enabled>true</enabled>
-			<health>150</health>
-			<shield>0</shield>
-			<damageTexture name="Explosion" pos="3"/>
 			<radius>50</radius>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<texture name="Enemy1"/>
+			<startCenter x="500" y="0"/>
+			<health>150</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Angle" angle="0">
 				<delay>1</delay>
-				<speed>300</speed>
-				<offset>0</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>350</speed>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="5">
 				<delay>1</delay>
-				<speed>300</speed>
-				<offset>5</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>350</speed>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="10">
 				<delay>1</delay>
-				<speed>300</speed>
-				<offset>10</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>350</speed>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="15">
 				<delay>1</delay>
-				<speed>300</speed>
-				<offset>15</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>350</speed>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="20">
 				<delay>1</delay>
-				<speed>300</speed>
-				<offset>20</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>350</speed>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="-5">
 				<delay>1</delay>
-				<speed>300</speed>
-				<offset>-5</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>350</speed>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="-10">
 				<delay>1</delay>
-				<speed>300</speed>
-				<offset>-10</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>350</speed>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="-15">
 				<delay>1</delay>
-				<speed>300</speed>
-				<offset>-15</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>350</speed>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
-			<weapon type="Example">
-				<shotName>FireBall</shotName>
-				<damage>10</damage>
+			<weapon type="Angle" angle="-20">
 				<delay>1</delay>
-				<speed>300</speed>
-				<offset>-20</offset>
-				<shotAnimation>FireBall</shotAnimation>
-				<shotAnimationFPS>10</shotAnimationFPS>
+				<speed>350</speed>
+				<shot>
+					<damage>10</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">

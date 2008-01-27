@@ -5,32 +5,46 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class WeaponExample : Weapon
+	class WeaponAngle : Weapon
 	{
 
 		private float m_LastAngle = float.NaN;
 		private float m_LastSpeed = float.NaN;
 
-
-		public override string ShotName
+		// the angle that the shot is to be fired at
+		protected float m_Angle = 0;
+		public virtual float Angle
 		{
 			get
 			{
-				return base.ShotName;
+				return m_Angle;
 			}
 			set
 			{
-				base.ShotName = value;
+				m_Angle = value;
+			}
+		}
+		public virtual float AngleDegrees
+		{
+			get
+			{
+				return MathHelper.ToDegrees(Angle);
+			}
+			set
+			{
+				Angle = MathHelper.ToRadians(value);
 			}
 		}
 
 		Task m_ShotTask;
 
-		public WeaponExample() { }
+		public WeaponAngle() { }
 
-		public WeaponExample(string p_ShotName, float p_Damage, float p_Delay, float p_Speed, float p_Angle)
-			: base(p_ShotName, p_Damage, p_Delay, p_Speed, p_Angle)
-		{}
+		public WeaponAngle(Shot p_Shot, float p_Delay, float p_Speed, float p_Angle)
+			: base(p_Shot, p_Delay, p_Speed)
+		{
+			Angle = p_Angle;
+		}
 
 		public override void CreateShot(Ship who)
 		{
@@ -52,11 +66,7 @@ namespace project_hook
 				m_Shots[m_NextShot].Center = who.Center;
 				m_Shots[m_NextShot].Faction = who.Faction;
 				m_Shots[m_NextShot].Task = m_ShotTask;
-				if (m_ShotAnimation != null)
-				{
-					m_Shots[m_NextShot].setAnimation(m_ShotAnimation, m_ShotAnimationFPS);
-					m_Shots[m_NextShot].Animation.StartAnimation();
-				}
+				
 
 				m_Cooldown = m_Delay;
 

@@ -127,10 +127,18 @@ namespace project_hook
 		{
 			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, TextureLibrary.getGameTexture("Explosion", "3"), 70);
 
-			Weapon temp = new WeaponExample("RedShot", 1, 0.15f, 600, -MathHelper.PiOver2);
-			temp.ShotAnimation = "RedShot";
-			temp.ShotAnimationFPS = 10;
-			m_PlayerShip.addWeapon(temp);
+			Shot shot = new Shot();
+			shot.Name = "Player Shot";
+			shot.Height = 30;
+			shot.Width = 90;
+			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
+			shot.Radius = 15;
+			shot.Damage = 1;
+			shot.Bound = Collidable.Boundings.Diamond;
+			shot.setAnimation( "RedShot", 10 );
+
+			Weapon wep = new WeaponAngle( shot, 0.15f, 600, -MathHelper.PiOver2);
+			m_PlayerShip.addWeapon(wep);
 		}
 
 		public void Shoot()
