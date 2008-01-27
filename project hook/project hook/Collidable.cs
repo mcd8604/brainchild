@@ -45,7 +45,7 @@ namespace project_hook
 			}
 		}
 
-		private Factions m_Faction;
+		private Factions m_Faction = Factions.None;
 		public Factions Faction
 		{
 			get
@@ -83,20 +83,6 @@ namespace project_hook
 			set
 			{
 				m_Health = value;
-			}
-		}
-
-		//this is the speed of the sprite
-		private float m_Speed = 0f;
-		public float Speed
-		{
-			get
-			{
-				return m_Speed;
-			}
-			set
-			{
-				m_Speed = value;
 			}
 		}
 
@@ -204,7 +190,11 @@ namespace project_hook
 			if (didCollide != null)
 			{
 				float d;
-				if (float.IsNaN(didCollide.Health))
+				if (didCollide is Shot)
+				{
+					d = didCollide.Damage;
+				}
+				else if (float.IsNaN(didCollide.Health))
 				{
 					d = didCollide.Damage * (float)p_Time.ElapsedGameTime.TotalSeconds;
 				}
@@ -257,7 +247,7 @@ namespace project_hook
 			}
 			else
 			{
-				if ( !float.IsNaN( Health ))
+				if (!float.IsNaN(Health))
 				{
 					didCollide = p_Other;
 					SpawnDamageEffect(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));

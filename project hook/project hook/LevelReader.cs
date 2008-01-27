@@ -259,12 +259,6 @@ namespace project_hook
 					t_Ship.MaxShield = int.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
-				else if (p_Reader.IsStartElement("speed"))
-				{
-					p_Reader.ReadStartElement("speed");
-					t_Ship.Speed = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
 				else if (p_Reader.IsStartElement("damageTexture"))
 				{
 					if (p_Reader.AttributeCount == 1)
@@ -331,34 +325,24 @@ namespace project_hook
 		{
 			Weapon weapon = null;
 			string pType = p_Reader.GetAttribute("type");
-			p_Reader.ReadStartElement("weapon");
 
 			switch (pType)
 			{
-				case "Example":
-					weapon = new WeaponExample();
+				case "Angle":
+					WeaponAngle angle = new WeaponAngle();
+					angle.AngleDegrees = float.Parse( p_Reader.GetAttribute("angle") );
+					weapon = angle;
 					break;
 				default:
 #if DEBUG
 					throw new NotImplementedException("'" + pType + "' is not a recognized Weapon");
 #endif
 			}
+			p_Reader.ReadStartElement("weapon");
 
 			while (p_Reader.IsStartElement())
 			{
-				if (p_Reader.IsStartElement("shotName"))
-				{
-					p_Reader.ReadStartElement("shotName");
-					weapon.ShotName = p_Reader.ReadString();
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("damage"))
-				{
-					p_Reader.ReadStartElement("damage");
-					weapon.Damage = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("delay"))
+				if (p_Reader.IsStartElement("delay"))
 				{
 					p_Reader.ReadStartElement("delay");
 					weapon.Delay = float.Parse(p_Reader.ReadString());
@@ -370,41 +354,9 @@ namespace project_hook
 					weapon.Speed = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
-				else if (p_Reader.IsStartElement("offset"))
+				else if (p_Reader.IsStartElement("shot"))
 				{
-					p_Reader.ReadStartElement("offset");
-					weapon.AngleDegrees = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("height"))
-				{
-					p_Reader.ReadStartElement("height");
-					weapon.ShotHeight = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("width"))
-				{
-					p_Reader.ReadStartElement("width");
-					weapon.ShotWidth = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("radius"))
-				{
-					p_Reader.ReadStartElement();
-					weapon.ShotRadius = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("shotAnimation"))
-				{
-					p_Reader.ReadStartElement();
-					weapon.ShotAnimation = p_Reader.ReadString();
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("shotAnimationFPS"))
-				{
-					p_Reader.ReadStartElement();
-					weapon.ShotAnimationFPS = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
+					weapon.ShotType = readShot(p_Reader);
 				}
 #if DEBUG
 				else
@@ -426,6 +378,88 @@ namespace project_hook
 			p_Reader.ReadEndElement();
 
 			return weapon;
+		}
+
+
+		private static Shot readShot(XmlReader p_Reader)
+		{
+			Shot shot = new Shot();
+			p_Reader.ReadStartElement("shot");
+
+			while (p_Reader.IsStartElement())
+			{
+				if (p_Reader.IsStartElement("name"))
+				{
+					p_Reader.ReadStartElement("name");
+					shot.Name = p_Reader.ReadString();
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("damage"))
+				{
+					p_Reader.ReadStartElement("damage");
+					shot.Damage = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("height"))
+				{
+					p_Reader.ReadStartElement("height");
+					shot.Height = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("width"))
+				{
+					p_Reader.ReadStartElement("width");
+					shot.Width = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("radius"))
+				{
+					p_Reader.ReadStartElement("radius");
+					shot.Radius = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("animation"))
+				{
+					shot.setAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
+					shot.Animation.StartAnimation();
+					p_Reader.ReadStartElement("animation");
+				}
+				else if (p_Reader.IsStartElement("texture"))
+				{
+					String t_Name = p_Reader.GetAttribute(0);
+					if (p_Reader.AttributeCount == 1)
+					{
+						shot.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						shot.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
+																		p_Reader.GetAttribute(1));
+					}
+
+					p_Reader.ReadStartElement("texture");
+				}
+#if DEBUG
+				else
+				{
+					throw new NotImplementedException("LevelReader readShot could not understand tag '" + p_Reader.Name + "'");
+				}
+#endif
+#if DEBUG
+				if (++curLoop > maxLoops)
+				{
+					throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+				}
+#endif
+			}
+#if DEBUG
+			curLoop = 0;
+#endif
+
+			p_Reader.ReadEndElement();
+
+			return shot;
+
 		}
 
 		private static Task readTask(XmlReader p_Reader)
