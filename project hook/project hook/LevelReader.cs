@@ -274,7 +274,7 @@ namespace project_hook
 				}
 				else if (p_Reader.IsStartElement("radius"))
 				{
-					p_Reader.ReadStartElement();
+					p_Reader.ReadStartElement("radius");
 					t_Ship.Radius = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
@@ -291,6 +291,10 @@ namespace project_hook
 					t_Ship.setAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
 					t_Ship.Animation.StartAnimation();
 					p_Reader.ReadStartElement("animation");
+				}
+				else if (p_Reader.IsStartElement("bound"))
+				{
+					t_Ship.Bound = readBounding(p_Reader);
 				}
 #if DEBUG
 				else
@@ -318,6 +322,24 @@ namespace project_hook
 			{
 				t_List.Add(new Event(t_Ship));
 				m_Events.Add(m_Distance, t_List);
+			}
+		}
+
+		private static Collidable.Boundings readBounding(XmlReader p_Reader)
+		{
+			p_Reader.ReadStartElement("bound");
+			string name = p_Reader.ReadString();
+			p_Reader.ReadEndElement();
+			switch (name)
+			{
+				case "Circle":
+					return Collidable.Boundings.Circle;
+				case "Diamond":
+					return Collidable.Boundings.Diamond;
+				case "Square":
+					return Collidable.Boundings.Square;
+				default:
+					throw new NotImplementedException("Unknown Bounds");
 			}
 		}
 
@@ -438,6 +460,10 @@ namespace project_hook
 					}
 
 					p_Reader.ReadStartElement("texture");
+				}
+				else if (p_Reader.IsStartElement("bound"))
+				{
+					t_Ship.Bound = readBounding(p_Reader);
 				}
 #if DEBUG
 				else
