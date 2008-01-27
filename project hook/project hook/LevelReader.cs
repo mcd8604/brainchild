@@ -350,10 +350,10 @@ namespace project_hook
 
 			switch (pType)
 			{
-				case "Angle":
-					WeaponAngle angle = new WeaponAngle();
-					angle.AngleDegrees = float.Parse( p_Reader.GetAttribute("angle") );
-					weapon = angle;
+				case "Straight":
+					WeaponStraight straight = new WeaponStraight();
+					straight.AngleDegrees = float.Parse(p_Reader.GetAttribute("angle"));
+					weapon = straight;
 					break;
 				default:
 #if DEBUG
@@ -368,6 +368,12 @@ namespace project_hook
 				{
 					p_Reader.ReadStartElement("delay");
 					weapon.Delay = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("initialCooldown"))
+				{
+					p_Reader.ReadStartElement("initialCooldown");
+					weapon.Cooldown = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("speed"))

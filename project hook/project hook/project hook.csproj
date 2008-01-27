@@ -246,9 +246,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskTimer</Name>
     </Compile>
-    <Compile Include="WeaponAngle.cs">
+    <Compile Include="WeaponStraight.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>WeaponAngle</Name>
+      <Name>WeaponStraight</Name>
     </Compile>
     <Compile Include="WorldPosition.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

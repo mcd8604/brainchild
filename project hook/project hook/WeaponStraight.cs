@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class WeaponAngle : Weapon
+	class WeaponStraight : Weapon
 	{
 
 		private float m_LastAngle = float.NaN;
@@ -36,11 +36,13 @@ namespace project_hook
 			}
 		}
 
+		public Vector2 m_Position = Vector2.Zero;
+
 		Task m_ShotTask;
 
-		public WeaponAngle() { }
+		public WeaponStraight() { }
 
-		public WeaponAngle(Shot p_Shot, float p_Delay, float p_Speed, float p_Angle)
+		public WeaponStraight(Shot p_Shot, float p_Delay, float p_Speed, float p_Angle)
 			: base(p_Shot, p_Delay, p_Speed)
 		{
 			Angle = p_Angle;
@@ -63,7 +65,7 @@ namespace project_hook
 				}
 
 				m_Shots[m_NextShot].Enabled = true;
-				m_Shots[m_NextShot].Center = who.Center;
+				m_Shots[m_NextShot].Center = who.Center + m_Position;
 				m_Shots[m_NextShot].Faction = who.Faction;
 				m_Shots[m_NextShot].Task = m_ShotTask;
 				
