@@ -463,7 +463,7 @@ namespace project_hook
 				}
 				else if (p_Reader.IsStartElement("bound"))
 				{
-					t_Ship.Bound = readBounding(p_Reader);
+					shot.Bound = readBounding(p_Reader);
 				}
 #if DEBUG
 				else
