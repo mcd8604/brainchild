@@ -68,11 +68,8 @@ namespace project_hook
 				m_Shots[m_NextShot].Center = who.Center + m_Position;
 				m_Shots[m_NextShot].Faction = who.Faction;
 				m_Shots[m_NextShot].Task = m_ShotTask;
-				
 
-				m_Cooldown = m_Delay;
-
-				m_NextShot = (m_NextShot + 1) % m_Shots.Count;
+				base.CreateShot(who);
 			}
 		}
 

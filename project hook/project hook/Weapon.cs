@@ -78,7 +78,11 @@ namespace project_hook
 
 		//this function will create a Shot at the current location
 		// Only a single shot? 
-		public abstract void CreateShot( Ship who );
+		public virtual void CreateShot(Ship who)
+		{
+			m_Cooldown = m_Delay;
+			m_NextShot = (m_NextShot + 1) % m_Shots.Count;
+		}
 
 		public void Update(GameTime p_Time)
 		{
