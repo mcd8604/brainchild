@@ -584,4 +584,94 @@
 			</task>
 		</createShip>
 	</action>
+	<action dist="8000">
+		<createShip>
+			<name>Enemy</name>
+			<height>50</height>
+			<width>75</width>
+			<radius>30</radius>
+			<texture name="Enemy1"/>
+			<startCenter x="200" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Straight" angle="5">
+				<delay>1</delay>
+				<speed>200</speed>
+				<shot>
+					<damage>10</damage>
+					<height>15</height>
+					<width>50</width>
+					<radius>10</radius>
+					<texture name="Shot"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-5">
+				<delay>1</delay>
+				<speed>200</speed>
+				<initialCooldown>0.5</initialCooldown>
+				<shot>
+					<damage>10</damage>
+					<height>15</height>
+					<width>50</width>
+					<radius>10</radius>
+					<texture name="Shot"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>100</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="8000">
+		<createShip>
+			<name>Enemy</name>
+			<height>50</height>
+			<width>75</width>
+			<radius>30</radius>
+			<texture name="Enemy1"/>
+			<startCenter x="800" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Straight" angle="5">
+				<delay>1</delay>
+				<speed>200</speed>
+				<shot>
+					<damage>10</damage>
+					<height>15</height>
+					<width>50</width>
+					<radius>10</radius>
+					<texture name="Shot"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-5">
+				<delay>1</delay>
+				<speed>200</speed>
+				<initialCooldown>0.5</initialCooldown>
+				<shot>
+					<damage>10</damage>
+					<height>15</height>
+					<width>50</width>
+					<radius>10</radius>
+					<texture name="Shot"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>100</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
 </level>
