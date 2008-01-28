@@ -208,7 +208,7 @@ namespace project_hook
 						if (wep is WeaponSeek)
 						{
 							WeaponSeek wepSeek = (WeaponSeek)wep;
-							//wepSeek.Target = getNearestEnemy;
+							wepSeek.Target = m_TargetObject;
 						}
 					}
 				}
