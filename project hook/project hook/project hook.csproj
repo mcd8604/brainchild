@@ -246,6 +246,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskTimer</Name>
     </Compile>
+    <Compile Include="WeaponSeek.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>WeaponSeek</Name>
+    </Compile>
     <Compile Include="WeaponStraight.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponStraight</Name>
@@ -678,6 +682,23 @@
       <Name>bloodcell</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\cell.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>cell</Name>
+    </Content>
+    <Content Include="Content\Textures\energyball.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>energyball</Name>
+    </Content>
+    <Content Include="Content\Textures\energyball.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>energyball</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\Explosion2.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -687,6 +708,17 @@
     <Content Include="Content\Textures\Explosion2.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Explosion2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\shot_electric.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>shot_electric</Name>
+    </Content>
+    <Content Include="Content\Textures\shot_electric.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>shot_electric</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\shot_energy.png">
