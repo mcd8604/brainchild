@@ -36,6 +36,8 @@ namespace project_hook
 			set { m_Cooldown += value; }
 		}
 
+		protected float m_LastSpeed = float.NaN;
+
 		// this is how fast the shot will travel, pixels per second
 		protected float m_Speed = 1000;
 		public virtual float Speed

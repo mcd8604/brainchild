@@ -92,7 +92,7 @@ namespace project_hook
 		private Task m_ReleaseTask;
 
 		public Sprite m_TargetObject;
-		
+
 
 		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
 					float p_Degree, float p_Z, Factions p_Faction, float p_Health, GameTexture p_DamageEffect, float p_Radius,
@@ -159,7 +159,7 @@ namespace project_hook
 
 				float releaseAngle = (float)Math.Atan2(m_TargetObject.Center.Y - m_EnemyCaught.Center.Y, m_TargetObject.Center.X - m_EnemyCaught.Center.X);
 				temp = new TaskParallel();
-				temp.addTask(new TaskStraightAngle( releaseAngle, 600f));
+				temp.addTask(new TaskStraightAngle(releaseAngle, 600f));
 				temp.addTask(new TaskRotateToAngle(releaseAngle));
 				m_ReleaseTask = temp;
 
@@ -202,6 +202,13 @@ namespace project_hook
 					temp.addTask(new TaskAttach(this));
 					temp.addTask(new TaskRotateFaceTarget(m_TargetObject));
 					m_EnemyCaught.Task = temp;
+					foreach(Weapon wep in ((Ship)m_EnemyCaught).Weapons) {
+						if (wep is WeaponSeek)
+						{
+							WeaponSeek wepSeek = (WeaponSeek)wep;
+							//wepSeek.Target = getNearestEnemy;
+						}
+					}
 				}
 
 				if (m_TailState == TailState.Throwing)
@@ -251,7 +258,7 @@ namespace project_hook
 
 			m_BodyTask.Update(m_BodySprites, p_Time);
 			m_LastTailAttack += (float)p_Time.ElapsedGameTime.TotalSeconds;
-			if ( m_EnemyCaught != null && m_EnemyCaught.IsDead())
+			if (m_EnemyCaught != null && m_EnemyCaught.IsDead())
 			{
 				m_EnemyCaught = null;
 			}
