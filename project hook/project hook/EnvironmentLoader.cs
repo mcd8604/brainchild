@@ -197,7 +197,7 @@ namespace project_hook
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = false;
 					}
 
-					m_CurrentView[getPosition(i, m_CurTopBuffer)].Position = new Vector2(i * m_TileDimension, 0 - m_TileDimension);
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].Position = new Vector2(i * m_TileDimension, m_CurrentView[getPosition(i,(m_CurTopBuffer+1)%m_ScreenSpaceHeight)].Position.Y - m_TileDimension);
 
 				}
 
