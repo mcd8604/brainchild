@@ -7,6 +7,8 @@ namespace project_hook
 {
 	class WeaponSeek : Weapon
 	{
+		private Sprite m_LastTarget = null;
+
 		private Sprite m_Target = null;
 		public Sprite Target
 		{
@@ -35,13 +37,14 @@ namespace project_hook
 		{
 			if (m_Cooldown <= 0)
 			{
-				if (m_LastSpeed != Speed)
+				if (m_LastTarget != Target || m_LastSpeed != Speed)
 				{
 					TaskParallel task = new TaskParallel();
 					task.addTask(new TaskSeekTarget(m_Target, Speed));
 					task.addTask(new TaskRotateFaceTarget(m_Target));
 					m_ShotTask = task;
 
+					m_LastTarget = Target;
 					m_LastSpeed = Speed;
 				}
 
