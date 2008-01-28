@@ -186,7 +186,7 @@ namespace project_hook
 				timer.Reset();
 				timer.Start();
 #endif
-				Collision.CheckCollisions(m_SpriteList);
+				Collision.CheckCollisions(m_SpriteList, m_SpriteListA);
 #if DEBUG
 				timer.Stop();
 				colltotal += timer.Elapsed.TotalMilliseconds;

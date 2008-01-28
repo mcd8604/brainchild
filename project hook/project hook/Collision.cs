@@ -10,23 +10,28 @@ namespace project_hook
 		private static MultiDictionary<Collidable.Factions, Collidable> sorter = new MultiDictionary<Collidable.Factions, Collidable>(true);
 
 		/// <summary>
-		/// Check Everything in list to see if any collisions have occured.
+		/// Check Everything in lists to see if any collisions have occured.
 		/// </summary>
 		/// <param name="list">the list to check</param>
-		public static void CheckCollisions(List<Sprite> list)
+		public static void CheckCollisions(params List<Sprite>[] list)
 		{
 			sorter.Clear();
 
-			foreach (Sprite s in list)
+			foreach (List<Sprite> l in list)
 			{
-				if (s.Enabled)
+
+				foreach (Sprite s in l)
 				{
-					Collidable temp = s as Collidable;
-					if (temp != null && temp.Faction != Collidable.Factions.None)
+					if (s.Enabled)
 					{
-						sorter.Add(temp.Faction, temp);
+						Collidable temp = s as Collidable;
+						if (temp != null && temp.Faction != Collidable.Factions.None)
+						{
+							sorter.Add(temp.Faction, temp);
+						}
 					}
 				}
+
 			}
 
 			List<Collidable.Factions> keys = new List<Collidable.Factions>(sorter.Keys);
