@@ -678,6 +678,17 @@
       <Name>bloodcell</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\energyball.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>energyball</Name>
+    </Content>
+    <Content Include="Content\Textures\energyball.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>energyball</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\Explosion2.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
