@@ -280,5 +280,10 @@ namespace project_hook
 			return Name.ToString() + " " + Center.ToString() + " " + Bound.ToString() + " " + Radius.ToString();
 		}
 
+
+		public virtual void captured()
+		{
+			this.Animation.StopAnimation();
+		}
 	}
 }
