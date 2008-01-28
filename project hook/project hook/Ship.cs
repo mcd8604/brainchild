@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-
 	/// <summary>
 	/// Description: This class contians all information regarding ships, both player and enemy
 	/// 
@@ -57,7 +56,6 @@ namespace project_hook
 					m_ShieldSprite.Enabled = false;
 				}
 			}
-
 		}
 
 		private float m_Shield = 0;
@@ -130,7 +128,6 @@ namespace project_hook
 
 		public override void Update(GameTime p_Time)
 		{
-
 			base.Update(p_Time);
 
 			if (m_MaxShield > 0 && m_ShieldSprite !=null)
@@ -147,27 +144,16 @@ namespace project_hook
 				m_Shield = MathHelper.Clamp(m_Shield + (m_MaxShield * m_ShieldRegenRate) * (float)p_Time.ElapsedGameTime.TotalSeconds, 0, m_MaxShield);
 			}
 			m_TimeSinceLastDamage += (float)p_Time.ElapsedGameTime.TotalSeconds;
-
 		}
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			if (Faction != Factions.Blood)
 			{
-				if (p_Other is Shot)
+				if (p_Other.Faction==Factions.Player)
 				{
 					didCollide = p_Other;
 					SpawnDamageEffect(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
-
-					//Possible attach the explosion sprite to the ship
-				}
-				else if (p_Other is Ship)
-				{
-					if (p_Other.Faction == Factions.Player)
-					{
-						didCollide = p_Other;
-						SpawnDamageEffect(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
-					}
 				}
 				else if (p_Other.Faction == Factions.Environment)
 				{
@@ -178,7 +164,6 @@ namespace project_hook
 
 		protected override void takeDamage(float damage)
 		{
-
 			m_TimeSinceLastDamage = 0;
 
 			if (Shield > damage)
@@ -203,26 +188,24 @@ namespace project_hook
 				// death effect, and remove?
 				Enabled = false;
 			}
-
 		}
 
 		protected override void SpawnDamageEffect(Vector2 where)
 		{
 			if (m_Shield > 0)
+			{
+				if (m_ShieldDamageParticleSystem != null)
 				{
-					if (m_ShieldDamageParticleSystem != null)
-					{
-						m_ShieldDamageParticleSystem.AddParticles(where);
-					}
+					m_ShieldDamageParticleSystem.AddParticles(where);
 				}
-				else
+			}
+			else
+			{
+				if (DamageParticleSystem != null)
 				{
-					if (DamageParticleSystem != null)
-					{
-						DamageParticleSystem.AddParticles(where);
-					}
+					DamageParticleSystem.AddParticles(where);
 				}
+			}
 		}
-
 	}
 }
