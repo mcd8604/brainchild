@@ -33,7 +33,10 @@ namespace project_hook
 				float newY = s.Position.Y + (dist);
 				if (s.Position.Y >= World.m_ViewPortSize.Height)
 				{
-					newY = 0 - s.Height + (dist);
+					//if(scrollingSprites.IndexOf(s) != 0)
+						newY = ((Sprite)scrollingSprites[(scrollingSprites.IndexOf(s)+1)%scrollingSprites.Count]).Position.Y - s.Height + (dist);
+					//else
+					//	newY = ((Sprite)scrollingSprites[scrollingSprites.Count-1]).Position.Y - s.Height + (dist);
 				}
 				s.Position = new Vector2(s.Position.X, newY);
 			}
