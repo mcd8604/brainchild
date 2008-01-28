@@ -319,6 +319,356 @@
 			</task>
 		</createShip>
 	</action>
+	<!-- shoots many shots -->
+	<action dist="2750">
+		<createShip>
+			<name>Enemy</name>
+			<height>60</height>
+			<width>60</width>
+			<radius>30</radius>
+			<texture name="virus1"/>
+			<startCenter x="700" y="0"/>
+			<health>400</health>
+			<shield>100</shield>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Straight" angle="0">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="15">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="30">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="45">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="60">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="75">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="90">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="105">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="120">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="135">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="150">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="165">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="180">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-15">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-30">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-45">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-60">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-75">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-90">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-105">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-120">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-135">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-150">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-165">
+				<delay>2</delay>
+				<speed>75</speed>
+				<shot>
+					<damage>4</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity y="5" x="50"/>
+						</task>
+						<task type="Timer">
+							<duration>10</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity y="5" x="-50"/>
+						</task>
+						<task type="Timer">
+							<duration>10</duration>
+						</task>
+					</task>
+				</task>
+				<task type="Fire"/>
+				<task type="RotateByAngle">
+					<degree>30</degree>
+				</task>
+			</task>
+		</createShip>
+	</action>
 	<action dist="3000">
 		<createShip>
 			<name>Enemy</name>
