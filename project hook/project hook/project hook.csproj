@@ -70,10 +70,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
-    <Compile Include="PowerUp.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PowerUp</Name>
-    </Compile>
     <Compile Include="SimpleScore.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>SimpleScore</Name>
@@ -467,6 +463,11 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Ship2</Name>
     </Content>
+    <Content Include="Content\Textures\Ship2.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Ship2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\Shot.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -677,26 +678,6 @@
       <Name>bloodcell</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-<<<<<<< .mine
-    <Content Include="Content\Textures\DNA.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>DNA</Name>
-    </Content>
-=======
-    <Content Include="Content\Textures\energyball.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>energyball</Name>
-    </Content>
-    <Content Include="Content\Textures\energyball.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>energyball</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
->>>>>>> .r463
     <Content Include="Content\Textures\Explosion2.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -706,22 +687,6 @@
     <Content Include="Content\Textures\Explosion2.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Explosion2</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Textures\Ship2.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Ship2</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Textures\shot_electric.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>shot_electric</Name>
-    </Content>
-    <Content Include="Content\Textures\shot_electric.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>shot_electric</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\shot_energy.png">
