@@ -17,6 +17,8 @@ namespace project_hook
 	public class Shot : Collidable
 	{
 
+		//private ArrayList<Shot> blurShots;
+
 		public Shot() {
 			Enabled = false;
 			Name = "Unnamed Shot";

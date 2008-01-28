@@ -446,6 +446,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("RedShot");
 			TextureLibrary.LoadTexture("Enemy1");
 			TextureLibrary.LoadTexture("virus1");
+			TextureLibrary.LoadTexture("cell");
 			TextureLibrary.LoadTexture("Explosion");
 			TextureLibrary.LoadTexture("Shield");
 			TextureLibrary.LoadTexture("FireBall");

@@ -9,7 +9,6 @@ namespace project_hook
 	{
 
 		private float m_LastAngle = float.NaN;
-		private float m_LastSpeed = float.NaN;
 
 		// the angle that the shot is to be fired at
 		protected float m_Angle = 0;

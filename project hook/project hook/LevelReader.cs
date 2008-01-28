@@ -357,6 +357,15 @@ namespace project_hook
 					straight.AngleDegrees = float.Parse(p_Reader.GetAttribute("angle"));
 					weapon = straight;
 					break;
+				case "Seek":
+					WeaponSeek seek = new WeaponSeek();
+					string target = p_Reader.GetAttribute("target");
+					if (target == "Player")
+					{
+						seek.Target = World.m_Player.PlayerShip;
+					}
+					weapon = seek;
+					break;
 				default:
 #if DEBUG
 					throw new NotImplementedException("'" + pType + "' is not a recognized Weapon");

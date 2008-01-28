@@ -3,10 +3,10 @@
 	<action dist="0">
 		<createShip>
 			<name>Enemy</name>
-			<height>75</height>
-			<width>100</width>
-			<radius>40</radius>
-			<texture name="Enemy1"/>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="cell"/>
 			<startCenter x="800" y="150"/>
 			<health>50</health>
 			<damageTexture name="Explosion" pos="3"/>
@@ -71,7 +71,7 @@
 			<health>50</health>
 			<damageTexture name="Explosion" pos="3"/>
 			<animation name="bloodcell" fps="60"/>
-			<weapon type="Straight" angle="10">
+			<weapon type="Seek" target="Player">
 				<delay>1</delay>
 				<speed>400</speed>
 				<shot>
@@ -83,7 +83,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Straight" angle="30">
+			<weapon type="Seek" target="Player">
 				<delay>1</delay>
 				<speed>400</speed>
 				<shot>
@@ -95,7 +95,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Straight" angle="-10">
+			<weapon type="Seek" target="Player">
 				<delay>1</delay>
 				<speed>400</speed>
 				<shot>
@@ -107,7 +107,7 @@
 					<animation name="FireBall" fps="10"/>
 				</shot>
 			</weapon>
-			<weapon type="Straight" angle="-30">
+			<weapon type="Seek" target="Player">
 				<delay>1</delay>
 				<speed>400</speed>
 				<shot>
