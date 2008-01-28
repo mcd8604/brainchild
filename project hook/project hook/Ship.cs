@@ -35,16 +35,26 @@ namespace project_hook
 				m_Shield = m_MaxShield;
 				if (m_MaxShield > 0)
 				{
-					m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(Width * 1.30), (int)(Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
-					m_ShieldSprite.Task = new TaskAttach(this);
-					attachSpritePart(m_ShieldSprite);
+					if (m_ShieldSprite != null)
+					{
+						m_ShieldSprite.Enabled = true;
+					}
+					else
+					{
+						m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(Width * 1.30), (int)(Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
+						m_ShieldSprite.Task = new TaskAttach(this);
+						attachSpritePart(m_ShieldSprite);
 
-					GameTexture DamageEffect = TextureLibrary.getGameTexture("Explosion2", "3");
-					m_ShieldDamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, (int)(DamageEffect.Width * 0.5f), (int)(DamageEffect.Height * 0.5f), DamageEffect, 1.0f, true, 0, Depth.GameLayer.Explosion, 1);
-					m_ShieldDamageParticleSystem.setAnimation("Explosion2", 10);
-					m_ShieldDamageParticleSystem.Animation.StartAnimation();
-					addSprite(m_ShieldDamageParticleSystem);
-					
+						GameTexture DamageEffect = TextureLibrary.getGameTexture("Explosion2", "3");
+						m_ShieldDamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, (int)(DamageEffect.Width * 0.5f), (int)(DamageEffect.Height * 0.5f), DamageEffect, 1.0f, true, 0, Depth.GameLayer.Explosion, 1);
+						m_ShieldDamageParticleSystem.setAnimation("Explosion2", 10);
+						m_ShieldDamageParticleSystem.Animation.StartAnimation();
+						addSprite(m_ShieldDamageParticleSystem);
+					}
+				}
+				else if (m_ShieldSprite != null)
+				{
+					m_ShieldSprite.Enabled = false;
 				}
 			}
 
@@ -63,7 +73,25 @@ namespace project_hook
 			}
 		}
 
-		private float timeSinceLastDamage = 0;
+		private float m_TimeSinceLastDamage = 0;
+		private float m_ShieldRegenDelay = 5;
+		/// <summary>
+		/// Delay after taking damage, before the shield begins regenerating, in seconds.
+		/// </summary>
+		public float ShieldRegenDelay {
+			get { return m_ShieldRegenDelay; }
+				set { m_ShieldRegenDelay = value; }
+		}
+
+		private float m_ShieldRegenRate = 0.1;
+		/// <summary>
+		/// The Rate at which the shield will regenerate, in percent per second.
+		/// </summary>
+		public float ShieldRegenRate
+		{
+			get { return m_ShieldRegenRate; }
+			set { m_ShieldRegenRate = value; }
+		}
 
 		public Ship()
 		{
@@ -114,18 +142,18 @@ namespace project_hook
 				w.Update(p_Time);
 			}
 
-			if (timeSinceLastDamage > 5 && m_Shield < m_MaxShield)
+			if (m_TimeSinceLastDamage > m_ShieldRegenDelay && m_Shield < m_MaxShield)
 			{
-				m_Shield = MathHelper.Clamp(m_Shield + (m_MaxShield * 0.1f) * (float)p_Time.ElapsedGameTime.TotalSeconds, 0, m_MaxShield);
+				m_Shield = MathHelper.Clamp(m_Shield + (m_MaxShield * m_ShieldRegenRate) * (float)p_Time.ElapsedGameTime.TotalSeconds, 0, m_MaxShield);
 			}
-			timeSinceLastDamage += (float)p_Time.ElapsedGameTime.TotalSeconds;
+			m_TimeSinceLastDamage += (float)p_Time.ElapsedGameTime.TotalSeconds;
 
 		}
 
 		protected override void takeDamage(float damage)
 		{
 
-			timeSinceLastDamage = 0;
+			m_TimeSinceLastDamage = 0;
 
 			if (Shield > damage)
 			{
@@ -170,30 +198,5 @@ namespace project_hook
 				}
 		}
 
-		//public override void RegisterCollision(Collidable p_Other)
-		//{
-
-			
-
-				
-
-
-
-		//    }
-
-
-		//    if (p_Other is Shot)
-		//    {
-		//        takeDamage( ((Shot)p_Other).Damage );
-
-				
-
-		//    }
-		//    else if (p_Other is Ship)
-		//    {
-		//        didCollide = p_Other.Health;
-		//    }
-		//    else 
-		//}
 	}
 }

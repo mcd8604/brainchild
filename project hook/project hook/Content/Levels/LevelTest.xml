@@ -199,7 +199,7 @@
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
-					<speed>100</speed>
+					<speed>50</speed>
 				</task>
 				<task type="RotateFaceTarget">
 					<target>Player</target>
@@ -441,7 +441,7 @@
 					</task>
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity y="10" x="-50"/>
+							<velocity y="5" x="-50"/>
 						</task>
 						<task type="Timer">
 							<duration>10</duration>
@@ -450,7 +450,7 @@
 				</task>
 				<task type="Fire"/>
 				<task type="RotateByAngle">
-					<degree>45</degree>
+					<degree>30</degree>
 				</task>
 			</task>
 		</createShip>
@@ -620,7 +620,7 @@
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
-					<speed>100</speed>
+					<speed>50</speed>
 				</task>
 				<task type="RotateFaceTarget">
 					<target>Player</target>
@@ -665,12 +665,159 @@
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
-					<speed>100</speed>
+					<speed>50</speed>
 				</task>
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
 				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="10000">
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="500" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>125</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="11000">
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="400" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>150</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="11000">
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="600" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>150</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="12000">
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="200" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>200</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="12000">
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="400" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>200</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="12000">
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="600" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>200</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="12000">
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="800" y="0"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>200</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 			</task>
 		</createShip>
 	</action>
