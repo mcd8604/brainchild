@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace project_hook
 {
@@ -20,6 +21,7 @@ namespace project_hook
 			Enabled = false;
 			Name = "Unnamed Shot";
 			Z = Depth.GameLayer.Shot;
+            BlendMode = SpriteBlendMode.Additive;
 		}
 		public Shot(Shot p_Shot)
 		{

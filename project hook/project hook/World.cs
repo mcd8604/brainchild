@@ -433,6 +433,9 @@ namespace project_hook
             TextureLibrary.LoadTexture("tail_segment");
             TextureLibrary.LoadTexture("shot_energy");
             TextureLibrary.LoadTexture("bloodcell");
+            TextureLibrary.LoadTexture("energy");
+            TextureLibrary.LoadTexture("Shot");
+            TextureLibrary.LoadTexture("shot_electric");
             TextureLibrary.LoadTexture("plaque");
 			TextureLibrary.LoadTexture("wall_flat");
             TextureLibrary.LoadTexture("Explosion2");
