@@ -272,14 +272,7 @@ namespace project_hook
 
 		public void checkKeys(GameTime p_GameTime)
 		{
-#if DEBUG
-			//full heal
-			if(InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.G)){
-				m_Player.PlayerShip.Health = m_Player.PlayerShip.MaxHealth;
-				m_Player.PlayerShip.Shield = m_Player.PlayerShip.MaxShield;
 
-			}
-#endif
 			// Allows the game to exit
 			if (InputHandler.IsActionPressed(Actions.Pause))
 			{
@@ -334,6 +327,15 @@ namespace project_hook
 					}
 				}
 #if DEBUG
+
+				//full heal
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.L))
+				{
+					m_Player.PlayerShip.Health = m_Player.PlayerShip.MaxHealth;
+					m_Player.PlayerShip.Shield = m_Player.PlayerShip.MaxShield;
+
+				}
+
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
 					if (Music.IsPlaying("bg1"))
