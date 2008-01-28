@@ -83,7 +83,7 @@ namespace project_hook
 				set { m_ShieldRegenDelay = value; }
 		}
 
-		private float m_ShieldRegenRate = 0.1;
+		private float m_ShieldRegenRate = 0.1f;
 		/// <summary>
 		/// The Rate at which the shield will regenerate, in percent per second.
 		/// </summary>
