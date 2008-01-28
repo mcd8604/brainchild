@@ -327,7 +327,7 @@ namespace project_hook
 			{
 				t_List.Add(new Event(t_Ship));
 				m_Events.Add(m_Distance, t_List);
-			}
+			}   
 		}
 
 		private static Collidable.Boundings readBounding(XmlReader p_Reader)
@@ -641,5 +641,182 @@ namespace project_hook
 			return task;
 		}
 
+        private static void readSpawnPoint(XmlReader p_Reader)
+        {
+            SpawnPoint t_Ship = new SpawnPoint(0,0,"",0);
+            t_Ship.Faction = Collidable.Factions.Enemy;
+
+            List<Event> t_List = new List<Event>();
+
+            while (p_Reader.IsStartElement())
+            {
+                if(p_Reader.IsStartElement("SpawnDelay")){
+
+                    p_Reader.ReadStartElement("height");
+                    t_Ship.Height = int.Parse(p_Reader.ReadString());
+                    p_Reader.ReadEndElement();
+                }
+
+                else if(p_Reader.IsStartElement("SpawnShip")){
+                    Ship s_Ship;
+                }
+
+
+                else if(p_Reader.IsStartElement("SpawnCount")){
+                    p_Reader.ReadStartElement("height");
+                    t_Ship.Height = int.Parse(p_Reader.ReadString());
+                    p_Reader.ReadEndElement();
+                }
+
+                else if (p_Reader.IsStartElement("SpawnAnimation"))
+                {
+                    p_Reader.ReadStartElement("SpawnAnimation");
+                    t_Ship.SpawnAnimation = p_Reader.ReadString();
+                    p_Reader.ReadEndElement();
+  
+                }
+
+                else if (p_Reader.IsStartElement("SpawnTarget"))
+                {
+
+                }
+                
+                else if (p_Reader.IsStartElement("name"))
+                {
+                    p_Reader.ReadStartElement("name");
+                    t_Ship.Name = p_Reader.ReadString();
+                    p_Reader.ReadEndElement();
+                }
+                else if (p_Reader.IsStartElement("startPos"))
+                {
+                    t_Ship.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
+                                                    float.Parse(p_Reader.GetAttribute(1)));
+                    p_Reader.ReadStartElement("startPos");
+                }
+                else if (p_Reader.IsStartElement("startCenter"))
+                {
+                    t_Ship.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
+                                                    float.Parse(p_Reader.GetAttribute(1)));
+                    p_Reader.ReadStartElement("startCenter");
+                }
+                else if (p_Reader.IsStartElement("height"))
+                {
+                    p_Reader.ReadStartElement("height");
+                    t_Ship.Height = int.Parse(p_Reader.ReadString());
+                    p_Reader.ReadEndElement();
+                }
+                else if (p_Reader.IsStartElement("width"))
+                {
+                    p_Reader.ReadStartElement();
+                    t_Ship.Width = int.Parse(p_Reader.ReadString());
+                    p_Reader.ReadEndElement();
+                }
+                else if (p_Reader.IsStartElement("texture"))
+                {
+                    String t_Name = p_Reader.GetAttribute(0);
+                    if (p_Reader.AttributeCount == 1)
+                    {
+                        t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+                        //Console.WriteLine("1");
+                    }
+                    else if (p_Reader.AttributeCount == 2)
+                    {
+                        t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
+                                                                        p_Reader.GetAttribute(1));
+                        //Console.WriteLine("2");
+                    }
+
+                    p_Reader.ReadStartElement("texture");
+                }
+                else if (p_Reader.IsStartElement("transparency"))
+                {
+                    p_Reader.ReadStartElement("transparency");
+                    t_Ship.Transparency = float.Parse(p_Reader.ReadString());
+                    p_Reader.ReadEndElement();
+                }
+                else if (p_Reader.IsStartElement("enabled"))
+                {
+                    p_Reader.ReadStartElement("enabled");
+                    t_Ship.Enabled = bool.Parse(p_Reader.ReadString());
+                    p_Reader.ReadEndElement();
+                }
+                else if (p_Reader.IsStartElement("degree"))
+                {
+                    p_Reader.ReadStartElement("degree");
+                    t_Ship.RotationDegrees = float.Parse(p_Reader.ReadString());
+                    p_Reader.ReadEndElement();
+                }
+                else if (p_Reader.IsStartElement("health"))
+                {
+                    p_Reader.ReadStartElement("health");
+                    t_Ship.MaxHealth = int.Parse(p_Reader.ReadString());
+                    p_Reader.ReadEndElement();
+                }
+                else if (p_Reader.IsStartElement("damageTexture"))
+                {
+                    if (p_Reader.AttributeCount == 1)
+                    {
+                        t_Ship.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+                    }
+                    else if (p_Reader.AttributeCount == 2)
+                    {
+                        t_Ship.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
+                                                                        p_Reader.GetAttribute(1));
+                    }
+                    p_Reader.ReadStartElement("damageTexture");
+                }
+                else if (p_Reader.IsStartElement("radius"))
+                {
+                    p_Reader.ReadStartElement("radius");
+                    t_Ship.Radius = float.Parse(p_Reader.ReadString());
+                    p_Reader.ReadEndElement();
+                }
+                else if (p_Reader.IsStartElement("task"))
+                {
+                    t_Ship.Task = readTask(p_Reader);
+                }
+                else if (p_Reader.IsStartElement("animation"))
+                {
+                    t_Ship.setAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
+                    t_Ship.Animation.StartAnimation();
+                    p_Reader.ReadStartElement("animation");
+                }
+                else if (p_Reader.IsStartElement("bound"))
+                {
+                    t_Ship.Bound = readBounding(p_Reader);
+                }
+                else if (p_Reader.IsStartElement("blendMode"))
+                {
+                    t_Ship.BlendMode = readBlendMode(p_Reader);
+                }
+#if DEBUG
+                else
+                {
+                    throw new NotImplementedException("LevelReader LoadEnemy could not understand tag '" + p_Reader.Name + "'");
+                }
+#endif
+#if DEBUG
+                if (++curLoop > maxLoops)
+                {
+                    throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+                }
+#endif
+            }
+#if DEBUG
+            curLoop = 0;
+#endif
+
+            //add the ship to the event list
+           // if (m_Events.ContainsKey(m_Distance))
+            //{
+             //   m_Events[m_Distance].Add(new Event(t_Ship));
+            //}
+            //else
+            //{
+             //   t_List.Add(new Event(t_Ship));
+              //  m_Events.Add(m_Distance, t_List);
+            //}
+        }
+    
 	}
 }
