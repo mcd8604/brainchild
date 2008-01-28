@@ -100,7 +100,7 @@ namespace project_hook
 					return DoesIntersectSquares(one.Center, one.Radius, two.Center, two.Radius);
 				}
 			}
-			throw new NotImplementedException("unimplemented bounds collision exception");
+			throw new NotImplementedException("unimplemented bounds collision exception in CheckCollisions");
 		}
 
 		private static bool DoesIntersectCircles(Vector2 pos1, float radiustopoint1, Vector2 pos2, float radiustopoint2)
@@ -428,7 +428,7 @@ namespace project_hook
 					return temp;
 				}
 			}
-			throw new NotImplementedException("unimplemented bounds collision exception");
+			throw new NotImplementedException("unimplemented bounds collision exception in GetMinNonCollidingCenter");
 
 
 		}

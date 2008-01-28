@@ -328,19 +328,9 @@ namespace project_hook
 		private static Collidable.Boundings readBounding(XmlReader p_Reader)
 		{
 			p_Reader.ReadStartElement("bound");
-			string name = p_Reader.ReadString();
+			Collidable.Boundings ret = (Collidable.Boundings)Enum.Parse(typeof(Collidable.Boundings), p_Reader.ReadString(), true);
 			p_Reader.ReadEndElement();
-			switch (name)
-			{
-				case "Circle":
-					return Collidable.Boundings.Circle;
-				case "Diamond":
-					return Collidable.Boundings.Diamond;
-				case "Square":
-					return Collidable.Boundings.Square;
-				default:
-					throw new NotImplementedException("Unknown Bounds");
-			}
+			return ret;
 		}
 
 		private static Weapon readWeapon(XmlReader p_Reader)
