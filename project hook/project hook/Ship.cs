@@ -146,22 +146,6 @@ namespace project_hook
 			m_TimeSinceLastDamage += (float)p_Time.ElapsedGameTime.TotalSeconds;
 		}
 
-		public override void RegisterCollision(Collidable p_Other)
-		{
-			if (Faction != Factions.Blood)
-			{
-				if (p_Other.Faction==Factions.Player)
-				{
-					didCollide = p_Other;
-					SpawnDamageEffect(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
-				}
-				else if (p_Other.Faction == Factions.Environment)
-				{
-					Center = Collision.GetMinNonCollidingCenter(this, p_Other);
-				}
-			}
-		}
-
 		protected override void takeDamage(float damage)
 		{
 			m_TimeSinceLastDamage = 0;

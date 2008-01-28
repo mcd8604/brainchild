@@ -45,5 +45,18 @@ namespace project_hook
 					m_EffectsArray.Remove(i_Effect);
 			}
 		}
+
+		public override string ToString()
+		{
+			if (float.IsNaN(MaxHealth))
+			{
+				return "Invulnerable";
+			}
+			else
+			{
+				return "Health: " + Convert.ToInt32(Health) + " Shield: " + Convert.ToInt32(Shield);
+			}
+		}
+
 	}
 }
