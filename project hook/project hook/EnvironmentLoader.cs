@@ -170,7 +170,6 @@ namespace project_hook
                     if (m_CurTopRow < 0)
                     {
                        m_CurTopRow = 0;
-					   m_Position.setSpeed(0);
                     }
 
 					if (m_ColorMap.ContainsKey(m_LevelArray[i, m_CurTopRow].ToArgb())) 
