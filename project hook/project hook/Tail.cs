@@ -191,7 +191,7 @@ namespace project_hook
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			//base.RegisterCollision(p_Other);
-			if (p_Other is Ship)
+			if (!(p_Other is Shot))
 			{
 				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0))
 				{
@@ -204,11 +204,15 @@ namespace project_hook
 					m_EnemyCaught.Task = temp;
 					m_EnemyCaught.captured();
 
-					foreach(Weapon wep in ((Ship)m_EnemyCaught).Weapons) {
-						if (wep is WeaponSeek)
+					if (m_EnemyCaught is Ship)
+					{
+						foreach (Weapon wep in ((Ship)m_EnemyCaught).Weapons)
 						{
-							WeaponSeek wepSeek = (WeaponSeek)wep;
-							wepSeek.Target = m_TargetObject;
+							if (wep is WeaponSeek)
+							{
+								WeaponSeek wepSeek = (WeaponSeek)wep;
+								wepSeek.Target = m_TargetObject;
+							}
 						}
 					}
 				}
