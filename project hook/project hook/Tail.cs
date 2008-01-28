@@ -202,6 +202,8 @@ namespace project_hook
 					temp.addTask(new TaskAttach(this));
 					temp.addTask(new TaskRotateFaceTarget(m_TargetObject));
 					m_EnemyCaught.Task = temp;
+					m_EnemyCaught.captured();
+
 					foreach(Weapon wep in ((Ship)m_EnemyCaught).Weapons) {
 						if (wep is WeaponSeek)
 						{
