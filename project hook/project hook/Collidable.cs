@@ -283,7 +283,10 @@ namespace project_hook
 
 		public virtual void captured()
 		{
-			this.Animation.StopAnimation();
+			if (this.Animation != null)
+			{
+				this.Animation.StopAnimation();
+			}
 		}
 	}
 }
