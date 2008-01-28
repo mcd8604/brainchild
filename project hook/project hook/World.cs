@@ -440,6 +440,7 @@ namespace project_hook
 		public void LoadDefaults(ContentManager p_Content)
 		{
 			TextureLibrary.LoadTexture("Cloud");
+			TextureLibrary.LoadTexture("DNA");
 			TextureLibrary.LoadTexture("Ship2");
 			TextureLibrary.LoadTexture("veinbg");
 			TextureLibrary.LoadTexture("RedShot");
