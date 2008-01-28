@@ -206,7 +206,7 @@ namespace project_hook
 				}
 				else
 				{
-
+					// If you get this exception, tell Adam, and if possible, the values in the variables 'circ' and 'square'.
 					throw new ArithmeticException("Math failed");
 
 				}
