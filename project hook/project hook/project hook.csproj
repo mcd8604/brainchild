@@ -689,6 +689,17 @@
       <Name>Explosion2</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\shot_electric.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>shot_electric</Name>
+    </Content>
+    <Content Include="Content\Textures\shot_electric.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>shot_electric</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\shot_energy.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>

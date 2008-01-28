@@ -15,11 +15,11 @@
 				<speed>400</speed>
 				<shot>
 					<damage>10</damage>
-					<height>30</height>
-					<width>75</width>
-					<radius>15</radius>
-					<texture name="FireBall"/>
-					<animation name="FireBall" fps="10"/>
+					<height>32</height>
+					<width>32</width>
+					<radius>16</radius>
+					<texture name="shot_electric"/>
+					<animation name="shot_electric" fps="8"/>
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="-30">
@@ -27,11 +27,11 @@
 				<speed>400</speed>
 				<shot>
 					<damage>10</damage>
-					<height>30</height>
-					<width>75</width>
-					<radius>15</radius>
-					<texture name="FireBall"/>
-					<animation name="FireBall" fps="10"/>
+					<height>32</height>
+					<width>32</width>
+					<radius>16</radius>
+					<texture name="shot_electric"/>
+					<animation name="shot_electric" fps="8"/>
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="30">
@@ -39,11 +39,11 @@
 				<speed>400</speed>
 				<shot>
 					<damage>10</damage>
-					<height>30</height>
-					<width>75</width>
-					<radius>15</radius>
-					<texture name="FireBall"/>
-					<animation name="FireBall" fps="10"/>
+					<height>32</height>
+					<width>32</width>
+					<radius>16</radius>
+					<texture name="shot_electric"/>
+					<animation name="shot_electric" fps="8"/>
 				</shot>
 			</weapon>
 			<task type="Parallel">
