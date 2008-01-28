@@ -360,6 +360,8 @@ namespace project_hook
 				default:
 #if DEBUG
 					throw new NotImplementedException("'" + pType + "' is not a recognized Weapon");
+#else
+					break;
 #endif
 			}
 			p_Reader.ReadStartElement("weapon");
@@ -502,7 +504,7 @@ namespace project_hook
 
 		private static Task readTask(XmlReader p_Reader)
 		{
-			Task task;
+			Task task = null;
 			string pType = p_Reader.GetAttribute("type");
 			p_Reader.ReadStartElement("task");
 
@@ -634,6 +636,8 @@ namespace project_hook
 				default:
 #if DEBUG
 					throw new NotImplementedException("'" + pType + "' is not a recognized Task");
+#else
+					break;
 #endif
 			}
 

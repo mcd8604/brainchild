@@ -506,9 +506,9 @@ namespace project_hook
 
 			Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
 			AddSprite(TextFpsExample);
-
+#if DEBUG
 			AddSprite(coll);
-
+#endif
 			m_Score = new SimpleScore();
 			Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.LightBlue);
 			AddSprite(score);
