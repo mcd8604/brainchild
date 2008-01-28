@@ -129,7 +129,7 @@ namespace project_hook
 
 #if DEBUG
 		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
-		TextSprite coll = new TextSprite("", new Vector2(100, 50), Color.GreenYellow);
+		TextSprite coll = new TextSprite("", new Vector2(300, 20), Color.GreenYellow);
 		double colltotal;
 		int collcount;
 		bool DisplayCollision = false;
@@ -528,13 +528,13 @@ namespace project_hook
 			AddSprite(crosshairs);
 			AddSprites(m_TailBodySprites);
 
-			Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink);
+			Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink, Depth.HUDLayer.Foreground);
 			AddSprite(TextFpsExample);
 #if DEBUG
 			AddSprite(coll);
 #endif
 			m_Score = new SimpleScore();
-			Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.LightBlue);
+			Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
 			AddSprite(score);
 
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);
