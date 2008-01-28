@@ -272,6 +272,14 @@ namespace project_hook
 
 		public void checkKeys(GameTime p_GameTime)
 		{
+#if DEBUG
+			//full heal
+			if(InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.G)){
+				m_Player.PlayerShip.Health = m_Player.PlayerShip.MaxHealth;
+				m_Player.PlayerShip.Shield = m_Player.PlayerShip.MaxShield;
+
+			}
+#endif
 			// Allows the game to exit
 			if (InputHandler.IsActionPressed(Actions.Pause))
 			{
@@ -481,9 +489,9 @@ namespace project_hook
 			//test scrolling background
 			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
 
-			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
-			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
+			//Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
 
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
@@ -510,7 +518,7 @@ namespace project_hook
 			tail.m_TargetObject = crosshairs;
 
 			AddSprite(back);
-			AddSprite(cloud);
+		//	AddSprite(cloud);
 			AddSprite(tail);
 			AddSprite(m_Player.PlayerShip);
 			AddSprite(crosshairs);
