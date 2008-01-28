@@ -6,6 +6,7 @@ using Wintellect.PowerCollections;
 using System.Collections;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace project_hook
 {
@@ -296,6 +297,10 @@ namespace project_hook
 				{
 					t_Ship.Bound = readBounding(p_Reader);
 				}
+				else if (p_Reader.IsStartElement("blendMode"))
+				{
+					t_Ship.BlendMode = readBlendMode(p_Reader);
+				}
 #if DEBUG
 				else
 				{
@@ -329,6 +334,13 @@ namespace project_hook
 		{
 			p_Reader.ReadStartElement("bound");
 			Collidable.Boundings ret = (Collidable.Boundings)Enum.Parse(typeof(Collidable.Boundings), p_Reader.ReadString(), true);
+			p_Reader.ReadEndElement();
+			return ret;
+		}
+
+		private static  SpriteBlendMode readBlendMode( XmlReader p_Reader) {
+			p_Reader.ReadStartElement("blendMode");
+			SpriteBlendMode ret = (SpriteBlendMode)Enum.Parse(typeof(SpriteBlendMode), p_Reader.ReadString(), true);
 			p_Reader.ReadEndElement();
 			return ret;
 		}
@@ -460,6 +472,10 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("bound"))
 				{
 					shot.Bound = readBounding(p_Reader);
+				}
+				else if (p_Reader.IsStartElement("blendMode"))
+				{
+					shot.BlendMode = readBlendMode(p_Reader);
 				}
 #if DEBUG
 				else

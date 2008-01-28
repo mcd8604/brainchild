@@ -18,6 +18,7 @@
 					<height>32</height>
 					<width>32</width>
 					<radius>16</radius>
+					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
 				</shot>
@@ -30,6 +31,7 @@
 					<height>32</height>
 					<width>32</width>
 					<radius>16</radius>
+					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
 				</shot>
@@ -42,6 +44,7 @@
 					<height>32</height>
 					<width>32</width>
 					<radius>16</radius>
+					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
 				</shot>

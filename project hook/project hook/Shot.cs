@@ -21,7 +21,6 @@ namespace project_hook
 			Enabled = false;
 			Name = "Unnamed Shot";
 			Z = Depth.GameLayer.Shot;
-            BlendMode = SpriteBlendMode.Additive;
 		}
 		public Shot(Shot p_Shot)
 		{
