@@ -72,6 +72,7 @@ namespace project_hook
 		Tail tail;
 		Sprite crosshairs;
 		YScrollingBackground back;
+		Sprite hudPanel;
 
 		GameState m_PreviousState;
 		GameState m_State = GameState.Nothing;
@@ -484,6 +485,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("walls\\plaque_btm_left_invert");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
+			TextureLibrary.LoadTexture("hudPanel");
 		}
 
 		private void IniDefaults()
@@ -492,6 +494,10 @@ namespace project_hook
 
 			//test scrolling background
 			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
+
+			//hud panel
+			hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 1f, true, 0f, Depth.HUDLayer.Background);
+			AddSprite(hudPanel);
 
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
