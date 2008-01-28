@@ -122,7 +122,7 @@ namespace project_hook
 
 		LevelReader m_LReader;
 		LevelHandler m_LHandler;
-		EnvironmentLoader m_ELoader=new EnvironmentLoader();
+		EnvironmentLoader m_ELoader = new EnvironmentLoader();
 
 
 		Random m_RanX = new Random();
@@ -135,14 +135,14 @@ namespace project_hook
 		bool DisplayCollision = false;
 #endif
 
-		public World() {}
+		public World() { }
 
 		//This method will initialize all the objects needed to run the game
 		public void initialize(Rectangle p_DrawArea)
 		{
 			m_SpriteList = new List<Sprite>();
 			m_SpriteListA = new List<Sprite>();
-			m_Position = new WorldPosition( 80f );
+			m_Position = new WorldPosition(80f);
 			m_ViewPortSize = p_DrawArea;
 			IniDefaults();
 			Music.Initialize();
@@ -228,7 +228,7 @@ namespace project_hook
 				}
 #endif
 				AddSprites(toAdd);
-				
+
 				//Additive:
 
 				toAdd.Clear();
@@ -262,7 +262,8 @@ namespace project_hook
 				AddSprites(toAdd);
 
 #if DEBUG
-				if (DisplayCollision) {
+				if (DisplayCollision)
+				{
 					Collision.DevEnableCollisionDisplay(m_SpriteList);
 				}
 #endif
@@ -364,6 +365,17 @@ namespace project_hook
 				{
 					m_Position.setSpeed(0);
 				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.G))
+				{
+					if (float.IsNaN(m_Player.PlayerShip.MaxHealth))
+					{
+						m_Player.PlayerShip.MaxHealth = 100;
+					}
+					else
+					{
+						m_Player.PlayerShip.MaxHealth = float.NaN;
+					}
+				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.B))
 				{
 					String Breakpoint = this.ToString();
@@ -429,69 +441,69 @@ namespace project_hook
 			TextureLibrary.LoadTexture("temptail");
 			TextureLibrary.LoadTexture("blood");
 			TextureLibrary.LoadTexture("crosshairs");
-            TextureLibrary.LoadTexture("tailbody");
-            TextureLibrary.LoadTexture("tail_segment");
-            TextureLibrary.LoadTexture("shot_energy");
-            TextureLibrary.LoadTexture("bloodcell");
-            TextureLibrary.LoadTexture("energy");
-            TextureLibrary.LoadTexture("Shot");
-            TextureLibrary.LoadTexture("shot_electric");
-            TextureLibrary.LoadTexture("plaque");
+			TextureLibrary.LoadTexture("tailbody");
+			TextureLibrary.LoadTexture("tail_segment");
+			TextureLibrary.LoadTexture("shot_energy");
+			TextureLibrary.LoadTexture("bloodcell");
+			TextureLibrary.LoadTexture("energy");
+			TextureLibrary.LoadTexture("Shot");
+			TextureLibrary.LoadTexture("shot_electric");
+			TextureLibrary.LoadTexture("plaque");
 			TextureLibrary.LoadTexture("wall_flat");
-            TextureLibrary.LoadTexture("Explosion2");
+			TextureLibrary.LoadTexture("Explosion2");
 			TextureLibrary.LoadTexture("poisonsplat");
-            TextureLibrary.LoadTexture("walls\\wall_left");
-            TextureLibrary.LoadTexture("wall_rand1");
-            TextureLibrary.LoadTexture("wall_rand2");
-            TextureLibrary.LoadTexture("wall_rand3");
-            TextureLibrary.LoadTexture("walls\\plaque");
-            TextureLibrary.LoadTexture("walls\\plaque2");
-            TextureLibrary.LoadTexture("walls\\plaque3");
-            TextureLibrary.LoadTexture("walls\\plaque4");
-            TextureLibrary.LoadTexture("walls\\plaque_left");
-            TextureLibrary.LoadTexture("walls\\plaque_right");
-            TextureLibrary.LoadTexture("walls\\plaque_top");
-            TextureLibrary.LoadTexture("walls\\plaque_top_left");
-            TextureLibrary.LoadTexture("walls\\plaque_top_left_invert");
-            TextureLibrary.LoadTexture("walls\\plaque_top_right");
-            TextureLibrary.LoadTexture("walls\\plaque_top_right_invert");
-            TextureLibrary.LoadTexture("walls\\plaque_btm");
-            TextureLibrary.LoadTexture("walls\\plaque_btm_left");
-            TextureLibrary.LoadTexture("walls\\plaque_btm_left_invert");
-            TextureLibrary.LoadTexture("walls\\plaque_btm_right");
-            TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
+			TextureLibrary.LoadTexture("walls\\wall_left");
+			TextureLibrary.LoadTexture("wall_rand1");
+			TextureLibrary.LoadTexture("wall_rand2");
+			TextureLibrary.LoadTexture("wall_rand3");
+			TextureLibrary.LoadTexture("walls\\plaque");
+			TextureLibrary.LoadTexture("walls\\plaque2");
+			TextureLibrary.LoadTexture("walls\\plaque3");
+			TextureLibrary.LoadTexture("walls\\plaque4");
+			TextureLibrary.LoadTexture("walls\\plaque_left");
+			TextureLibrary.LoadTexture("walls\\plaque_right");
+			TextureLibrary.LoadTexture("walls\\plaque_top");
+			TextureLibrary.LoadTexture("walls\\plaque_top_left");
+			TextureLibrary.LoadTexture("walls\\plaque_top_left_invert");
+			TextureLibrary.LoadTexture("walls\\plaque_top_right");
+			TextureLibrary.LoadTexture("walls\\plaque_top_right_invert");
+			TextureLibrary.LoadTexture("walls\\plaque_btm");
+			TextureLibrary.LoadTexture("walls\\plaque_btm_left");
+			TextureLibrary.LoadTexture("walls\\plaque_btm_left_invert");
+			TextureLibrary.LoadTexture("walls\\plaque_btm_right");
+			TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
 		}
 
 		private void IniDefaults()
 		{
 			GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
-			
+
 			//test scrolling background
 			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
 
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 100, 100, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
-			
+
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
 			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.GameLayer.Cursor);
 			for (int i = 0; i < 60; i++)
 			{
-                if (i % 5 == 0)
-                {
+				if (i % 5 == 0)
+				{
 					Sprite tailBodySprite = new Sprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
-                    tailBodySprite.Transparency = 0.5f;
-                    tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
-                    m_TailBodySprites.Add(tailBodySprite);
-                }
-                else
-                {
+					tailBodySprite.Transparency = 0.5f;
+					tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
+					m_TailBodySprites.Add(tailBodySprite);
+				}
+				else
+				{
 					Sprite tailBodySprite = new Sprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
-                    tailBodySprite.Transparency = 0.2f;
-                    tailBodySprite.BlendMode = SpriteBlendMode.Additive;
-                    m_TailBodySprites.Add(tailBodySprite);
-                }
+					tailBodySprite.Transparency = 0.2f;
+					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
+					m_TailBodySprites.Add(tailBodySprite);
+				}
 
 			}
 			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 25, m_Player.PlayerShip, 1, m_TailBodySprites);
