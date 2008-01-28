@@ -72,7 +72,7 @@ namespace project_hook
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
-			if(!(p_Other is Shot)){
+			if(!(p_Other is Shot) && !(p_Other is Tail) && p_Other.Faction!=Factions.Blood){
 				//Vector2 midPoint = new Vector2(Center.X - p_Other.Center.X, Center.Y - p_Other.Center.Y);
 				//addSprite(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.GameLayer.Explosion));
 				Enabled = false;
