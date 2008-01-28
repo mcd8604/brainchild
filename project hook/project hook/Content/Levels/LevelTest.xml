@@ -181,8 +181,7 @@
 					<height>15</height>
 					<width>50</width>
 					<radius>10</radius>
-					<texture name="FireBall"/>
-					<animation name="FireBall" fps="10"/>
+					<texture name="Shot"/>
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="-5">
@@ -194,8 +193,7 @@
 					<height>15</height>
 					<width>50</width>
 					<radius>10</radius>
-					<texture name="FireBall"/>
-					<animation name="FireBall" fps="10"/>
+					<texture name="Shot"/>
 				</shot>
 			</weapon>
 			<task type="Parallel">
