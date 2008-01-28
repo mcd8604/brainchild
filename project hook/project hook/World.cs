@@ -537,6 +537,9 @@ namespace project_hook
 			Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
 			AddSprite(score);
 
+			Sprite P = new TextSprite(m_Player.PlayerShip.ToString, new Vector2(400, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
+			AddSprite(P);
+
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);
 			//sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			//sp.Target= m_Player.PlayerShip;
@@ -576,9 +579,9 @@ namespace project_hook
 			{
 				//"bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 				//new Collidable(
-				Ship t_Blood = new Ship("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
+				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
 										TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, 0f, Depth.BackGroundLayer.Upper,
-										Collidable.Factions.Blood, 45, 0, TextureLibrary.getGameTexture("Explosion", "3"), 25);
+										Collidable.Factions.Blood, 45, TextureLibrary.getGameTexture("Explosion", "3"), 25);
 				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
 				t_Blood.setAnimation("bloodcell", 60);
 				t_Blood.Animation.StartAnimation();

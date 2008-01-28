@@ -241,17 +241,22 @@ namespace project_hook
 		public virtual void RegisterCollision(Collidable p_Other)
 		{
 
-			if (p_Other.Faction == Factions.Environment)
+			if (Faction != Factions.Blood && p_Other.Faction != Factions.Blood)
 			{
-				Center = Collision.GetMinNonCollidingCenter(this, p_Other);
-			}
-			else
-			{
-				if (!float.IsNaN(Health))
+
+				if (p_Other.Faction == Factions.Environment)
 				{
-					didCollide = p_Other;
-					SpawnDamageEffect(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
+					Center = Collision.GetMinNonCollidingCenter(this, p_Other);
 				}
+				else
+				{
+					if (!float.IsNaN(Health))
+					{
+						didCollide = p_Other;
+						SpawnDamageEffect(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
+					}
+				}
+
 			}
 		}
 
