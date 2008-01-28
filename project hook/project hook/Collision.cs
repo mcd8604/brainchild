@@ -206,9 +206,9 @@ namespace project_hook
 				}
 				else
 				{
-					// If you get this exception, tell Adam, and if possible, the values in the variables 'circ' and 'square'.
-					throw new ArithmeticException("Math failed");
-
+					//throw new ArithmeticException("Math failed");
+					// This could occur in very rare cases, when something is spawned on top of something else (bad)
+					return true;
 				}
 
 			}
@@ -636,6 +636,17 @@ namespace project_hook
 			System.Diagnostics.Debug.Assert(result != new Vector2(0, 0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
 			
 			
+
+
+			// Circle Square just barely colliding
+
+			Circle.Center = new Vector2(964.6991f, -61.95084f);
+			Circle.Radius = 8;
+			Square.Center = new Vector2(992f, -31.06205f);
+			Square.Radius = 32;
+			System.Diagnostics.Debug.Assert(DoesIntersect(Circle, Square), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+			result = GetMinNonCollidingCenter(Circle, Square);
+			System.Diagnostics.Debug.Assert(result != new Vector2(0, 0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
 
 
 			//Console.WriteLine("Collision Self Test Completed");
