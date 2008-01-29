@@ -664,6 +664,14 @@ namespace project_hook
 					seekPoint.Goal = v;
 					task = seekPoint;
 					break;
+				case "Sequence":
+					TaskSequence sequence = new TaskSequence();
+					while (p_Reader.IsStartElement("task"))
+					{
+						sequence.addTask(readTask(p_Reader));
+					}
+					task = sequence;
+					break;
 				case "StraightVelocity":
 					TaskStraightVelocity straightVelocity = new TaskStraightVelocity();
 					while (p_Reader.IsStartElement())
