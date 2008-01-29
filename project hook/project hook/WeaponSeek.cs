@@ -33,10 +33,8 @@ namespace project_hook
 		{
 		}
 
-		public override void CreateShot(Ship who)
+		public override void Fire(Ship who)
 		{
-			if (m_Cooldown <= 0)
-			{
 				if (m_LastTarget != Target || m_LastSpeed != Speed)
 				{
 					TaskParallel task = new TaskParallel();
@@ -52,9 +50,6 @@ namespace project_hook
 				m_Shots[m_NextShot].Center = who.Center + m_Position;
 				m_Shots[m_NextShot].Faction = who.Faction;
 				m_Shots[m_NextShot].Task = m_ShotTask;
-
-				base.CreateShot(who);
-			}
 		}
 	}
 }
