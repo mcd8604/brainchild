@@ -130,5 +130,10 @@ namespace project_hook
 			
 		}
 
+		public string getUpgradeLevel()
+		{
+			return "Upgrade Level: " + m_UpgradeLevel.ToString();
+		}
+
 	}
 }

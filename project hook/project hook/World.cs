@@ -564,6 +564,9 @@ namespace project_hook
 			Sprite P = new TextSprite(m_Player.PlayerShip.ToString, new Vector2(400, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
 			AddSprite(P);
 
+			Sprite u = new TextSprite(m_Player.PlayerShip.getUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
+			AddSprite(u);
+
 
 			PowerUp p = new PowerUp(tail, World.m_Position);
 			p.Enabled = true;
