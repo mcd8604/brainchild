@@ -109,6 +109,8 @@ namespace project_hook
 			straightVelocity.Velocity = v;
 			this.Task = straightVelocity;
 
+			this.Damage = 0;
+
 		}
 
 

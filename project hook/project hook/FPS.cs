@@ -53,7 +53,7 @@ namespace project_hook
 
 		public override String ToString()
 		{
-			return m_FPS.ToString();
+			return Convert.ToInt32(m_FPS).ToString();
 		}
 
 	}
