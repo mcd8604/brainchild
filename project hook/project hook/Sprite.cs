@@ -14,6 +14,20 @@ namespace project_hook
 	/// </summary>
 	public class Sprite
 	{
+
+		protected int m_MaxYValue_Screen = 768;
+		public int MaxScreenSize
+		{
+			get
+			{
+				return m_MaxYValue_Screen;
+			}
+			set
+			{
+				m_MaxYValue_Screen = value;
+			}
+		}
+
 		#region Variables and Properties
 		/// <summary>
 		/// This is the alpha byte value of the sprite.
@@ -453,6 +467,9 @@ namespace project_hook
 					part.Update(p_Time);
 				}
 			}
+
+			if (this.Position.Y > (m_MaxYValue_Screen * 1.75) || this.Position.Y < (0 - (m_MaxYValue_Screen * .75)))
+				this.ToBeRemoved = true;
 		}
 
 		public static bool isToBeRemoved(Sprite spr)
