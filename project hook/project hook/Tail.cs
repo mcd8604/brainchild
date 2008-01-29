@@ -196,6 +196,7 @@ namespace project_hook
 				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0))
 				{
 					m_EnemyCaught = p_Other;
+					this.Transparency = 0;
 					m_EnemyCaught.Faction = Factions.Player;
 
 					TaskParallel temp = new TaskParallel();
@@ -221,6 +222,7 @@ namespace project_hook
 				{
 					EnemyCaught.Task = m_ReleaseTask;
 					EnemyCaught = null;
+					this.Transparency = 1;
 				}
 				StateOfTail = Tail.TailState.Returning;
 				Task = m_ReturnTask;
@@ -249,6 +251,7 @@ namespace project_hook
 						{
 							EnemyCaught.Task = m_ReleaseTask;
 							EnemyCaught = null;
+							this.Transparency = 1;
 						}
 					}
 					break;
@@ -267,6 +270,7 @@ namespace project_hook
 			if (m_EnemyCaught != null && m_EnemyCaught.IsDead())
 			{
 				m_EnemyCaught = null;
+				this.Transparency = 1;
 			}
 			base.Update(p_Time);
 		}
