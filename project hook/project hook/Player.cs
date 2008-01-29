@@ -133,7 +133,7 @@ namespace project_hook
 			shot.Width = 90;
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
 			shot.Radius = 30;
-			shot.Damage = 1;
+			shot.Damage = 10;
 			shot.Bound = Collidable.Boundings.Diamond;
 			shot.setAnimation( "RedShot", 10 );
 

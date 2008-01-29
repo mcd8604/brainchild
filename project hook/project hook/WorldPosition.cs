@@ -7,7 +7,7 @@ namespace project_hook
 {
 	public class WorldPosition
 	{
-
+		
 		private float m_Speed = 0f;
 		private float m_BackgroundSpeed = 0f ;
 		private float m_Distance = 0f;

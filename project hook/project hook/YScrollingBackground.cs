@@ -10,6 +10,7 @@ namespace project_hook
 	{
 		private ArrayList scrollingSprites;
 		private WorldPosition m_WorldPosition;
+		
 
 		public YScrollingBackground(GameTexture p_BackgroundTexture, WorldPosition p_WorldPosition)
 			: base("scrollingBackground", new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGroundLayer.Background)

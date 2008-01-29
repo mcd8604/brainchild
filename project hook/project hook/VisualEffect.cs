@@ -32,9 +32,14 @@ namespace project_hook
 			set { m_FrameLength = 1f / (float)value; }
 		}
 
-		public GameTexture CurrentFrame
+	//	public GameTexture CurrentFrame
+//		{//
+	//		get { return frames[m_CurrentFrame.ToString()]; }
+//		}
+
+		public int CurrentFrame
 		{
-			get { return frames[m_CurrentFrame.ToString()]; }
+			set { m_CurrentFrame = value; }
 		}
 
 		public VisualEffect(String p_Name, Sprite p_Base, int p_FramesPerSecond)

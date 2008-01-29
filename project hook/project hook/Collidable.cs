@@ -16,6 +16,7 @@ namespace project_hook
 		public enum Factions
 		{
 			Player,
+			PowerUp,
 			Enemy,
 			Environment,
 			None,

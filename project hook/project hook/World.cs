@@ -115,10 +115,13 @@ namespace project_hook
 		//    }
 		//}
 
-		private WorldPosition m_Position;
-		public WorldPosition Position
+		public static WorldPosition m_Position;
+		public static WorldPosition Position
 		{
-			get { return m_Position; }
+			get
+			{
+				return m_Position;
+			}
 		}
 
 		LevelReader m_LReader;
@@ -560,6 +563,16 @@ namespace project_hook
 
 			Sprite P = new TextSprite(m_Player.PlayerShip.ToString, new Vector2(400, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
 			AddSprite(P);
+
+
+			PowerUp p = new PowerUp(tail, World.m_Position);
+			p.Enabled = true;
+			p.MaxHealth = 1000;
+			p.Center = new Vector2(50, 50);
+			p.Height = 50;
+			p.Width = 50;
+			AddSprite(p);
+
 
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);
 			//sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
