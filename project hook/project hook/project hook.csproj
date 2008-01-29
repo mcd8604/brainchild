@@ -658,9 +658,21 @@
       <Processor>XactProcessor</Processor>
       <Name>HookSound</Name>
     </Content>
-    <Content Include="Content\Levels\Level2.xml">
+    <Content Include="Content\Levels\gate1.bmp">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>gate1</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\Gate1.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Level2</Name>
+      <Name>Gate1</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\Level1.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Level1</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\LevelTest.xml">

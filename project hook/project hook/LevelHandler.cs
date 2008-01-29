@@ -68,6 +68,10 @@ namespace project_hook
 						{
 							ChangeSpeed(t_List[i].Speed);
 						}
+						else if (t_List[i].Type.Equals("LoadBMP"))
+						{
+							LoadBMP(t_List[i].FileName);
+						}
 					}
 					m_Events[m_EventDistance].Clear();
 				}
@@ -84,7 +88,8 @@ namespace project_hook
 		public void ChangeSpeed(int p_Speed)
 		{
 			//change the speed in the game file
-			World.Position.setSpeed(p_Speed);
+			//World.Position.setSpeed(p_Speed);
+			m_Game.ChangeSpeed(p_Speed);
 		}
 
 		public void ChangeFile(String p_FileName)
@@ -92,6 +97,10 @@ namespace project_hook
 			//change the fileName in the levelReader class
 			m_Game.ChangeFile(p_FileName);
 			//tell it to read the file
+		}
+		public void LoadBMP(String p_FileName)
+		{
+			m_Game.LoadBMP(p_FileName);
 		}
 	}
 }
