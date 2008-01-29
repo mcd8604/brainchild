@@ -104,7 +104,7 @@ namespace project_hook
 			 {
 				PowerUp p = (PowerUp)p_Other;
 				m_UpgradeLevel += p.Amount;
-				Console.WriteLine("Upgrade: " + m_UpgradeLevel);
+				//Console.WriteLine("Upgrade: " + m_UpgradeLevel);
 				int prev = cur;
 				for(int a =0; a < m_Upgrades.Length; a ++){
 					if (m_UpgradeLevel > (a*100 +100) )
