@@ -47,10 +47,8 @@ namespace project_hook
 			Angle = p_Angle;
 		}
 
-		public override void CreateShot(Ship who)
+		public override void Fire(Ship who)
 		{
-			if (m_Cooldown <= 0)
-			{
 				float thisAngle = (who.Rotation + Angle);
 				if (m_LastAngle != thisAngle || m_LastSpeed != Speed)
 				{
@@ -67,9 +65,6 @@ namespace project_hook
 				m_Shots[m_NextShot].Center = who.Center + m_Position;
 				m_Shots[m_NextShot].Faction = who.Faction;
 				m_Shots[m_NextShot].Task = m_ShotTask;
-
-				base.CreateShot(who);
-			}
 		}
 
 	}

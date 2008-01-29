@@ -48,7 +48,7 @@ namespace project_hook
 			}
 			set
 			{
-					m_Speed = value;
+				m_Speed = value;
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace project_hook
 
 		#endregion // End of variables and Properties Region
 
-		public Weapon() {}
+		public Weapon() { }
 
 		public Weapon(Shot p_Shot, float p_Delay, float p_Speed)
 		{
@@ -82,9 +82,15 @@ namespace project_hook
 		// Only a single shot? 
 		public virtual void CreateShot(Ship who)
 		{
-			m_Cooldown = m_Delay;
-			m_NextShot = (m_NextShot + 1) % m_Shots.Count;
+			if (m_Cooldown <= 0)
+			{
+				Fire(who);
+				m_Cooldown = m_Delay;
+				m_NextShot = (m_NextShot + 1) % m_Shots.Count;
+			}
 		}
+
+		public abstract void Fire(Ship who);
 
 		public void Update(GameTime p_Time)
 		{
