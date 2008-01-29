@@ -70,6 +70,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
+    <Compile Include="PowerUp.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PowerUp</Name>
+    </Compile>
     <Compile Include="SimpleScore.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>SimpleScore</Name>
@@ -687,6 +691,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>cell</Name>
+    </Content>
+    <Content Include="Content\Textures\DNA.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>DNA</Name>
     </Content>
     <Content Include="Content\Textures\energyball.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

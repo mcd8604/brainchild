@@ -16,9 +16,49 @@ namespace project_hook
 	public class PlayerShip : Ship
 	{
 
+		Shot[] m_Upgrades;
+		
+		
+		int m_UpgradeLevel = 0;
+		int cur = -1;
+
+
 		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, GameTexture p_DamageEffect, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_DamageEffect, p_Radius)
 		{
+			m_Upgrades = new Shot[2];
+
+			Shot shot = new Shot();
+			shot.Name = "Player Shot";
+			shot.Height = 30;
+			shot.Width = 90;
+			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
+			shot.Radius = 30;
+			shot.Damage = 1;
+			shot.Bound = Collidable.Boundings.Diamond;
+			shot.setAnimation("RedShot", 10);
+
+			m_Upgrades[0] = shot;
+
+
+			shot = new Shot();
+			shot.Name = "Player Shot";
+			shot.Height = 60;
+			shot.Width = 110;
+			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
+			shot.Radius = 30;
+			shot.Damage = 1;
+			shot.Bound = Collidable.Boundings.Diamond;
+			shot.setAnimation("RedShot", 10);
+
+			m_Upgrades[1] = shot;
+
+
+		
+
+
+
+			Weapon wep = new WeaponStraight(shot, 0.15f, 600, -MathHelper.PiOver2);
 
 		}
 
@@ -56,6 +96,38 @@ namespace project_hook
 			{
 				return "Health: " + Convert.ToInt32(Health) + " Shield: " + Convert.ToInt32(Shield);
 			}
+		}
+
+		public override void RegisterCollision(Collidable p_Other)
+		{
+			if (p_Other.Faction == Factions.PowerUp)
+			 {
+				PowerUp p = (PowerUp)p_Other;
+				m_UpgradeLevel += p.Amount;
+				Console.WriteLine("Upgrade: " + m_UpgradeLevel);
+				int prev = cur;
+				for(int a =0; a < m_Upgrades.Length; a ++){
+					if (m_UpgradeLevel > (a*100 +100) )
+					{
+						prev = a;
+					}
+				}
+
+				if (cur != prev)
+				{
+					foreach (Weapon w in Weapons)
+					{
+
+					//	w.ShotType = m_Upgrades[prev];
+					}
+					cur = prev;
+				}
+ 
+				
+			}
+			base.RegisterCollision(p_Other);
+
+			
 		}
 
 	}
