@@ -132,8 +132,11 @@ namespace project_hook
 		Random m_RanX = new Random();
 
 #if DEBUG
+
+		TextSprite listsize = new TextSprite("", new Vector2(250, 20), Color.LightCyan);
+
 		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
-		TextSprite coll = new TextSprite("", new Vector2(300, 20), Color.GreenYellow);
+		TextSprite coll = new TextSprite("", new Vector2(250, 50), Color.GreenYellow);
 		double colltotal;
 		int collcount;
 		bool DisplayCollision = false;
@@ -272,6 +275,9 @@ namespace project_hook
 				}
 #endif
 
+#if DEBUG
+				listsize.Text = "S: " + m_SpriteList.Count.ToString() + " A: " + m_SpriteListA.Count.ToString();
+#endif
 
 				if (m_Player.PlayerShip.Center.X < m_ViewPortSize.X ||
 					m_Player.PlayerShip.Center.Y < m_ViewPortSize.Y ||
@@ -552,9 +558,10 @@ namespace project_hook
 			AddSprite(crosshairs);
 			AddSprites(m_TailBodySprites);
 
-			Sprite TextFpsExample = new FPSSprite(new Vector2(100, 20), Color.Pink, Depth.HUDLayer.Foreground);
+			Sprite TextFpsExample = new FPSSprite(new Vector2(75, 20), Color.Pink, Depth.HUDLayer.Foreground);
 			AddSprite(TextFpsExample);
 #if DEBUG
+			AddSprite(listsize);
 			AddSprite(coll);
 #endif
 			m_Score = new SimpleScore();
@@ -618,7 +625,7 @@ namespace project_hook
 				//new Collidable(
 				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
 										TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, 0f, Depth.BackGroundLayer.Upper,
-										Collidable.Factions.Blood, 45, TextureLibrary.getGameTexture("Explosion", "3"), 25);
+										Collidable.Factions.Blood, 100, TextureLibrary.getGameTexture("Explosion", "3"), 25);
 				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
 				t_Blood.setAnimation("bloodcell", 60);
 				t_Blood.Animation.StartAnimation();
