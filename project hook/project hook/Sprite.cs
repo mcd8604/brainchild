@@ -469,7 +469,9 @@ namespace project_hook
 			}
 
 			if (this.Position.Y > (m_MaxYValue_Screen * 1.75) || this.Position.Y < (0 - (m_MaxYValue_Screen * .75)))
+			{
 				this.ToBeRemoved = true;
+			}
 		}
 
 		public static bool isToBeRemoved(Sprite spr)
