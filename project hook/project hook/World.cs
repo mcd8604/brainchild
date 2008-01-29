@@ -268,6 +268,16 @@ namespace project_hook
 					Collision.DevEnableCollisionDisplay(m_SpriteList);
 				}
 #endif
+
+
+				if (m_Player.PlayerShip.Center.X < m_ViewPortSize.X ||
+					m_Player.PlayerShip.Center.Y < m_ViewPortSize.Y ||
+					m_Player.PlayerShip.Center.X > m_ViewPortSize.Width ||
+					m_Player.PlayerShip.Center.Y > m_ViewPortSize.Height)
+				{
+					m_Player.PlayerShip.Health = 0;
+				}
+
 			}
 		}
 
@@ -528,7 +538,7 @@ namespace project_hook
 			tail.m_TargetObject = crosshairs;
 
 			AddSprite(back);
-		//	AddSprite(cloud);
+			//	AddSprite(cloud);
 			AddSprite(tail);
 			AddSprite(m_Player.PlayerShip);
 			AddSprite(crosshairs);
