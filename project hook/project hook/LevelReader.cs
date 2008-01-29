@@ -61,6 +61,12 @@ namespace project_hook
 				{
 					m_Distance = int.Parse(reader.GetAttribute(0));
 					reader.ReadStartElement();
+					while (reader.IsStartElement("loadBMP"))
+					{
+						reader.ReadStartElement();
+						LoadBMP(reader);
+						reader.ReadEndElement();
+					}
 					while (reader.IsStartElement("createShip"))
 					{
 						reader.ReadStartElement();
@@ -134,19 +140,42 @@ namespace project_hook
 
 			List<Event> t_List = new List<Event>();
 
-			//read speed
+			//read next file name
 			p_Reader.ReadStartElement();
 			m_FileName = p_Reader.ReadString();
 			p_Reader.ReadEndElement();
 
-			//add the change speed to the event list
+			//add the file speed to the event list
 			if (m_Events.ContainsKey(m_Distance))
 			{
-				m_Events[m_Distance].Add(new Event(m_FileName));
+				m_Events[m_Distance].Add(new Event(m_FileName, "FileChange"));
 			}
 			else
 			{
-				t_List.Add(new Event(m_FileName));
+				t_List.Add(new Event(m_FileName, "FileChange"));
+				m_Events.Add(m_Distance, t_List);
+			}
+		}
+
+		private void LoadBMP(XmlReader p_Reader)
+		{
+			String m_FileName;
+
+			List<Event> t_List = new List<Event>();
+
+			//read next file name
+			p_Reader.ReadStartElement();
+			m_FileName = p_Reader.ReadString();
+			p_Reader.ReadEndElement();
+
+			//add the file speed to the event list
+			if (m_Events.ContainsKey(m_Distance))
+			{
+				m_Events[m_Distance].Add(new Event(m_FileName, "LoadBMP"));
+			}
+			else
+			{
+				t_List.Add(new Event(m_FileName, "LoadBMP"));
 				m_Events.Add(m_Distance, t_List);
 			}
 		}
@@ -514,6 +543,7 @@ namespace project_hook
 		private static Task readTask(XmlReader p_Reader)
 		{
 			Task task = null;
+			Vector2 v = Vector2.Zero;
 			string pType = p_Reader.GetAttribute("type");
 			p_Reader.ReadStartElement("task");
 
@@ -615,9 +645,27 @@ namespace project_hook
 					}
 					task = seekTarget;
 					break;
+				case "SeekPoint":
+					TaskSeekPoint seekPoint = new TaskSeekPoint();
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("goal"))
+						{
+							v = new Vector2(float.Parse(p_Reader.GetAttribute("x")), float.Parse(p_Reader.GetAttribute("y")));
+							p_Reader.ReadStartElement("goal");
+						}
+						else if (p_Reader.IsStartElement("speed"))
+						{
+							p_Reader.ReadStartElement("speed");
+							seekPoint.Speed = float.Parse(p_Reader.ReadString());
+							p_Reader.ReadEndElement();
+						}
+					}
+					seekPoint.Goal = v;
+					task = seekPoint;
+					break;
 				case "StraightVelocity":
 					TaskStraightVelocity straightVelocity = new TaskStraightVelocity();
-					Vector2 v = Vector2.Zero;
 					while (p_Reader.IsStartElement())
 					{
 						if (p_Reader.IsStartElement("velocity"))

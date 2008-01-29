@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<action dist="500">
+		<createShip>
+			<name>Enemy</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="cell"/>
+			<startCenter x="800" y="00"/>
+			<health>30</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Straight" angle="0">
+				<delay>0.75</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>5</damage>
+					<height>32</height>
+					<width>32</width>
+					<radius>16</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="shot_electric"/>
+					<animation name="shot_electric" fps="8"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="-20" y="40"/>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="1500">
+		<createShip>
+			<name>Enemy</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="cell"/>
+			<startCenter x="450" y="00"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Straight" angle="0">
+				<delay>0.75</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>10</damage>
+					<height>32</height>
+					<width>32</width>
+					<radius>16</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="shot_electric"/>
+					<animation name="shot_electric" fps="8"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="-100" y="50"/>
+						</task>
+						<task type="Timer">
+							<duration>3.3</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="100" y="50"/>
+						</task>
+						<task type="Timer">
+							<duration>3.3</duration>
+						</task>
+					</task>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="cell"/>
+			<startCenter x="600" y="00"/>
+			<health>50</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Straight" angle="0">
+				<delay>0.75</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>10</damage>
+					<height>32</height>
+					<width>32</width>
+					<radius>16</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="shot_electric"/>
+					<animation name="shot_electric" fps="8"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="100" y="50"/>
+						</task>
+						<task type="Timer">
+							<duration>3.3</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="-100" y="50"/>
+						</task>
+						<task type="Timer">
+							<duration>3.3</duration>
+						</task>
+					</task>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="2300">
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="250" y="0"/>
+			<health>30</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>80</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="600" y="0"/>
+			<health>30</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>80</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="2500">
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="650" y="0"/>
+			<health>30</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>80</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="3600">
+		<createShip>
+			<name>Enemy</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="cell"/>
+			<startCenter x="800" y="00"/>
+			<health>60</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Straight" angle="0">
+				<delay>0.75</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>15</damage>
+					<height>32</height>
+					<width>32</width>
+					<radius>16</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="shot_electric"/>
+					<animation name="shot_electric" fps="8"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="-25" y="50"/>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="200" y="0"/>
+			<health>20</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>100</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="4200">
+		<createShip>
+			<name>Enemy</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="cell"/>
+			<startCenter x="200" y="00"/>
+			<health>60</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Straight" angle="0">
+				<delay>0.75</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>15</damage>
+					<height>32</height>
+					<width>32</width>
+					<radius>16</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="shot_electric"/>
+					<animation name="shot_electric" fps="8"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="25" y="50"/>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<height>25</height>
+			<width>25</width>
+			<radius>10</radius>
+			<texture name="virus1"/>
+			<startCenter x="800" y="0"/>
+			<health>20</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<task type="Parallel">
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>100</speed>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action dist="5000">
+		<createShip>
+			<name>Enemy</name>
+			<height>75</height>
+			<width>100</width>
+			<radius>40</radius>
+			<texture name="Enemy1"/>
+			<startCenter x="500" y="0"/>
+			<health>70</health>
+			<damageTexture name="Explosion" pos="3"/>
+			<weapon type="Straight" angle="20">
+				<delay>0.8</delay>
+				<speed>450</speed>
+				<shot>
+					<damage>20</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-20">
+				<delay>0.8</delay>
+				<speed>450</speed>
+				<shot>
+					<damage>20</damage>
+					<height>30</height>
+					<width>75</width>
+					<radius>15</radius>
+					<texture name="FireBall"/>
+					<animation name="FireBall" fps="10"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="0" y="60"/>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action dist="6000">
+		<changeFile>
+			<fileName>Gate1.xml</fileName>
+		</changeFile>
+	</action>
+</level>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<action dist="0">
+		<loadBMP>
+			<fileName>gate1.bmp</fileName>
+		</loadBMP>
+	</action>
+</level>

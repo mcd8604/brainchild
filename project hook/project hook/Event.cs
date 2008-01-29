@@ -49,9 +49,9 @@ namespace project_hook
 
 			m_Collidable = p_Collidable;
 		}
-		public Event(String p_FileName)
+		public Event(String p_FileName, String p_Type)
 		{
-			m_Type = "FileChange";
+			m_Type = p_Type;
 
 			m_FileName = p_FileName;
 		}

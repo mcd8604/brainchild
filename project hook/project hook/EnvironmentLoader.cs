@@ -87,10 +87,10 @@ namespace project_hook
 
 			for (int height = 0; height < bmpHeight; height++)
 			{
-				for (int width = 0; width < bmpWidth; width++)
-				{
-					m_LevelArray[width, height] = bmp.GetPixel(width, height);
-				}
+			    for (int width = 0; width < bmpWidth; width++)
+			    {
+			        m_LevelArray[width, height] = bmp.GetPixel(width, height);
+			    }
 			}
 
 			// create initial screen
@@ -167,10 +167,12 @@ namespace project_hook
 
 				for (int i = 0; i < m_ScreenSpaceWidth; i++)
 				{
-                    if (m_CurTopRow < 0)
-                    {
-                       m_CurTopRow = 0;
-                    }
+					if (m_CurTopRow < 0)
+					{
+						m_CurTopRow = 0;
+						m_Position.setSpeed(0);
+						Console.WriteLine("hey");
+					}
 
 					if (m_ColorMap.ContainsKey(m_LevelArray[i, m_CurTopRow].ToArgb())) 
 					{
@@ -185,7 +187,7 @@ namespace project_hook
 							((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = Collidable.Factions.None;
 						}
 
-                        m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = (GameTexture)curTile.gameTextures[0];
+						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = (GameTexture)curTile.gameTextures[random.Next(0, curTile.gameTextures.Count)];
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
 					}
@@ -210,6 +212,27 @@ namespace project_hook
 			return ((y * m_ScreenSpaceWidth) + x);
 		}
 
+		public void NewFile(String p_FileName)
+		{
+			// Set up variables
+			Bitmap bmp = new Bitmap(p_FileName);
+
+			int bmpHeight = bmp.Height;
+			int bmpWidth = bmp.Width;
+
+			// read in level
+			m_LevelArray = new System.Drawing.Color[bmpWidth, bmpHeight];
+
+			for (int height = 0; height < bmpHeight; height++)
+			{
+				for (int width = 0; width < bmpWidth; width++)
+				{
+					m_LevelArray[width, height] = bmp.GetPixel(width, height);
+				}
+			}
+
+			m_CurTopRow = bmpHeight-1;
+		}
 	}
 
 

@@ -99,22 +99,6 @@ namespace project_hook
 		}
 
 		public static Rectangle m_ViewPortSize;
-
-		//public float m_Distance = 0;
-		//private int m_Speed = 80;
-		//public int Speed
-		//{
-		//    get
-		//    {
-		//        return m_Speed;
-		//    }
-		//    set
-		//    {
-		//        m_Speed = value;
-		//        back.ScrollSpeed = m_Speed;
-		//    }
-		//}
-
 		public static WorldPosition m_Position;
 		public static WorldPosition Position
 		{
@@ -154,7 +138,7 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
-			this.m_LReader = new LevelReader("LevelTest.xml");
+			this.m_LReader = new LevelReader("Level1.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
 		}
@@ -619,7 +603,7 @@ namespace project_hook
 
 		public void CreateBloodCell()
 		{
-			if (m_RanX.Next(0, 500) == 5)
+			if (m_RanX.Next(0, 1200) == 5)
 			{
 				//"bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 				//new Collidable(
@@ -631,6 +615,18 @@ namespace project_hook
 				t_Blood.Animation.StartAnimation();
 				m_SpriteList.Add(t_Blood);
 			}
+		}
+
+		public void LoadBMP(String p_FileName)
+		{
+			//m_ELoader = new EnvironmentLoader();
+			m_ELoader.NewFile(System.Environment.CurrentDirectory + "\\Content\\Levels\\"+p_FileName);
+		}
+
+		public void ChangeSpeed(int p_Speed)
+		{
+			m_Position.setSpeed(p_Speed);
+			//back.ChangeSpeed(p_Speed);
 		}
 	}
 }
