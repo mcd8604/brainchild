@@ -76,9 +76,10 @@ namespace project_hook
 		/// <summary>
 		/// Delay after taking damage, before the shield begins regenerating, in seconds.
 		/// </summary>
-		public float ShieldRegenDelay {
+		public float ShieldRegenDelay
+		{
 			get { return m_ShieldRegenDelay; }
-				set { m_ShieldRegenDelay = value; }
+			set { m_ShieldRegenDelay = value; }
 		}
 
 		private float m_ShieldRegenRate = 0.1f;
@@ -114,7 +115,7 @@ namespace project_hook
 		{
 			foreach (Weapon w in m_Weapons)
 			{
-				w.CreateShot( this );
+				w.CreateShot(this);
 			}
 		}
 
@@ -130,7 +131,7 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 
-			if (m_MaxShield > 0 && m_ShieldSprite !=null)
+			if (m_MaxShield > 0 && m_ShieldSprite != null)
 			{
 				m_ShieldSprite.Transparency = ((float)m_Shield) / ((float)m_MaxShield);
 			}
@@ -178,7 +179,7 @@ namespace project_hook
 				addSprite(p);
 
 				Enabled = false;
-				
+
 			}
 		}
 
