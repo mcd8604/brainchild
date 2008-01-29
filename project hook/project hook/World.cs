@@ -138,7 +138,7 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
-			this.m_LReader = new LevelReader("Level1.xml");
+			this.m_LReader = new LevelReader("LevelTest.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
 		}
@@ -557,7 +557,6 @@ namespace project_hook
 
 			Sprite u = new TextSprite(m_Player.PlayerShip.getUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
 			AddSprite(u);
-
 
 			PowerUp p = new PowerUp(tail, World.m_Position);
 			p.Enabled = true;
