@@ -31,6 +31,9 @@ namespace project_hook
 		{
 			on.Rotation = Target.Rotation + Offset;
 		}
-
+		public override Task copy()
+		{
+			return new TaskRotateWithTarget(m_Target, m_Offset);
+		}
 	}
 }

@@ -31,6 +31,9 @@ namespace project_hook
 		{
 			on.Rotation = (float)Math.Atan2(Point.Y - on.Center.Y, Point.X - on.Center.X) + Offset;
 		}
-
+		public override Task copy()
+		{
+			return new TaskRotateFacePoint(m_Point, m_Offset);
+		}
 	}
 }

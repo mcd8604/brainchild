@@ -28,5 +28,9 @@ namespace project_hook
 		{
 				on.Center += Vector2.Multiply(Velocity, (float)at.ElapsedGameTime.TotalSeconds);
 		}
+		public override Task copy()
+		{
+			return new TaskStraightVelocity(m_Velocity);
+		}
 	}
 }

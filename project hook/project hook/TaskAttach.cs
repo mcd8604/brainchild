@@ -25,5 +25,9 @@ namespace project_hook
 		{
 				on.Center = m_Target.Center;
 		}
+		public override Task copy()
+		{
+			return new TaskAttach(m_Target);
+		}
 	}
 }

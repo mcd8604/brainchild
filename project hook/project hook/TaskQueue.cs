@@ -32,5 +32,9 @@ namespace project_hook
 				}
 			}
 		}
+		public override Task copy()
+		{
+			throw new Exception("The method or operation is not implemented.");
+		}
 	}
 }

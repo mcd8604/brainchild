@@ -80,5 +80,9 @@ namespace project_hook
 			}
 			on.Center = Vector2.Add(on.Center, temp2);
 		}
+		public override Task copy()
+		{
+			return new TaskSeekTarget(m_Target, m_Speed, m_CloseEnough);
+		}
 	}
 }
