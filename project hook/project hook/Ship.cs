@@ -181,7 +181,8 @@ namespace project_hook
 				foreach (Weapon w in m_Weapons)
 				{
 					foreach (Shot s in w.getShots())
-						s.Position = new Vector2(-10, -10);
+						if(s.Enabled == false)
+							s.Position = new Vector2(-10, -10);
 				}
 				Enabled = false;
 
