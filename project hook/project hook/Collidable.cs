@@ -178,7 +178,7 @@ namespace project_hook
 				m_DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
 				DamageParticleSystem.setAnimation("Explosion", 10);
 				DamageParticleSystem.Animation.StartAnimation();
-				addSprite(DamageParticleSystem);
+				attachSpritePart(DamageParticleSystem);
 			}
 			Radius = p_Radius;
 		}
@@ -211,7 +211,24 @@ namespace project_hook
 				didCollide = null;
 			}
 
-			ToBeRemoved = IsDead();
+			if (this.Position.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.25) || this.Position.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .25)) ||
+				this.Position.X > Game.graphics.GraphicsDevice.Viewport.Width || this.Position.X < 0)
+			{
+				if (this is Shot)
+				{
+					((Shot)this).CheckShip();
+				}
+				else
+				{
+					//this.ToBeRemoved = true;
+					if (this is Ship)
+						//if (((Ship)this).Faction != Collidable.Factions.Player)
+						((Ship)this).takeDamage(this.Health+1);
+				}
+			}
+
+			if(!(this is Shot))
+				ToBeRemoved = IsDead();
 		}
 
 		public virtual Boolean IsDead()
@@ -262,6 +279,8 @@ namespace project_hook
 				DamageParticleSystem.AddParticles(where);
 			}
 
+			if (this is Shot)
+				this.Position = new Vector2(-1, 0);
 		}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)

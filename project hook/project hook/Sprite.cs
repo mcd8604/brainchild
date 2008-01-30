@@ -15,18 +15,20 @@ namespace project_hook
 	public class Sprite
 	{
 
-		protected int m_MaxYValue_Screen = 768;
-		public int MaxScreenSize
-		{
-			get
-			{
-				return m_MaxYValue_Screen;
-			}
-			set
-			{
-				m_MaxYValue_Screen = value;
-			}
-		}
+		//protected int m_MaxYValue_Screen = 768;
+		//public int MaxScreenSize
+		//{
+		//    get
+		//    {
+		//        return m_MaxYValue_Screen;
+		//    }
+		//    set
+		//    {
+		//        m_MaxYValue_Screen = value;
+		//    }
+		//}
+		
+		
 
 		#region Variables and Properties
 		/// <summary>
@@ -465,21 +467,6 @@ namespace project_hook
 				foreach (Sprite part in m_Parts)
 				{
 					part.Update(p_Time);
-				}
-			}
-
-			if ((this.Position.Y > (m_MaxYValue_Screen * 1.75) || this.Position.Y < (0 - (m_MaxYValue_Screen * .75))))
-			{
-				if(this is Shot)
-				{
-					((Shot)this).CheckShip();
-				}
-				else
-				{
-					this.ToBeRemoved = true;
-					if (this is Ship)
-						//if (((Ship)this).Faction != Collidable.Factions.Player)
-							((Ship)this).Health = -1;
 				}
 			}
 		}

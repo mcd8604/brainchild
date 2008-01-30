@@ -83,7 +83,6 @@ namespace project_hook
 				//addSprite(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.GameLayer.Explosion));
 				Enabled = false;
 			}
-
 			CheckShip();
 		}
 
