@@ -70,6 +70,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
+    <Compile Include="GateTrigger.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>GateTrigger</Name>
+    </Compile>
     <Compile Include="PowerUp.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PowerUp</Name>
@@ -751,6 +755,13 @@
       <Name>Explosion2</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\gate.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>gate</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\hudPanel.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -786,6 +797,18 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>tail_segment</Name>
     </Content>
+    <Content Include="Content\Textures\trigger.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>trigger</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\trigger.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>trigger</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\veinbg.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -804,12 +827,6 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>wall1</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Textures\walls\gate.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>gate</Name>
     </Content>
     <Content Include="Content\Textures\walls\plaque.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

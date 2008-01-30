@@ -5,7 +5,27 @@
 			<fileName>gate1.bmp</fileName>
 		</loadBMP>
 	</action>
-	<action dist="300">
+	<action  dist="160">
+		<createGate>
+			<gate>
+				<name>gate1</name>
+				<height>192</height>
+				<width>256</width>
+				<texture name="gate"/>
+				<startCenter x="352" y="100"/>
+				<degree>0</degree>
+			</gate>
+			<trigger>
+				<name>gate1</name>
+				<height>192</height>
+				<width>256</width>
+				<texture name="trigger"/>
+				<startCenter x="452" y="100"/>
+				<degree>0</degree>
+			</trigger>
+		</createGate>
+	</action>
+	<action dist="448">
 		<changeSpeed>
 			<speed>0</speed>
 		</changeSpeed>
