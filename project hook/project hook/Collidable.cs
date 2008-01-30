@@ -122,7 +122,7 @@ namespace project_hook
 
 		//this is the radius used for collision detection
 		private float m_Radius = 100f;
-		public float Radius
+		public virtual float Radius
 		{
 			get
 			{
