@@ -17,6 +17,7 @@ namespace project_hook
 			set
 			{
 				m_Duration = value;
+				m_DurationRemaining = m_Duration;
 			}
 		}
 		private float m_DurationRemaining = 0f;
