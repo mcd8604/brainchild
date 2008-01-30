@@ -138,9 +138,9 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
-			this.m_LReader = new LevelReader("LevelTest.xml");
+			this.m_LReader = new LevelReader("Level1.xml");
 			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
+			AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
 		}
 
 		//This method will load the level

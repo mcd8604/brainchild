@@ -58,7 +58,7 @@ namespace project_hook
 
 
 
-			Weapon wep = new WeaponStraight(shot, 0.15f, 600, -MathHelper.PiOver2);
+			Weapon wep = new WeaponStraight(shot, 0.3f, 400, -MathHelper.PiOver2);
 
 		}
 

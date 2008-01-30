@@ -670,6 +670,13 @@
       <Name>Gate1</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Levels\level1.bmp">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>level1</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Levels\Level1.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Level1</Name>
