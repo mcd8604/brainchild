@@ -97,6 +97,16 @@ namespace project_hook
 			m_Cooldown -= (float)p_Time.ElapsedGameTime.TotalSeconds;
 		}
 
+		public IList<Shot> changeShotType(Shot type)
+		{
+			m_Shots.Clear();
+			for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
+			{
+				m_Shots.Add(new Shot(type));
+			}
+			return m_Shots;
+		}
+
 		public IList<Shot> getShots()
 		{
 			return m_Shots;

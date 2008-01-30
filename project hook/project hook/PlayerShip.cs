@@ -17,8 +17,8 @@ namespace project_hook
 	{
 
 		Shot[] m_Upgrades;
-		
-		
+
+
 		int m_UpgradeLevel = 0;
 		int cur = -1;
 
@@ -54,7 +54,7 @@ namespace project_hook
 			m_Upgrades[1] = shot;
 
 
-		
+
 
 
 
@@ -101,13 +101,14 @@ namespace project_hook
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			if (p_Other.Faction == Factions.PowerUp)
-			 {
+			{
 				PowerUp p = (PowerUp)p_Other;
 				m_UpgradeLevel += p.Amount;
 				//Console.WriteLine("Upgrade: " + m_UpgradeLevel);
 				int prev = cur;
-				for(int a =0; a < m_Upgrades.Length; a ++){
-					if (m_UpgradeLevel > (a*100 +100) )
+				for (int a = 0; a < m_Upgrades.Length; a++)
+				{
+					if (m_UpgradeLevel > (a * 100 + 100))
 					{
 						prev = a;
 					}
@@ -117,17 +118,19 @@ namespace project_hook
 				{
 					foreach (Weapon w in Weapons)
 					{
-
-					//	w.ShotType = m_Upgrades[prev];
+						foreach (Shot s in w.changeShotType(m_Upgrades[prev]))
+						{
+							addSprite(s);
+						}
 					}
 					cur = prev;
 				}
- 
-				
+
+
 			}
 			base.RegisterCollision(p_Other);
 
-			
+
 		}
 
 		public string getUpgradeLevel()
