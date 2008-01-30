@@ -10,6 +10,13 @@ namespace project_hook
 	{
 		private ArrayList scrollingSprites;
 		private WorldPosition m_WorldPosition;
+		public WorldPosition Position
+		{
+			set
+			{
+				m_WorldPosition = value;
+			}
+		}
 		
 
 		public YScrollingBackground(GameTexture p_BackgroundTexture, WorldPosition p_WorldPosition)

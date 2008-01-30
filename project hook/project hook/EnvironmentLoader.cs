@@ -20,6 +20,13 @@ namespace project_hook
 		private int m_CurTopBuffer;
 		private int m_CurBottomBuffer;
 		private WorldPosition m_Position;
+		public WorldPosition Position
+		{
+			set
+			{
+				m_Position = value;
+			}
+		}
 		private Tile curTile;
 		private int m_TileDimension;
 
