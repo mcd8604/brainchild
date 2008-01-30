@@ -155,27 +155,9 @@
 			<startCenter x="608" y="0"/>
 			<health>30</health>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Complex" offset="0" target="Player">
-				<task type="Sequence">
-					<task type="Parallel">
-						<task type="StraightAngle">
-							<degree>0</degree>
-							<speed>300</speed>
-						</task>
-						<task type="RotateToAngle">
-							<degree>0</degree>
-						</task>
-						<task type="Timer">
-							<duration>1</duration>
-						</task>
-					</task>
-					<task type="SeekTarget">
-						<target>Player</target>
-						<speed>300</speed>
-					</task>
-				</task>
+			<weapon type="Straight" angle="0">
 				<delay>0.85</delay>
-				<speed>200</speed>
+				<speed>400</speed>
 				<shot>
 					<damage>10</damage>
 					<height>32</height>
@@ -186,27 +168,9 @@
 					<animation name="shot_electric" fps="8"/>
 				</shot>
 			</weapon>
-			<weapon type="Complex" offset="-20" target="Player">
-				<task type="Sequence">
-					<task type="Parallel">
-						<task type="StraightAngle">
-							<degree>-20</degree>
-							<speed>300</speed>
-						</task>
-						<task type="RotateToAngle">
-							<degree>-20</degree>
-						</task>
-						<task type="Timer">
-							<duration>1</duration>
-						</task>
-					</task>
-					<task type="SeekTarget">
-						<target>Player</target>
-						<speed>300</speed>
-					</task>
-				</task>
+			<weapon type="Straight" angle="-20">
 				<delay>0.85</delay>
-				<speed>200</speed>
+				<speed>400</speed>
 				<shot>
 					<damage>10</damage>
 					<height>32</height>
@@ -217,27 +181,9 @@
 					<animation name="shot_electric" fps="8"/>
 				</shot>
 			</weapon>
-			<weapon type="Complex" offset="20" target="Player">
-				<task type="Sequence">
-					<task type="Parallel">
-						<task type="StraightAngle">
-							<degree>20</degree>
-							<speed>300</speed>
-						</task>
-						<task type="RotateToAngle">
-							<degree>20</degree>
-						</task>
-						<task type="Timer">
-							<duration>1</duration>
-						</task>
-					</task>
-					<task type="SeekTarget">
-						<target>Player</target>
-						<speed>300</speed>
-					</task>
-				</task>
+			<weapon type="Straight" angle="20">
 				<delay>0.85</delay>
-				<speed>200</speed>
+				<speed>400</speed>
 				<shot>
 					<damage>10</damage>
 					<height>32</height>
