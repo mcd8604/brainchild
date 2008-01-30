@@ -30,7 +30,9 @@ namespace project_hook
 		{
 			Circle,
 			Diamond,
-			Square
+			Square,
+			Rectangle,
+			Triangle
 		}
 
 		private Boundings m_Bound = Boundings.Circle;

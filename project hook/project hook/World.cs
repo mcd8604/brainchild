@@ -267,7 +267,7 @@ namespace project_hook
 #if DEBUG
 				if (DisplayCollision)
 				{
-					Collision.DevEnableCollisionDisplay(m_SpriteList);
+					Collision.DevEnableCollisionDisplay(m_SpriteList, m_SpriteListA);
 				}
 #endif
 
@@ -372,7 +372,7 @@ namespace project_hook
 					else
 					{
 						DisplayCollision = false;
-						Collision.DevDisableCollisionDisplay(m_SpriteList);
+						Collision.DevDisableCollisionDisplay(m_SpriteList, m_SpriteListA);
 					}
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageUp))
