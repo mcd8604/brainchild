@@ -5,7 +5,7 @@
 			<fileName>gate1.bmp</fileName>
 		</loadBMP>
 	</action>
-	<action dist="">
+	<action dist="80">
 		<changeSpeed>
 			<speed>0</speed>
 		</changeSpeed>
