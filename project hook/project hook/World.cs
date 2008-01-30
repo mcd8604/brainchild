@@ -579,7 +579,7 @@ namespace project_hook
 		public void ChangeFile(String p_FileName)
 		{
 			m_LReader = new LevelReader(p_FileName);
-			m_Position = new WorldPosition(80);
+			m_Position.Distance = 0;
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 
@@ -627,6 +627,8 @@ namespace project_hook
 		public void ChangeSpeed(int p_Speed)
 		{
 			m_Position.setSpeed(p_Speed);
+			m_ELoader.Position = m_Position;
+			back.Position = m_Position;
 			//back.ChangeSpeed(p_Speed);
 		}
 	}

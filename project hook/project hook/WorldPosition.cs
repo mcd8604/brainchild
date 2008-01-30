@@ -22,8 +22,13 @@ namespace project_hook
 		}
 
 		public float Distance {
-			get {
+			get 
+			{
 				return m_Distance;
+			}
+			set
+			{
+				m_Distance = value;
 			}
 		}
 
