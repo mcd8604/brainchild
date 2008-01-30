@@ -26,7 +26,7 @@ namespace project_hook
 			get
 			{
 				
-				if (m_Shield > 0.0 && m_ShieldSprite != null)
+				if (m_Shield > 0f && m_ShieldSprite != null)
 				{					
 					return m_ShieldSprite.Width / 2;
 				}
