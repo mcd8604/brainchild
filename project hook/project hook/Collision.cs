@@ -460,6 +460,8 @@ namespace project_hook
 							if (x.Name == "bound")
 							{
 								skip = true;
+								x.Height = (int)(temp.Radius * 2f);
+								x.Width = (int)(temp.Radius * 2f);
 								if (temp.Faction != Collidable.Factions.None)
 								{
 									x.Enabled = true;
