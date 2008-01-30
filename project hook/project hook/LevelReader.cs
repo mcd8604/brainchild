@@ -385,6 +385,7 @@ namespace project_hook
 					WeaponStraight straight = new WeaponStraight();
 					straight.AngleDegrees = float.Parse(p_Reader.GetAttribute("angle"));
 					weapon = straight;
+					p_Reader.ReadStartElement("weapon");
 					break;
 				case "Seek":
 					WeaponSeek seek = new WeaponSeek();
@@ -394,6 +395,20 @@ namespace project_hook
 						seek.Target = World.m_Player.PlayerShip;
 					}
 					weapon = seek;
+					p_Reader.ReadStartElement("weapon");
+					break;
+				case "Complex":
+					WeaponComplex complex = new WeaponComplex();
+					complex.OffsetDegrees = float.Parse(p_Reader.GetAttribute("offset"));
+					string comtarget = p_Reader.GetAttribute("target");
+					if (comtarget == "Player")
+					{
+						complex.Target = World.m_Player.PlayerShip;
+					}
+					p_Reader.ReadStartElement("weapon");
+					Task task = readTask(p_Reader);
+					complex.ShotTask = task;
+					weapon = complex;
 					break;
 				default:
 #if DEBUG
@@ -402,7 +417,7 @@ namespace project_hook
 					break;
 #endif
 			}
-			p_Reader.ReadStartElement("weapon");
+			
 
 			while (p_Reader.IsStartElement())
 			{
@@ -672,6 +687,31 @@ namespace project_hook
 						sequence.addTask(readTask(p_Reader));
 					}
 					task = sequence;
+					break;
+				case "StraightAngle":
+					TaskStraightAngle straightAngle = new TaskStraightAngle();
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("angle"))
+						{
+							p_Reader.ReadStartElement("angle");
+							straightAngle.Angle = float.Parse(p_Reader.ReadString());
+							p_Reader.ReadEndElement();
+						}
+						else if (p_Reader.IsStartElement("degree"))
+						{
+							p_Reader.ReadStartElement("degree");
+							straightAngle.Angle = MathHelper.ToRadians(float.Parse(p_Reader.ReadString()));
+							p_Reader.ReadEndElement();
+						}
+						else if (p_Reader.IsStartElement("speed"))
+						{
+							p_Reader.ReadStartElement("speed");
+							straightAngle.Speed = float.Parse(p_Reader.ReadString());
+							p_Reader.ReadEndElement();
+						}
+					}
+					task = straightAngle;
 					break;
 				case "StraightVelocity":
 					TaskStraightVelocity straightVelocity = new TaskStraightVelocity();

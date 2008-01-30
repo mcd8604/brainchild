@@ -49,6 +49,10 @@ namespace project_hook
 				newTasks.Add(t.copy());
 			}
 			return new TaskSequence(newTasks);
-		}			
+		}
+		public override IEnumerable<Task> getSubTasks()
+		{
+			return m_Tasks;
+		}
 	}
 }
