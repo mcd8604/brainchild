@@ -16,9 +16,10 @@ namespace project_hook
 	public class PlayerShip : Ship
 	{
 
-		Shot[] m_Upgrades;
-
-
+		List<Shot> m_Upgrades;
+		List<int> m_UpgradeReqs;
+		
+		
 		int m_UpgradeLevel = 0;
 		int cur = -1;
 
@@ -26,20 +27,21 @@ namespace project_hook
 		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, GameTexture p_DamageEffect, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_DamageEffect, p_Radius)
 		{
-			m_Upgrades = new Shot[2];
-
+			m_Upgrades = new List<Shot>();
+			m_UpgradeReqs = new List<int>();
+			
 			Shot shot = new Shot(this);
 			shot.Name = "Player Shot";
-			shot.Height = 30;
+			shot.Height = 40;
 			shot.Width = 90;
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
 			shot.Radius = 30;
-			shot.Damage = 1;
+			shot.Damage = 5;
 			shot.Bound = Collidable.Boundings.Diamond;
 			shot.setAnimation("RedShot", 10);
 
-			m_Upgrades[0] = shot;
-
+			m_Upgrades.Add(shot);
+			m_UpgradeReqs.Add(100);
 
 			shot = new Shot(this);
 			shot.Name = "Player Shot";
@@ -47,16 +49,12 @@ namespace project_hook
 			shot.Width = 110;
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
 			shot.Radius = 30;
-			shot.Damage = 1;
+			shot.Damage = 10;
 			shot.Bound = Collidable.Boundings.Diamond;
 			shot.setAnimation("RedShot", 10);
 
-			m_Upgrades[1] = shot;
-
-
-
-
-
+			m_Upgrades.Add(shot);
+			m_UpgradeReqs.Add(200);
 
 			Weapon wep = new WeaponStraight(shot, 0.3f, 400, -MathHelper.PiOver2);
 
@@ -103,27 +101,32 @@ namespace project_hook
 			if (p_Other.Faction == Factions.PowerUp)
 			{
 				PowerUp p = (PowerUp)p_Other;
-				m_UpgradeLevel += p.Amount;
+				m_UpgradeLevel += p.Amount*5;
 				//Console.WriteLine("Upgrade: " + m_UpgradeLevel);
 				int prev = cur;
-				for (int a = 0; a < m_Upgrades.Length; a++)
+
+				for (int a = 0; a < m_UpgradeReqs.Count; a++)
 				{
-					if (m_UpgradeLevel > (a * 100 + 100))
+					if (m_UpgradeLevel > m_UpgradeReqs[a])
 					{
 						prev = a;
+					}
+					else
+					{
+						break;
 					}
 				}
 
 				if (cur != prev)
 				{
+					cur = prev;
 					foreach (Weapon w in Weapons)
 					{
-						foreach (Shot s in w.changeShotType(m_Upgrades[prev]))
+						foreach (Shot s in w.changeShotType(m_Upgrades[cur]))
 						{
 							addSprite(s);
 						}
 					}
-					cur = prev;
 				}
 
 

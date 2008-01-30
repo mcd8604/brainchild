@@ -21,6 +21,23 @@ namespace project_hook
 
 		private SpriteParticleSystem m_ShieldDamageParticleSystem;
 
+		public override float Radius
+		{
+			get
+			{
+				
+				if (m_Shield > 0.0 && m_ShieldSprite != null)
+				{					
+					return m_ShieldSprite.Width / 2;
+				}
+				else
+				{
+					return base.Radius;
+				}
+			}
+			
+		}
+
 		private float m_MaxShield = 0;
 		public float MaxShield
 		{

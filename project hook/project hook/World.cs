@@ -151,6 +151,7 @@ namespace project_hook
 				this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
 			}
+
 		}
 
 		//This method will load the level
