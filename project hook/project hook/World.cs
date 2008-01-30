@@ -172,7 +172,7 @@ namespace project_hook
 
 				m_Player.UpdatePlayer(p_GameTime);
 
-				this.CreateBloodCell();
+				//this.CreateBloodCell();
 
 #if DEBUG
 				timer.Reset();

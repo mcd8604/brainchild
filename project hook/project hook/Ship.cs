@@ -178,6 +178,11 @@ namespace project_hook
 				p.Width = this.Width / 2;
 				addSprite(p);
 
+				foreach (Weapon w in m_Weapons)
+				{
+					foreach (Shot s in w.getShots())
+						s.Position = new Vector2(-10, -10);
+				}
 				Enabled = false;
 
 			}
