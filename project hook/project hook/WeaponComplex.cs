@@ -76,6 +76,7 @@ namespace project_hook
 			//}
 
 			ChangeWeaponTaskAngle(m_Shots[m_NextShot].Task, (who.Rotation + Offset));
+			ChangeWeaponTaskTarget(m_Shots[m_NextShot].Task, m_Target);
 
 			m_Shots[m_NextShot].Enabled = true;
 			m_Shots[m_NextShot].Center = who.Center;

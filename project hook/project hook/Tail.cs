@@ -211,8 +211,11 @@ namespace project_hook
 						{
 							if (wep is WeaponSeek)
 							{
-								WeaponSeek wepSeek = (WeaponSeek)wep;
-								wepSeek.Target = m_TargetObject;
+								((WeaponSeek)wep).Target = m_TargetObject;
+							}
+							else if (wep is WeaponComplex)
+							{
+								((WeaponComplex)wep).Target = m_TargetObject;
 							}
 						}
 					}
