@@ -138,9 +138,19 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
-			this.m_LReader = new LevelReader("Level1.xml");
-			this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
+			System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("LevelTest.xml(Yes) or Level1.xml(No)?", "Choose a version", System.Windows.Forms.MessageBoxButtons.YesNo);
+			if (result == System.Windows.Forms.DialogResult.Yes)
+			{
+				this.m_LReader = new LevelReader("LevelTest.xml");
+				this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
+			}
+			else if (result == System.Windows.Forms.DialogResult.No)
+			{
+				this.m_LReader = new LevelReader("Level1.xml");
+				this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
+			}
 		}
 
 		//This method will load the level
