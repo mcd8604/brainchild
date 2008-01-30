@@ -165,6 +165,7 @@ namespace project_hook
 			{
 				m_Position.Update(p_GameTime);
 
+				Console.WriteLine(m_Position.Distance);
 				m_ELoader.Update(p_GameTime);
 
 				m_LHandler.CheckEvents(m_Position.Distance);
@@ -578,7 +579,7 @@ namespace project_hook
 		public void ChangeFile(String p_FileName)
 		{
 			m_LReader = new LevelReader(p_FileName);
-			m_Position = new WorldPosition();
+			m_Position = new WorldPosition(80);
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 

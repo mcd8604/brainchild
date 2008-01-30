@@ -405,7 +405,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action dist="5984">
+	<action dist="5250">
 		<changeFile>
 			<fileName>Gate1.xml</fileName>
 		</changeFile>
