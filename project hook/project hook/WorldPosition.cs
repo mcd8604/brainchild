@@ -26,10 +26,6 @@ namespace project_hook
 			{
 				return m_Distance;
 			}
-			set
-			{
-				m_Distance = value;
-			}
 		}
 
 		public float Speed
@@ -54,6 +50,11 @@ namespace project_hook
 			{
 				m_BackgroundSpeed = value;
 			}
+		}
+
+		public void resetDistance()
+		{
+			m_Distance = 0;
 		}
 
 		public void setSpeed(float p_Speed)
