@@ -28,7 +28,7 @@ namespace project_hook
 		{
 			m_Upgrades = new Shot[2];
 
-			Shot shot = new Shot();
+			Shot shot = new Shot(this);
 			shot.Name = "Player Shot";
 			shot.Height = 30;
 			shot.Width = 90;
@@ -41,7 +41,7 @@ namespace project_hook
 			m_Upgrades[0] = shot;
 
 
-			shot = new Shot();
+			shot = new Shot(this);
 			shot.Name = "Player Shot";
 			shot.Height = 60;
 			shot.Width = 110;

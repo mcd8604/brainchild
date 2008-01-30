@@ -18,11 +18,13 @@ namespace project_hook
 	{
 
 		//private ArrayList<Shot> blurShots;
+		private Ship m_Ship = null;
 
-		public Shot() {
+		public Shot( Ship p_Ship) {
 			Enabled = false;
 			Name = "Unnamed Shot";
 			Z = Depth.GameLayer.Shot;
+			m_Ship = p_Ship;
 		}
 		public Shot(Shot p_Shot)
 		{
@@ -47,13 +49,15 @@ namespace project_hook
 			Transparency = p_Shot.Transparency;
 			Width = p_Shot.Width;
 			Z = p_Shot.Z;
+			m_Ship = p_Shot.m_Ship;
 		}
 		public Shot(String p_Name, Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
-							float p_Rotation, float p_Z, Factions p_Faction, float p_Health, GameTexture p_DamageEffect, float p_Radius, float p_Damage)
+							float p_Rotation, float p_Z, Factions p_Faction, float p_Health, GameTexture p_DamageEffect, float p_Radius, float p_Damage, Ship p_Ship)
 			: base(p_Name, p_Center, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_DamageEffect, p_Radius)
 		{
 			Damage = p_Damage;
 			Center = p_Center;
+			m_Ship = p_Ship;
 		}
 
 		public override void Update(GameTime p_Time)
@@ -79,6 +83,14 @@ namespace project_hook
 				//addSprite(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.GameLayer.Explosion));
 				Enabled = false;
 			}
+
+			CheckShip();
+		}
+
+		public void CheckShip()
+		{
+			if (m_Ship.IsDead())
+				this.ToBeRemoved = true;
 		}
 	}
 }

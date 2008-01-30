@@ -127,7 +127,7 @@ namespace project_hook
 		{
 			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 
-			Shot shot = new Shot();
+			Shot shot = new Shot(this.PlayerShip);
 			shot.Name = "Player Shot";
 			shot.Height = 30;
 			shot.Width = 90;
