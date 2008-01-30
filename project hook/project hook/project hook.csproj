@@ -250,6 +250,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskTimer</Name>
     </Compile>
+    <Compile Include="Thrown.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Thrown</Name>
+    </Compile>
     <Compile Include="WeaponComplex.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponComplex</Name>
