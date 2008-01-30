@@ -2,7 +2,7 @@
 <level>
 	<action dist="320">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
@@ -51,7 +51,7 @@
 	</action>
 	<action dist="1440">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy2</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
@@ -98,7 +98,7 @@
 			</task>
 		</createShip>
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy3</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
@@ -147,7 +147,7 @@
 	</action>
 	<action dist="2496">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy4</name>
 			<height>25</height>
 			<width>25</width>
 			<radius>10</radius>
@@ -207,7 +207,7 @@
 	</action>
 	<action dist="3680">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy5</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
@@ -254,7 +254,7 @@
 			</task>
 		</createShip>
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy6</name>
 			<height>25</height>
 			<width>25</width>
 			<radius>10</radius>
@@ -283,7 +283,7 @@
 	</action>
 	<action dist="4896">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy7</name>
 			<height>25</height>
 			<width>25</width>
 			<radius>10</radius>
@@ -341,7 +341,7 @@
 			</task>
 		</createShip>
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy8</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
@@ -373,7 +373,7 @@
 			</task>
 		</createShip>
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy9</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
