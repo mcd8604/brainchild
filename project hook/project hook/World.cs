@@ -493,6 +493,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("walls\\plaque_btm_left_invert");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
+			TextureLibrary.LoadTexture("walls\\gate");
 			TextureLibrary.LoadTexture("hudPanel");
 		}
 
