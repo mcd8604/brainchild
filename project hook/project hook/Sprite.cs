@@ -272,6 +272,13 @@ namespace project_hook
 			set
 			{
 				m_ToBeRemoved = value;
+				if (m_Parts != null)
+				{
+					foreach (Sprite s in m_Parts)
+					{
+						s.ToBeRemoved = value;
+					}
+				}
 			}
 		}
 
