@@ -10,9 +10,27 @@
 			<startCenter x="800" y="150"/>
 			<health>50</health>
 			<damageTexture name="Explosion" pos="3"/>
-			<weapon type="Straight" angle="0">
-				<delay>0.75</delay>
-				<speed>400</speed>
+			<weapon type="Complex" offset="0" target="Player">
+				<task type="Sequence">
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>0</degree>
+							<speed>300</speed>
+						</task>
+						<task type="RotateToAngle">
+							<degree>0</degree>
+						</task>
+						<task type="Timer">
+							<duration>1</duration>
+						</task>
+					</task>
+					<task type="SeekTarget">
+						<target>Player</target>
+						<speed>300</speed>
+					</task>
+				</task>
+				<delay>0.85</delay>
+				<speed>200</speed>
 				<shot>
 					<damage>10</damage>
 					<height>32</height>
@@ -21,12 +39,29 @@
 					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
-					<name>enemy1</name>
 				</shot>
 			</weapon>
-			<weapon type="Straight" angle="-30">
-				<delay>0.75</delay>
-				<speed>400</speed>
+			<weapon type="Complex" offset="-20" target="Player">
+				<task type="Sequence">
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>-20</degree>
+							<speed>300</speed>
+						</task>
+						<task type="RotateToAngle">
+							<degree>-20</degree>
+						</task>
+						<task type="Timer">
+							<duration>1</duration>
+						</task>
+					</task>
+					<task type="SeekTarget">
+						<target>Player</target>
+						<speed>300</speed>
+					</task>
+				</task>
+				<delay>0.85</delay>
+				<speed>200</speed>
 				<shot>
 					<damage>10</damage>
 					<height>32</height>
@@ -35,12 +70,29 @@
 					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
-					<name>enemy2</name>
 				</shot>
 			</weapon>
-			<weapon type="Straight" angle="30">
-				<delay>0.75</delay>
-				<speed>400</speed>
+			<weapon type="Complex" offset="20" target="Player">
+				<task type="Sequence">
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>20</degree>
+							<speed>300</speed>
+						</task>
+						<task type="RotateToAngle">
+							<degree>20</degree>
+						</task>
+						<task type="Timer">
+							<duration>1</duration>
+						</task>
+					</task>
+					<task type="SeekTarget">
+						<target>Player</target>
+						<speed>300</speed>
+					</task>
+				</task>
+				<delay>0.85</delay>
+				<speed>200</speed>
 				<shot>
 					<damage>10</damage>
 					<height>32</height>
@@ -49,15 +101,14 @@
 					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
-					<name>enemy3</name>
 				</shot>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
 					<velocity x="0" y="20"/>
 				</task>
-				<task type="RotateToAngle">
-					<degree>90</degree>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
 				</task>
 				<task type="Fire"/>
 			</task>
