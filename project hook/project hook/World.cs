@@ -165,7 +165,7 @@ namespace project_hook
 			{
 				m_Position.Update(p_GameTime);
 
-				Console.WriteLine(m_Position.Distance);
+				//Console.WriteLine(m_Position.Distance);
 				m_ELoader.Update(p_GameTime);
 
 				m_LHandler.CheckEvents(m_Position.Distance);
