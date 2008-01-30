@@ -183,7 +183,7 @@ namespace project_hook
 
 				m_Player.UpdatePlayer(p_GameTime);
 
-				//this.CreateBloodCell();
+				this.CreateBloodCell();
 
 #if DEBUG
 				timer.Reset();
@@ -496,8 +496,9 @@ namespace project_hook
 			TextureLibrary.LoadTexture("walls\\plaque_btm_left_invert");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
-			TextureLibrary.LoadTexture("walls\\gate");
 			TextureLibrary.LoadTexture("hudPanel");
+			TextureLibrary.LoadTexture("gate");
+			TextureLibrary.LoadTexture("trigger");
 		}
 
 		private void IniDefaults()

@@ -61,6 +61,12 @@ namespace project_hook
 				{
 					m_Distance = int.Parse(reader.GetAttribute(0));
 					reader.ReadStartElement();
+					while (reader.IsStartElement("createGate"))
+					{
+						reader.ReadStartElement();
+						CreateGate(reader);
+						reader.ReadEndElement();
+					}
 					while (reader.IsStartElement("loadBMP"))
 					{
 						reader.ReadStartElement();
@@ -132,6 +138,254 @@ namespace project_hook
 #endif
 
 			return m_Events;
+		}
+
+		private void CreateGate(XmlReader p_Reader)
+		{
+			Collidable t_Gate = new Collidable();
+			GateTrigger t_Trigger = new GateTrigger();
+
+			List<Event> t_List = new List<Event>();
+
+			while (p_Reader.IsStartElement())
+			{
+				if (p_Reader.IsStartElement("gate"))
+				{
+					p_Reader.ReadStartElement();
+					this.LoadGate(p_Reader, t_Gate);
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("trigger"))
+				{
+					p_Reader.ReadStartElement();
+					this.LoadTrigger(p_Reader, t_Trigger);
+					p_Reader.ReadEndElement();
+				}
+			}
+#if DEBUG
+			curLoop = 0;
+#endif
+
+			t_Trigger.Gate = t_Gate;
+			
+			//add the ship to the event list
+			if (m_Events.ContainsKey(m_Distance))
+			{
+				m_Events[m_Distance].Add(new Event(t_Gate));
+				m_Events[m_Distance].Add(new Event(t_Trigger));
+			}
+			else
+			{
+				t_List.Add(new Event(t_Gate));
+				m_Events.Add(m_Distance, t_List);
+				m_Events[m_Distance].Add(new Event(t_Trigger));
+			}
+		}
+
+		private void LoadGate(XmlReader p_Reader, Collidable p_Gate)
+		{
+			while (p_Reader.IsStartElement())
+			{
+				if (p_Reader.IsStartElement("name"))
+				{
+					p_Reader.ReadStartElement("name");
+					p_Gate.Name = p_Reader.ReadString();
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("startPos"))
+				{
+					p_Gate.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
+													float.Parse(p_Reader.GetAttribute(1)));
+					p_Reader.ReadStartElement("startPos");
+				}
+				else if (p_Reader.IsStartElement("startCenter"))
+				{
+					p_Gate.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
+													float.Parse(p_Reader.GetAttribute(1)));
+					p_Reader.ReadStartElement("startCenter");
+				}
+				else if (p_Reader.IsStartElement("height"))
+				{
+					p_Reader.ReadStartElement("height");
+					p_Gate.Height = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("width"))
+				{
+					p_Reader.ReadStartElement();
+					p_Gate.Width = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("texture"))
+				{
+					String t_Name = p_Reader.GetAttribute(0);
+					if (p_Reader.AttributeCount == 1)
+					{
+						p_Gate.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+						//Console.WriteLine("1");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						p_Gate.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
+																		p_Reader.GetAttribute(1));
+						//Console.WriteLine("2");
+					}
+
+					p_Reader.ReadStartElement("texture");
+				}
+				else if (p_Reader.IsStartElement("degree"))
+				{
+					p_Reader.ReadStartElement("degree");
+					p_Gate.RotationDegrees = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("damageTexture"))
+				{
+					if (p_Reader.AttributeCount == 1)
+					{
+						p_Gate.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						p_Gate.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
+																		p_Reader.GetAttribute(1));
+					}
+					p_Reader.ReadStartElement("damageTexture");
+				}
+				else if (p_Reader.IsStartElement("task"))
+				{
+					p_Gate.Task = readTask(p_Reader);
+				}
+				else if (p_Reader.IsStartElement("animation"))
+				{
+					p_Gate.setAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
+					//p_Gate.Animation.StartAnimation();
+					p_Reader.ReadStartElement("animation");
+				}
+				else if (p_Reader.IsStartElement("bound"))
+				{
+					p_Gate.Bound = readBounding(p_Reader);
+				}
+#if DEBUG
+				else
+				{
+					throw new NotImplementedException("LevelReader LoadEnemy could not understand tag '" + p_Reader.Name + "'");
+				}
+#endif
+#if DEBUG
+				if (++curLoop > maxLoops)
+				{
+					throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+				}
+#endif
+			}
+			p_Gate.Faction = Collidable.Factions.Environment;
+			p_Gate.Z = Depth.GameLayer.Environment;
+			p_Gate.Bound = Collidable.Boundings.Circle;
+			p_Gate.Radius=5;
+		}
+
+		private void LoadTrigger(XmlReader p_Reader, GateTrigger p_Trigger)
+		{
+			while (p_Reader.IsStartElement())
+			{
+				if (p_Reader.IsStartElement("name"))
+				{
+					p_Reader.ReadStartElement("name");
+					p_Trigger.Name = p_Reader.ReadString();
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("startPos"))
+				{
+					p_Trigger.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
+													float.Parse(p_Reader.GetAttribute(1)));
+					p_Reader.ReadStartElement("startPos");
+				}
+				else if (p_Reader.IsStartElement("startCenter"))
+				{
+					p_Trigger.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
+													float.Parse(p_Reader.GetAttribute(1)));
+					p_Reader.ReadStartElement("startCenter");
+				}
+				else if (p_Reader.IsStartElement("height"))
+				{
+					p_Reader.ReadStartElement("height");
+					p_Trigger.Height = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("width"))
+				{
+					p_Reader.ReadStartElement();
+					p_Trigger.Width = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("texture"))
+				{
+					String t_Name = p_Reader.GetAttribute(0);
+					if (p_Reader.AttributeCount == 1)
+					{
+						p_Trigger.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+						//Console.WriteLine("1");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						p_Trigger.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
+																		p_Reader.GetAttribute(1));
+						//Console.WriteLine("2");
+					}
+
+					p_Reader.ReadStartElement("texture");
+				}
+				else if (p_Reader.IsStartElement("degree"))
+				{
+					p_Reader.ReadStartElement("degree");
+					p_Trigger.RotationDegrees = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("damageTexture"))
+				{
+					if (p_Reader.AttributeCount == 1)
+					{
+						p_Trigger.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						p_Trigger.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
+																		p_Reader.GetAttribute(1));
+					}
+					p_Reader.ReadStartElement("damageTexture");
+				}
+				else if (p_Reader.IsStartElement("task"))
+				{
+					p_Trigger.Task = readTask(p_Reader);
+				}
+				else if (p_Reader.IsStartElement("animation"))
+				{
+					p_Trigger.setAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
+					//p_Gate.Animation.StartAnimation();
+					p_Reader.ReadStartElement("animation");
+				}
+				else if (p_Reader.IsStartElement("bound"))
+				{
+					p_Trigger.Bound = readBounding(p_Reader);
+				}
+#if DEBUG
+				else
+				{
+					throw new NotImplementedException("LevelReader LoadEnemy could not understand tag '" + p_Reader.Name + "'");
+				}
+#endif
+#if DEBUG
+				if (++curLoop > maxLoops)
+				{
+					throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
+				}
+#endif
+			}
+			p_Trigger.Faction = Collidable.Factions.Environment;
+			p_Trigger.Z = Depth.GameLayer.Environment;
+			p_Trigger.Bound = Collidable.Boundings.Circle;
+			p_Trigger.Radius = 5;
 		}
 
 		private void NextFile(XmlReader p_Reader)
@@ -465,7 +719,6 @@ namespace project_hook
 
 			return weapon;
 		}
-
 
 		private static Shot readShot(XmlReader p_Reader, Ship p_Ship)
 		{
@@ -927,6 +1180,5 @@ namespace project_hook
               //  m_Events.Add(m_Distance, t_List);
             //}
         }
-    
 	}
 }
