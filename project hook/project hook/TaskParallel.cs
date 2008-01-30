@@ -52,7 +52,7 @@ namespace project_hook
 			}
 			return new TaskParallel(newTasks);
 		}
-		public virtual IEnumerable<Task> getSubTasks()
+		public override IEnumerable<Task> getSubTasks()
 		{
 			return m_Tasks;
 		}

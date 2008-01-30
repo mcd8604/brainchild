@@ -120,11 +120,14 @@ namespace project_hook
 			}
 			else
 			{
-				foreach (Task t in task.getSubTasks())
+				if (task.getSubTasks() != null)
 				{
-					if (t != null)
+					foreach (Task t in task.getSubTasks())
 					{
-						ConvertWeaponTaskTarget(t, toTarget);
+						if (t != null)
+						{
+							ChangeWeaponTaskTarget(t, toTarget);
+						}
 					}
 				}
 			}
@@ -147,11 +150,14 @@ namespace project_hook
 			}
 			else
 			{
-				foreach (Task t in task.getSubTasks())
+				if (task.getSubTasks() != null)
 				{
-					if (t != null)
+					foreach (Task t in task.getSubTasks())
 					{
-						ConvertWeaponTaskAngle(t, toAngle);
+						if (t != null)
+						{
+							ChangeWeaponTaskAngle(t, toAngle);
+						}
 					}
 				}
 			}

@@ -8,7 +8,18 @@ namespace project_hook
 	class WeaponComplex : Weapon
 	{
 
-		private float m_LastOffset = float.NaN;
+		private Sprite m_Target = null;
+		public Sprite Target
+		{
+			get
+			{
+				return m_Target;
+			}
+			set
+			{
+				m_Target = value;
+			}
+		}
 
 		// the angle that the shot is to be fired at
 		protected float m_Offset = 0;
@@ -48,6 +59,8 @@ namespace project_hook
 			}
 		}
 
+		public WeaponComplex() {}
+
 		public WeaponComplex(Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
 			: base(p_Shot, p_Delay, p_Speed)
 		{
@@ -56,10 +69,11 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
-			if (m_Shots[m_NextShot].Task != m_ShotTask)
-			{
+			//if (m_Shots[m_NextShot].Task != m_ShotTask)
+			//if (m_Shots[m_NextShot].Task == null )
+			//{
 				m_Shots[m_NextShot].Task = m_ShotTask.copy();
-			}
+			//}
 
 			ChangeWeaponTaskAngle(m_Shots[m_NextShot].Task, (who.Rotation + Offset));
 
