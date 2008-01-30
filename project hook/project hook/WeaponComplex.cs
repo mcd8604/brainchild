@@ -1,11 +1,39 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
 	class WeaponComplex : Weapon
 	{
+
+		private float m_LastOffset = float.NaN;
+
+		// the angle that the shot is to be fired at
+		protected float m_Offset = 0;
+		public virtual float Offset
+		{
+			get
+			{
+				return m_Offset;
+			}
+			set
+			{
+				m_Offset = value;
+			}
+		}
+		public virtual float OffsetDegrees
+		{
+			get
+			{
+				return MathHelper.ToDegrees(Offset);
+			}
+			set
+			{
+				Offset = MathHelper.ToRadians(value);
+			}
+		}
 
 		private Task m_ShotTask;
 		public Task ShotTask
@@ -20,18 +48,24 @@ namespace project_hook
 			}
 		}
 
+		public WeaponComplex(Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
+			: base(p_Shot, p_Delay, p_Speed)
+		{
+			ShotTask = p_ShotTask;
+		}
 
 		public override void Fire(Ship who)
 		{
 			if (m_Shots[m_NextShot].Task != m_ShotTask)
 			{
-				//m_Shots[m_NextShot].Task = m_ShotTask.Copy();
+				m_Shots[m_NextShot].Task = m_ShotTask.copy();
 			}
+
+			ChangeWeaponTaskAngle(m_Shots[m_NextShot].Task, (who.Rotation + Offset));
 
 			m_Shots[m_NextShot].Enabled = true;
 			m_Shots[m_NextShot].Center = who.Center;
 			m_Shots[m_NextShot].Faction = who.Faction;
 		}
-
 	}
 }

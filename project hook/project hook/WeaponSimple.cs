@@ -6,7 +6,6 @@ namespace project_hook
 {
 	class WeaponSimple : Weapon
 	{
-
 		private Task m_ShotTask;
 		public Task ShotTask { get { return m_ShotTask; } set { m_ShotTask = value; } }
 
@@ -25,6 +24,5 @@ namespace project_hook
 			m_Shots[m_NextShot].Faction = who.Faction;
 			m_Shots[m_NextShot].Task = m_ShotTask;
 		}
-
 	}
 }

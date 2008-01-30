@@ -22,5 +22,9 @@ namespace project_hook
 			}
 #endif
 		}
+		public override Task copy()
+		{
+			return new TaskFire();
+		}
 	}
 }

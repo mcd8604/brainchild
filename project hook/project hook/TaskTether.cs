@@ -61,6 +61,9 @@ namespace project_hook
 			on.Center = Vector2.Add(on.Center, temp);
 
 		}
-
+		public override Task copy()
+		{
+			throw new Exception("The method or operation is not implemented.");
+		}
 	}
 }

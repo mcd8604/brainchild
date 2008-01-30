@@ -54,6 +54,9 @@ namespace project_hook
 				s.Center = Vector2.Lerp(m_From.Center, m_To.Center, i++ / div );
 			}
 		}
-
+		public override Task copy()
+		{
+			throw new Exception("The method or operation is not implemented.");
+		}
 	}
 }

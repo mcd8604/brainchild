@@ -34,5 +34,18 @@ namespace project_hook
 				m_Current = (m_Current + 1) % m_Tasks.Count;
 			}
 		}
+		public override Task copy()
+		{
+			List<Task> newTasks = new List<Task>();
+			foreach (Task t in m_Tasks)
+			{
+				newTasks.Add(t.copy());
+			}
+			return new TaskRepeatingSequence(newTasks);
+		}
+		public virtual IEnumerable<Task> getSubTasks()
+		{
+			return m_Tasks;
+		}
 	}
 }

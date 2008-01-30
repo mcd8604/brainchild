@@ -43,5 +43,18 @@ namespace project_hook
 				t.Update(on, at);
 			}
 		}
+		public override Task copy()
+		{
+			List<Task> newTasks = new List<Task>();
+			foreach (Task t in m_Tasks)
+			{
+				newTasks.Add(t.copy());
+			}
+			return new TaskParallel(newTasks);
+		}
+		public virtual IEnumerable<Task> getSubTasks()
+		{
+			return m_Tasks;
+		}
 	}
 }

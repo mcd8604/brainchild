@@ -21,5 +21,9 @@ namespace project_hook
 		{
 			on.Rotation = Angle;
 		}
+		public override Task copy()
+		{
+			return new TaskRotateToAngle(m_Angle);
+		}
 	}
 }

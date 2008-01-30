@@ -102,5 +102,59 @@ namespace project_hook
 			return m_Shots;
 		}
 
+		public static Task ConvertWeaponTaskTarget(Task task, Sprite toTarget)
+		{
+			Task retTask = task.copy();
+			ChangeWeaponTaskTarget(retTask, toTarget);
+			return retTask;
+		}
+		protected static void ChangeWeaponTaskTarget(Task task, Sprite toTarget)
+		{
+			if (task is TaskSeekTarget)
+			{
+				((TaskSeekTarget)task).Target = toTarget;
+			}
+			else if (task is TaskRotateFaceTarget)
+			{
+				((TaskRotateFaceTarget)task).Target = toTarget;
+			}
+			else
+			{
+				foreach (Task t in task.getSubTasks())
+				{
+					if (t != null)
+					{
+						ConvertWeaponTaskTarget(t, toTarget);
+					}
+				}
+			}
+		}
+
+		public static Task ConvertWeaponTaskAngle(Task task, float toAngle)
+		{
+			Task retTask = task.copy();
+			ChangeWeaponTaskAngle(retTask, toAngle);
+			return retTask;
+		}
+		protected static void ChangeWeaponTaskAngle(Task task, float toAngle)
+		{
+			if ( task is TaskStraightAngle ) {
+				((TaskStraightAngle)task).Angle = toAngle;
+			}
+			else if (task is TaskRotateToAngle)
+			{
+				((TaskRotateToAngle)task).Angle = toAngle;
+			}
+			else
+			{
+				foreach (Task t in task.getSubTasks())
+				{
+					if (t != null)
+					{
+						ConvertWeaponTaskAngle(t, toAngle);
+					}
+				}
+			}
+		}
 	}
 }

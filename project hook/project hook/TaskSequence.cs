@@ -41,6 +41,14 @@ namespace project_hook
 				}
 			}
 		}
-					
+		public override Task copy()
+		{
+			List<Task> newTasks = new List<Task>();
+			foreach (Task t in m_Tasks)
+			{
+				newTasks.Add(t.copy());
+			}
+			return new TaskSequence(newTasks);
+		}			
 	}
 }

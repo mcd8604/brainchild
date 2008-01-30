@@ -39,5 +39,11 @@ namespace project_hook
 			throw new NotImplementedException();
 		}
 
+		public abstract Task copy();
+		public virtual IEnumerable<Task> getSubTasks()
+		{
+			return null;
+		}
+
 	}
 }

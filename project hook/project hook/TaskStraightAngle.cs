@@ -40,5 +40,9 @@ namespace project_hook
 		{
 			on.Center = new Vector2(on.Center.X + (m_Speed * (float)Math.Cos(m_Angle) * (float)at.ElapsedGameTime.TotalSeconds), on.Center.Y + (m_Speed * (float)Math.Sin(m_Angle) * (float)at.ElapsedGameTime.TotalSeconds));
 		}
+		public override Task copy()
+		{
+			return new TaskStraightAngle(m_Angle, m_Speed);
+		}
 	}
 }

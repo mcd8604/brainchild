@@ -46,5 +46,9 @@ namespace project_hook
 		{
 			m_DurationRemaining -= (float)at.ElapsedGameTime.TotalSeconds;
 		}
+		public override Task copy()
+		{
+			return new TaskTimer(m_Duration);
+		} 
 	}
 }

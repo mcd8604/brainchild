@@ -21,6 +21,9 @@ namespace project_hook
 		{
 			on.Rotation += (Angle * (float)at.ElapsedGameTime.TotalSeconds);
 		}
-
+		public override Task copy()
+		{
+			return new TaskRotateByAngle(m_Angle);
+		}
 	}
 }
