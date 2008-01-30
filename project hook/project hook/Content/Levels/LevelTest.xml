@@ -2,7 +2,7 @@
 <level>
 	<action dist="0">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
@@ -21,6 +21,7 @@
 					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
+					<name>enemy1</name>
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="-30">
@@ -34,6 +35,7 @@
 					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
+					<name>enemy2</name>
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="30">
@@ -47,6 +49,7 @@
 					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
+					<name>enemy3</name>
 				</shot>
 			</weapon>
 			<task type="Parallel">
@@ -62,7 +65,7 @@
 	</action>
 	<action dist="0">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy2</name>
 			<height>96</height>
 			<width>128</width>
 			<radius>50</radius>
@@ -81,6 +84,7 @@
 					<radius>15</radius>
 					<texture name="FireBall"/>
 					<animation name="FireBall" fps="10"/>
+					<name>enemy4</name>
 				</shot>
 			</weapon>
 			<weapon type="Seek" target="Player">
@@ -93,6 +97,7 @@
 					<radius>15</radius>
 					<texture name="FireBall"/>
 					<animation name="FireBall" fps="10"/>
+					<name>enemy5</name>
 				</shot>
 			</weapon>
 			<weapon type="Seek" target="Player">
@@ -105,6 +110,7 @@
 					<radius>15</radius>
 					<texture name="FireBall"/>
 					<animation name="FireBall" fps="10"/>
+					<name>enemy6</name>
 				</shot>
 			</weapon>
 			<weapon type="Seek" target="Player">
@@ -117,6 +123,7 @@
 					<radius>15</radius>
 					<texture name="FireBall"/>
 					<animation name="FireBall" fps="10"/>
+					<name>enemy7</name>
 				</shot>
 			</weapon>
 			<task type="Parallel">
@@ -132,7 +139,7 @@
 	</action>
 	<action dist="560">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy3</name>
 			<height>75</height>
 			<width>100</width>
 			<radius>40</radius>
@@ -150,6 +157,7 @@
 					<radius>15</radius>
 					<texture name="FireBall"/>
 					<animation name="FireBall" fps="10"/>
+					<name>enemy8</name>
 				</shot>
 			</weapon>
 			<task type="Parallel">
@@ -165,7 +173,7 @@
 	</action>
 	<action dist="1000">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy4</name>
 			<height>50</height>
 			<width>75</width>
 			<radius>30</radius>
@@ -182,6 +190,7 @@
 					<width>50</width>
 					<radius>10</radius>
 					<texture name="Shot"/>
+					<name>enemy9</name>
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="-5">
@@ -194,6 +203,7 @@
 					<width>50</width>
 					<radius>10</radius>
 					<texture name="Shot"/>
+					<name>enemy10</name>
 				</shot>
 			</weapon>
 			<task type="Parallel">
@@ -210,7 +220,7 @@
 	</action>
 	<action dist="2000">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy5</name>
 			<height>75</height>
 			<width>100</width>
 			<radius>40</radius>
@@ -228,6 +238,7 @@
 					<radius>15</radius>
 					<texture name="FireBall"/>
 					<animation name="FireBall" fps="10"/>
+					<name>enemy11</name>
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="-20">
@@ -240,6 +251,7 @@
 					<radius>15</radius>
 					<texture name="FireBall"/>
 					<animation name="FireBall" fps="10"/>
+					<name>enemy1</name>
 				</shot>
 			</weapon>
 			<task type="Parallel">
@@ -255,7 +267,7 @@
 	</action>
 	<action dist="2000">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy6</name>
 			<height>75</height>
 			<width>100</width>
 			<radius>40</radius>
@@ -300,7 +312,7 @@
 	</action>
 	<action dist="2500">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy7</name>
 			<height>50</height>
 			<width>50</width>
 			<radius>25</radius>
@@ -322,7 +334,7 @@
 	<!-- shoots many shots -->
 	<action dist="2750">
 		<createShip>
-			<name>Enemy</name>
+			<name>Enemy8</name>
 			<height>60</height>
 			<width>60</width>
 			<radius>30</radius>

@@ -392,7 +392,7 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.K))
 				{
-					Shot temp = new Shot("", m_Player.PlayerShip.Center + new Vector2(0, -100), 200, 400, TextureLibrary.getGameTexture("Shot", ""), 1f, true, -MathHelper.PiOver2, Depth.GameLayer.Shot, Collidable.Factions.Player, 0, null, 100, 10000);
+					Shot temp = new Shot("", m_Player.PlayerShip.Center + new Vector2(0, -100), 200, 400, TextureLibrary.getGameTexture("Shot", ""), 1f, true, -MathHelper.PiOver2, Depth.GameLayer.Shot, Collidable.Factions.Player, 0, null, 100, 10000, m_Player.PlayerShip);
 					temp.Bound = Collidable.Boundings.Diamond;
 					temp.Task = new TaskStraightVelocity(new Vector2(0, -400));
 					AddSprite( temp );

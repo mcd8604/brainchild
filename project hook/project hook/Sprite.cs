@@ -468,9 +468,19 @@ namespace project_hook
 				}
 			}
 
-			if (this.Position.Y > (m_MaxYValue_Screen * 1.75) || this.Position.Y < (0 - (m_MaxYValue_Screen * .75)))
+			if ((this.Position.Y > (m_MaxYValue_Screen * 1.75) || this.Position.Y < (0 - (m_MaxYValue_Screen * .75))))
 			{
-				this.ToBeRemoved = true;
+				if(this is Shot)
+				{
+					((Shot)this).CheckShip();
+				}
+				else
+				{
+					this.ToBeRemoved = true;
+					if (this is Ship)
+						//if (((Ship)this).Faction != Collidable.Factions.Player)
+							((Ship)this).Health = -1;
+				}
 			}
 		}
 

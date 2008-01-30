@@ -310,7 +310,7 @@ namespace project_hook
 				}
 				else if (p_Reader.IsStartElement("weapon"))
 				{
-					t_Ship.addWeapon(readWeapon(p_Reader));
+					t_Ship.addWeapon(readWeapon(p_Reader, t_Ship));
 				}
 				else if (p_Reader.IsStartElement("task"))
 				{
@@ -374,7 +374,7 @@ namespace project_hook
 			return ret;
 		}
 
-		private static Weapon readWeapon(XmlReader p_Reader)
+		private static Weapon readWeapon(XmlReader p_Reader, Ship p_Ship)
 		{
 			Weapon weapon = null;
 			string pType = p_Reader.GetAttribute("type");
@@ -426,7 +426,7 @@ namespace project_hook
 				}
 				else if (p_Reader.IsStartElement("shot"))
 				{
-					weapon.ShotType = readShot(p_Reader);
+					weapon.ShotType = readShot(p_Reader, p_Ship);
 				}
 #if DEBUG
 				else
@@ -447,13 +447,14 @@ namespace project_hook
 
 			p_Reader.ReadEndElement();
 
+
 			return weapon;
 		}
 
 
-		private static Shot readShot(XmlReader p_Reader)
+		private static Shot readShot(XmlReader p_Reader, Ship p_Ship)
 		{
-			Shot shot = new Shot();
+			Shot shot = new Shot(p_Ship);
 			p_Reader.ReadStartElement("shot");
 
 			while (p_Reader.IsStartElement())
