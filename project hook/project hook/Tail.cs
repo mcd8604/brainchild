@@ -93,10 +93,12 @@ namespace project_hook
 
 		public Sprite m_TargetObject;
 
+		private Sprite tailTarget;
+		private Task tailTargetNormalTask;
 
 		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
 					float p_Degree, float p_Z, Factions p_Faction, float p_Health, GameTexture p_DamageEffect, float p_Radius,
-					Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites)
+					Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites, Sprite p_TargetObject)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, p_Health, p_DamageEffect, p_Radius)
 		{
 
@@ -120,6 +122,15 @@ namespace project_hook
 			m_BodyTask = new TaskLerp(p_AttachShip, this);
 			Damage = 0;
 			StateOfTail = TailState.Ready;
+
+			m_TargetObject = p_TargetObject;
+
+			tailTarget = new Sprite("crosshairR", new Vector2(0f, 0f), TextureLibrary.getGameTexture("crosshairsR", "").Height, TextureLibrary.getGameTexture("crosshairsR", "").Width, TextureLibrary.getGameTexture("crosshairsR", ""), 0.75f, true, 0f, Depth.GameLayer.Cursor);
+			tailTarget.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
+			tailTargetNormalTask = new TaskLerpRange(this, m_TargetObject, 400);
+			tailTarget.Task = tailTargetNormalTask;
+			addSprite(tailTarget);
+
 		}
 
 		public void TailAttack()
@@ -128,7 +139,7 @@ namespace project_hook
 			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
 				TaskParallel temp = new TaskParallel();
-				temp.addTask(new TaskSeekPoint(m_TargetObject.Center, 1600f));
+				temp.addTask(new TaskSeekPoint(tailTarget.Center, 1600f));
 				temp.addTask(new TaskTimer(0.25f));
 				temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
 				m_AttackTask = temp;
@@ -138,6 +149,8 @@ namespace project_hook
 				StateOfTail = TailState.Attacking;
 				m_LastTailAttack = 0;
 				Sound.Play("slap");
+				tailTarget.Task = null;
+
 			}
 			//throw enemy
 			else if (m_EnemyCaught != null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
@@ -197,6 +210,7 @@ namespace project_hook
 				{
 					m_EnemyCaught = p_Other;
 					this.Transparency = 0;
+					tailTarget.Enabled = false;
 					m_EnemyCaught.Faction = Factions.Player;
 
 					TaskParallel temp = new TaskParallel();
@@ -220,6 +234,11 @@ namespace project_hook
 						}
 					}
 				}
+				else if (p_Other.Faction == Factions.PowerUp)
+				{
+					tailTarget.Enabled = false;
+					p_Other.Task = new TaskAttach(this);
+				}
 
 				if (m_TailState == TailState.Throwing)
 				{
@@ -242,6 +261,7 @@ namespace project_hook
 					{
 						StateOfTail = Tail.TailState.Returning;
 						Task = m_ReturnTask;
+						tailTarget.Enabled = false;
 					}
 					break;
 				case TailState.Throwing:
@@ -274,6 +294,11 @@ namespace project_hook
 			{
 				m_EnemyCaught = null;
 				this.Transparency = 1;
+			}
+			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
+			{
+				tailTarget.Enabled = true;
+				tailTarget.Task = tailTargetNormalTask;
 			}
 			base.Update(p_Time);
 		}

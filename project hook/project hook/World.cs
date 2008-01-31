@@ -465,6 +465,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("temptail");
 			TextureLibrary.LoadTexture("blood");
 			TextureLibrary.LoadTexture("crosshairs");
+			TextureLibrary.LoadTexture("crosshairsR");
 			TextureLibrary.LoadTexture("tailbody");
 			TextureLibrary.LoadTexture("tail_segment");
 			TextureLibrary.LoadTexture("shot_energy");
@@ -507,18 +508,23 @@ namespace project_hook
 
 			//test scrolling background
 			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
+			AddSprite(back);
 
 			//hud panel
 			hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 1f, true, 0f, Depth.HUDLayer.Background);
 			AddSprite(hudPanel);
 
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+			AddSprite(m_Player.PlayerShip);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			//Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
 
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
-			crosshairs = new Sprite("crosshair", new Vector2(100f, 100f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 100f, true, 0f, Depth.GameLayer.Cursor);
+			crosshairs = new Sprite("crosshair", new Vector2(0f, 0f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
+			AddSprite(crosshairs);
+			
+
 			for (int i = 0; i < 60; i++)
 			{
 				if (i % 5 == 0)
@@ -537,15 +543,17 @@ namespace project_hook
 				}
 
 			}
-			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 25, m_Player.PlayerShip, 1, m_TailBodySprites);
-			tail.m_TargetObject = crosshairs;
-
-			AddSprite(back);
-			//	AddSprite(cloud);
-			AddSprite(tail);
-			AddSprite(m_Player.PlayerShip);
-			AddSprite(crosshairs);
 			AddSprites(m_TailBodySprites);
+			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
+			AddSprite(tail);
+
+			
+			//	AddSprite(cloud);
+			
+			
+			
+
+			
 
 			Sprite TextFpsExample = new FPSSprite(new Vector2(75, 20), Color.Pink, Depth.HUDLayer.Foreground);
 			AddSprite(TextFpsExample);

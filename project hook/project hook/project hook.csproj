@@ -82,6 +82,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>SimpleScore</Name>
     </Compile>
+    <Compile Include="TaskLerpRange.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskLerpRange</Name>
+    </Compile>
     <Compile Include="TaskRotateByAngle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskRotateByAngle</Name>
@@ -726,6 +730,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>cell</Name>
+    </Content>
+    <Content Include="Content\Textures\crosshairsR.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>crosshairsR</Name>
     </Content>
     <Content Include="Content\Textures\DNA.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
