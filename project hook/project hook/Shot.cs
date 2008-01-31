@@ -28,7 +28,7 @@ namespace project_hook
 		}
 		public Shot(Shot p_Shot)
 		{
-			Animation = p_Shot.Animation;
+			Animation = new VisualEffect(p_Shot.Animation.Name, this, p_Shot.Animation.FramesPerSecond);
 			BlendMode = p_Shot.BlendMode;
 			Bound = p_Shot.Bound;
 			Center = p_Shot.Center;
