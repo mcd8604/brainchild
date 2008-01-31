@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
-	<action dist="0">
+	<action tile="0">
 		<loadBMP>
 			<fileName>gate1.bmp</fileName>
 		</loadBMP>
 	</action>
-	<action  dist="160">
+	<action  tile="5">
 		<createGate>
 			<gate>
 				<name>gate1</name>
@@ -25,7 +25,7 @@
 			</trigger>
 		</createGate>
 	</action>
-	<action dist="448">
+	<action tile="14">
 		<changeSpeed>
 			<speed>0</speed>
 		</changeSpeed>

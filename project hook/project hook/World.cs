@@ -117,10 +117,10 @@ namespace project_hook
 
 #if DEBUG
 
-		TextSprite listsize = new TextSprite("", new Vector2(250, 20), Color.LightCyan);
+		TextSprite listsize = new TextSprite("", new Vector2(175, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
 
 		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
-		TextSprite coll = new TextSprite("", new Vector2(250, 50), Color.GreenYellow);
+		TextSprite coll = new TextSprite("", new Vector2(250, 20), Color.GreenYellow, Depth.HUDLayer.Foreground);
 		double colltotal;
 		int collcount;
 		bool DisplayCollision = false;
@@ -141,15 +141,15 @@ namespace project_hook
 			System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("LevelTest.xml(Yes) or Level1.xml(No)?", "Choose a version", System.Windows.Forms.MessageBoxButtons.YesNo);
 			if (result == System.Windows.Forms.DialogResult.Yes)
 			{
+				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
 				this.m_LReader = new LevelReader("LevelTest.xml");
 				this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
 			}
 			else if (result == System.Windows.Forms.DialogResult.No)
 			{
+				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
 				this.m_LReader = new LevelReader("Level1.xml");
 				this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
 			}
 
 		}
@@ -272,7 +272,7 @@ namespace project_hook
 #endif
 
 #if DEBUG
-				listsize.Text = "S: " + m_SpriteList.Count.ToString() + " A: " + m_SpriteListA.Count.ToString();
+				listsize.Text = "A: " + (m_SpriteList.Count + m_SpriteListA.Count) + " S: " + (m_SpriteList.Count - EnvironmentLoader.TileCount) + " A: " + m_SpriteListA.Count.ToString();
 #endif
 
 				if (m_Player.PlayerShip.Center.X < m_ViewPortSize.X ||
@@ -523,7 +523,7 @@ namespace project_hook
 
 			crosshairs = new Sprite("crosshair", new Vector2(0f, 0f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
 			AddSprite(crosshairs);
-			
+
 
 			for (int i = 0; i < 60; i++)
 			{
@@ -547,13 +547,13 @@ namespace project_hook
 			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
 			AddSprite(tail);
 
-			
-			//	AddSprite(cloud);
-			
-			
-			
 
-			
+			//	AddSprite(cloud);
+
+
+
+
+
 
 			Sprite TextFpsExample = new FPSSprite(new Vector2(75, 20), Color.Pink, Depth.HUDLayer.Foreground);
 			AddSprite(TextFpsExample);
@@ -632,7 +632,7 @@ namespace project_hook
 		public void LoadBMP(String p_FileName)
 		{
 			//m_ELoader = new EnvironmentLoader();
-			m_ELoader.NewFile(System.Environment.CurrentDirectory + "\\Content\\Levels\\"+p_FileName);
+			m_ELoader.NewFile(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName);
 		}
 
 		public void ChangeSpeed(int p_Speed)

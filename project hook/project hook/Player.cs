@@ -125,20 +125,20 @@ namespace project_hook
 
 		public void ResetPlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
 		{
-			
-			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, TextureLibrary.getGameTexture("Explosion", "3"), p_Width/2.0f);
+
+			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, TextureLibrary.getGameTexture("Explosion", "3"), p_Width / 2.0f);
 
 			Shot shot = new Shot(this.PlayerShip);
 			shot.Name = "Player Shot";
-			shot.Height = 30;
-			shot.Width = 90;
+			shot.Height = 20;
+			shot.Width = 60;
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
-			shot.Radius = 30;
-			shot.Damage = 5;
+			shot.Radius = 20;
+			shot.Damage = 4;
 			shot.Bound = Collidable.Boundings.Diamond;
-			shot.setAnimation( "RedShot", 10 );
+			shot.setAnimation("RedShot", 10);
 
-			Weapon wep = new WeaponStraight( shot, 0.30f, 400, -MathHelper.PiOver2);
+			Weapon wep = new WeaponStraight(shot, 0.30f, 400, -MathHelper.PiOver2);
 			m_PlayerShip.addWeapon(wep);
 		}
 

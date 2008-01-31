@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
-	<action dist="0">
+	<action tile="0">
 		<createShip>
 			<name>Enemy1</name>
 			<height>94</height>

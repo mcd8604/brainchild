@@ -18,8 +18,8 @@ namespace project_hook
 
 		List<Shot> m_Upgrades;
 		List<int> m_UpgradeReqs;
-		
-		
+
+
 		int m_UpgradeLevel = 0;
 		int cur = -1;
 
@@ -29,14 +29,14 @@ namespace project_hook
 		{
 			m_Upgrades = new List<Shot>();
 			m_UpgradeReqs = new List<int>();
-			
+
 			Shot shot = new Shot(this);
 			shot.Name = "Player Shot";
-			shot.Height = 40;
+			shot.Height = 30;
 			shot.Width = 90;
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
 			shot.Radius = 30;
-			shot.Damage = 5;
+			shot.Damage = 8;
 			shot.Bound = Collidable.Boundings.Diamond;
 			shot.setAnimation("RedShot", 10);
 
@@ -45,18 +45,29 @@ namespace project_hook
 
 			shot = new Shot(this);
 			shot.Name = "Player Shot";
-			shot.Height = 60;
-			shot.Width = 110;
+			shot.Height = 40;
+			shot.Width = 120;
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
-			shot.Radius = 30;
-			shot.Damage = 10;
+			shot.Radius = 40;
+			shot.Damage = 16;
 			shot.Bound = Collidable.Boundings.Diamond;
 			shot.setAnimation("RedShot", 10);
 
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(200);
 
-			Weapon wep = new WeaponStraight(shot, 0.3f, 400, -MathHelper.PiOver2);
+			shot = new Shot(this);
+			shot.Name = "Player Shot";
+			shot.Height = 50;
+			shot.Width = 150;
+			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
+			shot.Radius = 50;
+			shot.Damage = 32;
+			shot.Bound = Collidable.Boundings.Diamond;
+			shot.setAnimation("RedShot", 10);
+
+			m_Upgrades.Add(shot);
+			m_UpgradeReqs.Add(300);
 
 		}
 
@@ -101,8 +112,7 @@ namespace project_hook
 			if (p_Other.Faction == Factions.PowerUp)
 			{
 				PowerUp p = (PowerUp)p_Other;
-				m_UpgradeLevel += p.Amount*5;
-				//Console.WriteLine("Upgrade: " + m_UpgradeLevel);
+				m_UpgradeLevel += p.Amount;
 				int prev = cur;
 
 				for (int a = 0; a < m_UpgradeReqs.Count; a++)
