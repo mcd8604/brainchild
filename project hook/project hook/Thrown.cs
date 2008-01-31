@@ -38,7 +38,7 @@ namespace project_hook
 			this.Z = p_Collidable.Z;
 		}
 
-		public virtual void RegisterCollision(Collidable p_Other)
+		public override void RegisterCollision(Collidable p_Other)
 		{
 			TaskStraightAngle tempTask = (TaskStraightAngle)this.Task;
 
