@@ -113,7 +113,7 @@ namespace project_hook
 								{
 									tempTask.AngleDegrees = 180 + MathHelper.Distance(tempTask.AngleDegrees, 180f);
 								}
-								else if (tempTask.AngleDegrees > 180 && tempTask.AngleDegrees < 270)
+								else if (tempTask.AngleDegrees > 180 && tempTask.AngleDegrees <= 270)
 								{
 									tempTask.AngleDegrees = 180 - MathHelper.Distance(tempTask.AngleDegrees, 180f);
 								}
