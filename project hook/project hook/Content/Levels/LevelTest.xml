@@ -30,7 +30,7 @@
 					</task>
 				</task>
 				<delay>0.85</delay>
-				<speed>200</speed>
+				<speed>300</speed>
 				<shot>
 					<damage>10</damage>
 					<height>32</height>
@@ -61,7 +61,7 @@
 					</task>
 				</task>
 				<delay>0.85</delay>
-				<speed>200</speed>
+				<speed>300</speed>
 				<shot>
 					<damage>10</damage>
 					<height>32</height>
@@ -92,7 +92,7 @@
 					</task>
 				</task>
 				<delay>0.85</delay>
-				<speed>200</speed>
+				<speed>300</speed>
 				<shot>
 					<damage>10</damage>
 					<height>32</height>
