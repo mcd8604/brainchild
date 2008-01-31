@@ -51,7 +51,7 @@ namespace project_hook
 
 			//cursor sprite
 			GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName, "");
-			m_MenuCursorSprite = new CursorSprite(m_MenuCursorName, InputHandler.MousePostion, cursorTexture.Height, cursorTexture.Width, cursorTexture, 255f, true,
+			m_MenuCursorSprite = new CursorSprite(m_MenuCursorName, InputHandler.MousePosition, cursorTexture.Height, cursorTexture.Width, cursorTexture, 255f, true,
 											0, Depth.MenuLayer.Cursor);
 			attachSpritePart(m_MenuCursorSprite);
 
@@ -146,7 +146,7 @@ namespace project_hook
 
 			if (InputHandler.HasMouseMoved())
 			{
-				selectSpriteByCoord(InputHandler.MousePostion);
+				selectSpriteByCoord(InputHandler.MousePosition);
 			}
 		}
 

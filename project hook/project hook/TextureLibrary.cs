@@ -203,12 +203,16 @@ namespace project_hook
 			}
 			catch (ContentLoadException e)
 			{
+#if DEBUG
 				Console.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e.Message);
+#endif
 				return false;
 			}
 			catch (IOException e)
 			{
+#if DEBUG
 				Console.WriteLine("TextureLibrary.LoadTexure.IOException: " + e.Message);
+#endif
 				return false;
 			}
 

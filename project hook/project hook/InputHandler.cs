@@ -248,7 +248,7 @@ namespace project_hook
 			return (thisMouseState.X != lastMouseState.X) || (thisMouseState.Y != lastMouseState.Y);
 		}
 
-		public static Vector2 MousePostion
+		public static Vector2 MousePosition
 		{
 			get
 			{
