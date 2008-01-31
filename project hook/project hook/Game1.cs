@@ -16,6 +16,7 @@ namespace project_hook
 	/// This is the main type for your game
 	/// This class is for texting purposes
 	/// </summary>
+	[Obsolete]
 	public class Game1 : Microsoft.Xna.Framework.Game
 	{
 		private List<Sprite> spritelist = new List<Sprite>();
@@ -23,7 +24,7 @@ namespace project_hook
 
 		//level stuff
 		LevelReader m_LReader;
-		LevelHandler m_LHandler;
+		//LevelHandler m_LHandler;
 		float m_Distance = 0;
 		int m_Speed = 100;
 		public int Speed
@@ -42,19 +43,19 @@ namespace project_hook
 		ContentManager content;
 		Sprite cloud;
 		SpriteBatch m_spriteBatch;
-		Sprite back;
+		//Sprite back;
 		Player player;
 		Sprite back2;
 		Sprite crosshair;
 		ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
-		Tail tail;
+		//Tail tail;
 		//ButtonState lastMouseButton = ButtonState.Released;
 		//ButtonState lastRightMouseButton = ButtonState.Released;
 
 		//Sprite shotEffect;
 		//Sprite shot2Effect;
 
-		Collidable enemy;
+		//Collidable enemy;
 
 		//Sprite explosion;
 
@@ -205,11 +206,11 @@ namespace project_hook
                     }
 
                 }
-				tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 30, player.PlayerShip, 700, m_TailBodySprites);
+				//tail = new Tail("Tail", player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 30, player.PlayerShip, 700, m_TailBodySprites);
 
-				spritelist.Add(back);
+				//spritelist.Add(back);
 
-				spritelist.Add(tail);
+				//spritelist.Add(tail);
 
 				spritelist.Add(player.PlayerShip);
 				
@@ -291,7 +292,7 @@ namespace project_hook
 			if (!IsActive)
 				return;
 
-			m_LHandler.CheckEvents(m_Distance);
+			//m_LHandler.CheckEvents(m_Distance);
 			InputHandler.Update();
 			Sound.Update();
 			Music.Update();
@@ -335,16 +336,16 @@ namespace project_hook
 
 			if (InputHandler.IsActionPressed(Actions.TailPrimary))
 			{
-				tail.TailAttack();
+				//tail.TailAttack();
 			}
 
 
 			if (InputHandler.IsActionDown(Actions.TailSecondary))
 			{
-				if (tail.EnemyCaught != null)
-				{
-					tail.EnemyShoot();
-				}
+				//if (tail.EnemyCaught != null)
+				//{
+				//    tail.EnemyShoot();
+				//}
 			}
 
 
@@ -415,7 +416,7 @@ namespace project_hook
 			UpdateFPS(gameTime);
 			// adn
 			//enemy.Update(gameTime);
-			tail.Update(gameTime);
+			//tail.Update(gameTime);
 
 			Collision.CheckCollisions(spritelist);
 
@@ -497,7 +498,7 @@ namespace project_hook
 
 			m_spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
 
-			back.Draw(m_spriteBatch);
+			//back.Draw(m_spriteBatch);
 			foreach (Sprite s in m_TailBodySprites)
 				s.Draw(m_spriteBatch);
 
@@ -520,7 +521,7 @@ namespace project_hook
 
 			//enemy.Draw(m_spriteBatch);
 			//explosion.Draw(m_spriteBatch);
-			tail.Draw(m_spriteBatch);
+			//tail.Draw(m_spriteBatch);
 
 			m_spriteBatch.End();
 
