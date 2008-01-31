@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
-	<action dist="320">
+	<action tile="10">
 		<createShip>
 			<name>Enemy1</name>
 			<height>94</height>
@@ -49,7 +49,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action dist="1440">
+	<action tile="45">
 		<createShip>
 			<name>Enemy2</name>
 			<height>94</height>
@@ -145,7 +145,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action dist="2496">
+	<action tile="78">
 		<createShip>
 			<name>Enemy4</name>
 			<height>25</height>
@@ -205,7 +205,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action dist="3680">
+	<action tile="115">
 		<createShip>
 			<name>Enemy5</name>
 			<height>94</height>
@@ -281,7 +281,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action dist="4896">
+	<action tile="153">
 		<createShip>
 			<name>Enemy7</name>
 			<height>25</height>
@@ -405,7 +405,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action dist="5250">
+	<action tile="164">
 		<changeFile>
 			<fileName>Gate1.xml</fileName>
 		</changeFile>
