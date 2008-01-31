@@ -15,12 +15,12 @@
 				<speed>400</speed>
 				<shot>
 					<damage>5</damage>
-					<height>32</height>
-					<width>32</width>
-					<radius>16</radius>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
 					<blendMode>Additive</blendMode>
-					<texture name="shot_electric"/>
-					<animation name="shot_electric" fps="8"/>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
 				</shot>
 			</weapon>
 			<task type="Parallel">
