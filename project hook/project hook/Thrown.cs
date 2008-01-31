@@ -40,27 +40,54 @@ namespace project_hook
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
-			TaskStraightAngle tempTask = (TaskStraightAngle)this.Task;
-
-			if (p_Other.Bound == Collidable.Boundings.Square)
+			if (p_Other.Faction == Collidable.Factions.Environment)
 			{
-				while (tempTask.Angle < 0)
-					tempTask.Angle += 360;
-
-				if (this.Position.X < p_Other.Position.X)
+				try
 				{
-					if (tempTask.Angle < 90 && tempTask.Angle > 0)
+					TaskStraightAngle tempTask = null;
+					foreach (Task t in this.Task.getSubTasks())
 					{
-						tempTask.Angle = 180 - MathHelper.Distance(tempTask.Angle, 0f);
+						if (t is TaskStraightAngle)
+							tempTask = (TaskStraightAngle)t;
 					}
-					else if (tempTask.Angle > 270 && tempTask.Angle < 360)
+
+					if (p_Other.Bound == Collidable.Boundings.Square)
 					{
-						tempTask.Angle = 180 + MathHelper.Distance(tempTask.Angle, 270f);
+						while (tempTask.AngleDegrees <= 0)
+							tempTask.AngleDegrees += 360;
+
+						if (Math.Abs(this.Center.Y) - Math.Abs(p_Other.Center.Y) < Math.Abs(this.Center.X) - Math.Abs(p_Other.Center.X))
+						{
+							if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
+							{
+								tempTask.AngleDegrees =  270 - MathHelper.Distance(tempTask.AngleDegrees, 270f);
+							}
+							else if (tempTask.AngleDegrees > 0 && tempTask.AngleDegrees < 90)
+							{
+								tempTask.AngleDegrees = 90 + MathHelper.Distance(tempTask.AngleDegrees, 90f);
+							}
+							else if (tempTask.AngleDegrees > 90 && tempTask.AngleDegrees <= 180)
+							{
+								tempTask.AngleDegrees = 90 - MathHelper.Distance(tempTask.AngleDegrees, 90f);
+							}
+							else if (tempTask.AngleDegrees > 180 && tempTask.AngleDegrees < 270)
+							{
+								tempTask.AngleDegrees = 270 + MathHelper.Distance(tempTask.AngleDegrees, 270f);
+							}
+							//else if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
+							//{
+							//	tempTask.AngleDegrees = 180 + MathHelper.Distance(tempTask.AngleDegrees, 270f);
+							//}
+						}
 					}
+
+					//this.Task = tempTask;
+				}
+				catch (NullReferenceException nre)
+				{
+					Console.WriteLine("Error: Object does not have straight angle task");
 				}
 			}
-
-			this.Task = tempTask;
 		}
 	}
 }
