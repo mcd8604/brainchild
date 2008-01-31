@@ -189,12 +189,15 @@ namespace project_hook
 				m_World.changeState(World.GameState.Running);
 				World.ResumeWorld = false;
 			}
-			if (World.PlayerDead == true)
+			if (World.PlayerDead == true )
 			{
-				m_World.changeState(World.GameState.Paused);
-				Menus.setCurrentMenu(Menus.MenuScreens.GameOver);
-				World.DestroyWorld = true;
-				World.PlayerDead = false;
+				if (Menus.SelectedMenu != Menus.MenuScreens.GameOver)
+				{
+				//	m_World.changeState(World.GameState.Paused);
+					Menus.setCurrentMenu(Menus.MenuScreens.GameOver);
+				//	World.DestroyWorld = true;
+					World.PlayerDead = false;
+				}
 			}
 
 			//This will check if the game world is created.  
