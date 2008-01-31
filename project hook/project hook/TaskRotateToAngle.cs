@@ -13,8 +13,14 @@ namespace project_hook
 			get { return m_Angle; }
 			set { m_Angle = value; }
 		}
+		public float AngleDegrees
+		{
+			get { return MathHelper.ToDegrees(Angle); }
+			set { Angle = MathHelper.ToRadians(value); }
+		}
 		public TaskRotateToAngle() { }
-		public TaskRotateToAngle(float p_Angle) {
+		public TaskRotateToAngle(float p_Angle)
+		{
 			Angle = p_Angle;
 		}
 		protected override void Do(Sprite on, GameTime at)
