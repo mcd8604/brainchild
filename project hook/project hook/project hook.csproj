@@ -62,13 +62,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BloodParticleSystem.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>BloodParticleSystem</Name>
-    </Compile>
     <Compile Include="BrainChildLogo.cs">
+      <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
+    </Compile>
+    <Compile Include="Collidable.cs">
+      <SubType>Code</SubType>
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Collidable</Name>
+    </Compile>
+    <Compile Include="Effect.cs">
+      <SubType>Code</SubType>
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Effect</Name>
+    </Compile>
+    <Compile Include="ExplosionSpriteParticleSystem.cs">
+      <SubType>Code</SubType>
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>ExplosionSpriteParticleSystem</Name>
+    </Compile>
+    <Compile Include="GameOver.cs">
+      <SubType>Code</SubType>
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>GameOver</Name>
     </Compile>
     <Compile Include="GateTrigger.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -86,13 +103,13 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskLerpRange</Name>
     </Compile>
+    <Compile Include="TaskRepeatingTimer.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskRepeatingTimer</Name>
+    </Compile>
     <Compile Include="TaskRotateByAngle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskRotateByAngle</Name>
-    </Compile>
-    <Compile Include="GameOver.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>GameOver</Name>
     </Compile>
     <Compile Include="TaskRotateWithTarget.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -118,10 +135,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FPSSprite</Name>
     </Compile>
-    <Compile Include="ExplosionSpriteParticleSystem.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>ExplosionSpriteParticleSystem</Name>
-    </Compile>
     <Compile Include="InputHandler.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>InputHandler</Name>
@@ -133,10 +146,6 @@
     <Compile Include="LevelReader.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LevelReader</Name>
-    </Compile>
-    <Compile Include="Music.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Music</Name>
     </Compile>
     <Compile Include="Particle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -258,11 +267,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>YScrollingBackground</Name>
     </Compile>
-    <Compile Include="Collidable.cs">
-      <SubType>Code</SubType>
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Collidable</Name>
-    </Compile>
     <Compile Include="Collision.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Collision</Name>
@@ -270,10 +274,6 @@
     <Compile Include="Depth.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Depth</Name>
-    </Compile>
-    <Compile Include="Effect.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Effect</Name>
     </Compile>
     <Compile Include="Game.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

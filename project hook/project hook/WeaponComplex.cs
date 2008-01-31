@@ -69,11 +69,14 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
-			//if (m_Shots[m_NextShot].Task != m_ShotTask)
-			//if (m_Shots[m_NextShot].Task == null )
-			//{
+			if (m_Shots[m_NextShot].Task == null)
+			{
 				m_Shots[m_NextShot].Task = m_ShotTask.copy();
-			//}
+			}
+			else
+			{
+				m_Shots[m_NextShot].Task.reset();
+			}
 
 			ChangeWeaponTaskAngle(m_Shots[m_NextShot].Task, (who.Rotation + Offset));
 			ChangeWeaponTaskTarget(m_Shots[m_NextShot].Task, m_Target);
