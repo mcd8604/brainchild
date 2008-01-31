@@ -19,6 +19,18 @@ namespace project_hook
 				m_Angle = value;
 			}
 		}
+		public float AngleDegrees
+		{
+			get
+			{
+				return MathHelper.ToDegrees(Angle);
+			}
+			set
+			{
+				Angle = MathHelper.ToRadians(value);
+			}
+		}
+
 		private float m_Speed = 0f;
 		public float Speed {
 			get
