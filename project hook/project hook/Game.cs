@@ -43,10 +43,11 @@ namespace project_hook
 		{
 			graphics = new GraphicsDeviceManager(this);
 			content = new ContentManager(Services);
-
+#if DEBUG
 			// uncap frame rate to see our true performance
 			graphics.SynchronizeWithVerticalRetrace = false;
 			IsFixedTimeStep = false;
+#endif
 
 
 		}
@@ -247,7 +248,9 @@ namespace project_hook
 		protected override void OnActivated(object sender, EventArgs args)
 		{
 			base.OnActivated(sender, args);
+#if DEBUG
 			Console.WriteLine("ACTIVATED");
+#endif
 		}
 
 		// I am /slightly/ concerned about these events, what happens if we change the state and the menu in the middle of doing something else?
@@ -255,7 +258,9 @@ namespace project_hook
 		protected override void OnDeactivated(object sender, EventArgs args)
 		{
 			base.OnDeactivated(sender, args);
+#if DEBUG
 			Console.WriteLine("DEACTIVATED");
+#endif
 			if (m_World != null)
 			{
 				if (m_World.State == World.GameState.Running)

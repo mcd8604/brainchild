@@ -150,26 +150,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ParticleSystem</Name>
     </Compile>
-    <Compile Include="PathGroup.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathGroup</Name>
-    </Compile>
-    <Compile Include="PathList.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathList</Name>
-    </Compile>
-    <Compile Include="PathSeek.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathSeek</Name>
-    </Compile>
-    <Compile Include="PathShoot.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathShoot</Name>
-    </Compile>
-    <Compile Include="PathStraight.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathStraight</Name>
-    </Compile>
     <Compile Include="TaskLerp.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskLerp</Name>
@@ -198,10 +178,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskStraightAngle</Name>
     </Compile>
-    <Compile Include="PathTailBody.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathTailBody</Name>
-    </Compile>
     <Compile Include="RITLogo.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>RITLogo</Name>
@@ -209,10 +185,6 @@
     <Compile Include="SpawnPoint.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>SpawnPoint</Name>
-    </Compile>
-    <Compile Include="PathThrow.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathThrow</Name>
     </Compile>
     <Compile Include="Task.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -286,10 +258,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>YScrollingBackground</Name>
     </Compile>
-    <Compile Include="PathBother.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Class1</Name>
-    </Compile>
     <Compile Include="Collidable.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -306,10 +274,6 @@
     <Compile Include="Effect.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Effect</Name>
-    </Compile>
-    <Compile Include="PathFollow.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathFollow</Name>
     </Compile>
     <Compile Include="Game.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -335,18 +299,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Menus</Name>
     </Compile>
-    <Compile Include="Path.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Path</Name>
-    </Compile>
-    <Compile Include="PathLine.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathLine</Name>
-    </Compile>
-    <Compile Include="PathStrategy.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathStrategy</Name>
-    </Compile>
     <Compile Include="Player.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Player</Name>
@@ -360,10 +312,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Program</Name>
     </Compile>
-    <Compile Include="Game1.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Game1</Name>
-    </Compile>
     <Compile Include="Score.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Score</Name>
@@ -376,10 +324,6 @@
     <Compile Include="Shot.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Shot</Name>
-    </Compile>
-    <Compile Include="PathShot.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathShot</Name>
     </Compile>
     <Compile Include="Sound.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -400,18 +344,6 @@
     <Compile Include="Tail.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Class1</Name>
-    </Compile>
-    <Compile Include="PathTailAttach.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathTailAttach</Name>
-    </Compile>
-    <Compile Include="PathTailAttack.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathTailAttack</Name>
-    </Compile>
-    <Compile Include="PathTether.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PathTether</Name>
     </Compile>
     <Compile Include="TextSprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

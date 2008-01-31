@@ -70,9 +70,6 @@ namespace project_hook
 		public static Player m_Player;
 		public static SimpleScore m_Score;
 		Tail tail;
-		Sprite crosshairs;
-		YScrollingBackground back;
-		Sprite hudPanel;
 
 		GameState m_PreviousState;
 		GameState m_State = GameState.Nothing;
@@ -138,6 +135,7 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
+#if DEBUG
 			System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("LevelTest.xml(Yes) or Level1.xml(No)?", "Choose a version", System.Windows.Forms.MessageBoxButtons.YesNo);
 			if (result == System.Windows.Forms.DialogResult.Yes)
 			{
@@ -147,10 +145,13 @@ namespace project_hook
 			}
 			else if (result == System.Windows.Forms.DialogResult.No)
 			{
+#endif
 				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
 				this.m_LReader = new LevelReader("Level1.xml");
 				this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+#if DEBUG
 			}
+#endif
 
 		}
 
@@ -325,10 +326,6 @@ namespace project_hook
 				if (InputHandler.IsActionDown(Actions.Down))
 				{
 					m_Player.MoveDown();
-				}
-				if (InputHandler.HasMouseMoved())
-				{
-					crosshairs.Center = InputHandler.MousePostion;
 				}
 				if (InputHandler.IsActionPressed(Actions.TailPrimary))
 				{
@@ -507,11 +504,11 @@ namespace project_hook
 			GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
 
 			//test scrolling background
-			back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
+			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
 			AddSprite(back);
 
 			//hud panel
-			hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 1f, true, 0f, Depth.HUDLayer.Background);
+			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 1f, true, 0f, Depth.HUDLayer.Background);
 			AddSprite(hudPanel);
 
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
@@ -521,7 +518,7 @@ namespace project_hook
 
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
-			crosshairs = new Sprite("crosshair", new Vector2(0f, 0f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
+			Sprite crosshairs = new CursorSprite("crosshair", new Vector2(0f, 0f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
 			AddSprite(crosshairs);
 
 
