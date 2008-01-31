@@ -15,6 +15,13 @@ namespace project_hook
 
 		Sprite m_BaseSprite;
 		String m_Name;
+		public String Name
+		{
+			get
+			{
+				return m_Name;
+			}
+		}
 
 		float m_FrameLength = 0.2f;
 		float m_Timer = 0f;
