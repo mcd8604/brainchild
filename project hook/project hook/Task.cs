@@ -45,5 +45,16 @@ namespace project_hook
 			return null;
 		}
 
+		public virtual void reset()
+		{
+			if (this.getSubTasks() != null)
+			{
+				foreach (Task t in this.getSubTasks())
+				{
+					t.reset();
+				}
+			}
+		}
+
 	}
 }

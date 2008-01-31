@@ -30,7 +30,6 @@ namespace project_hook
 		private static GamePadState thisGamePadState = new GamePadState();
 		private static MultiDictionary<Actions, GamePadButtons> GamePadMap = new MultiDictionary<Actions, GamePadButtons>(false);
 
-
 		public static void LoadDefaultBindings()
 		{
 
@@ -44,15 +43,19 @@ namespace project_hook
 			KeyboardMap.Add(Actions.Up, Keys.W);
 			KeyboardMap.Add(Actions.Up, Keys.Up);
 			KeyboardMap.Add(Actions.ShipPrimary, Keys.Space);
-			KeyboardMap.Add(Actions.ShipSecondary, Keys.F);
+			KeyboardMap.Add(Actions.ShipPrimary, Keys.RightControl);
+			KeyboardMap.Add(Actions.ShipSecondary, Keys.LeftShift);
+			KeyboardMap.Add(Actions.ShipSecondary, Keys.RightShift);
 			KeyboardMap.Add(Actions.Pause, Keys.Escape);
 			KeyboardMap.Add(Actions.MenuAccept, Keys.Space);
 			KeyboardMap.Add(Actions.MenuAccept, Keys.Enter);
+			KeyboardMap.Add(Actions.MenuBack, Keys.Back);
 			KeyboardMap.Add(Actions.MenuBack, Keys.Escape);
 
 			MouseMap.Add(Actions.TailPrimary, MouseButtons.Left);
 			MouseMap.Add(Actions.TailSecondary, MouseButtons.Right);
 			MouseMap.Add(Actions.MenuAccept, MouseButtons.Left);
+			MouseMap.Add(Actions.MenuBack, MouseButtons.Right);
 
 			GamePadMap.Add(Actions.Down, GamePadButtons.Down);
 			GamePadMap.Add(Actions.Left, GamePadButtons.Left);

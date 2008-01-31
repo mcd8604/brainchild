@@ -855,6 +855,19 @@ namespace project_hook
 					}
 					task = repeatingSequence;
 					break;
+				case "RepeatingTimer":
+					TaskRepeatingTimer repeatingtimer = new TaskRepeatingTimer();
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("duration"))
+						{
+							p_Reader.ReadStartElement("duration");
+							repeatingtimer.Duration = float.Parse(p_Reader.ReadString());
+							p_Reader.ReadEndElement();
+						}
+					}
+					task = repeatingtimer;
+					break;
 				case "RotateToAngle":
 					TaskRotateToAngle rotateToAngle = new TaskRotateToAngle();
 					while (p_Reader.IsStartElement())

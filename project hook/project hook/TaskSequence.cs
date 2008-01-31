@@ -54,5 +54,16 @@ namespace project_hook
 		{
 			return m_Tasks;
 		}
+		public override void reset()
+		{
+			m_Current = 0;
+			if (m_Tasks != null)
+			{
+				foreach (Task t in m_Tasks)
+				{
+					t.reset();
+				}
+			}
+		}
 	}
 }

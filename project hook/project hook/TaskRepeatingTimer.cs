@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskTimer : Task
+	class TaskRepeatingTimer : Task
 	{
 		private float m_Duration = 0f;
 		public float Duration
@@ -17,7 +17,7 @@ namespace project_hook
 			set
 			{
 				m_Duration = value;
-				m_DurationRemaining = Duration;
+				m_DurationRemaining = m_Duration;
 			}
 		}
 		private float m_DurationRemaining = 0f;
@@ -28,14 +28,20 @@ namespace project_hook
 				return m_DurationRemaining;
 			}
 		}
-		public TaskTimer() { }
-		public TaskTimer(float p_Duration)
+		public TaskRepeatingTimer() { }
+		public TaskRepeatingTimer(float p_Duration)
 		{
 			Duration = p_Duration;
+			m_DurationRemaining = Duration;
 		}
 		public override bool IsComplete(Sprite on)
 		{
-			return DurationRemaining <= 0;
+			if (DurationRemaining <= 0)
+			{
+				m_DurationRemaining = Duration;
+				return true;
+			}
+			return false;
 		}
 		protected override void Do(Sprite on, GameTime at)
 		{
@@ -44,10 +50,6 @@ namespace project_hook
 		public override Task copy()
 		{
 			return new TaskTimer(m_Duration);
-		}
-		public override void reset()
-		{
-			m_DurationRemaining = m_Duration;
 		}
 	}
 }
