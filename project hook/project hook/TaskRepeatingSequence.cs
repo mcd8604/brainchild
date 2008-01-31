@@ -43,7 +43,7 @@ namespace project_hook
 			}
 			return new TaskRepeatingSequence(newTasks);
 		}
-		public virtual IEnumerable<Task> getSubTasks()
+		public override IEnumerable<Task> getSubTasks()
 		{
 			return m_Tasks;
 		}
