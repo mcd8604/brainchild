@@ -91,6 +91,11 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>GateTrigger</Name>
     </Compile>
+    <Compile Include="Music.cs">
+      <SubType>Code</SubType>
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Music</Name>
+    </Compile>
     <Compile Include="PowerUp.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PowerUp</Name>

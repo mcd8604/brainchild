@@ -272,8 +272,11 @@ namespace project_hook
 
 						if (EnemyCaught != null)
 						{
-							EnemyCaught.Task = m_ReleaseTask;
+							Thrown thrown = new Thrown(EnemyCaught);
+							EnemyCaught.ToBeRemoved = true;
 							EnemyCaught = null;
+							thrown.Task = m_ReleaseTask;
+							addSprite(thrown);
 							this.Transparency = 1;
 						}
 					}
