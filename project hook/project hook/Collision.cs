@@ -22,14 +22,7 @@ namespace project_hook
 
 				foreach (Sprite s in l)
 				{
-					if (s.Enabled)
-					{
-						Collidable temp = s as Collidable;
-						if (temp != null && temp.Faction != Collidable.Factions.None)
-						{
-							sorter.Add(temp.Faction, temp);
-						}
-					}
+					AddToSorter(s);
 				}
 
 			}
@@ -53,6 +46,27 @@ namespace project_hook
 				}
 			}
 		}
+
+		private static void AddToSorter(Sprite s)
+		{
+			if (s.Enabled)
+			{
+				Collidable temp = s as Collidable;
+				if (temp != null && temp.Faction != Collidable.Factions.None)
+				{
+					sorter.Add(temp.Faction, temp);
+
+				}
+				if (s.Parts != null)
+				{
+					foreach (Sprite x in s.Parts)
+					{
+						AddToSorter(x);
+					}
+				}
+			}
+		}
+
 		private static bool DoesIntersect(Collidable one, Collidable two)
 		{
 			if (one.Bound == Collidable.Boundings.Circle)
@@ -71,7 +85,7 @@ namespace project_hook
 				}
 				else if (two.Bound == Collidable.Boundings.Rectangle)
 				{
-					// TODO
+					return DoesIntersectCircleRectangle(one.Center, one.Radius, two.Center, two.Width, two.Height);
 				}
 				else if (two.Bound == Collidable.Boundings.Triangle)
 				{
@@ -128,7 +142,7 @@ namespace project_hook
 			{
 				if (two.Bound == Collidable.Boundings.Circle)
 				{
-					// TODO
+					return DoesIntersectCircleRectangle(two.Center, two.Radius, one.Center, one.Width, one.Height);
 				}
 				else if (two.Bound == Collidable.Boundings.Diamond)
 				{
@@ -140,7 +154,7 @@ namespace project_hook
 				}
 				else if (two.Bound == Collidable.Boundings.Rectangle)
 				{
-					// TODO
+					DoesIntersectRectangles(one.Center, one.Width, one.Height, two.Center, two.Width, two.Height);
 				}
 				else if (two.Bound == Collidable.Boundings.Triangle)
 				{
@@ -185,15 +199,15 @@ namespace project_hook
 		private static bool DoesIntersectCircleSquare(Vector2 circ, float circrad, Vector2 square, float squarerad)
 		{
 
-			if (!DoesIntersectSquares(circ, circrad, square, squarerad))
-			{
-				return false;
-			}
+			//if (!DoesIntersectSquares(circ, circrad, square, squarerad))
+			//{
+			//    return false;
+			//}
 
-			if (DoesIntersectCircles(circ, circrad, square, squarerad))
-			{
-				return true;
-			}
+			//if (DoesIntersectCircles(circ, circrad, square, squarerad))
+			//{
+			//    return true;
+			//}
 
 			if (circ.X > square.X + squarerad)
 			{
@@ -305,6 +319,110 @@ namespace project_hook
 			return true;
 		}
 
+		private static bool DoesIntersectCircleRectangle(Vector2 circ, float circrad, Vector2 rect, float width, float height)
+		{
+
+			if (circ.X > rect.X + (width * 0.5f))
+			{
+
+				// 1, 2, 8 
+
+				if (circ.Y > rect.Y + (height * 0.5f))
+				{
+
+					// 2
+					float dsquared = Vector2.DistanceSquared(new Vector2(rect.X + (width * 0.5f), rect.Y + (height * 0.5f)), circ);
+					return dsquared < Math.Pow(circrad, 2);
+
+				}
+				else if (circ.Y < rect.Y - (height * 0.5f))
+				{
+
+					// 8
+					float dsquared = Vector2.DistanceSquared(new Vector2(rect.X + (width * 0.5f), rect.Y - (height * 0.5f)), circ);
+					return dsquared < Math.Pow(circrad, 2);
+
+				}
+				else
+				{
+
+					// 1
+					return (circ.X - circrad < rect.X + (width * 0.5f));
+
+				}
+
+			}
+			else if (circ.X < rect.X - (width * 0.5f))
+			{
+
+				// 4, 5, 6
+
+				if (circ.Y > rect.Y + (height * 0.5f))
+				{
+
+					// 4
+					float dsquared = Vector2.DistanceSquared(new Vector2(rect.X - (width * 0.5f), rect.Y + (height * 0.5f)), circ);
+					return dsquared < Math.Pow(circrad, 2);
+
+				}
+				else if (circ.Y < rect.Y - (height * 0.5f))
+				{
+
+					// 6
+					float dsquared = Vector2.DistanceSquared(new Vector2(rect.X - (width * 0.5f), rect.Y - (height * 0.5f)), circ);
+					return dsquared < Math.Pow(circrad, 2);
+
+				}
+				else
+				{
+
+					// 5
+					return (circ.X + circrad > rect.X - (width * 0.5f));
+
+				}
+
+			}
+			else
+			{
+
+				//3, 7
+
+				if (circ.Y > rect.Y + (height * 0.5f))
+				{
+
+					// 3
+					return (circ.Y - circrad < rect.Y + (height * 0.5f));
+
+				}
+				else if (circ.Y < rect.Y - (height * 0.5f))
+				{
+
+					// 7
+					return (circ.Y + circrad > rect.Y - (height * 0.5f));
+
+				}
+				else
+				{
+					//throw new ArithmeticException("Math failed");
+					// This could occur in very rare cases, when something is spawned on top of something else (bad)
+					return true;
+				}
+
+			}
+		}
+
+		private static bool DoesIntersectRectangles(Vector2 pos1, float width1, float height1, Vector2 pos2, float width2, float height2)
+		{
+			if (pos1.X + (width1 * 0.5f) < pos2.X - (width2 * 0.5f))
+				return false;
+			if (pos2.X + (width2 * 0.5f) < pos1.X - (width1 * 0.5f))
+				return false;
+			if (pos1.Y + (height1 * 0.5f) < pos2.Y - (height2 * 0.5f))
+				return false;
+			if (pos2.Y + (height2 * 0.5f) < pos1.Y - (height1 * 0.5f))
+				return false;
+			return true;
+		}
 
 		public static Vector2 GetMinNonCollidingCenter(Collidable movable, Collidable solid)
 		{
@@ -515,66 +633,80 @@ namespace project_hook
 			TextureLibrary.LoadTexture("debugdiamond");
 			TextureLibrary.LoadTexture("debugsquare");
 
-			bool skip;
-
 			foreach (List<Sprite> l in list)
 			{
 
 				foreach (Sprite s in l)
 				{
-					skip = false;
-					Collidable temp = s as Collidable;
-					if (temp != null)
-					{
-						if (temp.Parts != null)
-						{
-							foreach (Sprite x in temp.Parts)
-							{
-								if (x.Name == "bound")
-								{
-									skip = true;
-									x.Height = (int)(temp.Radius * 2f);
-									x.Width = (int)(temp.Radius * 2f);
-									if (temp.Faction != Collidable.Factions.None)
-									{
-										x.Enabled = true;
-									}
-									else
-									{
-										x.Enabled = false;
-									}
-								}
-							}
-						}
+					checkAndAddCollisionDisplay( s );
+				}
+			}
+		}
 
-						if (!skip)
+		private static void checkAndAddCollisionDisplay(Sprite s)
+		{
+			bool skip = false;
+			Collidable temp = s as Collidable;
+			if (temp != null)
+			{
+				if (temp.Parts != null)
+				{
+					foreach (Sprite x in temp.Parts)
+					{
+						if (x.Name == "bound")
 						{
+							skip = true;
+							x.Height = (int)(temp.Radius * 2f);
+							x.Width = (int)(temp.Radius * 2f);
 							if (temp.Faction != Collidable.Factions.None)
 							{
-								if (temp.Bound == Collidable.Boundings.Circle)
-								{
-									Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""));
-									sprite.Task = new TaskAttach(temp);
-									temp.attachSpritePart(sprite);
-								}
-								else if (temp.Bound == Collidable.Boundings.Diamond)
-								{
-									Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""));
-									sprite.Task = new TaskAttach(temp);
-									temp.attachSpritePart(sprite);
-								}
-								else if (temp.Bound == Collidable.Boundings.Square)
-								{
-									Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""));
-									sprite.Task = new TaskAttach(temp);
-									temp.attachSpritePart(sprite);
-								}
+								x.Enabled = true;
 							}
+							else
+							{
+								x.Enabled = false;
+							}
+						}
+						else
+						{
+							checkAndAddCollisionDisplay(x);
+						}
+					}
+				}
+
+				if (!skip)
+				{
+					if (temp.Faction != Collidable.Factions.None)
+					{
+						if (temp.Bound == Collidable.Boundings.Circle)
+						{
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""));
+							sprite.Task = new TaskAttach(temp);
+							temp.attachSpritePart(sprite);
+						}
+						else if (temp.Bound == Collidable.Boundings.Diamond)
+						{
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""));
+							sprite.Task = new TaskAttach(temp);
+							temp.attachSpritePart(sprite);
+						}
+						else if (temp.Bound == Collidable.Boundings.Square)
+						{
+							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""));
+							sprite.Task = new TaskAttach(temp);
+							temp.attachSpritePart(sprite);
+						}
+						else if (temp.Bound == Collidable.Boundings.Rectangle)
+						{
+							Sprite sprite = new Sprite("bound", temp.Position, temp.Height, temp.Width, TextureLibrary.getGameTexture("debugsquare", ""));
+							sprite.Task = new TaskAttach(temp);
+							temp.attachSpritePart(sprite);
 						}
 					}
 				}
 			}
 		}
+
 
 		public static void DevDisableCollisionDisplay(params List<Sprite>[] list)
 		{
@@ -582,19 +714,28 @@ namespace project_hook
 			{
 				foreach (Sprite s in l)
 				{
-					Collidable temp = s as Collidable;
-					if (temp != null)
-					{
+					checkAndRemoveCollisionDisplay(s);
+				}
+			}
+		}
 
-						if (temp.Parts != null)
+		private static void checkAndRemoveCollisionDisplay(Sprite s)
+		{
+			Collidable temp = s as Collidable;
+			if (temp != null)
+			{
+
+				if (temp.Parts != null)
+				{
+					foreach (Sprite x in temp.Parts)
+					{
+						if (x.Name == "bound")
 						{
-							foreach (Sprite x in temp.Parts)
-							{
-								if (x.Name == "bound")
-								{
-									x.Enabled = false;
-								}
-							}
+							x.Enabled = false;
+						}
+						else
+						{
+							checkAndRemoveCollisionDisplay(x);
 						}
 					}
 				}
@@ -603,6 +744,9 @@ namespace project_hook
 
 		public static void SelfTest()
 		{
+
+			System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+			timer.Start();
 
 			// small, disparate objects
 
@@ -727,7 +871,9 @@ namespace project_hook
 			System.Diagnostics.Debug.Assert(result != new Vector2(0, 0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
 
 
-			//Console.WriteLine("Collision Self Test Completed");
+			timer.Stop();
+
+			Console.WriteLine("Collision Self Test Completed in " + timer.Elapsed.TotalMilliseconds.ToString() + " Milliseconds.");
 
 		}
 
