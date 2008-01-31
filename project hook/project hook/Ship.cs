@@ -189,7 +189,6 @@ namespace project_hook
 			{
 				// death effect, and remove?
 				PowerUp p = new PowerUp(this, World.m_Position);
-				p.Enabled = true;
 				p.MaxHealth = 1000;
 				p.Height = this.Height / 2;
 				p.Width = this.Width / 2;
