@@ -242,8 +242,11 @@ namespace project_hook
 
 				if (m_TailState == TailState.Throwing)
 				{
-					EnemyCaught.Task = m_ReleaseTask;
+					Thrown thrown = new Thrown(EnemyCaught);
+					EnemyCaught.Health = 0;
 					EnemyCaught = null;
+					thrown.Task = m_ReleaseTask;
+					addSprite(thrown);
 					this.Transparency = 1;
 				}
 				StateOfTail = Tail.TailState.Returning;
