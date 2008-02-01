@@ -41,7 +41,6 @@ namespace project_hook
 			this.Rotation = p_Collidable.Rotation;
 			this.RotationDegrees = p_Collidable.RotationDegrees;
 			this.Scale = p_Collidable.Scale;
-			this.StartPosition = p_Collidable.StartPosition;
 			this.Task = p_Collidable.Task;
 			this.Texture = p_Collidable.Texture;
 			this.ToBeRemoved = p_Collidable.ToBeRemoved;

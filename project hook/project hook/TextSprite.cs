@@ -62,20 +62,6 @@ namespace project_hook
 
 		}
 
-		protected Vector2 m_Center = Vector2.Zero;
-		public override Vector2 Center
-		{
-			get
-			{
-				return m_Center;
-			}
-			set
-			{
-				m_Center = value;
-			}
-		}
-
-
 		protected Vector2 m_Origin = Vector2.Zero;
 
 		protected bool sized = false;
@@ -138,18 +124,6 @@ namespace project_hook
 					m_Scale.X = value / Font.MeasureString(Text).X;
 					sized = true;
 				}
-			}
-		}
-
-		public override Vector2 Position
-		{
-			get
-			{
-				return m_Center - new Vector2(Width * 0.5f, Height * 0.5f);
-			}
-			set
-			{
-				m_Center = value + new Vector2(Width * 0.5f, Height * 0.5f);
 			}
 		}
 
@@ -319,11 +293,11 @@ namespace project_hook
 			{
 				if (m_Func == null)
 				{
-					p_SpriteBatch.DrawString(Font, Text, Center, Color, base.Rotation, m_Origin, Scale, SpriteEffects.None, base.Z);
+					p_SpriteBatch.DrawString(Font, Text, Center, Color, Rotation, m_Origin, Scale, SpriteEffects.None, Z);
 				}
 				else
 				{
-					p_SpriteBatch.DrawString(Font, m_Func.Invoke(), Center, Color, base.Rotation, m_Origin, Scale, SpriteEffects.None, base.Z);
+					p_SpriteBatch.DrawString(Font, m_Func.Invoke(), Center, Color, Rotation, m_Origin, Scale, SpriteEffects.None, Z);
 				}
 			}
 		}
