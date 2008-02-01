@@ -151,7 +151,7 @@ namespace project_hook
 						
 						Ship s = m_Spawned[a];
 						s.ToBeRemoved = false;
-						s.Center = this.Center;
+						s.Center = Center;
 						s.Enabled = true;
 
 						if (Target == null)
@@ -165,7 +165,7 @@ namespace project_hook
 						
 						s.setAnimation(SpawnAnimation, FPS);
 						s.Animation.StartAnimation();
-						this.addSprite(s);
+						addSprite(s);
 						a = Count;
 					}
 				}

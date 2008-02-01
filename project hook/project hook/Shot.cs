@@ -92,7 +92,7 @@ namespace project_hook
 		public void CheckShip()
 		{
 			if (m_Ship.IsDead())
-				this.ToBeRemoved = true;
+				ToBeRemoved = true;
 		}
 	}
 }

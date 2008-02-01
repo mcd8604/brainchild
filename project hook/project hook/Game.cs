@@ -136,7 +136,7 @@ namespace project_hook
 
 			if (Menus.Exit)
 			{
-				this.Exit();
+				Exit();
 			}
 
 			//Checks for full screen

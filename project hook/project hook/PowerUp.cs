@@ -99,17 +99,17 @@ namespace project_hook
 			
 
 
-			this.Center = p_Base.Center;
-			this.Faction = Factions.PowerUp;
-			this.Texture = TextureLibrary.getGameTexture("DNA", "");
-			this.Radius = p_Base.Radius / 2;
-			Amount = (int)this.Radius;
+			Center = p_Base.Center;
+			Faction = Factions.PowerUp;
+			Texture = TextureLibrary.getGameTexture("DNA", "");
+			Radius = p_Base.Radius * 0.5f;
+			Amount = (int)Radius;
 			TaskStraightVelocity straightVelocity = new TaskStraightVelocity();
 			Vector2 v = new Vector2(0, p_Pos.Speed);
 			straightVelocity.Velocity = v;
-			this.Task = straightVelocity;
+			Task = straightVelocity;
 
-			this.Damage = 0;
+			Damage = 0;
 
 		}
 
@@ -121,7 +121,7 @@ namespace project_hook
 		TaskStraightVelocity straightVelocity = new TaskStraightVelocity();
 					 Vector2 v = new Vector2(0,0);
 					straightVelocity.Velocity = v;
-					this.Task = straightVelocity;
+					Task = straightVelocity;
 		}
 
 		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
@@ -136,7 +136,7 @@ namespace project_hook
 			{
 				if (p_Other is PlayerShip)
 				{
-					this.m_Enabled = false;
+					Enabled = false;
 				}
 			}
 		}

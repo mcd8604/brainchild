@@ -139,16 +139,16 @@ namespace project_hook
 			System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("LevelTest.xml(Yes) or Level1.xml(No)?", "Choose a version", System.Windows.Forms.MessageBoxButtons.YesNo);
 			if (result == System.Windows.Forms.DialogResult.Yes)
 			{
-				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
-				this.m_LReader = new LevelReader("LevelTest.xml");
-				this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
+				m_LReader = new LevelReader("LevelTest.xml");
+				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			}
 			else if (result == System.Windows.Forms.DialogResult.No)
 			{
 #endif
-				AddSprites(this.m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
-				this.m_LReader = new LevelReader("Level1.xml");
-				this.m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
+				m_LReader = new LevelReader("Level1.xml");
+				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 #if DEBUG
 			}
 #endif
@@ -184,7 +184,7 @@ namespace project_hook
 
 				m_Player.UpdatePlayer(p_GameTime);
 
-				this.CreateBloodCell();
+				CreateBloodCell();
 
 #if DEBUG
 				timer.Reset();
@@ -614,10 +614,8 @@ namespace project_hook
 		{
 			if (m_RanX.Next(0, 1200) == 5)
 			{
-				//"bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
-				//new Collidable(
 				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
-										TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
+										TextureLibrary.getGameTexture("bloodcell", "1"), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
 										Collidable.Factions.Blood, 100, TextureLibrary.getGameTexture("Explosion", "3"), 25);
 				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
 				t_Blood.setAnimation("bloodcell", 60);

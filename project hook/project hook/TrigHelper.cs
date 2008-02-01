@@ -10,7 +10,7 @@ namespace project_hook
 		/// Calculates the angle that an object should face, given its position, its
 		/// target's position, its current angle, and its maximum turning speed.
 		/// </summary>
-		public static float TurnToFace(Vector2 position, Vector2 faceThis, float currentAngle, float turnSpeed)
+		public static float TurnToFace(Vector2 position, Vector2 faceTo, float currentAngle, float turnSpeed)
 		{
 			// consider this diagram:
 			//         B 
@@ -31,8 +31,8 @@ namespace project_hook
 			//      o                = arctan( y / x )
 			// so, we can use x and y to find o, our "desiredAngle."
 			// x and y are just the differences in position between the two objects.
-			float x = faceThis.X - position.X;
-			float y = faceThis.Y - position.Y;
+			float x = faceTo.X - position.X;
+			float y = faceTo.Y - position.Y;
 
 			// we'll use the Atan2 function. Atan will calculates the arc tangent of 
 			// y / x for us, and has the added benefit that it will use the signs of x
