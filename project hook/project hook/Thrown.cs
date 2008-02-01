@@ -71,10 +71,17 @@ namespace project_hook
 					try
 					{
 						TaskStraightAngle tempTask = null;
+						TaskRotateToAngle tempRotateTask = null;
 						foreach (Task t in this.Task.getSubTasks())
 						{
 							if (t is TaskStraightAngle)
+							{
 								tempTask = (TaskStraightAngle)t;
+							}
+							else if (t is TaskRotateToAngle)
+							{
+								tempRotateTask = (TaskRotateToAngle)t;
+							}
 						}
 
 						if (p_Other.Bound == Collidable.Boundings.Square)
@@ -124,6 +131,8 @@ namespace project_hook
 									tempTask.AngleDegrees = 180 - MathHelper.Distance(tempTask.AngleDegrees, 180f);
 								}
 							}
+
+							tempRotateTask.AngleDegrees = tempTask.AngleDegrees;
 						}
 
 						m_LastCollision = 0;
