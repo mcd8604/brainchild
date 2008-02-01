@@ -249,7 +249,7 @@ namespace project_hook
 
 		protected virtual void takeDamage(float damage)
 		{
-			Health -= damage;
+			MathHelper.Clamp(Health -= damage,0,this.MaxHealth);
 		}
 
 		public virtual void RegisterCollision(Collidable p_Other)

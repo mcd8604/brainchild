@@ -53,9 +53,9 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 			m_LastCollision += (float)p_Time.ElapsedGameTime.TotalSeconds;
-			m_TimeOut -= (float)p_Time.ElapsedGameTime.TotalSeconds;
-			if (m_TimeOut < 0)
-				this.Enabled = false;
+			//m_TimeOut -= (float)p_Time.ElapsedGameTime.TotalSeconds;
+			//if (m_TimeOut < 0)
+			//	this.Enabled = false;
 
 		}
 
@@ -63,7 +63,7 @@ namespace project_hook
 		{
 			if (p_Other.Faction == Collidable.Factions.Environment)
 			{
-				if (true/*m_LastCollision >= m_CollideDelay*/)
+				if (m_LastCollision >= m_CollideDelay)
 				{
 					try
 					{
