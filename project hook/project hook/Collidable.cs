@@ -187,6 +187,36 @@ namespace project_hook
 		public Collidable() {
 			Name = "Unnamed Collidable";
 		}
+		public Collidable(Collidable p_Collidable)
+		{
+			if (p_Collidable.Animation != null)
+			{
+				Animation = new VisualEffect(p_Collidable.Animation.Name, this, p_Collidable.Animation.FramesPerSecond);
+			}
+			BlendMode = p_Collidable.BlendMode;
+			Bound = p_Collidable.Bound;
+			CollisonEffect = p_Collidable.CollisonEffect;
+			Color = p_Collidable.Color;
+			Damage = p_Collidable.Damage;
+			DamageEffect = p_Collidable.DamageEffect;
+			Enabled = p_Collidable.Enabled;
+			Faction = p_Collidable.Faction;
+			Height = p_Collidable.Height;
+			MaxHealth = p_Collidable.MaxHealth;
+			Health = p_Collidable.Health;
+			Name = p_Collidable.Name;
+			Position = p_Collidable.Position;
+			Radius = p_Collidable.Radius;
+			Rotation = p_Collidable.Rotation;
+			RotationDegrees = p_Collidable.RotationDegrees;
+			Scale = p_Collidable.Scale;
+			Task = p_Collidable.Task;
+			Texture = p_Collidable.Texture;
+			ToBeRemoved = p_Collidable.ToBeRemoved;
+			Transparency = p_Collidable.Transparency;
+			Width = p_Collidable.Width;
+			Z = p_Collidable.Z;
+		}
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, GameTexture p_DamageEffect, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z)
