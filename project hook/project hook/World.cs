@@ -15,6 +15,9 @@ namespace project_hook
 		// Additive Sprites;
 		private List<Sprite> m_SpriteListA;
 
+        private List<Sprite> m_UI;
+        private List<Sprite> m_UIA;
+
 		private static Boolean m_CreateWorld = false;
 		public static Boolean CreateWorld
 		{
@@ -132,6 +135,8 @@ namespace project_hook
 		{
 			m_SpriteList = new List<Sprite>();
 			m_SpriteListA = new List<Sprite>();
+            m_UI = new List<Sprite>();
+            m_UIA = new List<Sprite>();
 			m_Position = new WorldPosition(80f);
 			m_ViewPortSize = p_DrawArea;
 			IniDefaults();
@@ -255,6 +260,48 @@ namespace project_hook
 						s.SpritesToBeAdded.Clear();
 					}
 				}
+
+                foreach (Sprite s in m_UI)
+                {
+                    s.Update(p_GameTime);
+
+                    if (s.SpritesToBeAdded != null)
+                    {
+                        foreach (Sprite z in s.SpritesToBeAdded)
+                        {
+                            if (z.BlendMode == SpriteBlendMode.AlphaBlend)
+                            {
+                                toAdd.Add(z);
+                            }
+                            else if (z.BlendMode == SpriteBlendMode.Additive)
+                            {
+                                toAddA.Add(z);
+                            }
+                        }
+                        s.SpritesToBeAdded.Clear();
+                    }
+                }
+
+                foreach (Sprite s in m_UIA)
+                {
+                    s.Update(p_GameTime);
+
+                    if (s.SpritesToBeAdded != null)
+                    {
+                        foreach (Sprite z in s.SpritesToBeAdded)
+                        {
+                            if (z.BlendMode == SpriteBlendMode.AlphaBlend)
+                            {
+                                toAdd.Add(z);
+                            }
+                            else if (z.BlendMode == SpriteBlendMode.Additive)
+                            {
+                                toAddA.Add(z);
+                            }
+                        }
+                        s.SpritesToBeAdded.Clear();
+                    }
+                }
 
 				//Additive:
 
@@ -524,6 +571,36 @@ namespace project_hook
 			}
 		}
 
+        public void drawUI(SpriteBatch p_SpriteBatch)
+        {
+            if (!(m_State == GameState.DoNotRender))
+            {
+                p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
+
+                foreach (Sprite s in m_UI)
+                {
+                    if (s.Enabled == true)
+                    {
+                        s.Draw(p_SpriteBatch);
+                    }
+                }
+
+                p_SpriteBatch.End();
+
+                p_SpriteBatch.Begin(SpriteBlendMode.Additive, SpriteSortMode.BackToFront, SaveStateMode.None);
+
+                foreach (Sprite s in m_UIA)
+                {
+                    if (s.Enabled == true)
+                    {
+                        s.Draw(p_SpriteBatch);
+                    }
+                }
+
+                p_SpriteBatch.End();
+            }
+        }
+
 		//This method will load some default values for the game
 		public void LoadDefaults(ContentManager p_Content)
 		{
@@ -576,6 +653,9 @@ namespace project_hook
 			TextureLibrary.LoadTexture("hudPanel");
 			TextureLibrary.LoadTexture("gate");
 			TextureLibrary.LoadTexture("trigger");
+            TextureLibrary.LoadTexture("healthBar");
+            TextureLibrary.LoadTexture("shieldBar");
+            TextureLibrary.LoadTexture("black");
 		}
 
 		private void IniDefaults()
@@ -586,11 +666,7 @@ namespace project_hook
 			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
 			AddSprite(back);
 
-			//hud panel
-			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 1f, true, 0f, Depth.HUDLayer.Background);
-			AddSprite(hudPanel);
-
-			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+	    	m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			AddSprite(m_Player.PlayerShip);
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			//Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
@@ -623,30 +699,13 @@ namespace project_hook
 			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
 			AddSprite(tail);
 
+            iniUI();
 
 			//	AddSprite(cloud);
 
 
 
-
-
-
-			Sprite TextFpsExample = new FPSSprite(new Vector2(75, 20), Color.Pink, Depth.HUDLayer.Foreground);
-			AddSprite(TextFpsExample);
-#if DEBUG
-			AddSprite(listsize);
-			AddSprite(coll);
-#endif
-			m_Score = new SimpleScore();
-			Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
-			AddSprite(score);
-
-			Sprite P = new TextSprite(m_Player.PlayerShip.ToString, new Vector2(400, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
-			AddSprite(P);
-
-			Sprite u = new TextSprite(m_Player.PlayerShip.getUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
-			AddSprite(u);
-
+            /*
 			PowerUp p = new PowerUp(tail, World.m_Position);
 			p.Enabled = true;
 			p.MaxHealth = 1000;
@@ -654,7 +713,7 @@ namespace project_hook
 			p.Height = 50;
 			p.Width = 50;
 			AddSprite(p);
-
+            */
 
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);
 			//sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
@@ -662,6 +721,34 @@ namespace project_hook
 			//AddSprite(sp);
 
 		}
+
+        public void iniUI()
+        {
+
+            //hud panel
+            Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 1f, true, 0f, Depth.HUDLayer.Background);
+            AddUI(hudPanel);
+
+            Sprite TextFpsExample = new FPSSprite(new Vector2(75, 20), Color.Pink, Depth.HUDLayer.Foreground);
+            			AddUI(TextFpsExample);
+#if DEBUG
+                        AddUI(listsize);
+                        AddUI(coll);
+#endif
+            m_Score = new SimpleScore();
+            Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
+            AddUI(score);
+           
+            Sprite P = new TextSprite(m_Player.PlayerShip.ToString, new Vector2(400, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
+            			AddUI(P);
+
+            Sprite u = new TextSprite(m_Player.PlayerShip.getUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
+            			AddUI(u);
+
+                        HealthBar h = new HealthBar(m_Player.PlayerShip);
+                        h.Enabled = true;
+            
+        }
 
 		public void ChangeFile(String p_FileName)
 		{
@@ -688,6 +775,19 @@ namespace project_hook
 				AddSprite(s);
 			}
 		}
+
+
+        public void AddUI(Sprite p_Sprite)
+        {
+            if (p_Sprite.BlendMode == SpriteBlendMode.AlphaBlend)
+            {
+                m_UI.Add(p_Sprite);
+            }
+            else if (p_Sprite.BlendMode == SpriteBlendMode.Additive)
+            {
+                m_UIA.Add(p_Sprite);
+            }
+        }
 
 		public void CreateBloodCell()
 		{

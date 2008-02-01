@@ -30,8 +30,12 @@ namespace project_hook
 
 		World m_World;
 		Menu m_Menu;
-
+        Matrix m = Matrix.Identity;
 		InputHandlerState m_InputHandler;
+
+        Viewport vpUI = new Viewport();
+        Viewport defaultV;
+        Viewport vpWorld = new Viewport();
 
 		public enum InputHandlerState
 		{
@@ -48,8 +52,7 @@ namespace project_hook
 			graphics.SynchronizeWithVerticalRetrace = false;
 			IsFixedTimeStep = false;
 #endif
-
-
+            
 		}
 
 
@@ -64,10 +67,13 @@ namespace project_hook
 
 			InputHandler.LoadDefaultBindings();
 
+            
 			graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
 			graphics.PreferredBackBufferHeight = 768;
 			graphics.PreferredBackBufferWidth = 1024;
 			graphics.ApplyChanges();
+
+            
 
 			m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			// This will initialize any libraries or static classes needed
@@ -76,6 +82,20 @@ namespace project_hook
 			Menus.ini();
 			Menus.setCurrentMenu(Menus.MenuScreens.DevLogo);
 			m_InputHandler = InputHandlerState.Menu;
+
+
+            defaultV = graphics.GraphicsDevice.Viewport;
+
+            vpUI.X = 0;
+            vpUI.Y = 0;
+            vpUI.Height = 768;
+            vpUI.Width = 1024;
+
+            vpWorld.X = 0;
+            vpWorld.Y = 64;
+            vpWorld.Height = 768 - 64;
+            vpWorld.Width = 1024;
+      
 
 			base.Initialize();
 
@@ -174,7 +194,7 @@ namespace project_hook
 			{
 				m_World = new World();
 				m_World.loadLevel(content);
-				m_World.initialize(new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
+                m_World.initialize(new Rectangle(0, 0, vpWorld.Width, vpWorld.Height));
 				m_World.changeState(World.GameState.Running);
 				World.CreateWorld = false;
 			}
@@ -232,7 +252,11 @@ namespace project_hook
 
 			if (m_World != null)
 			{
-				m_World.draw(m_SpriteBatch);
+                graphics.GraphicsDevice.Viewport = vpWorld;
+                m_World.draw(m_SpriteBatch);
+
+                graphics.GraphicsDevice.Viewport = vpUI;
+				m_World.drawUI(m_SpriteBatch);
 			}
 
 			if (m_Menu != null)
