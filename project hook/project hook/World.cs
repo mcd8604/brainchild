@@ -121,6 +121,8 @@ namespace project_hook
 		double colltotal;
 		int collcount;
 		bool DisplayCollision = false;
+		int RemovedWhileVisibleCount = 0;
+		Shot kill;
 #endif
 
 		public World() { }
@@ -204,8 +206,26 @@ namespace project_hook
 #endif
 
 				List<Sprite> toAdd = new List<Sprite>();
+				List<Sprite> toAddA = new List<Sprite>();
 #if DEBUG
 				int count = m_SpriteList.Count;
+				List<Sprite> removed = m_SpriteList.FindAll(Sprite.isToBeRemoved);
+				if (removed.Count > 0)
+				{
+					Console.WriteLine("Removing AlphaBlended Sprites: ");
+					foreach (Sprite s in removed)
+					{
+						Console.WriteLine("Removing: " + s);
+						if (s.Enabled &&
+							(s.Center.X + s.Width) > m_ViewPortSize.X &&
+							(s.Center.X - s.Width) < m_ViewPortSize.Width &&
+							(s.Center.Y + s.Height) > m_ViewPortSize.Y &&
+							(s.Center.Y - s.Height) < m_ViewPortSize.Height)
+						{
+							Console.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
+						}
+					}
+				}
 #endif
 				m_SpriteList.RemoveAll(Sprite.isToBeRemoved);
 #if DEBUG
@@ -221,23 +241,42 @@ namespace project_hook
 
 					if (s.SpritesToBeAdded != null)
 					{
-						toAdd.AddRange(s.SpritesToBeAdded);
+						foreach (Sprite z in s.SpritesToBeAdded)
+						{
+							if (z.BlendMode == SpriteBlendMode.AlphaBlend)
+							{
+								toAdd.Add(z);
+							}
+							else if (z.BlendMode == SpriteBlendMode.Additive)
+							{
+								toAddA.Add(z);
+							}
+						}
 						s.SpritesToBeAdded.Clear();
 					}
 				}
-#if DEBUG
-				if (toAdd.Count != 0)
-				{
-					Console.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
-				}
-#endif
-				AddSprites(toAdd);
 
 				//Additive:
 
-				toAdd.Clear();
 #if DEBUG
 				count = m_SpriteListA.Count;
+				List<Sprite> removedA = m_SpriteListA.FindAll(Sprite.isToBeRemoved);
+				if (removedA.Count > 0)
+				{
+					Console.WriteLine("Removing Additive Sprites: ");
+					foreach (Sprite s in removedA)
+					{
+						Console.WriteLine("Removing: " + s);
+						if (s.Enabled &&
+							(s.Center.X + s.Width) > m_ViewPortSize.X &&
+							(s.Center.X - s.Width) < m_ViewPortSize.Width &&
+							(s.Center.Y + s.Height) > m_ViewPortSize.Y &&
+							(s.Center.Y - s.Height) < m_ViewPortSize.Height)
+						{
+							Console.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
+						}
+					}
+				}
 #endif
 				m_SpriteListA.RemoveAll(Sprite.isToBeRemoved);
 #if DEBUG
@@ -253,17 +292,37 @@ namespace project_hook
 
 					if (s.SpritesToBeAdded != null)
 					{
-						toAdd.AddRange(s.SpritesToBeAdded);
+						foreach (Sprite z in s.SpritesToBeAdded)
+						{
+							if (z.BlendMode == SpriteBlendMode.AlphaBlend)
+							{
+								toAdd.Add(z);
+							}
+							else if (z.BlendMode == SpriteBlendMode.Additive)
+							{
+								toAddA.Add(z);
+							}
+						}
 						s.SpritesToBeAdded.Clear();
 					}
 				}
+
 #if DEBUG
 				if (toAdd.Count != 0)
 				{
-					Console.WriteLine("Added " + toAdd.Count + " Additive Sprites");
+					Console.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
 				}
 #endif
 				AddSprites(toAdd);
+
+
+#if DEBUG
+				if (toAddA.Count != 0)
+				{
+					Console.WriteLine("Added " + toAddA.Count + " Additive Sprites");
+				}
+#endif
+				AddSprites(toAddA);
 
 #if DEBUG
 				if (DisplayCollision)
@@ -340,15 +399,6 @@ namespace project_hook
 					}
 				}
 #if DEBUG
-
-				//full heal
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.L))
-				{
-					m_Player.PlayerShip.Health = m_Player.PlayerShip.MaxHealth;
-					m_Player.PlayerShip.Shield = m_Player.PlayerShip.MaxShield;
-
-				}
-
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
 					if (Music.IsPlaying("bg1"))
@@ -398,6 +448,35 @@ namespace project_hook
 					{
 						m_Player.PlayerShip.MaxHealth = float.NaN;
 					}
+				}
+				//full heal
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.L))
+				{
+					m_Player.PlayerShip.Health = m_Player.PlayerShip.MaxHealth;
+					m_Player.PlayerShip.Shield = m_Player.PlayerShip.MaxShield;
+
+				}
+
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Z))
+				{
+					if (kill == null)
+					{
+						kill = new Shot("Soul of Zinglon", m_Player.PlayerShip.Center, 250, 4000, TextureLibrary.getGameTexture("Shot", ""), 0.75f, true, -MathHelper.PiOver2, Depth.GameLayer.Shot, Collidable.Factions.Player, 0, null, 0, 10000, null);
+						kill.BlendMode = SpriteBlendMode.Additive;
+						kill.Bound = Collidable.Boundings.Rectangle;
+						kill.DestroyedOnCollision = false;
+						TaskParallel task = new TaskParallel();
+						task.addTask(new TaskAttach(m_Player.PlayerShip));
+						task.addTask(new TaskRepeatingTimer(2f));
+						kill.Task = task;
+						AddSprite(kill);
+					}
+					else
+						if (kill.Enabled == false)
+						{
+							kill.Enabled = true;
+						}
+
 				}
 #endif
 			}

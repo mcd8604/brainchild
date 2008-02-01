@@ -103,7 +103,7 @@ namespace project_hook
 			}
 			else
 			{
-				return "Health: " + Convert.ToInt32(Health) + " Shield: " + Convert.ToInt32(Shield);
+				return "Health: " + Convert.ToInt32(Math.Ceiling(Health)) + " Shield: " + Convert.ToInt32(Math.Ceiling(Shield));
 			}
 		}
 

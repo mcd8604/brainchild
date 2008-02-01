@@ -111,6 +111,7 @@ namespace project_hook
 
 		public Ship()
 		{
+			Name = "Unnamed Ship";
 			Z = Depth.GameLayer.Ships;
 		}
 		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_Health, int p_MaxShield, GameTexture p_DamageEffect, float p_Radius)

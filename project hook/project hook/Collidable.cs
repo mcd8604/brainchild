@@ -167,7 +167,9 @@ namespace project_hook
 
 		#endregion // End of variables and Properties Region
 
-		public Collidable() { }
+		public Collidable() {
+			Name = "Unnamed Collidable";
+		}
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, GameTexture p_DamageEffect, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z)
@@ -242,6 +244,7 @@ namespace project_hook
 			}
 			else if (Health <= 0)
 			{
+				SpawnDamageEffect(Center);
 				return true;
 			}
 			return false;
@@ -280,9 +283,6 @@ namespace project_hook
 			{
 				DamageParticleSystem.AddParticles(where);
 			}
-
-			if (this is Shot)
-				Position = new Vector2(-1, 0);
 		}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
@@ -294,13 +294,6 @@ namespace project_hook
 				m_DamageSprite.Draw(p_SpriteBatch);
 			}
 		}
-
-
-		public override string ToString()
-		{
-			return Name.ToString() + " " + Center.ToString() + " " + Bound.ToString() + " " + Radius.ToString();
-		}
-
 
 		public virtual void captured()
 		{
