@@ -148,9 +148,9 @@
 	<action tile="78">
 		<createShip>
 			<name>Enemy4</name>
-			<height>25</height>
-			<width>25</width>
-			<radius>10</radius>
+			<height>90</height>
+			<width>90</width>
+			<radius>45</radius>
 			<texture name="virus1"/>
 			<startCenter x="608" y="0"/>
 			<health>30</health>
@@ -255,9 +255,9 @@
 		</createShip>
 		<createShip>
 			<name>Enemy6</name>
-			<height>25</height>
-			<width>25</width>
-			<radius>10</radius>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
 			<texture name="virus1"/>
 			<startCenter x="800" y="0"/>
 			<health>20</health>
@@ -284,9 +284,9 @@
 	<action tile="153">
 		<createShip>
 			<name>Enemy7</name>
-			<height>25</height>
-			<width>25</width>
-			<radius>10</radius>
+			<height>90</height>
+			<width>90</width>
+			<radius>45</radius>
 			<texture name="virus1"/>
 			<startCenter x="480" y="0"/>
 			<health>30</health>
