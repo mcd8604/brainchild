@@ -23,7 +23,10 @@ namespace project_hook
 		public Thrown(Collidable p_Collidable)
 		{
 			this.Alpha = p_Collidable.Alpha;
-			this.Animation = p_Collidable.Animation;
+			if (p_Collidable.Animation != null)
+			{
+				this.Animation = new VisualEffect(p_Collidable.Animation.Name, this, p_Collidable.Animation.FramesPerSecond);
+			}
 			this.BlendMode = p_Collidable.BlendMode;
 			this.Bound = p_Collidable.Bound;
 			this.CollisonEffect = p_Collidable.CollisonEffect;
