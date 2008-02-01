@@ -135,7 +135,7 @@ namespace project_hook
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
 			shot.Radius = 20;
 			shot.Damage = 4;
-			shot.Bound = Collidable.Boundings.Diamond;
+			shot.Bound = Collidable.Boundings.Rectangle;
 			shot.setAnimation("RedShot", 10);
 
 			Weapon wep = new WeaponStraight(shot, 0.30f, 400, -MathHelper.PiOver2);
