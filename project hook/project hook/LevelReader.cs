@@ -186,18 +186,17 @@ namespace project_hook
 
 			t_Trigger.Gate = t_Gate;
 
-			//add the ship to the event list
-			if (m_Events.ContainsKey(m_Distance))
-			{
-				m_Events[m_Distance].Add(new Event(t_Gate));
-				m_Events[m_Distance].Add(new Event(t_Trigger));
-			}
-			else
-			{
-				t_List.Add(new Event(t_Gate));
-				m_Events.Add(m_Distance, t_List);
-				m_Events[m_Distance].Add(new Event(t_Trigger));
-			}
+			//if (m_Events.ContainsKey(m_Distance))
+			//{
+			//    m_Events[m_Distance].Add(new Event(t_Gate));
+			//    m_Events[m_Distance].Add(new Event(t_Trigger));
+			//}
+			//else
+			//{
+			//    t_List.Add(new Event(t_Gate));
+			//    m_Events.Add(m_Distance, t_List);
+			//    m_Events[m_Distance].Add(new Event(t_Trigger));
+			//}
 		}
 
 		private void LoadGate(XmlReader p_Reader, Collidable p_Gate)
