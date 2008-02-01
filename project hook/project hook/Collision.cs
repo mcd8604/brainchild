@@ -593,6 +593,119 @@ namespace project_hook
 
 
 				}
+				else if (solid.Bound == Collidable.Boundings.Rectangle)
+				{
+					//return a vector2 that is the point, closest to the current point movable.Center such that  
+					Vector2 temp = movable.Center;
+
+					
+					if (movable.Center.X > solid.Center.X + solid.Width/2)
+					{
+
+						// 1, 2, 8 
+
+						if (movable.Center.Y > solid.Center.Y + solid.Height * 0.5f)
+						{
+
+							// 2
+							Vector2 cornerpoint = new Vector2(solid.Center.X + (solid.Width * 0.5f), solid.Center.Y + (solid.Height * 0.5f));
+							//float d = Vector2.Distance(cornerpoint, movable.Center);
+							Vector2 dir = movable.Center - cornerpoint;
+							dir.Normalize();
+							temp = cornerpoint + Vector2.Multiply(dir, movable.Width * 0.5f);
+
+						}
+						else if (movable.Center.Y < solid.Center.Y - solid.Height * 0.5f)
+						{
+
+							// 8
+							Vector2 cornerpoint = new Vector2(solid.Center.X + (solid.Width * 0.5f), solid.Center.Y - (solid.Height * 0.5f));
+							//float d = Vector2.Distance(cornerpoint, movable.Center);
+							Vector2 dir = movable.Center - cornerpoint;
+							dir.Normalize();
+							temp = cornerpoint + Vector2.Multiply(dir, movable.Radius);
+
+						}
+						else
+						{
+
+							// 1
+							//return (circ.X - circrad < square.X + squarerad);
+							temp.X = solid.Center.X + (solid.Width * 0.5f) + movable.Radius;
+
+						}
+
+					}
+					else if (movable.Center.X < solid.Center.X - (solid.Width * 0.5f))
+					{
+
+						// 4, 5, 6
+
+						if (movable.Center.Y > solid.Center.Y + (solid.Height * 0.5f))
+						{
+
+							// 4
+							Vector2 cornerpoint = new Vector2(solid.Center.X - (solid.Width * 0.5f), solid.Center.Y + (solid.Height * 0.5f));
+							//float d = Vector2.Distance(cornerpoint, movable.Center);
+							Vector2 dir = movable.Center - cornerpoint;
+							dir.Normalize();
+							temp = cornerpoint + Vector2.Multiply(dir, movable.Radius);
+
+						}
+						else if (movable.Center.Y < solid.Center.Y - solid.Height * 0.5f)
+						{
+
+							// 6
+							Vector2 cornerpoint = new Vector2(solid.Center.X - (solid.Width * 0.5f), solid.Center.Y - (solid.Height * 0.5f));
+							//float d = Vector2.Distance(cornerpoint, movable.Center);
+							Vector2 dir = movable.Center - cornerpoint;
+							dir.Normalize();
+							temp = cornerpoint + Vector2.Multiply(dir, movable.Radius);
+
+						}
+						else
+						{
+
+							// 5
+							//return (circ.X + circrad > square.X - squarerad);
+							temp.X = solid.Center.X - ((solid.Width * 0.5f) + movable.Radius);
+
+						}
+
+					}
+					else
+					{
+
+						//3, 7
+
+						if (movable.Center.Y > solid.Center.Y + (solid.Height * 0.5f))
+						{
+
+							// 3
+							//return (circ.Y - circrad < square.Y + squarerad);
+							temp.Y = solid.Center.Y + (solid.Height * 0.5f) + movable.Radius;
+
+						}
+						else if (movable.Center.Y < solid.Center.Y - (solid.Height * 0.5f))
+						{
+
+							// 7
+							//return (circ.Y + circrad > square.Y - squarerad);
+							temp.Y = solid.Center.Y - ((solid.Height * 0.5f) + movable.Radius);
+
+						}
+						else
+						{
+							// This would only occur if the circle was inside the square..
+							//throw new ArithmeticException("Math failed");
+							temp.Y = solid.Center.Y + (solid.Height * 0.5f) + movable.Radius;
+
+						}
+
+					}
+					return temp;
+				}
+				
 			}
 			else if (movable.Bound == Collidable.Boundings.Diamond)
 			{
