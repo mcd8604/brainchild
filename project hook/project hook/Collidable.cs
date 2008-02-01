@@ -169,9 +169,6 @@ namespace project_hook
 
 		public Collidable() {
 			Name = "Unnamed Collidable";
-#if DEBUG
-            HealthBar hb = new HealthBar(this);
-#endif
 		}
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, GameTexture p_DamageEffect, float p_Radius)

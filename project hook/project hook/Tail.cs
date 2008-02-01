@@ -209,7 +209,6 @@ namespace project_hook
 				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0))
 				{
 					m_EnemyCaught = p_Other;
-                    HealthBar eH = new HealthBar(m_EnemyCaught);
 					Transparency = 0;
 					tailTarget.Enabled = false;
 					m_EnemyCaught.Faction = Factions.Player;

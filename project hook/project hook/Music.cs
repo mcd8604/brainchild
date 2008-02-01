@@ -34,15 +34,9 @@ namespace project_hook
 		/// </summary>
 		public static void Initialize()
 		{
-            if(engine != null){
-			    engine = new AudioEngine("../../../Content/Audio/Win/HookSound.xgs");
-            }
-            if(wavebank != null){
-			    wavebank = new WaveBank(engine, "../../../Content/Audio/Win/Wave Bank.xwb");
-            }
-           if(soundbank != null){
-			    soundbank = new SoundBank(engine, "../../../Content/Audio/Win/Sound Bank.xsb");
-           }
+			engine = new AudioEngine("../../../Content/Audio/Win/HookSound.xgs");
+			wavebank = new WaveBank(engine, "../../../Content/Audio/Win/Wave Bank.xwb");
+			soundbank = new SoundBank(engine, "../../../Content/Audio/Win/Sound Bank.xsb");
 		}
 
 		public static void Update()  //  Added
