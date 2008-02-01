@@ -299,7 +299,7 @@ namespace project_hook
 			}
 			p_Gate.Faction = Collidable.Factions.Environment;
 			p_Gate.Z = Depth.GameLayer.Environment;
-			p_Gate.Bound = Collidable.Boundings.Circle;
+			p_Gate.Bound = Collidable.Boundings.Rectangle;
 			p_Gate.Radius = 5;
 		}
 
