@@ -484,5 +484,10 @@ namespace project_hook
 
 			m_SpritesToBeAdded.AddRange(p_Sprites);
 		}
+
+		public override string ToString()
+		{
+			return Name + " " + Center + " " + BlendMode + " " + Enabled + " " + ToBeRemoved;
+		}
 	}
 }

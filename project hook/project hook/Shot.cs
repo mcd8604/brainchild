@@ -16,6 +16,7 @@ namespace project_hook
 	/// </summary>
 	public class Shot : Collidable
 	{
+		public bool DestroyedOnCollision = true;
 
 		//private ArrayList<Shot> blurShots;
 		private Ship m_Ship = null;
@@ -84,14 +85,14 @@ namespace project_hook
 			if(!(p_Other is Shot) && !(p_Other is Tail) && p_Other.Faction!=Factions.Blood && p_Other.Faction != Factions.PowerUp){
 				//Vector2 midPoint = new Vector2(Center.X - p_Other.Center.X, Center.Y - p_Other.Center.Y);
 				//addSprite(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.GameLayer.Explosion));
-				Enabled = false;
+				Enabled = !DestroyedOnCollision;
 			}
 			CheckShip();
 		}
 
 		public void CheckShip()
 		{
-			if (m_Ship.IsDead())
+			if (m_Ship != null && m_Ship.IsDead())
 				ToBeRemoved = true;
 		}
 	}
