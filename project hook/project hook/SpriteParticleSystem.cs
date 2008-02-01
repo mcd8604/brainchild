@@ -151,7 +151,7 @@ namespace project_hook
 							float p_Degree, float p_Z, int p_HowManyEffects)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
 		{
-			this.howManyEffects = p_HowManyEffects;
+			howManyEffects = p_HowManyEffects;
 			InitializeConstants();
 
 			base.BlendMode = SpriteBlendMode.Additive;
@@ -212,7 +212,7 @@ namespace project_hook
 		protected virtual void InitializeParticle(ParticleSprite p, Vector2 where, string p_Texture)
 		{
 			// first, call PickRandomDirection to figure out which way the particle
-			// will be moving. velocity and acceleration's values will come from this.
+			// will be moving. velocity and acceleration's values will come from this
 			Vector2 direction = PickRandomDirection();
 
 			// pick some random values for our particle

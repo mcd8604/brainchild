@@ -102,7 +102,7 @@ namespace project_hook
 				m_DamageEffect = value;
 				if (DamageEffect != null)
 				{
-					m_DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
+					m_DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, Z, 1);
 					DamageParticleSystem.setAnimation("Explosion", 10);
 					DamageParticleSystem.Animation.StartAnimation();
 					addSprite(DamageParticleSystem);
@@ -177,7 +177,7 @@ namespace project_hook
 			DamageEffect = p_DamageEffect;
 			if (DamageEffect != null)
 			{
-				m_DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, this.Z, 1);
+				m_DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, Z, 1);
 				DamageParticleSystem.setAnimation("Explosion", 10);
 				DamageParticleSystem.Animation.StartAnimation();
 				attachSpritePart(DamageParticleSystem);
@@ -213,8 +213,8 @@ namespace project_hook
 				didCollide = null;
 			}
 
-			if (this.Position.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.25) || this.Position.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .25)) ||
-				this.Position.X > Game.graphics.GraphicsDevice.Viewport.Width || this.Position.X < 0)
+			if (Position.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.25) || Position.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .25)) ||
+				Position.X > Game.graphics.GraphicsDevice.Viewport.Width || Position.X < 0)
 			{
 				if (this is Shot)
 				{
@@ -222,10 +222,10 @@ namespace project_hook
 				}
 				else
 				{
-					//this.ToBeRemoved = true;
+					//ToBeRemoved = true;
 					if (this is Ship)
 						//if (((Ship)this).Faction != Collidable.Factions.Player)
-						((Ship)this).takeDamage(this.Health+1);
+						((Ship)this).Health = 0;
 				}
 			}
 
@@ -249,7 +249,7 @@ namespace project_hook
 
 		protected virtual void takeDamage(float damage)
 		{
-			MathHelper.Clamp(Health -= damage,0,this.MaxHealth);
+			MathHelper.Clamp(Health -= damage,0,MaxHealth);
 		}
 
 		public virtual void RegisterCollision(Collidable p_Other)
@@ -267,7 +267,7 @@ namespace project_hook
 					if (!float.IsNaN(Health))
 					{
 						didCollide = p_Other;
-						SpawnDamageEffect(Vector2.Lerp(this.Center, p_Other.Center, 0.5f));
+						SpawnDamageEffect(Vector2.Lerp(Center, p_Other.Center, 0.5f));
 					}
 				}
 
@@ -282,7 +282,7 @@ namespace project_hook
 			}
 
 			if (this is Shot)
-				this.Position = new Vector2(-1, 0);
+				Position = new Vector2(-1, 0);
 		}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
@@ -304,9 +304,9 @@ namespace project_hook
 
 		public virtual void captured()
 		{
-			if (this.Animation != null)
+			if (Animation != null)
 			{
-				this.Animation.StopAnimation();
+				Animation.StopAnimation();
 			}
 		}
 	}

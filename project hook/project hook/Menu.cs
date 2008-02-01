@@ -126,7 +126,7 @@ namespace project_hook
 			base.Update(p_Time);
 			if (InputHandler.IsActionPressed(Actions.Pause))
 			{
-				//this.Exit();               
+				//Exit();               
 			}
 
 			if (InputHandler.IsActionPressed(Actions.Up))

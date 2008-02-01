@@ -71,23 +71,23 @@ namespace project_hook
 			float lifetime, float scale, float rotationSpeed, String p_Texture)
 		{
 			// set the values to the requested values
-			this.Position = position;
-			this.Velocity = velocity;
-			this.Acceleration = acceleration;
-			this.Lifetime = lifetime;
-			this.Scale = scale;
-			this.RotationSpeed = rotationSpeed;
+			Position = position;
+			Velocity = velocity;
+			Acceleration = acceleration;
+			Lifetime = lifetime;
+			Scale = scale;
+			RotationSpeed = rotationSpeed;
 
 			// reset TimeSinceStart - we have to do this because particles will be
 			// reused.
-			this.TimeSinceStart = 0.0f;
+			TimeSinceStart = 0.0f;
 
 			// set rotation to some random value between 0 and 360 degrees.
-			this.Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
-			this.Texture = TextureLibrary.getGameTexture(p_Texture, "");
-			this.setAnimation(p_Texture, (int)(23));
-			this.Animation.StartAnimation();
-			this.Enabled = true;
+			Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
+			Texture = TextureLibrary.getGameTexture(p_Texture, "");
+			setAnimation(p_Texture, (int)(23));
+			Animation.StartAnimation();
+			Enabled = true;
 
 		}
 

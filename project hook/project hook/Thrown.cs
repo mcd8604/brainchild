@@ -22,34 +22,33 @@ namespace project_hook
 
 		public Thrown(Collidable p_Collidable)
 		{
-			this.Alpha = p_Collidable.Alpha;
 			if (p_Collidable.Animation != null)
 			{
-				this.Animation = new VisualEffect(p_Collidable.Animation.Name, this, p_Collidable.Animation.FramesPerSecond);
+				Animation = new VisualEffect(p_Collidable.Animation.Name, this, p_Collidable.Animation.FramesPerSecond);
 			}
-			this.BlendMode = p_Collidable.BlendMode;
-			this.Bound = p_Collidable.Bound;
-			this.CollisonEffect = p_Collidable.CollisonEffect;
-			this.Color = p_Collidable.Color;
-			this.Damage = p_Collidable.Damage;
-			this.DamageEffect = p_Collidable.DamageEffect;
-			this.Enabled = p_Collidable.Enabled;
-			this.Faction = p_Collidable.Faction;
-			this.Health = p_Collidable.Health;
-			this.Height = p_Collidable.Height;
-			this.MaxHealth = p_Collidable.MaxHealth;
-			this.Name = p_Collidable.Name;
-			this.Position = p_Collidable.Position;
-			this.Radius = p_Collidable.Radius;
-			this.Rotation = p_Collidable.Rotation;
-			this.RotationDegrees = p_Collidable.RotationDegrees;
-			this.Scale = p_Collidable.Scale;
-			this.Task = p_Collidable.Task;
-			this.Texture = p_Collidable.Texture;
-			this.ToBeRemoved = p_Collidable.ToBeRemoved;
-			this.Transparency = p_Collidable.Transparency;
-			this.Width = p_Collidable.Width;
-			this.Z = p_Collidable.Z;
+			BlendMode = p_Collidable.BlendMode;
+			Bound = p_Collidable.Bound;
+			CollisonEffect = p_Collidable.CollisonEffect;
+			Color = p_Collidable.Color;
+			Damage = p_Collidable.Damage;
+			DamageEffect = p_Collidable.DamageEffect;
+			Enabled = p_Collidable.Enabled;
+			Faction = p_Collidable.Faction;
+			Height = p_Collidable.Height;
+			MaxHealth = p_Collidable.MaxHealth;
+			Health = p_Collidable.Health;
+			Name = p_Collidable.Name;
+			Position = p_Collidable.Position;
+			Radius = p_Collidable.Radius;
+			Rotation = p_Collidable.Rotation;
+			RotationDegrees = p_Collidable.RotationDegrees;
+			Scale = p_Collidable.Scale;
+			Task = p_Collidable.Task;
+			Texture = p_Collidable.Texture;
+			ToBeRemoved = p_Collidable.ToBeRemoved;
+			Transparency = p_Collidable.Transparency;
+			Width = p_Collidable.Width;
+			Z = p_Collidable.Z;
 		}
 
 		public override void Update(GameTime p_Time)
@@ -58,7 +57,7 @@ namespace project_hook
 			m_LastCollision += (float)p_Time.ElapsedGameTime.TotalSeconds;
 			//m_TimeOut -= (float)p_Time.ElapsedGameTime.TotalSeconds;
 			//if (m_TimeOut < 0)
-			//	this.Enabled = false;
+			//	Enabled = false;
 
 		}
 
@@ -72,7 +71,7 @@ namespace project_hook
 					{
 						TaskStraightAngle tempTask = null;
 						TaskRotateToAngle tempRotateTask = null;
-						foreach (Task t in this.Task.getSubTasks())
+						foreach (Task t in Task.getSubTasks())
 						{
 							if (t is TaskStraightAngle)
 							{
@@ -89,7 +88,7 @@ namespace project_hook
 							while (tempTask.AngleDegrees <= 0)
 								tempTask.AngleDegrees += 360;
 
-							if (Math.Abs(Math.Abs(this.Center.Y) - Math.Abs(p_Other.Center.Y)) < Math.Abs(Math.Abs(this.Center.X) - Math.Abs(p_Other.Center.X)))
+							if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) < Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
 							{
 								if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
 								{
@@ -112,7 +111,7 @@ namespace project_hook
 								//	tempTask.AngleDegrees = 180 + MathHelper.Distance(tempTask.AngleDegrees, 270f);
 								//}
 							}
-							else if (Math.Abs(Math.Abs(this.Center.Y) - Math.Abs(p_Other.Center.Y)) > Math.Abs(Math.Abs(this.Center.X) - Math.Abs(p_Other.Center.X)))
+							else if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) > Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
 							{
 								if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
 								{
@@ -136,7 +135,6 @@ namespace project_hook
 						}
 
 						m_LastCollision = 0;
-						//this.Task = tempTask;
 					}
 					catch (NullReferenceException)
 					{
@@ -146,7 +144,7 @@ namespace project_hook
 			}
 			else
 			{
-				this.didCollide = p_Other;
+				didCollide = p_Other;
 			}
 		}
 	}

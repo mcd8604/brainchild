@@ -86,7 +86,7 @@ namespace project_hook
 		/// <param name="p_zBuff"></param>
 		public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds)
 		{
-			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
+			ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
 			Bounds = p_Bounds;
 			m_Score = new Score(0);
 		}
@@ -95,7 +95,7 @@ namespace project_hook
 		{
 			Bounds = p_Bounds;
 			//m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
-			this.ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
+			ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
 			m_Score = new Score((ulong)p_Score);
 		}
 
@@ -128,7 +128,7 @@ namespace project_hook
 
 			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, TextureLibrary.getGameTexture("Explosion", "3"), p_Width / 2.0f);
 
-			Shot shot = new Shot(this.PlayerShip);
+			Shot shot = new Shot(PlayerShip);
 			shot.Name = "Player Shot";
 			shot.Height = 20;
 			shot.Width = 60;
@@ -162,7 +162,7 @@ namespace project_hook
 		}
 
 		/// <summary>
-		/// This function is called to draw the player ship to the screen. All movement functions should be called before this.
+		/// This function is called to draw the player ship to the screen. All movement functions should be called before this
 		/// </summary>
 		/// <param name="p_GameTime"></param>
 		/// <param name="p_SpriteBatch"></param>

@@ -170,13 +170,13 @@ namespace project_hook
 				if (p_Reader.IsStartElement("gate"))
 				{
 					p_Reader.ReadStartElement();
-					this.LoadGate(p_Reader, t_Gate);
+					LoadGate(p_Reader, t_Gate);
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("trigger"))
 				{
 					p_Reader.ReadStartElement();
-					this.LoadTrigger(p_Reader, t_Trigger);
+					LoadTrigger(p_Reader, t_Trigger);
 					p_Reader.ReadEndElement();
 				}
 			}

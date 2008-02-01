@@ -86,19 +86,19 @@ namespace project_hook
 			float lifetime, float scale, float rotationSpeed)
 		{
 			// set the values to the requested values
-			this.Position = position;
-			this.Velocity = velocity;
-			this.Acceleration = acceleration;
-			this.Lifetime = lifetime;
-			this.Scale = scale;
-			this.RotationSpeed = rotationSpeed;
+			Position = position;
+			Velocity = velocity;
+			Acceleration = acceleration;
+			Lifetime = lifetime;
+			Scale = scale;
+			RotationSpeed = rotationSpeed;
 
 			// reset TimeSinceStart - we have to do this because particles will be
 			// reused.
-			this.TimeSinceStart = 0.0f;
+			TimeSinceStart = 0.0f;
 
 			// set rotation to some random value between 0 and 360 degrees.
-			this.Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
+			Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
 		}
 
 		// update is called by the ParticleSystem on every frame. This is where the

@@ -181,17 +181,17 @@ namespace project_hook
 
 			if (damage > 0)
 			{
-				this.Health -= damage;
+				Health -= damage;
 				damage = 0;
 			}
 
-			if (this.Health <= 0)
+			if (Health <= 0)
 			{
 				// death effect, and remove?
 				PowerUp p = new PowerUp(this, World.m_Position);
 				p.MaxHealth = 1000;
-				p.Height = this.Height / 2;
-				p.Width = this.Width / 2;
+				p.Height = (int)(Height * 0.5f);
+				p.Width = (int)(Width * 0.5f);
 				addSprite(p);
 
 				foreach (Weapon w in m_Weapons)

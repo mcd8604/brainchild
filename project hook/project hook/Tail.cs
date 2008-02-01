@@ -114,7 +114,7 @@ namespace project_hook
 			temp.addTask(new TaskRotateFaceTarget(p_AttachShip, (float)Math.PI));
 			m_ReturnTask = temp;
 
-			this.PlayerShip = (PlayerShip)p_AttachShip;
+			PlayerShip = (PlayerShip)p_AttachShip;
 			m_TailTarget = new Vector2(-1, -1);
 			m_EnemyCaught = null;
 			m_TailAttackDelay = p_TailAttackDelay;
@@ -209,7 +209,7 @@ namespace project_hook
 				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0))
 				{
 					m_EnemyCaught = p_Other;
-					this.Transparency = 0;
+					Transparency = 0;
 					tailTarget.Enabled = false;
 					m_EnemyCaught.Faction = Factions.Player;
 
@@ -247,7 +247,7 @@ namespace project_hook
 					EnemyCaught = null;
 					thrown.Task = m_ReleaseTask;
 					addSprite(thrown);
-					this.Transparency = 1;
+					Transparency = 1;
 				}
 				StateOfTail = Tail.TailState.Returning;
 				Task = m_ReturnTask;
@@ -280,7 +280,7 @@ namespace project_hook
 							EnemyCaught = null;
 							thrown.Task = m_ReleaseTask;
 							addSprite(thrown);
-							this.Transparency = 1;
+							Transparency = 1;
 						}
 					}
 					break;
@@ -299,7 +299,7 @@ namespace project_hook
 			if (m_EnemyCaught != null && m_EnemyCaught.IsDead())
 			{
 				m_EnemyCaught = null;
-				this.Transparency = 1;
+				Transparency = 1;
 			}
 			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
