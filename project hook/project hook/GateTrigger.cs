@@ -29,11 +29,16 @@ namespace project_hook
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_zBuff,
 					p_Faction, p_Health, p_DamageEffect, p_Radius)
 		{
+			Gate = p_Gate;
 		}
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			base.RegisterCollision(p_Other);
+
+			World.m_Position.Speed = 80;
+
+			m_Gate.ToBeRemoved = true;
 		}
 	}
 }

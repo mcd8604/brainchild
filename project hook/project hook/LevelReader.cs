@@ -186,17 +186,17 @@ namespace project_hook
 
 			t_Trigger.Gate = t_Gate;
 
-			//if (m_Events.ContainsKey(m_Distance))
-			//{
-			//    m_Events[m_Distance].Add(new Event(t_Gate));
-			//    m_Events[m_Distance].Add(new Event(t_Trigger));
-			//}
-			//else
-			//{
-			//    t_List.Add(new Event(t_Gate));
-			//    m_Events.Add(m_Distance, t_List);
-			//    m_Events[m_Distance].Add(new Event(t_Trigger));
-			//}
+			if (m_Events.ContainsKey(m_Distance))
+			{
+				m_Events[m_Distance].Add(new Event(t_Gate));
+				m_Events[m_Distance].Add(new Event(t_Trigger));
+			}
+			else
+			{
+				t_List.Add(new Event(t_Gate));
+				m_Events.Add(m_Distance, t_List);
+				m_Events[m_Distance].Add(new Event(t_Trigger));
+			}
 		}
 
 		private void LoadGate(XmlReader p_Reader, Collidable p_Gate)
@@ -296,10 +296,11 @@ namespace project_hook
 				}
 #endif
 			}
-			p_Gate.Faction = Collidable.Factions.Environment;
+			p_Gate.Faction = Collidable.Factions.Enemy;
 			p_Gate.Z = Depth.GameLayer.Environment;
-			p_Gate.Bound = Collidable.Boundings.Rectangle;
-			p_Gate.Radius = 5;
+			p_Gate.Bound = Collidable.Boundings.Square;
+			p_Gate.Radius = 2;
+			p_Gate.Health = 1;
 		}
 
 		private void LoadTrigger(XmlReader p_Reader, GateTrigger p_Trigger)
@@ -399,10 +400,11 @@ namespace project_hook
 				}
 #endif
 			}
-			p_Trigger.Faction = Collidable.Factions.Environment;
+			p_Trigger.Faction = Collidable.Factions.Enemy;
 			p_Trigger.Z = Depth.GameLayer.Environment;
-			p_Trigger.Bound = Collidable.Boundings.Circle;
-			p_Trigger.Radius = 5;
+			p_Trigger.Bound = Collidable.Boundings.Rectangle;
+			p_Trigger.Radius = 1;
+			p_Trigger.Health = 1;
 		}
 
 		private void NextFile(XmlReader p_Reader)

@@ -12,16 +12,24 @@
 				<height>192</height>
 				<width>256</width>
 				<texture name="gate"/>
-				<startCenter x="352" y="100"/>
+				<startCenter x="448" y="-96"/>
 				<degree>0</degree>
+				<task type="SeekPoint">
+					<goal x="448" y="192"/>
+					<speed>80</speed>
+				</task>
 			</gate>
 			<trigger>
-				<name>gate1</name>
-				<height>192</height>
-				<width>256</width>
-				<texture name="trigger"/>
-				<startCenter x="452" y="100"/>
+				<name>gate1T</name>
+				<height>34</height>
+				<width>32</width>
+				<texture name="trigger" pos="0"/>
+				<startCenter x="580" y="-96"/>
 				<degree>0</degree>
+				<task type="SeekPoint">
+					<goal x="580" y="192"/>
+					<speed>80</speed>
+				</task>
 			</trigger>
 		</createGate>
 	</action>
@@ -29,5 +37,10 @@
 		<changeSpeed>
 			<speed>0</speed>
 		</changeSpeed>
+	</action>
+	<action tile="15">
+		<changeFile>
+			<fileName>Level2.xml</fileName>
+		</changeFile>
 	</action>
 </level>
