@@ -778,6 +778,16 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>virus1</Name>
     </Content>
+    <Content Include="Content\Textures\virus2.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>virus2</Name>
+    </Content>
+    <Content Include="Content\Textures\virus2.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>virus2</Name>
+    </Content>
     <Content Include="Content\Textures\wall1.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
