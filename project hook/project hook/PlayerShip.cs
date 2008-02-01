@@ -37,7 +37,7 @@ namespace project_hook
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
 			shot.Radius = 30;
 			shot.Damage = 8;
-			shot.Bound = Collidable.Boundings.Diamond;
+			shot.Bound = Collidable.Boundings.Rectangle;
 			shot.setAnimation("RedShot", 10);
 
 			m_Upgrades.Add(shot);
@@ -50,7 +50,7 @@ namespace project_hook
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
 			shot.Radius = 40;
 			shot.Damage = 16;
-			shot.Bound = Collidable.Boundings.Diamond;
+			shot.Bound = Collidable.Boundings.Rectangle;
 			shot.setAnimation("RedShot", 10);
 
 			m_Upgrades.Add(shot);
@@ -63,7 +63,7 @@ namespace project_hook
 			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
 			shot.Radius = 50;
 			shot.Damage = 32;
-			shot.Bound = Collidable.Boundings.Diamond;
+			shot.Bound = Collidable.Boundings.Rectangle;
 			shot.setAnimation("RedShot", 10);
 
 			m_Upgrades.Add(shot);

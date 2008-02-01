@@ -85,7 +85,7 @@ namespace project_hook
 				}
 				else if (two.Bound == Collidable.Boundings.Rectangle)
 				{
-					return DoesIntersectCircleRectangle(one.Center, one.Radius, two.Center, two.Width, two.Height);
+					return DoesIntersectCircleRectangle(one.Center, one.Radius, two.Center, two.Width, two.Height, two.RotationDegrees);
 				}
 				else if (two.Bound == Collidable.Boundings.Triangle)
 				{
@@ -109,6 +109,7 @@ namespace project_hook
 				else if (two.Bound == Collidable.Boundings.Rectangle)
 				{
 					// TODO
+					return DoesIntersectRectangles(one.Center, one.Width, one.Height, one.RotationDegrees, two.Center, two.Width, two.Height, two.RotationDegrees);
 				}
 				else if (two.Bound == Collidable.Boundings.Triangle)
 				{
@@ -132,6 +133,7 @@ namespace project_hook
 				else if (two.Bound == Collidable.Boundings.Rectangle)
 				{
 					// TODO
+					return DoesIntersectRectangles(one.Center, one.Width, one.Height, one.RotationDegrees, two.Center, two.Width, two.Height, two.RotationDegrees);
 				}
 				else if (two.Bound == Collidable.Boundings.Triangle)
 				{
@@ -142,19 +144,21 @@ namespace project_hook
 			{
 				if (two.Bound == Collidable.Boundings.Circle)
 				{
-					return DoesIntersectCircleRectangle(two.Center, two.Radius, one.Center, one.Width, one.Height);
+					return DoesIntersectCircleRectangle(two.Center, two.Radius, one.Center, one.Width, one.Height, one.RotationDegrees);
 				}
 				else if (two.Bound == Collidable.Boundings.Diamond)
 				{
 					// TODO
+					return DoesIntersectRectangles(one.Center, one.Width, one.Height, one.RotationDegrees, two.Center, two.Width, two.Height, two.RotationDegrees);
 				}
 				else if (two.Bound == Collidable.Boundings.Square)
 				{
 					// TODO
+					return DoesIntersectRectangles(one.Center, one.Width, one.Height, one.RotationDegrees, two.Center, two.Width, two.Height, two.RotationDegrees);
 				}
 				else if (two.Bound == Collidable.Boundings.Rectangle)
 				{
-					DoesIntersectRectangles(one.Center, one.Width, one.Height, two.Center, two.Width, two.Height);
+					return DoesIntersectRectangles(one.Center, one.Width, one.Height, one.RotationDegrees, two.Center, two.Width, two.Height, two.RotationDegrees);
 				}
 				else if (two.Bound == Collidable.Boundings.Triangle)
 				{
@@ -319,8 +323,20 @@ namespace project_hook
 			return true;
 		}
 
-		private static bool DoesIntersectCircleRectangle(Vector2 circ, float circrad, Vector2 rect, float width, float height)
+		private static bool DoesIntersectCircleRectangle(Vector2 circ, float circrad, Vector2 rect, float width, float height, float rot)
 		{
+
+			while (rot < 0)
+			{
+				rot += 360;
+			}
+			rot = rot % 180;
+			if (rot > 45 && rot < 135)
+			{
+				float temp = width;
+				width = height;
+				height = temp;
+			}
 
 			if (circ.X > rect.X + (width * 0.5f))
 			{
@@ -411,8 +427,32 @@ namespace project_hook
 			}
 		}
 
-		private static bool DoesIntersectRectangles(Vector2 pos1, float width1, float height1, Vector2 pos2, float width2, float height2)
+		private static bool DoesIntersectRectangles(Vector2 pos1, float width1, float height1, float rot1, Vector2 pos2, float width2, float height2, float rot2)
 		{
+			while (rot1 < 0)
+			{
+				rot1 += 360;
+			}
+			while (rot2 < 0)
+			{
+				rot2 += 360;
+			}
+			rot1 = rot1 % 180;
+			rot2 = rot2 % 180;
+
+			if (rot1 > 45 && rot1 < 135)
+			{
+				float temp = width1;
+				width1 = height1;
+				height1 = temp;
+			}
+			if (rot2 > 45 && rot2 < 135)
+			{
+				float temp = width2;
+				width2 = height2;
+				height2 = temp;
+			}
+
 			if (pos1.X + (width1 * 0.5f) < pos2.X - (width2 * 0.5f))
 				return false;
 			if (pos2.X + (width2 * 0.5f) < pos1.X - (width1 * 0.5f))
@@ -632,6 +672,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("debugcirc");
 			TextureLibrary.LoadTexture("debugdiamond");
 			TextureLibrary.LoadTexture("debugsquare");
+			TextureLibrary.LoadTexture("debugrect");
 
 			foreach (List<Sprite> l in list)
 			{
@@ -656,8 +697,30 @@ namespace project_hook
 						if (x.Name == "bound")
 						{
 							skip = true;
-							x.Height = (int)(temp.Radius * 2f);
-							x.Width = (int)(temp.Radius * 2f);
+							if (temp.Bound != Collidable.Boundings.Rectangle)
+							{
+								x.Height = (int)(temp.Radius * 2f);
+								x.Width = (int)(temp.Radius * 2f);
+							}
+							else
+							{
+								int h = temp.Height;
+								int w = temp.Width;
+								float r = temp.RotationDegrees;
+								while (r < 0)
+								{
+									r += 360;
+								}
+								r = r % 180;
+								if (r > 45 && r < 135)
+								{
+									int t = w;
+									w = h;
+									h = t;
+								}
+								x.Height = h;
+								x.Width = w;
+							}
 							if (temp.Faction != Collidable.Factions.None)
 							{
 								x.Enabled = true;
@@ -698,7 +761,21 @@ namespace project_hook
 						}
 						else if (temp.Bound == Collidable.Boundings.Rectangle)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, temp.Height, temp.Width, TextureLibrary.getGameTexture("debugsquare", ""));
+							int h = temp.Height;
+							int w =temp.Width;
+							float r = temp.RotationDegrees;
+							while (r < 0)
+							{
+								r += 360;
+							}
+							r = r % 180;
+							if (r > 45 && r < 135)
+							{
+								int t = w;
+								w = h;
+								h = t;
+							}
+							Sprite sprite = new Sprite("bound", temp.Position, h, w, TextureLibrary.getGameTexture("debugrect", ""));
 							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}

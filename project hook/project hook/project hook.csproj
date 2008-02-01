@@ -674,6 +674,12 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>crosshairsR</Name>
     </Content>
+    <Content Include="Content\Textures\debugrect.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>debugrect</Name>
+    </Content>
     <Content Include="Content\Textures\DNA.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
