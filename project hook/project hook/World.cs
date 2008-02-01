@@ -138,18 +138,18 @@ namespace project_hook
 			Music.Initialize();
 			Sound.Initialize();
 #if DEBUG
-			System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("LevelTest.xml(Yes) or Level1.xml(No)?", "Choose a version", System.Windows.Forms.MessageBoxButtons.YesNo);
+			System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("Level1Easy.xml(Yes) or Level1Normal.xml(No)?", "Choose a version", System.Windows.Forms.MessageBoxButtons.YesNo);
 			if (result == System.Windows.Forms.DialogResult.Yes)
 			{
-				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
-				m_LReader = new LevelReader("LevelTest.xml");
+				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
+				m_LReader = new LevelReader("Level1Easy.xml");
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			}
 			else if (result == System.Windows.Forms.DialogResult.No)
 			{
 #endif
 				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
-				m_LReader = new LevelReader("Level1.xml");
+				m_LReader = new LevelReader("Level1Normal.xml");
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 #if DEBUG
 			}
