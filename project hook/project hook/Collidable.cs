@@ -89,6 +89,23 @@ namespace project_hook
 			}
 		}
 
+		public override bool ToBeRemoved
+		{
+			get
+			{
+				return base.ToBeRemoved;
+			}
+			set
+			{
+				if (DamageParticleSystem != null)
+				{
+					DamageParticleSystem.Enabled = Enabled;
+					DamageParticleSystem.ToBeRemoved = value;
+				}
+				base.ToBeRemoved = value;
+			}
+		}
+
 		//this is what effect will be shown on the sprite when it takes damage
 		private GameTexture m_DamageEffect = null;
 		public GameTexture DamageEffect
