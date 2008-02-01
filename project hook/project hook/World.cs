@@ -114,7 +114,7 @@ namespace project_hook
 
 #if DEBUG
 
-		TextSprite listsize = new TextSprite("", new Vector2(175, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
+		TextSprite listsize = new TextSprite("", new Vector2(180, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
 
 		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 		TextSprite coll = new TextSprite("", new Vector2(250, 20), Color.GreenYellow, Depth.HUDLayer.Foreground);
@@ -477,6 +477,9 @@ namespace project_hook
 							kill.Enabled = true;
 						}
 
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P) ) {
+					Console.WriteLine( m_Position.Distance );
 				}
 #endif
 			}
