@@ -8,7 +8,8 @@ namespace project_hook
 {
 	class Thrown : Collidable
 	{
-		private float m_CollideDelay;
+		private float m_TimeOut = 6f;
+		private float m_CollideDelay = .005f;
 		public float CollideDelay
 		{
 			get
@@ -17,7 +18,7 @@ namespace project_hook
 			}
 		}
 
-		private double m_LastCollision = .5;
+		private double m_LastCollision = 0;
 
 		public Thrown(Collidable p_Collidable)
 		{
@@ -53,6 +54,9 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 			m_LastCollision += (float)p_Time.ElapsedGameTime.TotalSeconds;
+			m_TimeOut -= (float)p_Time.ElapsedGameTime.TotalSeconds;
+			if (m_TimeOut < 0)
+				this.Enabled = false;
 
 		}
 
@@ -60,7 +64,7 @@ namespace project_hook
 		{
 			if (p_Other.Faction == Collidable.Factions.Environment)
 			{
-				if (m_LastCollision >= m_CollideDelay)
+				if (true/*m_LastCollision >= m_CollideDelay*/)
 				{
 					try
 					{
@@ -76,7 +80,7 @@ namespace project_hook
 							while (tempTask.AngleDegrees <= 0)
 								tempTask.AngleDegrees += 360;
 
-							if (Math.Abs(this.Center.Y) - Math.Abs(p_Other.Center.Y) < Math.Abs(this.Center.X) - Math.Abs(p_Other.Center.X))
+							if (Math.Abs(Math.Abs(this.Center.Y) - Math.Abs(p_Other.Center.Y)) < Math.Abs(Math.Abs(this.Center.X) - Math.Abs(p_Other.Center.X)))
 							{
 								if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
 								{
@@ -99,7 +103,7 @@ namespace project_hook
 								//	tempTask.AngleDegrees = 180 + MathHelper.Distance(tempTask.AngleDegrees, 270f);
 								//}
 							}
-							else if (Math.Abs(this.Center.Y) - Math.Abs(p_Other.Center.Y) > Math.Abs(this.Center.X) - Math.Abs(p_Other.Center.X))
+							else if (Math.Abs(Math.Abs(this.Center.Y) - Math.Abs(p_Other.Center.Y)) > Math.Abs(Math.Abs(this.Center.X) - Math.Abs(p_Other.Center.X)))
 							{
 								if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
 								{
@@ -128,6 +132,10 @@ namespace project_hook
 						Console.WriteLine("Error: Object does not have straight angle task");
 					}
 				}
+			}
+			else
+			{
+				this.didCollide = p_Other;
 			}
 		}
 	}
