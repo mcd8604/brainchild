@@ -972,6 +972,8 @@ namespace project_hook
 					}
 					task = sequence;
 					break;
+				case "Stationary":
+					return new TaskStationary();
 				case "StraightAngle":
 					TaskStraightAngle straightAngle = new TaskStraightAngle();
 					while (p_Reader.IsStartElement())

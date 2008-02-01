@@ -188,6 +188,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskSeekTarget</Name>
     </Compile>
+    <Compile Include="TaskStationary.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskStationary</Name>
+    </Compile>
     <Compile Include="TaskStraightAngle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskStraightAngle</Name>
