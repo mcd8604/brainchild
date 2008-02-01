@@ -617,7 +617,7 @@ namespace project_hook
 				//"bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 				//new Collidable(
 				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
-										TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, 0f, Depth.BackGroundLayer.Upper,
+										TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
 										Collidable.Factions.Blood, 100, TextureLibrary.getGameTexture("Explosion", "3"), 25);
 				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
 				t_Blood.setAnimation("bloodcell", 60);
