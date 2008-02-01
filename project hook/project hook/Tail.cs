@@ -243,6 +243,7 @@ namespace project_hook
 				if (m_TailState == TailState.Throwing)
 				{
 					Thrown thrown = new Thrown(EnemyCaught);
+					EnemyCaught.Enabled = false;
 					EnemyCaught.Health = 0;
 					EnemyCaught = null;
 					thrown.Task = m_ReleaseTask;
@@ -276,6 +277,7 @@ namespace project_hook
 						if (EnemyCaught != null)
 						{
 							Thrown thrown = new Thrown(EnemyCaught);
+							EnemyCaught.Enabled = false;
 							EnemyCaught.Health = 0;
 							EnemyCaught = null;
 							thrown.Task = m_ReleaseTask;
