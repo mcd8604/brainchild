@@ -14,22 +14,6 @@ namespace project_hook
 	/// </summary>
 	public class Sprite
 	{
-
-		//protected int m_MaxYValue_Screen = 768;
-		//public int MaxScreenSize
-		//{
-		//    get
-		//    {
-		//        return m_MaxYValue_Screen;
-		//    }
-		//    set
-		//    {
-		//        m_MaxYValue_Screen = value;
-		//    }
-		//}
-		
-		
-
 		#region Variables and Properties
 		/// <summary>
 		/// This is the alpha byte value of the sprite.
@@ -62,6 +46,7 @@ namespace project_hook
 			}
 		}
 
+		protected Vector2 m_Center = Vector2.Zero;
 		/// <summary>
 		/// A point representing the center of the sprite on the screen.
 		/// </summary>
@@ -69,12 +54,11 @@ namespace project_hook
 		{
 			get
 			{
-				return new Vector2(Position.X + (Width * 0.5f), Position.Y + (Height * 0.5f));
+				return m_Center;
 			}
 			set
 			{
-				m_Position.X = value.X - (Width * 0.5f);
-				m_Position.Y = value.Y - (Height * 0.5f);
+				m_Center = value;
 			}
 		}
 
@@ -101,7 +85,7 @@ namespace project_hook
 		{
 			get
 			{
-				return new Rectangle((int)(Position.X + (Width * 0.5f)), (int)(Position.Y + (Height * 0.5f)), Width, Height);
+				return new Rectangle((int)Center.X, (int)Center.Y, Width, Height);
 			}
 		}
 
@@ -165,7 +149,7 @@ namespace project_hook
 			}
 		}
 
-		protected Vector2 m_Position = Vector2.Zero;
+		//protected Vector2 m_Position = Vector2.Zero;
 		/// <summary>
 		/// This is the postion that the sprite is displayed on the screen.
 		/// This vector will be modified to move the sprite around the screen.
@@ -174,11 +158,12 @@ namespace project_hook
 		{
 			get
 			{
-				return m_Position;
+				return new Vector2(m_Center.X - (Width * 0.5f), m_Center.Y - (Height * 0.5f));
 			}
 			set
 			{
-				m_Position = value;
+				m_Center.X = value.X + (Width * 0.5f);
+				m_Center.Y = value.Y + (Height * 0.5f);
 			}
 		}
 
@@ -223,23 +208,6 @@ namespace project_hook
 			{
 				return m_SpritesToBeAdded;
 			}
-		}
-
-		protected Vector2 m_StartPosition = Vector2.Zero;
-		/// <summary>
-		/// The start position of the sprite.
-		/// </summary>
-		public Vector2 StartPosition
-		{
-			get
-			{
-				return m_StartPosition;
-			}
-			protected set
-			{
-				m_StartPosition = value;
-			}
-
 		}
 
 		protected GameTexture m_Texture = null;
@@ -379,10 +347,9 @@ namespace project_hook
 		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture)
 		{
 			m_Name = p_Name;
-			StartPosition = p_Position;
-			Position = StartPosition;
 			Height = p_Height;
 			Width = p_Width;
+			Position = p_Position;
 			Texture = p_Texture;
 		}
 
@@ -391,10 +358,9 @@ namespace project_hook
 		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, byte p_Alpha, bool p_Visible, float p_Rotation, float p_Z)
 		{
 			m_Name = p_Name;
-			StartPosition = p_Position;
-			Position = StartPosition;
 			Height = p_Height;
 			Width = p_Width;
+			Position = p_Position;
 			Texture = p_Texture;
 			Alpha = p_Alpha;
 			Enabled = p_Visible;
@@ -405,10 +371,9 @@ namespace project_hook
 		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_Z)
 		{
 			m_Name = p_Name;
-			StartPosition = p_Position;
-			Position = StartPosition;
 			Height = p_Height;
 			Width = p_Width;
+			Position = p_Position;
 			Texture = p_Texture;
 			Transparency = p_Transparency;
 			Enabled = p_Visible;
