@@ -588,7 +588,7 @@ namespace project_hook
 
 		private void IniDefaults()
 		{
-			GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
+			//GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
 
 			//test scrolling background
 			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);

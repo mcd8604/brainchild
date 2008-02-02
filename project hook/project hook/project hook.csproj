@@ -384,18 +384,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Textures\Back.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>Back</Name>
-    </Content>
-    <Content Include="Content\Textures\Cloud.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>Cloud</Name>
-    </Content>
     <Content Include="Content\Textures\Enemy1.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -646,6 +634,11 @@
     <Content Include="Content\Levels\Level1Normal.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Level1Normal</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\level2.bmp">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>level2</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\Level2Normal.xml">
