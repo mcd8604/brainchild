@@ -722,6 +722,16 @@
       <Name>Explosion2</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\ExplosionBig.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>ExplosionBig</Name>
+    </Content>
+    <Content Include="Content\Textures\ExplosionBig.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>ExplosionBig</Name>
+    </Content>
     <Content Include="Content\Textures\gate.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
