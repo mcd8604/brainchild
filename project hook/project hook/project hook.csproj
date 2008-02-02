@@ -497,12 +497,6 @@
       <Name>FireBall</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\glow.jpg">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>glow</Name>
-    </Content>
     <Content Include="Content\Textures\menu_highlight.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -549,10 +543,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>debugsquare</Name>
-    </Content>
-    <Content Include="Content\Textures\smokeeffect.gif">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>smokeeffect</Name>
     </Content>
     <Content Include="Content\Textures\temptail.PNG">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

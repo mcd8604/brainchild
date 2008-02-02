@@ -537,37 +537,38 @@ namespace project_hook
 		//This method will load some default values for the game
 		public void LoadDefaults(ContentManager p_Content)
 		{
-			TextureLibrary.LoadTexture("Cloud");
-			TextureLibrary.LoadTexture("DNA");
-			TextureLibrary.LoadTexture("Ship2");
-			TextureLibrary.LoadTexture("veinbg");
-			TextureLibrary.LoadTexture("RedShot");
-			TextureLibrary.LoadTexture("Enemy1");
-			TextureLibrary.LoadTexture("virus1");
-			TextureLibrary.LoadTexture("cell");
-			TextureLibrary.LoadTexture("Explosion");
-			TextureLibrary.LoadTexture("Shield");
-			TextureLibrary.LoadTexture("FireBall");
-			TextureLibrary.LoadTexture("temptail");
 			TextureLibrary.LoadTexture("blood");
+			TextureLibrary.LoadTexture("bloodcell");
+			TextureLibrary.LoadTexture("cell");
 			TextureLibrary.LoadTexture("crosshairs");
 			TextureLibrary.LoadTexture("crosshairsR");
-			TextureLibrary.LoadTexture("tailbody");
-			TextureLibrary.LoadTexture("tail_segment");
-			TextureLibrary.LoadTexture("shot_energy");
-			TextureLibrary.LoadTexture("bloodcell");
+			TextureLibrary.LoadTexture("DNA");
+			TextureLibrary.LoadTexture("Enemy1");
 			TextureLibrary.LoadTexture("energyball");
-			TextureLibrary.LoadTexture("Shot");
-			TextureLibrary.LoadTexture("shot_electric");
-			TextureLibrary.LoadTexture("plaque");
-			TextureLibrary.LoadTexture("wall_flat");
+			TextureLibrary.LoadTexture("Explosion");
 			TextureLibrary.LoadTexture("Explosion2");
 			TextureLibrary.LoadTexture("ExplosionBig");
+			TextureLibrary.LoadTexture("FireBall");
+			TextureLibrary.LoadTexture("gate");
+			TextureLibrary.LoadTexture("hudPanel");
 			TextureLibrary.LoadTexture("poisonsplat");
-			TextureLibrary.LoadTexture("walls\\wall_left");
+			TextureLibrary.LoadTexture("RedShot");
+			TextureLibrary.LoadTexture("Shield");
+			TextureLibrary.LoadTexture("Ship2");
+			TextureLibrary.LoadTexture("Shot");
+			TextureLibrary.LoadTexture("shot_electric");
+			TextureLibrary.LoadTexture("shot_energy");
+			TextureLibrary.LoadTexture("tail_segment");
+			TextureLibrary.LoadTexture("tailbody");
+			TextureLibrary.LoadTexture("temptail");
+			TextureLibrary.LoadTexture("trigger");
+			TextureLibrary.LoadTexture("veinbg");
+			TextureLibrary.LoadTexture("virus1");
+			TextureLibrary.LoadTexture("wall_flat");
 			TextureLibrary.LoadTexture("wall_rand1");
 			TextureLibrary.LoadTexture("wall_rand2");
 			TextureLibrary.LoadTexture("wall_rand3");
+			
 			TextureLibrary.LoadTexture("walls\\plaque");
 			TextureLibrary.LoadTexture("walls\\plaque2");
 			TextureLibrary.LoadTexture("walls\\plaque3");
@@ -584,9 +585,14 @@ namespace project_hook
 			TextureLibrary.LoadTexture("walls\\plaque_btm_left_invert");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
-			TextureLibrary.LoadTexture("hudPanel");
-			TextureLibrary.LoadTexture("gate");
-			TextureLibrary.LoadTexture("trigger");
+			TextureLibrary.LoadTexture("walls\\wall_left");
+
+#if DEBUG
+			TextureLibrary.LoadTexture("debugcirc");
+			TextureLibrary.LoadTexture("debugdiamond");
+			TextureLibrary.LoadTexture("debugsquare");
+			TextureLibrary.LoadTexture("debugrect");
+#endif
 		}
 
 		private void IniDefaults()
