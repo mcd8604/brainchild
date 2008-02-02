@@ -14,10 +14,7 @@
 				<texture name="gate"/>
 				<startCenter x="448" y="-96"/>
 				<degree>0</degree>
-				<task type="SeekPoint">
-					<goal x="448" y="192"/>
-					<speed>80</speed>
-				</task>
+				<task type="Stationary"/>
 			</gate>
 			<trigger>
 				<name>gate1T</name>
@@ -26,10 +23,7 @@
 				<texture name="trigger" pos="0"/>
 				<startCenter x="580" y="-96"/>
 				<degree>0</degree>
-				<task type="SeekPoint">
-					<goal x="580" y="192"/>
-					<speed>80</speed>
-				</task>
+				<task type="Stationary"/>
 			</trigger>
 		</createGate>
 	</action>
