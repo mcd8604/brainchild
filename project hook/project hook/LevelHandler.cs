@@ -56,9 +56,9 @@ namespace project_hook
 					m_Events[m_EventDistance].CopyTo(t_List);
 					for (int i = 0; i < m_Events[m_EventDistance].Count; ++i)
 					{
-						if (t_List[i].Type.Equals("Collidable"))
+						if (t_List[i].Type.Equals("Sprite"))
 						{
-							CreateCollidable(t_List[i].Collidable);
+							CreateSprite(t_List[i].Sprite);
 						}
 						else if (t_List[i].Type.Equals("FileChange"))
 						{
@@ -78,11 +78,11 @@ namespace project_hook
 			}
 		}
 
-		public void CreateCollidable(Collidable p_Collidable)
+		public void CreateSprite(Sprite p_Sprite)
 		{
 			//add the sprtie to the sprtiebatch in the game class
 			//Sprite.addSprite(p_Collidable);
-			m_Game.AddSprite(p_Collidable);
+			m_Game.AddSprite(p_Sprite);
 		}
 
 		public void ChangeSpeed(int p_Speed)

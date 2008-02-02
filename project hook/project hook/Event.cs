@@ -16,12 +16,12 @@ namespace project_hook
 			}
 		}
 
-		private Collidable m_Collidable;
-		public Collidable Collidable
+		private Sprite m_Sprite;
+		public Sprite Sprite
 		{
 			get
 			{
-				return m_Collidable;
+				return m_Sprite;
 			}
 		}
 
@@ -43,11 +43,11 @@ namespace project_hook
 			}
 		}
 
-		public Event(Collidable p_Collidable)
+		public Event(Sprite p_Sprite)
 		{
-			m_Type = "Collidable";
+			m_Type = "Sprite";
 
-			m_Collidable = p_Collidable;
+			m_Sprite = p_Sprite;
 		}
 		public Event(String p_FileName, String p_Type)
 		{

@@ -5,21 +5,8 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class SpawnPoint
+	class SpawnPoint : Sprite
 	{
-		private Sprite m_Target = null;
-		public Sprite Target
-		{
-			get
-			{
-				return m_Target;
-			}
-			set
-			{
-				m_Target = value;
-			}
-		}
-
 		private Collidable m_SpawnObj;
 		public Collidable SpawnObj
 		{
@@ -29,19 +16,11 @@ namespace project_hook
 			}
 			set
 			{
-				m_SpriteInfo = value;
-				//Ship p_Ship = (Ship)value;
-				//for (int a = 0; a < Count; a++)
-				//{
-				//    m_Spawned.Add(new Ship(p_Ship.Name, p_Ship.Position, p_Ship.Height, p_Ship.Width, p_Ship.Texture, p_Ship.Alpha,
-				//                         false, p_Ship.Rotation, p_Ship.Z, p_Ship.Faction, (int) (p_Ship.MaxHealth), (int)(p_Ship.MaxShield),
-				//                          p_Ship.DamageEffect, p_Ship.Radius));
-				//    m_Spawned[a].ToBeRemoved = true;
-				//}
+				m_SpawnObj = value;
 			}
 		}
 					
-		private int m_Count = 0;
+		private int m_Count;
 		public int Count
 		{
 			get
@@ -52,12 +31,12 @@ namespace project_hook
 			set			
 			{
 			    m_Count = value;
-                m_Spawned = new List<Ship>(m_Count);
 			}
 		}
+		private int m_CurIndex;
 
-		private int m_Delay;
-        private int Delay
+		private float m_Delay;
+        public float Delay
         {
             get
             {
@@ -67,55 +46,83 @@ namespace project_hook
             {
                 m_Delay = value;
             }
-
         }
-		private int m_CurTime;
+
+		private List<Task> m_Tasks;
+		public List<Task> Tasks
+		{
+			get
+			{
+				return m_Tasks;
+			}
+			set
+			{
+				m_Tasks = value;
+			}
+		}
+
+		private int m_MinX;
+		public int MinX
+		{
+			get
+			{
+				return m_MinX;
+			}
+			set
+			{
+				m_MinX = value;
+			}
+		}
+
+		private int m_MaxX;
+		public int MaxX
+		{
+			get
+			{
+				return m_MaxX;
+			}
+			set
+			{
+				m_MaxX = value;
+			}
+		}
+
+		private Random m_Random = new Random();
+
+		private float m_LastPos;
+
+		public SpawnPoint()
+		{
+			m_LastPos = 0;
+			m_CurIndex = 0;
+		}
 
         public SpawnPoint(int p_Count, int p_Delay)
         {
             Count = p_Count;
             Delay = p_Delay;
-            m_CurTime = 0;
+			m_LastPos = 0;
         }
 
 		public SpawnPoint(int count, int delay, Collidable p_SpawnObj)
 		{			
 			Count = count;
 			m_Delay = delay;
-			m_CurTime = 0;
+			m_LastPos = 0;
 		}
 
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
-			m_CurTime += p_Time.ElapsedGameTime.Milliseconds;
-			if (m_CurTime >= m_Delay)
+			if (m_LastPos + m_Delay <= World.m_Position.Distance && m_CurIndex<m_Count)
 			{
-				m_CurTime = 0;
-				for (int a = 0; a < Count; a++)
-				{
-					if (m_Spawned[a].ToBeRemoved == true)
-					{
-						
-						Ship s = m_Spawned[a];
-						s.ToBeRemoved = false;
-						s.Center = Center;
-						s.Enabled = true;
+				m_LastPos = World.m_Position.Distance;
+				++m_CurIndex;
+				
+				Collidable t_Collidable = new Collidable(m_SpawnObj);
 
-						if (Target == null)
-						{
-							s.Task = new TaskStraightVelocity(new Vector2(0, 100));
-						}
-						else
-						{
-							s.Task = new TaskSeekPoint(Target.Center, 100);
-						}
-						
-						s.setAnimation(SpawnAnimation, FPS);
-						s.Animation.StartAnimation();
-						addSprite(s);
-						a = Count;
-					}
-				}
+				t_Collidable.Task = m_SpawnObj.Task.copy();
+
+				this.addSprite(t_Collidable);
 			}	
 		}
 	}
