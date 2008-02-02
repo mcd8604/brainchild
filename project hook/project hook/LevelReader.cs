@@ -296,11 +296,10 @@ namespace project_hook
 				}
 #endif
 			}
-			p_Gate.Faction = Collidable.Factions.Enemy;
+			p_Gate.Faction = Collidable.Factions.Environment;
 			p_Gate.Z = Depth.GameLayer.Environment;
-			p_Gate.Bound = Collidable.Boundings.Square;
-			p_Gate.Radius = 2;
-			p_Gate.Health = 1;
+			p_Gate.Bound = Collidable.Boundings.Rectangle;
+			p_Gate.Health = float.NaN;
 		}
 
 		private void LoadTrigger(XmlReader p_Reader, GateTrigger p_Trigger)
@@ -402,8 +401,8 @@ namespace project_hook
 			}
 			p_Trigger.Faction = Collidable.Factions.Enemy;
 			p_Trigger.Z = Depth.GameLayer.Environment;
-			p_Trigger.Bound = Collidable.Boundings.Rectangle;
-			p_Trigger.Radius = 1;
+			p_Trigger.Bound = Collidable.Boundings.Circle;
+			p_Trigger.Radius = 10;
 			p_Trigger.Health = 1;
 		}
 
