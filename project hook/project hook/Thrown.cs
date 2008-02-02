@@ -9,7 +9,7 @@ namespace project_hook
 	class Thrown : Collidable
 	{
 		private float m_TimeOut = 6f;
-		private float m_CollideDelay = .005f;
+		private float m_CollideDelay = .00001f;
 		public float CollideDelay
 		{
 			get
@@ -19,6 +19,7 @@ namespace project_hook
 		}
 
 		private double m_LastCollision = 0;
+		private Collidable m_LastCollidable = null;
 
 		public Thrown(Collidable p_Collidable)
 		{
@@ -70,7 +71,7 @@ namespace project_hook
 		{
 			if (p_Other.Faction == Collidable.Factions.Environment)
 			{
-				if (m_LastCollision >= m_CollideDelay)
+				if (m_LastCollision >= m_CollideDelay && m_LastCollidable != p_Other)
 				{
 					try
 					{
@@ -93,8 +94,15 @@ namespace project_hook
 							while (tempTask.AngleDegrees <= 0)
 								tempTask.AngleDegrees += 360;
 
+							Vector2 tempVect = this.Position;
+
 							if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) < Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
 							{
+								if (Center.X < p_Other.Center.X)
+									tempVect.X = p_Other.Position.X - (this.Texture.Width + 1);
+								else
+									tempVect.X = p_Other.Position.X + (p_Other.Texture.Width + 1);
+
 								if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
 								{
 									tempTask.AngleDegrees = 270 - MathHelper.Distance(tempTask.AngleDegrees, 270f);
@@ -118,6 +126,11 @@ namespace project_hook
 							}
 							else if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) > Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
 							{
+								if (Center.Y < p_Other.Center.Y)
+									tempVect.Y = p_Other.Position.Y - (this.Texture.Height +  1);
+								else
+									tempVect.Y = p_Other.Position.Y + (p_Other.Texture.Height + 1);
+								
 								if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
 								{
 									tempTask.AngleDegrees = 0 + MathHelper.Distance(tempTask.AngleDegrees, 360f);
@@ -136,10 +149,12 @@ namespace project_hook
 								}
 							}
 
+							//this.Position = tempVect;
 							tempRotateTask.AngleDegrees = tempTask.AngleDegrees;
 						}
 
 						m_LastCollision = 0;
+						m_LastCollidable = p_Other;
 					}
 					catch (NullReferenceException)
 					{
