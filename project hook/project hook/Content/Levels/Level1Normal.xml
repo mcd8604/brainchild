@@ -50,79 +50,23 @@
 		</createShip>
 	</action>
 	<action tile="30">
-		<createShip>
-			<name>W2_E1</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="224" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
-	</action>
-	<action tile="31">
-		<createShip>
-			<name>W2_E2</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="224" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
-	</action>
-	<action tile="32">
-		<createShip>
-			<name>W2_E3</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="224" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
-	</action>
-	<action tile="33">
-		<createShip>
-			<name>W2_E4</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="224" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
-	</action>
-	<action tile="34">
-		<createShip>
-			<name>W2_E5</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="224" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
+		<createSpawnPoint>
+			<delay>32</delay>
+			<count>5</count>
+			<name>W2_E</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<startPos x="224" y="0"/>
+				<health>10</health>
+				<damageTexture name="Explosion" pos="3"/>
+				<task type="StraightVelocity">
+					<velocity x="0" y="240"/>
+				</task>
+			</object>
+		</createSpawnPoint>
 	</action>
 	<action tile="45">
 		<createShip>
@@ -221,249 +165,61 @@
 		</createShip>
 	</action>
 	<action tile="60">
-		<createShip>
+		<createSpawnPoint>
+			<delay>32</delay>
+			<count>5</count>
 			<name>W4_E1</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="768" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
-	</action>
-	<action tile="61">
-		<createShip>
-			<name>W4_E2</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="768" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
-	</action>
-	<action tile="62">
-		<createShip>
-			<name>W4_E3</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="768" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
-	</action>
-	<action tile="63">
-		<createShip>
-			<name>W4_E4</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="768" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
-	</action>
-	<action tile="64">
-		<createShip>
-			<name>W4_E5</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="768" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="StraightVelocity">
-				<velocity x="0" y="240"/>
-			</task>
-		</createShip>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<health>10</health>
+				<startCenter x="768" y="0"/>
+				<damageTexture name="Explosion" pos="3"/>
+				<task type="StraightVelocity">
+					<velocity x="0" y="240"/>
+				</task>
+			</object>
+		</createSpawnPoint>
 	</action>
 	<action tile="70">
-		<createShip>
+		<createSpawnPoint>
+			<delay>32</delay>
+			<count>5</count>
 			<name>W5_E1</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="256" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="Sequence">
-				<task type="Parallel">
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<health>10</health>
+				<startCenter x="256" y="0"/>
+				<damageTexture name="Explosion" pos="3"/>
+				<task type="Sequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="0" y="240"/>
+						</task>
+						<task type="Timer">
+							<duration>2.5</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>-40</degree>
+							<speed>240</speed>
+						</task>
+						<task type="Timer">
+							<duration>2.9</duration>
+						</task>
+					</task>
 					<task type="StraightVelocity">
-						<velocity x="0" y="240"/>
-					</task>
-					<task type="Timer">
-						<duration>2.5</duration>
+						<velocity x="0" y="-240"/>
 					</task>
 				</task>
-				<task type="Parallel">
-					<task type="StraightAngle">
-						<degree>-40</degree>
-						<speed>240</speed>
-					</task>
-					<task type="Timer">
-						<duration>2.9</duration>
-					</task>
-				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="-240"/>
-				</task>
-			</task>
-		</createShip>
-	</action>
-	<action tile="71">
-		<createShip>
-			<name>W5_E2</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="256" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="Sequence">
-				<task type="Parallel">
-					<task type="StraightVelocity">
-						<velocity x="0" y="240"/>
-					</task>
-					<task type="Timer">
-						<duration>2.5</duration>
-					</task>
-				</task>
-				<task type="Parallel">
-					<task type="StraightAngle">
-						<degree>-40</degree>
-						<speed>240</speed>
-					</task>
-					<task type="Timer">
-						<duration>2.9</duration>
-					</task>
-				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="-240"/>
-				</task>
-			</task>
-		</createShip>
-	</action>
-	<action tile="72">
-		<createShip>
-			<name>W5_E3</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="256" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="Sequence">
-				<task type="Parallel">
-					<task type="StraightVelocity">
-						<velocity x="0" y="240"/>
-					</task>
-					<task type="Timer">
-						<duration>2.5</duration>
-					</task>
-				</task>
-				<task type="Parallel">
-					<task type="StraightAngle">
-						<degree>-40</degree>
-						<speed>240</speed>
-					</task>
-					<task type="Timer">
-						<duration>2.9</duration>
-					</task>
-				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="-240"/>
-				</task>
-			</task>
-		</createShip>
-	</action>
-	<action tile="73">
-		<createShip>
-			<name>W5_E4</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="256" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="Sequence">
-				<task type="Parallel">
-					<task type="StraightVelocity">
-						<velocity x="0" y="240"/>
-					</task>
-					<task type="Timer">
-						<duration>2.5</duration>
-					</task>
-				</task>
-				<task type="Parallel">
-					<task type="StraightAngle">
-						<degree>-40</degree>
-						<speed>240</speed>
-					</task>
-					<task type="Timer">
-						<duration>2.9</duration>
-					</task>
-				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="-240"/>
-				</task>
-			</task>
-		</createShip>
-	</action>
-	<action tile="74">
-		<createShip>
-			<name>W5_E5</name>
-			<height>32</height>
-			<width>32</width>
-			<radius>16</radius>
-			<texture name="virus1"/>
-			<startCenter x="256" y="0"/>
-			<health>10</health>
-			<damageTexture name="Explosion" pos="3"/>
-			<task type="Sequence">
-				<task type="Parallel">
-					<task type="StraightVelocity">
-						<velocity x="0" y="240"/>
-					</task>
-					<task type="Timer">
-						<duration>2.5</duration>
-					</task>
-				</task>
-				<task type="Parallel">
-					<task type="StraightAngle">
-						<degree>-40</degree>
-						<speed>240</speed>
-					</task>
-					<task type="Timer">
-						<duration>2.9</duration>
-					</task>
-				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="-240"/>
-				</task>
-			</task>
-		</createShip>
+			</object>
+		</createSpawnPoint>
 	</action>
 	<action tile="78">
 		<createShip>
