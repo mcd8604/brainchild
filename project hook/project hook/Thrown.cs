@@ -19,7 +19,6 @@ namespace project_hook
 		}
 
 		private double m_LastCollision = 0;
-		private Collidable m_LastCollidable = null;
 
 		public Thrown(Collidable p_Collidable)
 		{
@@ -71,7 +70,7 @@ namespace project_hook
 		{
 			if (p_Other.Faction == Collidable.Factions.Environment)
 			{
-				if (m_LastCollision >= m_CollideDelay && m_LastCollidable != p_Other)
+				if (m_LastCollision >= m_CollideDelay)
 				{
 					try
 					{
@@ -98,54 +97,50 @@ namespace project_hook
 
 							if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) < Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
 							{
-								if (Center.X < p_Other.Center.X)
-									tempVect.X = p_Other.Position.X - (this.Texture.Width + 1);
-								else
-									tempVect.X = p_Other.Position.X + (p_Other.Texture.Width + 1);
+								if(((Center.X < p_Other.Center.X && (tempTask.AngleDegrees < 90 || tempTask.AngleDegrees > 270))) ||
+									(Center.X > p_Other.Center.X && (tempTask.AngleDegrees > 90 && tempTask.AngleDegrees < 270)))
+								{
 
-								if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
-								{
-									tempTask.AngleDegrees = 270 - MathHelper.Distance(tempTask.AngleDegrees, 270f);
+									if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
+									{
+										tempTask.AngleDegrees = 270 - MathHelper.Distance(tempTask.AngleDegrees, 270f);
+									}
+									else if (tempTask.AngleDegrees > 0 && tempTask.AngleDegrees < 90)
+									{
+										tempTask.AngleDegrees = 90 + MathHelper.Distance(tempTask.AngleDegrees, 90f);
+									}
+									else if (tempTask.AngleDegrees > 90 && tempTask.AngleDegrees <= 180)
+									{
+										tempTask.AngleDegrees = 90 - MathHelper.Distance(tempTask.AngleDegrees, 90f);
+									}
+									else if (tempTask.AngleDegrees > 180 && tempTask.AngleDegrees < 270)
+									{
+										tempTask.AngleDegrees = 270 + MathHelper.Distance(tempTask.AngleDegrees, 270f);
+									}
 								}
-								else if (tempTask.AngleDegrees > 0 && tempTask.AngleDegrees < 90)
-								{
-									tempTask.AngleDegrees = 90 + MathHelper.Distance(tempTask.AngleDegrees, 90f);
-								}
-								else if (tempTask.AngleDegrees > 90 && tempTask.AngleDegrees <= 180)
-								{
-									tempTask.AngleDegrees = 90 - MathHelper.Distance(tempTask.AngleDegrees, 90f);
-								}
-								else if (tempTask.AngleDegrees > 180 && tempTask.AngleDegrees < 270)
-								{
-									tempTask.AngleDegrees = 270 + MathHelper.Distance(tempTask.AngleDegrees, 270f);
-								}
-								//else if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
-								//{
-								//	tempTask.AngleDegrees = 180 + MathHelper.Distance(tempTask.AngleDegrees, 270f);
-								//}
 							}
 							else if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) > Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
 							{
-								if (Center.Y < p_Other.Center.Y)
-									tempVect.Y = p_Other.Position.Y - (this.Texture.Height +  1);
-								else
-									tempVect.Y = p_Other.Position.Y + (p_Other.Texture.Height + 1);
-								
-								if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
+
+								if (((Center.Y < p_Other.Center.Y && tempTask.AngleDegrees < 180 )) ||
+									(Center.Y > p_Other.Center.Y && tempTask.AngleDegrees > 180))
 								{
-									tempTask.AngleDegrees = 0 + MathHelper.Distance(tempTask.AngleDegrees, 360f);
-								}
-								else if (tempTask.AngleDegrees > 0 && tempTask.AngleDegrees < 90)
-								{
-									tempTask.AngleDegrees = 360 - MathHelper.Distance(tempTask.AngleDegrees, 0f);
-								}
-								else if (tempTask.AngleDegrees >= 90 && tempTask.AngleDegrees < 180)
-								{
-									tempTask.AngleDegrees = 180 + MathHelper.Distance(tempTask.AngleDegrees, 180f);
-								}
-								else if (tempTask.AngleDegrees > 180 && tempTask.AngleDegrees <= 270)
-								{
-									tempTask.AngleDegrees = 180 - MathHelper.Distance(tempTask.AngleDegrees, 180f);
+									if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
+									{
+										tempTask.AngleDegrees = 0 + MathHelper.Distance(tempTask.AngleDegrees, 360f);
+									}
+									else if (tempTask.AngleDegrees > 0 && tempTask.AngleDegrees < 90)
+									{
+										tempTask.AngleDegrees = 360 - MathHelper.Distance(tempTask.AngleDegrees, 0f);
+									}
+									else if (tempTask.AngleDegrees >= 90 && tempTask.AngleDegrees < 180)
+									{
+										tempTask.AngleDegrees = 180 + MathHelper.Distance(tempTask.AngleDegrees, 180f);
+									}
+									else if (tempTask.AngleDegrees > 180 && tempTask.AngleDegrees <= 270)
+									{
+										tempTask.AngleDegrees = 180 - MathHelper.Distance(tempTask.AngleDegrees, 180f);
+									}
 								}
 							}
 
@@ -154,7 +149,6 @@ namespace project_hook
 						}
 
 						m_LastCollision = 0;
-						m_LastCollidable = p_Other;
 					}
 					catch (NullReferenceException)
 					{
