@@ -25,17 +25,7 @@ namespace project_hook
 	/// </summary>
 	public abstract class SpriteParticleSystem : Sprite
 	{
-		// these two values control the order that particle systems are drawn in.
-		// typically, particles that use additive blending should be drawn on top of
-		// particles that use regular alpha blending. ParticleSystems should therefore
-		// set their DrawOrder to the appropriate value in InitializeConstants, though
-		// it is possible to use other values for more advanced effects.
-		public const int AlphaBlendDrawOrder = 100;
-		public const int AdditiveDrawOrder = 200;
-
-		// the origin when we're drawing textures. this will be the middle of the
-		// texture.
-		private Vector2 origin;
+		private static Task m_ParticleTask = new TaskStationary();
 
 		// this number represents the maximum number of effects this particle system
 		// will be expected to draw at one time. this is set in the constructor and is
@@ -67,6 +57,12 @@ namespace project_hook
 				return random;
 			}
 		}
+
+		protected String TextureName;
+		protected String TextureTag;
+		protected bool Animated = false;
+		protected String AnimationName;
+		protected int AnimationFPS;
 
 		// This region of values control the "look" of the particle system, and should 
 		// be set by deriving particle systems in the InitializeConstants method. The
@@ -147,14 +143,16 @@ namespace project_hook
 		/// However, this value should be set to the minimum possible, because
 		/// it has a large impact on the amount of memory required, and slows down the
 		/// Update and Draw functions.</remarks>
-		protected SpriteParticleSystem(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-							float p_Degree, float p_Z, int p_HowManyEffects)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
+		protected SpriteParticleSystem(String p_Name, String p_TextureName, String p_TextureTag, int p_HowManyEffects)
+			: base(p_Name, Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
 		{
+			TextureName = p_TextureName;
+			TextureTag = p_TextureTag;
+
 			howManyEffects = p_HowManyEffects;
 			InitializeConstants();
 
-			base.BlendMode = SpriteBlendMode.Additive;
+			BlendMode = SpriteBlendMode.Additive;
 
 			// calculate the total number of particles we will ever need, using the
 			// max number of effects and the max number of particles per effect.
@@ -165,6 +163,35 @@ namespace project_hook
 			for (int i = 0; i < particles.Length; i++)
 			{
 				particles[i] = new ParticleSprite();
+				particles[i].Task = m_ParticleTask;
+				freeParticles.Enqueue(particles[i]);
+			}
+		}
+		protected SpriteParticleSystem(String p_Name, String p_TextureName, String p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
+			: base(p_Name, Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
+		{
+
+			TextureName = p_TextureName;
+			TextureTag = p_TextureTag;
+			Animated = true;
+			AnimationName = p_AnimationName;
+			AnimationFPS = p_AnimationFPS;
+
+			howManyEffects = p_HowManyEffects;
+			InitializeConstants();
+
+			BlendMode = SpriteBlendMode.Additive;
+
+			// calculate the total number of particles we will ever need, using the
+			// max number of effects and the max number of particles per effect.
+			// once these particles are allocated, they will be reused, so that
+			// we don't put any pressure on the garbage collector.
+			particles = new ParticleSprite[howManyEffects * maxNumParticles];
+			freeParticles = new Queue<ParticleSprite>(howManyEffects * maxNumParticles);
+			for (int i = 0; i < particles.Length; i++)
+			{
+				particles[i] = new ParticleSprite();
+				particles[i].Task = m_ParticleTask;
 				freeParticles.Enqueue(particles[i]);
 			}
 		}
@@ -195,7 +222,7 @@ namespace project_hook
 			{
 				// grab a particle from the freeParticles queue, and Initialize it.
 				ParticleSprite p = freeParticles.Dequeue();
-				InitializeParticle(p, where, Texture.Name);
+				InitializeParticle(p, where);
 			}
 		}
 
@@ -209,7 +236,7 @@ namespace project_hook
 		/// <param name="p">the particle to initialize</param>
 		/// <param name="where">the position on the screen that the particle should be
 		/// </param>
-		protected virtual void InitializeParticle(ParticleSprite p, Vector2 where, string p_Texture)
+		protected virtual void InitializeParticle(ParticleSprite p, Vector2 where)
 		{
 			// first, call PickRandomDirection to figure out which way the particle
 			// will be moving. velocity and acceleration's values will come from this
@@ -229,9 +256,18 @@ namespace project_hook
 
 			// then initialize it with those random values. initialize will save those,
 			// and make sure it is marked as active.
-			p.Initialize(
+			if (!Animated)
+			{
+				p.Initialize(
+					where, velocity * direction, acceleration * direction,
+					lifetime, scale, rotationSpeed, TextureName, TextureTag);
+			}
+			else
+			{
+				p.Initialize(
 				where, velocity * direction, acceleration * direction,
-				lifetime, scale, rotationSpeed, p_Texture);
+				lifetime, scale, rotationSpeed, TextureName, TextureTag, AnimationName, AnimationFPS);
+			}
 		}
 
 		public static float RandomBetween(float min, float max)

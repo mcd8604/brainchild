@@ -68,7 +68,7 @@ namespace project_hook
 		// initialize is called by ParticleSystem to set up the particle, and prepares
 		// the particle for use.
 		public void Initialize(Vector2 position, Vector2 velocity, Vector2 acceleration,
-			float lifetime, float scale, float rotationSpeed, String p_Texture)
+			float lifetime, float scale, float rotationSpeed, String p_Texture, String p_Tag)
 		{
 			// set the values to the requested values
 			Position = position;
@@ -84,11 +84,31 @@ namespace project_hook
 
 			// set rotation to some random value between 0 and 360 degrees.
 			Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
-			Texture = TextureLibrary.getGameTexture(p_Texture, "");
-			setAnimation(p_Texture, (int)(23));
+			Texture = TextureLibrary.getGameTexture(p_Texture, p_Tag);
+			Enabled = true;
+		}
+
+		public void Initialize(Vector2 position, Vector2 velocity, Vector2 acceleration,
+			float lifetime, float scale, float rotationSpeed, String p_Texture, String p_Tag, String p_AnimationName, int p_FPS)
+		{
+			// set the values to the requested values
+			Position = position;
+			Velocity = velocity;
+			Acceleration = acceleration;
+			Lifetime = lifetime;
+			Scale = scale;
+			RotationSpeed = rotationSpeed;
+
+			// reset TimeSinceStart - we have to do this because particles will be
+			// reused.
+			TimeSinceStart = 0.0f;
+
+			// set rotation to some random value between 0 and 360 degrees.
+			Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
+			Texture = TextureLibrary.getGameTexture(p_Texture, p_Tag);
+			setAnimation(p_AnimationName, p_FPS);
 			Animation.StartAnimation();
 			Enabled = true;
-
 		}
 
 		// update is called by the ParticleSystem on every frame. This is where the

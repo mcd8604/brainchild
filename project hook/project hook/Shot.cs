@@ -36,10 +36,10 @@ namespace project_hook
 			BlendMode = p_Shot.BlendMode;
 			Bound = p_Shot.Bound;
 			Center = p_Shot.Center;
-			CollisonEffect = p_Shot.CollisonEffect;
+			//CollisonEffect = p_Shot.CollisonEffect;
 			Color = p_Shot.Color;
 			Damage = p_Shot.Damage;
-			DamageEffect = p_Shot.DamageEffect;
+			//DamageEffect = p_Shot.DamageEffect;
 			Enabled = p_Shot.Enabled;
 			Faction = p_Shot.Faction;
 			Health = p_Shot.Health;
@@ -56,8 +56,8 @@ namespace project_hook
 			m_Ship = p_Shot.m_Ship;
 		}
 		public Shot(String p_Name, Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
-							float p_Rotation, float p_Z, Factions p_Faction, float p_Health, GameTexture p_DamageEffect, float p_Radius, float p_Damage, Ship p_Ship)
-			: base(p_Name, p_Center, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_DamageEffect, p_Radius)
+							float p_Rotation, float p_Z, Factions p_Faction, float p_Health, float p_Radius, float p_Damage, Ship p_Ship)
+			: base(p_Name, p_Center, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_Radius)
 		{
 			Damage = p_Damage;
 			Center = p_Center;

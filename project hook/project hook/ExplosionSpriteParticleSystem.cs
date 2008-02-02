@@ -53,9 +53,11 @@ namespace project_hook
 			}
 		}
 
-		public ExplosionSpriteParticleSystem(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-			float p_Degree, float p_Z, int p_HowManyEffects)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_HowManyEffects)
+		public ExplosionSpriteParticleSystem(String p_Name, String p_TextureName, String p_TextureTag, int p_HowManyEffects)
+			: base(p_Name, p_TextureName, p_TextureTag, p_HowManyEffects )
+		{}
+		public ExplosionSpriteParticleSystem(String p_Name, String p_TextureName, String p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
+			: base(p_Name, p_TextureName, p_TextureTag, p_AnimationName, p_AnimationFPS, p_HowManyEffects)
 		{}
 
 		/// <summary>
@@ -93,9 +95,9 @@ namespace project_hook
 
 		}
 
-		protected override void InitializeParticle(ParticleSprite p, Vector2 where, string p_Texture)
+		protected override void InitializeParticle(ParticleSprite p, Vector2 where)
 		{
-			base.InitializeParticle(p, where, Texture.Name);
+			base.InitializeParticle(p, where);
 
 			// The base works fine except for acceleration. Explosions move outwards,
 			// then slow down and stop because of air resistance. Let's change

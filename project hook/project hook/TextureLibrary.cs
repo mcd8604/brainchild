@@ -60,7 +60,9 @@ namespace project_hook
 			}
 			else
 			{
+#if DEBUG
 				throw new Exception("Texture not loaded: " + name);
+#endif
 			}
 
 			return r_Texture;
@@ -215,7 +217,9 @@ namespace project_hook
 #endif
 				return false;
 			}
-
+#if DEBUG
+			System.Diagnostics.Debug.Assert(m_Textures.ContainsKey(textureName));
+#endif
 			return true;
 		}
 

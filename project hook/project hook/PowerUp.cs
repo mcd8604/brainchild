@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class PowerUp:Collidable
+	class PowerUp : Collidable
 	{
 		private int m_Amount;
 		public int Amount
@@ -74,10 +74,39 @@ namespace project_hook
 
 		private Sprite[] m_Back;
 
+		public PowerUp(int size, int value)
+		{
+			m_Back = new Sprite[m_BackCount];
 
+			for (int a = 0; a < m_BackCount; a++)
+			{
+				m_Back[a] = new Sprite();
+				m_Back[a].setAnimation("energyball", 30);
+				m_Back[a].BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
 
-		public PowerUp(Collidable p_Base, WorldPosition p_Pos  )
-			: base()
+				m_Back[a].Task = new TaskAttach(this);
+				m_Back[a].Alpha = 65;
+
+				attachSpritePart(m_Back[a]);
+
+				m_Back[a].Animation.CurrentFrame = a * 5;
+				m_Back[a].Animation.StartAnimation();
+
+			}
+			Enabled = false;
+			Faction = Factions.PowerUp;
+			Texture = TextureLibrary.getGameTexture("DNA", "");
+			Height = size;
+			Width = size;
+			Radius = size * 0.5f;
+			Amount = value;
+			Task = new TaskStationary();
+			Damage = 0;
+			Health = float.NaN;
+
+		}
+
+		public PowerUp(int size, int value, Vector2 at)
 		{
 			m_Back = new Sprite[m_BackCount];
 
@@ -96,42 +125,25 @@ namespace project_hook
 				m_Back[a].Animation.StartAnimation();
 				
 			}
-			
-
-
-			Center = p_Base.Center;
+			Center = at;
 			Faction = Factions.PowerUp;
 			Texture = TextureLibrary.getGameTexture("DNA", "");
-			Radius = p_Base.Radius * 0.5f;
-			Amount = (int)Radius;
-			TaskStraightVelocity straightVelocity = new TaskStraightVelocity();
-			Vector2 v = new Vector2(0, p_Pos.Speed);
-			straightVelocity.Velocity = v;
-			Task = straightVelocity;
-
+			Height = size;
+			Width = size;
+			Radius = size * 0.5f;
+			Amount = value;
+			Task = new TaskStationary();
 			Damage = 0;
+			Health = float.NaN;
 
-		}
-
-
-		public PowerUp()
-			:base()
-		{
-			
-		TaskStraightVelocity straightVelocity = new TaskStraightVelocity();
-					 Vector2 v = new Vector2(0,0);
-					straightVelocity.Velocity = v;
-					Task = straightVelocity;
 		}
 
 		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
 		{
 			base.Draw(p_SpriteBatch);
 		}
-
 		public override void RegisterCollision(Collidable p_Other)
 		{
-
 			if (p_Other.Faction == Factions.Player)
 			{
 				if (p_Other is PlayerShip)

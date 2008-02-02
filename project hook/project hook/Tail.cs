@@ -97,9 +97,9 @@ namespace project_hook
 		private Task tailTargetNormalTask;
 
 		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-					float p_Degree, float p_Z, Factions p_Faction, float p_Health, GameTexture p_DamageEffect, float p_Radius,
+					float p_Degree, float p_Z, Factions p_Faction, float p_Health, float p_Radius,
 					Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites, Sprite p_TargetObject)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, p_Health, p_DamageEffect, p_Radius)
+			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, p_Health, p_Radius)
 		{
 
 			TaskParallel temp = new TaskParallel();

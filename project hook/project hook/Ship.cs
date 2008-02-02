@@ -19,15 +19,26 @@ namespace project_hook
 
 		private Sprite m_ShieldSprite;
 
-		private SpriteParticleSystem m_ShieldDamageParticleSystem;
+		protected SpriteParticleSystem m_ShieldDamageEffect = null;
+
+		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, String p_Tag)
+		{
+			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(Name + "_ShieldDamageEffectParticleSystem", p_ShieldDamageEffectTextureName, p_Tag, 1);
+			addSprite(m_ShieldDamageEffect);
+		}
+		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, String p_Tag, String p_ShieldDamageEffectAnimationName, int p_AnimationFPS)
+		{
+			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(Name + "_ShieldDamageEffectParticleSystem", p_ShieldDamageEffectTextureName, p_Tag, p_ShieldDamageEffectAnimationName, p_AnimationFPS, 1);
+			addSprite(m_ShieldDamageEffect);
+		}
 
 		public override float Radius
 		{
 			get
 			{
-				
+
 				if (m_Shield > 0f && m_ShieldSprite != null)
-				{					
+				{
 					return m_ShieldSprite.Width / 2;
 				}
 				else
@@ -35,7 +46,7 @@ namespace project_hook
 					return base.Radius;
 				}
 			}
-			
+
 		}
 
 		private float m_MaxShield = 0;
@@ -60,12 +71,6 @@ namespace project_hook
 						m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(Width * 1.30), (int)(Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
 						m_ShieldSprite.Task = new TaskAttach(this);
 						attachSpritePart(m_ShieldSprite);
-
-						GameTexture DamageEffect = TextureLibrary.getGameTexture("Explosion2", "3");
-						m_ShieldDamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, (int)(DamageEffect.Width * 0.5f), (int)(DamageEffect.Height * 0.5f), DamageEffect, 1.0f, true, 0, Depth.GameLayer.Explosion, 1);
-						m_ShieldDamageParticleSystem.setAnimation("Explosion2", 10);
-						m_ShieldDamageParticleSystem.Animation.StartAnimation();
-						addSprite(m_ShieldDamageParticleSystem);
 					}
 				}
 				else if (m_ShieldSprite != null)
@@ -114,8 +119,8 @@ namespace project_hook
 			Name = "Unnamed Ship";
 			Z = Depth.GameLayer.Ships;
 		}
-		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_Health, int p_MaxShield, GameTexture p_DamageEffect, float p_Radius)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_zBuff, p_Faction, p_Health, p_DamageEffect, p_Radius)
+		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_MaxHealth, int p_MaxShield, float p_Radius)
+			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_zBuff, p_Faction, p_MaxHealth, p_Radius)
 		{
 			MaxShield = p_MaxShield;
 		}
@@ -169,61 +174,60 @@ namespace project_hook
 		{
 			m_TimeSinceLastDamage = 0;
 
-			if (Shield > damage)
+			if (Shield > 0)
 			{
-				Shield -= damage;
-				damage = 0;
-			}
-			else
-			{
-				damage -= Shield;
-				Shield = 0;
+				if (Shield > damage)
+				{
+					Shield -= damage;
+					damage = 0;
+				}
+				else
+				{
+					damage -= Shield;
+					Shield = 0;
+				}
+				SpawnShieldDamageEffect(Vector2.Lerp(Center, didCollide.Center, 0.5f));
 			}
 
-			if (damage > 0)
-			{
-				Health -= damage;
-				damage = 0;
-			}
+			base.takeDamage(damage);
 
 			if (Health <= 0)
 			{
 				// death effect, and remove?
-				PowerUp p = new PowerUp(this, World.m_Position);
-				p.MaxHealth = 1000;
-				p.Height = (int)(Height * 0.5f);
-				p.Width = (int)(Width * 0.5f);
+
+				// TODO : Replace this 'static' creation with a key read from the xml, and stored in ship until it dies, then the 'drop' is dropped.
+				PowerUp p = new PowerUp((int)(Height * 0.5f), (int)(Radius * 0.5f), Center);
 				addSprite(p);
 
-				foreach (Weapon w in m_Weapons)
-				{
-					foreach (Shot s in w.getShots())
-						if(s.Enabled == false)
-							s.Position = new Vector2(-10, -10);
-				}
 				Enabled = false;
 
 			}
 		}
 
-		protected override void SpawnDamageEffect(Vector2 where)
+		protected void SpawnShieldDamageEffect(Vector2 where)
 		{
-			if (m_Shield > 0)
+			if (m_ShieldDamageEffect != null)
 			{
-				if (m_ShieldDamageParticleSystem != null)
-				{
-					m_ShieldDamageParticleSystem.AddParticles(where);
-				}
-			}
-			else
-			{
-				if (DamageParticleSystem != null)
-				{
-					DamageParticleSystem.AddParticles(where);
-				}
+				m_ShieldDamageEffect.AddParticles(where);
 			}
 		}
 
+		protected override void Dispose()
+		{
+			if (m_ShieldDamageEffect != null)
+			{
+				m_ShieldDamageEffect.Enabled = false;
+				m_ShieldDamageEffect.ToBeRemoved = true;
+			}
+
+			foreach (Weapon w in m_Weapons)
+			{
+				foreach (Shot s in w.getShots())
+					if (s.Enabled == false)
+						s.Position = new Vector2(-10, -10);
+			}
+
+		}
 
 	}
 }
