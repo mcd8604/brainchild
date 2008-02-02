@@ -402,6 +402,25 @@ namespace project_hook
 						tail.EnemyShoot();
 					}
 				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageUp))
+				{
+					m_Position.setSpeed(m_Position.Speed * 2f);
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageDown))
+				{
+					m_Position.setSpeed(m_Position.Speed * 0.5f);
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.G))
+				{
+					if (float.IsNaN(m_Player.PlayerShip.MaxHealth))
+					{
+						m_Player.PlayerShip.MaxHealth = 100;
+					}
+					else
+					{
+						m_Player.PlayerShip.MaxHealth = float.NaN;
+					}
+				}
 #if DEBUG
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
@@ -426,14 +445,7 @@ namespace project_hook
 						Collision.DevDisableCollisionDisplay(m_SpriteList, m_SpriteListA);
 					}
 				}
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageUp))
-				{
-					m_Position.setSpeed(m_Position.Speed * 2f);
-				}
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageDown))
-				{
-					m_Position.setSpeed(m_Position.Speed * 0.5f);
-				}
+				
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.End))
 				{
 					m_Position.setSpeed(m_Position.Speed * 200f);
