@@ -465,7 +465,7 @@ namespace project_hook
 				{
 					if (kill == null)
 					{
-						kill = new Shot("Soul of Zinglon", m_Player.PlayerShip.Center, 250, 4000, TextureLibrary.getGameTexture("Shot", ""), 0.75f, true, -MathHelper.PiOver2, Depth.GameLayer.Shot, Collidable.Factions.Player, 0, null, 0, 10000, null);
+						kill = new Shot("Soul of Zinglon", m_Player.PlayerShip.Center, 250, 4000, TextureLibrary.getGameTexture("Shot", ""), 0.75f, true, -MathHelper.PiOver2, Depth.GameLayer.Shot, Collidable.Factions.Player, 0, 0, 10000, null);
 						kill.BlendMode = SpriteBlendMode.Additive;
 						kill.Bound = Collidable.Boundings.Rectangle;
 						kill.DestroyedOnCollision = false;
@@ -628,7 +628,7 @@ namespace project_hook
 
 			}
 			AddSprites(m_TailBodySprites);
-			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, null, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
+			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
 			AddSprite(tail);
 
 
@@ -655,12 +655,7 @@ namespace project_hook
 			Sprite u = new TextSprite(m_Player.PlayerShip.getUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
 			AddSprite(u);
 
-			PowerUp p = new PowerUp(tail, World.m_Position);
-			p.Enabled = true;
-			p.MaxHealth = 1000;
-			p.Center = new Vector2(50, 50);
-			p.Height = 50;
-			p.Width = 50;
+			PowerUp p = new PowerUp(50, 12, new Vector2(50, 50));
 			AddSprite(p);
 
 
@@ -703,7 +698,7 @@ namespace project_hook
 			{
 				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
 										TextureLibrary.getGameTexture("bloodcell", "1"), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
-										Collidable.Factions.Blood, 100, TextureLibrary.getGameTexture("Explosion", "3"), 25);
+										Collidable.Factions.Blood, 100, 25);
 				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
 				t_Blood.setAnimation("bloodcell", 60);
 				t_Blood.Animation.StartAnimation();

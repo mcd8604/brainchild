@@ -126,7 +126,9 @@ namespace project_hook
 		public void ResetPlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
 		{
 
-			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, TextureLibrary.getGameTexture("Explosion", "3"), p_Width / 2.0f);
+			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, p_Width / 2.0f);
+			m_PlayerShip.setDamageEffect("Explosion", "3", "Explosion", 23);
+			m_PlayerShip.setDeathEffect("ExplosionBig", "");
 
 			Shot shot = new Shot(PlayerShip);
 			shot.Name = "Player Shot";

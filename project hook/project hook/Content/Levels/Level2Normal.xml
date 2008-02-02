@@ -5,7 +5,4 @@
 			<fileName>level2.bmp</fileName>
 		</loadBMP>
 	</action>
-	<action tile="">
-		<createShip></createShip>
-	</action>
 </level>

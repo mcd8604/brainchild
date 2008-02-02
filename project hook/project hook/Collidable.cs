@@ -97,46 +97,38 @@ namespace project_hook
 			}
 			set
 			{
-				if (DamageParticleSystem != null)
+				if (m_DamageEffect != null)
 				{
-					DamageParticleSystem.Enabled = Enabled;
-					DamageParticleSystem.ToBeRemoved = value;
+					m_DamageEffect.Enabled = Enabled;
+					m_DamageEffect.ToBeRemoved = value;
 				}
 				base.ToBeRemoved = value;
 			}
 		}
 
-		//this is what effect will be shown on the sprite when it takes damage
-		private GameTexture m_DamageEffect = null;
-		public GameTexture DamageEffect
+		protected SpriteParticleSystem m_DamageEffect = null;
+
+		public void setDamageEffect( String p_DamageEffectTextureName, String p_Tag ) {
+			m_DamageEffect = new ExplosionSpriteParticleSystem(Name + "_DamageEffectParticleSystem", p_DamageEffectTextureName, p_Tag, 1);
+			addSprite(m_DamageEffect);
+		}
+		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag, String p_DamageEffectAnimationName, int p_AnimationFPS )
 		{
-			get
-			{
-				return m_DamageEffect;
-			}
-			set
-			{
-				m_DamageEffect = value;
-				if (DamageEffect != null)
-				{
-					m_DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, Z, 1);
-					DamageParticleSystem.setAnimation("Explosion", 10);
-					DamageParticleSystem.Animation.StartAnimation();
-					addSprite(DamageParticleSystem);
-				}
-			}
+			m_DamageEffect = new ExplosionSpriteParticleSystem(Name + "_DamageEffectParticleSystem", p_DamageEffectTextureName, p_Tag, p_DamageEffectAnimationName, p_AnimationFPS, 1);
+			addSprite(m_DamageEffect);
 		}
 
-		//this is the sprite for teh damage effect
-		private Sprite m_DamageSprite;
+		protected SpriteParticleSystem m_DeathEffect = null;
 
-		private SpriteParticleSystem m_DamageParticleSystem;
-		public SpriteParticleSystem DamageParticleSystem
+		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag)
 		{
-			get
-			{
-				return m_DamageParticleSystem;
-			}
+			m_DeathEffect = new ExplosionSpriteParticleSystem(Name + "_DeathEffectParticleSystem", p_DeathEffectTextureName, p_Tag, 1);
+			addSprite(m_DeathEffect);
+		}
+		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag, String p_DeathEffectAnimationName, int p_AnimationFPS)
+		{
+			m_DeathEffect = new ExplosionSpriteParticleSystem(Name + "_DeathEffectParticleSystem", p_DeathEffectTextureName, p_Tag, p_DeathEffectAnimationName, p_AnimationFPS, 1);
+			addSprite(m_DeathEffect);
 		}
 
 		//this is the radius used for collision detection
@@ -150,19 +142,6 @@ namespace project_hook
 			set
 			{
 				m_Radius = value;
-			}
-		}
-
-		private GameTexture m_CollisonEffect;
-		public GameTexture CollisonEffect
-		{
-			get
-			{
-				return m_CollisonEffect;
-			}
-			set
-			{
-				m_CollisonEffect = value;
 			}
 		}
 
@@ -195,10 +174,8 @@ namespace project_hook
 			}
 			BlendMode = p_Collidable.BlendMode;
 			Bound = p_Collidable.Bound;
-			CollisonEffect = p_Collidable.CollisonEffect;
 			Color = p_Collidable.Color;
 			Damage = p_Collidable.Damage;
-			DamageEffect = p_Collidable.DamageEffect;
 			Enabled = p_Collidable.Enabled;
 			Faction = p_Collidable.Faction;
 			Height = p_Collidable.Height;
@@ -216,21 +193,17 @@ namespace project_hook
 			Transparency = p_Collidable.Transparency;
 			Width = p_Collidable.Width;
 			Z = p_Collidable.Z;
+
+			// temp
+			setDamageEffect("Explosion", "3", "Explosion", 23);
+			setDeathEffect("ExplosionBig", "");
 		}
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
-							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, GameTexture p_DamageEffect, float p_Radius)
+							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z)
 		{
 			Faction = p_Faction;
 			MaxHealth = p_MaxHealth;
-			DamageEffect = p_DamageEffect;
-			if (DamageEffect != null)
-			{
-				m_DamageParticleSystem = new ExplosionSpriteParticleSystem(Name + "_BloodParticleSystem", Position, DamageEffect.Width, DamageEffect.Height, DamageEffect, 255.0f, true, 0, Z, 1);
-				DamageParticleSystem.setAnimation("Explosion", 10);
-				DamageParticleSystem.Animation.StartAnimation();
-				attachSpritePart(DamageParticleSystem);
-			}
 			Radius = p_Radius;
 		}
 
@@ -239,7 +212,7 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 
-			if (didCollide != null)
+			if (didCollide != null && !float.IsNaN(Health) && Health > 0)
 			{
 				float d;
 				if (didCollide is Shot)
@@ -287,16 +260,9 @@ namespace project_hook
 			if (MaxHealth == float.NaN)
 			{
 				return false;
-
 			}
 			else if (Health <= 0)
 			{
-				//GameTexture EB = TextureLibrary.getGameTexture("ExplosionBig", "3");
-				//ExplosionSpriteParticleSystem DPS = new ExplosionSpriteParticleSystem(Name, Center, EB.Width, EB.Height, EB, 1f, true, 0, Z, 1);
-				//DPS.setAnimation("Explosion", 10);
-				//DPS.Animation.StartAnimation();
-				//attachSpritePart(DPS);
-				//DPS.AddParticles(Center);
 				return true;
 			}
 			return false;
@@ -304,7 +270,16 @@ namespace project_hook
 
 		protected virtual void takeDamage(float damage)
 		{
-			MathHelper.Clamp(Health -= damage,0,MaxHealth);
+			Health = MathHelper.Clamp(Health - damage,0,MaxHealth);
+			if (Health <= 0)
+			{
+				SpawnDeathEffect(Center);
+				Dispose();
+			}
+			else if (damage > 0)
+			{
+				SpawnDamageEffect(Vector2.Lerp(Center, didCollide.Center, 0.5f));
+			}
 		}
 
 		public virtual void RegisterCollision(Collidable p_Other)
@@ -322,7 +297,6 @@ namespace project_hook
 					if (!float.IsNaN(Health))
 					{
 						didCollide = p_Other;
-						SpawnDamageEffect(Vector2.Lerp(Center, p_Other.Center, 0.5f));
 					}
 				}
 
@@ -331,20 +305,41 @@ namespace project_hook
 
 		protected virtual void SpawnDamageEffect(Vector2 where)
 		{
-			if (DamageEffect != null)
+			if (m_DamageEffect != null)
 			{
-				DamageParticleSystem.AddParticles(where);
+				m_DamageEffect.AddParticles(where);
 			}
+		}
+
+		protected virtual void SpawnDeathEffect(Vector2 where)
+		{
+			if (m_DeathEffect != null)
+			{
+				m_DeathEffect.AddParticles(where);
+			}
+		}
+
+		protected virtual void Dispose()
+		{
+			if (m_DamageEffect != null)
+			{
+				m_DamageEffect.Enabled = false;
+				m_DamageEffect.ToBeRemoved = true;
+			}
+
+			if (m_DeathEffect != null)
+			{
+				TaskSequence temp = new TaskSequence();
+				temp.addTask(new TaskTimer(2));
+				temp.addTask(new TaskRemove());
+				m_DeathEffect.Task = temp;
+			}
+
 		}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
 		{
 			base.Draw(p_SpriteBatch);
-
-			if (m_DamageSprite != null)
-			{
-				m_DamageSprite.Draw(p_SpriteBatch);
-			}
 		}
 
 		public virtual void captured()

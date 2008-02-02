@@ -28,10 +28,10 @@ namespace project_hook
 			}
 			BlendMode = p_Collidable.BlendMode;
 			Bound = p_Collidable.Bound;
-			CollisonEffect = p_Collidable.CollisonEffect;
+			//CollisonEffect = p_Collidable.CollisonEffect;
 			Color = p_Collidable.Color;
 			Damage = p_Collidable.Damage;
-			DamageEffect = p_Collidable.DamageEffect;
+			//DamageEffect = p_Collidable.DamageEffect;
 			Enabled = p_Collidable.Enabled;
 			Faction = p_Collidable.Faction;
 			Height = p_Collidable.Height;
@@ -49,6 +49,11 @@ namespace project_hook
 			Transparency = p_Collidable.Transparency;
 			Width = p_Collidable.Width;
 			Z = p_Collidable.Z;
+
+			// TODO
+			// temp
+			setDamageEffect("Explosion", "3", "Explosion", 23);
+			setDeathEffect("ExplosionBig", "0");
 		}
 
 		public override void Update(GameTime p_Time)

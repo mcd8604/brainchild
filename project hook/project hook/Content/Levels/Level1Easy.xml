@@ -9,7 +9,8 @@
 			<texture name="cell"/>
 			<startCenter x="352" y="00"/>
 			<health>30</health>
-			<damageTexture name="Explosion" pos="3"/>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
 			<weapon type="Straight" angle="0">
 				<delay>0.75</delay>
 				<speed>400</speed>
@@ -58,7 +59,8 @@
 			<texture name="cell"/>
 			<startCenter x="224" y="00"/>
 			<health>50</health>
-			<damageTexture name="Explosion" pos="3"/>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
 			<weapon type="Straight" angle="0">
 				<delay>0.75</delay>
 				<speed>400</speed>
@@ -105,7 +107,8 @@
 			<texture name="cell"/>
 			<startCenter x="576" y="00"/>
 			<health>50</health>
-			<damageTexture name="Explosion" pos="3"/>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
 			<weapon type="Straight" angle="0">
 				<delay>0.75</delay>
 				<speed>400</speed>
@@ -154,7 +157,8 @@
 			<texture name="virus1"/>
 			<startCenter x="608" y="0"/>
 			<health>30</health>
-			<damageTexture name="Explosion" pos="3"/>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
 			<weapon type="Straight" angle="0">
 				<delay>0.85</delay>
 				<speed>400</speed>
@@ -214,7 +218,8 @@
 			<texture name="cell"/>
 			<startCenter x="128" y="00"/>
 			<health>60</health>
-			<damageTexture name="Explosion" pos="3"/>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
 			<weapon type="Straight" angle="0">
 				<delay>0.75</delay>
 				<speed>400</speed>
@@ -261,7 +266,8 @@
 			<texture name="virus1"/>
 			<startCenter x="800" y="0"/>
 			<health>20</health>
-			<damageTexture name="Explosion" pos="3"/>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
 			<task type="Sequence">
 				<task type="Parallel">
 					<task type="StraightVelocity">
@@ -290,7 +296,8 @@
 			<texture name="virus1"/>
 			<startCenter x="480" y="0"/>
 			<health>30</health>
-			<damageTexture name="Explosion" pos="3"/>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
 			<weapon type="Straight" angle="0">
 				<delay>0.85</delay>
 				<speed>400</speed>
@@ -348,7 +355,8 @@
 			<texture name="cell"/>
 			<startCenter x="128" y="00"/>
 			<health>30</health>
-			<damageTexture name="Explosion" pos="3"/>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
 			<weapon type="Straight" angle="-45">
 				<delay>0.75</delay>
 				<speed>400</speed>
@@ -380,7 +388,8 @@
 			<texture name="cell"/>
 			<startCenter x="832" y="00"/>
 			<health>30</health>
-			<damageTexture name="Explosion" pos="3"/>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
 			<weapon type="Straight" angle="45">
 				<delay>0.75</delay>
 				<speed>400</speed>

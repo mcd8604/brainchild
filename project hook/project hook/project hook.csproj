@@ -72,11 +72,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Collidable</Name>
     </Compile>
-    <Compile Include="Effect.cs">
-      <SubType>Code</SubType>
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Effect</Name>
-    </Compile>
     <Compile Include="ExplosionSpriteParticleSystem.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -107,6 +102,10 @@
     <Compile Include="TaskLerpRange.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskLerpRange</Name>
+    </Compile>
+    <Compile Include="TaskRemove.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskRemove</Name>
     </Compile>
     <Compile Include="TaskRepeatingTimer.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -719,10 +718,6 @@
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
-      <Name>ExplosionBig</Name>
-    </Content>
-    <Content Include="Content\Textures\ExplosionBig.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ExplosionBig</Name>
     </Content>
     <Content Include="Content\Textures\gate.png">

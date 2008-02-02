@@ -262,19 +262,6 @@ namespace project_hook
 					p_Gate.RotationDegrees = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
-				else if (p_Reader.IsStartElement("damageTexture"))
-				{
-					if (p_Reader.AttributeCount == 1)
-					{
-						p_Gate.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
-					}
-					else if (p_Reader.AttributeCount == 2)
-					{
-						p_Gate.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																		p_Reader.GetAttribute(1));
-					}
-					p_Reader.ReadStartElement("damageTexture");
-				}
 				else if (p_Reader.IsStartElement("task"))
 				{
 					p_Gate.Task = readTask(p_Reader);
@@ -364,19 +351,6 @@ namespace project_hook
 					p_Reader.ReadStartElement("degree");
 					p_Trigger.RotationDegrees = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("damageTexture"))
-				{
-					if (p_Reader.AttributeCount == 1)
-					{
-						p_Trigger.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
-					}
-					else if (p_Reader.AttributeCount == 2)
-					{
-						p_Trigger.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																		p_Reader.GetAttribute(1));
-					}
-					p_Reader.ReadStartElement("damageTexture");
 				}
 				else if (p_Reader.IsStartElement("task"))
 				{
@@ -567,18 +541,53 @@ namespace project_hook
 					t_Ship.MaxShield = int.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
-				else if (p_Reader.IsStartElement("damageTexture"))
+				else if (p_Reader.IsStartElement("damageEffect"))
 				{
 					if (p_Reader.AttributeCount == 1)
 					{
-						t_Ship.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+						t_Ship.setDamageEffect(p_Reader.GetAttribute("name"), "");
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						t_Ship.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																		p_Reader.GetAttribute(1));
+						t_Ship.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
 					}
-					p_Reader.ReadStartElement("damageTexture");
+					else
+					{
+						t_Ship.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
+					}
+					p_Reader.ReadStartElement("damageEffect");
+				}
+				else if (p_Reader.IsStartElement("shieldDamageEffect"))
+				{
+					if (p_Reader.AttributeCount == 1)
+					{
+						t_Ship.setShieldDamageEffect(p_Reader.GetAttribute("name"), "");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						t_Ship.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
+					}
+					else
+					{
+						t_Ship.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
+					}
+					p_Reader.ReadStartElement("shieldDamageEffect");
+				}
+				else if (p_Reader.IsStartElement("deathEffect"))
+				{
+					if (p_Reader.AttributeCount == 1)
+					{
+						t_Ship.setDeathEffect(p_Reader.GetAttribute("name"), "");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						t_Ship.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
+					}
+					else
+					{
+						t_Ship.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
+					}
+					p_Reader.ReadStartElement("deathEffect");
 				}
 				else if (p_Reader.IsStartElement("radius"))
 				{
@@ -1135,18 +1144,53 @@ namespace project_hook
 							t_Obj.MaxShield = int.Parse(p_Reader.ReadString());
 							p_Reader.ReadEndElement();
 						}
-						else if (p_Reader.IsStartElement("damageTexture"))
+						else if (p_Reader.IsStartElement("damageEffect"))
 						{
 							if (p_Reader.AttributeCount == 1)
 							{
-								t_Obj.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+								t_Obj.setDamageEffect(p_Reader.GetAttribute("name"), "");
 							}
 							else if (p_Reader.AttributeCount == 2)
 							{
-								t_Obj.DamageEffect = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																				p_Reader.GetAttribute(1));
+								t_Obj.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
 							}
-							p_Reader.ReadStartElement("damageTexture");
+							else
+							{
+								t_Obj.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
+							}
+							p_Reader.ReadStartElement("damageEffect");
+						}
+						else if (p_Reader.IsStartElement("shieldDamageEffect"))
+						{
+							if (p_Reader.AttributeCount == 1)
+							{
+								t_Obj.setShieldDamageEffect(p_Reader.GetAttribute("name"), "");
+							}
+							else if (p_Reader.AttributeCount == 2)
+							{
+								t_Obj.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
+							}
+							else
+							{
+								t_Obj.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
+							}
+							p_Reader.ReadStartElement("ahieldDamageEffect");
+						}
+						else if (p_Reader.IsStartElement("deathEffect"))
+						{
+							if (p_Reader.AttributeCount == 1)
+							{
+								t_Obj.setDeathEffect(p_Reader.GetAttribute("name"), "");
+							}
+							else if (p_Reader.AttributeCount == 2)
+							{
+								t_Obj.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
+							}
+							else
+							{
+								t_Obj.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
+							}
+							p_Reader.ReadStartElement("deathEffect");
 						}
 						else if (p_Reader.IsStartElement("radius"))
 						{
