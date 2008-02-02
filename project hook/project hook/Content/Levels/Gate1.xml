@@ -34,7 +34,7 @@
 	</action>
 	<action tile="15">
 		<changeFile>
-			<fileName>Gate1.xml</fileName>
+			<fileName>Level2Normal.xml</fileName>
 		</changeFile>
 	</action>
 </level>

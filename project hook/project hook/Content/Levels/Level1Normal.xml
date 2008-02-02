@@ -281,6 +281,64 @@
 			</task>
 		</createShip>
 	</action>
+	<action tile="100">
+		<createSpawnPoint>
+			<delay>32</delay>
+			<count>5</count>
+			<name>W7_E1</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<health>10</health>
+				<startCenter x="480" y="0"/>
+				<damageTexture name="Explosion" pos="3"/>
+				<task type="Sequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="0" y="200"/>
+						</task>
+						<task type="Timer">
+							<duration>1</duration>
+						</task>
+					</task>
+					<task type="StraightAngle">
+						<degree>130</degree>
+						<speed>200</speed>
+					</task>
+				</task>
+			</object>
+		</createSpawnPoint>
+		<createSpawnPoint>
+			<delay>32</delay>
+			<count>5</count>
+			<name>W7_E1</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<health>10</health>
+				<startCenter x="512" y="0"/>
+				<damageTexture name="Explosion" pos="3"/>
+				<task type="Sequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="0" y="200"/>
+						</task>
+						<task type="Timer">
+							<duration>1</duration>
+						</task>
+					</task>
+					<task type="StraightAngle">
+						<degree>50</degree>
+						<speed>200</speed>
+					</task>
+				</task>
+			</object>
+		</createSpawnPoint>
+	</action>
 	<action tile="115">
 		<createShip>
 			<name>Enemy5</name>
@@ -347,7 +405,7 @@
 						<degree>-90</degree>
 					</task>
 					<task type="Timer">
-						<duration>11.2</duration>
+						<duration>5</duration>
 					</task>
 				</task>
 				<task type="SeekTarget">
