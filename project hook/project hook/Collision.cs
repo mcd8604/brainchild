@@ -782,11 +782,6 @@ namespace project_hook
 		public static void DevEnableCollisionDisplay(params List<Sprite>[] list)
 		{
 
-			TextureLibrary.LoadTexture("debugcirc");
-			TextureLibrary.LoadTexture("debugdiamond");
-			TextureLibrary.LoadTexture("debugsquare");
-			TextureLibrary.LoadTexture("debugrect");
-
 			foreach (List<Sprite> l in list)
 			{
 
