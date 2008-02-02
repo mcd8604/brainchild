@@ -648,9 +648,9 @@
       <Name>Level1Normal</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Levels\Level2.xml">
+    <Content Include="Content\Levels\Level2Normal.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Level2</Name>
+      <Name>Level2Normal</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\LevelTest.xml">
