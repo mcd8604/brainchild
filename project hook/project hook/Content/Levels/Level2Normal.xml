@@ -250,13 +250,64 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="65"><createShip>
+	<action tile="72">
+		<createShip>
+			<name>W1_E1</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="cell"/>
+			<startCenter x="224" y="0"/>
+			<health>30</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<weapon type="Straight" angle="0">
+				<delay>0.5</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>5</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="180" y="80"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="-180" y="80"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1</duration>
+						</task>
+					</task>
+				</task>
+				<task type="RotateToAngle">
+					<degree>90</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action tile="85">
+		<createShip>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
 			<texture name="Enemy1"/>
-			<startCenter x="448" y="0"/>
+			<startCenter x="320" y="0"/>
 			<health>30</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
@@ -296,5 +347,6 @@
 				</task>
 				<task type="Fire"/>
 			</task>
-		</createShip></action>
+		</createShip>
+	</action>
 </level>
