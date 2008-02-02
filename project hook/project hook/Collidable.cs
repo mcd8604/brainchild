@@ -159,7 +159,7 @@ namespace project_hook
 			}
 		}
 
-		protected Collidable didCollide = null;
+		protected Queue<Collidable> didCollide = new Queue<Collidable>();
 
 		#endregion // End of variables and Properties Region
 
@@ -212,27 +212,27 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 
-			if (didCollide != null && !float.IsNaN(Health) && Health > 0)
+			while (didCollide.Count > 0 && !float.IsNaN(Health) && Health > 0)
 			{
+				Collidable DC = didCollide.Dequeue();
 				float d;
-				if (didCollide is Shot)
+				if (DC is Shot)
 				{
-					d = didCollide.Damage;
+					d = DC.Damage;
 				}
-				else if (float.IsNaN(didCollide.Health))
+				else if (float.IsNaN(DC.Health))
 				{
-					d = didCollide.Damage * (float)p_Time.ElapsedGameTime.TotalSeconds;
+					d = DC.Damage * (float)p_Time.ElapsedGameTime.TotalSeconds;
 				}
 				else
 				{
-					d = (float)Math.Min(didCollide.Damage * p_Time.ElapsedGameTime.TotalSeconds, didCollide.Health);
+					d = (float)Math.Min(DC.Damage * p_Time.ElapsedGameTime.TotalSeconds, DC.Health);
 				}
 				if (d > 0)
 				{
-					takeDamage(d);
+					takeDamage(d, DC);
 				}
-				World.m_Score.evaluateCollision(this, didCollide, d, Health <= 0);
-				didCollide = null;
+				World.m_Score.evaluateCollision(this, DC, d, Health <= 0);
 			}
 
 			if (Position.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.25) || Position.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .25)) ||
@@ -268,7 +268,7 @@ namespace project_hook
 			return false;
 		}
 
-		protected virtual void takeDamage(float damage)
+		protected virtual void takeDamage(float damage, Collidable from)
 		{
 			Health = MathHelper.Clamp(Health - damage,0,MaxHealth);
 			if (Health <= 0)
@@ -278,7 +278,7 @@ namespace project_hook
 			}
 			else if (damage > 0)
 			{
-				SpawnDamageEffect(Vector2.Lerp(Center, didCollide.Center, 0.5f));
+				SpawnDamageEffect(Vector2.Lerp(Center, from.Center, 0.5f));
 			}
 		}
 
@@ -296,7 +296,7 @@ namespace project_hook
 				{
 					if (!float.IsNaN(Health))
 					{
-						didCollide = p_Other;
+						didCollide.Enqueue(p_Other);
 					}
 				}
 
