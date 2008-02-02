@@ -291,7 +291,12 @@ namespace project_hook
 			}
 			else if (Health <= 0)
 			{
-				SpawnDamageEffect(Center);
+				//GameTexture EB = TextureLibrary.getGameTexture("ExplosionBig", "3");
+				//ExplosionSpriteParticleSystem DPS = new ExplosionSpriteParticleSystem(Name, Center, EB.Width, EB.Height, EB, 1f, true, 0, Z, 1);
+				//DPS.setAnimation("Explosion", 10);
+				//DPS.Animation.StartAnimation();
+				//attachSpritePart(DPS);
+				//DPS.AddParticles(Center);
 				return true;
 			}
 			return false;

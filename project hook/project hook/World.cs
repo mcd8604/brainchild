@@ -559,6 +559,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("plaque");
 			TextureLibrary.LoadTexture("wall_flat");
 			TextureLibrary.LoadTexture("Explosion2");
+			TextureLibrary.LoadTexture("ExplosionBig");
 			TextureLibrary.LoadTexture("poisonsplat");
 			TextureLibrary.LoadTexture("walls\\wall_left");
 			TextureLibrary.LoadTexture("wall_rand1");
