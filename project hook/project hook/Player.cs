@@ -128,6 +128,7 @@ namespace project_hook
 
 			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, p_Width / 2.0f);
 			m_PlayerShip.setDamageEffect("Explosion", "3", "Explosion", 23);
+			m_PlayerShip.setShieldDamageEffect("Explosion2", "3", "Explosion2", 23);
 			m_PlayerShip.setDeathEffect("ExplosionBig", "");
 
 			Shot shot = new Shot(PlayerShip);
