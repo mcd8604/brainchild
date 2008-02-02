@@ -164,7 +164,7 @@ namespace project_hook
 			}
 			else
 			{
-				didCollide = p_Other;
+				didCollide.Enqueue(p_Other);
 			}
 		}
 	}

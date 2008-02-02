@@ -170,7 +170,7 @@ namespace project_hook
 			m_TimeSinceLastDamage += (float)p_Time.ElapsedGameTime.TotalSeconds;
 		}
 
-		protected override void takeDamage(float damage)
+		protected override void takeDamage(float damage, Collidable from)
 		{
 			m_TimeSinceLastDamage = 0;
 
@@ -186,10 +186,10 @@ namespace project_hook
 					damage -= Shield;
 					Shield = 0;
 				}
-				SpawnShieldDamageEffect(Vector2.Lerp(Center, didCollide.Center, 0.5f));
+				SpawnShieldDamageEffect(Vector2.Lerp(Center, from.Center, 0.5f));
 			}
 
-			base.takeDamage(damage);
+			base.takeDamage(damage, from);
 
 			if (Health <= 0)
 			{
