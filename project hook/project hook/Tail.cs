@@ -242,6 +242,20 @@ namespace project_hook
 
 				if (m_TailState == TailState.Throwing)
 				{
+					Vector2 tempVect = m_EnemyCaught.Position;
+					if (Math.Abs(Math.Abs(m_EnemyCaught.Center.Y) - Math.Abs(p_Other.Center.Y)) < Math.Abs(Math.Abs(m_EnemyCaught.Center.X) - Math.Abs(p_Other.Center.X)))
+						if (m_EnemyCaught.Center.X < p_Other.Center.X)
+							tempVect.X = p_Other.Position.X - (m_EnemyCaught.Texture.Width + 20);
+						else
+							tempVect.X = p_Other.Position.X + (p_Other.Texture.Width + 20);
+					
+					if (Math.Abs(Math.Abs(m_EnemyCaught.Center.Y) - Math.Abs(p_Other.Center.Y)) > Math.Abs(Math.Abs(m_EnemyCaught.Center.X) - Math.Abs(p_Other.Center.X)))
+						if (m_EnemyCaught.Center.Y < p_Other.Center.Y)
+							tempVect.Y = p_Other.Position.Y - (m_EnemyCaught.Texture.Height + 20);
+						else
+							tempVect.Y = p_Other.Position.Y + (p_Other.Texture.Height + 20);
+
+					m_EnemyCaught.Position = tempVect;
 					Thrown thrown = new Thrown(EnemyCaught);
 					EnemyCaught.Enabled = false;
 					EnemyCaught.Health = 0;
