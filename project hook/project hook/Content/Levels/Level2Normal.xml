@@ -33,9 +33,8 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
+				<task type="Fire"/>
 			</task>
 		</createShip>
 	</action>
@@ -67,9 +66,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -102,9 +99,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -137,9 +132,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -172,9 +165,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -207,9 +198,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -278,7 +267,7 @@
 				<task type="RepeatingSequence">
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="180" y="80"/>
+							<velocity x="180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>1</duration>
@@ -286,13 +275,14 @@
 					</task>
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="-180" y="80"/>
+							<velocity x="-180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>1</duration>
 						</task>
 					</task>
 				</task>
+				<task type="Stationary"/>
 				<task type="RotateToAngle">
 					<degree>90</degree>
 				</task>
@@ -377,9 +367,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -410,9 +398,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -445,9 +431,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -480,9 +464,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -515,9 +497,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -550,9 +530,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -585,9 +563,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -620,9 +596,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -655,9 +629,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
@@ -690,9 +662,7 @@
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
-				<task type="StraightVelocity">
-					<velocity x="0" y="80"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
 		</createShip>
