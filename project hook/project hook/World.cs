@@ -370,10 +370,10 @@ namespace project_hook
 
 			if (m_State != GameState.Paused)
 			{
-				if (InputHandler.IsActionDown(Actions.ShipPrimary))
-				{
-					m_Player.Shoot();
-				}
+				//if (InputHandler.IsActionDown(Actions.ShipPrimary))
+				//{
+				//    m_Player.Shoot();
+				//}
 				if (InputHandler.IsActionDown(Actions.Right))
 				{
 					m_Player.MoveRight();
@@ -396,6 +396,7 @@ namespace project_hook
 				}
 				if (InputHandler.IsActionDown(Actions.TailSecondary))
 				{
+					m_Player.Shoot();
 					if (tail.EnemyCaught != null)
 					{
 						//tail.EnemyCaught.shoot(InputHandler.MousePostion);

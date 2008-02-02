@@ -33,9 +33,6 @@
 		</changeSpeed>
 	</action>
 	<action tile="15">
-		<changeSpeed>
-			<speed>80</speed>
-		</changeSpeed>
 		<changeFile>
 			<fileName>Level2Normal.xml</fileName>
 		</changeFile>		
