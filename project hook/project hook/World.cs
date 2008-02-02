@@ -370,10 +370,10 @@ namespace project_hook
 
 			if (m_State != GameState.Paused)
 			{
-				//if (InputHandler.IsActionDown(Actions.ShipPrimary))
-				//{
-				//    m_Player.Shoot();
-				//}
+				if (InputHandler.IsActionDown(Actions.ShipPrimary))
+				{
+				    m_Player.Shoot();
+				}
 				if (InputHandler.IsActionDown(Actions.Right))
 				{
 					m_Player.MoveRight();
@@ -399,29 +399,10 @@ namespace project_hook
 					m_Player.Shoot();
 					if (tail.EnemyCaught != null)
 					{
-						//tail.EnemyCaught.shoot(InputHandler.MousePostion);
 						tail.EnemyShoot();
 					}
 				}
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageUp))
-				{
-					m_Position.setSpeed(m_Position.Speed * 2f);
-				}
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageDown))
-				{
-					m_Position.setSpeed(m_Position.Speed * 0.5f);
-				}
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.G))
-				{
-					if (float.IsNaN(m_Player.PlayerShip.MaxHealth))
-					{
-						m_Player.PlayerShip.MaxHealth = 100;
-					}
-					else
-					{
-						m_Player.PlayerShip.MaxHealth = float.NaN;
-					}
-				}
+
 #if DEBUG
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
@@ -453,7 +434,15 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Home))
 				{
-					m_Position.setSpeed(0);
+					m_Position.setSpeed(1);
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageUp))
+				{
+					m_Position.setSpeed(m_Position.Speed * 2f);
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageDown))
+				{
+					m_Position.setSpeed(m_Position.Speed * 0.5f);
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.G))
 				{
