@@ -152,7 +152,8 @@ namespace project_hook
 				m_LReader = new LevelReader("Level1Normal.xml");
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 #if DEBUG
-			} else if (result == System.Windows.Forms.DialogResult.Cancel)
+			}
+			else if (result == System.Windows.Forms.DialogResult.Cancel)
 			{
 				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
 				m_LReader = new LevelReader("LevelTest.xml");
@@ -372,7 +373,7 @@ namespace project_hook
 			{
 				if (InputHandler.IsActionDown(Actions.ShipPrimary))
 				{
-				    m_Player.Shoot();
+					m_Player.Shoot();
 				}
 				if (InputHandler.IsActionDown(Actions.Right))
 				{
@@ -427,7 +428,7 @@ namespace project_hook
 						Collision.DevDisableCollisionDisplay(m_SpriteList, m_SpriteListA);
 					}
 				}
-				
+
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.End))
 				{
 					m_Position.setSpeed(m_Position.Speed * 200f);
@@ -477,15 +478,15 @@ namespace project_hook
 						kill.Task = task;
 						AddSprite(kill);
 					}
-					else
-						if (kill.Enabled == false)
-						{
-							kill.Enabled = true;
-						}
+					else if (kill.Enabled == false)
+					{
+						kill.Enabled = true;
+					}
 
 				}
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P) ) {
-					Console.WriteLine( m_Position.Distance );
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
+				{
+					Console.WriteLine(m_Position.Distance);
 				}
 #endif
 			}
