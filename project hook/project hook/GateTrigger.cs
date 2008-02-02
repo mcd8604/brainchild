@@ -34,11 +34,12 @@ namespace project_hook
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
-			base.RegisterCollision(p_Other);
-
-			World.m_Position.Speed = 80;
-
-			m_Gate.ToBeRemoved = true;
+			if (p_Other.Faction == Factions.Player)
+			{
+				base.RegisterCollision(p_Other);
+				World.m_Position.Speed = 80;
+				m_Gate.ToBeRemoved = true;
+			}
 		}
 	}
 }
