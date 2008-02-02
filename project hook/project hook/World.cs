@@ -707,7 +707,7 @@ namespace project_hook
 
 		public void CreateBloodCell()
 		{
-			if (m_RanX.Next(0, 1200) == 5)
+			if (m_RanX.Next(0, 800) == 5)
 			{
 				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
 										TextureLibrary.getGameTexture("bloodcell", "1"), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
