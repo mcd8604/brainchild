@@ -97,7 +97,7 @@ namespace project_hook
 			m_Cooldown -= (float)p_Time.ElapsedGameTime.TotalSeconds;
 		}
 
-		public IList<Shot> changeShotType(Shot type)
+		public virtual IList<Shot> changeShotType(Shot type)
 		{
 			m_Shots.Clear();
 			for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
@@ -107,10 +107,12 @@ namespace project_hook
 			return m_Shots;
 		}
 
-		public IList<Shot> getShots()
+		public virtual IList<Shot> getShots()
 		{
 			return m_Shots;
 		}
+
+
 
 		public static Task ConvertWeaponTaskTarget(Task task, Sprite toTarget)
 		{

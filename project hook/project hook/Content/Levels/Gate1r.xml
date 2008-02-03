@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<action tile="0">
+		<loadBMP>
+			<fileName>gate1.bmp</fileName>
+		</loadBMP>
+	</action>
+	<action  tile="5">
+		<createGate>
+			<gate>
+				<name>gate1</name>
+				<height>192</height>
+				<width>256</width>
+				<texture name="gate"/>
+				<startCenter x="448" y="-96"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</gate>
+			<trigger>
+				<name>gate1T</name>
+				<height>34</height>
+				<width>32</width>
+				<texture name="trigger" pos="0"/>
+				<startCenter x="580" y="-96"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</trigger>
+		</createGate>
+	</action>
+	<action tile="14">
+		<changeSpeed>
+			<speed>0</speed>
+		</changeSpeed>
+	</action>
+	<action tile="15">
+		<changeFile>
+			<fileName>Gate1r.xml</fileName>
+		</changeFile>
+	</action>
+</level>

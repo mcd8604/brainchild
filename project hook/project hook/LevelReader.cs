@@ -597,7 +597,7 @@ namespace project_hook
 				}
 				else if (p_Reader.IsStartElement("weapon"))
 				{
-					t_Ship.addWeapon(readWeapon(p_Reader, t_Ship));
+					t_Ship.addWeapon(readWeapon(p_Reader));
 				}
 				else if (p_Reader.IsStartElement("task"))
 				{
@@ -662,7 +662,7 @@ namespace project_hook
 			return ret;
 		}
 
-		private static Weapon readWeapon(XmlReader p_Reader, Ship p_Ship)
+		private static Weapon readWeapon(XmlReader p_Reader)
 		{
 			Weapon weapon = null;
 			string pType = p_Reader.GetAttribute("type");
@@ -698,6 +698,15 @@ namespace project_hook
 					complex.ShotTask = task;
 					weapon = complex;
 					break;
+				case "Sequence":
+					WeaponSequence sequence = new WeaponSequence();
+					sequence.RecycleDelay = float.Parse(p_Reader.GetAttribute("recycle"));
+					p_Reader.ReadStartElement("weapon");
+					while (p_Reader.IsStartElement("weapon") ){
+						sequence.addWeapon( readWeapon(p_Reader) );
+					}
+					weapon = sequence;
+					break;
 				default:
 #if DEBUG
 					throw new NotImplementedException("'" + pType + "' is not a recognized Weapon");
@@ -729,7 +738,7 @@ namespace project_hook
 				}
 				else if (p_Reader.IsStartElement("shot"))
 				{
-					weapon.ShotType = readShot(p_Reader, p_Ship);
+					weapon.ShotType = readShot(p_Reader);
 				}
 #if DEBUG
 				else
@@ -754,9 +763,9 @@ namespace project_hook
 			return weapon;
 		}
 
-		private static Shot readShot(XmlReader p_Reader, Ship p_Ship)
+		private static Shot readShot(XmlReader p_Reader)
 		{
-			Shot shot = new Shot(p_Ship);
+			Shot shot = new Shot();
 			p_Reader.ReadStartElement("shot");
 
 			while (p_Reader.IsStartElement())
@@ -1200,7 +1209,7 @@ namespace project_hook
 						}
 						else if (p_Reader.IsStartElement("weapon"))
 						{
-							t_Obj.addWeapon(readWeapon(p_Reader, t_Obj));
+							t_Obj.addWeapon(readWeapon(p_Reader));
 						}
 						else if (p_Reader.IsStartElement("task"))
 						{
