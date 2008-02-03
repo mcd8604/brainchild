@@ -131,7 +131,7 @@ namespace project_hook
 			m_PlayerShip.setShieldDamageEffect("Explosion2", "3", "Explosion2", 23);
 			m_PlayerShip.setDeathEffect("ExplosionBig", "");
 
-			Shot shot = new Shot(PlayerShip);
+			Shot shot = new Shot();
 			shot.Name = "Player Shot";
 			shot.Height = 20;
 			shot.Width = 60;

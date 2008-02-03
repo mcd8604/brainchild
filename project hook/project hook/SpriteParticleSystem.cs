@@ -495,7 +495,7 @@ namespace project_hook
 				// make particles grow as they age. they'll start at 75% of their size,
 				// and increase to 100% once they're finished.
 				
-				 //p.Scale = (.75f + .25f * normalizedLifetime);
+				 p.Scale = (.75f + .25f * normalizedLifetime);
 
 				p.Draw(p_SpriteBatch);
 

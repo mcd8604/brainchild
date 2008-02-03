@@ -8,7 +8,7 @@ namespace project_hook
 {
 	class Thrown : Collidable
 	{
-		private float m_TimeOut = 6f;
+		//private float m_TimeOut = 6f;
 		private float m_CollideDelay = .00001f;
 		public float CollideDelay
 		{

@@ -84,6 +84,8 @@ namespace project_hook
 			m_Shots[m_NextShot].Enabled = true;
 			m_Shots[m_NextShot].Center = who.Center;
 			m_Shots[m_NextShot].Faction = who.Faction;
+
+			m_Shots[m_NextShot].m_Ship = who;
 		}
 	}
 }

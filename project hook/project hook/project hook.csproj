@@ -259,6 +259,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponSeek</Name>
     </Compile>
+    <Compile Include="WeaponSequence.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>WeaponSequence</Name>
+    </Compile>
     <Compile Include="WeaponSimple.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponSimple</Name>
@@ -606,6 +610,11 @@
     <Content Include="Content\Levels\Gate1.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Gate1</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\Gate1r.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Gate1r</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\level1.bmp">

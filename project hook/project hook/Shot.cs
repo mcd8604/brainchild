@@ -19,13 +19,12 @@ namespace project_hook
 		public bool DestroyedOnCollision = true;
 
 		//private ArrayList<Shot> blurShots;
-		private Ship m_Ship = null;
+		public Ship m_Ship = null;
 
-		public Shot( Ship p_Ship) {
+		public Shot() {
 			Enabled = false;
 			Name = "Unnamed Shot";
 			Z = Depth.GameLayer.Shot;
-			m_Ship = p_Ship;
 		}
 		public Shot(Shot p_Shot)
 		{
@@ -53,15 +52,13 @@ namespace project_hook
 			Transparency = p_Shot.Transparency;
 			Width = p_Shot.Width;
 			Z = p_Shot.Z;
-			m_Ship = p_Shot.m_Ship;
 		}
 		public Shot(String p_Name, Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
-							float p_Rotation, float p_Z, Factions p_Faction, float p_Health, float p_Radius, float p_Damage, Ship p_Ship)
+							float p_Rotation, float p_Z, Factions p_Faction, float p_Health, float p_Radius, float p_Damage)
 			: base(p_Name, p_Center, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_Radius)
 		{
 			Damage = p_Damage;
 			Center = p_Center;
-			m_Ship = p_Ship;
 		}
 
 		public override void Update(GameTime p_Time)

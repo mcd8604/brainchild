@@ -127,64 +127,70 @@
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<animation name="bloodcell" fps="60"/>
-			<weapon type="Seek" target="Player">
-				<delay>1</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>10</damage>
-					<height>30</height>
-					<width>75</width>
-					<radius>15</radius>
-					<texture name="FireBall"/>
-					<animation name="FireBall" fps="10"/>
-					<name>enemy4</name>
-				</shot>
+			<weapon type="Sequence" recycle="1.5">
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>400</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="FireBall"/>
+						<animation name="FireBall" fps="10"/>
+						<name>enemy4</name>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>400</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="FireBall"/>
+						<animation name="FireBall" fps="10"/>
+						<name>enemy5</name>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
 			</weapon>
-			<weapon type="Seek" target="Player">
-				<delay>1</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>10</damage>
-					<height>30</height>
-					<width>75</width>
-					<radius>15</radius>
-					<texture name="FireBall"/>
-					<animation name="FireBall" fps="10"/>
-					<name>enemy5</name>
-				</shot>
-			</weapon>
-			<weapon type="Seek" target="Player">
-				<delay>1</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>10</damage>
-					<height>30</height>
-					<width>75</width>
-					<radius>15</radius>
-					<texture name="FireBall"/>
-					<animation name="FireBall" fps="10"/>
-					<name>enemy6</name>
-				</shot>
-			</weapon>
-			<weapon type="Seek" target="Player">
-				<delay>1</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>10</damage>
-					<height>30</height>
-					<width>75</width>
-					<radius>15</radius>
-					<texture name="FireBall"/>
-					<animation name="FireBall" fps="10"/>
-					<name>enemy7</name>
-				</shot>
+			<weapon type="Sequence" recycle="1.5">
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>400</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="FireBall"/>
+						<animation name="FireBall" fps="10"/>
+						<name>enemy6</name>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>400</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="FireBall"/>
+						<animation name="FireBall" fps="10"/>
+						<name>enemy7</name>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
 			</weapon>
 			<task type="Parallel">
 				<task type="StraightVelocity">
 					<velocity x="0" y="40"/>
 				</task>
-				<task type="RotateToAngle">
-					<degree>90</degree>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
 				</task>
 				<task type="Fire"/>
 			</task>

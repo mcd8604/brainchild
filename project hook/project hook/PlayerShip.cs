@@ -30,7 +30,7 @@ namespace project_hook
 			m_Upgrades = new List<Shot>();
 			m_UpgradeReqs = new List<int>();
 
-			Shot shot = new Shot(this);
+			Shot shot = new Shot();
 			shot.Name = "Player Shot";
 			shot.Height = 30;
 			shot.Width = 90;
@@ -43,7 +43,7 @@ namespace project_hook
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(100);
 
-			shot = new Shot(this);
+			shot = new Shot();
 			shot.Name = "Player Shot";
 			shot.Height = 40;
 			shot.Width = 120;
@@ -56,7 +56,7 @@ namespace project_hook
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(200);
 
-			shot = new Shot(this);
+			shot = new Shot();
 			shot.Name = "Player Shot";
 			shot.Height = 50;
 			shot.Width = 150;

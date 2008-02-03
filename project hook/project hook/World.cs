@@ -468,7 +468,7 @@ namespace project_hook
 				{
 					if (kill == null)
 					{
-						kill = new Shot("Soul of Zinglon", m_Player.PlayerShip.Center, 250, 4000, TextureLibrary.getGameTexture("Shot", ""), 0.75f, true, -MathHelper.PiOver2, Depth.GameLayer.Shot, Collidable.Factions.Player, 0, 0, 10000, null);
+						kill = new Shot("Soul of Zinglon", m_Player.PlayerShip.Center, 250, 4000, TextureLibrary.getGameTexture("Shot", ""), 0.75f, true, -MathHelper.PiOver2, Depth.GameLayer.Shot, Collidable.Factions.Player, 0, 0, 10000);
 						kill.BlendMode = SpriteBlendMode.Additive;
 						kill.Bound = Collidable.Boundings.Rectangle;
 						kill.DestroyedOnCollision = false;

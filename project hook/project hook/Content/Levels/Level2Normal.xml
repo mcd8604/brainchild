@@ -530,7 +530,7 @@
 				<task type="RepeatingSequence">
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="180" y="80"/>
+							<velocity x="180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>0.5</duration>
@@ -538,13 +538,14 @@
 					</task>
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="-180" y="80"/>
+							<velocity x="-180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>0.5</duration>
 						</task>
 					</task>
 				</task>
+				<task type="Stationary"/>
 				<task type="RotateToAngle">
 					<degree>90</degree>
 				</task>
@@ -578,7 +579,7 @@
 				<task type="RepeatingSequence">
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="180" y="80"/>
+							<velocity x="180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>0.5</duration>
@@ -586,13 +587,14 @@
 					</task>
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="-180" y="80"/>
+							<velocity x="-180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>0.5</duration>
 						</task>
 					</task>
 				</task>
+				<task type="Stationary"/>
 				<task type="RotateToAngle">
 					<degree>90</degree>
 				</task>
@@ -628,7 +630,7 @@
 				<task type="RepeatingSequence">
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="180" y="80"/>
+							<velocity x="180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>0.5</duration>
@@ -636,13 +638,14 @@
 					</task>
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="-180" y="80"/>
+							<velocity x="-180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>0.5</duration>
 						</task>
 					</task>
 				</task>
+				<task type="Stationary"/>
 				<task type="RotateToAngle">
 					<degree>90</degree>
 				</task>
@@ -676,7 +679,7 @@
 				<task type="RepeatingSequence">
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="180" y="80"/>
+							<velocity x="180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>0.5</duration>
@@ -684,13 +687,14 @@
 					</task>
 					<task type="Parallel">
 						<task type="StraightVelocity">
-							<velocity x="-180" y="80"/>
+							<velocity x="-180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
 							<duration>0.5</duration>
 						</task>
 					</task>
 				</task>
+				<task type="Stationary"/>
 				<task type="RotateToAngle">
 					<degree>90</degree>
 				</task>
@@ -862,5 +866,10 @@
 				<task type="Fire"/>
 			</task>
 		</createShip>
+	</action>
+	<action tile="220">
+		<changeFile>
+			<fileName>Gate1r.xml</fileName>
+		</changeFile>
 	</action>
 </level>
