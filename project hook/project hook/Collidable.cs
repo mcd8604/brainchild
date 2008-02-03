@@ -123,11 +123,25 @@ namespace project_hook
 		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag)
 		{
 			m_DeathEffect = new ExplosionSpriteParticleSystem(Name + "_DeathEffectParticleSystem", p_DeathEffectTextureName, p_Tag, 1);
+			m_DeathEffect.MaxLifetime = 1.0f;
+			m_DeathEffect.MinInitialSpeed = 10;
+			m_DeathEffect.MaxInitialSpeed = 100;
+			m_DeathEffect.MinNumParticles = 100;
+			m_DeathEffect.MaxNumParticles = 200;
+			m_DeathEffect.MinScale = 1f;
+			m_DeathEffect.MaxScale = 0.001f;
 			addSprite(m_DeathEffect);
 		}
 		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag, String p_DeathEffectAnimationName, int p_AnimationFPS)
 		{
 			m_DeathEffect = new ExplosionSpriteParticleSystem(Name + "_DeathEffectParticleSystem", p_DeathEffectTextureName, p_Tag, p_DeathEffectAnimationName, p_AnimationFPS, 1);
+			m_DeathEffect.MaxLifetime = 1.0f;
+			m_DeathEffect.MinInitialSpeed = 10;
+			m_DeathEffect.MaxInitialSpeed = 100;
+			m_DeathEffect.MinNumParticles = 100;
+			m_DeathEffect.MaxNumParticles = 200;
+			m_DeathEffect.MinScale = 1f;
+			m_DeathEffect.MaxScale = 0.001f;
 			addSprite(m_DeathEffect);
 		}
 

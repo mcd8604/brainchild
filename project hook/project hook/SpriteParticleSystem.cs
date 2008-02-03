@@ -76,14 +76,47 @@ namespace project_hook
 		/// added when AddParticles is called. The number of particles will be a random
 		/// number between minNumParticles and maxNumParticles.
 		/// </summary>
-		protected int minNumParticles;
-		protected int maxNumParticles;
+		protected int m_MinNumParticles;
+		public int MinNumParticles
+		{
+			get
+			{
+				return m_MinNumParticles;
+			}
+			set
+			{
+				m_MinNumParticles = value;
+			}
+		}
+		protected int m_MaxNumParticles;
+		public int MaxNumParticles
+		{
+			get
+			{
+				return m_MaxNumParticles;
+			}
+			set
+			{
+				m_MaxNumParticles = value;
+			}
+		}
 
 		/// <summary>
 		/// this controls the texture that the particle system uses. It will be used as
 		/// an argument to ContentManager.Load.
 		/// </summary>
-		protected string textureFilename;
+		protected string m_TextureFilename;
+		public string TextureFilename
+		{
+			get
+			{
+				return m_TextureFilename;
+			}
+			set
+			{
+				m_TextureFilename = value;
+			}
+		}
 
 		/// <summary>
 		/// minInitialSpeed and maxInitialSpeed are used to control the initial velocity
@@ -91,8 +124,30 @@ namespace project_hook
 		/// between these two. The direction is determined by the function 
 		/// PickRandomDirection, which can be overriden.
 		/// </summary>
-		protected float minInitialSpeed;
-		protected float maxInitialSpeed;
+		protected float m_MinInitialSpeed;
+		public float MinInitialSpeed
+		{
+			get
+			{
+				return m_MinInitialSpeed;
+			}
+			set
+			{
+				m_MinInitialSpeed = value;
+			}
+		}
+		protected float m_MaxInitialSpeed;
+		public float MaxInitialSpeed
+		{
+			get
+			{
+				return m_MaxInitialSpeed;
+			}
+			set
+			{
+				m_MaxInitialSpeed = value;
+			}
+		}
 
 		/// <summary>
 		/// minAcceleration and maxAcceleration are used to control the acceleration of
@@ -100,8 +155,30 @@ namespace project_hook
 		/// these two. By default, the direction of acceleration is the same as the
 		/// direction of the initial velocity.
 		/// </summary>
-		protected float minAcceleration;
-		protected float maxAcceleration;
+		protected float m_MinAcceleration;
+		public float MinAcceleration
+		{
+			get
+			{
+				return m_MinAcceleration;
+			}
+			set
+			{
+				m_MinAcceleration = value;
+			}
+		}
+		protected float m_MaxAcceleration;
+		public float MaxAcceleration
+		{
+			get
+			{
+				return m_MaxAcceleration;
+			}
+			set
+			{
+				m_MaxAcceleration = value;
+			}
+		}
 
 		/// <summary>
 		/// minRotationSpeed and maxRotationSpeed control the particles' angular
@@ -110,8 +187,30 @@ namespace project_hook
 		/// Use smaller numbers to make particle systems look calm and wispy, and large 
 		/// numbers for more violent effects.
 		/// </summary>
-		protected float minRotationSpeed;
-		protected float maxRotationSpeed;
+		protected float m_MinRotationSpeed;
+		public float MinRotationSpeed
+		{
+			get
+			{
+				return m_MinRotationSpeed;
+			}
+			set
+			{
+				m_MinRotationSpeed = value;
+			}
+		}
+		protected float m_MaxRotationSpeed;
+		public float MaxRotationSpeed
+		{
+			get
+			{
+				return m_MaxRotationSpeed;
+			}
+			set
+			{
+				m_MaxRotationSpeed = value;
+			}
+		}
 
 		/// <summary>
 		/// minLifetime and maxLifetime are used to control the lifetime. Each
@@ -120,8 +219,30 @@ namespace project_hook
 		/// implementation of Draw, lifetime is also used to calculate alpha and scale
 		/// values to avoid particles suddenly "popping" into view
 		/// </summary>
-		protected float minLifetime;
-		protected float maxLifetime;
+		protected float m_MinLifetime;
+		public float MinLifetime
+		{
+			get
+			{
+				return m_MinLifetime;
+			}
+			set
+			{
+				m_MinLifetime = value;
+			}
+		}
+		protected float m_MaxLifetime;
+		public float MaxLifetime
+		{
+			get
+			{
+				return m_MaxLifetime;
+			}
+			set
+			{
+				m_MaxLifetime = value;
+			}
+		}
 
 		/// <summary>
 		/// to get some additional variance in the appearance of the particles, we give
@@ -129,8 +250,31 @@ namespace project_hook
 		/// and is additionally affected by the particle's lifetime to avoid particles
 		/// "popping" into view.
 		/// </summary>
-		protected float minScale;
-		protected float maxScale;
+		protected float m_MinScale;
+		public float MinScale
+		{
+			get
+			{
+				return m_MinScale;
+			}
+			set
+			{
+				m_MinScale = value;
+			}
+		}
+		protected float m_MaxScale;
+		public float MaxScale
+		{
+			get
+			{
+				return m_MaxScale;
+			}
+			set
+			{
+				m_MaxScale = value;
+			}
+		}
+
 
 		#endregion
 
@@ -158,8 +302,8 @@ namespace project_hook
 			// max number of effects and the max number of particles per effect.
 			// once these particles are allocated, they will be reused, so that
 			// we don't put any pressure on the garbage collector.
-			particles = new ParticleSprite[howManyEffects * maxNumParticles];
-			freeParticles = new Queue<ParticleSprite>(howManyEffects * maxNumParticles);
+			particles = new ParticleSprite[howManyEffects * m_MaxNumParticles];
+			freeParticles = new Queue<ParticleSprite>(howManyEffects * m_MaxNumParticles);
 			for (int i = 0; i < particles.Length; i++)
 			{
 				particles[i] = new ParticleSprite();
@@ -186,8 +330,8 @@ namespace project_hook
 			// max number of effects and the max number of particles per effect.
 			// once these particles are allocated, they will be reused, so that
 			// we don't put any pressure on the garbage collector.
-			particles = new ParticleSprite[howManyEffects * maxNumParticles];
-			freeParticles = new Queue<ParticleSprite>(howManyEffects * maxNumParticles);
+			particles = new ParticleSprite[howManyEffects * m_MaxNumParticles];
+			freeParticles = new Queue<ParticleSprite>(howManyEffects * m_MaxNumParticles);
 			for (int i = 0; i < particles.Length; i++)
 			{
 				particles[i] = new ParticleSprite();
@@ -215,7 +359,7 @@ namespace project_hook
 		{
 			// the number of particles we want for this effect is a random number
 			// somewhere between the two constants specified by the subclasses.
-			int numParticles = new Random().Next(minNumParticles, maxNumParticles);
+			int numParticles = new Random().Next(m_MinNumParticles, m_MaxNumParticles);
 
 			// create that many particles, if you can.
 			for (int i = 0; i < numParticles && freeParticles.Count > 0; i++)
@@ -244,15 +388,15 @@ namespace project_hook
 
 			// pick some random values for our particle
 			float velocity =
-				RandomBetween(minInitialSpeed, maxInitialSpeed);
+				RandomBetween(m_MinInitialSpeed, m_MaxInitialSpeed);
 			float acceleration =
-				RandomBetween(minAcceleration, maxAcceleration);
+				RandomBetween(m_MinAcceleration, m_MaxAcceleration);
 			float lifetime =
-				RandomBetween(minLifetime, maxLifetime);
+				RandomBetween(m_MinLifetime, m_MaxLifetime);
 			float scale =
-				RandomBetween(minScale, maxScale);
+				RandomBetween(m_MinScale, m_MaxScale);
 			float rotationSpeed =
-				RandomBetween(minRotationSpeed, maxRotationSpeed);
+				RandomBetween(m_MinRotationSpeed, m_MaxRotationSpeed);
 
 			// then initialize it with those random values. initialize will save those,
 			// and make sure it is marked as active.
@@ -351,7 +495,7 @@ namespace project_hook
 				// make particles grow as they age. they'll start at 75% of their size,
 				// and increase to 100% once they're finished.
 				
-				 p.Scale = (.75f + .25f * normalizedLifetime);
+				 //p.Scale = (.75f + .25f * normalizedLifetime);
 
 				p.Draw(p_SpriteBatch);
 
