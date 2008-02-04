@@ -24,11 +24,21 @@ namespace project_hook
 		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, String p_Tag)
 		{
 			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(Name + "_ShieldDamageEffectParticleSystem", p_ShieldDamageEffectTextureName, p_Tag, 1);
+			TaskQueue EffectTask = new TaskQueue();
+			EffectTask.addTask(new TaskWait(this.IsDead));
+			EffectTask.addTask(new TaskTimer(1f));
+			EffectTask.addTask(new TaskRemove());
+			m_ShieldDamageEffect.Task = EffectTask;
 			addSprite(m_ShieldDamageEffect);
 		}
 		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, String p_Tag, String p_ShieldDamageEffectAnimationName, int p_AnimationFPS)
 		{
 			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(Name + "_ShieldDamageEffectParticleSystem", p_ShieldDamageEffectTextureName, p_Tag, p_ShieldDamageEffectAnimationName, p_AnimationFPS, 1);
+			TaskQueue EffectTask = new TaskQueue();
+			EffectTask.addTask(new TaskWait(this.IsDead));
+			EffectTask.addTask(new TaskTimer(1f));
+			EffectTask.addTask(new TaskRemove());
+			m_ShieldDamageEffect.Task = EffectTask;
 			addSprite(m_ShieldDamageEffect);
 		}
 

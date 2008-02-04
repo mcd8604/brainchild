@@ -255,6 +255,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskTimer</Name>
     </Compile>
+    <Compile Include="TaskWait.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskWait</Name>
+    </Compile>
     <Compile Include="Thrown.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Thrown</Name>
