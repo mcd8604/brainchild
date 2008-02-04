@@ -586,6 +586,9 @@ namespace project_hook
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
 			TextureLibrary.LoadTexture("walls\\wall_left");
+            TextureLibrary.LoadTexture("shieldBar");
+            TextureLibrary.LoadTexture("healthBar");
+            TextureLibrary.LoadTexture("black");
 
 #if DEBUG
 			TextureLibrary.LoadTexture("debugcirc");
@@ -609,6 +612,9 @@ namespace project_hook
 
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			AddSprite(m_Player.PlayerShip);
+#if DEBUG
+            new HealthBar(m_Player.PlayerShip);
+#endif
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			//Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
 
