@@ -32,39 +32,39 @@ namespace project_hook
 
 			Shot shot = new Shot();
 			shot.Name = "Player Shot";
-			shot.Height = 30;
-			shot.Width = 90;
-			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
-			shot.Radius = 30;
+			shot.Height = 20;
+			shot.Width = 20;
+			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
+			shot.Radius = 10;
 			shot.Damage = 8;
-			shot.Bound = Collidable.Boundings.Rectangle;
-			shot.setAnimation("RedShot", 10);
+			shot.Bound = Collidable.Boundings.Circle;
+			shot.setAnimation("shot_greenball", 30);
 
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(100);
 
 			shot = new Shot();
 			shot.Name = "Player Shot";
-			shot.Height = 40;
-			shot.Width = 120;
-			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
-			shot.Radius = 40;
-			shot.Damage = 16;
-			shot.Bound = Collidable.Boundings.Rectangle;
-			shot.setAnimation("RedShot", 10);
+			shot.Height = 24;
+			shot.Width = 24;
+			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
+			shot.Radius = 12;
+			shot.Damage = 10;
+			shot.Bound = Collidable.Boundings.Circle;
+			shot.setAnimation("shot_greenball", 30);
 
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(200);
 
 			shot = new Shot();
 			shot.Name = "Player Shot";
-			shot.Height = 50;
-			shot.Width = 150;
-			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
-			shot.Radius = 50;
-			shot.Damage = 32;
-			shot.Bound = Collidable.Boundings.Rectangle;
-			shot.setAnimation("RedShot", 10);
+			shot.Height = 28;
+			shot.Width = 28;
+			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
+			shot.Radius = 14;
+			shot.Damage = 12;
+			shot.Bound = Collidable.Boundings.Circle;
+			shot.setAnimation("shot_greenball", 30);
 
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(300);

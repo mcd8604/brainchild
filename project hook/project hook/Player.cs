@@ -133,13 +133,13 @@ namespace project_hook
 
 			Shot shot = new Shot();
 			shot.Name = "Player Shot";
-			shot.Height = 20;
-			shot.Width = 60;
-			shot.Texture = TextureLibrary.getGameTexture("RedShot", "3");
-			shot.Radius = 20;
+			shot.Height = 16;
+			shot.Width = 16;
+			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
+			shot.Radius = 8;
 			shot.Damage = 4;
-			shot.Bound = Collidable.Boundings.Rectangle;
-			shot.setAnimation("RedShot", 10);
+			shot.Bound = Collidable.Boundings.Circle;
+			shot.setAnimation("shot_greenball", 30);
 
 			Weapon wep = new WeaponStraight(shot, 0.30f, 400, -MathHelper.PiOver2);
 			m_PlayerShip.addWeapon(wep);
