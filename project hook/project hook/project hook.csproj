@@ -771,6 +771,18 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>shot_energy</Name>
     </Content>
+    <Content Include="Content\Textures\shot_greenball.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>shot_greenball</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\shot_greenball.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>shot_greenball</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\tailbody.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -793,7 +805,7 @@
     <Content Include="Content\Textures\trigger.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>trigger</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\veinbg.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

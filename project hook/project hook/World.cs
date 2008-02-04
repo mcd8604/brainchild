@@ -545,6 +545,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("DNA");
 			TextureLibrary.LoadTexture("Enemy1");
 			TextureLibrary.LoadTexture("energyball");
+			TextureLibrary.LoadTexture("shot_greenball");
 			TextureLibrary.LoadTexture("Explosion");
 			TextureLibrary.LoadTexture("Explosion2");
 			TextureLibrary.LoadTexture("ExplosionBig");
@@ -552,12 +553,12 @@ namespace project_hook
 			TextureLibrary.LoadTexture("gate");
 			TextureLibrary.LoadTexture("hudPanel");
 			TextureLibrary.LoadTexture("poisonsplat");
-			TextureLibrary.LoadTexture("RedShot");
 			TextureLibrary.LoadTexture("Shield");
 			TextureLibrary.LoadTexture("Ship2");
 			TextureLibrary.LoadTexture("Shot");
 			TextureLibrary.LoadTexture("shot_electric");
 			TextureLibrary.LoadTexture("shot_energy");
+			TextureLibrary.LoadTexture("shot_greenball");
 			TextureLibrary.LoadTexture("tail_segment");
 			TextureLibrary.LoadTexture("tailbody");
 			TextureLibrary.LoadTexture("temptail");
