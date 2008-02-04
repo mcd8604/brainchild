@@ -86,14 +86,14 @@ namespace project_hook
                     Ship t_Ship = (Ship)m_Target;
                     if (t_Ship.MaxShield > 0)
                     {
-                         c = shields.Center;
+                        c = shields.Center;
                         c.X = this.Center.X;
                         c.Y = this.Center.Y + offset.Y;
                         shields.Center = c;
 
-
                         shields.Width = (int)(width * t_Ship.Shield / t_Ship.MaxShield);
                         blackS.Center = shields.Center;
+                        shields.Position = blackS.Position; 
                    
                     }
                 }
@@ -107,7 +107,7 @@ namespace project_hook
                 
 
                 blackH.Center = health.Center;
-                
+                health.Position = blackH.Position; 
             
         }
 

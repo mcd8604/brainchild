@@ -86,6 +86,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>GateTrigger</Name>
     </Compile>
+    <Compile Include="HealthBar.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>HealthBar</Name>
+    </Compile>
     <Compile Include="Music.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -656,6 +660,12 @@
       <Name>testBMP</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\black.PNG">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>black</Name>
+    </Content>
     <Content Include="Content\Textures\bloodcell.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -726,11 +736,23 @@
       <Name>gate</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\healthBar.PNG">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>healthBar</Name>
+    </Content>
     <Content Include="Content\Textures\hudPanel.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>hudPanel</Name>
+    </Content>
+    <Content Include="Content\Textures\shieldBar.PNG">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>shieldBar</Name>
     </Content>
     <Content Include="Content\Textures\shot_electric.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
