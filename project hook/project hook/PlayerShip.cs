@@ -19,6 +19,10 @@ namespace project_hook
 		List<Shot> m_Upgrades;
 		List<int> m_UpgradeReqs;
 
+		const int MAX_SHIELD_LEVEL = 200;
+		const int HEAL_AMOUNT = 20;
+		const int SHIELD_INC_AMOUNT = 10;
+
 
 		int m_UpgradeLevel = 0;
 		int cur = -1;
@@ -88,6 +92,21 @@ namespace project_hook
 			if (p_Other.Faction == Factions.PowerUp)
 			{
 				PowerUp p = (PowerUp)p_Other;
+				handlePowerUp(p);
+
+
+
+
+			}
+			base.RegisterCollision(p_Other);
+
+
+		}
+
+		void handlePowerUp(PowerUp p)
+		{
+			if (p.Type == PowerUp.PowerType.Weapon)
+			{
 				m_UpgradeLevel += p.Amount;
 				int prev = cur;
 
@@ -103,6 +122,7 @@ namespace project_hook
 					}
 				}
 
+
 				if (cur != prev)
 				{
 					cur = prev;
@@ -114,12 +134,20 @@ namespace project_hook
 						}
 					}
 				}
-
-
 			}
-			base.RegisterCollision(p_Other);
-
-
+			else if (p.Type == PowerUp.PowerType.Health)
+			{
+				Health += HEAL_AMOUNT;
+				if (Health > MaxHealth)
+				{
+					Health = MaxHealth;
+				}
+			}
+			else if (p.Type == PowerUp.PowerType.Shield)
+			{
+				MaxShield += SHIELD_INC_AMOUNT;
+				Shield += SHIELD_INC_AMOUNT;
+			}
 		}
 
 		public string getUpgradeLevel()

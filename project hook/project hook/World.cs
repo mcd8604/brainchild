@@ -586,6 +586,7 @@ namespace project_hook
             TextureLibrary.LoadTexture("shieldBar");
             TextureLibrary.LoadTexture("healthBar");
             TextureLibrary.LoadTexture("black");
+			TextureLibrary.LoadTexture("cross");
 
 #if DEBUG
 			TextureLibrary.LoadTexture("debugcirc");

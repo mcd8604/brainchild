@@ -196,7 +196,7 @@ namespace project_hook
 				// death effect, and remove?
 
 				// TODO : Replace this 'static' creation with a key read from the xml, and stored in ship until it dies, then the 'drop' is dropped.
-				PowerUp p = new PowerUp((int)(Height * 0.5f), (int)(Radius * 0.5f), Center);
+				PowerUp p = new PowerUp((int)(Height * 0.5f), (int)(Radius * 0.5f),Center);
 				addSprite(p);
 
 				Enabled = false;
