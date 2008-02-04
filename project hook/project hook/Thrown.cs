@@ -88,7 +88,7 @@ namespace project_hook
 							}
 						}
 
-						if (p_Other.Bound == Collidable.Boundings.Square)
+						if (p_Other.Bound == Collidable.Boundings.Square || p_Other.Bound == Collidable.Boundings.Rectangle)
 						{
 							while (tempTask.AngleDegrees <= 0)
 								tempTask.AngleDegrees += 360;
