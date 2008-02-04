@@ -206,7 +206,7 @@ namespace project_hook
 			//base.RegisterCollision(p_Other);
 			if (!(p_Other is Shot))
 			{
-				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0))
+				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0) && p_Other.Grabbable)
 				{
 					m_EnemyCaught = p_Other;
 					Transparency = 0;

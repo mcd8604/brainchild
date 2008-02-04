@@ -365,7 +365,7 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("bound"))
 				{
 					p_Trigger.Bound = readBounding(p_Reader);
-				}
+				}				
 #if DEBUG
 				else
 				{
@@ -384,6 +384,7 @@ namespace project_hook
 			p_Trigger.Bound = Collidable.Boundings.Circle;
 			p_Trigger.Radius = 10;
 			p_Trigger.Health = 1;
+			p_Trigger.Grabbable = false;
 		}
 
 		private void NextFile(XmlReader p_Reader)
@@ -468,6 +469,12 @@ namespace project_hook
 				{
 					p_Reader.ReadStartElement("name");
 					t_Ship.Name = p_Reader.ReadString();
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("grabbable"))
+				{
+					p_Reader.ReadStartElement("grabbable");
+					t_Ship.Grabbable = bool.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("startPos"))

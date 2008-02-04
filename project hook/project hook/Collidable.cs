@@ -106,6 +106,19 @@ namespace project_hook
 			}
 		}
 
+		private bool m_Grabbable = true;
+		public bool Grabbable
+		{
+			set
+			{
+				m_Grabbable = value;
+			}
+			get
+			{
+				return m_Grabbable;
+			}
+		}
+
 		protected SpriteParticleSystem m_DamageEffect = null;
 
 		public void setDamageEffect( String p_DamageEffectTextureName, String p_Tag ) {

@@ -34,7 +34,7 @@ namespace project_hook
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
-			if (p_Other.Faction == Factions.Player)
+			if (p_Other.Faction == Factions.Player && !(p_Other is Tail))
 			{
 				base.RegisterCollision(p_Other);
 				World.m_Position.Speed = 80;
