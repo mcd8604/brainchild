@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
@@ -30,6 +31,21 @@ namespace project_hook
 				if (p_Killed)
 				{
 					m_Score += 100f;
+
+					Vector2 at = p_Target.Center;
+					at.Y -= 50;
+					TextSprite Kill = new TextSprite("100", at, Microsoft.Xna.Framework.Graphics.Color.Yellow, Depth.HUDLayer.Background);
+					Kill.Scale = new Vector2(0.5f, 0.5f);
+					TaskParallel Par = new TaskParallel();
+					Par.addTask(new TaskStationary());
+					TaskSequence Seq = new TaskSequence();
+					Seq.addTask(new TaskTimer(1f));
+					Seq.addTask(new TaskRemove());
+					Par.addTask(Seq);
+					Kill.Task = Par;
+
+					p_Attacker.addSprite(Kill);
+
 				}
 			}
 		}
