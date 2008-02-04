@@ -221,11 +221,7 @@ namespace project_hook
 					foreach (Sprite s in removed)
 					{
 						Console.WriteLine("Removing: " + s);
-						if (s.Enabled &&
-							(s.Center.X + s.Width) > m_ViewPortSize.X &&
-							(s.Center.X - s.Width) < m_ViewPortSize.Width &&
-							(s.Center.Y + s.Height) > m_ViewPortSize.Y &&
-							(s.Center.Y - s.Height) < m_ViewPortSize.Height)
+						if (isSpriteVisible(s))
 						{
 							Console.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
 						}
@@ -732,5 +728,16 @@ namespace project_hook
 		{
 			m_Position.setSpeed(p_Speed);
 		}
+
+		/// <summary>
+		/// Returns true if the sprite is currently visible on the screen.
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns></returns>
+		public static bool isSpriteVisible(Sprite s)
+		{
+			return (s.Enabled && (s.Center.X + s.Width) > m_ViewPortSize.X && (s.Center.X - s.Width) < m_ViewPortSize.Width && (s.Center.Y + s.Height) > m_ViewPortSize.Y && (s.Center.Y - s.Height) < m_ViewPortSize.Height);
+		}
+
 	}
 }
