@@ -123,11 +123,21 @@ namespace project_hook
 
 		public void setDamageEffect( String p_DamageEffectTextureName, String p_Tag ) {
 			m_DamageEffect = new ExplosionSpriteParticleSystem(Name + "_DamageEffectParticleSystem", p_DamageEffectTextureName, p_Tag, 1);
+			TaskQueue EffectTask = new TaskQueue();
+			EffectTask.addTask(new TaskWait(this.IsDead));
+			EffectTask.addTask(new TaskTimer(1f));
+			EffectTask.addTask(new TaskRemove());
+			m_DamageEffect.Task = EffectTask;
 			addSprite(m_DamageEffect);
 		}
 		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag, String p_DamageEffectAnimationName, int p_AnimationFPS )
 		{
 			m_DamageEffect = new ExplosionSpriteParticleSystem(Name + "_DamageEffectParticleSystem", p_DamageEffectTextureName, p_Tag, p_DamageEffectAnimationName, p_AnimationFPS, 1);
+			TaskQueue EffectTask = new TaskQueue();
+			EffectTask.addTask(new TaskWait(this.IsDead));
+			EffectTask.addTask(new TaskTimer(1f));
+			EffectTask.addTask(new TaskRemove());
+			m_DamageEffect.Task = EffectTask;
 			addSprite(m_DamageEffect);
 		}
 
@@ -143,6 +153,11 @@ namespace project_hook
 			m_DeathEffect.MaxNumParticles = 200;
 			m_DeathEffect.MinScale = 1f;
 			m_DeathEffect.MaxScale = 0.001f;
+			TaskQueue EffectTask = new TaskQueue();
+			EffectTask.addTask(new TaskWait(this.IsDead));
+			EffectTask.addTask(new TaskTimer(2f));
+			EffectTask.addTask(new TaskRemove());
+			m_DeathEffect.Task = EffectTask;
 			addSprite(m_DeathEffect);
 		}
 		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag, String p_DeathEffectAnimationName, int p_AnimationFPS)
@@ -155,6 +170,11 @@ namespace project_hook
 			m_DeathEffect.MaxNumParticles = 200;
 			m_DeathEffect.MinScale = 1f;
 			m_DeathEffect.MaxScale = 0.001f;
+			TaskQueue EffectTask = new TaskQueue();
+			EffectTask.addTask(new TaskWait(this.IsDead));
+			EffectTask.addTask(new TaskTimer(2f));
+			EffectTask.addTask(new TaskRemove());
+			m_DeathEffect.Task = EffectTask;
 			addSprite(m_DeathEffect);
 		}
 
