@@ -90,6 +90,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>HealthBar</Name>
     </Compile>
+    <Compile Include="HealthPowerUp.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>HealthPowerUp</Name>
+    </Compile>
     <Compile Include="Music.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -682,6 +686,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>cell</Name>
+    </Content>
+    <Content Include="Content\Textures\cross.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>cross</Name>
     </Content>
     <Content Include="Content\Textures\crosshairsR.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
