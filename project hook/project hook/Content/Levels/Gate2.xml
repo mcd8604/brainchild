@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<action tile="0">
+		<loadBMP>
+			<fileName>gate2.bmp</fileName>
+		</loadBMP>
+	</action>
+	<action tile="26">
+		<changeSpeed>
+			<speed>0</speed>
+		</changeSpeed>
+	</action>
+</level>
