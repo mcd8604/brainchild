@@ -18,7 +18,7 @@ namespace project_hook
 	{
 		public bool DestroyedOnCollision = true;
 
-		//private ArrayList<Shot> blurShots;
+		//protected ArrayList<Shot> blurShots;
 		public Ship m_Ship = null;
 
 		public Shot() {

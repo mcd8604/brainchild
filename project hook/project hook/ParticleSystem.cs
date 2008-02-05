@@ -35,12 +35,12 @@ namespace project_hook
 
 		// the origin when we're drawing textures. this will be the middle of the
 		// texture.
-		private Vector2 origin;
+		protected Vector2 origin;
 
 		// this number represents the maximum number of effects this particle system
 		// will be expected to draw at one time. this is set in the constructor and is
 		// used to calculate how many particles we will need.
-		private int howManyEffects;
+		protected int howManyEffects;
 
 		// the array of particles used by this system. these are reused, so that calling
 		// AddParticles will not cause any allocations.
@@ -59,7 +59,7 @@ namespace project_hook
 		}
 
 		// a random number generator
-		private static Random random = new Random();
+		protected static Random random = new Random();
 		public static Random Random
 		{
 			get

@@ -28,8 +28,8 @@ namespace project_hook
 		int cur = -1;
 
 
-		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
+		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
+			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{
 			m_Upgrades = new List<Shot>();
 			m_UpgradeReqs = new List<int>();
@@ -145,8 +145,8 @@ namespace project_hook
 			}
 			else if (p.Type == PowerUp.PowerType.Shield)
 			{
-				MaxShield += SHIELD_INC_AMOUNT;
-				Shield += SHIELD_INC_AMOUNT;
+				m_MaxShield += SHIELD_INC_AMOUNT;
+				m_Shield += SHIELD_INC_AMOUNT;
 			}
 		}
 

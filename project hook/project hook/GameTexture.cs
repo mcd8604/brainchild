@@ -16,7 +16,7 @@ namespace project_hook
 		#region Variables and Properties
 		//The Identifying name for the texture
 		//This should be unique
-		private String m_Name;
+		protected String m_Name;
 		public String Name
 		{
 			get
@@ -30,7 +30,7 @@ namespace project_hook
 		}
 
 		//The tage associated with the sprite for the Texture
-		private String m_Tag;
+		protected String m_Tag;
 		public String Tag
 		{
 			get
@@ -44,7 +44,7 @@ namespace project_hook
 		}
 
 		//Name of the Texture asset
-		//private string m_TextureName;
+		//protected string m_TextureName;
 		//public string TextureName
 		//{
 		//    get
@@ -54,7 +54,7 @@ namespace project_hook
 		//}
 
 		//The 2D Texture the texture will read from
-		private Texture2D m_Texture;
+		protected Texture2D m_Texture;
 		public Texture2D Texture
 		{
 			get
@@ -70,7 +70,7 @@ namespace project_hook
 		//The area of the Texture that will be used
 		//A rectangle was chosen because it will always be used by the sprite bacth
 		//when being drawn.  This will reduce the amount of objects that need to be created.
-		private Rectangle m_StartPosition;
+		protected Rectangle m_StartPosition;
 		public Rectangle StartPosition
 		{
 			get
@@ -132,7 +132,7 @@ namespace project_hook
 			}
 		}
 
-		private Vector2 m_Center;
+		protected Vector2 m_Center;
 		public Vector2 Center
 		{
 			get

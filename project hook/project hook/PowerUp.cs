@@ -7,7 +7,7 @@ namespace project_hook
 {
 	class PowerUp : Collidable
 	{
-		private int m_Amount;
+		protected int m_Amount;
 		public int Amount
 		{
 			get
@@ -77,7 +77,7 @@ namespace project_hook
 			Shield=3
 		}
 
-		private PowerType m_Type;
+		protected PowerType m_Type;
 		public PowerType Type{
 			get
 			{
@@ -94,19 +94,17 @@ namespace project_hook
 				else if (m_Type == PowerType.Health)
 				{
 					Texture = TextureLibrary.getGameTexture("cross", "");
-
 				}
 				else if (m_Type == PowerType.Shield)
 				{
-
 					Texture = TextureLibrary.getGameTexture("Shield", "");
 				}
 			}
 		}
 
-		private int m_BackCount = 4;
+		protected int m_BackCount = 4;
 
-		private Sprite[] m_Back;
+		protected Sprite[] m_Back;
 
 		public PowerUp(int size, int value)
 		{

@@ -17,7 +17,7 @@ namespace project_hook
 		//variable for the weapon that the ship currently has
 		protected List<Weapon> m_Weapons = new List<Weapon>();
 
-		private Sprite m_ShieldSprite;
+		protected Sprite m_ShieldSprite;
 
 		protected SpriteParticleSystem m_ShieldDamageEffect = null;
 
@@ -59,7 +59,7 @@ namespace project_hook
 
 		}
 
-		private float m_MaxShield = 0;
+		protected float m_MaxShield = 0;
 		public float MaxShield
 		{
 			get
@@ -93,7 +93,7 @@ namespace project_hook
 			}
 		}
 
-		private float m_Shield = 0;
+		protected float m_Shield = 0;
 		public float Shield
 		{
 			get
@@ -106,8 +106,8 @@ namespace project_hook
 			}
 		}
 
-		private float m_TimeSinceLastDamage = 0;
-		private float m_ShieldRegenDelay = 5;
+		protected float m_TimeSinceLastDamage = 0;
+		protected float m_ShieldRegenDelay = 5;
 		/// <summary>
 		/// Delay after taking damage, before the shield begins regenerating, in seconds.
 		/// </summary>
@@ -117,7 +117,7 @@ namespace project_hook
 			set { m_ShieldRegenDelay = value; }
 		}
 
-		private float m_ShieldRegenRate = 0.1f;
+		protected float m_ShieldRegenRate = 0.1f;
 		/// <summary>
 		/// The Rate at which the shield will regenerate, in percent per second.
 		/// </summary>
@@ -132,8 +132,8 @@ namespace project_hook
 			Name = "Unnamed Ship";
 			Z = Depth.GameLayer.Ships;
 		}
-		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible , float p_Rotation, float p_zBuff , Factions p_Faction, int p_MaxHealth , int p_MaxShield, float p_Radius )
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_zBuff, p_Faction, p_MaxHealth, p_Radius)
+		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_MaxHealth, int p_MaxShield, float p_Radius)
+			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Rotation, p_zBuff, p_Faction, p_MaxHealth, p_Radius)
 		{
 			MaxShield = p_MaxShield;
 		}

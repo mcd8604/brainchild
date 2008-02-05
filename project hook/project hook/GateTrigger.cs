@@ -7,7 +7,7 @@ namespace project_hook
 {
 	class GateTrigger : Collidable
 	{
-		private Collidable m_Gate;
+		protected Collidable m_Gate;
 		public Collidable Gate
 		{
 			set

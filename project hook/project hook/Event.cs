@@ -7,7 +7,7 @@ namespace project_hook
 {
 	public class Event
 	{
-		private String m_Type;
+		protected String m_Type;
 		public String Type
 		{
 			get
@@ -16,7 +16,7 @@ namespace project_hook
 			}
 		}
 
-		private Sprite m_Sprite;
+		protected Sprite m_Sprite;
 		public Sprite Sprite
 		{
 			get
@@ -25,7 +25,7 @@ namespace project_hook
 			}
 		}
 
-		private int m_Speed;
+		protected int m_Speed;
 		public int Speed
 		{
 			get
@@ -34,7 +34,7 @@ namespace project_hook
 			}
 		}
 
-		private String m_FileName;
+		protected String m_FileName;
 		public String FileName
 		{
 			get

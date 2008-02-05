@@ -30,7 +30,7 @@ namespace project_hook
 		// this number represents the maximum number of effects this particle system
 		// will be expected to draw at one time. this is set in the constructor and is
 		// used to calculate how many particles we will need.
-		private int howManyEffects;
+		protected int howManyEffects;
 
 		// the array of particles used by this system. these are reused, so that calling
 		// AddParticles will not cause any allocations.

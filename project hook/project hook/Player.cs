@@ -47,8 +47,7 @@ namespace project_hook
 			}
 		}
 
-		private Rectangle m_Bounds;
-
+		protected Rectangle m_Bounds;
 		public Rectangle Bounds
 		{
 			get

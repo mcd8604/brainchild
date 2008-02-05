@@ -22,7 +22,7 @@ namespace project_hook
 		/// <summary>
 		/// Initial angle of the particles - specified in radians
 		/// </summary>
-		private float m_Direction;
+		protected float m_Direction;
 		public float Direction
 		{
 			get
@@ -39,7 +39,7 @@ namespace project_hook
 		/// <summary>
 		/// Range of the offset from the initial angle - specified in radians
 		/// </summary>
-		private float m_Theta;
+		protected float m_Theta;
 		public float Theta
 		{
 			get
