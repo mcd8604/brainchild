@@ -20,7 +20,8 @@ namespace project_hook
 			Enemy,
 			Environment,
 			None,
-			Blood
+			Blood,
+			ClearWall
 		}
 
 		/// <summary>
@@ -359,7 +360,7 @@ namespace project_hook
 		public virtual void RegisterCollision(Collidable p_Other)
 		{
 
-			if (Faction != Factions.Blood && p_Other.Faction != Factions.Blood)
+			if ((Faction != Factions.Blood && p_Other.Faction != Factions.Blood) && (Faction != Factions.ClearWall && p_Other.Faction != Factions.ClearWall))
 			{
 
 				if (p_Other.Faction == Factions.Environment)
