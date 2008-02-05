@@ -596,6 +596,12 @@ namespace project_hook
 					}
 					p_Reader.ReadStartElement("deathEffect");
 				}
+				else if (p_Reader.IsStartElement("score"))
+				{
+					p_Reader.ReadStartElement("score");
+					t_Ship.DestructionScore = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
 				else if (p_Reader.IsStartElement("radius"))
 				{
 					p_Reader.ReadStartElement("radius");
@@ -1190,7 +1196,7 @@ namespace project_hook
 							{
 								t_Obj.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
 							}
-							p_Reader.ReadStartElement("ahieldDamageEffect");
+							p_Reader.ReadStartElement("shieldDamageEffect");
 						}
 						else if (p_Reader.IsStartElement("deathEffect"))
 						{
