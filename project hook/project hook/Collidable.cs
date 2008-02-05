@@ -267,8 +267,10 @@ namespace project_hook
 			Z = p_Collidable.Z;
 
 			// temp
-			setDamageEffect("Explosion", "3", "Explosion", 23);
-			setDeathEffect("ExplosionBig", "");
+			//setDamageEffect("Explosion", "3", "Explosion", 23);
+			//setDeathEffect("ExplosionBig", "");
+			m_DamageEffect = p_Collidable.m_DamageEffect;
+			m_DeathEffect = p_Collidable.m_DeathEffect;
 		}
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, float p_Radius)
