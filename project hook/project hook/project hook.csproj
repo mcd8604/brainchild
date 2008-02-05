@@ -263,6 +263,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskWait</Name>
     </Compile>
+    <Compile Include="TaskWaitFor.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskWaitFor</Name>
+    </Compile>
     <Compile Include="Thrown.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Thrown</Name>

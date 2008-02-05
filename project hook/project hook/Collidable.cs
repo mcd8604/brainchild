@@ -326,7 +326,7 @@ namespace project_hook
 				}
 			}
 
-			if(!(this is Shot))
+			if(!(this is Shot) && !ToBeRemoved)
 				ToBeRemoved = IsDead();
 		}
 

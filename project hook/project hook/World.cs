@@ -217,10 +217,10 @@ namespace project_hook
 				List<Sprite> removed = m_SpriteList.FindAll(Sprite.isToBeRemoved);
 				if (removed.Count > 0)
 				{
-					Console.WriteLine("Removing AlphaBlended Sprites: ");
+					//Console.WriteLine("Removing AlphaBlended Sprites: ");
 					foreach (Sprite s in removed)
 					{
-						Console.WriteLine("Removing: " + s);
+						//Console.WriteLine("Removing: " + s);
 						if (isSpriteVisible(s))
 						{
 							Console.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
@@ -264,10 +264,10 @@ namespace project_hook
 				List<Sprite> removedA = m_SpriteListA.FindAll(Sprite.isToBeRemoved);
 				if (removedA.Count > 0)
 				{
-					Console.WriteLine("Removing Additive Sprites: ");
+					//Console.WriteLine("Removing Additive Sprites: ");
 					foreach (Sprite s in removedA)
 					{
-						Console.WriteLine("Removing: " + s);
+						//Console.WriteLine("Removing: " + s);
 						if (s.Enabled &&
 							(s.Center.X + s.Width) > m_ViewPortSize.X &&
 							(s.Center.X - s.Width) < m_ViewPortSize.Width &&
@@ -484,17 +484,21 @@ namespace project_hook
 				{
 					Console.WriteLine(m_Position.Distance);
 				}
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.T))
+				if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.T))
 				{
-					Thrown T = new Thrown(new Collidable("BloodCell", tail.Center, 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper, Collidable.Factions.Player, 100, 25));
+					Thrown T = new Thrown(new Collidable("GeneratedBloodCell", tail.Center, 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper, Collidable.Factions.Player, 100, 25));
 					T.Center = tail.Center;
 					T.setAnimation("bloodcell", 60);
 					T.Animation.StartAnimation();
 					float releaseAngle = (float)Math.Atan2(InputHandler.MousePosition.Y - tail.Center.Y, InputHandler.MousePosition.X - tail.Center.X);
+					TaskSequence task = new TaskSequence();
 					TaskParallel temp = new TaskParallel();
 					temp.addTask(new TaskStraightAngle(releaseAngle, 600f));
 					temp.addTask(new TaskRotateToAngle(releaseAngle));
-					T.Task = temp;
+					temp.addTask(new TaskWaitFor(isSpriteNotVisible));
+					task.addTask(temp);
+					task.addTask(new TaskRemove());
+					T.Task = task;
 					AddSprite(T);
 				}
 #endif
@@ -754,6 +758,10 @@ namespace project_hook
 		public static bool isSpriteVisible(Sprite s)
 		{
 			return (s.Enabled && (s.Center.X + s.Width) > m_ViewPortSize.X && (s.Center.X - s.Width) < m_ViewPortSize.Width && (s.Center.Y + s.Height) > m_ViewPortSize.Y && (s.Center.Y - s.Height) < m_ViewPortSize.Height);
+		}
+		public static bool isSpriteNotVisible(Sprite s)
+		{
+			return !isSpriteVisible(s);
 		}
 
 	}

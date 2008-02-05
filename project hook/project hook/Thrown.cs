@@ -74,88 +74,9 @@ namespace project_hook
 			{
 				if (m_LastCollision >= m_CollideDelay)
 				{
-					try
-					{
-						TaskStraightAngle tempTask = null;
-						TaskRotateToAngle tempRotateTask = null;
-						foreach (Task t in Task.getSubTasks())
-						{
-							if (t is TaskStraightAngle)
-							{
-								tempTask = (TaskStraightAngle)t;
-							}
-							else if (t is TaskRotateToAngle)
-							{
-								tempRotateTask = (TaskRotateToAngle)t;
-							}
-						}
-
-						if (p_Other.Bound == Collidable.Boundings.Square || p_Other.Bound == Collidable.Boundings.Rectangle)
-						{
-							while (tempTask.AngleDegrees <= 0)
-								tempTask.AngleDegrees += 360;
-
-							Vector2 tempVect = this.Position;
-
-							if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) < Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
-							{
-								if(((Center.X < p_Other.Center.X && (tempTask.AngleDegrees < 90 || tempTask.AngleDegrees > 270))) ||
-									(Center.X > p_Other.Center.X && (tempTask.AngleDegrees > 90 && tempTask.AngleDegrees < 270)))
-								{
-
-									if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
-									{
-										tempTask.AngleDegrees = 270 - MathHelper.Distance(tempTask.AngleDegrees, 270f);
-									}
-									else if (tempTask.AngleDegrees > 0 && tempTask.AngleDegrees < 90)
-									{
-										tempTask.AngleDegrees = 90 + MathHelper.Distance(tempTask.AngleDegrees, 90f);
-									}
-									else if (tempTask.AngleDegrees > 90 && tempTask.AngleDegrees <= 180)
-									{
-										tempTask.AngleDegrees = 90 - MathHelper.Distance(tempTask.AngleDegrees, 90f);
-									}
-									else if (tempTask.AngleDegrees > 180 && tempTask.AngleDegrees < 270)
-									{
-										tempTask.AngleDegrees = 270 + MathHelper.Distance(tempTask.AngleDegrees, 270f);
-									}
-								}
-							}
-							else if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) > Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
-							{
-
-								if (((Center.Y < p_Other.Center.Y && tempTask.AngleDegrees < 180 )) ||
-									(Center.Y > p_Other.Center.Y && tempTask.AngleDegrees > 180))
-								{
-									if (tempTask.AngleDegrees > 270 && tempTask.AngleDegrees < 360)
-									{
-										tempTask.AngleDegrees = 0 + MathHelper.Distance(tempTask.AngleDegrees, 360f);
-									}
-									else if (tempTask.AngleDegrees > 0 && tempTask.AngleDegrees < 90)
-									{
-										tempTask.AngleDegrees = 360 - MathHelper.Distance(tempTask.AngleDegrees, 0f);
-									}
-									else if (tempTask.AngleDegrees >= 90 && tempTask.AngleDegrees < 180)
-									{
-										tempTask.AngleDegrees = 180 + MathHelper.Distance(tempTask.AngleDegrees, 180f);
-									}
-									else if (tempTask.AngleDegrees > 180 && tempTask.AngleDegrees <= 270)
-									{
-										tempTask.AngleDegrees = 180 - MathHelper.Distance(tempTask.AngleDegrees, 180f);
-									}
-								}
-							}
-
-							//this.Position = tempVect;
-							tempRotateTask.AngleDegrees = tempTask.AngleDegrees;
-						}
-
-						m_LastCollision = 0;
-					}
-					catch (NullReferenceException)
-					{
-						Console.WriteLine("Error: Object does not have straight angle task");
-					}
+					checkTaskAngle(Task, p_Other);
+						
+					m_LastCollision = 0;
 				}
 			}
 			else
@@ -163,5 +84,100 @@ namespace project_hook
 				didCollide.Enqueue(p_Other);
 			}
 		}
+
+		private void checkTaskAngle(Task t, Collidable p_Other)
+		{
+			if (t is TaskStraightAngle)
+			{
+				changeTaskAngle( (TaskStraightAngle)t, p_Other);
+			}
+			//else if (t is TaskRotateToAngle)
+			//{
+			//    changeTaskAngle((TaskRotateToAngle)t, p_Other);
+			//}
+			else
+			{
+				if (t.getSubTasks() != null)
+				{
+					foreach (Task t2 in t.getSubTasks())
+					{
+						checkTaskAngle(t2, p_Other);
+					}
+				}
+			}
+		}
+		
+		private void changeTaskAngle(Task t, Collidable p_Other)
+		{
+			TaskStraightAngle task = null;
+
+			if (t is TaskStraightAngle)
+			{
+				task = t as TaskStraightAngle;
+			}
+			//else if (t is TaskRotateToAngle)
+			//{
+			//
+			//}
+
+			if (p_Other.Bound == Collidable.Boundings.Square || p_Other.Bound == Collidable.Boundings.Rectangle)
+			{
+				while (task.AngleDegrees <= 0)
+					task.AngleDegrees += 360;
+
+				Vector2 tempVect = this.Position;
+
+				if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) < Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
+				{
+					if (((Center.X < p_Other.Center.X && (task.AngleDegrees < 90 || task.AngleDegrees > 270))) ||
+						(Center.X > p_Other.Center.X && (task.AngleDegrees > 90 && task.AngleDegrees < 270)))
+					{
+
+						if (task.AngleDegrees > 270 && task.AngleDegrees < 360)
+						{
+							task.AngleDegrees = 270 - MathHelper.Distance(task.AngleDegrees, 270f);
+						}
+						else if (task.AngleDegrees > 0 && task.AngleDegrees < 90)
+						{
+							task.AngleDegrees = 90 + MathHelper.Distance(task.AngleDegrees, 90f);
+						}
+						else if (task.AngleDegrees > 90 && task.AngleDegrees <= 180)
+						{
+							task.AngleDegrees = 90 - MathHelper.Distance(task.AngleDegrees, 90f);
+						}
+						else if (task.AngleDegrees > 180 && task.AngleDegrees < 270)
+						{
+							task.AngleDegrees = 270 + MathHelper.Distance(task.AngleDegrees, 270f);
+						}
+					}
+				}
+				else if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) > Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
+				{
+
+					if (((Center.Y < p_Other.Center.Y && task.AngleDegrees < 180)) ||
+						(Center.Y > p_Other.Center.Y && task.AngleDegrees > 180))
+					{
+						if (task.AngleDegrees > 270 && task.AngleDegrees < 360)
+						{
+							task.AngleDegrees = 0 + MathHelper.Distance(task.AngleDegrees, 360f);
+						}
+						else if (task.AngleDegrees > 0 && task.AngleDegrees < 90)
+						{
+							task.AngleDegrees = 360 - MathHelper.Distance(task.AngleDegrees, 0f);
+						}
+						else if (task.AngleDegrees >= 90 && task.AngleDegrees < 180)
+						{
+							task.AngleDegrees = 180 + MathHelper.Distance(task.AngleDegrees, 180f);
+						}
+						else if (task.AngleDegrees > 180 && task.AngleDegrees <= 270)
+						{
+							task.AngleDegrees = 180 - MathHelper.Distance(task.AngleDegrees, 180f);
+						}
+					}
+				}
+			}
+
+		}
+
 	}
 }
