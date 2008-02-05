@@ -58,6 +58,17 @@ namespace project_hook
 			set
 			{
 				m_Faction = value;
+				if (m_Parts != null)
+				{
+					foreach (Sprite s in m_Parts)
+					{
+						if (s is Collidable)
+						{
+							Collidable c = s as Collidable;
+							c.Faction = value;
+						}
+					}
+				}
 			}
 		}
 

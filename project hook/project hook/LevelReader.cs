@@ -458,10 +458,42 @@ namespace project_hook
 
 		private void LoadEnemy(XmlReader p_Reader)
 		{
-			Ship t_Ship = new Ship();
+			Ship t_Ship = readShip(p_Reader);
 			t_Ship.Faction = Collidable.Factions.Enemy;
 
 			List<Event> t_List = new List<Event>();
+
+			//add the ship to the event list
+			if (m_Events.ContainsKey(m_Distance))
+			{
+				m_Events[m_Distance].Add(new Event(t_Ship));
+			}
+			else
+			{
+				t_List.Add(new Event(t_Ship));
+				m_Events.Add(m_Distance, t_List);
+			}
+		}
+
+		private static Collidable.Boundings readBounding(XmlReader p_Reader)
+		{
+			p_Reader.ReadStartElement("bound");
+			Collidable.Boundings ret = (Collidable.Boundings)Enum.Parse(typeof(Collidable.Boundings), p_Reader.ReadString(), true);
+			p_Reader.ReadEndElement();
+			return ret;
+		}
+
+		private static SpriteBlendMode readBlendMode(XmlReader p_Reader)
+		{
+			p_Reader.ReadStartElement("blendMode");
+			SpriteBlendMode ret = (SpriteBlendMode)Enum.Parse(typeof(SpriteBlendMode), p_Reader.ReadString(), true);
+			p_Reader.ReadEndElement();
+			return ret;
+		}
+
+		private static Ship readShip(XmlReader p_Reader)
+		{
+			Ship t_Ship = new Ship();
 
 			while (p_Reader.IsStartElement())
 			{
@@ -630,6 +662,13 @@ namespace project_hook
 				{
 					t_Ship.BlendMode = readBlendMode(p_Reader);
 				}
+				else if (p_Reader.IsStartElement("shipPart"))
+				{
+					p_Reader.ReadStartElement("shipPart");
+					Ship part = readShip(p_Reader);
+					t_Ship.attachSpritePart(part);
+					p_Reader.ReadEndElement();
+				}
 #if DEBUG
 				else
 				{
@@ -646,33 +685,7 @@ namespace project_hook
 #if DEBUG
 			curLoop = 0;
 #endif
-
-			//add the ship to the event list
-			if (m_Events.ContainsKey(m_Distance))
-			{
-				m_Events[m_Distance].Add(new Event(t_Ship));
-			}
-			else
-			{
-				t_List.Add(new Event(t_Ship));
-				m_Events.Add(m_Distance, t_List);
-			}
-		}
-
-		private static Collidable.Boundings readBounding(XmlReader p_Reader)
-		{
-			p_Reader.ReadStartElement("bound");
-			Collidable.Boundings ret = (Collidable.Boundings)Enum.Parse(typeof(Collidable.Boundings), p_Reader.ReadString(), true);
-			p_Reader.ReadEndElement();
-			return ret;
-		}
-
-		private static SpriteBlendMode readBlendMode(XmlReader p_Reader)
-		{
-			p_Reader.ReadStartElement("blendMode");
-			SpriteBlendMode ret = (SpriteBlendMode)Enum.Parse(typeof(SpriteBlendMode), p_Reader.ReadString(), true);
-			p_Reader.ReadEndElement();
-			return ret;
+			return t_Ship;
 		}
 
 		private static Weapon readWeapon(XmlReader p_Reader)
