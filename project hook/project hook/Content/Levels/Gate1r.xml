@@ -21,7 +21,7 @@
 				<height>34</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
-				<startCenter x="580" y="-96"/>
+				<startCenter x="586" y="-96"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>
