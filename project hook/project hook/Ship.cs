@@ -79,7 +79,10 @@ namespace project_hook
 					else
 					{
 						m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(Width * 1.30), (int)(Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
-						m_ShieldSprite.Task = new TaskAttach(this);
+						TaskParallel ShieldTask = new TaskParallel();
+						ShieldTask.addTask(new TaskAttach(this));
+						ShieldTask.addTask(new TaskRotateWithTarget(this));
+						m_ShieldSprite.Task = ShieldTask;
 						attachSpritePart(m_ShieldSprite);
 					}
 				}
@@ -129,7 +132,7 @@ namespace project_hook
 			Name = "Unnamed Ship";
 			Z = Depth.GameLayer.Ships;
 		}
-		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_MaxHealth, int p_MaxShield, float p_Radius)
+		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible , float p_Rotation, float p_zBuff , Factions p_Faction, int p_MaxHealth , int p_MaxShield, float p_Radius )
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_zBuff, p_Faction, p_MaxHealth, p_Radius)
 		{
 			MaxShield = p_MaxShield;

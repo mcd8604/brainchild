@@ -1038,28 +1038,31 @@
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<score>75</score>
-			<weapon type="Straight" angle="5">
-				<delay>1</delay>
-				<speed>200</speed>
-				<shot>
-					<damage>10</damage>
-					<height>15</height>
-					<width>50</width>
-					<radius>10</radius>
-					<texture name="Shot"/>
-				</shot>
-			</weapon>
-			<weapon type="Straight" angle="-5">
-				<delay>1</delay>
-				<speed>200</speed>
-				<initialCooldown>0.5</initialCooldown>
-				<shot>
-					<damage>10</damage>
-					<height>15</height>
-					<width>50</width>
-					<radius>10</radius>
-					<texture name="Shot"/>
-				</shot>
+			<weapon type="Sequence" recycle="0.5">
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<initialCooldown>0.5</initialCooldown>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
 			</weapon>
 			<task type="Parallel">
 				<task type="SeekTarget">
@@ -1085,28 +1088,31 @@
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<score>75</score>
-			<weapon type="Straight" angle="5">
-				<delay>1</delay>
-				<speed>200</speed>
-				<shot>
-					<damage>10</damage>
-					<height>15</height>
-					<width>50</width>
-					<radius>10</radius>
-					<texture name="Shot"/>
-				</shot>
-			</weapon>
-			<weapon type="Straight" angle="-5">
-				<delay>1</delay>
-				<speed>200</speed>
-				<initialCooldown>0.5</initialCooldown>
-				<shot>
-					<damage>10</damage>
-					<height>15</height>
-					<width>50</width>
-					<radius>10</radius>
-					<texture name="Shot"/>
-				</shot>
+			<weapon type="Sequence" recycle="0.5">
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<initialCooldown>0.5</initialCooldown>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
 			</weapon>
 			<task type="Parallel">
 				<task type="SeekTarget">
