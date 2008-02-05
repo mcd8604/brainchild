@@ -103,6 +103,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>SimpleScore</Name>
     </Compile>
+    <Compile Include="TaskAttachAt.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskAttachAt</Name>
+    </Compile>
     <Compile Include="TaskLerpRange.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskLerpRange</Name>
