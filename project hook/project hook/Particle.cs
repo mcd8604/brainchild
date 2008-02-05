@@ -33,7 +33,7 @@ namespace project_hook
 		public Vector2 Acceleration;
 
 		// how long this particle will "live"
-		private float lifetime;
+		protected float lifetime;
 		public float Lifetime
 		{
 			get { return lifetime; }
@@ -41,7 +41,7 @@ namespace project_hook
 		}
 
 		// how long it has been since initialize was called
-		private float timeSinceStart;
+		protected float timeSinceStart;
 		public float TimeSinceStart
 		{
 			get { return timeSinceStart; }
@@ -49,7 +49,7 @@ namespace project_hook
 		}
 
 		// the scale of this particle
-		private float scale;
+		protected float scale;
 		public float Scale
 		{
 			get { return scale; }
@@ -57,7 +57,7 @@ namespace project_hook
 		}
 
 		// its rotation, in radians
-		private float rotation;
+		protected float rotation;
 		public float Rotation
 		{
 			get { return rotation; }
@@ -65,7 +65,7 @@ namespace project_hook
 		}
 
 		// how fast does it rotate?
-		private float rotationSpeed;
+		protected float rotationSpeed;
 		public float RotationSpeed
 		{
 			get { return rotationSpeed; }

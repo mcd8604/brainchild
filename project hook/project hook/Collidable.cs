@@ -35,7 +35,7 @@ namespace project_hook
 			Triangle
 		}
 
-		private Boundings m_Bound = Boundings.Circle;
+		protected Boundings m_Bound = Boundings.Circle;
 		public Boundings Bound
 		{
 			get
@@ -48,7 +48,7 @@ namespace project_hook
 			}
 		}
 
-		private Factions m_Faction = Factions.None;
+		protected Factions m_Faction = Factions.None;
 		public Factions Faction
 		{
 			get
@@ -61,7 +61,7 @@ namespace project_hook
 			}
 		}
 
-		private float m_MaxHealth = float.NaN;
+		protected float m_MaxHealth = float.NaN;
 		public float MaxHealth
 		{
 			get
@@ -76,7 +76,7 @@ namespace project_hook
 		}
 
 		//this is how much health this sprite has
-		private float m_Health = 0;
+		protected float m_Health = 0;
 		public float Health
 		{
 			get
@@ -106,7 +106,7 @@ namespace project_hook
 			}
 		}
 
-		private bool m_Grabbable = true;
+		protected bool m_Grabbable = true;
 		public bool Grabbable
 		{
 			set
@@ -119,14 +119,14 @@ namespace project_hook
 			}
 		}
 
-		private Collidable m_Drop = null;
+		protected Collidable m_Drop = null;
 		public Collidable Drop
 		{
 			get { return m_Drop; }
 			set { m_Drop = value; }
 		}
 
-		private float m_DestructionScore = 100;
+		protected float m_DestructionScore = 100;
 		public float DestructionScore
 		{
 			get { return m_DestructionScore; }
@@ -193,7 +193,7 @@ namespace project_hook
 		}
 
 		//this is the radius used for collision detection
-		private float m_Radius = 100f;
+		protected float m_Radius = 100f;
 		public virtual float Radius
 		{
 			get
@@ -207,7 +207,7 @@ namespace project_hook
 		}
 
 		// The damage that should be incurred on a collision against this collidable, in damage per second
-		private float m_Damage = 100;
+		protected float m_Damage = 100;
 		public float Damage
 		{
 			get

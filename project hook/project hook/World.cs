@@ -486,22 +486,16 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.T))
 				{
-					Collidable t_Blood = new Collidable("BloodCell", tail.Center, 50, 50,
-										TextureLibrary.getGameTexture("bloodcell", "1"), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
-										Collidable.Factions.Player, 100, 25);
-					t_Blood.setAnimation("bloodcell", 60);
-					t_Blood.Animation.StartAnimation();
-
-					Vector2 goal = tail.Center - InputHandler.MousePosition;
-
+					Thrown T = new Thrown(new Collidable("BloodCell", tail.Center, 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper, Collidable.Factions.Player, 100, 25));
+					T.Center = tail.Center;
+					T.setAnimation("bloodcell", 60);
+					T.Animation.StartAnimation();
 					float releaseAngle = (float)Math.Atan2(InputHandler.MousePosition.Y - tail.Center.Y, InputHandler.MousePosition.X - tail.Center.X);
 					TaskParallel temp = new TaskParallel();
 					temp.addTask(new TaskStraightAngle(releaseAngle, 600f));
 					temp.addTask(new TaskRotateToAngle(releaseAngle));
-
-					Thrown thrown = new Thrown(t_Blood);
-					thrown.Task = temp;
-					AddSprite(thrown);
+					T.Task = temp;
+					AddSprite(T);
 				}
 #endif
 			}
@@ -638,7 +632,7 @@ namespace project_hook
 
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
-			Sprite crosshairs = new CursorSprite("crosshair", new Vector2(0f, 0f), TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
+			Sprite crosshairs = new CursorSprite("crosshair", Vector2.Zero, TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
 			AddSprite(crosshairs);
 
 
@@ -646,14 +640,14 @@ namespace project_hook
 			{
 				if (i % 5 == 0)
 				{
-					Sprite tailBodySprite = new Sprite("tail_segment", new Vector2(100f, 100f), 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
+					Sprite tailBodySprite = new Sprite("tail_segment", Vector2.Zero, 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Transparency = 0.5f;
 					tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
 					m_TailBodySprites.Add(tailBodySprite);
 				}
 				else
 				{
-					Sprite tailBodySprite = new Sprite("shot_energy", new Vector2(100f, 100f), 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
+					Sprite tailBodySprite = new Sprite("shot_energy", Vector2.Zero, 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Transparency = 0.2f;
 					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
 					m_TailBodySprites.Add(tailBodySprite);

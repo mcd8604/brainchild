@@ -61,7 +61,9 @@
 	</action>
 	<action tile="48">
 		<changeFile>
-			<fileName>Level3Normal.xml</fileName>
+			<!--<fileName>Level3Normal.xml</fileName>-->
+			<!-- Until you write it, it's better not to crash. -->
+			<fileName>Gate1r.xml</fileName>
 		</changeFile>
 	</action>
 </level>

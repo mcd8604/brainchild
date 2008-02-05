@@ -313,7 +313,7 @@ namespace project_hook
 			}
 		}
 
-		private SpriteBlendMode m_BlendMode = SpriteBlendMode.AlphaBlend;
+		protected SpriteBlendMode m_BlendMode = SpriteBlendMode.AlphaBlend;
 		public SpriteBlendMode BlendMode
 		{
 			get
@@ -326,8 +326,7 @@ namespace project_hook
 			}
 		}
 
-		// Why does it have a 'Scale' and Height / Width ??
-		private float m_Scale = -1.0f;
+		protected float m_Scale = -1.0f;
 		public float Scale
 		{
 			get
