@@ -15,19 +15,16 @@ namespace project_hook
 	/// </summary>
 	public class PlayerShip : Ship
 	{
-
 		List<Shot> m_Upgrades;
 		List<int> m_UpgradeReqs;
 
 		const int MAX_SHIELD_LEVEL = 200;
 		const int HEAL_AMOUNT = 20;
 		const int SHIELD_INC_AMOUNT = 10;
-
-
+		
 		int m_UpgradeLevel = 0;
 		int cur = -1;
-
-
+		
 		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{
@@ -93,14 +90,12 @@ namespace project_hook
 			{
 				PowerUp p = (PowerUp)p_Other;
 				handlePowerUp(p);
-
-
-
-
+			}
+			else if (p_Other.Faction == Factions.ClearWall)
+			{
+				Center = Collision.GetMinNonCollidingCenter(this, p_Other);
 			}
 			base.RegisterCollision(p_Other);
-
-
 		}
 
 		void handlePowerUp(PowerUp p)
@@ -121,7 +116,6 @@ namespace project_hook
 						break;
 					}
 				}
-
 
 				if (cur != prev)
 				{
@@ -154,6 +148,5 @@ namespace project_hook
 		{
 			return "Upgrade Level: " + m_UpgradeLevel.ToString();
 		}
-
 	}
 }

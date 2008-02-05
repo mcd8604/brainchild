@@ -155,8 +155,8 @@ namespace project_hook
 			}
 			else if (result == System.Windows.Forms.DialogResult.Cancel)
 			{
-				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\testBMP.bmp"));
-				m_LReader = new LevelReader("LevelTest.xml");
+				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\gate2.bmp"));
+				m_LReader = new LevelReader("Gate2.xml");
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			}
 #endif
@@ -581,7 +581,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("wall_rand1");
 			TextureLibrary.LoadTexture("wall_rand2");
 			TextureLibrary.LoadTexture("wall_rand3");
-
+			TextureLibrary.LoadTexture("walls\\plaque_clear");
 			TextureLibrary.LoadTexture("walls\\plaque");
 			TextureLibrary.LoadTexture("walls\\plaque2");
 			TextureLibrary.LoadTexture("walls\\plaque3");

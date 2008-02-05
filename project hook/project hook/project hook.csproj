@@ -943,6 +943,13 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>plaque_btm_right_invert</Name>
     </Content>
+    <Content Include="Content\Textures\walls\plaque_clear.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>plaque_clear</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\walls\plaque_left.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
