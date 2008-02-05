@@ -199,6 +199,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskStationary</Name>
     </Compile>
+    <Compile Include="TaskStationaryBackground.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskStationaryBackground</Name>
+    </Compile>
     <Compile Include="TaskStraightAngle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskStraightAngle</Name>
@@ -696,6 +700,12 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>bloodcell</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\bump.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>bump</Name>
     </Content>
     <Content Include="Content\Textures\cell.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

@@ -1012,6 +1012,8 @@ namespace project_hook
 					break;
 				case "Stationary":
 					return new TaskStationary();
+				case "StationaryBackground":
+					return new TaskStationaryBackground();
 				case "StraightAngle":
 					TaskStraightAngle straightAngle = new TaskStraightAngle();
 					while (p_Reader.IsStartElement())

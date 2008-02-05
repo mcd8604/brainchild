@@ -70,6 +70,19 @@
 			</object>
 		</createSpawnPoint>
 	</action>
+	<action tile="35">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startCenter x="640" y="0"/>
+			<health>5</health>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
+		</createShip>
+	</action>
 	<action tile="45">
 		<createShip>
 			<name>W3_E1</name>
@@ -168,6 +181,19 @@
 				</task>
 				<task type="Fire"/>
 			</task>
+		</createShip>
+	</action>
+	<action tile="55">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startCenter x="320" y="0"/>
+			<health>5</health>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
 		</createShip>
 	</action>
 	<action tile="60">

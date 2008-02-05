@@ -535,6 +535,7 @@ namespace project_hook
 		{
 			TextureLibrary.LoadTexture("blood");
 			TextureLibrary.LoadTexture("bloodcell");
+			TextureLibrary.LoadTexture("bump");
 			TextureLibrary.LoadTexture("cell");
 			TextureLibrary.LoadTexture("crosshairs");
 			TextureLibrary.LoadTexture("crosshairsR");
