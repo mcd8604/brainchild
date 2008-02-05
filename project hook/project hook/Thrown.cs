@@ -52,8 +52,10 @@ namespace project_hook
 
 			// TODO
 			// temp
-			setDamageEffect("Explosion", "3", "Explosion", 23);
-			setDeathEffect("ExplosionBig", "0");
+			//setDamageEffect("Explosion", "3", "Explosion", 23);
+			//setDeathEffect("ExplosionBig", "0");
+			//m_DamageEffect = p_Collidable.m_DamageEffect;
+			//m_DeathEffect = p_Collidable.m_DeathEffect;
 		}
 
 		public override void Update(GameTime p_Time)
