@@ -484,6 +484,25 @@ namespace project_hook
 				{
 					Console.WriteLine(m_Position.Distance);
 				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.T))
+				{
+					Collidable t_Blood = new Collidable("BloodCell", tail.Center, 50, 50,
+										TextureLibrary.getGameTexture("bloodcell", "1"), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
+										Collidable.Factions.Player, 100, 25);
+					t_Blood.setAnimation("bloodcell", 60);
+					t_Blood.Animation.StartAnimation();
+
+					Vector2 goal = tail.Center - InputHandler.MousePosition;
+
+					float releaseAngle = (float)Math.Atan2(InputHandler.MousePosition.Y - tail.Center.Y, InputHandler.MousePosition.X - tail.Center.X);
+					TaskParallel temp = new TaskParallel();
+					temp.addTask(new TaskStraightAngle(releaseAngle, 600f));
+					temp.addTask(new TaskRotateToAngle(releaseAngle));
+
+					Thrown thrown = new Thrown(t_Blood);
+					thrown.Task = temp;
+					AddSprite(thrown);
+				}
 #endif
 			}
 
@@ -566,7 +585,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("wall_rand1");
 			TextureLibrary.LoadTexture("wall_rand2");
 			TextureLibrary.LoadTexture("wall_rand3");
-			
+
 			TextureLibrary.LoadTexture("walls\\plaque");
 			TextureLibrary.LoadTexture("walls\\plaque2");
 			TextureLibrary.LoadTexture("walls\\plaque3");
@@ -584,9 +603,9 @@ namespace project_hook
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
 			TextureLibrary.LoadTexture("walls\\wall_left");
-            TextureLibrary.LoadTexture("shieldBar");
-            TextureLibrary.LoadTexture("healthBar");
-            TextureLibrary.LoadTexture("black");
+			TextureLibrary.LoadTexture("shieldBar");
+			TextureLibrary.LoadTexture("healthBar");
+			TextureLibrary.LoadTexture("black");
 			TextureLibrary.LoadTexture("cross");
 
 #if DEBUG
@@ -612,7 +631,7 @@ namespace project_hook
 			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			AddSprite(m_Player.PlayerShip);
 #if DEBUG
-            new HealthBar(m_Player.PlayerShip);
+			new HealthBar(m_Player.PlayerShip);
 #endif
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			//Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
