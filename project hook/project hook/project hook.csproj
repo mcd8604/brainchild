@@ -90,10 +90,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>HealthBar</Name>
     </Compile>
-    <Compile Include="HealthPowerUp.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>HealthPowerUp</Name>
-    </Compile>
     <Compile Include="Music.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
