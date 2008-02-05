@@ -666,6 +666,9 @@ namespace project_hook
 				{
 					p_Reader.ReadStartElement("shipPart");
 					Ship part = readShip(p_Reader);
+					TaskParallel task = new TaskParallel(part.Task);
+					task.addTask(new TaskAttachAt(t_Ship, part.Center));
+					part.Task = task;
 					t_Ship.attachSpritePart(part);
 					p_Reader.ReadEndElement();
 				}
@@ -887,6 +890,27 @@ namespace project_hook
 
 			switch (pType)
 			{
+				case "Attach":
+					TaskAttach attach = new TaskAttach();
+					while (p_Reader.IsStartElement())
+					{
+						if (p_Reader.IsStartElement("target"))
+						{
+							p_Reader.ReadStartElement("target");
+							string target = p_Reader.ReadString();
+							if (target == "Player")
+							{
+								attach.Target = World.m_Player.PlayerShip;
+							}
+							else if (target == "Parent")
+							{
+								throw new NotImplementedException();
+							}
+							p_Reader.ReadEndElement();
+						}
+					}
+					task = attach;
+					break;
 				case "Fire":
 					return new TaskFire();
 				case "Parallel":
