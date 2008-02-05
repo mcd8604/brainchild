@@ -569,6 +569,8 @@ namespace project_hook
 			TextureLibrary.LoadTexture("shot_electric");
 			TextureLibrary.LoadTexture("shot_energy");
 			TextureLibrary.LoadTexture("shot_greenball");
+			TextureLibrary.LoadTexture("spitter_body");
+			TextureLibrary.LoadTexture("spitter_mouth");
 			TextureLibrary.LoadTexture("tail_segment");
 			TextureLibrary.LoadTexture("tailbody");
 			TextureLibrary.LoadTexture("temptail");

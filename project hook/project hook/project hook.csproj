@@ -815,6 +815,23 @@
       <Name>shot_greenball</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\spitter_body.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>spitter_body</Name>
+    </Content>
+    <Content Include="Content\Textures\spitter_mouth.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>spitter_mouth</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\spitter_mouth.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>spitter_mouth</Name>
+    </Content>
     <Content Include="Content\Textures\tailbody.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
