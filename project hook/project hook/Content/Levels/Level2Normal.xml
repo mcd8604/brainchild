@@ -888,7 +888,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="211">
+	<action tile="208">
 		<createShip>
 			<name>W1_E1</name>
 			<height>94</height>
@@ -922,7 +922,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="215">
+	<action tile="212">
 		<createShip>
 			<name>W1_E1</name>
 			<height>94</height>
@@ -956,7 +956,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="218">
+	<action tile="215">
 		<createShip>
 			<name>W1_E1</name>
 			<height>94</height>
@@ -990,7 +990,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="222">
+	<action tile="219">
 		<createShip>
 			<name>W1_E1</name>
 			<height>94</height>
@@ -1024,9 +1024,63 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="230">
+	<action tile="240">
+		<createShip>
+			<name>Enemy1</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="cell"/>
+			<startCenter x="512" y="0"/>
+			<health>50</health>
+			<shield>50</shield>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<weapon type="Complex" offset="0" target="Player">
+				<task type="Sequence">
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>0</degree>
+							<speed>300</speed>
+						</task>
+						<task type="RotateToAngle">
+							<degree>0</degree>
+						</task>
+						<task type="Timer">
+							<duration>1</duration>
+						</task>
+					</task>
+					<task type="SeekTarget">
+						<target>Player</target>
+						<speed>300</speed>
+					</task>
+				</task>
+				<delay>0.85</delay>
+				<speed>300</speed>
+				<shot>
+					<damage>30</damage>
+					<height>32</height>
+					<width>32</width>
+					<radius>16</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="shot_electric"/>
+					<animation name="shot_electric" fps="8"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="StraightVelocity">
+					<velocity x="0" y="20"/>
+				</task>
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
+	<action tile="250">
 		<changeFile>
-			<fileName>Gate1r.xml</fileName>
+			<fileName>Gate2.xml</fileName>
 		</changeFile>
 	</action>
 </level>
