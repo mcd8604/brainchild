@@ -119,6 +119,13 @@ namespace project_hook
 			}
 		}
 
+		private Collidable m_Drop = null;
+		public Collidable Drop
+		{
+			get { return m_Drop; }
+			set { m_Drop = value; }
+		}
+
 		protected SpriteParticleSystem m_DamageEffect = null;
 
 		public void setDamageEffect( String p_DamageEffectTextureName, String p_Tag ) {

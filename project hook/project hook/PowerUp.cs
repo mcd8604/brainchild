@@ -140,40 +140,6 @@ namespace project_hook
 
 		}
 
-		public PowerUp(int size, int value,PowerType p_type, Vector2 at)
-		{
-			m_Back = new Sprite[m_BackCount];
-
-			for (int a = 0; a < m_BackCount; a++)
-			{
-				m_Back[a] = new Sprite();
-				m_Back[a].setAnimation("energyball", 30);
-				m_Back[a].BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
-
-				m_Back[a].Task = new TaskAttach(this);
-				m_Back[a].Alpha = 65;
-
-				attachSpritePart(m_Back[a]);
-
-				m_Back[a].Animation.CurrentFrame = a*5 ;
-				m_Back[a].Animation.StartAnimation();
-				
-			}
-			Center = at;
-			Faction = Factions.PowerUp;
-			this.Type = p_type;
-			Height = size;
-			Width = size;
-			Radius = size * 0.5f;
-			Amount = value;
-			Task = new TaskStationary();
-			Damage = 0;
-			Health = float.NaN;
-
-		}
-
-
-
 		public PowerUp(int size, int value, Vector2 at)
 		{
 			m_Back = new Sprite[m_BackCount];
@@ -194,9 +160,40 @@ namespace project_hook
 
 			}
 			Center = at;
-
 			randomType();
-		
+			Faction = Factions.PowerUp;
+			Height = size;
+			Width = size;
+			Radius = size * 0.5f;
+			Amount = value;
+			Task = new TaskStationary();
+			Damage = 0;
+			Health = float.NaN;
+
+		}
+
+		public PowerUp(int size, int value, PowerType p_type, Vector2 at)
+		{
+			m_Back = new Sprite[m_BackCount];
+
+			for (int a = 0; a < m_BackCount; a++)
+			{
+				m_Back[a] = new Sprite();
+				m_Back[a].setAnimation("energyball", 30);
+				m_Back[a].BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
+
+				m_Back[a].Task = new TaskAttach(this);
+				m_Back[a].Alpha = 65;
+
+				attachSpritePart(m_Back[a]);
+
+				m_Back[a].Animation.CurrentFrame = a * 5;
+				m_Back[a].Animation.StartAnimation();
+
+			}
+			Center = at;
+			Faction = Factions.PowerUp;
+			Type = p_type;
 			Height = size;
 			Width = size;
 			Radius = size * 0.5f;
