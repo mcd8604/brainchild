@@ -126,6 +126,13 @@ namespace project_hook
 			set { m_Drop = value; }
 		}
 
+		private float m_DestructionScore = 100;
+		public float DestructionScore
+		{
+			get { return m_DestructionScore; }
+			set { m_DestructionScore = value; }
+		}
+
 		protected SpriteParticleSystem m_DamageEffect = null;
 
 		public void setDamageEffect( String p_DamageEffectTextureName, String p_Tag ) {

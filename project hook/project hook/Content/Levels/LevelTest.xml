@@ -11,6 +11,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>150</score>
 			<weapon type="Complex" offset="0" target="Player">
 				<task type="Sequence">
 					<task type="Parallel">
@@ -126,6 +127,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>125</score>
 			<animation name="bloodcell" fps="60"/>
 			<weapon type="Sequence" recycle="1.5">
 				<weapon type="Straight" angle="5">
@@ -242,6 +244,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>75</score>
 			<weapon type="Straight" angle="5">
 				<delay>1</delay>
 				<speed>200</speed>
@@ -384,6 +387,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>50</score>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -409,6 +413,7 @@
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<shieldDamageEffect name="Explosion2" tag="3" animation="Explosion2" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>250</score>
 			<weapon type="Straight" angle="0">
 				<delay>2</delay>
 				<speed>75</speed>
@@ -758,6 +763,7 @@
 			<health>125</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>200</score>
 			<weapon type="Straight" angle="0">
 				<delay>2</delay>
 				<speed>200</speed>
@@ -792,6 +798,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>50</score>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -817,6 +824,7 @@
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<shieldDamageEffect name="Explosion2" tag="3" animation="Explosion2" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>500</score>
 			<weapon type="Straight" angle="45">
 				<delay>0.1</delay>
 				<speed>300</speed>
@@ -898,6 +906,7 @@
 			<health>150</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>175</score>
 			<weapon type="Straight" angle="0">
 				<delay>1</delay>
 				<speed>350</speed>
@@ -1028,6 +1037,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>75</score>
 			<weapon type="Straight" angle="5">
 				<delay>1</delay>
 				<speed>200</speed>
@@ -1074,6 +1084,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>75</score>
 			<weapon type="Straight" angle="5">
 				<delay>1</delay>
 				<speed>200</speed>
@@ -1120,6 +1131,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>50</score>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -1142,6 +1154,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>50</score>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -1164,6 +1177,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>50</score>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -1186,6 +1200,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>50</score>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -1208,6 +1223,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>50</score>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -1230,6 +1246,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>50</score>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
@@ -1252,6 +1269,7 @@
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
+			<score>50</score>
 			<task type="Parallel">
 				<task type="SeekTarget">
 					<target>Player</target>
