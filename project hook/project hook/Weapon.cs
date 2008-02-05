@@ -64,8 +64,8 @@ namespace project_hook
 			}
 		}
 
-		protected IList<Shot> m_Shots;
-		protected int m_NextShot = 0;
+		public IList<Shot> m_Shots;
+		public int m_NextShot = 0;
 
 		#endregion // End of variables and Properties Region
 
@@ -153,7 +153,8 @@ namespace project_hook
 		}
 		protected static void ChangeWeaponTaskAngle(Task task, float toAngle)
 		{
-			if ( task is TaskStraightAngle ) {
+			if (task is TaskStraightAngle)
+			{
 				((TaskStraightAngle)task).Angle = toAngle;
 			}
 			else if (task is TaskRotateToAngle)

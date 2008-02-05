@@ -25,7 +25,9 @@ namespace project_hook
 		{
 			if (m_Cooldown <= 0 && weapons.Count > 0)
 			{
-				weapons[currentWeapon++].Fire(who);
+				weapons[currentWeapon].Fire(who);
+				weapons[currentWeapon].m_NextShot = (weapons[currentWeapon].m_NextShot + 1) % weapons[currentWeapon].m_Shots.Count;
+				currentWeapon++;
 				if (currentWeapon >= weapons.Count)
 				{
 					currentWeapon = 0;
