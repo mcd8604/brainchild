@@ -280,6 +280,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponComplex</Name>
     </Compile>
+    <Compile Include="WeaponDupSequence.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>WeaponDupSequence</Name>
+    </Compile>
     <Compile Include="WeaponSeek.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponSeek</Name>
