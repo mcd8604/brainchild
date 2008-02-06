@@ -77,6 +77,11 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ExplosionSpriteParticleSystem</Name>
     </Compile>
+    <Compile Include="LevelForm.cs">
+      <SubType>Form</SubType>
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>LevelForm</Name>
+    </Compile>
     <Compile Include="GameOver.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -619,6 +624,13 @@
       <Importer>XactImporter</Importer>
       <Processor>XactProcessor</Processor>
       <Name>HookSound</Name>
+    </Content>
+    <Content Include="Content\Levels\empty.bmp">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>empty</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\gate1.bmp">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

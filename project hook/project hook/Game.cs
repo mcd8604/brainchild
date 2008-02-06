@@ -172,11 +172,11 @@ namespace project_hook
 
 			if (World.CreateWorld == true)
 			{
+				World.CreateWorld = false;
 				m_World = new World();
 				m_World.loadLevel(content);
 				m_World.initialize(new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
 				m_World.changeState(World.GameState.Running);
-				World.CreateWorld = false;
 			}
 
 			if (World.DestroyWorld == true)
@@ -269,6 +269,6 @@ namespace project_hook
 					Menus.setCurrentMenu(Menus.MenuScreens.Pause);
 				}
 			}
-		}		
+		}	
 	}
 }

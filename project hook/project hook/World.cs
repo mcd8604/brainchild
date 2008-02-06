@@ -6,6 +6,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
+#if DEBUG
+using System.IO;
+#endif
+
 namespace project_hook
 {
 	public class World
@@ -138,28 +142,33 @@ namespace project_hook
 			Music.Initialize();
 			Sound.Initialize();
 #if DEBUG
-			System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("Level1Easy.xml(Yes) or Level1Normal.xml(No) or LevelTest(Cancel)?", "Choose a version", System.Windows.Forms.MessageBoxButtons.YesNoCancel);
-			if (result == System.Windows.Forms.DialogResult.Yes)
+			string[] levels = Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Levels", "*.xml");
+			for(int i = 0; i < levels.Length; i++)
 			{
-				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
-				m_LReader = new LevelReader("Level1Easy.xml");
-				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+				levels[i] = levels[i].Substring(levels[i].LastIndexOf("\\") + 1);
 			}
-			else if (result == System.Windows.Forms.DialogResult.No)
+			LevelForm f = new LevelForm(levels);
+			System.Windows.Forms.DialogResult result = f.ShowDialog();
+			if (result == System.Windows.Forms.DialogResult.OK)
 			{
-#endif
-				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
-				m_LReader = new LevelReader("Level1Normal.xml");
+				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+				m_LReader = new LevelReader((String)f.getLevel());
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-#if DEBUG
 			}
 			else if (result == System.Windows.Forms.DialogResult.Cancel)
 			{
-				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\gate2.bmp"));
-				m_LReader = new LevelReader("Gate2.xml");
-				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+				Environment.Exit(Environment.ExitCode);
 			}
+			else
+			{
+				Environment.Exit(Environment.ExitCode);
+			}
+#else
+			AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
+			m_LReader = new LevelReader("Level1Normal.xml");
+			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 #endif
+
 		}
 
 		//This method will load the level
