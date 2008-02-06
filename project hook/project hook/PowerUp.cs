@@ -211,7 +211,7 @@ namespace project_hook
 			Random r = new Random();
 			int val = r.Next(100)+1;
 			PowerType pt = PowerType.Weapon;
-            Console.WriteLine("PowerUp random Value: " + val);
+            
             if (val <= 50)
             {
 
