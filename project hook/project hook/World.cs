@@ -6,10 +6,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-#if DEBUG
-using System.IO;
-#endif
-
 namespace project_hook
 {
 	public class World
@@ -142,7 +138,7 @@ namespace project_hook
 			Music.Initialize();
 			Sound.Initialize();
 #if DEBUG
-			string[] levels = Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Levels", "*.xml");
+			string[] levels = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Levels", "*.xml");
 			for(int i = 0; i < levels.Length; i++)
 			{
 				levels[i] = levels[i].Substring(levels[i].LastIndexOf("\\") + 1);
