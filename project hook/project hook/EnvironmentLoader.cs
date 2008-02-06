@@ -81,6 +81,7 @@ namespace project_hook
 			m_ColorMap.Add(System.Drawing.Color.FromArgb(100, 0, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left", ""), 0, true, false));
 			m_ColorMap.Add(System.Drawing.Color.FromArgb(200, 200, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert", ""), 0, true, false));
 			//m_ColorMap.Add(System.Drawing.Color.FromArgb(100, 0, 100).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_clear", ""), 0, true, false));
+			m_ColorMap.Add(System.Drawing.Color.FromArgb(200, 200, 200).ToArgb(), new Tile(0, false, false));
 			m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 255, 255).ToArgb(), new Tile(0, false, false));
 
 
@@ -255,7 +256,7 @@ namespace project_hook
 		private static System.Drawing.Color processPixel(Bitmap bmp, int x, int y)
 		{
 
-			if (bmp.GetPixel(x, y).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)))
+			if (bmp.GetPixel(x, y) == cWhite)
 			{
 				// top
 				if (tryGetPixel(bmp, x, y + 1) == cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&

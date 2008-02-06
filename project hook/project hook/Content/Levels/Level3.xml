@@ -270,4 +270,9 @@
 			</object>
 		</createSpawnPoint>
 	</action>
+	<action tile="600">
+		<changeFile>
+			<fileName>Gate1r.xml</fileName>
+		</changeFile>
+	</action>
 </level>
