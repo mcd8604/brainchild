@@ -90,7 +90,13 @@ namespace project_hook
 			}
 		}
 
-		public abstract void Fire(Ship who);
+		public virtual void Fire(Ship who)
+		{
+			if (who.ShootAnimation != null)
+			{
+				who.ShootAnimation.StartAnimation();
+			}
+		}
 
 		public void Update(GameTime p_Time)
 		{

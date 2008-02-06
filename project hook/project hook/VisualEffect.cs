@@ -29,9 +29,20 @@ namespace project_hook
 		bool m_UpdateAnimation = true;
 
 		//Number of animation cycles the visualeffect exists
-		int m_Cycles;
-		int m_CycleCount;
-		bool m_CycleRemoval;//remove the sprite after cycles are up
+		private int m_Cycles;
+		private int m_CycleCount;
+		private bool m_CycleRemoval;//remove the sprite after cycles are up
+		public bool CycleRemoval 
+		{
+			get
+			{
+				return m_CycleRemoval;
+			}
+			set
+			{
+				m_CycleRemoval = value;
+			}
+		}
 
 		public int FramesPerSecond
 		{

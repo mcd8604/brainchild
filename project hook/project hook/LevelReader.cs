@@ -685,6 +685,11 @@ namespace project_hook
 					t_Ship.Animation.StartAnimation();
 					p_Reader.ReadStartElement("animation");
 				}
+				else if (p_Reader.IsStartElement("shootAnimation"))
+				{
+					t_Ship.setShootAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
+					p_Reader.ReadStartElement("shootAnimation");
+				}
 				else if (p_Reader.IsStartElement("bound"))
 				{
 					t_Ship.Bound = readBounding(p_Reader);
@@ -696,11 +701,30 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("shipPart"))
 				{
 					p_Reader.ReadStartElement("shipPart");
-					Ship part = readShip(p_Reader);
-					TaskParallel task = new TaskParallel(part.Task);
-					task.addTask(new TaskAttachAt(t_Ship, part.Center));
-					part.Task = task;
-					t_Ship.attachSpritePart(part);
+
+					Vector2 offset = Vector2.Zero;
+					if (p_Reader.IsStartElement("offset"))
+					{
+						offset = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
+														float.Parse(p_Reader.GetAttribute(1)));
+						p_Reader.ReadStartElement("offset");
+					}
+
+					Ship part = null;
+					if (p_Reader.IsStartElement("createShip"))
+					{
+						p_Reader.ReadStartElement();
+						part = readShip(p_Reader);
+						p_Reader.ReadEndElement();
+					}
+					if (part != null)
+					{
+						TaskParallel task = new TaskParallel(part.Task);
+						task.addTask(new TaskAttachAt(t_Ship, offset));
+						part.Task = task;
+						t_Ship.attachSpritePart(part);
+					}
+
 					p_Reader.ReadEndElement();
 				}
 #if DEBUG

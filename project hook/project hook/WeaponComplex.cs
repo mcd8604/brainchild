@@ -69,6 +69,7 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
+			base.Fire(who);
 			if (m_Shots[m_NextShot].Task == null)
 			{
 				m_Shots[m_NextShot].Task = m_ShotTask.copy();

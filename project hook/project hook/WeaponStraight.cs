@@ -49,6 +49,7 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
+			base.Fire(who);
 				float thisAngle = (who.Rotation + Angle);
 				if (m_LastAngle != thisAngle || m_LastSpeed != Speed)
 				{
