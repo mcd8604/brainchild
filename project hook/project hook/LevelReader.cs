@@ -719,9 +719,11 @@ namespace project_hook
 					}
 					if (part != null)
 					{
-						TaskParallel task = new TaskParallel(part.Task);
-						task.addTask(new TaskAttachAt(t_Ship, offset));
-						part.Task = task;
+						TaskParallel newTask = new TaskParallel(part.Task);
+						//newTask.addTask(new TaskAttachAt(t_Ship, offset));
+						newTask.addTask(new TaskRotateWithTarget(t_Ship));
+						newTask.addTask(new TaskRotateAroundTarget(t_Ship, offset));
+						part.Task = newTask;
 						t_Ship.attachSpritePart(part);
 					}
 
