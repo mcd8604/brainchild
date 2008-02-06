@@ -7,16 +7,40 @@ namespace project_hook
 {
 	class TaskRotateAroundTarget : Task
 	{
-		private Vector2 m_Offset = Vector2.Zero;
-		public Vector2 Offset
+		private float m_OffsetAngle = 0f;
+		public float OffsetAngle
 		{
 			get
 			{
-				return m_Offset;
+				return m_OffsetAngle;
 			}
 			set
 			{
-				m_Offset = value;
+				m_OffsetAngle = value;
+			}
+		}
+		public float OffsetAngleDegrees
+		{
+			get
+			{
+				return MathHelper.ToDegrees( m_OffsetAngle );
+			}
+			set
+			{
+				m_OffsetAngle = MathHelper.ToRadians( value );
+			}
+		}
+
+		private float m_OffsetDistance = 0f;
+		public float OffsetDistance
+		{
+			get
+			{
+				return m_OffsetDistance;
+			}
+			set
+			{
+				m_OffsetDistance = value;
 			}
 		}
 
@@ -38,23 +62,29 @@ namespace project_hook
 		{
 			Target = p_Target;
 		}
-		public TaskRotateAroundTarget(Sprite p_Target, Vector2 p_Offset)
+		public TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance )
 		{
 			Target = p_Target;
-			m_Offset = p_Offset;
+			OffsetDistance = p_OffsetDistance;
 		}
+		public TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance, float p_OffsetAngle)
+		{
+			Target = p_Target;
+			OffsetDistance = p_OffsetDistance;
+			OffsetAngle = p_OffsetAngle;
+		}
+
 		protected override void Do(Sprite on, GameTime at)
 		{
-			float radius = Vector2.Distance(Vector2.Zero, m_Offset);
-			Vector2 newPos = new Vector2();
-			newPos.X = radius * (float)Math.Cos(MathHelper.ToRadians(m_Target.RotationDegrees));
-			newPos.Y = radius * (float)Math.Sin(MathHelper.ToRadians(m_Target.RotationDegrees));
-			on.Center = m_Target.Center + newPos;
+			Vector2 newPos = m_Target.Center;
+			newPos.X += OffsetDistance * (float)Math.Cos(m_Target.Rotation + m_OffsetAngle);
+			newPos.Y += OffsetDistance * (float)Math.Sin(m_Target.Rotation + m_OffsetAngle);
+			on.Center = newPos;
 		}
 
 		public override Task copy()
 		{
-			return new TaskRotateAroundTarget(m_Target);
+			return new TaskRotateAroundTarget(Target, OffsetDistance, OffsetAngle);
 		}
 	}
 }
