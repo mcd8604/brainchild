@@ -223,7 +223,7 @@ namespace project_hook
 				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0) && p_Other.Grabbable)
 				{
 					m_EnemyCaught = p_Other;
-					m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(150, 700), 75, 7);
+					m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(150, 700), 75, 10,55,75);
 					addSprite(m_EnemyHealth);
 					Transparency = 0;
 					tailTarget.Enabled = false;
