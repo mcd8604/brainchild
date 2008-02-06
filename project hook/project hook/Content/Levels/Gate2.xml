@@ -83,7 +83,7 @@
 	</action>
 	<action tile="52">
 		<changeFile>
-			<fileName>Level3Normal.xml</fileName>
+			<fileName>Level3.xml</fileName>
 		</changeFile>
 	</action>
 </level>
