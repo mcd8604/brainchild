@@ -314,7 +314,7 @@ namespace project_hook
 				World.m_Score.evaluateCollision(this, DC, d, Health <= 0);
 			}
 
-			if (Position.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.25) || Position.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .25)) ||
+			if (Position.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.1) || Position.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .25)) ||
 				Position.X > Game.graphics.GraphicsDevice.Viewport.Width || Position.X < 0)
 			{
 				if (this is Shot)
