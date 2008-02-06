@@ -499,6 +499,7 @@ namespace project_hook
 					TaskSequence task = new TaskSequence();
 					TaskParallel temp = new TaskParallel();
 					temp.addTask(new TaskStraightAngle(releaseAngle, 600f));
+					temp.addTask(new TaskStationary());
 					temp.addTask(new TaskRotateToAngle(releaseAngle));
 					temp.addTask(new TaskWaitFor(isSpriteNotVisible));
 					task.addTask(temp);
