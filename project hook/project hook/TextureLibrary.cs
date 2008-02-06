@@ -22,15 +22,25 @@ namespace project_hook
 	/// </summary>
 	class TextureLibrary
 	{
+        //This holds a list of all the 2DTexture Objects.
+        //The Key is the name of the Texture asset.
 		private static OrderedDictionary<String, Texture2D> m_Textures;
 
-		//This will be what stores the GameTextures!!
+		//This stores a reference to all the game textures
+        //The first key is the name of the 2DTexture the GameTexture is using.
+        //The key for the second Dictionary is the tag that is defined for that area of the texture
+        //Tags and Source rectangles are loaded from the XML file with the same name as the texture.
+        //If no XML file is included the Tag for the Texture will be "" and it's source will be the size of the entire Texture
 		private static OrderedDictionary<String, OrderedDictionary<String, GameTexture>> m_GameTextures;
 
+        //This is passed in from the Game class.
 		private static ContentManager m_TextureManager;
+        
+        //Our current path in the system.  
+        //This is used to read the XML files
 		private static String path = System.Environment.CurrentDirectory + "\\Content\\Textures\\";
 
-		//This method will initialize the Textures      
+		//This method will initialize the Texture Dictionarys and set the content manager      
 		public static void iniTextures(ContentManager content)
 		{
 			if (m_Textures == null && m_GameTextures == null)
@@ -41,9 +51,11 @@ namespace project_hook
 			}
 		}
 
-		//This method gets a GameTexture Object
+		//This method gets a the GameTexture who has the corresponding name and tag.
+        //If no texture is found NULL is returned. If we're in Debug an Exception will be thrown.
 		public static GameTexture getGameTexture(string name, string tag)
 		{
+            //Makes sure the Texture lists have been initialized
 			if (m_GameTextures == null)
 			{
 				return null;
@@ -51,6 +63,7 @@ namespace project_hook
 
 			GameTexture r_Texture = null;
 
+            //Checks if the GameTexture is in the Dictionary
 			if (m_GameTextures.ContainsKey(name))
 			{
 				if (m_GameTextures[name].ContainsKey(tag))
@@ -66,34 +79,37 @@ namespace project_hook
 			}
 
 			return r_Texture;
-
 		}
 
-		//This code attempts to get a texture reference
-		//It will attempt to load the texture if is not in the hashtable
-		public static Texture2D getTexture(string textureName)
-		{
-			if (m_Textures == null)
-			{
-				return null;
-			}
 
-			Texture2D retVal = null;
+        //This method gets a the 2DTexture who has the corresponding asset name.
+        //If no texture is found NULL is returned. If we're in Debug an Exception will be thrown.
+        public static Texture2D getTexture2D(string name, string tag)
+        {
+            //Makes sure the Texture lists have been initialized
+            if (m_Textures == null)
+            {
+                return null;
+            }
 
-			if (m_Textures.ContainsKey(textureName))
-			{
-				retVal = ((Texture2D)(m_Textures[textureName]));
-			}
-			else
-			{
-				if (LoadTexture(textureName))
-				{
-					retVal = ((Texture2D)(m_Textures[textureName]));
-				}
-			}
-			return retVal;
-		}
+            Texture2D r_Texture = null;
 
+            //Checks if the GameTexture is in the Dictionary
+            if (m_Textures.ContainsKey(name))
+            {
+                r_Texture = m_Textures[name];
+            }
+            else
+            {
+#if DEBUG
+                throw new Exception("Texture not loaded: " + name);
+#endif
+            }
+
+            return r_Texture;
+        }
+
+        //Loads a texture into the content manager and returns a reference to the new 2DTexture
 		private static Texture2D loadTextureByName(string textureName)
 		{
 			return m_TextureManager.Load<Texture2D>(path + textureName);

@@ -238,9 +238,11 @@ namespace project_hook
 
 		public Collidable() {
 			Name = "Unnamed Collidable";
+            
 		}
 		public Collidable(Collidable p_Collidable)
 		{
+
 			if (p_Collidable.Animation != null)
 			{
 				Animation = new VisualEffect(p_Collidable.Animation.Name, this, p_Collidable.Animation.FramesPerSecond);
@@ -272,6 +274,7 @@ namespace project_hook
 			//setDeathEffect("ExplosionBig", "");
 			m_DamageEffect = p_Collidable.m_DamageEffect;
 			m_DeathEffect = p_Collidable.m_DeathEffect;
+            
 		}
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, float p_Radius)
@@ -280,6 +283,7 @@ namespace project_hook
 			Faction = p_Faction;
 			MaxHealth = p_MaxHealth;
 			Radius = p_Radius;
+            
 		}
 
 

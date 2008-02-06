@@ -612,6 +612,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("healthBar");
 			TextureLibrary.LoadTexture("black");
 			TextureLibrary.LoadTexture("cross");
+            
 
 #if DEBUG
 			TextureLibrary.LoadTexture("debugcirc");
@@ -696,7 +697,9 @@ namespace project_hook
 			PowerUp p = new PowerUp(50, 12, new Vector2(50, 50));
 			AddSprite(p);
 
+            AddSprite(new HealthBar(m_Player.PlayerShip, new Vector2(200, 700), 300, 20));
 
+         
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);
 			//sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			//sp.Target= m_Player.PlayerShip;

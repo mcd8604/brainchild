@@ -62,6 +62,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bar.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Bar</Name>
+    </Compile>
     <Compile Include="BrainChildLogo.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -299,6 +303,10 @@
     <Compile Include="WeaponStraight.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponStraight</Name>
+    </Compile>
+    <Compile Include="WeaponUpgradeBar.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>WeaponUpgradeBar</Name>
     </Compile>
     <Compile Include="WorldPosition.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -891,6 +899,12 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>trigger</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\UI.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>UI</Name>
     </Content>
     <Content Include="Content\Textures\veinbg.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
