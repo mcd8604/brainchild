@@ -763,6 +763,17 @@ namespace project_hook
 					complex.ShotTask = task;
 					weapon = complex;
 					break;
+				case "DupSequence":
+					WeaponDupSequence dupsequence = new WeaponDupSequence();
+					dupsequence.RecycleDelay = float.Parse(p_Reader.GetAttribute("recycle"));
+					dupsequence.setRepeats( int.Parse(p_Reader.GetAttribute("repeats")) );
+					p_Reader.ReadStartElement("weapon");
+					while (p_Reader.IsStartElement("weapon"))
+					{
+						dupsequence.setWeapon(readWeapon(p_Reader));
+					}
+					weapon = dupsequence;
+					break;
 				case "Sequence":
 					WeaponSequence sequence = new WeaponSequence();
 					sequence.RecycleDelay = float.Parse(p_Reader.GetAttribute("recycle"));

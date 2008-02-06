@@ -17,44 +17,53 @@
 			<shield>30</shield>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
-			<weapon type="Straight" angle="10">
+			<weapon type="DupSequence" recycle=".75" repeats="5">
+				<weapon type="Straight" angle="10">
+					<delay>0.2</delay>
+					<speed>400</speed>
+					<shot>
+						<damage>5</damage>
+						<height>16</height>
+						<width>16</width>
+						<radius>8</radius>
+						<blendMode>Additive</blendMode>
+						<texture name="energyball"/>
+						<animation name="energyball" fps="30"/>
+					</shot>
+				</weapon>
 				<delay>0.2</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
 			</weapon>
-			<weapon type="Straight" angle="0">
+			<weapon type="DupSequence" recycle=".75" repeats="5">
+				<weapon type="Straight" angle="0">
+					<delay>0.2</delay>
+					<speed>400</speed>
+					<shot>
+						<damage>10</damage>
+						<height>16</height>
+						<width>16</width>
+						<radius>8</radius>
+						<blendMode>Additive</blendMode>
+						<texture name="energyball"/>
+						<animation name="energyball" fps="30"/>
+					</shot>
+				</weapon>
 				<delay>0.2</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>10</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
 			</weapon>
-			<weapon type="Straight" angle="-10">
+			<weapon type="DupSequence" recycle=".75" repeats="5">
+				<weapon type="Straight" angle="-10">
+					<delay>0.2</delay>
+					<speed>400</speed>
+					<shot>
+						<damage>10</damage>
+						<height>16</height>
+						<width>16</width>
+						<radius>8</radius>
+						<blendMode>Additive</blendMode>
+						<texture name="energyball"/>
+						<animation name="energyball" fps="30"/>
+					</shot>
+				</weapon>
 				<delay>0.2</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>10</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
 			</weapon>
 			<task type="RepeatingSequence">
 				<task type="Parallel">
