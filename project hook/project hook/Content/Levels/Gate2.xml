@@ -6,25 +6,13 @@
 		</loadBMP>
 	</action>
 	<action tile="10">
-		<createWall>
-			<name>gateBlock1</name>
-			<height>128</height>
-			<width>96</width>
-			<faction>ClearWall</faction>
-			<texture name="walls\plaque_clear"/>
-			<startCenter x="472" y="-56"/>
-			<degree>0</degree>
-			<task type="Stationary"/>
-		</createWall>
-	</action>
-	<action tile="16">
 		<createGate>
 			<gate>
 				<name>gate2_1</name>
 				<height>184</height>
 				<width>200</width>
 				<texture name="gate"/>
-				<startCenter x="720" y="-112"/>
+				<startCenter x="720" y="-304"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</gate>
@@ -33,35 +21,38 @@
 				<height>32</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
-				<startCenter x="476" y="-96"/>
+				<startCenter x="476" y="-288"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>
+			<wall>
+				<name>gateBlock1</name>
+				<height>128</height>
+				<width>96</width>
+				<faction>ClearWall</faction>
+				<texture name="walls\plaque_clear"/>
+				<startCenter x="472" y="-56"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</wall>
 		</createGate>
+	</action>
+	<action tile="16">
+		
 	</action>
 	<action tile="26">
 		<changeSpeed>
 			<speed>0</speed>
 		</changeSpeed>
 	</action>
-	<action tile="31">
-		<createWall>
-			<name>gateBlock2</name>
-			<height>32</height>
-			<width>184</width>
-			<faction>ClearWall</faction>
-			<texture name="walls\plaque_clear"/>
-			<startCenter x="388" y="-48"/>
-			<degree>0</degree>
-			<task type="Stationary"/>
-		</createWall>
+	<action tile="34">
 		<createGate>
 			<gate>
 				<name>gate2_2</name>
-				<height>32</height>
+				<height>64</height>
 				<width>216</width>
 				<texture name="gate"/>
-				<startCenter x="588" y="-48"/>
+				<startTile x="22" y="0" />
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</gate>
@@ -70,10 +61,20 @@
 				<height>80</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
-				<startCenter x="56" y="-304"/>
+				<startCenter x="56" y="-208"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>
+			<wall>
+				<name>gateBlock2</name>
+				<height>64</height>
+				<width>416</width>
+				<faction>ClearWall</faction>
+				<texture name="walls\plaque_clear"/>
+				<startTile x="9" y="0" />
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</wall>
 		</createGate>
 	</action>
 	<action tile="51">

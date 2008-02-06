@@ -87,12 +87,6 @@ namespace project_hook
 							CreateGate(reader);
 							reader.ReadEndElement();
 						}
-						else if (reader.IsStartElement("createWall"))
-						{
-							reader.ReadStartElement();
-							CreateWall(reader);
-							reader.ReadEndElement();
-						}
 						else if (reader.IsStartElement("loadBMP"))
 						{
 							reader.ReadStartElement();
@@ -149,30 +143,9 @@ namespace project_hook
 			return m_Events;
 		}
 
-		public void CreateWall(XmlReader p_Reader)
-		{
-			Collidable t_Wall = new Collidable();
-
-			List<Event> t_List = new List<Event>();
-
-			LoadWall(p_Reader, t_Wall);
-
-			t_Wall.Faction = Collidable.Factions.ClearWall;
-			t_Wall.Damage = 0;
-
-			if (m_Events.ContainsKey(m_Distance))
-			{
-				m_Events[m_Distance].Add(new Event(t_Wall));
-			}
-			else
-			{
-				t_List.Add(new Event(t_Wall));
-				m_Events.Add(m_Distance, t_List);
-			}
-		}
-
 		private void CreateGate(XmlReader p_Reader)
 		{
+			Collidable t_Wall = new Collidable();
 			Collidable t_Gate = new Collidable();
 			GateTrigger t_Trigger = new GateTrigger();
 
@@ -192,23 +165,33 @@ namespace project_hook
 					LoadTrigger(p_Reader, t_Trigger);
 					p_Reader.ReadEndElement();
 				}
+				else if (p_Reader.IsStartElement("wall"))
+				{
+					p_Reader.ReadStartElement();
+					LoadWall(p_Reader, t_Wall);
+					p_Reader.ReadEndElement();
+				}
 			}
 #if DEBUG
 			curLoop = 0;
 #endif
 
 			t_Trigger.Gate = t_Gate;
+			t_Trigger.Wall = t_Wall;
+			t_Wall.Faction = Collidable.Factions.ClearWall;
 
 			if (m_Events.ContainsKey(m_Distance))
 			{
 				m_Events[m_Distance].Add(new Event(t_Gate));
 				m_Events[m_Distance].Add(new Event(t_Trigger));
+				m_Events[m_Distance].Add(new Event(t_Wall));
 			}
 			else
 			{
 				t_List.Add(new Event(t_Gate));
 				m_Events.Add(m_Distance, t_List);
 				m_Events[m_Distance].Add(new Event(t_Trigger));
+				m_Events[m_Distance].Add(new Event(t_Wall));
 			}
 		}
 
@@ -233,6 +216,12 @@ namespace project_hook
 					p_Wall.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
 													float.Parse(p_Reader.GetAttribute(1)));
 					p_Reader.ReadStartElement("startCenter");
+				}
+				else if (p_Reader.IsStartElement("startTile"))
+				{
+					p_Wall.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
+													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
+					p_Reader.ReadStartElement("startTile");
 				}
 				else if (p_Reader.IsStartElement("height"))
 				{
@@ -346,6 +335,12 @@ namespace project_hook
 					p_Trigger.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
 													float.Parse(p_Reader.GetAttribute(1)));
 					p_Reader.ReadStartElement("startCenter");
+				}
+				else if (p_Reader.IsStartElement("startTile"))
+				{
+					p_Trigger.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
+													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
+					p_Reader.ReadStartElement("startTile");
 				}
 				else if (p_Reader.IsStartElement("height"))
 				{

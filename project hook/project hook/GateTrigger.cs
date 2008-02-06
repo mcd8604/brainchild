@@ -20,6 +20,19 @@ namespace project_hook
 			}
 		}
 
+		protected Collidable m_Wall;
+		public Collidable Wall
+		{
+			set
+			{
+				m_Wall = value;
+			}
+			get
+			{
+				return m_Wall;
+			}
+		}
+
 		public GateTrigger()
 		{
 		}
@@ -42,6 +55,7 @@ namespace project_hook
 				base.RegisterCollision(p_Other);
 				World.Position.setSpeed(80);
 				m_Gate.ToBeRemoved = true;
+				m_Wall.ToBeRemoved = true;
 				ToBeRemoved = true;
 			}
 		}
