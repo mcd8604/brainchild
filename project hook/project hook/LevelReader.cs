@@ -551,6 +551,12 @@ namespace project_hook
 													float.Parse(p_Reader.GetAttribute(1)));
 					p_Reader.ReadStartElement("startCenter");
 				}
+				else if (p_Reader.IsStartElement("startTile"))
+				{
+					t_Ship.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
+													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
+					p_Reader.ReadStartElement("startTile");
+				}
 				else if (p_Reader.IsStartElement("height"))
 				{
 					p_Reader.ReadStartElement("height");
