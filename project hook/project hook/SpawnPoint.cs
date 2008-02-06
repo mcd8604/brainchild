@@ -48,16 +48,16 @@ namespace project_hook
             }
         }
 
-		private List<Task> m_Tasks;
-		public List<Task> Tasks
+		private List<Task> m_SpawnTasks;
+		public List<Task> SpawnTasks
 		{
 			get
 			{
-				return m_Tasks;
+				return m_SpawnTasks;
 			}
 			set
 			{
-				m_Tasks = value;
+				m_SpawnTasks = value;
 			}
 		}
 
@@ -113,6 +113,7 @@ namespace project_hook
 
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
+			base.Update(p_Time);
 			if (m_LastPos + m_Delay <= World.m_Position.Distance && m_CurIndex<m_Count)
 			{
 				m_LastPos = World.m_Position.Distance;
