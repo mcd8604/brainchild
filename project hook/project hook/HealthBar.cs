@@ -39,24 +39,24 @@ namespace project_hook
           
             offset = new Vector2(0,m_Target.Radius / 2 );
 
-            ini();
+            ini(p_Ship.Width, p_Ship.Height);
             setBars();
 
             m_Target.attachSpritePart(this);
         }
 
-        public HealthBar(Collidable p_Ship, Vector2 pos, int p_Width, int p_Height)
+        public HealthBar(Collidable p_Ship, Vector2 pos, int p_Width, int p_Height, int p_BGWidth, int p_BGHeight)
         {
             m_Target = p_Ship;
             width = p_Width;
             height = p_Height;
             this.Position = pos;
-              ini();
+              ini(p_BGWidth,p_BGHeight);
             setBars();
 
         }
 
-        private void ini()
+        private void ini(int p_BGWidth, int p_BGHeight)
         {
 			if(m_Target is Ship && ((Ship)m_Target).MaxShield > 0)
 				shields = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y),
@@ -85,10 +85,10 @@ namespace project_hook
 			bg.Texture = m_Target.Texture;
 			bg.Center = this.Center;
 			bg.Transparency = .5f;
-			bg.Z = Depth.HUDLayer.Midground;
+			bg.Z = Depth.HUDLayer.Background;
 			bg.Enabled = true;
-			bg.Width = (int)(width * .75) ;
-			bg.Height = height * 10;
+			bg.Width = p_BGWidth ;
+			bg.Height = p_BGHeight;
 			bg.Transparency = .75f;
 
         }
