@@ -66,7 +66,6 @@ namespace project_hook
 			Attacking,
 			Returning,
 			Throwing,
-			PreppingToThrow,
 			None
 		}
 
@@ -156,8 +155,29 @@ namespace project_hook
 			//throw enemy
 			else if (m_EnemyCaught != null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
-				this.Task = new TaskSeekTarget(m_PlayerShip, 2000f, 10f);
-				this.StateOfTail = Tail.TailState.PreppingToThrow;
+				Vector2 goal = Center - m_TargetObject.Center;
+
+				TaskQueue res = new TaskQueue();
+				TaskParallel temp = new TaskParallel();
+				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(goal, 2.75f)), 1200f));
+				temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
+				res.addTask(temp);
+				temp = new TaskParallel();
+				temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(Vector2.Negate(goal), 2.75f)), 1600f));
+				temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
+				res.addTask(temp);
+				m_ThrowTask = res;
+
+				Task = m_ThrowTask;
+
+				float releaseAngle = (float)Math.Atan2(m_TargetObject.Center.Y - m_EnemyCaught.Center.Y, m_TargetObject.Center.X - m_EnemyCaught.Center.X);
+				temp = new TaskParallel();
+				temp.addTask(new TaskStraightAngle(releaseAngle, 600f));
+				temp.addTask(new TaskRotateToAngle(releaseAngle));
+				m_ReleaseTask = temp;
+
+				StateOfTail = Tail.TailState.Throwing;
+				m_LastTailAttack = 0;
 			}
 		}
 
@@ -275,14 +295,6 @@ namespace project_hook
 						Task = m_NormalTask;
 					}
 					break;
-				case TailState.PreppingToThrow:
-
-					if (Task.IsComplete(this))
-					{
-						CommenceThrow();
-					}
-					break;
-
 			}
 
 			m_BodyTask.Update(m_BodySprites, p_Time);
@@ -298,33 +310,6 @@ namespace project_hook
 				tailTarget.Task = tailTargetNormalTask;
 			}
 			base.Update(p_Time);
-		}
-
-		public void CommenceThrow()
-		{
-			Vector2 goal = Center - m_TargetObject.Center;
-
-			TaskQueue res = new TaskQueue();
-			TaskParallel temp = new TaskParallel();
-			temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(goal, 2.75f)), 1200f));
-			temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
-			res.addTask(temp);
-			temp = new TaskParallel();
-			temp.addTask(new TaskSeekPoint(Vector2.Add(Center, Vector2.Divide(Vector2.Negate(goal), 2.75f)), 1600f));
-			temp.addTask(new TaskRotateFacePoint(m_TargetObject.Center));
-			res.addTask(temp);
-			m_ThrowTask = res;
-
-			Task = m_ThrowTask;
-
-			float releaseAngle = (float)Math.Atan2(m_TargetObject.Center.Y - m_EnemyCaught.Center.Y, m_TargetObject.Center.X - m_EnemyCaught.Center.X);
-			temp = new TaskParallel();
-			temp.addTask(new TaskStraightAngle(releaseAngle, 600f));
-			temp.addTask(new TaskRotateToAngle(releaseAngle));
-			m_ReleaseTask = temp;
-
-			StateOfTail = Tail.TailState.Throwing;
-			m_LastTailAttack = 0;
 		}
 	}
 }
