@@ -18,13 +18,41 @@ namespace project_hook
 		List<Shot> m_Upgrades;
 		List<int> m_UpgradeReqs;
 
+		public const int MAX_LEVEL = 3;
 		const int MAX_SHIELD_LEVEL = 200;
 		const int HEAL_AMOUNT = 20;
 		const int SHIELD_INC_AMOUNT = 10;
 		
 		int m_UpgradeLevel = 0;
+		public int UpgradeLevel
+		{
+			get
+			{
+				return m_UpgradeLevel;
+			}
+		}
+
 		int cur = -1;
+		public int CurrentLevel
+		{
+			get
+			{
+				return cur+1;
+			}
+		}
+
+		public int LevelRequirement(int level)
+		{
+			if (level == 0)
+			{
+				return 0;
+			}
+			return m_UpgradeReqs[level-1];
+		}
 		
+		
+
+
 		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{

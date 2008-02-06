@@ -12,11 +12,9 @@ namespace project_hook
         PlayerShip m_Target;
 
         //The poistion the shields and heatlh will be drawn
-        Sprite shields;
+		Sprite weapons;
         Sprite blackS;
-        
-        Sprite health;
-        Sprite blackH;
+
      
         int width;
         int height;
@@ -31,16 +29,14 @@ namespace project_hook
             width = p_Width;
             height = p_Height;
             this.Position = pos;
-              ini();
+            ini();
             setBars();
         }
 
         private void ini()
         {
-            shields = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y),
-                                      height, width, TextureLibrary.getGameTexture("shieldBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
-            health = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y - 20),
-                                   height, width, TextureLibrary.getGameTexture("healthBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground); ;
+            weapons = new Sprite("WeaponBar", this.Position,
+                                      height, width, TextureLibrary.getGameTexture("WeaponBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
 
             blackS = new Sprite();
             blackS.Texture = TextureLibrary.getGameTexture("black", "");
@@ -49,49 +45,39 @@ namespace project_hook
             blackS.Width = width;
             blackS.Height = height;
             blackS.Alpha = 255;
-
-            blackH = new Sprite();
-            blackH.Texture = TextureLibrary.getGameTexture("black", "");
-            blackH.Z = Depth.HUDLayer.Midground;
-            blackH.Enabled = true;
-            blackH.Width = width;
-            blackH.Height = height;
-            blackH.Alpha = 255;
-
+			blackS.Position = this.Position;
         }
 
         private void setBars()
         {
-                Vector2 c;
-                if (m_Target is Ship)
-                {
-                    Ship t_Ship = (Ship)m_Target;
-                    if (t_Ship.MaxShield > 0)
-                    {
-                        c = shields.Center;
-                        c.X = this.Center.X;
-                        c.Y = this.Center.Y + offset.Y;
-                        shields.Center = c;
 
-                        shields.Width = (int)(width * t_Ship.Shield / t_Ship.MaxShield);
-                        blackS.Center = shields.Center;
-                        shields.Position = blackS.Position; 
-                   
-                    }
-                }
+			if (m_Target.CurrentLevel == PlayerShip.MAX_LEVEL)
+			{
+				weapons.Width = width;
+			}
+			else
+			{
 
-                health.Width = (int)(width * m_Target.Health / m_Target.MaxHealth);        
-                c = health.Center;
-                c.X = this.Center.X;// -m_Target.Radius / 2;
-                c.Y = this.Center.Y + offset.Y + height;// + height; ;
-                health.Center = c;
+				int val = m_Target.UpgradeLevel;
+				int levelReq = m_Target.LevelRequirement(m_Target.CurrentLevel + 1);
+				int prevlevel = m_Target.LevelRequirement(m_Target.CurrentLevel);
+				Console.WriteLine((width * val - prevlevel / levelReq - prevlevel) + "");
+				float div =  (float)(val - prevlevel)/(float)(levelReq - prevlevel) ;
+				int w = (int)(width * div);
+				if (w > 0)
+				{
 
-                
+				}
+				weapons.Width = w;
+				//c = weapons.Center;
+				//c.X = this.Center.X;// -m_Target.Radius / 2;
+				//c.Y = this.Center.Y + offset.Y + height;// + height; ;
+				//weapons.Center = c;
 
-                blackH.Center = health.Center;
-                health.Position = blackH.Position; 
-            
-        }
+				//blackS.Center = weapons.Center;
+				weapons.Position = blackS.Position;
+			}
+		}
 
 
         public override void Update(GameTime p_Time)
@@ -104,17 +90,11 @@ namespace project_hook
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
         {
-            if (health != null)
-            {
-                health.Draw(p_SpriteBatch);
-                blackH.Draw(p_SpriteBatch);
-            }
-
-            if (shields != null)
-            {
-                shields.Draw(p_SpriteBatch);
-                blackS.Draw(p_SpriteBatch);
-            }
+			if (weapons != null)
+			{
+				weapons.Draw(p_SpriteBatch);
+				blackS.Draw(p_SpriteBatch);
+			}
         }
     }
 }
