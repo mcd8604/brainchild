@@ -1024,8 +1024,8 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="240">
-		<createShip>
+	<action tile="242">
+		<createBoss>
 			<name>Enemy1</name>
 			<height>94</height>
 			<width>93</width>
@@ -1068,15 +1068,18 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="StraightVelocity">
-					<velocity x="0" y="20"/>
-				</task>
+				<task type="Stationary"/>
 				<task type="RotateFaceTarget">
 					<target>Player</target>
 				</task>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createBoss>
+	</action>
+	<action tile="249">
+		<changeSpeed>
+			<speed>0</speed>
+		</changeSpeed>
 	</action>
 	<action tile="250">
 		<changeFile>
