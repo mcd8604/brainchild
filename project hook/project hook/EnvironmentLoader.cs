@@ -98,60 +98,7 @@ namespace project_hook
 			}
 
 			// read in level
-			m_LevelArray = new System.Drawing.Color[bmpWidth, bmpHeight];
-
-			for (int height = 0; height < bmpHeight; height++)
-			{
-				for (int width = 0; width < bmpWidth; width++)
-				{
-					m_LevelArray[width, height] = bmp.GetPixel(width, height);
-				}
-			}
-
-
-
-			// Level Processor in progress:
-			for (int height = 1; height < bmpHeight - 1; height++)
-			{
-				for (int width = 1; width < bmpWidth - 1; width++)
-				{
-					if (m_LevelArray[width, height] == System.Drawing.Color.FromArgb(255, 255, 255, 255))
-					{
-						// bottom?
-						if (bmp.GetPixel(width, height + 1).Equals(System.Drawing.Color.FromArgb(255, 0, 0, 0)) && bmp.GetPixel(width, height - 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) &&
-							bmp.GetPixel(width + 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width - 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)))
-						{
-							m_LevelArray[width, height] = System.Drawing.Color.FromArgb(255, 100, 0);
-						}
-
-						// left
-						if (bmp.GetPixel(width, height + 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width, height - 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) &&
-							bmp.GetPixel(width + 1, height).Equals(System.Drawing.Color.FromArgb(255, 0, 0, 0)) && bmp.GetPixel(width - 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)))
-						{
-							m_LevelArray[width, height] = System.Drawing.Color.FromArgb(0, 255, 0);
-						}
-
-						// right
-						if (bmp.GetPixel(width, height + 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width, height - 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) &&
-							bmp.GetPixel(width + 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width - 1, height).Equals(System.Drawing.Color.FromArgb(255, 0, 0, 0)))
-						{
-							m_LevelArray[width, height] = System.Drawing.Color.FromArgb(255, 0, 0);
-						}
-
-						// top?
-						if (bmp.GetPixel(width, height + 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width, height - 1).Equals(System.Drawing.Color.FromArgb(255, 0, 0, 0)) &&
-							bmp.GetPixel(width + 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width - 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)))
-						{
-							m_LevelArray[width, height] = System.Drawing.Color.FromArgb(255, 255, 0);
-						}
-
-
-					}
-				}
-			}
-			// end work in progress
-
-
+			m_LevelArray = readBitmap(bmp);
 
 
 			// create initial screen
@@ -280,63 +227,110 @@ namespace project_hook
 			int bmpWidth = bmp.Width;
 
 			// read in level
-			m_LevelArray = new System.Drawing.Color[bmpWidth, bmpHeight];
-
-			for (int height = 0; height < bmpHeight; height++)
-			{
-				for (int width = 0; width < bmpWidth; width++)
-				{
-					m_LevelArray[width, height] = bmp.GetPixel(width, height);
-				}
-			}
-
-
-			// Level Processor in progress:
-			for (int height = 1; height < bmpHeight - 1; height++)
-			{
-				for (int width = 1; width < bmpWidth - 1; width++)
-				{
-					if ( m_LevelArray[width, height] == System.Drawing.Color.FromArgb(255, 255, 255, 255))
-					{
-						// bottom?
-						if (bmp.GetPixel(width, height + 1).Equals(System.Drawing.Color.FromArgb(255, 0, 0, 0)) && bmp.GetPixel(width, height - 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) &&
-							bmp.GetPixel(width + 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width - 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)))
-						{
-							m_LevelArray[width, height] = System.Drawing.Color.FromArgb(255, 100, 0);
-						}
-
-						// left
-						if (bmp.GetPixel(width, height + 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width, height - 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) &&
-							bmp.GetPixel(width + 1, height).Equals(System.Drawing.Color.FromArgb(255, 0, 0, 0)) && bmp.GetPixel(width - 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)))
-						{
-							m_LevelArray[width, height] = System.Drawing.Color.FromArgb(0, 255, 0);
-						}
-
-						// right
-						if (bmp.GetPixel(width, height + 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width, height - 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) &&
-							bmp.GetPixel(width + 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width - 1, height).Equals(System.Drawing.Color.FromArgb(255, 0, 0, 0)))
-						{
-							m_LevelArray[width, height] = System.Drawing.Color.FromArgb(255, 0, 0);
-						}
-
-						// top?
-						if (bmp.GetPixel(width, height + 1).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width, height - 1).Equals(System.Drawing.Color.FromArgb(255, 0, 0, 0)) &&
-							bmp.GetPixel(width + 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)) && bmp.GetPixel(width - 1, height).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)))
-						{
-							m_LevelArray[width, height] = System.Drawing.Color.FromArgb(255, 255, 0);
-						}
-
-
-					}
-				}
-			}
-			// end work in progress
+			m_LevelArray = readBitmap(bmp);
 
 
 			m_CurTopRow = bmpHeight - 1;
 		}
-	}
 
+		private static System.Drawing.Color[,] readBitmap(Bitmap bmp)
+		{
+			System.Drawing.Color[,] m_LevelArray = new System.Drawing.Color[bmp.Width, bmp.Height];
+
+
+			for (int height = 0; height < bmp.Height; height++)
+			{
+				for (int width = 0; width < bmp.Width; width++)
+				{
+					m_LevelArray[width, height] = processPixel(bmp, width, height);
+				}
+			}
+
+			return m_LevelArray;
+		}
+
+		private static System.Drawing.Color cWhite = System.Drawing.Color.FromArgb(255, 255, 255, 255);
+		private static System.Drawing.Color cBlack = System.Drawing.Color.FromArgb(255, 0, 0, 0);
+
+		private static System.Drawing.Color processPixel(Bitmap bmp, int x, int y)
+		{
+
+			if (bmp.GetPixel(x, y).Equals(System.Drawing.Color.FromArgb(255, 255, 255, 255)))
+			{
+				// top
+				if (tryGetPixel(bmp, x, y + 1) == cBlack && tryGetPixel(bmp, x, y-1) == cWhite &&
+					tryGetPixel(bmp, x + 1, y) == cWhite && tryGetPixel(bmp, x - 1, y) == cWhite)
+				{
+					return System.Drawing.Color.FromArgb(255, 100, 0);
+				}
+
+				// left
+				if (tryGetPixel(bmp, x, y + 1) == cWhite && tryGetPixel(bmp, x, y - 1) == cWhite &&
+					tryGetPixel(bmp, x + 1, y) == cBlack && tryGetPixel(bmp, x - 1, y) == cWhite)
+				{
+					return System.Drawing.Color.FromArgb(0, 255, 0);
+				}
+
+				// right
+				if (tryGetPixel(bmp, x, y + 1) == cWhite && tryGetPixel(bmp, x, y - 1) == cWhite &&
+					tryGetPixel(bmp, x + 1, y) == cWhite && tryGetPixel(bmp, x - 1, y) == cBlack)
+				{
+					return System.Drawing.Color.FromArgb(255, 0, 0);
+				}
+
+				// bottom
+				if (tryGetPixel(bmp, x, y + 1) == cWhite && tryGetPixel(bmp, x, y - 1) == cBlack &&
+					tryGetPixel(bmp, x + 1, y) == cWhite && tryGetPixel(bmp, x - 1, y) == cWhite)
+				{
+					return System.Drawing.Color.FromArgb(255, 255, 0);
+				}
+
+				// bottom left invert
+				if (tryGetPixel(bmp, x, y + 1) == cWhite && tryGetPixel(bmp, x, y - 1) == cBlack &&
+					tryGetPixel(bmp, x + 1, y) == cBlack && tryGetPixel(bmp, x - 1, y) == cWhite)
+				{
+					return System.Drawing.Color.FromArgb(255, 100, 255);
+				}
+
+				// bottom right invert
+				if (tryGetPixel(bmp, x, y + 1) == cWhite && tryGetPixel(bmp, x, y - 1) == cBlack &&
+					tryGetPixel(bmp, x + 1, y) == cWhite && tryGetPixel(bmp, x - 1, y) == cBlack)
+				{
+					return System.Drawing.Color.FromArgb(0, 0, 255);
+				}
+
+				// top left invert
+				if (tryGetPixel(bmp, x, y + 1) == cBlack && tryGetPixel(bmp, x, y - 1) == cWhite &&
+					tryGetPixel(bmp, x + 1, y) == cBlack && tryGetPixel(bmp, x - 1, y) == cWhite)
+				{
+					return System.Drawing.Color.FromArgb(200, 200, 255);
+				}
+
+				// top right
+				if (tryGetPixel(bmp, x, y + 1) == cBlack && tryGetPixel(bmp, x, y - 1) == cWhite &&
+					tryGetPixel(bmp, x + 1, y) == cWhite && tryGetPixel(bmp, x - 1, y) == cBlack)
+				{
+					return System.Drawing.Color.FromArgb(100, 100, 0);
+				}
+
+			}
+
+			return bmp.GetPixel(x, y);
+
+		}
+
+		private static System.Drawing.Color tryGetPixel(Bitmap bmp, int x, int y)
+		{
+			if (x < 0 || x >= bmp.Width || y < 0 || y >= bmp.Height)
+			{
+				return System.Drawing.Color.FromArgb(255, 255, 255, 255);
+			}
+			else
+			{
+				return bmp.GetPixel(x, y);
+			}
+		}
+	}
 
 
 	public struct Tile
