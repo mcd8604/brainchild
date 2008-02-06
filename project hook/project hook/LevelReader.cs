@@ -1168,156 +1168,7 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("object"))
 				{
 					p_Reader.ReadStartElement("object");
-					while (p_Reader.IsStartElement())
-					{
-						if (p_Reader.IsStartElement("startPos"))
-						{
-							t_Obj.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
-															float.Parse(p_Reader.GetAttribute(1)));
-							p_Reader.ReadStartElement("startPos");
-						}
-						else if (p_Reader.IsStartElement("startCenter"))
-						{
-							t_Obj.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
-															float.Parse(p_Reader.GetAttribute(1)));
-							p_Reader.ReadStartElement("startCenter");
-						}
-						else if (p_Reader.IsStartElement("height"))
-						{
-							p_Reader.ReadStartElement("height");
-							t_Obj.Height = int.Parse(p_Reader.ReadString());
-							p_Reader.ReadEndElement();
-						}
-						else if (p_Reader.IsStartElement("width"))
-						{
-							p_Reader.ReadStartElement();
-							t_Obj.Width = int.Parse(p_Reader.ReadString());
-							p_Reader.ReadEndElement();
-						}
-						else if (p_Reader.IsStartElement("texture"))
-						{
-							String t_Name = p_Reader.GetAttribute(0);
-							if (p_Reader.AttributeCount == 1)
-							{
-								t_Obj.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
-								//Console.WriteLine("1");
-							}
-							else if (p_Reader.AttributeCount == 2)
-							{
-								t_Obj.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																				p_Reader.GetAttribute(1));
-								//Console.WriteLine("2");
-							}
-
-							p_Reader.ReadStartElement("texture");
-						}
-						else if (p_Reader.IsStartElement("transparency"))
-						{
-							p_Reader.ReadStartElement("transparency");
-							t_Obj.Transparency = float.Parse(p_Reader.ReadString());
-							p_Reader.ReadEndElement();
-						}
-						else if (p_Reader.IsStartElement("enabled"))
-						{
-							p_Reader.ReadStartElement("enabled");
-							t_Obj.Enabled = bool.Parse(p_Reader.ReadString());
-							p_Reader.ReadEndElement();
-						}
-						else if (p_Reader.IsStartElement("degree"))
-						{
-							p_Reader.ReadStartElement("degree");
-							t_Obj.RotationDegrees = float.Parse(p_Reader.ReadString());
-							p_Reader.ReadEndElement();
-						}
-						else if (p_Reader.IsStartElement("health"))
-						{
-							p_Reader.ReadStartElement("health");
-							t_Obj.MaxHealth = int.Parse(p_Reader.ReadString());
-							p_Reader.ReadEndElement();
-						}
-						else if (p_Reader.IsStartElement("shield"))
-						{
-							p_Reader.ReadStartElement("shield");
-							t_Obj.MaxShield = int.Parse(p_Reader.ReadString());
-							p_Reader.ReadEndElement();
-						}
-						else if (p_Reader.IsStartElement("damageEffect"))
-						{
-							if (p_Reader.AttributeCount == 1)
-							{
-								t_Obj.setDamageEffect(p_Reader.GetAttribute("name"), "");
-							}
-							else if (p_Reader.AttributeCount == 2)
-							{
-								t_Obj.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
-							}
-							else
-							{
-								t_Obj.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
-							}
-							p_Reader.ReadStartElement("damageEffect");
-						}
-						else if (p_Reader.IsStartElement("shieldDamageEffect"))
-						{
-							if (p_Reader.AttributeCount == 1)
-							{
-								t_Obj.setShieldDamageEffect(p_Reader.GetAttribute("name"), "");
-							}
-							else if (p_Reader.AttributeCount == 2)
-							{
-								t_Obj.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
-							}
-							else
-							{
-								t_Obj.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
-							}
-							p_Reader.ReadStartElement("shieldDamageEffect");
-						}
-						else if (p_Reader.IsStartElement("deathEffect"))
-						{
-							if (p_Reader.AttributeCount == 1)
-							{
-								t_Obj.setDeathEffect(p_Reader.GetAttribute("name"), "");
-							}
-							else if (p_Reader.AttributeCount == 2)
-							{
-								t_Obj.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
-							}
-							else
-							{
-								t_Obj.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
-							}
-							p_Reader.ReadStartElement("deathEffect");
-						}
-						else if (p_Reader.IsStartElement("radius"))
-						{
-							p_Reader.ReadStartElement("radius");
-							t_Obj.Radius = float.Parse(p_Reader.ReadString());
-							p_Reader.ReadEndElement();
-						}
-						else if (p_Reader.IsStartElement("weapon"))
-						{
-							t_Obj.addWeapon(readWeapon(p_Reader));
-						}
-						else if (p_Reader.IsStartElement("task"))
-						{
-							t_Obj.Task = readTask(p_Reader);
-						}
-						else if (p_Reader.IsStartElement("animation"))
-						{
-							t_Obj.setAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
-							t_Obj.Animation.StartAnimation();
-							p_Reader.ReadStartElement("animation");
-						}
-						else if (p_Reader.IsStartElement("bound"))
-						{
-							t_Obj.Bound = readBounding(p_Reader);
-						}
-						else if (p_Reader.IsStartElement("blendMode"))
-						{
-							t_Obj.BlendMode = readBlendMode(p_Reader);
-						}
-					}
+					t_Obj = readShip(p_Reader);
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("count"))
@@ -1343,6 +1194,12 @@ namespace project_hook
 					t_Point.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
 													float.Parse(p_Reader.GetAttribute(1)));
 					p_Reader.ReadStartElement("startCenter");
+				}
+				else if (p_Reader.IsStartElement("startTile"))
+				{
+					t_Point.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
+													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
+					p_Reader.ReadStartElement("startTile");
 				}
 				else if (p_Reader.IsStartElement("task"))
 				{
