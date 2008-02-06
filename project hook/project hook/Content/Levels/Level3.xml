@@ -5,4 +5,128 @@
 			<fileName>level3.bmp</fileName>
 		</loadBMP>
 	</action>
+	<action tile="5">
+		<createShip>
+			<name>W1_E1</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="Enemy1"/>
+			<startTile x="24" y="0" />
+			<health>100</health>
+			<shield>30</shield>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<weapon type="Straight" angle="10">
+				<delay>0.2</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>5</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="0">
+				<delay>0.2</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>10</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<weapon type="Straight" angle="-10">
+				<delay>0.2</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>10</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<task type="RepeatingSequence">
+				<task type="Parallel">
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
+					<task type="Stationary"/>
+					<task type="Fire"/>
+					<task type="RepeatingTimer">
+						<duration>1</duration>
+					</task>
+				</task>
+				<task type="Parallel">
+					<task type="StraightVelocity">
+						<velocity x="-500" y="-40"/>
+					</task>
+					<task type="RepeatingTimer">
+						<duration>0.75</duration>
+					</task>
+				</task>
+				<task type="Parallel">
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
+					<task type="Stationary"/>
+					<task type="Fire"/>
+					<task type="RepeatingTimer">
+						<duration>1</duration>
+					</task>
+				</task>
+				<task type="Parallel">
+					<task type="StraightVelocity">
+						<velocity x="500" y="-40"/>
+					</task>
+					<task type="RepeatingTimer">
+						<duration>0.75</duration>
+					</task>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action tile="22">
+		<createShip>
+			<name>W1_E1</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="Enemy1"/>
+			<startTile x="12" y="0" />
+			<health>30</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<weapon type="Straight" angle="0">
+				<delay>0.5</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>5</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+				<task type="Stationary"/>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+	</action>
 </level>
