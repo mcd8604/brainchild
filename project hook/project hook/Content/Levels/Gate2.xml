@@ -12,7 +12,7 @@
 			<width>96</width>
 			<faction>ClearWall</faction>
 			<texture name="walls\plaque_clear"/>
-			<startCenter x="464" y="-64"/>
+			<startCenter x="472" y="-56"/>
 			<degree>0</degree>
 			<task type="Stationary"/>
 		</createWall>
@@ -21,10 +21,10 @@
 		<createGate>
 			<gate>
 				<name>gate2_1</name>
-				<height>192</height>
-				<width>224</width>
+				<height>184</height>
+				<width>200</width>
 				<texture name="gate"/>
-				<startCenter x="720" y="-96"/>
+				<startCenter x="720" y="-112"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</gate>
@@ -48,10 +48,10 @@
 		<createWall>
 			<name>gateBlock2</name>
 			<height>32</height>
-			<width>192</width>
+			<width>184</width>
 			<faction>ClearWall</faction>
 			<texture name="walls\plaque_clear"/>
-			<startCenter x="384" y="-48"/>
+			<startCenter x="388" y="-48"/>
 			<degree>0</degree>
 			<task type="Stationary"/>
 		</createWall>
@@ -59,18 +59,18 @@
 			<gate>
 				<name>gate2_2</name>
 				<height>32</height>
-				<width>224</width>
+				<width>216</width>
 				<texture name="gate"/>
-				<startCenter x="592" y="-48"/>
+				<startCenter x="588" y="-48"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
 				<name>gate2_2T</name>
-				<height>96</height>
+				<height>80</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
-				<startCenter x="48" y="-304"/>
+				<startCenter x="56" y="-304"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>

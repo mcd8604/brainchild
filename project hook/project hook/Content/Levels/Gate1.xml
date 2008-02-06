@@ -9,8 +9,8 @@
 		<createGate>
 			<gate>
 				<name>gate1</name>
-				<height>192</height>
-				<width>256</width>
+				<height>160</height>
+				<width>232</width>
 				<texture name="gate"/>
 				<startCenter x="448" y="-96"/>
 				<degree>0</degree>
