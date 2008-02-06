@@ -9,16 +9,16 @@ namespace project_hook
 	class Thrown : Collidable
 	{
 		//private float m_TimeOut = 6f;
-		private float m_CollideDelay = .00001f;
-		public float CollideDelay
-		{
-			get
-			{
-				return m_CollideDelay;
-			}
-		}
+		//private float m_CollideDelay = .00001f;
+		//public float CollideDelay
+		//{
+		//    get
+		//    {
+		//        return m_CollideDelay;
+		//    }
+		//}
 
-		private double m_LastCollision = 0;
+		//private double m_LastCollision = 0;
 
 		public Thrown(Collidable p_Collidable)
 		{
@@ -61,7 +61,7 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
-			m_LastCollision += (float)p_Time.ElapsedGameTime.TotalSeconds;
+			//m_LastCollision += (float)p_Time.ElapsedGameTime.TotalSeconds;
 			//m_TimeOut -= (float)p_Time.ElapsedGameTime.TotalSeconds;
 			//if (m_TimeOut < 0)
 			//	Enabled = false;
@@ -72,12 +72,12 @@ namespace project_hook
 		{
 			if (p_Other.Faction == Collidable.Factions.Environment)
 			{
-				if (m_LastCollision >= m_CollideDelay)
-				{
+				//if (m_LastCollision >= m_CollideDelay)
+				//{
 					checkTaskAngle(Task, p_Other);
 						
-					m_LastCollision = 0;
-				}
+					//m_LastCollision = 0;
+				//}
 			}
 			else
 			{
@@ -149,6 +149,9 @@ namespace project_hook
 						{
 							task.AngleDegrees = 270 + MathHelper.Distance(task.AngleDegrees, 270f);
 						}
+					}
+					else
+					{
 					}
 				}
 				else if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) > Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
