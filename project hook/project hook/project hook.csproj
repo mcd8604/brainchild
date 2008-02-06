@@ -799,6 +799,13 @@
       <Name>Explosion2</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\explosion4.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>explosion4</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\ExplosionBig.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -875,6 +882,7 @@
     <Content Include="Content\Textures\spitter_mouth.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>spitter_mouth</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\tailbody.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

@@ -32,28 +32,33 @@
 				</task>
 			</task>
 			<shipPart>
-				<name>mouth</name>
-				<height>28</height>
-				<width>49</width>
-				<radius>25</radius>
-				<texture name="spitter_mouth" tag="0"/>
-				<startCenter x="320" y="100"/>
-				<health>30</health>
-				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
-				<weapon type="Straight" angle="0">
-					<delay>0.5</delay>
-					<speed>400</speed>
-					<shot>
-						<damage>5</damage>
-						<height>16</height>
-						<width>16</width>
-						<radius>8</radius>
-						<blendMode>Additive</blendMode>
-						<texture name="energyball"/>
-						<animation name="energyball" fps="30"/>
-					</shot>
-				</weapon>
-				<task type="Fire"/>
+				<offset x="0" y="35"/>
+				<createShip>
+					<name>mouth</name>
+					<height>28</height>
+					<width>19</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startCenter x="320" y="50"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
 			</shipPart>
 		</createShip>
 	</action>

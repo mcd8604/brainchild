@@ -248,5 +248,21 @@ namespace project_hook
 
 		}
 
+		private VisualEffect m_ShootAnimation;
+		public VisualEffect ShootAnimation
+		{
+			get
+			{
+				return m_ShootAnimation;
+			}
+		}
+
+		public void setShootAnimation(string p_Animation, int p_FramesPerSecond)
+		{
+			m_ShootAnimation = new VisualEffect(p_Animation, this, p_FramesPerSecond, 1);
+			m_ShootAnimation.CycleRemoval = false;
+			m_ShootAnimation.StopAnimation();
+		}
+
 	}
 }

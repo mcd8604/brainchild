@@ -42,6 +42,7 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
+			base.Fire(who);
 			throw new Exception("The method or operation is not implemented.");
 		}
 

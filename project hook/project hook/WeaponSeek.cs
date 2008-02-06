@@ -35,6 +35,7 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
+			base.Fire(who);
 				if (m_LastTarget != Target || m_LastSpeed != Speed)
 				{
 					TaskParallel task = new TaskParallel();
