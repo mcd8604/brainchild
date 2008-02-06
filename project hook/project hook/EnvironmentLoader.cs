@@ -98,6 +98,7 @@ namespace project_hook
 				}
 			}
 
+
 			// read in level
 			m_LevelArray = readBitmap(bmp);
 
@@ -258,97 +259,123 @@ namespace project_hook
 
 			if (bmp.GetPixel(x, y) == cWhite)
 			{
-				// top
-				if (tryGetPixel(bmp, x, y + 1) == cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&
-					tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
+
+
+				if (tryGetPixel(bmp, x, y + 1) == cBlack)
 				{
-					return System.Drawing.Color.FromArgb(255, 100, 0);
+					// top
+					if (tryGetPixel(bmp, x, y - 1) != cBlack &&
+						tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
+					{
+						return System.Drawing.Color.FromArgb(255, 100, 0);
+					}
+
+					// top left invert
+					if (tryGetPixel(bmp, x, y - 1) != cBlack &&
+						tryGetPixel(bmp, x + 1, y) == cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
+					{
+						return System.Drawing.Color.FromArgb(200, 200, 255);
+					}
+
+					// top right invert
+					if (tryGetPixel(bmp, x, y - 1) != cBlack &&
+						tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) == cBlack)
+					{
+						return System.Drawing.Color.FromArgb(100, 100, 0);
+					}
+
+				}
+				else
+				{
+
+					if (tryGetPixel(bmp, x, y - 1) == cBlack)
+					{
+
+						// bottom
+						if (tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
+						{
+							return System.Drawing.Color.FromArgb(255, 255, 0);
+						}
+
+						// bottom left invert
+						if (tryGetPixel(bmp, x + 1, y) == cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
+						{
+							return System.Drawing.Color.FromArgb(255, 100, 255);
+						}
+
+						// bottom right invert
+						if (tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) == cBlack)
+						{
+							return System.Drawing.Color.FromArgb(0, 0, 255);
+						}
+
+					}
+					else
+					{
+
+						// left
+						if (tryGetPixel(bmp, x + 1, y) == cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
+						{
+							return System.Drawing.Color.FromArgb(0, 255, 0);
+						}
+
+						// right
+						if (tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) == cBlack)
+						{
+							return System.Drawing.Color.FromArgb(255, 0, 0);
+						}
+
+						// bottom left
+						if (tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack &&
+							tryGetPixel(bmp, x + 1, y + 1) != cBlack && tryGetPixel(bmp, x + 1, y - 1) == cBlack &&
+							tryGetPixel(bmp, x - 1, y + 1) != cBlack && tryGetPixel(bmp, x - 1, y - 1) != cBlack)
+						{
+							return System.Drawing.Color.FromArgb(0, 100, 0);
+						}
+
+						// bottom right
+						if (tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack &&
+							tryGetPixel(bmp, x + 1, y + 1) != cBlack && tryGetPixel(bmp, x + 1, y - 1) != cBlack &&
+							tryGetPixel(bmp, x - 1, y + 1) != cBlack && tryGetPixel(bmp, x - 1, y - 1) == cBlack)
+						{
+							return System.Drawing.Color.FromArgb(0, 255, 255);
+						}
+
+						// top left
+						if (tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack &&
+							tryGetPixel(bmp, x + 1, y + 1) == cBlack && tryGetPixel(bmp, x + 1, y - 1) != cBlack &&
+							tryGetPixel(bmp, x - 1, y + 1) != cBlack && tryGetPixel(bmp, x - 1, y - 1) != cBlack)
+						{
+							return System.Drawing.Color.FromArgb(100, 0, 0);
+						}
+
+						// top right
+						if (tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack &&
+							tryGetPixel(bmp, x + 1, y + 1) != cBlack && tryGetPixel(bmp, x + 1, y - 1) != cBlack &&
+							tryGetPixel(bmp, x - 1, y + 1) == cBlack && tryGetPixel(bmp, x - 1, y - 1) != cBlack)
+						{
+							return System.Drawing.Color.FromArgb(255, 0, 255);
+						}
+
+					}
+
 				}
 
-				// left
-				if (tryGetPixel(bmp, x, y + 1) != cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&
-					tryGetPixel(bmp, x + 1, y) == cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
-				{
-					return System.Drawing.Color.FromArgb(0, 255, 0);
-				}
+				
 
-				// right
-				if (tryGetPixel(bmp, x, y + 1) != cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&
-					tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) == cBlack)
-				{
-					return System.Drawing.Color.FromArgb(255, 0, 0);
-				}
+				
 
-				// bottom
-				if (tryGetPixel(bmp, x, y + 1) != cBlack && tryGetPixel(bmp, x, y - 1) == cBlack &&
-					tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
-				{
-					return System.Drawing.Color.FromArgb(255, 255, 0);
-				}
+				
 
-				// bottom left invert
-				if (tryGetPixel(bmp, x, y + 1) != cBlack && tryGetPixel(bmp, x, y - 1) == cBlack &&
-					tryGetPixel(bmp, x + 1, y) == cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
-				{
-					return System.Drawing.Color.FromArgb(255, 100, 255);
-				}
+				
 
-				// bottom right invert
-				if (tryGetPixel(bmp, x, y + 1) != cBlack && tryGetPixel(bmp, x, y - 1) == cBlack &&
-					tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) == cBlack)
-				{
-					return System.Drawing.Color.FromArgb(0, 0, 255);
-				}
+				
 
-				// top left invert
-				if (tryGetPixel(bmp, x, y + 1) == cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&
-					tryGetPixel(bmp, x + 1, y) == cBlack && tryGetPixel(bmp, x - 1, y) != cBlack)
-				{
-					return System.Drawing.Color.FromArgb(200, 200, 255);
-				}
+				
 
-				// top right invert
-				if (tryGetPixel(bmp, x, y + 1) == cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&
-					tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) == cBlack)
-				{
-					return System.Drawing.Color.FromArgb(100, 100, 0);
-				}
+				
 
-				// bottom left
-				if (tryGetPixel(bmp, x, y + 1) != cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&
-					tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack &&
-					tryGetPixel(bmp, x + 1, y + 1) != cBlack && tryGetPixel(bmp, x + 1, y - 1) == cBlack &&
-					tryGetPixel(bmp, x - 1, y + 1) != cBlack && tryGetPixel(bmp, x - 1, y - 1) != cBlack)
-				{
-					return System.Drawing.Color.FromArgb(0, 100, 0);
-				}
-
-				// bottom right
-				if (tryGetPixel(bmp, x, y + 1) != cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&
-					tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack &&
-					tryGetPixel(bmp, x + 1, y + 1) != cBlack && tryGetPixel(bmp, x + 1, y - 1) != cBlack &&
-					tryGetPixel(bmp, x - 1, y + 1) != cBlack && tryGetPixel(bmp, x - 1, y - 1) == cBlack)
-				{
-					return System.Drawing.Color.FromArgb(0, 255, 255);
-				}
-
-				// top left
-				if (tryGetPixel(bmp, x, y + 1) != cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&
-					tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack &&
-					tryGetPixel(bmp, x + 1, y + 1) == cBlack && tryGetPixel(bmp, x + 1, y - 1) != cBlack &&
-					tryGetPixel(bmp, x - 1, y + 1) != cBlack && tryGetPixel(bmp, x - 1, y - 1) != cBlack)
-				{
-					return System.Drawing.Color.FromArgb(100, 0, 0);
-				}
-
-				// top right
-				if (tryGetPixel(bmp, x, y + 1) != cBlack && tryGetPixel(bmp, x, y - 1) != cBlack &&
-					tryGetPixel(bmp, x + 1, y) != cBlack && tryGetPixel(bmp, x - 1, y) != cBlack &&
-					tryGetPixel(bmp, x + 1, y + 1) != cBlack && tryGetPixel(bmp, x + 1, y - 1) != cBlack &&
-					tryGetPixel(bmp, x - 1, y + 1) == cBlack && tryGetPixel(bmp, x - 1, y - 1) != cBlack)
-				{
-					return System.Drawing.Color.FromArgb(255, 0, 255);
-				}
+				
 
 			}
 
