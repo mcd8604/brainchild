@@ -42,6 +42,7 @@ namespace project_hook
 				base.RegisterCollision(p_Other);
 				World.Position.setSpeed(80);
 				m_Gate.ToBeRemoved = true;
+				ToBeRemoved = true;
 			}
 		}
 	}

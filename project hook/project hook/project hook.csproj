@@ -676,6 +676,18 @@
       <Name>Level2Normal</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Levels\level3.bmp">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>level3</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\Level3.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Level3</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Levels\LevelTest.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LevelTest</Name>

@@ -51,26 +51,26 @@
 			<width>192</width>
 			<faction>ClearWall</faction>
 			<texture name="walls\plaque_clear"/>
-			<startCenter x="384" y="-80"/>
+			<startCenter x="384" y="-48"/>
 			<degree>0</degree>
 			<task type="Stationary"/>
 		</createWall>
 		<createGate>
 			<gate>
 				<name>gate2_2</name>
-				<height>64</height>
+				<height>32</height>
 				<width>224</width>
 				<texture name="gate"/>
-				<startCenter x="608" y="-32"/>
+				<startCenter x="592" y="-48"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
 				<name>gate2_2T</name>
-				<height>32</height>
+				<height>96</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
-				<startCenter x="576" y="-288"/>
+				<startCenter x="48" y="-304"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>
@@ -83,9 +83,7 @@
 	</action>
 	<action tile="52">
 		<changeFile>
-			<!--<fileName>Level3Normal.xml</fileName>-->
-			<!-- Until you write it, it's better not to crash. -->
-			<fileName>Gate1r.xml</fileName>
+			<fileName>Level3Normal.xml</fileName>
 		</changeFile>
 	</action>
 </level>
