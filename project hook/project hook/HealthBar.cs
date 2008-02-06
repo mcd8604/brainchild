@@ -56,9 +56,11 @@ namespace project_hook
 
         private void ini()
         {
-            shields = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y),
+			if(m_Target is Ship && ((Ship)m_Target).MaxShield > 0)
+				shields = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y),
                                       height, width, TextureLibrary.getGameTexture("shieldBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
-            health = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y - 20),
+            
+			health = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y - 20),
                                    height, width, TextureLibrary.getGameTexture("healthBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground); ;
 
             blackS = new Sprite();

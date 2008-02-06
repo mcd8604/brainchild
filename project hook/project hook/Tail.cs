@@ -8,6 +8,19 @@ namespace project_hook
 {
 	class Tail : Collidable
 	{
+		private HealthBar m_EnemyHealth;
+		public HealthBar EnemyHealth
+		{
+			get
+			{
+				return m_EnemyHealth;
+			}
+			set
+			{
+				m_EnemyHealth = value;
+			}
+		}
+
 		private Vector2 m_TailTarget;
 		public Vector2 TailTarget
 		{
@@ -117,6 +130,7 @@ namespace project_hook
 			PlayerShip = (PlayerShip)p_AttachShip;
 			m_TailTarget = new Vector2(-1, -1);
 			m_EnemyCaught = null;
+			//m_EnemyHealth.ToBeRemoved = true;
 			m_TailAttackDelay = p_TailAttackDelay;
 			m_BodySprites = p_BodySprites;
 			m_BodyTask = new TaskLerp(p_AttachShip, this);
@@ -209,6 +223,8 @@ namespace project_hook
 				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0) && p_Other.Grabbable)
 				{
 					m_EnemyCaught = p_Other;
+					m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(500, 700), 150, 10);
+					addSprite(m_EnemyHealth);
 					Transparency = 0;
 					tailTarget.Enabled = false;
 					m_EnemyCaught.Faction = Factions.Player;
@@ -244,6 +260,7 @@ namespace project_hook
 				{
 					
 					Thrown thrown = new Thrown(EnemyCaught);
+					EnemyHealth.ToBeRemoved = true;
 					EnemyCaught.Enabled = false;
 					EnemyCaught.Health = 0;
 					EnemyCaught = null;
@@ -278,6 +295,7 @@ namespace project_hook
 						if (EnemyCaught != null)
 						{
 							Thrown thrown = new Thrown(EnemyCaught);
+							m_EnemyHealth.ToBeRemoved = true;
 							EnemyCaught.Enabled = false;
 							EnemyCaught.Health = 0;
 							EnemyCaught = null;
@@ -302,6 +320,7 @@ namespace project_hook
 			if (m_EnemyCaught != null && m_EnemyCaught.IsDead())
 			{
 				m_EnemyCaught = null;
+				m_EnemyHealth.ToBeRemoved = true;
 				Transparency = 1;
 			}
 			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
