@@ -699,7 +699,7 @@ namespace project_hook
 			PowerUp p = new PowerUp(50, 12, new Vector2(50, 50));
 			AddSprite(p);
 
-            AddSprite(new HealthBar(m_Player.PlayerShip, new Vector2(200, 700), 150, 10));
+            AddSprite(new HealthBar(m_Player.PlayerShip, new Vector2(50, 700), 75, 7));
 
 			//AddSprite(new WeaponUpgradeBar(m_Player.PlayerShip,new Vector2(0,740),300,20));
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);

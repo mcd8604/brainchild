@@ -13,6 +13,7 @@ namespace project_hook
         //The poistion the shields and heatlh will be drawn
         Sprite shields;
         Sprite blackS;
+		Sprite bg;
         
         Sprite health;
         Sprite blackH;
@@ -52,6 +53,7 @@ namespace project_hook
             this.Position = pos;
               ini();
             setBars();
+
         }
 
         private void ini()
@@ -78,6 +80,16 @@ namespace project_hook
             blackH.Width = width;
             blackH.Height = height;
             blackH.Alpha = 255;
+
+			bg = new Sprite();
+			bg.Texture = m_Target.Texture;
+			bg.Center = this.Center;
+			bg.Transparency = .5f;
+			bg.Z = Depth.HUDLayer.Midground;
+			bg.Enabled = true;
+			bg.Width = (int)(width * .75) ;
+			bg.Height = height * 10;
+			bg.Transparency = .75f;
 
         }
 
@@ -136,6 +148,8 @@ namespace project_hook
                 shields.Draw(p_SpriteBatch);
                 blackS.Draw(p_SpriteBatch);
             }
+
+			bg.Draw(p_SpriteBatch);
         }
     }
 }
