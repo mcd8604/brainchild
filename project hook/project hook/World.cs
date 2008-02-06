@@ -151,7 +151,7 @@ namespace project_hook
 			System.Windows.Forms.DialogResult result = f.ShowDialog();
 			if (result == System.Windows.Forms.DialogResult.OK)
 			{
-				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
 				m_LReader = new LevelReader((String)f.getLevel());
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			}
