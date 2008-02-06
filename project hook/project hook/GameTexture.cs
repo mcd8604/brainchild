@@ -29,7 +29,7 @@ namespace project_hook
 			}
 		}
 
-		//The tage associated with the sprite for the Texture
+		//The tag associated with the sprite for the Texture
 		protected String m_Tag;
 		public String Tag
 		{

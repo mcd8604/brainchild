@@ -135,7 +135,7 @@ namespace project_hook
 			Task = new TaskStationary();
 			Damage = 0;
 			Health = float.NaN;
-
+            Z += 0.0001f;
 		}
 
 		public PowerUp(int size, int value, Vector2 at)
@@ -150,6 +150,7 @@ namespace project_hook
 
 				m_Back[a].Task = new TaskAttach(this);
 				m_Back[a].Alpha = 65;
+                m_Back[a].Z = Depth.GameLayer.TailBody;
 
 				attachSpritePart(m_Back[a]);
 
@@ -167,6 +168,8 @@ namespace project_hook
 			Task = new TaskStationary();
 			Damage = 0;
 			Health = float.NaN;
+            Z = Depth.GameLayer.PlayerShip;
+            Alpha = 200;
 
 		}
 
@@ -199,26 +202,38 @@ namespace project_hook
 			Task = new TaskStationary();
 			Damage = 0;
 			Health = float.NaN;
-
+            Z = Depth.GameLayer.PlayerShip;
+            Alpha = 200;
 		}
 
 
 		void randomType(){
 			Random r = new Random();
-			int val = r.Next(3)+1;
+			int val = r.Next(100)+1;
 			PowerType pt = PowerType.Weapon;
-			
-			if (val == (int) PowerType.Weapon)
-			{
-				pt = PowerType.Weapon;
-			}
-			else if(val == (int) PowerType.Health){
-				pt = PowerType.Health;
-			}
-			else if (val == (int)PowerType.Shield)
-			{
-				pt = PowerType.Shield;
-			}
+            Console.WriteLine("PowerUp random Value: " + val);
+            if (val <= 50)
+            {
+
+                if (val >= 0 && val <= 30)
+                {
+                    pt = PowerType.Weapon;
+                }
+                else if (val >= 31 && val <= 40)
+                {
+                    pt = PowerType.Health;
+                }
+                else if (val >= 41 && val <= 50)
+                {
+                    pt = PowerType.Shield;
+                }
+            }
+            else
+            {
+                this.Enabled = false;
+                this.ToBeRemoved = true;
+
+            }
 			//Type = (PowerType)val acted weird;
 			Type = pt;
 		}
