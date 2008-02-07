@@ -92,6 +92,7 @@
 			<texture name="bump"/>
 			<startCenter x="640" y="0"/>
 			<health>5</health>
+			<grabbable>false</grabbable>
 			<deathEffect name="ExplosionBig"/>
 			<task type="StationaryBackground"/>
 		</createShip>
@@ -205,6 +206,7 @@
 			<texture name="bump"/>
 			<startCenter x="320" y="0"/>
 			<health>5</health>
+			<grabbable>false</grabbable>
 			<deathEffect name="ExplosionBig"/>
 			<task type="StationaryBackground"/>
 		</createShip>
