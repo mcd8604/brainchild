@@ -28,6 +28,19 @@ namespace project_hook
 			}
 		}
 
+		private static Boolean m_RestartLevel = false;
+		public static Boolean RestartLevel
+		{
+			get
+			{
+				return m_RestartLevel;
+			}
+			set
+			{
+				m_RestartLevel = value;
+			}
+		}
+
 		private static Boolean m_destroyWorld;
 		public static Boolean DestroyWorld
 		{
@@ -128,18 +141,26 @@ namespace project_hook
 		public World() { }
 
 		//This method will initialize all the objects needed to run the game
+		//and will also load all the textures/sounds needed to start the level.  
 		public void initialize(Rectangle p_DrawArea)
 		{
 			m_SpriteList = new List<Sprite>();
 			m_SpriteListA = new List<Sprite>();
 			m_Position = new WorldPosition(80f);
 			m_ViewPortSize = p_DrawArea;
+			LoadTextures();
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
+		}
+
+		//This method will load the level
+		//This will load the level defintion into memory
+		public void loadLevel()
+		{
 #if DEBUG
 			string[] levels = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Levels", "*.xml");
-			for(int i = 0; i < levels.Length; i++)
+			for (int i = 0; i < levels.Length; i++)
 			{
 				levels[i] = levels[i].Substring(levels[i].LastIndexOf("\\") + 1);
 			}
@@ -147,7 +168,7 @@ namespace project_hook
 			System.Windows.Forms.DialogResult result = f.ShowDialog();
 			if (result == System.Windows.Forms.DialogResult.OK)
 			{
-				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
+				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
 				m_LReader = new LevelReader((String)f.getLevel());
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			}
@@ -155,24 +176,22 @@ namespace project_hook
 			{
 				Environment.Exit(Environment.ExitCode);
 			}
-			else
-			{
-				Environment.Exit(Environment.ExitCode);
-			}
 #else
-			AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\level1.bmp"));
+			AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
 			m_LReader = new LevelReader("Level1Normal.xml");
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 #endif
-
 		}
 
-		//This method will load the level
-		//This will load the level defintion into memory
-		//and will also load all the textures/sounds needed to start the level.  
-		public void loadLevel(ContentManager p_Content)
+		public void initLevel(String levelFileName)
 		{
-			LoadDefaults(p_Content);
+		}
+
+		public void restartLevel()
+		{
+			initialize(new Rectangle(0, 0, Game.graphics.PreferredBackBufferWidth, Game.graphics.PreferredBackBufferHeight));
+			AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 
 		//This will deallocate any variables that need de allocation
@@ -554,8 +573,8 @@ namespace project_hook
 			}
 		}
 
-		//This method will load some default values for the game
-		public void LoadDefaults(ContentManager p_Content)
+		//This method will load textures
+		public void LoadTextures()
 		{
 			TextureLibrary.LoadTexture("blood");
 			TextureLibrary.LoadTexture("bloodcell");
