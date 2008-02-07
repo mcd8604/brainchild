@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class EnvironmentLoader
+	public sealed class EnvironmentLoader
 	{
 		private static int m_ScreenSpaceWidth = 16;
 		private static int m_ScreenSpaceHeight = 14;
@@ -46,13 +46,33 @@ namespace project_hook
 #endif
 
 
+		private static System.Drawing.Color color_Auto = System.Drawing.Color.FromArgb(255, 255, 255);
+		private static System.Drawing.Color color_Empty = System.Drawing.Color.FromArgb(200, 200, 200);
+		private static System.Drawing.Color color_Wall = System.Drawing.Color.FromArgb(0, 0, 0);
+
+		private static System.Drawing.Color color_TopLeftInvert = System.Drawing.Color.FromArgb(200, 200, 255);
+		private static System.Drawing.Color color_TopRightInvert = System.Drawing.Color.FromArgb(100, 100, 0);
+		private static System.Drawing.Color color_Top = System.Drawing.Color.FromArgb(255, 100, 0);
+
+		private static System.Drawing.Color color_BottomLeftInvert = System.Drawing.Color.FromArgb(255, 100, 255);
+		private static System.Drawing.Color color_BottomRightInvert = System.Drawing.Color.FromArgb(0, 0, 255);
+		private static System.Drawing.Color color_Bottom = System.Drawing.Color.FromArgb(255, 255, 0);
+
+		private static System.Drawing.Color color_Left = System.Drawing.Color.FromArgb(0, 255, 0);
+		private static System.Drawing.Color color_Right = System.Drawing.Color.FromArgb(255, 0, 0);
+
+		private static System.Drawing.Color color_TopLeft = System.Drawing.Color.FromArgb(100, 0, 0);
+		private static System.Drawing.Color color_BottomLeft = System.Drawing.Color.FromArgb(0, 100, 0);
+		private static System.Drawing.Color color_TopRight = System.Drawing.Color.FromArgb(255, 0, 255);
+		private static System.Drawing.Color color_BottomRight = System.Drawing.Color.FromArgb(0, 255, 255);
+
+
 		public List<Sprite> Initialize(WorldPosition p_Position, string p_FileName)
 		{
 			// Set up variables
 			m_Position = p_Position;
 			// read in level
-			readBitmap(p_FileName);
-			processLevel();
+			readFile(p_FileName);
 
 			m_ScreenSpaceWidth = AWidth;
 			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
@@ -67,23 +87,23 @@ namespace project_hook
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque2", ""));
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque3", ""));
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque4", ""));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 0, 0).ToArgb(), new Tile(gts, 0, true, true));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 150, 100).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\wall_left", ""), 0, true, true));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 0, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_right", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 255, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_left", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 255, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 255, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 0, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right_invert", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(0, 100, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 100, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left_invert", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 100, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 0, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(100, 100, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right_invert", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(100, 0, 0).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(200, 200, 255).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert", ""), 0, true, false));
+			m_ColorMap.Add(color_Wall.ToArgb(), new Tile(gts, 0, true, true));
+			//m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 150, 100).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\wall_left", ""), 0, true, true));
+			m_ColorMap.Add(color_Right.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_right", ""), 0, true, false));
+			m_ColorMap.Add(color_Left.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_left", ""), 0, true, false));
+			m_ColorMap.Add(color_Bottom.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm", ""), 0, true, false));
+			m_ColorMap.Add(color_BottomRight.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right", ""), 0, true, false));
+			m_ColorMap.Add(color_BottomRightInvert.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right_invert", ""), 0, true, false));
+			m_ColorMap.Add(color_BottomLeft.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left", ""), 0, true, false));
+			m_ColorMap.Add(color_BottomLeftInvert.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left_invert", ""), 0, true, false));
+			m_ColorMap.Add(color_Top.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top", ""), 0, true, false));
+			m_ColorMap.Add(color_TopRight.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right", ""), 0, true, false));
+			m_ColorMap.Add(color_TopRightInvert.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right_invert", ""), 0, true, false));
+			m_ColorMap.Add(color_TopLeft.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left", ""), 0, true, false));
+			m_ColorMap.Add(color_TopLeftInvert.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert", ""), 0, true, false));
 			//m_ColorMap.Add(System.Drawing.Color.FromArgb(100, 0, 100).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_clear", ""), 0, true, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(200, 200, 200).ToArgb(), new Tile(0, false, false));
-			m_ColorMap.Add(System.Drawing.Color.FromArgb(255, 255, 255).ToArgb(), new Tile(0, false, false));
+			m_ColorMap.Add(color_Empty.ToArgb(), new Tile(0, false, false));
+			m_ColorMap.Add(color_Auto.ToArgb(), new Tile(0, false, false));
 
 
 			// Create all sprites
@@ -140,9 +160,6 @@ namespace project_hook
 			m_CurTopRow = AHeight - m_ScreenSpaceHeight - 1;
 			m_CurBottomBuffer = m_ScreenSpaceHeight - 1;
 			m_CurTopBuffer = 0;
-
-
-
 
 
 			return m_CurrentView;
@@ -219,16 +236,18 @@ namespace project_hook
 		public void NewFile(String p_FileName)
 		{
 			// read in level
-			readBitmap(p_FileName);
-			processLevel();
+			readFile(p_FileName);
 
 			m_CurTopRow = AHeight - 1;
 		}
 
-		private void readBitmap(string p_FileName)
+#if DEBUG
+		System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+#endif
+
+		private void readFile(string p_FileName)
 		{
 #if DEBUG
-			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 			stopwatch.Start();
 #endif
 			using (Bitmap bmp = new Bitmap(p_FileName))
@@ -237,9 +256,9 @@ namespace project_hook
 				AWidth = bmp.Width;
 				m_LevelArray = new System.Drawing.Color[AWidth, AHeight];
 
-				for (int height = 0; height < AHeight; height++)
+				for (int height = 0; height < AHeight; ++height)
 				{
-					for (int width = 0; width < AWidth; width++)
+					for (int width = 0; width < AWidth; ++width)
 					{
 						m_LevelArray[width, height] = bmp.GetPixel(width, height);
 					}
@@ -248,77 +267,50 @@ namespace project_hook
 #if DEBUG
 			stopwatch.Stop();
 			int p = p_FileName.LastIndexOf("\\") + 1;
-			Console.WriteLine("> Read in " + p_FileName.Substring(p, p_FileName.Length - p) + " in " + stopwatch.Elapsed.TotalSeconds + " seconds.");
-#endif
-		}
-
-		private void processLevel()
-		{
-#if DEBUG
-			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+			Console.WriteLine("> Read in " + p_FileName.Substring(p, p_FileName.Length - p) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
+			stopwatch.Reset();
 			stopwatch.Start();
 #endif
-			for (int height = 0; height < AHeight; height++)
+			for (int height = AHeight - 1; height >= 0; --height)
 			{
-				for (int width = 0; width < AWidth; width++)
+				for (int width = AWidth - 1; width >= 0; --width)
 				{
 					processPixel(width, height);
 				}
 			}
 #if DEBUG
 			stopwatch.Stop();
-			Console.WriteLine("> Processed level in " + stopwatch.Elapsed.TotalSeconds + " seconds.");
+			Console.WriteLine("> Processed level in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
+			stopwatch.Reset();
 #endif
 		}
 
-		private static System.Drawing.Color cWhite = System.Drawing.Color.FromArgb(255, 255, 255, 255);
-		private static System.Drawing.Color cBlack = System.Drawing.Color.FromArgb(255, 0, 0, 0);
-
-		private static System.Drawing.Color cTLI = System.Drawing.Color.FromArgb(200, 200, 255);
-		private static System.Drawing.Color cTRI = System.Drawing.Color.FromArgb(100, 100, 0);
-		private static System.Drawing.Color cT = System.Drawing.Color.FromArgb(255, 100, 0);
-
-		private static System.Drawing.Color cBLI = System.Drawing.Color.FromArgb(255, 100, 255);
-		private static System.Drawing.Color cBRI = System.Drawing.Color.FromArgb(0, 0, 255);
-		private static System.Drawing.Color cB = System.Drawing.Color.FromArgb(255, 255, 0);
-
-		private static System.Drawing.Color cL = System.Drawing.Color.FromArgb(0, 255, 0);
-		private static System.Drawing.Color cR = System.Drawing.Color.FromArgb(255, 0, 0);
-
-		private static System.Drawing.Color cTL = System.Drawing.Color.FromArgb(100, 0, 0);
-		private static System.Drawing.Color cBL = System.Drawing.Color.FromArgb(0, 100, 0);
-		private static System.Drawing.Color cTR = System.Drawing.Color.FromArgb(255, 0, 255);
-		private static System.Drawing.Color cBR = System.Drawing.Color.FromArgb(0, 255, 255);
-
 		private void processPixel(int x, int y)
 		{
-			if (m_LevelArray[x, y] == cWhite)
+			if (m_LevelArray[x, y] == color_Auto)
 			{
-				if (tryGetPixel(x, y + 1) == cBlack)
+				if (tryGetPixel(x, y + 1) == color_Wall)
 				{
-					if (tryGetPixel(x, y - 1) != cBlack)
+					if (tryGetPixel(x, y - 1) != color_Wall)
 					{
-						if (tryGetPixel(x + 1, y) == cBlack)
+						if (tryGetPixel(x + 1, y) == color_Wall)
 						{
-							// top left invert
-							if (tryGetPixel(x - 1, y) != cBlack)
+							if (tryGetPixel(x - 1, y) != color_Wall)
 							{
-								m_LevelArray[x, y] = cTLI;
+								m_LevelArray[x, y] = color_TopLeftInvert;
 								return;
 							}
 						}
 						else
 						{
-							// top right invert
-							if (tryGetPixel(x - 1, y) == cBlack)
+							if (tryGetPixel(x - 1, y) == color_Wall)
 							{
-								m_LevelArray[x, y] = cTRI;
+								m_LevelArray[x, y] = color_TopRightInvert;
 								return;
 							}
 							else
 							{
-								// top
-								m_LevelArray[x, y] = cT;
+								m_LevelArray[x, y] = color_Top;
 								return;
 							}
 						}
@@ -326,94 +318,83 @@ namespace project_hook
 				}
 				else
 				{
-					if (tryGetPixel(x, y - 1) == cBlack)
+					if (tryGetPixel(x, y - 1) == color_Wall)
 					{
-						if (tryGetPixel(x + 1, y) == cBlack)
+						if (tryGetPixel(x + 1, y) == color_Wall)
 						{
-							// bottom left invert
-							if (tryGetPixel(x - 1, y) != cBlack)
+							if (tryGetPixel(x - 1, y) != color_Wall)
 							{
-								m_LevelArray[x, y] = cBLI;
+								m_LevelArray[x, y] = color_BottomLeftInvert;
 								return;
 							}
 						}
 						else
 						{
-							// bottom right invert
-							if (tryGetPixel(x - 1, y) == cBlack)
+							if (tryGetPixel(x - 1, y) == color_Wall)
 							{
-								m_LevelArray[x, y] = cBRI;
+								m_LevelArray[x, y] = color_BottomRightInvert;
 								return;
 							}
 							else
 							{
-								// bottom
-								m_LevelArray[x, y] = cB;
+								m_LevelArray[x, y] = color_Bottom;
 								return;
 							}
 						}
 					}
 					else
 					{
-						if (tryGetPixel(x + 1, y) == cBlack)
+						if (tryGetPixel(x + 1, y) == color_Wall)
 						{
-							// left
-							if (tryGetPixel(x - 1, y) != cBlack)
+							if (tryGetPixel(x - 1, y) != color_Wall)
 							{
-								m_LevelArray[x, y] = cL;
+								m_LevelArray[x, y] = color_Left;
 								return;
 							}
 						}
 						else
 						{
-
-							// right
-							if (tryGetPixel(x - 1, y) == cBlack)
+							if (tryGetPixel(x - 1, y) == color_Wall)
 							{
-								m_LevelArray[x, y] = cR;
+								m_LevelArray[x, y] = color_Right;
 								return;
 							}
 							else
 							{
-								if (tryGetPixel(x + 1, y + 1) == cBlack)
+								if (tryGetPixel(x - 1, y - 1) == color_Wall)
 								{
-									// top left
-									if (tryGetPixel(x + 1, y - 1) != cBlack &&
-										tryGetPixel(x - 1, y + 1) != cBlack && tryGetPixel(x - 1, y - 1) != cBlack)
+									if (tryGetPixel(x + 1, y + 1) != color_Wall && tryGetPixel(x + 1, y - 1) != color_Wall &&
+										tryGetPixel(x - 1, y + 1) != color_Wall)
 									{
-										m_LevelArray[x, y] = cTL;
+										m_LevelArray[x, y] = color_BottomRight;
 										return;
 									}
 								}
 								else
 								{
-									if (tryGetPixel(x + 1, y - 1) == cBlack)
+									if (tryGetPixel(x - 1, y + 1) == color_Wall)
 									{
-										// bottom left
-										if (tryGetPixel(x - 1, y + 1) != cBlack && tryGetPixel( x - 1, y - 1) != cBlack)
+										if (tryGetPixel(x + 1, y + 1) != color_Wall && tryGetPixel(x + 1, y - 1) != color_Wall)
 										{
-											m_LevelArray[x, y] = cBL;
+											m_LevelArray[x, y] = color_TopRight;
 											return;
 										}
 									}
 									else
 									{
-										if (tryGetPixel(x - 1, y + 1) == cBlack)
+										if (tryGetPixel(x + 1, y + 1) == color_Wall)
 										{
-											// top right
-											if (tryGetPixel(x - 1, y - 1) != cBlack)
+											if (tryGetPixel(x + 1, y - 1) != color_Wall)
 											{
-												m_LevelArray[x, y] = cTR;
+												m_LevelArray[x, y] = color_TopLeft;
 												return;
 											}
-
 										}
 										else
 										{
-											// bottom right
-											if (tryGetPixel(x - 1, y - 1) == cBlack)
+											if (tryGetPixel(x + 1, y + 1) != color_Wall && tryGetPixel(x + 1, y - 1) == color_Wall)
 											{
-												m_LevelArray[x, y] = cBR;
+												m_LevelArray[x, y] = color_BottomLeft;
 												return;
 											}
 										}
@@ -429,7 +410,7 @@ namespace project_hook
 		{
 			if (x < 0 || x >= AWidth || y < 0 || y >= AHeight)
 			{
-				return cWhite;
+				return color_Auto;
 			}
 			else
 			{
