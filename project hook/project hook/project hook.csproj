@@ -112,6 +112,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>PowerUp</Name>
     </Compile>
+    <Compile Include="ShipPart.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>ShipPart</Name>
+    </Compile>
     <Compile Include="SimpleScore.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>SimpleScore</Name>
