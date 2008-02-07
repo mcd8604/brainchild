@@ -660,7 +660,7 @@ namespace project_hook
 			m_Player.PlayerShip.Center = new Vector2(512f, 576f);
 			AddSprite(m_Player.PlayerShip);
 #if DEBUG
-			new HealthBar(m_Player.PlayerShip);
+			//new HealthBar(m_Player.PlayerShip);
 #endif
 			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
 			//Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
