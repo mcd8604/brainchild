@@ -120,7 +120,7 @@ namespace project_hook
 
 		LevelReader m_LReader;
 		LevelHandler m_LHandler;
-		EnvironmentLoader m_ELoader = new EnvironmentLoader();
+		EnvironmentLoader m_ELoader;
 
 
 		Random m_RanX = new Random();
@@ -149,6 +149,7 @@ namespace project_hook
 			m_Position = new WorldPosition(80f);
 			m_ViewPortSize = p_DrawArea;
 			LoadTextures();
+			m_ELoader = new EnvironmentLoader(m_Position);
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
@@ -168,7 +169,7 @@ namespace project_hook
 			System.Windows.Forms.DialogResult result = f.ShowDialog();
 			if (result == System.Windows.Forms.DialogResult.OK)
 			{
-				AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+				AddSprites(m_ELoader.Initialize(System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
 				m_LReader = new LevelReader((String)f.getLevel());
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			}
@@ -190,7 +191,7 @@ namespace project_hook
 		public void restartLevel()
 		{
 			initialize(new Rectangle(0, 0, Game.graphics.PreferredBackBufferWidth, Game.graphics.PreferredBackBufferHeight));
-			AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+			AddSprites(m_ELoader.Initialize(System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 
