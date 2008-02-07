@@ -132,8 +132,8 @@ namespace project_hook
 			// Suspend updating (by returning out of the method) if we are not the active window focus.
 			if (!IsActive)
 				return;
+				
 
-			Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
 			InputHandler.Update();
 
 			if (Menus.Exit)
@@ -250,6 +250,7 @@ namespace project_hook
 		protected override void OnActivated(object sender, EventArgs args)
 		{
 			base.OnActivated(sender, args);
+			Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
 #if DEBUG
 			Console.WriteLine("ACTIVATED");
 #endif
@@ -260,6 +261,7 @@ namespace project_hook
 		protected override void OnDeactivated(object sender, EventArgs args)
 		{
 			base.OnDeactivated(sender, args);
+			Cursor.Clip = Screen.PrimaryScreen.Bounds;
 #if DEBUG
 			Console.WriteLine("DEACTIVATED");
 #endif
