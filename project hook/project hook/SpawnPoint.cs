@@ -48,19 +48,6 @@ namespace project_hook
             }
         }
 
-		private List<Task> m_SpawnTasks;
-		public List<Task> SpawnTasks
-		{
-			get
-			{
-				return m_SpawnTasks;
-			}
-			set
-			{
-				m_SpawnTasks = value;
-			}
-		}
-
 		private int m_MinX;
 		public int MinX
 		{
