@@ -33,11 +33,11 @@
 				</task>
 			</task>
 			<shipPart>
-				<offset x="0" y="35"/>
+				<offsetDistance>35</offsetDistance>
 				<createShip>
 					<name>mouth</name>
-					<height>28</height>
-					<width>19</width>
+					<height>19</height>
+					<width>28</width>
 					<bound>Rectangle</bound>
 					<grabbable>false</grabbable>
 					<texture name="spitter_mouth" tag="0"/>

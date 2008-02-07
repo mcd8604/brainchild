@@ -726,12 +726,20 @@ namespace project_hook
 				{
 					p_Reader.ReadStartElement("shipPart");
 
-					Vector2 offset = Vector2.Zero;
-					if (p_Reader.IsStartElement("offset"))
+					float offsetDistance = 0;
+					if (p_Reader.IsStartElement("offsetDistance"))
 					{
-						offset = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
-														float.Parse(p_Reader.GetAttribute(1)));
-						p_Reader.ReadStartElement("offset");
+						p_Reader.ReadStartElement("offsetDistance");
+						offsetDistance = float.Parse(p_Reader.ReadString());
+						p_Reader.ReadEndElement();
+					}
+
+					float offsetAngle = 0;
+					if (p_Reader.IsStartElement("offsetAngle"))
+					{
+						p_Reader.ReadStartElement("offsetAngle");
+						offsetAngle = float.Parse(p_Reader.ReadString());
+						p_Reader.ReadEndElement();
 					}
 
 					Ship part = null;
@@ -744,9 +752,8 @@ namespace project_hook
 					if (part != null)
 					{
 						TaskParallel newTask = new TaskParallel(part.Task);
-						//newTask.addTask(new TaskAttachAt(t_Ship, offset));
 						newTask.addTask(new TaskRotateWithTarget(t_Ship));
-						newTask.addTask(new TaskRotateAroundTarget(t_Ship, offset));
+						newTask.addTask(new TaskRotateAroundTarget(t_Ship, offsetDistance, offsetAngle));
 						part.Task = newTask;
 						t_Ship.attachSpritePart(part);
 					}
@@ -1392,12 +1399,20 @@ namespace project_hook
 				{
 					p_Reader.ReadStartElement("shipPart");
 
-					Vector2 offset = Vector2.Zero;
-					if (p_Reader.IsStartElement("offset"))
+					float offsetDistance = 0;
+					if (p_Reader.IsStartElement("offsetDistance"))
 					{
-						offset = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
-														float.Parse(p_Reader.GetAttribute(1)));
-						p_Reader.ReadStartElement("offset");
+						p_Reader.ReadStartElement("offsetDistance");
+						offsetDistance = float.Parse(p_Reader.ReadString());
+						p_Reader.ReadEndElement();
+					}
+
+					float offsetAngle = 0;
+					if (p_Reader.IsStartElement("offsetAngle"))
+					{
+						p_Reader.ReadStartElement("offsetAngle");
+						offsetDistance = float.Parse(p_Reader.ReadString());
+						p_Reader.ReadEndElement();
 					}
 
 					Ship part = null;
@@ -1410,9 +1425,8 @@ namespace project_hook
 					if (part != null)
 					{
 						TaskParallel newTask = new TaskParallel(part.Task);
-						//newTask.addTask(new TaskAttachAt(t_Ship, offset));
 						newTask.addTask(new TaskRotateWithTarget(t_Boss));
-						newTask.addTask(new TaskRotateAroundTarget(t_Boss, offset));
+						newTask.addTask(new TaskRotateAroundTarget(t_Boss, offsetDistance, offsetAngle));
 						part.Task = newTask;
 						t_Boss.attachSpritePart(part);
 					}
