@@ -28,7 +28,7 @@ namespace project_hook
 			if (p_Attacker.Faction == Collidable.Factions.Player)
 			{
 				m_Score += p_Damage * 0.1f;
-				if (p_Killed)
+				if (p_Killed && p_Target.DestructionScore > 0)
 				{
 					m_Score += p_Target.DestructionScore;
 
