@@ -151,7 +151,8 @@ namespace project_hook
 
 		public void CreateBoss(XmlReader p_Reader)
 		{
-			Boss t_Boss = readBoss(p_Reader);
+			Boss t_Boss = (Boss)readShip(p_Reader, typeof(Boss));
+			t_Boss.Faction = Collidable.Factions.Enemy;
 			
 			List<Event> t_List = new List<Event>();
 
@@ -507,7 +508,7 @@ namespace project_hook
 
 		private void LoadEnemy(XmlReader p_Reader)
 		{
-			Ship t_Ship = readShip(p_Reader);
+			Ship t_Ship = readShip(p_Reader, typeof(Ship));
 			t_Ship.Faction = Collidable.Factions.Enemy;
 
 			List<Event> t_List = new List<Event>();
@@ -540,9 +541,17 @@ namespace project_hook
 			return ret;
 		}
 
-		private static Ship readShip(XmlReader p_Reader)
+		private static Ship readShip(XmlReader p_Reader, Type p_shipType)
 		{
 			Ship t_Ship = new Ship();
+			if (p_shipType == typeof(ShipPart))
+			{
+				t_Ship = new ShipPart();
+			}
+			else if (p_shipType == typeof(Boss))
+			{
+				t_Ship = new Boss();
+			}
 
 			while (p_Reader.IsStartElement())
 			{
@@ -742,11 +751,13 @@ namespace project_hook
 						p_Reader.ReadEndElement();
 					}
 
-					Ship part = null;
+					ShipPart part = null;
 					if (p_Reader.IsStartElement("createShip"))
 					{
 						p_Reader.ReadStartElement();
-						part = readShip(p_Reader);
+						part = (ShipPart)readShip(p_Reader, typeof(ShipPart));
+						part.TransfersDamage = true;
+						part.ParentShip = t_Ship;
 						p_Reader.ReadEndElement();
 					}
 					if (part != null)
@@ -1213,247 +1224,6 @@ namespace project_hook
 			p_Reader.ReadEndElement();
 			return task;
 		}
-	
-		private static Boss readBoss(XmlReader p_Reader)
-		{
-			Boss t_Boss = new Boss();
-
-			while (p_Reader.IsStartElement())
-			{
-				if (p_Reader.IsStartElement("name"))
-				{
-					p_Reader.ReadStartElement("name");
-					t_Boss.Name = p_Reader.ReadString();
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("grabbable"))
-				{
-					p_Reader.ReadStartElement("grabbable");
-					t_Boss.Grabbable = bool.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("startPos"))
-				{
-					t_Boss.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
-													float.Parse(p_Reader.GetAttribute(1)));
-					p_Reader.ReadStartElement("startPos");
-				}
-				else if (p_Reader.IsStartElement("startCenter"))
-				{
-					t_Boss.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
-													float.Parse(p_Reader.GetAttribute(1)));
-					p_Reader.ReadStartElement("startCenter");
-				}
-				else if (p_Reader.IsStartElement("startTile"))
-				{
-					t_Boss.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
-													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
-					p_Reader.ReadStartElement("startTile");
-				}
-				else if (p_Reader.IsStartElement("height"))
-				{
-					p_Reader.ReadStartElement("height");
-					t_Boss.Height = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("width"))
-				{
-					p_Reader.ReadStartElement();
-					t_Boss.Width = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("texture"))
-				{
-					String t_Name = p_Reader.GetAttribute(0);
-					if (p_Reader.AttributeCount == 1)
-					{
-						t_Boss.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
-						//Console.WriteLine("1");
-					}
-					else if (p_Reader.AttributeCount == 2)
-					{
-						t_Boss.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																		p_Reader.GetAttribute(1));
-						//Console.WriteLine("2");
-					}
-
-					p_Reader.ReadStartElement("texture");
-				}
-				else if (p_Reader.IsStartElement("transparency"))
-				{
-					p_Reader.ReadStartElement("transparency");
-					t_Boss.Transparency = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("enabled"))
-				{
-					p_Reader.ReadStartElement("enabled");
-					t_Boss.Enabled = bool.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("degree"))
-				{
-					p_Reader.ReadStartElement("degree");
-					t_Boss.RotationDegrees = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("health"))
-				{
-					p_Reader.ReadStartElement("health");
-					t_Boss.MaxHealth = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("shield"))
-				{
-					p_Reader.ReadStartElement("shield");
-					t_Boss.MaxShield = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("damageEffect"))
-				{
-					if (p_Reader.AttributeCount == 1)
-					{
-						t_Boss.setDamageEffect(p_Reader.GetAttribute("name"), "");
-					}
-					else if (p_Reader.AttributeCount == 2)
-					{
-						t_Boss.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
-					}
-					else
-					{
-						t_Boss.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
-					}
-					p_Reader.ReadStartElement("damageEffect");
-				}
-				else if (p_Reader.IsStartElement("shieldDamageEffect"))
-				{
-					if (p_Reader.AttributeCount == 1)
-					{
-						t_Boss.setShieldDamageEffect(p_Reader.GetAttribute("name"), "");
-					}
-					else if (p_Reader.AttributeCount == 2)
-					{
-						t_Boss.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
-					}
-					else
-					{
-						t_Boss.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
-					}
-					p_Reader.ReadStartElement("shieldDamageEffect");
-				}
-				else if (p_Reader.IsStartElement("deathEffect"))
-				{
-					if (p_Reader.AttributeCount == 1)
-					{
-						t_Boss.setDeathEffect(p_Reader.GetAttribute("name"), "");
-					}
-					else if (p_Reader.AttributeCount == 2)
-					{
-						t_Boss.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
-					}
-					else
-					{
-						t_Boss.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
-					}
-					p_Reader.ReadStartElement("deathEffect");
-				}
-				else if (p_Reader.IsStartElement("score"))
-				{
-					p_Reader.ReadStartElement("score");
-					t_Boss.DestructionScore = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("radius"))
-				{
-					p_Reader.ReadStartElement("radius");
-					t_Boss.Radius = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("weapon"))
-				{
-					t_Boss.addWeapon(readWeapon(p_Reader));
-				}
-				else if (p_Reader.IsStartElement("task"))
-				{
-					t_Boss.Task = readTask(p_Reader);
-				}
-				else if (p_Reader.IsStartElement("animation"))
-				{
-					t_Boss.setAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
-					t_Boss.Animation.StartAnimation();
-					p_Reader.ReadStartElement("animation");
-				}
-				else if (p_Reader.IsStartElement("shootAnimation"))
-				{
-					t_Boss.setShootAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
-					p_Reader.ReadStartElement("shootAnimation");
-				}
-				else if (p_Reader.IsStartElement("bound"))
-				{
-					t_Boss.Bound = readBounding(p_Reader);
-				}
-				else if (p_Reader.IsStartElement("blendMode"))
-				{
-					t_Boss.BlendMode = readBlendMode(p_Reader);
-				}
-				else if (p_Reader.IsStartElement("shipPart"))
-				{
-					p_Reader.ReadStartElement("shipPart");
-
-					float offsetDistance = 0;
-					if (p_Reader.IsStartElement("offsetDistance"))
-					{
-						p_Reader.ReadStartElement("offsetDistance");
-						offsetDistance = float.Parse(p_Reader.ReadString());
-						p_Reader.ReadEndElement();
-					}
-
-					float offsetAngle = 0;
-					if (p_Reader.IsStartElement("offsetAngle"))
-					{
-						p_Reader.ReadStartElement("offsetAngle");
-						offsetDistance = float.Parse(p_Reader.ReadString());
-						p_Reader.ReadEndElement();
-					}
-
-					Ship part = null;
-					if (p_Reader.IsStartElement("createShip"))
-					{
-						p_Reader.ReadStartElement();
-						part = readShip(p_Reader);
-						p_Reader.ReadEndElement();
-					}
-					if (part != null)
-					{
-						TaskParallel newTask = new TaskParallel(part.Task);
-						newTask.addTask(new TaskRotateWithTarget(t_Boss));
-						newTask.addTask(new TaskRotateAroundTarget(t_Boss, offsetDistance, offsetAngle));
-						part.Task = newTask;
-						t_Boss.attachSpritePart(part);
-					}
-
-					p_Reader.ReadEndElement();
-				}
-#if DEBUG
-				else
-				{
-					throw new NotImplementedException("LevelReader LoadEnemy could not understand tag '" + p_Reader.Name + "'");
-				}
-#endif
-#if DEBUG
-				if (++curLoop > maxLoops)
-				{
-					throw new Exception("maxLoops exceeded. LevelReader may be caught in an infinite loop.");
-				}
-#endif
-			}
-#if DEBUG
-			curLoop = 0;
-#endif
-			t_Boss.Faction = Collidable.Factions.Enemy;
-
-			return t_Boss;
-		}
 
 		private void readSpawnPoint(XmlReader p_Reader)
 		{
@@ -1473,7 +1243,7 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("object"))
 				{
 					p_Reader.ReadStartElement("object");
-					t_Obj = readShip(p_Reader);
+					t_Obj = readShip(p_Reader, typeof(Ship));
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("count"))
