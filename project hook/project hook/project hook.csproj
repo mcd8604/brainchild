@@ -120,6 +120,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskAttachAt</Name>
     </Compile>
+    <Compile Include="TaskIAngle.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskIAngle</Name>
+    </Compile>
     <Compile Include="TaskLerpRange.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskLerpRange</Name>
