@@ -40,13 +40,6 @@ namespace project_hook
 			}
 		}
 
-#if DEBUG
-		private static Random random = new Random(0);
-#else 
-        private static Random random = new Random();
-#endif
-
-
 		private static System.Drawing.Color color_Auto = System.Drawing.Color.FromArgb(255, 255, 255);
 		private static System.Drawing.Color color_Empty = System.Drawing.Color.FromArgb(200, 200, 200);
 		private static System.Drawing.Color color_Wall = System.Drawing.Color.FromArgb(0, 0, 0);
@@ -103,7 +96,7 @@ namespace project_hook
 
 		public List<Sprite> Initialize(string p_FileName)
 		{
-			
+
 			// read in level
 			readFile(p_FileName);
 
@@ -133,24 +126,8 @@ namespace project_hook
 					{
 						curTile = ((Tile)m_ColorMap[m_LevelArray[x, AHeight - m_ScreenSpaceHeight + y].ToArgb()]);
 
-						if (curTile.gameTextures == null)
-						{
-							m_CurrentView[getPosition(x, y)].Texture = curTile.gameTexture;
-						}
-						else
-						{
-							m_CurrentView[getPosition(x, y)].Texture = (GameTexture)curTile.gameTextures[random.Next(0, curTile.gameTextures.Count)];
-						}
-
-						if (curTile.Collidable)
-						{
-							((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.Environment;
-						}
-						else
-						{
-							((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.None;
-						}
-
+						m_CurrentView[getPosition(x, y)].Texture = curTile.getGameTexture();
+						((Collidable)m_CurrentView[getPosition(x, y)]).Faction = curTile.getFaction();
 						m_CurrentView[getPosition(x, y)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
 
@@ -211,24 +188,8 @@ namespace project_hook
 					{
 						curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
 
-						if (curTile.gameTextures == null)
-						{
-							m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = curTile.gameTexture;
-						}
-						else
-						{
-							m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = (GameTexture)curTile.gameTextures[random.Next(0, curTile.gameTextures.Count)];
-						}
-
-						if (curTile.Collidable)
-						{
-							((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = Collidable.Factions.Environment;
-						}
-						else
-						{
-							((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = Collidable.Factions.None;
-						}
-
+						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = curTile.getGameTexture();
+						((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = curTile.getFaction();
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
 					}
@@ -259,6 +220,16 @@ namespace project_hook
 			if (p_FileName != m_LevelName)
 			{
 				readFile(p_FileName);
+			}
+
+			m_CurTopRow = AHeight - 1;
+		}
+
+		public void resetEnvironment()
+		{
+			foreach (Sprite s in m_CurrentView)
+			{
+				s.Enabled = false;
 			}
 
 			m_CurTopRow = AHeight - 1;
@@ -307,6 +278,11 @@ namespace project_hook
 			Console.WriteLine("> Processed level in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
 			stopwatch.Reset();
 #endif
+
+			// Test
+
+
+
 		}
 
 		private void processPixel(int x, int y)
@@ -445,17 +421,24 @@ namespace project_hook
 
 	public struct Tile
 	{
+
+#if DEBUG
+		private static Random random = new Random(0);
+#else 
+        private static Random random = new Random();
+#endif
+
 		public ArrayList gameTextures;
 		public GameTexture gameTexture;
 		public int Rotation;
 		public bool Enabled;
-		public bool Collidable;
+		public bool m_Collidable;
 
 		public Tile(int p_Rotation, bool p_Enabled, bool p_Collidable)
 		{
 			Rotation = p_Rotation;
 			Enabled = p_Enabled;
-			Collidable = p_Collidable;
+			m_Collidable = p_Collidable;
 			gameTextures = null;
 			gameTexture = null;
 		}
@@ -465,7 +448,7 @@ namespace project_hook
 			gameTextures = p_GameTextures;
 			Rotation = p_Rotation;
 			Enabled = p_Enabled;
-			Collidable = p_Collidable;
+			m_Collidable = p_Collidable;
 			gameTexture = null;
 		}
 
@@ -474,8 +457,32 @@ namespace project_hook
 			gameTexture = p_GameTexture;
 			Rotation = p_Rotation;
 			Enabled = p_Enabled;
-			Collidable = p_Collidable;
+			m_Collidable = p_Collidable;
 			gameTextures = null;
+		}
+
+		public Collidable.Factions getFaction()
+		{
+			if (m_Collidable)
+			{
+				return Collidable.Factions.Environment;
+			}
+			else
+			{
+				return Collidable.Factions.None;
+			}
+		}
+
+		public GameTexture getGameTexture()
+		{
+			if (gameTextures == null)
+			{
+				return gameTexture;
+			}
+			else
+			{
+				return (GameTexture)gameTextures[random.Next(0, gameTextures.Count)];
+			}
 		}
 	}
 }
