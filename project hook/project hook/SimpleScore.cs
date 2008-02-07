@@ -50,6 +50,11 @@ namespace project_hook
 			}
 		}
 
+		public void reset()
+		{
+			m_Score = 0f;
+		}
+
 		public override string ToString()
 		{
 			return "Score: " + Convert.ToInt32(m_Score).ToString();

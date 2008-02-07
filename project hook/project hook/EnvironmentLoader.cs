@@ -26,6 +26,13 @@ namespace project_hook
 		private int AWidth;
 		private int AHeight;
 		private List<Sprite> m_CurrentView;
+		public List<Sprite> CurrentView
+		{
+			get
+			{
+				return m_CurrentView;
+			}
+		}
 		private int m_CurTopRow;
 		private int m_CurTopBuffer;
 		private int m_CurBottomBuffer;
@@ -117,42 +124,31 @@ namespace project_hook
 				}
 			}
 
-			// create initial screen
+			resetLevel();
+
+
+			return m_CurrentView;
+
+		}
+
+		public void resetLevel()
+		{
 			for (int y = 0; y < m_ScreenSpaceHeight; y++)
 			{
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
-					if (m_ColorMap.ContainsKey(m_LevelArray[x, AHeight - m_ScreenSpaceHeight + y].ToArgb()))
-					{
-						curTile = ((Tile)m_ColorMap[m_LevelArray[x, AHeight - m_ScreenSpaceHeight + y].ToArgb()]);
-
-						m_CurrentView[getPosition(x, y)].Texture = curTile.getGameTexture();
-						((Collidable)m_CurrentView[getPosition(x, y)]).Faction = curTile.getFaction();
-						m_CurrentView[getPosition(x, y)].RotationDegrees = curTile.Rotation;
-						m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
-
-					}
-					else
-					{
-
-						((Collidable)m_CurrentView[getPosition(x, y)]).Faction = Collidable.Factions.None;
-						m_CurrentView[getPosition(x, y)].Texture = null;
-						m_CurrentView[getPosition(x, y)].RotationDegrees = 0f;
-						m_CurrentView[getPosition(x, y)].Enabled = false;
-
-					}
-
+					curTile = ((Tile)m_ColorMap[m_LevelArray[x, 0].ToArgb()]);
 					m_CurrentView[getPosition(x, y)].Position = new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension);
+					m_CurrentView[getPosition(x, y)].Texture = curTile.getGameTexture();
+					((Collidable)m_CurrentView[getPosition(x, y)]).Faction = curTile.getFaction();
+					m_CurrentView[getPosition(x, y)].RotationDegrees = curTile.Rotation;
+					m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
 				}
 			}
 
 			m_CurTopRow = AHeight - m_ScreenSpaceHeight - 1;
 			m_CurBottomBuffer = m_ScreenSpaceHeight - 1;
 			m_CurTopBuffer = 0;
-
-
-			return m_CurrentView;
-
 		}
 
 		public void Update(GameTime p_GameTime)

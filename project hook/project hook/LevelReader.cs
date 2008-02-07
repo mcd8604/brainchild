@@ -33,27 +33,28 @@ namespace project_hook
 			}
 		}
 
+		private String m_FilePath;
+
 		public LevelReader()
 		{
-			FileName = System.Environment.CurrentDirectory + "\\Content\\Levels\\";
+			m_FilePath = System.Environment.CurrentDirectory + "\\Content\\Levels\\";
 		}
 		public LevelReader(String p_FileName)
 		{
-			FileName = System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName;
+			m_FileName = p_FileName;
+			m_FilePath = System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName;
 		}
 
 		public Dictionary<int, List<Event>> ReadFile()
 		{
-			String t_Name = m_FileName;
-
 			//Checks for the XML file
-			if (File.Exists(t_Name))
+			if (File.Exists(m_FilePath))
 			{
 				XmlReaderSettings t_Settings = new XmlReaderSettings();
 				t_Settings.ConformanceLevel = ConformanceLevel.Fragment;
 				t_Settings.IgnoreWhitespace = true;
 				t_Settings.IgnoreComments = true;
-				XmlReader reader = XmlReader.Create(m_FileName, t_Settings);
+				XmlReader reader = XmlReader.Create(m_FilePath, t_Settings);
 
 				reader.Read();
 				reader.ReadStartElement("level");
@@ -142,7 +143,7 @@ namespace project_hook
 #if DEBUG
 			else
 			{
-				throw new Exception("file not found: " + t_Name);
+				throw new Exception("file not found: " + m_FilePath);
 			}
 #endif
 

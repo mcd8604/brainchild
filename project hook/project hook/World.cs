@@ -15,6 +15,38 @@ namespace project_hook
 		// Additive Sprites;
 		private List<Sprite> m_SpriteListA;
 
+		private YScrollingBackground m_Background;
+
+
+		public static Player m_Player;
+		public static SimpleScore m_Score;
+		Tail tail;
+
+		GameState m_PreviousState;
+		GameState m_State = GameState.Nothing;
+		public GameState State
+		{
+			get
+			{
+				return m_State;
+			}
+		}
+
+		public enum GameState
+		{
+			Nothing,
+			DoNotRender,
+			Loading,
+			Ready,
+			Running,
+			Paused,
+			Dead,
+			Won,
+			Finished,
+			Exiting
+		}
+
+		#region World States
 		private static Boolean m_CreateWorld = false;
 		public static Boolean CreateWorld
 		{
@@ -79,34 +111,7 @@ namespace project_hook
 				m_PlayerDead = value;
 			}
 		}
-
-		public static Player m_Player;
-		public static SimpleScore m_Score;
-		Tail tail;
-
-		GameState m_PreviousState;
-		GameState m_State = GameState.Nothing;
-		public GameState State
-		{
-			get
-			{
-				return m_State;
-			}
-		}
-
-		public enum GameState
-		{
-			Nothing,
-			DoNotRender,
-			Loading,
-			Ready,
-			Running,
-			Paused,
-			Dead,
-			Won,
-			Finished,
-			Exiting
-		}
+		#endregion
 
 		public static Rectangle m_ViewPortSize;
 		public static WorldPosition m_Position;
@@ -178,7 +183,7 @@ namespace project_hook
 				Environment.Exit(Environment.ExitCode);
 			}
 #else
-			AddSprites(m_ELoader.Initialize(m_Position, System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+			AddSprites(m_ELoader.Initialize(System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
 			m_LReader = new LevelReader("Level1Normal.xml");
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 #endif
@@ -190,9 +195,18 @@ namespace project_hook
 
 		public void restartLevel()
 		{
-			initialize(new Rectangle(0, 0, Game.graphics.PreferredBackBufferWidth, Game.graphics.PreferredBackBufferHeight));
-			AddSprites(m_ELoader.Initialize(System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+			//initialize(new Rectangle(0, 0, Game.graphics.PreferredBackBufferWidth, Game.graphics.PreferredBackBufferHeight));
+			//AddSprites(m_ELoader.Initialize(System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+			m_SpriteList = new List<Sprite>();
+			m_SpriteListA = new List<Sprite>();
+			m_ELoader.resetLevel();
+			AddSprites(m_ELoader.CurrentView);
+			String curLevel = m_LReader.FileName;
+			m_LReader = new LevelReader(curLevel);
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
+			//m_LHandler.resetLevel();
+			m_Position.resetDistance();
+			IniDefaults();
 		}
 
 		//This will deallocate any variables that need de allocation
@@ -646,31 +660,28 @@ namespace project_hook
 
 		private void IniDefaults()
 		{
-			//GameTexture cloudTexture = TextureLibrary.getGameTexture("Cloud", "");
+			IniBackground();
 
-			//test scrolling background
-			YScrollingBackground back = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
-			AddSprite(back);
+			IniPlayer();
 
-			//hud panel
-			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 0.5f, true, 0f, Depth.HUDLayer.Background);
-			AddSprite(hudPanel);
+			IniHUD();
+		}
 
+		public void IniBackground()
+		{
+			m_Background = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
+			AddSprite(m_Background);
+		}
+
+		public void IniPlayer()
+		{
 			m_Player = new Player("Ship", Vector2.Zero, 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			m_Player.PlayerShip.Center = new Vector2(512f, 576f);
 			AddSprite(m_Player.PlayerShip);
 #if DEBUG
 			//new HealthBar(m_Player.PlayerShip);
 #endif
-			// Sprite back2 = new Sprite("back", new Vector2(100.0f, 100.0f), 500, 600, TextureLibrary.getGameTexture("Back", ""), 100, true, 0.0f, Depth.MidGround.Bottom);
-			//Sprite cloud = new Sprite("Cloud", new Vector2(0f, 0f), cloudTexture.Height, cloudTexture.Width, cloudTexture, 0.8f, true, 0, Depth.BackGroundLayer.Upper);
-
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
-
-			Sprite crosshairs = new CursorSprite("crosshair", Vector2.Zero, TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
-			crosshairs.Center = new Vector2(512f, 384f);
-			AddSprite(crosshairs);
-
 
 			for (int i = 0; i < 60; i++)
 			{
@@ -692,18 +703,21 @@ namespace project_hook
 				}
 
 			}
+
+			Sprite crosshairs = new CursorSprite("crosshair", Vector2.Zero, TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
+			crosshairs.Center = new Vector2(512f, 384f);
+			AddSprite(crosshairs);
+
 			AddSprites(m_TailBodySprites);
 			tail = new Tail("Tail", Vector2.Zero, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
 			tail.Center = m_Player.PlayerShip.Center;
 			AddSprite(tail);
+		}
 
-
-			//	AddSprite(cloud);
-
-
-
-
-
+		public void IniHUD()
+		{
+			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 0.5f, true, 0f, Depth.HUDLayer.Background);
+			AddSprite(hudPanel);
 
 			Sprite TextFpsExample = new FPSSprite(new Vector2(75, 20), Color.Pink, Depth.HUDLayer.Foreground);
 			AddSprite(TextFpsExample);
@@ -721,8 +735,8 @@ namespace project_hook
 			Sprite u = new TextSprite(m_Player.PlayerShip.getUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
 			AddSprite(u);
 
-			PowerUp p = new PowerUp(50, 12, new Vector2(50, 50));
-			AddSprite(p);
+			//PowerUp p = new PowerUp(50, 12, new Vector2(50, 50));
+			//AddSprite(p);
 
 			AddSprite(new HealthBar(m_Player.PlayerShip, new Vector2(50, 700), 75, 10, 55, 75));
 
@@ -731,7 +745,6 @@ namespace project_hook
 			//sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			//sp.Target= m_Player.PlayerShip;
 			//AddSprite(sp);
-
 		}
 
 		public void ChangeFile(String p_FileName)
