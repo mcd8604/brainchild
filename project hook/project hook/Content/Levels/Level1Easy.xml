@@ -5,7 +5,7 @@
 			<fileName>level1.bmp</fileName>
 		</loadBMP>
 	</action>
-	<action tile="35">
+	<action tile="10">
 		<createShip>
 			<name>Enemy1</name>
 			<height>94</height>
@@ -55,7 +55,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="70">
+	<action tile="45">
 		<createShip>
 			<name>Enemy2</name>
 			<height>94</height>
@@ -153,7 +153,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="103">
+	<action tile="78">
 		<createShip>
 			<name>Enemy4</name>
 			<height>90</height>
@@ -214,7 +214,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="140">
+	<action tile="115">
 		<createShip>
 			<name>Enemy5</name>
 			<height>94</height>
@@ -292,7 +292,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="178">
+	<action tile="153">
 		<createShip>
 			<name>Enemy7</name>
 			<height>90</height>
@@ -419,7 +419,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="189">
+	<action tile="164">
 		<changeFile>
 			<fileName>Gate1.xml</fileName>
 		</changeFile>
