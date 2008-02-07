@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
-	<action tile="10">
+	<action tile="0">
+		<loadBMP>
+			<fileName>level1.bmp</fileName>
+		</loadBMP>
+	</action>
+	<action tile="35">
 		<createShip>
 			<name>W1_E1</name>
 			<height>55</height>
@@ -63,7 +68,7 @@
 			</shipPart>
 		</createShip>
 	</action>
-	<action tile="30">
+	<action tile="55">
 		<createSpawnPoint>
 			<delay>32</delay>
 			<count>5</count>
@@ -83,7 +88,7 @@
 			</object>
 		</createSpawnPoint>
 	</action>
-	<action tile="35">
+	<action tile="60">
 		<createShip>
 			<name>bump1</name>
 			<height>40</height>
@@ -97,7 +102,7 @@
 			<task type="StationaryBackground"/>
 		</createShip>
 	</action>
-	<action tile="45">
+	<action tile="70">
 		<createShip>
 			<name>W3_E1</name>
 			<height>94</height>
@@ -197,7 +202,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="55">
+	<action tile="80">
 		<createShip>
 			<name>bump1</name>
 			<height>40</height>
@@ -211,7 +216,7 @@
 			<task type="StationaryBackground"/>
 		</createShip>
 	</action>
-	<action tile="60">
+	<action tile="85">
 		<createSpawnPoint>
 			<delay>32</delay>
 			<count>5</count>
@@ -231,7 +236,7 @@
 			</object>
 		</createSpawnPoint>
 	</action>
-	<action tile="70">
+	<action tile="95">
 		<createSpawnPoint>
 			<delay>32</delay>
 			<count>5</count>
@@ -270,7 +275,7 @@
 			</object>
 		</createSpawnPoint>
 	</action>
-	<action tile="78">
+	<action tile="103">
 		<createShip>
 			<name>W6_E1</name>
 			<height>90</height>
@@ -331,7 +336,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="100">
+	<action tile="125">
 		<createSpawnPoint>
 			<delay>32</delay>
 			<count>5</count>
@@ -391,7 +396,7 @@
 			</object>
 		</createSpawnPoint>
 	</action>
-	<action tile="115">
+	<action tile="140">
 		<createShip>
 			<name>Enemy5</name>
 			<height>94</height>
@@ -469,7 +474,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="135">
+	<action tile="150">
 		<createSpawnPoint>
 			<delay>32</delay>
 			<count>5</count>
@@ -489,7 +494,7 @@
 			</object>
 		</createSpawnPoint>
 	</action>
-	<action tile="140">
+	<action tile="165">
 		<createSpawnPoint>
 			<delay>32</delay>
 			<count>5</count>
@@ -527,7 +532,7 @@
 			</object>
 		</createSpawnPoint>
 	</action>
-	<action tile="153">
+	<action tile="178">
 		<createShip>
 			<name>Enemy7</name>
 			<height>90</height>
@@ -654,7 +659,7 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="164">
+	<action tile="189">
 		<changeFile>
 			<fileName>Gate1.xml</fileName>
 		</changeFile>

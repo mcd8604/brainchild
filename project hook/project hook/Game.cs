@@ -176,9 +176,15 @@ namespace project_hook
 			{
 				World.CreateWorld = false;
 				m_World = new World();
-				m_World.loadLevel(content);
 				m_World.initialize(new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
+				m_World.loadLevel();
 				m_World.changeState(World.GameState.Running);
+			}
+
+			if (World.RestartLevel == true)
+			{
+				m_World.restartLevel();
+				World.RestartLevel = false;
 			}
 
 			if (World.DestroyWorld == true)
