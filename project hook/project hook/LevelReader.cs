@@ -122,7 +122,7 @@ namespace project_hook
 							reader.ReadStartElement();
 							NextFile(reader);
 							reader.ReadEndElement();
-						}						
+						}
 					} while (reader.IsStartElement());
 #if DEBUG
 					curLoop = 0;
@@ -153,7 +153,7 @@ namespace project_hook
 		{
 			Boss t_Boss = (Boss)readShip(p_Reader, typeof(Boss));
 			t_Boss.Faction = Collidable.Factions.Enemy;
-			
+
 			List<Event> t_List = new List<Event>();
 
 			//add the ship to the event list
@@ -247,6 +247,12 @@ namespace project_hook
 					p_Wall.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
 													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
 					p_Reader.ReadStartElement("startTile");
+				}
+				else if (p_Reader.IsStartElement("startTileCenter"))
+				{
+					p_Wall.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
+													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
+					p_Reader.ReadStartElement("startTileCenter");
 				}
 				else if (p_Reader.IsStartElement("height"))
 				{
@@ -367,6 +373,12 @@ namespace project_hook
 													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
 					p_Reader.ReadStartElement("startTile");
 				}
+				else if (p_Reader.IsStartElement("startTileCenter"))
+				{
+					p_Trigger.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
+													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
+					p_Reader.ReadStartElement("startTileCenter");
+				}
 				else if (p_Reader.IsStartElement("height"))
 				{
 					p_Reader.ReadStartElement("height");
@@ -415,7 +427,7 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("bound"))
 				{
 					p_Trigger.Bound = readBounding(p_Reader);
-				}				
+				}
 #if DEBUG
 				else
 				{
@@ -584,6 +596,12 @@ namespace project_hook
 					t_Ship.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
 													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
 					p_Reader.ReadStartElement("startTile");
+				}
+				else if (p_Reader.IsStartElement("startTileCenter"))
+				{
+					t_Ship.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
+													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
+					p_Reader.ReadStartElement("startTileCenter");
 				}
 				else if (p_Reader.IsStartElement("height"))
 				{
@@ -830,7 +848,7 @@ namespace project_hook
 				case "DupSequence":
 					WeaponDupSequence dupsequence = new WeaponDupSequence();
 					dupsequence.RecycleDelay = float.Parse(p_Reader.GetAttribute("recycle"));
-					dupsequence.setRepeats( int.Parse(p_Reader.GetAttribute("repeats")) );
+					dupsequence.setRepeats(int.Parse(p_Reader.GetAttribute("repeats")));
 					p_Reader.ReadStartElement("weapon");
 					while (p_Reader.IsStartElement("weapon"))
 					{
@@ -842,8 +860,9 @@ namespace project_hook
 					WeaponSequence sequence = new WeaponSequence();
 					sequence.RecycleDelay = float.Parse(p_Reader.GetAttribute("recycle"));
 					p_Reader.ReadStartElement("weapon");
-					while (p_Reader.IsStartElement("weapon") ){
-						sequence.addWeapon( readWeapon(p_Reader) );
+					while (p_Reader.IsStartElement("weapon"))
+					{
+						sequence.addWeapon(readWeapon(p_Reader));
 					}
 					weapon = sequence;
 					break;
@@ -1275,6 +1294,12 @@ namespace project_hook
 					t_Point.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
 													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
 					p_Reader.ReadStartElement("startTile");
+				}
+				else if (p_Reader.IsStartElement("startTileCenter"))
+				{
+					t_Point.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
+													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
+					p_Reader.ReadStartElement("startTileCenter");
 				}
 				else if (p_Reader.IsStartElement("task"))
 				{

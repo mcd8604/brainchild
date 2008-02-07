@@ -326,8 +326,12 @@ namespace project_hook
 			}
 		}
 
-		protected float m_Scale = -1.0f;
-		public float Scale
+		protected bool m_Sized = true;
+		public bool Sized
+		{ get { return m_Sized; } }
+
+		protected Vector2 m_Scale = Vector2.One;
+		public Vector2 Scale
 		{
 			get
 			{
@@ -336,6 +340,15 @@ namespace project_hook
 			set
 			{
 				m_Scale = value;
+				m_Sized = false;
+			}
+		}
+		public float ScaleScalar
+		{
+			set
+			{
+				m_Scale = new Vector2(value);
+				m_Sized = false;
 			}
 		}
 		#endregion // End of variables and Properties Region
@@ -408,14 +421,13 @@ namespace project_hook
 				}
 				if (m_Texture != null)
 				{
-					if (Scale >= 0)
+					if (m_Sized)
 					{
-						p_SpriteBatch.Draw(m_Texture.Texture, Position, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, Scale, SpriteEffects.None, m_Z);
+						p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, SpriteEffects.None, m_Z);
 					}
 					else
 					{
-
-						p_SpriteBatch.Draw(m_Texture.Texture, Destination, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, SpriteEffects.None, m_Z);
+						p_SpriteBatch.Draw(m_Texture.Texture, Center, m_Texture.StartPosition, m_Color, m_Rotation, Texture.Center, Scale, SpriteEffects.None, m_Z);
 					}
 				}
 			}

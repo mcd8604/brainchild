@@ -22,22 +22,22 @@ namespace project_hook
 	/// </summary>
 	class TextureLibrary
 	{
-        //This holds a list of all the 2DTexture Objects.
-        //The Key is the name of the Texture asset.
+		//This holds a list of all the 2DTexture Objects.
+		//The Key is the name of the Texture asset.
 		private static OrderedDictionary<String, Texture2D> m_Textures;
 
 		//This stores a reference to all the game textures
-        //The first key is the name of the 2DTexture the GameTexture is using.
-        //The key for the second Dictionary is the tag that is defined for that area of the texture
-        //Tags and Source rectangles are loaded from the XML file with the same name as the texture.
-        //If no XML file is included the Tag for the Texture will be "" and it's source will be the size of the entire Texture
+		//The first key is the name of the 2DTexture the GameTexture is using.
+		//The key for the second Dictionary is the tag that is defined for that area of the texture
+		//Tags and Source rectangles are loaded from the XML file with the same name as the texture.
+		//If no XML file is included the Tag for the Texture will be "" and it's source will be the size of the entire Texture
 		private static OrderedDictionary<String, OrderedDictionary<String, GameTexture>> m_GameTextures;
 
-        //This is passed in from the Game class.
+		//This is passed in from the Game class.
 		private static ContentManager m_TextureManager;
-        
-        //Our current path in the system.  
-        //This is used to read the XML files
+
+		//Our current path in the system.  
+		//This is used to read the XML files
 		private static String path = System.Environment.CurrentDirectory + "\\Content\\Textures\\";
 
 		//This method will initialize the Texture Dictionarys and set the content manager      
@@ -52,10 +52,10 @@ namespace project_hook
 		}
 
 		//This method gets a the GameTexture who has the corresponding name and tag.
-        //If no texture is found NULL is returned. If we're in Debug an Exception will be thrown.
+		//If no texture is found NULL is returned. If we're in Debug an Exception will be thrown.
 		public static GameTexture getGameTexture(string name, string tag)
 		{
-            //Makes sure the Texture lists have been initialized
+			//Makes sure the Texture lists have been initialized
 			if (m_GameTextures == null)
 			{
 				return null;
@@ -63,7 +63,7 @@ namespace project_hook
 
 			GameTexture r_Texture = null;
 
-            //Checks if the GameTexture is in the Dictionary
+			//Checks if the GameTexture is in the Dictionary
 			if (m_GameTextures.ContainsKey(name))
 			{
 				if (m_GameTextures[name].ContainsKey(tag))
@@ -82,34 +82,34 @@ namespace project_hook
 		}
 
 
-        //This method gets a the 2DTexture who has the corresponding asset name.
-        //If no texture is found NULL is returned. If we're in Debug an Exception will be thrown.
-        public static Texture2D getTexture2D(string name, string tag)
-        {
-            //Makes sure the Texture lists have been initialized
-            if (m_Textures == null)
-            {
-                return null;
-            }
+		//This method gets a the 2DTexture who has the corresponding asset name.
+		//If no texture is found NULL is returned. If we're in Debug an Exception will be thrown.
+		public static Texture2D getTexture2D(string name, string tag)
+		{
+			//Makes sure the Texture lists have been initialized
+			if (m_Textures == null)
+			{
+				return null;
+			}
 
-            Texture2D r_Texture = null;
+			Texture2D r_Texture = null;
 
-            //Checks if the GameTexture is in the Dictionary
-            if (m_Textures.ContainsKey(name))
-            {
-                r_Texture = m_Textures[name];
-            }
-            else
-            {
+			//Checks if the GameTexture is in the Dictionary
+			if (m_Textures.ContainsKey(name))
+			{
+				r_Texture = m_Textures[name];
+			}
+			else
+			{
 #if DEBUG
-                throw new Exception("Texture not loaded: " + name);
+				throw new Exception("Texture not loaded: " + name);
 #endif
-            }
+			}
 
-            return r_Texture;
-        }
+			return r_Texture;
+		}
 
-        //Loads a texture into the content manager and returns a reference to the new 2DTexture
+		//Loads a texture into the content manager and returns a reference to the new 2DTexture
 		private static Texture2D loadTextureByName(string textureName)
 		{
 			return m_TextureManager.Load<Texture2D>(path + textureName);
@@ -217,24 +217,23 @@ namespace project_hook
 					GameTexture t_GameTexture = new GameTexture(textureName, "", tTexture, new Rectangle(0, 0, tTexture.Width, tTexture.Height));
 					addGameTexture(textureName, "", t_GameTexture);
 				}
-
 			}
+#if DEBUG
 			catch (ContentLoadException e)
 			{
-#if DEBUG
+
 				Console.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e.Message);
-#endif
 				return false;
 			}
 			catch (IOException e)
 			{
-#if DEBUG
+
 				Console.WriteLine("TextureLibrary.LoadTexure.IOException: " + e.Message);
-#endif
 				return false;
 			}
-#if DEBUG
 			System.Diagnostics.Debug.Assert(m_Textures.ContainsKey(textureName));
+#else
+			catch (Exception) { return false; }
 #endif
 			return true;
 		}
@@ -302,7 +301,7 @@ namespace project_hook
 					}
 					gt.Texture = reload;
 				}
-				
+
 			}
 
 		}

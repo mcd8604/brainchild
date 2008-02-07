@@ -67,15 +67,15 @@ namespace project_hook
 
 		// initialize is called by ParticleSystem to set up the particle, and prepares
 		// the particle for use.
-		public void Initialize(Vector2 position, Vector2 velocity, Vector2 acceleration,
+		public void Initialize(Vector2 center, Vector2 velocity, Vector2 acceleration,
 			float lifetime, float scale, float rotationSpeed, String p_Texture, String p_Tag)
 		{
 			// set the values to the requested values
-			Position = position;
+			Center = center;
 			Velocity = velocity;
 			Acceleration = acceleration;
 			Lifetime = lifetime;
-			Scale = scale;
+			ScaleScalar = scale;
 			RotationSpeed = rotationSpeed;
 
 			// reset TimeSinceStart - we have to do this because particles will be
@@ -88,15 +88,15 @@ namespace project_hook
 			Enabled = true;
 		}
 
-		public void Initialize(Vector2 position, Vector2 velocity, Vector2 acceleration,
+		public void Initialize(Vector2 center, Vector2 velocity, Vector2 acceleration,
 			float lifetime, float scale, float rotationSpeed, String p_Texture, String p_Tag, String p_AnimationName, int p_FPS)
 		{
 			// set the values to the requested values
-			Position = position;
+			Center = center;
 			Velocity = velocity;
 			Acceleration = acceleration;
 			Lifetime = lifetime;
-			Scale = scale;
+			ScaleScalar = scale;
 			RotationSpeed = rotationSpeed;
 
 			// reset TimeSinceStart - we have to do this because particles will be
@@ -117,7 +117,7 @@ namespace project_hook
 		{
 			base.Update(p_GameTime);
 			Velocity += Acceleration * dt;
-			Position += Velocity * dt;
+			Center += Velocity * dt;
 
 			Rotation += RotationSpeed * dt;
 
