@@ -1,6 +1,7 @@
 #region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -132,6 +133,7 @@ namespace project_hook
 			if (!IsActive)
 				return;
 
+			Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
 			InputHandler.Update();
 
 			if (Menus.Exit)
@@ -140,7 +142,7 @@ namespace project_hook
 			}
 
 			//Checks for full screen
-			if (InputHandler.IsKeyPressed(Keys.F))
+			if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.F))
 			{
 				graphics.ToggleFullScreen();
 			}
