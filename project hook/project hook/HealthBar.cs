@@ -63,7 +63,7 @@ namespace project_hook
                                       height, width, TextureLibrary.getGameTexture("shieldBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
             
 			health = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y - 20),
-                                   height, width, TextureLibrary.getGameTexture("healthBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground); ;
+                                   height, width, TextureLibrary.getGameTexture("healthBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
 
             blackS = new Sprite();
             blackS.Texture = TextureLibrary.getGameTexture("black", "");
