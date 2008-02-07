@@ -143,16 +143,12 @@ namespace project_hook
 		Shot kill;
 #endif
 
-		public World() { }
-
-		//This method will initialize all the objects needed to run the game
-		//and will also load all the textures/sounds needed to start the level.  
-		public void initialize(Rectangle p_DrawArea)
+		public World(Rectangle p_DrawArea)
 		{
+			m_ViewPortSize = p_DrawArea;
 			m_SpriteList = new List<Sprite>();
 			m_SpriteListA = new List<Sprite>();
 			m_Position = new WorldPosition(80f);
-			m_ViewPortSize = p_DrawArea;
 			LoadTextures();
 			m_ELoader = new EnvironmentLoader(m_Position);
 			IniDefaults();
@@ -174,7 +170,8 @@ namespace project_hook
 			System.Windows.Forms.DialogResult result = f.ShowDialog();
 			if (result == System.Windows.Forms.DialogResult.OK)
 			{
-				AddSprites(m_ELoader.Initialize(System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+				m_ELoader = new EnvironmentLoader(m_Position);
+				AddSprites(m_ELoader.CurrentView);
 				m_LReader = new LevelReader((String)f.getLevel());
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			}
@@ -183,29 +180,23 @@ namespace project_hook
 				Environment.Exit(Environment.ExitCode);
 			}
 #else
-			AddSprites(m_ELoader.Initialize(System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
+			m_ELoader = new EnvironmentLoader(m_Position);
+			AddSprites(m_ELoader.CurrentView);
+			m_ELoader.resetLevel();
 			m_LReader = new LevelReader("Level1Normal.xml");
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 #endif
 		}
 
-		public void initLevel(String levelFileName)
-		{
-		}
-
 		public void restartLevel()
 		{
-			//initialize(new Rectangle(0, 0, Game.graphics.PreferredBackBufferWidth, Game.graphics.PreferredBackBufferHeight));
-			//AddSprites(m_ELoader.Initialize(System.Environment.CurrentDirectory + "\\Content\\Levels\\empty.bmp"));
 			m_SpriteList = new List<Sprite>();
 			m_SpriteListA = new List<Sprite>();
-			m_ELoader.resetLevel();
+			m_Position.resetDistance();
 			AddSprites(m_ELoader.CurrentView);
 			String curLevel = m_LReader.FileName;
 			m_LReader = new LevelReader(curLevel);
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			//m_LHandler.resetLevel();
-			m_Position.resetDistance();
 			IniDefaults();
 		}
 
@@ -791,6 +782,7 @@ namespace project_hook
 		{
 			//m_ELoader = new EnvironmentLoader();
 			m_ELoader.NewFile(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName);
+			m_ELoader.resetLevel();
 		}
 
 		public void ChangeSpeed(int p_Speed)

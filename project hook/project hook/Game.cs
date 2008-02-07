@@ -179,8 +179,8 @@ namespace project_hook
 			if (World.CreateWorld == true)
 			{
 				World.CreateWorld = false;
-				m_World = new World();
-				m_World.initialize(new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
+				Rectangle r = new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+				m_World = new World(r);
 				m_World.loadLevel();
 				m_World.changeState(World.GameState.Running);
 			}
