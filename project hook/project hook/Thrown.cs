@@ -87,14 +87,10 @@ namespace project_hook
 
 		private void checkTaskAngle(Task t, Collidable p_Other)
 		{
-			if (t is TaskStraightAngle)
+			if (t is TaskStraightAngle || t is TaskRotateToAngle)
 			{
-				changeTaskAngle( (TaskStraightAngle)t, p_Other);
+				changeTaskAngle(t as TaskIAngle, p_Other);
 			}
-			//else if (t is TaskRotateToAngle)
-			//{
-			//    changeTaskAngle((TaskRotateToAngle)t, p_Other);
-			//}
 			else
 			{
 				if (t.getSubTasks() != null)
@@ -106,20 +102,9 @@ namespace project_hook
 				}
 			}
 		}
-		
-		private void changeTaskAngle(Task t, Collidable p_Other)
+
+		private void changeTaskAngle(TaskIAngle task, Collidable p_Other)
 		{
-			TaskStraightAngle task = null;
-
-			if (t is TaskStraightAngle)
-			{
-				task = t as TaskStraightAngle;
-			}
-			//else if (t is TaskRotateToAngle)
-			//{
-			//
-			//}
-
 			if (p_Other.Bound == Collidable.Boundings.Square || p_Other.Bound == Collidable.Boundings.Rectangle)
 			{
 				while (task.AngleDegrees <= 0)
