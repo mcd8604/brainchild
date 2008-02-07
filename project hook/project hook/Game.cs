@@ -34,11 +34,15 @@ namespace project_hook
 
 		InputHandlerState m_InputHandler;
 
+		System.Drawing.Rectangle DefaultClippingBounds;
+
 		public enum InputHandlerState
 		{
 			World,
 			Menu
 		}
+
+		
 
 		public Game()
 		{
@@ -49,7 +53,7 @@ namespace project_hook
 			graphics.SynchronizeWithVerticalRetrace = false;
 			IsFixedTimeStep = false;
 #endif
-
+			DefaultClippingBounds = Cursor.Clip;
 
 		}
 
@@ -218,10 +222,7 @@ namespace project_hook
 				{
 					m_World.checkKeys(gameTime);
 				}
-				else
-				{
-					m_World.update(gameTime);
-				}
+				m_World.update(gameTime);
 			}
 
 			// TODO: Add your update logic here
@@ -256,7 +257,8 @@ namespace project_hook
 		protected override void OnActivated(object sender, EventArgs args)
 		{
 			base.OnActivated(sender, args);
-			Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
+			// EVIL EVIL EVIL
+			//Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
 #if DEBUG
 			Console.WriteLine("ACTIVATED");
 #endif
@@ -267,7 +269,7 @@ namespace project_hook
 		protected override void OnDeactivated(object sender, EventArgs args)
 		{
 			base.OnDeactivated(sender, args);
-			Cursor.Clip = Screen.PrimaryScreen.Bounds;
+			Cursor.Clip = DefaultClippingBounds;
 #if DEBUG
 			Console.WriteLine("DEACTIVATED");
 #endif
