@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskRotateToAngle : Task
+	class TaskRotateToAngle : Task, TaskIAngle
 	{
 		float m_Angle = 0f;
 		public float Angle

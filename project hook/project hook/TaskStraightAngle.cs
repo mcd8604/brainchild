@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskStraightAngle : Task
+	class TaskStraightAngle : Task, TaskIAngle
 	{
 		private float m_Angle = 0f;
 		public float Angle
