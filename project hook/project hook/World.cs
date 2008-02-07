@@ -180,6 +180,10 @@ namespace project_hook
 		{
 		}
 
+		// private to update method
+		private List<Sprite> toAdd = new List<Sprite>();
+		private List<Sprite> toAddA = new List<Sprite>();
+
 		//This will update the game world.  
 		//Different update methdos can be run based on the game state.
 		public void update(GameTime p_GameTime)
@@ -213,11 +217,7 @@ namespace project_hook
 					colltotal = 0;
 					collcount = 0;
 				}
-#endif
 
-				List<Sprite> toAdd = new List<Sprite>();
-				List<Sprite> toAddA = new List<Sprite>();
-#if DEBUG
 				int count = m_SpriteList.Count;
 				List<Sprite> removed = m_SpriteList.FindAll(Sprite.isToBeRemoved);
 				if (removed.Count > 0)
@@ -245,21 +245,7 @@ namespace project_hook
 				{
 					s.Update(p_GameTime);
 
-					if (s.SpritesToBeAdded != null)
-					{
-						foreach (Sprite z in s.SpritesToBeAdded)
-						{
-							if (z.BlendMode == SpriteBlendMode.AlphaBlend)
-							{
-								toAdd.Add(z);
-							}
-							else if (z.BlendMode == SpriteBlendMode.Additive)
-							{
-								toAddA.Add(z);
-							}
-						}
-						s.SpritesToBeAdded.Clear();
-					}
+					checkToBeAdded(s);
 				}
 
 				//Additive:
@@ -296,21 +282,7 @@ namespace project_hook
 				{
 					s.Update(p_GameTime);
 
-					if (s.SpritesToBeAdded != null)
-					{
-						foreach (Sprite z in s.SpritesToBeAdded)
-						{
-							if (z.BlendMode == SpriteBlendMode.AlphaBlend)
-							{
-								toAdd.Add(z);
-							}
-							else if (z.BlendMode == SpriteBlendMode.Additive)
-							{
-								toAddA.Add(z);
-							}
-						}
-						s.SpritesToBeAdded.Clear();
-					}
+					checkToBeAdded(s);
 				}
 
 #if DEBUG
@@ -320,7 +292,8 @@ namespace project_hook
 				}
 #endif
 				AddSprites(toAdd);
-
+				toAdd.Clear();
+				
 
 #if DEBUG
 				if (toAddA.Count != 0)
@@ -329,6 +302,7 @@ namespace project_hook
 				}
 #endif
 				AddSprites(toAddA);
+				toAddA.Clear();
 
 #if DEBUG
 				if (DisplayCollision)
@@ -349,6 +323,33 @@ namespace project_hook
 					m_Player.PlayerShip.Health = 0;
 				}
 
+			}
+		}
+
+		private void checkToBeAdded(Sprite s)
+		{
+			if (s.SpritesToBeAdded != null && s.SpritesToBeAdded.Count > 0)
+			{
+				foreach (Sprite z in s.SpritesToBeAdded)
+				{
+					if (z.BlendMode == SpriteBlendMode.AlphaBlend)
+					{
+						toAdd.Add(z);
+					}
+					else if (z.BlendMode == SpriteBlendMode.Additive)
+					{
+						toAddA.Add(z);
+					}
+				}
+				s.SpritesToBeAdded.Clear();
+			}
+
+			if (s.Parts != null && s.Parts.Count > 0)
+			{
+				foreach (Sprite z in s.Parts)
+				{
+					checkToBeAdded(z);
+				}
 			}
 		}
 

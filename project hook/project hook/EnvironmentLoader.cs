@@ -219,29 +219,18 @@ namespace project_hook
 		public void NewFile(String p_FileName)
 		{
 			// read in level
-#if DEBUG
-			int p = p_FileName.LastIndexOf("\\") + 1;
-			string shortname = p_FileName.Substring(p, p_FileName.Length - p);
-			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-			stopwatch.Start();
-#endif
 			readBitmap(p_FileName);
-#if DEBUG
-			stopwatch.Stop();
-			Console.WriteLine("> Read in " + shortname + " in " + stopwatch.Elapsed.TotalSeconds + " seconds.");
-			stopwatch.Reset();
-			stopwatch.Start();
-#endif
 			processLevel();
-#if DEBUG
-			stopwatch.Stop();
-			Console.WriteLine("> Processed " + shortname + " in " + stopwatch.Elapsed.TotalSeconds + " seconds.");
-#endif
+
 			m_CurTopRow = AHeight - 1;
 		}
 
 		private void readBitmap(string p_FileName)
 		{
+#if DEBUG
+			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+			stopwatch.Start();
+#endif
 			using (Bitmap bmp = new Bitmap(p_FileName))
 			{
 				AHeight = bmp.Height;
@@ -256,10 +245,19 @@ namespace project_hook
 					}
 				}
 			}
+#if DEBUG
+			stopwatch.Stop();
+			int p = p_FileName.LastIndexOf("\\") + 1;
+			Console.WriteLine("> Read in " + p_FileName.Substring(p, p_FileName.Length - p) + " in " + stopwatch.Elapsed.TotalSeconds + " seconds.");
+#endif
 		}
 
 		private void processLevel()
 		{
+#if DEBUG
+			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+			stopwatch.Start();
+#endif
 			for (int height = 0; height < AHeight; height++)
 			{
 				for (int width = 0; width < AWidth; width++)
@@ -267,6 +265,10 @@ namespace project_hook
 					processPixel(width, height);
 				}
 			}
+#if DEBUG
+			stopwatch.Stop();
+			Console.WriteLine("> Processed level in " + stopwatch.Elapsed.TotalSeconds + " seconds.");
+#endif
 		}
 
 		private static System.Drawing.Color cWhite = System.Drawing.Color.FromArgb(255, 255, 255, 255);
