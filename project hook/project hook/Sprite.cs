@@ -428,7 +428,7 @@ namespace project_hook
 			{
 				m_Task.Update(this, p_Time);
 			}
-			if (m_Animation != null)
+			if (m_Animation != null && Enabled)
 			{
 				m_Animation.Update(p_Time);
 			}
