@@ -45,37 +45,37 @@ namespace project_hook
 
 		public void CheckEvents(float p_UpToDistance)
 		{
-			int CurrentPosition = Convert.ToInt32( Math.Ceiling(p_UpToDistance) );
+			int CurrentPosition = Convert.ToInt32(Math.Ceiling(p_UpToDistance));
 
 			for (; m_EventDistance < CurrentPosition; m_EventDistance++)
 			{
 				if (m_Events.ContainsKey(m_EventDistance))
 				{
-					//read events
-					Event[] t_List = new Event[m_Events[m_EventDistance].Count];
-					m_Events[m_EventDistance].CopyTo(t_List);
-					for (int i = 0; i < m_Events[m_EventDistance].Count; ++i)
+					foreach (Event e in m_Events[m_EventDistance])
 					{
-						if (t_List[i].Type.Equals("Sprite"))
+						switch (e.Type)
 						{
-							CreateSprite(t_List[i].Sprite);
-						}
-						else if (t_List[i].Type.Equals("FileChange"))
-						{
-							ChangeFile(t_List[i].FileName);
-						}
-						else if (t_List[i].Type.Equals("ChangeSpeed"))
-						{
-							ChangeSpeed(t_List[i].Speed);
-						}
-						else if (t_List[i].Type.Equals("LoadBMP"))
-						{
-							LoadBMP(t_List[i].FileName);
+							case Event.Types.CreateSprite:
+								CreateSprite(e.Sprite);
+								break;
+							case Event.Types.ChangeFile:
+								ChangeFile(e.FileName);
+								break;
+							case Event.Types.ChangeSpeed:
+								ChangeSpeed(e.Speed);
+								break;
+							case Event.Types.LoadBMP:
+								LoadBMP(e.FileName);
+								break;
 						}
 					}
-					m_Events[m_EventDistance].Clear();
 				}
 			}
+		}
+
+		public void resetLevel()
+		{
+			m_EventDistance = 0;
 		}
 
 		public void CreateSprite(Sprite p_Sprite)

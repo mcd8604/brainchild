@@ -463,11 +463,11 @@ namespace project_hook
 			//add the file speed to the event list
 			if (m_Events.ContainsKey(m_Distance))
 			{
-				m_Events[m_Distance].Add(new Event(m_FileName, "FileChange"));
+				m_Events[m_Distance].Add(new Event(m_FileName, Event.Types.ChangeFile));
 			}
 			else
 			{
-				t_List.Add(new Event(m_FileName, "FileChange"));
+				t_List.Add(new Event(m_FileName, Event.Types.ChangeFile));
 				m_Events.Add(m_Distance, t_List);
 			}
 		}
@@ -486,11 +486,11 @@ namespace project_hook
 			//add the file speed to the event list
 			if (m_Events.ContainsKey(m_Distance))
 			{
-				m_Events[m_Distance].Add(new Event(m_FileName, "LoadBMP"));
+				m_Events[m_Distance].Add(new Event(m_FileName, Event.Types.LoadBMP));
 			}
 			else
 			{
-				t_List.Add(new Event(m_FileName, "LoadBMP"));
+				t_List.Add(new Event(m_FileName, Event.Types.LoadBMP));
 				m_Events.Add(m_Distance, t_List);
 			}
 		}
