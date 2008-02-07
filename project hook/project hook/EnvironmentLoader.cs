@@ -10,8 +10,8 @@ namespace project_hook
 {
 	public sealed class EnvironmentLoader
 	{
-		private static int m_ScreenSpaceWidth = 16;
-		private static int m_ScreenSpaceHeight = 14;
+		private static int m_ScreenSpaceWidth = 32;
+		private static int m_ScreenSpaceHeight = 25;
 		public static int TileCount
 		{
 			get
@@ -37,7 +37,7 @@ namespace project_hook
 		private int m_CurTopBuffer;
 		private int m_CurBottomBuffer;
 		private WorldPosition m_Position;
-		private static int m_TileDimension;
+		private static int m_TileDimension = 32;
 		public static int TileDimension
 		{
 			get
@@ -98,36 +98,47 @@ namespace project_hook
 			//m_ColorMap.Add(System.Drawing.Color.FromArgb(100, 0, 100).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_clear", ""), 0, true, false));
 			m_ColorMap.Add(color_Empty.ToArgb(), new Tile(0, false, false));
 			m_ColorMap.Add(color_Auto.ToArgb(), new Tile(0, false, false));
-		}
 
-		public List<Sprite> Initialize(string p_FileName)
-		{
-
-			// read in level
-			readFile(p_FileName);
-
-			m_ScreenSpaceWidth = AWidth;
-			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
-			m_ScreenSpaceHeight = (Game.graphics.GraphicsDevice.Viewport.Height / m_TileDimension) + 1;
-
-			// Create all sprites
 			m_CurrentView = new List<Sprite>();
 			for (int y = 0; y < m_ScreenSpaceHeight; y++)
 			{
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
-					Collidable temp = new Collidable("environment", new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension), m_TileDimension, m_TileDimension, null,
-						1, false, 0, Depth.GameLayer.Environment, Collidable.Factions.Environment, float.NaN, m_TileDimension * 0.5f);
+					Collidable temp = new Collidable("environment", new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension), m_TileDimension, m_TileDimension, null, 1f, false, 0, Depth.GameLayer.Environment, Collidable.Factions.Environment, float.NaN, m_TileDimension * 0.5f);
 					temp.Bound = Collidable.Boundings.Square;
 					m_CurrentView.Add(temp);
 				}
 			}
-
-			resetLevel();
-
-			return m_CurrentView;
-
 		}
+
+		//public List<Sprite> Initialize(string p_FileName)
+		//{
+
+		//    // read in level
+		//    readFile(p_FileName);
+
+		//    m_ScreenSpaceWidth = AWidth;
+		//    m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
+		//    m_ScreenSpaceHeight = (Game.graphics.GraphicsDevice.Viewport.Height / m_TileDimension) + 1;
+
+		//    // Create all sprites
+		//    m_CurrentView = new List<Sprite>();
+		//    for (int y = 0; y < m_ScreenSpaceHeight; y++)
+		//    {
+		//        for (int x = 0; x < m_ScreenSpaceWidth; x++)
+		//        {
+		//            Collidable temp = new Collidable("environment", new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension), m_TileDimension, m_TileDimension, null,
+		//                1, false, 0, Depth.GameLayer.Environment, Collidable.Factions.Environment, float.NaN, m_TileDimension * 0.5f);
+		//            temp.Bound = Collidable.Boundings.Square;
+		//            m_CurrentView.Add(temp);
+		//        }
+		//    }
+
+		//    resetLevel();
+
+		//    return m_CurrentView;
+
+		//}
 
 		public void resetLevel()
 		{
@@ -135,9 +146,9 @@ namespace project_hook
 			{
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
-					
+
 					m_CurrentView[getPosition(x, y)].Position = new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension);
-					m_CurrentView[getPosition(x, y)].Texture = m_TileArray[x,y].getGameTexture();
+					m_CurrentView[getPosition(x, y)].Texture = m_TileArray[x, y].getGameTexture();
 					((Collidable)m_CurrentView[getPosition(x, y)]).Faction = m_TileArray[x, y].getFaction();
 					m_CurrentView[getPosition(x, y)].Rotation = m_TileArray[x, y].Rotation;
 					m_CurrentView[getPosition(x, y)].Enabled = m_TileArray[x, y].Enabled;
@@ -182,7 +193,7 @@ namespace project_hook
 					m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = m_TileArray[i, m_CurTopRow].getGameTexture();
 					((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = m_TileArray[i, m_CurTopRow].getFaction();
 					m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = m_TileArray[i, m_CurTopRow].Rotation;
-					m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = m_TileArray[i, m_CurTopRow].Enabled;					
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = m_TileArray[i, m_CurTopRow].Enabled;
 
 				}
 
