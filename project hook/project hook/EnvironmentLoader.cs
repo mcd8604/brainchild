@@ -21,7 +21,7 @@ namespace project_hook
 		}
 
 		private Hashtable m_ColorMap;
-		private System.Drawing.Color[,] m_LevelArray;
+		private Tile[,] m_TileArray;
 		private string m_LevelName;
 		private int AWidth;
 		private int AHeight;
@@ -37,7 +37,6 @@ namespace project_hook
 		private int m_CurTopBuffer;
 		private int m_CurBottomBuffer;
 		private WorldPosition m_Position;
-		private Tile curTile;
 		private static int m_TileDimension;
 		public static int TileDimension
 		{
@@ -126,7 +125,6 @@ namespace project_hook
 
 			resetLevel();
 
-
 			return m_CurrentView;
 
 		}
@@ -137,12 +135,13 @@ namespace project_hook
 			{
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
-					curTile = ((Tile)m_ColorMap[m_LevelArray[x, 0].ToArgb()]);
+					
 					m_CurrentView[getPosition(x, y)].Position = new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension);
-					m_CurrentView[getPosition(x, y)].Texture = curTile.getGameTexture();
-					((Collidable)m_CurrentView[getPosition(x, y)]).Faction = curTile.getFaction();
-					m_CurrentView[getPosition(x, y)].RotationDegrees = curTile.Rotation;
-					m_CurrentView[getPosition(x, y)].Enabled = curTile.Enabled;
+					m_CurrentView[getPosition(x, y)].Texture = m_TileArray[x,y].getGameTexture();
+					((Collidable)m_CurrentView[getPosition(x, y)]).Faction = m_TileArray[x, y].getFaction();
+					m_CurrentView[getPosition(x, y)].Rotation = m_TileArray[x, y].Rotation;
+					m_CurrentView[getPosition(x, y)].Enabled = m_TileArray[x, y].Enabled;
+
 				}
 			}
 
@@ -177,27 +176,13 @@ namespace project_hook
 					if (m_CurTopRow < 0)
 					{
 						m_CurTopRow = 0;
-						//m_Position.setSpeed(0);
-					}
-
-					if (m_ColorMap.ContainsKey(m_LevelArray[i, m_CurTopRow].ToArgb()))
-					{
-						curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
-
-						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = curTile.getGameTexture();
-						((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = curTile.getFaction();
-						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = curTile.Rotation;
-						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
-					}
-					else
-					{
-						((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = Collidable.Factions.None;
-						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = null;
-						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = 0;
-						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = false;
 					}
 
 					m_CurrentView[getPosition(i, m_CurTopBuffer)].Position = new Vector2(i * m_TileDimension, m_CurrentView[getPosition(i, (m_CurTopBuffer + 1) % m_ScreenSpaceHeight)].Position.Y - m_TileDimension);
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = m_TileArray[i, m_CurTopRow].getGameTexture();
+					((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = m_TileArray[i, m_CurTopRow].getFaction();
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = m_TileArray[i, m_CurTopRow].Rotation;
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = m_TileArray[i, m_CurTopRow].Enabled;					
 
 				}
 
@@ -235,6 +220,8 @@ namespace project_hook
 		System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 #endif
 
+		private System.Drawing.Color[,] m_LevelArray;
+
 		private void readFile(string p_FileName)
 		{
 			m_LevelName = p_FileName;
@@ -262,11 +249,22 @@ namespace project_hook
 			stopwatch.Reset();
 			stopwatch.Start();
 #endif
+			m_TileArray = new Tile[AWidth, AHeight];
 			for (int height = AHeight - 1; height >= 0; --height)
 			{
 				for (int width = AWidth - 1; width >= 0; --width)
 				{
 					processPixel(width, height);
+
+					if (m_ColorMap.ContainsKey(m_LevelArray[width, height].ToArgb()))
+					{
+						m_TileArray[width, height] = (Tile)m_ColorMap[m_LevelArray[width, height].ToArgb()];
+					}
+					else
+					{
+						m_TileArray[width, height] = (Tile)m_ColorMap[color_Empty.ToArgb()];
+					}
+
 				}
 			}
 #if DEBUG
@@ -275,12 +273,9 @@ namespace project_hook
 			stopwatch.Reset();
 #endif
 
-			// Test
-
-
-
 		}
 
+		// I'm going to rewrite this later
 		private void processPixel(int x, int y)
 		{
 			if (m_LevelArray[x, y] == color_Auto)
