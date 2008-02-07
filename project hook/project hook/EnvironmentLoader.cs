@@ -22,6 +22,7 @@ namespace project_hook
 
 		private Hashtable m_ColorMap;
 		private System.Drawing.Color[,] m_LevelArray;
+		private string m_LevelName;
 		private int AWidth;
 		private int AHeight;
 		private List<Sprite> m_CurrentView;
@@ -66,17 +67,11 @@ namespace project_hook
 		private static System.Drawing.Color color_TopRight = System.Drawing.Color.FromArgb(255, 0, 255);
 		private static System.Drawing.Color color_BottomRight = System.Drawing.Color.FromArgb(0, 255, 255);
 
-
-		public List<Sprite> Initialize(WorldPosition p_Position, string p_FileName)
+		public EnvironmentLoader(WorldPosition p_Position)
 		{
+
 			// Set up variables
 			m_Position = p_Position;
-			// read in level
-			readFile(p_FileName);
-
-			m_ScreenSpaceWidth = AWidth;
-			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
-			m_ScreenSpaceHeight = (Game.graphics.GraphicsDevice.Viewport.Height / m_TileDimension) + 1;
 
 			// Color mapping
 			m_ColorMap = new Hashtable();
@@ -104,7 +99,17 @@ namespace project_hook
 			//m_ColorMap.Add(System.Drawing.Color.FromArgb(100, 0, 100).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_clear", ""), 0, true, false));
 			m_ColorMap.Add(color_Empty.ToArgb(), new Tile(0, false, false));
 			m_ColorMap.Add(color_Auto.ToArgb(), new Tile(0, false, false));
+		}
 
+		public List<Sprite> Initialize(string p_FileName)
+		{
+			
+			// read in level
+			readFile(p_FileName);
+
+			m_ScreenSpaceWidth = AWidth;
+			m_TileDimension = Game.graphics.GraphicsDevice.Viewport.Width / m_ScreenSpaceWidth;
+			m_ScreenSpaceHeight = (Game.graphics.GraphicsDevice.Viewport.Height / m_TileDimension) + 1;
 
 			// Create all sprites
 			m_CurrentView = new List<Sprite>();
@@ -128,7 +133,14 @@ namespace project_hook
 					{
 						curTile = ((Tile)m_ColorMap[m_LevelArray[x, AHeight - m_ScreenSpaceHeight + y].ToArgb()]);
 
-						m_CurrentView[getPosition(x, y)].Texture = (GameTexture)curTile.gameTextures[random.Next(0, curTile.gameTextures.Count)];
+						if (curTile.gameTextures == null)
+						{
+							m_CurrentView[getPosition(x, y)].Texture = curTile.gameTexture;
+						}
+						else
+						{
+							m_CurrentView[getPosition(x, y)].Texture = (GameTexture)curTile.gameTextures[random.Next(0, curTile.gameTextures.Count)];
+						}
 
 						if (curTile.Collidable)
 						{
@@ -199,6 +211,15 @@ namespace project_hook
 					{
 						curTile = ((Tile)m_ColorMap[m_LevelArray[i, m_CurTopRow].ToArgb()]);
 
+						if (curTile.gameTextures == null)
+						{
+							m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = curTile.gameTexture;
+						}
+						else
+						{
+							m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = (GameTexture)curTile.gameTextures[random.Next(0, curTile.gameTextures.Count)];
+						}
+
 						if (curTile.Collidable)
 						{
 							((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = Collidable.Factions.Environment;
@@ -208,7 +229,6 @@ namespace project_hook
 							((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = Collidable.Factions.None;
 						}
 
-						m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = (GameTexture)curTile.gameTextures[random.Next(0, curTile.gameTextures.Count)];
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = curTile.Rotation;
 						m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = curTile.Enabled;
 					}
@@ -236,7 +256,10 @@ namespace project_hook
 		public void NewFile(String p_FileName)
 		{
 			// read in level
-			readFile(p_FileName);
+			if (p_FileName != m_LevelName)
+			{
+				readFile(p_FileName);
+			}
 
 			m_CurTopRow = AHeight - 1;
 		}
@@ -247,6 +270,7 @@ namespace project_hook
 
 		private void readFile(string p_FileName)
 		{
+			m_LevelName = p_FileName;
 #if DEBUG
 			stopwatch.Start();
 #endif
@@ -410,7 +434,7 @@ namespace project_hook
 		{
 			if (x < 0 || x >= AWidth || y < 0 || y >= AHeight)
 			{
-				return color_Auto;
+				return color_Empty;
 			}
 			else
 			{
@@ -422,17 +446,18 @@ namespace project_hook
 	public struct Tile
 	{
 		public ArrayList gameTextures;
+		public GameTexture gameTexture;
 		public int Rotation;
 		public bool Enabled;
 		public bool Collidable;
 
 		public Tile(int p_Rotation, bool p_Enabled, bool p_Collidable)
 		{
-			gameTextures = new ArrayList();
-			gameTextures.Add(null);
 			Rotation = p_Rotation;
 			Enabled = p_Enabled;
 			Collidable = p_Collidable;
+			gameTextures = null;
+			gameTexture = null;
 		}
 
 		public Tile(ArrayList p_GameTextures, int p_Rotation, bool p_Enabled, bool p_Collidable)
@@ -441,15 +466,16 @@ namespace project_hook
 			Rotation = p_Rotation;
 			Enabled = p_Enabled;
 			Collidable = p_Collidable;
+			gameTexture = null;
 		}
 
 		public Tile(GameTexture p_GameTexture, int p_Rotation, bool p_Enabled, bool p_Collidable)
 		{
-			gameTextures = new ArrayList();
-			gameTextures.Add(p_GameTexture);
+			gameTexture = p_GameTexture;
 			Rotation = p_Rotation;
 			Enabled = p_Enabled;
 			Collidable = p_Collidable;
+			gameTextures = null;
 		}
 	}
 }
