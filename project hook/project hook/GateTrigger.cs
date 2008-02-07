@@ -50,12 +50,15 @@ namespace project_hook
 #if DEBUG
 			Console.WriteLine( "The Trigger has been hit by " + p_Other + "!" );
 #endif
-			if ( World.Position.Speed == 0 && p_Other.Faction == Factions.Player && !(p_Other is Tail))
+			if (World.Position.Speed == 0 && p_Other.Faction == Factions.Player && !(p_Other is Tail))
 			{
 				base.RegisterCollision(p_Other);
 				World.Position.setSpeed(80);
+				m_Gate.Enabled = false;
 				m_Gate.ToBeRemoved = true;
+				m_Wall.Enabled = false;
 				m_Wall.ToBeRemoved = true;
+				Enabled = false;
 				ToBeRemoved = true;
 			}
 		}

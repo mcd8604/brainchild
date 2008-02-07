@@ -312,7 +312,7 @@ namespace project_hook
 #endif
 				AddSprites(toAdd);
 				toAdd.Clear();
-				
+
 
 #if DEBUG
 				if (toAddA.Count != 0)
@@ -633,7 +633,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("black");
 			TextureLibrary.LoadTexture("cross");
 			TextureLibrary.LoadTexture("WeaponBar");
-            
+
 
 #if DEBUG
 			TextureLibrary.LoadTexture("debugcirc");
@@ -655,7 +655,8 @@ namespace project_hook
 			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 0.5f, true, 0f, Depth.HUDLayer.Background);
 			AddSprite(hudPanel);
 
-			m_Player = new Player("Ship", new Vector2(400.0f, 500.0f), 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+			m_Player = new Player("Ship", Vector2.Zero, 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+			m_Player.PlayerShip.Center = new Vector2(512f, 576f);
 			AddSprite(m_Player.PlayerShip);
 #if DEBUG
 			new HealthBar(m_Player.PlayerShip);
@@ -666,6 +667,7 @@ namespace project_hook
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
 			Sprite crosshairs = new CursorSprite("crosshair", Vector2.Zero, TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
+			crosshairs.Center = new Vector2(512f, 384f);
 			AddSprite(crosshairs);
 
 
@@ -674,6 +676,7 @@ namespace project_hook
 				if (i % 5 == 0)
 				{
 					Sprite tailBodySprite = new Sprite("tail_segment", Vector2.Zero, 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
+					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.5f;
 					tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
 					m_TailBodySprites.Add(tailBodySprite);
@@ -681,6 +684,7 @@ namespace project_hook
 				else
 				{
 					Sprite tailBodySprite = new Sprite("shot_energy", Vector2.Zero, 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
+					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.2f;
 					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
 					m_TailBodySprites.Add(tailBodySprite);
@@ -688,7 +692,8 @@ namespace project_hook
 
 			}
 			AddSprites(m_TailBodySprites);
-			tail = new Tail("Tail", m_Player.PlayerShip.Position, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
+			tail = new Tail("Tail", Vector2.Zero, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
+			tail.Center = m_Player.PlayerShip.Center;
 			AddSprite(tail);
 
 
@@ -718,7 +723,7 @@ namespace project_hook
 			PowerUp p = new PowerUp(50, 12, new Vector2(50, 50));
 			AddSprite(p);
 
-            AddSprite(new HealthBar(m_Player.PlayerShip, new Vector2(50, 700), 75, 10, 55, 75));
+			AddSprite(new HealthBar(m_Player.PlayerShip, new Vector2(50, 700), 75, 10, 55, 75));
 
 			//AddSprite(new WeaponUpgradeBar(m_Player.PlayerShip,new Vector2(0,740),300,20));
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);

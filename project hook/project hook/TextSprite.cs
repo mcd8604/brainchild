@@ -41,7 +41,7 @@ namespace project_hook
 				m_Text = value;
 				if (Font != null)
 				{
-					if (sized)
+					if (m_Sized)
 					{
 						m_Scale.X = Width / Font.MeasureString(Text).X;
 						m_Scale.Y = Height / Font.MeasureString(Text).Y;
@@ -64,26 +64,11 @@ namespace project_hook
 
 		protected Vector2 m_Origin = Vector2.Zero;
 
-		protected bool sized = false;
-
-		protected Vector2 m_Scale = Vector2.One;
-		public new Vector2 Scale
-		{
-			get
-			{
-				return m_Scale;
-			}
-			set
-			{
-				m_Scale = value;
-			}
-		}
-
 		public override int Height
 		{
 			get
 			{
-				if (sized)
+				if (m_Sized)
 				{
 					return m_Height;
 				}
@@ -98,7 +83,7 @@ namespace project_hook
 				if (Font != null)
 				{
 					m_Scale.Y = value / Font.MeasureString(Text).Y;
-					sized = true;
+					m_Sized = true;
 				}
 			}
 		}
@@ -107,7 +92,7 @@ namespace project_hook
 		{
 			get
 			{
-				if (sized)
+				if (m_Sized)
 				{
 					return m_Width;
 				}
@@ -122,13 +107,14 @@ namespace project_hook
 				if (Font != null)
 				{
 					m_Scale.X = value / Font.MeasureString(Text).X;
-					sized = true;
+					m_Sized = true;
 				}
 			}
 		}
 
 		public TextSprite(String p_Text, Vector2 p_Center)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
 			Name = "String: " + p_Text;
@@ -138,6 +124,7 @@ namespace project_hook
 
 		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
 			Name = "String: " + p_Text;
@@ -147,6 +134,7 @@ namespace project_hook
 
 		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
 			Name = "String: " + p_Text;
@@ -157,6 +145,7 @@ namespace project_hook
 
 		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
 			Name = "String: " + p_Text;
@@ -168,6 +157,7 @@ namespace project_hook
 
 		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
 			Name = "String: " + p_Text;
@@ -180,6 +170,7 @@ namespace project_hook
 
 		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, Vector2 p_Scale)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
 			Name = "String: " + p_Text;
@@ -193,6 +184,7 @@ namespace project_hook
 
 		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, int p_Height, int p_Width)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
 			Name = "String: " + p_Text;
@@ -209,6 +201,7 @@ namespace project_hook
 
 		public TextSprite(StringFunction p_Func, Vector2 p_Center)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
 			Name = "String: " + p_Func.ToString();
@@ -218,6 +211,7 @@ namespace project_hook
 
 		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
 			Name = "String: " + p_Func.ToString();
@@ -227,6 +221,7 @@ namespace project_hook
 
 		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
 			Name = "String: " + p_Func.ToString();
@@ -237,6 +232,7 @@ namespace project_hook
 
 		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
 			Name = "String: " + p_Func.ToString();
@@ -248,6 +244,7 @@ namespace project_hook
 
 		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
 			Name = "String: " + p_Func.ToString();
@@ -260,6 +257,7 @@ namespace project_hook
 
 		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, Vector2 p_Scale)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
 			Name = "String: " + p_Func.ToString();
@@ -273,6 +271,7 @@ namespace project_hook
 
 		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, int p_Height, int p_Width)
 		{
+			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
 			Name = "String: " + p_Func.ToString();

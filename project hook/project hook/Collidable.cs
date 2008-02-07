@@ -147,7 +147,8 @@ namespace project_hook
 
 		protected SpriteParticleSystem m_DamageEffect = null;
 
-		public void setDamageEffect( String p_DamageEffectTextureName, String p_Tag ) {
+		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag)
+		{
 			m_DamageEffect = new ExplosionSpriteParticleSystem(Name + "_DamageEffectParticleSystem", p_DamageEffectTextureName, p_Tag, 1);
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
@@ -156,7 +157,7 @@ namespace project_hook
 			m_DamageEffect.Task = EffectTask;
 			addSprite(m_DamageEffect);
 		}
-		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag, String p_DamageEffectAnimationName, int p_AnimationFPS )
+		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag, String p_DamageEffectAnimationName, int p_AnimationFPS)
 		{
 			m_DamageEffect = new ExplosionSpriteParticleSystem(Name + "_DamageEffectParticleSystem", p_DamageEffectTextureName, p_Tag, p_DamageEffectAnimationName, p_AnimationFPS, 1);
 			TaskQueue EffectTask = new TaskQueue();
@@ -236,9 +237,10 @@ namespace project_hook
 
 		#endregion // End of variables and Properties Region
 
-		public Collidable() {
+		public Collidable()
+		{
 			Name = "Unnamed Collidable";
-            
+
 		}
 		public Collidable(Collidable p_Collidable)
 		{
@@ -257,11 +259,14 @@ namespace project_hook
 			MaxHealth = p_Collidable.MaxHealth;
 			Health = p_Collidable.Health;
 			Name = p_Collidable.Name;
-			Position = p_Collidable.Position;
+			Center = p_Collidable.Center;
 			Radius = p_Collidable.Radius;
 			Rotation = p_Collidable.Rotation;
 			RotationDegrees = p_Collidable.RotationDegrees;
-			Scale = p_Collidable.Scale;
+			if (!p_Collidable.Sized)
+			{
+				Scale = p_Collidable.Scale;
+			}
 			Task = p_Collidable.Task;
 			Texture = p_Collidable.Texture;
 			ToBeRemoved = p_Collidable.ToBeRemoved;
@@ -274,7 +279,7 @@ namespace project_hook
 			//setDeathEffect("ExplosionBig", "");
 			m_DamageEffect = p_Collidable.m_DamageEffect;
 			m_DeathEffect = p_Collidable.m_DeathEffect;
-            
+
 		}
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, float p_Radius)
@@ -283,7 +288,7 @@ namespace project_hook
 			Faction = p_Faction;
 			MaxHealth = p_MaxHealth;
 			Radius = p_Radius;
-            
+
 		}
 
 
@@ -314,8 +319,7 @@ namespace project_hook
 				World.m_Score.evaluateCollision(this, DC, d, Health <= 0);
 			}
 
-			if (Position.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.1) || Position.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .25)) ||
-				Position.X > Game.graphics.GraphicsDevice.Viewport.Width || Position.X < 0)
+			if (World.isSpriteNotVisible(this) && (Center.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.1) || Center.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .25))))
 			{
 				if (this is Shot)
 				{
@@ -330,7 +334,7 @@ namespace project_hook
 				}
 			}
 
-			if(!(this is Shot) && !ToBeRemoved)
+			if (!(this is Shot) && !ToBeRemoved)
 				ToBeRemoved = IsDead();
 		}
 
@@ -349,7 +353,7 @@ namespace project_hook
 
 		protected virtual void takeDamage(float damage, Collidable from)
 		{
-			Health = MathHelper.Clamp(Health - damage,0,MaxHealth);
+			Health = MathHelper.Clamp(Health - damage, 0, MaxHealth);
 			if (Health <= 0)
 			{
 				SpawnDeathEffect(Center);

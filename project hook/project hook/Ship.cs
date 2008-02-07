@@ -79,6 +79,7 @@ namespace project_hook
 					else
 					{
 						m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(Width * 1.30), (int)(Height * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
+						m_ShieldSprite.Center = Center;
 						TaskParallel ShieldTask = new TaskParallel();
 						ShieldTask.addTask(new TaskAttach(this));
 						ShieldTask.addTask(new TaskRotateWithTarget(this));
@@ -243,7 +244,7 @@ namespace project_hook
 			{
 				foreach (Shot s in w.getShots())
 					if (s.Enabled == false)
-						s.Position = new Vector2(-10, -10);
+						s.Center = new Vector2(-100, 0);
 			}
 
 		}

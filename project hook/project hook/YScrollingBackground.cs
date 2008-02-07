@@ -9,7 +9,7 @@ namespace project_hook
 	class YScrollingBackground : Sprite
 	{
 		private ArrayList scrollingSprites;
-		private WorldPosition m_WorldPosition;	
+		private WorldPosition m_WorldPosition;
 
 		public YScrollingBackground(GameTexture p_BackgroundTexture, WorldPosition p_WorldPosition)
 			: base("scrollingBackground", new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGroundLayer.Background)
@@ -30,15 +30,12 @@ namespace project_hook
 			foreach (Sprite s in scrollingSprites)
 			{
 				float dist = m_WorldPosition.BackgroundSpeed * (float)p_Time.ElapsedGameTime.TotalSeconds;
-				float newY = s.Position.Y + (dist);
+				float newY = s.Center.Y + (dist);
 				if (s.Position.Y >= World.m_ViewPortSize.Height)
 				{
-					//if(scrollingSprites.IndexOf(s) != 0)
-						newY = ((Sprite)scrollingSprites[(scrollingSprites.IndexOf(s)+1)%scrollingSprites.Count]).Position.Y - s.Height + (dist);
-					//else
-					//	newY = ((Sprite)scrollingSprites[scrollingSprites.Count-1]).Position.Y - s.Height + (dist);
+					newY = ((Sprite)scrollingSprites[(scrollingSprites.IndexOf(s) + 1) % scrollingSprites.Count]).Center.Y - s.Height + (dist);
 				}
-				s.Position = new Vector2(s.Position.X, newY);
+				s.Center = new Vector2(s.Center.X, newY);
 			}
 		}
 	}

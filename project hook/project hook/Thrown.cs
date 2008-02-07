@@ -38,11 +38,14 @@ namespace project_hook
 			MaxHealth = p_Collidable.MaxHealth;
 			Health = p_Collidable.Health;
 			Name = p_Collidable.Name;
-			Position = p_Collidable.Position;
+			Center = p_Collidable.Center;
 			Radius = p_Collidable.Radius;
 			Rotation = p_Collidable.Rotation;
 			RotationDegrees = p_Collidable.RotationDegrees;
-			Scale = p_Collidable.Scale;
+			if (!p_Collidable.Sized)
+			{
+				Scale = p_Collidable.Scale;
+			}
 			Task = p_Collidable.Task;
 			Texture = p_Collidable.Texture;
 			ToBeRemoved = p_Collidable.ToBeRemoved;
@@ -74,9 +77,9 @@ namespace project_hook
 			{
 				//if (m_LastCollision >= m_CollideDelay)
 				//{
-					checkTaskAngle(Task, p_Other);
-						
-					//m_LastCollision = 0;
+				checkTaskAngle(Task, p_Other);
+
+				//m_LastCollision = 0;
 				//}
 			}
 			else
@@ -109,8 +112,6 @@ namespace project_hook
 			{
 				while (task.AngleDegrees <= 0)
 					task.AngleDegrees += 360;
-
-				Vector2 tempVect = this.Position;
 
 				if (Math.Abs(Math.Abs(Center.Y) - Math.Abs(p_Other.Center.Y)) < Math.Abs(Math.Abs(Center.X) - Math.Abs(p_Other.Center.X)))
 				{

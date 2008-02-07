@@ -15,7 +15,6 @@ namespace project_hook
 		/// <param name="list">the list to check</param>
 		public static void CheckCollisions(params List<Sprite>[] list)
 		{
-			sorter.Clear();
 
 			foreach (List<Sprite> l in list)
 			{
@@ -45,6 +44,9 @@ namespace project_hook
 					}
 				}
 			}
+
+			sorter.Clear();
+
 		}
 
 		private static void AddToSorter(Sprite s)
@@ -600,8 +602,8 @@ namespace project_hook
 					//return a vector2 that is the point, closest to the current point movable.Center such that  
 					Vector2 temp = movable.Center;
 
-					
-					if (movable.Center.X > solid.Center.X + solid.Width/2)
+
+					if (movable.Center.X > solid.Center.X + solid.Width / 2)
 					{
 
 						// 1, 2, 8 
@@ -707,7 +709,7 @@ namespace project_hook
 					}
 					return temp;
 				}
-				
+
 			}
 			else if (movable.Bound == Collidable.Boundings.Diamond)
 			{
@@ -827,7 +829,7 @@ namespace project_hook
 
 				foreach (Sprite s in l)
 				{
-					checkAndAddCollisionDisplay( s );
+					checkAndAddCollisionDisplay(s);
 				}
 			}
 		}
@@ -891,26 +893,29 @@ namespace project_hook
 					{
 						if (temp.Bound == Collidable.Boundings.Circle)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""));
+							Sprite sprite = new Sprite("bound", Vector2.Zero, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""));
+							sprite.Center = temp.Center;
 							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}
 						else if (temp.Bound == Collidable.Boundings.Diamond)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""));
+							Sprite sprite = new Sprite("bound", Vector2.Zero, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""));
+							sprite.Center = temp.Center;
 							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}
 						else if (temp.Bound == Collidable.Boundings.Square)
 						{
-							Sprite sprite = new Sprite("bound", temp.Position, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""));
+							Sprite sprite = new Sprite("bound", Vector2.Zero, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""));
+							sprite.Center = temp.Center;
 							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}
 						else if (temp.Bound == Collidable.Boundings.Rectangle)
 						{
 							int h = temp.Height;
-							int w =temp.Width;
+							int w = temp.Width;
 							float r = temp.RotationDegrees;
 							while (r < 0)
 							{
@@ -923,7 +928,8 @@ namespace project_hook
 								w = h;
 								h = t;
 							}
-							Sprite sprite = new Sprite("bound", temp.Position, h, w, TextureLibrary.getGameTexture("debugrect", ""));
+							Sprite sprite = new Sprite("bound", Vector2.Zero, h, w, TextureLibrary.getGameTexture("debugrect", ""));
+							sprite.Center = temp.Center;
 							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}
@@ -1061,7 +1067,7 @@ namespace project_hook
 			System.Diagnostics.Debug.Assert(DoesIntersect(Circle, Square), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
 			Vector2 result = GetMinNonCollidingCenter(Circle, Square);
 			System.Diagnostics.Debug.Assert(result != new Vector2(0, 0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
-			
+
 
 			Circle.Center = new Vector2(0, 0);
 			Square.Center = new Vector2(18, 18);
@@ -1073,7 +1079,7 @@ namespace project_hook
 			Square.Center = new Vector2(15, 0);
 			System.Diagnostics.Debug.Assert(DoesIntersect(Circle, Square), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
 			result = GetMinNonCollidingCenter(Circle, Square);
-			System.Diagnostics.Debug.Assert(result == new Vector2(-5,0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
+			System.Diagnostics.Debug.Assert(result == new Vector2(-5, 0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
 
 
 			Circle.Center = new Vector2(0, 0);
@@ -1081,8 +1087,8 @@ namespace project_hook
 			System.Diagnostics.Debug.Assert(DoesIntersect(Circle, Square), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
 			result = GetMinNonCollidingCenter(Circle, Square);
 			System.Diagnostics.Debug.Assert(result != new Vector2(0, 0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
-			
-			
+
+
 
 
 			// Circle Square just barely colliding

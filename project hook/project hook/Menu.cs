@@ -43,10 +43,11 @@ namespace project_hook
 		{
 			//background sprite
 			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
-			float xPos = (gdm.GraphicsDevice.Viewport.Width - bgTexture.Width) * 0.5f;
-			float yPos = (gdm.GraphicsDevice.Viewport.Height - bgTexture.Height) * 0.5f;
-			m_BackgroundSprite = new Sprite(m_BackgroundName, new Vector2(xPos, yPos), bgTexture.Height, bgTexture.Width, bgTexture, 200f, true,
+			float xPos = gdm.GraphicsDevice.Viewport.Width * 0.5f;
+			float yPos = gdm.GraphicsDevice.Viewport.Height * 0.5f;
+			m_BackgroundSprite = new Sprite(m_BackgroundName, Vector2.Zero, bgTexture.Height, bgTexture.Width, bgTexture, 200f, true,
 											0, Depth.MenuLayer.Background);
+			m_BackgroundSprite.Center = new Vector2(xPos, yPos);
 			attachSpritePart(m_BackgroundSprite);
 
 			//cursor sprite
@@ -99,16 +100,17 @@ namespace project_hook
 			for (int i = 0; i < m_MenuItemNames.Count; i++)
 			{
 				GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
-				float xPos = m_BackgroundSprite.Position.X + (m_BackgroundSprite.Width - curTexture.Width) * 0.5f;
-				float yPos = m_BackgroundSprite.Position.Y;
+				float xPos = m_BackgroundSprite.Center.X;
+				float yPos = m_BackgroundSprite.Center.Y;
 				//set position based on other menu sprites
 				for (int k = 0; k < m_MenuItemSprites.Count; k++)
 				{
 					Sprite s = (Sprite)m_MenuItemSprites[k];
 					yPos += s.Height;
 				}
-				Sprite mis = new Sprite((String)m_MenuItemNames[i], new Vector2(xPos, yPos), curTexture.Height, curTexture.Width,
+				Sprite mis = new Sprite((String)m_MenuItemNames[i], Vector2.Zero, curTexture.Height, curTexture.Width,
 													curTexture, 255f, true, 0, Depth.MenuLayer.Text);
+				mis.Center = new Vector2(xPos, yPos);
 				m_MenuItemSprites.Add(mis);
 				attachSpritePart(mis);
 			}
@@ -230,7 +232,7 @@ namespace project_hook
 				if (m_HightlightSprite != null)
 				{
 					m_HightlightSprite.Width = selSprite.Width;
-					m_HightlightSprite.Position = selSprite.Position;
+					m_HightlightSprite.Center = selSprite.Center;
 				}
 			}
 		}
