@@ -530,7 +530,6 @@ namespace project_hook
 #endif
 			}
 
-			update(p_GameTime);
 		}
 
 		//This method will be called to change the games state.
