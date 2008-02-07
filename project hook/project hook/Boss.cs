@@ -55,7 +55,7 @@ namespace project_hook
 
 			if (m_EventTrigger && m_EventList.Count > 0)
 			{
-				if (m_EventList[0].Type == "ChangeSpeed")
+				if (m_EventList[0].Type == Event.Types.ChangeSpeed)
 					World.Position.setSpeed(m_EventList[0].Speed);
 
 				m_EventList.RemoveAt(0);
