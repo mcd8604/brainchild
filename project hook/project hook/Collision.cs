@@ -471,11 +471,13 @@ namespace project_hook
 			{
 				if (solid.Bound == Collidable.Boundings.Circle)
 				{
-
+					// TODO
+					return movable.Center;
 				}
 				else if (solid.Bound == Collidable.Boundings.Diamond)
 				{
-
+					// TODO
+					return movable.Center;
 				}
 				else if (solid.Bound == Collidable.Boundings.Square)
 				{
@@ -711,26 +713,36 @@ namespace project_hook
 			{
 				if (solid.Bound == Collidable.Boundings.Circle)
 				{
-
+					// TODO
+					return movable.Center;
 				}
 				else if (solid.Bound == Collidable.Boundings.Diamond)
 				{
-
+					// TODO
+					return movable.Center;
 				}
 				else if (solid.Bound == Collidable.Boundings.Square)
 				{
-
+					// TODO
+					return movable.Center;
+				}
+				else if (solid.Bound == Collidable.Boundings.Rectangle)
+				{
+					// TODO
+					return movable.Center;
 				}
 			}
 			else if (movable.Bound == Collidable.Boundings.Square)
 			{
 				if (solid.Bound == Collidable.Boundings.Circle)
 				{
-
+					// TODO
+					return movable.Center;
 				}
 				else if (solid.Bound == Collidable.Boundings.Diamond)
 				{
-
+					// TODO
+					return movable.Center;
 				}
 				else if (solid.Bound == Collidable.Boundings.Square)
 				{
@@ -767,6 +779,34 @@ namespace project_hook
 
 					}
 					return temp;
+				}
+				else if (solid.Bound == Collidable.Boundings.Rectangle)
+				{
+					// TODO
+					return movable.Center;
+				}
+			}
+			else if (solid.Bound == Collidable.Boundings.Rectangle)
+			{
+				if (solid.Bound == Collidable.Boundings.Circle)
+				{
+					// TODO
+					return movable.Center;
+				}
+				else if (solid.Bound == Collidable.Boundings.Diamond)
+				{
+					// TODO
+					return movable.Center;
+				}
+				else if (solid.Bound == Collidable.Boundings.Square)
+				{
+					// TODO
+					return movable.Center;
+				}
+				else if (solid.Bound == Collidable.Boundings.Rectangle)
+				{
+					// TODO
+					return movable.Center;
 				}
 			}
 			throw new NotImplementedException("unimplemented bounds collision exception in GetMinNonCollidingCenter");
