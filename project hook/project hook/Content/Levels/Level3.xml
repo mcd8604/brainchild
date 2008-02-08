@@ -1458,7 +1458,7 @@
 			<deathEffect name="ExplosionBig"/>
 			<score>500</score>
 			<weapon type="Straight" angle="45">
-				<delay>0.1</delay>
+				<delay>0.25</delay>
 				<speed>300</speed>
 				<shot>
 					<damage>4</damage>
@@ -1469,7 +1469,7 @@
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="135">
-				<delay>0.1</delay>
+				<delay>0.25</delay>
 				<speed>300</speed>
 				<shot>
 					<damage>4</damage>
@@ -1480,7 +1480,7 @@
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="-45">
-				<delay>0.1</delay>
+				<delay>0.25</delay>
 				<speed>300</speed>
 				<shot>
 					<damage>4</damage>
@@ -1491,7 +1491,7 @@
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="-135">
-				<delay>0.1</delay>
+				<delay>0.25</delay>
 				<speed>300</speed>
 				<shot>
 					<damage>4</damage>
