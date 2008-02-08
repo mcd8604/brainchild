@@ -4,6 +4,9 @@
 		<loadBMP>
 			<fileName>level1.bmp</fileName>
 		</loadBMP>
+		<changeSpeed>
+			<speed>80</speed>
+		</changeSpeed>
 	</action>
 	<action tile="10">
 		<createShip>

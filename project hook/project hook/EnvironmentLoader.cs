@@ -66,6 +66,11 @@ namespace project_hook
 		private static System.Drawing.Color color_TopRight = System.Drawing.Color.FromArgb(255, 0, 255);
 		private static System.Drawing.Color color_BottomRight = System.Drawing.Color.FromArgb(0, 255, 255);
 
+
+		// temporary flag
+		private bool NothingInTheLevel = true;
+
+
 		public EnvironmentLoader(WorldPosition p_Position)
 		{
 
@@ -140,25 +145,40 @@ namespace project_hook
 
 		//}
 
+		public void resetLevelIfEmpty()
+		{
+			if (NothingInTheLevel)
+			{
+				NothingInTheLevel = false;
+				resetLevel();
+			}
+			else
+			{
+				m_CurTopRow = AHeight - 1;
+			}
+		}
+
 		public void resetLevel()
 		{
+
 			for (int y = 0; y < m_ScreenSpaceHeight; y++)
 			{
 				for (int x = 0; x < m_ScreenSpaceWidth; x++)
 				{
 
 					m_CurrentView[getPosition(x, y)].Position = new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension);
-					m_CurrentView[getPosition(x, y)].Texture = m_TileArray[x, y].getGameTexture();
-					((Collidable)m_CurrentView[getPosition(x, y)]).Faction = m_TileArray[x, y].getFaction();
-					m_CurrentView[getPosition(x, y)].Rotation = m_TileArray[x, y].Rotation;
-					m_CurrentView[getPosition(x, y)].Enabled = m_TileArray[x, y].Enabled;
+					m_CurrentView[getPosition(x, y)].Texture = m_TileArray[x, AHeight - 1].getGameTexture();
+					((Collidable)m_CurrentView[getPosition(x, y)]).Faction = m_TileArray[x, AHeight - 1].getFaction();
+					m_CurrentView[getPosition(x, y)].Rotation = m_TileArray[x, AHeight - 1].Rotation;
+					m_CurrentView[getPosition(x, y)].Enabled = m_TileArray[x, AHeight - 1].Enabled;
 
 				}
 			}
-
-			m_CurTopRow = AHeight - m_ScreenSpaceHeight - 1;
 			m_CurBottomBuffer = m_ScreenSpaceHeight - 1;
 			m_CurTopBuffer = 0;
+
+			m_CurTopRow = AHeight - 1;
+
 		}
 
 		public void Update(GameTime p_GameTime)
@@ -212,16 +232,6 @@ namespace project_hook
 			if (p_FileName != m_LevelName)
 			{
 				readFile(p_FileName);
-			}
-
-			m_CurTopRow = AHeight - 1;
-		}
-
-		public void resetEnvironment()
-		{
-			foreach (Sprite s in m_CurrentView)
-			{
-				s.Enabled = false;
 			}
 
 			m_CurTopRow = AHeight - 1;

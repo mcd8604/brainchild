@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
 	<action tile="0">
+		<loadBMP>
+			<fileName>testBMP.bmp</fileName>
+		</loadBMP>
+		<changeSpeed>
+			<speed>80</speed>
+		</changeSpeed>
 		<createShip>
 			<name>Enemy1</name>
 			<height>94</height>
