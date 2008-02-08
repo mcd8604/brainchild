@@ -1292,5 +1292,8 @@
 				</task>
 			</task>
 		</createShip>
+		<changeFile>
+			<fileName>LevelTest.xml</fileName>
+		</changeFile>
 	</action>
 </level>
