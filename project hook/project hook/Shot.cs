@@ -21,7 +21,8 @@ namespace project_hook
 		//protected ArrayList<Shot> blurShots;
 		public Ship m_Ship = null;
 
-		public Shot() {
+		public Shot()
+		{
 			Enabled = false;
 			Name = "Unnamed Shot";
 			Z = Depth.GameLayer.Shot;
@@ -64,61 +65,90 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
-            if (this.Enabled)
-            {
-                int i = 0;
-            }
-            if (Task == null || Task.IsComplete(this))
-            {
-                Enabled = false;
-            }
-            else
-            {
-                //check for TaskSeek
-                if (Task is TaskSeekTarget)
-                {
-                    createShotTrail();
-                }
-                else if (Task is TaskParallel)
-                {
-                    List<Task> subTasks = ((TaskParallel)Task).getSubTasks() as List<Task>;
-                    foreach (Task subTask in subTasks)
-                    {
-                        if(subTask is TaskSeekTarget) {
-                            createShotTrail();
-                            break;
-                        }
-                    }
-                }
-                else if (Task is TaskSequence)
-                {
-                    List<Task> subTasks = ((TaskSequence)Task).getSubTasks() as List<Task>;
-                    foreach (Task subTask in subTasks)
-                    {
-                        if (subTask is TaskSeekTarget)
-                        {
-                            createShotTrail();
-                            break;
-                        }
-                    }
-                }
-            }
+			if (Enabled)
+			{
+				if (Task == null || Task.IsComplete(this))
+				{
+					Enabled = false;
+				}
+				else
+				{
+					//check for TaskSeek
+					//if (Task is TaskSeekTarget)
+					//{
+					//    createShotTrail();
+					//}
+					//else if (Task is TaskParallel)
+					//{
+					//    List<Task> subTasks = ((TaskParallel)Task).getSubTasks() as List<Task>;
+					//    foreach (Task subTask in subTasks)
+					//    {
+					//        if (subTask is TaskSeekTarget)
+					//        {
+					//            createShotTrail();
+					//            break;
+					//        }
+					//    }
+					//}
+					//else if (Task is TaskSequence)
+					//{
+					//    List<Task> subTasks = ((TaskSequence)Task).getSubTasks() as List<Task>;
+					//    foreach (Task subTask in subTasks)
+					//    {
+					//        if (subTask is TaskSeekTarget)
+					//        {
+					//            createShotTrail();
+					//            break;
+					//        }
+					//    }
+					//}
+					checkTask(Task);
+				}
+			}
 		}
 
-        protected void createShotTrail()
-        {
-            ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(this.Name + "_ParticleSystem", this.Texture.Name, "1", 1);
-            esps.MinNumParticles = 1;
-            esps.MaxNumParticles = 1;
-            esps.MinLifetime = 0.1f;
-            esps.MaxLifetime = 0.1f;
-            esps.MinScale = 0.25f;
-            esps.MaxScale = 0.25f;
-            esps.MinInitialSpeed = 10;
-            esps.MaxInitialSpeed = 10;
-            esps.AddParticles(this.Center);
-            addSprite(esps);
-        }
+		protected void checkTask(Task t)
+		{
+			if (t is TaskSeekTarget)
+			{
+				createShotTrail();
+			}
+			else
+			{
+				if (t.getSubTasks() != null)
+				{
+					foreach (Task subT in t.getSubTasks())
+					{
+						checkTask(subT);
+					}
+				}
+			}
+		}
+
+		ExplosionSpriteParticleSystem esps;
+
+		private void initTrail()
+		{
+			esps = new ExplosionSpriteParticleSystem(this.Name + "_ParticleSystem", this.Texture.Name, "1", 10);
+			esps.MinNumParticles = 1;
+			esps.MaxNumParticles = 1;
+			esps.MinLifetime = 1f;
+			esps.MaxLifetime = 1f;
+			esps.MinScale = 0.05f;
+			esps.MaxScale = 0.05f;
+			esps.MinInitialSpeed = 10;
+			esps.MaxInitialSpeed = 10;
+			addSprite(esps);
+		}
+
+		protected void createShotTrail()
+		{
+			if (esps == null)
+			{
+				initTrail();
+			}
+			esps.AddParticles(this.Center);
+		}
 
 		public override Boolean IsDead()
 		{
@@ -128,13 +158,14 @@ namespace project_hook
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
-			if(!(p_Other is Shot) && !(p_Other is Tail) && p_Other.Faction!=Factions.Blood && p_Other.Faction != Factions.PowerUp){
+			if (!(p_Other is Shot) && !(p_Other is Tail) && p_Other.Faction != Factions.Blood && p_Other.Faction != Factions.PowerUp)
+			{
 				//Vector2 midPoint = new Vector2(Center.X - p_Other.Center.X, Center.Y - p_Other.Center.Y);
 				//addSprite(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.GameLayer.Explosion));
 				Enabled = !DestroyedOnCollision;
 			}
 
-			if(p_Other.Faction == Factions.Environment)
+			if (p_Other.Faction == Factions.Environment)
 				CheckShip();
 		}
 
