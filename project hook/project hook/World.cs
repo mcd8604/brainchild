@@ -193,6 +193,7 @@ namespace project_hook
 			m_SpriteList = new List<Sprite>();
 			m_SpriteListA = new List<Sprite>();
 			m_Position.resetDistance();
+			m_ELoader.resetLevel();
 			AddSprites(m_ELoader.CurrentView);
 			String curLevel = m_LReader.FileName;
 			m_LReader = new LevelReader(curLevel);
@@ -782,7 +783,7 @@ namespace project_hook
 		{
 			//m_ELoader = new EnvironmentLoader();
 			m_ELoader.NewFile(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName);
-			m_ELoader.resetLevel();
+			m_ELoader.resetLevelIfEmpty();
 		}
 
 		public void ChangeSpeed(int p_Speed)
