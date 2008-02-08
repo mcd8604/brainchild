@@ -10,10 +10,9 @@ namespace project_hook
 {
 	public class World
 	{
-		// Alpha sprites
-		private List<Sprite> m_SpriteList;
-		// Additive Sprites;
-		private List<Sprite> m_SpriteListA;
+
+		private List<Sprite> m_SpriteList;  // Alpha sprites
+		private List<Sprite> m_SpriteListA; // Additive Sprites;
 
 		private YScrollingBackground m_Background;
 
@@ -134,12 +133,15 @@ namespace project_hook
 
 #if DEBUG
 
-		TextSprite listsize = new TextSprite("", new Vector2(180, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
+		TextSprite listsize = new TextSprite("", new Vector2(100, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
 
 		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
-		TextSprite coll = new TextSprite("", new Vector2(250, 20), Color.GreenYellow, Depth.HUDLayer.Foreground);
+		TextSprite coll = new TextSprite("", new Vector2(300, 20), Color.GreenYellow, Depth.HUDLayer.Foreground);
+		TextSprite updt = new TextSprite("", new Vector2(300, 50), Color.SeaShell, Depth.HUDLayer.Foreground);
 		double colltotal;
 		int collcount;
+		double updttotal;
+		int updtcount;
 		bool DisplayCollision = false;
 		int RemovedWhileVisibleCount = 0;
 		Shot kill;
@@ -152,7 +154,7 @@ namespace project_hook
 			m_SpriteListA = new List<Sprite>();
 			m_Position = new WorldPosition(80f);
 			LoadTextures();
-			m_ELoader = new EnvironmentLoader(m_Position);
+			m_ELoader = new EnvironmentLoader();
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
@@ -172,7 +174,7 @@ namespace project_hook
 			System.Windows.Forms.DialogResult result = f.ShowDialog();
 			if (result == System.Windows.Forms.DialogResult.OK)
 			{
-				m_ELoader = new EnvironmentLoader(m_Position);
+				m_ELoader = new EnvironmentLoader();
 				AddSprites(m_ELoader.CurrentView);
 				m_LReader = new LevelReader((String)f.getLevel());
 				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
@@ -182,9 +184,8 @@ namespace project_hook
 				Environment.Exit(Environment.ExitCode);
 			}
 #else
-			m_ELoader = new EnvironmentLoader(m_Position);
+			m_ELoader = new EnvironmentLoader();
 			AddSprites(m_ELoader.CurrentView);
-			m_ELoader.resetLevel();
 			m_LReader = new LevelReader("Level1Normal.xml");
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 #endif
@@ -197,8 +198,7 @@ namespace project_hook
 			m_Position.resetDistance();
 			m_ELoader.resetLevel();
 			AddSprites(m_ELoader.CurrentView);
-			String curLevel = m_LReader.FileName;
-			m_LReader = new LevelReader(curLevel);
+			m_LReader = new LevelReader(m_LReader.FileName);
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			IniDefaults();
 		}
@@ -243,12 +243,16 @@ namespace project_hook
 				collcount++;
 				if (collcount >= 50)
 				{
-					coll.Text = (colltotal / collcount).ToString();
+					coll.Text = "C: " + (colltotal / collcount).ToString();
 					colltotal = 0;
 					collcount = 0;
 				}
 
 				int count = m_SpriteList.Count;
+
+				timer.Reset();
+				timer.Start();
+
 				List<Sprite> removed = m_SpriteList.FindAll(Sprite.isToBeRemoved);
 				if (removed.Count > 0)
 				{
@@ -289,11 +293,7 @@ namespace project_hook
 					foreach (Sprite s in removedA)
 					{
 						//Console.WriteLine("Removing: " + s);
-						if (s.Enabled &&
-							(s.Center.X + s.Width) > m_ViewPortSize.X &&
-							(s.Center.X - s.Width) < m_ViewPortSize.Width &&
-							(s.Center.Y + s.Height) > m_ViewPortSize.Y &&
-							(s.Center.Y - s.Height) < m_ViewPortSize.Height)
+						if (isSpriteVisible(s))
 						{
 							Console.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
 						}
@@ -318,7 +318,7 @@ namespace project_hook
 #if DEBUG
 				if (toAdd.Count != 0)
 				{
-					Console.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
+					//Console.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
 				}
 #endif
 				AddSprites(toAdd);
@@ -328,11 +328,25 @@ namespace project_hook
 #if DEBUG
 				if (toAddA.Count != 0)
 				{
-					Console.WriteLine("Added " + toAddA.Count + " Additive Sprites");
+					//Console.WriteLine("Added " + toAddA.Count + " Additive Sprites");
 				}
 #endif
 				AddSprites(toAddA);
 				toAddA.Clear();
+
+
+#if DEBUG
+				timer.Stop();
+				updttotal += timer.Elapsed.TotalMilliseconds;
+				updtcount++;
+				if (updtcount >= 50)
+				{
+					updt.Text = "U: " + (updttotal / updtcount).ToString();
+					updttotal = 0;
+					updtcount = 0;
+				}
+#endif
+
 
 #if DEBUG
 				if (DisplayCollision)
@@ -342,7 +356,7 @@ namespace project_hook
 #endif
 
 #if DEBUG
-				listsize.Text = "A: " + (m_SpriteList.Count + m_SpriteListA.Count) + " S: " + (m_SpriteList.Count - EnvironmentLoader.TileCount) + " A: " + m_SpriteListA.Count.ToString();
+				listsize.Text = /*"A: " + (m_SpriteList.Count + m_SpriteListA.Count) +*/ " S: " + (m_SpriteList.Count - EnvironmentLoader.TileCount) + " A: " + m_SpriteListA.Count.ToString();
 #endif
 
 				if (m_Player.PlayerShip.Center.X < m_ViewPortSize.X ||
@@ -495,7 +509,10 @@ namespace project_hook
 					m_Player.PlayerShip.Shield = m_Player.PlayerShip.MaxShield;
 
 				}
-
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.K))
+				{
+						m_Player.PlayerShip.Health = 0;
+				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Z))
 				{
 					if (kill == null)
@@ -730,12 +747,13 @@ namespace project_hook
 #if DEBUG
 			AddSprite(listsize);
 			AddSprite(coll);
+			AddSprite(updt);
 #endif
 			m_Score = new SimpleScore();
-			Sprite score = new TextSprite(m_Score.ToString, new Vector2(800, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
+			Sprite score = new TextSprite(m_Score.ToString, new Vector2(820, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
 			AddSprite(score);
 
-			Sprite P = new TextSprite(m_Player.PlayerShip.ToString, new Vector2(400, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
+			Sprite P = new TextSprite(m_Player.PlayerShip.ToString, new Vector2(420, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
 			AddSprite(P);
 
 			Sprite u = new TextSprite(m_Player.PlayerShip.getUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
