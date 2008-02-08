@@ -1083,6 +1083,9 @@
 		<changeSpeed>
 			<speed>0</speed>
 		</changeSpeed>
+		<pleaseLoadBMP>
+			<fileName>gate2.bmp</fileName>
+		</pleaseLoadBMP>
 	</action>
 	<action tile="250">
 		<changeFile>

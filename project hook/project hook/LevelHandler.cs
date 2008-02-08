@@ -67,6 +67,9 @@ namespace project_hook
 							case Event.Types.LoadBMP:
 								LoadBMP(e.FileName);
 								break;
+							case Event.Types.PleaseLoadBMP:
+								PleaseLoadBMP(e.FileName);
+								break;
 						}
 					}
 				}
@@ -101,6 +104,10 @@ namespace project_hook
 		public void LoadBMP(String p_FileName)
 		{
 			m_Game.LoadBMP(p_FileName);
+		}
+		public void PleaseLoadBMP(String p_FileName)
+		{
+			m_Game.PleaseLoadBMP(p_FileName);
 		}
 	}
 }

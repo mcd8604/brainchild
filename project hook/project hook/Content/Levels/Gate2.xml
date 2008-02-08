@@ -84,6 +84,9 @@
 		<changeSpeed>
 			<speed>0</speed>
 		</changeSpeed>
+		<pleaseLoadBMP>
+			<fileName>level3.bmp</fileName>
+		</pleaseLoadBMP>
 	</action>
 	<action tile="52">
 		<changeFile>
