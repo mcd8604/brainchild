@@ -535,7 +535,7 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
 				{
-					Console.WriteLine(m_Position.Distance);
+					Console.WriteLine(m_Position.Distance.ToString() + ", " + (m_Position.Distance / (float)EnvironmentLoader.TileDimension));
 				}
 				if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.T))
 				{

@@ -49,7 +49,7 @@ namespace project_hook
 		}
 		public override Task copy()
 		{
-			return new TaskTimer(m_Duration);
+			return new TaskRepeatingTimer(m_Duration);
 		}
 	}
 }
