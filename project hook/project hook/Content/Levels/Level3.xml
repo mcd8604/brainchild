@@ -1390,56 +1390,6 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="267">
-		<createShip>
-			<name>Enemy</name>
-			<height>50</height>
-			<width>75</width>
-			<radius>30</radius>
-			<texture name="Enemy1"/>
-			<startTile x="15" y="0"/>
-			<health>50</health>
-			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
-			<deathEffect name="ExplosionBig"/>
-			<score>75</score>
-			<weapon type="Sequence" recycle="0.5">
-				<weapon type="Straight" angle="5">
-					<delay>0.5</delay>
-					<speed>200</speed>
-					<shot>
-						<damage>10</damage>
-						<height>15</height>
-						<width>50</width>
-						<radius>10</radius>
-						<texture name="Shot"/>
-					</shot>
-				</weapon>
-				<weapon type="Straight" angle="-5">
-					<delay>0.5</delay>
-					<speed>200</speed>
-					<initialCooldown>0.5</initialCooldown>
-					<shot>
-						<damage>10</damage>
-						<height>15</height>
-						<width>50</width>
-						<radius>10</radius>
-						<texture name="Shot"/>
-					</shot>
-				</weapon>
-				<delay>0.5</delay>
-			</weapon>
-			<task type="Parallel">
-				<task type="SeekTarget">
-					<target>Player</target>
-					<speed>50</speed>
-				</task>
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
-				<task type="Fire"/>
-			</task>
-		</createShip>
-	</action>
 	<action tile="278">
 		<createShip>
 			<name>Enemy1</name>
@@ -1462,16 +1412,16 @@
 							<degree>0</degree>
 						</task>
 						<task type="Timer">
-							<duration>1</duration>
+							<duration>1.3</duration>
 						</task>
 					</task>
 					<task type="SeekTarget">
 						<target>Player</target>
-						<speed>300</speed>
+						<speed>200</speed>
 					</task>
 				</task>
 				<delay>1</delay>
-				<speed>300</speed>
+				<speed>200</speed>
 				<shot>
 					<damage>30</damage>
 					<height>32</height>
