@@ -212,6 +212,20 @@ namespace project_hook
 			if (temp != null)
 			{
 				temp.shoot();
+
+				//Tell all ShipParts to shoot as well
+				//WARNING, this is not recursive
+				//and will not check parts of parts
+				if (m_EnemyCaught.Parts != null)
+				{
+					foreach (Sprite spritePart in m_EnemyCaught.Parts)
+					{
+						if (spritePart is ShipPart)
+						{
+							((ShipPart)spritePart).shoot();
+						}
+					}
+				}
 			}
 		}
 
@@ -234,6 +248,37 @@ namespace project_hook
 					temp.addTask(new TaskRotateFaceTarget(m_TargetObject));
 					m_EnemyCaught.Task = temp;
 					m_EnemyCaught.captured();
+
+					//remove any TaskFires from enemy parts 
+					//WARNING, this is not recursive
+					//and will not check parts of parts
+					if (m_EnemyCaught.Parts != null)
+					{
+						foreach (Sprite part in m_EnemyCaught.Parts)
+						{
+							if (part.Task is TaskFire)
+							{
+								part.Task = null;
+							}
+							else if (part.Task is TaskParallel)
+							{
+								TaskParallel curTask = (TaskParallel)part.Task;
+								TaskParallel newTask = new TaskParallel();
+								if (curTask.getSubTasks() is List<Task>)
+								{
+									List<Task> subTasks = (List<Task>)curTask.getSubTasks();
+									foreach(Task t in subTasks)
+									{
+										if (!(t is TaskFire))
+										{
+											newTask.addTask(t);
+										}
+									}
+									part.Task = newTask;
+								}
+							}
+						}
+					}
 
 					if (m_EnemyCaught is Ship)
 					{
