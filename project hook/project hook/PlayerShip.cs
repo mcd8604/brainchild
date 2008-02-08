@@ -30,6 +30,10 @@ namespace project_hook
 			{
 				return m_UpgradeLevel;
 			}
+			set
+			{
+				m_UpgradeLevel = value;
+			}
 		}
 
 		int cur = -1;

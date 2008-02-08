@@ -16,10 +16,10 @@ namespace project_hook
 			m_MenuItemNames = new ArrayList();
 
 			usingTextSprite = true;
-			m_MenuItemNames.Add("Restart Level");
-			m_MenuItemNames.Add("New Game");
-			m_MenuItemNames.Add("Exit to Main Menu");
-			m_MenuItemNames.Add("Quit to Windows");
+			m_MenuItemNames.Add("Continue");
+			m_MenuItemNames.Add("Restart");
+			m_MenuItemNames.Add("Main Menu");
+			m_MenuItemNames.Add("Quit");
 		}
 
 		public override void accept()

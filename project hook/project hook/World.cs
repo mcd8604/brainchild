@@ -99,16 +99,18 @@ namespace project_hook
 			}
 		}
 
-		private static Boolean m_PlayerDead;
 		public static Boolean PlayerDead
 		{
 			get
 			{
-				return m_PlayerDead;
-			}
-			set
-			{
-				m_PlayerDead = value;
+				if (m_Player != null && m_Player.PlayerShip != null)
+				{
+					return m_Player.PlayerShip.IsDead();
+				}
+				else
+				{
+					return false;
+				}
 			}
 		}
 		#endregion
@@ -661,13 +663,23 @@ namespace project_hook
 
 		public void IniBackground()
 		{
-			m_Background = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
+			if (m_Background == null)
+			{
+				m_Background = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
+			}
 			AddSprite(m_Background);
 		}
 
 		public void IniPlayer()
 		{
-			m_Player = new Player("Ship", Vector2.Zero, 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+			if (m_Player == null)
+			{
+				m_Player = new Player("Ship", Vector2.Zero, 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+			}
+			else
+			{
+				m_Player.reset();
+			}
 			m_Player.PlayerShip.Center = new Vector2(512f, 576f);
 			AddSprite(m_Player.PlayerShip);
 #if DEBUG
