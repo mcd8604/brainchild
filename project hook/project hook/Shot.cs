@@ -64,12 +64,61 @@ namespace project_hook
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
-
-			if (Task == null || Task.IsComplete(this))
-			{
-				Enabled = false;
-			}
+            if (this.Enabled)
+            {
+                int i = 0;
+            }
+            if (Task == null || Task.IsComplete(this))
+            {
+                Enabled = false;
+            }
+            else
+            {
+                //check for TaskSeek
+                if (Task is TaskSeekTarget)
+                {
+                    createShotTrail();
+                }
+                else if (Task is TaskParallel)
+                {
+                    List<Task> subTasks = ((TaskParallel)Task).getSubTasks() as List<Task>;
+                    foreach (Task subTask in subTasks)
+                    {
+                        if(subTask is TaskSeekTarget) {
+                            createShotTrail();
+                            break;
+                        }
+                    }
+                }
+                else if (Task is TaskSequence)
+                {
+                    List<Task> subTasks = ((TaskSequence)Task).getSubTasks() as List<Task>;
+                    foreach (Task subTask in subTasks)
+                    {
+                        if (subTask is TaskSeekTarget)
+                        {
+                            createShotTrail();
+                            break;
+                        }
+                    }
+                }
+            }
 		}
+
+        protected void createShotTrail()
+        {
+            ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(this.Name + "_ParticleSystem", this.Texture.Name, "1", 1);
+            esps.MinNumParticles = 1;
+            esps.MaxNumParticles = 1;
+            esps.MinLifetime = 0.1f;
+            esps.MaxLifetime = 0.1f;
+            esps.MinScale = 0.25f;
+            esps.MaxScale = 0.25f;
+            esps.MinInitialSpeed = 10;
+            esps.MaxInitialSpeed = 10;
+            esps.AddParticles(this.Center);
+            addSprite(esps);
+        }
 
 		public override Boolean IsDead()
 		{
