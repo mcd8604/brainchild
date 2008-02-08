@@ -13,7 +13,8 @@ namespace project_hook
 			CreateSprite,
 			ChangeFile,
 			ChangeSpeed,
-			LoadBMP
+			LoadBMP,
+			PleaseLoadBMP
 		}
 
 		protected Types m_Type;

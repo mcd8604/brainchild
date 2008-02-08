@@ -421,6 +421,9 @@
 				<task type="Fire"/>
 			</task>
 		</createShip>
+		<pleaseLoadBMP>
+			<fileName>gate1.bmp</fileName>
+		</pleaseLoadBMP>
 	</action>
 	<action tile="164">
 		<changeFile>

@@ -100,6 +100,12 @@ namespace project_hook
 							LoadBMP(reader);
 							reader.ReadEndElement();
 						}
+						else if (reader.IsStartElement("pleaseLoadBMP"))
+						{
+							reader.ReadStartElement();
+							PleaseLoadBMP(reader);
+							reader.ReadEndElement();
+						}
 						else if (reader.IsStartElement("createSpawnPoint"))
 						{
 							reader.ReadStartElement();
@@ -492,6 +498,26 @@ namespace project_hook
 			else
 			{
 				t_List.Add(new Event(m_FileName, Event.Types.LoadBMP));
+				m_Events.Add(m_Distance, t_List);
+			}
+		}
+
+		private void PleaseLoadBMP(XmlReader p_Reader)
+		{
+			//read next file name
+			p_Reader.ReadStartElement();
+			String m_FileName = p_Reader.ReadString();
+			p_Reader.ReadEndElement();
+
+			//add the file speed to the event list
+			if (m_Events.ContainsKey(m_Distance))
+			{
+				m_Events[m_Distance].Add(new Event(m_FileName, Event.Types.PleaseLoadBMP));
+			}
+			else
+			{
+				List<Event> t_List = new List<Event>();
+				t_List.Add(new Event(m_FileName, Event.Types.PleaseLoadBMP));
 				m_Events.Add(m_Distance, t_List);
 			}
 		}

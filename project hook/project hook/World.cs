@@ -264,7 +264,7 @@ namespace project_hook
 				int diff = (count - m_SpriteList.Count);
 				if (diff != 0)
 				{
-					Console.WriteLine("Removed " + diff + " AlphaBlended Sprites");
+					//Console.WriteLine("Removed " + diff + " AlphaBlended Sprites");
 				}
 #endif
 				foreach (Sprite s in m_SpriteList)
@@ -301,7 +301,7 @@ namespace project_hook
 				diff = (count - m_SpriteListA.Count);
 				if (diff != 0)
 				{
-					Console.WriteLine("Removed " + diff + " Additive Sprites");
+					//Console.WriteLine("Removed " + diff + " Additive Sprites");
 				}
 #endif
 				foreach (Sprite s in m_SpriteListA)
@@ -784,6 +784,10 @@ namespace project_hook
 			//m_ELoader = new EnvironmentLoader();
 			m_ELoader.NewFile(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName);
 			m_ELoader.resetLevelIfEmpty();
+		}
+		public void PleaseLoadBMP(String p_FileName)
+		{
+			m_ELoader.PleaseLoadNextFile(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName);
 		}
 
 		public void ChangeSpeed(int p_Speed)

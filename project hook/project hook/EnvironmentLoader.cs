@@ -23,8 +23,11 @@ namespace project_hook
 		private Hashtable m_ColorMap;
 		private Tile[,] m_TileArray;
 		private string m_LevelName;
+		private string m_NextLevelName;
 		private int AWidth;
 		private int AHeight;
+		private int NextAWidth;
+		private int NextAHeight;
 		private List<Sprite> m_CurrentView;
 		public List<Sprite> CurrentView
 		{
@@ -226,12 +229,37 @@ namespace project_hook
 			return ((y * m_ScreenSpaceWidth) + x);
 		}
 
+		System.Threading.Thread BackgroundLoadThread;
+
+		public void PleaseLoadNextFile(String p_FileName)
+		{
+			m_NextLevelName = p_FileName;
+			BackgroundLoadThread = new System.Threading.Thread( readAnotherBitmapToLevelArray );
+			BackgroundLoadThread.Priority = System.Threading.ThreadPriority.BelowNormal;
+			BackgroundLoadThread.Start();
+		}
+
 		public void NewFile(String p_FileName)
 		{
 			// read in level
 			if (p_FileName != m_LevelName)
 			{
-				readFile(p_FileName);
+				if (p_FileName == m_NextLevelName)
+				{
+					if (BackgroundLoadThread.IsAlive)
+					{
+						BackgroundLoadThread.Priority = System.Threading.ThreadPriority.Highest;
+						BackgroundLoadThread.Join();
+					}
+					AHeight = NextAHeight;
+					AWidth = NextAWidth;
+					processLevelArrayToTileArray();
+				}
+				else
+				{
+					readBitmapToLevelArray(p_FileName);
+					processLevelArrayToTileArray();
+				}
 			}
 
 			m_CurTopRow = AHeight - 1;
@@ -241,9 +269,36 @@ namespace project_hook
 		System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 #endif
 
+		private void readAnotherBitmapToLevelArray()
+		{
+#if DEBUG
+			stopwatch.Start();
+#endif
+			using (Bitmap bmp = new Bitmap(m_NextLevelName))
+			{
+				NextAHeight = bmp.Height;
+				NextAWidth = bmp.Width;
+				m_LevelArray = new System.Drawing.Color[NextAWidth, NextAHeight];
+
+				for (int height = 0; height < NextAHeight; ++height)
+				{
+					for (int width = 0; width < NextAWidth; ++width)
+					{
+						m_LevelArray[width, height] = bmp.GetPixel(width, height);
+					}
+				}
+			}
+#if DEBUG
+			stopwatch.Stop();
+			int p = m_NextLevelName.LastIndexOf("\\") + 1;
+			Console.WriteLine("> Background Read in " + m_NextLevelName.Substring(p, m_NextLevelName.Length - p) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
+			stopwatch.Reset();
+#endif
+		}
+
 		private System.Drawing.Color[,] m_LevelArray;
 
-		private void readFile(string p_FileName)
+		private void readBitmapToLevelArray(string p_FileName)
 		{
 			m_LevelName = p_FileName;
 #if DEBUG
@@ -268,6 +323,12 @@ namespace project_hook
 			int p = p_FileName.LastIndexOf("\\") + 1;
 			Console.WriteLine("> Read in " + p_FileName.Substring(p, p_FileName.Length - p) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
 			stopwatch.Reset();
+#endif
+		}
+
+		private void processLevelArrayToTileArray()
+		{
+#if DEBUG
 			stopwatch.Start();
 #endif
 			m_TileArray = new Tile[AWidth, AHeight];
@@ -293,7 +354,6 @@ namespace project_hook
 			Console.WriteLine("> Processed level in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
 			stopwatch.Reset();
 #endif
-
 		}
 
 		// I'm going to rewrite this later
