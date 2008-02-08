@@ -31,10 +31,10 @@ namespace project_hook
 			{
 				return m_PlayerShip;
 			}
-			set
-			{
+			//set
+			//{
 				//m_PlayerShip = value;
-			}
+			//}
 		}
 
 		public Score Score
