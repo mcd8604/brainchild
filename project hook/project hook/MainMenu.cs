@@ -19,7 +19,7 @@ namespace project_hook
 			//m_MenuItemNames.Add("menu_quit");
 
 			usingTextSprite = true;
-			m_MenuItemNames.Add("New Game");
+			m_MenuItemNames.Add("Start");
 			m_MenuItemNames.Add("Quit");
 		}
 

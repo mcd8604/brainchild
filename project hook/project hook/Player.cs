@@ -17,6 +17,9 @@ namespace project_hook
 	/// </summary>
 	public class Player
 	{
+		const int INITIAL_HEALTH = 100;
+		const int INITIAL_SHIELD = 100;
+
 		//variable for storing the player ship sprite and info
 		PlayerShip m_PlayerShip;
 
@@ -85,7 +88,7 @@ namespace project_hook
 		/// <param name="p_zBuff"></param>
 		public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds)
 		{
-			ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
+			CreatePlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
 			Bounds = p_Bounds;
 			m_Score = new Score(0);
 		}
@@ -94,7 +97,7 @@ namespace project_hook
 		{
 			Bounds = p_Bounds;
 			//m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
-			ResetPlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
+			CreatePlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
 			m_Score = new Score((ulong)p_Score);
 		}
 
@@ -122,10 +125,10 @@ namespace project_hook
 			m_PlayerSpeedBuffer.X -= m_PlayerAcceleration;
 		}
 
-		public void ResetPlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
+		public void CreatePlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
 		{
 
-			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 100, 100, p_Width / 2.0f);
+			m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, INITIAL_HEALTH, INITIAL_SHIELD, p_Width / 2.0f);
 			m_PlayerShip.setDamageEffect("Explosion", "3", "Explosion", 23);
 			m_PlayerShip.setShieldDamageEffect("Explosion2", "3", "Explosion2", 23);
 			m_PlayerShip.setDeathEffect("ExplosionBig", "");
@@ -142,6 +145,24 @@ namespace project_hook
 
 			Weapon wep = new WeaponStraight(shot, 0.30f, 400, -MathHelper.PiOver2);
 			m_PlayerShip.addWeapon(wep);
+		}
+
+		public void reset()
+		{
+			m_PlayerShip.MaxHealth = INITIAL_HEALTH;
+			m_PlayerShip.MaxShield = INITIAL_SHIELD;
+			m_PlayerShip.Health = m_PlayerShip.MaxHealth;
+			m_PlayerShip.Shield = m_PlayerShip.MaxShield;
+			m_PlayerShip.UpgradeLevel = 0;
+			m_PlayerShip.Enabled = true;
+			m_PlayerShip.ToBeRemoved = false;
+			foreach (Weapon w in m_PlayerShip.Weapons)
+			{
+				foreach (Shot s in w.m_Shots)
+				{
+					m_PlayerShip.addSprite(s);
+				}
+			}
 		}
 
 		public void Shoot()
@@ -188,11 +209,6 @@ namespace project_hook
 			tempPlayerCenter.X = MathHelper.Clamp(tempPlayerCenter.X, m_Bounds.X + (float)PlayerShip.Width * 0.5f, m_Bounds.Width - (float)PlayerShip.Width * 0.5f);
 			tempPlayerCenter.Y = MathHelper.Clamp(tempPlayerCenter.Y, m_Bounds.Y + (float)PlayerShip.Height * 0.5f, m_Bounds.Height - (float)PlayerShip.Height * 0.5f);
 			m_PlayerShip.Center = tempPlayerCenter;
-
-			if (m_PlayerShip.Health <= 0)
-			{
-				World.PlayerDead = true;
-			}
 		}
 	}
 }
