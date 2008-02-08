@@ -138,6 +138,13 @@ namespace project_hook
 			esps.MaxScale = 0.05f;
 			esps.MinInitialSpeed = 10;
 			esps.MaxInitialSpeed = 10;
+
+			TaskQueue EffectTask = new TaskQueue();
+			EffectTask.addTask(new TaskWait(this.CheckShip));
+			EffectTask.addTask(new TaskTimer(1f));
+			EffectTask.addTask(new TaskRemove());
+			esps.Task = EffectTask;
+
 			addSprite(esps);
 		}
 
@@ -166,13 +173,12 @@ namespace project_hook
 			}
 
 			if (p_Other.Faction == Factions.Environment)
-				CheckShip();
+				ToBeRemoved = CheckShip();
 		}
 
-		public void CheckShip()
+		public bool CheckShip()
 		{
-			if (m_Ship != null && m_Ship.IsDead())
-				ToBeRemoved = true;
+			return (m_Ship != null && m_Ship.IsDead());
 		}
 	}
 }

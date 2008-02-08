@@ -80,7 +80,7 @@ namespace project_hook
 			m_MinLifetime = 0.5f;
 			m_MaxLifetime = 1.0f;
 
-			m_MinScale = 0.01f;
+			m_MinScale = 0.75f;
 			m_MaxScale = 1.0f;
 
 			m_MinNumParticles = 10;

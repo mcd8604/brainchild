@@ -64,6 +64,12 @@ namespace project_hook
 			get { return TimeSinceStart < Lifetime; }
 		}
 
+		protected float originalSize;
+		public float OriginalSize
+		{
+			get { return originalSize; }
+		}
+
 
 		// initialize is called by ParticleSystem to set up the particle, and prepares
 		// the particle for use.
@@ -76,6 +82,7 @@ namespace project_hook
 			Acceleration = acceleration;
 			Lifetime = lifetime;
 			ScaleScalar = scale;
+			originalSize = scale;
 			RotationSpeed = rotationSpeed;
 
 			// reset TimeSinceStart - we have to do this because particles will be
@@ -97,6 +104,7 @@ namespace project_hook
 			Acceleration = acceleration;
 			Lifetime = lifetime;
 			ScaleScalar = scale;
+			originalSize = scale;
 			RotationSpeed = rotationSpeed;
 
 			// reset TimeSinceStart - we have to do this because particles will be
