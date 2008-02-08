@@ -7,8 +7,8 @@ namespace project_hook
 	class Boss : Ship
 	{
 		List<Event> m_EventList;
-		bool m_EventTrigger;
-		bool EventTrigger
+		int m_EventTrigger;
+		int EventTrigger
 		{
 			get
 			{
@@ -33,13 +33,13 @@ namespace project_hook
 		}
 			
 
-		public override void RegisterCollision(Collidable p_Other)
-		{
-#if DEBUG
-			Console.WriteLine("The Trigger has been hit by " + p_Other + "!");
-#endif
-			base.RegisterCollision(p_Other);
-		}
+//        public override void RegisterCollision(Collidable p_Other)
+//        {
+//#if DEBUG
+//            Console.WriteLine("The Trigger has been hit by " + p_Other + "!");
+//#endif
+//            base.RegisterCollision(p_Other);
+//        }
 
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
@@ -49,16 +49,17 @@ namespace project_hook
 			if (World.Position.Speed == 0)
 			{
 				if (this.ToBeRemoved == true || this.Faction != Factions.Enemy)
-					EventTrigger = true;
+					EventTrigger = 1;
 			}
 			//end temp
 
-			if (m_EventTrigger && m_EventList.Count > 0)
+			while (m_EventTrigger > 0 && m_EventList.Count > 0)
 			{
 				if (m_EventList[0].Type == Event.Types.ChangeSpeed)
 					World.Position.setSpeed(m_EventList[0].Speed);
 
 				m_EventList.RemoveAt(0);
+				m_EventTrigger--;
 			}
 		}
 
