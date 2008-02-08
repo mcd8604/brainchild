@@ -179,7 +179,7 @@ namespace project_hook
 			m_DeathEffect.MinNumParticles = 100;
 			m_DeathEffect.MaxNumParticles = 200;
 			m_DeathEffect.MinScale = 1f;
-			m_DeathEffect.MaxScale = 0.001f;
+			m_DeathEffect.MaxScale = 1f;
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(2f));
@@ -196,7 +196,7 @@ namespace project_hook
 			m_DeathEffect.MinNumParticles = 100;
 			m_DeathEffect.MaxNumParticles = 200;
 			m_DeathEffect.MinScale = 1f;
-			m_DeathEffect.MaxScale = 0.001f;
+			m_DeathEffect.MaxScale = 1f;
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(2f));
