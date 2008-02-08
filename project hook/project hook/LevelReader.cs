@@ -160,6 +160,7 @@ namespace project_hook
 		{
 			Boss t_Boss = (Boss)readShip(p_Reader, typeof(Boss));
 			t_Boss.Faction = Collidable.Factions.Enemy;
+			t_Boss.Grabbable = false;
 
 			List<Event> t_List = new List<Event>();
 
@@ -775,6 +776,18 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("blendMode"))
 				{
 					t_Ship.BlendMode = readBlendMode(p_Reader);
+				}
+				else if (p_Reader.IsStartElement("shieldRegenDelay"))
+				{
+					p_Reader.ReadStartElement();
+					t_Ship.ShieldRegenDelay = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("shieldRegenRate"))
+				{
+					p_Reader.ReadStartElement();
+					t_Ship.ShieldRegenRate = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("shipPart"))
 				{
