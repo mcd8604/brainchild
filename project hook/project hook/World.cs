@@ -219,12 +219,14 @@ namespace project_hook
 			//This will be for normal everyday update operations.  
 			if (m_State == GameState.Running)
 			{
+				m_LHandler.CheckEvents(m_Position.Distance);
+
 				m_Position.Update(p_GameTime);
 
 				//Console.WriteLine(m_Position.Distance);
 				m_ELoader.Update(p_GameTime);
 
-				m_LHandler.CheckEvents(m_Position.Distance);
+
 
 				m_Player.UpdatePlayer(p_GameTime);
 
