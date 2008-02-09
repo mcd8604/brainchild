@@ -41,7 +41,7 @@ namespace project_hook
 
 		public EnvironmentLoader()
 		{
-			Colors.initDefaultMap();
+			Mapping.initDefaultMap();
 
 			m_CurrentView = new List<Sprite>();
 			for (int y = 0; y < m_ScreenSpaceHeight; y++)
@@ -90,9 +90,9 @@ namespace project_hook
 					}
 
 					m_CurrentView[getPosition(i, m_CurTopBuffer)].Position = new Vector2(i * m_TileDimension, m_CurrentView[getPosition(i, (m_CurTopBuffer + 1) % m_ScreenSpaceHeight)].Position.Y - m_TileDimension);
-					m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = m_CurrentLevel.TileArray[i, m_CurTopRow].getGameTexture();
-					((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = m_CurrentLevel.TileArray[i, m_CurTopRow].getFaction();
-					m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = m_CurrentLevel.TileArray[i, m_CurTopRow].Rotation;
+					m_CurrentView[getPosition(i, m_CurTopBuffer)].Texture = m_CurrentLevel.TileArray[i, m_CurTopRow].GameTexture;
+					((Collidable)m_CurrentView[getPosition(i, m_CurTopBuffer)]).Faction = m_CurrentLevel.TileArray[i, m_CurTopRow].Faction;
+					//m_CurrentView[getPosition(i, m_CurTopBuffer)].RotationDegrees = m_CurrentLevel.TileArray[i, m_CurTopRow].Rotation;
 					m_CurrentView[getPosition(i, m_CurTopBuffer)].Enabled = m_CurrentLevel.TileArray[i, m_CurTopRow].Enabled;
 
 				}
@@ -135,9 +135,9 @@ namespace project_hook
 				{
 
 					m_CurrentView[getPosition(x, y)].Position = new Vector2(x * m_TileDimension, (y - 1) * m_TileDimension);
-					m_CurrentView[getPosition(x, y)].Texture = m_CurrentLevel.TileArray[x, m_CurrentLevel.Height - 1].getGameTexture();
-					((Collidable)m_CurrentView[getPosition(x, y)]).Faction = m_CurrentLevel.TileArray[x, m_CurrentLevel.Height - 1].getFaction();
-					m_CurrentView[getPosition(x, y)].Rotation = m_CurrentLevel.TileArray[x, m_CurrentLevel.Height - 1].Rotation;
+					m_CurrentView[getPosition(x, y)].Texture = m_CurrentLevel.TileArray[x, m_CurrentLevel.Height - 1].GameTexture;
+					((Collidable)m_CurrentView[getPosition(x, y)]).Faction = m_CurrentLevel.TileArray[x, m_CurrentLevel.Height - 1].Faction;
+					//m_CurrentView[getPosition(x, y)].Rotation = m_CurrentLevel.TileArray[x, m_CurrentLevel.Height - 1].Rotation;
 					m_CurrentView[getPosition(x, y)].Enabled = m_CurrentLevel.TileArray[x, m_CurrentLevel.Height - 1].Enabled;
 
 				}
@@ -215,28 +215,46 @@ namespace project_hook
 	}
 
 
-	static class Colors
+	static class Mapping
 	{
 
-		public static System.Drawing.Color color_Auto = System.Drawing.Color.FromArgb(255, 255, 255);
-		public static System.Drawing.Color color_Empty = System.Drawing.Color.FromArgb(200, 200, 200);
-		public static System.Drawing.Color color_Wall = System.Drawing.Color.FromArgb(0, 0, 0);
+		public static readonly System.Drawing.Color color_Auto = System.Drawing.Color.FromArgb(255, 255, 255);
+		public static readonly System.Drawing.Color color_Empty = System.Drawing.Color.FromArgb(200, 200, 200);
+		public static readonly System.Drawing.Color color_Wall = System.Drawing.Color.FromArgb(0, 0, 0);
 
-		public static System.Drawing.Color color_TopLeftInvert = System.Drawing.Color.FromArgb(200, 200, 255);
-		public static System.Drawing.Color color_TopRightInvert = System.Drawing.Color.FromArgb(100, 100, 0);
-		public static System.Drawing.Color color_Top = System.Drawing.Color.FromArgb(255, 100, 0);
+		public static readonly System.Drawing.Color color_TopLeftInvert = System.Drawing.Color.FromArgb(200, 200, 255);
+		public static readonly System.Drawing.Color color_TopRightInvert = System.Drawing.Color.FromArgb(100, 100, 0);
+		public static readonly System.Drawing.Color color_Top = System.Drawing.Color.FromArgb(255, 100, 0);
 
-		public static System.Drawing.Color color_BottomLeftInvert = System.Drawing.Color.FromArgb(255, 100, 255);
-		public static System.Drawing.Color color_BottomRightInvert = System.Drawing.Color.FromArgb(0, 0, 255);
-		public static System.Drawing.Color color_Bottom = System.Drawing.Color.FromArgb(255, 255, 0);
+		public static readonly System.Drawing.Color color_BottomLeftInvert = System.Drawing.Color.FromArgb(255, 100, 255);
+		public static readonly System.Drawing.Color color_BottomRightInvert = System.Drawing.Color.FromArgb(0, 0, 255);
+		public static readonly System.Drawing.Color color_Bottom = System.Drawing.Color.FromArgb(255, 255, 0);
 
-		public static System.Drawing.Color color_Left = System.Drawing.Color.FromArgb(0, 255, 0);
-		public static System.Drawing.Color color_Right = System.Drawing.Color.FromArgb(255, 0, 0);
+		public static readonly System.Drawing.Color color_Left = System.Drawing.Color.FromArgb(0, 255, 0);
+		public static readonly System.Drawing.Color color_Right = System.Drawing.Color.FromArgb(255, 0, 0);
 
-		public static System.Drawing.Color color_TopLeft = System.Drawing.Color.FromArgb(100, 0, 0);
-		public static System.Drawing.Color color_BottomLeft = System.Drawing.Color.FromArgb(0, 100, 0);
-		public static System.Drawing.Color color_TopRight = System.Drawing.Color.FromArgb(255, 0, 255);
-		public static System.Drawing.Color color_BottomRight = System.Drawing.Color.FromArgb(0, 255, 255);
+		public static readonly System.Drawing.Color color_TopLeft = System.Drawing.Color.FromArgb(100, 0, 0);
+		public static readonly System.Drawing.Color color_BottomLeft = System.Drawing.Color.FromArgb(0, 100, 0);
+		public static readonly System.Drawing.Color color_TopRight = System.Drawing.Color.FromArgb(255, 0, 255);
+		public static readonly System.Drawing.Color color_BottomRight = System.Drawing.Color.FromArgb(0, 255, 255);
+
+
+		public static Tile tile_Empty = new Tile();
+		public static Tile tile_Wall;
+
+		public static Tile tile_TopLeftInvert;
+		public static Tile tile_TopRightInvert;
+		public static Tile tile_Top;
+		public static Tile tile_BottomLeftInvert;
+		public static Tile tile_BottomRightInvert;
+		public static Tile tile_Bottom;
+		public static Tile tile_Left;
+		public static Tile tile_Right;
+		public static Tile tile_TopLeft;
+		public static Tile tile_BottomLeft;
+		public static Tile tile_TopRight;
+		public static Tile tile_BottomRight;
+
 
 		public static Hashtable ColorMap;
 
@@ -244,36 +262,47 @@ namespace project_hook
 		{
 
 			// Color mapping
-			ColorMap = new Hashtable();
+			ColorMap = new Hashtable(15);
 
-			ArrayList gts = new ArrayList();
-			gts = new ArrayList();
+			ArrayList gts = new ArrayList(4);
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque", ""));
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque2", ""));
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque3", ""));
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque4", ""));
-			ColorMap.Add(color_Wall.ToArgb(), new Tile(gts, 0, true, true));
-			//ColorMap.Add(System.Drawing.Color.FromArgb(255, 150, 100).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\wall_left", ""), 0, true, true));
-			ColorMap.Add(color_Right.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_right", ""), 0, true, false));
-			ColorMap.Add(color_Left.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_left", ""), 0, true, false));
-			ColorMap.Add(color_Bottom.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm", ""), 0, true, false));
-			ColorMap.Add(color_BottomRight.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right", ""), 0, true, false));
-			ColorMap.Add(color_BottomRightInvert.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right_invert", ""), 0, true, false));
-			ColorMap.Add(color_BottomLeft.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left", ""), 0, true, false));
-			ColorMap.Add(color_BottomLeftInvert.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left_invert", ""), 0, true, false));
-			ColorMap.Add(color_Top.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top", ""), 0, true, false));
-			ColorMap.Add(color_TopRight.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right", ""), 0, true, false));
-			ColorMap.Add(color_TopRightInvert.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right_invert", ""), 0, true, false));
-			ColorMap.Add(color_TopLeft.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left", ""), 0, true, false));
-			ColorMap.Add(color_TopLeftInvert.ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert", ""), 0, true, false));
-			//ColorMap.Add(System.Drawing.Color.FromArgb(100, 0, 100).ToArgb(), new Tile(TextureLibrary.getGameTexture("walls\\plaque_clear", ""), 0, true, false));
-			ColorMap.Add(color_Empty.ToArgb(), new Tile(0, false, false));
-			ColorMap.Add(color_Auto.ToArgb(), new Tile(0, false, false));
+			tile_Wall = new Tile(gts, true);
+
+			tile_Right = new Tile(TextureLibrary.getGameTexture("walls\\plaque_right", ""), false);
+			tile_Left = new Tile(TextureLibrary.getGameTexture("walls\\plaque_left", ""), false);
+			tile_Bottom = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm", ""), false);
+			tile_BottomRight = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right", ""), false);
+			tile_BottomRightInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right_invert", ""), false);
+			tile_BottomLeft = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left", ""), false);
+			tile_BottomLeftInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left_invert", ""), false);
+			tile_Top = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top", ""), false);
+			tile_TopRight = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right", ""), false);
+			tile_TopRightInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right_invert", ""), false);
+			tile_TopLeft = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left", ""), false);
+			tile_TopLeftInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert", ""), false);
+
+			ColorMap.Add(color_Wall.ToArgb(), tile_Wall);
+			ColorMap.Add(color_Right.ToArgb(), tile_Right);
+			ColorMap.Add(color_Left.ToArgb(), tile_Left);
+			ColorMap.Add(color_Bottom.ToArgb(), tile_Bottom);
+			ColorMap.Add(color_BottomRight.ToArgb(), tile_BottomRight);
+			ColorMap.Add(color_BottomRightInvert.ToArgb(), tile_BottomRightInvert);
+			ColorMap.Add(color_BottomLeft.ToArgb(), tile_BottomLeft);
+			ColorMap.Add(color_BottomLeftInvert.ToArgb(), tile_BottomLeftInvert);
+			ColorMap.Add(color_Top.ToArgb(), tile_Top);
+			ColorMap.Add(color_TopRight.ToArgb(), tile_TopRight);
+			ColorMap.Add(color_TopRightInvert.ToArgb(), tile_TopRightInvert);
+			ColorMap.Add(color_TopLeft.ToArgb(), tile_TopLeft);
+			ColorMap.Add(color_TopLeftInvert.ToArgb(), tile_TopLeftInvert);
+			ColorMap.Add(color_Empty.ToArgb(), tile_Empty);
+			ColorMap.Add(color_Auto.ToArgb(), tile_Empty);
 
 		}
 
 	}
-
 
 
 
@@ -286,7 +315,7 @@ namespace project_hook
 
 		private System.Drawing.Color[,] m_LevelArray;
 
-#if DEBUG
+#if DEBUG && TIME
 		private static System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 #endif
 
@@ -297,13 +326,52 @@ namespace project_hook
 
 		public void Load()
 		{
-#if DEBUG
+#if DEBUG && TIME
 			stopwatch.Start();
 #endif
 			using (Bitmap bmp = new Bitmap(LevelName))
 			{
 				Height = bmp.Height;
 				Width = bmp.Width;
+#if TESTING
+				// Testing
+				Console.WriteLine("PF: " + bmp.PixelFormat + " " + (bmp.PixelFormat == System.Drawing.Imaging.PixelFormat.Format1bppIndexed));
+				if (bmp.PixelFormat == System.Drawing.Imaging.PixelFormat.Format1bppIndexed)
+				{
+					byte[] bytes = (byte[])System.ComponentModel.TypeDescriptor.GetConverter(bmp).ConvertTo(bmp, typeof(byte[])); // 1 - 2 ms
+					Console.WriteLine(bytes.Length + ", " + ((bytes.Length - 62) * 8) + ", " + (((bytes.Length - 62) * 8) == (Height * Width)));
+					BitArray t = new BitArray(bytes);
+					TileArray = new Tile[Width, Height];
+					for (int height = 0; height < Height; ++height)
+					{
+						for (int width = 0; width < Width; ++width)
+						{
+							if (t[((height * Width) + width)])
+							{
+								TileArray[width, height] = (Tile)Colors.ColorMap[Colors.color_Empty.ToArgb()];
+							}
+							else
+							{
+								TileArray[width, height] = (Tile)Colors.ColorMap[Colors.color_Wall.ToArgb()];
+
+							}
+
+						}
+					}
+
+					//testing
+#if DEBUG && TIME
+					stopwatch.Stop();
+					int x = LevelName.LastIndexOf("\\") + 1;
+					Console.WriteLine("> Testing " + LevelName.Substring(x, LevelName.Length - x) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
+					stopwatch.Reset();
+					stopwatch.Start();
+#endif
+				}
+#endif
+
+
+
 				m_LevelArray = new System.Drawing.Color[Width, Height];
 				for (int height = 0; height < Height; ++height)
 				{
@@ -312,167 +380,154 @@ namespace project_hook
 						m_LevelArray[width, height] = bmp.GetPixel(width, height);
 					}
 				}
-			}
-			TileArray = new Tile[Width, Height];
-			System.Drawing.Color thisColor;
-			for (int height = Height - 1; height >= 0; --height)
-			{
-				for (int width = Width - 1; width >= 0; --width)
+
+				TileArray = new Tile[Width, Height];
+				System.Drawing.Color thisColor;
+				for (int y = Height - 1; y >= 0; --y)
 				{
-
-					processPixel(width, height);
-
-					thisColor = m_LevelArray[width, height];
-
-					if (Colors.ColorMap.ContainsKey(thisColor.ToArgb()))
+					for (int x = Width - 1; x >= 0; --x)
 					{
-						TileArray[width, height] = (Tile)Colors.ColorMap[thisColor.ToArgb()];
-					}
-					else
-					{
-						TileArray[width, height] = (Tile)Colors.ColorMap[Colors.color_Empty.ToArgb()];
-					}
 
-				}
-			}
-#if DEBUG
-			stopwatch.Stop();
-			int p = LevelName.LastIndexOf("\\") + 1;
-			Console.WriteLine("> Read in " + LevelName.Substring(p, LevelName.Length - p) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
-			stopwatch.Reset();
-#endif
-		}
+						thisColor = m_LevelArray[x, y];
 
-		private void processPixel(int x, int y)
-		{
-			if (m_LevelArray[x, y] == Colors.color_Auto)
-			{
-				if (tryGetPixel(x, y + 1) == Colors.color_Wall)
-				{
-					if (tryGetPixel(x, y - 1) != Colors.color_Wall)
-					{
-						if (tryGetPixel(x + 1, y) == Colors.color_Wall)
+						if (thisColor == Mapping.color_Auto)
 						{
-							if (tryGetPixel(x - 1, y) != Colors.color_Wall)
+							if (y + 1 < Height && m_LevelArray[x, y + 1] == Mapping.color_Wall)
 							{
-								m_LevelArray[x, y] = Colors.color_TopLeftInvert;
-								return;
-							}
-						}
-						else
-						{
-							if (tryGetPixel(x - 1, y) == Colors.color_Wall)
-							{
-								m_LevelArray[x, y] = Colors.color_TopRightInvert;
-								return;
-							}
-							else
-							{
-								m_LevelArray[x, y] = Colors.color_Top;
-								return;
-							}
-						}
-					}
-				}
-				else
-				{
-					if (tryGetPixel(x, y - 1) == Colors.color_Wall)
-					{
-						if (tryGetPixel(x + 1, y) == Colors.color_Wall)
-						{
-							if (tryGetPixel(x - 1, y) != Colors.color_Wall)
-							{
-								m_LevelArray[x, y] = Colors.color_BottomLeftInvert;
-								return;
-							}
-						}
-						else
-						{
-							if (tryGetPixel(x - 1, y) == Colors.color_Wall)
-							{
-								m_LevelArray[x, y] = Colors.color_BottomRightInvert;
-								return;
-							}
-							else
-							{
-								m_LevelArray[x, y] = Colors.color_Bottom;
-								return;
-							}
-						}
-					}
-					else
-					{
-						if (tryGetPixel(x + 1, y) == Colors.color_Wall)
-						{
-							if (tryGetPixel(x - 1, y) != Colors.color_Wall)
-							{
-								m_LevelArray[x, y] = Colors.color_Left;
-								return;
-							}
-						}
-						else
-						{
-							if (tryGetPixel(x - 1, y) == Colors.color_Wall)
-							{
-								m_LevelArray[x, y] = Colors.color_Right;
-								return;
-							}
-							else
-							{
-								if (tryGetPixel(x - 1, y - 1) == Colors.color_Wall)
+								if (y == 0 || m_LevelArray[x, y - 1] != Mapping.color_Wall)
 								{
-									if (tryGetPixel(x + 1, y + 1) != Colors.color_Wall && tryGetPixel(x + 1, y - 1) != Colors.color_Wall &&
-										tryGetPixel(x - 1, y + 1) != Colors.color_Wall)
+									if (x + 1 < Width && m_LevelArray[x + 1, y] == Mapping.color_Wall)
 									{
-										m_LevelArray[x, y] = Colors.color_BottomRight;
-										return;
-									}
-								}
-								else
-								{
-									if (tryGetPixel(x - 1, y + 1) == Colors.color_Wall)
-									{
-										if (tryGetPixel(x + 1, y + 1) != Colors.color_Wall && tryGetPixel(x + 1, y - 1) != Colors.color_Wall)
+										if (x == 0 || m_LevelArray[x - 1, y] != Mapping.color_Wall)
 										{
-											m_LevelArray[x, y] = Colors.color_TopRight;
-											return;
+											TileArray[x, y] = Mapping.tile_TopLeftInvert;
+											continue;
 										}
 									}
 									else
 									{
-										if (tryGetPixel(x + 1, y + 1) == Colors.color_Wall)
+										if (x > 0 && m_LevelArray[x - 1, y] == Mapping.color_Wall)
 										{
-											if (tryGetPixel(x + 1, y - 1) != Colors.color_Wall)
-											{
-												m_LevelArray[x, y] = Colors.color_TopLeft;
-												return;
-											}
+											TileArray[x, y] = Mapping.tile_TopRightInvert;
+											continue;
 										}
 										else
 										{
-											if (tryGetPixel(x + 1, y + 1) != Colors.color_Wall && tryGetPixel(x + 1, y - 1) == Colors.color_Wall)
+											TileArray[x, y] = Mapping.tile_Top;
+											continue;
+										}
+									}
+								}
+							}
+							else
+							{
+								if (y > 0 && m_LevelArray[x, y - 1] == Mapping.color_Wall)
+								{
+									if (x + 1 < Width && m_LevelArray[x + 1, y] == Mapping.color_Wall)
+									{
+										if (x == 0 || m_LevelArray[x - 1, y] != Mapping.color_Wall)
+										{
+											TileArray[x, y] = Mapping.tile_BottomLeftInvert;
+											continue;
+										}
+									}
+									else
+									{
+										if (x > 0 && m_LevelArray[x - 1, y] == Mapping.color_Wall)
+										{
+											TileArray[x, y] = Mapping.tile_BottomRightInvert;
+											continue;
+										}
+										else
+										{
+											TileArray[x, y] = Mapping.tile_Bottom;
+											continue;
+										}
+									}
+								}
+								else
+								{
+									if (x + 1 < Width && m_LevelArray[x + 1, y] == Mapping.color_Wall)
+									{
+										if (x == 0 || m_LevelArray[x - 1, y] != Mapping.color_Wall)
+										{
+											TileArray[x, y] = Mapping.tile_Left;
+											continue;
+										}
+									}
+									else
+									{
+										if (x > 0 && m_LevelArray[x - 1, y] == Mapping.color_Wall)
+										{
+											TileArray[x, y] = Mapping.tile_Right;
+											continue;
+										}
+										else
+										{
+											if (x > 0 && y > 0 && m_LevelArray[x - 1, y - 1] == Mapping.color_Wall)
 											{
-												m_LevelArray[x, y] = Colors.color_BottomLeft;
-												return;
+												if ((x + 1 == Width || y + 1 == Height || m_LevelArray[x + 1, y + 1] != Mapping.color_Wall) &&
+													(x + 1 == Width || y == 0 || m_LevelArray[x + 1, y - 1] != Mapping.color_Wall) &&
+													(x == 0 || y + 1 == Height || m_LevelArray[x - 1, y + 1] != Mapping.color_Wall))
+												{
+													TileArray[x, y] = Mapping.tile_BottomRight;
+													continue;
+												}
+											}
+											else
+											{
+												if (x > 0 && y + 1 < Height && m_LevelArray[x - 1, y + 1] == Mapping.color_Wall)
+												{
+													if ((x + 1 == Width || y + 1 == Height || m_LevelArray[x + 1, y + 1] != Mapping.color_Wall) &&
+														(x + 1 == Width || y == 0 || m_LevelArray[x + 1, y - 1] != Mapping.color_Wall))
+													{
+														TileArray[x, y] = Mapping.tile_TopRight;
+														continue;
+													}
+												}
+												else
+												{
+													if (x + 1 < Width && y + 1 < Height && m_LevelArray[x + 1, y + 1] == Mapping.color_Wall)
+													{
+														if (x + 1 == Height || y == 0 || m_LevelArray[x + 1, y - 1] != Mapping.color_Wall)
+														{
+															TileArray[x, y] = Mapping.tile_TopLeft;
+															continue;
+														}
+													}
+													else
+													{
+														if (x + 1 < Width && y > 0 && m_LevelArray[x + 1, y - 1] == Mapping.color_Wall)
+														{
+															TileArray[x, y] = Mapping.tile_BottomLeft;
+															continue;
+														}
+													}
+												}
 											}
 										}
 									}
 								}
 							}
 						}
+
+						if (Mapping.ColorMap.ContainsKey(thisColor.ToArgb()))
+						{
+							TileArray[x, y] = (Tile)Mapping.ColorMap[thisColor.ToArgb()];
+						}
+						else
+						{
+							TileArray[x, y] = (Tile)Mapping.ColorMap[Mapping.color_Empty.ToArgb()];
+						}
+
 					}
 				}
-			}
-		}
-		private System.Drawing.Color tryGetPixel(int x, int y)
-		{
-			if (x < 0 || x >= Width || y < 0 || y >= Height)
-			{
-				return Colors.color_Empty;
-			}
-			else
-			{
-				return m_LevelArray[x, y];
+#if DEBUG && TIME
+				stopwatch.Stop();
+				int p = LevelName.LastIndexOf("\\") + 1;
+				Console.WriteLine("> Read in " + LevelName.Substring(p, LevelName.Length - p) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
+				stopwatch.Reset();
+#endif
 			}
 		}
 
@@ -488,61 +543,59 @@ namespace project_hook
         private static Random random = new Random();
 #endif
 
-		public ArrayList gameTextures;
-		public GameTexture gameTexture;
-		public int Rotation;
-		public bool Enabled;
-		public bool m_Collidable;
-
-		public Tile(int p_Rotation, bool p_Enabled, bool p_Collidable)
+		protected ArrayList m_gameTextures = null;
+		protected GameTexture m_gameTexture = null;
+		public GameTexture GameTexture
 		{
-			Rotation = p_Rotation;
-			Enabled = p_Enabled;
-			m_Collidable = p_Collidable;
-			gameTextures = null;
-			gameTexture = null;
-		}
-
-		public Tile(ArrayList p_GameTextures, int p_Rotation, bool p_Enabled, bool p_Collidable)
-		{
-			gameTextures = p_GameTextures;
-			Rotation = p_Rotation;
-			Enabled = p_Enabled;
-			m_Collidable = p_Collidable;
-			gameTexture = null;
-		}
-
-		public Tile(GameTexture p_GameTexture, int p_Rotation, bool p_Enabled, bool p_Collidable)
-		{
-			gameTexture = p_GameTexture;
-			Rotation = p_Rotation;
-			Enabled = p_Enabled;
-			m_Collidable = p_Collidable;
-			gameTextures = null;
-		}
-
-		public Collidable.Factions getFaction()
-		{
-			if (m_Collidable)
+			get
 			{
-				return Collidable.Factions.Environment;
-			}
-			else
-			{
-				return Collidable.Factions.None;
+				if (m_gameTextures == null)
+				{
+					return m_gameTexture;
+				}
+				else
+				{
+					return (GameTexture)m_gameTextures[random.Next(0, m_gameTextures.Count)];
+				}
 			}
 		}
-
-		public GameTexture getGameTexture()
+		protected bool m_Enabled = false;
+		public bool Enabled
 		{
-			if (gameTextures == null)
-			{
-				return gameTexture;
-			}
-			else
-			{
-				return (GameTexture)gameTextures[random.Next(0, gameTextures.Count)];
-			}
+			get { return m_Enabled; }
 		}
+		protected Collidable.Factions m_Faction = Collidable.Factions.None;
+		public Collidable.Factions Faction
+		{
+			get { return m_Faction; }
+		}
+		//protected float m_Rotation = 0f;
+
+
+		public Tile() { }
+		public Tile(GameTexture p_GameTexture, bool p_Collidable)
+		{
+			m_gameTexture = p_GameTexture;
+			m_Enabled = true;
+			if (p_Collidable)
+			{
+				m_Faction = Collidable.Factions.Environment;
+			}
+			m_gameTextures = null;
+			//m_Rotation = p_Rotation;
+		}
+
+		public Tile(ArrayList p_GameTextures, bool p_Collidable)
+		{
+			m_gameTextures = p_GameTextures;
+			m_Enabled = true;
+			if (p_Collidable)
+			{
+				m_Faction = Collidable.Factions.Environment;
+			}
+			m_gameTexture = null;
+			//m_Rotation = p_Rotation;
+		}
+
 	}
 }
