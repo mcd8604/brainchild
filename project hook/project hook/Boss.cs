@@ -31,15 +31,6 @@ namespace project_hook
 		{
 			m_EventList = p_EventList;
 		}
-			
-
-//        public override void RegisterCollision(Collidable p_Other)
-//        {
-//#if DEBUG
-//            Console.WriteLine("The Trigger has been hit by " + p_Other + "!");
-//#endif
-//            base.RegisterCollision(p_Other);
-//        }
 
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
