@@ -653,6 +653,11 @@
       <Processor>XactProcessor</Processor>
       <Name>HookSound</Name>
     </Content>
+    <Content Include="Content\Levels\Boss.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Boss</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Levels\empty.bmp">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
