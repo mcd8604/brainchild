@@ -788,7 +788,7 @@ namespace project_hook
 					return movable.Center;
 				}
 			}
-			else if (solid.Bound == Collidable.Boundings.Rectangle)
+			else if (movable.Bound == Collidable.Boundings.Rectangle)
 			{
 				if (solid.Bound == Collidable.Boundings.Circle)
 				{
