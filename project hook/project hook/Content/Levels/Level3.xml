@@ -9,84 +9,6 @@
 		</changeSpeed>
 	</action>
 	<action tile="0">
-		<createSpawnPoint>
-			<delay>45</delay>
-			<count>12</count>
-			<name>W2_E</name>
-			<object>
-				<height>32</height>
-				<width>32</width>
-				<radius>16</radius>
-				<texture name="virus1"/>
-				<startTile x="26" y="24" />
-				<health>50</health>
-				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
-				<deathEffect name="ExplosionBig"/>
-				<task type="Sequence">
-					<task type="Parallel">
-						<task type="StraightAngle">
-							<degree>-90</degree>
-							<speed>200</speed>
-						</task>
-						<task type="RepeatingTimer">
-							<duration>1.5</duration>
-						</task>
-					</task>
-					<task type="Parallel">
-						<task type="StraightAngle">
-							<degree>-140</degree>
-							<speed>200</speed>
-						</task>
-						<task type="RepeatingTimer">
-							<duration>1.0</duration>
-						</task>
-					</task>
-					<task type="StraightAngle">
-						<degree>-90</degree>
-						<speed>200</speed>
-					</task>
-				</task>
-			</object>
-		</createSpawnPoint>
-		<createSpawnPoint>
-			<delay>45</delay>
-			<count>12</count>
-			<name>W2_E</name>
-			<object>
-				<height>32</height>
-				<width>32</width>
-				<radius>16</radius>
-				<texture name="virus1"/>
-				<startTile x="25" y="0" />
-				<health>50</health>
-				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
-				<deathEffect name="ExplosionBig"/>
-				<task type="Sequence">
-					<task type="Parallel">
-						<task type="StraightAngle">
-							<degree>90</degree>
-							<speed>200</speed>
-						</task>
-						<task type="RepeatingTimer">
-							<duration>1.5</duration>
-						</task>
-					</task>
-					<task type="Parallel">
-						<task type="StraightAngle">
-							<degree>140</degree>
-							<speed>200</speed>
-						</task>
-						<task type="RepeatingTimer">
-							<duration>1.0</duration>
-						</task>
-					</task>
-					<task type="StraightAngle">
-						<degree>90</degree>
-						<speed>200</speed>
-					</task>
-				</task>
-			</object>
-		</createSpawnPoint>
 	</action>
 	<action tile="5">
 		<createShip>
@@ -3182,6 +3104,242 @@
 				</task>
 			</object>
 		</createSpawnPoint>
+	</action>
+	<action tile="550">
+		<createShip>
+			<name>Enemy</name>
+			<height>50</height>
+			<width>75</width>
+			<radius>30</radius>
+			<texture name="Enemy1"/>
+			<startTile x="5" y="24"/>
+			<health>50</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<score>75</score>
+			<weapon type="Sequence" recycle="0.5">
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<initialCooldown>0.5</initialCooldown>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
+			</weapon>
+			<task type="Sequence">
+				<task type="Parallel">
+					<task type="StraightAngle">
+						<degree>-45</degree>
+						<speed>300</speed>
+					</task>
+					<task type="RotateToAngle">
+						<degree>-45</degree>
+					</task>
+					<task type="Timer">
+						<duration>3.0</duration>
+					</task>
+				</task>
+				<task type="Parallel">
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
+					<task type="Fire"/>
+				</task>
+			</task>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<height>50</height>
+			<width>75</width>
+			<radius>30</radius>
+			<texture name="Enemy1"/>
+			<startTile x="25" y="24"/>
+			<health>50</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<score>75</score>
+			<weapon type="Sequence" recycle="0.5">
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<initialCooldown>0.5</initialCooldown>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
+			</weapon>
+			<task type="Sequence">
+				<task type="Parallel">
+					<task type="StraightAngle">
+						<degree>-135</degree>
+						<speed>300</speed>
+					</task>
+					<task type="RotateToAngle">
+						<degree>-135</degree>
+					</task>
+					<task type="Timer">
+						<duration>3.0</duration>
+					</task>
+				</task>
+				<task type="Parallel">
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
+					<task type="Fire"/>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action tile="561">
+		<createShip>
+			<name>Enemy</name>
+			<height>50</height>
+			<width>75</width>
+			<radius>30</radius>
+			<texture name="Enemy1"/>
+			<startTile x="5" y="0"/>
+			<health>50</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<score>75</score>
+			<weapon type="Sequence" recycle="0.5">
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<initialCooldown>0.5</initialCooldown>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
+			</weapon>
+			<task type="Sequence">
+				<task type="Parallel">
+					<task type="StraightAngle">
+						<degree>45</degree>
+						<speed>300</speed>
+					</task>
+					<task type="RotateToAngle">
+						<degree>45</degree>
+					</task>
+					<task type="Timer">
+						<duration>3.0</duration>
+					</task>
+				</task>
+				<task type="Parallel">
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
+					<task type="Fire"/>
+				</task>
+			</task>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<height>50</height>
+			<width>75</width>
+			<radius>30</radius>
+			<texture name="Enemy1"/>
+			<startTile x="25" y="0"/>
+			<health>50</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<score>75</score>
+			<weapon type="Sequence" recycle="0.5">
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<initialCooldown>0.5</initialCooldown>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
+			</weapon>
+			<task type="Sequence">
+				<task type="Parallel">
+					<task type="StraightAngle">
+						<degree>135</degree>
+						<speed>300</speed>
+					</task>
+					<task type="RotateToAngle">
+						<degree>135</degree>
+					</task>
+					<task type="Timer">
+						<duration>3.0</duration>
+					</task>
+				</task>
+				<task type="Parallel">
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
+					<task type="Fire"/>
+				</task>
+			</task>
+		</createShip>
 	</action>
 	<!--
 	<action tile="600">
