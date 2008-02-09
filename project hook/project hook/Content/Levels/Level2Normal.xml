@@ -1062,12 +1062,24 @@
 				<speed>300</speed>
 				<shot>
 					<damage>30</damage>
-					<height>32</height>
-					<width>32</width>
-					<radius>16</radius>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
 					<blendMode>Additive</blendMode>
 					<texture name="shot_electric"/>
 					<animation name="shot_electric" fps="8"/>
+					<trail>
+						<texture name="shot_electric"/>
+						<animation name="shot_electric" fps="8"/>
+						<MinNumParticles>1</MinNumParticles>
+						<MaxNumParticles>1</MaxNumParticles>
+						<MinLifetime>1</MinLifetime>
+						<MaxLifetime>1</MaxLifetime>
+						<MinScale>0.05</MinScale>
+						<MaxScale>0.05</MaxScale>
+						<MinInitialSpeed>10</MinInitialSpeed>
+						<MaxInitialSpeed>10</MaxInitialSpeed>
+					</trail>
 				</shot>
 			</weapon>
 			<task type="Parallel">

@@ -1028,6 +1028,10 @@ namespace project_hook
 				{
 					shot.BlendMode = readBlendMode(p_Reader);
 				}
+				else if (p_Reader.IsStartElement("trail"))
+				{
+					shot.esps = readShotTrail(p_Reader, shot);
+				}
 #if DEBUG
 				else
 				{
@@ -1049,6 +1053,77 @@ namespace project_hook
 
 			return shot;
 
+		}
+
+		private static ExplosionSpriteParticleSystem readShotTrail(XmlReader p_Reader, Shot shot)
+		{
+			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(shot.Name + "_ParticleSystem", shot.Texture.Name, "1", 1);
+			p_Reader.ReadStartElement();
+			while (p_Reader.IsStartElement())
+			{
+				if (p_Reader.IsStartElement("texture"))
+				{
+					esps.TextureName = p_Reader.GetAttribute("name");
+					p_Reader.ReadStartElement("texture");
+				}
+				else if (p_Reader.IsStartElement("animation"))
+				{
+					esps.Animated = true;
+					esps.AnimationName = p_Reader.GetAttribute("name");
+					esps.AnimationFPS = int.Parse(p_Reader.GetAttribute("fps"));
+					p_Reader.ReadStartElement("animation");
+				}
+				else if (p_Reader.IsStartElement("MinNumParticles"))
+				{
+					p_Reader.ReadStartElement("MinNumParticles");
+					esps.MinNumParticles = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("MaxNumParticles"))
+				{
+					p_Reader.ReadStartElement("MaxNumParticles");
+					esps.MaxNumParticles = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("MinLifetime"))
+				{
+					p_Reader.ReadStartElement("MinLifetime");
+					esps.MinLifetime = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("MaxLifetime"))
+				{
+					p_Reader.ReadStartElement("MaxLifetime");
+					esps.MaxLifetime = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("MinScale"))
+				{
+					p_Reader.ReadStartElement("MinScale");
+					esps.MinScale = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("MaxScale"))
+				{
+					p_Reader.ReadStartElement("MaxScale");
+					esps.MaxScale = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("MinInitialSpeed"))
+				{
+					p_Reader.ReadStartElement("MinInitialSpeed");
+					esps.MinInitialSpeed = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("MaxInitialSpeed"))
+				{
+					p_Reader.ReadStartElement("MaxInitialSpeed");
+					esps.MaxInitialSpeed = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+			}
+			p_Reader.ReadEndElement();
+			return esps;
 		}
 
 		private static Task readTask(XmlReader p_Reader)
