@@ -47,8 +47,8 @@ namespace project_hook
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
-#if DEBUG
-			//Console.WriteLine( "The Trigger has been hit by " + p_Other + "!" );
+#if DEBUG && VERBOSE
+			Console.WriteLine( "The Trigger has been hit by " + p_Other + "!" );
 #endif
 			if (World.Position.Speed == 0 && p_Other.Faction == Factions.Player && !(p_Other is Tail))
 			{

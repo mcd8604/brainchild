@@ -280,13 +280,10 @@ namespace project_hook
 					if (p_Reader.AttributeCount == 1)
 					{
 						p_Wall.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
-						//Console.WriteLine("1");
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						p_Wall.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																		p_Reader.GetAttribute(1));
-						//Console.WriteLine("2");
+						p_Wall.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), p_Reader.GetAttribute(1));
 					}
 
 					p_Reader.ReadStartElement("texture");
@@ -405,13 +402,10 @@ namespace project_hook
 					if (p_Reader.AttributeCount == 1)
 					{
 						p_Trigger.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
-						//Console.WriteLine("1");
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						p_Trigger.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																		p_Reader.GetAttribute(1));
-						//Console.WriteLine("2");
+						p_Trigger.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), p_Reader.GetAttribute(1));
 					}
 
 					p_Reader.ReadStartElement("texture");
@@ -649,13 +643,10 @@ namespace project_hook
 					if (p_Reader.AttributeCount == 1)
 					{
 						t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
-						//Console.WriteLine("1");
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																		p_Reader.GetAttribute(1));
-						//Console.WriteLine("2");
+						t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), p_Reader.GetAttribute(1));
 					}
 
 					p_Reader.ReadStartElement("texture");

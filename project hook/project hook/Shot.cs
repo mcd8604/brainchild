@@ -71,33 +71,13 @@ namespace project_hook
 				{
 					Enabled = false;
 				}
-				else
+				else if (m_esps != null)
 				{
-					if (m_esps != null)
-					{
-						createShotTrail();
-					}
+					createShotTrail();
 				}
+
 			}
 		}
-
-		/*protected void checkTask(Task t)
-		{
-			if (t is TaskSeekTarget)
-			{
-				createShotTrail();
-			}
-			else
-			{
-				if (t.getSubTasks() != null)
-				{
-					foreach (Task subT in t.getSubTasks())
-					{
-						checkTask(subT);
-					}
-				}
-			}
-		}*/
 
 		private ExplosionSpriteParticleSystem m_esps;
 		public ExplosionSpriteParticleSystem esps
@@ -108,18 +88,9 @@ namespace project_hook
 			}
 			set
 			{
-				if(value != null) {
-					m_esps = new ExplosionSpriteParticleSystem(value.Name, value.TextureName, value.TextureTag, 10);
-					esps.MinNumParticles = value.MinNumParticles;
-					esps.MaxNumParticles = value.MaxNumParticles;
-					esps.MinLifetime = value.MinLifetime;
-					esps.MaxLifetime = value.MaxLifetime;
-					esps.MinScale = value.MinScale;
-					esps.MaxScale = value.MaxScale;
-					esps.MinInitialSpeed = value.MinInitialSpeed;
-					esps.MaxInitialSpeed = value.MaxInitialSpeed;
-					esps.AnimationName = value.AnimationName;
-					esps.AnimationFPS = value.AnimationFPS;
+				if (value != null)
+				{
+					m_esps = value;
 
 					TaskQueue EffectTask = new TaskQueue();
 					EffectTask.addTask(new TaskWait(this.CheckShip));
@@ -132,53 +103,27 @@ namespace project_hook
 			}
 		}
 
-		private void initTrail()
-		{
-			esps = new ExplosionSpriteParticleSystem(this.Name + "_ParticleSystem", this.Texture.Name, "1", 10);
-			esps.MinNumParticles = 1;
-			esps.MaxNumParticles = 1;
-			esps.MinLifetime = 1f;
-			esps.MaxLifetime = 1f;
-			esps.MinScale = 0.05f;
-			esps.MaxScale = 0.05f;
-			esps.MinInitialSpeed = 10;
-			esps.MaxInitialSpeed = 10;
-
-			TaskQueue EffectTask = new TaskQueue();
-			EffectTask.addTask(new TaskWait(this.CheckShip));
-			EffectTask.addTask(new TaskTimer(1f));
-			EffectTask.addTask(new TaskRemove());
-			esps.Task = EffectTask;
-
-			addSprite(esps);
-		}
-
 		protected void createShotTrail()
 		{
-			if (m_esps == null)
-			{
-				initTrail();
-			}
 			m_esps.AddParticles(this.Center);
 		}
 
 		public override Boolean IsDead()
 		{
 			return false;
-
 		}
 
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			if (!(p_Other is Shot) && !(p_Other is Tail) && p_Other.Faction != Factions.Blood && p_Other.Faction != Factions.PowerUp)
 			{
-				//Vector2 midPoint = new Vector2(Center.X - p_Other.Center.X, Center.Y - p_Other.Center.Y);
-				//addSprite(new Sprite(Name + "Effect", midPoint, 25, 25, CollisonEffect, 100, true, 0.0f, Depth.GameLayer.Explosion));
 				Enabled = !DestroyedOnCollision;
 			}
 
 			if (p_Other.Faction == Factions.Environment)
+			{
 				ToBeRemoved = CheckShip();
+			}
 		}
 
 		public bool CheckShip()

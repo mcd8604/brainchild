@@ -71,12 +71,12 @@ namespace project_hook
 					r_Texture = (m_GameTextures[name])[tag];
 				}
 			}
+#if DEBUG
 			else
 			{
-#if DEBUG
 				throw new Exception("Texture not loaded: " + name);
-#endif
 			}
+#endif
 
 			return r_Texture;
 		}
@@ -99,12 +99,12 @@ namespace project_hook
 			{
 				r_Texture = m_Textures[name];
 			}
+#if DEBUG
 			else
 			{
-#if DEBUG
 				throw new Exception("Texture not loaded: " + name);
-#endif
 			}
+#endif
 
 			return r_Texture;
 		}
@@ -166,7 +166,6 @@ namespace project_hook
 							int j = 0;
 
 							String name = (String)(nodes.Item(j++).InnerText);
-							//Console.WriteLine("name: " + name);
 							String tag = (String)(nodes.Item(j++).InnerText);
 							int x = int.Parse(nodes.Item(j++).InnerText);
 							int y = int.Parse(nodes.Item(j++).InnerText);
