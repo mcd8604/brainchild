@@ -134,7 +134,14 @@ namespace project_hook
 #if DEBUG
 
 		TextSprite listsize = new TextSprite("", new Vector2(100, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
+		bool DisplayCollision = false;
+		int RemovedWhileVisibleCount = 0;
 
+#if CHEAT
+		Shot kill;
+#endif
+
+#if TIME
 		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 		TextSprite coll = new TextSprite("", new Vector2(300, 20), Color.GreenYellow, Depth.HUDLayer.Foreground);
 		TextSprite updt = new TextSprite("", new Vector2(300, 50), Color.SeaShell, Depth.HUDLayer.Foreground);
@@ -142,9 +149,7 @@ namespace project_hook
 		int collcount;
 		double updttotal;
 		int updtcount;
-		bool DisplayCollision = false;
-		int RemovedWhileVisibleCount = 0;
-		Shot kill;
+#endif
 #endif
 
 		public World(Rectangle p_DrawArea)
@@ -223,21 +228,18 @@ namespace project_hook
 
 				m_Position.Update(p_GameTime);
 
-				//Console.WriteLine(m_Position.Distance);
 				m_ELoader.Update(p_GameTime);
-
-
 
 				m_Player.UpdatePlayer(p_GameTime);
 
 				CreateBloodCell();
 
-#if DEBUG
+#if DEBUG && TIME
 				timer.Reset();
 				timer.Start();
 #endif
 				Collision.CheckCollisions(m_SpriteList, m_SpriteListA);
-#if DEBUG
+#if DEBUG && TIME
 				timer.Stop();
 				colltotal += timer.Elapsed.TotalMilliseconds;
 				collcount++;
@@ -248,18 +250,21 @@ namespace project_hook
 					collcount = 0;
 				}
 
-				int count = m_SpriteList.Count;
-
 				timer.Reset();
 				timer.Start();
+#endif
+
+#if DEBUG
+				int count = m_SpriteList.Count;
 
 				List<Sprite> removed = m_SpriteList.FindAll(Sprite.isToBeRemoved);
 				if (removed.Count > 0)
 				{
-					//Console.WriteLine("Removing AlphaBlended Sprites: ");
 					foreach (Sprite s in removed)
 					{
-						//Console.WriteLine("Removing: " + s);
+#if VERBOSE
+						Console.WriteLine("Removing: " + s);
+#endif
 						if (isSpriteVisible(s))
 						{
 							Console.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
@@ -268,11 +273,11 @@ namespace project_hook
 				}
 #endif
 				m_SpriteList.RemoveAll(Sprite.isToBeRemoved);
-#if DEBUG
+#if DEBUG && VERBOSE
 				int diff = (count - m_SpriteList.Count);
 				if (diff != 0)
 				{
-					//Console.WriteLine("Removed " + diff + " AlphaBlended Sprites");
+					Console.WriteLine("Removed " + diff + " AlphaBlended Sprites");
 				}
 #endif
 				foreach (Sprite s in m_SpriteList)
@@ -289,10 +294,11 @@ namespace project_hook
 				List<Sprite> removedA = m_SpriteListA.FindAll(Sprite.isToBeRemoved);
 				if (removedA.Count > 0)
 				{
-					//Console.WriteLine("Removing Additive Sprites: ");
 					foreach (Sprite s in removedA)
 					{
-						//Console.WriteLine("Removing: " + s);
+#if VERBOSE
+						Console.WriteLine("Removing: " + s);
+#endif
 						if (isSpriteVisible(s))
 						{
 							Console.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
@@ -301,11 +307,11 @@ namespace project_hook
 				}
 #endif
 				m_SpriteListA.RemoveAll(Sprite.isToBeRemoved);
-#if DEBUG
+#if DEBUG && VERBOSE
 				diff = (count - m_SpriteListA.Count);
 				if (diff != 0)
 				{
-					//Console.WriteLine("Removed " + diff + " Additive Sprites");
+					Console.WriteLine("Removed " + diff + " Additive Sprites");
 				}
 #endif
 				foreach (Sprite s in m_SpriteListA)
@@ -315,27 +321,27 @@ namespace project_hook
 					checkToBeAdded(s);
 				}
 
-#if DEBUG
+#if DEBUG && VERBOSE
 				if (toAdd.Count != 0)
 				{
-					//Console.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
+					Console.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
 				}
 #endif
 				AddSprites(toAdd);
 				toAdd.Clear();
 
 
-#if DEBUG
+#if DEBUG && VERBOSE
 				if (toAddA.Count != 0)
 				{
-					//Console.WriteLine("Added " + toAddA.Count + " Additive Sprites");
+					Console.WriteLine("Added " + toAddA.Count + " Additive Sprites");
 				}
 #endif
 				AddSprites(toAddA);
 				toAddA.Clear();
 
 
-#if DEBUG
+#if DEBUG && TIME
 				timer.Stop();
 				updttotal += timer.Elapsed.TotalMilliseconds;
 				updtcount++;
@@ -491,6 +497,11 @@ namespace project_hook
 				{
 					m_Position.setSpeed(m_Position.Speed * 0.5f);
 				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
+				{
+					Console.WriteLine(m_Position.Distance.ToString() + ", " + (m_Position.Distance / (float)EnvironmentLoader.TileDimension));
+				}
+#if CHEAT
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.G))
 				{
 					if (float.IsNaN(m_Player.PlayerShip.MaxHealth))
@@ -533,10 +544,6 @@ namespace project_hook
 					}
 
 				}
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
-				{
-					Console.WriteLine(m_Position.Distance.ToString() + ", " + (m_Position.Distance / (float)EnvironmentLoader.TileDimension));
-				}
 				if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.T))
 				{
 					Thrown T = new Thrown(new Collidable("GeneratedBloodCell", tail.Center, 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper, Collidable.Factions.Player, 100, 25));
@@ -555,6 +562,7 @@ namespace project_hook
 					T.Task = task;
 					AddSprite(T);
 				}
+#endif
 #endif
 			}
 
@@ -662,7 +670,6 @@ namespace project_hook
 			TextureLibrary.LoadTexture("cross");
 			TextureLibrary.LoadTexture("WeaponBar");
 
-
 #if DEBUG
 			TextureLibrary.LoadTexture("debugcirc");
 			TextureLibrary.LoadTexture("debugdiamond");
@@ -701,9 +708,7 @@ namespace project_hook
 			}
 			m_Player.PlayerShip.Center = new Vector2(512f, 576f);
 			AddSprite(m_Player.PlayerShip);
-#if DEBUG
-			//new HealthBar(m_Player.PlayerShip);
-#endif
+
 			ICollection<Sprite> m_TailBodySprites = new List<Sprite>();
 
 			for (int i = 0; i < 60; i++)
@@ -746,8 +751,10 @@ namespace project_hook
 			AddSprite(TextFpsExample);
 #if DEBUG
 			AddSprite(listsize);
+#if TIME
 			AddSprite(coll);
 			AddSprite(updt);
+#endif
 #endif
 			m_Score = new SimpleScore();
 			Sprite score = new TextSprite(m_Score.ToString, new Vector2(820, 0), Color.LightBlue, Depth.HUDLayer.Foreground);

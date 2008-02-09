@@ -1,5 +1,3 @@
-using System;
-
 namespace project_hook
 {
 	static class Program
@@ -9,7 +7,7 @@ namespace project_hook
 		/// </summary>
 		static void Main(string[] args)
 		{
-#if DEBUG
+#if DEBUG && TEST
 			Collision.SelfTest();
 #endif
 			using (Game game = new Game())

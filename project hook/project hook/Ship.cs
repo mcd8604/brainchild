@@ -244,7 +244,7 @@ namespace project_hook
 			{
 				foreach (Shot s in w.getShots())
 					if (s.Enabled == false)
-						s.Center = new Vector2(-100, 0);
+						s.Center = new Vector2(-100, -100);
 			}
 
 		}

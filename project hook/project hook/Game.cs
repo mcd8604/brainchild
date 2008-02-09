@@ -255,9 +255,10 @@ namespace project_hook
 		protected override void OnActivated(object sender, EventArgs args)
 		{
 			base.OnActivated(sender, args);
-			// EVIL EVIL EVIL
+
 			//Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
-#if DEBUG
+
+#if DEBUG && VERBOSE
 			Console.WriteLine("ACTIVATED");
 #endif
 		}
@@ -268,7 +269,7 @@ namespace project_hook
 		{
 			base.OnDeactivated(sender, args);
 			Cursor.Clip = DefaultClippingBounds;
-#if DEBUG
+#if DEBUG && VERBOSE
 			Console.WriteLine("DEACTIVATED");
 #endif
 			if (m_World != null)
