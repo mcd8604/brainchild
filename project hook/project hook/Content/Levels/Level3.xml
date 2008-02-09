@@ -9,76 +9,7 @@
 		</changeSpeed>
 	</action>
 	<action tile="0">
-		<createSpawnPoint>
-			<delay>32</delay>
-			<count>3</count>
-			<name>W2_E</name>
-			<object>
-				<height>32</height>
-				<width>32</width>
-				<radius>16</radius>
-				<texture name="virus1"/>
-				<startTile x="16" y="0" />
-				<health>50</health>
-				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
-				<deathEffect name="ExplosionBig"/>
-				<task type="RepeatingSequence">
-					<task type="Parallel">
-						<task type="StraightAngle">
-							<degree>40</degree>
-							<speed>200</speed>
-						</task>
-						<task type="RepeatingTimer">
-							<duration>0.5</duration>
-						</task>
-					</task>
-					<task type="Parallel">
-						<task type="StraightAngle">
-							<degree>140</degree>
-							<speed>200</speed>
-						</task>
-						<task type="RepeatingTimer">
-							<duration>0.5</duration>
-						</task>
-					</task>
-				</task>
-			</object>
-		</createSpawnPoint>
-		<createSpawnPoint>
-				<delay>32</delay>
-				<count>3</count>
-				<name>W2_E</name>
-				<object>
-					<height>32</height>
-					<width>32</width>
-					<radius>16</radius>
-					<texture name="virus1"/>
-					<startCenter x="608" y="-20" />
-					<health>50</health>
-					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
-					<deathEffect name="ExplosionBig"/>
-					<task type="RepeatingSequence">
-						<task type="Parallel">
-							<task type="StraightAngle">
-								<degree>140</degree>
-								<speed>200</speed>
-							</task>
-							<task type="RepeatingTimer">
-								<duration>0.5</duration>
-							</task>
-						</task>
-						<task type="Parallel">
-							<task type="StraightAngle">
-								<degree>40</degree>
-								<speed>200</speed>
-							</task>
-							<task type="RepeatingTimer">
-								<duration>0.5</duration>
-							</task>
-						</task>
-					</task>
-				</object>
-			</createSpawnPoint>
+		
 	</action>
 	<action tile="5">
 		<createShip>
@@ -2032,7 +1963,7 @@
 	</action>
 	<action tile="366">
 		<createSpawnPoint>
-			<delay>32</delay>
+			<delay>45</delay>
 			<count>3</count>
 			<name>W2_E</name>
 			<object>
@@ -2040,7 +1971,7 @@
 				<width>32</width>
 				<radius>16</radius>
 				<texture name="virus1"/>
-				<startTile x="16" y="0" />
+				<startTile x="17" y="0" />
 				<health>50</health>
 				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 				<deathEffect name="ExplosionBig"/>
@@ -2051,7 +1982,7 @@
 							<speed>200</speed>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.3</duration>
 						</task>
 					</task>
 					<task type="Parallel">
@@ -2060,14 +1991,14 @@
 							<speed>200</speed>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.3</duration>
 						</task>
 					</task>
 				</task>
 			</object>
 		</createSpawnPoint>
 		<createSpawnPoint>
-			<delay>32</delay>
+			<delay>45</delay>
 			<count>3</count>
 			<name>W2_E</name>
 			<object>
@@ -2075,7 +2006,7 @@
 				<width>32</width>
 				<radius>16</radius>
 				<texture name="virus1"/>
-				<startTile x="19" y="-1" />
+				<startCenter x="608" y="-21" />
 				<health>50</health>
 				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 				<deathEffect name="ExplosionBig"/>
@@ -2086,7 +2017,7 @@
 							<speed>200</speed>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.3</duration>
 						</task>
 					</task>
 					<task type="Parallel">
@@ -2095,12 +2026,615 @@
 							<speed>200</speed>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.3</duration>
 						</task>
 					</task>
 				</task>
 			</object>
 		</createSpawnPoint>
+	</action>
+	<action tile="368">
+		<createSpawnPoint>
+			<delay>45</delay>
+			<count>3</count>
+			<name>W2_E</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<startTile x="20" y="0" />
+				<health>50</health>
+				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+				<deathEffect name="ExplosionBig"/>
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>40</degree>
+							<speed>200</speed>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>0.3</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>140</degree>
+							<speed>200</speed>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>0.3</duration>
+						</task>
+					</task>
+				</task>
+			</object>
+		</createSpawnPoint>
+		<createSpawnPoint>
+			<delay>45</delay>
+			<count>3</count>
+			<name>W2_E</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<startCenter x="704" y="-21" />
+				<health>50</health>
+				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+				<deathEffect name="ExplosionBig"/>
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>140</degree>
+							<speed>200</speed>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>0.3</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>40</degree>
+							<speed>200</speed>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>0.3</duration>
+						</task>
+					</task>
+				</task>
+			</object>
+		</createSpawnPoint>
+	</action>
+	<action tile="392">
+		<createSpawnPoint>
+			<delay>45</delay>
+			<count>6</count>
+			<name>W2_E</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<startTile x="12" y="0" />
+				<health>50</health>
+				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+				<deathEffect name="ExplosionBig"/>
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>40</degree>
+							<speed>200</speed>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>2.5</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>140</degree>
+							<speed>200</speed>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>2.5</duration>
+						</task>
+					</task>
+				</task>
+			</object>
+		</createSpawnPoint>
+		<createSpawnPoint>
+			<delay>45</delay>
+			<count>6</count>
+			<name>W2_E</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<startCenter x="800" y="-21" />
+				<health>50</health>
+				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+				<deathEffect name="ExplosionBig"/>
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>140</degree>
+							<speed>200</speed>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>2.5</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightAngle">
+							<degree>40</degree>
+							<speed>200</speed>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>2.5</duration>
+						</task>
+					</task>
+				</task>
+			</object>
+		</createSpawnPoint>
+	</action>
+	<action tile="416">
+		<createSpawnPoint>
+			<delay>32</delay>
+			<count>5</count>
+			<name>W4_E1</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<health>10</health>
+				<startTile x="15" y="24"/>
+				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+				<deathEffect name="ExplosionBig"/>
+				<task type="StraightVelocity">
+					<velocity x="0" y="-240"/>
+				</task>
+			</object>
+		</createSpawnPoint>
+		<createSpawnPoint>
+			<delay>32</delay>
+			<count>3</count>
+			<name>W4_E1</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<health>10</health>
+				<startTile x="17" y="0"/>
+				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+				<deathEffect name="ExplosionBig"/>
+				<task type="StraightVelocity">
+					<velocity x="0" y="180"/>
+				</task>
+			</object>
+		</createSpawnPoint>
+		<createSpawnPoint>
+			<delay>32</delay>
+			<count>5</count>
+			<name>W4_E1</name>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<health>10</health>
+				<startTile x="19" y="24"/>
+				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+				<deathEffect name="ExplosionBig"/>
+				<task type="StraightVelocity">
+					<velocity x="0" y="-240"/>
+				</task>
+			</object>
+		</createSpawnPoint>
+	</action>
+	<action tile="435">
+		<createShip>
+			<name>Enemy</name>
+			<height>50</height>
+			<width>75</width>
+			<radius>30</radius>
+			<texture name="Enemy1"/>
+			<startTile x="21" y="24"/>
+			<health>50</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<score>75</score>
+			<weapon type="Sequence" recycle="0.5">
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<initialCooldown>0.5</initialCooldown>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
+			</weapon>
+			<task type="Sequence">
+				<task type="Parallel">
+					<task type="StraightAngle">
+						<degree>-80</degree>
+						<speed>300</speed>
+					</task>
+					<task type="RotateToAngle">
+						<degree>-70</degree>
+					</task>
+					<task type="Timer">
+						<duration>2.0</duration>
+					</task>
+				</task>
+				<task type="Parallel">
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
+					<task type="Fire"/>
+				</task>
+			</task>
+		</createShip>
+		<createShip>
+			<name>Enemy</name>
+			<height>50</height>
+			<width>75</width>
+			<radius>30</radius>
+			<texture name="Enemy1"/>
+			<startTile x="12" y="24"/>
+			<health>50</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<score>75</score>
+			<weapon type="Sequence" recycle="0.5">
+				<weapon type="Straight" angle="5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<weapon type="Straight" angle="-5">
+					<delay>0.5</delay>
+					<speed>200</speed>
+					<initialCooldown>0.5</initialCooldown>
+					<shot>
+						<damage>10</damage>
+						<height>15</height>
+						<width>50</width>
+						<radius>10</radius>
+						<texture name="Shot"/>
+					</shot>
+				</weapon>
+				<delay>0.5</delay>
+			</weapon>
+			<task type="Sequence">
+				<task type="Parallel">
+					<task type="StraightAngle">
+						<degree>-110</degree>
+						<speed>300</speed>
+					</task>
+					<task type="RotateToAngle">
+						<degree>-110</degree>
+					</task>
+					<task type="Timer">
+						<duration>2</duration>
+					</task>
+				</task>
+				<task type="Parallel">
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
+					<task type="Fire"/>
+				</task>
+			</task>
+		</createShip>
+	</action>
+	<action tile="451">
+		<createShip>
+			<name>W1_E1</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="Enemy1"/>
+			<startTile x="16" y="0"/>
+			<health>30</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<grabbable>false</grabbable>
+			<weapon type="Straight" angle="0">
+				<delay>0.5</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>5</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+				<task type="Stationary"/>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+		<createShip>
+			<name>W1_E1</name>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
+			<startTile x="28" y="0"/>
+			<health>30</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Parallel">
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="-180" y="80"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1.2</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="180" y="80"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1.2</duration>
+						</task>
+					</task>
+				</task>
+			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startCenter x="320" y="50"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
+		</createShip>
+	</action>
+	<action tile="455">
+		<createShip>
+			<name>W1_E1</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="Enemy1"/>
+			<startTile x="1" y="0"/>
+			<health>30</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<grabbable>false</grabbable>
+			<weapon type="Straight" angle="0">
+				<delay>0.5</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>5</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+				<task type="Stationary"/>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+		<createShip>
+			<name>W1_E1</name>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
+			<startTile x="22" y="0"/>
+			<health>30</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Parallel">
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="180" y="80"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1.2</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="-180" y="80"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1.2</duration>
+						</task>
+					</task>
+				</task>
+			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startCenter x="320" y="50"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
+		</createShip>
+	</action>
+	<action tile="459">
+		<createShip>
+			<name>W1_E1</name>
+			<height>94</height>
+			<width>93</width>
+			<radius>46</radius>
+			<texture name="Enemy1"/>
+			<startTile x="17" y="0"/>
+			<health>30</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<grabbable>false</grabbable>
+			<weapon type="Straight" angle="0">
+				<delay>0.5</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>5</damage>
+					<height>16</height>
+					<width>16</width>
+					<radius>8</radius>
+					<blendMode>Additive</blendMode>
+					<texture name="energyball"/>
+					<animation name="energyball" fps="30"/>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+				<task type="Stationary"/>
+				<task type="Fire"/>
+			</task>
+		</createShip>
+		<createShip>
+			<name>W1_E1</name>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
+			<startTile x="28" y="0"/>
+			<health>30</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Parallel">
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="-180" y="80"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1.2</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="180" y="80"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1.2</duration>
+						</task>
+					</task>
+				</task>
+			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startCenter x="320" y="50"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
+		</createShip>
 	</action>
 	<!--
 	<action tile="600">
