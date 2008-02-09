@@ -58,11 +58,70 @@ namespace project_hook
 			}
 		}
 
-		protected String TextureName;
-		protected String TextureTag;
-		protected bool Animated = false;
-		protected String AnimationName;
-		protected int AnimationFPS;
+		protected String m_TextureName;
+		public String TextureName
+		{
+			get
+			{
+				return m_TextureName;
+			}
+			set
+			{
+				m_TextureName = value;
+			}
+		}
+
+		protected String m_TextureTag;
+		public String TextureTag
+		{
+			get
+			{
+				return m_TextureTag;
+			}
+			set
+			{
+				m_TextureTag = value;
+			}
+		}
+
+		protected bool m_Animated = false;
+		public bool Animated
+		{
+			get
+			{
+				return m_Animated;
+			}
+			set
+			{
+				m_Animated = value;
+			}
+		}
+
+		protected String m_AnimationName;
+		public String AnimationName
+		{
+			get
+			{
+				return m_AnimationName;
+			}
+			set
+			{
+				m_AnimationName = value;
+			}
+		}
+
+		protected int m_AnimationFPS;
+		public int AnimationFPS
+		{
+			get
+			{
+				return m_AnimationFPS;
+			}
+			set
+			{
+				m_AnimationFPS = value;
+			}
+		}
 
 		// This region of values control the "look" of the particle system, and should 
 		// be set by deriving particle systems in the InitializeConstants method. The
@@ -98,23 +157,6 @@ namespace project_hook
 			set
 			{
 				m_MaxNumParticles = value;
-			}
-		}
-
-		/// <summary>
-		/// this controls the texture that the particle system uses. It will be used as
-		/// an argument to ContentManager.Load.
-		/// </summary>
-		protected string m_TextureFilename;
-		public string TextureFilename
-		{
-			get
-			{
-				return m_TextureFilename;
-			}
-			set
-			{
-				m_TextureFilename = value;
 			}
 		}
 
@@ -318,7 +360,7 @@ namespace project_hook
 			TextureName = p_TextureName;
 			TextureTag = p_TextureTag;
 			Animated = true;
-			AnimationName = p_AnimationName;
+			m_AnimationName = p_AnimationName;
 			AnimationFPS = p_AnimationFPS;
 
 			howManyEffects = p_HowManyEffects;
@@ -410,7 +452,7 @@ namespace project_hook
 			{
 				p.Initialize(
 				where, velocity * direction, acceleration * direction,
-				lifetime, scale, rotationSpeed, TextureName, TextureTag, AnimationName, AnimationFPS);
+				lifetime, scale, rotationSpeed, TextureName, TextureTag, m_AnimationName, AnimationFPS);
 			}
 		}
 

@@ -18,7 +18,6 @@ namespace project_hook
 	{
 		public bool DestroyedOnCollision = true;
 
-		//protected ArrayList<Shot> blurShots;
 		public Ship m_Ship = null;
 
 		public Shot()
@@ -39,6 +38,7 @@ namespace project_hook
 			//CollisonEffect = p_Shot.CollisonEffect;
 			Color = p_Shot.Color;
 			Damage = p_Shot.Damage;
+			esps = p_Shot.esps;
 			//DamageEffect = p_Shot.DamageEffect;
 			Enabled = p_Shot.Enabled;
 			Faction = p_Shot.Faction;
@@ -73,41 +73,15 @@ namespace project_hook
 				}
 				else
 				{
-					//check for TaskSeek
-					//if (Task is TaskSeekTarget)
-					//{
-					//    createShotTrail();
-					//}
-					//else if (Task is TaskParallel)
-					//{
-					//    List<Task> subTasks = ((TaskParallel)Task).getSubTasks() as List<Task>;
-					//    foreach (Task subTask in subTasks)
-					//    {
-					//        if (subTask is TaskSeekTarget)
-					//        {
-					//            createShotTrail();
-					//            break;
-					//        }
-					//    }
-					//}
-					//else if (Task is TaskSequence)
-					//{
-					//    List<Task> subTasks = ((TaskSequence)Task).getSubTasks() as List<Task>;
-					//    foreach (Task subTask in subTasks)
-					//    {
-					//        if (subTask is TaskSeekTarget)
-					//        {
-					//            createShotTrail();
-					//            break;
-					//        }
-					//    }
-					//}
-					checkTask(Task);
+					if (m_esps != null)
+					{
+						createShotTrail();
+					}
 				}
 			}
 		}
 
-		protected void checkTask(Task t)
+		/*protected void checkTask(Task t)
 		{
 			if (t is TaskSeekTarget)
 			{
@@ -123,9 +97,40 @@ namespace project_hook
 					}
 				}
 			}
-		}
+		}*/
 
-		ExplosionSpriteParticleSystem esps;
+		private ExplosionSpriteParticleSystem m_esps;
+		public ExplosionSpriteParticleSystem esps
+		{
+			get
+			{
+				return m_esps;
+			}
+			set
+			{
+				if(value != null) {
+					m_esps = new ExplosionSpriteParticleSystem(value.Name, value.TextureName, value.TextureTag, 10);
+					esps.MinNumParticles = value.MinNumParticles;
+					esps.MaxNumParticles = value.MaxNumParticles;
+					esps.MinLifetime = value.MinLifetime;
+					esps.MaxLifetime = value.MaxLifetime;
+					esps.MinScale = value.MinScale;
+					esps.MaxScale = value.MaxScale;
+					esps.MinInitialSpeed = value.MinInitialSpeed;
+					esps.MaxInitialSpeed = value.MaxInitialSpeed;
+					esps.AnimationName = value.AnimationName;
+					esps.AnimationFPS = value.AnimationFPS;
+
+					TaskQueue EffectTask = new TaskQueue();
+					EffectTask.addTask(new TaskWait(this.CheckShip));
+					EffectTask.addTask(new TaskTimer(1f));
+					EffectTask.addTask(new TaskRemove());
+					m_esps.Task = EffectTask;
+
+					addSprite(m_esps);
+				}
+			}
+		}
 
 		private void initTrail()
 		{
@@ -150,11 +155,11 @@ namespace project_hook
 
 		protected void createShotTrail()
 		{
-			if (esps == null)
+			if (m_esps == null)
 			{
 				initTrail();
 			}
-			esps.AddParticles(this.Center);
+			m_esps.AddParticles(this.Center);
 		}
 
 		public override Boolean IsDead()
