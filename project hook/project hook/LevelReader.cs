@@ -801,11 +801,27 @@ namespace project_hook
 						p_Reader.ReadEndElement();
 					}
 
-					float offsetAngle = 0;
-					if (p_Reader.IsStartElement("offsetAngle"))
+					int offsetAngleDegrees = 0;
+					if (p_Reader.IsStartElement("offsetAngleDegrees"))
 					{
-						p_Reader.ReadStartElement("offsetAngle");
-						offsetAngle = float.Parse(p_Reader.ReadString());
+						p_Reader.ReadStartElement("offsetAngleDegrees");
+						offsetAngleDegrees = int.Parse(p_Reader.ReadString());
+						p_Reader.ReadEndElement();
+					}
+
+					bool fixedRotation = false;
+					if (p_Reader.IsStartElement("fixedRotation"))
+					{
+						p_Reader.ReadStartElement("fixedRotation");
+						fixedRotation = bool.Parse(p_Reader.ReadString());
+						p_Reader.ReadEndElement();
+					}
+
+					bool transfersDamage = false;
+					if (p_Reader.IsStartElement("transfersDamage"))
+					{
+						p_Reader.ReadStartElement("transfersDamage");
+						transfersDamage = bool.Parse(p_Reader.ReadString());
 						p_Reader.ReadEndElement();
 					}
 
@@ -814,16 +830,22 @@ namespace project_hook
 					{
 						p_Reader.ReadStartElement();
 						part = (ShipPart)readShip(p_Reader, typeof(ShipPart));
-						part.TransfersDamage = true;
+						part.TransfersDamage = transfersDamage;
 						part.ParentShip = t_Ship;
 						p_Reader.ReadEndElement();
 					}
 					if (part != null)
 					{
 						TaskParallel newTask = new TaskParallel();
-						newTask.addTask(new TaskRotateWithTarget(t_Ship));
-						newTask.addTask(new TaskRotateAroundTarget(t_Ship, offsetDistance, offsetAngle));
-						newTask.addTask(part.Task);
+						if (fixedRotation)
+						{
+							newTask.addTask(new TaskRotateWithTarget(t_Ship));
+						}
+						newTask.addTask(new TaskRotateAroundTarget(t_Ship, offsetDistance, offsetAngleDegrees));
+						if (part.Task != null)
+						{
+							newTask.addTask(part.Task);
+						}
 						part.Task = newTask;
 						t_Ship.attachSpritePart(part);
 					}

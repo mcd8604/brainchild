@@ -67,6 +67,12 @@ namespace project_hook
 			Target = p_Target;
 			OffsetDistance = p_OffsetDistance;
 		}
+		public TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance, int p_OffsetAngleDegrees)
+		{
+			Target = p_Target;
+			OffsetDistance = p_OffsetDistance;
+			OffsetAngleDegrees = p_OffsetAngleDegrees;
+		}
 		public TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance, float p_OffsetAngle)
 		{
 			Target = p_Target;

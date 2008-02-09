@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<action tile="0">
+		<loadBMP>
+			<fileName>empty.bmp</fileName>
+		</loadBMP>
+		<changeSpeed>
+			<speed>80</speed>
+		</changeSpeed>
+	</action>
+	<action tile="5">
+		<createShip>
+			<name>Boss</name>
+			<height>300</height>
+			<width>300</width>
+			<radius>150</radius>
+			<grabbable>false</grabbable>
+			<texture name="energyball" tag="0"/>
+			<startCenter x="512" y="150"/>
+			<health>3000</health>
+			<blendMode>Additive</blendMode>
+			<shield>0</shield>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<shipPart>
+				<offsetDistance>150</offsetDistance>
+				<createShip>
+					<name>boss_part1</name>
+					<height>150</height>
+					<width>150</width>
+					<radius>75</radius>
+					<grabbable>false</grabbable>
+					<texture name="energyball" tag="0"/>
+					<startCenter x="512" y="150"/>
+					<health>300</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<shipPart>
+						<offsetDistance>75</offsetDistance>
+						<createShip>
+							<name>boss_part1_subpart1</name>
+							<height>50</height>
+							<width>50</width>
+							<radius>25</radius>
+							<grabbable>false</grabbable>
+							<texture name="energyball" tag="0"/>
+							<startCenter x="512" y="150"/>
+							<health>300</health>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+						</createShip>
+					</shipPart>
+					<shipPart>
+						<offsetDistance>75</offsetDistance>
+						<offsetAngleDegrees>120</offsetAngleDegrees>
+						<createShip>
+							<name>boss_part1_subpart2</name>
+							<height>50</height>
+							<width>50</width>
+							<radius>25</radius>
+							<grabbable>false</grabbable>
+							<texture name="energyball" tag="0"/>
+							<startCenter x="512" y="150"/>
+							<health>300</health>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+						</createShip>
+					</shipPart>
+					<shipPart>
+						<offsetDistance>75</offsetDistance>
+						<offsetAngleDegrees>240</offsetAngleDegrees>
+						<createShip>
+							<name>boss_part1_subpart3</name>
+							<height>50</height>
+							<width>50</width>
+							<radius>25</radius>
+							<grabbable>false</grabbable>
+							<texture name="energyball" tag="0"/>
+							<startCenter x="512" y="150"/>
+							<health>300</health>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+						</createShip>
+					</shipPart>
+					<task type="RepeatingSequence">
+						<task type="RotateByAngle">
+							<degree>-40</degree>
+						</task>
+					</task>
+				</createShip>
+			</shipPart>
+			<shipPart>
+				<offsetDistance>150</offsetDistance>
+				<offsetAngleDegrees>120</offsetAngleDegrees>
+				<createShip>
+					<name>boss_part2</name>
+					<height>150</height>
+					<width>150</width>
+					<radius>75</radius>
+					<grabbable>false</grabbable>
+					<texture name="energyball" tag="0"/>
+					<startCenter x="512" y="150"/>
+					<health>300</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<shipPart>
+						<offsetDistance>75</offsetDistance>
+						<createShip>
+							<name>boss_part2_subpart1</name>
+							<height>50</height>
+							<width>50</width>
+							<radius>25</radius>
+							<grabbable>false</grabbable>
+							<texture name="energyball" tag="0"/>
+							<startCenter x="512" y="150"/>
+							<health>300</health>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+						</createShip>
+					</shipPart>
+					<shipPart>
+						<offsetDistance>75</offsetDistance>
+						<offsetAngleDegrees>120</offsetAngleDegrees>
+						<createShip>
+							<name>boss_part2_subpart2</name>
+							<height>50</height>
+							<width>50</width>
+							<radius>25</radius>
+							<grabbable>false</grabbable>
+							<texture name="energyball" tag="0"/>
+							<startCenter x="512" y="150"/>
+							<health>300</health>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+						</createShip>
+					</shipPart>
+					<shipPart>
+						<offsetDistance>75</offsetDistance>
+						<offsetAngleDegrees>240</offsetAngleDegrees>
+						<createShip>
+							<name>boss_part2_subpart3</name>
+							<height>50</height>
+							<width>50</width>
+							<radius>25</radius>
+							<grabbable>false</grabbable>
+							<texture name="energyball" tag="0"/>
+							<startCenter x="512" y="150"/>
+							<health>300</health>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+						</createShip>
+					</shipPart>
+					<task type="RepeatingSequence">
+						<task type="RotateByAngle">
+							<degree>-40</degree>
+						</task>
+					</task>
+				</createShip>
+			</shipPart>
+			<shipPart>
+				<offsetDistance>150</offsetDistance>
+				<offsetAngleDegrees>240</offsetAngleDegrees>
+				<createShip>
+					<name>boss_part3</name>
+					<height>150</height>
+					<width>150</width>
+					<radius>75</radius>
+					<grabbable>false</grabbable>
+					<texture name="energyball" tag="0"/>
+					<startCenter x="512" y="150"/>
+					<health>300</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<shipPart>
+						<offsetDistance>75</offsetDistance>
+						<createShip>
+							<name>boss_part3_subpart1</name>
+							<height>50</height>
+							<width>50</width>
+							<radius>25</radius>
+							<grabbable>false</grabbable>
+							<texture name="energyball" tag="0"/>
+							<startCenter x="512" y="150"/>
+							<health>300</health>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+						</createShip>
+					</shipPart>
+					<shipPart>
+						<offsetDistance>75</offsetDistance>
+						<offsetAngleDegrees>120</offsetAngleDegrees>
+						<createShip>
+							<name>boss_part3_subpart2</name>
+							<height>50</height>
+							<width>50</width>
+							<radius>25</radius>
+							<grabbable>false</grabbable>
+							<texture name="energyball" tag="0"/>
+							<startCenter x="512" y="150"/>
+							<health>300</health>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+						</createShip>
+					</shipPart>
+					<shipPart>
+						<offsetDistance>75</offsetDistance>
+						<offsetAngleDegrees>240</offsetAngleDegrees>
+						<createShip>
+							<name>boss_part3_subpart3</name>
+							<height>50</height>
+							<width>50</width>
+							<radius>25</radius>
+							<grabbable>false</grabbable>
+							<texture name="energyball" tag="0"/>
+							<startCenter x="512" y="150"/>
+							<health>300</health>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+						</createShip>
+					</shipPart>
+					<task type="RepeatingSequence">
+						<task type="RotateByAngle">
+							<degree>-40</degree>
+						</task>
+					</task>
+				</createShip>
+			</shipPart>
+			<task type="RepeatingSequence">
+				<task type="RotateByAngle">
+					<degree>20</degree>
+				</task>
+			</task>
+		</createShip>
+	</action>
+</level>
