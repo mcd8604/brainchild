@@ -647,12 +647,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Audio\HookSound.xap">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>XactImporter</Importer>
-      <Processor>XactProcessor</Processor>
-      <Name>HookSound</Name>
-    </Content>
     <Content Include="Content\Levels\Boss.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Boss</Name>
@@ -1099,6 +1093,14 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>WeaponBar</Name>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Audio\bgmusic.xap">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>XactImporter</Importer>
+      <Processor>XactProcessor</Processor>
+      <Name>bgmusic</Name>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

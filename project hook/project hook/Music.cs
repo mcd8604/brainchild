@@ -21,6 +21,7 @@ namespace project_hook
 				Cue returnVal = soundbank.GetCue(name);
 				cueTable.Add(name, returnVal);
 				returnVal.Play();
+				//soundbank.PlayCue(name);
 				return returnVal;
 			}
 			catch (ArgumentException)
@@ -34,7 +35,7 @@ namespace project_hook
 		/// </summary>
 		public static void Initialize()
 		{
-			engine = new AudioEngine("../../../Content/Audio/Win/HookSound.xgs");
+			engine = new AudioEngine("../../../Content/Audio/Win/bgmusic.xgs");
 			wavebank = new WaveBank(engine, "../../../Content/Audio/Win/Wave Bank.xwb");
 			soundbank = new SoundBank(engine, "../../../Content/Audio/Win/Sound Bank.xsb");
 		}
