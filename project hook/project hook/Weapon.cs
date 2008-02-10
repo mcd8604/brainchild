@@ -87,6 +87,7 @@ namespace project_hook
 				Fire(who);
 				m_Cooldown = m_Delay;
 				m_NextShot = (m_NextShot + 1) % m_Shots.Count;
+				//Sound.Play("fire_shot");
 			}
 		}
 

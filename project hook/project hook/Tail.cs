@@ -162,7 +162,7 @@ namespace project_hook
 
 				StateOfTail = TailState.Attacking;
 				m_LastTailAttack = 0;
-				Sound.Play("slap");
+				Sound.Play("tail_attack");
 				tailTarget.Task = null;
 
 			}
@@ -192,6 +192,7 @@ namespace project_hook
 
 				StateOfTail = Tail.TailState.Throwing;
 				m_LastTailAttack = 0;
+				Sound.Play("throw");
 			}
 		}
 

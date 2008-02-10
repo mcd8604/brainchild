@@ -135,6 +135,8 @@ namespace project_hook
 						{
 							task.AngleDegrees = 270 + MathHelper.Distance(task.AngleDegrees, 270f);
 						}
+
+						Sound.Play("bounce");
 					}
 					else
 					{
@@ -162,6 +164,7 @@ namespace project_hook
 						{
 							task.AngleDegrees = 180 - MathHelper.Distance(task.AngleDegrees, 180f);
 						}
+						Sound.Play("bounce");
 					}
 				}
 			}
