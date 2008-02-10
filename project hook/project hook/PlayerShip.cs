@@ -17,6 +17,7 @@ namespace project_hook
 	{
 		List<Shot> m_Upgrades;
 		List<int> m_UpgradeReqs;
+        List<List<Weapon>> m_WeapUpgrades;
 
 		public const int MAX_LEVEL = 3;
 		const int MAX_SHIELD_LEVEL = 200;
@@ -60,11 +61,18 @@ namespace project_hook
 		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{
+
+            m_WeapUpgrades = new List<List<Weapon>>();
+            for (int a = 0; a < MAX_LEVEL; a++)
+            {
+                m_WeapUpgrades.Add(new List<Weapon>());
+            }
+            
 			m_Upgrades = new List<Shot>();
 			m_UpgradeReqs = new List<int>();
 
 			Shot shot = new Shot();
-			shot.Name = "Player Shot";
+			shot.Name = "Player Shot1";
 			shot.Height = 20;
 			shot.Width = 20;
 			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
@@ -72,12 +80,14 @@ namespace project_hook
 			shot.Damage = 8;
 			shot.Bound = Collidable.Boundings.Circle;
 			shot.setAnimation("shot_greenball", 30);
+            Weapon new_Weap = new WeaponStraight(shot, 0.3f, 300f, (float)Math.PI/2);
 
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(100);
+           // m_WeapUpgrades[0].Add(new_Weap);
 
 			shot = new Shot();
-			shot.Name = "Player Shot";
+			shot.Name = "Player Shot2";
 			shot.Height = 24;
 			shot.Width = 24;
 			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
@@ -85,22 +95,41 @@ namespace project_hook
 			shot.Damage = 10;
 			shot.Bound = Collidable.Boundings.Circle;
 			shot.setAnimation("shot_greenball", 30);
+            new_Weap = new WeaponStraight(shot, 0.25f, 400, (float)Math.PI / 2);
 
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(200);
+           // m_WeapUpgrades[1].Add(new_Weap);
 
-			shot = new Shot();
-			shot.Name = "Player Shot";
-			shot.Height = 28;
-			shot.Width = 28;
-			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
-			shot.Radius = 14;
-			shot.Damage = 12;
-			shot.Bound = Collidable.Boundings.Circle;
-			shot.setAnimation("shot_greenball", 30);
+			Shot shot1 = new Shot();
+            shot1.Name = "Player Side Shot";
+            shot1.Height = 10;
+            shot1.Width = 30;
+            shot1.Texture = TextureLibrary.getGameTexture("Shot", "");
+            shot1.Radius = 10;
+            shot1.Damage = 0.5f;
+            shot1.Bound = Collidable.Boundings.Circle;
+          //  shot1.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
+           // shot1.setAnimation("shot_electric", 30);
+            new_Weap = new WeaponStraight(shot1, 0.2f, 500, (float) Math.PI);
+            m_WeapUpgrades[0].Add(new_Weap);
 
-			m_Upgrades.Add(shot);
-			m_UpgradeReqs.Add(300);
+            shot1 = new Shot();
+            shot1.Name = "Player Side Shot";
+            shot1.Height = 10;
+            shot1.Width = 30;
+            shot1.Texture = TextureLibrary.getGameTexture("Shot", "");
+            shot1.Radius = 10;
+            shot1.Damage = 0.5f;
+            shot1.Bound = Collidable.Boundings.Circle;
+         //   shot1.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
+          //  shot1.setAnimation("shot_electric", 30);
+            
+            new_Weap = new WeaponStraight(shot1, 0.2f, 500, 0);
+            m_WeapUpgrades[0].Add(new_Weap);
+
+            //this.addWeapon(new_Weap);
+            //this.addWeapon(new_Weap2);
 
 		}
 
@@ -152,12 +181,14 @@ namespace project_hook
 				if (cur != prev)
 				{
 					cur = prev;
-					foreach (Weapon w in Weapons)
+
+                   // Weapons.Clear();
+                    //Weapons = m_WeapUpgrades[cur];
+
+                    foreach (Weapon w in m_WeapUpgrades[cur])
 					{
-						foreach (Shot s in w.changeShotType(m_Upgrades[cur]))
-						{
-							addSprite(s);
-						}
+                        addWeapon(w);
+						
 					}
 				}
 			}

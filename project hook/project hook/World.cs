@@ -457,6 +457,11 @@ namespace project_hook
 				}
 
 #if DEBUG
+                if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
+				{
+                    PowerUp p = new PowerUp(50, 50, PowerUp.PowerType.Weapon, m_Player.PlayerShip.Position);
+                    m_SpriteList.Add(p);
+				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
 					if (Music.IsPlaying("bg1"))
