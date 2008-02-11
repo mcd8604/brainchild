@@ -3343,7 +3343,7 @@
 	</action>
 	<action tile="600">
 		<changeFile>
-			<fileName>Boss.xml</fileName>
+			<fileName>Gate3.xml</fileName>
 		</changeFile>
 	</action>
 </level>
