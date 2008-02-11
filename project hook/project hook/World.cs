@@ -14,6 +14,14 @@ namespace project_hook
 		private List<Sprite> m_SpriteList;  // Alpha sprites
 		private List<Sprite> m_SpriteListA; // Additive Sprites;
 
+        public List<Sprite> getSpriteList()
+        {
+            List<Sprite> l =  new List<Sprite>();
+            l.AddRange(m_SpriteList.GetRange(0, m_SpriteList.Count));
+            l.AddRange(m_SpriteListA.GetRange(0, m_SpriteListA.Count));
+            return l;
+        }
+
 		private YScrollingBackground m_Background;
 
 
@@ -131,6 +139,8 @@ namespace project_hook
 
 		Random m_RanX = new Random();
 
+        public static World m_World;
+
 #if DEBUG
 
 		TextSprite listsize = new TextSprite("", new Vector2(100, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
@@ -163,6 +173,7 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
+            m_World = this;
 		}
 
 		//This method will load the level
@@ -211,6 +222,7 @@ namespace project_hook
 		//This will deallocate any variables that need de allocation
 		public void unload()
 		{
+            m_World = null;
 		}
 
 		// private to update method
@@ -457,6 +469,11 @@ namespace project_hook
 				}
 
 #if DEBUG
+                if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.L))
+				{
+                    PowerUp p = new PowerUp(50, 50, PowerUp.PowerType.Weapon, m_Player.PlayerShip.Position);
+                    m_SpriteList.Add(p);
+				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
 					if (Music.IsPlaying("bg1"))
@@ -697,6 +714,7 @@ namespace project_hook
 			if (m_Background == null)
 			{
 				m_Background = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
+                
 			}
 			AddSprite(m_Background);
 		}
@@ -723,7 +741,11 @@ namespace project_hook
 					Sprite tailBodySprite = new Sprite("tail_segment", Vector2.Zero, 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.5f;
-					tailBodySprite.BlendMode = SpriteBlendMode.AlphaBlend;
+					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
+                    tailBodySprite.setAnimation("Explosion", 30);
+                    tailBodySprite.Animation.StartAnimation();
+
+                    tailBodySprite.Animation.CurrentFrame = i % 30;
 					m_TailBodySprites.Add(tailBodySprite);
 				}
 				else
@@ -731,7 +753,10 @@ namespace project_hook
 					Sprite tailBodySprite = new Sprite("shot_energy", Vector2.Zero, 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.2f;
-					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
+                    tailBodySprite.BlendMode = SpriteBlendMode.Additive;
+                    tailBodySprite.setAnimation("energyball", 30);
+                    tailBodySprite.Animation.CurrentFrame = i % 30;
+                    tailBodySprite.Animation.StartAnimation();
 					m_TailBodySprites.Add(tailBodySprite);
 				}
 
