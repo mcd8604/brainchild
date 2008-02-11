@@ -20,6 +20,7 @@ namespace project_hook
 			m_MenuItemNames.Add("Toggle Fullscreen");
 			m_MenuItemNames.Add("Toggle Music");
 			m_MenuItemNames.Add("Toggle SFX");
+			m_MenuItemNames.Add("Primary on rightclick");
 			m_MenuItemNames.Add("Main Menu");
 		}
 
@@ -48,6 +49,11 @@ namespace project_hook
 			}
 
 			if (m_selectedIndex == 3)
+			{
+				World.setPrimaryRight();
+			}
+
+			if (m_selectedIndex == 4)
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.Main);
 			}
