@@ -12,15 +12,29 @@ namespace project_hook
 		private static AudioEngine engine;
 		private static WaveBank wavebank;
 		private static SoundBank soundbank;
+		private static Boolean playSound = true;
 
 		public static void Play(string name)
 		{
-			soundbank.PlayCue(name);
+			if (playSound)
+			{
+				soundbank.PlayCue(name);
+			}
 		}
 
+		public static void setPlaySound()
+		{
+			if (playSound)
+			{
+				playSound = false;
+			} else {
+				playSound = true;
+			}
+		}
 		/// <summary>
 		/// Starts up the sound code
-		/// </summary>
+		/// </summary> 
+
 		public static void Initialize()
 		{
 			engine = new AudioEngine("../../../Content/Audio/Win/bgmusic.xgs");

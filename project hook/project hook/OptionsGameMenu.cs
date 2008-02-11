@@ -18,6 +18,8 @@ namespace project_hook
 
 			usingTextSprite = true;
 			m_MenuItemNames.Add("Toggle Fullscreen");
+			m_MenuItemNames.Add("Toggle Music");
+			m_MenuItemNames.Add("Toggle SFX");
 			m_MenuItemNames.Add("Back");
 		}
 
@@ -29,6 +31,24 @@ namespace project_hook
 			}
 
 			if (m_selectedIndex == 1)
+			{
+				Music.setPlaySound(true);
+				if (Music.IsPlaying("bg1"))
+				{
+					Music.Stop("bg1");
+				}
+				else
+				{
+					Music.Play("bg1");
+				}
+			}
+
+			if (m_selectedIndex == 2)
+			{
+				Sound.setPlaySound();
+			}
+
+			if (m_selectedIndex == 3)
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.Pause);
 			}

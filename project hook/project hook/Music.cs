@@ -13,6 +13,7 @@ namespace project_hook
 		private static WaveBank wavebank;
 		private static SoundBank soundbank;
 		private static Hashtable cueTable = new Hashtable();
+		private static Boolean playSound = true;
 
 		public static Cue Play(string name)
 		{
@@ -20,14 +21,36 @@ namespace project_hook
 			{
 				Cue returnVal = soundbank.GetCue(name);
 				cueTable.Add(name, returnVal);
-				returnVal.Play();
-				//soundbank.PlayCue(name);
+				if (playSound)
+				{
+					
+					returnVal.Play();
+					//soundbank.PlayCue(name);
+					
+				}
 				return returnVal;
 			}
 			catch (ArgumentException)
 			{
 				return null;
 			}
+		}
+
+		public static void setPlaySound(Boolean p)
+		{
+			if (p)
+			{
+				playSound = true;
+			}
+			else
+			{
+				playSound = false;
+			}
+		}
+
+		public static Boolean getPlaySound()
+		{
+			return playSound;
 		}
 
 		/// <summary>
