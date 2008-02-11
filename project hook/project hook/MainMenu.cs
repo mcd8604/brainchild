@@ -19,8 +19,8 @@ namespace project_hook
 			//m_MenuItemNames.Add("menu_quit");
 
 			usingTextSprite = true;
-			m_MenuItemNames.Add("Start");
 			m_MenuItemNames.Add("Instructions");
+			m_MenuItemNames.Add("Start");
 			m_MenuItemNames.Add("Options");
 			m_MenuItemNames.Add("Quit");
 		}
@@ -29,13 +29,13 @@ namespace project_hook
 		{
 			if (m_selectedIndex == 0)
 			{
-				World.CreateWorld = true;
-				Menus.setCurrentMenu(Menus.MenuScreens.None);
+				Menus.setCurrentMenu(Menus.MenuScreens.Instructions1);
 			}
 
 			if (m_selectedIndex == 1)
-			{
-				Menus.setCurrentMenu(Menus.MenuScreens.Instructions1);
+			{		
+				World.CreateWorld = true;
+				Menus.setCurrentMenu(Menus.MenuScreens.None);
 			}
 
 			if (m_selectedIndex == 2)
