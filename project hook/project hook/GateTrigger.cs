@@ -33,6 +33,19 @@ namespace project_hook
 			}
 		}
 
+		protected bool m_EndGate = true;
+		public bool EndGate
+		{
+			get 
+			{ 
+				return m_EndGate; 
+			}
+			set
+			{
+				m_EndGate = value;
+			}
+		}
+
 		public GateTrigger()
 		{
 		}
@@ -53,7 +66,10 @@ namespace project_hook
 			if (World.Position.Speed == 0 && p_Other.Faction == Factions.Player && !(p_Other is Tail))
 			{
 				base.RegisterCollision(p_Other);
-				World.Position.setSpeed(80);
+				if (m_EndGate)
+				{
+					World.Position.setSpeed(80);
+				}
 				m_Gate.Enabled = false;
 				m_Gate.ToBeRemoved = true;
 				m_Wall.Enabled = false;
