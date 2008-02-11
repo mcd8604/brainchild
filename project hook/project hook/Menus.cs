@@ -78,8 +78,8 @@ namespace project_hook
 			TextureLibrary.LoadTexture("menu_Title");
 			TextureLibrary.LoadTexture("virus");
 			TextureLibrary.LoadTexture("Instructions1");
-			//TextureLibrary.LoadTexture("instructions2");
-			//TextureLibrary.LoadTexture("instructions3");
+			TextureLibrary.LoadTexture("Instructions2");
+			//TextureLibrary.LoadTexture("Instructions3");
 			TextureLibrary.LoadTexture("crosshairs");
 		}
 
