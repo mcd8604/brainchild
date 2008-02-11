@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<action tile="0">
+		<loadBMP>
+			<fileName>gate3.bmp</fileName>
+		</loadBMP>
+		<changeSpeed>
+			<speed>80</speed>
+		</changeSpeed>
+	</action>
+	<action tile="10">
+		<createGate>
+			<gate>
+				<name>gate3_1</name>
+				<height>96</height>
+				<width>160</width>
+				<texture name="gate"/>
+				<startTile x="22" y="-2"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</gate>
+			<trigger>
+				<name>gate3_1T</name>
+				<height>32</height>
+				<width>64</width>
+				<texture name="trigger" pos="0"/>
+				<startCenter x="480" y="-48"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</trigger>
+			<wall>
+				<name>gate3_1B</name>
+				<height>32</height>
+				<width>224</width>
+				<faction>ClearWall</faction>
+				<texture name="walls\plaque_clear"/>
+				<startTile x="1" y="0"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</wall>
+		</createGate>
+	</action>
+	<action tile="24">
+		<changeSpeed>
+			<speed>0</speed>
+		</changeSpeed>
+	</action>
+	<action tile="37">
+		<createGate>
+			<gate>
+				<name>gate3_2L</name>
+				<height>96</height>
+				<width>160</width>
+				<texture name="gate"/>
+				<startTile x="11" y="-9"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</gate>
+			<trigger>
+				<name>gate3_2LT</name>
+				<height>32</height>
+				<width>64</width>
+				<texture name="trigger" pos="0"/>
+				<startCenter x="112" y="-144"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+				<endGate>false</endGate>
+			</trigger>
+			<wall>
+				<name>gate3_2LB</name>
+				<height>64</height>
+				<width>160</width>
+				<faction>ClearWall</faction>
+				<texture name="walls\plaque_clear"/>
+				<startTile x="6" y="-6"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</wall>
+		</createGate>
+		<createGate>
+			<gate>
+				<name>gate3_2L</name>
+				<height>96</height>
+				<width>160</width>
+				<texture name="gate"/>
+				<startTile x="16" y="-9"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</gate>
+			<trigger>
+				<name>gate3_2LT</name>
+				<height>64</height>
+				<width>32</width>
+				<texture name="trigger" pos="0"/>
+				<startCenter x="816" y="-176"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+				<endGate>false</endGate>
+			</trigger>
+			<wall>
+				<name>gate3_2LB</name>
+				<height>96</height>
+				<width>64</width>
+				<faction>ClearWall</faction>
+				<texture name="walls\plaque_clear"/>
+				<startTile x="25" y="-3"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+			</wall>
+		</createGate>
+	</action>
+	<action tile="54">
+		<changeSpeed>
+			<speed>0</speed>
+		</changeSpeed>
+	</action>
+</level>

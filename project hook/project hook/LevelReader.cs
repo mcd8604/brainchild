@@ -360,6 +360,12 @@ namespace project_hook
 					p_Trigger.Name = p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
+				else if (p_Reader.IsStartElement("endGate"))
+				{
+					p_Reader.ReadStartElement();
+					p_Trigger.EndGate = bool.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
 				else if (p_Reader.IsStartElement("startPos"))
 				{
 					p_Trigger.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
