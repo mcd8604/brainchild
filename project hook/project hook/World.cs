@@ -222,7 +222,7 @@ namespace project_hook
 		//This will deallocate any variables that need de allocation
 		public void unload()
 		{
-            m_World = null;
+            //m_World = null;
 		}
 
 		// private to update method
