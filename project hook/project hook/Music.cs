@@ -19,11 +19,11 @@ namespace project_hook
 		{
 			try
 			{
-				Cue returnVal = soundbank.GetCue(name);
-				cueTable.Add(name, returnVal);
+				Cue returnVal = null;
 				if (playSound)
 				{
-					
+					returnVal = soundbank.GetCue(name);
+					cueTable.Add(name, returnVal);
 					returnVal.Play();
 					//soundbank.PlayCue(name);
 					
