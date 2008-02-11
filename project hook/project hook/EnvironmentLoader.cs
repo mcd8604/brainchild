@@ -154,14 +154,19 @@ namespace project_hook
 		/// <summary>
 		/// Request the EnvironmentLoader to begin loading the given file in the background.
 		/// Due to threading, calling this method more than once in a given time period will not result in productive behavior.
+		/// 
+		/// Actual Timing Data:
+		/// On my home Computer, this method always returns in less than 1 milliseconds.
 		/// </summary>
-		/// <param name="p_FileName"></param>
+		/// <param name="p_FileName">The Absolute FileName</param>
 		public void PleaseLoadNextFile(String p_FileName)
 		{
+#if DEBUG
 			if (m_NextLevel != null)
 			{
 				throw new Exception("Possible Exception in PleaseLoadNextFile?");
 			}
+#endif
 			m_NextLevel = new Level(p_FileName);
 			lock (this) System.Threading.Monitor.Pulse(this);
 		}
@@ -188,8 +193,12 @@ namespace project_hook
 		/// <summary>
 		/// Request the EnvironmentLoader to immediately begin reading environment information from the given file.
 		/// If PleaseLoadNextFile has previously been called with the same filename, this transition will be almost instant.
+		/// 
+		/// Actual Timing Data:
+		/// On my home Computer, this method took 30 milliseconds to read in Level3.bmp;
+		/// If PleaseLoadNextfile was called in advance, it takes less than 1 milliseconds.
 		/// </summary>
-		/// <param name="p_FileName"></param>
+		/// <param name="p_FileName">The Absolute Filename</param>
 		public void NewFile(String p_FileName)
 		{
 			if (m_CurrentLevel == null || p_FileName != m_CurrentLevel.LevelName)
