@@ -44,6 +44,10 @@ namespace project_hook
 			Main,
 			Pause,
 			Options,
+			OptionsGame,
+			Instructions1,
+			Instructions2,
+			Instructions3,
 			Loading,
 			Start,
 			None,
@@ -73,6 +77,9 @@ namespace project_hook
 			TextureLibrary.LoadTexture("RITLogo");
 			TextureLibrary.LoadTexture("menu_Title");
 			TextureLibrary.LoadTexture("virus");
+			TextureLibrary.LoadTexture("Instructions1");
+			//TextureLibrary.LoadTexture("instructions2");
+			//TextureLibrary.LoadTexture("instructions3");
 			TextureLibrary.LoadTexture("crosshairs");
 		}
 
@@ -101,6 +108,31 @@ namespace project_hook
 			{
 				m_HasChanged = false;
 				return new PauseMenu();
+			}
+			else if (m_SelectedMenu == MenuScreens.Options)
+			{
+				m_HasChanged = false;
+				return new OptionsMenu();
+			}
+			else if (m_SelectedMenu == MenuScreens.OptionsGame)
+			{
+				m_HasChanged = false;
+				return new OptionsGameMenu();
+			}
+			else if (m_SelectedMenu == MenuScreens.Instructions1)
+			{
+				m_HasChanged = false;
+				return new Instructions1();
+			}
+			else if (m_SelectedMenu == MenuScreens.Instructions2)
+			{
+				m_HasChanged = false;
+				return new Instructions2();
+			}
+			else if (m_SelectedMenu == MenuScreens.Instructions3)
+			{
+				m_HasChanged = false;
+				return new Instructions3();
 			}
 			else if (m_SelectedMenu == MenuScreens.Title)
 			{
