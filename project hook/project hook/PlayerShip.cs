@@ -125,16 +125,16 @@ namespace project_hook
             //Level 2
             //*********************************************************************
 			shot = new Shot();
-			shot.Name = "Player Back Shot";
-			shot.Height = 24;
-			shot.Width = 24;
+			shot.Name = "Player Homing Shot";
+			shot.Height = 40;
+			shot.Width = 40;
 			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
-			shot.Radius = 12;
-            shot.Damage = 0.5f ;
+			shot.Radius = 20;
+            shot.Damage = 10.0f ;
 			shot.Bound = Collidable.Boundings.Circle;
-			shot.setAnimation("Explosion2", 30);
+			shot.setAnimation("shot_electric", 30);
             shot.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
-            new_Weap = new WeaponSeekChangingTarget(shot, 0.01f, 500,Collidable.Factions.Enemy);
+            new_Weap = new WeaponSeekChangingTarget(shot, 1f, 300,Collidable.Factions.Enemy);
 
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(200);
