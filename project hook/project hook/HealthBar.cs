@@ -21,11 +21,11 @@ namespace project_hook
         int width;
         int height;
         Vector2 offset;
-        bool attach = false;
+      //  bool attach = false;
 
         public HealthBar(Collidable p_Ship) {
             m_Target = p_Ship;
-            attach = true;
+          //  attach = true;
             TaskAttach t = new TaskAttach(m_Target);
             this.Task = t;
             

@@ -18,8 +18,8 @@ namespace project_hook
      
         int width;
         int height;
-        Vector2 offset;
-        bool attach = false;
+      //  Vector2 offset;
+      //  bool attach = false;
 
      
 
