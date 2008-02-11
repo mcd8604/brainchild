@@ -59,7 +59,7 @@ namespace project_hook
 			}
 		}
 
-		public WeaponComplex() {}
+		public WeaponComplex() { }
 
 		public WeaponComplex(Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
 			: base(p_Shot, p_Delay, p_Speed)
@@ -69,7 +69,6 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
-			base.Fire(who);
 			if (m_Shots[m_NextShot].Task == null)
 			{
 				m_Shots[m_NextShot].Task = m_ShotTask.copy();

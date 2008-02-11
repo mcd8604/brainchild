@@ -85,19 +85,17 @@ namespace project_hook
 			if (m_Cooldown <= 0)
 			{
 				Fire(who);
+				if (who.ShootAnimation != null)
+				{
+					who.ShootAnimation.StartAnimation();
+				}
 				m_Cooldown = m_Delay;
 				m_NextShot = (m_NextShot + 1) % m_Shots.Count;
 				//Sound.Play("fire_shot");
 			}
 		}
 
-		public virtual void Fire(Ship who)
-		{
-			if (who.ShootAnimation != null)
-			{
-				who.ShootAnimation.StartAnimation();
-			}
-		}
+		public abstract void Fire(Ship who);
 
 		public void Update(GameTime p_Time)
 		{
