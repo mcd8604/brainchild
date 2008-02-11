@@ -9,6 +9,9 @@ namespace project_hook
     {
 
         private Collidable.Factions m_Faction;
+		private Sprite noTarget;
+		private List<Sprite> pos;
+		Random r;
 
         public Collidable.Factions Faction
         {
@@ -22,13 +25,16 @@ namespace project_hook
 			: base(p_Shot, p_Delay, p_Speed)
 		{
             m_Faction = factionToFind;
+			pos = new List<Sprite>();
+			noTarget = new Sprite();
+			r = new Random();
 		}
         
         public override void Fire(Ship who)
         {
             List<Sprite> list = World.m_World.getSpriteList();
 
-            List<Sprite> pos = new List<Sprite>();
+            pos.Clear();
 
             for (int a = 0; a < list.Count; a ++ )
             {
@@ -44,14 +50,16 @@ namespace project_hook
 
             if (pos.Count == 0)
             {
-                Target = new Sprite();
-                Target.Position = new Vector2(512, 0);
+				Target = noTarget;
+				float x = who.Center.X;
+				Vector2 vect = Target.Center;
+				vect.X = x;
+				Target.Center = vect;
             }
             else
             {
-                Random r = new Random();
-                int rt = r.Next(pos.Count);
-                Target = pos[rt];
+                int index = r.Next(pos.Count);
+				Target = pos[index];
             }
             base.Fire(who);
         }

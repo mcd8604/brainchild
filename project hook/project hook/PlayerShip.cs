@@ -61,7 +61,7 @@ namespace project_hook
 		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{
-
+			cur = -1;
            
 
             m_WeapUpgrades = new List<List<Weapon>>();
@@ -115,7 +115,6 @@ namespace project_hook
             shot1.Bound = Collidable.Boundings.Circle;
             //   shot1.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
             //  shot1.setAnimation("shot_electric", 30);
-
             new_Weap = new WeaponStraight(shot1, 0.2f, 500, 0);
             m_WeapUpgrades[0].Add(new_Weap);
 
@@ -130,11 +129,11 @@ namespace project_hook
 			shot.Width = 40;
 			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
 			shot.Radius = 20;
-            shot.Damage = 10.0f ;
+            shot.Damage = 7.0f ;
 			shot.Bound = Collidable.Boundings.Circle;
 			shot.setAnimation("shot_electric", 30);
             shot.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
-            new_Weap = new WeaponSeekChangingTarget(shot, 1f, 300,Collidable.Factions.Enemy);
+            new_Weap = new WeaponSeekChangingTarget(shot, 1.5f, 300,Collidable.Factions.Enemy);
 
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(200);
@@ -203,7 +202,7 @@ namespace project_hook
                     {
                         foreach (Shot s in w.m_Shots)
                         {
-                                                        s.Damage += s.Damage * 0.2f;
+							s.Damage += s.Damage * 0.2f;
                         }
                         
                         //w.changeShotType(s);
@@ -213,7 +212,6 @@ namespace project_hook
                     foreach (Weapon w in m_WeapUpgrades[cur])
 					{
                         addWeapon(w);
-						
 					}
 				}
 			}
@@ -230,6 +228,25 @@ namespace project_hook
 				m_MaxShield += SHIELD_INC_AMOUNT;
 				m_Shield += SHIELD_INC_AMOUNT;
 			}
+		}
+
+		public void  ResetWeapons(){
+			cur = -1;
+			
+			Weapons.Clear();
+
+			Shot shot = new Shot();
+			shot.Name = "Player Shot";
+			shot.Height = 16;
+			shot.Width = 16;
+			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
+			shot.Radius = 8;
+			shot.Damage = 4;
+			shot.Bound = Collidable.Boundings.Circle;
+			shot.setAnimation("shot_greenball", 30);
+
+			Weapon wep = new WeaponStraight(shot, 0.30f, 400, -MathHelper.PiOver2);
+			this.addWeapon(wep);
 		}
 
 		public string getUpgradeLevel()
