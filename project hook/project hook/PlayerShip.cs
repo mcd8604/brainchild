@@ -62,6 +62,8 @@ namespace project_hook
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{
 
+           
+
             m_WeapUpgrades = new List<List<Weapon>>();
             for (int a = 0; a < MAX_LEVEL; a++)
             {
@@ -71,6 +73,10 @@ namespace project_hook
 			m_Upgrades = new List<Shot>();
 			m_UpgradeReqs = new List<int>();
 
+
+            //Level 1 Upgrades 
+            //***************************************************************************
+            //Player main shot
 			Shot shot = new Shot();
 			shot.Name = "Player Shot1";
 			shot.Height = 20;
@@ -82,54 +88,63 @@ namespace project_hook
 			shot.setAnimation("shot_greenball", 30);
             Weapon new_Weap = new WeaponStraight(shot, 0.3f, 300f, (float)Math.PI/2);
 
+            //Side Shot left
 			m_Upgrades.Add(shot);
 			m_UpgradeReqs.Add(100);
-           // m_WeapUpgrades[0].Add(new_Weap);
-
-			shot = new Shot();
-			shot.Name = "Player Shot2";
-			shot.Height = 24;
-			shot.Width = 24;
-			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
-			shot.Radius = 12;
-			shot.Damage = 10;
-			shot.Bound = Collidable.Boundings.Circle;
-			shot.setAnimation("shot_greenball", 30);
-            new_Weap = new WeaponStraight(shot, 0.25f, 400, (float)Math.PI / 2);
-
-			m_Upgrades.Add(shot);
-			m_UpgradeReqs.Add(200);
-           // m_WeapUpgrades[1].Add(new_Weap);
-
-			Shot shot1 = new Shot();
+            Shot shot1 = new Shot();
             shot1.Name = "Player Side Shot";
             shot1.Height = 10;
             shot1.Width = 30;
             shot1.Texture = TextureLibrary.getGameTexture("Shot", "");
             shot1.Radius = 10;
-            shot1.Damage = 0.5f;
+            shot1.Damage = 1.0f;
             shot1.Bound = Collidable.Boundings.Circle;
-          //  shot1.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
-           // shot1.setAnimation("shot_electric", 30);
-            new_Weap = new WeaponStraight(shot1, 0.2f, 500, (float) Math.PI);
+            //  shot1.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
+            // shot1.setAnimation("shot_electric", 30);
+            new_Weap = new WeaponStraight(shot1, 0.2f, 500, (float)Math.PI);
             m_WeapUpgrades[0].Add(new_Weap);
 
+            //Side Shot right
             shot1 = new Shot();
             shot1.Name = "Player Side Shot";
             shot1.Height = 10;
             shot1.Width = 30;
             shot1.Texture = TextureLibrary.getGameTexture("Shot", "");
             shot1.Radius = 10;
-            shot1.Damage = 0.5f;
+            shot1.Damage = 1.0f;
             shot1.Bound = Collidable.Boundings.Circle;
-         //   shot1.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
-          //  shot1.setAnimation("shot_electric", 30);
-            
+            //   shot1.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
+            //  shot1.setAnimation("shot_electric", 30);
+
             new_Weap = new WeaponStraight(shot1, 0.2f, 500, 0);
             m_WeapUpgrades[0].Add(new_Weap);
 
-            //this.addWeapon(new_Weap);
-            //this.addWeapon(new_Weap2);
+
+           // m_WeapUpgrades[0].Add(new_Weap);
+
+            //Level 2
+            //*********************************************************************
+			shot = new Shot();
+			shot.Name = "Player Back Shot";
+			shot.Height = 24;
+			shot.Width = 24;
+			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
+			shot.Radius = 12;
+            shot.Damage = 0.5f ;
+			shot.Bound = Collidable.Boundings.Circle;
+			shot.setAnimation("Explosion2", 30);
+            shot.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
+            new_Weap = new WeaponSeekChangingTarget(shot, 0.01f, 500,Collidable.Factions.Enemy);
+
+			m_Upgrades.Add(shot);
+			m_UpgradeReqs.Add(200);
+            m_WeapUpgrades[1].Add(new_Weap);            
+
+   
+           // m_WeapUpgrades[1].Add(new_Weap);
+
+            //Level 3
+            //*********************************************************************
 
 		}
 
@@ -181,10 +196,20 @@ namespace project_hook
 				if (cur != prev)
 				{
 					cur = prev;
-
+                    
                    // Weapons.Clear();
                     //Weapons = m_WeapUpgrades[cur];
-
+                    foreach (Weapon w in Weapons)
+                    {
+                        foreach (Shot s in w.m_Shots)
+                        {
+                                                        s.Damage += s.Damage * 0.2f;
+                        }
+                        
+                        //w.changeShotType(s);
+                        w.Speed += w.Speed * 0.1f;
+                        //w.Delay -= w.Delay * 0.2f;
+                    }
                     foreach (Weapon w in m_WeapUpgrades[cur])
 					{
                         addWeapon(w);
