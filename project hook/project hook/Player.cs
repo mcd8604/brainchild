@@ -132,7 +132,8 @@ namespace project_hook
 			m_PlayerShip.setDamageEffect("Explosion", "3", "Explosion", 23);
 			m_PlayerShip.setShieldDamageEffect("Explosion2", "3", "Explosion2", 23);
 			m_PlayerShip.setDeathEffect("ExplosionBig", "");
-
+			m_PlayerShip.ResetWeapons();
+			/*
 			Shot shot = new Shot();
 			shot.Name = "Player Shot";
 			shot.Height = 16;
@@ -145,7 +146,10 @@ namespace project_hook
 
 			Weapon wep = new WeaponStraight(shot, 0.30f, 400, -MathHelper.PiOver2);
 			m_PlayerShip.addWeapon(wep);
+			 * */
 		}
+
+		
 
 		public void reset()
 		{
@@ -156,6 +160,8 @@ namespace project_hook
 			m_PlayerShip.UpgradeLevel = 0;
 			m_PlayerShip.Enabled = true;
 			m_PlayerShip.ToBeRemoved = false;
+			m_PlayerShip.ResetWeapons();
+
 			foreach (Weapon w in m_PlayerShip.Weapons)
 			{
 				foreach (Shot s in w.m_Shots)
