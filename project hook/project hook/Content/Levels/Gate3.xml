@@ -114,4 +114,9 @@
 			<speed>0</speed>
 		</changeSpeed>
 	</action>
+	<action tile="55">
+		<changeFile>
+			<fileName>Boss.xml</fileName>
+		</changeFile>
+	</action>
 </level>
