@@ -2,13 +2,13 @@
 <level>
 	<action tile="0">
 		<loadBMP>
-			<fileName>empty.bmp</fileName>
+			<fileName>boss.bmp</fileName>
 		</loadBMP>
 		<changeSpeed>
 			<speed>80</speed>
 		</changeSpeed>
 	</action>
-	<action tile="5">
+	<action tile="20">
 		<createShip>
 			<name>Boss</name>
 			<height>300</height>
@@ -16,7 +16,7 @@
 			<radius>150</radius>
 			<grabbable>false</grabbable>
 			<texture name="energyball" tag="0"/>
-			<startCenter x="512" y="150"/>
+			<startCenter x="512" y="-150"/>
 			<health>3000</health>
 			<blendMode>Additive</blendMode>
 			<shield>0</shield>
@@ -214,10 +214,23 @@
 				</createShip>
 			</shipPart>
 			<task type="RepeatingSequence">
-				<task type="RotateByAngle">
-					<degree>20</degree>
-				</task>
+				<task type="Parallel">
+					<task type="Stationary"/>
+					<task type="RotateByAngle">
+						<degree>20</degree>
+					</task>
+				</task>				
 			</task>
 		</createShip>
+	</action>
+	<action tile="32">
+		<changeSpeed>
+			<speed>0</speed>
+		</changeSpeed>
+	</action>
+	<action tile="40">
+		<changeFile>
+			<fileName>Escape.xml</fileName>
+		</changeFile>
 	</action>
 </level>

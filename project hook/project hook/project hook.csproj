@@ -703,6 +703,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>gate3</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\level1.bmp">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
@@ -1117,6 +1118,35 @@
       <Importer>XactImporter</Importer>
       <Processor>XactProcessor</Processor>
       <Name>bgmusic</Name>
+    </Content>
+    <Content Include="Content\Levels\boss.bmp">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>boss</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\Boss.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Boss</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\escape.bmp">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>escape</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\Escape.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Escape</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\Gate3.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Gate3</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Instructions1.PNG">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>

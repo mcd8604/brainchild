@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<action tile="0">
+		<loadBMP>
+			<fileName>escape.bmp</fileName>
+		</loadBMP>
+		<changeSpeed>
+			<speed>700</speed>
+		</changeSpeed>
+	</action>
+</level>
