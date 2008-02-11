@@ -62,10 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bar.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Bar</Name>
-    </Compile>
     <Compile Include="Boss.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Boss</Name>
