@@ -10,10 +10,11 @@ namespace project_hook
 	/// List of Actions to which keys may be bound and states queried.
 	/// </summary>
 	public enum Actions { Up, Down, Left, Right, ShipPrimary, ShipSecondary, TailPrimary, TailSecondary, Pause, MenuAccept, MenuBack };
-
-	public enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
-
+#if XBOX360
 	public enum GamePadButtons { Up, Down, Left, Right, A, B, Back, LeftShoulder, LeftStick, RightShoulder, RightStick, Start, X, Y };
+#else
+	public enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
+#endif
 
 	public static class InputHandler
 	{
@@ -21,14 +22,15 @@ namespace project_hook
 		private static KeyboardState lastKeyboardState = new KeyboardState();
 		private static KeyboardState thisKeyboardState = new KeyboardState();
 		private static MultiDictionary<Actions, Keys> KeyboardMap = new MultiDictionary<Actions, Keys>(false);
-
-		private static MouseState lastMouseState = new MouseState();
-		private static MouseState thisMouseState = new MouseState();
-		private static MultiDictionary<Actions, MouseButtons> MouseMap = new MultiDictionary<Actions, MouseButtons>(false);
-
+#if XBOX360
 		private static GamePadState lastGamePadState = new GamePadState();
 		private static GamePadState thisGamePadState = new GamePadState();
 		private static MultiDictionary<Actions, GamePadButtons> GamePadMap = new MultiDictionary<Actions, GamePadButtons>(false);
+#else
+		private static MouseState lastMouseState = new MouseState();
+		private static MouseState thisMouseState = new MouseState();
+		private static MultiDictionary<Actions, MouseButtons> MouseMap = new MultiDictionary<Actions, MouseButtons>(false);
+#endif
 
 		public static void LoadDefaultBindings()
 		{
@@ -51,12 +53,7 @@ namespace project_hook
 			KeyboardMap.Add(Actions.MenuAccept, Keys.Enter);
 			KeyboardMap.Add(Actions.MenuBack, Keys.Back);
 			KeyboardMap.Add(Actions.MenuBack, Keys.Escape);
-
-			MouseMap.Add(Actions.TailPrimary, MouseButtons.Left);
-			MouseMap.Add(Actions.TailSecondary, MouseButtons.Right);
-			MouseMap.Add(Actions.MenuAccept, MouseButtons.Left);
-			MouseMap.Add(Actions.MenuBack, MouseButtons.Right);
-
+#if XBOX360
 			GamePadMap.Add(Actions.Down, GamePadButtons.Down);
 			GamePadMap.Add(Actions.Left, GamePadButtons.Left);
 			GamePadMap.Add(Actions.Right, GamePadButtons.Right);
@@ -66,6 +63,12 @@ namespace project_hook
 			GamePadMap.Add(Actions.Pause, GamePadButtons.Start);
 			GamePadMap.Add(Actions.MenuAccept, GamePadButtons.Start);
 			GamePadMap.Add(Actions.MenuBack, GamePadButtons.Back);
+#else
+			MouseMap.Add(Actions.TailPrimary, MouseButtons.Left);
+			MouseMap.Add(Actions.TailSecondary, MouseButtons.Right);
+			MouseMap.Add(Actions.MenuAccept, MouseButtons.Left);
+			MouseMap.Add(Actions.MenuBack, MouseButtons.Right);
+#endif
 
 		}
 
@@ -78,14 +81,17 @@ namespace project_hook
 		{
 			KeyboardMap.Add(action, key);
 		}
-		public static void AddBinding(Actions action, MouseButtons button)
-		{
-			MouseMap.Add(action, button);
-		}
+#if XBOX360
 		public static void AddBinding(Actions action, GamePadButtons button)
 		{
 			GamePadMap.Add(action, button);
 		}
+#else
+		public static void AddBinding(Actions action, MouseButtons button)
+		{
+			MouseMap.Add(action, button);
+		}
+#endif
 
 		/// <summary>
 		/// Request that the KeyHandler read the current state of the hardware devices.
@@ -94,10 +100,13 @@ namespace project_hook
 		{
 			lastKeyboardState = thisKeyboardState;
 			thisKeyboardState = Keyboard.GetState();
-			lastMouseState = thisMouseState;
-			thisMouseState = Mouse.GetState();
+#if XBOX360
 			lastGamePadState = thisGamePadState;
 			thisGamePadState = GamePad.GetState(PlayerIndex.One);
+#else
+			lastMouseState = thisMouseState;
+			thisMouseState = Mouse.GetState();
+#endif
 		}
 
 		/// <summary>
@@ -122,11 +131,23 @@ namespace project_hook
 
 		private static Boolean IsActionDownThis(Actions action)
 		{
-			return CheckState(action, thisKeyboardState) || CheckState(action, thisMouseState) || CheckState(action, thisGamePadState);
+			return CheckState(action, thisKeyboardState)
+#if XBOX360
+			|| CheckState(action, thisGamePadState)
+#else
+			|| CheckState(action, thisMouseState)
+#endif
+			;
 		}
 		private static Boolean IsActionDownLast(Actions action)
 		{
-			return CheckState(action, lastKeyboardState) || CheckState(action, lastMouseState) || CheckState(action, lastGamePadState);
+			return CheckState(action, lastKeyboardState)
+#if XBOX360
+			|| CheckState(action, lastGamePadState)
+#else
+			|| CheckState(action, lastMouseState)
+#endif
+			;
 		}
 
 		/// <summary>
@@ -165,17 +186,7 @@ namespace project_hook
 			}
 			return false;
 		}
-		private static Boolean CheckState(Actions action, MouseState state)
-		{
-			foreach (MouseButtons button in MouseMap[action])
-			{
-				if (IsButtonDown(button, state))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
+#if XBOX360
 		private static Boolean CheckState(Actions action, GamePadState state)
 		{
 			if (thisGamePadState.IsConnected)
@@ -190,25 +201,21 @@ namespace project_hook
 			}
 			return false;
 		}
-
-		private static Boolean IsButtonDown(MouseButtons button, MouseState state)
+#else
+		private static Boolean CheckState(Actions action, MouseState state)
 		{
-			switch (button)
+			foreach (MouseButtons button in MouseMap[action])
 			{
-				case MouseButtons.Left:
-					return state.LeftButton.Equals(ButtonState.Pressed);
-				case MouseButtons.Middle:
-					return state.MiddleButton.Equals(ButtonState.Pressed);
-				case MouseButtons.Right:
-					return state.RightButton.Equals(ButtonState.Pressed);
-				case MouseButtons.XButton1:
-					return state.XButton1.Equals(ButtonState.Pressed);
-				case MouseButtons.XButton2:
-					return state.XButton2.Equals(ButtonState.Pressed);
-				default:
-					return false;
+				if (IsButtonDown(button, state))
+				{
+					return true;
+				}
 			}
+			return false;
 		}
+#endif
+
+#if XBOX360
 		private static Boolean IsButtonDown(GamePadButtons button, GamePadState state)
 		{
 			switch (button)
@@ -245,20 +252,28 @@ namespace project_hook
 					return false;
 			}
 		}
-
-		public static Boolean HasMouseMoved()
+#else
+		private static Boolean IsButtonDown(MouseButtons button, MouseState state)
 		{
-			return (thisMouseState.X != lastMouseState.X) || (thisMouseState.Y != lastMouseState.Y);
-		}
-
-		public static Vector2 MousePosition
-		{
-			get
+			switch (button)
 			{
-				return new Vector2(thisMouseState.X, thisMouseState.Y);
+				case MouseButtons.Left:
+					return state.LeftButton.Equals(ButtonState.Pressed);
+				case MouseButtons.Middle:
+					return state.MiddleButton.Equals(ButtonState.Pressed);
+				case MouseButtons.Right:
+					return state.RightButton.Equals(ButtonState.Pressed);
+				case MouseButtons.XButton1:
+					return state.XButton1.Equals(ButtonState.Pressed);
+				case MouseButtons.XButton2:
+					return state.XButton2.Equals(ButtonState.Pressed);
+				default:
+					return false;
 			}
 		}
+#endif
 
+#if XBOX360
 		public static Boolean HasLeftStickMoved()
 		{
 			return thisGamePadState.ThumbSticks.Left != lastGamePadState.ThumbSticks.Left;
@@ -281,7 +296,20 @@ namespace project_hook
 				return thisGamePadState.ThumbSticks.Right;
 			}
 		}
+#else
+		public static Boolean HasMouseMoved()
+		{
+			return (thisMouseState.X != lastMouseState.X) || (thisMouseState.Y != lastMouseState.Y);
+		}
 
+		public static Vector2 MousePosition
+		{
+			get
+			{
+				return new Vector2(thisMouseState.X, thisMouseState.Y);
+			}
+		}
+#endif
 
 
 
