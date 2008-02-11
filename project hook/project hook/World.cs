@@ -13,6 +13,7 @@ namespace project_hook
 
 		private List<Sprite> m_SpriteList;  // Alpha sprites
 		private List<Sprite> m_SpriteListA; // Additive Sprites;
+		private static Boolean primaryRight = true;
 
         public List<Sprite> getSpriteList()
         {
@@ -217,6 +218,18 @@ namespace project_hook
 			m_LReader = new LevelReader(m_LReader.FileName);
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			IniDefaults();
+		}
+
+		public static void setPrimaryRight()
+		{
+			if (primaryRight)
+			{
+				primaryRight = false;
+			}
+			else
+			{
+				primaryRight = true;
+			}
 		}
 
 		//This will deallocate any variables that need de allocation
@@ -461,7 +474,10 @@ namespace project_hook
 				}
 				if (InputHandler.IsActionDown(Actions.TailSecondary))
 				{
-					m_Player.Shoot();
+					if (primaryRight)
+					{
+						m_Player.Shoot();
+					}
 					if (tail.EnemyCaught != null)
 					{
 						tail.EnemyShoot();
