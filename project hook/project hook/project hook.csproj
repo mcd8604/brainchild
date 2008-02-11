@@ -72,6 +72,26 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
+    <Compile Include="Instructions1.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Instructions1</Name>
+    </Compile>
+    <Compile Include="Instructions2.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Instructions2</Name>
+    </Compile>
+    <Compile Include="Instructions3.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Instructions3</Name>
+    </Compile>
+    <Compile Include="OptionsGameMenu.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>OptionsGameMenu</Name>
+    </Compile>
+    <Compile Include="OptionsMenu.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>OptionsMenu</Name>
+    </Compile>
     <Compile Include="Collidable.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -683,7 +703,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>gate3</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\level1.bmp">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
@@ -1099,15 +1118,11 @@
       <Processor>XactProcessor</Processor>
       <Name>bgmusic</Name>
     </Content>
-    <Content Include="Content\Levels\Gate3.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Gate3</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Levels\Boss.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Boss</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Content\Textures\Instructions1.PNG">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>Instructions1</Name>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

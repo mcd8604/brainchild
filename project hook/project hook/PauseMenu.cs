@@ -22,6 +22,7 @@ namespace project_hook
 
 			usingTextSprite = true;
 			m_MenuItemNames.Add("Resume");
+			m_MenuItemNames.Add("Options");
 			m_MenuItemNames.Add("Restart Game");
 			m_MenuItemNames.Add("Exit to Main Menu");
 			m_MenuItemNames.Add("Quit to Windows");
@@ -47,17 +48,22 @@ namespace project_hook
 
 			if (m_selectedIndex == 1)
 			{
+				Menus.setCurrentMenu(Menus.MenuScreens.OptionsGame);
+			}
+
+			if (m_selectedIndex == 2)
+			{
 				World.CreateWorld = true;
 				Menus.setCurrentMenu(Menus.MenuScreens.None);
 			}
 
-			if (m_selectedIndex == 2)
+			if (m_selectedIndex == 3)
 			{
 				World.DestroyWorld = true;
 				Menus.setCurrentMenu(Menus.MenuScreens.Main);
 			}
 
-			if (m_selectedIndex == 3)
+			if (m_selectedIndex == 4)
 			{
 				Menus.Exit = true;
 			}
