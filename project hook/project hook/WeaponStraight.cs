@@ -49,25 +49,24 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
-			base.Fire(who);
-				float thisAngle = (who.Rotation + Angle);
-				if (m_LastAngle != thisAngle || m_LastSpeed != Speed)
-				{
-					TaskParallel task = new TaskParallel();
-					task.addTask(new TaskStraightAngle(thisAngle, Speed));
-					task.addTask(new TaskRotateToAngle(thisAngle));
-					m_ShotTask = task;
+			float thisAngle = (who.Rotation + Angle);
+			if (m_LastAngle != thisAngle || m_LastSpeed != Speed)
+			{
+				TaskParallel task = new TaskParallel();
+				task.addTask(new TaskStraightAngle(thisAngle, Speed));
+				task.addTask(new TaskRotateToAngle(thisAngle));
+				m_ShotTask = task;
 
-					m_LastAngle = thisAngle;
-					m_LastSpeed = Speed;
-				}
+				m_LastAngle = thisAngle;
+				m_LastSpeed = Speed;
+			}
 
-				m_Shots[m_NextShot].Enabled = true;
-				m_Shots[m_NextShot].Center = who.Center + m_Position;
-				m_Shots[m_NextShot].Faction = who.Faction;
-				m_Shots[m_NextShot].Task = m_ShotTask;
+			m_Shots[m_NextShot].Enabled = true;
+			m_Shots[m_NextShot].Center = who.Center + m_Position;
+			m_Shots[m_NextShot].Faction = who.Faction;
+			m_Shots[m_NextShot].Task = m_ShotTask;
 
-				m_Shots[m_NextShot].m_Ship = who;
+			m_Shots[m_NextShot].m_Ship = who;
 		}
 
 	}

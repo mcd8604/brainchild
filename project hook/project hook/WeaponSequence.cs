@@ -26,6 +26,10 @@ namespace project_hook
 			if (m_Cooldown <= 0 && weapons.Count > 0)
 			{
 				weapons[currentWeapon].Fire(who);
+				if (who.ShootAnimation != null)
+				{
+					who.ShootAnimation.StartAnimation();
+				}
 				weapons[currentWeapon].m_NextShot = (weapons[currentWeapon].m_NextShot + 1) % weapons[currentWeapon].m_Shots.Count;
 				currentWeapon++;
 				if (currentWeapon >= weapons.Count)
@@ -42,7 +46,6 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
-			base.Fire(who);
 			throw new Exception("The method or operation is not implemented.");
 		}
 

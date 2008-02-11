@@ -19,7 +19,6 @@ namespace project_hook
 
 		public override void Fire(Ship who)
 		{
-			base.Fire(who);
 			m_Shots[m_NextShot].Enabled = true;
 			m_Shots[m_NextShot].Center = who.Center;
 			m_Shots[m_NextShot].Faction = who.Faction;
