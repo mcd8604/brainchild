@@ -222,8 +222,8 @@ namespace project_hook
 				Enabled = false;
 
 			}
-
-			Sound.Play("enemy_hit");
+			
+			//Sound.Play("enemy_hit");
 		}
 
 		protected void SpawnShieldDamageEffect(Vector2 where)
