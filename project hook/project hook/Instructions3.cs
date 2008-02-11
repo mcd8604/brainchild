@@ -13,7 +13,7 @@ namespace project_hook
 		public Instructions3()
 			: base()
 		{
-			m_BackgroundName = "RITLogo";
+			m_BackgroundName = "Instructions3";
 
 			m_Time = 0;
 			m_Delay = 10;
