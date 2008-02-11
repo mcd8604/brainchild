@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CHEAT TIME TEST</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -124,14 +124,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskAttachAt</Name>
     </Compile>
-    <Compile Include="TaskBlink.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TaskBlink</Name>
-    </Compile>
-    <Compile Include="TaskExplosion.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TaskExplosion</Name>
-    </Compile>
     <Compile Include="TaskIAngle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskIAngle</Name>
@@ -139,10 +131,6 @@
     <Compile Include="TaskLerpRange.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskLerpRange</Name>
-    </Compile>
-    <Compile Include="TaskProximity.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TaskProximity</Name>
     </Compile>
     <Compile Include="TaskRemove.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
