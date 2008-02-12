@@ -108,11 +108,13 @@ namespace project_hook
 			//shot.Damage = 8;
 			//shot.Bound = Collidable.Boundings.Circle;
 			//shot.setAnimation("shot_greenball", 30);
-			//Weapon new_Weap = new WeaponStraight(shot, 0.3f, 300f, (float)Math.PI/2);
-
+			// = new WeaponStraight(shot, 0.3f, 300f, (float)Math.PI/2);
+			//m_Upgrades.Add(shot);
+			//m_UpgradeReqs.Add(100);
 			//Side Shot left
-			m_Upgrades.Add(shot);
-			m_UpgradeReqs.Add(100);
+			Weapon new_Weap;
+			Shot shot;
+			
 			Shot shot1 = new Shot();
 			shot1.Name = "Player Side Shot Left";
 			shot1.Height = 10;
