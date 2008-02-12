@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
 	<action tile="0">
-		<loadBMP>
+		<pleaseLoadBMP>
 			<fileName>gate1.bmp</fileName>
-		</loadBMP>
+		</pleaseLoadBMP>
 		<changeSpeed>
 			<speed>80</speed>
 		</changeSpeed>
@@ -12,28 +12,22 @@
 		<createGate>
 			<gate>
 				<name>gate1</name>
-				<height>160</height>
-				<width>232</width>
-				<texture name="gate"/>
-				<startCenter x="448" y="-96"/>
-				<degree>0</degree>
+				<texture name="walls\plaque"/>
+				<startTile x="10" y="-5" />
+				<numRows>4</numRows>
+				<numCols>8</numCols>
+				<faction>Environment</faction>
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
 				<name>gate1T</name>
-				<height>34</height>
+				<height>32</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
-				<startCenter x="586" y="-96"/>
-				<degree>0</degree>
+				<startTile x="19" y="-3" />
 				<task type="Stationary"/>
 			</trigger>
 		</createGate>
-	</action>
-	<action tile="14">
-		<changeSpeed>
-			<speed>0</speed>
-		</changeSpeed>
 	</action>
 	<action tile="15">
 		<changeFile>

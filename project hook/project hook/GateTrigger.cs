@@ -7,29 +7,29 @@ namespace project_hook
 {
 	class GateTrigger : Collidable
 	{
-		protected Collidable m_Gate;
-		public Collidable Gate
+		protected List<Sprite> m_Gates;
+		public List<Sprite> Gates
 		{
 			set
 			{
-				m_Gate = value;
+				m_Gates = value;
 			}
 			get
 			{
-				return m_Gate;
+				return m_Gates;
 			}
 		}
 
-		protected Collidable m_Wall;
-		public Collidable Wall
+		protected List<Sprite> m_Walls;
+		public List<Sprite> Walls
 		{
 			set
 			{
-				m_Wall = value;
+				m_Walls = value;
 			}
 			get
 			{
-				return m_Wall;
+				return m_Walls;
 			}
 		}
 
@@ -51,11 +51,11 @@ namespace project_hook
 		}
 		public GateTrigger(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture,
 							float p_Alpha, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction,
-							int p_Health, float p_Radius, Collidable p_Gate)
+							int p_Health, float p_Radius, List<Sprite> p_Gates)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Rotation, p_zBuff,
 					p_Faction, p_Health, p_Radius)
 		{
-			Gate = p_Gate;
+			Gates = p_Gates;
 		}
 
 		public override void RegisterCollision(Collidable p_Other)
@@ -70,10 +70,16 @@ namespace project_hook
 				{
 					World.Position.setSpeed(80);
 				}
-				m_Gate.Enabled = false;
-				m_Gate.ToBeRemoved = true;
-				m_Wall.Enabled = false;
-				m_Wall.ToBeRemoved = true;
+				foreach (Sprite gate in m_Gates)
+				{
+					gate.Enabled = false;
+					gate.ToBeRemoved = true;
+				}
+				foreach (Sprite wall in m_Walls)
+				{
+					wall.Enabled = false;
+					wall.ToBeRemoved = true;
+				}
 				Enabled = false;
 				ToBeRemoved = true;
 			}
