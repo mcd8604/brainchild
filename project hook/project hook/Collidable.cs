@@ -328,14 +328,16 @@ namespace project_hook
 				else
 				{
 					//ToBeRemoved = true;
-					if (this is Ship)
+					if (this is Ship || this.Faction == Factions.Blood)
 						//if (((Ship)this).Faction != Collidable.Factions.Player)
-						((Ship)this).Health = 0;
+						((Collidable)this).Health = 0;
 				}
 			}
 
 			if (!(this is Shot) && !ToBeRemoved)
 				ToBeRemoved = IsDead();
+			
+			
 		}
 
 		public virtual Boolean IsDead()
