@@ -174,7 +174,7 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
-            m_World = this;
+			m_World = this;
 		}
 
 		//This method will load the level
@@ -213,6 +213,7 @@ namespace project_hook
 			m_SpriteList = new List<Sprite>();
 			m_SpriteListA = new List<Sprite>();
 			m_Position.resetDistance();
+			m_Position.setSpeed(1);
 			m_ELoader.resetLevel();
 			AddSprites(m_ELoader.CurrentView);
 			m_LReader = new LevelReader(m_LReader.FileName);
