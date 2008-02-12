@@ -8,8 +8,6 @@
 			<speed>80</speed>
 		</changeSpeed>
 	</action>
-	<action tile="0">
-	</action>
 	<action tile="5">
 		<createShip>
 			<name>W1_E1</name>
@@ -617,7 +615,6 @@
 			</task>
 		</createShip>
 	</action>
-	<!--- <3 -->
 	<action tile="134">
 		<createShip>
 			<name>Enemy8</name>
