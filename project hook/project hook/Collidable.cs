@@ -146,6 +146,13 @@ namespace project_hook
 		}
 
 		protected SpriteParticleSystem m_DamageEffect = null;
+		public SpriteParticleSystem DamageEffect
+		{
+			get
+			{
+				return m_DamageEffect;
+			}
+		}
 
 		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag)
 		{
@@ -169,6 +176,13 @@ namespace project_hook
 		}
 
 		protected SpriteParticleSystem m_DeathEffect = null;
+		public SpriteParticleSystem DeathEffect
+		{
+			get
+			{
+				return m_DeathEffect;
+			}
+		}
 
 		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag)
 		{
@@ -274,12 +288,8 @@ namespace project_hook
 			Width = p_Collidable.Width;
 			Z = p_Collidable.Z;
 
-			// temp
-			//setDamageEffect("Explosion", "3", "Explosion", 23);
-			//setDeathEffect("ExplosionBig", "");
-			m_DamageEffect = p_Collidable.m_DamageEffect;
-			m_DeathEffect = p_Collidable.m_DeathEffect;
-
+			setDamageEffect(p_Collidable.DamageEffect.TextureName, p_Collidable.DamageEffect.TextureTag);
+			setDeathEffect(p_Collidable.DeathEffect.TextureName, p_Collidable.DeathEffect.TextureTag);
 		}
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, float p_Radius)
