@@ -32,15 +32,15 @@ namespace project_hook
 
 			public static float Shot = 0.45f;
 
+			public static float Shields = 0.475f;
+
 			public static float PlayerShip = 0.5f;
 
 			public static float Tail = 0.55f;
 
-			public static float Ships = 0.6f;
-
 			public static float TailBody = 0.65f;
 
-			public static float Shields = 0.7f;
+			public static float Ships = 0.6f;
 
 			public static float Environment = 0.8f;
 

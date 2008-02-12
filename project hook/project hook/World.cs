@@ -708,6 +708,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("black");
 			TextureLibrary.LoadTexture("cross");
 			TextureLibrary.LoadTexture("WeaponBar");
+			TextureLibrary.LoadTexture("wing");
 
 #if DEBUG
 			TextureLibrary.LoadTexture("debugcirc");
@@ -740,7 +741,7 @@ namespace project_hook
 		{
 			if (m_Player == null)
 			{
-				m_Player = new Player("Ship", Vector2.Zero, 60, 60, TextureLibrary.getGameTexture("Ship2", "1"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+				m_Player = new Player("Ship", Vector2.Zero, 48, 64, TextureLibrary.getGameTexture("wing", ""), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			}
 			else
 			{
