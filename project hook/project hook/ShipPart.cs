@@ -38,7 +38,14 @@ namespace project_hook
 		{
 			if (m_TransfersDamage)
 			{
-                p_Other.RegisterCollision(m_ParentShip);
+				if (p_Other is Tail)
+				{
+					p_Other.RegisterCollision(m_ParentShip);
+				}
+				else
+				{
+					m_ParentShip.RegisterCollision(p_Other);
+				}
 			}
 			else
 			{
