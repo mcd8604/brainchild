@@ -960,6 +960,7 @@
     <Content Include="Content\Textures\virus2.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>virus2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\wall1.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
@@ -1170,6 +1171,11 @@
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
+      <Name>wing</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\wing.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>wing</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
