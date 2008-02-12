@@ -741,7 +741,7 @@ namespace project_hook
 		{
 			if (m_Player == null)
 			{
-				m_Player = new Player("Ship", Vector2.Zero, 48, 64, TextureLibrary.getGameTexture("wing", ""), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+				m_Player = new Player("THE_PLAYER", Vector2.Zero, 48, 64, TextureLibrary.getGameTexture("wing", ""), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			}
 			else
 			{
