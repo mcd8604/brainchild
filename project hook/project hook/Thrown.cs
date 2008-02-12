@@ -48,7 +48,7 @@ namespace project_hook
 			}
 			Task = p_Collidable.Task;
 			Texture = p_Collidable.Texture;
-			ToBeRemoved = p_Collidable.ToBeRemoved;
+			//ToBeRemoved = p_Collidable.ToBeRemoved;
 			Transparency = p_Collidable.Transparency;
 			Width = p_Collidable.Width;
 			Z = p_Collidable.Z;

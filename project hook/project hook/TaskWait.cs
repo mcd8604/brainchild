@@ -23,12 +23,12 @@ namespace project_hook
 			return m_Until.Invoke();
 		}
 		protected override void Do(Sprite on, GameTime at)
-		{}
+		{ }
 		public override Task copy()
 		{
 			return new TaskWait(m_Until);
 		}
 		public override void reset()
-		{}
+		{ }
 	}
 }

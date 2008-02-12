@@ -306,9 +306,8 @@ namespace project_hook
 				{
 					
 					Thrown thrown = new Thrown(EnemyCaught);
-					EnemyHealth.ToBeRemoved = true;
-					EnemyCaught.Enabled = false;
 					EnemyCaught.Health = 0;
+					EnemyCaught.Enabled = false;
 					EnemyCaught = null;
 					thrown.Task = m_ReleaseTask;
 					addSprite(thrown);
@@ -341,9 +340,8 @@ namespace project_hook
 						if (EnemyCaught != null)
 						{
 							Thrown thrown = new Thrown(EnemyCaught);
-							m_EnemyHealth.ToBeRemoved = true;
-							EnemyCaught.Enabled = false;
 							EnemyCaught.Health = 0;
+							EnemyCaught.Enabled = false;
 							EnemyCaught = null;
 							thrown.Task = m_ReleaseTask;
 							addSprite(thrown);
@@ -366,7 +364,7 @@ namespace project_hook
 			if (m_EnemyCaught != null && m_EnemyCaught.IsDead())
 			{
 				m_EnemyCaught = null;
-				m_EnemyHealth.ToBeRemoved = true;
+				m_EnemyHealth .ToBeRemoved = true;
 				Transparency = 1;
 			}
 			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)

@@ -80,8 +80,8 @@ namespace project_hook
 					wall.Enabled = false;
 					wall.ToBeRemoved = true;
 				}
-				Enabled = false;
-				ToBeRemoved = true;
+				m_Enabled = false;
+				m_ToBeRemoved = true;
 			}
 		}
 	}
