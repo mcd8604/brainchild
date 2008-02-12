@@ -122,7 +122,7 @@ namespace project_hook
 
 			if (p_Other.Faction == Factions.Environment)
 			{
-				ToBeRemoved = CheckShip();
+				m_ToBeRemoved = CheckShip();
 			}
 		}
 

@@ -230,8 +230,8 @@ namespace project_hook
             }
             else
             {
-                this.Enabled = false;
-                this.ToBeRemoved = true;
+                m_Enabled = false;
+                m_ToBeRemoved = true;
 
             }
 			//Type = (PowerType)val acted weird;

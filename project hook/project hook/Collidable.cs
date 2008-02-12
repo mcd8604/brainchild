@@ -101,23 +101,6 @@ namespace project_hook
 			}
 		}
 
-		public override bool ToBeRemoved
-		{
-			get
-			{
-				return base.ToBeRemoved;
-			}
-			set
-			{
-				if (m_DamageEffect != null)
-				{
-					m_DamageEffect.Enabled = Enabled;
-					m_DamageEffect.ToBeRemoved = value;
-				}
-				base.ToBeRemoved = value;
-			}
-		}
-
 		protected bool m_Grabbable = true;
 		public bool Grabbable
 		{
@@ -281,15 +264,21 @@ namespace project_hook
 			{
 				Scale = p_Collidable.Scale;
 			}
-			Task = p_Collidable.Task;
+			Task = p_Collidable.Task.copy();
 			Texture = p_Collidable.Texture;
-			ToBeRemoved = p_Collidable.ToBeRemoved;
+			//ToBeRemoved = p_Collidable.ToBeRemoved;
 			Transparency = p_Collidable.Transparency;
 			Width = p_Collidable.Width;
 			Z = p_Collidable.Z;
 
-			setDamageEffect(p_Collidable.DamageEffect.TextureName, p_Collidable.DamageEffect.TextureTag);
-			setDeathEffect(p_Collidable.DeathEffect.TextureName, p_Collidable.DeathEffect.TextureTag);
+			if (p_Collidable.DamageEffect != null)
+			{
+				setDamageEffect(p_Collidable.DamageEffect.TextureName, p_Collidable.DamageEffect.TextureTag);
+			}
+			if (p_Collidable.DeathEffect != null)
+			{
+				setDeathEffect(p_Collidable.DeathEffect.TextureName, p_Collidable.DeathEffect.TextureTag);
+			}
 		}
 		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, float p_Radius)
@@ -345,9 +334,9 @@ namespace project_hook
 			}
 
 			if (!(this is Shot) && !ToBeRemoved)
-				ToBeRemoved = IsDead();
-			
-			
+				m_ToBeRemoved = IsDead();
+
+
 		}
 
 		public virtual Boolean IsDead()
@@ -369,7 +358,7 @@ namespace project_hook
 			if (Health <= 0)
 			{
 				SpawnDeathEffect(Center);
-				Dispose();
+				//Dispose();
 			}
 			else if (damage > 0)
 			{
@@ -414,23 +403,23 @@ namespace project_hook
 			}
 		}
 
-		protected virtual void Dispose()
-		{
-			if (m_DamageEffect != null)
-			{
-				m_DamageEffect.Enabled = false;
-				m_DamageEffect.ToBeRemoved = true;
-			}
+		//protected virtual void Dispose()
+		//{
+		//    if (m_DamageEffect != null)
+		//    {
+		//        m_DamageEffect.Enabled = false;
+		//        m_DamageEffect.ToBeRemoved = true;
+		//    }
 
-			if (m_DeathEffect != null)
-			{
-				TaskSequence temp = new TaskSequence();
-				temp.addTask(new TaskTimer(2));
-				temp.addTask(new TaskRemove());
-				m_DeathEffect.Task = temp;
-			}
+		//    if (m_DeathEffect != null)
+		//    {
+		//        TaskSequence temp = new TaskSequence();
+		//        temp.addTask(new TaskTimer(2));
+		//        temp.addTask(new TaskRemove());
+		//        m_DeathEffect.Task = temp;
+		//    }
 
-		}
+		//}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
 		{

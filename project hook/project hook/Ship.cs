@@ -20,6 +20,13 @@ namespace project_hook
 		protected Sprite m_ShieldSprite;
 
 		protected SpriteParticleSystem m_ShieldDamageEffect = null;
+		public SpriteParticleSystem ShieldDamageEffect
+		{
+			get
+			{
+				return m_ShieldDamageEffect;
+			}
+		}
 
 		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, String p_Tag)
 		{
@@ -134,6 +141,60 @@ namespace project_hook
 			Name = "Unnamed Ship";
 			Z = Depth.GameLayer.Ships;
 		}
+		public Ship(Ship p_Ship)
+		{
+			if (p_Ship.Animation != null)
+			{
+				Animation = new VisualEffect(p_Ship.Animation.Name, this, p_Ship.Animation.FramesPerSecond);
+			}
+			BlendMode = p_Ship.BlendMode;
+			Bound = p_Ship.Bound;
+			Center = p_Ship.Center;
+			Color = p_Ship.Color;
+			Damage = p_Ship.Damage;
+			DestructionScore = p_Ship.DestructionScore;
+			Drop = p_Ship.Drop;
+			Enabled = p_Ship.Enabled;
+			Faction = p_Ship.Faction;
+			Grabbable = p_Ship.Grabbable;
+			MaxHealth = p_Ship.MaxHealth;
+			Health = p_Ship.Health;
+			Height = p_Ship.Height;
+			MaxShield = p_Ship.MaxShield;
+			Shield = p_Ship.Shield;
+			Name = p_Ship.Name;
+			Radius = p_Ship.Radius;
+			Rotation = p_Ship.Rotation;
+			if (!p_Ship.Sized)
+			{
+				Scale = p_Ship.Scale;
+			}
+			ShieldRegenDelay = p_Ship.ShieldRegenDelay;
+			ShieldRegenRate = p_Ship.ShieldRegenRate;
+			if (p_Ship.ShootAnimation != null)
+			{
+				m_ShootAnimation = new VisualEffect(p_Ship.ShootAnimation.Name, this, p_Ship.ShootAnimation.FramesPerSecond);
+			}
+			Task = p_Ship.Task.copy();
+			Texture = p_Ship.Texture;
+			ToBeRemoved = p_Ship.ToBeRemoved;
+			m_Weapons = p_Ship.Weapons;
+			Width = p_Ship.Width;
+			Z = p_Ship.Z;
+
+			if (p_Ship.DamageEffect != null)
+			{
+				setDamageEffect(p_Ship.DamageEffect.TextureName, p_Ship.DamageEffect.TextureTag);
+			}
+			if (p_Ship.ShieldDamageEffect != null)
+			{
+				setShieldDamageEffect(p_Ship.ShieldDamageEffect.TextureName, p_Ship.ShieldDamageEffect.TextureTag);
+			}
+			if (p_Ship.DeathEffect != null)
+			{
+				setDeathEffect(p_Ship.DeathEffect.TextureName, p_Ship.DeathEffect.TextureTag);
+			}
+		}
 		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_MaxHealth, int p_MaxShield, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Rotation, p_zBuff, p_Faction, p_MaxHealth, p_Radius)
 		{
@@ -223,7 +284,7 @@ namespace project_hook
 				Enabled = false;
 
 			}
-			
+
 			//Sound.Play("enemy_hit");
 		}
 
@@ -235,22 +296,22 @@ namespace project_hook
 			}
 		}
 
-		protected override void Dispose()
-		{
-			if (m_ShieldDamageEffect != null)
-			{
-				m_ShieldDamageEffect.Enabled = false;
-				m_ShieldDamageEffect.ToBeRemoved = true;
-			}
+		//protected override void Dispose()
+		//{
+		//    if (m_ShieldDamageEffect != null)
+		//    {
+		//        m_ShieldDamageEffect.Enabled = false;
+		//        m_ShieldDamageEffect.ToBeRemoved = true;
+		//    }
 
-			foreach (Weapon w in m_Weapons)
-			{
-				foreach (Shot s in w.getShots())
-					if (s.Enabled == false)
-						s.Center = new Vector2(-100, -100);
-			}
+		//    foreach (Weapon w in m_Weapons)
+		//    {
+		//        foreach (Shot s in w.getShots())
+		//            if (s.Enabled == false)
+		//                s.Center = new Vector2(-100, -100);
+		//    }
 
-		}
+		//}
 
 		private VisualEffect m_ShootAnimation;
 		public VisualEffect ShootAnimation
