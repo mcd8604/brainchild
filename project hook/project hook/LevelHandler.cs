@@ -58,6 +58,12 @@ namespace project_hook
 							case Event.Types.CreateSprite:
 								CreateSprite(e.Sprite);
 								break;
+							case Event.Types.CreateSprites:
+								foreach (Sprite s in e.Sprites)
+								{
+									CreateSprite(s);
+								}
+								break;
 							case Event.Types.ChangeFile:
 								ChangeFile(e.FileName);
 								break;

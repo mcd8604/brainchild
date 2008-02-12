@@ -11,6 +11,7 @@ namespace project_hook
 		public enum Types
 		{
 			CreateSprite,
+			CreateSprites,
 			ChangeFile,
 			ChangeSpeed,
 			LoadBMP,
@@ -39,6 +40,15 @@ namespace project_hook
 			}
 		}
 
+		protected List<Sprite> m_Sprites;
+		public List<Sprite> Sprites
+		{
+			get
+			{
+				return m_Sprites;
+			}
+		}
+
 		protected int m_Speed;
 		public int Speed
 		{
@@ -57,10 +67,16 @@ namespace project_hook
 			}
 		}
 
+
 		public Event(Sprite p_Sprite)
 		{
 			m_Type = Types.CreateSprite;
 			m_Sprite = p_Sprite;
+		}
+		public Event(List<Sprite> p_Sprites)
+		{
+			m_Type = Types.CreateSprites;
+			m_Sprites = p_Sprites;
 		}
 		public Event(String p_FileName, Types p_Type)
 		{

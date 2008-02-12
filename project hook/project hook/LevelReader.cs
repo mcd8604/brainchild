@@ -178,18 +178,16 @@ namespace project_hook
 
 		private void CreateGate(XmlReader p_Reader)
 		{
-			Collidable t_Wall = new Collidable();
-			Collidable t_Gate = new Collidable();
+			List<Sprite> t_Walls = new List<Sprite>();
+			List<Sprite> t_Gates = new List<Sprite>();
 			GateTrigger t_Trigger = new GateTrigger();
-
-			List<Event> t_List = new List<Event>();
 
 			while (p_Reader.IsStartElement())
 			{
 				if (p_Reader.IsStartElement("gate"))
 				{
 					p_Reader.ReadStartElement();
-					LoadWall(p_Reader, t_Gate);
+					t_Gates.AddRange(LoadWall(p_Reader));
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("trigger"))
@@ -201,134 +199,78 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("wall"))
 				{
 					p_Reader.ReadStartElement();
-					LoadWall(p_Reader, t_Wall);
+					t_Walls.AddRange(LoadWall(p_Reader));
 					p_Reader.ReadEndElement();
 				}
 			}
 #if DEBUG
 			curLoop = 0;
 #endif
+			t_Trigger.Gates = t_Gates;
+			t_Trigger.Walls = t_Walls;
 
-			t_Trigger.Gate = t_Gate;
-			t_Trigger.Wall = t_Wall;
-			t_Wall.Faction = Collidable.Factions.ClearWall;
-
-			if (m_Events.ContainsKey(m_Distance))
-			{
-				m_Events[m_Distance].Add(new Event(t_Gate));
-				m_Events[m_Distance].Add(new Event(t_Trigger));
-				m_Events[m_Distance].Add(new Event(t_Wall));
-			}
-			else
-			{
-				t_List.Add(new Event(t_Gate));
-				m_Events.Add(m_Distance, t_List);
-				m_Events[m_Distance].Add(new Event(t_Trigger));
-				m_Events[m_Distance].Add(new Event(t_Wall));
-			}
+			addEvent(m_Distance, new Event(t_Gates));
+			addEvent(m_Distance, new Event(t_Walls));
+			addEvent(m_Distance, new Event(t_Trigger));
 		}
 
-		private void LoadWall(XmlReader p_Reader, Collidable p_Wall)
+		private List<Sprite> LoadWall(XmlReader p_Reader)
 		{
+			String name = null;
+			int numRows = 0;
+			int numCols = 0;
+			Vector2 startPos = Vector2.Zero;
+			GameTexture texture = null;
+			Task task = null;
+			Collidable.Factions faction = Collidable.Factions.None;
+
 			while (p_Reader.IsStartElement())
 			{
 				if (p_Reader.IsStartElement("name"))
 				{
 					p_Reader.ReadStartElement("name");
-					p_Wall.Name = p_Reader.ReadString();
+					name = p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
-				else if (p_Reader.IsStartElement("startPos"))
+				if (p_Reader.IsStartElement("numRows"))
 				{
-					p_Wall.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
-													float.Parse(p_Reader.GetAttribute(1)));
-					p_Reader.ReadStartElement("startPos");
+					p_Reader.ReadStartElement("numRows");
+					numRows = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
 				}
-				else if (p_Reader.IsStartElement("startCenter"))
+				if (p_Reader.IsStartElement("numCols"))
 				{
-					p_Wall.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)),
-													float.Parse(p_Reader.GetAttribute(1)));
-					p_Reader.ReadStartElement("startCenter");
+					p_Reader.ReadStartElement("numCols");;
+					numCols = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("startTile"))
 				{
-					p_Wall.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
+					startPos = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
 													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
 					p_Reader.ReadStartElement("startTile");
-				}
-				else if (p_Reader.IsStartElement("startTileCenter"))
-				{
-					p_Wall.Center = new Vector2(float.Parse(p_Reader.GetAttribute(0)) * EnvironmentLoader.TileDimension,
-													float.Parse(p_Reader.GetAttribute(1)) * EnvironmentLoader.TileDimension);
-					p_Reader.ReadStartElement("startTileCenter");
-				}
-				else if (p_Reader.IsStartElement("height"))
-				{
-					p_Reader.ReadStartElement("height");
-					p_Wall.Height = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
-				else if (p_Reader.IsStartElement("width"))
-				{
-					p_Reader.ReadStartElement();
-					p_Wall.Width = int.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("texture"))
 				{
 					String t_Name = p_Reader.GetAttribute(0);
 					if (p_Reader.AttributeCount == 1)
 					{
-						p_Wall.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+						texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						p_Wall.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), p_Reader.GetAttribute(1));
+						texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), p_Reader.GetAttribute(1));
 					}
 
 					p_Reader.ReadStartElement("texture");
 				}
-				else if (p_Reader.IsStartElement("degree"))
-				{
-					p_Reader.ReadStartElement("degree");
-					p_Wall.RotationDegrees = float.Parse(p_Reader.ReadString());
-					p_Reader.ReadEndElement();
-				}
 				else if (p_Reader.IsStartElement("task"))
 				{
-					p_Wall.Task = readTask(p_Reader);
-				}
-				else if (p_Reader.IsStartElement("animation"))
-				{
-					p_Wall.setAnimation(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("fps")));
-					//p_Gate.Animation.StartAnimation();
-					p_Reader.ReadStartElement("animation");
-				}
-				else if (p_Reader.IsStartElement("bound"))
-				{
-					p_Wall.Bound = readBounding(p_Reader);
+					task = readTask(p_Reader);
 				}
 				else if (p_Reader.IsStartElement("faction"))
 				{
-					String t_Name;
-					p_Reader.ReadStartElement();
-					t_Name = p_Reader.ReadString();
-					if (t_Name.Equals("Blood"))
-					{
-						p_Wall.Faction = Collidable.Factions.Blood;
-					}
-					else if (t_Name.Equals("ClearWall"))
-					{
-						p_Wall.Faction = Collidable.Factions.ClearWall;
-					}
-					else if (t_Name.Equals("Enemy"))
-					{
-						p_Wall.Faction = Collidable.Factions.Enemy;
-					}
-					else if (t_Name.Equals("Environment"))
-					{
-						p_Wall.Faction = Collidable.Factions.Environment;
-					}
+					faction = (Collidable.Factions)Enum.Parse(typeof(Collidable.Factions), p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
 #if DEBUG
@@ -344,10 +286,18 @@ namespace project_hook
 				}
 #endif
 			}
-			p_Wall.Faction = Collidable.Factions.Environment;
-			p_Wall.Z = Depth.GameLayer.Environment;
-			p_Wall.Bound = Collidable.Boundings.Rectangle;
-			p_Wall.Health = float.NaN;
+			List<Sprite> wallList = new List<Sprite>();
+			for(int row = 0; row < numRows; row++) {
+				for(int col = 0; col < numCols; col++) {
+					Vector2 pos = startPos + new Vector2(col * EnvironmentLoader.TileDimension, row * EnvironmentLoader.TileDimension);
+					Collidable p_Wall = new Collidable(name + "_" + col + "_" + row, pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension,
+						texture, 0.75f, true, 0, Depth.GameLayer.Gate, faction, float.NaN, EnvironmentLoader.TileDimension / 2);
+					p_Wall.Bound = Collidable.Boundings.Square;
+					p_Wall.Task = task;
+					wallList.Add(p_Wall);
+				}
+			}
+			return wallList;
 		}
 
 		private void LoadTrigger(XmlReader p_Reader, GateTrigger p_Trigger)
@@ -1466,6 +1416,32 @@ namespace project_hook
 			{
 				t_List.Add(new Event(t_Point));
 				m_Events.Add(m_Distance, t_List);
+			}
+		}
+
+		private void addEvent(int p_distance, Event p_event)
+		{
+			if (m_Events.ContainsKey(p_distance))
+			{
+				m_Events[p_distance].Add(p_event);
+			}
+			else
+			{
+				List<Event> eventList = new List<Event>();
+				eventList.Add(p_event);
+				m_Events.Add(m_Distance, eventList);
+			}
+		}
+
+		private void addEvent(int p_distance, List<Event> p_eventList)
+		{
+			if (m_Events.ContainsKey(p_distance))
+			{
+				m_Events[p_distance].AddRange(p_eventList);
+			}
+			else
+			{
+				m_Events.Add(m_Distance, p_eventList);
 			}
 		}
 	}
