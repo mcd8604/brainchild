@@ -118,6 +118,12 @@ namespace project_hook
 							LoadEnemy(reader);
 							reader.ReadEndElement();
 						}
+						else if (reader.IsStartElement("createTurret"))
+						{
+							reader.ReadStartElement();
+							LoadEnemy(reader);
+							reader.ReadEndElement();
+						}
 						else if (reader.IsStartElement("changeSpeed"))
 						{
 							reader.ReadStartElement();

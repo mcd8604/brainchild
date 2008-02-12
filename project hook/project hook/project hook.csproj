@@ -1167,6 +1167,13 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Instructions3</Name>
     </Content>
+    <Content Include="Content\Textures\turret.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>turret</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\wing.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
