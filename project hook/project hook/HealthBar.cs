@@ -17,6 +17,8 @@ namespace project_hook
         
         Sprite health;
         Sprite blackH;
+
+		WeaponUpgradeBar wp;
      
         int width;
         int height;
@@ -61,8 +63,14 @@ namespace project_hook
 			if(m_Target is Ship && ((Ship)m_Target).MaxShield > 0)
 				shields = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y),
                                       height, width, TextureLibrary.getGameTexture("shieldBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
+
+			if (m_Target is PlayerShip)
+			{
+				wp = new WeaponUpgradeBar((PlayerShip)m_Target, new Vector2(this.Center.X, this.Center.Y - height * 2), width, height);
+				wp.Enabled = true;
+			}
             
-			health = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y - 20),
+			health = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y - height),
                                    height, width, TextureLibrary.getGameTexture("healthBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
 
             blackS = new Sprite();
@@ -122,7 +130,14 @@ namespace project_hook
                 
 
                 blackH.Center = health.Center;
-                health.Position = blackH.Position; 
+                health.Position = blackH.Position;
+
+				if (wp != null)
+				{
+					Vector2 wpP = blackH.Position;
+					wpP.Y += offset.Y + height;
+					wp.Position = wpP;
+				}
             
         }
 
@@ -130,6 +145,10 @@ namespace project_hook
         public override void Update(GameTime p_Time)
         {
             base.Update(p_Time);
+			if (wp != null)
+			{
+				wp.Update(p_Time);
+			}
             setBars();
 
 
@@ -149,6 +168,10 @@ namespace project_hook
                 blackS.Draw(p_SpriteBatch);
             }
 
+			if (wp != null)
+			{
+				wp.Draw(p_SpriteBatch);
+			}
 			bg.Draw(p_SpriteBatch);
         }
     }

@@ -167,6 +167,8 @@ namespace project_hook
             //Level 3
             //*********************************************************************
 
+
+			m_UpgradeReqs.Add(1000);
 		}
 
 		public override void Update(GameTime p_Time)

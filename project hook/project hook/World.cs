@@ -817,7 +817,7 @@ namespace project_hook
 
 			AddSprite(new HealthBar(m_Player.PlayerShip, new Vector2(50, 700), 75, 10, 55, 75));
 
-			//AddSprite(new WeaponUpgradeBar(m_Player.PlayerShip,new Vector2(0,740),300,20));
+			//AddSprite(new WeaponUpgradeBar(m_Player.PlayerShip,new Vector2(100,740),100,20));
 			//SpawnPoint sp = new SpawnPoint(3,1000,"ss",new Vector2(100,100),100,100,TextureLibrary.getGameTexture("virus",""),100,true,0,Depth.GameLayer.Ships,Collidable.Factions.Enemy,10000,null,50);
 			//sp.setShips("bloodcell", new Vector2(100f, 200f), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 255f, true, 0f, Depth.GameLayer.Ships, Collidable.Factions.Enemy, 100, 0, TextureLibrary.getGameTexture("Explosion", "3"), 50);
 			//sp.Target= m_Player.PlayerShip;
