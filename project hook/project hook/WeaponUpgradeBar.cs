@@ -28,14 +28,13 @@ namespace project_hook
             m_Target = p_Ship;
             width = p_Width;
             height = p_Height;
-            this.Position = pos;
-            ini();
-            setBars();
+            ini(pos);
+			setBars();
         }
 
-        private void ini()
+        private void ini(Vector2 pos)
         {
-            weapons = new Sprite("WeaponBar", this.Position,
+            weapons = new Sprite("WeaponBar", pos,
                                       height, width, TextureLibrary.getGameTexture("WeaponBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
 
             blackS = new Sprite();
@@ -45,8 +44,32 @@ namespace project_hook
             blackS.Width = width;
             blackS.Height = height;
             blackS.Alpha = 255;
-			blackS.Position = this.Position;
+			blackS.Position = pos;
         }
+
+		public override Vector2 Position
+		{
+			get
+			{
+				return blackS.Position;
+			}
+			set
+			{
+				blackS.Position = value;
+			}
+		}
+
+		public override Vector2 Center
+		{
+			get
+			{
+				return blackS.Center;
+			}
+			set
+			{
+				blackS.Center = value;
+			}
+		}
 
         private void setBars()
         {
@@ -54,6 +77,7 @@ namespace project_hook
 			if (m_Target.CurrentLevel == PlayerShip.MAX_LEVEL)
 			{
 				weapons.Width = width;
+				weapons.Position = blackS.Position;
 			}
 			else
 			{

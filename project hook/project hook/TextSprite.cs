@@ -298,6 +298,15 @@ namespace project_hook
 				{
 					p_SpriteBatch.DrawString(Font, m_Func.Invoke(), Center, Color, Rotation, m_Origin, Scale, SpriteEffects.None, Z);
 				}
+
+
+				if (m_Parts != null)
+				{
+					foreach (Sprite part in m_Parts)
+					{
+						part.Draw(p_SpriteBatch);
+					}
+				}
 			}
 		}
 
