@@ -38,7 +38,7 @@ namespace project_hook
 		{
 			if (m_TransfersDamage)
 			{
-				m_ParentShip.RegisterCollision(p_Other);
+                p_Other.RegisterCollision(m_ParentShip);
 			}
 			else
 			{
