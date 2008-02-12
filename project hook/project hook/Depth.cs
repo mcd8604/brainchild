@@ -42,10 +42,11 @@ namespace project_hook
 
 			public static float Shields = 0.7f;
 
-			public static float Gate = 0.75f;
-
 			public static float Environment = 0.8f;
 
+			public static float Gate = 0.85f;
+
+			public static float Trigger = 0.9f;
 		}
 
 		public static class BackGroundLayer

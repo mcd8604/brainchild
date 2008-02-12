@@ -12,11 +12,11 @@
 		<createGate>
 			<gate>
 				<name>gate3_1</name>
-				<height>96</height>
-				<width>160</width>
-				<texture name="gate"/>
+				<numRows>3</numRows>
+				<numCols>5</numCols>
+				<faction>Environment</faction>
+				<texture name="walls\plaque"/>
 				<startTile x="22" y="-2"/>
-				<degree>0</degree>
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
@@ -30,12 +30,11 @@
 			</trigger>
 			<wall>
 				<name>gate3_1B</name>
-				<height>32</height>
-				<width>224</width>
+				<numRows>7</numRows>
+				<numCols>16</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<startTile x="1" y="0"/>
-				<degree>0</degree>
+				<startTile x="1" y="-6"/>
 				<task type="Stationary"/>
 			</wall>
 		</createGate>
@@ -49,11 +48,11 @@
 		<createGate>
 			<gate>
 				<name>gate3_2L</name>
-				<height>96</height>
-				<width>160</width>
-				<texture name="gate"/>
+				<numRows>3</numRows>
+				<numCols>5</numCols>
+				<faction>Environment</faction>
+				<texture name="walls\plaque"/>
 				<startTile x="11" y="-9"/>
-				<degree>0</degree>
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
@@ -68,23 +67,22 @@
 			</trigger>
 			<wall>
 				<name>gate3_2LB</name>
-				<height>64</height>
-				<width>160</width>
+				<numRows>6</numRows>
+				<numCols>7</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<startTile x="6" y="-6"/>
-				<degree>0</degree>
+				<startTile x="2" y="-10"/>
 				<task type="Stationary"/>
 			</wall>
 		</createGate>
 		<createGate>
 			<gate>
 				<name>gate3_2L</name>
-				<height>96</height>
-				<width>160</width>
-				<texture name="gate"/>
+				<numRows>3</numRows>
+				<numCols>5</numCols>
+				<faction>Environment</faction>
+				<texture name="walls\plaque"/>
 				<startTile x="16" y="-9"/>
-				<degree>0</degree>
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
@@ -99,12 +97,11 @@
 			</trigger>
 			<wall>
 				<name>gate3_2LB</name>
-				<height>96</height>
-				<width>64</width>
+				<numRows>7</numRows>
+				<numCols>6</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<startTile x="25" y="-3"/>
-				<degree>0</degree>
+				<startTile x="25" y="-7"/>
 				<task type="Stationary"/>
 			</wall>
 		</createGate>

@@ -400,7 +400,7 @@ namespace project_hook
 #endif
 			}
 			p_Trigger.Faction = Collidable.Factions.Enemy;
-			p_Trigger.Z = Depth.GameLayer.Environment;
+			p_Trigger.Z = Depth.GameLayer.Trigger;
 			p_Trigger.Bound = Collidable.Boundings.Circle;
 			p_Trigger.Radius = 10;
 			p_Trigger.Health = 1;
