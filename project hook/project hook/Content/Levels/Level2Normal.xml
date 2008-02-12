@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
 	<action tile="0">
-		<loadBMP>
-			<fileName>level2.bmp</fileName>
-		</loadBMP>
 		<changeSpeed>
 			<speed>80</speed>
 		</changeSpeed>
+		<loadBMP>
+			<fileName>level2.bmp</fileName>
+		</loadBMP>
+		
 	</action>
 	<action tile="5">
 		<createShip>
@@ -472,7 +473,7 @@
 			</shipPart>
 		</createShip>
 	</action>
-	<action tile="133">
+	<action tile="130">
 		<createSpawnPoint>
 			<delay>32</delay>
 			<count>5</count>
@@ -482,7 +483,7 @@
 				<width>32</width>
 				<radius>16</radius>
 				<texture name="virus1"/>
-				<startPos x="416" y="0"/>
+				<startTile x="15" y="0"/>
 				<health>4</health>
 				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 				<deathEffect name="ExplosionBig"/>
