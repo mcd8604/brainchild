@@ -19,6 +19,9 @@ namespace project_hook
 		List<int> m_UpgradeReqs;
         List<List<Weapon>> m_WeapUpgrades;
 
+		TextSprite levelUp;
+		TaskTimer levelTime;
+
 		public const int MAX_LEVEL = 3;
 		const int MAX_SHIELD_LEVEL = 200;
 		const int HEAL_AMOUNT = 20;
@@ -62,8 +65,27 @@ namespace project_hook
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{
 			cur = -1;
-           
 
+
+			//code to create the level up text
+			levelUp = new TextSprite("Level Up", Vector2.Zero, Microsoft.Xna.Framework.Graphics.Color.Yellow, Depth.HUDLayer.Midground + 0.001f, 100.0f, 0.0f, 50, 100);
+			TextSprite levelUp2 = new TextSprite("Level Up", Vector2.Zero, Microsoft.Xna.Framework.Graphics.Color.Black, Depth.HUDLayer.Midground + 0.002f, 100.0f, 0.0f, 50, 100);
+			levelUp2.Enabled = true;
+			TaskAttachAt ta = new TaskAttachAt(levelUp, new Vector2(1f, 1f));
+			levelUp2.Task = ta;
+			levelUp.attachSpritePart(levelUp2);
+			levelUp.Enabled = false;
+
+			TaskParallel tp = new TaskParallel();
+			levelTime = new TaskTimer(1.0f);
+
+			ta = new TaskAttachAt(this, Vector2.Zero);
+			tp.addTask(levelTime);
+			tp.addTask(ta);
+
+			levelUp.Task = tp;
+			
+			
             m_WeapUpgrades = new List<List<Weapon>>();
             for (int a = 0; a < MAX_LEVEL; a++)
             {
@@ -147,6 +169,34 @@ namespace project_hook
 
 		}
 
+		public override void Update(GameTime p_Time)
+		{
+			base.Update(p_Time);
+
+			if (levelUp.Enabled)
+			{
+				levelUp.Update(p_Time);
+			}
+		}
+
+		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
+		{
+			base.Draw(p_SpriteBatch);
+
+			if (levelUp.Enabled)
+			{
+				if (!levelTime.IsComplete(null))
+				{
+					levelUp.Draw(p_SpriteBatch);
+				}
+				else
+				{
+					levelUp.Enabled = false;
+				}
+
+			}
+		}
+
 		public override string ToString()
 		{
 			if (float.IsNaN(MaxHealth))
@@ -182,7 +232,7 @@ namespace project_hook
 
 				for (int a = 0; a < m_UpgradeReqs.Count; a++)
 				{
-					if (m_UpgradeLevel > m_UpgradeReqs[a])
+					if (m_UpgradeLevel >= m_UpgradeReqs[a])
 					{
 						prev = a;
 					}
@@ -195,7 +245,10 @@ namespace project_hook
 				if (cur != prev)
 				{
 					cur = prev;
-                    
+					
+					levelUp.Enabled = true;
+					levelTime.reset();
+					
                    // Weapons.Clear();
                     //Weapons = m_WeapUpgrades[cur];
                     foreach (Weapon w in Weapons)
