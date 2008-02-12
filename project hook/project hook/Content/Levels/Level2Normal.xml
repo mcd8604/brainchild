@@ -11,27 +11,15 @@
 	<action tile="5">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="cell"/>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
 			<startCenter x="800" y="0"/>
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
-			<weapon type="Straight" angle="0">
-				<delay>0.2</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>3</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
 			<task type="Parallel">
 				<task type="RepeatingSequence">
 					<task type="Parallel">
@@ -57,6 +45,37 @@
 				</task>
 				<task type="Fire"/>
 			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<fixedRotation>true</fixedRotation>
+				<transfersDamage>true</transfersDamage>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startCenter x="320" y="50"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.2</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>3</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
 		</createShip>
 	</action>
 	<action tile="27">
@@ -268,27 +287,16 @@
 	<action tile="82">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="cell"/>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
 			<startCenter x="224" y="0"/>
 			<health>30</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
-			<weapon type="Straight" angle="0">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
+			
 			<task type="Parallel">
 				<task type="RepeatingSequence">
 					<task type="Parallel">
@@ -314,6 +322,37 @@
 				</task>
 				<task type="Fire"/>
 			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<fixedRotation>true</fixedRotation>
+				<transfersDamage>true</transfersDamage>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startCenter x="320" y="50"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
 		</createShip>
 	</action>
 	<action tile="95">
@@ -368,28 +407,16 @@
 	<action tile="110">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="cell"/>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
 			<startCenter x="448" y="0"/>
 			<health>50</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<degree>148</degree>
-			<weapon type="Straight" angle="0">
-				<delay>0.1</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>2</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
 			<task type="Parallel">
 				<task type="RepeatingSequence">
 					<task type="Parallel">
@@ -412,6 +439,37 @@
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<fixedRotation>true</fixedRotation>
+				<transfersDamage>true</transfersDamage>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startCenter x="320" y="50"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.1</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>2</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
 		</createShip>
 	</action>
 	<action tile="133">
@@ -592,27 +650,15 @@
 	<action tile="170">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="cell"/>
-			<startCenter x="96" y="0"/>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
+			<startTile x="2" y="0"/>
 			<health>30</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
-			<weapon type="Straight" angle="0">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
 			<task type="Parallel">
 				<task type="RepeatingSequence">
 					<task type="Parallel">
@@ -620,7 +666,7 @@
 							<velocity x="180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.8</duration>
 						</task>
 					</task>
 					<task type="Parallel">
@@ -628,7 +674,7 @@
 							<velocity x="-180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.8</duration>
 						</task>
 					</task>
 				</task>
@@ -638,30 +684,49 @@
 				</task>
 				<task type="Fire"/>
 			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<fixedRotation>true</fixedRotation>
+				<transfersDamage>true</transfersDamage>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startTile x="2" y="0"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
 		</createShip>
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="cell"/>
-			<startCenter x="640" y="0"/>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
+			<startTile x="20" y="0"/>
 			<health>30</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
-			<weapon type="Straight" angle="0">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
 			<task type="Parallel">
 				<task type="RepeatingSequence">
 					<task type="Parallel">
@@ -669,7 +734,7 @@
 							<velocity x="180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.8</duration>
 						</task>
 					</task>
 					<task type="Parallel">
@@ -677,7 +742,7 @@
 							<velocity x="-180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.8</duration>
 						</task>
 					</task>
 				</task>
@@ -687,6 +752,37 @@
 				</task>
 				<task type="Fire"/>
 			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<fixedRotation>true</fixedRotation>
+				<transfersDamage>true</transfersDamage>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startTile x="20" y="0"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
 		</createShip>
 	</action>
 	<action tile="172">
@@ -760,43 +856,31 @@
 	<action tile="182">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="cell"/>
-			<startCenter x="96" y="0"/>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
+			<startTile x="7" y="0"/>
 			<health>30</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
-			<weapon type="Straight" angle="0">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
 			<task type="Parallel">
 				<task type="RepeatingSequence">
-					<task type="Parallel">
-						<task type="StraightVelocity">
-							<velocity x="180" y="0"/>
-						</task>
-						<task type="RepeatingTimer">
-							<duration>0.5</duration>
-						</task>
-					</task>
 					<task type="Parallel">
 						<task type="StraightVelocity">
 							<velocity x="-180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.8</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="180" y="0"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>0.8</duration>
 						</task>
 					</task>
 				</task>
@@ -806,46 +890,65 @@
 				</task>
 				<task type="Fire"/>
 			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<fixedRotation>true</fixedRotation>
+				<transfersDamage>true</transfersDamage>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startTile x="7" y="0"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
 		</createShip>
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="cell"/>
-			<startCenter x="640" y="0"/>
+			<height>55</height>
+			<width>49</width>
+			<radius>25</radius>
+			<degree>90</degree>
+			<texture name="spitter_body"/>
+			<startTile x="25" y="0"/>
 			<health>30</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
-			<weapon type="Straight" angle="0">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
 			<task type="Parallel">
 				<task type="RepeatingSequence">
-					<task type="Parallel">
-						<task type="StraightVelocity">
-							<velocity x="180" y="0"/>
-						</task>
-						<task type="RepeatingTimer">
-							<duration>0.5</duration>
-						</task>
-					</task>
 					<task type="Parallel">
 						<task type="StraightVelocity">
 							<velocity x="-180" y="0"/>
 						</task>
 						<task type="RepeatingTimer">
-							<duration>0.5</duration>
+							<duration>0.8</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="180" y="0"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>0.8</duration>
 						</task>
 					</task>
 				</task>
@@ -855,6 +958,37 @@
 				</task>
 				<task type="Fire"/>
 			</task>
+			<shipPart>
+				<offsetDistance>35</offsetDistance>
+				<fixedRotation>true</fixedRotation>
+				<transfersDamage>true</transfersDamage>
+				<createShip>
+					<name>mouth</name>
+					<height>19</height>
+					<width>28</width>
+					<bound>Rectangle</bound>
+					<grabbable>false</grabbable>
+					<texture name="spitter_mouth" tag="0"/>
+					<shootAnimation name="spitter_mouth" fps="23"/>
+					<startTile x="25" y="0"/>
+					<health>30</health>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyball"/>
+							<animation name="energyball" fps="30"/>
+						</shot>
+					</weapon>
+					<task type="Fire"/>
+				</createShip>
+			</shipPart>
 		</createShip>
 	</action>	
 	<action tile="188">
@@ -1027,7 +1161,10 @@
 			</task>
 		</createShip>
 	</action>
-	<action tile="242">
+	<action tile="249">
+		<changeSpeed>
+			<speed>0</speed>
+		</changeSpeed>
 		<createBoss>
 			<name>Enemy1</name>
 			<height>94</height>
@@ -1082,19 +1219,24 @@
 					</trail>
 				</shot>
 			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="RotateFaceTarget">
-					<target>Player</target>
+			<task type="Sequence">
+				<task type="Parallel">
+					<task type="StraightVelocity">
+						<velocity x="0" y="80"/>
+					</task>
+					<task type="Timer">
+						<duration>2.0</duration>
+					</task>
 				</task>
-				<task type="Fire"/>
+				<task type="Parallel">
+					<task type="Stationary"/>
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
+					<task type="Fire"/>
+				</task>				
 			</task>
 		</createBoss>
-	</action>
-	<action tile="249">
-		<changeSpeed>
-			<speed>0</speed>
-		</changeSpeed>
 		<pleaseLoadBMP>
 			<fileName>gate2.bmp</fileName>
 		</pleaseLoadBMP>
