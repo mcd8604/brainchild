@@ -246,13 +246,14 @@ namespace project_hook
                     if (m_EnemyHealth == null)
                     {
                         m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(150, 700), 75, 10, 55, 75);
+						addSprite(m_EnemyHealth);
                     }
                     else
                     {
                         m_EnemyHealth.Target = m_EnemyCaught;
                         m_EnemyHealth.Enabled = true;
                     }
-					addSprite(m_EnemyHealth);
+					
 					Transparency = 0;
 					tailTarget.Enabled = false;
 					m_EnemyCaught.Faction = Factions.Player;

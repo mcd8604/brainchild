@@ -287,7 +287,8 @@ namespace project_hook
 				}
 				else
 				{
-					addSprite(new PowerUp((int)(Height * 0.5f), (int)(Radius * 0.5f), Center));
+					//addSprite(new PowerUp((int)(Height * 0.5f), (int)(Radius * 0.5f), Center));
+					PowerUp.DisplayPowerUp((int)(Height * 0.5f), (int)(Radius * 0.5f), Center, PowerUp.PowerType.Random);
 				}
 
 				ToBeRemoved = true;

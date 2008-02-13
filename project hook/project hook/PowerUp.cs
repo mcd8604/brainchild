@@ -7,6 +7,52 @@ namespace project_hook
 {
 	class PowerUp : Collidable
 	{
+		private static List<PowerUp> m_PowerUps;
+		private static int nextPowerUp = 0;
+		private const int MAX_POWERUPS = 20;
+
+
+		public static void iniPowerups()
+		{
+			m_PowerUps = new List<PowerUp>();
+
+			for (int a = 0; a < MAX_POWERUPS; a++)
+			{
+				m_PowerUps.Add(new PowerUp());
+				World.m_World.AddSprite(m_PowerUps[a]);
+			}
+		}
+
+		public static void DisplayPowerUp(int size, int value, Vector2 at, PowerType power)
+		{
+			PowerUp p = m_PowerUps[nextPowerUp];
+			if (power == PowerType.Random)
+			{
+				p.Type = getRandomType();
+			}
+			else
+			{
+				p.Type = power;
+			}
+
+			if (p.Type != PowerType.None)
+			{
+				p.Center = at;
+				p.Height = size;
+				p.Width = size;
+				p.Radius = size * 0.5f;
+				p.Amount = value;
+				p.Health = float.NaN;
+				p.Alpha = 200;
+				p.Name = "Power Up " + p.Texture.Name;
+				p.Enabled = true;
+				
+				//World.m_World.AddSprite(p);
+				nextPowerUp = (nextPowerUp + 1) % MAX_POWERUPS;
+			}			
+		}
+
+
 		protected int m_Amount;
 		public int Amount
 		{
@@ -72,6 +118,8 @@ namespace project_hook
 
 		public enum PowerType
 		{
+			Random = -1,
+			None = 0,
 			Weapon = 1,
 			Health = 2,
 			Shield = 3
@@ -106,6 +154,39 @@ namespace project_hook
 		protected int m_BackCount = 4;
 
 		protected Sprite[] m_Back;
+
+		public PowerUp()
+		{
+			m_Back = new Sprite[m_BackCount];
+
+			for (int a = 0; a < m_BackCount; a++)
+			{
+				m_Back[a] = new Sprite();
+				m_Back[a].setAnimation("energyball", 30);
+				m_Back[a].BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
+
+				m_Back[a].Task = new TaskAttach(this);
+				m_Back[a].Alpha = 65;
+
+				attachSpritePart(m_Back[a]);
+
+				m_Back[a].Animation.CurrentFrame = a * 5;
+				m_Back[a].Animation.StartAnimation();
+
+			}
+
+			Enabled = false;
+			Faction = Factions.PowerUp;
+			Height = 1;
+			Width = 1;
+			Radius = 1f;
+			Amount = 0;
+			Damage = 0;
+			Health = float.NaN;
+			Z = Depth.GameLayer.PlayerShip + 0.0001f;
+			Task = new TaskStationary();
+			Name = "Power Up - Not Assigned";
+		}
 
 		public PowerUp(int size, int value)
 		{
@@ -163,7 +244,7 @@ namespace project_hook
 			}
 
 			Center = at;
-			randomType();
+			Type = getRandomType();
 			Faction = Factions.PowerUp;
 			Height = size;
 			Width = size;
@@ -213,33 +294,27 @@ namespace project_hook
 		}
 
 
-		void randomType()
+		private static PowerType getRandomType()
 		{
-			int val = Game.Random.Next(100);
 
+			int val = Game.Random.Next(100);
 			if (val < 50)
 			{
 				if (val < 30)
 				{
-					Type = PowerType.Weapon;
-					return;
+
+					return PowerType.Weapon;
 				}
 				else if (val < 40)
-				{
-					Type = PowerType.Health;
-					return;
+				{			
+					return PowerType.Health;
 				}
 				else
-				{
-					Type = PowerType.Shield;
-					return;
-				}
+					return PowerType.Shield;
 			}
-			else
-			{
-				m_Enabled = false;
-				m_ToBeRemoved = true;
-			}
+
+			return PowerType.None;
+			
 		}
 
 		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
@@ -253,7 +328,6 @@ namespace project_hook
 				if (p_Other is PlayerShip)
 				{
 					Enabled = false;
-					ToBeRemoved = true;
 				}
 			}
 		}
