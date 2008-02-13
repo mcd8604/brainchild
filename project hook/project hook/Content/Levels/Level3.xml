@@ -1487,7 +1487,7 @@
 			<radius>46</radius>
 			<texture name="cell"/>
 			<startCenter x="512" y="0"/>
-			<health>150</health>
+			<health>200</health>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<weapon type="Complex" offset="0" target="Player">
@@ -1510,9 +1510,9 @@
 					</task>
 				</task>
 				<delay>1</delay>
-				<speed>200</speed>
+				<speed>150</speed>
 				<shot>
-					<damage>30</damage>
+					<damage>20</damage>
 					<height>32</height>
 					<width>32</width>
 					<radius>16</radius>
