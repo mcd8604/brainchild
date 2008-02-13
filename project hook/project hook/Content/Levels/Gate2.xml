@@ -33,7 +33,7 @@
 				<height>32</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
-				<startTile x="15" y="-9"/>
+				<startTile x="15" y="-10"/>
 				<task type="Stationary"/>
 			</trigger>
 		</createGate>

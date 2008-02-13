@@ -318,7 +318,7 @@ namespace project_hook
 				World.m_Score.evaluateCollision(this, DC, d, Health <= 0);
 			}
 
-			if (World.isSpriteNotVisible(this) && (Center.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.1) || Center.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .25))))
+			if (World.isSpriteNotVisible(this) && (Center.Y > (Game.graphics.GraphicsDevice.Viewport.Height * 1.1) || Center.Y < (0 - (Game.graphics.GraphicsDevice.Viewport.Height * .4))))
 			{
 				if (this is Shot)
 				{
