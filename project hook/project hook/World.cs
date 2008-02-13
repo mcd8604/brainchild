@@ -495,13 +495,13 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
-					if (Music.IsPlaying("bg1"))
+					if (Music.IsPlaying("bg2"))
 					{
-						Music.Stop("bg1");
+						Music.Stop("bg2");
 					}
 					else
 					{
-						Music.Play("bg1");
+						Music.Play("bg2");
 					}
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.C))
