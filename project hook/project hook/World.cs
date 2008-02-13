@@ -575,6 +575,7 @@ namespace project_hook
 						task.addTask(new TaskAttach(m_Player.PlayerShip));
 						task.addTask(new TaskRepeatingTimer(2f));
 						kill.Task = task;
+						kill.m_Ship = m_Player.PlayerShip;
 						AddSprite(kill);
 					}
 					else if (kill.Enabled == false)

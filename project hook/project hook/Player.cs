@@ -169,6 +169,7 @@ namespace project_hook
 			{
 				foreach (Shot s in w.m_Shots)
 				{
+					s.m_Ship = PlayerShip;
 					m_PlayerShip.addSprite(s);
 				}
 			}

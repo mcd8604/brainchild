@@ -257,6 +257,7 @@ namespace project_hook
 				if (p_Other is PlayerShip)
 				{
 					Enabled = false;
+					ToBeRemoved = true;
 				}
 			}
 		}

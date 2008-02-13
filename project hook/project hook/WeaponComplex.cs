@@ -59,10 +59,11 @@ namespace project_hook
 			}
 		}
 
-		public WeaponComplex() { }
+		public WeaponComplex(){ }
+		public WeaponComplex(Ship p_Ship): base(p_Ship) { }
 
-		public WeaponComplex(Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
-			: base(p_Shot, p_Delay, p_Speed)
+		public WeaponComplex(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
+			: base(p_Ship, p_Shot, p_Delay, p_Speed)
 		{
 			ShotTask = p_ShotTask;
 		}

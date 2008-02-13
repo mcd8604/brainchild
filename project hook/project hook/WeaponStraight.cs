@@ -39,10 +39,11 @@ namespace project_hook
 
 		Task m_ShotTask;
 
-		public WeaponStraight() { }
+		public WeaponStraight(){ }
+		public WeaponStraight(Ship p_Ship):base(p_Ship) { }
 
-		public WeaponStraight(Shot p_Shot, float p_Delay, float p_Speed, float p_Angle)
-			: base(p_Shot, p_Delay, p_Speed)
+		public WeaponStraight(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, float p_Angle)
+			: base(p_Ship, p_Shot, p_Delay, p_Speed)
 		{
 			Angle = p_Angle;
 		}
