@@ -486,11 +486,6 @@ namespace project_hook
 				}
 
 #if DEBUG
-                if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.L))
-				{
-                    PowerUp p = new PowerUp(50, 50, PowerUp.PowerType.Weapon, m_Player.PlayerShip.Position);
-                    m_SpriteList.Add(p);
-				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
 					if (Music.IsPlaying("bg1"))
@@ -536,7 +531,7 @@ namespace project_hook
 					Console.WriteLine(m_Position.Distance.ToString() + ", " + (m_Position.Distance / (float)EnvironmentLoader.TileDimension));
 				}
 #if CHEAT
-				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.U))
 				{
 					PowerUp p = new PowerUp(50, 50, PowerUp.PowerType.Weapon, m_Player.PlayerShip.Center);
 					m_SpriteList.Add(p);
