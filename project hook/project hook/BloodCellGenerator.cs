@@ -28,7 +28,7 @@ namespace project_hook
 				Collidable t_Blood = new Collidable("BloodCell", new Vector2(0, 0), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"),
 					0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper, Collidable.Factions.Blood, 100, 25);
 				t_Blood.setAnimation("bloodcell", 60);
-				t_Blood.BlendMode = SpriteBlendMode.Additive;
+				t_Blood.BlendMode = SpriteBlendMode.AlphaBlend;
 				t_Blood.Enabled = false;
 				m_BloodCellList.Add(t_Blood);
 			}
