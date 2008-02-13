@@ -233,6 +233,10 @@ namespace project_hook
 			}
 		}
 
+		public static Boolean getPrimaryRight()
+		{
+			return primaryRight;
+		}
 		//This will deallocate any variables that need de allocation
 		public void unload()
 		{

@@ -31,6 +31,11 @@ namespace project_hook
 				playSound = true;
 			}
 		}
+
+		public static Boolean getPlaySound()
+		{
+			return playSound;
+		}
 		/// <summary>
 		/// Starts up the sound code
 		/// </summary> 

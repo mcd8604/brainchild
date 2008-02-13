@@ -22,6 +22,8 @@ namespace project_hook
 			m_MenuItemNames.Add("Start");
 			m_MenuItemNames.Add("Instructions");
 			m_MenuItemNames.Add("Options");
+			m_MenuItemNames.Add("High Scores");
+			m_MenuItemNames.Add("Credits");
 			m_MenuItemNames.Add("Quit");
 		}
 
@@ -43,7 +45,12 @@ namespace project_hook
 				Menus.setCurrentMenu(Menus.MenuScreens.Options);
 			}
 
-			if (m_selectedIndex == 3)
+			if (m_selectedIndex == 4)
+			{
+				Menus.setCurrentMenu(Menus.MenuScreens.Credits);
+			}
+
+			if (m_selectedIndex == 5)
 			{
 				Menus.Exit = true;
 			}

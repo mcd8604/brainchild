@@ -76,6 +76,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>BrainChildLogo</Name>
     </Compile>
+    <Compile Include="Credits.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Credits</Name>
+    </Compile>
     <Compile Include="Instructions1.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Instructions1</Name>
@@ -1156,6 +1160,12 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Gate3</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Credits.PNG">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>Credits</Name>
     </Content>
     <Content Include="Content\Textures\Instructions1.PNG">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
