@@ -7,6 +7,8 @@ namespace project_hook
 {
 	class PowerUp : Collidable
 	{
+		protected Random rand = new Random();
+
 		protected int m_Amount;
 		public int Amount
 		{
@@ -215,13 +217,11 @@ namespace project_hook
 
 		void randomType()
 		{
-			Random r = new Random();
-			int val = r.Next(100) + 1;
+			int val = rand.Next(100) + 1;
 			PowerType pt = PowerType.Weapon;
 
 			if (val <= 50)
 			{
-
 				if (val >= 0 && val <= 30)
 				{
 					pt = PowerType.Weapon;
@@ -239,7 +239,6 @@ namespace project_hook
 			{
 				m_Enabled = false;
 				m_ToBeRemoved = true;
-
 			}
 			//Type = (PowerType)val acted weird;
 			Type = pt;
