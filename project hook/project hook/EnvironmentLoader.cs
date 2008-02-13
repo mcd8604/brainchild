@@ -350,11 +350,11 @@ namespace project_hook
 				Width = bmp.Width;
 #if TESTING
 				// Testing
-				Console.WriteLine("PF: " + bmp.PixelFormat + " " + (bmp.PixelFormat == System.Drawing.Imaging.PixelFormat.Format1bppIndexed));
+				Game.Out.WriteLine("PF: " + bmp.PixelFormat + " " + (bmp.PixelFormat == System.Drawing.Imaging.PixelFormat.Format1bppIndexed));
 				if (bmp.PixelFormat == System.Drawing.Imaging.PixelFormat.Format1bppIndexed)
 				{
 					byte[] bytes = (byte[])System.ComponentModel.TypeDescriptor.GetConverter(bmp).ConvertTo(bmp, typeof(byte[])); // 1 - 2 ms
-					Console.WriteLine(bytes.Length + ", " + ((bytes.Length - 62) * 8) + ", " + (((bytes.Length - 62) * 8) == (Height * Width)));
+					Game.Out.WriteLine(bytes.Length + ", " + ((bytes.Length - 62) * 8) + ", " + (((bytes.Length - 62) * 8) == (Height * Width)));
 					BitArray t = new BitArray(bytes);
 					TileArray = new Tile[Width, Height];
 					for (int height = 0; height < Height; ++height)
@@ -378,7 +378,7 @@ namespace project_hook
 #if DEBUG && TIME
 					stopwatch.Stop();
 					int x = LevelName.LastIndexOf("\\") + 1;
-					Console.WriteLine("> Testing " + LevelName.Substring(x, LevelName.Length - x) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
+					Game.Out.WriteLine("> Testing " + LevelName.Substring(x, LevelName.Length - x) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
 					stopwatch.Reset();
 					stopwatch.Start();
 #endif
@@ -549,7 +549,7 @@ namespace project_hook
 #if DEBUG && TIME
 				stopwatch.Stop();
 				int p = LevelName.LastIndexOf("\\") + 1;
-				Console.WriteLine("> Read in " + LevelName.Substring(p, LevelName.Length - p) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
+				Game.Out.WriteLine("> Read in " + LevelName.Substring(p, LevelName.Length - p) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
 				stopwatch.Reset();
 #endif
 			}

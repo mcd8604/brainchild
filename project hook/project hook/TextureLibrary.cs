@@ -221,13 +221,13 @@ namespace project_hook
 			catch (ContentLoadException e)
 			{
 
-				Console.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e.Message);
+				Game.Out.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e.Message);
 				return false;
 			}
 			catch (IOException e)
 			{
 
-				Console.WriteLine("TextureLibrary.LoadTexure.IOException: " + e.Message);
+				Game.Out.WriteLine("TextureLibrary.LoadTexure.IOException: " + e.Message);
 				return false;
 			}
 			System.Diagnostics.Debug.Assert(m_Textures.ContainsKey(textureName));

@@ -296,7 +296,6 @@ namespace project_hook
 
 		private static PowerType getRandomType()
 		{
-
 			int val = Game.Random.Next(100);
 			if (val < 50)
 			{
@@ -306,15 +305,15 @@ namespace project_hook
 					return PowerType.Weapon;
 				}
 				else if (val < 40)
-				{			
+				{
 					return PowerType.Health;
 				}
 				else
+				{
 					return PowerType.Shield;
+				}
 			}
-
 			return PowerType.None;
-			
 		}
 
 		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
