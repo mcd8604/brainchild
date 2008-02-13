@@ -105,6 +105,36 @@
 				<task type="Stationary"/>
 			</wall>
 		</createGate>
+		<createGate>
+			<gate>
+				<name>gate3_2L</name>
+				<numRows>3</numRows>
+				<numCols>5</numCols>
+				<faction>Environment</faction>
+				<texture name="walls\plaque"/>
+				<startTile x="16" y="-15"/>
+				<task type="Stationary"/>
+			</gate>
+			<gate>
+				<name>gate3_2R</name>
+				<numRows>3</numRows>
+				<numCols>5</numCols>
+				<faction>Environment</faction>
+				<texture name="walls\plaque"/>
+				<startTile x="16" y="-15"/>
+				<task type="Stationary"/>
+			</gate>
+			<trigger>
+				<name>gate3_2LT</name>
+				<height>64</height>
+				<width>32</width>
+				<texture name="trigger" pos="0"/>
+				<startCenter x="816" y="-200"/>
+				<degree>0</degree>
+				<task type="Stationary"/>
+				<endGate>false</endGate>
+			</trigger>
+		</createGate>
 	</action>
 	<action tile="54">
 		<changeSpeed>
