@@ -172,7 +172,7 @@ namespace project_hook
 			Music.Initialize();
 			Sound.Initialize();
 
-			bcg = new BloodCellGenerator();
+			bcg = new BloodCellGenerator(4);
 
 			m_World = this;
 		}
