@@ -10,7 +10,7 @@ namespace project_hook
 {
 	public class World
 	{
-
+		private BloodCellGenerator bcg;
 		private List<Sprite> m_SpriteList;  // Alpha sprites
 		private List<Sprite> m_SpriteListA; // Additive Sprites;
 		private static Boolean primaryRight = true;
@@ -174,6 +174,7 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
+			bcg = new BloodCellGenerator(m_SpriteListA);
 			m_World = this;
 		}
 
@@ -250,6 +251,8 @@ namespace project_hook
 			//This will be for normal everyday update operations.  
 			if (m_State == GameState.Running)
 			{
+				bcg.Update(p_GameTime);
+
 				m_LHandler.CheckEvents(m_Position.Distance);
 
 				m_Position.Update(p_GameTime);
@@ -257,8 +260,6 @@ namespace project_hook
 				m_ELoader.Update(p_GameTime);
 
 				m_Player.UpdatePlayer(p_GameTime);
-
-				CreateBloodCell();
 
 #if TIME
 				timer.Reset();
@@ -854,19 +855,19 @@ namespace project_hook
 			}
 		}
 
-		public void CreateBloodCell()
-		{
-			if (m_RanX.Next(0, 800) == 5)
-			{
-				Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
-										TextureLibrary.getGameTexture("bloodcell", "1"), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
-										Collidable.Factions.Blood, 100, 25);
-				t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
-				t_Blood.setAnimation("bloodcell", 60);
-				t_Blood.Animation.StartAnimation();
-				m_SpriteList.Add(t_Blood);
-			}
-		}
+		//public void CreateBloodCell()
+		//{
+		//    if (m_RanX.Next(0, 800) == 5)
+		//    {
+		//        Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
+		//                                TextureLibrary.getGameTexture("bloodcell", "1"), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
+		//                                Collidable.Factions.Blood, 100, 25);
+		//        t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
+		//        t_Blood.setAnimation("bloodcell", 60);
+		//        t_Blood.Animation.StartAnimation();
+		//        m_SpriteList.Add(t_Blood);
+		//    }
+		//}
 
 		public void LoadBMP(String p_FileName)
 		{

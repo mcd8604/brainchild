@@ -63,6 +63,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BloodCellGenerator.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>BloodCellGenerator</Name>
+    </Compile>
     <Compile Include="Boss.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Boss</Name>
