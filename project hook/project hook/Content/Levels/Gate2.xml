@@ -18,16 +18,7 @@
 				<startTile x="19" y="-12"/>
 				<faction>Environment</faction>
 				<task type="Stationary"/>
-			</gate>
-			<trigger>
-				<name>gate2_1T</name>
-				<height>32</height>
-				<width>32</width>
-				<texture name="trigger" pos="0"/>
-				<startCenter x="476" y="-288"/>
-				<degree>0</degree>
-				<task type="Stationary"/>
-			</trigger>
+			</gate>			
 			<wall>
 				<name>gateBlock1</name>
 				<texture name="walls\plaque_clear"/>
@@ -37,10 +28,15 @@
 				<faction>ClearWall</faction>
 				<task type="Stationary"/>
 			</wall>
+			<trigger>
+				<name>gate2_1T</name>
+				<height>32</height>
+				<width>32</width>
+				<texture name="trigger" pos="0"/>
+				<startTile x="15" y="-9"/>
+				<task type="Stationary"/>
+			</trigger>
 		</createGate>
-	</action>
-	<action tile="16">
-		
 	</action>
 	<action tile="26">
 		<changeSpeed>
