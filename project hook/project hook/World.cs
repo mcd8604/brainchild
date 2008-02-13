@@ -162,6 +162,7 @@ namespace project_hook
 
 		public World(Rectangle p_DrawArea)
 		{
+			m_World = this;
 			m_ViewPortSize = p_DrawArea;
 			m_SpriteList = new List<Sprite>();
 			m_SpriteListA = new List<Sprite>();
@@ -173,8 +174,6 @@ namespace project_hook
 			Sound.Initialize();
 
 			bcg = new BloodCellGenerator(4);
-
-			m_World = this;
 		}
 
 		//This method will load the level
@@ -541,8 +540,9 @@ namespace project_hook
 #if CHEAT
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.U))
 				{
-					PowerUp p = new PowerUp(50, 50, PowerUp.PowerType.Weapon, m_Player.PlayerShip.Center);
-					m_SpriteList.Add(p);
+					//PowerUp p = new PowerUp(50, 50, PowerUp.PowerType.Weapon, m_Player.PlayerShip.Center);
+					//m_SpriteList.Add(p);
+					PowerUp.DisplayPowerUp(50, 50, m_Player.PlayerShip.Center,PowerUp.PowerType.Weapon);
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.G))
 				{
@@ -731,6 +731,8 @@ namespace project_hook
 			IniPlayer();
 
 			IniHUD();
+
+			PowerUp.iniPowerups();
 		}
 
 		public void IniBackground()
