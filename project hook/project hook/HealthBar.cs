@@ -57,10 +57,12 @@ namespace project_hook
 
         public HealthBar(Collidable p_Ship, Vector2 pos, int p_Width, int p_Height, int p_BGWidth, int p_BGHeight)
         {
+			
             m_Target = p_Ship;
             width = p_Width;
             height = p_Height;
             this.Position = pos;
+			this.Name = "Health Bar - " + m_Target.Name;
               ini(p_BGWidth,p_BGHeight);
             setBars();
 
