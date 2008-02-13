@@ -45,6 +45,18 @@
 		</changeSpeed>
 	</action>
 	<action tile="37">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startTile x="18" y="-12"/>
+			<health>5</health>
+			<grabbable>false</grabbable>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
+		</createShip>
 		<createGate>
 			<gate>
 				<name>gate3_2L</name>
@@ -105,6 +117,8 @@
 				<task type="Stationary"/>
 			</wall>
 		</createGate>
+	</action>
+	<action tile="51">
 		<createGate>
 			<gate>
 				<name>gate3_2L</name>
@@ -112,7 +126,7 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<startTile x="16" y="-15"/>
+				<startTile x="6" y="-2"/>
 				<task type="Stationary"/>
 			</gate>
 			<gate>
@@ -121,18 +135,17 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<startTile x="16" y="-15"/>
+				<startTile x="23" y="-2"/>
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
 				<name>gate3_2LT</name>
-				<height>64</height>
-				<width>32</width>
+				<height>32</height>
+				<width>64</width>
 				<texture name="trigger" pos="0"/>
-				<startCenter x="816" y="-200"/>
+				<startTile x="15" y="0"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
-				<endGate>false</endGate>
 			</trigger>
 		</createGate>
 	</action>
