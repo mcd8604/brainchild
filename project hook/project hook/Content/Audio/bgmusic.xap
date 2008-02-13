@@ -12,8 +12,8 @@ Global Settings
     Header File = bgmusic.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 3516060068;
-    Last Modified High = 29912121;
+    Last Modified Low = 3835711409;
+    Last Modified High = 29912696;
 
     Category
     {
@@ -219,6 +219,10 @@ Wave Bank
     Windows File = Win\Wave Bank.xwb;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 3835711409;
+    PC Bank Last Modified High = 29912696;
 
     Wave
     {
@@ -238,8 +242,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 558587815;
-            Last Modified High = 29912116;
+            Last Modified Low = 3500455107;
+            Last Modified High = 29912695;
         }
     }
 
@@ -261,8 +265,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3497750132;
-            Last Modified High = 29912116;
+            Last Modified Low = 3500923848;
+            Last Modified High = 29912695;
         }
     }
 
@@ -284,8 +288,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2613605086;
-            Last Modified High = 29912118;
+            Last Modified Low = 3564360130;
+            Last Modified High = 29912695;
         }
     }
 
@@ -307,8 +311,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3872704459;
-            Last Modified High = 29912123;
+            Last Modified Low = 3564203883;
+            Last Modified High = 29912695;
         }
     }
 
@@ -330,8 +334,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2902524043;
-            Last Modified High = 29912127;
+            Last Modified Low = 3564203883;
+            Last Modified High = 29912695;
         }
     }
 
@@ -364,6 +368,10 @@ Sound Bank
     Name = Sound Bank;
     Xbox File = Xbox\Sound Bank.xsb;
     Windows File = Win\Sound Bank.xsb;
+    Bank Last Modified Low = 3836180150;
+    Bank Last Modified High = 29912696;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
