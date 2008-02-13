@@ -112,60 +112,57 @@ namespace project_hook
 			//m_Upgrades.Add(shot);
 
 			//Side Shot left
-			Shot shot1 = new Shot();
-			shot1.Name = "Player Side Shot";
-			shot1.Height = 10;
-			shot1.Width = 30;
-			shot1.Texture = TextureLibrary.getGameTexture("Shot", "");
-			shot1.Radius = 10;
-			shot1.Damage = 1.0f;
-			shot1.Bound = Collidable.Boundings.Circle;
+			Shot shot = new Shot();
+			shot.Name = "Player Side Shot";
+			shot.Height = 10;
+			shot.Width = 30;
+			shot.Texture = TextureLibrary.getGameTexture("Shot", "");
+			shot.Radius = 10;
+			shot.Damage = 1.0f;
+			shot.Bound = Collidable.Boundings.Circle;
 			//  shot1.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
 			// shot1.setAnimation("shot_electric", 30);
-			m_UpgradeReqs.Add(100);
-			m_WeapUpgrades[0].Add(new WeaponStraight(this, shot1, 0.2f, 500, (float)Math.PI));
+			m_WeapUpgrades[0].Add(new WeaponStraight(this, shot, 0.2f, 500, (float)Math.PI));
 
 			//Side Shot right
-			shot1 = new Shot();
-			shot1.Name = "Player Side Shot";
-			shot1.Height = 10;
-			shot1.Width = 30;
-			shot1.Texture = TextureLibrary.getGameTexture("Shot", "");
-			shot1.Radius = 10;
-			shot1.Damage = 1.0f;
-			shot1.Bound = Collidable.Boundings.Circle;
+			shot = new Shot();
+			shot.Name = "Player Side Shot";
+			shot.Height = 10;
+			shot.Width = 30;
+			shot.Texture = TextureLibrary.getGameTexture("Shot", "");
+			shot.Radius = 10;
+			shot.Damage = 1.0f;
+			shot.Bound = Collidable.Boundings.Circle;
 			//   shot1.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
 			//  shot1.setAnimation("shot_electric", 30);
-			m_WeapUpgrades[0].Add(new WeaponStraight(this, shot1, 0.2f, 500, 0));
+			m_WeapUpgrades[0].Add(new WeaponStraight(this, shot, 0.2f, 500, 0));
 
-
-			// m_WeapUpgrades[0].Add(new_Weap);
 
 			//Level 2
 			//*********************************************************************
-			Shot shot = new Shot();
+			shot = new Shot();
 			shot.Name = "Player Homing Shot";
-			shot.Height = 40;
-			shot.Width = 40;
+			shot.Height = 30;
+			shot.Width = 30;
 			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
-			shot.Radius = 20;
-			shot.Damage = 7.0f;
+			shot.Radius = 15;
+			shot.Damage = 6f;
 			shot.Bound = Collidable.Boundings.Circle;
 			shot.setAnimation("shot_electric", 30);
 			shot.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
 
 			m_Upgrades.Add(shot);
-			m_UpgradeReqs.Add(200);
-			m_WeapUpgrades[1].Add( new WeaponSeekChangingTarget(this, shot, 1.5f, 300, Collidable.Factions.Enemy));
+			m_WeapUpgrades[1].Add( new WeaponSeekNearestTarget(this, shot, 1.5f, 300, Collidable.Factions.Enemy));
 
 
 			// m_WeapUpgrades[1].Add(new_Weap);
 
 			//Level 3
 			//*********************************************************************
-
-
-			m_UpgradeReqs.Add(1000);
+			for (int i = 1; i <= 20; i++)
+			{
+				m_UpgradeReqs.Add(i * 100);
+			}
 		}
 
 		public override void Update(GameTime p_Time)
@@ -258,12 +255,15 @@ namespace project_hook
 						}
 
 						//w.changeShotType(s);
-						w.Speed += w.Speed * 0.1f;
-						//w.Delay -= w.Delay * 0.2f;
+						w.Speed += w.Speed * 0.2f;
+						w.Delay -= w.Delay * 0.2f;
 					}
-					foreach (Weapon w in m_WeapUpgrades[cur])
+					if (cur < m_WeapUpgrades.Count)
 					{
-						addWeapon(w);
+						foreach (Weapon w in m_WeapUpgrades[cur])
+						{
+							addWeapon(w);
+						}
 					}
 				}
 			}

@@ -333,6 +333,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponSeekChangingTarget</Name>
     </Compile>
+    <Compile Include="WeaponSeekNearestTarget.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>WeaponSeekNearestTarget</Name>
+    </Compile>
     <Compile Include="WeaponSequence.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponSequence</Name>
