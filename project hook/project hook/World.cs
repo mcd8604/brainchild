@@ -486,6 +486,15 @@ namespace project_hook
 				}
 
 #if DEBUG
+				if(InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.J))
+				{
+					tail.Position = new Vector2(tail.Position.X,/*Game.graphics.GraphicsDevice.Viewport.Y + 10*/ 1000);
+				}
+                if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.L))
+				{
+                    PowerUp p = new PowerUp(50, 50, PowerUp.PowerType.Weapon, m_Player.PlayerShip.Position);
+                    m_SpriteList.Add(p);
+				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))
 				{
 					if (Music.IsPlaying("bg1"))

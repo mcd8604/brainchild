@@ -330,8 +330,7 @@ namespace project_hook
 				}
 				else
 				{
-					//ToBeRemoved = true;
-					if (/*this is Ship*/ this.Faction == Factions.Enemy || this.Faction == Factions.Blood || this.Faction == Factions.Player)
+					if ((this.Faction == Factions.Enemy || this.Faction == Factions.Blood || this.Faction == Factions.Player) && !(this is Tail))
 					{
 						//if (((Ship)this).Faction != Collidable.Factions.Player)
 						((Collidable)this).Health = 0;
