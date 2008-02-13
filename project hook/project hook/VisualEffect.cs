@@ -50,6 +50,12 @@ namespace project_hook
 			set { m_FrameLength = 1f / (float)value; }
 		}
 
+		public int FrameCount
+		{
+			get { return (int)(frames.Keys.Count); }
+		}
+
+
 	//	public GameTexture CurrentFrame
 //		{//
 	//		get { return frames[m_CurrentFrame.ToString()]; }
@@ -90,7 +96,7 @@ namespace project_hook
 				if (m_CycleRemoval && m_CycleCount >= m_Cycles)
 				{
 					//lazy sprite removal
-					m_BaseSprite.Enabled = false;
+					this.StopAnimation();
 				}
 
 				m_Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -114,6 +120,7 @@ namespace project_hook
 		{
 			m_CurrentFrame = 0;
 			m_Timer = 0f;
+			m_CycleCount = 0;
 		}
 
 		public void StartAnimation()

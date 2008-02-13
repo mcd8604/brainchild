@@ -139,6 +139,7 @@ namespace project_hook
 			Damage = 0;
 			Health = float.NaN;
 			Z += 0.0001f;
+			Name = "Power Up " + Texture.Name;
 		}
 
 		public PowerUp(int size, int value, Vector2 at)
@@ -175,7 +176,7 @@ namespace project_hook
 			Health = float.NaN;
 			Z = Depth.GameLayer.PlayerShip;
 			Alpha = 200;
-
+			Name = "Power Up " + Texture.Name;
 		}
 
 		public PowerUp(int size, int value, PowerType p_type, Vector2 at)
@@ -211,6 +212,7 @@ namespace project_hook
 			Health = float.NaN;
 			Z = Depth.GameLayer.PlayerShip;
 			Alpha = 200;
+			Name = "Power Up " + Texture.Name;
 		}
 
 
