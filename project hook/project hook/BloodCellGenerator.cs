@@ -57,6 +57,11 @@ namespace project_hook
 				{
 					if (c.ToBeRemoved || !c.Enabled)
 					{
+						if (c.ToBeRemoved)
+						{
+							if (!m_SpriteList.Contains(c))
+								m_SpriteList.Add(c);
+						}
 						c.ToBeRemoved = false;
 						c.Enabled = true;
 
