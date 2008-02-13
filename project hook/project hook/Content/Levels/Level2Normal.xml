@@ -106,6 +106,12 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
+				<task type="RotateByAngle">
+					<degree>-90</degree>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -138,6 +144,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -170,6 +179,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -202,6 +214,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -234,6 +249,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -565,6 +583,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -594,6 +615,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -626,6 +650,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -796,6 +823,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -828,6 +858,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -998,6 +1031,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -1030,6 +1066,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -1062,6 +1101,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -1094,6 +1136,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
@@ -1126,6 +1171,9 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
+				<task type="RotateFaceTarget">
+					<target>Player</target>
+				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
