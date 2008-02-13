@@ -68,7 +68,7 @@ namespace project_hook
 
         private void ini(int p_BGWidth, int p_BGHeight)
         {
-			if(m_Target is Ship && ((Ship)m_Target).MaxShield > 0)
+			//if(m_Target is Ship && ((Ship)m_Target).MaxShield > 0)
 				shields = new Sprite("HealthBar", new Vector2(this.Center.X, this.Center.Y),
                                       height, width, TextureLibrary.getGameTexture("shieldBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
 
@@ -112,22 +112,39 @@ namespace project_hook
         private void setBars()
         {
                 Vector2 c;
-                if (m_Target is Ship)
-                {
-                    Ship t_Ship = (Ship)m_Target;
-                    if (t_Ship.MaxShield > 0)
-                    {
-                        c = shields.Center;
-                        c.X = this.Center.X;
-                        c.Y = this.Center.Y + offset.Y;
-                        shields.Center = c;
+				if (m_Target is Ship)
+				{
+				
 
-                        shields.Width = (int)(width * t_Ship.Shield / t_Ship.MaxShield);
-                        blackS.Center = shields.Center;
-                        shields.Position = blackS.Position; 
-                   
-                    }
-                }
+					Ship t_Ship = (Ship)m_Target;
+					if (t_Ship.MaxShield > 0)
+					{
+						if (!shields.Enabled)
+						{
+							shields.Enabled = true;
+							blackS.Enabled = true;
+						}
+
+						c = shields.Center;
+						c.X = this.Center.X;
+						c.Y = this.Center.Y + offset.Y;
+						shields.Center = c;
+
+						shields.Width = (int)(width * t_Ship.Shield / t_Ship.MaxShield);
+						blackS.Center = shields.Center;
+						shields.Position = blackS.Position;
+					}
+					else
+					{
+						shields.Enabled = false;
+						blackS.Enabled = false;
+					}
+				}
+				else
+				{
+					shields.Enabled = false;
+					blackS.Enabled = false;
+				}
 
                 health.Width = (int)(width * m_Target.Health / m_Target.MaxHealth);        
                 c = health.Center;
