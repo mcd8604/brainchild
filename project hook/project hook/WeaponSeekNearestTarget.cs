@@ -7,15 +7,12 @@ namespace project_hook
 {
 	class WeaponSeekNearestTarget : Weapon
 	{
-
 		private Sprite m_LastTarget = null;
-
-		public Vector2 m_Position = Vector2.Zero;
 
 		Task m_SeekTask;
 		Task m_StraightTask;
-        Task m_ShotTask;
 
+		public Vector2 m_Position = Vector2.Zero;
 
 		private Collidable.Factions m_Faction;
 		public Collidable.Factions Faction
@@ -50,7 +47,7 @@ namespace project_hook
 					if (t < d)
 					{
 						target = s;
-						t = d;
+						d = t;
 					}
 				}
 			}
@@ -84,7 +81,6 @@ namespace project_hook
 					task.addTask(new TaskRotateToAngle(MathHelper.PiOver2));
                     m_StraightTask = task;
 
-					//m_LastAngle = thisAngle;
 					m_LastSpeed = Speed;
 				}
 			
