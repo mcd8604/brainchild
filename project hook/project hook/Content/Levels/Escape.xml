@@ -13,7 +13,12 @@
 			<speed>800</speed>
 		</changeSpeed>
 	</action>
-	<action tile="1000">
+	<action tile="1020">
+		<changeSpeed>
+			<speed>200</speed>
+		</changeSpeed>
+	</action>
+	<action tile="1100">
 		<endGame/>
 	</action>
 </level>
