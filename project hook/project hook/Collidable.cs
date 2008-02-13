@@ -367,6 +367,16 @@ namespace project_hook
 			if (Health <= 0)
 			{
 				SpawnDeathEffect(Center);
+				if (m_Parts != null)
+				{
+					foreach (Sprite s in m_Parts)
+					{
+						if (s is Collidable)
+						{
+							((Collidable)s).Health = 0;
+						}
+					}
+				}
 				//Dispose();
 			}
 			else if (damage > 0)
