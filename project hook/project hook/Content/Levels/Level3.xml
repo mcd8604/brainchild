@@ -506,7 +506,7 @@
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<weapon type="Straight" angle="10">
-				<delay>0.3</delay>
+				<delay>0.4</delay>
 				<speed>400</speed>
 				<shot>
 					<damage>5</damage>
@@ -519,7 +519,7 @@
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="0">
-				<delay>0.3</delay>
+				<delay>0.4</delay>
 				<speed>400</speed>
 				<shot>
 					<damage>5</damage>
@@ -532,7 +532,7 @@
 				</shot>
 			</weapon>
 			<weapon type="Straight" angle="-10">
-				<delay>0.3</delay>
+				<delay>0.4</delay>
 				<speed>400</speed>
 				<shot>
 					<damage>5</damage>
@@ -676,7 +676,7 @@
 			</weapon>
 			<weapon type="Straight" angle="30">
 				<delay>2</delay>
-				<speed>85</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
@@ -689,7 +689,7 @@
 			</weapon>
 			<weapon type="Straight" angle="60">
 				<delay>2</delay>
-				<speed>100</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
@@ -702,7 +702,7 @@
 			</weapon>
 			<weapon type="Straight" angle="90">
 				<delay>2</delay>
-				<speed>120</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
@@ -715,7 +715,7 @@
 			</weapon>
 			<weapon type="Straight" angle="120">
 				<delay>2</delay>
-				<speed>100</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
@@ -728,7 +728,7 @@
 			</weapon>
 			<weapon type="Straight" angle="150">
 				<delay>2</delay>
-				<speed>85</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
@@ -754,7 +754,7 @@
 			</weapon>
 			<weapon type="Straight" angle="210">
 				<delay>2</delay>
-				<speed>72</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
@@ -767,7 +767,7 @@
 			</weapon>
 			<weapon type="Straight" angle="240">
 				<delay>2</delay>
-				<speed>65</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
@@ -780,7 +780,7 @@
 			</weapon>
 			<weapon type="Straight" angle="270">
 				<delay>2</delay>
-				<speed>45</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
@@ -793,7 +793,7 @@
 			</weapon>
 			<weapon type="Straight" angle="300">
 				<delay>2</delay>
-				<speed>65</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
@@ -806,7 +806,7 @@
 			</weapon>
 			<weapon type="Straight" angle="330">
 				<delay>2</delay>
-				<speed>72</speed>
+				<speed>75</speed>
 				<shot>
 					<damage>4</damage>
 					<height>16</height>
