@@ -519,6 +519,7 @@ namespace project_hook
 		private void LoadEnemy(XmlReader p_Reader)
 		{
 			Ship t_Ship = readShip(p_Reader, typeof(Ship));
+			t_Ship.Z = Depth.GameLayer.Ships;
 			t_Ship.Faction = Collidable.Factions.Enemy;
 
 			List<Event> t_List = new List<Event>();
@@ -611,6 +612,12 @@ namespace project_hook
 				{
 					p_Reader.ReadStartElement();
 					t_Ship.Width = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("depth"))
+				{
+					p_Reader.ReadStartElement();
+					t_Ship.Z = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("texture"))
@@ -1226,6 +1233,12 @@ namespace project_hook
 							{
 								rotateFaceTarget.Target = World.m_Player.PlayerShip;
 							}
+							p_Reader.ReadEndElement();
+						}
+						else if (p_Reader.IsStartElement("offset"))
+						{
+							p_Reader.ReadStartElement("offset");
+							rotateFaceTarget.Offset = MathHelper.ToRadians(float.Parse(p_Reader.ReadString()));
 							p_Reader.ReadEndElement();
 						}
 					}

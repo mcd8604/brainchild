@@ -38,9 +38,11 @@ namespace project_hook
 
 			public static float Tail = 0.55f;
 
-			public static float TailBody = 0.65f;
+			public static float TailBody = 0.6f;
 
-			public static float Ships = 0.6f;
+			public static float Turrets = 0.65f;
+
+			public static float Ships = 0.7f;
 
 			public static float Environment = 0.8f;
 
