@@ -54,7 +54,8 @@ namespace project_hook
 			Title,
 			DevLogo,
 			RITLogo,
-			GameOver
+			GameOver,
+			Credits
 		}
 
 		public static void ini()
@@ -80,6 +81,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("Instructions1");
 			TextureLibrary.LoadTexture("Instructions2");
 			TextureLibrary.LoadTexture("Instructions3");
+			TextureLibrary.LoadTexture("Credits");
 			TextureLibrary.LoadTexture("crosshairs");
 		}
 
@@ -153,6 +155,11 @@ namespace project_hook
 			{
 				m_HasChanged = false;
 				return new GameOver();
+			}
+			else if (m_SelectedMenu == MenuScreens.Credits)
+			{
+				m_HasChanged = false;
+				return new Credits();
 			}
 
 			return null;
