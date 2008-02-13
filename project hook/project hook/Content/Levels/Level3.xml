@@ -410,18 +410,19 @@
 		</createShip>
 	</action>
 	<action tile="71">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startCenter x="960" y="0"/>
 			<health>30</health>
+			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -435,27 +436,25 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="77">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startCenter x="96" y="0"/>
 			<health>30</health>
+			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -469,13 +468,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="82">
 		<createSpawnPoint>
@@ -1014,18 +1010,19 @@
 		</createSpawnPoint>
 	</action>
 	<action tile="168">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="29" y="0"/>
 			<health>30</health>
+			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -1039,13 +1036,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="180">
 		<createSpawnPoint>
@@ -1356,18 +1350,19 @@
 		</createShip>
 	</action>
 	<action tile="250">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="29" y="0"/>
 			<health>30</health>
+			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -1381,13 +1376,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="258">
 		<createShip>
@@ -1755,18 +1747,19 @@
 		</createShip>
 	</action>
 	<action tile="316">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="14" y="0"/>
 			<health>30</health>
+			<degree>0</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -1780,25 +1773,23 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
-		<createShip>
+		</createTurret>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="20" y="0"/>
 			<health>30</health>
+			<degree>0</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -1812,13 +1803,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="326">
 		<createShip>
@@ -1934,18 +1922,19 @@
 		</createSpawnPoint>
 	</action>
 	<action tile="355">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="3" y="0"/>
 			<health>30</health>
+			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -1959,13 +1948,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="358">
 		<createShip>
@@ -2040,18 +2026,19 @@
 		</createShip>
 	</action>
 	<action tile="365">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="29" y="0"/>
 			<health>30</health>
+			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -2065,13 +2052,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="366">
 		<createSpawnPoint>
@@ -2464,18 +2448,19 @@
 		</createShip>
 	</action>
 	<action tile="451">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="16" y="0"/>
 			<health>30</health>
+			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -2489,13 +2474,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 		<createShip>
 			<name>W1_E1</name>
 			<height>55</height>
@@ -2559,18 +2541,19 @@
 		</createShip>
 	</action>
 	<action tile="455">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="1" y="0"/>
 			<health>30</health>
+			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -2584,13 +2567,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 		<createShip>
 			<name>W1_E1</name>
 			<height>55</height>
@@ -2654,18 +2634,19 @@
 		</createShip>
 	</action>
 	<action tile="459">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="17" y="0"/>
 			<health>30</health>
+			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -2679,13 +2660,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 		<createShip>
 			<name>W1_E1</name>
 			<height>55</height>
@@ -2868,18 +2846,19 @@
 				</task>
 			</object>
 		</createSpawnPoint>
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="28" y="0"/>
 			<health>30</health>
+			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -2893,27 +2872,25 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="515">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="17" y="0"/>
 			<health>30</health>
+			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -2927,13 +2904,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="521">
 		<createShip>
@@ -3079,18 +3053,19 @@
 		</createSpawnPoint>
 	</action>
 	<action tile="523">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="27" y="0"/>
 			<health>30</health>
+			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -3104,27 +3079,25 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="532">
-		<createShip>
+		<createTurret>
 			<name>W1_E1</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
-			<texture name="Enemy1"/>
+			<texture name="turret"/>
 			<startTile x="14" y="0"/>
 			<health>30</health>
+			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="0">
+			<weapon type="Straight" angle="-90">
 				<delay>0.5</delay>
 				<speed>400</speed>
 				<shot>
@@ -3138,13 +3111,10 @@
 				</shot>
 			</weapon>
 			<task type="Parallel">
-				<task type="RotateFaceTarget">
-					<target>Player</target>
-				</task>
 				<task type="Stationary"/>
 				<task type="Fire"/>
 			</task>
-		</createShip>
+		</createTurret>
 	</action>
 	<action tile="537">
 		<createSpawnPoint>
