@@ -337,7 +337,7 @@ namespace project_hook
 					}
 					else if (this.Faction == Factions.PowerUp)
 					{
-						ToBeRemoved = true;
+						Enabled = false;
 					}
 				}
 			}
