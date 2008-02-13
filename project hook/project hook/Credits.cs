@@ -15,6 +15,9 @@ namespace project_hook
 		{
 			//change to so texture that is is made for our title screen
 			m_BackgroundName = "Credits";
+			//George W. Gunnett III
+			//Organic Frequencies
+			//Soundsnap.com
 
 			m_Time = 0;
 			m_Delay = 20;
