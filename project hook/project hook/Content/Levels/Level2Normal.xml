@@ -1382,6 +1382,7 @@
 					<task type="Timer">
 						<duration>2.0</duration>
 					</task>
+					<task type="Fire"/>
 				</task>
 				<task type="Parallel">
 					<task type="Stationary"/>

@@ -20,6 +20,19 @@ namespace project_hook
 			}
 		}
 
+		protected bool m_Active=false;
+		public bool Active
+		{
+			get
+			{
+				return m_Active;
+			}
+			set
+			{
+				m_Active = value;
+			}
+		}
+
 		protected List<Sprite> m_Walls;
 		public List<Sprite> Walls
 		{
@@ -63,7 +76,7 @@ namespace project_hook
 #if DEBUG && VERBOSE
 			Game.Out.WriteLine( "The Trigger has been hit by " + p_Other + "!" );
 #endif
-			if (World.Position.Speed == 0 && p_Other.Faction == Factions.Player && !(p_Other is Tail))
+			if (m_Active && p_Other.Faction == Factions.Player && !(p_Other is Tail))
 			{
 				base.RegisterCollision(p_Other);
 				if (m_EndGate)

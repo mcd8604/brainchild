@@ -118,7 +118,7 @@
 			</wall>
 		</createGate>
 	</action>
-	<action tile="51">
+	<action tile="52">
 		<createGate>
 			<gate>
 				<name>gate3_2L</name>
@@ -126,7 +126,7 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<startTile x="6" y="-2"/>
+				<startTile x="5" y="-1"/>
 				<task type="Stationary"/>
 			</gate>
 			<gate>
@@ -135,18 +135,48 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<startTile x="23" y="-2"/>
+				<startTile x="23" y="-1"/>
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
-				<name>gate3_2LT</name>
+				<name>gate3_2T</name>
 				<height>32</height>
 				<width>64</width>
 				<texture name="trigger" pos="0"/>
-				<startTile x="15" y="0"/>
+				<startTile x="14" y="0"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>
+			<guardian>
+				<name>gate3_2G</name>
+				<height>94</height>
+				<width>93</width>
+				<radius>46</radius>
+				<health>400</health>
+				<texture name="turret"/>
+				<startTile x="14" y="0"/>
+				<degree>180</degree>
+				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+				<deathEffect name="ExplosionBig"/>
+				<grabbable>false</grabbable>
+				<weapon type="Straight" angle="-90">
+					<delay>0.5</delay>
+					<speed>400</speed>
+					<shot>
+						<damage>20</damage>
+						<height>16</height>
+						<width>16</width>
+						<radius>8</radius>
+						<blendMode>Additive</blendMode>
+						<texture name="energyball"/>
+						<animation name="energyball" fps="30"/>
+					</shot>
+				</weapon>
+				<task type="Parallel">
+					<task type="Stationary"/>
+					<task type="Fire"/>
+				</task>
+			</guardian>
 		</createGate>
 	</action>
 	<action tile="54">
