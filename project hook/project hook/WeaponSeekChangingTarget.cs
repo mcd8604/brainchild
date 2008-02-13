@@ -21,8 +21,8 @@ namespace project_hook
 
         }
 
-        public WeaponSeekChangingTarget(Shot p_Shot, float p_Delay, float p_Speed,Collidable.Factions factionToFind)
-			: base(p_Shot, p_Delay, p_Speed)
+        public WeaponSeekChangingTarget(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed,Collidable.Factions factionToFind)
+			: base(p_Ship, p_Shot, p_Delay, p_Speed)
 		{
             m_Faction = factionToFind;
 			pos = new List<Sprite>();

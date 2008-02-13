@@ -24,16 +24,17 @@ namespace project_hook
 			repeats = r;
 		}
 
-		public WeaponDupSequence() { }
+		public WeaponDupSequence(){ }
+		public WeaponDupSequence(Ship p_Ship):base(p_Ship) { }
 
-		public override void CreateShot(Ship who)
+		public override void CreateShot()
 		{
 			if (m_Cooldown <= 0 && weapon != null)
 			{
-				weapon.Fire(who);
-				if (who.ShootAnimation != null)
+				weapon.Fire(m_Ship);
+				if (m_Ship.ShootAnimation != null)
 				{
-					who.ShootAnimation.StartAnimation();
+					m_Ship.ShootAnimation.StartAnimation();
 				}
 				weapon.m_NextShot = (weapon.m_NextShot + 1) % weapon.m_Shots.Count;
 				count++;

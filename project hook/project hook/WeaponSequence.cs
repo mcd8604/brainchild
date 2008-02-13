@@ -19,16 +19,17 @@ namespace project_hook
 			weapons.Add(w);
 		}
 
-		public WeaponSequence() { }
+		public WeaponSequence(){ }
+		public WeaponSequence(Ship p_Ship): base(p_Ship) { }
 
-		public override void CreateShot(Ship who)
+		public override void CreateShot()
 		{
 			if (m_Cooldown <= 0 && weapons.Count > 0)
 			{
-				weapons[currentWeapon].Fire(who);
-				if (who.ShootAnimation != null)
+				weapons[currentWeapon].Fire(m_Ship);
+				if (m_Ship.ShootAnimation != null)
 				{
-					who.ShootAnimation.StartAnimation();
+					m_Ship.ShootAnimation.StartAnimation();
 				}
 				weapons[currentWeapon].m_NextShot = (weapons[currentWeapon].m_NextShot + 1) % weapons[currentWeapon].m_Shots.Count;
 				currentWeapon++;

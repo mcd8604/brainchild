@@ -9,10 +9,10 @@ namespace project_hook
 		private Task m_ShotTask;
 		public Task ShotTask { get { return m_ShotTask; } set { m_ShotTask = value; } }
 
-		public WeaponSimple() { }
+		public WeaponSimple(Ship p_Ship):base(p_Ship) {}
 
-		public WeaponSimple(Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
-			: base(p_Shot, p_Delay, p_Speed)
+		public WeaponSimple(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
+			: base(p_Ship, p_Shot, p_Delay, p_Speed)
 		{
 			ShotTask = p_ShotTask;
 		}

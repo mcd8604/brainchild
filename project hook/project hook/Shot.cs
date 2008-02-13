@@ -75,7 +75,11 @@ namespace project_hook
 				{
 					createShotTrail();
 				}
-
+			}
+			else
+			{
+				if (CheckShip())
+					this.ToBeRemoved = true;
 			}
 		}
 
@@ -128,7 +132,7 @@ namespace project_hook
 
 		public bool CheckShip()
 		{
-			return (m_Ship != null && m_Ship.IsDead());
+			return (m_Ship == null || (m_Ship.IsDead() || m_Ship.ToBeRemoved));
 		}
 	}
 }

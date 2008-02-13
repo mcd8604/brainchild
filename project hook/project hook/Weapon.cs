@@ -11,6 +11,23 @@ namespace project_hook
 	{
 		#region Variables and Properties
 
+		protected Ship m_Ship;
+		public Ship BaseShip
+		{
+			get
+			{ 
+				return m_Ship; 
+			}
+			set
+			{
+				m_Ship = value;
+				if (m_Shots != null)
+				{
+					foreach (Shot s in m_Shots)
+						s.m_Ship = m_Ship;
+				}
+			}
+		}
 		// this is how long the delay is between shots in seconds
 		protected float m_Delay = 100;
 		public virtual float Delay
@@ -59,7 +76,13 @@ namespace project_hook
 				m_Shots = new List<Shot>();
 				for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
 				{
-					m_Shots.Add(new Shot(value));
+					Shot tmp = new Shot(value);
+
+					if (m_Ship != null)
+					{
+						tmp.m_Ship = m_Ship;
+					}
+					m_Shots.Add(tmp);
 				}
 			}
 		}
@@ -69,25 +92,31 @@ namespace project_hook
 
 		#endregion // End of variables and Properties Region
 
-		public Weapon() { }
+		public Weapon(){}
 
-		public Weapon(Shot p_Shot, float p_Delay, float p_Speed)
+		public Weapon(Ship p_Ship) 
+		{
+			m_Ship = p_Ship;	
+		}
+
+		public Weapon(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed)
 		{
 			Delay = p_Delay;
 			Speed = p_Speed;
 			ShotType = p_Shot;
+			m_Ship = p_Ship;
 		}
 
 		//this function will create a Shot at the current location
 		// Only a single shot? 
-		public virtual void CreateShot(Ship who)
+		public virtual void CreateShot()
 		{
 			if (m_Cooldown <= 0)
 			{
-				Fire(who);
-				if (who.ShootAnimation != null)
+				Fire(m_Ship);
+				if (m_Ship.ShootAnimation != null)
 				{
-					who.ShootAnimation.StartAnimation();
+					m_Ship.ShootAnimation.StartAnimation();
 				}
 				m_Cooldown = m_Delay;
 				m_NextShot = (m_NextShot + 1) % m_Shots.Count;

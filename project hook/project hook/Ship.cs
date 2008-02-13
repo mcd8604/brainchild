@@ -204,6 +204,7 @@ namespace project_hook
 		public void addWeapon(Weapon w)
 		{
 			m_Weapons.Add(w);
+			w.BaseShip = this;
 			foreach (Shot s in w.getShots())
 			{
 				addSprite(s);
@@ -214,7 +215,7 @@ namespace project_hook
 		{
 			foreach (Weapon w in m_Weapons)
 			{
-				w.CreateShot(this);
+				w.CreateShot();
 			}
 		}
 
@@ -281,7 +282,7 @@ namespace project_hook
 					addSprite(new PowerUp((int)(Height * 0.5f), (int)(Radius * 0.5f), Center));
 				}
 
-				Enabled = false;
+				ToBeRemoved = true;
 
 			}
 
