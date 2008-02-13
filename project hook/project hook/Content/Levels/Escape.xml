@@ -5,15 +5,25 @@
 			<fileName>escape.bmp</fileName>
 		</loadBMP>
 		<changeSpeed>
-			<speed>700</speed>
+			<speed>600</speed>
 		</changeSpeed>
 	</action>
 	<action tile="20">
+		<changeSpeed>
+			<speed>700</speed>
+		</changeSpeed>
+	</action>
+	<action tile="40">
 		<changeSpeed>
 			<speed>800</speed>
 		</changeSpeed>
 	</action>
 	<action tile="1020">
+		<changeSpeed>
+			<speed>400</speed>
+		</changeSpeed>
+	</action>
+	<action tile="1040">
 		<changeSpeed>
 			<speed>200</speed>
 		</changeSpeed>
