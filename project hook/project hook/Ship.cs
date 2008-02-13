@@ -175,7 +175,10 @@ namespace project_hook
 			{
 				m_ShootAnimation = new VisualEffect(p_Ship.ShootAnimation.Name, this, p_Ship.ShootAnimation.FramesPerSecond);
 			}
-			Task = p_Ship.Task.copy();
+			if (p_Ship.Task != null)
+			{
+				Task = p_Ship.Task.copy();
+			}
 			Texture = p_Ship.Texture;
 			ToBeRemoved = p_Ship.ToBeRemoved;
 			m_Weapons = p_Ship.Weapons;
@@ -302,22 +305,10 @@ namespace project_hook
 			}
 		}
 
-		//protected override void Dispose()
-		//{
-		//    if (m_ShieldDamageEffect != null)
-		//    {
-		//        m_ShieldDamageEffect.Enabled = false;
-		//        m_ShieldDamageEffect.ToBeRemoved = true;
-		//    }
-
-		//    foreach (Weapon w in m_Weapons)
-		//    {
-		//        foreach (Shot s in w.getShots())
-		//            if (s.Enabled == false)
-		//                s.Center = new Vector2(-100, -100);
-		//    }
-
-		//}
+		public override Sprite copy()
+		{
+			return new Ship(this);
+		}
 
 		//private VisualEffect m_Last;
 

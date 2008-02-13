@@ -356,6 +356,11 @@ namespace project_hook
 		public Sprite()
 		{ }
 
+		public Sprite(Sprite p_Sprite)
+		{
+			throw new NotImplementedException();
+		}
+
 		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture)
 		{
 			m_Name = p_Name;
@@ -494,6 +499,11 @@ namespace project_hook
 			}
 
 			m_SpritesToBeAdded.AddRange(p_Sprites);
+		}
+
+		public virtual Sprite copy()
+		{
+			return new Sprite(this);
 		}
 
 		public override string ToString()
