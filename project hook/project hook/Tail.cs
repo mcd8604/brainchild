@@ -238,7 +238,20 @@ namespace project_hook
 				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0) && p_Other.Grabbable)
 				{
 					m_EnemyCaught = p_Other;
-					m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(150, 700), 75, 10,55,75);
+                   // if (m_EnemyHealth != null)
+                    //{
+                     //   m_EnemyHealth.ToBeRemoved = true;
+                      //  m_EnemyHealth.Enabled = false;
+                   // }
+                    if (m_EnemyHealth == null)
+                    {
+                        m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(150, 700), 75, 10, 55, 75);
+                    }
+                    else
+                    {
+                        m_EnemyHealth.Target = m_EnemyCaught;
+                        m_EnemyHealth.Enabled = true;
+                    }
 					addSprite(m_EnemyHealth);
 					Transparency = 0;
 					tailTarget.Enabled = false;
@@ -306,6 +319,8 @@ namespace project_hook
 				{
 					
 					Thrown thrown = new Thrown(EnemyCaught);
+                   // m_EnemyHealth.Enabled = false;
+                   // m_EnemyHealth.ToBeRemoved = true ;
 					EnemyCaught.Health = 0;
 					EnemyCaught.Enabled = false;
 					EnemyCaught = null;
@@ -342,6 +357,8 @@ namespace project_hook
 							Thrown thrown = new Thrown(EnemyCaught);
 							EnemyCaught.Health = 0;
 							EnemyCaught.Enabled = false;
+                            //m_EnemyHealth.ToBeRemoved = true;
+                            m_EnemyHealth.Enabled = false;
 							EnemyCaught = null;
 							thrown.Task = m_ReleaseTask;
 							addSprite(thrown);
@@ -364,11 +381,15 @@ namespace project_hook
 			if (m_EnemyCaught != null && m_EnemyCaught.IsDead())
 			{
 				m_EnemyCaught = null;
-				m_EnemyHealth .ToBeRemoved = true;
+				m_EnemyHealth.Enabled = false;
 				Transparency = 1;
 			}
 			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
+                if (m_EnemyHealth != null)
+                {
+                    m_EnemyHealth.Enabled = false;
+                }
 				tailTarget.Enabled = true;
 				tailTarget.Task = tailTargetNormalTask;
 			}
