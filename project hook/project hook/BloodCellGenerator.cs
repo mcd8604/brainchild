@@ -12,7 +12,6 @@ namespace project_hook
 	{
 		float m_BloodCellDelay = 3.0f;
 		float m_LastRelease = 0;
-		Random m_RanX = new Random();
 		List<Sprite> m_BloodCellList = new List<Sprite>();
 		public List<Sprite> BloodCells
 		{
@@ -52,7 +51,7 @@ namespace project_hook
 						c.Enabled = true;
 						c.ToBeRemoved = false;
 
-						c.Center = new Vector2(m_RanX.Next(0, Game.graphics.GraphicsDevice.Viewport.Width), 0);
+						c.Center = new Vector2(Game.Random.Next(0, Game.graphics.GraphicsDevice.Viewport.Width), 0);
 						c.Task = new TaskStraightVelocity(new Vector2(0, 100));
 						c.Faction = Collidable.Factions.Blood;
 						c.Rotation = -MathHelper.PiOver2;

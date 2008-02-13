@@ -74,8 +74,6 @@ namespace project_hook
 			}
 		}
 
-		private Random m_Random = new Random();
-
 		private float m_LastPos;
 
 		public SpawnPoint()

@@ -48,16 +48,6 @@ namespace project_hook
 			get { return freeParticles.Count; }
 		}
 
-		// a random number generator
-		private static Random random = new Random();
-		public static Random Random
-		{
-			get
-			{
-				return random;
-			}
-		}
-
 		protected String m_TextureName;
 		public String TextureName
 		{
@@ -401,7 +391,7 @@ namespace project_hook
 		{
 			// the number of particles we want for this effect is a random number
 			// somewhere between the two constants specified by the subclasses.
-			int numParticles = new Random().Next(m_MinNumParticles, m_MaxNumParticles);
+			int numParticles = Game.Random.Next(m_MinNumParticles, m_MaxNumParticles);
 
 			// create that many particles, if you can.
 			for (int i = 0; i < numParticles && freeParticles.Count > 0; i++)
@@ -458,7 +448,7 @@ namespace project_hook
 
 		public static float RandomBetween(float min, float max)
 		{
-			return min + (float)random.NextDouble() * (max - min);
+			return min + (float)Game.Random.NextDouble() * (max - min);
 		}
 
 		/// <summary>
