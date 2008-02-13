@@ -1104,7 +1104,7 @@ namespace project_hook
 
 #if DEBUG && TIME
 			timer.Stop();
-			Console.WriteLine("Collision Self Test Completed in " + timer.Elapsed.TotalMilliseconds.ToString() + " Milliseconds.");
+			Game.Out.WriteLine("Collision Self Test Completed in " + timer.Elapsed.TotalMilliseconds.ToString() + " Milliseconds.");
 #endif
 
 		}

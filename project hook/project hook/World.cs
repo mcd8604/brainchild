@@ -292,11 +292,11 @@ namespace project_hook
 					foreach (Sprite s in removed)
 					{
 #if VERBOSE
-						Console.WriteLine("Removing: " + s);
+						Game.Out.WriteLine("Removing: " + s);
 #endif
 						if (isSpriteVisible(s))
 						{
-							Console.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
+							Game.Out.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
 						}
 					}
 				}
@@ -306,7 +306,7 @@ namespace project_hook
 				int diff = (count - m_SpriteList.Count);
 				if (diff != 0)
 				{
-					Console.WriteLine("Removed " + diff + " AlphaBlended Sprites");
+					Game.Out.WriteLine("Removed " + diff + " AlphaBlended Sprites");
 				}
 #endif
 				foreach (Sprite s in m_SpriteList)
@@ -326,11 +326,11 @@ namespace project_hook
 					foreach (Sprite s in removedA)
 					{
 #if VERBOSE
-						Console.WriteLine("Removing: " + s);
+						Game.Out.WriteLine("Removing: " + s);
 #endif
 						if (isSpriteVisible(s))
 						{
-							Console.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
+							Game.Out.WriteLine("WARNING! " + s.Name + " was removed while it was still active and visible! This is #" + ++RemovedWhileVisibleCount);
 						}
 					}
 				}
@@ -340,7 +340,7 @@ namespace project_hook
 				diff = (count - m_SpriteListA.Count);
 				if (diff != 0)
 				{
-					Console.WriteLine("Removed " + diff + " Additive Sprites");
+					Game.Out.WriteLine("Removed " + diff + " Additive Sprites");
 				}
 #endif
 				foreach (Sprite s in m_SpriteListA)
@@ -353,7 +353,7 @@ namespace project_hook
 #if DEBUG && VERBOSE
 				if (toAdd.Count != 0)
 				{
-					Console.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
+					Game.Out.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
 				}
 #endif
 				AddSprites(toAdd);
@@ -363,7 +363,7 @@ namespace project_hook
 #if DEBUG && VERBOSE
 				if (toAddA.Count != 0)
 				{
-					Console.WriteLine("Added " + toAddA.Count + " Additive Sprites");
+					Game.Out.WriteLine("Added " + toAddA.Count + " Additive Sprites");
 				}
 #endif
 				AddSprites(toAddA);
@@ -535,7 +535,7 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
 				{
-					Console.WriteLine(m_Position.Distance.ToString() + ", " + (m_Position.Distance / (float)EnvironmentLoader.TileDimension));
+					Game.Out.WriteLine(m_Position.Distance.ToString() + ", " + (m_Position.Distance / (float)EnvironmentLoader.TileDimension));
 				}
 #if CHEAT
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.U))

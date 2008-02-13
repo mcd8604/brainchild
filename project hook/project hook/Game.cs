@@ -56,6 +56,21 @@ namespace project_hook
 			}
 		}
 
+#if DEBUG
+		protected static System.IO.TextWriter writer = Console.Out;
+#else
+		private const string outfilename = "err.log";
+		protected static System.IO.TextWriter writer = new System.IO.StreamWriter(outfilename);
+#endif
+		public static System.IO.TextWriter Out
+		{
+			get
+			{
+				return writer;
+			}
+		}
+
+
 
 		public Game()
 		{
@@ -155,6 +170,10 @@ namespace project_hook
 
 			if (Menus.Exit)
 			{
+#if !DEBUG
+				Out.Flush();
+				Out.Close();
+#endif
 				Exit();
 			}
 
@@ -272,7 +291,7 @@ namespace project_hook
 			//Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
 
 #if DEBUG && VERBOSE
-			Console.WriteLine("ACTIVATED");
+			Game.Out.WriteLine("ACTIVATED");
 #endif
 		}
 
@@ -283,7 +302,7 @@ namespace project_hook
 			base.OnDeactivated(sender, args);
 			Cursor.Clip = DefaultClippingBounds;
 #if DEBUG && VERBOSE
-			Console.WriteLine("DEACTIVATED");
+			Game.Out.WriteLine("DEACTIVATED");
 #endif
 			if (m_World != null)
 			{
