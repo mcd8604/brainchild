@@ -229,6 +229,8 @@ namespace project_hook
 
 		public static readonly System.Drawing.Color color_Auto = System.Drawing.Color.FromArgb(255, 255, 255);
 		public static readonly System.Drawing.Color color_Empty = System.Drawing.Color.FromArgb(200, 200, 200);
+		public static readonly System.Drawing.Color color_Fake = System.Drawing.Color.FromArgb(100, 100, 100);
+		public static readonly System.Drawing.Color color_Solid = System.Drawing.Color.FromArgb(50, 50, 50);
 		public static readonly System.Drawing.Color color_Wall = System.Drawing.Color.FromArgb(0, 0, 0);
 
 		public static readonly System.Drawing.Color color_TopLeftInvert = System.Drawing.Color.FromArgb(200, 200, 255);
@@ -249,6 +251,7 @@ namespace project_hook
 
 
 		public static Tile tile_Empty = new Tile();
+		public static Tile tile_Fake;
 		public static Tile tile_Wall;
 
 		public static Tile tile_TopLeftInvert;
@@ -279,6 +282,8 @@ namespace project_hook
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque3", ""));
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque4", ""));
 			tile_Wall = new Tile(gts, true);
+			tile_Solid = new Tile(gts, true);
+			tile_Fake = new Tile(gts, false);
 
 			tile_Right = new Tile(TextureLibrary.getGameTexture("walls\\plaque_right", ""), false);
 			tile_Left = new Tile(TextureLibrary.getGameTexture("walls\\plaque_left", ""), false);
@@ -294,6 +299,7 @@ namespace project_hook
 			tile_TopLeftInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert", ""), false);
 
 			ColorMap.Add(color_Wall.ToArgb(), tile_Wall);
+			ColorMap.Add(color_Fake.ToArgb(), tile_Fake);
 			ColorMap.Add(color_Right.ToArgb(), tile_Right);
 			ColorMap.Add(color_Left.ToArgb(), tile_Left);
 			ColorMap.Add(color_Bottom.ToArgb(), tile_Bottom);
@@ -518,6 +524,15 @@ namespace project_hook
 									}
 								}
 							}
+						}
+						else if ((thisColor == Mapping.color_Wall) &&
+								(y + 1 == Height || m_LevelArray[x, y + 1] == Mapping.color_Wall) &&
+								(y == 0 || m_LevelArray[x, y - 1] == Mapping.color_Wall) &&
+								(x + 1 == Width || m_LevelArray[x + 1, y] == Mapping.color_Wall) &&
+								(x == 0 || m_LevelArray[x - 1, y] == Mapping.color_Wall))
+						{
+							TileArray[x, y] = Mapping.tile_Fake;
+							continue;
 						}
 
 						if (Mapping.ColorMap.ContainsKey(thisColor.ToArgb()))
