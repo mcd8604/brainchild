@@ -16,7 +16,7 @@ namespace project_hook
 			m_BackgroundName = "Instructions1";
 
 			m_Time = 0;
-			m_Delay = 10;
+			m_Delay = 20;
 		}
 
 		public override void Update(GameTime p_Time)
