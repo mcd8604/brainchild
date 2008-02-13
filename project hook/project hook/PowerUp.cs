@@ -127,7 +127,6 @@ namespace project_hook
 
 			}
 
-			Name = "Unnamed PowerUp";
 			Enabled = false;
 			Faction = Factions.PowerUp;
 			Texture = TextureLibrary.getGameTexture("DNA", "");
@@ -163,7 +162,6 @@ namespace project_hook
 
 			}
 
-			Name = "Unnamed PowerUp";
 			Center = at;
 			randomType();
 			Faction = Factions.PowerUp;
@@ -199,7 +197,6 @@ namespace project_hook
 
 			}
 
-			Name = "Unnamed PowerUp";
 			Center = at;
 			Faction = Factions.PowerUp;
 			Type = p_type;
