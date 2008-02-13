@@ -14,6 +14,8 @@ namespace project_hook
 
 		Task m_SeekTask;
 		Task m_StraightTask;
+        Task m_ShotTask;
+
 
 		private Collidable.Factions m_Faction;
 		public Collidable.Factions Faction
@@ -80,9 +82,9 @@ namespace project_hook
 					TaskParallel task = new TaskParallel();
 					task.addTask(new TaskStraightAngle(MathHelper.PiOver2, Speed));
 					task.addTask(new TaskRotateToAngle(MathHelper.PiOver2));
-					m_ShotTask = task;
+                    m_StraightTask = task;
 
-					m_LastAngle = thisAngle;
+					//m_LastAngle = thisAngle;
 					m_LastSpeed = Speed;
 				}
 			

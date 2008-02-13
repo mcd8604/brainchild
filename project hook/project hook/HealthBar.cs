@@ -9,6 +9,14 @@ namespace project_hook
     {
         //the ship who's shield and health will be displayed
         Collidable m_Target;
+        public Collidable Target
+        {
+            set
+            {
+                m_Target = value;
+                bg.Texture = m_Target.Texture;
+            }
+        }
 
         //The poistion the shields and heatlh will be drawn
         Sprite shields;
