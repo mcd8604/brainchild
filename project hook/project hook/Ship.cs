@@ -231,6 +231,11 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 
+			if (m_ShootAnimation != null && Enabled)
+			{
+				m_ShootAnimation.Update(p_Time);
+			}
+
 			if (m_MaxShield > 0 && m_ShieldSprite != null)
 			{
 				m_ShieldSprite.Transparency = ((float)m_Shield) / ((float)m_MaxShield);
@@ -314,6 +319,8 @@ namespace project_hook
 
 		//}
 
+		private VisualEffect m_Last;
+
 		private VisualEffect m_ShootAnimation;
 		public VisualEffect ShootAnimation
 		{
@@ -326,7 +333,24 @@ namespace project_hook
 		public void setShootAnimation(string p_Animation, int p_FramesPerSecond)
 		{
 			m_ShootAnimation = new VisualEffect(p_Animation, this, p_FramesPerSecond, 1);
-			m_ShootAnimation.CycleRemoval = false;
+
+			float delay = 0;
+			
+			foreach (Weapon w in Weapons)
+			{
+				if (w.Delay > delay)
+				{
+					delay = w.Delay;
+				}
+			}
+			
+			/*if (delay < 1){
+				
+		
+			ShootAnimation.FramesPerSecond = 2* ShootAnimation.FramesPerSecond ;
+			}*/
+
+			m_ShootAnimation.CycleRemoval = true;
 			m_ShootAnimation.StopAnimation();
 		}
 
