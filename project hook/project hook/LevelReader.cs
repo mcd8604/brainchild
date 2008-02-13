@@ -136,6 +136,11 @@ namespace project_hook
 							NextFile(reader);
 							reader.ReadEndElement();
 						}
+						else if (reader.IsStartElement("endGame"))
+						{
+							reader.ReadStartElement();
+							EndGame();
+						}
 					} while (reader.IsStartElement());
 #if DEBUG
 					curLoop = 0;
@@ -160,6 +165,15 @@ namespace project_hook
 #endif
 
 			return m_Events;
+		}
+
+		public void EndGame()
+		{
+			List<Event> t_List = new List<Event>();
+
+			t_List.Add(new Event(Event.Types.EndGame));
+
+			m_Events.Add(m_Distance, t_List);
 		}
 
 		public void CreateBoss(XmlReader p_Reader)

@@ -7,7 +7,6 @@ namespace project_hook
 {
 	public class Event
 	{
-
 		public enum Types
 		{
 			CreateSprite,
@@ -15,7 +14,8 @@ namespace project_hook
 			ChangeFile,
 			ChangeSpeed,
 			LoadBMP,
-			PleaseLoadBMP
+			PleaseLoadBMP,
+			EndGame
 		}
 
 		protected Types m_Type;
@@ -92,6 +92,10 @@ namespace project_hook
 		{
 			m_Type = Types.ChangeSpeed;
 			m_Speed = p_Speed;
+		}
+		public Event(Types p_Type)
+		{
+			m_Type = p_Type;
 		}
 	}
 }

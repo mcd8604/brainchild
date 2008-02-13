@@ -76,10 +76,21 @@ namespace project_hook
 							case Event.Types.PleaseLoadBMP:
 								PleaseLoadBMP(e.FileName);
 								break;
+							case Event.Types.EndGame:
+								EndGame();
+								break;
 						}
 					}
 				}
 			}
+		}
+
+		public void EndGame()
+		{
+			m_Game.changeState(World.GameState.Won);
+			World.DestroyWorld = true;
+			//m_Game.State = World.GameState.Won;
+			Menus.setCurrentMenu(Menus.MenuScreens.Credits);
 		}
 
 		public void resetLevel()
