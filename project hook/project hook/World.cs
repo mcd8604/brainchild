@@ -715,6 +715,9 @@ namespace project_hook
 			TextureLibrary.LoadTexture("WeaponBar");
 			TextureLibrary.LoadTexture("wing");
 			TextureLibrary.LoadTexture("turret");
+			TextureLibrary.LoadTexture("turretBase");
+			TextureLibrary.LoadTexture("turretNeck");
+			TextureLibrary.LoadTexture("turretHead");
 
 #if DEBUG
 			TextureLibrary.LoadTexture("debugcirc");
