@@ -9,7 +9,7 @@
 		</changeSpeed>
 	</action>
 	<action tile="20">
-		<createShip>
+		<createBoss>
 			<name>Boss</name>
 			<height>300</height>
 			<width>300</width>
@@ -221,12 +221,15 @@
 					</task>
 				</task>				
 			</task>
-		</createShip>
+		</createBoss>
 	</action>
 	<action tile="32">
 		<changeSpeed>
 			<speed>0</speed>
 		</changeSpeed>
+		<pleaseLoadBMP>
+			<fileName>level3.bmp</fileName>
+		</pleaseLoadBMP>
 	</action>
 	<action tile="40">
 		<changeFile>
