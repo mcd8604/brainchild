@@ -561,12 +561,6 @@ namespace project_hook
 	class Tile
 	{
 
-#if DEBUG
-		private static Random random = new Random(0);
-#else 
-        private static Random random = new Random();
-#endif
-
 		protected ArrayList m_gameTextures = null;
 		protected GameTexture m_gameTexture = null;
 		public GameTexture GameTexture
@@ -579,7 +573,7 @@ namespace project_hook
 				}
 				else
 				{
-					return (GameTexture)m_gameTextures[random.Next(0, m_gameTextures.Count)];
+					return (GameTexture)m_gameTextures[Game.Random.Next(0, m_gameTextures.Count)];
 				}
 			}
 		}

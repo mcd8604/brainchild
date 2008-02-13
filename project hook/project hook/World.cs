@@ -137,9 +137,6 @@ namespace project_hook
 		LevelHandler m_LHandler;
 		EnvironmentLoader m_ELoader;
 
-
-		Random m_RanX = new Random();
-
         public static World m_World;
 
 #if DEBUG

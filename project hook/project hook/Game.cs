@@ -42,7 +42,20 @@ namespace project_hook
 			Menu
 		}
 
-		
+
+#if DEBUG
+		protected static Random random = new Random(0);
+#else
+		protected static Random random = new Random();
+#endif
+		public static Random Random
+		{
+			get
+			{
+				return random;
+			}
+		}
+
 
 		public Game()
 		{

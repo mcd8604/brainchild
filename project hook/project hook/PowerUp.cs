@@ -7,8 +7,6 @@ namespace project_hook
 {
 	class PowerUp : Collidable
 	{
-		protected Random rand = new Random();
-
 		protected int m_Amount;
 		public int Amount
 		{
@@ -217,22 +215,24 @@ namespace project_hook
 
 		void randomType()
 		{
-			int val = rand.Next(100) + 1;
-			PowerType pt = PowerType.Weapon;
+			int val = Game.Random.Next(100);
 
-			if (val <= 50)
+			if (val < 50)
 			{
-				if (val >= 0 && val <= 30)
+				if (val < 30)
 				{
-					pt = PowerType.Weapon;
+					Type = PowerType.Weapon;
+					return;
 				}
-				else if (val >= 31 && val <= 40)
+				else if (val < 40)
 				{
-					pt = PowerType.Health;
+					Type = PowerType.Health;
+					return;
 				}
-				else if (val >= 41 && val <= 50)
+				else
 				{
-					pt = PowerType.Shield;
+					Type = PowerType.Shield;
+					return;
 				}
 			}
 			else
@@ -240,8 +240,6 @@ namespace project_hook
 				m_Enabled = false;
 				m_ToBeRemoved = true;
 			}
-			//Type = (PowerType)val acted weird;
-			Type = pt;
 		}
 
 		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)

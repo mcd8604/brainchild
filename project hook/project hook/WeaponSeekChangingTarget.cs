@@ -11,7 +11,6 @@ namespace project_hook
         private Collidable.Factions m_Faction;
 		private Sprite noTarget;
 		private List<Sprite> pos;
-		Random r;
 
         public Collidable.Factions Faction
         {
@@ -27,7 +26,6 @@ namespace project_hook
             m_Faction = factionToFind;
 			pos = new List<Sprite>();
 			noTarget = new Sprite();
-			r = new Random();
 		}
         
         public override void Fire(Ship who)
@@ -58,7 +56,7 @@ namespace project_hook
             }
             else
             {
-                int index = r.Next(pos.Count);
+				int index = Game.Random.Next(pos.Count);
 				Target = pos[index];
             }
             base.Fire(who);
