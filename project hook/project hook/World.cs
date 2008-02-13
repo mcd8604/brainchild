@@ -10,7 +10,7 @@ namespace project_hook
 {
 	public class World
 	{
-		private BloodCellGenerator bcg;
+		//private BloodCellGenerator bcg;
 		private List<Sprite> m_SpriteList;  // Alpha sprites
 		private List<Sprite> m_SpriteListA; // Additive Sprites;
 		private static Boolean primaryRight = true;
@@ -174,7 +174,7 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
-			bcg = new BloodCellGenerator(m_SpriteListA);
+			//bcg = new BloodCellGenerator(m_SpriteListA);
 			m_World = this;
 		}
 
@@ -251,7 +251,7 @@ namespace project_hook
 			//This will be for normal everyday update operations.  
 			if (m_State == GameState.Running)
 			{
-				bcg.Update(p_GameTime);
+				//bcg.Update(p_GameTime);
 
 				m_LHandler.CheckEvents(m_Position.Distance);
 

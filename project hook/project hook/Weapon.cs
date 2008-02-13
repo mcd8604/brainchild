@@ -117,8 +117,8 @@ namespace project_hook
 				if (m_Ship.ShootAnimation != null)
 				{
 					//
-					who.ShootAnimation.Reset();
-					who.ShootAnimation.StartAnimation();
+					m_Ship.ShootAnimation.Reset();
+					m_Ship.ShootAnimation.StartAnimation();
 				}
 				m_Cooldown = m_Delay;
 				m_NextShot = (m_NextShot + 1) % m_Shots.Count;

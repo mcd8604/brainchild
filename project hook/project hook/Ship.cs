@@ -319,7 +319,7 @@ namespace project_hook
 
 		//}
 
-		private VisualEffect m_Last;
+		//private VisualEffect m_Last;
 
 		private VisualEffect m_ShootAnimation;
 		public VisualEffect ShootAnimation

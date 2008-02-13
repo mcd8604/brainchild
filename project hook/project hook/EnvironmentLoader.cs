@@ -282,7 +282,6 @@ namespace project_hook
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque3", ""));
 			gts.Add(TextureLibrary.getGameTexture("walls\\plaque4", ""));
 			tile_Wall = new Tile(gts, true);
-			tile_Solid = new Tile(gts, true);
 			tile_Fake = new Tile(gts, false);
 
 			tile_Right = new Tile(TextureLibrary.getGameTexture("walls\\plaque_right", ""), false);
@@ -299,6 +298,7 @@ namespace project_hook
 			tile_TopLeftInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert", ""), false);
 
 			ColorMap.Add(color_Wall.ToArgb(), tile_Wall);
+			ColorMap.Add(color_Solid.ToArgb(), tile_Wall);
 			ColorMap.Add(color_Fake.ToArgb(), tile_Fake);
 			ColorMap.Add(color_Right.ToArgb(), tile_Right);
 			ColorMap.Add(color_Left.ToArgb(), tile_Left);
