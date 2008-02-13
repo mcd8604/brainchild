@@ -264,7 +264,10 @@ namespace project_hook
 			{
 				Scale = p_Collidable.Scale;
 			}
-			Task = p_Collidable.Task.copy();
+			if (p_Collidable.Task != null)
+			{
+				Task = p_Collidable.Task.copy();
+			}
 			Texture = p_Collidable.Texture;
 			//ToBeRemoved = p_Collidable.ToBeRemoved;
 			Transparency = p_Collidable.Transparency;
@@ -410,23 +413,10 @@ namespace project_hook
 			}
 		}
 
-		//protected virtual void Dispose()
-		//{
-		//    if (m_DamageEffect != null)
-		//    {
-		//        m_DamageEffect.Enabled = false;
-		//        m_DamageEffect.ToBeRemoved = true;
-		//    }
-
-		//    if (m_DeathEffect != null)
-		//    {
-		//        TaskSequence temp = new TaskSequence();
-		//        temp.addTask(new TaskTimer(2));
-		//        temp.addTask(new TaskRemove());
-		//        m_DeathEffect.Task = temp;
-		//    }
-
-		//}
+		public override Sprite copy()
+		{
+			return new Collidable(this);
+		}
 
 		public override void Draw(SpriteBatch p_SpriteBatch)
 		{

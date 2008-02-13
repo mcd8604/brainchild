@@ -7,8 +7,8 @@ namespace project_hook
 {
 	class SpawnPoint : Sprite
 	{
-		private Ship m_SpawnObj;
-		public Ship SpawnObj
+		private Sprite m_SpawnObj;
+		public Sprite SpawnObj
 		{
 			get
 			{
@@ -105,10 +105,8 @@ namespace project_hook
 			{
 				m_LastPos = World.m_Position.Distance;
 				++m_CurIndex;
-				
-				Ship t_Collidable = new Ship(m_SpawnObj);
 
-				this.addSprite(t_Collidable);
+				addSprite(m_SpawnObj.copy());
 			}	
 		}
 	}
