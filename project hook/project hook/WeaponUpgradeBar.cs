@@ -85,9 +85,6 @@ namespace project_hook
 				int val = m_Target.UpgradeLevel;
 				int levelReq = m_Target.LevelRequirement(m_Target.CurrentLevel + 1);
 				int prevlevel = m_Target.LevelRequirement(m_Target.CurrentLevel);
-#if DEBUG && VERBOSE
-				//Game.Out.WriteLine((width * val - prevlevel / levelReq - prevlevel) + "");
-#endif
 				float div =  (float)(val - prevlevel)/(float)(levelReq - prevlevel) ;
 				int w = (int)(width * div);
 				if (w > 0)

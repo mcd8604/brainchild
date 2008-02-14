@@ -330,7 +330,7 @@ namespace project_hook
 
 		private System.Drawing.Color[,] m_LevelArray;
 
-#if DEBUG && TIME
+#if TIME
 		private static System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 #endif
 
@@ -341,7 +341,7 @@ namespace project_hook
 
 		public void Load()
 		{
-#if DEBUG && TIME
+#if TIME
 			stopwatch.Start();
 #endif
 			using (Bitmap bmp = new Bitmap(LevelName))
@@ -375,7 +375,7 @@ namespace project_hook
 					}
 
 					//testing
-#if DEBUG && TIME
+#if TIME
 					stopwatch.Stop();
 					int x = LevelName.LastIndexOf("\\") + 1;
 					Game.Out.WriteLine("> Testing " + LevelName.Substring(x, LevelName.Length - x) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
@@ -546,7 +546,7 @@ namespace project_hook
 
 					}
 				}
-#if DEBUG && TIME
+#if TIME
 				stopwatch.Stop();
 				int p = LevelName.LastIndexOf("\\") + 1;
 				Game.Out.WriteLine("> Read in " + LevelName.Substring(p, LevelName.Length - p) + " in " + stopwatch.Elapsed.TotalMilliseconds + " milliseconds.");
