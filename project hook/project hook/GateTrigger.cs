@@ -20,16 +20,16 @@ namespace project_hook
 			}
 		}
 
-		protected bool m_HasGuardian=false;
-		public bool HasGuardian
+		protected Collidable m_Guardian = null;
+		public Collidable Guardian
 		{
 			get
 			{
-				return m_HasGuardian;
+				return m_Guardian;
 			}
 			set
 			{
-				m_HasGuardian = value;
+				m_Guardian = value;
 			}
 		}
 
@@ -49,9 +49,9 @@ namespace project_hook
 		protected bool m_EndGate = true;
 		public bool EndGate
 		{
-			get 
-			{ 
-				return m_EndGate; 
+			get
+			{
+				return m_EndGate;
 			}
 			set
 			{
@@ -76,7 +76,9 @@ namespace project_hook
 #if DEBUG && VERBOSE
 			Game.Out.WriteLine( "The Trigger has been hit by " + p_Other + "!" );
 #endif
-			if (!m_HasGuardian && World.Position.Speed==0 && p_Other.Faction == Factions.Player)
+			if (p_Other.Faction == Factions.Player &&
+				World.Position.Speed == 0 &&
+				(m_Guardian == null || m_Guardian.IsDead()))
 			{
 				base.RegisterCollision(p_Other);
 				if (m_EndGate)
