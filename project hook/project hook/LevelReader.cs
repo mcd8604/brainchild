@@ -160,9 +160,8 @@ namespace project_hook
 
 			else
 			{
-				Game.Out.WriteLine("file not found: " + m_FilePath);
+				throw new Exception("file not found: " + m_FilePath);
 			}
-
 
 			return m_Events;
 		}

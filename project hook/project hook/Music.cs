@@ -30,8 +30,9 @@ namespace project_hook
 				}
 				return returnVal;
 			}
-			catch (ArgumentException)
+			catch (ArgumentException e)
 			{
+				Game.Out.WriteLine("Music Exception: " + e);
 				return null;
 			}
 		}

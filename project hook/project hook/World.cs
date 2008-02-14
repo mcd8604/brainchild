@@ -149,7 +149,6 @@ namespace project_hook
 		Shot kill;
 #endif
 
-#endif
 #if TIME
 		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 		TextSprite coll = new TextSprite("", new Vector2(300, 20), Color.GreenYellow, Depth.HUDLayer.Foreground);
@@ -159,7 +158,7 @@ namespace project_hook
 		double updttotal;
 		int updtcount;
 #endif
-
+#endif
 		public World(Rectangle p_DrawArea)
 		{
 			m_World = this;
@@ -263,12 +262,12 @@ namespace project_hook
 
 				m_Player.UpdatePlayer(p_GameTime);
 
-#if TIME
+#if DEBUG && TIME
 				timer.Reset();
 				timer.Start();
 #endif
 				Collision.CheckCollisions(m_SpriteList, m_SpriteListA, bcg.BloodCells);
-#if TIME
+#if DEBUG && TIME
 				timer.Stop();
 				colltotal += timer.Elapsed.TotalMilliseconds;
 				collcount++;
@@ -370,7 +369,7 @@ namespace project_hook
 				toAddA.Clear();
 
 
-#if TIME
+#if DEBUG && TIME
 				timer.Stop();
 				updttotal += timer.Elapsed.TotalMilliseconds;
 				updtcount++;
@@ -810,10 +809,10 @@ namespace project_hook
 			AddSprite(TextFpsExample);
 #if DEBUG
 			AddSprite(listsize);
-#endif
 #if TIME
 			AddSprite(coll);
 			AddSprite(updt);
+#endif
 #endif
 			m_Score = new SimpleScore();
 			Sprite score = new TextSprite(m_Score.ToString, new Vector2(820, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
@@ -862,20 +861,6 @@ namespace project_hook
 				AddSprite(s);
 			}
 		}
-
-		//public void CreateBloodCell()
-		//{
-		//    if (m_RanX.Next(0, 800) == 5)
-		//    {
-		//        Collidable t_Blood = new Collidable("BloodCell", new Vector2(m_RanX.Next(100, 800), 0), 50, 50,
-		//                                TextureLibrary.getGameTexture("bloodcell", "1"), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper,
-		//                                Collidable.Factions.Blood, 100, 25);
-		//        t_Blood.Task = new TaskStraightVelocity(new Vector2(0, 100));
-		//        t_Blood.setAnimation("bloodcell", 60);
-		//        t_Blood.Animation.StartAnimation();
-		//        m_SpriteList.Add(t_Blood);
-		//    }
-		//}
 
 		public void LoadBMP(String p_FileName)
 		{

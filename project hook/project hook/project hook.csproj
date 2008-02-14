@@ -524,22 +524,6 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>GameThumbnail</Name>
     </Content>
-    <Content Include="libs\DrawText.dll">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>DrawText</Name>
-    </Content>
-    <Content Include="libs\KeyHandler.dll">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>KeyHandler</Name>
-    </Content>
-    <Content Include="libs\nunit.framework.dll">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>nunit.framework</Name>
-    </Content>
-    <Content Include="libs\PowerCollections.dll">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PowerCollections</Name>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Animations\AnimationDefn.xml">
@@ -633,10 +617,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>temptail</Name>
-    </Content>
-    <Content Include="libs\Intersection.dll">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Intersection</Name>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -1221,6 +1201,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>wing</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libs\PowerCollections.dll">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>PowerCollections</Name>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

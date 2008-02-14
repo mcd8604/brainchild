@@ -217,22 +217,20 @@ namespace project_hook
 					addGameTexture(textureName, "", t_GameTexture);
 				}
 			}
-#if DEBUG
 			catch (ContentLoadException e)
 			{
 
-				Game.Out.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e.Message);
+				Game.Out.WriteLine("TextureLibrary.LoadTexure.ContentLoadException: " + e);
 				return false;
 			}
 			catch (IOException e)
 			{
 
-				Game.Out.WriteLine("TextureLibrary.LoadTexure.IOException: " + e.Message);
+				Game.Out.WriteLine("TextureLibrary.LoadTexure.IOException: " + e);
 				return false;
 			}
+#if DEBUG
 			System.Diagnostics.Debug.Assert(m_Textures.ContainsKey(textureName));
-#else
-			catch (Exception) { return false; }
 #endif
 			return true;
 		}
