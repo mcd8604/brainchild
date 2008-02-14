@@ -267,11 +267,9 @@ namespace project_hook
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-
 #if !FINAL
-			graphics.GraphicsDevice.Clear(Color.Black);
+			graphics.GraphicsDevice.Clear(new Color(62, 227, 57)); // Neon Green
 #endif
-
 			if (m_World != null)
 			{
 				m_World.draw(m_SpriteBatch);
