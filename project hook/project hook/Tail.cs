@@ -318,16 +318,18 @@ namespace project_hook
 
 				if (m_TailState == TailState.Throwing)
 				{
-					
-					Thrown thrown = new Thrown(EnemyCaught);
-                   // m_EnemyHealth.Enabled = false;
-                   // m_EnemyHealth.ToBeRemoved = true ;
-					EnemyCaught.Health = 0;
-					EnemyCaught.Enabled = false;
-					EnemyCaught = null;
-					thrown.Task = m_ReleaseTask;
-					addSprite(thrown);
-					Transparency = 1;
+					if (EnemyCaught != null)
+					{
+						Thrown thrown = new Thrown(EnemyCaught);
+						// m_EnemyHealth.Enabled = false;
+						// m_EnemyHealth.ToBeRemoved = true ;
+						EnemyCaught.Health = 0;
+						EnemyCaught.Enabled = false;
+						EnemyCaught = null;
+						thrown.Task = m_ReleaseTask;
+						addSprite(thrown);
+						Transparency = 1;
+					}
 				}
 				StateOfTail = Tail.TailState.Returning;
 				Task = m_ReturnTask;
