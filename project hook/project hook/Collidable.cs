@@ -330,7 +330,17 @@ namespace project_hook
 				}
 				else
 				{
-					if ((this.Faction == Factions.Enemy || this.Faction == Factions.Blood || this.Faction == Factions.Player) && !(this is Tail))
+					bool collect = true;
+					if (this.Task is TaskParallel)
+					{
+						foreach (Task t in ((TaskParallel)this.Task).getSubTasks())
+						{
+							if (t is TaskAttach && ((TaskAttach)t).Target is Tail)
+								collect = false;
+						}
+					}
+
+					if ((this.Faction == Factions.Enemy || this.Faction == Factions.Blood || this.Faction == Factions.Player) && !(this is Tail)&& collect)
 					{
 						//if (((Ship)this).Faction != Collidable.Factions.Player)
 						((Collidable)this).Health = 0;
