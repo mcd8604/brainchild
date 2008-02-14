@@ -10,18 +10,22 @@ namespace project_hook
 #if DEBUG && TEST
 			Collision.SelfTest();
 #endif
+#if CATCH
 			try
 			{
-				using (Game game = new Game())
-				{
-					game.Run();
-				}
+#endif
+			using (Game game = new Game())
+			{
+				game.Run();
+			}
+#if CATCH
 			}
 			catch (System.Exception e)
 			{
 				Game.Out.WriteLine("Exception occured: " + e);
 				Game.Out.WriteLine("Process Terminated.");
 			}
+#endif
 		}
 	}
 }
