@@ -975,7 +975,7 @@ namespace project_hook
 
 		public static void SelfTest()
 		{
-#if DEBUG && TIME
+#if TIME
 			System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 			timer.Start();
 #endif
@@ -1102,7 +1102,7 @@ namespace project_hook
 			result = GetMinNonCollidingCenter(Circle, Square);
 			System.Diagnostics.Debug.Assert(result != new Vector2(0, 0), "Collision Self Test Failure", Circle.ToString() + " " + Square.ToString());
 
-#if DEBUG && TIME
+#if TIME
 			timer.Stop();
 			Game.Out.WriteLine("Collision Self Test Completed in " + timer.Elapsed.TotalMilliseconds.ToString() + " Milliseconds.");
 #endif

@@ -56,11 +56,11 @@ namespace project_hook
 			}
 		}
 
-#if DEBUG
-		protected static System.IO.TextWriter writer = Console.Out;
-#else
+#if FINAL
 		private const string outfilename = "err.log";
 		protected static System.IO.TextWriter writer = new System.IO.StreamWriter(outfilename, true);
+#else
+		protected static System.IO.TextWriter writer = Console.Out;
 #endif
 		public static System.IO.TextWriter Out
 		{
@@ -170,7 +170,7 @@ namespace project_hook
 
 			if (Menus.Exit)
 			{
-#if !DEBUG
+#if FINAL
 				Out.Flush();
 				Out.Close();
 #endif
@@ -267,7 +267,9 @@ namespace project_hook
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
+#if !FINAL
 			graphics.GraphicsDevice.Clear(Color.Black);
+#endif
 
 			if (m_World != null)
 			{
@@ -290,7 +292,7 @@ namespace project_hook
 
 			//Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
 
-#if DEBUG && VERBOSE
+#if VERBOSE
 			Game.Out.WriteLine("ACTIVATED");
 #endif
 		}
@@ -301,7 +303,7 @@ namespace project_hook
 		{
 			base.OnDeactivated(sender, args);
 			Cursor.Clip = DefaultClippingBounds;
-#if DEBUG && VERBOSE
+#if VERBOSE
 			Game.Out.WriteLine("DEACTIVATED");
 #endif
 			if (m_World != null)

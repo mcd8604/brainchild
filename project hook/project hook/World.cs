@@ -262,12 +262,12 @@ namespace project_hook
 
 				m_Player.UpdatePlayer(p_GameTime);
 
-#if DEBUG && TIME
+#if TIME
 				timer.Reset();
 				timer.Start();
 #endif
 				Collision.CheckCollisions(m_SpriteList, m_SpriteListA, bcg.BloodCells);
-#if DEBUG && TIME
+#if TIME
 				timer.Stop();
 				colltotal += timer.Elapsed.TotalMilliseconds;
 				collcount++;
@@ -335,7 +335,7 @@ namespace project_hook
 				}
 #endif
 				m_SpriteListA.RemoveAll(Sprite.isToBeRemoved);
-#if DEBUG && VERBOSE
+#if VERBOSE
 				diff = (count - m_SpriteListA.Count);
 				if (diff != 0)
 				{
@@ -349,7 +349,7 @@ namespace project_hook
 					checkToBeAdded(s);
 				}
 
-#if DEBUG && VERBOSE
+#if VERBOSE
 				if (toAdd.Count != 0)
 				{
 					Game.Out.WriteLine("Added " + toAdd.Count + " AlphaBlended Sprites");
@@ -359,7 +359,7 @@ namespace project_hook
 				toAdd.Clear();
 
 
-#if DEBUG && VERBOSE
+#if VERBOSE
 				if (toAddA.Count != 0)
 				{
 					Game.Out.WriteLine("Added " + toAddA.Count + " Additive Sprites");
@@ -369,7 +369,7 @@ namespace project_hook
 				toAddA.Clear();
 
 
-#if DEBUG && TIME
+#if TIME
 				timer.Stop();
 				updttotal += timer.Elapsed.TotalMilliseconds;
 				updtcount++;
