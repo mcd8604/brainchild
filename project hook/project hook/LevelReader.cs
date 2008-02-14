@@ -415,6 +415,10 @@ namespace project_hook
 				{
 					p_Trigger.Bound = readBounding(p_Reader);
 				}
+				else if (p_Reader.IsStartElement("blendMode"))
+				{
+					p_Trigger.BlendMode = readBlendMode(p_Reader);
+				}
 #if DEBUG
 				else
 				{
