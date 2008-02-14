@@ -18,6 +18,10 @@ namespace project_hook
 		protected List<Weapon> m_Weapons = new List<Weapon>();
 
 		protected Sprite m_ShieldSprite;
+		private const int MAX_SHIELD_ALPHA = 255;
+		
+		protected Sprite m_ShieldOverlay;
+		private const int MAX_SHIELD_OVERLAY_ALPHA = 125;
 
 		protected SpriteParticleSystem m_ShieldDamageEffect = null;
 		public SpriteParticleSystem ShieldDamageEffect
@@ -86,13 +90,21 @@ namespace project_hook
 					else
 					{
 
-						m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(2 * Radius * 1.30), (int)(2 * Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
+						m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
 						m_ShieldSprite.Center = Center;
 						TaskParallel ShieldTask = new TaskParallel();
 						ShieldTask.addTask(new TaskAttach(this));
 						ShieldTask.addTask(new TaskRotateWithTarget(this));
 						m_ShieldSprite.Task = ShieldTask;
+						m_ShieldSprite.Z = this.Z - 0.5f;
 						attachSpritePart(m_ShieldSprite);
+
+						m_ShieldOverlay = new Sprite("Shield Overlay", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
+						m_ShieldOverlay.Center = Center;
+						m_ShieldOverlay.Task = ShieldTask;
+						m_ShieldSprite.Z = this.Z + 0.001f;
+						//m_ShieldOverlay.Alpha = MAX_SHIELD_OVERLAY_ALPHA;
+						attachSpritePart(m_ShieldOverlay);
 					}
 				}
 				else if (m_ShieldSprite != null)
@@ -242,6 +254,7 @@ namespace project_hook
 			if (m_MaxShield > 0 && m_ShieldSprite != null)
 			{
 				m_ShieldSprite.Transparency = ((float)m_Shield) / ((float)m_MaxShield);
+				m_ShieldOverlay.Transparency = ((float)m_Shield) / ((float)m_MaxShield) * 0.65f;
 			}
 			foreach (Weapon w in m_Weapons)
 			{

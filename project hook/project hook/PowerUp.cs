@@ -297,13 +297,13 @@ namespace project_hook
 		private static PowerType getRandomType()
 		{
 			int val = Game.Random.Next(100);
-			if (val < 21)
+			if (val < 31)
 			{
-				if (val < 4)
+				if (val < 6)
 				{
 					return PowerType.Health;
 				}
-				else if (val < 8)
+				else if (val < 11)
 				{
 					
 					return PowerType.Shield;

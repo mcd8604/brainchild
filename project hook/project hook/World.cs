@@ -626,17 +626,29 @@ namespace project_hook
 		{
 			if (!(m_State == GameState.DoNotRender))
 			{
+
+
+				p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
+				m_Background.Draw(p_SpriteBatch);
+				p_SpriteBatch.End();
+
+				p_SpriteBatch.Begin(SpriteBlendMode.Additive, SpriteSortMode.BackToFront, SaveStateMode.None);
+				bcg.Draw(p_SpriteBatch);
+				p_SpriteBatch.End();
+				
 				p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
 
 				foreach (Sprite s in m_SpriteList)
 				{
-					if (s.Enabled == true)
+					if (s.Enabled == true && !(s is YScrollingBackground))
 					{
 						s.Draw(p_SpriteBatch);
 					}
 				}
 
 				p_SpriteBatch.End();
+
+
 
 				p_SpriteBatch.Begin(SpriteBlendMode.Additive, SpriteSortMode.BackToFront, SaveStateMode.None);
 
@@ -647,10 +659,14 @@ namespace project_hook
 						s.Draw(p_SpriteBatch);
 					}
 				}
-
-				bcg.Draw(p_SpriteBatch);
 				p_SpriteBatch.End();
+
 			}
+
+			
+			
+
+
 		}
 
 		//This method will load textures

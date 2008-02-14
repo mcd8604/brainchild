@@ -87,10 +87,13 @@ namespace project_hook
 
 		public void EndGame()
 		{
-			m_Game.changeState(World.GameState.Won);
-			World.DestroyWorld = true;
-			//m_Game.State = World.GameState.Won;
-			Menus.setCurrentMenu(Menus.MenuScreens.Credits);
+			if (!World.PlayerDead)
+			{
+				m_Game.changeState(World.GameState.Won);
+				World.DestroyWorld = true;
+				//m_Game.State = World.GameState.Won;
+				Menus.setCurrentMenu(Menus.MenuScreens.Credits);
+			}
 		}
 
 		public void resetLevel()
