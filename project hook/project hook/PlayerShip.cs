@@ -55,7 +55,14 @@ namespace project_hook
 			{
 				return 0;
 			}
-			return m_UpgradeReqs[level - 1];
+			else if (level > m_UpgradeReqs.Count)
+			{
+				return int.MaxValue;
+			}
+			else
+			{
+				return m_UpgradeReqs[level - 1];
+			}
 		}
 
 
@@ -159,7 +166,7 @@ namespace project_hook
 
 			//Level 3
 			//*********************************************************************
-			for (int i = 1; i <= 20; i++)
+			for (int i = 1; i <= 6; i++)
 			{
 				m_UpgradeReqs.Add(i * 100);
 			}
