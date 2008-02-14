@@ -60,7 +60,7 @@ namespace project_hook
 		protected static System.IO.TextWriter writer = Console.Out;
 #else
 		private const string outfilename = "err.log";
-		protected static System.IO.TextWriter writer = new System.IO.StreamWriter(outfilename);
+		protected static System.IO.TextWriter writer = new System.IO.StreamWriter(outfilename, true);
 #endif
 		public static System.IO.TextWriter Out
 		{
