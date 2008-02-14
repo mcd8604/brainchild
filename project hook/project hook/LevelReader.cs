@@ -1067,7 +1067,7 @@ namespace project_hook
 
 		private static ExplosionSpriteParticleSystem readShotTrail(XmlReader p_Reader, Shot shot)
 		{
-			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(shot.Name + "_ParticleSystem", shot.Texture.Name, "1", 1);
+			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(shot.Name + "_ParticleSystem", shot.Texture.Name, "1", 10);
 			p_Reader.ReadStartElement();
 			while (p_Reader.IsStartElement())
 			{

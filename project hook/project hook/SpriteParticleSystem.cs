@@ -30,7 +30,18 @@ namespace project_hook
 		// this number represents the maximum number of effects this particle system
 		// will be expected to draw at one time. this is set in the constructor and is
 		// used to calculate how many particles we will need.
-		protected int howManyEffects;
+		protected int m_howManyEffects;
+		public int HowManyEffects
+		{
+			get
+			{
+				return m_howManyEffects;
+			}
+			set
+			{
+				m_howManyEffects = value;
+			}
+		}
 
 		// the array of particles used by this system. these are reused, so that calling
 		// AddParticles will not cause any allocations.
@@ -325,7 +336,7 @@ namespace project_hook
 			TextureName = p_TextureName;
 			TextureTag = p_TextureTag;
 
-			howManyEffects = p_HowManyEffects;
+			m_howManyEffects = p_HowManyEffects;
 			InitializeConstants();
 
 			BlendMode = SpriteBlendMode.Additive;
@@ -334,8 +345,8 @@ namespace project_hook
 			// max number of effects and the max number of particles per effect.
 			// once these particles are allocated, they will be reused, so that
 			// we don't put any pressure on the garbage collector.
-			particles = new ParticleSprite[howManyEffects * m_MaxNumParticles];
-			freeParticles = new Queue<ParticleSprite>(howManyEffects * m_MaxNumParticles);
+			particles = new ParticleSprite[m_howManyEffects * m_MaxNumParticles];
+			freeParticles = new Queue<ParticleSprite>(m_howManyEffects * m_MaxNumParticles);
 			for (int i = 0; i < particles.Length; i++)
 			{
 				particles[i] = new ParticleSprite();
@@ -353,7 +364,7 @@ namespace project_hook
 			m_AnimationName = p_AnimationName;
 			AnimationFPS = p_AnimationFPS;
 
-			howManyEffects = p_HowManyEffects;
+			m_howManyEffects = p_HowManyEffects;
 			InitializeConstants();
 
 			BlendMode = SpriteBlendMode.Additive;
@@ -362,8 +373,8 @@ namespace project_hook
 			// max number of effects and the max number of particles per effect.
 			// once these particles are allocated, they will be reused, so that
 			// we don't put any pressure on the garbage collector.
-			particles = new ParticleSprite[howManyEffects * m_MaxNumParticles];
-			freeParticles = new Queue<ParticleSprite>(howManyEffects * m_MaxNumParticles);
+			particles = new ParticleSprite[m_howManyEffects * m_MaxNumParticles];
+			freeParticles = new Queue<ParticleSprite>(m_howManyEffects * m_MaxNumParticles);
 			for (int i = 0; i < particles.Length; i++)
 			{
 				particles[i] = new ParticleSprite();
