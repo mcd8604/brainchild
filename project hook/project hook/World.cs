@@ -522,7 +522,7 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Home))
 				{
-					m_Position.setSpeed(1);
+					m_Position.setSpeed(80);
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageUp))
 				{
@@ -531,6 +531,10 @@ namespace project_hook
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageDown))
 				{
 					m_Position.setSpeed(m_Position.Speed * 0.5f);
+				}
+				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Scroll))
+				{
+					m_Position.setSpeed(0);
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
 				{
