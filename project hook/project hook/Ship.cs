@@ -270,6 +270,7 @@ namespace project_hook
 				{
 					damage -= Shield;
 					Shield = 0;
+					Sound.Play("shield_pop");
 				}
 				SpawnShieldDamageEffect(Vector2.Lerp(Center, from.Center, 0.5f));
 			}
