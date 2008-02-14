@@ -18,10 +18,10 @@ namespace project_hook
 		protected List<Weapon> m_Weapons = new List<Weapon>();
 
 		protected Sprite m_ShieldSprite;
-		private const int MAX_SHIELD_ALPHA = 255;
+		private const float MAX_SHIELD_ALPHA = 1f;
 		
 		protected Sprite m_ShieldOverlay;
-		private const int MAX_SHIELD_OVERLAY_ALPHA = 125;
+		private const float MAX_SHIELD_OVERLAY_ALPHA = 0.65f;
 
 		protected SpriteParticleSystem m_ShieldDamageEffect = null;
 		public SpriteParticleSystem ShieldDamageEffect
@@ -90,20 +90,19 @@ namespace project_hook
 					else
 					{
 
-						m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
+						m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
 						m_ShieldSprite.Center = Center;
 						TaskParallel ShieldTask = new TaskParallel();
 						ShieldTask.addTask(new TaskAttach(this));
 						ShieldTask.addTask(new TaskRotateWithTarget(this));
 						m_ShieldSprite.Task = ShieldTask;
-						m_ShieldSprite.Z = this.Z - 0.5f;
+						m_ShieldSprite.Z = this.Z - 0.1f;
 						attachSpritePart(m_ShieldSprite);
 
-						m_ShieldOverlay = new Sprite("Shield Overlay", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), 1f, true, 0, Depth.GameLayer.Shields);
+						m_ShieldOverlay = new Sprite("Shield Overlay", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_OVERLAY_ALPHA, true, 0, Depth.GameLayer.Shields);
 						m_ShieldOverlay.Center = Center;
 						m_ShieldOverlay.Task = ShieldTask;
-						m_ShieldSprite.Z = this.Z + 0.001f;
-						//m_ShieldOverlay.Alpha = MAX_SHIELD_OVERLAY_ALPHA;
+						m_ShieldSprite.Z = this.Z + 0.01f;
 						attachSpritePart(m_ShieldOverlay);
 					}
 				}
@@ -253,8 +252,8 @@ namespace project_hook
 
 			if (m_MaxShield > 0 && m_ShieldSprite != null)
 			{
-				m_ShieldSprite.Transparency = ((float)m_Shield) / ((float)m_MaxShield);
-				m_ShieldOverlay.Transparency = ((float)m_Shield) / ((float)m_MaxShield) * 0.65f;
+				m_ShieldSprite.Transparency = m_Shield / m_MaxShield * MAX_SHIELD_ALPHA;
+				m_ShieldOverlay.Transparency = m_Shield / m_MaxShield * MAX_SHIELD_OVERLAY_ALPHA;
 			}
 			foreach (Weapon w in m_Weapons)
 			{
