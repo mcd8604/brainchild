@@ -1751,12 +1751,12 @@
 						<animation name="shot_electric" fps="8"/>
 						<MinNumParticles>1</MinNumParticles>
 						<MaxNumParticles>100</MaxNumParticles>
-						<MinLifetime>0.01</MinLifetime>
-						<MaxLifetime>0.25</MaxLifetime>
-						<MinScale>0.001</MinScale>
-						<MaxScale>0.1</MaxScale>
+						<MinLifetime>0.1</MinLifetime>
+						<MaxLifetime>0.5</MaxLifetime>
+						<MinScale>0.01</MinScale>
+						<MaxScale>0.05</MaxScale>
 						<MinInitialSpeed>1</MinInitialSpeed>
-						<MaxInitialSpeed>300</MaxInitialSpeed>
+						<MaxInitialSpeed>200</MaxInitialSpeed>
 					</trail>
 				</shot>
 			</weapon>

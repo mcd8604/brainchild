@@ -120,5 +120,21 @@ namespace project_hook
 			float angle = RandomBetween(Direction - Theta, Direction + Theta);
 			return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
 		}
+
+
+		public override SpriteParticleSystem copy()
+		{
+			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(Name, TextureName, TextureTag, HowManyEffects);
+			esps.MinInitialSpeed = MinInitialSpeed;
+			esps.MaxInitialSpeed = MaxInitialSpeed;
+			esps.MinLifetime = MinLifetime;
+			esps.MaxLifetime = MaxLifetime;
+			esps.MinNumParticles = MinNumParticles;
+			esps.MaxNumParticles = MaxNumParticles;
+			esps.MinScale = MinScale;
+			esps.MaxScale = MaxScale;
+			return esps;
+		}
+
 	}
 }

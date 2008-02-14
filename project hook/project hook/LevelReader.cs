@@ -1040,7 +1040,7 @@ namespace project_hook
 				}
 				else if (p_Reader.IsStartElement("trail"))
 				{
-					shot.esps = readShotTrail(p_Reader, shot);
+					shot.TrailEffect = readShotTrail(p_Reader, shot);
 				}
 #if DEBUG
 				else

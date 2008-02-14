@@ -35,22 +35,12 @@ namespace project_hook
 			BlendMode = p_Shot.BlendMode;
 			Bound = p_Shot.Bound;
 			Center = p_Shot.Center;
-			//CollisonEffect = p_Shot.CollisonEffect;
 			Color = p_Shot.Color;
 			Damage = p_Shot.Damage;
-			if (p_Shot.esps != null)
+			if (p_Shot.TrailEffect != null)
 			{
-				esps = new ExplosionSpriteParticleSystem(p_Shot.esps.Name, p_Shot.esps.TextureName, p_Shot.esps.TextureTag, p_Shot.esps.HowManyEffects);
-				esps.MinInitialSpeed = p_Shot.esps.MinInitialSpeed;
-				esps.MaxInitialSpeed = p_Shot.esps.MaxInitialSpeed;
-				esps.MinLifetime = p_Shot.esps.MinLifetime;
-				esps.MaxLifetime = p_Shot.esps.MaxLifetime;
-				esps.MinNumParticles = p_Shot.esps.MinNumParticles;
-				esps.MaxNumParticles = p_Shot.esps.MaxNumParticles;
-				esps.MinScale = p_Shot.esps.MinScale;
-				esps.MaxScale = p_Shot.esps.MaxScale;
+				TrailEffect = p_Shot.TrailEffect.copy();
 			}
-			//DamageEffect = p_Shot.DamageEffect;
 			Enabled = p_Shot.Enabled;
 			Faction = p_Shot.Faction;
 			Health = p_Shot.Health;
@@ -82,9 +72,9 @@ namespace project_hook
 				{
 					Enabled = false;
 				}
-				else if (m_esps != null)
+				else if (m_TrailEffect != null)
 				{
-					createShotTrail();
+					m_TrailEffect.AddParticles(Center);
 				}
 			}
 			else
@@ -94,33 +84,26 @@ namespace project_hook
 			}
 		}
 
-		private ExplosionSpriteParticleSystem m_esps;
-		public ExplosionSpriteParticleSystem esps
+		private SpriteParticleSystem m_TrailEffect;
+		public SpriteParticleSystem TrailEffect
 		{
 			get
 			{
-				return m_esps;
+				return m_TrailEffect;
 			}
 			set
 			{
 				if (value != null)
 				{
-					m_esps = value;
-
+					m_TrailEffect = value;
 					TaskQueue EffectTask = new TaskQueue();
 					EffectTask.addTask(new TaskWait(this.CheckShip));
 					EffectTask.addTask(new TaskTimer(1f));
 					EffectTask.addTask(new TaskRemove());
-					m_esps.Task = EffectTask;
-
-					addSprite(m_esps);
+					m_TrailEffect.Task = EffectTask;
+					addSprite(m_TrailEffect);
 				}
 			}
-		}
-
-		protected void createShotTrail()
-		{
-			m_esps.AddParticles(this.Center);
 		}
 
 		public override Boolean IsDead()
