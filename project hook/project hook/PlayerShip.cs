@@ -26,6 +26,7 @@ namespace project_hook
 		const int MAX_SHIELD_LEVEL = 200;
 		const int HEAL_AMOUNT = 20;
 		const int SHIELD_INC_AMOUNT = 10;
+		const int WEAPON_INC_AMOUNT = 20;
 
 		int m_UpgradeLevel = 0;
 		public int UpgradeLevel
@@ -166,12 +167,7 @@ namespace project_hook
 
 			//Level 3
 			//*********************************************************************
-			
-
-
-
-
-
+						
 
 			m_UpgradeReqs.Add(50);
 			m_UpgradeReqs.Add(125);
@@ -240,7 +236,8 @@ namespace project_hook
 		{
 			if (p.Type == PowerUp.PowerType.Weapon)
 			{
-				m_UpgradeLevel += p.Amount;
+				//m_UpgradeLevel += p.Amount;
+				m_UpgradeLevel += WEAPON_INC_AMOUNT;
 				int prev = cur;
 
 				for (int a = 0; a < m_UpgradeReqs.Count; a++)
