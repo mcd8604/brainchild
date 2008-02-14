@@ -10,7 +10,6 @@ namespace project_hook
 {
 	public class World
 	{
-		private BloodCellGenerator bcg;
 		private List<Sprite> m_SpriteList;  // Alpha sprites
 		private List<Sprite> m_SpriteListA; // Additive Sprites;
 		private static Boolean primaryRight = true;
@@ -170,7 +169,7 @@ namespace project_hook
 			Music.Initialize();
 			Sound.Initialize();
 
-			bcg = new BloodCellGenerator(4);
+			AddSprite(new BloodCellGenerator(4));
 		}
 
 		//This method will load the level
@@ -250,8 +249,6 @@ namespace project_hook
 			//This will be for normal everyday update operations.  
 			if (m_State == GameState.Running)
 			{
-				bcg.Update(p_GameTime);
-
 				m_LHandler.CheckEvents(m_Position.Distance);
 
 				m_Position.Update(p_GameTime);
@@ -264,7 +261,7 @@ namespace project_hook
 				timer.Reset();
 				timer.Start();
 #endif
-				Collision.CheckCollisions(m_SpriteList, m_SpriteListA, bcg.BloodCells);
+				Collision.CheckCollisions(m_SpriteList, m_SpriteListA);
 #if TIME
 				timer.Stop();
 				colltotal += timer.Elapsed.TotalMilliseconds;
@@ -590,7 +587,7 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.T))
 				{
-					Thrown T = new Thrown(new Collidable("GeneratedBloodCell", tail.Center, 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper, Collidable.Factions.Player, 100, 25));
+					Thrown T = new Thrown(new Collidable("GeneratedBloodCell", tail.Center, 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Blood, Collidable.Factions.Player, 100, 25));
 					T.Center = tail.Center;
 					T.setAnimation("bloodcell", 60);
 					T.Animation.StartAnimation();
@@ -627,36 +624,24 @@ namespace project_hook
 			if (!(m_State == GameState.DoNotRender))
 			{
 				p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
-				m_Background.Draw(p_SpriteBatch);
-				p_SpriteBatch.End();
-
-				p_SpriteBatch.Begin(SpriteBlendMode.Additive, SpriteSortMode.BackToFront, SaveStateMode.None);
-				bcg.Draw(p_SpriteBatch);
-				p_SpriteBatch.End();
-				
-				p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
-
 				foreach (Sprite s in m_SpriteList)
 				{
-					if (s.Enabled == true && !(s is YScrollingBackground))
+					if (s.Enabled)
 					{
 						s.Draw(p_SpriteBatch);
 					}
 				}
-
 				p_SpriteBatch.End();
 
 				p_SpriteBatch.Begin(SpriteBlendMode.Additive, SpriteSortMode.BackToFront, SaveStateMode.None);
-
 				foreach (Sprite s in m_SpriteListA)
 				{
-					if (s.Enabled == true)
+					if (s.Enabled)
 					{
 						s.Draw(p_SpriteBatch);
 					}
 				}
 				p_SpriteBatch.End();
-
 			}
 
 			

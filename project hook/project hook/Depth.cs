@@ -53,7 +53,7 @@ namespace project_hook
 
 		public static class BackGroundLayer
 		{
-			public static float Upper = 0.9f;
+			public static float Blood = 0.9f;
 			public static float Background = 1.0f;
 
 		}

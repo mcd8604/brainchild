@@ -936,6 +936,17 @@ namespace project_hook
 					}
 				}
 			}
+			else
+			{
+				if (s.Parts != null)
+				{
+					foreach (Sprite x in s.Parts)
+					{
+						checkAndAddCollisionDisplay(x);
+					}
+				}
+
+			}
 		}
 
 
