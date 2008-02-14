@@ -299,18 +299,18 @@ namespace project_hook
 			int val = Game.Random.Next(100);
 			if (val < 50)
 			{
-				if (val < 30)
-				{
-
-					return PowerType.Weapon;
-				}
-				else if (val < 40)
+				if (val < 10)
 				{
 					return PowerType.Health;
 				}
+				else if (val < 20)
+				{
+					
+					return PowerType.Shield;
+				}
 				else
 				{
-					return PowerType.Shield;
+					return PowerType.Weapon;
 				}
 			}
 			return PowerType.None;
