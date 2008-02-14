@@ -20,7 +20,7 @@ namespace project_hook
 			}
 		}
 
-		protected bool m_Active=false;
+		protected bool m_Active=true;
 		public bool Active
 		{
 			get
