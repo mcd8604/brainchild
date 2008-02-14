@@ -72,9 +72,6 @@ namespace project_hook
 		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
 			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{
-			cur = -1;
-
-
 			//code to create the level up text
 			levelUp = new TextSprite("Level Up", Vector2.Zero, Microsoft.Xna.Framework.Graphics.Color.Yellow, Depth.HUDLayer.Midground + 0.001f, 100.0f, 0.0f, 50, 100);
 			TextSprite levelUp2 = new TextSprite("Level Up", Vector2.Zero, Microsoft.Xna.Framework.Graphics.Color.Black, Depth.HUDLayer.Midground + 0.002f, 100.0f, 0.0f, 50, 100);
@@ -207,18 +204,6 @@ namespace project_hook
 			}
 		}
 
-		public override string ToString()
-		{
-			if (float.IsNaN(MaxHealth))
-			{
-				return "Invulnerable";
-			}
-			else
-			{
-				return "Health: " + Convert.ToInt32(Math.Ceiling(Health)) + " Shield: " + Convert.ToInt32(Math.Ceiling(Shield));
-			}
-		}
-
 		public override void RegisterCollision(Collidable p_Other)
 		{
 			if (p_Other.Faction == Factions.PowerUp)
@@ -295,7 +280,7 @@ namespace project_hook
 			else if (p.Type == PowerUp.PowerType.Shield)
 			{
 				m_MaxShield += SHIELD_INC_AMOUNT;
-				m_Shield += SHIELD_INC_AMOUNT;
+				//m_Shield += SHIELD_INC_AMOUNT;
 			}
 		}
 
@@ -375,7 +360,19 @@ namespace project_hook
 
 		}
 
-		public string getUpgradeLevel()
+		public string GetHealth()
+		{
+			if (float.IsNaN(MaxHealth))
+			{
+				return "Invulnerable";
+			}
+			else
+			{
+				return "Health: " + Convert.ToInt32(Math.Ceiling(Health)) + " Shield: " + Convert.ToInt32(Math.Ceiling(Shield));
+			}
+		}
+
+		public string GetUpgradeLevel()
 		{
 			return "Upgrade Level: " + m_UpgradeLevel.ToString();
 		}

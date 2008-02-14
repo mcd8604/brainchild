@@ -818,10 +818,10 @@ namespace project_hook
 			Sprite score = new TextSprite(m_Score.ToString, new Vector2(820, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
 			AddSprite(score);
 
-			Sprite P = new TextSprite(m_Player.PlayerShip.ToString, new Vector2(420, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
+			Sprite P = new TextSprite(m_Player.PlayerShip.GetHealth, new Vector2(420, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
 			AddSprite(P);
 
-			Sprite u = new TextSprite(m_Player.PlayerShip.getUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
+			Sprite u = new TextSprite(m_Player.PlayerShip.GetUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
 			AddSprite(u);
 
 			//PowerUp p = new PowerUp(50, 12, new Vector2(50, 50));
