@@ -1154,6 +1154,18 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Credits</Name>
     </Content>
+    <Content Include="Content\Textures\energyballpld.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>energyballpld</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\energyballpld.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>energyballpld</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\Instructions1.PNG">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>

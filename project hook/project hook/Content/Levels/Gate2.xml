@@ -56,10 +56,11 @@
 			</gate>
 			<trigger>
 				<name>gate2_2T</name>
-				<height>80</height>
+				<height>128</height>
 				<width>32</width>
+				<bound>Rectangle</bound>
 				<texture name="trigger" pos="0"/>
-				<startCenter x="56" y="-208"/>
+				<startCenter x="56" y="-240"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>

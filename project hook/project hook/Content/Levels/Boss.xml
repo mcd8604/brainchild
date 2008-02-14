@@ -81,7 +81,7 @@
 							<health>300</health>
 							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 							<weapon type="Straight" angle="0">
-								<delay>0.5</delay>
+								<delay>0.8</delay>
 								<speed>400</speed>
 								<shot>
 									<damage>5</damage>
@@ -115,7 +115,7 @@
 							<health>300</health>
 							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 							<weapon type="Straight" angle="0">
-								<delay>0.5</delay>
+								<delay>0.8</delay>
 								<speed>400</speed>
 								<shot>
 									<damage>5</damage>
@@ -135,9 +135,25 @@
 							</task>
 						</createShip>
 					</shipPart>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyballpld"/>
+							<animation name="energyballpld" fps="30"/>
+						</shot>
+					</weapon>
 					<task type="RepeatingSequence">
-						<task type="RotateByAngle">
-							<degree>-40</degree>
+						<task type="Parallel">
+							<task type="RotateByAngle">
+								<degree>-40</degree>
+							</task>
+							<task type="Fire"/>
 						</task>
 					</task>
 				</createShip>
@@ -202,7 +218,7 @@
 							<health>300</health>
 							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 							<weapon type="Straight" angle="0">
-								<delay>0.5</delay>
+								<delay>0.8</delay>
 								<speed>400</speed>
 								<shot>
 									<damage>5</damage>
@@ -236,7 +252,7 @@
 							<health>300</health>
 							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 							<weapon type="Straight" angle="0">
-								<delay>0.5</delay>
+								<delay>0.8</delay>
 								<speed>400</speed>
 								<shot>
 									<damage>5</damage>
@@ -256,9 +272,25 @@
 							</task>
 						</createShip>
 					</shipPart>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyballpld"/>
+							<animation name="energyballpld" fps="30"/>
+						</shot>
+					</weapon>
 					<task type="RepeatingSequence">
-						<task type="RotateByAngle">
-							<degree>-40</degree>
+						<task type="Parallel">
+							<task type="RotateByAngle">
+								<degree>-40</degree>
+							</task>
+							<task type="Fire"/>
 						</task>
 					</task>
 				</createShip>
@@ -323,7 +355,7 @@
 							<health>300</health>
 							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 							<weapon type="Straight" angle="0">
-								<delay>0.5</delay>
+								<delay>0.8</delay>
 								<speed>400</speed>
 								<shot>
 									<damage>5</damage>
@@ -357,7 +389,7 @@
 							<health>300</health>
 							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 							<weapon type="Straight" angle="0">
-								<delay>0.5</delay>
+								<delay>0.8</delay>
 								<speed>400</speed>
 								<shot>
 									<damage>5</damage>
@@ -377,9 +409,25 @@
 							</task>
 						</createShip>
 					</shipPart>
+					<weapon type="Straight" angle="0">
+						<delay>0.5</delay>
+						<speed>400</speed>
+						<shot>
+							<damage>5</damage>
+							<height>16</height>
+							<width>16</width>
+							<radius>8</radius>
+							<blendMode>Additive</blendMode>
+							<texture name="energyballpld"/>
+							<animation name="energyballpld" fps="30"/>
+						</shot>
+					</weapon>
 					<task type="RepeatingSequence">
-						<task type="RotateByAngle">
-							<degree>-40</degree>
+						<task type="Parallel">
+							<task type="RotateByAngle">
+								<degree>-40</degree>
+							</task>
+							<task type="Fire"/>
 						</task>
 					</task>
 				</createShip>
