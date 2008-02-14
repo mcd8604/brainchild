@@ -76,7 +76,7 @@ namespace project_hook
 #if DEBUG && VERBOSE
 			Game.Out.WriteLine( "The Trigger has been hit by " + p_Other + "!" );
 #endif
-			if (m_Active && p_Other.Faction == Factions.Player && !(p_Other is Tail))
+			if (m_Active && p_Other.Faction == Factions.Player)
 			{
 				base.RegisterCollision(p_Other);
 				if (m_EndGate)
