@@ -23,17 +23,17 @@
 				<name>gateBlock1</name>
 				<texture name="walls\plaque_clear"/>
 				<numRows>4</numRows>
-				<numCols>3</numCols>
-				<startTile x="13" y="-4"/>
+				<numCols>4</numCols>
+				<startTile x="12" y="-4"/>
 				<faction>ClearWall</faction>
 				<task type="Stationary"/>
 			</wall>
 			<trigger>
 				<name>gate2_1T</name>
-				<height>32</height>
+				<height>96</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
-				<startTile x="15" y="-10"/>
+				<startTile x="15" y="-11"/>
 				<task type="Stationary"/>
 			</trigger>
 		</createGate>

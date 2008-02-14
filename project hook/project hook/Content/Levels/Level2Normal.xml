@@ -1815,7 +1815,7 @@
 				<initialCooldown>0.01</initialCooldown>
 				<speed>300</speed>
 				<shot>
-					<damage>30</damage>
+					<damage>15</damage>
 					<height>16</height>
 					<width>16</width>
 					<radius>8</radius>
