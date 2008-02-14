@@ -147,6 +147,7 @@
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>
+			<!--
 			<guardian>
 				<name>gate3_2G</name>
 				<height>94</height>
@@ -177,6 +178,7 @@
 					<task type="Fire"/>
 				</task>
 			</guardian>
+					 -->
 		</createGate>
 	</action>
 	<action tile="54">
