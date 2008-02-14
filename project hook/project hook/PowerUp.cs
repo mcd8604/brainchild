@@ -12,6 +12,10 @@ namespace project_hook
 		private const int MAX_POWERUPS = 20;
         private const int SIZE = 50;
 
+		private const int RAND_HEALTH_PERCENT_CHANCE = 6;
+		private const int RAND_SHIELD_PERCENT_CHANCE = 5;
+		private const int RAND_WEAPON_PERCENT_CHANCE = 20;
+
 		public static void iniPowerups()
 		{
 			m_PowerUps = new List<PowerUp>();
@@ -297,23 +301,23 @@ namespace project_hook
 		private static PowerType getRandomType()
 		{
 			int val = Game.Random.Next(100);
-			if (val < 31)
+
+			if (val < RAND_WEAPON_PERCENT_CHANCE)
 			{
-				if (val < 6)
-				{
-					return PowerType.Health;
-				}
-				else if (val < 11)
-				{
-					
-					return PowerType.Shield;
-				}
-				else
-				{
-					return PowerType.Weapon;
-				}
+				return PowerType.Weapon;
 			}
-			return PowerType.None;
+			else if (val < RAND_WEAPON_PERCENT_CHANCE + RAND_SHIELD_PERCENT_CHANCE)
+			{
+				return PowerType.Shield;
+			}
+			else if (val < RAND_WEAPON_PERCENT_CHANCE + RAND_SHIELD_PERCENT_CHANCE + RAND_HEALTH_PERCENT_CHANCE)
+			{
+				return PowerType.Health;
+			}
+			else
+			{
+				return PowerType.None;
+			}
 		}
 
 		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
