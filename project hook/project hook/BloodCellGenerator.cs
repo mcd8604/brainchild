@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class BloodCellGenerator
+	public class BloodCellGenerator : Sprite
 	{
 		float m_BloodCellDelay = 3.0f;
 		public float BloodCellDelay
@@ -50,31 +50,22 @@ namespace project_hook
 		}
 
 		float m_LastRelease = 0;
-		List<Sprite> m_BloodCellList = new List<Sprite>();
-		public List<Sprite> BloodCells
-		{
-			get
-			{
-				return m_BloodCellList;
-			}
-		}
 
 		public BloodCellGenerator(int p_BloodCellMax)
 		{
 			for (int i = 0; i < p_BloodCellMax; i++)
 			{
 				Collidable t_Blood = new Collidable("BloodCell", new Vector2(0, 0), 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"),
-					0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Upper, Collidable.Factions.Blood, 100, 25);
+					0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Blood, Collidable.Factions.Blood, 100, 25);
 				t_Blood.setAnimation("bloodcell", 60);
-				t_Blood.BlendMode = SpriteBlendMode.AlphaBlend;
 				t_Blood.Enabled = false;
-				m_BloodCellList.Add(t_Blood);
+				attachSpritePart(t_Blood);
 			}
 		}
 
-		public void Update(GameTime p_Time)
+		public override void Update(GameTime p_Time)
 		{
-			foreach (Sprite s in m_BloodCellList)
+			foreach (Sprite s in m_Parts)
 			{
 				s.Update(p_Time);
 			}
@@ -82,7 +73,7 @@ namespace project_hook
 			m_LastRelease += (float)p_Time.ElapsedGameTime.TotalSeconds;
 			if (m_LastRelease >= m_BloodCellDelay)
 			{
-				foreach (Collidable c in m_BloodCellList)
+				foreach (Collidable c in m_Parts)
 				{
 					if (c.ToBeRemoved || !c.Enabled)
 					{
@@ -100,14 +91,6 @@ namespace project_hook
 						return;
 					}
 				}
-			}
-		}
-
-		public void Draw(SpriteBatch p_SpriteBatch)
-		{
-			foreach (Sprite c in m_BloodCellList)
-			{
-				c.Draw(p_SpriteBatch);
 			}
 		}
 	}
