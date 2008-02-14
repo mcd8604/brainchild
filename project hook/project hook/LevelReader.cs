@@ -200,7 +200,6 @@ namespace project_hook
 			List<Sprite> t_Walls = new List<Sprite>();
 			List<Sprite> t_Gates = new List<Sprite>();
 			GateTrigger t_Trigger = new GateTrigger();
-			Guardian t_Guardian = new Guardian();
 
 			while (p_Reader.IsStartElement())
 			{
@@ -225,23 +224,22 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("guardian"))
 				{
 					p_Reader.ReadStartElement();
-					t_Guardian = (Guardian)(readShip(p_Reader,typeof(Guardian)));
+					Ship t_Guardian = readShip(p_Reader, typeof(Ship)) ;
+					t_Guardian.Faction = Collidable.Factions.Enemy;
+					t_Trigger.Guardian = t_Guardian;
+					addEvent(m_Distance, new Event(t_Guardian));
 					p_Reader.ReadEndElement();
 				}
 			}
 #if DEBUG
 			curLoop = 0;
 #endif
-			t_Guardian.Trigger = t_Trigger;
-			t_Guardian.Faction = Collidable.Factions.Enemy;
-
 			t_Trigger.Gates = t_Gates;
 			t_Trigger.Walls = t_Walls;
 
 			addEvent(m_Distance, new Event(t_Gates));
 			addEvent(m_Distance, new Event(t_Walls));
 			addEvent(m_Distance, new Event(t_Trigger));
-			addEvent(m_Distance, new Event(t_Guardian));
 		}
 
 		private List<Sprite> LoadWall(XmlReader p_Reader)
@@ -270,7 +268,7 @@ namespace project_hook
 				}
 				if (p_Reader.IsStartElement("numCols"))
 				{
-					p_Reader.ReadStartElement("numCols");;
+					p_Reader.ReadStartElement("numCols");
 					numCols = int.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
@@ -300,6 +298,7 @@ namespace project_hook
 				}
 				else if (p_Reader.IsStartElement("faction"))
 				{
+					p_Reader.ReadStartElement("faction");
 					faction = (Collidable.Factions)Enum.Parse(typeof(Collidable.Factions), p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
@@ -573,10 +572,6 @@ namespace project_hook
 			{
 				t_Ship = new Boss();
 			}
-			else if (p_shipType == typeof(Guardian))
-			{
-				t_Ship = new Guardian();
-			}
 
 			while (p_Reader.IsStartElement())
 			{
@@ -775,6 +770,12 @@ namespace project_hook
 				{
 					p_Reader.ReadStartElement();
 					t_Ship.ShieldRegenRate = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("faction"))
+				{
+					p_Reader.ReadStartElement("faction");
+					t_Ship.Faction = (Collidable.Factions)Enum.Parse(typeof(Collidable.Factions), p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("shipPart"))
