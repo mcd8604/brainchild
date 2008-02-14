@@ -38,7 +38,18 @@ namespace project_hook
 			//CollisonEffect = p_Shot.CollisonEffect;
 			Color = p_Shot.Color;
 			Damage = p_Shot.Damage;
-			esps = p_Shot.esps;
+			if (p_Shot.esps != null)
+			{
+				esps = new ExplosionSpriteParticleSystem(p_Shot.esps.Name, p_Shot.esps.TextureName, p_Shot.esps.TextureTag, p_Shot.esps.HowManyEffects);
+				esps.MinInitialSpeed = p_Shot.esps.MinInitialSpeed;
+				esps.MaxInitialSpeed = p_Shot.esps.MaxInitialSpeed;
+				esps.MinLifetime = p_Shot.esps.MinLifetime;
+				esps.MaxLifetime = p_Shot.esps.MaxLifetime;
+				esps.MinNumParticles = p_Shot.esps.MinNumParticles;
+				esps.MaxNumParticles = p_Shot.esps.MaxNumParticles;
+				esps.MinScale = p_Shot.esps.MinScale;
+				esps.MaxScale = p_Shot.esps.MaxScale;
+			}
 			//DamageEffect = p_Shot.DamageEffect;
 			Enabled = p_Shot.Enabled;
 			Faction = p_Shot.Faction;

@@ -1707,7 +1707,7 @@
 			<speed>0</speed>
 		</changeSpeed>
 		<createBoss>
-			<name>Enemy1</name>
+			<name>Boss2</name>
 			<height>94</height>
 			<width>93</width>
 			<radius>46</radius>
@@ -1750,13 +1750,13 @@
 						<texture name="shot_electric"/>
 						<animation name="shot_electric" fps="8"/>
 						<MinNumParticles>1</MinNumParticles>
-						<MaxNumParticles>1</MaxNumParticles>
-						<MinLifetime>1</MinLifetime>
-						<MaxLifetime>1</MaxLifetime>
-						<MinScale>0.05</MinScale>
-						<MaxScale>0.05</MaxScale>
-						<MinInitialSpeed>10</MinInitialSpeed>
-						<MaxInitialSpeed>10</MaxInitialSpeed>
+						<MaxNumParticles>100</MaxNumParticles>
+						<MinLifetime>0.01</MinLifetime>
+						<MaxLifetime>0.25</MaxLifetime>
+						<MinScale>0.001</MinScale>
+						<MaxScale>0.1</MaxScale>
+						<MinInitialSpeed>1</MinInitialSpeed>
+						<MaxInitialSpeed>300</MaxInitialSpeed>
 					</trail>
 				</shot>
 			</weapon>
