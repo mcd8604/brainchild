@@ -25,7 +25,7 @@ namespace project_hook
 		public const int MAX_LEVEL = 3;
 		const int MAX_SHIELD_LEVEL = 200;
 		const int HEAL_AMOUNT = 20;
-		const int SHIELD_INC_AMOUNT = 10;
+		const int SHIELD_INC_AMOUNT = 5;
 		const int WEAPON_INC_AMOUNT = 20;
 
 		int m_UpgradeLevel = 0;
