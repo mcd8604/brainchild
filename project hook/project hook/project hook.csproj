@@ -87,6 +87,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Credits</Name>
     </Compile>
+    <Compile Include="Guardian.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Guardian</Name>
+    </Compile>
     <Compile Include="Instructions1.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Instructions1</Name>

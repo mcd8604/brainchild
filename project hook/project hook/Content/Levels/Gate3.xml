@@ -147,7 +147,6 @@
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>
-			<!--
 			<guardian>
 				<name>gate3_2G</name>
 				<height>94</height>
@@ -157,6 +156,7 @@
 				<texture name="turret"/>
 				<startTile x="14" y="0"/>
 				<degree>180</degree>
+				<grabbable>false</grabbable>
 				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 				<deathEffect name="ExplosionBig"/>
 				<grabbable>false</grabbable>
@@ -178,7 +178,6 @@
 					<task type="Fire"/>
 				</task>
 			</guardian>
-					 -->
 		</createGate>
 	</action>
 	<action tile="54">
