@@ -411,66 +411,142 @@
 	</action>
 	<action tile="71">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startCenter x="960" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startCenter x="976" y="-16"/>
 			<health>30</health>
 			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>-90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>-90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="77">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startCenter x="96" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startCenter x="112" y="-16"/>
 			<health>30</health>
 			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="82">
@@ -1011,34 +1087,72 @@
 	</action>
 	<action tile="168">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="29" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="29.5" y="0.5"/>
 			<health>30</health>
 			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>-90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>-90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="180">
@@ -1351,34 +1465,72 @@
 	</action>
 	<action tile="250">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="29" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="29.5" y="0.5"/>
 			<health>30</health>
 			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>-90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>-90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="258">
@@ -1750,66 +1902,142 @@
 			</shipPart>
 		</createShip>
 	</action>
-	<action tile="316">
+	<action tile="315">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="14" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="14.5" y="0.5"/>
 			<health>30</health>
 			<degree>0</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>0</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>0</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="20" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="19.5" y="0.5"/>
 			<health>30</health>
 			<degree>0</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>0</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>0</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="326">
@@ -1927,34 +2155,72 @@
 	</action>
 	<action tile="355">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="3" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="1.5" y="0.5"/>
 			<health>30</health>
 			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="358">
@@ -2031,34 +2297,72 @@
 	</action>
 	<action tile="365">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="29" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="29.5" y="0.5"/>
 			<health>30</health>
 			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>-90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>-90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="366">
@@ -2453,34 +2757,72 @@
 	</action>
 	<action tile="451">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="16" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="16.5" y="0.5"/>
 			<health>30</health>
 			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>-90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>-90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 		<createShip>
 			<name>W1_E1</name>
@@ -2548,34 +2890,72 @@
 	</action>
 	<action tile="455">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="1" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="0.5" y="0.5"/>
 			<health>30</health>
 			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 		<createShip>
 			<name>W1_E1</name>
@@ -2643,34 +3023,72 @@
 	</action>
 	<action tile="459">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="17" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="17.5" y="0.5"/>
 			<health>30</health>
 			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>-90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>-90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 		<createShip>
 			<name>W1_E1</name>
@@ -3077,66 +3495,142 @@
 			</object>
 		</createSpawnPoint>
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="28" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="28.5" y="0.5"/>
 			<health>30</health>
 			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>-90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>-90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="515">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="17" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="16.5" y="-1.0"/>
 			<health>30</health>
 			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="521">
@@ -3286,66 +3780,142 @@
 	</action>
 	<action tile="523">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="27" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="27.5" y="0.5"/>
 			<health>30</health>
 			<degree>-90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>-90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>-90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="532">
 		<createTurret>
-			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
-			<radius>46</radius>
-			<texture name="turret"/>
-			<startTile x="14" y="0"/>
+			<name>turret1</name>
+			<height>15</height>
+			<width>64</width>
+			<bound>Rectangle</bound>
+			<texture name="turretBase"/>
+			<startTile x="13.5" y="0"/>
 			<health>30</health>
 			<degree>90</degree>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 			<deathEffect name="ExplosionBig"/>
 			<grabbable>false</grabbable>
-			<weapon type="Straight" angle="-90">
-				<delay>0.5</delay>
-				<speed>400</speed>
-				<shot>
-					<damage>5</damage>
-					<height>16</height>
-					<width>16</width>
-					<radius>8</radius>
-					<blendMode>Additive</blendMode>
-					<texture name="energyball"/>
-					<animation name="energyball" fps="30"/>
-				</shot>
-			</weapon>
-			<task type="Parallel">
-				<task type="Stationary"/>
-				<task type="Fire"/>
-			</task>
+			<task type="Stationary"/>
+			<shipPart>
+				<offsetDistance>-19</offsetDistance>
+				<offsetAngleDegrees>90</offsetAngleDegrees>
+				<createShip>
+					<texture name="turretNeck"/>
+					<height>24</height>
+					<width>11</width>
+					<bound>Rectangle</bound>
+					<health>25</health>
+					<degree>90</degree>
+					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+					<deathEffect name="ExplosionBig"/>
+					<grabbable>false</grabbable>
+					<task type="Stationary"/>
+					<shipPart>
+						<offsetDistance>-24</offsetDistance>
+						<offsetAngleDegrees>90</offsetAngleDegrees>
+						<createShip>
+							<texture name="turretHead"/>
+							<health>20</health>
+							<degree>90</degree>
+							<height>39</height>
+							<width>26</width>
+							<depth>0.65</depth>
+							<bound>Rectangle</bound>
+							<grabbable>false</grabbable>
+							<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+							<deathEffect name="ExplosionBig"/>
+							<texture name="turretHead"/>
+							<weapon type="Straight" angle="-90">
+								<delay>0.5</delay>
+								<speed>400</speed>
+								<shot>
+									<damage>5</damage>
+									<height>16</height>
+									<width>16</width>
+									<radius>8</radius>
+									<blendMode>Additive</blendMode>
+									<texture name="energyball"/>
+									<animation name="energyball" fps="30"/>
+								</shot>
+							</weapon>
+							<task type="Parallel">
+								<task type="RotateFaceTarget">
+									<target>Player</target>
+									<offset>90</offset>
+								</task>
+								<task type="Stationary"/>
+								<task type="Fire"/>
+							</task>
+						</createShip>
+					</shipPart>
+				</createShip>
+			</shipPart>
 		</createTurret>
 	</action>
 	<action tile="537">
