@@ -323,7 +323,6 @@ namespace project_hook
 						Thrown thrown = new Thrown(EnemyCaught);
 						// m_EnemyHealth.Enabled = false;
 						// m_EnemyHealth.ToBeRemoved = true ;
-						thrown.Damage = thrown.Damage * 2;
 						EnemyCaught.Health = 0;
 						EnemyCaught.Enabled = false;
 						EnemyCaught = null;

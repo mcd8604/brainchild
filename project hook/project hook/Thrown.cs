@@ -30,7 +30,7 @@ namespace project_hook
 			Bound = p_Collidable.Bound;
 			//CollisonEffect = p_Collidable.CollisonEffect;
 			Color = p_Collidable.Color;
-			Damage = p_Collidable.Damage;
+			Damage = p_Collidable.Damage * 2f;
 			//DamageEffect = p_Collidable.DamageEffect;
 			Enabled = p_Collidable.Enabled;
 			Faction = p_Collidable.Faction;
