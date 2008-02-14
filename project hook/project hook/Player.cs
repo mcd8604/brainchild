@@ -18,7 +18,7 @@ namespace project_hook
 	public class Player
 	{
 		const int INITIAL_HEALTH = 100;
-		const int INITIAL_SHIELD = 100;
+		const int INITIAL_SHIELD = 50;
 
 		//variable for storing the player ship sprite and info
 		PlayerShip m_PlayerShip;

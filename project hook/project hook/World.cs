@@ -626,8 +626,6 @@ namespace project_hook
 		{
 			if (!(m_State == GameState.DoNotRender))
 			{
-
-
 				p_SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
 				m_Background.Draw(p_SpriteBatch);
 				p_SpriteBatch.End();
@@ -647,8 +645,6 @@ namespace project_hook
 				}
 
 				p_SpriteBatch.End();
-
-
 
 				p_SpriteBatch.Begin(SpriteBlendMode.Additive, SpriteSortMode.BackToFront, SaveStateMode.None);
 

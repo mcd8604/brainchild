@@ -352,10 +352,11 @@ namespace project_hook
 				}
 			}
 
-			if (!(this is Shot) && !ToBeRemoved)
+
+			if (!(this is Shot) && !(this is PlayerShip) && !ToBeRemoved)
+			{
 				m_ToBeRemoved = IsDead();
-
-
+			}
 		}
 
 		public virtual Boolean IsDead()
