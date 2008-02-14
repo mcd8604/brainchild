@@ -546,5 +546,8 @@ namespace project_hook
 			}
 
 		}
+
+		public new abstract SpriteParticleSystem copy();
+
 	}
 }
