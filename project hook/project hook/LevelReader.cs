@@ -200,7 +200,7 @@ namespace project_hook
 			List<Sprite> t_Walls = new List<Sprite>();
 			List<Sprite> t_Gates = new List<Sprite>();
 			GateTrigger t_Trigger = new GateTrigger();
-			//Guardian t_Guardian = new Guardian();
+			Guardian t_Guardian = new Guardian();
 
 			while (p_Reader.IsStartElement())
 			{
@@ -225,15 +225,15 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("guardian"))
 				{
 					p_Reader.ReadStartElement();
-					//t_Guardian = (Guardian)(readShip(p_Reader,typeof(Guardian)));
+					t_Guardian = (Guardian)(readShip(p_Reader,typeof(Guardian)));
 					p_Reader.ReadEndElement();
 				}
 			}
 #if DEBUG
 			curLoop = 0;
 #endif
-			//t_Guardian.Trigger = t_Trigger;
-			//t_Guardian.Faction = Collidable.Factions.Enemy;
+			t_Guardian.Trigger = t_Trigger;
+			t_Guardian.Faction = Collidable.Factions.Enemy;
 
 			t_Trigger.Gates = t_Gates;
 			t_Trigger.Walls = t_Walls;
@@ -241,7 +241,7 @@ namespace project_hook
 			addEvent(m_Distance, new Event(t_Gates));
 			addEvent(m_Distance, new Event(t_Walls));
 			addEvent(m_Distance, new Event(t_Trigger));
-			//addEvent(m_Distance, new Event(t_Guardian));
+			addEvent(m_Distance, new Event(t_Guardian));
 		}
 
 		private List<Sprite> LoadWall(XmlReader p_Reader)
@@ -573,10 +573,10 @@ namespace project_hook
 			{
 				t_Ship = new Boss();
 			}
-			/*else if (p_shipType == typeof(Guardian))
+			else if (p_shipType == typeof(Guardian))
 			{
 				t_Ship = new Guardian();
-			}*/
+			}
 
 			while (p_Reader.IsStartElement())
 			{
