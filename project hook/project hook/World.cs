@@ -140,15 +140,13 @@ namespace project_hook
         public static World m_World;
 
 #if DEBUG
-
 		TextSprite listsize = new TextSprite("", new Vector2(100, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
 		bool DisplayCollision = false;
 		int RemovedWhileVisibleCount = 0;
-
+#endif
 #if CHEAT
 		Shot kill;
 #endif
-
 #if TIME
 		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 		TextSprite coll = new TextSprite("", new Vector2(300, 20), Color.GreenYellow, Depth.HUDLayer.Foreground);
@@ -158,7 +156,7 @@ namespace project_hook
 		double updttotal;
 		int updtcount;
 #endif
-#endif
+
 		public World(Rectangle p_DrawArea)
 		{
 			m_World = this;
