@@ -33,6 +33,7 @@
 				<height>96</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
+				<blendMode>Additive</blendMode>
 				<startTile x="15" y="-11"/>
 				<task type="Stationary"/>
 			</trigger>
@@ -60,6 +61,7 @@
 				<width>32</width>
 				<bound>Rectangle</bound>
 				<texture name="trigger" pos="0"/>
+				<blendMode>Additive</blendMode>
 				<startCenter x="56" y="-240"/>
 				<degree>0</degree>
 				<task type="Stationary"/>

@@ -33,6 +33,7 @@
 				<height>32</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
+				<blendMode>Additive</blendMode>
 				<startTile x="19" y="-3" />
 				<task type="Stationary"/>
 			</trigger>
