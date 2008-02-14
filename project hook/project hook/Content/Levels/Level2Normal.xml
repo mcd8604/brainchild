@@ -1737,6 +1737,7 @@
 					</task>
 				</task>
 				<delay>0.85</delay>
+				<initialCooldown>0.01</initialCooldown>
 				<speed>300</speed>
 				<shot>
 					<damage>30</damage>
