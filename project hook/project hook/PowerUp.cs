@@ -10,7 +10,7 @@ namespace project_hook
 		private static List<PowerUp> m_PowerUps;
 		private static int nextPowerUp = 0;
 		private const int MAX_POWERUPS = 20;
-
+        private const int SIZE = 50;
 
 		public static void iniPowerups()
 		{
@@ -38,15 +38,15 @@ namespace project_hook
 			if (p.Type != PowerType.None)
 			{
 				p.Center = at;
-				p.Height = size;
-				p.Width = size;
-				p.Radius = size * 0.5f;
+  // 				p.Height = SIZ;
+//				p.Width = size;
+//				p.Radius = size * 0.5f;
 				p.Amount = value;
 				p.Health = float.NaN;
-				p.Alpha = 200;
+				p.Alpha = 155;
 				p.Name = "Power Up " + p.Texture.Name;
 				p.Enabled = true;
-				
+	
 				//World.m_World.AddSprite(p);
 				nextPowerUp = (nextPowerUp + 1) % MAX_POWERUPS;
 			}			
@@ -169,7 +169,7 @@ namespace project_hook
 				m_Back[a].Alpha = 65;
 
 				attachSpritePart(m_Back[a]);
-
+                m_Back[a].Z = Depth.GameLayer.Ships - 0.002f;
 				m_Back[a].Animation.CurrentFrame = a * 5;
 				m_Back[a].Animation.StartAnimation();
 
@@ -177,13 +177,13 @@ namespace project_hook
 
 			Enabled = false;
 			Faction = Factions.PowerUp;
-			Height = 1;
-			Width = 1;
-			Radius = 1f;
+			Height = SIZE;
+			Width = SIZE;
+			Radius = SIZE * 0.5f;
 			Amount = 0;
 			Damage = 0;
 			Health = float.NaN;
-			Z = Depth.GameLayer.PlayerShip + 0.0001f;
+            Z = Depth.GameLayer.Ships - 0.02f;
 			Task = new TaskStationary();
 			Name = "Power Up - Not Assigned";
 		}
@@ -297,13 +297,13 @@ namespace project_hook
 		private static PowerType getRandomType()
 		{
 			int val = Game.Random.Next(100);
-			if (val < 50)
+			if (val < 21)
 			{
-				if (val < 10)
+				if (val < 4)
 				{
 					return PowerType.Health;
 				}
-				else if (val < 20)
+				else if (val < 8)
 				{
 					
 					return PowerType.Shield;
