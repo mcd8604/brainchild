@@ -336,6 +336,12 @@ namespace project_hook
 
 		private void LoadTrigger(XmlReader p_Reader, GateTrigger p_Trigger)
 		{
+			p_Trigger.Faction = Collidable.Factions.Environment;
+			p_Trigger.Z = Depth.GameLayer.Trigger;
+			p_Trigger.Bound = Collidable.Boundings.Circle;
+			p_Trigger.Radius = 10;
+			p_Trigger.Health = 1;
+			p_Trigger.Grabbable = false;
 			while (p_Reader.IsStartElement())
 			{
 				if (p_Reader.IsStartElement("name"))
@@ -440,12 +446,6 @@ namespace project_hook
 				}
 #endif
 			}
-			p_Trigger.Faction = Collidable.Factions.Environment;
-			p_Trigger.Z = Depth.GameLayer.Trigger;
-			p_Trigger.Bound = Collidable.Boundings.Circle;
-			p_Trigger.Radius = 10;
-			p_Trigger.Health = 1;
-			p_Trigger.Grabbable = false;
 		}
 
 		private void NextFile(XmlReader p_Reader)
