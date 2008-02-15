@@ -1443,7 +1443,7 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("type"))
 				{
 					p_Reader.ReadStartElement("type");
-					t_Point.Type = p_Reader.ReadString();
+					t_Point.Type = (SpawnPoint.SpawnType)Enum.Parse(typeof(SpawnPoint.SpawnType), p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("count"))
