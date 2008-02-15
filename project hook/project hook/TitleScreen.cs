@@ -23,9 +23,9 @@ namespace project_hook
 			base.Load(gdm);
 
 			//add the text
-			m_Text = new TextSprite("Press Enter", new Microsoft.Xna.Framework.Vector2(400, 500), Color.White, Depth.MenuLayer.Text);
-			m_MenuItemSprites.Add(m_Text);
-			attachSpritePart(m_Text);
+			//m_Text = new TextSprite("Press Enter", new Microsoft.Xna.Framework.Vector2(400, 500), Color.White, Depth.MenuLayer.Text);
+			//m_MenuItemSprites.Add(m_Text);
+			//attachSpritePart(m_Text);
 		}
 
 		public override void accept()
