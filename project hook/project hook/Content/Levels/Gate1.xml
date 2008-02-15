@@ -30,11 +30,11 @@
 			</wall>
 			<trigger>
 				<name>gate1T</name>
-				<height>32</height>
+				<height>64</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
 				<blendMode>Additive</blendMode>
-				<startTile x="19" y="-3" />
+				<startTile x="19" y="-4" />
 				<task type="Stationary"/>
 			</trigger>
 		</createGate>
