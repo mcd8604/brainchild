@@ -22,9 +22,36 @@
 			<wall>
 				<name>gateBlock1</name>
 				<texture name="walls\plaque_clear"/>
-				<numRows>4</numRows>
-				<numCols>4</numCols>
-				<startTile x="12" y="-4"/>
+				<numRows>1</numRows>
+				<numCols>2</numCols>
+				<startTile x="14" y="-4"/>
+				<faction>ClearWall</faction>
+				<task type="Stationary"/>
+			</wall>
+			<wall>
+				<name>gateBlock1</name>
+				<texture name="walls\plaque_clear"/>
+				<numRows>1</numRows>
+				<numCols>2</numCols>
+				<startTile x="13" y="-3"/>
+				<faction>ClearWall</faction>
+				<task type="Stationary"/>
+			</wall>
+			<wall>
+				<name>gateBlock1</name>
+				<texture name="walls\plaque_clear"/>
+				<numRows>1</numRows>
+				<numCols>2</numCols>
+				<startTile x="12" y="-2"/>
+				<faction>ClearWall</faction>
+				<task type="Stationary"/>
+			</wall>
+			<wall>
+				<name>gateBlock1</name>
+				<texture name="walls\plaque_clear"/>
+				<numRows>1</numRows>
+				<numCols>1</numCols>
+				<startTile x="12" y="-1"/>
 				<faction>ClearWall</faction>
 				<task type="Stationary"/>
 			</wall>
@@ -68,11 +95,11 @@
 			</trigger>
 			<wall>
 				<name>gateBlock2</name>
-				<numRows>6</numRows>
+				<numRows>2</numRows>
 				<numCols>12</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<startTile x="9" y="-4" />
+				<startTile x="9" y="0" />
 				<task type="Stationary"/>
 			</wall>
 		</createGate>
