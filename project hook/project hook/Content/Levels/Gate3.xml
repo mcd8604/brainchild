@@ -149,6 +149,7 @@
 				<blendMode>Additive</blendMode>
 				<startTile x="14.5" y="0"/>
 				<degree>0</degree>
+				<bound>Rectangle</bound>
 				<task type="Stationary"/>
 			</trigger>
 			<guardian>
