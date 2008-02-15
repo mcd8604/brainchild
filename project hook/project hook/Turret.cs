@@ -6,7 +6,7 @@ namespace project_hook
 {
     class Turret : ShipPart
     {
-        protected float m_StartAngle=400;
+        protected float m_StartAngle= float.PositiveInfinity;
         public float StartAngle
         {
             get
@@ -46,21 +46,36 @@ namespace project_hook
 
         public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
         {
-            if (m_StartAngle == 400)
+			if (m_StartAngle == float.PositiveInfinity)
             {
                 m_StartAngle = this.ParentShip.RotationDegrees;
             }
+
             base.Update(p_Time);
-            //Sprite t_Test=this.Parts.IndexOf(null,this.Parts.Count-1);
-            //Console.WriteLine(this.Parts..RotationDegrees);
-            if (RotationDegrees > m_StartAngle + m_BendAmount)
-            {
-                RotationDegrees = m_StartAngle + m_BendAmount;
-            }
-            else if (RotationDegrees < m_StartAngle - m_BendAmount)
-            {
-                RotationDegrees = m_StartAngle - m_BendAmount;
-            }
+
+			float diff = RotationDegrees - m_StartAngle;
+
+			while (diff > 180)
+			{
+				diff -= 360;
+			}
+
+			while (diff < -180)
+			{
+				diff += 360;
+			}
+
+			if (m_BendAmount < Math.Abs(diff))
+			{
+				if (diff > 0)
+				{
+					RotationDegrees = m_StartAngle + m_BendAmount;
+				}
+				else
+				{
+					RotationDegrees = m_StartAngle - m_BendAmount;
+				}
+			}
             this.shoot();
         }
     }

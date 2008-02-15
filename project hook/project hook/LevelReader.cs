@@ -586,8 +586,7 @@ namespace project_hook
 			}
             else if (p_shipType == typeof(Turret))
             {
-                t_Ship = new Turret(45);                
-                //t_Ship.BendAmount = 45;
+                t_Ship = new Turret(60);                
             }
 
 			while (p_Reader.IsStartElement())
