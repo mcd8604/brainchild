@@ -2546,7 +2546,7 @@
 				<width>32</width>
 				<radius>16</radius>
 				<texture name="virus1"/>
-				<startCenter x="800" y="-21" />
+				<startTile x="19" y="0" />
 				<health>50</health>
 				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 				<deathEffect name="ExplosionBig"/>
