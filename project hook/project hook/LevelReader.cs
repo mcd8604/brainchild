@@ -224,7 +224,7 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("guardian"))
 				{
 					p_Reader.ReadStartElement();
-					Ship t_Guardian = readShip(p_Reader, typeof(Ship)) ;
+					Ship t_Guardian = readShip(p_Reader, typeof(Ship));
 					t_Guardian.Faction = Collidable.Factions.Enemy;
 					t_Trigger.Guardian = t_Guardian;
 					addEvent(m_Distance, new Event(t_Guardian));
@@ -316,8 +316,10 @@ namespace project_hook
 #endif
 			}
 			List<Sprite> wallList = new List<Sprite>();
-			for(int row = 0; row < numRows; row++) {
-				for(int col = 0; col < numCols; col++) {
+			for (int row = 0; row < numRows; row++)
+			{
+				for (int col = 0; col < numCols; col++)
+				{
 					Vector2 pos = startPos + new Vector2(col * EnvironmentLoader.TileDimension, row * EnvironmentLoader.TileDimension);
 					Collidable p_Wall = new Collidable(name + "_" + col + "_" + row, pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension,
 						texture, 0.75f, true, 0, Depth.GameLayer.Gate, faction, float.NaN, EnvironmentLoader.TileDimension / 2);

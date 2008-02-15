@@ -185,13 +185,14 @@ namespace project_hook
 			m_UpgradeReqs.Add(350);
 			m_UpgradeReqs.Add(500);
 			m_UpgradeReqs.Add(700);
-			
+
 		}
 
 		protected override void takeDamage(float damage, Collidable from)
 		{
 			base.takeDamage(damage, from);
-			if(IsDead()) {
+			if (IsDead())
+			{
 				m_TailSprite.disable();
 			}
 		}
@@ -309,7 +310,7 @@ namespace project_hook
 			cur = -1;
 
 			Weapons.Clear();
-			
+
 			Shot shot = new Shot();
 			shot.Name = "Player Shot";
 			shot.Height = 16;
@@ -329,14 +330,14 @@ namespace project_hook
 			}
 
 			m_Upgrades.Clear();
-			
+
 
 
 			//Level 1 Upgrades 
 			//***************************************************************************
 
 			//Side Shot left
-			 shot = new Shot();
+			shot = new Shot();
 			shot.Name = "Player Side Shot";
 			shot.Height = 10;
 			shot.Width = 30;
