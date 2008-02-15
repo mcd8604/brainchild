@@ -340,7 +340,7 @@ namespace project_hook
 						}
 					}
 
-					if ((this.Faction == Factions.Enemy || this.Faction == Factions.Blood || this.Faction == Factions.Player) && !(this is Tail)&& collect)
+					if ((this.Faction == Factions.Enemy || this.Faction == Factions.Blood || this.Faction == Factions.Player) && !(this is Tail) && collect)
 					{
 						//if (((Ship)this).Faction != Collidable.Factions.Player)
 						((Collidable)this).Health = 0;

@@ -148,7 +148,7 @@ namespace project_hook
 				// TODO: Unload any ResourceManagementMode.Automatic content
 				content.Unload();
 			}
-			
+
 			// TODO: Unload any ResourceManagementMode.Manual content
 		}
 
@@ -160,11 +160,11 @@ namespace project_hook
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			
+
 			// Suspend updating (by returning out of the method) if we are not the active window focus.
 			if (!IsActive)
 				return;
-				
+
 
 			InputHandler.Update();
 
@@ -234,8 +234,8 @@ namespace project_hook
 				m_World.changeState(World.GameState.Running);
 				World.ResumeWorld = false;
 			}
-			
-			if (World.PlayerDead == true )
+
+			if (World.PlayerDead == true)
 			{
 				if (Menus.SelectedMenu != Menus.MenuScreens.GameOver)
 				{
@@ -321,6 +321,6 @@ namespace project_hook
 					Menus.setCurrentMenu(Menus.MenuScreens.Pause);
 				}
 			}
-		}	
+		}
 	}
 }
