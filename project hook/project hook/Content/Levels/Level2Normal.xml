@@ -1753,6 +1753,9 @@
 			</weapon>
 			<task type="Sequence">
 				<task type="Parallel">
+					<task type="RotateFaceTarget">
+						<target>Player</target>
+					</task>
 					<task type="StraightVelocity">
 						<velocity x="0" y="80"/>
 					</task>
