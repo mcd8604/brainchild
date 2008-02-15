@@ -20,8 +20,10 @@ namespace project_hook
 			}
 		}
 
-		private String m_Type="dist";
-		public String Type
+		public enum SpawnType { dist, time }
+
+		private SpawnType m_Type = SpawnType.dist;
+		public SpawnType Type
 		{
 			get
 			{
@@ -122,7 +124,7 @@ namespace project_hook
 			base.Update(p_Time);
 
 			m_CurTime += (float)p_Time.ElapsedGameTime.TotalSeconds;
-			//if (m_Type.Equals("dist"))
+			//if (m_Type == SpawnType.dist)
 			//{
 			//    if (m_LastPos + m_Delay <= World.m_Position.Distance && m_CurIndex < m_Count)
 			//    {
@@ -133,7 +135,7 @@ namespace project_hook
 			//        addSprite(m_SpawnObj.copy());
 			//    }
 			//}
-			//else if (m_Type.Equals("time"))
+			//else if (m_Type == SpawnType.time)
 			//{
 			//    Console.WriteLine((m_LastTime + m_Delay) + "   " + m_CurTime);
 			//    if (m_LastTime + m_Delay <= m_CurTime && m_CurIndex < m_Count)
@@ -145,7 +147,7 @@ namespace project_hook
 			//        addSprite(m_SpawnObj.copy());
 			//    }
 			//}
-			if (((m_LastPos + m_Delay <= World.m_Position.Distance && m_Type.Equals("dist")) || (m_LastTime + m_Delay <= m_CurTime && m_Type.Equals("time"))) && m_CurIndex < m_Count)
+			if (((m_LastPos + m_Delay <= World.m_Position.Distance && m_Type == SpawnType.dist) || (m_LastTime + m_Delay <= m_CurTime && m_Type == SpawnType.time)) && m_CurIndex < m_Count)
 			{
 				m_LastPos = World.m_Position.Distance;
 				m_LastTime = m_CurTime;
