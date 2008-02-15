@@ -139,7 +139,11 @@ namespace project_hook
 
 		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag)
 		{
-			m_DamageEffect = new ExplosionSpriteParticleSystem(Name + "_DamageEffectParticleSystem", p_DamageEffectTextureName, p_Tag, 1);
+			m_DamageEffect = new ExplosionSpriteParticleSystem(
+#if !FINAL
+				Name + "_DamageEffectParticleSystem",
+#endif
+				p_DamageEffectTextureName, p_Tag, 1);
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(1f));
@@ -149,7 +153,11 @@ namespace project_hook
 		}
 		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag, String p_DamageEffectAnimationName, int p_AnimationFPS)
 		{
-			m_DamageEffect = new ExplosionSpriteParticleSystem(Name + "_DamageEffectParticleSystem", p_DamageEffectTextureName, p_Tag, p_DamageEffectAnimationName, p_AnimationFPS, 1);
+			m_DamageEffect = new ExplosionSpriteParticleSystem(
+#if !FINAL
+				Name + "_DamageEffectParticleSystem",
+#endif
+				p_DamageEffectTextureName, p_Tag, p_DamageEffectAnimationName, p_AnimationFPS, 1);
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(1f));
@@ -169,7 +177,11 @@ namespace project_hook
 
 		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag)
 		{
-			m_DeathEffect = new ExplosionSpriteParticleSystem(Name + "_DeathEffectParticleSystem", p_DeathEffectTextureName, p_Tag, 1);
+			m_DeathEffect = new ExplosionSpriteParticleSystem(
+#if !FINAL
+				Name + "_DeathEffectParticleSystem",
+#endif
+				p_DeathEffectTextureName, p_Tag, 1);
 			m_DeathEffect.MaxLifetime = 1.0f;
 			m_DeathEffect.MinInitialSpeed = 10;
 			m_DeathEffect.MaxInitialSpeed = 100;
@@ -186,7 +198,11 @@ namespace project_hook
 		}
 		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag, String p_DeathEffectAnimationName, int p_AnimationFPS)
 		{
-			m_DeathEffect = new ExplosionSpriteParticleSystem(Name + "_DeathEffectParticleSystem", p_DeathEffectTextureName, p_Tag, p_DeathEffectAnimationName, p_AnimationFPS, 1);
+			m_DeathEffect = new ExplosionSpriteParticleSystem(
+#if !FINAL
+				Name + "_DeathEffectParticleSystem",
+#endif
+				p_DeathEffectTextureName, p_Tag, p_DeathEffectAnimationName, p_AnimationFPS, 1);
 			m_DeathEffect.MaxLifetime = 1.0f;
 			m_DeathEffect.MinInitialSpeed = 10;
 			m_DeathEffect.MaxInitialSpeed = 100;
@@ -236,7 +252,9 @@ namespace project_hook
 
 		public Collidable()
 		{
+#if !FINAL
 			Name = "Unnamed Collidable";
+#endif
 
 		}
 		public Collidable(Collidable p_Collidable)
@@ -255,7 +273,9 @@ namespace project_hook
 			Height = p_Collidable.Height;
 			MaxHealth = p_Collidable.MaxHealth;
 			Health = p_Collidable.Health;
+#if !FINAL
 			Name = p_Collidable.Name;
+#endif
 			Center = p_Collidable.Center;
 			Radius = p_Collidable.Radius;
 			Rotation = p_Collidable.Rotation;
@@ -283,9 +303,17 @@ namespace project_hook
 				setDeathEffect(p_Collidable.DeathEffect.TextureName, p_Collidable.DeathEffect.TextureTag);
 			}
 		}
-		public Collidable(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
+		public Collidable(
+#if !FINAL
+			String p_Name,
+#endif
+			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, float p_Radius)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z)
 		{
 			Faction = p_Faction;
 			MaxHealth = p_MaxHealth;

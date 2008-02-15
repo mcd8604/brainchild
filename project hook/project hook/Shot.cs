@@ -23,7 +23,9 @@ namespace project_hook
 		public Shot()
 		{
 			Enabled = false;
+#if !FINAL
 			Name = "Unnamed Shot";
+#endif
 			Z = Depth.GameLayer.Shot;
 		}
 		public Shot(Shot p_Shot)
@@ -46,7 +48,9 @@ namespace project_hook
 			Health = p_Shot.Health;
 			Height = p_Shot.Height;
 			MaxHealth = p_Shot.MaxHealth;
+#if !FINAL
 			Name = p_Shot.Name;
+#endif
 			Radius = p_Shot.Radius;
 			Rotation = p_Shot.Rotation;
 			Task = p_Shot.Task;
@@ -55,9 +59,16 @@ namespace project_hook
 			Width = p_Shot.Width;
 			Z = p_Shot.Z;
 		}
-		public Shot(String p_Name, Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
-							float p_Rotation, float p_Z, Factions p_Faction, float p_Health, float p_Radius, float p_Damage)
-			: base(p_Name, p_Center, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_Radius)
+		public Shot(
+#if !FINAL
+			String p_Name,
+#endif
+			Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled, float p_Rotation, float p_Z, Factions p_Faction, float p_Health, float p_Radius, float p_Damage)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			p_Center, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_Radius)
 		{
 			Damage = p_Damage;
 			Center = p_Center;

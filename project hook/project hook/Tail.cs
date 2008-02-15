@@ -109,10 +109,16 @@ namespace project_hook
 		private Sprite tailTarget;
 		private Task tailTargetNormalTask;
 
-		public Tail(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
-					float p_Degree, float p_Z, Factions p_Faction, float p_Health, float p_Radius,
-					Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites, Sprite p_TargetObject)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, p_Health, p_Radius)
+		public Tail(
+#if !FINAL
+			String p_Name,
+#endif
+			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_Z, Factions p_Faction, float p_Health, float p_Radius, Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites, Sprite p_TargetObject)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, p_Health, p_Radius)
 		{
 
 			TaskParallel temp = new TaskParallel();
@@ -140,7 +146,11 @@ namespace project_hook
 
 			m_TargetObject = p_TargetObject;
 
-			tailTarget = new Sprite("crosshairR", new Vector2(0f, 0f), TextureLibrary.getGameTexture("crosshairsR", "").Height, TextureLibrary.getGameTexture("crosshairsR", "").Width, TextureLibrary.getGameTexture("crosshairsR", ""), 0.75f, true, 0f, Depth.GameLayer.Cursor);
+			tailTarget = new Sprite(
+#if !FINAL
+				"crosshairR",
+#endif
+				new Vector2(0f, 0f), TextureLibrary.getGameTexture("crosshairsR", "").Height, TextureLibrary.getGameTexture("crosshairsR", "").Width, TextureLibrary.getGameTexture("crosshairsR", ""), 0.75f, true, 0f, Depth.GameLayer.Cursor);
 			tailTarget.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
 			tailTargetNormalTask = new TaskLerpRange(this, m_TargetObject, 400);
 			tailTarget.Task = tailTargetNormalTask;

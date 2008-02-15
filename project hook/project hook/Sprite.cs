@@ -104,7 +104,7 @@ namespace project_hook
 				m_Height = value;
 			}
 		}
-
+#if !FINAL
 		protected String m_Name = "Unnamed Sprite";
 		/// <summary>
 		/// The identifying name of the sprite
@@ -120,7 +120,7 @@ namespace project_hook
 				m_Name = value;
 			}
 		}
-
+#endif
 		protected Task m_Task = null;
 		/// <summary>
 		/// The Task for this sprite.
@@ -361,9 +361,15 @@ namespace project_hook
 			throw new NotImplementedException();
 		}
 
-		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture)
+		public Sprite(
+#if !FINAL
+			String p_Name,
+#endif
+			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture)
 		{
+#if !FINAL
 			m_Name = p_Name;
+#endif
 			Height = p_Height;
 			Width = p_Width;
 			Position = p_Position;
@@ -372,9 +378,15 @@ namespace project_hook
 
 
 		//This is a constructor that has full parameters!
-		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, byte p_Alpha, bool p_Visible, float p_Rotation, float p_Z)
+		public Sprite(
+#if !FINAL
+			String p_Name,
+#endif
+			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, byte p_Alpha, bool p_Visible, float p_Rotation, float p_Z)
 		{
+#if !FINAL
 			m_Name = p_Name;
+#endif
 			Height = p_Height;
 			Width = p_Width;
 			Position = p_Position;
@@ -385,9 +397,15 @@ namespace project_hook
 			Z = p_Z;
 		}
 
-		public Sprite(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_Z)
+		public Sprite(
+#if !FINAL
+			String p_Name,
+#endif
+			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_Z)
 		{
+#if !FINAL
 			m_Name = p_Name;
+#endif
 			Height = p_Height;
 			Width = p_Width;
 			Position = p_Position;
@@ -505,10 +523,11 @@ namespace project_hook
 		{
 			return new Sprite(this);
 		}
-
+#if !FINAL
 		public override string ToString()
 		{
 			return Name + " " + Center + " " + BlendMode + " " + Enabled + " " + ToBeRemoved;
 		}
+#endif
 	}
 }

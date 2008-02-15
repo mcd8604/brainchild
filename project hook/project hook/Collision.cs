@@ -816,7 +816,7 @@ namespace project_hook
 
 		}
 
-
+#if !FINAL
 		/// <summary>
 		/// attach visual collision bounds to every collidable in the list, that doesn't already have bounds on it.
 		/// </summary>
@@ -983,7 +983,9 @@ namespace project_hook
 				}
 			}
 		}
+#endif
 
+#if DEBUG
 		public static void SelfTest()
 		{
 #if TIME
@@ -1119,6 +1121,7 @@ namespace project_hook
 #endif
 
 		}
+#endif
 
 	}
 }

@@ -32,7 +32,11 @@ namespace project_hook
 
 		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, String p_Tag)
 		{
-			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(Name + "_ShieldDamageEffectParticleSystem", p_ShieldDamageEffectTextureName, p_Tag, 1);
+			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(
+#if !FINAL
+				Name + "_ShieldDamageEffectParticleSystem",
+#endif
+				p_ShieldDamageEffectTextureName, p_Tag, 1);
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(1f));
@@ -42,7 +46,11 @@ namespace project_hook
 		}
 		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, String p_Tag, String p_ShieldDamageEffectAnimationName, int p_AnimationFPS)
 		{
-			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(Name + "_ShieldDamageEffectParticleSystem", p_ShieldDamageEffectTextureName, p_Tag, p_ShieldDamageEffectAnimationName, p_AnimationFPS, 1);
+			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(
+#if !FINAL
+				Name + "_ShieldDamageEffectParticleSystem",
+#endif
+				p_ShieldDamageEffectTextureName, p_Tag, p_ShieldDamageEffectAnimationName, p_AnimationFPS, 1);
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(1f));
@@ -88,7 +96,11 @@ namespace project_hook
 					else
 					{
 
-						m_ShieldSprite = new Sprite("Shield", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
+						m_ShieldSprite = new Sprite(
+#if !FINAL
+							"Shield",
+#endif
+							Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
 						m_ShieldSprite.Center = Center;
 						TaskParallel ShieldTask = new TaskParallel();
 						ShieldTask.addTask(new TaskAttach(this));
@@ -97,7 +109,11 @@ namespace project_hook
 						m_ShieldSprite.Z = this.Z - 0.1f;
 						attachSpritePart(m_ShieldSprite);
 
-						m_ShieldOverlay = new Sprite("Shield Overlay", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
+						m_ShieldOverlay = new Sprite(
+#if !FINAL
+							"Shield Overlay",
+#endif
+							Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
 						m_ShieldOverlay.Center = Center;
 						m_ShieldOverlay.Task = ShieldTask;
 						m_ShieldSprite.Z = this.Z + 0.01f;
@@ -147,7 +163,9 @@ namespace project_hook
 
 		public Ship()
 		{
+#if !FINAL
 			Name = "Unnamed Ship";
+#endif
 			Z = Depth.GameLayer.Ships;
 		}
 		public Ship(Ship p_Ship)
@@ -171,7 +189,9 @@ namespace project_hook
 			Height = p_Ship.Height;
 			MaxShield = p_Ship.MaxShield;
 			Shield = p_Ship.Shield;
+#if !FINAL
 			Name = p_Ship.Name;
+#endif
 			Radius = p_Ship.Radius;
 			Rotation = p_Ship.Rotation;
 			if (!p_Ship.Sized)
@@ -207,8 +227,16 @@ namespace project_hook
 				setDeathEffect(p_Ship.DeathEffect.TextureName, p_Ship.DeathEffect.TextureTag);
 			}
 		}
-		public Ship(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_MaxHealth, int p_MaxShield, float p_Radius)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Rotation, p_zBuff, p_Faction, p_MaxHealth, p_Radius)
+		public Ship(
+#if !FINAL
+			String p_Name,
+#endif
+			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_MaxHealth, int p_MaxShield, float p_Radius)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Rotation, p_zBuff, p_Faction, p_MaxHealth, p_Radius)
 		{
 			MaxShield = p_MaxShield;
 		}

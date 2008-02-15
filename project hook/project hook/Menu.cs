@@ -45,15 +45,21 @@ namespace project_hook
 			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
 			float xPos = gdm.GraphicsDevice.Viewport.Width * 0.5f;
 			float yPos = gdm.GraphicsDevice.Viewport.Height * 0.5f;
-			m_BackgroundSprite = new Sprite(m_BackgroundName, Vector2.Zero, bgTexture.Height, bgTexture.Width, bgTexture, 200f, true,
-											0, Depth.MenuLayer.Background);
+			m_BackgroundSprite = new Sprite(
+#if !FINAL
+				m_BackgroundName,
+#endif
+				Vector2.Zero, bgTexture.Height, bgTexture.Width, bgTexture, 200f, true, 0, Depth.MenuLayer.Background);
 			m_BackgroundSprite.Center = new Vector2(xPos, yPos);
 			attachSpritePart(m_BackgroundSprite);
 
 			//cursor sprite
 			GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName, "");
-			m_MenuCursorSprite = new CursorSprite(m_MenuCursorName, InputHandler.MousePosition, cursorTexture.Height, cursorTexture.Width, cursorTexture, 255f, true,
-											0, Depth.MenuLayer.Cursor);
+			m_MenuCursorSprite = new CursorSprite(
+#if !FINAL
+				m_MenuCursorName,
+#endif
+				InputHandler.MousePosition, cursorTexture.Height, cursorTexture.Width, cursorTexture, 255f, true, 0, Depth.MenuLayer.Cursor);
 			attachSpritePart(m_MenuCursorSprite);
 
 			m_MenuItemSprites = new ArrayList();
@@ -108,8 +114,11 @@ namespace project_hook
 					Sprite s = (Sprite)m_MenuItemSprites[k];
 					yPos += s.Height;
 				}
-				Sprite mis = new Sprite((String)m_MenuItemNames[i], Vector2.Zero, curTexture.Height, curTexture.Width,
-													curTexture, 255f, true, 0, Depth.MenuLayer.Text);
+				Sprite mis = new Sprite(
+#if !FINAL
+					(String)m_MenuItemNames[i],
+#endif
+					Vector2.Zero, curTexture.Height, curTexture.Width, curTexture, 255f, true, 0, Depth.MenuLayer.Text);
 				mis.Center = new Vector2(xPos, yPos);
 				m_MenuItemSprites.Add(mis);
 				attachSpritePart(mis);
@@ -118,8 +127,11 @@ namespace project_hook
 			//create highlight sprite
 			Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
 			GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName, "");
-			m_HightlightSprite = new Sprite(m_HighlightName, new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height,
-											selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.MenuLayer.Highlight);
+			m_HightlightSprite = new Sprite(
+#if !FINAL
+				m_HighlightName,
+#endif
+				new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height, selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.MenuLayer.Highlight);
 			attachSpritePart(m_HightlightSprite);
 		}
 

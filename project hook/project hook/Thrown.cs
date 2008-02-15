@@ -37,7 +37,9 @@ namespace project_hook
 			Height = p_Collidable.Height;
 			MaxHealth = p_Collidable.MaxHealth;
 			Health = p_Collidable.Health;
+#if !FINAL
 			Name = p_Collidable.Name;
+#endif
 			Center = p_Collidable.Center;
 			Radius = p_Collidable.Radius;
 			Rotation = p_Collidable.Rotation;

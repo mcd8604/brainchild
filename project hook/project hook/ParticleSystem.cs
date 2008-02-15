@@ -143,9 +143,17 @@ namespace project_hook
 		/// However, this value should be set to the minimum possible, because
 		/// it has a large impact on the amount of memory required, and slows down the
 		/// Update and Draw functions.</remarks>
-		protected ParticleSystem(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
+		protected ParticleSystem(
+#if !FINAL
+			String p_Name,
+#endif
+			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible,
 							float p_Degree, float p_Z, int p_HowManyEffects)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z)
 		{
 			howManyEffects = p_HowManyEffects;
 			InitializeConstants();
