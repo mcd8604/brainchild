@@ -21,7 +21,7 @@
 			<blendMode>Additive</blendMode>
 			<shield>0</shield>
 			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
-			<deathEffect name="ExplosionBig"/>
+			<deathEffect name="supernova"/>
 			<shipPart>
 				<offsetDistance>150</offsetDistance>
 				<createShip>

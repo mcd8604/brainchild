@@ -1097,6 +1097,12 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Instructions3</Name>
     </Content>
+    <Content Include="Content\Textures\supernova.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>supernova</Name>
+    </Content>
     <Content Include="Content\Textures\Title.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
