@@ -107,6 +107,104 @@
 			<task type="StationaryBackground"/>
 		</createShip>
 	</action>
+	<action tile="40">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startCenter x="300" y="0"/>
+			<health>5</health>
+			<grabbable>false</grabbable>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
+		</createShip>
+	</action>
+	<action tile="58">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startCenter x="800" y="0"/>
+			<health>5</health>
+			<grabbable>false</grabbable>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
+		</createShip>
+	</action>
+	<action tile="76">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startCenter x="640" y="0"/>
+			<health>5</health>
+			<grabbable>false</grabbable>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
+		</createShip>
+	</action>
+	<action tile="94">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startCenter x="800" y="0"/>
+			<health>5</health>
+			<grabbable>false</grabbable>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
+		</createShip>
+	</action>
+	<action tile="110">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startCenter x="280" y="0"/>
+			<health>5</health>
+			<grabbable>false</grabbable>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
+		</createShip>
+	</action>
+	<action tile="135">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startCenter x="600" y="0"/>
+			<health>5</health>
+			<grabbable>false</grabbable>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
+		</createShip>
+	</action>
+	<action tile="150">
+		<createShip>
+			<name>bump1</name>
+			<height>40</height>
+			<width>40</width>
+			<radius>20</radius>
+			<texture name="bump"/>
+			<startCenter x="640" y="0"/>
+			<health>5</health>
+			<grabbable>false</grabbable>
+			<deathEffect name="ExplosionBig"/>
+			<task type="StationaryBackground"/>
+		</createShip>
+	</action>
 	<action tile="45">
 		<createShip>
 			<name>W3_E1</name>
