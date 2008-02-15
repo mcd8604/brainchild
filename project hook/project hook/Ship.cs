@@ -17,11 +17,9 @@ namespace project_hook
 		//variable for the weapon that the ship currently has
 		protected List<Weapon> m_Weapons = new List<Weapon>();
 
-		protected Sprite m_ShieldSprite;
-		private const float MAX_SHIELD_ALPHA = 1f;
-		
+		protected Sprite m_ShieldSprite;	
 		protected Sprite m_ShieldOverlay;
-		private const float MAX_SHIELD_OVERLAY_ALPHA = 0.65f;
+		private const float MAX_SHIELD_ALPHA = 0.65f;
 
 		protected SpriteParticleSystem m_ShieldDamageEffect = null;
 		public SpriteParticleSystem ShieldDamageEffect
@@ -99,7 +97,7 @@ namespace project_hook
 						m_ShieldSprite.Z = this.Z - 0.1f;
 						attachSpritePart(m_ShieldSprite);
 
-						m_ShieldOverlay = new Sprite("Shield Overlay", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_OVERLAY_ALPHA, true, 0, Depth.GameLayer.Shields);
+						m_ShieldOverlay = new Sprite("Shield Overlay", Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
 						m_ShieldOverlay.Center = Center;
 						m_ShieldOverlay.Task = ShieldTask;
 						m_ShieldSprite.Z = this.Z + 0.01f;
@@ -253,7 +251,7 @@ namespace project_hook
 			if (m_MaxShield > 0 && m_ShieldSprite != null)
 			{
 				m_ShieldSprite.Transparency = m_Shield / m_MaxShield * MAX_SHIELD_ALPHA;
-				m_ShieldOverlay.Transparency = m_Shield / m_MaxShield * MAX_SHIELD_OVERLAY_ALPHA;
+				m_ShieldOverlay.Transparency = m_Shield / m_MaxShield * MAX_SHIELD_ALPHA;
 			}
 			foreach (Weapon w in m_Weapons)
 			{
