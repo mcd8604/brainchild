@@ -69,6 +69,7 @@ namespace project_hook
 		public static void iniTextures()
 		{
 			//load all menu textures here instead of during instansiation
+			TextureLibrary.LoadTexture("bcg");
 			TextureLibrary.LoadTexture("menu_background");
 			TextureLibrary.LoadTexture("menu_highlight");
 			TextureLibrary.LoadTexture("menu_newgame");
