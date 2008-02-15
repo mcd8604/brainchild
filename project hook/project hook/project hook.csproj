@@ -525,17 +525,6 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>menu_newgame</Name>
     </Content>
-    <Content Include="Content\Textures\Ship2.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>Ship2</Name>
-    </Content>
-    <Content Include="Content\Textures\Ship2.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Ship2</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="GameThumbnail.png">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -544,10 +533,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Animations\AnimationDefn.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>AnimationDefn</Name>
-    </Content>
     <Content Include="Content\Textures\crosshairs.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -569,17 +554,6 @@
     <Content Include="Content\Textures\Explosion.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Explosion</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Textures\FireBall.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>FireBall</Name>
-    </Content>
-    <Content Include="Content\Textures\FireBall.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>FireBall</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\menu_highlight.png">
@@ -606,17 +580,6 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>poisonsplat</Name>
     </Content>
-    <Content Include="Content\Textures\RedShot.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>RedShot</Name>
-    </Content>
-    <Content Include="Content\Textures\RedShot.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>RedShot</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Textures\Shield.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -642,12 +605,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Name>Courier New</Name>
-    </Content>
-    <Content Include="Content\Textures\blood.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>blood</Name>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -688,11 +645,6 @@
     <Content Include="Content\Levels\Gate1.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Gate1</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Levels\Gate1r.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Gate1r</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\gate2.bmp">
@@ -751,18 +703,6 @@
     <Content Include="Content\Levels\Level3.xml">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Level3</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Levels\LevelTest.xml">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>LevelTest</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Levels\testBMP.bmp">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>testBMP</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\black.PNG">
@@ -967,12 +907,6 @@
       <Name>virus2</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\wall1.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>wall1</Name>
-    </Content>
     <Content Include="Content\Textures\walls\plaque.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -1074,36 +1008,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>plaque_top_right_invert</Name>
-    </Content>
-    <Content Include="Content\Textures\walls\wall_left.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>wall_left</Name>
-    </Content>
-    <Content Include="Content\Textures\wall_flat.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>wall_flat</Name>
-    </Content>
-    <Content Include="Content\Textures\wall_rand1.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>wall_rand1</Name>
-    </Content>
-    <Content Include="Content\Textures\wall_rand2.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>wall_rand2</Name>
-    </Content>
-    <Content Include="Content\Textures\wall_rand3.png">
-      <XNAUseContentPipeline>true</XNAUseContentPipeline>
-      <Importer>TextureImporter</Importer>
-      <Processor>SpriteTextureProcessor</Processor>
-      <Name>wall_rand3</Name>
     </Content>
     <Content Include="Content\Textures\WeaponBar.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
