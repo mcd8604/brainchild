@@ -17,7 +17,7 @@
     <ManifestCertificateThumbprint>4CE170EF540B7BAB71F6F092CEC17B7D41D81FC6</ManifestCertificateThumbprint>
     <ManifestKeyFile>project hook_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <PublishUrl>C:\Users\Mike\Desktop\project_hook_published\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
