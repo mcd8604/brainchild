@@ -23,7 +23,7 @@ namespace project_hook
 			} else {
 				m_MenuItemNames.Add("Fullscreen Off");
 			}
-			if (Music.IsPlaying("bg1"))
+			if (Music.IsPlaying("bg2"))
 			{
 				m_MenuItemNames.Add("Music On");
 			} else {
@@ -62,10 +62,10 @@ namespace project_hook
 				Music.setPlaySound(true);
 				if (Music.IsPlaying("bg1"))
 				{
-					Music.Stop("bg1");
+					Music.Stop("bg2");
 					((TextSprite)m_MenuItemSprites[1]).Text = "Music Off";
 				} else {
-					Music.Play("bg1");
+					Music.Play("bg2");
 					((TextSprite)m_MenuItemSprites[1]).Text = "Music On";
 				}
 			}
