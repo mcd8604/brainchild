@@ -440,10 +440,10 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
-							<degree>-90</degree>
+							<degree>90</degree>
 							<height>39</height>
 							<width>26</width>
 							<depth>0.65</depth>
@@ -471,7 +471,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -510,7 +509,7 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
 							<degree>90</degree>
@@ -541,7 +540,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -1116,10 +1114,10 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
-							<degree>-90</degree>
+							<degree>90</degree>
 							<height>39</height>
 							<width>26</width>
 							<depth>0.65</depth>
@@ -1147,7 +1145,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -1494,10 +1491,10 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
-							<degree>-90</degree>
+							<degree>90</degree>
 							<height>39</height>
 							<width>26</width>
 							<depth>0.65</depth>
@@ -1525,7 +1522,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -1933,10 +1929,10 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
-							<degree>0</degree>
+							<degree>90</degree>
 							<height>39</height>
 							<width>26</width>
 							<depth>0.65</depth>
@@ -1964,7 +1960,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -2001,10 +1996,10 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
-							<degree>0</degree>
+							<degree>90</degree>
 							<height>39</height>
 							<width>26</width>
 							<depth>0.65</depth>
@@ -2032,7 +2027,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -2184,7 +2178,7 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
 							<degree>90</degree>
@@ -2215,7 +2209,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -2326,10 +2319,10 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
-							<degree>-90</degree>
+							<degree>90</degree>
 							<height>39</height>
 							<width>26</width>
 							<depth>0.65</depth>
@@ -2357,7 +2350,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -2786,10 +2778,10 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
-							<degree>-90</degree>
+							<degree>90</degree>
 							<height>39</height>
 							<width>26</width>
 							<depth>0.65</depth>
@@ -2817,7 +2809,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -2919,7 +2910,7 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
 							<degree>90</degree>
@@ -2950,7 +2941,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -3052,10 +3042,10 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
-							<degree>-90</degree>
+							<degree>90</degree>
 							<height>39</height>
 							<width>26</width>
 							<depth>0.65</depth>
@@ -3083,7 +3073,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -3594,7 +3583,7 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
 							<degree>90</degree>
@@ -3625,7 +3614,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -3809,10 +3797,10 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
-							<degree>-90</degree>
+							<degree>90</degree>
 							<height>39</height>
 							<width>26</width>
 							<depth>0.65</depth>
@@ -3840,7 +3828,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
@@ -3879,7 +3866,7 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
 							<degree>90</degree>
@@ -3910,7 +3897,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
