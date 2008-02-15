@@ -77,7 +77,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("menu_restart");
 			TextureLibrary.LoadTexture("menu_quit");
 			TextureLibrary.LoadTexture("RITLogo");
-			TextureLibrary.LoadTexture("menu_Title");
+			TextureLibrary.LoadTexture("Title");
 			TextureLibrary.LoadTexture("virus");
 			TextureLibrary.LoadTexture("Instructions1");
 			TextureLibrary.LoadTexture("Instructions2");
