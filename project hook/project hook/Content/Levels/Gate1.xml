@@ -22,9 +22,9 @@
 			<wall>
 				<name>gate1</name>
 				<texture name="walls\plaque_clear"/>
-				<startTile x="18" y="-4" />
-				<numRows>2</numRows>
-				<numCols>13</numCols>
+				<startTile x="28" y="-2" />
+				<numRows>1</numRows>
+				<numCols>3</numCols>
 				<faction>ClearWall</faction>
 				<task type="Stationary"/>
 			</wall>
