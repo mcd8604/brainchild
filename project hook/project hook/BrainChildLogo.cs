@@ -14,7 +14,7 @@ namespace project_hook
 			: base()
 		{
 			//change to so texture that is is made for our title screen
-			m_BackgroundName = "virus";
+			m_BackgroundName = "bcg";
 
 			m_Time = 0;
 			m_Delay = 5;

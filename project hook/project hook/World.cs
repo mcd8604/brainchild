@@ -652,6 +652,7 @@ namespace project_hook
 		//This method will load textures
 		public void LoadTextures()
 		{
+			TextureLibrary.LoadTexture("bcg");
 			TextureLibrary.LoadTexture("blood");
 			TextureLibrary.LoadTexture("bloodcell");
 			TextureLibrary.LoadTexture("bump");
