@@ -121,7 +121,7 @@ namespace project_hook
 						else if (reader.IsStartElement("createTurret"))
 						{
 							reader.ReadStartElement();
-							LoadEnemy(reader);
+                            LoadEnemy(reader);
 							reader.ReadEndElement();
 						}
 						else if (reader.IsStartElement("changeSpeed"))
@@ -584,6 +584,11 @@ namespace project_hook
 			{
 				t_Ship = new Boss();
 			}
+            else if (p_shipType == typeof(Turret))
+            {
+                t_Ship = new Turret(45);                
+                //t_Ship.BendAmount = 45;
+            }
 
 			while (p_Reader.IsStartElement())
 			{
@@ -832,8 +837,19 @@ namespace project_hook
 					ShipPart part = null;
 					if (p_Reader.IsStartElement("createShip"))
 					{
+                        String type = "";
+                        if(p_Reader.AttributeCount>0){
+                            type = p_Reader.GetAttribute("type");
+                        }
 						p_Reader.ReadStartElement();
-						part = (ShipPart)readShip(p_Reader, typeof(ShipPart));
+                        if (type.Equals("turret"))
+                        {
+                            part = (Turret)readShip(p_Reader, typeof(Turret));
+                        }
+                        else
+                        {
+                            part = (ShipPart)readShip(p_Reader, typeof(ShipPart));
+                        }
 						part.TransfersDamage = transfersDamage;
 						part.ParentShip = t_Ship;
 						p_Reader.ReadEndElement();

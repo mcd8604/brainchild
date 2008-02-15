@@ -328,6 +328,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Thrown</Name>
     </Compile>
+    <Compile Include="Turret.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Turret</Name>
+    </Compile>
     <Compile Include="WeaponComplex.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>WeaponComplex</Name>
