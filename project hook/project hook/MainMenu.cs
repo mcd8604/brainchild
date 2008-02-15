@@ -37,12 +37,17 @@ namespace project_hook
 
 			if (m_selectedIndex == 1)
 			{
-				Menus.setCurrentMenu(Menus.MenuScreens.Instructions1); 
+				Menus.setCurrentMenu(Menus.MenuScreens.Instructions1);
 			}
 
 			if (m_selectedIndex == 2)
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.Options);
+			}
+
+			if (m_selectedIndex == 3)
+			{
+				// High Scores?
 			}
 
 			if (m_selectedIndex == 4)

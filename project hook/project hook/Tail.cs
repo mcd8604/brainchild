@@ -242,22 +242,22 @@ namespace project_hook
 				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0) && p_Other.Grabbable)
 				{
 					m_EnemyCaught = p_Other;
-                   // if (m_EnemyHealth != null)
-                    //{
-                     //   m_EnemyHealth.ToBeRemoved = true;
-                      //  m_EnemyHealth.Enabled = false;
-                   // }
-                    if (m_EnemyHealth == null)
-                    {
-                        m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(150, 700), 75, 10, 55, 75);
+					// if (m_EnemyHealth != null)
+					//{
+					//   m_EnemyHealth.ToBeRemoved = true;
+					//  m_EnemyHealth.Enabled = false;
+					// }
+					if (m_EnemyHealth == null)
+					{
+						m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(150, 700), 75, 10, 55, 75);
 						addSprite(m_EnemyHealth);
-                    }
-                    else
-                    {
-                        m_EnemyHealth.Target = m_EnemyCaught;
-                        m_EnemyHealth.Enabled = true;
-                    }
-					
+					}
+					else
+					{
+						m_EnemyHealth.Target = m_EnemyCaught;
+						m_EnemyHealth.Enabled = true;
+					}
+
 					Transparency = 0;
 					tailTarget.Enabled = false;
 					m_EnemyCaught.Faction = Factions.Player;
@@ -286,7 +286,7 @@ namespace project_hook
 								if (curTask.getSubTasks() is List<Task>)
 								{
 									List<Task> subTasks = (List<Task>)curTask.getSubTasks();
-									foreach(Task t in subTasks)
+									foreach (Task t in subTasks)
 									{
 										if (!(t is TaskFire))
 										{
@@ -364,8 +364,8 @@ namespace project_hook
 							Thrown thrown = new Thrown(EnemyCaught);
 							EnemyCaught.Health = 0;
 							EnemyCaught.Enabled = false;
-                            //m_EnemyHealth.ToBeRemoved = true;
-                            m_EnemyHealth.Enabled = false;
+							//m_EnemyHealth.ToBeRemoved = true;
+							m_EnemyHealth.Enabled = false;
 							EnemyCaught = null;
 							thrown.Task = m_ReleaseTask;
 							addSprite(thrown);
@@ -393,10 +393,10 @@ namespace project_hook
 			}
 			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
 			{
-                if (m_EnemyHealth != null)
-                {
-                    m_EnemyHealth.Enabled = false;
-                }
+				if (m_EnemyHealth != null)
+				{
+					m_EnemyHealth.Enabled = false;
+				}
 				tailTarget.Enabled = true;
 				tailTarget.Task = tailTargetNormalTask;
 			}

@@ -33,7 +33,7 @@ namespace project_hook
 			}
 			//set
 			//{
-				//m_PlayerShip = value;
+			//m_PlayerShip = value;
 			//}
 		}
 
@@ -152,7 +152,7 @@ namespace project_hook
 			 * */
 		}
 
-		
+
 
 		public void reset()
 		{

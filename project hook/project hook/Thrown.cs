@@ -85,7 +85,7 @@ namespace project_hook
 				//m_LastCollision = 0;
 				//}
 			}
-			else if(p_Other.Faction != Collidable.Factions.ClearWall)
+			else if (p_Other.Faction != Collidable.Factions.ClearWall)
 			{
 				didCollide.Enqueue(p_Other);
 			}

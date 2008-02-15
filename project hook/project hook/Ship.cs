@@ -17,7 +17,7 @@ namespace project_hook
 		//variable for the weapon that the ship currently has
 		protected List<Weapon> m_Weapons = new List<Weapon>();
 
-		protected Sprite m_ShieldSprite;	
+		protected Sprite m_ShieldSprite;
 		protected Sprite m_ShieldOverlay;
 		private const float MAX_SHIELD_ALPHA = 0.65f;
 
@@ -338,7 +338,7 @@ namespace project_hook
 			m_ShootAnimation = new VisualEffect(p_Animation, this, p_FramesPerSecond, 1);
 
 			float delay = 0;
-			
+
 			foreach (Weapon w in Weapons)
 			{
 				if (w.Delay > delay)
@@ -346,7 +346,7 @@ namespace project_hook
 					delay = w.Delay;
 				}
 			}
-			
+
 			/*if (delay < 1){
 				
 		
