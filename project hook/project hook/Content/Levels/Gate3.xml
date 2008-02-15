@@ -31,11 +31,11 @@
 			</trigger>
 			<wall>
 				<name>gate3_1B</name>
-				<numRows>7</numRows>
-				<numCols>16</numCols>
+				<numRows>1</numRows>
+				<numCols>7</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<startTile x="1" y="-6"/>
+				<startTile x="1" y="0"/>
 				<task type="Stationary"/>
 			</wall>
 		</createGate>
@@ -81,17 +81,17 @@
 			</trigger>
 			<wall>
 				<name>gate3_2LB</name>
-				<numRows>6</numRows>
-				<numCols>7</numCols>
+				<numRows>2</numRows>
+				<numCols>3</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<startTile x="2" y="-10"/>
+				<startTile x="6" y="-5"/>
 				<task type="Stationary"/>
 			</wall>
 		</createGate>
 		<createGate>
 			<gate>
-				<name>gate3_2L</name>
+				<name>gate3_2R</name>
 				<numRows>3</numRows>
 				<numCols>5</numCols>
 				<faction>Environment</faction>
@@ -100,7 +100,7 @@
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
-				<name>gate3_2LT</name>
+				<name>gate3_2RT</name>
 				<height>64</height>
 				<width>32</width>
 				<texture name="trigger" pos="0"/>
@@ -111,12 +111,12 @@
 				<endGate>false</endGate>
 			</trigger>
 			<wall>
-				<name>gate3_2LB</name>
-				<numRows>7</numRows>
-				<numCols>6</numCols>
+				<name>gate3_2RB</name>
+				<numRows>3</numRows>
+				<numCols>2</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<startTile x="25" y="-7"/>
+				<startTile x="25" y="-3"/>
 				<task type="Stationary"/>
 			</wall>
 		</createGate>
@@ -138,7 +138,7 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<startTile x="23" y="-1"/>
+				<startTile x="22" y="-1"/>
 				<task type="Stationary"/>
 			</gate>
 			<trigger>
@@ -147,7 +147,7 @@
 				<width>64</width>
 				<texture name="trigger" pos="0"/>
 				<blendMode>Additive</blendMode>
-				<startTile x="14" y="0"/>
+				<startTile x="14.5" y="0"/>
 				<degree>0</degree>
 				<task type="Stationary"/>
 			</trigger>
