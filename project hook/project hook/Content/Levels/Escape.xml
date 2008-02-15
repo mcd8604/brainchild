@@ -13,10 +13,1066 @@
 			<speed>700</speed>
 		</changeSpeed>
 	</action>
+	<action tile="32">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="21" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
 	<action tile="40">
 		<changeSpeed>
 			<speed>800</speed>
 		</changeSpeed>
+	</action>
+	<action tile="67">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="18" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="102">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="12" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="108">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="21" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="111">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="13" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="114">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="21" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="20" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="116">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="7" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="117">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="27" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="121">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="10" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="131">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="13" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="174">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="24" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="188">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="6" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="193">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="23" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="195">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="12" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="198">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="19" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="4" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="199">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="15" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="24" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="218">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="17" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="223">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="4" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="231">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="6" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="244">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="26" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="250">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="24" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="253">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="12" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="261">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="24" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="280">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="26" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="294">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="24" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="333">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="12" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="383">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="18" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="407">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="9" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="425">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="24" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="429">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="25" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="21" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="430">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="18" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="434">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="23" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="439">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="24" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="26" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="460">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="12" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="27" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="477">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="27" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="497">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="15" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="500">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="29" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="530">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="20" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="549">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="17" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="562">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="16" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="585">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="12" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="612">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="15" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="642">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="17" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="651">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="16" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="662">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="22" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="670">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="7" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="679">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="26" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="690">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="7" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="713">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="26" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="717">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="9" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="743">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="14" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="16" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="18" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="20" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="22" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="781">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="19" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="783">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="16" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="808">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="17" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="812">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="19" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="849">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="14" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="868">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="15" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="884">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="15" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="17" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="895">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="13" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="910">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="18" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="926">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="18" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="954">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="19" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="957">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="16" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="959">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="19" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="970">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="19" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
+	</action>
+	<action tile="987">
+		<createShip>
+			<name>thing</name>
+			<height>32</height>
+			<width>32</width>
+			<radius>16</radius>
+			<texture name="virus1"/>
+			<startTile x="19" y="0"/>
+			<health>10</health>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<deathEffect name="ExplosionBig"/>
+			<task type="Stationary"/>
+		</createShip>
 	</action>
 	<action tile="1020">
 		<changeSpeed>

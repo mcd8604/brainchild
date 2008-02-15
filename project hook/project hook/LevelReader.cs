@@ -1440,6 +1440,12 @@ namespace project_hook
 					t_Obj = readShip(p_Reader, typeof(Ship));
 					p_Reader.ReadEndElement();
 				}
+				else if (p_Reader.IsStartElement("type"))
+				{
+					p_Reader.ReadStartElement("type");
+					t_Point.Type = p_Reader.ReadString();
+					p_Reader.ReadEndElement();
+				}
 				else if (p_Reader.IsStartElement("count"))
 				{
 					p_Reader.ReadStartElement("count");
@@ -1452,7 +1458,7 @@ namespace project_hook
 #if !FINAL
 					t_Point.Name =
 #endif
-						p_Reader.ReadString();
+					p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("startPos"))

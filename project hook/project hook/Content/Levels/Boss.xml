@@ -446,6 +446,25 @@
 		<changeSpeed>
 			<speed>0</speed>
 		</changeSpeed>
+		<createSpawnPoint>
+			<delay>10</delay>
+			<name>W2_E</name>
+			<type>time</type>
+			<object>
+				<height>32</height>
+				<width>32</width>
+				<radius>16</radius>
+				<texture name="virus1"/>
+				<startTile x="17" y="0" />
+				<health>50</health>
+				<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+				<deathEffect name="ExplosionBig"/>
+				<task type="SeekTarget">
+					<target>Player</target>
+					<speed>100</speed>
+				</task>
+			</object>
+		</createSpawnPoint>
 		<pleaseLoadBMP>
 			<fileName>escape.bmp</fileName>
 		</pleaseLoadBMP>
