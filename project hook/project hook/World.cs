@@ -214,6 +214,7 @@ namespace project_hook
 			m_LReader = new LevelReader(m_LReader.FileName);
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			IniDefaults();
+            AddSprite(new BloodCellGenerator(4));
 		}
 
 		public static void setPrimaryRight()
