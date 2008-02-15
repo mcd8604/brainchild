@@ -185,7 +185,7 @@
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
-						<createShip>
+						<createShip type="turret">
 							<texture name="turretHead"/>
 							<health>20</health>
 							<degree>90</degree>
@@ -216,7 +216,6 @@
 									<offset>90</offset>
 								</task>
 								<task type="Stationary"/>
-								<task type="Fire"/>
 							</task>
 						</createShip>
 					</shipPart>
