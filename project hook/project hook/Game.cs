@@ -251,7 +251,7 @@ namespace project_hook
 			{
 				HighScores.addScore(Convert.ToInt32(World.m_Score.Score));
 				World.m_Score.reset();
-				if (Menus.SelectedMenu != Menus.MenuScreens.GameOver)
+				if (Menus.SelectedMenu == Menus.MenuScreens.None)
 				{
 					Menus.setCurrentMenu(Menus.MenuScreens.GameOver);
 				}
