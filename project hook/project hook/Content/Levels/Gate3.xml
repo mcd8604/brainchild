@@ -34,7 +34,6 @@
 				<numCols>16</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<blendMode>Additive</blendMode>
 				<startTile x="1" y="-6"/>
 				<task type="Stationary"/>
 			</wall>
@@ -84,7 +83,6 @@
 				<numCols>7</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<blendMode>Additive</blendMode>
 				<startTile x="2" y="-10"/>
 				<task type="Stationary"/>
 			</wall>
@@ -115,7 +113,6 @@
 				<numCols>6</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<blendMode>Additive</blendMode>
 				<startTile x="25" y="-7"/>
 				<task type="Stationary"/>
 			</wall>
