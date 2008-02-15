@@ -24,7 +24,7 @@ namespace project_hook
 			{
 				Game.Out.WriteLine("Exception occured: " + e);
 				Game.Out.WriteLine("Process Terminated.");
-				System.Windows.Forms.MessageBox.Show("A Fatal Error has occurred.", "Fatal Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+				System.Windows.Forms.MessageBox.Show("Sorry, A Fatal Exeception has occurred in Cell.  Please send the file err.log in the program directory to the developers for assistance.", "Fatal Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 			}
 #endif
 		}
