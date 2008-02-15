@@ -42,9 +42,9 @@ namespace project_hook
 
 		public static void Initialize()
 		{
-			engine = new AudioEngine("../../../Content/Audio/Win/bgmusic.xgs");
-			wavebank = new WaveBank(engine, "../../../Content/Audio/Win/Wave Bank.xwb");
-			soundbank = new SoundBank(engine, "../../../Content/Audio/Win/Sound Bank.xsb");
+            engine = new AudioEngine(Environment.CurrentDirectory + "/Content/Audio/bgmusic.xgs");
+            wavebank = new WaveBank(engine, Environment.CurrentDirectory + "/Content/Audio/Wave Bank.xwb");
+            soundbank = new SoundBank(engine, Environment.CurrentDirectory + "/Content/Audio/Sound Bank.xsb");
 		}
 
 		public static void Update()  //  Added
