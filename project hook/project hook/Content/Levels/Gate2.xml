@@ -73,15 +73,6 @@
 	</action>
 	<action tile="34">
 		<createGate>
-			<gate>
-				<name>gate2_2</name>
-				<texture name="walls\plaque"/>
-				<numRows>2</numRows>
-				<numCols>8</numCols>
-				<startTile x="21" y="0" />
-				<faction>Environment</faction>
-				<task type="Stationary"/>
-			</gate>
 			<trigger>
 				<name>gate2_2T</name>
 				<height>128</height>
@@ -96,7 +87,7 @@
 			<wall>
 				<name>gateBlock2</name>
 				<numRows>2</numRows>
-				<numCols>12</numCols>
+				<numCols>20</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
 				<startTile x="9" y="0" />
