@@ -66,6 +66,18 @@ namespace project_hook
 			}
 		}
 
+		private Tail m_TailSprite;
+		public Tail TailSprite
+		{
+			get
+			{
+				return m_TailSprite;
+			}
+			set
+			{
+				m_TailSprite = value;
+			}
+		}
 
 
 
@@ -174,6 +186,14 @@ namespace project_hook
 			m_UpgradeReqs.Add(500);
 			m_UpgradeReqs.Add(700);
 			
+		}
+
+		protected override void takeDamage(float damage, Collidable from)
+		{
+			base.takeDamage(damage, from);
+			if(IsDead()) {
+				m_TailSprite.disable();
+			}
 		}
 
 		public override void Update(GameTime p_Time)

@@ -798,6 +798,8 @@ namespace project_hook
 			tail = new Tail("Tail", Vector2.Zero, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
 			tail.Center = m_Player.PlayerShip.Center;
 			AddSprite(tail);
+
+			m_Player.PlayerShip.TailSprite = tail;
 		}
 
 		public void IniHUD()
