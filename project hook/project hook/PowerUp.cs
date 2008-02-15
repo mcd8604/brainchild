@@ -10,7 +10,7 @@ namespace project_hook
 		private static List<PowerUp> m_PowerUps;
 		private static int nextPowerUp = 0;
 		private const int MAX_POWERUPS = 20;
-        private const int SIZE = 50;
+		private const int SIZE = 50;
 
 		private const int RAND_HEALTH_PERCENT_CHANCE = 6;
 		private const int RAND_SHIELD_PERCENT_CHANCE = 5;
@@ -42,18 +42,20 @@ namespace project_hook
 			if (p.Type != PowerType.None)
 			{
 				p.Center = at;
-  // 				p.Height = SIZ;
-//				p.Width = size;
-//				p.Radius = size * 0.5f;
+				//p.Height = SIZ;
+				//p.Width = size;
+				//p.Radius = size * 0.5f;
 				p.Amount = value;
 				p.Health = float.NaN;
 				p.Alpha = 155;
+#if !FINAL
 				p.Name = "Power Up " + p.Texture.Name;
+#endif
 				p.Enabled = true;
-	
+
 				//World.m_World.AddSprite(p);
 				nextPowerUp = (nextPowerUp + 1) % MAX_POWERUPS;
-			}			
+			}
 		}
 
 
@@ -173,7 +175,7 @@ namespace project_hook
 				m_Back[a].Alpha = 65;
 
 				attachSpritePart(m_Back[a]);
-                m_Back[a].Z = Depth.GameLayer.Ships - 0.002f;
+				m_Back[a].Z = Depth.GameLayer.Ships - 0.002f;
 				m_Back[a].Animation.CurrentFrame = a * 5;
 				m_Back[a].Animation.StartAnimation();
 
@@ -187,9 +189,11 @@ namespace project_hook
 			Amount = 0;
 			Damage = 0;
 			Health = float.NaN;
-            Z = Depth.GameLayer.Ships - 0.02f;
+			Z = Depth.GameLayer.Ships - 0.02f;
 			Task = new TaskStationary();
+#if !FINAL
 			Name = "Power Up - Not Assigned";
+#endif
 		}
 
 		public PowerUp(int size, int value)
@@ -223,7 +227,9 @@ namespace project_hook
 			Damage = 0;
 			Health = float.NaN;
 			Z += 0.0001f;
+#if !FINAL
 			Name = "Power Up " + Texture.Name;
+#endif
 		}
 
 		public PowerUp(int size, int value, Vector2 at)
@@ -259,7 +265,9 @@ namespace project_hook
 			Health = float.NaN;
 			Z = Depth.GameLayer.PlayerShip;
 			Alpha = 200;
+#if !FINAL
 			Name = "Power Up " + Texture.Name;
+#endif
 		}
 
 		public PowerUp(int size, int value, PowerType p_type, Vector2 at)
@@ -294,7 +302,9 @@ namespace project_hook
 			Health = float.NaN;
 			Z = Depth.GameLayer.PlayerShip;
 			Alpha = 200;
+#if !FINAL
 			Name = "Power Up " + Texture.Name;
+#endif
 		}
 
 

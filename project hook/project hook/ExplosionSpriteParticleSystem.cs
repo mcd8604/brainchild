@@ -53,11 +53,27 @@ namespace project_hook
 			}
 		}
 
-		public ExplosionSpriteParticleSystem(String p_Name, String p_TextureName, String p_TextureTag, int p_HowManyEffects)
-			: base(p_Name, p_TextureName, p_TextureTag, p_HowManyEffects )
+		public ExplosionSpriteParticleSystem(
+#if !FINAL
+			String p_Name,
+#endif
+			String p_TextureName, String p_TextureTag, int p_HowManyEffects)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			p_TextureName, p_TextureTag, p_HowManyEffects )
 		{}
-		public ExplosionSpriteParticleSystem(String p_Name, String p_TextureName, String p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
-			: base(p_Name, p_TextureName, p_TextureTag, p_AnimationName, p_AnimationFPS, p_HowManyEffects)
+		public ExplosionSpriteParticleSystem(
+#if !FINAL
+			String p_Name,
+#endif
+			String p_TextureName, String p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			p_TextureName, p_TextureTag, p_AnimationName, p_AnimationFPS, p_HowManyEffects)
 		{}
 
 		/// <summary>
@@ -124,7 +140,11 @@ namespace project_hook
 
 		public override SpriteParticleSystem copy()
 		{
-			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(Name, TextureName, TextureTag, HowManyEffects);
+			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(
+#if !FINAL
+				Name,
+#endif
+				TextureName, TextureTag, HowManyEffects);
 			esps.MinInitialSpeed = MinInitialSpeed;
 			esps.MaxInitialSpeed = MaxInitialSpeed;
 			esps.MinLifetime = MinLifetime;

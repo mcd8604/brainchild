@@ -117,7 +117,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
+#if !FINAL
 			Name = "String: " + p_Text;
+#endif
 			Center = p_Center;
 			Color = Color.Black;
 		}
@@ -127,7 +129,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
+#if !FINAL
 			Name = "String: " + p_Text;
+#endif
 			Center = p_Center;
 			Color = p_Color;
 		}
@@ -137,7 +141,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
+#if !FINAL
 			Name = "String: " + p_Text;
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;
@@ -148,7 +154,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
+#if !FINAL
 			Name = "String: " + p_Text;
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;
@@ -160,7 +168,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
+#if !FINAL
 			Name = "String: " + p_Text;
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;
@@ -173,7 +183,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
+#if !FINAL
 			Name = "String: " + p_Text;
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;
@@ -187,7 +199,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Text = p_Text;
+#if !FINAL
 			Name = "String: " + p_Text;
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;
@@ -204,7 +218,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
+#if !FINAL
 			Name = "String: " + p_Func.ToString();
+#endif
 			Center = p_Center;
 			Color = Color.Black;
 		}
@@ -214,7 +230,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
+#if !FINAL
 			Name = "String: " + p_Func.ToString();
+#endif
 			Center = p_Center;
 			Color = p_Color;
 		}
@@ -224,7 +242,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
+#if !FINAL
 			Name = "String: " + p_Func.ToString();
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;
@@ -235,7 +255,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
+#if !FINAL
 			Name = "String: " + p_Func.ToString();
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;
@@ -247,7 +269,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
+#if !FINAL
 			Name = "String: " + p_Func.ToString();
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;
@@ -260,7 +284,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
+#if !FINAL
 			Name = "String: " + p_Func.ToString();
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;
@@ -274,7 +300,9 @@ namespace project_hook
 			m_Sized = false;
 			setFont("Courier New");
 			Func = p_Func;
+#if !FINAL
 			Name = "String: " + p_Func.ToString();
+#endif
 			Center = p_Center;
 			Color = p_Color;
 			Z = p_Z;

@@ -765,7 +765,11 @@ namespace project_hook
 			{
 				if (i % 5 == 0)
 				{
-					Sprite tailBodySprite = new Sprite("tail_segment", Vector2.Zero, 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
+					Sprite tailBodySprite = new Sprite(
+#if !FINAL
+						"tail_segment",
+#endif
+						Vector2.Zero, 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.5f;
 					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
@@ -777,7 +781,11 @@ namespace project_hook
 				}
 				else
 				{
-					Sprite tailBodySprite = new Sprite("shot_energy", Vector2.Zero, 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
+					Sprite tailBodySprite = new Sprite(
+#if !FINAL
+						"shot_energy",
+#endif
+						Vector2.Zero, 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.2f;
 					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
@@ -789,12 +797,20 @@ namespace project_hook
 
 			}
 
-			Sprite crosshairs = new CursorSprite("crosshair", Vector2.Zero, TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
+			Sprite crosshairs = new CursorSprite(
+#if !FINAL
+				"crosshair",
+#endif
+				Vector2.Zero, TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
 			crosshairs.Center = new Vector2(512f, 384f);
 			AddSprite(crosshairs);
 
 			AddSprites(m_TailBodySprites);
-			tail = new Tail("Tail", Vector2.Zero, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
+			tail = new Tail(
+#if !FINAL
+				"Tail",
+#endif
+				Vector2.Zero, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
 			tail.Center = m_Player.PlayerShip.Center;
 			AddSprite(tail);
 

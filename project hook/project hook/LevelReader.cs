@@ -321,8 +321,11 @@ namespace project_hook
 				for (int col = 0; col < numCols; col++)
 				{
 					Vector2 pos = startPos + new Vector2(col * EnvironmentLoader.TileDimension, row * EnvironmentLoader.TileDimension);
-					Collidable p_Wall = new Collidable(name + "_" + col + "_" + row, pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension,
-						texture, 0.75f, true, 0, Depth.GameLayer.Gate, faction, float.NaN, EnvironmentLoader.TileDimension / 2);
+					Collidable p_Wall = new Collidable(
+#if !FINAL
+						name + "_" + col + "_" + row,
+#endif
+						pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension, texture, 0.75f, true, 0, Depth.GameLayer.Gate, faction, float.NaN, EnvironmentLoader.TileDimension / 2);
 					p_Wall.Bound = Collidable.Boundings.Square;
 					p_Wall.Task = task;
 					wallList.Add(p_Wall);
@@ -338,7 +341,10 @@ namespace project_hook
 				if (p_Reader.IsStartElement("name"))
 				{
 					p_Reader.ReadStartElement("name");
-					p_Trigger.Name = p_Reader.ReadString();
+#if !FINAL
+					p_Trigger.Name =
+#endif
+						p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("endGate"))
@@ -584,7 +590,10 @@ namespace project_hook
 				if (p_Reader.IsStartElement("name"))
 				{
 					p_Reader.ReadStartElement("name");
-					t_Ship.Name = p_Reader.ReadString();
+#if !FINAL
+					t_Ship.Name =
+#endif
+						p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("grabbable"))
@@ -989,7 +998,10 @@ namespace project_hook
 				if (p_Reader.IsStartElement("name"))
 				{
 					p_Reader.ReadStartElement("name");
-					shot.Name = p_Reader.ReadString();
+#if !FINAL
+					shot.Name =
+#endif
+						p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("damage"))
@@ -1074,7 +1086,11 @@ namespace project_hook
 
 		private static ExplosionSpriteParticleSystem readShotTrail(XmlReader p_Reader, Shot shot)
 		{
-			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(shot.Name + "_ParticleSystem", shot.Texture.Name, "1", 10);
+			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(
+#if !FINAL
+				shot.Name + "_ParticleSystem",
+#endif
+				shot.Texture.Name, "1", 10);
 			p_Reader.ReadStartElement();
 			while (p_Reader.IsStartElement())
 			{
@@ -1412,7 +1428,10 @@ namespace project_hook
 				else if (p_Reader.IsStartElement("name"))
 				{
 					p_Reader.ReadStartElement("name");
-					t_Point.Name = p_Reader.ReadString();
+#if !FINAL
+					t_Point.Name =
+#endif
+						p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("startPos"))

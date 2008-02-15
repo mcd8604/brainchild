@@ -81,8 +81,16 @@ namespace project_hook
 
 
 
-		public PlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
-			: base(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
+		public PlayerShip(
+#if !FINAL
+			String p_Name,
+#endif
+			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{
 			//code to create the level up text
 			levelUp = new TextSprite("Level Up", Vector2.Zero, Microsoft.Xna.Framework.Graphics.Color.Yellow, Depth.HUDLayer.Midground + 0.001f, 100.0f, 0.0f, 50, 100);
@@ -312,7 +320,9 @@ namespace project_hook
 			Weapons.Clear();
 
 			Shot shot = new Shot();
+#if !FINAL
 			shot.Name = "Player Shot";
+#endif
 			shot.Height = 16;
 			shot.Width = 16;
 			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
@@ -338,7 +348,9 @@ namespace project_hook
 
 			//Side Shot left
 			shot = new Shot();
+#if !FINAL
 			shot.Name = "Player Side Shot";
+#endif
 			shot.Height = 10;
 			shot.Width = 30;
 			shot.Texture = TextureLibrary.getGameTexture("Shot", "");
@@ -351,7 +363,9 @@ namespace project_hook
 
 			//Side Shot right
 			shot = new Shot();
+#if !FINAL
 			shot.Name = "Player Side Shot";
+#endif
 			shot.Height = 10;
 			shot.Width = 30;
 			shot.Texture = TextureLibrary.getGameTexture("Shot", "");
@@ -366,7 +380,9 @@ namespace project_hook
 			//Level 2
 			//*********************************************************************
 			shot = new Shot();
+#if !FINAL
 			shot.Name = "Player Homing Shot";
+#endif
 			shot.Height = 30;
 			shot.Width = 30;
 			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");

@@ -172,7 +172,6 @@ namespace project_hook
 			{
 #if FINAL
 				Out.Flush();
-				Out.Close();
 #endif
 				Exit();
 			}

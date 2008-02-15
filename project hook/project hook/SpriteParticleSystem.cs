@@ -330,8 +330,16 @@ namespace project_hook
 		/// However, this value should be set to the minimum possible, because
 		/// it has a large impact on the amount of memory required, and slows down the
 		/// Update and Draw functions.</remarks>
-		protected SpriteParticleSystem(String p_Name, String p_TextureName, String p_TextureTag, int p_HowManyEffects)
-			: base(p_Name, Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
+		protected SpriteParticleSystem(
+#if !FINAL
+			String p_Name,
+#endif
+			String p_TextureName, String p_TextureTag, int p_HowManyEffects)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
 		{
 			TextureName = p_TextureName;
 			TextureTag = p_TextureTag;
@@ -354,8 +362,16 @@ namespace project_hook
 				freeParticles.Enqueue(particles[i]);
 			}
 		}
-		protected SpriteParticleSystem(String p_Name, String p_TextureName, String p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
-			: base(p_Name, Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
+		protected SpriteParticleSystem(
+#if !FINAL
+			String p_Name,
+#endif
+			String p_TextureName, String p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
+			: base(
+#if !FINAL
+			p_Name,
+#endif
+			Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
 		{
 
 			TextureName = p_TextureName;

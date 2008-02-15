@@ -34,8 +34,11 @@ namespace project_hook
 
         private void ini(Vector2 pos)
         {
-            weapons = new Sprite("WeaponBar", pos,
-                                      height, width, TextureLibrary.getGameTexture("WeaponBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
+            weapons = new Sprite(
+#if !FINAL
+				"WeaponBar",
+#endif
+				pos, height, width, TextureLibrary.getGameTexture("WeaponBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
 
             blackS = new Sprite();
             blackS.Texture = TextureLibrary.getGameTexture("black", "");

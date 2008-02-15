@@ -12,13 +12,21 @@ namespace project_hook
 		private WorldPosition m_WorldPosition;
 
 		public YScrollingBackground(GameTexture p_BackgroundTexture, WorldPosition p_WorldPosition)
-			: base("scrollingBackground", new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGroundLayer.Background)
+			: base(
+#if !FINAL
+			"scrollingBackground",
+#endif
+			new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGroundLayer.Background)
 		{
 			m_WorldPosition = p_WorldPosition;
 			scrollingSprites = new ArrayList((World.m_ViewPortSize.Height / p_BackgroundTexture.Height) + 2);
 			for (int i = 0; i < scrollingSprites.Capacity; i++)
 			{
-				Sprite s = new Sprite("back", new Vector2(0.0f, i * p_BackgroundTexture.Height), p_BackgroundTexture.Height, World.m_ViewPortSize.Width, p_BackgroundTexture, 255f, true, 0, Depth.BackGroundLayer.Background);
+				Sprite s = new Sprite(
+#if !FINAL
+					"back",
+#endif
+					new Vector2(0.0f, i * p_BackgroundTexture.Height), p_BackgroundTexture.Height, World.m_ViewPortSize.Width, p_BackgroundTexture, 255f, true, 0, Depth.BackGroundLayer.Background);
 				scrollingSprites.Add(s);
 				attachSpritePart(s);
 			}
