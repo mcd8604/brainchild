@@ -338,7 +338,7 @@ namespace project_hook
 		{
 			p_Trigger.Faction = Collidable.Factions.Environment;
 			p_Trigger.Z = Depth.GameLayer.Trigger;
-			p_Trigger.Bound = Collidable.Boundings.Circle;
+			p_Trigger.Bound = Collidable.Boundings.Rectangle;
 			p_Trigger.Radius = 10;
 			p_Trigger.Health = 1;
 			p_Trigger.Grabbable = false;
