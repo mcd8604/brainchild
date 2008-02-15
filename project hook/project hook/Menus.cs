@@ -55,7 +55,8 @@ namespace project_hook
 			DevLogo,
 			RITLogo,
 			GameOver,
-			Credits
+			Credits,
+			HighScores
 		}
 
 		public static void ini()
@@ -161,6 +162,11 @@ namespace project_hook
 			{
 				m_HasChanged = false;
 				return new Credits();
+			}
+			else if (m_SelectedMenu == MenuScreens.HighScores)
+			{
+				m_HasChanged = false;
+				return new HighScoreDisplay();
 			}
 
 			return null;

@@ -606,6 +606,12 @@ namespace project_hook
 					t_Ship.Grabbable = bool.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
+				else if (p_Reader.IsStartElement("damage"))
+				{
+					p_Reader.ReadStartElement("damage");
+					t_Ship.Damage = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
 				else if (p_Reader.IsStartElement("startPos"))
 				{
 					t_Ship.Position = new Vector2(float.Parse(p_Reader.GetAttribute(0)),

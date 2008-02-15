@@ -17,9 +17,9 @@ namespace project_hook
 			m_BackgroundName = "Title";
 		}
 
-		public override void Load(GraphicsDeviceManager gdm)
+		public override void Load()
 		{
-			base.Load(gdm);
+			base.Load();
 
 			//add the text
 			//m_Text = new TextSprite("Press Enter", new Microsoft.Xna.Framework.Vector2(400, 500), Color.White, Depth.MenuLayer.Text);

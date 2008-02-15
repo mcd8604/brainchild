@@ -47,7 +47,7 @@ namespace project_hook
 
 			if (m_selectedIndex == 3)
 			{
-				// High Scores?
+				Menus.setCurrentMenu(Menus.MenuScreens.HighScores);
 			}
 
 			if (m_selectedIndex == 4)

@@ -87,6 +87,14 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Credits</Name>
     </Compile>
+    <Compile Include="HighScore.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>HighScore</Name>
+    </Compile>
+    <Compile Include="HighScoreDisplay.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>HighScoreDisplay</Name>
+    </Compile>
     <Compile Include="Instructions1.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Instructions1</Name>
