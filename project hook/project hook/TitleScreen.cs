@@ -9,7 +9,6 @@ namespace project_hook
 {
 	class TitleScreen : Menu
 	{
-		TextSprite m_Text;
 
 		public TitleScreen()
 			: base()
