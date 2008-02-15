@@ -18,7 +18,7 @@
 				<startTile x="19" y="-12"/>
 				<faction>Environment</faction>
 				<task type="Stationary"/>
-			</gate>			
+			</gate>
 			<wall>
 				<name>gateBlock1</name>
 				<texture name="walls\plaque_clear"/>

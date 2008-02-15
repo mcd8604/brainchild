@@ -35,7 +35,7 @@ namespace project_hook
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
 			base.Update(p_Time);
-			
+
 			//temp
 			if (World.Position.Speed == 0)
 			{
@@ -54,6 +54,6 @@ namespace project_hook
 			}
 		}
 
-		
+
 	}
 }
