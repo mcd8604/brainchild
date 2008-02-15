@@ -2,11 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
 	class MainMenu : Menu
 	{
+
+		private const int DELAY_SECONDS = 20;
+		private double idleTime = 0;
+
 		public MainMenu()
 			: base()
 		{
@@ -58,6 +63,23 @@ namespace project_hook
 			if (m_selectedIndex == 5)
 			{
 				Menus.Exit = true;
+			}
+		}
+
+		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
+		{
+			base.Update(p_Time);
+			if (InputHandler.HasMouseMoved())
+			{
+				idleTime = 0;
+			}
+			else
+			{
+				idleTime += p_Time.ElapsedRealTime.TotalSeconds;
+			}
+			if (idleTime > DELAY_SECONDS)
+			{
+				Menus.setCurrentMenu(Menus.MenuScreens.Instructions1);
 			}
 		}
 	}
