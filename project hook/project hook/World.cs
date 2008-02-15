@@ -653,7 +653,7 @@ namespace project_hook
 		//This method will load textures
 		public void LoadTextures()
 		{
-			TextureLibrary.LoadTexture("blood");
+			//TextureLibrary.LoadTexture("blood");
 			TextureLibrary.LoadTexture("bloodcell");
 			TextureLibrary.LoadTexture("bump");
 			TextureLibrary.LoadTexture("cell");
@@ -667,12 +667,12 @@ namespace project_hook
 			TextureLibrary.LoadTexture("Explosion");
 			TextureLibrary.LoadTexture("Explosion2");
 			TextureLibrary.LoadTexture("ExplosionBig");
-			TextureLibrary.LoadTexture("FireBall");
+			//TextureLibrary.LoadTexture("FireBall");
 			TextureLibrary.LoadTexture("gate");
 			TextureLibrary.LoadTexture("hudPanel");
 			TextureLibrary.LoadTexture("poisonsplat");
 			TextureLibrary.LoadTexture("Shield");
-			TextureLibrary.LoadTexture("Ship2");
+			//TextureLibrary.LoadTexture("Ship2");
 			TextureLibrary.LoadTexture("Shot");
 			TextureLibrary.LoadTexture("shot_electric");
 			TextureLibrary.LoadTexture("shot_energy");
@@ -706,7 +706,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("walls\\plaque_btm_left_invert");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right");
 			TextureLibrary.LoadTexture("walls\\plaque_btm_right_invert");
-			TextureLibrary.LoadTexture("walls\\wall_left");
+
 			TextureLibrary.LoadTexture("shieldBar");
 			TextureLibrary.LoadTexture("healthBar");
 			TextureLibrary.LoadTexture("black");
