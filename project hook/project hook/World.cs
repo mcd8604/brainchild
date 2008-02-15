@@ -803,6 +803,7 @@ namespace project_hook
 
 		public void IniHUD()
 		{
+#if !FINAL
 			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 0.5f, true, 0f, Depth.HUDLayer.Background);
 			AddSprite(hudPanel);
 
@@ -815,16 +816,18 @@ namespace project_hook
 			AddSprite(updt);
 #endif
 #endif
+#endif
 			m_Score = new SimpleScore();
 			Sprite score = new TextSprite(m_Score.ToString, new Vector2(820, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
 			AddSprite(score);
-
+			
+#if DEBUG
 			Sprite P = new TextSprite(m_Player.PlayerShip.GetHealth, new Vector2(420, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
 			AddSprite(P);
 
 			Sprite u = new TextSprite(m_Player.PlayerShip.GetUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
 			AddSprite(u);
-
+#endif
 			//PowerUp p = new PowerUp(50, 12, new Vector2(50, 50));
 			//AddSprite(p);
 
