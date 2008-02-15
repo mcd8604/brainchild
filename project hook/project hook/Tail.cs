@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class Tail : Collidable
+	public class Tail : Collidable
 	{
 		private HealthBar m_EnemyHealth;
 		public HealthBar EnemyHealth
@@ -134,6 +134,7 @@ namespace project_hook
 			m_TailAttackDelay = p_TailAttackDelay;
 			m_BodySprites = p_BodySprites;
 			m_BodyTask = new TaskLerp(p_AttachShip, this);
+			((TaskLerp)m_BodyTask).Offset = new Vector2(0, 20);
 			Damage = 0;
 			StateOfTail = TailState.Ready;
 
@@ -397,6 +398,15 @@ namespace project_hook
 				tailTarget.Task = tailTargetNormalTask;
 			}
 			base.Update(p_Time);
+		}
+
+		public void disable()
+		{
+			Enabled = false;
+			foreach (Sprite s in m_BodySprites)
+			{
+				s.Enabled = false;
+			}
 		}
 	}
 }

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-    class HealthBar : Sprite
+    public class HealthBar : Sprite
     {
         //the ship who's shield and health will be displayed
         Collidable m_Target;

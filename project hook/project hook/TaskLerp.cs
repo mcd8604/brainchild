@@ -32,6 +32,18 @@ namespace project_hook
 				m_To = value;
 			}
 		}
+		private Vector2 m_Offset = Vector2.Zero;
+		public Vector2 Offset
+		{
+			get
+			{
+				return m_Offset;
+			}
+			set
+			{
+				m_Offset = value;
+			}
+		}
 
 
 		public TaskLerp() { }
@@ -51,7 +63,7 @@ namespace project_hook
 			float div = on.Count + 1;
 			foreach (Sprite s in on)
 			{
-				s.Center = Vector2.Lerp(m_From.Center, m_To.Center, i++ / div );
+				s.Center = Vector2.Lerp(m_From.Center + m_Offset, m_To.Center, i++ / div );
 			}
 		}
 		public override Task copy()
