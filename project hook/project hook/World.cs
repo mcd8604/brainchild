@@ -818,7 +818,7 @@ namespace project_hook
 #endif
 #endif
 			m_Score = new SimpleScore();
-			Sprite score = new TextSprite(m_Score.ToString, new Vector2(820, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
+			Sprite score = new TextSprite(m_Score.ToString, new Vector2(820, 0), Color.Black, Depth.HUDLayer.Foreground);
 			AddSprite(score);
 			
 #if DEBUG
