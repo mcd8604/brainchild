@@ -36,6 +36,8 @@ namespace project_hook
 
 		System.Drawing.Rectangle DefaultClippingBounds;
 
+		public static HighScore HighScores = new HighScore();
+
 		public enum InputHandlerState
 		{
 			World,
@@ -176,11 +178,13 @@ namespace project_hook
 				Exit();
 			}
 
+#if DEBUG
 			//Checks for full screen
 			if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.F))
 			{
 				graphics.ToggleFullScreen();
 			}
+#endif
 
 			//This checks if a new menu is supposed to be loaded.
 			if (Menus.HasChanged == true)
@@ -188,7 +192,7 @@ namespace project_hook
 				m_Menu = Menus.getCurrentMenu();
 				if (m_Menu != null)
 				{
-					m_Menu.Load(graphics);
+					m_Menu.Load();
 					m_InputHandler = InputHandlerState.Menu;
 					m_Menu.Enabled = true;
 				}
@@ -224,6 +228,11 @@ namespace project_hook
 
 			if (World.DestroyWorld == true)
 			{
+				if (m_World.State == World.GameState.Won)
+				{
+					HighScores.addScore(Convert.ToInt32(World.m_Score.Score));
+					World.m_Score.reset();
+				}
 				m_World = null;
 				World.DestroyWorld = false;
 			}
@@ -236,6 +245,8 @@ namespace project_hook
 
 			if (World.PlayerDead == true)
 			{
+				HighScores.addScore(Convert.ToInt32(World.m_Score.Score));
+				World.m_Score.reset();
 				if (Menus.SelectedMenu != Menus.MenuScreens.GameOver)
 				{
 					Menus.setCurrentMenu(Menus.MenuScreens.GameOver);

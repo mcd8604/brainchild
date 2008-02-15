@@ -39,12 +39,12 @@ namespace project_hook
 			m_MenuCursorName = "crosshairs";
 		}
 
-		public virtual void Load(GraphicsDeviceManager gdm)
+		public virtual void Load()
 		{
 			//background sprite
 			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
-			float xPos = gdm.GraphicsDevice.Viewport.Width * 0.5f;
-			float yPos = gdm.GraphicsDevice.Viewport.Height * 0.5f;
+			float xPos = Game.graphics.GraphicsDevice.Viewport.Width * 0.5f;
+			float yPos = Game.graphics.GraphicsDevice.Viewport.Height * 0.5f;
 			m_BackgroundSprite = new Sprite(
 #if !FINAL
 				m_BackgroundName,
