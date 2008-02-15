@@ -34,7 +34,9 @@ namespace project_hook
 
 		InputHandlerState m_InputHandler;
 
+#if FINAL
 		System.Drawing.Rectangle DefaultClippingBounds;
+#endif
 
 		public static HighScore HighScores = new HighScore();
 
@@ -83,7 +85,9 @@ namespace project_hook
 			graphics.SynchronizeWithVerticalRetrace = false;
 			IsFixedTimeStep = false;
 #endif
+#if FINAL
 			DefaultClippingBounds = Cursor.Clip;
+#endif
 
 		}
 
@@ -307,7 +311,9 @@ namespace project_hook
 		{
 			base.OnActivated(sender, args);
 
-			//Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
+#if FINAL
+			Cursor.Clip = new System.Drawing.Rectangle(this.Window.ClientBounds.X, this.Window.ClientBounds.Y, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
+#endif
 
 #if VERBOSE
 			Game.Out.WriteLine("ACTIVATED");
@@ -319,7 +325,9 @@ namespace project_hook
 		protected override void OnDeactivated(object sender, EventArgs args)
 		{
 			base.OnDeactivated(sender, args);
+#if FINAL
 			Cursor.Clip = DefaultClippingBounds;
+#endif
 #if VERBOSE
 			Game.Out.WriteLine("DEACTIVATED");
 #endif
