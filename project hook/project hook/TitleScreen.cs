@@ -15,7 +15,7 @@ namespace project_hook
 			: base()
 		{
 			//change to so texture that is is made for our title screen
-			m_BackgroundName = "menu_Title";
+			m_BackgroundName = "Title";
 		}
 
 		public override void Load(GraphicsDeviceManager gdm)
