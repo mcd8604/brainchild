@@ -286,16 +286,16 @@ namespace project_hook
 #elif !FINAL
 			graphics.GraphicsDevice.Clear(Color.Black);
 #endif
-			if (m_World != null)
-			{
-				m_World.draw(m_SpriteBatch);
-			}
 #if FINAL
-			else
+			if (m_Menu != null)
 			{
 				graphics.GraphicsDevice.Clear(Color.Black);
 			}
 #endif
+			if (m_World != null)
+			{
+				m_World.draw(m_SpriteBatch);
+			}
 
 			if (m_Menu != null)
 			{
