@@ -5,30 +5,34 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class Instructions2 : Menu
+	class MenuInstructions2 : Menu
 	{
-		int m_Delay;
-		double m_Time;
+		double m_Delay = 20;
 
-		public Instructions2()
+		public MenuInstructions2()
 			: base()
 		{
 			m_BackgroundName = "Instructions2";
-
-			m_Time = 0;
-			m_Delay = 20;
 		}
 
 		public override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
 
-			m_Time += p_Time.ElapsedGameTime.TotalSeconds;
+			m_Delay -= p_Time.ElapsedGameTime.TotalSeconds;
 
-			if (InputHandler.IsActionPressed(Actions.Pause) || InputHandler.IsActionPressed(Actions.MenuAccept) || m_Time >= m_Delay)
+			if (m_Delay < 0)
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.Instructions3);
 			}
+		}
+		public override void accept()
+		{
+			Menus.setCurrentMenu(Menus.MenuScreens.Instructions3);
+		}
+		public override void cancel()
+		{
+			Menus.setCurrentMenu(Menus.MenuScreens.Instructions3);
 		}
 	}
 }

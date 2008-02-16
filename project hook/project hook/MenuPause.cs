@@ -5,11 +5,10 @@ using System.Text;
 
 namespace project_hook
 {
-	class PauseMenu : Menu
+	class MenuPause : Menu
 	{
 
-		public PauseMenu()
-			: base()
+		public MenuPause()
 		{
 			m_BackgroundName = "menu_background";
 
@@ -26,16 +25,6 @@ namespace project_hook
 			m_MenuItemNames.Add("Restart Game");
 			m_MenuItemNames.Add("Exit to Main Menu");
 			m_MenuItemNames.Add("Quit to Windows");
-		}
-
-		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
-		{
-			base.Update(p_Time);
-			if (InputHandler.IsActionPressed(Actions.Pause))
-			{
-				Menus.setCurrentMenu(Menus.MenuScreens.None);
-				World.ResumeWorld = true;
-			}
 		}
 
 		public override void accept()
@@ -67,6 +56,11 @@ namespace project_hook
 			{
 				Menus.Exit = true;
 			}
+		}
+		public override void cancel()
+		{
+			Menus.setCurrentMenu(Menus.MenuScreens.None);
+			World.ResumeWorld = true;
 		}
 	}
 }

@@ -217,16 +217,9 @@ namespace project_hook
             AddSprite(new BloodCellGenerator(4));
 		}
 
-		public static void setPrimaryRight()
+		public static void togglePrimaryRight()
 		{
-			if (primaryRight)
-			{
-				primaryRight = false;
-			}
-			else
-			{
-				primaryRight = true;
-			}
+			primaryRight = !primaryRight;
 		}
 
 		public static Boolean getPrimaryRight()
@@ -799,12 +792,13 @@ namespace project_hook
 
 			}
 
-			Sprite crosshairs = new CursorSprite(
+			GameTexture cursorTexture = TextureLibrary.getGameTexture("crosshairs", "");
+			Sprite crosshairs = new Sprite(
 #if !FINAL
 				"crosshair",
 #endif
-				Vector2.Zero, TextureLibrary.getGameTexture("crosshairs", "").Height, TextureLibrary.getGameTexture("crosshairs", "").Width, TextureLibrary.getGameTexture("crosshairs", ""), 1f, true, 0f, Depth.GameLayer.Cursor);
-			crosshairs.Center = new Vector2(512f, 384f);
+				Vector2.Zero, cursorTexture.Height, cursorTexture.Width, cursorTexture, 1f, true, 0f, Depth.GameLayer.Cursor);
+			crosshairs.Task = new TaskAttachTo(InputHandler.getMousePosition);
 			AddSprite(crosshairs);
 
 			AddSprites(m_TailBodySprites);

@@ -5,9 +5,9 @@ using System.Collections;
 
 namespace project_hook
 {
-	class GameOver : Menu
+	class MenuGameOver : Menu
 	{
-		public GameOver()
+		public MenuGameOver()
 		{
 			m_BackgroundName = "menu_background";
 
@@ -46,6 +46,11 @@ namespace project_hook
 			{
 				Menus.Exit = true;
 			}
+		}
+		public override void cancel()
+		{
+			Menus.setCurrentMenu(Menus.MenuScreens.Main);
+			World.DestroyWorld = true;
 		}
 	}
 }

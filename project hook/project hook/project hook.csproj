@@ -78,42 +78,42 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Boss</Name>
     </Compile>
-    <Compile Include="BrainChildLogo.cs">
+    <Compile Include="MenuBrainChildLogo.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>BrainChildLogo</Name>
+      <Name>MenuBrainChildLogo</Name>
     </Compile>
-    <Compile Include="Credits.cs">
+    <Compile Include="MenuCredits.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Credits</Name>
+      <Name>MenuCredits</Name>
     </Compile>
     <Compile Include="HighScore.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>HighScore</Name>
     </Compile>
-    <Compile Include="HighScoreDisplay.cs">
+    <Compile Include="MenuHighScore.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>HighScoreDisplay</Name>
+      <Name>MenuHighScore</Name>
     </Compile>
-    <Compile Include="Instructions1.cs">
+    <Compile Include="MenuInstructions1.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Instructions1</Name>
+      <Name>MenuInstructions1</Name>
     </Compile>
-    <Compile Include="Instructions2.cs">
+    <Compile Include="MenuInstructions2.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Instructions2</Name>
+      <Name>MenuInstructions2</Name>
     </Compile>
-    <Compile Include="Instructions3.cs">
+    <Compile Include="MenuInstructions3.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Instructions3</Name>
+      <Name>MenuInstructions3</Name>
     </Compile>
-    <Compile Include="OptionsGameMenu.cs">
+    <Compile Include="MenuOptionsGame.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>OptionsGameMenu</Name>
+      <Name>MenuOptionsGame</Name>
     </Compile>
-    <Compile Include="OptionsMenu.cs">
+    <Compile Include="MenuOptions.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>OptionsMenu</Name>
+      <Name>MenuOptions</Name>
     </Compile>
     <Compile Include="Collidable.cs">
       <SubType>Code</SubType>
@@ -130,10 +130,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LevelForm</Name>
     </Compile>
-    <Compile Include="GameOver.cs">
+    <Compile Include="MenuGameOver.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>GameOver</Name>
+      <Name>MenuGameOver</Name>
     </Compile>
     <Compile Include="GateTrigger.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -164,6 +164,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskAttachAt</Name>
     </Compile>
+    <Compile Include="TaskAttachTo.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TaskAttachTo</Name>
+    </Compile>
     <Compile Include="TaskIAngle.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskIAngle</Name>
@@ -191,10 +195,6 @@
     <Compile Include="TaskRotateWithTarget.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskRotateWithTarget</Name>
-    </Compile>
-    <Compile Include="CursorSprite.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>CursorSprite</Name>
     </Compile>
     <Compile Include="EnvironmentLoader.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -272,9 +272,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskStraightAngle</Name>
     </Compile>
-    <Compile Include="RITLogo.cs">
+    <Compile Include="MenuRITLogo.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>RITLogo</Name>
+      <Name>MenuRITLogo</Name>
     </Compile>
     <Compile Include="SpawnPoint.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -404,9 +404,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>IMenu</Name>
     </Compile>
-    <Compile Include="PauseMenu.cs">
+    <Compile Include="MenuPause.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>PauseMenu</Name>
+      <Name>MenuPause</Name>
     </Compile>
     <Compile Include="Menu.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -453,9 +453,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Sprite</Name>
     </Compile>
-    <Compile Include="MainMenu.cs">
+    <Compile Include="MenuMain.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>MainMenu</Name>
+      <Name>MenuMain</Name>
     </Compile>
     <Compile Include="SpriteParticleSystem.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -473,9 +473,9 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TextureLibrary</Name>
     </Compile>
-    <Compile Include="TitleScreen.cs">
+    <Compile Include="MenuTitleScreen.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TitleScreen</Name>
+      <Name>MenuTitleScreen</Name>
     </Compile>
     <Compile Include="TrigHelper.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -1096,6 +1096,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>Instructions3</Name>
+    </Content>
+    <Content Include="Content\Textures\menuCursor.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>menuCursor</Name>
     </Content>
     <Content Include="Content\Textures\supernova.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
