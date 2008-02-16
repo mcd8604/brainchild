@@ -208,10 +208,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>FPS</Name>
     </Compile>
-    <Compile Include="FPSSprite.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>FPSSprite</Name>
-    </Compile>
     <Compile Include="InputHandler.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>InputHandler</Name>
