@@ -19,7 +19,7 @@ namespace project_hook
 		{
 			base.Update(p_Time);
 
-			m_Delay += p_Time.ElapsedGameTime.TotalSeconds;
+			m_Delay -= p_Time.ElapsedGameTime.TotalSeconds;
 
 			if (m_Delay < 0)
 			{

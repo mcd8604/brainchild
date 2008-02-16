@@ -23,11 +23,11 @@ namespace project_hook
 #if !FINAL
 				m_BackgroundName,
 #endif
-				Vector2.Zero, 370, 184, bgTexture, 200f, true, 0, Depth.MenuLayer.Background);
+				Vector2.Zero, 330, 184, bgTexture, 200f, true, 0, Depth.MenuLayer.Background);
 			m_BackgroundSprite.Center = new Vector2(xCen, yCen);
 			attachSpritePart(m_BackgroundSprite);
 
-			attachSpritePart(new TextSprite("HighScores:", new Vector2(xCen, yCen - 240), Color.Yellow));
+			attachSpritePart(new TextSprite("HighScores:", new Vector2(xCen, yCen - 200), Color.Yellow));
 
 			int[] list = Game.HighScores.Scores;
 
@@ -35,7 +35,7 @@ namespace project_hook
 			{
 				if (list[i] > 0)
 				{
-					attachSpritePart(new TextSprite(list[i].ToString(), new Vector2(xCen, (yCen - 160) + (32 * i)), Color.WhiteSmoke));
+					attachSpritePart(new TextSprite(list[i].ToString(), new Vector2(xCen, (yCen - 142) + (32 * i)), Color.WhiteSmoke));
 				}
 			}
 		}

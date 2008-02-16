@@ -39,7 +39,7 @@ namespace project_hook
 			//temp
 			if (World.Position.Speed == 0)
 			{
-				if (this.ToBeRemoved == true || this.Faction != Factions.Enemy)
+				if (ToBeRemoved || Faction != Factions.Enemy)
 					EventTrigger = 1;
 			}
 			//end temp
