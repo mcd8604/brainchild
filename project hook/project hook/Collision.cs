@@ -205,16 +205,6 @@ namespace project_hook
 		private static bool DoesIntersectCircleSquare(Vector2 circ, float circrad, Vector2 square, float squarerad)
 		{
 
-			//if (!DoesIntersectSquares(circ, circrad, square, squarerad))
-			//{
-			//    return false;
-			//}
-
-			//if (DoesIntersectCircles(circ, circrad, square, squarerad))
-			//{
-			//    return true;
-			//}
-
 			if (circ.X > square.X + squarerad)
 			{
 

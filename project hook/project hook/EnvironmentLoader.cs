@@ -178,7 +178,7 @@ namespace project_hook
 		private void WaitLoadNextFile()
 		{
 			string lastName = string.Empty;
-			while (true)
+			do
 			{
 				if (m_NextLevel != null && lastName != m_NextLevel.LevelName)
 				{
@@ -191,7 +191,7 @@ namespace project_hook
 					lock (this) System.Threading.Monitor.Wait(this);
 				} while (m_NextLevel == null || lastName == m_NextLevel.LevelName);
 
-			}
+			} while (true);
 		}
 
 		/// <summary>

@@ -81,7 +81,7 @@ namespace project_hook
 		public override void Draw(SpriteBatch p_SpriteBatch)
 		{
 			m_fps.Draw(p_SpriteBatch);
-			Draw(p_SpriteBatch);
+			base.Draw(p_SpriteBatch);
 		}
 
 	}

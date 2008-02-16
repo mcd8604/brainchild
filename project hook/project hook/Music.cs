@@ -26,7 +26,6 @@ namespace project_hook
 					cueTable.Add(name, returnVal);
 					returnVal.Play();
 					//soundbank.PlayCue(name);
-					
 				}
 				return returnVal;
 			}
@@ -39,14 +38,7 @@ namespace project_hook
 
 		public static void setPlaySound(Boolean p)
 		{
-			if (p)
-			{
-				playSound = true;
-			}
-			else
-			{
-				playSound = false;
-			}
+			playSound = p;
 		}
 
 		public static Boolean getPlaySound()

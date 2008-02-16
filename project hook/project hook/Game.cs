@@ -38,8 +38,6 @@ namespace project_hook
 		System.Drawing.Rectangle DefaultClippingBounds;
 #endif
 
-		public static HighScore HighScores = new HighScore();
-
 		public enum InputHandlerState
 		{
 			World,
@@ -75,13 +73,15 @@ namespace project_hook
 		}
 
 
+		public static HighScore HighScores = new HighScore();
+
 
 		public Game()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			content = new ContentManager(Services);
 #if DEBUG
-			// uncap frame rate to see our true performance
+			// uncap frame rate to see our actual performance
 			graphics.SynchronizeWithVerticalRetrace = false;
 			IsFixedTimeStep = false;
 #endif
@@ -191,7 +191,7 @@ namespace project_hook
 #endif
 
 			//This checks if a new menu is supposed to be loaded.
-			if (Menus.HasChanged == true)
+			if (Menus.HasChanged)
 			{
 				m_Menu = Menus.getCurrentMenu();
 				if (m_Menu != null)
@@ -215,7 +215,7 @@ namespace project_hook
 				}
 			}
 
-			if (World.CreateWorld == true)
+			if (World.CreateWorld)
 			{
 				World.CreateWorld = false;
 				Rectangle r = new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -224,13 +224,13 @@ namespace project_hook
 				m_World.changeState(World.GameState.Running);
 			}
 
-			if (World.RestartLevel == true)
+			if (World.RestartLevel)
 			{
 				m_World.restartLevel();
 				World.RestartLevel = false;
 			}
 
-			if (World.DestroyWorld == true)
+			if (World.DestroyWorld)
 			{
 				if (m_World.State == World.GameState.Won)
 				{
@@ -241,13 +241,13 @@ namespace project_hook
 				World.DestroyWorld = false;
 			}
 
-			if (World.ResumeWorld == true)
+			if (World.ResumeWorld)
 			{
 				m_World.changeState(World.GameState.Running);
 				World.ResumeWorld = false;
 			}
 
-			if (World.PlayerDead == true)
+			if (World.PlayerDead)
 			{
 				HighScores.addScore(Convert.ToInt32(World.m_Score.Score));
 				World.m_Score.reset();
