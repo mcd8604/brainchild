@@ -685,10 +685,10 @@ namespace project_hook
 			TextureLibrary.LoadTexture("trigger");
 			TextureLibrary.LoadTexture("veinbg");
 			TextureLibrary.LoadTexture("virus1");
-			TextureLibrary.LoadTexture("wall_flat");
-			TextureLibrary.LoadTexture("wall_rand1");
-			TextureLibrary.LoadTexture("wall_rand2");
-			TextureLibrary.LoadTexture("wall_rand3");
+			//TextureLibrary.LoadTexture("wall_flat");
+			//TextureLibrary.LoadTexture("wall_rand1");
+			//TextureLibrary.LoadTexture("wall_rand2");
+			//TextureLibrary.LoadTexture("wall_rand3");
 			TextureLibrary.LoadTexture("walls\\plaque_clear");
 			TextureLibrary.LoadTexture("walls\\plaque");
 			TextureLibrary.LoadTexture("walls\\plaque2");
