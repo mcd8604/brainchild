@@ -10,7 +10,7 @@ namespace project_hook
 	/// <summary>
 	/// 
 	/// </summary>
-	class Menu : Sprite
+	public abstract class Menu : Sprite
 	{
 		protected int m_selectedIndex;
 
@@ -24,7 +24,7 @@ namespace project_hook
 		protected ArrayList m_MenuItemSprites;
 
 		protected String m_MenuCursorName;
-		protected CursorSprite m_MenuCursorSprite;
+		protected Sprite m_MenuCursorSprite;
 
 		protected Boolean usingTextSprite;
 
@@ -36,7 +36,7 @@ namespace project_hook
 
 			m_MenuItemNames = new ArrayList();
 
-			m_MenuCursorName = "crosshairs";
+			m_MenuCursorName = "menuCursor";
 		}
 
 		public virtual void Load()
@@ -54,12 +54,13 @@ namespace project_hook
 			attachSpritePart(m_BackgroundSprite);
 
 			//cursor sprite
-			GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName, "");
-			m_MenuCursorSprite = new CursorSprite(
+            GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName, "");
+			m_MenuCursorSprite = new Sprite(
 #if !FINAL
 				m_MenuCursorName,
 #endif
-				InputHandler.MousePosition, cursorTexture.Height, cursorTexture.Width, cursorTexture, 255f, true, 0, Depth.MenuLayer.Cursor);
+				Vector2.Zero, cursorTexture.Height, cursorTexture.Width, cursorTexture, 1f, true, 0f, Depth.MenuLayer.Cursor);
+			m_MenuCursorSprite.Task = new TaskAttachTo(InputHandler.getMousePosition, new Vector2(cursorTexture.Width * 0.5f, cursorTexture.Height * 0.5f));
 			attachSpritePart(m_MenuCursorSprite);
 
 			m_MenuItemSprites = new ArrayList();
@@ -140,7 +141,7 @@ namespace project_hook
 			base.Update(p_Time);
 			if (InputHandler.IsActionPressed(Actions.Pause))
 			{
-				//Exit();               
+				cancel();               
 			}
 
 			if (InputHandler.IsActionPressed(Actions.Up))
@@ -166,13 +167,16 @@ namespace project_hook
 
 		protected Boolean selectSpriteByCoord(Vector2 mousePos)
 		{
-			foreach (Sprite s in m_MenuItemSprites)
+			if (m_MenuItemSprites != null)
 			{
-				if (mousePos.X >= s.Position.X && mousePos.Y >= s.Position.Y &&
-					mousePos.X <= s.Position.X + s.Width && mousePos.Y <= s.Position.Y + s.Height)
+				foreach (Sprite s in m_MenuItemSprites)
 				{
-					setSelectedIndex(m_MenuItemSprites.IndexOf(s));
-					return true;
+					if (mousePos.X >= s.Position.X && mousePos.Y >= s.Position.Y &&
+						mousePos.X <= s.Position.X + s.Width && mousePos.Y <= s.Position.Y + s.Height)
+					{
+						setSelectedIndex(m_MenuItemSprites.IndexOf(s));
+						return true;
+					}
 				}
 			}
 			return false;
@@ -249,9 +253,8 @@ namespace project_hook
 			}
 		}
 
-		//override this method
-		public virtual void accept()
-		{
-		}
+		public abstract void accept();
+
+		public abstract void cancel();
 	}
 }

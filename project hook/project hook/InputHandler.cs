@@ -309,6 +309,11 @@ namespace project_hook
 				return new Vector2(thisMouseState.X, thisMouseState.Y);
 			}
 		}
+
+		public static Vector2 getMousePosition()
+		{
+				return new Vector2(thisMouseState.X, thisMouseState.Y);
+		}
 #endif
 
 

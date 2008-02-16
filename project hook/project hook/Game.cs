@@ -113,7 +113,7 @@ namespace project_hook
 			TextureLibrary.iniTextures(content);
 
 			Menus.ini();
-			Menus.setCurrentMenu(Menus.MenuScreens.DevLogo);
+			Menus.setCurrentMenu(Menus.MenuScreens.BrainChildLogo);
 			m_InputHandler = InputHandlerState.Menu;
 
 			base.Initialize();

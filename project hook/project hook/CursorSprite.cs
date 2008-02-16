@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class CursorSprite : Sprite
+	public class CursorSprite : Sprite
 	{
 		public CursorSprite(
 #if !FINAL

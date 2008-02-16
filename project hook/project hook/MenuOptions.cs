@@ -5,10 +5,9 @@ using System.Text;
 
 namespace project_hook
 {
-	class OptionsGameMenu : Menu
+	class MenuOptions : Menu
 	{
-		public OptionsGameMenu()
-			: base()
+		public MenuOptions()
 		{
 			m_BackgroundName = "menu_background";
 
@@ -23,7 +22,7 @@ namespace project_hook
 			} else {
 				m_MenuItemNames.Add("Fullscreen Off");
 			}
-			if (Music.IsPlaying("bg2"))
+			if (Music.getPlaySound())
 			{
 				m_MenuItemNames.Add("Music On");
 			} else {
@@ -41,7 +40,7 @@ namespace project_hook
 			} else {
 				m_MenuItemNames.Add("Rightclick Primary Off");
 			}
-			m_MenuItemNames.Add("Back");
+			m_MenuItemNames.Add("Main Menu");
 		}
 
 		public override void accept()
@@ -49,23 +48,22 @@ namespace project_hook
 			if (m_selectedIndex == 0)
 			{
 				Game.graphics.ToggleFullScreen();
-				if (((TextSprite)m_MenuItemSprites[0]).Text == "Fullscreen On")
+				if (Game.graphics.IsFullScreen)
 				{
-					((TextSprite)m_MenuItemSprites[0]).Text = "Fullscreen Off";
-				} else {
 					((TextSprite)m_MenuItemSprites[0]).Text = "Fullscreen On";
+				} else {
+					((TextSprite)m_MenuItemSprites[0]).Text = "Fullscreen Off";
 				}
 			}
 
 			if (m_selectedIndex == 1)
 			{
-				Music.setPlaySound(true);
-				if (Music.IsPlaying("bg1"))
+				if (Music.getPlaySound())
 				{
-					Music.Stop("bg2");
+					Music.setPlaySound(false);
 					((TextSprite)m_MenuItemSprites[1]).Text = "Music Off";
 				} else {
-					Music.Play("bg2");
+					Music.setPlaySound(true);
 					((TextSprite)m_MenuItemSprites[1]).Text = "Music On";
 				}
 			}
@@ -73,29 +71,33 @@ namespace project_hook
 			if (m_selectedIndex == 2)
 			{
 				Sound.setPlaySound();
-				if (((TextSprite)m_MenuItemSprites[2]).Text == "Sound Effects On")
+				if (Sound.getPlaySound())
 				{
-					((TextSprite)m_MenuItemSprites[2]).Text = "Sound Effects Off";
-				} else {
 					((TextSprite)m_MenuItemSprites[2]).Text = "Sound Effects On";
+				} else {
+					((TextSprite)m_MenuItemSprites[2]).Text = "Sound Effects Off";
 				}
 			}
 
 			if (m_selectedIndex == 3)
 			{
-				World.setPrimaryRight();
-				if (((TextSprite)m_MenuItemSprites[3]).Text == "Rightclick Primary On")
+				World.togglePrimaryRight();
+				if (World.getPrimaryRight())
 				{
-					((TextSprite)m_MenuItemSprites[3]).Text = "Rightclick Primary Off";
-				} else {
 					((TextSprite)m_MenuItemSprites[3]).Text = "Rightclick Primary On";
+				} else {
+					((TextSprite)m_MenuItemSprites[3]).Text = "Rightclick Primary Off";
 				}
 			}
 
-			if (m_selectedIndex ==4)
+			if (m_selectedIndex == 4)
 			{
-				Menus.setCurrentMenu(Menus.MenuScreens.Pause);
+				Menus.setCurrentMenu(Menus.MenuScreens.Main);
 			}
+		}
+		public override void cancel()
+		{
+			Menus.setCurrentMenu(Menus.MenuScreens.Main);
 		}
 	}
 }

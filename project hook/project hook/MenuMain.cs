@@ -6,13 +6,13 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class MainMenu : Menu
+	class MenuMain : Menu
 	{
 
 		private const int DELAY_SECONDS = 20;
 		private double idleTime = 0;
 
-		public MainMenu()
+		public MenuMain()
 			: base()
 		{
 			m_BackgroundName = "menu_background";
@@ -64,6 +64,10 @@ namespace project_hook
 			{
 				Menus.Exit = true;
 			}
+		}
+		public override void cancel()
+		{
+			Menus.setCurrentMenu(Menus.MenuScreens.BrainChildLogo);
 		}
 
 		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)

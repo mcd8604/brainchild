@@ -51,8 +51,8 @@ namespace project_hook
 			Loading,
 			Start,
 			None,
-			Title,
-			DevLogo,
+			TitleScreen,
+			BrainChildLogo,
 			RITLogo,
 			GameOver,
 			Credits,
@@ -84,7 +84,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("Instructions2");
 			TextureLibrary.LoadTexture("Instructions3");
 			TextureLibrary.LoadTexture("Credits");
-			TextureLibrary.LoadTexture("crosshairs");
+			TextureLibrary.LoadTexture("menuCursor");
 		}
 
 		public static void setCurrentMenu(MenuScreens p_NewMenu)
@@ -106,67 +106,67 @@ namespace project_hook
 			if (m_SelectedMenu == MenuScreens.Main)
 			{
 				m_HasChanged = false;
-				return new MainMenu();
+				return new MenuMain();
 			}
 			else if (m_SelectedMenu == MenuScreens.Pause)
 			{
 				m_HasChanged = false;
-				return new PauseMenu();
+				return new MenuPause();
 			}
 			else if (m_SelectedMenu == MenuScreens.Options)
 			{
 				m_HasChanged = false;
-				return new OptionsMenu();
+				return new MenuOptions();
 			}
 			else if (m_SelectedMenu == MenuScreens.OptionsGame)
 			{
 				m_HasChanged = false;
-				return new OptionsGameMenu();
+				return new MenuOptionsGame();
 			}
 			else if (m_SelectedMenu == MenuScreens.Instructions1)
 			{
 				m_HasChanged = false;
-				return new Instructions1();
+				return new MenuInstructions1();
 			}
 			else if (m_SelectedMenu == MenuScreens.Instructions2)
 			{
 				m_HasChanged = false;
-				return new Instructions2();
+				return new MenuInstructions2();
 			}
 			else if (m_SelectedMenu == MenuScreens.Instructions3)
 			{
 				m_HasChanged = false;
-				return new Instructions3();
+				return new MenuInstructions3();
 			}
-			else if (m_SelectedMenu == MenuScreens.Title)
+			else if (m_SelectedMenu == MenuScreens.TitleScreen)
 			{
 				m_HasChanged = false;
-				return new TitleScreen();
+				return new MenuTitleScreen();
 			}
-			else if (m_SelectedMenu == MenuScreens.DevLogo)
+			else if (m_SelectedMenu == MenuScreens.BrainChildLogo)
 			{
 				m_HasChanged = false;
-				return new BrainChildLogo();
+				return new MenuBrainChildLogo();
 			}
 			else if (m_SelectedMenu == MenuScreens.RITLogo)
 			{
 				m_HasChanged = false;
-				return new RITLogo();
+				return new MenuRITLogo();
 			}
 			else if (m_SelectedMenu == MenuScreens.GameOver)
 			{
 				m_HasChanged = false;
-				return new GameOver();
+				return new MenuGameOver();
 			}
 			else if (m_SelectedMenu == MenuScreens.Credits)
 			{
 				m_HasChanged = false;
-				return new Credits();
+				return new MenuCredits();
 			}
 			else if (m_SelectedMenu == MenuScreens.HighScores)
 			{
 				m_HasChanged = false;
-				return new HighScoreDisplay();
+				return new MenuHighScore();
 			}
 
 			return null;
