@@ -98,7 +98,7 @@ namespace project_hook
 			TimeSinceStart = 0.0f;
 
 			// set rotation to some random value between 0 and 360 degrees.
-			Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
+			Rotation = SpriteParticleSystem.RandomBetween(0, MathHelper.TwoPi);
 		}
 
 		// update is called by the ParticleSystem on every frame. This is where the

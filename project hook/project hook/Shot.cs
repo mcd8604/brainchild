@@ -32,7 +32,7 @@ namespace project_hook
 		{
 			if (p_Shot.Animation != null)
 			{
-				Animation = new VisualEffect(p_Shot.Animation.Name, this, p_Shot.Animation.FramesPerSecond);
+				Animation = new VisualEffect(p_Shot.Animation, this);
 			}
 			BlendMode = p_Shot.BlendMode;
 			Bound = p_Shot.Bound;

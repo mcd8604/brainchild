@@ -24,7 +24,7 @@ namespace project_hook
 		{
 			if (p_Collidable.Animation != null)
 			{
-				Animation = new VisualEffect(p_Collidable.Animation.Name, this, p_Collidable.Animation.FramesPerSecond);
+				Animation = new VisualEffect(p_Collidable.Animation, this);
 			}
 			BlendMode = p_Collidable.BlendMode;
 			Bound = p_Collidable.Bound;

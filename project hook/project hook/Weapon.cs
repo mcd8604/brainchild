@@ -30,7 +30,7 @@ namespace project_hook
 		}
 		// this is how long the delay is between shots in seconds
 		protected float m_Delay = 100;
-		public virtual float Delay
+		public float Delay
 		{
 			get
 			{
@@ -74,7 +74,7 @@ namespace project_hook
 			set
 			{
 				m_Shots = new List<Shot>();
-				for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
+				for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt((Game.graphics.GraphicsDevice.Viewport.Height * Game.graphics.GraphicsDevice.Viewport.Height) + (Game.graphics.GraphicsDevice.Viewport.Width * Game.graphics.GraphicsDevice.Viewport.Width))) / m_Speed) / m_Delay)); i++)
 				{
 					Shot tmp = new Shot(value);
 
@@ -136,7 +136,7 @@ namespace project_hook
 		public virtual IList<Shot> changeShotType(Shot type)
 		{
 			m_Shots.Clear();
-			for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt(Math.Pow(Game.graphics.GraphicsDevice.Viewport.Height, 2) + Math.Pow(Game.graphics.GraphicsDevice.Viewport.Width, 2))) / m_Speed) / m_Delay)); i++)
+			for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt((Game.graphics.GraphicsDevice.Viewport.Height * Game.graphics.GraphicsDevice.Viewport.Height) + (Game.graphics.GraphicsDevice.Viewport.Width * Game.graphics.GraphicsDevice.Viewport.Width))) / m_Speed) / m_Delay)); i++)
 			{
 				m_Shots.Add(new Shot(type));
 			}

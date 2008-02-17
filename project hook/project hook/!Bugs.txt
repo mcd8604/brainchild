@@ -1,0 +1,6 @@
+
+Background tearing.
+
+Turret 'necks' not lined up with turret 'bases'.
+
+Sound effects spamming (blood leaking in to wall, or player colliding with uncaptureable enemy).

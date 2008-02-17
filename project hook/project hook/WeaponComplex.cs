@@ -23,7 +23,7 @@ namespace project_hook
 
 		// the angle that the shot is to be fired at
 		protected float m_Offset = 0;
-		public virtual float Offset
+		public float Offset
 		{
 			get
 			{
@@ -34,7 +34,7 @@ namespace project_hook
 				m_Offset = value;
 			}
 		}
-		public virtual float OffsetDegrees
+		public float OffsetDegrees
 		{
 			get
 			{

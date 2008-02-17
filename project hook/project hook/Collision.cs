@@ -195,7 +195,7 @@ namespace project_hook
 
 		private static bool DoesIntersectCircles(Vector2 pos1, float radiustopoint1, Vector2 pos2, float radiustopoint2)
 		{
-			return (Math.Pow((radiustopoint1 + radiustopoint2), 2) > Math.Pow((pos1.X - pos2.X), 2) + Math.Pow((pos1.Y - pos2.Y), 2));
+			return ((radiustopoint1 + radiustopoint2)*(radiustopoint1 + radiustopoint2)) > ((pos1.X - pos2.X)*(pos1.X - pos2.X)) + ((pos1.Y - pos2.Y)*(pos1.Y - pos2.Y));
 		}
 		private static bool DoesIntersectCircleDiamond(Vector2 circ, float circrad, Vector2 diamond, float diamondrad)
 		{
@@ -214,16 +214,14 @@ namespace project_hook
 				{
 
 					// 2
-					float dsquared = Vector2.DistanceSquared(new Vector2(square.X + (squarerad), square.Y + (squarerad)), circ);
-					return dsquared < Math.Pow(circrad, 2);
+					return Vector2.DistanceSquared(new Vector2(square.X + (squarerad), square.Y + (squarerad)), circ) < (circrad * circrad);
 
 				}
 				else if (circ.Y < square.Y - squarerad)
 				{
 
 					// 8
-					float dsquared = Vector2.DistanceSquared(new Vector2(square.X + (squarerad), square.Y - (squarerad)), circ);
-					return dsquared < Math.Pow(circrad, 2);
+					return Vector2.DistanceSquared(new Vector2(square.X + (squarerad), square.Y - (squarerad)), circ) < (circrad * circrad);
 
 				}
 				else
@@ -244,16 +242,14 @@ namespace project_hook
 				{
 
 					// 4
-					float dsquared = Vector2.DistanceSquared(new Vector2(square.X - (squarerad), square.Y + (squarerad)), circ);
-					return dsquared < Math.Pow(circrad, 2);
+					return Vector2.DistanceSquared(new Vector2(square.X - (squarerad), square.Y + (squarerad)), circ) < (circrad * circrad);
 
 				}
 				else if (circ.Y < square.Y - squarerad)
 				{
 
 					// 6
-					float dsquared = Vector2.DistanceSquared(new Vector2(square.X - (squarerad), square.Y - (squarerad)), circ);
-					return dsquared < Math.Pow(circrad, 2);
+					return Vector2.DistanceSquared(new Vector2(square.X - (squarerad), square.Y - (squarerad)), circ) < (circrad * circrad);
 
 				}
 				else
@@ -340,7 +336,7 @@ namespace project_hook
 
 					// 2
 					float dsquared = Vector2.DistanceSquared(new Vector2(rect.X + (width * 0.5f), rect.Y + (height * 0.5f)), circ);
-					return dsquared < Math.Pow(circrad, 2);
+					return dsquared < (circrad * circrad);
 
 				}
 				else if (circ.Y < rect.Y - (height * 0.5f))
@@ -348,7 +344,7 @@ namespace project_hook
 
 					// 8
 					float dsquared = Vector2.DistanceSquared(new Vector2(rect.X + (width * 0.5f), rect.Y - (height * 0.5f)), circ);
-					return dsquared < Math.Pow(circrad, 2);
+					return dsquared < (circrad * circrad);
 
 				}
 				else
@@ -370,7 +366,7 @@ namespace project_hook
 
 					// 4
 					float dsquared = Vector2.DistanceSquared(new Vector2(rect.X - (width * 0.5f), rect.Y + (height * 0.5f)), circ);
-					return dsquared < Math.Pow(circrad, 2);
+					return dsquared < (circrad * circrad);
 
 				}
 				else if (circ.Y < rect.Y - (height * 0.5f))
@@ -378,7 +374,7 @@ namespace project_hook
 
 					// 6
 					float dsquared = Vector2.DistanceSquared(new Vector2(rect.X - (width * 0.5f), rect.Y - (height * 0.5f)), circ);
-					return dsquared < Math.Pow(circrad, 2);
+					return dsquared < (circrad * circrad);
 
 				}
 				else
@@ -1109,7 +1105,6 @@ namespace project_hook
 			timer.Stop();
 			Game.Out.WriteLine("Collision Self Test Completed in " + timer.Elapsed.TotalMilliseconds.ToString() + " Milliseconds.");
 #endif
-
 		}
 #endif
 

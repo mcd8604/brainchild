@@ -231,7 +231,7 @@ namespace project_hook
 		/// <summary>
 		/// Mark this sprite for removal
 		/// </summary>
-		public virtual Boolean ToBeRemoved
+		public Boolean ToBeRemoved
 		{
 			get
 			{

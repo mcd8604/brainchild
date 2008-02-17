@@ -228,10 +228,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ParticleSprite</Name>
     </Compile>
-    <Compile Include="ParticleSystem.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>ParticleSystem</Name>
-    </Compile>
     <Compile Include="TaskLerp.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>TaskLerp</Name>
@@ -1013,6 +1009,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="!Bugs.txt">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>!Bugs</Name>
+    </Content>
     <Content Include="Cell.ico">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Cell</Name>
