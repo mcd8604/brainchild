@@ -262,7 +262,7 @@ namespace project_hook
 
 			if (p_Collidable.Animation != null)
 			{
-				Animation = new VisualEffect(p_Collidable.Animation.Name, this, p_Collidable.Animation.FramesPerSecond);
+				Animation = new VisualEffect(p_Collidable.Animation, this);
 			}
 			BlendMode = p_Collidable.BlendMode;
 			Bound = p_Collidable.Bound;
@@ -445,7 +445,7 @@ namespace project_hook
 			}
 		}
 
-		protected virtual void SpawnDamageEffect(Vector2 where)
+		protected void SpawnDamageEffect(Vector2 where)
 		{
 			if (m_DamageEffect != null)
 			{
@@ -453,7 +453,7 @@ namespace project_hook
 			}
 		}
 
-		protected virtual void SpawnDeathEffect(Vector2 where)
+		protected void SpawnDeathEffect(Vector2 where)
 		{
 			if (m_DeathEffect != null)
 			{
@@ -471,7 +471,7 @@ namespace project_hook
 			base.Draw(p_SpriteBatch);
 		}
 
-		public virtual void captured()
+		public void captured()
 		{
 			if (Animation != null)
 			{

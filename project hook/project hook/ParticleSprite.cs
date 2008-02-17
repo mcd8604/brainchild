@@ -90,7 +90,7 @@ namespace project_hook
 			TimeSinceStart = 0.0f;
 
 			// set rotation to some random value between 0 and 360 degrees.
-			Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
+			Rotation = SpriteParticleSystem.RandomBetween(0, MathHelper.TwoPi);
 			Texture = TextureLibrary.getGameTexture(p_Texture, p_Tag);
 			Enabled = true;
 		}
@@ -112,7 +112,7 @@ namespace project_hook
 			TimeSinceStart = 0.0f;
 
 			// set rotation to some random value between 0 and 360 degrees.
-			Rotation = ParticleSystem.RandomBetween(0, MathHelper.TwoPi);
+			Rotation = SpriteParticleSystem.RandomBetween(0, MathHelper.TwoPi);
 			Texture = TextureLibrary.getGameTexture(p_Texture, p_Tag);
 			setAnimation(p_AnimationName, p_FPS);
 			Animation.StartAnimation();

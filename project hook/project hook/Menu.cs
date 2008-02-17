@@ -232,7 +232,7 @@ namespace project_hook
 			setHighlightSprite();
 		}
 
-		protected virtual void setHighlightSprite()
+		protected void setHighlightSprite()
 		{
 			Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
 			if (selSprite is TextSprite)

@@ -11,7 +11,7 @@ namespace project_hook
 	public class VisualEffect
 	{
 
-		OrderedDictionary<String, GameTexture> frames;
+		GameTexture[] m_framesArray;
 
 		Sprite m_BaseSprite;
 		String m_Name;
@@ -30,9 +30,9 @@ namespace project_hook
 
 		//Number of animation cycles the visualeffect exists
 		private int m_Cycles;
-		private int m_CycleCount;
-		private bool m_CycleRemoval;//remove the sprite after cycles are up
-		public bool CycleRemoval 
+		private int m_CycleCount = 0;
+		private bool m_CycleRemoval = false;//remove the sprite after cycles are up
+		public bool CycleRemoval
 		{
 			get
 			{
@@ -50,68 +50,97 @@ namespace project_hook
 			set { m_FrameLength = 1f / (float)value; }
 		}
 
+		private int m_FrameCount;
 		public int FrameCount
 		{
-			get { return (int)(frames.Keys.Count); }
+			get { return m_FrameCount; }
 		}
-
-
-	//	public GameTexture CurrentFrame
-//		{//
-	//		get { return frames[m_CurrentFrame.ToString()]; }
-//		}
 
 		public int CurrentFrame
 		{
 			set { m_CurrentFrame = value; }
 		}
 
+		public VisualEffect(VisualEffect p_ToCopy, Sprite p_NewBaseSprite)
+		{
+
+			m_Name = p_ToCopy.m_Name;
+			m_BaseSprite = p_NewBaseSprite;
+			m_FrameLength = p_ToCopy.m_FrameLength;
+
+			buildArray(TextureLibrary.getSpriteSheet(m_Name));
+
+			if (p_ToCopy.m_CycleRemoval)
+			{
+				m_Cycles = p_ToCopy.m_Cycles;
+				m_CycleRemoval = true;
+			}
+		}
+
+
 		public VisualEffect(String p_Name, Sprite p_Base, int p_FramesPerSecond)
 		{
 			m_BaseSprite = p_Base;
 			m_Name = p_Name;
-			frames = TextureLibrary.getSpriteSheet(p_Name);
-			m_BaseSprite.Texture = frames[m_CurrentFrame.ToString()];
+
+			buildArray(TextureLibrary.getSpriteSheet(m_Name));
+
+			m_BaseSprite.Texture = m_framesArray[0];
 			FramesPerSecond = p_FramesPerSecond;
-			m_CycleRemoval = false;
 		}
 
 		public VisualEffect(String p_Name, Sprite p_Base, int p_FramesPerSecond, int p_Cycles)
 		{
 			m_BaseSprite = p_Base;
 			m_Name = p_Name;
-			frames = TextureLibrary.getSpriteSheet(p_Name);
-			m_BaseSprite.Texture = frames[m_CurrentFrame.ToString()];
+
+			buildArray(TextureLibrary.getSpriteSheet(m_Name));
+
+			m_BaseSprite.Texture = m_framesArray[0];
 			FramesPerSecond = p_FramesPerSecond;
 			m_Cycles = p_Cycles;
-			m_CycleCount = 0;
 			m_CycleRemoval = true;
+		}
+
+		private void buildArray(OrderedDictionary<string, GameTexture> dic)
+		{
+			m_FrameCount = dic.Count;
+			m_framesArray = new GameTexture[m_FrameCount];
+			for (int i = 0; i < m_FrameCount; i++)
+			{
+				m_framesArray[i] = dic[i.ToString()];
+			}
 		}
 
 		public void Update(GameTime gameTime)
 		{
 			if (m_UpdateAnimation)
 			{
-				//check if cycles up
-				if (m_CycleRemoval && m_CycleCount >= m_Cycles)
-				{
-					//lazy sprite removal
-					this.StopAnimation();
-				}
 
 				m_Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 				if (m_Timer >= m_FrameLength)
 				{
 					m_Timer = 0f;
-					m_CurrentFrame = (m_CurrentFrame + 1) % frames.Count;
-					m_BaseSprite.Texture = frames[m_CurrentFrame.ToString()];
+					++m_CurrentFrame;
 
-					//increment cycles if needed
-					if (m_CurrentFrame == 0)
+					if (m_CurrentFrame >= m_FrameCount)
 					{
-						m_CycleCount++;
+						m_CurrentFrame = 0;
+						if (m_CycleRemoval)
+						{
+							++m_CycleCount;
+							//check if cycles up
+							if (m_CycleCount >= m_Cycles)
+							{
+								//lazy sprite removal
+								this.StopAnimation();
+							}
+						}
 					}
+
+					m_BaseSprite.Texture = m_framesArray[m_CurrentFrame];
+
 				}
 			}
 		}
@@ -132,10 +161,6 @@ namespace project_hook
 		{
 			m_UpdateAnimation = false;
 		}
-
-
-
-
 
 	}
 }

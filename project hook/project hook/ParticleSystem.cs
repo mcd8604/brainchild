@@ -211,7 +211,7 @@ namespace project_hook
 		/// <param name="p">the particle to initialize</param>
 		/// <param name="where">the position on the screen that the particle should be
 		/// </param>
-		protected virtual void InitializeParticle(Particle p, Vector2 where)
+		protected void InitializeParticle(Particle p, Vector2 where)
 		{
 			// first, call PickRandomDirection to figure out which way the particle
 			// will be moving. velocity and acceleration's values will come from this
@@ -246,7 +246,7 @@ namespace project_hook
 		/// particles will move. The default implementation is a random vector in a
 		/// circular pattern.
 		/// </summary>
-		protected virtual Vector2 PickRandomDirection()
+		protected Vector2 PickRandomDirection()
 		{
 			float angle = RandomBetween(0, MathHelper.TwoPi);
 			return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));

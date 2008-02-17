@@ -172,7 +172,7 @@ namespace project_hook
 		{
 			if (p_Ship.Animation != null)
 			{
-				Animation = new VisualEffect(p_Ship.Animation.Name, this, p_Ship.Animation.FramesPerSecond);
+				Animation = new VisualEffect(p_Ship.Animation, this);
 			}
 			BlendMode = p_Ship.BlendMode;
 			Bound = p_Ship.Bound;
@@ -202,7 +202,7 @@ namespace project_hook
 			ShieldRegenRate = p_Ship.ShieldRegenRate;
 			if (p_Ship.ShootAnimation != null)
 			{
-				m_ShootAnimation = new VisualEffect(p_Ship.ShootAnimation.Name, this, p_Ship.ShootAnimation.FramesPerSecond);
+				m_ShootAnimation = new VisualEffect(p_Ship.ShootAnimation, this);
 			}
 			if (p_Ship.Task != null)
 			{
