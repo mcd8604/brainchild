@@ -58,17 +58,11 @@ namespace project_hook
 			}
 		}
 
-#if FINAL
-		private const string outfilename = "err.log";
-		protected static System.IO.TextWriter writer = new System.IO.StreamWriter(outfilename);
-#else
-		protected static System.IO.TextWriter writer = Console.Out;
-#endif
 		public static System.IO.TextWriter Out
 		{
 			get
 			{
-				return writer;
+				return Program.Out;
 			}
 		}
 
