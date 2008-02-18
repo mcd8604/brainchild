@@ -168,6 +168,7 @@ namespace project_hook
 			IniDefaults();
 			Music.Initialize();
 			Sound.Initialize();
+			Music.Play("bg2");
 
 			AddSprite(new BloodCellGenerator(4));
 		}
