@@ -232,6 +232,7 @@ namespace project_hook
 					World.m_Score.reset();
 				}
 				m_World = null;
+				Music.Stop("bg2");
 				World.DestroyWorld = false;
 			}
 
