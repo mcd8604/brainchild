@@ -138,6 +138,11 @@ namespace project_hook
 
 		public static World m_World;
 
+		private static Vector2 target;
+		public static Vector2 getTarget(){
+			return target;
+		}
+
 #if DEBUG
 		TextSprite listsize = new TextSprite("", new Vector2(100, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
 		bool DisplayCollision = false;
@@ -476,6 +481,14 @@ namespace project_hook
 						tail.EnemyShoot();
 					}
 				}
+				if (InputHandler.HasMouseMoved())
+				{
+					target = InputHandler.MousePosition;
+				}
+				else if (InputHandler.HasRightStickMoved())
+				{
+					target = tail.Center + Vector2.Multiply(InputHandler.RightStickPosition, 400);
+				}
 #if DEBUG
 				if(InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.J))
 				{
@@ -795,7 +808,7 @@ namespace project_hook
 				"crosshair",
 #endif
 				Vector2.Zero, cursorTexture.Height, cursorTexture.Width, cursorTexture, 1f, true, 0f, Depth.GameLayer.Cursor);
-			crosshairs.Task = new TaskAttachTo(InputHandler.getMousePosition);
+			crosshairs.Task = new TaskAttachTo(World.getTarget);
 			AddSprite(crosshairs);
 
 			AddSprites(m_TailBodySprites);

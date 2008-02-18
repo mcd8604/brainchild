@@ -1,7 +1,9 @@
+#define XBOX360
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using Wintellect.PowerCollections;
+
 
 namespace project_hook
 {
@@ -12,9 +14,9 @@ namespace project_hook
 	internal enum Actions { Up, Down, Left, Right, ShipPrimary, ShipSecondary, TailPrimary, TailSecondary, Pause, MenuAccept, MenuBack };
 #if XBOX360
 	internal enum GamePadButtons { Up, Down, Left, Right, A, B, Back, LeftShoulder, LeftStick, RightShoulder, RightStick, Start, X, Y };
-#else
-	internal enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
 #endif
+	internal enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
+
 
 	internal static class InputHandler
 	{
@@ -26,11 +28,11 @@ namespace project_hook
 		private static GamePadState lastGamePadState = new GamePadState();
 		private static GamePadState thisGamePadState = new GamePadState();
 		private static MultiDictionary<Actions, GamePadButtons> GamePadMap = new MultiDictionary<Actions, GamePadButtons>(false);
-#else
+#endif
 		private static MouseState lastMouseState = new MouseState();
 		private static MouseState thisMouseState = new MouseState();
 		private static MultiDictionary<Actions, MouseButtons> MouseMap = new MultiDictionary<Actions, MouseButtons>(false);
-#endif
+
 
 		internal static void LoadDefaultBindings()
 		{
@@ -58,17 +60,18 @@ namespace project_hook
 			GamePadMap.Add(Actions.Left, GamePadButtons.Left);
 			GamePadMap.Add(Actions.Right, GamePadButtons.Right);
 			GamePadMap.Add(Actions.Up, GamePadButtons.Up);
-			GamePadMap.Add(Actions.ShipPrimary, GamePadButtons.A);
-			GamePadMap.Add(Actions.ShipSecondary, GamePadButtons.B);
+			GamePadMap.Add(Actions.ShipPrimary, GamePadButtons.LeftShoulder);
+			GamePadMap.Add(Actions.TailPrimary, GamePadButtons.RightShoulder);
+			GamePadMap.Add(Actions.TailSecondary, GamePadButtons.LeftShoulder);
 			GamePadMap.Add(Actions.Pause, GamePadButtons.Start);
 			GamePadMap.Add(Actions.MenuAccept, GamePadButtons.Start);
 			GamePadMap.Add(Actions.MenuBack, GamePadButtons.Back);
-#else
+#endif
 			MouseMap.Add(Actions.TailPrimary, MouseButtons.Left);
 			MouseMap.Add(Actions.TailSecondary, MouseButtons.Right);
 			MouseMap.Add(Actions.MenuAccept, MouseButtons.Left);
 			MouseMap.Add(Actions.MenuBack, MouseButtons.Right);
-#endif
+
 
 		}
 
@@ -86,12 +89,12 @@ namespace project_hook
 		{
 			GamePadMap.Add(action, button);
 		}
-#else
+#endif
 		internal static void AddBinding(Actions action, MouseButtons button)
 		{
 			MouseMap.Add(action, button);
 		}
-#endif
+
 
 		/// <summary>
 		/// Request that the KeyHandler read the current state of the hardware devices.
@@ -103,10 +106,10 @@ namespace project_hook
 #if XBOX360
 			lastGamePadState = thisGamePadState;
 			thisGamePadState = GamePad.GetState(PlayerIndex.One);
-#else
+#endif
 			lastMouseState = thisMouseState;
 			thisMouseState = Mouse.GetState();
-#endif
+
 		}
 
 		/// <summary>
@@ -134,9 +137,9 @@ namespace project_hook
 			return CheckState(action, thisKeyboardState)
 #if XBOX360
 			|| CheckState(action, thisGamePadState)
-#else
-			|| CheckState(action, thisMouseState)
 #endif
+			|| CheckState(action, thisMouseState)
+
 			;
 		}
 		private static Boolean IsActionDownLast(Actions action)
@@ -144,9 +147,9 @@ namespace project_hook
 			return CheckState(action, lastKeyboardState)
 #if XBOX360
 			|| CheckState(action, lastGamePadState)
-#else
-			|| CheckState(action, lastMouseState)
 #endif
+			|| CheckState(action, lastMouseState)
+
 			;
 		}
 
@@ -201,7 +204,7 @@ namespace project_hook
 			}
 			return false;
 		}
-#else
+#endif
 		private static Boolean CheckState(Actions action, MouseState state)
 		{
 			foreach (MouseButtons button in MouseMap[action])
@@ -213,7 +216,7 @@ namespace project_hook
 			}
 			return false;
 		}
-#endif
+
 
 #if XBOX360
 		private static Boolean IsButtonDown(GamePadButtons button, GamePadState state)
@@ -252,7 +255,7 @@ namespace project_hook
 					return false;
 			}
 		}
-#else
+#endif
 		private static Boolean IsButtonDown(MouseButtons button, MouseState state)
 		{
 			switch (button)
@@ -271,7 +274,7 @@ namespace project_hook
 					return false;
 			}
 		}
-#endif
+
 
 #if XBOX360
 		internal static Boolean HasLeftStickMoved()
@@ -296,7 +299,7 @@ namespace project_hook
 				return thisGamePadState.ThumbSticks.Right;
 			}
 		}
-#else
+#endif
 		internal static Boolean HasMouseMoved()
 		{
 			return (thisMouseState.X != lastMouseState.X) || (thisMouseState.Y != lastMouseState.Y);
@@ -314,7 +317,7 @@ namespace project_hook
 		{
 				return new Vector2(thisMouseState.X, thisMouseState.Y);
 		}
-#endif
+
 
 
 
