@@ -92,18 +92,27 @@ namespace project_hook
 				}
 				foreach (Sprite gate in m_Gates)
 				{
-					gate.Enabled = false;
-					gate.ToBeRemoved = true;
-					((Collidable)gate).SpawnDeathEffect(gate.Center);
+					//gate.Enabled = false;
+					//gate.ToBeRemoved = true;
+					//((Collidable)gate).SpawnDeathEffect(gate.Center);
+					TaskQueue q = new TaskQueue();
+					q.addTask(new TaskTimer(Vector2.DistanceSquared(this.Center, gate.Center) / 1638400));
+					q.addTask(new TaskRemove(true));
+					gate.Task = q;
 				}
 				foreach (Sprite wall in m_Walls)
 				{
-					wall.Enabled = false;
-					wall.ToBeRemoved = true;
-					((Collidable)wall).SpawnDeathEffect(wall.Center);
+					//wall.Enabled = false;
+					//wall.ToBeRemoved = true;
+					//((Collidable)wall).SpawnDeathEffect(wall.Center);
+					TaskQueue q = new TaskQueue();
+					q.addTask(new TaskTimer(Vector2.DistanceSquared(this.Center, wall.Center) / 1638400));
+					q.addTask(new TaskRemove(true));
+					wall.Task = q;
 				}
-				m_Enabled = false;
-				m_ToBeRemoved = true;
+				//m_Enabled = false;
+				//m_ToBeRemoved = true;
+				Task = new TaskRemove(true);
 			}
 		}
 	}
