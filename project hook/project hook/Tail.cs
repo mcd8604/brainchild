@@ -146,11 +146,12 @@ namespace project_hook
 
 			m_TargetObject = p_TargetObject;
 
+			GameTexture tempCR = TextureLibrary.getGameTexture("crosshairsR");
 			tailTarget = new Sprite(
 #if !FINAL
 				"crosshairR",
 #endif
-				new Vector2(0f, 0f), TextureLibrary.getGameTexture("crosshairsR", "").Height, TextureLibrary.getGameTexture("crosshairsR", "").Width, TextureLibrary.getGameTexture("crosshairsR", ""), 0.75f, true, 0f, Depth.GameLayer.Cursor);
+				new Vector2(0f, 0f), tempCR.Height, tempCR.Width, tempCR, 0.75f, true, 0f, Depth.GameLayer.Cursor);
 			tailTarget.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
 			tailTargetNormalTask = new TaskLerpRange(this, m_TargetObject, 400);
 			tailTarget.Task = tailTargetNormalTask;

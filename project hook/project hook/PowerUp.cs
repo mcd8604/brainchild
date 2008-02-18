@@ -144,15 +144,15 @@ namespace project_hook
 
 				if (m_Type == PowerType.Weapon)
 				{
-					Texture = TextureLibrary.getGameTexture("DNA", "");
+					Texture = TextureLibrary.getGameTexture("DNA");
 				}
 				else if (m_Type == PowerType.Health)
 				{
-					Texture = TextureLibrary.getGameTexture("cross", "");
+					Texture = TextureLibrary.getGameTexture("cross");
 				}
 				else if (m_Type == PowerType.Shield)
 				{
-					Texture = TextureLibrary.getGameTexture("Shield", "");
+					Texture = TextureLibrary.getGameTexture("Shield");
 				}
 			}
 		}
@@ -218,7 +218,7 @@ namespace project_hook
 
 			Enabled = false;
 			Faction = Factions.PowerUp;
-			Texture = TextureLibrary.getGameTexture("DNA", "");
+			Texture = TextureLibrary.getGameTexture("DNA");
 			Height = size;
 			Width = size;
 			Radius = size * 0.5f;

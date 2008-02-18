@@ -102,13 +102,13 @@ namespace project_hook
 			m_CycleRemoval = true;
 		}
 
-		private void buildArray(Dictionary<string, GameTexture> dic)
+		private void buildArray(Dictionary<int, GameTexture> dic)
 		{
 			m_FrameCount = dic.Count;
 			m_framesArray = new GameTexture[m_FrameCount];
 			for (int i = 0; i < m_FrameCount; i++)
 			{
-				m_framesArray[i] = dic[i.ToString()];
+				m_framesArray[i] = dic[i];
 			}
 		}
 

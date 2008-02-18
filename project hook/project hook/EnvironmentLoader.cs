@@ -279,25 +279,25 @@ namespace project_hook
 			ColorMap = new Hashtable(15);
 
 			ArrayList gts = new ArrayList(4);
-			gts.Add(TextureLibrary.getGameTexture("walls\\plaque", ""));
-			gts.Add(TextureLibrary.getGameTexture("walls\\plaque2", ""));
-			gts.Add(TextureLibrary.getGameTexture("walls\\plaque3", ""));
-			gts.Add(TextureLibrary.getGameTexture("walls\\plaque4", ""));
+			gts.Add(TextureLibrary.getGameTexture("walls\\plaque"));
+			gts.Add(TextureLibrary.getGameTexture("walls\\plaque2"));
+			gts.Add(TextureLibrary.getGameTexture("walls\\plaque3"));
+			gts.Add(TextureLibrary.getGameTexture("walls\\plaque4"));
 			tile_Wall = new Tile(gts, true);
 			tile_Fake = new Tile(gts, false);
 
-			tile_Right = new Tile(TextureLibrary.getGameTexture("walls\\plaque_right", ""), false);
-			tile_Left = new Tile(TextureLibrary.getGameTexture("walls\\plaque_left", ""), false);
-			tile_Bottom = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm", ""), false);
-			tile_BottomRight = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right", ""), false);
-			tile_BottomRightInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right_invert", ""), false);
-			tile_BottomLeft = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left", ""), false);
-			tile_BottomLeftInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left_invert", ""), false);
-			tile_Top = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top", ""), false);
-			tile_TopRight = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right", ""), false);
-			tile_TopRightInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right_invert", ""), false);
-			tile_TopLeft = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left", ""), false);
-			tile_TopLeftInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert", ""), false);
+			tile_Right = new Tile(TextureLibrary.getGameTexture("walls\\plaque_right"), false);
+			tile_Left = new Tile(TextureLibrary.getGameTexture("walls\\plaque_left"), false);
+			tile_Bottom = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm"), false);
+			tile_BottomRight = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right"), false);
+			tile_BottomRightInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_right_invert"), false);
+			tile_BottomLeft = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left"), false);
+			tile_BottomLeftInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_btm_left_invert"), false);
+			tile_Top = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top"), false);
+			tile_TopRight = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right"), false);
+			tile_TopRightInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_right_invert"), false);
+			tile_TopLeft = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left"), false);
+			tile_TopLeftInvert = new Tile(TextureLibrary.getGameTexture("walls\\plaque_top_left_invert"), false);
 
 			ColorMap.Add(color_Wall.ToArgb(), tile_Wall);
 			ColorMap.Add(color_Solid.ToArgb(), tile_Wall);

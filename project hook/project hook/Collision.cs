@@ -879,21 +879,21 @@ namespace project_hook
 					{
 						if (temp.Bound == Collidable.Boundings.Circle)
 						{
-							Sprite sprite = new Sprite("bound", Vector2.Zero, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc", ""));
+							Sprite sprite = new Sprite("bound", Vector2.Zero, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugcirc"));
 							sprite.Center = temp.Center;
 							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}
 						else if (temp.Bound == Collidable.Boundings.Diamond)
 						{
-							Sprite sprite = new Sprite("bound", Vector2.Zero, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond", ""));
+							Sprite sprite = new Sprite("bound", Vector2.Zero, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugdiamond"));
 							sprite.Center = temp.Center;
 							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
 						}
 						else if (temp.Bound == Collidable.Boundings.Square)
 						{
-							Sprite sprite = new Sprite("bound", Vector2.Zero, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare", ""));
+							Sprite sprite = new Sprite("bound", Vector2.Zero, (int)(temp.Radius * 2), (int)(temp.Radius * 2), TextureLibrary.getGameTexture("debugsquare"));
 							sprite.Center = temp.Center;
 							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);
@@ -914,7 +914,7 @@ namespace project_hook
 								w = h;
 								h = t;
 							}
-							Sprite sprite = new Sprite("bound", Vector2.Zero, h, w, TextureLibrary.getGameTexture("debugrect", ""));
+							Sprite sprite = new Sprite("bound", Vector2.Zero, h, w, TextureLibrary.getGameTexture("debugrect"));
 							sprite.Center = temp.Center;
 							sprite.Task = new TaskAttach(temp);
 							temp.attachSpritePart(sprite);

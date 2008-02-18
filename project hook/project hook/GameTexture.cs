@@ -30,8 +30,8 @@ namespace project_hook
 		}
 
 		//The tag associated with the sprite for the Texture
-		protected String m_Tag;
-		public String Tag
+		protected int m_Tag;
+		public int Tag
 		{
 			get
 			{
@@ -39,7 +39,7 @@ namespace project_hook
 			}
 			set
 			{
-				m_Tag = null;
+				m_Tag = value;
 			}
 		}
 
@@ -144,7 +144,7 @@ namespace project_hook
 		#endregion // End of variables and Properties Region
 
 		//This initializes the Game texture.
-		public GameTexture(String p_Name, String p_Tag, Texture2D p_Texture, Rectangle p_StartPosition)
+		public GameTexture(String p_Name, int p_Tag, Texture2D p_Texture, Rectangle p_StartPosition)
 		{
 			Name = p_Name;
 			Tag = p_Tag;

@@ -78,7 +78,7 @@ namespace project_hook
 #if !FINAL
 				"HealthBar",
 #endif
-				new Vector2(this.Center.X, this.Center.Y), height, width, TextureLibrary.getGameTexture("shieldBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
+				new Vector2(this.Center.X, this.Center.Y), height, width, TextureLibrary.getGameTexture("shieldBar"), 200, true, 0.0f, Depth.HUDLayer.Foreground);
 
 			if (m_Target is PlayerShip)
 			{
@@ -90,10 +90,10 @@ namespace project_hook
 #if !FINAL
 				"HealthBar",
 #endif
-				new Vector2(this.Center.X, this.Center.Y - height), height, width, TextureLibrary.getGameTexture("healthBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
+				new Vector2(this.Center.X, this.Center.Y - height), height, width, TextureLibrary.getGameTexture("healthBar"), 200, true, 0.0f, Depth.HUDLayer.Foreground);
 
 			blackS = new Sprite();
-			blackS.Texture = TextureLibrary.getGameTexture("black", "");
+			blackS.Texture = TextureLibrary.getGameTexture("black");
 			blackS.Z = Depth.HUDLayer.Midground;
 			blackS.Enabled = true;
 			blackS.Width = width;
@@ -101,7 +101,7 @@ namespace project_hook
 			blackS.Alpha = 255;
 
 			blackH = new Sprite();
-			blackH.Texture = TextureLibrary.getGameTexture("black", "");
+			blackH.Texture = TextureLibrary.getGameTexture("black");
 			blackH.Z = Depth.HUDLayer.Midground;
 			blackH.Enabled = true;
 			blackH.Width = width;

@@ -325,7 +325,7 @@ namespace project_hook
 #endif
 			shot.Height = 16;
 			shot.Width = 16;
-			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
+			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", 0);
 			shot.Radius = 8;
 			shot.Damage = 4;
 			shot.Bound = Collidable.Boundings.Circle;
@@ -353,7 +353,7 @@ namespace project_hook
 #endif
 			shot.Height = 10;
 			shot.Width = 30;
-			shot.Texture = TextureLibrary.getGameTexture("Shot", "");
+			shot.Texture = TextureLibrary.getGameTexture("Shot");
 			shot.Radius = 10;
 			shot.Damage = 1.0f;
 			shot.Bound = Collidable.Boundings.Circle;
@@ -368,7 +368,7 @@ namespace project_hook
 #endif
 			shot.Height = 10;
 			shot.Width = 30;
-			shot.Texture = TextureLibrary.getGameTexture("Shot", "");
+			shot.Texture = TextureLibrary.getGameTexture("Shot");
 			shot.Radius = 10;
 			shot.Damage = 1.0f;
 			shot.Bound = Collidable.Boundings.Circle;
@@ -385,7 +385,7 @@ namespace project_hook
 #endif
 			shot.Height = 30;
 			shot.Width = 30;
-			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", "0");
+			shot.Texture = TextureLibrary.getGameTexture("shot_greenball", 0);
 			shot.Radius = 15;
 			shot.Damage = 6f;
 			shot.Bound = Collidable.Boundings.Circle;

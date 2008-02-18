@@ -74,7 +74,7 @@ namespace project_hook
 		// initialize is called by ParticleSystem to set up the particle, and prepares
 		// the particle for use.
 		public void Initialize(Vector2 center, Vector2 velocity, Vector2 acceleration,
-			float lifetime, float scale, float rotationSpeed, String p_Texture, String p_Tag)
+			float lifetime, float scale, float rotationSpeed, String p_Texture, int p_Tag)
 		{
 			// set the values to the requested values
 			Center = center;
@@ -96,7 +96,7 @@ namespace project_hook
 		}
 
 		public void Initialize(Vector2 center, Vector2 velocity, Vector2 acceleration,
-			float lifetime, float scale, float rotationSpeed, String p_Texture, String p_Tag, String p_AnimationName, int p_FPS)
+			float lifetime, float scale, float rotationSpeed, String p_Texture, int p_Tag, String p_AnimationName, int p_FPS)
 		{
 			// set the values to the requested values
 			Center = center;

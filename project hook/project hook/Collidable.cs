@@ -137,7 +137,7 @@ namespace project_hook
 			}
 		}
 
-		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag)
+		public void setDamageEffect(String p_DamageEffectTextureName, int p_Tag)
 		{
 			m_DamageEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
@@ -151,7 +151,7 @@ namespace project_hook
 			m_DamageEffect.Task = EffectTask;
 			addSprite(m_DamageEffect);
 		}
-		public void setDamageEffect(String p_DamageEffectTextureName, String p_Tag, String p_DamageEffectAnimationName, int p_AnimationFPS)
+		public void setDamageEffect(String p_DamageEffectTextureName, int p_Tag, String p_DamageEffectAnimationName, int p_AnimationFPS)
 		{
 			m_DamageEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
@@ -175,7 +175,7 @@ namespace project_hook
 			}
 		}
 
-		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag)
+		public void setDeathEffect(String p_DeathEffectTextureName, int p_Tag)
 		{
 			m_DeathEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
@@ -196,7 +196,7 @@ namespace project_hook
 			m_DeathEffect.Task = EffectTask;
 			addSprite(m_DeathEffect);
 		}
-		public void setDeathEffect(String p_DeathEffectTextureName, String p_Tag, String p_DeathEffectAnimationName, int p_AnimationFPS)
+		public void setDeathEffect(String p_DeathEffectTextureName, int p_Tag, String p_DeathEffectAnimationName, int p_AnimationFPS)
 		{
 			m_DeathEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL

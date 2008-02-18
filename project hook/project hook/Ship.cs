@@ -30,7 +30,7 @@ namespace project_hook
 			}
 		}
 
-		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, String p_Tag)
+		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, int p_Tag)
 		{
 			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
@@ -44,7 +44,7 @@ namespace project_hook
 			m_ShieldDamageEffect.Task = EffectTask;
 			addSprite(m_ShieldDamageEffect);
 		}
-		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, String p_Tag, String p_ShieldDamageEffectAnimationName, int p_AnimationFPS)
+		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, int p_Tag, String p_ShieldDamageEffectAnimationName, int p_AnimationFPS)
 		{
 			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
@@ -100,7 +100,7 @@ namespace project_hook
 #if !FINAL
 							"Shield",
 #endif
-							Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
+							Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield"), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
 						m_ShieldSprite.Center = Center;
 						TaskParallel ShieldTask = new TaskParallel();
 						ShieldTask.addTask(new TaskAttach(this));
@@ -113,7 +113,7 @@ namespace project_hook
 #if !FINAL
 							"Shield Overlay",
 #endif
-							Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield", ""), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
+							Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield"), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
 						m_ShieldOverlay.Center = Center;
 						m_ShieldOverlay.Task = ShieldTask;
 						m_ShieldSprite.Z = this.Z + 0.01f;
