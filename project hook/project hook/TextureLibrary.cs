@@ -24,7 +24,7 @@ namespace project_hook
 	{
 		//This holds a list of all the 2DTexture Objects.
 		//The Key is the name of the Texture asset.
-		private static OrderedDictionary<String, Texture2D> m_Textures;
+		private static Dictionary<String, Texture2D> m_Textures;
 
 		//This stores a reference to all the game textures
 		//The first key is the name of the 2DTexture the GameTexture is using.
@@ -46,7 +46,7 @@ namespace project_hook
 			if (m_Textures == null && m_GameTextures == null)
 			{
 				m_TextureManager = content;//new ContentManager(services);
-				m_Textures = new OrderedDictionary<String, Texture2D>();
+				m_Textures = new Dictionary<String, Texture2D>();
 				m_GameTextures = new OrderedDictionary<string, OrderedDictionary<string, GameTexture>>();
 			}
 		}
@@ -126,21 +126,19 @@ namespace project_hook
 			{
 				return false;
 			}
+			else if (m_Textures.ContainsKey(textureName))
+			{
+#if DEBUG
+				Game.Out.WriteLine("Texture " + textureName + ", load called twice");
+#endif
+				return true;
+			}
 
 			try
 			{
 				Texture2D tTexture = loadTextureByName(textureName);
-
-				if (m_Textures.ContainsKey(textureName))
-				{
-					m_Textures.Replace(textureName, tTexture);
-
-				}
-				else
-				{
-					m_Textures.Add(textureName, tTexture);
-				}
-
+				m_Textures.Add(textureName, tTexture);
+				
 				//This code will load up a textures rectangle Description
 
 				string strFilename = path + textureName + ".xml";

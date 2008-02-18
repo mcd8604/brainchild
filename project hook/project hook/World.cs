@@ -666,7 +666,6 @@ namespace project_hook
 			TextureLibrary.LoadTexture("Enemy1");
 			TextureLibrary.LoadTexture("energyball");
 			TextureLibrary.LoadTexture("energyballpld");
-			TextureLibrary.LoadTexture("shot_greenball");
 			TextureLibrary.LoadTexture("Explosion");
 			TextureLibrary.LoadTexture("Explosion2");
 			TextureLibrary.LoadTexture("ExplosionBig");
