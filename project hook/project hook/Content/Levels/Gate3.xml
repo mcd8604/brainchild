@@ -16,7 +16,7 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<startTile x="22" y="-2"/>
 				<task type="Stationary"/>
 			</gate>
@@ -36,7 +36,7 @@
 				<numCols>7</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<startTile x="1" y="0"/>
 				<task type="Stationary"/>
 			</wall>
@@ -67,7 +67,7 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<startTile x="11" y="-9"/>
 				<task type="Stationary"/>
 			</gate>
@@ -88,7 +88,7 @@
 				<numCols>3</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<startTile x="6" y="-5"/>
 				<task type="Stationary"/>
 			</wall>
@@ -100,7 +100,7 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<startTile x="16" y="-9"/>
 				<task type="Stationary"/>
 			</gate>
@@ -121,7 +121,7 @@
 				<numCols>2</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<startTile x="25" y="-3"/>
 				<task type="Stationary"/>
 			</wall>
@@ -135,7 +135,7 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<startTile x="5" y="-1"/>
 				<task type="Stationary"/>
 			</gate>
@@ -145,7 +145,7 @@
 				<numCols>5</numCols>
 				<faction>Environment</faction>
 				<texture name="walls\plaque"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<startTile x="22" y="-1"/>
 				<task type="Stationary"/>
 			</gate>
