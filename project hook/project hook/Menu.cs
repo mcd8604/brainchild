@@ -234,21 +234,24 @@ namespace project_hook
 
 		protected void setHighlightSprite()
 		{
-			Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
-			if (selSprite is TextSprite)
+			if (m_selectedIndex < m_MenuItemSprites.Count)
 			{
-				foreach (Sprite s in m_MenuItemSprites)
+				Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
+				if (selSprite is TextSprite)
 				{
-					s.Color = Color.White;
+					foreach (Sprite s in m_MenuItemSprites)
+					{
+						s.Color = Color.White;
+					}
+					selSprite.Color = Color.Yellow;
 				}
-				selSprite.Color = Color.Yellow;
-			}
-			else
-			{
-				if (m_HightlightSprite != null)
+				else
 				{
-					m_HightlightSprite.Width = selSprite.Width;
-					m_HightlightSprite.Center = selSprite.Center;
+					if (m_HightlightSprite != null)
+					{
+						m_HightlightSprite.Width = selSprite.Width;
+						m_HightlightSprite.Center = selSprite.Center;
+					}
 				}
 			}
 		}
