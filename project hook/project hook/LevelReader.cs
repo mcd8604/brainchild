@@ -249,6 +249,11 @@ namespace project_hook
 			int numCols = 0;
 			Vector2 startPos = Vector2.Zero;
 			GameTexture texture = null;
+			String deathEffectName = null;
+			String deathEffectTag = null;
+			String deathEffectAnimation = null;
+			int deathEffectFPS = 0;
+
 			Task task = null;
 			Collidable.Factions faction = Collidable.Factions.None;
 
@@ -292,6 +297,26 @@ namespace project_hook
 
 					p_Reader.ReadStartElement("texture");
 				}
+				else if (p_Reader.IsStartElement("deathEffect"))
+				{
+					if (p_Reader.AttributeCount == 1)
+					{
+						deathEffectName = p_Reader.GetAttribute("name");
+					}
+					else if (p_Reader.AttributeCount == 2)
+					{
+						deathEffectName = p_Reader.GetAttribute("name");
+						deathEffectTag = p_Reader.GetAttribute("tag");
+					}
+					else
+					{
+						deathEffectName = p_Reader.GetAttribute("name");
+						deathEffectTag = p_Reader.GetAttribute("tag");
+						deathEffectAnimation = p_Reader.GetAttribute("animation");
+						deathEffectFPS = int.Parse(p_Reader.GetAttribute("fps"));
+					}
+					p_Reader.ReadStartElement("deathEffect");
+				}
 				else if (p_Reader.IsStartElement("task"))
 				{
 					task = readTask(p_Reader);
@@ -328,6 +353,17 @@ namespace project_hook
 						pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension, texture, 0.75f, true, 0, Depth.GameLayer.Gate, faction, float.NaN, EnvironmentLoader.TileDimension / 2);
 					p_Wall.Bound = Collidable.Boundings.Square;
 					p_Wall.Task = task;
+					if (deathEffectName != null)
+					{
+						if (deathEffectAnimation != null)
+						{
+							p_Wall.setDeathEffect(deathEffectName, deathEffectTag, deathEffectAnimation, deathEffectFPS);
+						}
+						else
+						{
+							p_Wall.setDeathEffect(deathEffectName, deathEffectTag);
+						}
+					}
 					wallList.Add(p_Wall);
 				}
 			}

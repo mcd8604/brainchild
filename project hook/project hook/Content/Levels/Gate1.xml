@@ -13,6 +13,7 @@
 			<gate>
 				<name>gate1</name>
 				<texture name="walls\plaque"/>
+				<deathEffect name="ExplosionBig" tag=""/>
 				<startTile x="10" y="-5" />
 				<numRows>4</numRows>
 				<numCols>8</numCols>
@@ -22,6 +23,7 @@
 			<wall>
 				<name>gate1</name>
 				<texture name="walls\plaque_clear"/>
+				<deathEffect name="ExplosionBig" tag=""/>
 				<startTile x="28" y="-2" />
 				<numRows>1</numRows>
 				<numCols>3</numCols>

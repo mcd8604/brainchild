@@ -94,11 +94,13 @@ namespace project_hook
 				{
 					gate.Enabled = false;
 					gate.ToBeRemoved = true;
+					((Collidable)gate).SpawnDeathEffect(gate.Center);
 				}
 				foreach (Sprite wall in m_Walls)
 				{
 					wall.Enabled = false;
 					wall.ToBeRemoved = true;
+					((Collidable)wall).SpawnDeathEffect(wall.Center);
 				}
 				m_Enabled = false;
 				m_ToBeRemoved = true;
