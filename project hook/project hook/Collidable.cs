@@ -445,7 +445,7 @@ namespace project_hook
 			}
 		}
 
-		protected void SpawnDamageEffect(Vector2 where)
+		internal void SpawnDamageEffect(Vector2 where)
 		{
 			if (m_DamageEffect != null)
 			{
@@ -453,7 +453,7 @@ namespace project_hook
 			}
 		}
 
-		protected void SpawnDeathEffect(Vector2 where)
+		internal void SpawnDeathEffect(Vector2 where)
 		{
 			if (m_DeathEffect != null)
 			{
