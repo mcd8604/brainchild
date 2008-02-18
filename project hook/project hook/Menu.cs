@@ -42,7 +42,7 @@ namespace project_hook
 		public virtual void Load()
 		{
 			//background sprite
-			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
+			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName);
 			float xPos = Game.graphics.GraphicsDevice.Viewport.Width * 0.5f;
 			float yPos = Game.graphics.GraphicsDevice.Viewport.Height * 0.5f;
 			m_BackgroundSprite = new Sprite(
@@ -54,7 +54,7 @@ namespace project_hook
 			attachSpritePart(m_BackgroundSprite);
 
 			//cursor sprite
-            GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName, "");
+            GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName);
 			m_MenuCursorSprite = new Sprite(
 #if !FINAL
 				m_MenuCursorName,
@@ -106,7 +106,7 @@ namespace project_hook
 			//create each menu sprite - image textures
 			for (int i = 0; i < m_MenuItemNames.Count; i++)
 			{
-				GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i], "");
+				GameTexture curTexture = TextureLibrary.getGameTexture((String)m_MenuItemNames[i]);
 				float xPos = m_BackgroundSprite.Center.X;
 				float yPos = m_BackgroundSprite.Center.Y;
 				//set position based on other menu sprites
@@ -127,7 +127,7 @@ namespace project_hook
 
 			//create highlight sprite
 			Sprite selSprite = (Sprite)m_MenuItemSprites[m_selectedIndex];
-			GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName, "");
+			GameTexture highlightTexture = TextureLibrary.getGameTexture(m_HighlightName);
 			m_HightlightSprite = new Sprite(
 #if !FINAL
 				m_HighlightName,

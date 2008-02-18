@@ -57,7 +57,7 @@ namespace project_hook
 #if !FINAL
 			String p_Name,
 #endif
-			String p_TextureName, String p_TextureTag, int p_HowManyEffects)
+			String p_TextureName, int p_TextureTag, int p_HowManyEffects)
 			: base(
 #if !FINAL
 			p_Name,
@@ -68,7 +68,7 @@ namespace project_hook
 #if !FINAL
 			String p_Name,
 #endif
-			String p_TextureName, String p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
+			String p_TextureName, int p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
 			: base(
 #if !FINAL
 			p_Name,

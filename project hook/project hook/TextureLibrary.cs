@@ -31,7 +31,7 @@ namespace project_hook
 		//The key for the second Dictionary is the tag that is defined for that area of the texture
 		//Tags and Source rectangles are loaded from the XML file with the same name as the texture.
 		//If no XML file is included the Tag for the Texture will be "" and it's source will be the size of the entire Texture
-		private static Dictionary<String, Dictionary<String, GameTexture>> m_GameTextures;
+		private static Dictionary<String, Dictionary<int, GameTexture>> m_GameTextures;
 
 		//This is passed in from the Game class.
 		private static ContentManager m_TextureManager;
@@ -47,13 +47,28 @@ namespace project_hook
 			{
 				m_TextureManager = content;//new ContentManager(services);
 				m_Textures = new Dictionary<String, Texture2D>();
-				m_GameTextures = new Dictionary<string, Dictionary<string, GameTexture>>();
+				m_GameTextures = new Dictionary<string, Dictionary<int, GameTexture>>();
 			}
+		}
+
+		public static GameTexture getGameTexture(string name)
+		{
+			if (m_GameTextures == null)
+			{
+				return null;
+			}
+
+			GameTexture r_Texture = null;
+			if (m_GameTextures.ContainsKey(name))
+			{
+				r_Texture = (m_GameTextures[name])[0];
+			}
+			return r_Texture;
 		}
 
 		//This method gets a the GameTexture who has the corresponding name and tag.
 		//If no texture is found NULL is returned. If we're in Debug an Exception will be thrown.
-		public static GameTexture getGameTexture(string name, string tag)
+		public static GameTexture getGameTexture(string name, int tag)
 		{
 			//Makes sure the Texture lists have been initialized
 			if (m_GameTextures == null)
@@ -163,8 +178,8 @@ namespace project_hook
 							XmlNodeList nodes = lstRect.Item(i).ChildNodes;
 							int j = 0;
 
-							String name = (String)(nodes.Item(j++).InnerText);
-							String tag = (String)(nodes.Item(j++).InnerText);
+							String name = nodes.Item(j++).InnerText;
+							int tag = int.Parse(nodes.Item(j++).InnerText);
 							int x = int.Parse(nodes.Item(j++).InnerText);
 							int y = int.Parse(nodes.Item(j++).InnerText);
 							int width = int.Parse(nodes.Item(j++).InnerText);
@@ -192,7 +207,7 @@ namespace project_hook
 								for (int col = 0; col < numCols; col++)
 								{
 									int index = (row * numCols) + col;
-									String tag = index.ToString();
+									int tag = index;
 									int x = col * cellWidth;
 									int y = row * cellHeight;
 
@@ -211,8 +226,8 @@ namespace project_hook
 				}
 				else
 				{
-					GameTexture t_GameTexture = new GameTexture(textureName, "", tTexture, new Rectangle(0, 0, tTexture.Width, tTexture.Height));
-					addGameTexture(textureName, "", t_GameTexture);
+					GameTexture t_GameTexture = new GameTexture(textureName, 0, tTexture, new Rectangle(0, 0, tTexture.Width, tTexture.Height));
+					addGameTexture(textureName, 0, t_GameTexture);
 				}
 			}
 			catch (ContentLoadException e)
@@ -233,7 +248,7 @@ namespace project_hook
 			return true;
 		}
 
-		public static Dictionary<String, GameTexture> getSpriteSheet(String name)
+		public static Dictionary<int, GameTexture> getSpriteSheet(String name)
 		{
 			if (m_GameTextures != null && m_GameTextures.ContainsKey(name))
 			{
@@ -246,7 +261,7 @@ namespace project_hook
 		}
 
 		//This method adds the 
-		private static void addGameTexture(string p_name, string p_tag, GameTexture p_GameTexture)
+		private static void addGameTexture(string p_name, int p_tag, GameTexture p_GameTexture)
 		{
 			if (m_GameTextures.ContainsKey(p_name))
 			{
@@ -265,7 +280,7 @@ namespace project_hook
 			}
 			else
 			{
-				Dictionary<String, GameTexture> t_Dic = new Dictionary<string, GameTexture>();
+				Dictionary<int, GameTexture> t_Dic = new Dictionary<int, GameTexture>();
 				t_Dic.Add(p_tag, p_GameTexture);
 				m_GameTextures.Add(p_name, t_Dic);
 			}
@@ -286,10 +301,10 @@ namespace project_hook
 			foreach (String key in m_GameTextures.Keys)
 			{
 
-				Dictionary<String, GameTexture> gd = m_GameTextures[key];
+				Dictionary<int, GameTexture> gd = m_GameTextures[key];
 				Texture2D reload = null;
 
-				foreach (string Key2 in gd.Keys)
+				foreach (int Key2 in gd.Keys)
 				{
 					gd.ContainsKey(Key2);
 					GameTexture gt = gd[Key2];

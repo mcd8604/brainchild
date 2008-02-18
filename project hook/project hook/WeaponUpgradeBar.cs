@@ -38,10 +38,10 @@ namespace project_hook
 #if !FINAL
 				"WeaponBar",
 #endif
-				pos, height, width, TextureLibrary.getGameTexture("WeaponBar", ""), 200, true, 0.0f, Depth.HUDLayer.Foreground);
+				pos, height, width, TextureLibrary.getGameTexture("WeaponBar"), 200, true, 0.0f, Depth.HUDLayer.Foreground);
 
             blackS = new Sprite();
-            blackS.Texture = TextureLibrary.getGameTexture("black", "");
+            blackS.Texture = TextureLibrary.getGameTexture("black");
             blackS.Z = Depth.HUDLayer.Midground;
             blackS.Enabled = true;
             blackS.Width = width;

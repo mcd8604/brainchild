@@ -16,7 +16,7 @@ namespace project_hook
 		{
 			//base.Load();
 
-			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName, "");
+			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName);
 			float xCen = Game.graphics.GraphicsDevice.Viewport.Width * 0.5f;
 			float yCen = Game.graphics.GraphicsDevice.Viewport.Height * 0.5f;
 			m_BackgroundSprite = new Sprite(

@@ -575,7 +575,7 @@ namespace project_hook
 				{
 					if (kill == null)
 					{
-						kill = new Shot("Soul of Zinglon", m_Player.PlayerShip.Center, 250, 4000, TextureLibrary.getGameTexture("Shot", ""), 0.75f, true, -MathHelper.PiOver2, Depth.GameLayer.Shot, Collidable.Factions.Player, 0, 0, 10000);
+						kill = new Shot("Soul of Zinglon", m_Player.PlayerShip.Center, 250, 4000, TextureLibrary.getGameTexture("Shot"), 0.75f, true, -MathHelper.PiOver2, Depth.GameLayer.Shot, Collidable.Factions.Player, 0, 0, 10000);
 						kill.BlendMode = SpriteBlendMode.Additive;
 						kill.Bound = Collidable.Boundings.Rectangle;
 						kill.DestroyedOnCollision = false;
@@ -594,7 +594,7 @@ namespace project_hook
 				}
 				if (InputHandler.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.T))
 				{
-					Thrown T = new Thrown(new Collidable("GeneratedBloodCell", tail.Center, 50, 50, TextureLibrary.getGameTexture("bloodcell", "1"), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Blood, Collidable.Factions.Player, 100, 25));
+					Thrown T = new Thrown(new Collidable("GeneratedBloodCell", tail.Center, 50, 50, TextureLibrary.getGameTexture("bloodcell", 1), 1f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Blood, Collidable.Factions.Player, 100, 25));
 					T.Center = tail.Center;
 					T.setAnimation("bloodcell", 60);
 					T.Animation.StartAnimation();
@@ -744,7 +744,7 @@ namespace project_hook
 		{
 			if (m_Background == null)
 			{
-				m_Background = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg", ""), m_Position);
+				m_Background = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg"), m_Position);
 
 			}
 			AddSprite(m_Background);
@@ -754,7 +754,7 @@ namespace project_hook
 		{
 			if (m_Player == null)
 			{
-				m_Player = new Player("THE_PLAYER", Vector2.Zero, 48, 64, TextureLibrary.getGameTexture("wing", "0"), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
+				m_Player = new Player("THE_PLAYER", Vector2.Zero, 48, 64, TextureLibrary.getGameTexture("wing", 0), 255f, true, 0.0f, Depth.GameLayer.PlayerShip, m_ViewPortSize);
 			}
 			else
 			{
@@ -773,7 +773,7 @@ namespace project_hook
 #if !FINAL
 						"tail_segment",
 #endif
-						Vector2.Zero, 20, 20, TextureLibrary.getGameTexture("tail_segment", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
+						Vector2.Zero, 20, 20, TextureLibrary.getGameTexture("tail_segment"), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.5f;
 					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
@@ -789,7 +789,7 @@ namespace project_hook
 #if !FINAL
 						"shot_energy",
 #endif
-						Vector2.Zero, 10, 10, TextureLibrary.getGameTexture("shot_energy", ""), 64, true, 0.0f, Depth.GameLayer.TailBody);
+						Vector2.Zero, 10, 10, TextureLibrary.getGameTexture("shot_energy"), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.2f;
 					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
@@ -801,7 +801,7 @@ namespace project_hook
 
 			}
 
-			GameTexture cursorTexture = TextureLibrary.getGameTexture("crosshairs", "");
+			GameTexture cursorTexture = TextureLibrary.getGameTexture("crosshairs");
 			Sprite crosshairs = new Sprite(
 #if !FINAL
 				"crosshair",
@@ -811,11 +811,12 @@ namespace project_hook
 			AddSprite(crosshairs);
 
 			AddSprites(m_TailBodySprites);
+			GameTexture temp = TextureLibrary.getGameTexture("temptail");
 			tail = new Tail(
 #if !FINAL
 				"Tail",
 #endif
-				Vector2.Zero, TextureLibrary.getGameTexture("temptail", "").Height, TextureLibrary.getGameTexture("temptail", "").Width, TextureLibrary.getGameTexture("temptail", ""), 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
+				Vector2.Zero, temp.Height, temp.Width, temp, 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
 			tail.Center = m_Player.PlayerShip.Center;
 			AddSprite(tail);
 
@@ -825,7 +826,7 @@ namespace project_hook
 		public void IniHUD()
 		{
 #if !FINAL
-			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel", ""), 0.5f, true, 0f, Depth.HUDLayer.Background);
+			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel"), 0.5f, true, 0f, Depth.HUDLayer.Background);
 			AddSprite(hudPanel);
 
 			Sprite TextFpsExample = new FPSSprite(new Vector2(75, 20), Color.Pink, Depth.HUDLayer.Foreground);

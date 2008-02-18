@@ -283,11 +283,11 @@ namespace project_hook
 					String t_Name = p_Reader.GetAttribute(0);
 					if (p_Reader.AttributeCount == 1)
 					{
-						texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+						texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0));
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), p_Reader.GetAttribute(1));
+						texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), int.Parse(p_Reader.GetAttribute(1)));
 					}
 
 					p_Reader.ReadStartElement("texture");
@@ -400,11 +400,11 @@ namespace project_hook
 					String t_Name = p_Reader.GetAttribute(0);
 					if (p_Reader.AttributeCount == 1)
 					{
-						p_Trigger.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+						p_Trigger.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0));
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						p_Trigger.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), p_Reader.GetAttribute(1));
+						p_Trigger.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), int.Parse(p_Reader.GetAttribute(1)));
 					}
 
 					p_Reader.ReadStartElement("texture");
@@ -659,11 +659,11 @@ namespace project_hook
 					String t_Name = p_Reader.GetAttribute(0);
 					if (p_Reader.AttributeCount == 1)
 					{
-						t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+						t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0));
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), p_Reader.GetAttribute(1));
+						t_Ship.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), int.Parse(p_Reader.GetAttribute(1)));
 					}
 
 					p_Reader.ReadStartElement("texture");
@@ -702,15 +702,15 @@ namespace project_hook
 				{
 					if (p_Reader.AttributeCount == 1)
 					{
-						t_Ship.setDamageEffect(p_Reader.GetAttribute("name"), "");
+						t_Ship.setDamageEffect(p_Reader.GetAttribute("name"), 0);
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						t_Ship.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
+						t_Ship.setDamageEffect(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("tag")));
 					}
 					else
 					{
-						t_Ship.setDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
+						t_Ship.setDamageEffect(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("tag")), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
 					}
 					p_Reader.ReadStartElement("damageEffect");
 				}
@@ -718,15 +718,15 @@ namespace project_hook
 				{
 					if (p_Reader.AttributeCount == 1)
 					{
-						t_Ship.setShieldDamageEffect(p_Reader.GetAttribute("name"), "");
+						t_Ship.setShieldDamageEffect(p_Reader.GetAttribute("name"), 0);
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						t_Ship.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
+						t_Ship.setShieldDamageEffect(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("tag")));
 					}
 					else
 					{
-						t_Ship.setShieldDamageEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
+						t_Ship.setShieldDamageEffect(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("tag")), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
 					}
 					p_Reader.ReadStartElement("shieldDamageEffect");
 				}
@@ -734,15 +734,15 @@ namespace project_hook
 				{
 					if (p_Reader.AttributeCount == 1)
 					{
-						t_Ship.setDeathEffect(p_Reader.GetAttribute("name"), "");
+						t_Ship.setDeathEffect(p_Reader.GetAttribute("name"), 0);
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						t_Ship.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"));
+						t_Ship.setDeathEffect(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("tag")));
 					}
 					else
 					{
-						t_Ship.setDeathEffect(p_Reader.GetAttribute("name"), p_Reader.GetAttribute("tag"), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
+						t_Ship.setDeathEffect(p_Reader.GetAttribute("name"), int.Parse(p_Reader.GetAttribute("tag")), p_Reader.GetAttribute("animation"), int.Parse(p_Reader.GetAttribute("fps")));
 					}
 					p_Reader.ReadStartElement("deathEffect");
 				}
@@ -1060,12 +1060,11 @@ namespace project_hook
 					String t_Name = p_Reader.GetAttribute(0);
 					if (p_Reader.AttributeCount == 1)
 					{
-						shot.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), "");
+						shot.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0));
 					}
 					else if (p_Reader.AttributeCount == 2)
 					{
-						shot.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0),
-																		p_Reader.GetAttribute(1));
+						shot.Texture = TextureLibrary.getGameTexture(p_Reader.GetAttribute(0), int.Parse(p_Reader.GetAttribute(1)));
 					}
 
 					p_Reader.ReadStartElement("texture");
@@ -1111,7 +1110,7 @@ namespace project_hook
 #if !FINAL
 				shot.Name + "_ParticleSystem",
 #endif
-				shot.Texture.Name, "1", 10);
+				shot.Texture.Name, 1, 10);
 			p_Reader.ReadStartElement();
 			while (p_Reader.IsStartElement())
 			{
