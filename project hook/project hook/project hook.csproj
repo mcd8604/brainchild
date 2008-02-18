@@ -457,10 +457,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>MenuTitleScreen</Name>
     </Compile>
-    <Compile Include="TrigHelper.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>TrigHelper</Name>
-    </Compile>
     <Compile Include="VisualEffect.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>VisualEffect</Name>
