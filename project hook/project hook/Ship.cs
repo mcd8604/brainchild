@@ -337,7 +337,7 @@ namespace project_hook
 			//Sound.Play("enemy_hit");
 		}
 
-		protected void SpawnShieldDamageEffect(Vector2 where)
+		internal void SpawnShieldDamageEffect(Vector2 where)
 		{
 			if (m_ShieldDamageEffect != null)
 			{
