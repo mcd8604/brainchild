@@ -31,7 +31,7 @@ namespace project_hook
 		//The key for the second Dictionary is the tag that is defined for that area of the texture
 		//Tags and Source rectangles are loaded from the XML file with the same name as the texture.
 		//If no XML file is included the Tag for the Texture will be "" and it's source will be the size of the entire Texture
-		private static OrderedDictionary<String, OrderedDictionary<String, GameTexture>> m_GameTextures;
+		private static Dictionary<String, Dictionary<String, GameTexture>> m_GameTextures;
 
 		//This is passed in from the Game class.
 		private static ContentManager m_TextureManager;
@@ -47,7 +47,7 @@ namespace project_hook
 			{
 				m_TextureManager = content;//new ContentManager(services);
 				m_Textures = new Dictionary<String, Texture2D>();
-				m_GameTextures = new OrderedDictionary<string, OrderedDictionary<string, GameTexture>>();
+				m_GameTextures = new Dictionary<string, Dictionary<string, GameTexture>>();
 			}
 		}
 
@@ -233,7 +233,7 @@ namespace project_hook
 			return true;
 		}
 
-		public static OrderedDictionary<String, GameTexture> getSpriteSheet(String name)
+		public static Dictionary<String, GameTexture> getSpriteSheet(String name)
 		{
 			if (m_GameTextures != null && m_GameTextures.ContainsKey(name))
 			{
@@ -252,7 +252,10 @@ namespace project_hook
 			{
 				if ((m_GameTextures[p_name]).ContainsKey(p_tag))
 				{
-					m_GameTextures[p_name].Replace(p_tag, p_GameTexture);
+					//does this ever happen?
+					throw new Exception();
+
+					//m_GameTextures[p_name].Replace(p_tag, p_GameTexture);
 				}
 				else
 				{
@@ -262,7 +265,7 @@ namespace project_hook
 			}
 			else
 			{
-				OrderedDictionary<String, GameTexture> t_Dic = new OrderedDictionary<string, GameTexture>();
+				Dictionary<String, GameTexture> t_Dic = new Dictionary<string, GameTexture>();
 				t_Dic.Add(p_tag, p_GameTexture);
 				m_GameTextures.Add(p_name, t_Dic);
 			}
@@ -283,7 +286,7 @@ namespace project_hook
 			foreach (String key in m_GameTextures.Keys)
 			{
 
-				OrderedDictionary<String, GameTexture> gd = m_GameTextures[key];
+				Dictionary<String, GameTexture> gd = m_GameTextures[key];
 				Texture2D reload = null;
 
 				foreach (string Key2 in gd.Keys)
