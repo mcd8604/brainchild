@@ -1,6 +1,6 @@
 
 -Background tearing.- -Fixed -Adam.
 
-Turret 'necks' not lined up with turret 'bases'.
+-Turret 'necks' not lined up with turret 'bases'.- -Fixed -Adam
 
 Sound effects spamming (blood leaking in to wall, or player colliding with uncaptureable enemy).

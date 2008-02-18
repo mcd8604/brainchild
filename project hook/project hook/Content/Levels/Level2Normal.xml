@@ -181,7 +181,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -215,7 +215,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -250,7 +250,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>24</offsetDistance>
 						<offsetAngleDegrees>270</offsetAngleDegrees>
@@ -284,7 +284,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -319,7 +319,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -353,7 +353,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -388,7 +388,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -422,7 +422,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -756,7 +756,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -790,7 +790,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -823,7 +823,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -857,7 +857,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -892,7 +892,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -926,7 +926,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -1099,7 +1099,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -1133,7 +1133,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -1168,7 +1168,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -1202,7 +1202,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -1375,7 +1375,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -1409,7 +1409,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -1444,7 +1444,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -1478,7 +1478,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -1513,7 +1513,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -1547,7 +1547,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -1582,7 +1582,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -1616,7 +1616,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
@@ -1651,7 +1651,7 @@
 					<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
 					<deathEffect name="ExplosionBig"/>
 					<grabbable>false</grabbable>
-					<task type="Stationary"/>
+					<!--<task type="Stationary"/>-->
 					<shipPart>
 						<offsetDistance>-24</offsetDistance>
 						<offsetAngleDegrees>90</offsetAngleDegrees>
@@ -1685,7 +1685,7 @@
 									<target>Player</target>
 									<offset>90</offset>
 								</task>
-								<task type="Stationary"/>
+								<!--<task type="Stationary"/>-->
 							</task>
 						</createShip>
 					</shipPart>
