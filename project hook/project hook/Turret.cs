@@ -44,7 +44,7 @@ namespace project_hook
             BendAmount = p_Bend;
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
+		internal override void Update(Microsoft.Xna.Framework.GameTime p_Time)
         {
 			if (m_StartAngle == float.PositiveInfinity)
             {

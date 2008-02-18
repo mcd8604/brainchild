@@ -119,7 +119,7 @@ namespace project_hook
 			m_CurTime = 0;
 		}
 
-		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
+		internal override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
 			base.Update(p_Time);
 

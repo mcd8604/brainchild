@@ -32,7 +32,7 @@ namespace project_hook
 			}
 		}
 
-		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
+		internal override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
 			base.Update(p_Time);
 			foreach (Sprite s in scrollingSprites)
@@ -45,6 +45,28 @@ namespace project_hook
 				}
 				s.Center = new Vector2(s.Center.X, newY);
 			}
+#if !FINAL
+			DebugCheck();
+#endif
 		}
+
+#if !FINAL
+		private void DebugCheck()
+		{
+
+			foreach (Sprite s in scrollingSprites)
+			{
+				float thisY = s.Center.Y;
+				float nextY = ((Sprite)scrollingSprites[(scrollingSprites.IndexOf(s) + 1) % scrollingSprites.Count]).Center.Y;
+				float diff = nextY - thisY;
+				if (diff > s.Height + 0.0025)
+				{
+					Game.Out.WriteLine("Excessive gap in background tiles: " + (diff - s.Height));
+				}
+			}
+
+		}
+#endif
+
 	}
 }

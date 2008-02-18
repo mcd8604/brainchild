@@ -5,16 +5,16 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class SimpleScore
+	internal class SimpleScore
 	{
 
-		protected float m_Score = 0;
-		public float Score
+		private float m_Score = 0;
+		internal float Score
 		{
 			get { return m_Score; }
 		}
 
-		public void evaluateCollision(Collidable p_Target, Collidable p_Attacker, float p_Damage, bool p_Killed)
+		internal void evaluateCollision(Collidable p_Target, Collidable p_Attacker, float p_Damage, bool p_Killed)
 		{
 
 			if (p_Target.Faction == Collidable.Factions.Environment || p_Attacker.Faction == Collidable.Factions.Environment)
@@ -50,7 +50,7 @@ namespace project_hook
 			}
 		}
 
-		public void reset()
+		internal void reset()
 		{
 			m_Score = 0f;
 		}

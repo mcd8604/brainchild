@@ -136,7 +136,7 @@ namespace project_hook
 			attachSpritePart(m_HightlightSprite);
 		}
 
-		public override void Update(GameTime p_Time)
+		internal override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
 			if (InputHandler.IsActionPressed(Actions.Pause))
@@ -182,7 +182,7 @@ namespace project_hook
 			return false;
 		}
 
-		public override void Draw(SpriteBatch p_SpriteBatch)
+		internal override void Draw(SpriteBatch p_SpriteBatch)
 		{
 			p_SpriteBatch.Begin();
 			base.Draw(p_SpriteBatch);

@@ -70,7 +70,7 @@ namespace project_hook
 			Menus.setCurrentMenu(Menus.MenuScreens.BrainChildLogo);
 		}
 
-		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
+		internal override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
 			base.Update(p_Time);
 			if (InputHandler.HasMouseMoved())

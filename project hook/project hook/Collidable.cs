@@ -322,7 +322,7 @@ namespace project_hook
 		}
 
 
-		public override void Update(GameTime p_Time)
+		internal override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
 
@@ -466,7 +466,7 @@ namespace project_hook
 			return new Collidable(this);
 		}
 
-		public override void Draw(SpriteBatch p_SpriteBatch)
+		internal override void Draw(SpriteBatch p_SpriteBatch)
 		{
 			base.Draw(p_SpriteBatch);
 		}

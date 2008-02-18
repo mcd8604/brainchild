@@ -5,7 +5,7 @@ using Wintellect.PowerCollections;
 
 namespace project_hook
 {
-	public static class Collision
+	internal static class Collision
 	{
 		private static MultiDictionary<Collidable.Factions, Collidable> sorter = new MultiDictionary<Collidable.Factions, Collidable>(true);
 
@@ -13,7 +13,7 @@ namespace project_hook
 		/// Check Everything in lists to see if any collisions have occured.
 		/// </summary>
 		/// <param name="list">the list to check</param>
-		public static void CheckCollisions(params List<Sprite>[] list)
+		internal static void CheckCollisions(params List<Sprite>[] list)
 		{
 
 			foreach (List<Sprite> l in list)
@@ -452,7 +452,7 @@ namespace project_hook
 			return true;
 		}
 
-		public static Vector2 GetMinNonCollidingCenter(Collidable movable, Collidable solid)
+		internal static Vector2 GetMinNonCollidingCenter(Collidable movable, Collidable solid)
 		{
 
 			if (movable.Bound == Collidable.Boundings.Circle)
@@ -807,7 +807,7 @@ namespace project_hook
 		/// attach visual collision bounds to every collidable in the list, that doesn't already have bounds on it.
 		/// </summary>
 		/// <param name="list"></param>
-		public static void DevEnableCollisionDisplay(params List<Sprite>[] list)
+		internal static void DevEnableCollisionDisplay(params List<Sprite>[] list)
 		{
 
 			foreach (List<Sprite> l in list)
@@ -936,7 +936,7 @@ namespace project_hook
 		}
 
 
-		public static void DevDisableCollisionDisplay(params List<Sprite>[] list)
+		internal static void DevDisableCollisionDisplay(params List<Sprite>[] list)
 		{
 			foreach (List<Sprite> l in list)
 			{
@@ -972,7 +972,7 @@ namespace project_hook
 #endif
 
 #if DEBUG
-		public static void SelfTest()
+		internal static void SelfTest()
 		{
 #if TIME
 			System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();

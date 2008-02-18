@@ -4,11 +4,11 @@ using System.Text;
 
 namespace project_hook
 {
-	public class HighScore
+	internal sealed class HighScore
 	{
-		public const int size = 10;
+		internal const int size = 10;
 		private int[] List = new int[size];
-		public int[] Scores
+		internal int[] Scores
 		{
 			get
 			{
@@ -18,7 +18,7 @@ namespace project_hook
 
 		private const string filename = "score.dat";
 
-		public HighScore()
+		internal HighScore()
 		{
 			if (System.IO.File.Exists(filename))
 			{
@@ -45,7 +45,7 @@ namespace project_hook
 
 		}
 
-		public void addScore(int Score)
+		internal void addScore(int Score)
 		{
 
 			int toAdd = Score;
@@ -67,7 +67,7 @@ namespace project_hook
 			}
 		}
 
-		public void load()
+		internal void load()
 		{
 			// TODO, I/O Errors, etc
 			using (System.IO.TextReader reader = new System.IO.StreamReader(filename))
@@ -83,7 +83,7 @@ namespace project_hook
 			}
 		}
 
-		public void save()
+		internal void save()
 		{
 			using (System.IO.TextWriter writer = new System.IO.StreamWriter(filename))
 			{
@@ -96,8 +96,8 @@ namespace project_hook
 		}
 
 
-		const int a = 12345;
-		const int b = 123456;
+		private const int a = 12345;
+		private const int b = 123456;
 
 		private bool check(int v)
 		{

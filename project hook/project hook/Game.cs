@@ -23,7 +23,7 @@ namespace project_hook
 	/// <summary>
 	/// This will be for our main game code
 	/// </summary>
-	public class Game : Microsoft.Xna.Framework.Game
+	public sealed class Game : Microsoft.Xna.Framework.Game
 	{
 		public static GraphicsDeviceManager graphics;
 		ContentManager content;
@@ -32,7 +32,7 @@ namespace project_hook
 		World m_World;
 		Menu m_Menu;
 
-		InputHandlerState m_InputHandler;
+		InputHandlerState m_InputHandlerState;
 
 #if FINAL
 		System.Drawing.Rectangle DefaultClippingBounds;
@@ -46,9 +46,9 @@ namespace project_hook
 
 
 #if DEBUG
-		protected static Random random = new Random(0);
+		private static Random random = new Random(0);
 #else
-		protected static Random random = new Random();
+		private static Random random = new Random();
 #endif
 		public static Random Random
 		{
@@ -67,7 +67,7 @@ namespace project_hook
 		}
 
 
-		public static HighScore HighScores = new HighScore();
+		internal static HighScore HighScores = new HighScore();
 
 
 		public Game()
@@ -108,7 +108,7 @@ namespace project_hook
 
 			Menus.ini();
 			Menus.setCurrentMenu(Menus.MenuScreens.BrainChildLogo);
-			m_InputHandler = InputHandlerState.Menu;
+			m_InputHandlerState = InputHandlerState.Menu;
 
 			base.Initialize();
 
@@ -191,19 +191,19 @@ namespace project_hook
 				if (m_Menu != null)
 				{
 					m_Menu.Load();
-					m_InputHandler = InputHandlerState.Menu;
+					m_InputHandlerState = InputHandlerState.Menu;
 					m_Menu.Enabled = true;
 				}
 				else
 				{
-					m_InputHandler = InputHandlerState.World;
+					m_InputHandlerState = InputHandlerState.World;
 				}
 			}
 
 			//If a menu is loaded
 			if (m_Menu != null)
 			{
-				if (m_InputHandler == InputHandlerState.Menu)
+				if (m_InputHandlerState == InputHandlerState.Menu)
 				{
 					m_Menu.Update(gameTime);
 				}
@@ -256,7 +256,7 @@ namespace project_hook
 			{
 				//This checks if the world is supposed to be receiving key input
 				//If it's not it will just update the game without key input
-				if (m_InputHandler == InputHandlerState.World)
+				if (m_InputHandlerState == InputHandlerState.World)
 				{
 					m_World.checkKeys(gameTime);
 				}
