@@ -8,65 +8,53 @@ namespace project_hook
 {
 	class YScrollingBackground : Sprite
 	{
-		private ArrayList scrollingSprites;
+		private Sprite[] m_SpriteArray;
+		private int m_Size;
 		private WorldPosition m_WorldPosition;
 
 		public YScrollingBackground(GameTexture p_BackgroundTexture, WorldPosition p_WorldPosition)
 			: base(
 #if !FINAL
-			"scrollingBackground",
+				"scrollingBackground",
 #endif
-			new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGroundLayer.Background)
+				new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGroundLayer.Background)
 		{
 			m_WorldPosition = p_WorldPosition;
-			scrollingSprites = new ArrayList((World.m_ViewPortSize.Height / p_BackgroundTexture.Height) + 2);
-			for (int i = 0; i < scrollingSprites.Capacity; i++)
+			m_Size = (int)(Math.Ceiling((float)World.m_ViewPortSize.Height / (float)p_BackgroundTexture.Height) + 1);
+			m_SpriteArray = new Sprite[m_Size];
+			for (int i = 0; i < m_Size; ++i)
 			{
 				Sprite s = new Sprite(
 #if !FINAL
-					"back",
+					"background",
 #endif
-					new Vector2(0.0f, i * p_BackgroundTexture.Height), p_BackgroundTexture.Height, World.m_ViewPortSize.Width, p_BackgroundTexture, 255f, true, 0, Depth.BackGroundLayer.Background);
-				scrollingSprites.Add(s);
-				attachSpritePart(s);
+					new Vector2(0.0f, (i-1) * p_BackgroundTexture.Height), p_BackgroundTexture.Height, World.m_ViewPortSize.Width, p_BackgroundTexture, 1f, true, 0, Depth.BackGroundLayer.Background);
+				m_SpriteArray[i] = s;
+			}
+		}
+
+		internal override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
+		{
+			for (int i = 0; i < m_Size; ++i)
+			{
+				m_SpriteArray[i].Draw(p_SpriteBatch);
 			}
 		}
 
 		internal override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
-			base.Update(p_Time);
-			foreach (Sprite s in scrollingSprites)
+			Vector2 newC = m_SpriteArray[0].Center;
+			newC.Y += m_WorldPosition.BackgroundSpeed * (float)p_Time.ElapsedGameTime.TotalSeconds;
+			if (newC.Y > (m_SpriteArray[0].Height / 2f))
 			{
-				float dist = m_WorldPosition.BackgroundSpeed * (float)p_Time.ElapsedGameTime.TotalSeconds;
-				float newY = s.Center.Y + (dist);
-				if (s.Position.Y >= World.m_ViewPortSize.Height)
-				{
-					newY = ((Sprite)scrollingSprites[(scrollingSprites.IndexOf(s) + 1) % scrollingSprites.Count]).Center.Y - s.Height + (dist);
-				}
-				s.Center = new Vector2(s.Center.X, newY);
+				newC.Y -= m_SpriteArray[0].Height;
 			}
-#if !FINAL
-			DebugCheck();
-#endif
-		}
-
-#if !FINAL
-		private void DebugCheck()
-		{
-
-			foreach (Sprite s in scrollingSprites)
+			m_SpriteArray[0].Center = newC;
+			
+			for (int i = 1; i < m_Size; ++i)
 			{
-				float thisY = s.Center.Y;
-				float nextY = ((Sprite)scrollingSprites[(scrollingSprites.IndexOf(s) + 1) % scrollingSprites.Count]).Center.Y;
-				float diff = nextY - thisY;
-				if (diff > s.Height + 0.0025)
-				{
-					Game.Out.WriteLine("Excessive gap in background tiles: " + (diff - s.Height));
-				}
+				m_SpriteArray[i].Center = new Vector2(m_SpriteArray[i].Center.X, m_SpriteArray[i - 1].Center.Y + m_SpriteArray[i - 1].Height);
 			}
-
 		}
-#endif
-
 	}
 }

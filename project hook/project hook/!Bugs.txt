@@ -1,5 +1,5 @@
 
-Background tearing.
+-Background tearing.- -Fixed -Adam.
 
 Turret 'necks' not lined up with turret 'bases'.
 
