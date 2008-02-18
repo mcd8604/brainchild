@@ -13,7 +13,7 @@
 			<gate>
 				<name>gate2_1</name>
 				<texture name="walls\plaque"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<numRows>4</numRows>
 				<numCols>7</numCols>
 				<startTile x="19" y="-12"/>
@@ -23,7 +23,7 @@
 			<wall>
 				<name>gateBlock1</name>
 				<texture name="walls\plaque_clear"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<numRows>1</numRows>
 				<numCols>2</numCols>
 				<startTile x="14" y="-4"/>
@@ -33,7 +33,7 @@
 			<wall>
 				<name>gateBlock1</name>
 				<texture name="walls\plaque_clear"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<numRows>1</numRows>
 				<numCols>2</numCols>
 				<startTile x="13" y="-3"/>
@@ -43,7 +43,7 @@
 			<wall>
 				<name>gateBlock1</name>
 				<texture name="walls\plaque_clear"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<numRows>1</numRows>
 				<numCols>2</numCols>
 				<startTile x="12" y="-2"/>
@@ -53,7 +53,7 @@
 			<wall>
 				<name>gateBlock1</name>
 				<texture name="walls\plaque_clear"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<numRows>1</numRows>
 				<numCols>1</numCols>
 				<startTile x="12" y="-1"/>
@@ -95,7 +95,7 @@
 				<numCols>20</numCols>
 				<faction>ClearWall</faction>
 				<texture name="walls\plaque_clear"/>
-				<deathEffect name="ExplosionBig" tag=""/>
+				<deathEffect name="ExplosionBig" />
 				<startTile x="9" y="0" />
 				<task type="Stationary"/>
 			</wall>

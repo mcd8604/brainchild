@@ -250,7 +250,7 @@ namespace project_hook
 			Vector2 startPos = Vector2.Zero;
 			GameTexture texture = null;
 			String deathEffectName = null;
-			String deathEffectTag = null;
+			int deathEffectTag = 0;
 			String deathEffectAnimation = null;
 			int deathEffectFPS = 0;
 
@@ -306,12 +306,12 @@ namespace project_hook
 					else if (p_Reader.AttributeCount == 2)
 					{
 						deathEffectName = p_Reader.GetAttribute("name");
-						deathEffectTag = p_Reader.GetAttribute("tag");
+						deathEffectTag = int.Parse(p_Reader.GetAttribute("tag"));
 					}
 					else
 					{
 						deathEffectName = p_Reader.GetAttribute("name");
-						deathEffectTag = p_Reader.GetAttribute("tag");
+						deathEffectTag = int.Parse(p_Reader.GetAttribute("tag"));
 						deathEffectAnimation = p_Reader.GetAttribute("animation");
 						deathEffectFPS = int.Parse(p_Reader.GetAttribute("fps"));
 					}
