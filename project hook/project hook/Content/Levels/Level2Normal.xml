@@ -433,8 +433,8 @@
 	<action tile="68">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>46</radius>
 			<texture name="Enemy1"/>
 			<startCenter x="448" y="0"/>
@@ -539,8 +539,8 @@
 	<action tile="95">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>46</radius>
 			<texture name="Enemy1"/>
 			<startCenter x="320" y="0"/>

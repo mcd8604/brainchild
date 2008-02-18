@@ -11,8 +11,8 @@
 	<action tile="5">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>46</radius>
 			<texture name="Enemy1"/>
 			<startTile x="21" y="0" />
@@ -165,8 +165,8 @@
 		</createSpawnPoint>
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>46</radius>
 			<texture name="Enemy1"/>
 			<startTile x="12" y="0" />
@@ -199,8 +199,8 @@
 		</createShip>
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>46</radius>
 			<texture name="Enemy1"/>
 			<startTile x="25" y="0" />
@@ -570,8 +570,8 @@
 	<action tile="87">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>46</radius>
 			<texture name="Enemy1"/>
 			<startTile x="15" y="0" />
@@ -1193,8 +1193,8 @@
 	<action tile="200">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>46</radius>
 			<texture name="Enemy1"/>
 			<startTile x="16" y="0" />
@@ -1532,8 +1532,8 @@
 	<action tile="258">
 		<createShip>
 			<name>Enemy</name>
-			<height>50</height>
-			<width>75</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>30</radius>
 			<texture name="Enemy1"/>
 			<startTile x="4" y="0"/>
@@ -1580,8 +1580,8 @@
 		</createShip>
 		<createShip>
 			<name>Enemy</name>
-			<height>50</height>
-			<width>75</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>30</radius>
 			<texture name="Enemy1"/>
 			<startTile x="26" y="0"/>
@@ -2037,8 +2037,8 @@
 	<action tile="326">
 		<createShip>
 			<name>W1_E1</name>
-			<height>94</height>
-			<width>93</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>46</radius>
 			<texture name="Enemy1"/>
 			<startTile x="14" y="0" />
@@ -2632,8 +2632,8 @@
 	<action tile="435">
 		<createShip>
 			<name>Enemy</name>
-			<height>50</height>
-			<width>75</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>30</radius>
 			<texture name="Enemy1"/>
 			<startTile x="21" y="24"/>
@@ -2690,8 +2690,8 @@
 		</createShip>
 		<createShip>
 			<name>Enemy</name>
-			<height>50</height>
-			<width>75</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>30</radius>
 			<texture name="Enemy1"/>
 			<startTile x="12" y="24"/>
@@ -3979,8 +3979,8 @@
 	<action tile="554">
 		<createShip>
 			<name>Enemy</name>
-			<height>50</height>
-			<width>75</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>30</radius>
 			<texture name="Enemy1"/>
 			<startTile x="5" y="24"/>
@@ -4037,8 +4037,8 @@
 		</createShip>
 		<createShip>
 			<name>Enemy</name>
-			<height>50</height>
-			<width>75</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>30</radius>
 			<texture name="Enemy1"/>
 			<startTile x="25" y="24"/>
@@ -4097,8 +4097,8 @@
 	<action tile="561">
 		<createShip>
 			<name>Enemy</name>
-			<height>50</height>
-			<width>75</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>30</radius>
 			<texture name="Enemy1"/>
 			<startTile x="5" y="0"/>
@@ -4155,8 +4155,8 @@
 		</createShip>
 		<createShip>
 			<name>Enemy</name>
-			<height>50</height>
-			<width>75</width>
+			<height>28</height>
+			<width>100</width>
 			<radius>30</radius>
 			<texture name="Enemy1"/>
 			<startTile x="25" y="0"/>
