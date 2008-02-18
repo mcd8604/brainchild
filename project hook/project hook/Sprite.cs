@@ -431,7 +431,7 @@ namespace project_hook
 		}
 
 		//This will draw the sprite to the screen
-		public virtual void Draw(SpriteBatch p_SpriteBatch)
+		internal virtual void Draw(SpriteBatch p_SpriteBatch)
 		{
 			if (m_Enabled)
 			{
@@ -457,7 +457,7 @@ namespace project_hook
 		}
 
 		//This update method should be overidden 
-		public virtual void Update(GameTime p_Time)
+		internal virtual void Update(GameTime p_Time)
 		{
 			if (m_Task != null)
 			{

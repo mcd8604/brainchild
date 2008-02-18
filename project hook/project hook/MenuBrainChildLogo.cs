@@ -15,7 +15,7 @@ namespace project_hook
 			m_BackgroundName = "bcg";
 		}
 
-		public override void Update(GameTime p_Time)
+		internal override void Update(GameTime p_Time)
 		{
 			base.Update(p_Time);
 

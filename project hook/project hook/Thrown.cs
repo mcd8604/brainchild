@@ -66,15 +66,14 @@ namespace project_hook
 			}
 		}
 
-		public override void Update(GameTime p_Time)
-		{
-			base.Update(p_Time);
-			//m_LastCollision += (float)p_Time.ElapsedGameTime.TotalSeconds;
-			//m_TimeOut -= (float)p_Time.ElapsedGameTime.TotalSeconds;
-			//if (m_TimeOut < 0)
-			//	Enabled = false;
-
-		}
+		//internal override void Update(GameTime p_Time)
+		//{
+		//    base.Update(p_Time);
+		//    //m_LastCollision += (float)p_Time.ElapsedGameTime.TotalSeconds;
+		//    //m_TimeOut -= (float)p_Time.ElapsedGameTime.TotalSeconds;
+		//    //if (m_TimeOut < 0)
+		//    //	Enabled = false;
+		//}
 
 		public override void RegisterCollision(Collidable p_Other)
 		{

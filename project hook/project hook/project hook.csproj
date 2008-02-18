@@ -126,7 +126,6 @@
       <Name>ExplosionSpriteParticleSystem</Name>
     </Compile>
     <Compile Include="LevelForm.cs">
-      <SubType>Form</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LevelForm</Name>
     </Compile>
@@ -219,10 +218,6 @@
     <Compile Include="LevelReader.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LevelReader</Name>
-    </Compile>
-    <Compile Include="Particle.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Particle</Name>
     </Compile>
     <Compile Include="ParticleSprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -392,10 +387,6 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>GameTexture</Name>
     </Compile>
-    <Compile Include="IMenu.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>IMenu</Name>
-    </Compile>
     <Compile Include="MenuPause.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>MenuPause</Name>
@@ -423,10 +414,6 @@
     <Compile Include="Program.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Program</Name>
-    </Compile>
-    <Compile Include="Score.cs">
-      <XNAUseContentPipeline>false</XNAUseContentPipeline>
-      <Name>Score</Name>
     </Compile>
     <Compile Include="Ship.cs">
       <SubType>Code</SubType>

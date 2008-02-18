@@ -5,30 +5,33 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class WorldPosition
+	internal class WorldPosition
 	{
 		
 		private float m_Speed = 0f;
 		private float m_BackgroundSpeed = 0f ;
 		private float m_Distance = 0f;
 
-		public WorldPosition() { }
-		public WorldPosition( float p_Speed ) {
+		internal WorldPosition() { }
+		internal WorldPosition(float p_Speed)
+		{
 			setSpeed(p_Speed);
 		}
-		public WorldPosition( float p_Speed, float p_StartDistance ) {
+		internal WorldPosition(float p_Speed, float p_StartDistance)
+		{
 			m_Distance = p_StartDistance;
 			setSpeed(p_Speed);
 		}
 
-		public float Distance {
+		internal float Distance
+		{
 			get 
 			{
 				return m_Distance;
 			}
 		}
 
-		public float Speed
+		internal float Speed
 		{
 			get
 			{
@@ -40,7 +43,7 @@ namespace project_hook
 			}
 		}
 
-		public float BackgroundSpeed
+		internal float BackgroundSpeed
 		{
 			get
 			{
@@ -52,18 +55,19 @@ namespace project_hook
 			}
 		}
 
-		public void resetDistance()
+		internal void resetDistance()
 		{
 			m_Distance = 0;
 		}
 
-		public void setSpeed(float p_Speed)
+		internal void setSpeed(float p_Speed)
 		{
 			m_Speed = p_Speed;
 			m_BackgroundSpeed = p_Speed * 0.5f;
 		}
 
-		public void Update(GameTime p_GameTime) {
+		internal void Update(GameTime p_GameTime)
+		{
 			m_Distance += m_Speed * (float)(p_GameTime.ElapsedGameTime.TotalSeconds);
 		}
 

@@ -350,7 +350,7 @@ namespace project_hook
 			}
 		}
 
-		public override void Update(GameTime p_Time)
+		internal override void Update(GameTime p_Time)
 		{
 			switch (StateOfTail)
 			{

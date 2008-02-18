@@ -58,7 +58,24 @@ namespace project_hook
 				}
 			}
 
-			BackgroundLoadingThread = new System.Threading.Thread(WaitLoadNextFile);
+			BackgroundLoadingThread = new System.Threading.Thread(delegate()
+			{
+				string lastName = string.Empty;
+				do
+				{
+					if (m_NextLevel != null && lastName != m_NextLevel.LevelName)
+					{
+						lastName = m_NextLevel.LevelName;
+						m_NextLevel.Load();
+						lock (this) System.Threading.Monitor.Pulse(this);
+					}
+					do
+					{
+						lock (this) System.Threading.Monitor.Wait(this);
+					} while (m_NextLevel == null || lastName == m_NextLevel.LevelName);
+
+				} while (true);
+			});
 			BackgroundLoadingThread.IsBackground = true;
 			BackgroundLoadingThread.Name = "Background Loading Thread";
 			BackgroundLoadingThread.Priority = System.Threading.ThreadPriority.Lowest;
@@ -173,25 +190,6 @@ namespace project_hook
 #endif
 			m_NextLevel = new Level(p_FileName);
 			lock (this) System.Threading.Monitor.Pulse(this);
-		}
-
-		private void WaitLoadNextFile()
-		{
-			string lastName = string.Empty;
-			do
-			{
-				if (m_NextLevel != null && lastName != m_NextLevel.LevelName)
-				{
-					lastName = m_NextLevel.LevelName;
-					m_NextLevel.Load();
-					lock (this) System.Threading.Monitor.Pulse(this);
-				}
-				do
-				{
-					lock (this) System.Threading.Monitor.Wait(this);
-				} while (m_NextLevel == null || lastName == m_NextLevel.LevelName);
-
-			} while (true);
 		}
 
 		/// <summary>

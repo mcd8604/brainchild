@@ -314,7 +314,7 @@ namespace project_hook
 
 
 
-		public override void Draw(SpriteBatch p_SpriteBatch)
+		internal override void Draw(SpriteBatch p_SpriteBatch)
 		{
 			if (Enabled)
 			{

@@ -106,7 +106,7 @@ namespace project_hook
 		}
 
 
-        public override void Update(GameTime p_Time)
+		internal override void Update(GameTime p_Time)
         {
             base.Update(p_Time);
             setBars();
@@ -114,7 +114,7 @@ namespace project_hook
 
         }
 
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
+		internal override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
         {
 			if (weapons != null)
 			{

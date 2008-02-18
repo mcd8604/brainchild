@@ -32,7 +32,7 @@ namespace project_hook
 			m_EventList = p_EventList;
 		}
 
-		public override void Update(Microsoft.Xna.Framework.GameTime p_Time)
+		internal override void Update(Microsoft.Xna.Framework.GameTime p_Time)
 		{
 			base.Update(p_Time);
 

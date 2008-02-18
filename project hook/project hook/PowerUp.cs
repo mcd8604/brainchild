@@ -330,7 +330,7 @@ namespace project_hook
 			}
 		}
 
-		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
+		internal override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
 		{
 			base.Draw(p_SpriteBatch);
 		}

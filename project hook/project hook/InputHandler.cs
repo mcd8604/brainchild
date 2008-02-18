@@ -9,14 +9,14 @@ namespace project_hook
 	/// <summary>
 	/// List of Actions to which keys may be bound and states queried.
 	/// </summary>
-	public enum Actions { Up, Down, Left, Right, ShipPrimary, ShipSecondary, TailPrimary, TailSecondary, Pause, MenuAccept, MenuBack };
+	internal enum Actions { Up, Down, Left, Right, ShipPrimary, ShipSecondary, TailPrimary, TailSecondary, Pause, MenuAccept, MenuBack };
 #if XBOX360
-	public enum GamePadButtons { Up, Down, Left, Right, A, B, Back, LeftShoulder, LeftStick, RightShoulder, RightStick, Start, X, Y };
+	internal enum GamePadButtons { Up, Down, Left, Right, A, B, Back, LeftShoulder, LeftStick, RightShoulder, RightStick, Start, X, Y };
 #else
-	public enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
+	internal enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
 #endif
 
-	public static class InputHandler
+	internal static class InputHandler
 	{
 
 		private static KeyboardState lastKeyboardState = new KeyboardState();
@@ -32,7 +32,7 @@ namespace project_hook
 		private static MultiDictionary<Actions, MouseButtons> MouseMap = new MultiDictionary<Actions, MouseButtons>(false);
 #endif
 
-		public static void LoadDefaultBindings()
+		internal static void LoadDefaultBindings()
 		{
 
 			// Default mappings for now
@@ -77,17 +77,17 @@ namespace project_hook
 		/// </summary>
 		/// <param name="action">The action to bind to.</param>
 		/// <param name="key">The key to bind.</param>
-		public static void AddBinding(Actions action, Keys key)
+		internal static void AddBinding(Actions action, Keys key)
 		{
 			KeyboardMap.Add(action, key);
 		}
 #if XBOX360
-		public static void AddBinding(Actions action, GamePadButtons button)
+		internal static void AddBinding(Actions action, GamePadButtons button)
 		{
 			GamePadMap.Add(action, button);
 		}
 #else
-		public static void AddBinding(Actions action, MouseButtons button)
+		internal static void AddBinding(Actions action, MouseButtons button)
 		{
 			MouseMap.Add(action, button);
 		}
@@ -96,7 +96,7 @@ namespace project_hook
 		/// <summary>
 		/// Request that the KeyHandler read the current state of the hardware devices.
 		/// </summary>
-		public static void Update()
+		internal static void Update()
 		{
 			lastKeyboardState = thisKeyboardState;
 			thisKeyboardState = Keyboard.GetState();
@@ -114,7 +114,7 @@ namespace project_hook
 		/// </summary>
 		/// <param name="action">The action to check.</param>
 		/// <returns>True if any key bound to this action is pressed down.</returns>
-		public static Boolean IsActionDown(Actions action)
+		internal static Boolean IsActionDown(Actions action)
 		{
 			return IsActionDownThis(action);
 		}
@@ -124,7 +124,7 @@ namespace project_hook
 		/// </summary>
 		/// <param name="action">The action to check.</param>
 		/// <returns>True if no keys bound to this action are pressed down.</returns>
-		public static Boolean IsActionUp(Actions action)
+		internal static Boolean IsActionUp(Actions action)
 		{
 			return !IsActionDownThis(action);
 		}
@@ -156,7 +156,7 @@ namespace project_hook
 		/// </summary>
 		/// <param name="action">The action to check.</param>
 		/// <returns>True if the action was up, and is now down.</returns>
-		public static Boolean IsActionPressed(Actions action)
+		internal static Boolean IsActionPressed(Actions action)
 		{
 			return !IsActionDownLast(action) && IsActionDownThis(action);
 		}
@@ -167,7 +167,7 @@ namespace project_hook
 		/// </summary>
 		/// <param name="action">The action to check.</param>
 		/// <returns>True if the action was down, and is now up.</returns>
-		public static Boolean IsActionReleased(Actions action)
+		internal static Boolean IsActionReleased(Actions action)
 		{
 			return IsActionDownLast(action) && !IsActionDownThis(action);
 		}
@@ -274,22 +274,22 @@ namespace project_hook
 #endif
 
 #if XBOX360
-		public static Boolean HasLeftStickMoved()
+		internal static Boolean HasLeftStickMoved()
 		{
 			return thisGamePadState.ThumbSticks.Left != lastGamePadState.ThumbSticks.Left;
 		}
-		public static Vector2 LeftStickPosition
+		internal static Vector2 LeftStickPosition
 		{
 			get
 			{
 				return thisGamePadState.ThumbSticks.Left;
 			}
 		}
-		public static Boolean HasRightStickMoved()
+		internal static Boolean HasRightStickMoved()
 		{
 			return thisGamePadState.ThumbSticks.Left != lastGamePadState.ThumbSticks.Left;
 		}
-		public static Vector2 RightStickPosition
+		internal static Vector2 RightStickPosition
 		{
 			get
 			{
@@ -297,12 +297,12 @@ namespace project_hook
 			}
 		}
 #else
-		public static Boolean HasMouseMoved()
+		internal static Boolean HasMouseMoved()
 		{
 			return (thisMouseState.X != lastMouseState.X) || (thisMouseState.Y != lastMouseState.Y);
 		}
 
-		public static Vector2 MousePosition
+		internal static Vector2 MousePosition
 		{
 			get
 			{
@@ -310,7 +310,7 @@ namespace project_hook
 			}
 		}
 
-		public static Vector2 getMousePosition()
+		internal static Vector2 getMousePosition()
 		{
 				return new Vector2(thisMouseState.X, thisMouseState.Y);
 		}
@@ -323,7 +323,7 @@ namespace project_hook
 		/// </summary>
 		/// <param name="Key">Enumerated value that specifies the key to query.</param>
 		/// <returns>true if the key specified by key is being held down; false otherwise.</returns>
-		public static Boolean IsKeyDown(Keys Key)
+		internal static Boolean IsKeyDown(Keys Key)
 		{
 			return thisKeyboardState.IsKeyDown(Key);
 		}
@@ -333,7 +333,7 @@ namespace project_hook
 		/// </summary>
 		/// <param name="Key">Enumerated value that specifies the key to query.</param>
 		/// <returns>true if the key specified by key is not pressed; false otherwise.</returns>
-		public static Boolean IsKeyUp(Keys Key)
+		internal static Boolean IsKeyUp(Keys Key)
 		{
 			return thisKeyboardState.IsKeyUp(Key);
 		}
@@ -343,7 +343,7 @@ namespace project_hook
 		/// </summary>
 		/// <param name="Key">Enumerated value that specifies the key to query.</param>
 		/// <returns>true if the key specified by key was just pressed; false otherwise.</returns>
-		public static Boolean IsKeyPressed(Keys Key)
+		internal static Boolean IsKeyPressed(Keys Key)
 		{
 			return lastKeyboardState.IsKeyUp(Key) && thisKeyboardState.IsKeyDown(Key);
 		}
@@ -353,7 +353,7 @@ namespace project_hook
 		/// </summary>
 		/// <param name="Key">Enumerated value that specifies the key to query.</param>
 		/// <returns>true if the key specified by key was just released; false otherwise.</returns>
-		public static Boolean IsKeyReleased(Keys Key)
+		internal static Boolean IsKeyReleased(Keys Key)
 		{
 			return lastKeyboardState.IsKeyDown(Key) && thisKeyboardState.IsKeyUp(Key);
 		}

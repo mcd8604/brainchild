@@ -1,3 +1,4 @@
+#if DEBUG
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -103,3 +104,4 @@ namespace project_hook
 		}
 	}
 }
+#endif

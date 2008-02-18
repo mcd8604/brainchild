@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class World
+	public sealed class World
 	{
 		private List<Sprite> m_SpriteList;  // Alpha sprites
 		private List<Sprite> m_SpriteListA; // Additive Sprites;
@@ -26,7 +26,7 @@ namespace project_hook
 
 
 		public static Player m_Player;
-		public static SimpleScore m_Score;
+		internal static SimpleScore m_Score;
 		Tail tail;
 
 		GameState m_PreviousState;
@@ -123,8 +123,8 @@ namespace project_hook
 		#endregion
 
 		public static Rectangle m_ViewPortSize;
-		public static WorldPosition m_Position;
-		public static WorldPosition Position
+		internal static WorldPosition m_Position;
+		internal static WorldPosition Position
 		{
 			get
 			{
@@ -636,10 +636,6 @@ namespace project_hook
 				}
 				p_SpriteBatch.End();
 			}
-
-
-
-
 
 		}
 

@@ -493,7 +493,7 @@ namespace project_hook
 		/// overriden from DrawableGameComponent, Update will update all of the active
 		/// particles.
 		/// </summary>
-		public override void Update(GameTime gameTime)
+		internal override void Update(GameTime gameTime)
 		{
 			// calculate dt, the change in the since the last frame. the particle
 			// updates will use this value.
@@ -523,7 +523,7 @@ namespace project_hook
 		/// overriden from DrawableGameComponent, Draw will use ParticleSampleGame's 
 		/// sprite batch to render all of the active particles.
 		/// </summary>
-		public override void Draw(SpriteBatch p_SpriteBatch)
+		internal override void Draw(SpriteBatch p_SpriteBatch)
 		{
 
 			foreach (ParticleSprite p in particles)
