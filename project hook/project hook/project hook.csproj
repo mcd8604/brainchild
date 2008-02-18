@@ -7,7 +7,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>project_hook</RootNamespace>
-    <AssemblyName>project hook</AssemblyName>
+    <AssemblyName>Cell</AssemblyName>
     <XnaFrameworkVersion>v1.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <ApplicationIcon>Cell.ico</ApplicationIcon>
