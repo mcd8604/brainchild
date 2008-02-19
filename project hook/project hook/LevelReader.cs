@@ -1142,17 +1142,17 @@ namespace project_hook
 
 		private static ExplosionSpriteParticleSystem readShotTrail(XmlReader p_Reader, Shot shot)
 		{
-			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(
+			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem();
 #if !FINAL
-				shot.Name + "_ParticleSystem",
+			esps.Name = shot.Name + "_ParticleSystem";
 #endif
-				shot.Texture.Name, 1, 10);
 			p_Reader.ReadStartElement();
 			while (p_Reader.IsStartElement())
 			{
 				if (p_Reader.IsStartElement("texture"))
 				{
 					esps.TextureName = p_Reader.GetAttribute("name");
+					esps.TextureTag = 0;
 					p_Reader.ReadStartElement("texture");
 				}
 				else if (p_Reader.IsStartElement("animation"))
@@ -1161,6 +1161,12 @@ namespace project_hook
 					esps.AnimationName = p_Reader.GetAttribute("name");
 					esps.AnimationFPS = int.Parse(p_Reader.GetAttribute("fps"));
 					p_Reader.ReadStartElement("animation");
+				}
+				else if (p_Reader.IsStartElement("HowManyEffects"))
+				{
+					p_Reader.ReadStartElement("HowManyEffects");
+					esps.HowManyEffects = int.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("MinNumParticles"))
 				{
@@ -1208,6 +1214,16 @@ namespace project_hook
 				{
 					p_Reader.ReadStartElement("MaxInitialSpeed");
 					esps.MaxInitialSpeed = float.Parse(p_Reader.ReadString());
+					p_Reader.ReadEndElement();
+				}
+				else if (p_Reader.IsStartElement("blendMode"))
+				{
+					esps.BlendMode = readBlendMode(p_Reader);
+				}
+				else if (p_Reader.IsStartElement("transparency"))
+				{
+					p_Reader.ReadStartElement("transparency");
+					esps.Transparency = float.Parse(p_Reader.ReadString());
 					p_Reader.ReadEndElement();
 				}
 			}

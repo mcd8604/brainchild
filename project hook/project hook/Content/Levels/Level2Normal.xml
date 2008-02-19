@@ -1740,6 +1740,7 @@
 					<trail>
 						<texture name="shot_electric"/>
 						<animation name="shot_electric" fps="8"/>
+						<HowManyEffects>10</HowManyEffects>
 						<MinNumParticles>1</MinNumParticles>
 						<MaxNumParticles>100</MaxNumParticles>
 						<MinLifetime>0.1</MinLifetime>
@@ -1748,6 +1749,7 @@
 						<MaxScale>0.05</MaxScale>
 						<MinInitialSpeed>1</MinInitialSpeed>
 						<MaxInitialSpeed>200</MaxInitialSpeed>
+						<blendMode>Additive</blendMode>
 					</trail>
 				</shot>
 			</weapon>

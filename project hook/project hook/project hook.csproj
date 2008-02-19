@@ -1036,6 +1036,11 @@
       <Name>Gate3</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Levels\testboss.xml">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>testboss</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\bcg.png">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
@@ -1058,6 +1063,12 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>energyballpld</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\gas.png">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>gas</Name>
     </Content>
     <Content Include="Content\Textures\Instructions1.PNG">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
