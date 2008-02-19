@@ -321,6 +321,8 @@ namespace project_hook
 
 		#endregion
 
+		protected SpriteParticleSystem() { }
+
 		/// <summary>
 		/// Constructs a new ParticleSystem.
 		/// </summary>
@@ -471,6 +473,7 @@ namespace project_hook
 				where, velocity * direction, acceleration * direction,
 				lifetime, scale, rotationSpeed, TextureName, TextureTag, m_AnimationName, AnimationFPS);
 			}
+			p.Transparency = Transparency;
 		}
 
 		public static float RandomBetween(float min, float max)

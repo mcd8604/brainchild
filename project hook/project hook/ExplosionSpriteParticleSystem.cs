@@ -53,6 +53,8 @@ namespace project_hook
 			}
 		}
 
+		public ExplosionSpriteParticleSystem() {}
+
 		public ExplosionSpriteParticleSystem(
 #if !FINAL
 			String p_Name,
@@ -153,6 +155,8 @@ namespace project_hook
 			esps.MaxNumParticles = MaxNumParticles;
 			esps.MinScale = MinScale;
 			esps.MaxScale = MaxScale;
+			esps.BlendMode = BlendMode;
+			esps.Transparency = Transparency;
 			return esps;
 		}
 

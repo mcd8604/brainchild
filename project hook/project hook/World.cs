@@ -670,6 +670,7 @@ namespace project_hook
 			TextureLibrary.LoadTexture("Explosion2");
 			TextureLibrary.LoadTexture("ExplosionBig");
 			//TextureLibrary.LoadTexture("FireBall");
+			TextureLibrary.LoadTexture("gas");
 			TextureLibrary.LoadTexture("gate");
 			TextureLibrary.LoadTexture("hudPanel");
 			TextureLibrary.LoadTexture("poisonsplat");

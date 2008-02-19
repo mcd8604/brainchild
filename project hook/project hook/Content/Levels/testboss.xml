@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<level>
+	<action tile="0">
+		<changeSpeed>
+			<speed>0</speed>
+		</changeSpeed>
+		<createBoss>
+			<name>Enemy</name>
+			<height>120</height>
+			<width>120</width>
+			<radius>60</radius>
+			<texture name="virus1"/>
+			<startTile x="12" y="0"/>
+			<health>200</health>
+			<shield>200</shield>
+			<damageEffect name="Explosion" tag="3" animation="Explosion" fps="23"/>
+			<shieldDamageEffect name="Explosion2" tag="3" animation="Explosion2" fps="23"/>
+			<shieldRegenDelay>10</shieldRegenDelay>
+			<shieldRegenRate>0.1</shieldRegenRate>
+			<deathEffect name="ExplosionBig"/>
+			<score>500</score>
+			<weapon type="Straight" angle="45">
+				<delay>1</delay>
+				<speed>400</speed>
+				<shot>
+					<damage>4</damage>
+					<height>40</height>
+					<width>40</width>
+					<radius>10</radius>
+					<texture name="gas"/>
+					<trail>
+						<texture name="gas"/>
+						<HowManyEffects>10</HowManyEffects>
+						<MinNumParticles>1</MinNumParticles>
+						<MaxNumParticles>2</MaxNumParticles>
+						<MinLifetime>1</MinLifetime>
+						<MaxLifetime>10</MaxLifetime>
+						<MinScale>0.1</MinScale>
+						<MaxScale>1</MaxScale>
+						<MinInitialSpeed>10</MinInitialSpeed>
+						<MaxInitialSpeed>20</MaxInitialSpeed>
+						<blendMode>Additive</blendMode>
+					</trail>
+				</shot>
+			</weapon>
+			<task type="Parallel">
+				<task type="RepeatingSequence">
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="180" y="0"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1.3</duration>
+						</task>
+					</task>
+					<task type="Parallel">
+						<task type="StraightVelocity">
+							<velocity x="-180" y="0"/>
+						</task>
+						<task type="RepeatingTimer">
+							<duration>1.3</duration>
+						</task>
+					</task>
+				</task>
+				<task type="Stationary"/>
+				<task type="RotateByAngle">
+					<degree>30</degree>
+				</task>
+				<task type="Fire"/>
+			</task>
+		</createBoss>
+	</action>
+</level>
