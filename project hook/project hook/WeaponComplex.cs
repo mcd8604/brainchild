@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class WeaponComplex : Weapon
+	internal class WeaponComplex : Weapon
 	{
 
 		private Sprite m_Target = null;
-		public Sprite Target
+		internal Sprite Target
 		{
 			get
 			{
@@ -23,7 +23,7 @@ namespace project_hook
 
 		// the angle that the shot is to be fired at
 		protected float m_Offset = 0;
-		public float Offset
+		internal float Offset
 		{
 			get
 			{
@@ -34,7 +34,7 @@ namespace project_hook
 				m_Offset = value;
 			}
 		}
-		public float OffsetDegrees
+		internal float OffsetDegrees
 		{
 			get
 			{
@@ -47,7 +47,7 @@ namespace project_hook
 		}
 
 		private Task m_ShotTask;
-		public Task ShotTask
+		internal Task ShotTask
 		{
 			get
 			{
@@ -59,16 +59,16 @@ namespace project_hook
 			}
 		}
 
-		public WeaponComplex(){ }
-		public WeaponComplex(Ship p_Ship): base(p_Ship) { }
+		internal WeaponComplex() { }
+		internal WeaponComplex(Ship p_Ship) : base(p_Ship) { }
 
-		public WeaponComplex(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
+		internal WeaponComplex(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
 			: base(p_Ship, p_Shot, p_Delay, p_Speed)
 		{
 			ShotTask = p_ShotTask;
 		}
 
-		public override void Fire(Ship who)
+		internal override void Fire(Ship who)
 		{
 			if (m_Shots[m_NextShot].Task == null)
 			{

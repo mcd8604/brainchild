@@ -9,7 +9,7 @@ namespace project_hook
 	{
 		double m_Delay = 5;
 
-		public MenuRITLogo()
+		internal MenuRITLogo()
 		{
 			//change to so texture that is is made for our title screen
 			m_BackgroundName = "RITLogo";
@@ -26,11 +26,11 @@ namespace project_hook
 				Menus.setCurrentMenu(Menus.MenuScreens.TitleScreen);
 			}
 		}
-		public override void accept()
+		internal override void accept()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.TitleScreen);
 		}
-		public override void cancel()
+		internal override void cancel()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.TitleScreen);
 		}

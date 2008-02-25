@@ -6,11 +6,11 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class Thrown : Collidable
+	internal class Thrown : Collidable
 	{
 		//private float m_TimeOut = 6f;
 		//private float m_CollideDelay = .00001f;
-		//public float CollideDelay
+		//internal float CollideDelay
 		//{
 		//    get
 		//    {
@@ -20,7 +20,7 @@ namespace project_hook
 
 		//private double m_LastCollision = 0;
 
-		public Thrown(Collidable p_Collidable)
+		internal Thrown(Collidable p_Collidable)
 		{
 			if (p_Collidable.Animation != null)
 			{
@@ -75,7 +75,7 @@ namespace project_hook
 		//    //	Enabled = false;
 		//}
 
-		public override void RegisterCollision(Collidable p_Other)
+		internal override void RegisterCollision(Collidable p_Other)
 		{
 			if (p_Other.Faction == Collidable.Factions.Environment)
 			{

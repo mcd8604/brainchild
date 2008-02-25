@@ -4,10 +4,10 @@ using System.Text;
 
 namespace project_hook
 {
-	class ShipPart : Ship
+	internal class ShipPart : Ship
 	{
 		private bool m_TransfersDamage = false;
-		public bool TransfersDamage
+		internal bool TransfersDamage
 		{
 			get
 			{
@@ -20,7 +20,7 @@ namespace project_hook
 		}
 
 		private Ship m_ParentShip = null;
-		public Ship ParentShip
+		internal Ship ParentShip
 		{
 			get
 			{
@@ -32,9 +32,9 @@ namespace project_hook
 			}
 		}
 
-		public ShipPart() { }
+		internal ShipPart() { }
 
-		public override void RegisterCollision(Collidable p_Other)
+		internal override void RegisterCollision(Collidable p_Other)
 		{
 			if (m_TransfersDamage)
 			{
@@ -50,7 +50,7 @@ namespace project_hook
 			else
 			{
 				base.RegisterCollision(p_Other);
-			}			
+			}
 		}
 	}
 }

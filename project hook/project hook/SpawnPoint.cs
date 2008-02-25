@@ -8,7 +8,7 @@ namespace project_hook
 	class SpawnPoint : Sprite
 	{
 		private Sprite m_SpawnObj;
-		public Sprite SpawnObj
+		internal Sprite SpawnObj
 		{
 			get
 			{
@@ -20,10 +20,10 @@ namespace project_hook
 			}
 		}
 
-		public enum SpawnType { dist, time }
+		internal enum SpawnType { dist, time }
 
 		private SpawnType m_Type = SpawnType.dist;
-		public SpawnType Type
+		internal SpawnType Type
 		{
 			get
 			{
@@ -34,18 +34,18 @@ namespace project_hook
 				m_Type = value;
 			}
 		}
-					
-		private int m_Count=int.MaxValue;
-		public int Count
+
+		private int m_Count = int.MaxValue;
+		internal int Count
 		{
 			get
 			{
 				return m_Count;
 			}
 
-			set			
+			set
 			{
-			    m_Count = value;
+				m_Count = value;
 			}
 		}
 		private int m_CurIndex;
@@ -53,20 +53,20 @@ namespace project_hook
 		private float m_CurTime;
 
 		private float m_Delay;
-        public float Delay
-        {
-            get
-            {
-                return m_Delay;
-            }
-            set
-            {
-                m_Delay = value;
-            }
-        }
+		internal float Delay
+		{
+			get
+			{
+				return m_Delay;
+			}
+			set
+			{
+				m_Delay = value;
+			}
+		}
 
 		private int m_MinX;
-		public int MinX
+		internal int MinX
 		{
 			get
 			{
@@ -79,7 +79,7 @@ namespace project_hook
 		}
 
 		private int m_MaxX;
-		public int MaxX
+		internal int MaxX
 		{
 			get
 			{
@@ -95,23 +95,23 @@ namespace project_hook
 
 		private float m_LastTime;
 
-		public SpawnPoint()
+		internal SpawnPoint()
 		{
 			m_LastPos = 0;
 			m_CurIndex = 0;
 		}
 
-        public SpawnPoint(int p_Count, float p_Delay)
-        {
-            Count = p_Count;
-            Delay = p_Delay;
+		internal SpawnPoint(int p_Count, float p_Delay)
+		{
+			Count = p_Count;
+			Delay = p_Delay;
 			m_LastPos = 0;
 			m_LastTime = 0;
 			m_CurTime = 0;
-        }
+		}
 
-		public SpawnPoint(int count, float delay, Collidable p_SpawnObj)
-		{			
+		internal SpawnPoint(int count, float delay, Collidable p_SpawnObj)
+		{
 			Count = count;
 			m_Delay = delay;
 			m_LastPos = 0;
@@ -147,14 +147,14 @@ namespace project_hook
 			//        addSprite(m_SpawnObj.copy());
 			//    }
 			//}
-			if (((m_LastPos + m_Delay <= World.m_Position.Distance && m_Type == SpawnType.dist) || (m_LastTime + m_Delay <= m_CurTime && m_Type == SpawnType.time)) && m_CurIndex < m_Count)
+			if (((m_LastPos + m_Delay <= World.Position.Distance && m_Type == SpawnType.dist) || (m_LastTime + m_Delay <= m_CurTime && m_Type == SpawnType.time)) && m_CurIndex < m_Count)
 			{
-				m_LastPos = World.m_Position.Distance;
+				m_LastPos = World.Position.Distance;
 				m_LastTime = m_CurTime;
 				++m_CurIndex;
 
 				addSprite(m_SpawnObj.copy());
-			}	
+			}
 		}
 	}
 }

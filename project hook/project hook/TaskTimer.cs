@@ -8,7 +8,7 @@ namespace project_hook
 	class TaskTimer : Task
 	{
 		private float m_Duration = 0f;
-		public float Duration
+		internal float Duration
 		{
 			get
 			{
@@ -21,19 +21,19 @@ namespace project_hook
 			}
 		}
 		private float m_DurationRemaining = 0f;
-		public float DurationRemaining
+		internal float DurationRemaining
 		{
 			get
 			{
 				return m_DurationRemaining;
 			}
 		}
-		public TaskTimer() { }
-		public TaskTimer(float p_Duration)
+		internal TaskTimer() { }
+		internal TaskTimer(float p_Duration)
 		{
 			Duration = p_Duration;
 		}
-		public override bool IsComplete(Sprite on)
+		internal override bool IsComplete(Sprite on)
 		{
 			return DurationRemaining <= 0;
 		}
@@ -41,11 +41,11 @@ namespace project_hook
 		{
 			m_DurationRemaining -= (float)at.ElapsedGameTime.TotalSeconds;
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskTimer(m_Duration);
 		}
-		public override void reset()
+		internal override void reset()
 		{
 			m_DurationRemaining = m_Duration;
 		}

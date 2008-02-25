@@ -5,12 +5,12 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class WeaponSeek : Weapon
+	internal class WeaponSeek : Weapon
 	{
 		private Sprite m_LastTarget = null;
 
 		private Sprite m_Target = null;
-		public Sprite Target
+		internal Sprite Target
 		{
 			get
 			{
@@ -22,17 +22,17 @@ namespace project_hook
 			}
 		}
 
-		public Vector2 m_Position = Vector2.Zero;
+		internal Vector2 m_Position = Vector2.Zero;
 
-		Task m_ShotTask;
+		private Task m_ShotTask;
 
-		public WeaponSeek() { }
+		internal WeaponSeek() { }
 
-		public WeaponSeek(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed)
+		internal WeaponSeek(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed)
 			: base(p_Ship, p_Shot, p_Delay, p_Speed)
 		{ }
 
-		public override void Fire(Ship who)
+		internal override void Fire(Ship who)
 		{
 			if (m_LastTarget != Target || m_LastSpeed != Speed)
 			{

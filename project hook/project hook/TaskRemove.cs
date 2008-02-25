@@ -5,12 +5,12 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskRemove : Task
+	internal class TaskRemove : Task
 	{
 		private bool m_Explode = false;
 
-		public TaskRemove() { }
-		public TaskRemove(bool p_ShouldExplode) { m_Explode = p_ShouldExplode; }
+		internal TaskRemove() { }
+		internal TaskRemove(bool p_ShouldExplode) { m_Explode = p_ShouldExplode; }
 		protected override void Do(Sprite on, GameTime at)
 		{
 			if (m_Explode && on is Collidable && World.isSpriteVisible(on))
@@ -20,7 +20,7 @@ namespace project_hook
 			on.Enabled = false;
 			on.ToBeRemoved = true;
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskRemove();
 		}

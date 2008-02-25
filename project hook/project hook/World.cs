@@ -8,30 +8,29 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public sealed class World
+	internal sealed class World
 	{
-		private List<Sprite> m_SpriteList;  // Alpha sprites
-		private List<Sprite> m_SpriteListA; // Additive Sprites;
+		private readonly List<Sprite> m_SpriteList = new List<Sprite>();  // Alpha sprites
+		private readonly List<Sprite> m_SpriteListA = new List<Sprite>(); // Additive Sprites;
 		private static Boolean primaryRight = true;
 
-		public List<Sprite> getSpriteList()
+		internal static List<Sprite> getAllSprites()
 		{
 			List<Sprite> l = new List<Sprite>();
-			l.AddRange(m_SpriteList.GetRange(0, m_SpriteList.Count));
-			l.AddRange(m_SpriteListA.GetRange(0, m_SpriteListA.Count));
+			l.AddRange(Instance.m_SpriteList);
+			l.AddRange(Instance.m_SpriteListA);
 			return l;
 		}
 
 		private YScrollingBackground m_Background;
 
-
-		public static Player m_Player;
+		internal static Player m_Player;
 		internal static SimpleScore m_Score;
-		Tail tail;
+		private Tail tail;
 
-		GameState m_PreviousState;
-		GameState m_State = GameState.Nothing;
-		public GameState State
+		private GameState m_PreviousState;
+		private GameState m_State = GameState.Nothing;
+		internal GameState State
 		{
 			get
 			{
@@ -39,7 +38,7 @@ namespace project_hook
 			}
 		}
 
-		public enum GameState
+		internal enum GameState
 		{
 			Nothing,
 			DoNotRender,
@@ -55,7 +54,7 @@ namespace project_hook
 
 		#region World States
 		private static Boolean m_CreateWorld = false;
-		public static Boolean CreateWorld
+		internal static Boolean CreateWorld
 		{
 			get
 			{
@@ -68,7 +67,7 @@ namespace project_hook
 		}
 
 		private static Boolean m_RestartLevel = false;
-		public static Boolean RestartLevel
+		internal static Boolean RestartLevel
 		{
 			get
 			{
@@ -81,7 +80,7 @@ namespace project_hook
 		}
 
 		private static Boolean m_destroyWorld;
-		public static Boolean DestroyWorld
+		internal static Boolean DestroyWorld
 		{
 			get
 			{
@@ -94,7 +93,7 @@ namespace project_hook
 		}
 
 		private static Boolean m_ResumeWorld;
-		public static Boolean ResumeWorld
+		internal static Boolean ResumeWorld
 		{
 			get
 			{
@@ -106,7 +105,7 @@ namespace project_hook
 			}
 		}
 
-		public static Boolean PlayerDead
+		internal static Boolean PlayerDead
 		{
 			get
 			{
@@ -122,29 +121,23 @@ namespace project_hook
 		}
 		#endregion
 
-		public static Rectangle m_ViewPortSize;
-		internal static WorldPosition m_Position;
-		internal static WorldPosition Position
-		{
-			get
-			{
-				return m_Position;
-			}
-		}
+		private static Rectangle m_ViewPortSize;
+		internal static readonly WorldPosition Position = new WorldPosition(80f);
 
-		LevelReader m_LReader;
-		LevelHandler m_LHandler;
-		EnvironmentLoader m_ELoader;
+		private LevelReader m_LReader;
+		private LevelHandler m_LHandler;
+		private EnvironmentLoader m_ELoader;
 
-		public static World m_World;
+		private static World Instance;
 
 		private static Vector2 target;
-		public static Vector2 getTarget(){
+		internal static Vector2 getTarget()
+		{
 			return target;
 		}
 
 #if DEBUG
-		TextSprite listsize = new TextSprite("", new Vector2(100, 50), Color.LightCyan, Depth.HUDLayer.Foreground);
+		TextSprite listsize = new TextSprite("", new Vector2(100, 50), Color.LightCyan, Depth.MenuLayer.Text);
 		bool DisplayCollision = false;
 		int RemovedWhileVisibleCount = 0;
 #endif
@@ -153,34 +146,35 @@ namespace project_hook
 #endif
 #if TIME
 		System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
-		TextSprite coll = new TextSprite("", new Vector2(300, 20), Color.GreenYellow, Depth.HUDLayer.Foreground);
-		TextSprite updt = new TextSprite("", new Vector2(300, 50), Color.SeaShell, Depth.HUDLayer.Foreground);
+		TextSprite coll = new TextSprite("", new Vector2(300, 20), Color.GreenYellow, Depth.MenuLayer.Text);
+		TextSprite updt = new TextSprite("", new Vector2(300, 50), Color.SeaShell, Depth.MenuLayer.Text);
 		double colltotal;
 		int collcount;
 		double updttotal;
 		int updtcount;
 #endif
 
-		public World(Rectangle p_DrawArea)
+		internal World(Rectangle p_DrawArea)
 		{
-			m_World = this;
+			Instance = this;
 			m_ViewPortSize = p_DrawArea;
-			m_SpriteList = new List<Sprite>();
-			m_SpriteListA = new List<Sprite>();
-			m_Position = new WorldPosition(80f);
+
 			LoadTextures();
-			m_ELoader = new EnvironmentLoader();
 			IniDefaults();
+
 			Music.Initialize();
 			Sound.Initialize();
 			Music.Play("bg2");
+
+			m_ELoader = new EnvironmentLoader();
+			AddSprite(m_ELoader.Environment);
 
 			AddSprite(new BloodCellGenerator(4));
 		}
 
 		//This method will load the level
 		//This will load the level defintion into memory
-		public void loadLevel()
+		internal void loadLevel()
 		{
 #if DEBUG
 			string[] levels = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Levels", "*.xml");
@@ -190,50 +184,43 @@ namespace project_hook
 			}
 			LevelForm f = new LevelForm(levels);
 			System.Windows.Forms.DialogResult result = f.ShowDialog();
-			if (result == System.Windows.Forms.DialogResult.OK)
-			{
-				m_ELoader = new EnvironmentLoader();
-				AddSprites(m_ELoader.CurrentView);
-				m_LReader = new LevelReader((String)f.getLevel());
-				m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
-			}
-			else if (result == System.Windows.Forms.DialogResult.Cancel)
+			if (result != System.Windows.Forms.DialogResult.OK)
 			{
 				Environment.Exit(Environment.ExitCode);
+				
 			}
+			m_LReader = new LevelReader(f.getLevel());
 #else
-			m_ELoader = new EnvironmentLoader();
-			AddSprites(m_ELoader.CurrentView);
 			m_LReader = new LevelReader("Level1Normal.xml");
-			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 #endif
+			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 
-		public void restartLevel()
+		internal void restartLevel()
 		{
-			m_SpriteList = new List<Sprite>();
-			m_SpriteListA = new List<Sprite>();
-			m_Position.resetDistance();
-			m_Position.setSpeed(1);
+			m_SpriteList.Clear();
+			m_SpriteListA.Clear();
+			Position.resetDistance();
+			Position.setSpeed(1);
 			m_ELoader.resetLevel();
-			AddSprites(m_ELoader.CurrentView);
+			AddSprite(m_ELoader.Environment);
 			m_LReader = new LevelReader(m_LReader.FileName);
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 			IniDefaults();
-            AddSprite(new BloodCellGenerator(4));
+			AddSprite(new BloodCellGenerator(4));
 		}
 
-		public static void togglePrimaryRight()
+		internal static void togglePrimaryRight()
 		{
 			primaryRight = !primaryRight;
 		}
 
-		public static Boolean getPrimaryRight()
+		internal static Boolean getPrimaryRight()
 		{
 			return primaryRight;
 		}
 		//This will deallocate any variables that need de allocation
-		public void unload()
+		internal void unload()
 		{
 			//m_World = null;
 		}
@@ -244,16 +231,14 @@ namespace project_hook
 
 		//This will update the game world.  
 		//Different update methdos can be run based on the game state.
-		public void update(GameTime p_GameTime)
+		internal void update(GameTime p_GameTime)
 		{
 			//This will be for normal everyday update operations.  
 			if (m_State == GameState.Running)
 			{
-				m_LHandler.CheckEvents(m_Position.Distance);
+				m_LHandler.CheckEvents(Position.Distance);
 
-				m_Position.Update(p_GameTime);
-
-				m_ELoader.Update(p_GameTime);
+				Position.Update(p_GameTime);
 
 				m_Player.UpdatePlayer(p_GameTime);
 
@@ -385,7 +370,7 @@ namespace project_hook
 #endif
 
 #if DEBUG
-				listsize.Text = /*"A: " + (m_SpriteList.Count + m_SpriteListA.Count) +*/ " S: " + (m_SpriteList.Count - EnvironmentLoader.TileCount) + " A: " + m_SpriteListA.Count.ToString();
+				listsize.Text = "S: " + m_SpriteList.Count + " A: " + m_SpriteListA.Count.ToString();
 #endif
 
 				if (m_Player.PlayerShip.Center.X < m_ViewPortSize.X ||
@@ -426,7 +411,7 @@ namespace project_hook
 			}
 		}
 
-		public void checkKeys(GameTime p_GameTime)
+		internal void checkKeys(GameTime p_GameTime)
 		{
 
 			// Allows the game to exit
@@ -485,10 +470,12 @@ namespace project_hook
 				{
 					target = InputHandler.MousePosition;
 				}
+#if XBOX360
 				else if (InputHandler.HasRightStickMoved())
 				{
 					target = tail.Center + Vector2.Multiply(InputHandler.RightStickPosition, 400);
 				}
+#endif
 #if DEBUG
 				if(InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.J))
 				{
@@ -520,27 +507,33 @@ namespace project_hook
 
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.End))
 				{
-					m_Position.setSpeed(m_Position.Speed * 200f);
+					int highest = 0;
+					foreach ( int i in m_LHandler.Events.Keys ) {
+						if (i > highest) {
+							highest = i;
+						}
+					}
+					Position.Distance = highest;
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Home))
 				{
-					m_Position.setSpeed(80);
+					Position.setSpeed(80);
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageUp))
 				{
-					m_Position.setSpeed(m_Position.Speed * 2f);
+					Position.setSpeed(Position.Speed * 2f);
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.PageDown))
 				{
-					m_Position.setSpeed(m_Position.Speed * 0.5f);
+					Position.setSpeed(Position.Speed * 0.5f);
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Scroll))
 				{
-					m_Position.setSpeed(0);
+					Position.setSpeed(0);
 				}
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
 				{
-					Game.Out.WriteLine(m_Position.Distance.ToString() + ", " + (m_Position.Distance / (float)EnvironmentLoader.TileDimension));
+					Game.Out.WriteLine(Position.Distance.ToString() + ", " + (Position.Distance / (float)EnvironmentLoader.TileDimension));
 				}
 #if CHEAT
 				if (InputHandler.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.U))
@@ -619,14 +612,14 @@ namespace project_hook
 		//This method will be called to change the games state.
 		//This method will determine what actions need to be executed
 		//to change to the new state.
-		public void changeState(GameState p_State)
+		internal void changeState(GameState p_State)
 		{
 			m_PreviousState = m_State;
 			m_State = p_State;
 		}
 
 		//This will draw the 
-		public void draw(SpriteBatch p_SpriteBatch)
+		internal void draw(SpriteBatch p_SpriteBatch)
 		{
 			if (!(m_State == GameState.DoNotRender))
 			{
@@ -654,7 +647,7 @@ namespace project_hook
 		}
 
 		//This method will load textures
-		public void LoadTextures()
+		internal void LoadTextures()
 		{
 			//TextureLibrary.LoadTexture("blood");
 			TextureLibrary.LoadTexture("bloodcell");
@@ -738,20 +731,20 @@ namespace project_hook
 
 			IniHUD();
 
-			PowerUp.iniPowerups();
+			AddSprites(PowerUp.iniPowerups());
 		}
 
-		public void IniBackground()
+		internal void IniBackground()
 		{
 			if (m_Background == null)
 			{
-				m_Background = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg"), m_Position);
+				m_Background = new YScrollingBackground(TextureLibrary.getGameTexture("veinbg"), Position, m_ViewPortSize);
 
 			}
 			AddSprite(m_Background);
 		}
 
-		public void IniPlayer()
+		internal void IniPlayer()
 		{
 			if (m_Player == null)
 			{
@@ -774,7 +767,7 @@ namespace project_hook
 #if !FINAL
 						"tail_segment",
 #endif
-						Vector2.Zero, 20, 20, TextureLibrary.getGameTexture("tail_segment"), 64, true, 0.0f, Depth.GameLayer.TailBody);
+Vector2.Zero, 20, 20, TextureLibrary.getGameTexture("tail_segment"), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.5f;
 					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
@@ -790,7 +783,7 @@ namespace project_hook
 #if !FINAL
 						"shot_energy",
 #endif
-						Vector2.Zero, 10, 10, TextureLibrary.getGameTexture("shot_energy"), 64, true, 0.0f, Depth.GameLayer.TailBody);
+Vector2.Zero, 10, 10, TextureLibrary.getGameTexture("shot_energy"), 64, true, 0.0f, Depth.GameLayer.TailBody);
 					tailBodySprite.Center = m_Player.PlayerShip.Center;
 					tailBodySprite.Transparency = 0.2f;
 					tailBodySprite.BlendMode = SpriteBlendMode.Additive;
@@ -807,7 +800,7 @@ namespace project_hook
 #if !FINAL
 				"crosshair",
 #endif
-				Vector2.Zero, cursorTexture.Height, cursorTexture.Width, cursorTexture, 1f, true, 0f, Depth.GameLayer.Cursor);
+Vector2.Zero, cursorTexture.Height, cursorTexture.Width, cursorTexture, 1f, true, 0f, Depth.GameLayer.Cursor);
 			crosshairs.Task = new TaskAttachTo(World.getTarget);
 			AddSprite(crosshairs);
 
@@ -817,20 +810,20 @@ namespace project_hook
 #if !FINAL
 				"Tail",
 #endif
-				Vector2.Zero, temp.Height, temp.Width, temp, 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
+Vector2.Zero, temp.Height, temp.Width, temp, 100f, true, 0f, Depth.GameLayer.Tail, Collidable.Factions.Player, float.NaN, 25, m_Player.PlayerShip, 1, m_TailBodySprites, crosshairs);
 			tail.Center = m_Player.PlayerShip.Center;
 			AddSprite(tail);
 
 			m_Player.PlayerShip.TailSprite = tail;
 		}
 
-		public void IniHUD()
+		internal void IniHUD()
 		{
 #if !FINAL
-			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel"), 0.5f, true, 0f, Depth.HUDLayer.Background);
+			Sprite hudPanel = new Sprite("hudPanel", Vector2.Zero, 64, Game.graphics.GraphicsDevice.Viewport.Width, TextureLibrary.getGameTexture("hudPanel"), 0.5f, true, 0f, Depth.MenuLayer.Background);
 			AddSprite(hudPanel);
 
-			Sprite TextFpsExample = new FPSSprite(new Vector2(75, 20), Color.Pink, Depth.HUDLayer.Foreground);
+			Sprite TextFpsExample = new FPSSprite(new Vector2(75, 20), Color.Pink, Depth.MenuLayer.Text);
 			AddSprite(TextFpsExample);
 #if DEBUG
 			AddSprite(listsize);
@@ -842,17 +835,17 @@ namespace project_hook
 #endif
 			m_Score = new SimpleScore();
 #if FINAL
-			Sprite score = new TextSprite(m_Score.ToString, new Vector2(820, 700), Color.Black, Depth.HUDLayer.Foreground);
+			Sprite score = new TextSprite(m_Score.ScoreString, new Vector2(820, 700), Color.Black, Depth.HUDLayer.Bar);
 #else
-			Sprite score = new TextSprite(m_Score.ToString, new Vector2(820, 0), Color.LightBlue, Depth.HUDLayer.Foreground);
+			Sprite score = new TextSprite(m_Score.ScoreString, new Vector2(820, 0), Color.LightBlue, Depth.MenuLayer.Text);
 #endif
 			AddSprite(score);
-			
+
 #if DEBUG
-			Sprite P = new TextSprite(m_Player.PlayerShip.GetHealth, new Vector2(420, 0), Color.LightSalmon, Depth.HUDLayer.Foreground);
+			Sprite P = new TextSprite(m_Player.PlayerShip.GetHealthString, new Vector2(420, 0), Color.LightSalmon, Depth.MenuLayer.Text);
 			AddSprite(P);
 
-			Sprite u = new TextSprite(m_Player.PlayerShip.GetUpgradeLevel, new Vector2(450, 25), Color.Beige, Depth.HUDLayer.Foreground);
+			Sprite u = new TextSprite(m_Player.PlayerShip.GetUpgradeLevelString, new Vector2(450, 25), Color.Beige, Depth.MenuLayer.Text);
 			AddSprite(u);
 #endif
 			//PowerUp p = new PowerUp(50, 12, new Vector2(50, 50));
@@ -867,14 +860,14 @@ namespace project_hook
 			//AddSprite(sp);
 		}
 
-		public void ChangeFile(String p_FileName)
+		internal void ChangeFile(String p_FileName)
 		{
 			m_LReader = new LevelReader(p_FileName);
-			m_Position.resetDistance();
+			Position.resetDistance();
 			m_LHandler = new LevelHandler(m_LReader.ReadFile(), this);
 		}
 
-		public void AddSprite(Sprite p_Sprite)
+		internal void AddSprite(Sprite p_Sprite)
 		{
 			if (p_Sprite.BlendMode == SpriteBlendMode.AlphaBlend)
 			{
@@ -885,7 +878,7 @@ namespace project_hook
 				m_SpriteListA.Add(p_Sprite);
 			}
 		}
-		public void AddSprites(IEnumerable<Sprite> p_Sprites)
+		internal void AddSprites(IEnumerable<Sprite> p_Sprites)
 		{
 			foreach (Sprite s in p_Sprites)
 			{
@@ -893,19 +886,19 @@ namespace project_hook
 			}
 		}
 
-		public void LoadBMP(String p_FileName)
+		internal void LoadBMP(String p_FileName)
 		{
 			m_ELoader.NewFile(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName);
 			m_ELoader.resetLevelIfEmpty();
 		}
-		public void PleaseLoadBMP(String p_FileName)
+		internal void PleaseLoadBMP(String p_FileName)
 		{
 			m_ELoader.PleaseLoadNextFile(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName);
 		}
 
-		public void ChangeSpeed(int p_Speed)
+		internal void ChangeSpeed(int p_Speed)
 		{
-			m_Position.setSpeed(p_Speed);
+			Position.setSpeed(p_Speed);
 		}
 
 		/// <summary>
@@ -913,11 +906,11 @@ namespace project_hook
 		/// </summary>
 		/// <param name="s"></param>
 		/// <returns></returns>
-		public static bool isSpriteVisible(Sprite s)
+		internal static bool isSpriteVisible(Sprite s)
 		{
 			return (s.Enabled && (s.Center.X + s.Width) > m_ViewPortSize.X && (s.Center.X - s.Width) < m_ViewPortSize.Width && (s.Center.Y + s.Height) > m_ViewPortSize.Y && (s.Center.Y - s.Height) < m_ViewPortSize.Height);
 		}
-		public static bool isSpriteNotVisible(Sprite s)
+		internal static bool isSpriteNotVisible(Sprite s)
 		{
 			return !isSpriteVisible(s);
 		}

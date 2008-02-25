@@ -5,20 +5,20 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public abstract class Task
+	internal abstract class Task
 	{
 
 		/// <summary>
 		/// Returns if this task has been completed.
 		/// </summary>
-		public virtual bool IsComplete(Sprite on) { return false; }
+		internal virtual bool IsComplete(Sprite on) { return false; }
 
 		/// <summary>
 		/// Request that this Task take action on a Sprite.
 		/// </summary>
 		/// <param name="on">The Sprite for this Task to effect.</param>
 		/// <param name="at">The Current GameTime.</param>
-		public virtual void Update(Sprite on, GameTime at)
+		internal virtual void Update(Sprite on, GameTime at)
 		{
 			if (on.Enabled)
 			{
@@ -26,7 +26,7 @@ namespace project_hook
 			}
 		}
 
-		public virtual void Update(ICollection<Sprite> on, GameTime at)
+		internal virtual void Update(ICollection<Sprite> on, GameTime at)
 		{
 			foreach (Sprite s in on)
 			{
@@ -39,13 +39,13 @@ namespace project_hook
 			throw new NotImplementedException();
 		}
 
-		public abstract Task copy();
-		public virtual IEnumerable<Task> getSubTasks()
+		internal abstract Task copy();
+		internal virtual IEnumerable<Task> getSubTasks()
 		{
 			return null;
 		}
 
-		public virtual void reset()
+		internal virtual void reset()
 		{
 			if (getSubTasks() != null)
 			{

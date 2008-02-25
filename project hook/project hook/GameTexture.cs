@@ -11,13 +11,13 @@ namespace project_hook
 	/// This class holds a reference to a 2D Texture
 	/// and what area of that texture should be displayed. 
 	/// </summary>
-	public class GameTexture
+	internal class GameTexture
 	{
 		#region Variables and Properties
 		//The Identifying name for the texture
 		//This should be unique
 		protected String m_Name;
-		public String Name
+		internal String Name
 		{
 			get
 			{
@@ -31,7 +31,7 @@ namespace project_hook
 
 		//The tag associated with the sprite for the Texture
 		protected int m_Tag;
-		public int Tag
+		internal int Tag
 		{
 			get
 			{
@@ -45,7 +45,7 @@ namespace project_hook
 
 		//Name of the Texture asset
 		//protected string m_TextureName;
-		//public string TextureName
+		//internal string TextureName
 		//{
 		//    get
 		//    {
@@ -55,7 +55,7 @@ namespace project_hook
 
 		//The 2D Texture the texture will read from
 		protected Texture2D m_Texture;
-		public Texture2D Texture
+		internal Texture2D Texture
 		{
 			get
 			{
@@ -71,7 +71,7 @@ namespace project_hook
 		//A rectangle was chosen because it will always be used by the sprite bacth
 		//when being drawn.  This will reduce the amount of objects that need to be created.
 		protected Rectangle m_StartPosition;
-		public Rectangle StartPosition
+		internal Rectangle StartPosition
 		{
 			get
 			{
@@ -83,7 +83,7 @@ namespace project_hook
 			}
 		}
 		//The height of the texture capture rectangle
-		public int Height
+		internal int Height
 		{
 			get
 			{
@@ -95,7 +95,7 @@ namespace project_hook
 			}
 		}
 		//The width of the texture capture area
-		public int Width
+		internal int Width
 		{
 			get
 			{
@@ -107,7 +107,7 @@ namespace project_hook
 			}
 		}
 		//The x position of the texture capture rectangle
-		public int X
+		internal int X
 		{
 			get
 			{
@@ -120,7 +120,7 @@ namespace project_hook
 		}
 
 		//The Y position of the texture capture rectangle
-		public int Y
+		internal int Y
 		{
 			get
 			{
@@ -133,7 +133,7 @@ namespace project_hook
 		}
 
 		protected Vector2 m_Center;
-		public Vector2 Center
+		internal Vector2 Center
 		{
 			get
 			{
@@ -144,7 +144,7 @@ namespace project_hook
 		#endregion // End of variables and Properties Region
 
 		//This initializes the Game texture.
-		public GameTexture(String p_Name, int p_Tag, Texture2D p_Texture, Rectangle p_StartPosition)
+		internal GameTexture(String p_Name, int p_Tag, Texture2D p_Texture, Rectangle p_StartPosition)
 		{
 			Name = p_Name;
 			Tag = p_Tag;

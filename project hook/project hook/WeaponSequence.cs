@@ -5,24 +5,24 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class WeaponSequence : Weapon
+	internal class WeaponSequence : Weapon
 	{
 
-		List<Weapon> weapons = new List<Weapon>();
-		int currentWeapon = 0;
-		float recycleDelay = 100;
-		public float RecycleDelay
+		private List<Weapon> weapons = new List<Weapon>();
+		private int currentWeapon = 0;
+		private float recycleDelay = 100;
+		internal float RecycleDelay
 		{ get { return recycleDelay; } set { recycleDelay = value; } }
 
-		public void addWeapon(Weapon w)
+		internal void addWeapon(Weapon w)
 		{
 			weapons.Add(w);
 		}
 
-		public WeaponSequence(){ }
-		public WeaponSequence(Ship p_Ship): base(p_Ship) { }
+		internal WeaponSequence() { }
+		internal WeaponSequence(Ship p_Ship) : base(p_Ship) { }
 
-		public override void CreateShot()
+		internal override void CreateShot()
 		{
 			if (m_Cooldown <= 0 && weapons.Count > 0)
 			{
@@ -45,12 +45,12 @@ namespace project_hook
 			}
 		}
 
-		public override void Fire(Ship who)
+		internal override void Fire(Ship who)
 		{
 			throw new Exception("The method or operation is not implemented.");
 		}
 
-		public override IList<Shot> changeShotType(Shot type)
+		internal override IList<Shot> changeShotType(Shot type)
 		{
 			List<Shot> ret = new List<Shot>();
 			foreach (Weapon w in weapons)
@@ -60,7 +60,7 @@ namespace project_hook
 			return ret;
 		}
 
-		public override IList<Shot> getShots()
+		internal override IList<Shot> getShots()
 		{
 			List<Shot> ret = new List<Shot>();
 			foreach (Weapon w in weapons)

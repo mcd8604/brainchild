@@ -9,11 +9,11 @@ namespace project_hook
 	/// <summary>
 	/// A Subclass of Sprite, representing those sprites that are checked for collision
 	/// </summary>
-	public class Collidable : Sprite
+	internal class Collidable : Sprite
 	{
 		#region Variables and Properties
 		//which faction does this sprite belong to
-		public enum Factions
+		internal enum Factions
 		{
 			Player,
 			PowerUp,
@@ -27,7 +27,7 @@ namespace project_hook
 		/// <summary>
 		/// Set of available mathimatical bounding areas a collidable may have for collision detection.
 		/// </summary>
-		public enum Boundings
+		internal enum Boundings
 		{
 			Circle,
 			Diamond,
@@ -37,7 +37,7 @@ namespace project_hook
 		}
 
 		protected Boundings m_Bound = Boundings.Circle;
-		public Boundings Bound
+		internal Boundings Bound
 		{
 			get
 			{
@@ -50,7 +50,7 @@ namespace project_hook
 		}
 
 		protected Factions m_Faction = Factions.None;
-		public Factions Faction
+		internal Factions Faction
 		{
 			get
 			{
@@ -74,7 +74,7 @@ namespace project_hook
 		}
 
 		protected float m_MaxHealth = float.NaN;
-		public float MaxHealth
+		internal float MaxHealth
 		{
 			get
 			{
@@ -89,7 +89,7 @@ namespace project_hook
 
 		//this is how much health this sprite has
 		protected float m_Health = 0;
-		public float Health
+		internal float Health
 		{
 			get
 			{
@@ -102,7 +102,7 @@ namespace project_hook
 		}
 
 		protected bool m_Grabbable = true;
-		public bool Grabbable
+		internal bool Grabbable
 		{
 			set
 			{
@@ -115,21 +115,21 @@ namespace project_hook
 		}
 
 		protected Collidable m_Drop = null;
-		public Collidable Drop
+		internal Collidable Drop
 		{
 			get { return m_Drop; }
 			set { m_Drop = value; }
 		}
 
 		protected float m_DestructionScore = 100;
-		public float DestructionScore
+		internal float DestructionScore
 		{
 			get { return m_DestructionScore; }
 			set { m_DestructionScore = value; }
 		}
 
 		protected SpriteParticleSystem m_DamageEffect = null;
-		public SpriteParticleSystem DamageEffect
+		internal SpriteParticleSystem DamageEffect
 		{
 			get
 			{
@@ -137,13 +137,13 @@ namespace project_hook
 			}
 		}
 
-		public void setDamageEffect(String p_DamageEffectTextureName, int p_Tag)
+		internal void setDamageEffect(String p_DamageEffectTextureName, int p_Tag)
 		{
 			m_DamageEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
 				Name + "_DamageEffectParticleSystem",
 #endif
-				p_DamageEffectTextureName, p_Tag, 1);
+p_DamageEffectTextureName, p_Tag, 1);
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(1f));
@@ -151,13 +151,13 @@ namespace project_hook
 			m_DamageEffect.Task = EffectTask;
 			addSprite(m_DamageEffect);
 		}
-		public void setDamageEffect(String p_DamageEffectTextureName, int p_Tag, String p_DamageEffectAnimationName, int p_AnimationFPS)
+		internal void setDamageEffect(String p_DamageEffectTextureName, int p_Tag, String p_DamageEffectAnimationName, int p_AnimationFPS)
 		{
 			m_DamageEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
 				Name + "_DamageEffectParticleSystem",
 #endif
-				p_DamageEffectTextureName, p_Tag, p_DamageEffectAnimationName, p_AnimationFPS, 1);
+p_DamageEffectTextureName, p_Tag, p_DamageEffectAnimationName, p_AnimationFPS, 1);
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(1f));
@@ -167,7 +167,7 @@ namespace project_hook
 		}
 
 		protected SpriteParticleSystem m_DeathEffect = null;
-		public SpriteParticleSystem DeathEffect
+		internal SpriteParticleSystem DeathEffect
 		{
 			get
 			{
@@ -175,13 +175,13 @@ namespace project_hook
 			}
 		}
 
-		public void setDeathEffect(String p_DeathEffectTextureName, int p_Tag)
+		internal void setDeathEffect(String p_DeathEffectTextureName, int p_Tag)
 		{
 			m_DeathEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
 				Name + "_DeathEffectParticleSystem",
 #endif
-				p_DeathEffectTextureName, p_Tag, 1);
+p_DeathEffectTextureName, p_Tag, 1);
 			m_DeathEffect.MaxLifetime = 1.0f;
 			m_DeathEffect.MinInitialSpeed = 10;
 			m_DeathEffect.MaxInitialSpeed = 100;
@@ -196,13 +196,13 @@ namespace project_hook
 			m_DeathEffect.Task = EffectTask;
 			addSprite(m_DeathEffect);
 		}
-		public void setDeathEffect(String p_DeathEffectTextureName, int p_Tag, String p_DeathEffectAnimationName, int p_AnimationFPS)
+		internal void setDeathEffect(String p_DeathEffectTextureName, int p_Tag, String p_DeathEffectAnimationName, int p_AnimationFPS)
 		{
 			m_DeathEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
 				Name + "_DeathEffectParticleSystem",
 #endif
-				p_DeathEffectTextureName, p_Tag, p_DeathEffectAnimationName, p_AnimationFPS, 1);
+p_DeathEffectTextureName, p_Tag, p_DeathEffectAnimationName, p_AnimationFPS, 1);
 			m_DeathEffect.MaxLifetime = 1.0f;
 			m_DeathEffect.MinInitialSpeed = 10;
 			m_DeathEffect.MaxInitialSpeed = 100;
@@ -220,7 +220,7 @@ namespace project_hook
 
 		//this is the radius used for collision detection
 		protected float m_Radius = 100f;
-		public virtual float Radius
+		internal virtual float Radius
 		{
 			get
 			{
@@ -234,7 +234,7 @@ namespace project_hook
 
 		// The damage that should be incurred on a collision against this collidable, in damage per second
 		protected float m_Damage = 100;
-		public float Damage
+		internal float Damage
 		{
 			get
 			{
@@ -250,14 +250,14 @@ namespace project_hook
 
 		#endregion // End of variables and Properties Region
 
-		public Collidable()
+		internal Collidable()
 		{
 #if !FINAL
 			Name = "Unnamed Collidable";
 #endif
 
 		}
-		public Collidable(Collidable p_Collidable)
+		internal Collidable(Collidable p_Collidable)
 		{
 
 			if (p_Collidable.Animation != null)
@@ -303,17 +303,17 @@ namespace project_hook
 				setDeathEffect(p_Collidable.DeathEffect.TextureName, p_Collidable.DeathEffect.TextureTag);
 			}
 		}
-		public Collidable(
+		internal Collidable(
 #if !FINAL
 			String p_Name,
 #endif
-			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
+Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled,
 							float p_Rotation, float p_Z, Factions p_Faction, float p_MaxHealth, float p_Radius)
 			: base(
 #if !FINAL
 			p_Name,
 #endif
-			p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z)
+p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z)
 		{
 			Faction = p_Faction;
 			MaxHealth = p_MaxHealth;
@@ -387,7 +387,7 @@ namespace project_hook
 			}
 		}
 
-		public virtual Boolean IsDead()
+		internal virtual Boolean IsDead()
 		{
 			if (MaxHealth == float.NaN)
 			{
@@ -424,7 +424,7 @@ namespace project_hook
 			}
 		}
 
-		public virtual void RegisterCollision(Collidable p_Other)
+		internal virtual void RegisterCollision(Collidable p_Other)
 		{
 
 			if ((Faction != Factions.Blood && p_Other.Faction != Factions.Blood) && (Faction != Factions.ClearWall && p_Other.Faction != Factions.ClearWall))
@@ -461,7 +461,7 @@ namespace project_hook
 			}
 		}
 
-		public override Sprite copy()
+		internal override Sprite copy()
 		{
 			return new Collidable(this);
 		}
@@ -471,7 +471,7 @@ namespace project_hook
 			base.Draw(p_SpriteBatch);
 		}
 
-		public void captured()
+		internal void captured()
 		{
 			if (Animation != null)
 			{

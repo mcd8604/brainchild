@@ -8,14 +8,14 @@ using Wintellect.PowerCollections;
 
 namespace project_hook
 {
-	public class VisualEffect
+	internal class VisualEffect
 	{
 
 		GameTexture[] m_framesArray;
 
 		Sprite m_BaseSprite;
 		String m_Name;
-		public String Name
+		internal String Name
 		{
 			get
 			{
@@ -32,7 +32,7 @@ namespace project_hook
 		private int m_Cycles;
 		private int m_CycleCount = 0;
 		private bool m_CycleRemoval = false;//remove the sprite after cycles are up
-		public bool CycleRemoval
+		internal bool CycleRemoval
 		{
 			get
 			{
@@ -44,24 +44,24 @@ namespace project_hook
 			}
 		}
 
-		public int FramesPerSecond
+		internal int FramesPerSecond
 		{
 			get { return (int)(1f / m_FrameLength); }
 			set { m_FrameLength = 1f / (float)value; }
 		}
 
 		private int m_FrameCount;
-		public int FrameCount
+		internal int FrameCount
 		{
 			get { return m_FrameCount; }
 		}
 
-		public int CurrentFrame
+		internal int CurrentFrame
 		{
 			set { m_CurrentFrame = value; }
 		}
 
-		public VisualEffect(VisualEffect p_ToCopy, Sprite p_NewBaseSprite)
+		internal VisualEffect(VisualEffect p_ToCopy, Sprite p_NewBaseSprite)
 		{
 
 			m_Name = p_ToCopy.m_Name;
@@ -78,7 +78,7 @@ namespace project_hook
 		}
 
 
-		public VisualEffect(String p_Name, Sprite p_Base, int p_FramesPerSecond)
+		internal VisualEffect(String p_Name, Sprite p_Base, int p_FramesPerSecond)
 		{
 			m_BaseSprite = p_Base;
 			m_Name = p_Name;
@@ -89,7 +89,7 @@ namespace project_hook
 			FramesPerSecond = p_FramesPerSecond;
 		}
 
-		public VisualEffect(String p_Name, Sprite p_Base, int p_FramesPerSecond, int p_Cycles)
+		internal VisualEffect(String p_Name, Sprite p_Base, int p_FramesPerSecond, int p_Cycles)
 		{
 			m_BaseSprite = p_Base;
 			m_Name = p_Name;
@@ -112,7 +112,7 @@ namespace project_hook
 			}
 		}
 
-		public void Update(GameTime gameTime)
+		internal void Update(GameTime gameTime)
 		{
 			if (m_UpdateAnimation)
 			{
@@ -145,19 +145,19 @@ namespace project_hook
 			}
 		}
 
-		public void Reset()
+		internal void Reset()
 		{
 			m_CurrentFrame = 0;
 			m_Timer = 0f;
 			m_CycleCount = 0;
 		}
 
-		public void StartAnimation()
+		internal void StartAnimation()
 		{
 			m_UpdateAnimation = true;
 		}
 
-		public void StopAnimation()
+		internal void StopAnimation()
 		{
 			m_UpdateAnimation = false;
 		}

@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class Tail : Collidable
+	internal class Tail : Collidable
 	{
 		private HealthBar m_EnemyHealth;
-		public HealthBar EnemyHealth
+		internal HealthBar EnemyHealth
 		{
 			get
 			{
@@ -22,7 +22,7 @@ namespace project_hook
 		}
 
 		private Vector2 m_TailTarget;
-		public Vector2 TailTarget
+		internal Vector2 TailTarget
 		{
 			get
 			{
@@ -35,7 +35,7 @@ namespace project_hook
 		}
 
 		private Collidable m_EnemyCaught;
-		public Collidable EnemyCaught
+		internal Collidable EnemyCaught
 		{
 			get
 			{
@@ -48,7 +48,7 @@ namespace project_hook
 		}
 
 		private PlayerShip m_PlayerShip;
-		public PlayerShip PlayerShip
+		internal PlayerShip PlayerShip
 		{
 			get
 			{
@@ -61,7 +61,7 @@ namespace project_hook
 		}
 
 		private float m_TailAttackDelay;
-		public float TailAttackDelay
+		internal float TailAttackDelay
 		{
 			get
 			{
@@ -73,7 +73,7 @@ namespace project_hook
 
 		private double m_LastTailAttack = 0;
 
-		public enum TailState
+		internal enum TailState
 		{
 			Ready,
 			Attacking,
@@ -83,7 +83,7 @@ namespace project_hook
 		}
 
 		private TailState m_TailState = TailState.None;
-		public TailState StateOfTail
+		internal TailState StateOfTail
 		{
 			get
 			{
@@ -104,21 +104,21 @@ namespace project_hook
 		private Task m_ThrowTask;
 		private Task m_ReleaseTask;
 
-		public Sprite m_TargetObject;
+		internal Sprite m_TargetObject;
 
 		private Sprite tailTarget;
 		private Task tailTargetNormalTask;
 
-		public Tail(
+		internal Tail(
 #if !FINAL
 			String p_Name,
 #endif
-			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_Z, Factions p_Faction, float p_Health, float p_Radius, Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites, Sprite p_TargetObject)
+Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_Z, Factions p_Faction, float p_Health, float p_Radius, Ship p_AttachShip, float p_TailAttackDelay, ICollection<Sprite> p_BodySprites, Sprite p_TargetObject)
 			: base(
 #if !FINAL
 			p_Name,
 #endif
-			p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, p_Health, p_Radius)
+p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_Z, p_Faction, p_Health, p_Radius)
 		{
 
 			TaskParallel temp = new TaskParallel();
@@ -151,7 +151,7 @@ namespace project_hook
 #if !FINAL
 				"crosshairR",
 #endif
-				new Vector2(0f, 0f), tempCR.Height, tempCR.Width, tempCR, 0.75f, true, 0f, Depth.GameLayer.Cursor);
+new Vector2(0f, 0f), tempCR.Height, tempCR.Width, tempCR, 0.75f, true, 0f, Depth.GameLayer.Cursor);
 			tailTarget.BlendMode = Microsoft.Xna.Framework.Graphics.SpriteBlendMode.Additive;
 			tailTargetNormalTask = new TaskLerpRange(this, m_TargetObject, 400);
 			tailTarget.Task = tailTargetNormalTask;
@@ -159,7 +159,7 @@ namespace project_hook
 
 		}
 
-		public void TailAttack()
+		internal void TailAttack()
 		{
 			//attack with tail
 			if (m_EnemyCaught == null && StateOfTail == TailState.Ready && m_LastTailAttack >= m_TailAttackDelay)
@@ -209,7 +209,7 @@ namespace project_hook
 		}
 
 		[Obsolete]
-		public void TailReturned()
+		internal void TailReturned()
 		{
 			m_TailTarget.X = -1f;
 			m_TailTarget.Y = -1f;
@@ -219,7 +219,7 @@ namespace project_hook
 			StateOfTail = TailState.Ready;
 		}
 
-		public void EnemyShoot()
+		internal void EnemyShoot()
 		{
 			Ship temp = m_EnemyCaught as Ship;
 			if (temp != null)
@@ -242,7 +242,7 @@ namespace project_hook
 			}
 		}
 
-		public override void RegisterCollision(Collidable p_Other)
+		internal override void RegisterCollision(Collidable p_Other)
 		{
 			//base.RegisterCollision(p_Other);
 			if (!(p_Other is Shot))
@@ -414,7 +414,7 @@ namespace project_hook
 			base.Update(p_Time);
 		}
 
-		public void disable()
+		internal void disable()
 		{
 			Enabled = false;
 			foreach (Sprite s in m_BodySprites)

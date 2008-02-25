@@ -5,16 +5,16 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskStationaryBackground : Task
+	internal class TaskStationaryBackground : Task
 	{
-		public TaskStationaryBackground() { }
+		internal TaskStationaryBackground() { }
 		protected override void Do(Sprite on, GameTime at)
 		{
 			Vector2 temp = on.Center;
 			temp.Y += World.Position.BackgroundSpeed * (float)at.ElapsedGameTime.TotalSeconds;
 			on.Center = temp;
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskStationaryBackground();
 		}

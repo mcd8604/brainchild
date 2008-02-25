@@ -8,7 +8,7 @@ namespace project_hook
 	class TaskSeekTarget : Task
 	{
 		private Sprite m_Target = null;
-		public Sprite Target
+		internal Sprite Target
 		{
 			get
 			{
@@ -20,7 +20,7 @@ namespace project_hook
 			}
 		}
 		private float m_Speed = 0f;
-		public float Speed
+		internal float Speed
 		{
 			get
 			{
@@ -32,7 +32,7 @@ namespace project_hook
 			}
 		}
 		private float m_CloseEnough = 0f;
-		public float CloseEnough
+		internal float CloseEnough
 		{
 			get
 			{
@@ -43,20 +43,20 @@ namespace project_hook
 				m_CloseEnough = value;
 			}
 		}
-		public TaskSeekTarget() { }
-		public TaskSeekTarget(Sprite p_Target, float p_Speed)
+		internal TaskSeekTarget() { }
+		internal TaskSeekTarget(Sprite p_Target, float p_Speed)
 		{
 			Target = p_Target;
 			Speed = p_Speed;
 		}
-		public TaskSeekTarget(Sprite p_Target, float p_Speed, float p_CloseEnough)
+		internal TaskSeekTarget(Sprite p_Target, float p_Speed, float p_CloseEnough)
 		{
 			Target = p_Target;
 			Speed = p_Speed;
 			CloseEnough = p_CloseEnough;
 		}
 
-		public override bool IsComplete(Sprite on)
+		internal override bool IsComplete(Sprite on)
 		{
 			Vector2 temp = m_Target.Center - on.Center;
 			return (Math.Abs(temp.X) <= CloseEnough && Math.Abs(temp.Y) <= CloseEnough);
@@ -80,7 +80,7 @@ namespace project_hook
 			}
 			on.Center = Vector2.Add(on.Center, temp2);
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskSeekTarget(m_Target, m_Speed, m_CloseEnough);
 		}

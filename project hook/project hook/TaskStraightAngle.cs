@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskStraightAngle : Task, TaskIAngle
+	internal class TaskStraightAngle : Task, TaskIAngle
 	{
 		private float m_Angle = 0f;
 		public float Angle
@@ -32,7 +32,8 @@ namespace project_hook
 		}
 
 		private float m_Speed = 0f;
-		public float Speed {
+		internal float Speed
+		{
 			get
 			{
 				return m_Speed;
@@ -42,8 +43,8 @@ namespace project_hook
 				m_Speed = value;
 			}
 		}
-		public TaskStraightAngle() { }
-		public TaskStraightAngle(float p_Angle, float p_Speed)
+		internal TaskStraightAngle() { }
+		internal TaskStraightAngle(float p_Angle, float p_Speed)
 		{
 			Angle = p_Angle;
 			Speed = p_Speed;
@@ -52,7 +53,7 @@ namespace project_hook
 		{
 			on.Center = new Vector2(on.Center.X + (m_Speed * (float)Math.Cos(m_Angle) * (float)at.ElapsedGameTime.TotalSeconds), on.Center.Y + (m_Speed * (float)Math.Sin(m_Angle) * (float)at.ElapsedGameTime.TotalSeconds));
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskStraightAngle(m_Angle, m_Speed);
 		}

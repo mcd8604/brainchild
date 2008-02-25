@@ -7,16 +7,16 @@ using Microsoft.Xna.Framework;
 namespace project_hook
 {
 
-	public abstract class Weapon
+	internal abstract class Weapon
 	{
 		#region Variables and Properties
 
 		protected Ship m_Ship;
-		public Ship BaseShip
+		internal Ship BaseShip
 		{
 			get
-			{ 
-				return m_Ship; 
+			{
+				return m_Ship;
 			}
 			set
 			{
@@ -30,7 +30,7 @@ namespace project_hook
 		}
 		// this is how long the delay is between shots in seconds
 		protected float m_Delay = 100;
-		public float Delay
+		internal float Delay
 		{
 			get
 			{
@@ -44,7 +44,7 @@ namespace project_hook
 
 		// this will hold the time of the last shot
 		protected float m_Cooldown = 0;
-		public virtual float Cooldown
+		internal virtual float Cooldown
 		{
 			get
 			{
@@ -57,7 +57,7 @@ namespace project_hook
 
 		// this is how fast the shot will travel, pixels per second
 		protected float m_Speed = 1000;
-		public virtual float Speed
+		internal virtual float Speed
 		{
 			get
 			{
@@ -69,7 +69,7 @@ namespace project_hook
 			}
 		}
 
-		public Shot ShotType
+		internal Shot ShotType
 		{
 			set
 			{
@@ -87,19 +87,19 @@ namespace project_hook
 			}
 		}
 
-		public IList<Shot> m_Shots;
-		public int m_NextShot = 0;
+		internal IList<Shot> m_Shots;
+		internal int m_NextShot = 0;
 
 		#endregion // End of variables and Properties Region
 
-		public Weapon(){}
+		internal Weapon() { }
 
-		public Weapon(Ship p_Ship) 
+		internal Weapon(Ship p_Ship)
 		{
-			m_Ship = p_Ship;	
+			m_Ship = p_Ship;
 		}
 
-		public Weapon(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed)
+		internal Weapon(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed)
 		{
 			Delay = p_Delay;
 			Speed = p_Speed;
@@ -109,8 +109,8 @@ namespace project_hook
 
 		//this function will create a Shot at the current location
 		// Only a single shot? 
-		public virtual void CreateShot()
-		{			
+		internal virtual void CreateShot()
+		{
 			if (m_Cooldown <= 0)
 			{
 				Fire(m_Ship);
@@ -126,14 +126,14 @@ namespace project_hook
 			}
 		}
 
-		public abstract void Fire(Ship who);
+		internal abstract void Fire(Ship who);
 
-		public void Update(GameTime p_Time)
+		internal void Update(GameTime p_Time)
 		{
 			m_Cooldown -= (float)p_Time.ElapsedGameTime.TotalSeconds;
 		}
 
-		public virtual IList<Shot> changeShotType(Shot type)
+		internal virtual IList<Shot> changeShotType(Shot type)
 		{
 			m_Shots.Clear();
 			for (int i = 0; i < (int)Math.Ceiling((((Math.Sqrt((Game.graphics.GraphicsDevice.Viewport.Height * Game.graphics.GraphicsDevice.Viewport.Height) + (Game.graphics.GraphicsDevice.Viewport.Width * Game.graphics.GraphicsDevice.Viewport.Width))) / m_Speed) / m_Delay)); i++)
@@ -143,14 +143,14 @@ namespace project_hook
 			return m_Shots;
 		}
 
-		public virtual IList<Shot> getShots()
+		internal virtual IList<Shot> getShots()
 		{
 			return m_Shots;
 		}
 
 
 
-		public static Task ConvertWeaponTaskTarget(Task task, Sprite toTarget)
+		internal static Task ConvertWeaponTaskTarget(Task task, Sprite toTarget)
 		{
 			Task retTask = task.copy();
 			ChangeWeaponTaskTarget(retTask, toTarget);
@@ -181,7 +181,7 @@ namespace project_hook
 			}
 		}
 
-		public static Task ConvertWeaponTaskAngle(Task task, float toAngle)
+		internal static Task ConvertWeaponTaskAngle(Task task, float toAngle)
 		{
 			Task retTask = task.copy();
 			ChangeWeaponTaskAngle(retTask, toAngle);

@@ -12,13 +12,13 @@ namespace project_hook
 	/// This class contains the base information all sprites need.
 	/// It also provides default draw and update method.
 	/// </summary>
-	public class Sprite
+	internal class Sprite
 	{
 		#region Variables and Properties
 		/// <summary>
 		/// This is the alpha byte value of the sprite.
 		/// </summary>
-		public byte Alpha
+		internal byte Alpha
 		{
 			get
 			{
@@ -34,7 +34,7 @@ namespace project_hook
 		/// <summary>
 		/// The animation for the sprite.
 		/// </summary>
-		public VisualEffect Animation
+		internal VisualEffect Animation
 		{
 			get
 			{
@@ -50,7 +50,7 @@ namespace project_hook
 		/// <summary>
 		/// A point representing the center of the sprite on the screen.
 		/// </summary>
-		public virtual Vector2 Center
+		internal virtual Vector2 Center
 		{
 			get
 			{
@@ -66,7 +66,7 @@ namespace project_hook
 		/// <summary>
 		/// The color of the sprite, the default white uses the texture directly.
 		/// </summary>
-		public Color Color
+		internal Color Color
 		{
 			get
 			{
@@ -81,7 +81,7 @@ namespace project_hook
 		/// <summary>
 		/// This will create the destination rectangle used to draw the sprite to the screen.
 		/// </summary>
-		public Rectangle Destination
+		internal Rectangle Destination
 		{
 			get
 			{
@@ -93,7 +93,7 @@ namespace project_hook
 		/// <summary>
 		/// This is the height of the the sprite.
 		/// </summary>
-		public virtual int Height
+		internal virtual int Height
 		{
 			get
 			{
@@ -109,7 +109,7 @@ namespace project_hook
 		/// <summary>
 		/// The identifying name of the sprite
 		/// </summary>
-		public String Name
+		internal String Name
 		{
 			get
 			{
@@ -125,7 +125,7 @@ namespace project_hook
 		/// <summary>
 		/// The Task for this sprite.
 		/// </summary>
-		public Task Task
+		internal Task Task
 		{
 			get
 			{
@@ -141,7 +141,7 @@ namespace project_hook
 		/// <summary>
 		/// Subsprites that are 'attached' to this sprite
 		/// </summary>
-		public List<Sprite> Parts
+		internal List<Sprite> Parts
 		{
 			get
 			{
@@ -149,12 +149,11 @@ namespace project_hook
 			}
 		}
 
-		//protected Vector2 m_Position = Vector2.Zero;
 		/// <summary>
 		/// This is the postion that the sprite is displayed on the screen.
 		/// This vector will be modified to move the sprite around the screen.
 		/// </summary>
-		public virtual Vector2 Position
+		internal virtual Vector2 Position
 		{
 			get
 			{
@@ -171,7 +170,7 @@ namespace project_hook
 		/// <summary>
 		/// This will determine the amount of rotation applied to a sprite.
 		/// </summary>
-		public float Rotation
+		internal float Rotation
 		{
 			get
 			{
@@ -186,7 +185,7 @@ namespace project_hook
 		/// <summary>
 		/// TThe Rotation if the Sprite, in degrees
 		/// </summary>
-		public float RotationDegrees
+		internal float RotationDegrees
 		{
 			get
 			{
@@ -202,7 +201,7 @@ namespace project_hook
 		/// <summary>
 		/// A list of seperate sprites to be added to the main list
 		/// </summary>
-		public List<Sprite> SpritesToBeAdded
+		internal List<Sprite> SpritesToBeAdded
 		{
 			get
 			{
@@ -215,7 +214,7 @@ namespace project_hook
 		/// This is the texture that the sprite will display
 		/// The GameTexture is retrieved from the TextureLibrary object
 		/// </summary>
-		public GameTexture Texture
+		internal GameTexture Texture
 		{
 			get
 			{
@@ -231,7 +230,7 @@ namespace project_hook
 		/// <summary>
 		/// Mark this sprite for removal
 		/// </summary>
-		public Boolean ToBeRemoved
+		internal Boolean ToBeRemoved
 		{
 			get
 			{
@@ -253,7 +252,7 @@ namespace project_hook
 		/// <summary>
 		/// The Transparency of the sprite, as a float between 0 and 1, where 1 is completely opaque.
 		/// </summary>
-		public float Transparency
+		internal float Transparency
 		{
 			get
 			{
@@ -269,7 +268,7 @@ namespace project_hook
 		/// <summary>
 		/// This is the width of the sprite that will be displayed
 		/// </summary>
-		public virtual int Width
+		internal virtual int Width
 		{
 			get
 			{
@@ -285,7 +284,7 @@ namespace project_hook
 		/// <summary>
 		/// This will determine if the sprite is currently active.
 		/// </summary>
-		public bool Enabled
+		internal bool Enabled
 		{
 			get
 			{
@@ -301,7 +300,7 @@ namespace project_hook
 		/// <summary>
 		/// This is the Z Depth value
 		/// </summary>
-		public float Z
+		internal float Z
 		{
 			get
 			{
@@ -314,7 +313,7 @@ namespace project_hook
 		}
 
 		protected SpriteBlendMode m_BlendMode = SpriteBlendMode.AlphaBlend;
-		public SpriteBlendMode BlendMode
+		internal SpriteBlendMode BlendMode
 		{
 			get
 			{
@@ -327,11 +326,11 @@ namespace project_hook
 		}
 
 		protected bool m_Sized = true;
-		public bool Sized
+		internal bool Sized
 		{ get { return m_Sized; } }
 
 		protected Vector2 m_Scale = Vector2.One;
-		public Vector2 Scale
+		internal Vector2 Scale
 		{
 			get
 			{
@@ -343,7 +342,7 @@ namespace project_hook
 				m_Sized = false;
 			}
 		}
-		public float ScaleScalar
+		internal float ScaleScalar
 		{
 			set
 			{
@@ -353,19 +352,19 @@ namespace project_hook
 		}
 		#endregion // End of variables and Properties Region
 
-		public Sprite()
+		internal Sprite()
 		{ }
 
-		public Sprite(Sprite p_Sprite)
+		internal Sprite(Sprite p_Sprite)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Sprite(
+		internal Sprite(
 #if !FINAL
 			String p_Name,
 #endif
-			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture)
+Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture)
 		{
 #if !FINAL
 			m_Name = p_Name;
@@ -378,11 +377,11 @@ namespace project_hook
 
 
 		//This is a constructor that has full parameters!
-		public Sprite(
+		internal Sprite(
 #if !FINAL
 			String p_Name,
 #endif
-			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, byte p_Alpha, bool p_Visible, float p_Rotation, float p_Z)
+Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, byte p_Alpha, bool p_Visible, float p_Rotation, float p_Z)
 		{
 #if !FINAL
 			m_Name = p_Name;
@@ -397,11 +396,11 @@ namespace project_hook
 			Z = p_Z;
 		}
 
-		public Sprite(
+		internal Sprite(
 #if !FINAL
 			String p_Name,
 #endif
-			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_Z)
+Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_Z)
 		{
 #if !FINAL
 			m_Name = p_Name;
@@ -417,14 +416,14 @@ namespace project_hook
 		}
 
 		//sets the anmmation for the object.
-		public void setAnimation(string p_Animation, int p_FramesPerSecond)
+		internal void setAnimation(string p_Animation, int p_FramesPerSecond)
 		{
 			m_Animation = new VisualEffect(p_Animation, this, p_FramesPerSecond);
 			m_Animation.StopAnimation();
 		}
 
 		//sets the anmmation for the object.
-		public void setAnimation(string p_Animation, int p_FramesPerSecond, int p_Cycles)
+		internal void setAnimation(string p_Animation, int p_FramesPerSecond, int p_Cycles)
 		{
 			m_Animation = new VisualEffect(p_Animation, this, p_FramesPerSecond, p_Cycles);
 			m_Animation.StopAnimation();
@@ -477,7 +476,7 @@ namespace project_hook
 			}
 		}
 
-		public static bool isToBeRemoved(Sprite spr)
+		internal static bool isToBeRemoved(Sprite spr)
 		{
 			return spr.m_ToBeRemoved;
 		}
@@ -486,7 +485,7 @@ namespace project_hook
 		/// Add a sprite to the list of parts
 		/// </summary>
 		/// <param name="p_Sprite">The Sprite to add</param>
-		public void attachSpritePart(Sprite p_Sprite)
+		internal void attachSpritePart(Sprite p_Sprite)
 		{
 			if (m_Parts == null)
 			{
@@ -500,7 +499,7 @@ namespace project_hook
 		/// Add a sprite to the 'to be added' list
 		/// </summary>
 		/// <param name="p_Sprite">The Sprite</param>
-		public void addSprite(Sprite p_Sprite)
+		internal void addSprite(Sprite p_Sprite)
 		{
 			if (m_SpritesToBeAdded == null)
 			{
@@ -509,7 +508,7 @@ namespace project_hook
 
 			m_SpritesToBeAdded.Add(p_Sprite);
 		}
-		public void addSprites(IEnumerable<Sprite> p_Sprites)
+		internal void addSprites(IEnumerable<Sprite> p_Sprites)
 		{
 			if (m_SpritesToBeAdded == null)
 			{
@@ -519,7 +518,7 @@ namespace project_hook
 			m_SpritesToBeAdded.AddRange(p_Sprites);
 		}
 
-		public virtual Sprite copy()
+		internal virtual Sprite copy()
 		{
 			return new Sprite(this);
 		}

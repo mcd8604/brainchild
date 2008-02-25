@@ -15,7 +15,7 @@ namespace project_hook
 	/// 2. Create a function to tell the player to shoot
 	/// 3. Implement all tail functionality
 	/// </summary>
-	public class Player
+	internal class Player
 	{
 		const int INITIAL_HEALTH = 100;
 		const int INITIAL_SHIELD = 75;
@@ -25,7 +25,7 @@ namespace project_hook
 
 		//Score m_Score;
 
-		public PlayerShip PlayerShip
+		internal PlayerShip PlayerShip
 		{
 			get
 			{
@@ -37,7 +37,7 @@ namespace project_hook
 			//}
 		}
 
-		//public Score Score
+		//internal Score Score
 		//{
 		//    get
 		//    {
@@ -51,7 +51,7 @@ namespace project_hook
 		//}
 
 		protected Rectangle m_Bounds;
-		public Rectangle Bounds
+		internal Rectangle Bounds
 		{
 			get
 			{
@@ -86,14 +86,14 @@ namespace project_hook
 		/// <param name="p_Visible"></param>
 		/// <param name="p_Degree"></param>
 		/// <param name="p_zBuff"></param>
-		public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds)
+		internal Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds)
 		{
 			CreatePlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff);
 			Bounds = p_Bounds;
 			//m_Score = new Score(0);
 		}
 
-		public Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds, int p_Score)
+		internal Player(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff, Rectangle p_Bounds, int p_Score)
 		{
 			Bounds = p_Bounds;
 			//m_PlayerShip = new PlayerShip(p_Name, p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, 0, null, 0, null, 0);
@@ -105,34 +105,34 @@ namespace project_hook
 		/// This is called to alert the player ship that it should move up
 		/// </summary>
 		/// <param name="p_GameTime"></param>
-		public void MoveUp()
+		internal void MoveUp()
 		{
 			m_PlayerSpeedBuffer.Y -= m_PlayerAcceleration;
 		}
 
-		public void MoveDown()
+		internal void MoveDown()
 		{
 			m_PlayerSpeedBuffer.Y += m_PlayerAcceleration;
 		}
 
-		public void MoveRight()
+		internal void MoveRight()
 		{
 			m_PlayerSpeedBuffer.X += m_PlayerAcceleration;
 		}
 
-		public void MoveLeft()
+		internal void MoveLeft()
 		{
 			m_PlayerSpeedBuffer.X -= m_PlayerAcceleration;
 		}
 
-		public void CreatePlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
+		internal void CreatePlayerShip(String p_Name, Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Alpha, bool p_Visible, float p_Degree, float p_zBuff)
 		{
 
 			m_PlayerShip = new PlayerShip(
 #if !FINAL
 				p_Name,
 #endif
-				p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, INITIAL_HEALTH, INITIAL_SHIELD, p_Width / 2.0f);
+p_Position, p_Height, p_Width, p_Texture, p_Alpha, p_Visible, p_Degree, p_zBuff, Collidable.Factions.Player, INITIAL_HEALTH, INITIAL_SHIELD, p_Width / 2.0f);
 			m_PlayerShip.setDamageEffect("Explosion", 3, "Explosion", 23);
 			m_PlayerShip.setShieldDamageEffect("Explosion2", 3, "Explosion2", 23);
 			m_PlayerShip.setDeathEffect("ExplosionBig", 0);
@@ -158,7 +158,7 @@ namespace project_hook
 
 
 
-		public void reset()
+		internal void reset()
 		{
 			m_PlayerShip.MaxHealth = INITIAL_HEALTH;
 			m_PlayerShip.MaxShield = INITIAL_SHIELD;
@@ -179,7 +179,7 @@ namespace project_hook
 			}
 		}
 
-		public void Shoot()
+		internal void Shoot()
 		{
 			m_PlayerShip.shoot();
 		}
@@ -203,7 +203,7 @@ namespace project_hook
 		/// </summary>
 		/// <param name="p_GameTime"></param>
 		/// <param name="p_SpriteBatch"></param>
-		public void DrawPlayer(GameTime p_GameTime, SpriteBatch p_SpriteBatch)
+		internal void DrawPlayer(GameTime p_GameTime, SpriteBatch p_SpriteBatch)
 		{
 
 
@@ -211,7 +211,7 @@ namespace project_hook
 			m_PlayerShip.Draw(p_SpriteBatch);
 		}
 
-		public void UpdatePlayer(GameTime p_GameTime)
+		internal void UpdatePlayer(GameTime p_GameTime)
 		{
 			//Calculate player position based on player speed and player friction
 			CalcMovement(p_GameTime, m_PlayerSpeedBuffer);

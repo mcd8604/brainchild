@@ -23,22 +23,22 @@ namespace project_hook
 	/// <summary>
 	/// This will be for our main game code
 	/// </summary>
-	public sealed class Game : Microsoft.Xna.Framework.Game
+	internal sealed class Game : Microsoft.Xna.Framework.Game
 	{
-		public static GraphicsDeviceManager graphics;
-		ContentManager content;
-		SpriteBatch m_SpriteBatch;
+		internal static GraphicsDeviceManager graphics;
+		private ContentManager content;
+		private SpriteBatch m_SpriteBatch;
 
-		World m_World;
-		Menu m_Menu;
+		private World m_World;
+		private Menu m_Menu;
 
-		InputHandlerState m_InputHandlerState;
+		private InputHandlerState m_InputHandlerState;
 
 #if FINAL
-		System.Drawing.Rectangle DefaultClippingBounds;
+		private System.Drawing.Rectangle DefaultClippingBounds;
 #endif
 
-		public enum InputHandlerState
+		internal enum InputHandlerState
 		{
 			World,
 			Menu
@@ -50,7 +50,7 @@ namespace project_hook
 #else
 		private static Random random = new Random();
 #endif
-		public static Random Random
+		internal static Random Random
 		{
 			get
 			{
@@ -58,7 +58,7 @@ namespace project_hook
 			}
 		}
 
-		public static System.IO.TextWriter Out
+		internal static System.IO.TextWriter Out
 		{
 			get
 			{
@@ -70,7 +70,7 @@ namespace project_hook
 		internal static HighScore HighScores = new HighScore();
 
 
-		public Game()
+		internal Game()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			content = new ContentManager(Services);

@@ -10,13 +10,13 @@ namespace project_hook
 	class MenuTitleScreen : Menu
 	{
 
-		public MenuTitleScreen()
+		internal MenuTitleScreen()
 		{
 			//change to so texture that is is made for our title screen
 			m_BackgroundName = "Title";
 		}
 
-		//public override void Load()
+		//internal override void Load()
 		//{
 		//    base.Load();
 
@@ -26,7 +26,7 @@ namespace project_hook
 		//    //attachSpritePart(m_Text);
 		//}
 
-		//public override void Update(GameTime p_Time)
+		//internal override void Update(GameTime p_Time)
 		//{
 		//    //add text here
 
@@ -34,12 +34,12 @@ namespace project_hook
 		//    base.Update(p_Time);
 		//}
 
-		public override void accept()
+		internal override void accept()
 		{
 			//load up main menu
 			Menus.setCurrentMenu(Menus.MenuScreens.Main);
 		}
-		public override void cancel()
+		internal override void cancel()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.Main);
 		}

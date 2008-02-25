@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class HealthBar : Sprite
+	internal class HealthBar : Sprite
 	{
 		//the ship who's shield and health will be displayed
-		Collidable m_Target;
-		public Collidable Target
+		private Collidable m_Target;
+		internal Collidable Target
 		{
 			set
 			{
@@ -33,7 +33,7 @@ namespace project_hook
 		Vector2 offset;
 		//  bool attach = false;
 
-		public HealthBar(Collidable p_Ship)
+		internal HealthBar(Collidable p_Ship)
 		{
 			m_Target = p_Ship;
 			//  attach = true;
@@ -56,7 +56,7 @@ namespace project_hook
 			m_Target.attachSpritePart(this);
 		}
 
-		public HealthBar(Collidable p_Ship, Vector2 pos, int p_Width, int p_Height, int p_BGWidth, int p_BGHeight)
+		internal HealthBar(Collidable p_Ship, Vector2 pos, int p_Width, int p_Height, int p_BGWidth, int p_BGHeight)
 		{
 
 			m_Target = p_Ship;
@@ -78,7 +78,7 @@ namespace project_hook
 #if !FINAL
 				"HealthBar",
 #endif
-				new Vector2(this.Center.X, this.Center.Y), height, width, TextureLibrary.getGameTexture("shieldBar"), 200, true, 0.0f, Depth.HUDLayer.Foreground);
+new Vector2(this.Center.X, this.Center.Y), height, width, TextureLibrary.getGameTexture("shieldBar"), 200, true, 0.0f, Depth.HUDLayer.Bar);
 
 			if (m_Target is PlayerShip)
 			{
@@ -90,11 +90,11 @@ namespace project_hook
 #if !FINAL
 				"HealthBar",
 #endif
-				new Vector2(this.Center.X, this.Center.Y - height), height, width, TextureLibrary.getGameTexture("healthBar"), 200, true, 0.0f, Depth.HUDLayer.Foreground);
+new Vector2(this.Center.X, this.Center.Y - height), height, width, TextureLibrary.getGameTexture("healthBar"), 200, true, 0.0f, Depth.HUDLayer.Bar);
 
 			blackS = new Sprite();
 			blackS.Texture = TextureLibrary.getGameTexture("black");
-			blackS.Z = Depth.HUDLayer.Midground;
+			blackS.Z = Depth.HUDLayer.BarBackground;
 			blackS.Enabled = true;
 			blackS.Width = width;
 			blackS.Height = height;
@@ -102,7 +102,7 @@ namespace project_hook
 
 			blackH = new Sprite();
 			blackH.Texture = TextureLibrary.getGameTexture("black");
-			blackH.Z = Depth.HUDLayer.Midground;
+			blackH.Z = Depth.HUDLayer.BarBackground;
 			blackH.Enabled = true;
 			blackH.Width = width;
 			blackH.Height = height;
@@ -112,7 +112,7 @@ namespace project_hook
 			bg.Texture = m_Target.Texture;
 			bg.Center = this.Center;
 			bg.Transparency = .5f;
-			bg.Z = Depth.HUDLayer.Background;
+			bg.Z = Depth.HUDLayer.BarBackIcon;
 			bg.Enabled = true;
 			bg.Width = p_BGWidth;
 			bg.Height = p_BGHeight;

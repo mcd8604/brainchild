@@ -7,7 +7,7 @@ namespace project_hook
 	class Menus
 	{
 		private static Boolean m_HasChanged;
-		public static Boolean HasChanged
+		internal static Boolean HasChanged
 		{
 			get
 			{
@@ -16,7 +16,7 @@ namespace project_hook
 		}
 
 		private static Boolean m_Exit = false;
-		public static Boolean Exit
+		internal static Boolean Exit
 		{
 			get
 			{
@@ -31,7 +31,7 @@ namespace project_hook
 		private static List<MenuScreens> m_PreviousMenus;
 
 		private static MenuScreens m_SelectedMenu;
-		public static MenuScreens SelectedMenu
+		internal static MenuScreens SelectedMenu
 		{
 			get
 			{
@@ -39,7 +39,7 @@ namespace project_hook
 			}
 		}
 
-		public enum MenuScreens
+		internal enum MenuScreens
 		{
 			Main,
 			Pause,
@@ -59,7 +59,7 @@ namespace project_hook
 			HighScores
 		}
 
-		public static void ini()
+		internal static void ini()
 		{
 			iniTextures();
 			m_PreviousMenus = new List<MenuScreens>();
@@ -67,7 +67,7 @@ namespace project_hook
 			m_HasChanged = false;
 		}
 
-		public static void iniTextures()
+		internal static void iniTextures()
 		{
 			//load all menu textures here instead of during instansiation
 			TextureLibrary.LoadTexture("bcg");
@@ -87,21 +87,21 @@ namespace project_hook
 			TextureLibrary.LoadTexture("menuCursor");
 		}
 
-		public static void setCurrentMenu(MenuScreens p_NewMenu)
+		internal static void setCurrentMenu(MenuScreens p_NewMenu)
 		{
 			m_PreviousMenus.Add(m_SelectedMenu);
 			m_SelectedMenu = p_NewMenu;
 			m_HasChanged = true;
 		}
 
-		public static void returnToPreviousMenu()
+		internal static void returnToPreviousMenu()
 		{
 			m_SelectedMenu = m_PreviousMenus[m_PreviousMenus.Count - 1];
 			m_PreviousMenus.RemoveAt(m_PreviousMenus.Count - 1);
 			m_HasChanged = true;
 		}
 
-		public static Menu getCurrentMenu()
+		internal static Menu getCurrentMenu()
 		{
 			if (m_SelectedMenu == MenuScreens.Main)
 			{

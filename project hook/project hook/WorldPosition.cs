@@ -7,9 +7,9 @@ namespace project_hook
 {
 	internal class WorldPosition
 	{
-		
+
 		private float m_Speed = 0f;
-		private float m_BackgroundSpeed = 0f ;
+		private float m_BackgroundSpeed = 0f;
 		private float m_Distance = 0f;
 
 		internal WorldPosition() { }
@@ -25,10 +25,16 @@ namespace project_hook
 
 		internal float Distance
 		{
-			get 
+			get
 			{
 				return m_Distance;
 			}
+#if DEBUG
+			set 
+			{
+				m_Distance = value;
+			}
+#endif
 		}
 
 		internal float Speed

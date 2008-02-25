@@ -18,8 +18,8 @@ namespace project_hook
 			get { return MathHelper.ToDegrees(Angle); }
 			set { Angle = MathHelper.ToRadians(value); }
 		}
-		public TaskRotateByAngle() { }
-		public TaskRotateByAngle(float p_Angle)
+		internal TaskRotateByAngle() { }
+		internal TaskRotateByAngle(float p_Angle)
 		{
 			Angle = p_Angle;
 		}
@@ -27,7 +27,7 @@ namespace project_hook
 		{
 			on.Rotation += (Angle * (float)at.ElapsedGameTime.TotalSeconds);
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskRotateByAngle(m_Angle);
 		}

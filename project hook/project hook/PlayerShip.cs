@@ -13,7 +13,7 @@ namespace project_hook
 	/// TODO:
 	/// 
 	/// </summary>
-	public class PlayerShip : Ship
+	internal class PlayerShip : Ship
 	{
 		List<Shot> m_Upgrades;
 		List<int> m_UpgradeReqs;
@@ -22,14 +22,14 @@ namespace project_hook
 		TextSprite levelUp;
 		TaskTimer levelTime;
 
-		public const int MAX_LEVEL = 3;
+		internal const int MAX_LEVEL = 3;
 		const int MAX_SHIELD_LEVEL = 200;
 		const int HEAL_AMOUNT = 20;
 		const int SHIELD_INC_AMOUNT = 5;
 		const int WEAPON_INC_AMOUNT = 20;
 
 		int m_UpgradeLevel = 0;
-		public int UpgradeLevel
+		internal int UpgradeLevel
 		{
 			get
 			{
@@ -42,7 +42,7 @@ namespace project_hook
 		}
 
 		int cur = -1;
-		public int CurrentLevel
+		internal int CurrentLevel
 		{
 			get
 			{
@@ -50,7 +50,7 @@ namespace project_hook
 			}
 		}
 
-		public int LevelRequirement(int level)
+		internal int LevelRequirement(int level)
 		{
 			if (level == 0)
 			{
@@ -67,7 +67,7 @@ namespace project_hook
 		}
 
 		private Tail m_TailSprite;
-		public Tail TailSprite
+		internal Tail TailSprite
 		{
 			get
 			{
@@ -81,20 +81,20 @@ namespace project_hook
 
 
 
-		public PlayerShip(
+		internal PlayerShip(
 #if !FINAL
 			String p_Name,
 #endif
-			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
+Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Degree, float p_zBuff, Factions p_Faction, int p_Health, int p_Shield, float p_Radius)
 			: base(
 #if !FINAL
 			p_Name,
 #endif
-			p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
+p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Degree, p_zBuff, p_Faction, p_Health, p_Shield, p_Radius)
 		{
 			//code to create the level up text
-			levelUp = new TextSprite("Level Up", Vector2.Zero, Microsoft.Xna.Framework.Graphics.Color.Yellow, Depth.HUDLayer.Midground + 0.001f, 100.0f, 0.0f, 50, 100);
-			TextSprite levelUp2 = new TextSprite("Level Up", Vector2.Zero, Microsoft.Xna.Framework.Graphics.Color.Black, Depth.HUDLayer.Midground + 0.002f, 100.0f, 0.0f, 50, 100);
+			levelUp = new TextSprite("Level Up", Vector2.Zero, Microsoft.Xna.Framework.Graphics.Color.Yellow, Depth.HUDLayer.Text + 0.001f, 100.0f, 0.0f, 50, 100);
+			TextSprite levelUp2 = new TextSprite("Level Up", Vector2.Zero, Microsoft.Xna.Framework.Graphics.Color.Black, Depth.HUDLayer.Text + 0.002f, 100.0f, 0.0f, 50, 100);
 			levelUp2.Enabled = true;
 			TaskAttachAt ta = new TaskAttachAt(levelUp, new Vector2(1f, 1f));
 			levelUp2.Task = ta;
@@ -233,7 +233,7 @@ namespace project_hook
 			}
 		}
 
-		public override void RegisterCollision(Collidable p_Other)
+		internal override void RegisterCollision(Collidable p_Other)
 		{
 			if (p_Other.Faction == Factions.PowerUp)
 			{
@@ -313,7 +313,7 @@ namespace project_hook
 			}
 		}
 
-		public void ResetWeapons()
+		internal void ResetWeapons()
 		{
 			cur = -1;
 
@@ -396,8 +396,8 @@ namespace project_hook
 			m_WeapUpgrades[1].Add(new WeaponSeekNearestTarget(this, shot, 1.5f, 300, Collidable.Factions.Enemy));
 
 		}
-
-		public string GetHealth()
+#if !FINAL
+		internal string GetHealthString()
 		{
 			if (float.IsNaN(MaxHealth))
 			{
@@ -409,9 +409,10 @@ namespace project_hook
 			}
 		}
 
-		public string GetUpgradeLevel()
+		internal string GetUpgradeLevelString()
 		{
 			return "Upgrade Level: " + m_UpgradeLevel.ToString();
 		}
+#endif
 	}
 }

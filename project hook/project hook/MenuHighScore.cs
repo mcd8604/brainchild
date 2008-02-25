@@ -9,10 +9,10 @@ namespace project_hook
 	class MenuHighScore : Menu
 	{
 
-		public MenuHighScore()
+		internal MenuHighScore()
 		{ }
 
-		public override void Load()
+		internal override void Load()
 		{
 			//base.Load();
 
@@ -23,7 +23,7 @@ namespace project_hook
 #if !FINAL
 				m_BackgroundName,
 #endif
-				Vector2.Zero, 330, 184, bgTexture, 200f, true, 0, Depth.MenuLayer.Background);
+Vector2.Zero, 330, 184, bgTexture, 200f, true, 0, Depth.MenuLayer.Background);
 			m_BackgroundSprite.Center = new Vector2(xCen, yCen);
 			attachSpritePart(m_BackgroundSprite);
 
@@ -40,11 +40,11 @@ namespace project_hook
 			}
 		}
 
-		public override void accept()
+		internal override void accept()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.Main);
 		}
-		public override void cancel()
+		internal override void cancel()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.Main);
 		}

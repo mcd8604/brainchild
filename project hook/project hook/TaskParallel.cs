@@ -8,24 +8,24 @@ namespace project_hook
 	class TaskParallel : Task
 	{
 		private List<Task> m_Tasks = new List<Task>();
-		public TaskParallel() { }
-		public TaskParallel(Task p_Task)
+		internal TaskParallel() { }
+		internal TaskParallel(Task p_Task)
 		{
 			addTask(p_Task);
 		}
-		public TaskParallel(IEnumerable<Task> p_Tasks)
+		internal TaskParallel(IEnumerable<Task> p_Tasks)
 		{
 			addTasks(p_Tasks);
 		}
-		public void addTask(Task t)
+		internal void addTask(Task t)
 		{
 			m_Tasks.Add(t);
 		}
-		public void addTasks(IEnumerable<Task> t)
+		internal void addTasks(IEnumerable<Task> t)
 		{
 			m_Tasks.AddRange(t);
 		}
-		public override bool IsComplete(Sprite on)
+		internal override bool IsComplete(Sprite on)
 		{
 			foreach (Task t in m_Tasks)
 			{
@@ -43,7 +43,7 @@ namespace project_hook
 				t.Update(on, at);
 			}
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			List<Task> newTasks = new List<Task>();
 			foreach (Task t in m_Tasks)
@@ -52,7 +52,7 @@ namespace project_hook
 			}
 			return new TaskParallel(newTasks);
 		}
-		public override IEnumerable<Task> getSubTasks()
+		internal override IEnumerable<Task> getSubTasks()
 		{
 			return m_Tasks;
 		}

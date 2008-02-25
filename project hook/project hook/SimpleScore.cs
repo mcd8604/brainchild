@@ -16,15 +16,6 @@ namespace project_hook
 
 		internal void evaluateCollision(Collidable p_Target, Collidable p_Attacker, float p_Damage, bool p_Killed)
 		{
-
-			if (p_Target.Faction == Collidable.Factions.Environment || p_Attacker.Faction == Collidable.Factions.Environment)
-			{
-				if (p_Target.Faction == Collidable.Factions.Player || p_Attacker.Faction == Collidable.Factions.Player)
-				{
-					m_Score += 0;
-				}
-			}
-
 			if (p_Attacker.Faction == Collidable.Factions.Player)
 			{
 				m_Score += p_Damage * 0.1f;
@@ -34,7 +25,7 @@ namespace project_hook
 
 					Vector2 at = p_Target.Center;
 					at.Y -= 50;
-					TextSprite Kill = new TextSprite(p_Target.DestructionScore.ToString(), at, Microsoft.Xna.Framework.Graphics.Color.Yellow, Depth.HUDLayer.Background);
+					TextSprite Kill = new TextSprite(p_Target.DestructionScore.ToString(), at, Microsoft.Xna.Framework.Graphics.Color.Yellow, Depth.HUDLayer.Text);
 					Kill.Scale = new Vector2(0.5f, 0.5f);
 					TaskParallel Par = new TaskParallel();
 					Par.addTask(new TaskStationary());
@@ -55,7 +46,7 @@ namespace project_hook
 			m_Score = 0f;
 		}
 
-		public override string ToString()
+		internal string ScoreString()
 		{
 			return "Score: " + Convert.ToInt32(m_Score).ToString();
 		}

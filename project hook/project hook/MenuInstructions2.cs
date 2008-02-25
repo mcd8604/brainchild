@@ -9,7 +9,7 @@ namespace project_hook
 	{
 		double m_Delay = 20;
 
-		public MenuInstructions2()
+		internal MenuInstructions2()
 			: base()
 		{
 			m_BackgroundName = "Instructions2";
@@ -26,11 +26,11 @@ namespace project_hook
 				Menus.setCurrentMenu(Menus.MenuScreens.Instructions3);
 			}
 		}
-		public override void accept()
+		internal override void accept()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.Instructions3);
 		}
-		public override void cancel()
+		internal override void cancel()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.Instructions3);
 		}

@@ -7,14 +7,14 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace project_hook
 {
-	public static class Sound
+	internal static class Sound
 	{
 		private static AudioEngine engine;
 		private static WaveBank wavebank;
 		private static SoundBank soundbank;
 		private static Boolean playSound = true;
 
-		public static void Play(string name)
+		internal static void Play(string name)
 		{
 			if (playSound)
 			{
@@ -22,17 +22,17 @@ namespace project_hook
 			}
 		}
 
-		public static void setPlaySound()
+		internal static void togglePlaySound()
 		{
-			if (playSound)
-			{
-				playSound = false;
-			} else {
-				playSound = true;
-			}
+			playSound = !playSound;
 		}
 
-		public static Boolean getPlaySound()
+		internal static void setPlaySound(Boolean p)
+		{
+			playSound = p;
+		}
+
+		internal static Boolean getPlaySound()
 		{
 			return playSound;
 		}
@@ -40,14 +40,14 @@ namespace project_hook
 		/// Starts up the sound code
 		/// </summary> 
 
-		public static void Initialize()
+		internal static void Initialize()
 		{
-            engine = new AudioEngine(Environment.CurrentDirectory + "/Content/Audio/bgmusic.xgs");
-            wavebank = new WaveBank(engine, Environment.CurrentDirectory + "/Content/Audio/Wave Bank.xwb");
-            soundbank = new SoundBank(engine, Environment.CurrentDirectory + "/Content/Audio/Sound Bank.xsb");
+			engine = new AudioEngine(Environment.CurrentDirectory + "/Content/Audio/bgmusic.xgs");
+			wavebank = new WaveBank(engine, Environment.CurrentDirectory + "/Content/Audio/Wave Bank.xwb");
+			soundbank = new SoundBank(engine, Environment.CurrentDirectory + "/Content/Audio/Sound Bank.xsb");
 		}
 
-		public static void Update()  //  Added
+		internal static void Update()  //  Added
 		{
 			engine.Update();
 		}
@@ -55,7 +55,7 @@ namespace project_hook
 		/// <summary>
 		/// Shuts down the sound code tidily
 		/// </summary>
-		public static void Shutdown()
+		internal static void Shutdown()
 		{
 			soundbank.Dispose();
 			wavebank.Dispose();

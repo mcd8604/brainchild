@@ -21,7 +21,7 @@ namespace project_hook
 		private int m_Distance;
 
 		private String m_FileName;
-		public String FileName
+		internal String FileName
 		{
 			get
 			{
@@ -35,17 +35,17 @@ namespace project_hook
 
 		private String m_FilePath;
 
-		public LevelReader()
+		internal LevelReader()
 		{
 			m_FilePath = System.Environment.CurrentDirectory + "\\Content\\Levels\\";
 		}
-		public LevelReader(String p_FileName)
+		internal LevelReader(String p_FileName)
 		{
 			m_FileName = p_FileName;
 			m_FilePath = System.Environment.CurrentDirectory + "\\Content\\Levels\\" + p_FileName;
 		}
 
-		public Dictionary<int, List<Event>> ReadFile()
+		internal Dictionary<int, List<Event>> ReadFile()
 		{
 			//Checks for the XML file
 			if (File.Exists(m_FilePath))
@@ -121,7 +121,7 @@ namespace project_hook
 						else if (reader.IsStartElement("createTurret"))
 						{
 							reader.ReadStartElement();
-                            LoadEnemy(reader);
+							LoadEnemy(reader);
 							reader.ReadEndElement();
 						}
 						else if (reader.IsStartElement("changeSpeed"))
@@ -166,7 +166,7 @@ namespace project_hook
 			return m_Events;
 		}
 
-		public void EndGame()
+		internal void EndGame()
 		{
 			List<Event> t_List = new List<Event>();
 
@@ -175,7 +175,7 @@ namespace project_hook
 			m_Events.Add(m_Distance, t_List);
 		}
 
-		public void CreateBoss(XmlReader p_Reader)
+		internal void CreateBoss(XmlReader p_Reader)
 		{
 			Boss t_Boss = (Boss)readShip(p_Reader, typeof(Boss));
 			t_Boss.Faction = Collidable.Factions.Enemy;
@@ -350,7 +350,7 @@ namespace project_hook
 #if !FINAL
 						name + "_" + col + "_" + row,
 #endif
-						pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension, texture, 0.75f, true, 0, Depth.GameLayer.Gate, faction, float.NaN, EnvironmentLoader.TileDimension / 2);
+pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension, texture, 0.75f, true, 0, Depth.GameLayer.Gate, faction, float.NaN, EnvironmentLoader.TileDimension / 2);
 					p_Wall.Bound = Collidable.Boundings.Square;
 					p_Wall.Task = task;
 					if (deathEffectName != null)
@@ -386,7 +386,7 @@ namespace project_hook
 #if !FINAL
 					p_Trigger.Name =
 #endif
-						p_Reader.ReadString();
+					p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("endGate"))
@@ -620,10 +620,10 @@ namespace project_hook
 			{
 				t_Ship = new Boss();
 			}
-            else if (p_shipType == typeof(Turret))
-            {
-                t_Ship = new Turret(60);                
-            }
+			else if (p_shipType == typeof(Turret))
+			{
+				t_Ship = new Turret(60);
+			}
 
 			while (p_Reader.IsStartElement())
 			{
@@ -633,7 +633,7 @@ namespace project_hook
 #if !FINAL
 					t_Ship.Name =
 #endif
-						p_Reader.ReadString();
+					p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("grabbable"))
@@ -878,19 +878,20 @@ namespace project_hook
 					ShipPart part = null;
 					if (p_Reader.IsStartElement("createShip"))
 					{
-                        String type = "";
-                        if(p_Reader.AttributeCount>0){
-                            type = p_Reader.GetAttribute("type");
-                        }
+						String type = "";
+						if (p_Reader.AttributeCount > 0)
+						{
+							type = p_Reader.GetAttribute("type");
+						}
 						p_Reader.ReadStartElement();
-                        if (type.Equals("turret"))
-                        {
-                            part = (Turret)readShip(p_Reader, typeof(Turret));
-                        }
-                        else
-                        {
-                            part = (ShipPart)readShip(p_Reader, typeof(ShipPart));
-                        }
+						if (type.Equals("turret"))
+						{
+							part = (Turret)readShip(p_Reader, typeof(Turret));
+						}
+						else
+						{
+							part = (ShipPart)readShip(p_Reader, typeof(ShipPart));
+						}
 						part.TransfersDamage = transfersDamage;
 						part.ParentShip = t_Ship;
 						p_Reader.ReadEndElement();
@@ -1058,7 +1059,7 @@ namespace project_hook
 #if !FINAL
 					shot.Name =
 #endif
-						p_Reader.ReadString();
+					p_Reader.ReadString();
 					p_Reader.ReadEndElement();
 				}
 				else if (p_Reader.IsStartElement("damage"))

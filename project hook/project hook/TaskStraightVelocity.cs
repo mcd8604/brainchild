@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class TaskStraightVelocity : Task
+	internal class TaskStraightVelocity : Task
 	{
 		private Vector2 m_Velocity = Vector2.Zero;
-		public Vector2 Velocity
+		internal Vector2 Velocity
 		{
 			get
 			{
@@ -19,16 +19,16 @@ namespace project_hook
 				m_Velocity = value;
 			}
 		}
-		public TaskStraightVelocity() { }
-		public TaskStraightVelocity(Vector2 p_Velocity)
+		internal TaskStraightVelocity() { }
+		internal TaskStraightVelocity(Vector2 p_Velocity)
 		{
 			Velocity = p_Velocity;
 		}
 		protected override void Do(Sprite on, GameTime at)
 		{
-				on.Center += Vector2.Multiply(Velocity, (float)at.ElapsedGameTime.TotalSeconds);
+			on.Center += Vector2.Multiply(Velocity, (float)at.ElapsedGameTime.TotalSeconds);
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskStraightVelocity(m_Velocity);
 		}

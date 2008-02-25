@@ -17,13 +17,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace project_hook
 {
-	public class ExplosionSpriteParticleSystem : SpriteParticleSystem
+	internal class ExplosionSpriteParticleSystem : SpriteParticleSystem
 	{
 		/// <summary>
 		/// Initial angle of the particles - specified in radians
 		/// </summary>
 		protected float m_Direction;
-		public float Direction
+		internal float Direction
 		{
 			get
 			{
@@ -40,7 +40,7 @@ namespace project_hook
 		/// Range of the offset from the initial angle - specified in radians
 		/// </summary>
 		protected float m_Theta;
-		public float Theta
+		internal float Theta
 		{
 			get
 			{
@@ -53,30 +53,30 @@ namespace project_hook
 			}
 		}
 
-		public ExplosionSpriteParticleSystem() {}
+		internal ExplosionSpriteParticleSystem() { }
 
-		public ExplosionSpriteParticleSystem(
+		internal ExplosionSpriteParticleSystem(
 #if !FINAL
 			String p_Name,
 #endif
-			String p_TextureName, int p_TextureTag, int p_HowManyEffects)
+String p_TextureName, int p_TextureTag, int p_HowManyEffects)
 			: base(
 #if !FINAL
 			p_Name,
 #endif
-			p_TextureName, p_TextureTag, p_HowManyEffects )
-		{}
-		public ExplosionSpriteParticleSystem(
+p_TextureName, p_TextureTag, p_HowManyEffects)
+		{ }
+		internal ExplosionSpriteParticleSystem(
 #if !FINAL
 			String p_Name,
 #endif
-			String p_TextureName, int p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
+String p_TextureName, int p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
 			: base(
 #if !FINAL
 			p_Name,
 #endif
-			p_TextureName, p_TextureTag, p_AnimationName, p_AnimationFPS, p_HowManyEffects)
-		{}
+p_TextureName, p_TextureTag, p_AnimationName, p_AnimationFPS, p_HowManyEffects)
+		{ }
 
 		/// <summary>
 		/// Set up the constants that will give this particle system its behavior and
@@ -140,13 +140,13 @@ namespace project_hook
 		}
 
 
-		public override SpriteParticleSystem copy()
+		internal override SpriteParticleSystem copy()
 		{
 			ExplosionSpriteParticleSystem esps = new ExplosionSpriteParticleSystem(
 #if !FINAL
 				Name,
 #endif
-				TextureName, TextureTag, HowManyEffects);
+TextureName, TextureTag, HowManyEffects);
 			esps.MinInitialSpeed = MinInitialSpeed;
 			esps.MaxInitialSpeed = MaxInitialSpeed;
 			esps.MinLifetime = MinLifetime;

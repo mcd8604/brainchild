@@ -9,28 +9,24 @@ using System.Windows.Forms;
 
 namespace project_hook
 {
-	public partial class LevelForm : Form
+	internal partial class LevelForm : Form
 	{
 
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.ComboBox comboBox1;
 
-		public LevelForm(object[] levels)
+		private System.ComponentModel.IContainer components = null;
+
+		internal LevelForm(string[] levels)
 		{
 			InitializeComponent(levels);
 		}
 
-		private void Form1_Load(object sender, EventArgs e)
+		internal string getLevel()
 		{
+			return this.comboBox1.SelectedItem.ToString();
 		}
-
-		public object getLevel()
-		{
-			return this.comboBox1.SelectedItem;
-		}
-
-		private System.ComponentModel.IContainer components = null;
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -99,7 +95,6 @@ namespace project_hook
 			this.Controls.Add(this.button1);
 			this.Name = "LevelForm";
 			this.Text = "Level Selector";
-			this.Load += new System.EventHandler(this.Form1_Load);
 			this.ResumeLayout(false);
 		}
 	}

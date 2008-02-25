@@ -4,54 +4,54 @@ using System.Text;
 
 namespace project_hook
 {
-    class Turret : ShipPart
-    {
-        protected float m_StartAngle= float.PositiveInfinity;
-        public float StartAngle
-        {
-            get
-            {
-                return m_StartAngle;
-            }
-            set
-            {
-                if (m_StartAngle < 0)
-                {
-                    m_StartAngle = 360 - value;
-                }
-                else
-                {
-                    m_StartAngle = value;
-                }                
-            }
-        }
+	class Turret : ShipPart
+	{
+		protected float m_StartAngle = float.PositiveInfinity;
+		internal float StartAngle
+		{
+			get
+			{
+				return m_StartAngle;
+			}
+			set
+			{
+				if (m_StartAngle < 0)
+				{
+					m_StartAngle = 360 - value;
+				}
+				else
+				{
+					m_StartAngle = value;
+				}
+			}
+		}
 
-        protected float m_BendAmount;
-        public float BendAmount
-        {
-            get
-            {
-                return m_BendAmount;
-            }
-            set
-            {
-                m_BendAmount = value;
-            }
-        }
+		protected float m_BendAmount;
+		internal float BendAmount
+		{
+			get
+			{
+				return m_BendAmount;
+			}
+			set
+			{
+				m_BendAmount = value;
+			}
+		}
 
-        public Turret(float p_Bend)
-        {
-            BendAmount = p_Bend;
-        }
+		internal Turret(float p_Bend)
+		{
+			BendAmount = p_Bend;
+		}
 
 		internal override void Update(Microsoft.Xna.Framework.GameTime p_Time)
-        {
+		{
 			if (m_StartAngle == float.PositiveInfinity)
-            {
-                m_StartAngle = this.ParentShip.RotationDegrees;
-            }
+			{
+				m_StartAngle = this.ParentShip.RotationDegrees;
+			}
 
-            base.Update(p_Time);
+			base.Update(p_Time);
 
 			float diff = RotationDegrees - m_StartAngle;
 
@@ -76,7 +76,7 @@ namespace project_hook
 					RotationDegrees = m_StartAngle - m_BendAmount;
 				}
 			}
-            this.shoot();
-        }
-    }
+			this.shoot();
+		}
+	}
 }

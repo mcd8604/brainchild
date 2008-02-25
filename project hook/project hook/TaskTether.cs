@@ -5,22 +5,24 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskTether : Task
+	internal class TaskTether : Task
 	{
 
-		Sprite m_AttachedTo = null;
+		private Sprite m_AttachedTo = null;
 
-		Vector2 speed = Vector2.Zero;
+		private Vector2 speed = Vector2.Zero;
+
 		// TODO: Better implementation of friction..
-		float friction = 0.95f;
-		int deathzone = 50;
-		Vector2 minaccel = new Vector2(-2000, -2000);
-		Vector2 maxaccel = new Vector2(2000, 2000);
-		Vector2 minspeed = new Vector2(-500, -500);
-		Vector2 maxspeed = new Vector2(500, 500);
+		private const float friction = 0.95f;
+		private const int deadzone = 50;
+		private readonly Vector2 minaccel = new Vector2(-2000, -2000);
+		private readonly Vector2 maxaccel = new Vector2(2000, 2000);
+		private readonly Vector2 minspeed = new Vector2(-500, -500);
+		private readonly Vector2 maxspeed = new Vector2(500, 500);
 
-		public TaskTether() { }
-		public TaskTether(Sprite p_AttachedTo) {
+		internal TaskTether() { }
+		internal TaskTether(Sprite p_AttachedTo)
+		{
 			m_AttachedTo = p_AttachedTo;
 		}
 
@@ -32,21 +34,21 @@ namespace project_hook
 			float deltaX = m_AttachedTo.Center.X - on.Center.X;
 			float deltaY = m_AttachedTo.Center.Y - on.Center.Y;
 
-			if (Math.Abs(deltaX) < deathzone)
+			if (Math.Abs(deltaX) < deadzone)
 			{
 				deltaX = 0;
 			}
 			else
 			{
-				deltaX += (-deathzone * Math.Sign(deltaX));
+				deltaX += (-deadzone * Math.Sign(deltaX));
 			}
-			if (Math.Abs(deltaY) < deathzone)
+			if (Math.Abs(deltaY) < deadzone)
 			{
 				deltaY = 0;
 			}
 			else
 			{
-				deltaY += (-deathzone * Math.Sign(deltaY));
+				deltaY += (-deadzone * Math.Sign(deltaY));
 			}
 
 			Vector2 e = new Vector2(deltaX * Math.Abs(deltaX), deltaY * Math.Abs(deltaY));
@@ -61,7 +63,7 @@ namespace project_hook
 			on.Center = Vector2.Add(on.Center, temp);
 
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			throw new Exception("The method or operation is not implemented.");
 		}

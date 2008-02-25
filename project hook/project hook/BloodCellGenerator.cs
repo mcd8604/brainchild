@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class BloodCellGenerator : Sprite
+	internal class BloodCellGenerator : Sprite
 	{
-		float m_BloodCellDelay = 3.0f;
-		public float BloodCellDelay
+		private float m_BloodCellDelay = 3.0f;
+		internal float BloodCellDelay
 		{
 			get
 			{
@@ -23,8 +23,8 @@ namespace project_hook
 			}
 		}
 
-		int m_BloodCellMinSpawnRange = 100;
-		public int MinSpawnRange
+		private int m_BloodCellMinSpawnRange = 100;
+		internal int MinSpawnRange
 		{
 			get
 			{
@@ -36,8 +36,8 @@ namespace project_hook
 			}
 		}
 
-		int m_BloodCellMaxSpawnRange = Game.graphics.GraphicsDevice.Viewport.Width - 100;
-		public int MaxSpawnRange
+		private int m_BloodCellMaxSpawnRange = Game.graphics.GraphicsDevice.Viewport.Width - 100;
+		internal int MaxSpawnRange
 		{
 			get
 			{
@@ -49,9 +49,9 @@ namespace project_hook
 			}
 		}
 
-		float m_LastRelease = 0;
+		private float m_LastRelease = 0;
 
-		public BloodCellGenerator(int p_BloodCellMax)
+		internal BloodCellGenerator(int p_BloodCellMax)
 		{
 			for (int i = 0; i < p_BloodCellMax; i++)
 			{
@@ -59,7 +59,7 @@ namespace project_hook
 #if !FINAL
 					"BloodCell",
 #endif
-					Vector2.Zero, 50, 50, TextureLibrary.getGameTexture("bloodcell", 1), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Blood, Collidable.Factions.Blood, 100, 25);
+Vector2.Zero, 50, 50, TextureLibrary.getGameTexture("bloodcell", 1), 0.75f, true, -MathHelper.PiOver2, Depth.BackGroundLayer.Blood, Collidable.Factions.Blood, 100, 25);
 				t_Blood.setAnimation("bloodcell", 60);
 				t_Blood.Enabled = false;
 				attachSpritePart(t_Blood);

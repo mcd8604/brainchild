@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskAttachTo : Task
+	internal class TaskAttachTo : Task
 	{
 
-		public delegate Vector2 PositionFunction();
+		internal delegate Vector2 PositionFunction();
 
 		private PositionFunction m_Position = null;
-		public PositionFunction Position
+		internal PositionFunction Position
 		{
 			get
 			{
@@ -24,7 +24,7 @@ namespace project_hook
 		}
 
 		private Vector2 m_Offset = Vector2.Zero;
-		public Vector2 Offset
+		internal Vector2 Offset
 		{
 			get
 			{
@@ -36,12 +36,12 @@ namespace project_hook
 			}
 		}
 
-		public TaskAttachTo() { }
-		public TaskAttachTo(PositionFunction p_Position)
+		internal TaskAttachTo() { }
+		internal TaskAttachTo(PositionFunction p_Position)
 		{
 			m_Position = p_Position;
 		}
-		public TaskAttachTo(PositionFunction p_Position, Vector2 p_Offset)
+		internal TaskAttachTo(PositionFunction p_Position, Vector2 p_Offset)
 		{
 			m_Position = p_Position;
 			m_Offset = p_Offset;
@@ -50,7 +50,7 @@ namespace project_hook
 		{
 			on.Center = m_Position.Invoke() + m_Offset;
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskAttachTo(m_Position, m_Offset);
 		}

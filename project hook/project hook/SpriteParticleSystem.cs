@@ -23,7 +23,7 @@ namespace project_hook
 	/// such as fire, explosions, and plumes of smoke. To use these subclasses, 
 	/// simply call AddParticles, and pass in where the particles should exist
 	/// </summary>
-	public abstract class SpriteParticleSystem : Sprite
+	internal abstract class SpriteParticleSystem : Sprite
 	{
 		private static Task m_ParticleTask = new TaskStationary();
 
@@ -31,7 +31,7 @@ namespace project_hook
 		// will be expected to draw at one time. this is set in the constructor and is
 		// used to calculate how many particles we will need.
 		protected int m_howManyEffects;
-		public int HowManyEffects
+		internal int HowManyEffects
 		{
 			get
 			{
@@ -54,13 +54,13 @@ namespace project_hook
 		/// <summary>
 		/// returns the number of particles that are available for a new effect.
 		/// </summary>
-		public int FreeParticleCount
+		internal int FreeParticleCount
 		{
 			get { return freeParticles.Count; }
 		}
 
 		protected String m_TextureName;
-		public String TextureName
+		internal String TextureName
 		{
 			get
 			{
@@ -73,7 +73,7 @@ namespace project_hook
 		}
 
 		protected int m_TextureTag;
-		public int TextureTag
+		internal int TextureTag
 		{
 			get
 			{
@@ -86,7 +86,7 @@ namespace project_hook
 		}
 
 		protected bool m_Animated = false;
-		public bool Animated
+		internal bool Animated
 		{
 			get
 			{
@@ -99,7 +99,7 @@ namespace project_hook
 		}
 
 		protected String m_AnimationName;
-		public String AnimationName
+		internal String AnimationName
 		{
 			get
 			{
@@ -112,7 +112,7 @@ namespace project_hook
 		}
 
 		protected int m_AnimationFPS;
-		public int AnimationFPS
+		internal int AnimationFPS
 		{
 			get
 			{
@@ -137,7 +137,7 @@ namespace project_hook
 		/// number between minNumParticles and maxNumParticles.
 		/// </summary>
 		protected int m_MinNumParticles;
-		public int MinNumParticles
+		internal int MinNumParticles
 		{
 			get
 			{
@@ -149,7 +149,7 @@ namespace project_hook
 			}
 		}
 		protected int m_MaxNumParticles;
-		public int MaxNumParticles
+		internal int MaxNumParticles
 		{
 			get
 			{
@@ -168,7 +168,7 @@ namespace project_hook
 		/// PickRandomDirection, which can be overriden.
 		/// </summary>
 		protected float m_MinInitialSpeed;
-		public float MinInitialSpeed
+		internal float MinInitialSpeed
 		{
 			get
 			{
@@ -180,7 +180,7 @@ namespace project_hook
 			}
 		}
 		protected float m_MaxInitialSpeed;
-		public float MaxInitialSpeed
+		internal float MaxInitialSpeed
 		{
 			get
 			{
@@ -199,7 +199,7 @@ namespace project_hook
 		/// direction of the initial velocity.
 		/// </summary>
 		protected float m_MinAcceleration;
-		public float MinAcceleration
+		internal float MinAcceleration
 		{
 			get
 			{
@@ -211,7 +211,7 @@ namespace project_hook
 			}
 		}
 		protected float m_MaxAcceleration;
-		public float MaxAcceleration
+		internal float MaxAcceleration
 		{
 			get
 			{
@@ -231,7 +231,7 @@ namespace project_hook
 		/// numbers for more violent effects.
 		/// </summary>
 		protected float m_MinRotationSpeed;
-		public float MinRotationSpeed
+		internal float MinRotationSpeed
 		{
 			get
 			{
@@ -243,7 +243,7 @@ namespace project_hook
 			}
 		}
 		protected float m_MaxRotationSpeed;
-		public float MaxRotationSpeed
+		internal float MaxRotationSpeed
 		{
 			get
 			{
@@ -263,7 +263,7 @@ namespace project_hook
 		/// values to avoid particles suddenly "popping" into view
 		/// </summary>
 		protected float m_MinLifetime;
-		public float MinLifetime
+		internal float MinLifetime
 		{
 			get
 			{
@@ -275,7 +275,7 @@ namespace project_hook
 			}
 		}
 		protected float m_MaxLifetime;
-		public float MaxLifetime
+		internal float MaxLifetime
 		{
 			get
 			{
@@ -294,7 +294,7 @@ namespace project_hook
 		/// "popping" into view.
 		/// </summary>
 		protected float m_MinScale;
-		public float MinScale
+		internal float MinScale
 		{
 			get
 			{
@@ -306,7 +306,7 @@ namespace project_hook
 			}
 		}
 		protected float m_MaxScale;
-		public float MaxScale
+		internal float MaxScale
 		{
 			get
 			{
@@ -336,12 +336,12 @@ namespace project_hook
 #if !FINAL
 			String p_Name,
 #endif
-			String p_TextureName, int p_TextureTag, int p_HowManyEffects)
+String p_TextureName, int p_TextureTag, int p_HowManyEffects)
 			: base(
 #if !FINAL
 			p_Name,
 #endif
-			Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
+Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
 		{
 			TextureName = p_TextureName;
 			TextureTag = p_TextureTag;
@@ -368,12 +368,12 @@ namespace project_hook
 #if !FINAL
 			String p_Name,
 #endif
-			String p_TextureName, int p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
+String p_TextureName, int p_TextureTag, String p_AnimationName, int p_AnimationFPS, int p_HowManyEffects)
 			: base(
 #if !FINAL
 			p_Name,
 #endif
-			Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
+Vector2.Zero, 0, 0, null, 0f, true, 0f, Depth.GameLayer.Explosion)
 		{
 
 			TextureName = p_TextureName;
@@ -416,7 +416,7 @@ namespace project_hook
 		/// AddParticles will have no effect.
 		/// </summary>
 		/// <param name="where">where the particle effect should be created</param>
-		public void AddParticles(Vector2 where)
+		internal void AddParticles(Vector2 where)
 		{
 			// the number of particles we want for this effect is a random number
 			// somewhere between the two constants specified by the subclasses.
@@ -476,7 +476,7 @@ namespace project_hook
 			p.Transparency = Transparency;
 		}
 
-		public static float RandomBetween(float min, float max)
+		internal static float RandomBetween(float min, float max)
 		{
 			return min + (float)Game.Random.NextDouble() * (max - min);
 		}
@@ -566,7 +566,7 @@ namespace project_hook
 
 		}
 
-		public new abstract SpriteParticleSystem copy();
+		internal new abstract SpriteParticleSystem copy();
 
 	}
 }
