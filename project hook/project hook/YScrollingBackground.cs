@@ -12,15 +12,15 @@ namespace project_hook
 		private int m_Size;
 		private WorldPosition m_WorldPosition;
 
-		public YScrollingBackground(GameTexture p_BackgroundTexture, WorldPosition p_WorldPosition)
+		internal YScrollingBackground(GameTexture p_BackgroundTexture, WorldPosition p_WorldPosition, Rectangle p_ViewPortSize)
 			: base(
 #if !FINAL
 				"scrollingBackground",
 #endif
-				new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGroundLayer.Background)
+new Vector2(0, 0), 0, 0, null, 255, true, 0, Depth.BackGroundLayer.Background)
 		{
 			m_WorldPosition = p_WorldPosition;
-			m_Size = (int)(Math.Ceiling((float)World.m_ViewPortSize.Height / (float)p_BackgroundTexture.Height) + 1);
+			m_Size = (int)(Math.Ceiling((float)p_ViewPortSize.Height / (float)p_BackgroundTexture.Height) + 1);
 			m_SpriteArray = new Sprite[m_Size];
 			for (int i = 0; i < m_Size; ++i)
 			{
@@ -28,7 +28,7 @@ namespace project_hook
 #if !FINAL
 					"background",
 #endif
-					new Vector2(0.0f, (i-1) * p_BackgroundTexture.Height), p_BackgroundTexture.Height, World.m_ViewPortSize.Width, p_BackgroundTexture, 1f, true, 0, Depth.BackGroundLayer.Background);
+new Vector2(0.0f, (i - 1) * p_BackgroundTexture.Height), p_BackgroundTexture.Height, p_ViewPortSize.Width, p_BackgroundTexture, 1f, true, 0, Depth.BackGroundLayer.Background);
 				m_SpriteArray[i] = s;
 			}
 		}
@@ -50,7 +50,7 @@ namespace project_hook
 				newC.Y -= m_SpriteArray[0].Height;
 			}
 			m_SpriteArray[0].Center = newC;
-			
+
 			for (int i = 1; i < m_Size; ++i)
 			{
 				m_SpriteArray[i].Center = new Vector2(m_SpriteArray[i].Center.X, m_SpriteArray[i - 1].Center.Y + m_SpriteArray[i - 1].Height);

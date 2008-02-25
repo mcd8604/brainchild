@@ -10,7 +10,7 @@ namespace project_hook
 	/// <summary>
 	/// 
 	/// </summary>
-	public abstract class Menu : Sprite
+	internal abstract class Menu : Sprite
 	{
 		protected int m_selectedIndex;
 
@@ -28,7 +28,7 @@ namespace project_hook
 
 		protected Boolean usingTextSprite;
 
-		public Menu()
+		internal Menu()
 		{
 			//default textures
 			m_BackgroundName = "menu_background";
@@ -39,7 +39,7 @@ namespace project_hook
 			m_MenuCursorName = "menuCursor";
 		}
 
-		public virtual void Load()
+		internal virtual void Load()
 		{
 			//background sprite
 			GameTexture bgTexture = TextureLibrary.getGameTexture(m_BackgroundName);
@@ -49,17 +49,17 @@ namespace project_hook
 #if !FINAL
 				m_BackgroundName,
 #endif
-				Vector2.Zero, bgTexture.Height, bgTexture.Width, bgTexture, 200f, true, 0, Depth.MenuLayer.Background);
+Vector2.Zero, bgTexture.Height, bgTexture.Width, bgTexture, 200f, true, 0, Depth.MenuLayer.Background);
 			m_BackgroundSprite.Center = new Vector2(xPos, yPos);
 			attachSpritePart(m_BackgroundSprite);
 
 			//cursor sprite
-            GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName);
+			GameTexture cursorTexture = TextureLibrary.getGameTexture(m_MenuCursorName);
 			m_MenuCursorSprite = new Sprite(
 #if !FINAL
 				m_MenuCursorName,
 #endif
-				Vector2.Zero, cursorTexture.Height, cursorTexture.Width, cursorTexture, 1f, true, 0f, Depth.MenuLayer.Cursor);
+Vector2.Zero, cursorTexture.Height, cursorTexture.Width, cursorTexture, 1f, true, 0f, Depth.MenuLayer.Cursor);
 			m_MenuCursorSprite.Task = new TaskAttachTo(InputHandler.getMousePosition, new Vector2(cursorTexture.Width * 0.5f, cursorTexture.Height * 0.5f));
 			attachSpritePart(m_MenuCursorSprite);
 
@@ -119,7 +119,7 @@ namespace project_hook
 #if !FINAL
 					(String)m_MenuItemNames[i],
 #endif
-					Vector2.Zero, curTexture.Height, curTexture.Width, curTexture, 255f, true, 0, Depth.MenuLayer.Text);
+Vector2.Zero, curTexture.Height, curTexture.Width, curTexture, 255f, true, 0, Depth.MenuLayer.Text);
 				mis.Center = new Vector2(xPos, yPos);
 				m_MenuItemSprites.Add(mis);
 				attachSpritePart(mis);
@@ -132,7 +132,7 @@ namespace project_hook
 #if !FINAL
 				m_HighlightName,
 #endif
-				new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height, selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.MenuLayer.Highlight);
+new Vector2(selSprite.Position.X, selSprite.Position.Y), selSprite.Texture.Height, selSprite.Texture.Width, highlightTexture, 255f, true, 0, Depth.MenuLayer.Highlight);
 			attachSpritePart(m_HightlightSprite);
 		}
 
@@ -141,7 +141,7 @@ namespace project_hook
 			base.Update(p_Time);
 			if (InputHandler.IsActionPressed(Actions.Pause))
 			{
-				cancel();               
+				cancel();
 			}
 
 			if (InputHandler.IsActionPressed(Actions.Up))
@@ -217,7 +217,7 @@ namespace project_hook
 			setHighlightSprite();
 		}
 
-		public void setSelectedIndex(int index)
+		internal void setSelectedIndex(int index)
 		{
 			if (index < 0)
 			{
@@ -256,8 +256,8 @@ namespace project_hook
 			}
 		}
 
-		public abstract void accept();
+		internal abstract void accept();
 
-		public abstract void cancel();
+		internal abstract void cancel();
 	}
 }

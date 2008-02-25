@@ -1,15 +1,15 @@
 namespace project_hook
 {
-	static class Program
+	internal static class Program
 	{
 
 #if FINAL
-		private const string outfilename = "err.log";
+		private const string outfilename = "error.log";
 		private static System.IO.TextWriter writer;
 #else
-		private static System.IO.TextWriter writer = System.Console.Out;
+		private static readonly System.IO.TextWriter writer = System.Console.Out;
 #endif
-		public static System.IO.TextWriter Out
+		internal static System.IO.TextWriter Out
 		{
 			get
 			{
@@ -21,7 +21,7 @@ namespace project_hook
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-		static void Main(string[] args)
+		internal static void Main(string[] args)
 		{
 #if FINAL
 			using (writer = new System.IO.StreamWriter(outfilename))
@@ -44,11 +44,10 @@ namespace project_hook
 				{
 					Out.WriteLine("Exception occured: " + e);
 					Out.WriteLine("Process Terminated.");
-					System.Windows.Forms.MessageBox.Show("Sorry, A Fatal Exeception has occurred in Cell.  Please send the file err.log in the program directory to the developers for assistance.", "Fatal Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+					System.Windows.Forms.MessageBox.Show("Sorry, A Fatal Exeception has occurred in Cell.  Please send the file " + outfilename + " in the program directory to the developers for assistance.", "Fatal Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 				}
 #endif
 #if FINAL
-				Out.Flush();
 			}
 #endif
 		}

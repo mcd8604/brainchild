@@ -5,14 +5,14 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class WeaponStraight : Weapon
+	internal class WeaponStraight : Weapon
 	{
 
 		private float m_LastAngle = float.NaN;
 
 		// the angle that the shot is to be fired at
 		protected float m_Angle = 0;
-		public float Angle
+		internal float Angle
 		{
 			get
 			{
@@ -23,7 +23,7 @@ namespace project_hook
 				m_Angle = value;
 			}
 		}
-		public float AngleDegrees
+		internal float AngleDegrees
 		{
 			get
 			{
@@ -35,20 +35,20 @@ namespace project_hook
 			}
 		}
 
-		public Vector2 m_Position = Vector2.Zero;
+		internal Vector2 m_Position = Vector2.Zero;
 
-		Task m_ShotTask;
+		private Task m_ShotTask;
 
-		public WeaponStraight(){ }
-		public WeaponStraight(Ship p_Ship):base(p_Ship) { }
+		internal WeaponStraight() { }
+		internal WeaponStraight(Ship p_Ship) : base(p_Ship) { }
 
-		public WeaponStraight(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, float p_Angle)
+		internal WeaponStraight(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, float p_Angle)
 			: base(p_Ship, p_Shot, p_Delay, p_Speed)
 		{
 			Angle = p_Angle;
 		}
 
-		public override void Fire(Ship who)
+		internal override void Fire(Ship who)
 		{
 			float thisAngle = (who.Rotation + Angle);
 			if (m_LastAngle != thisAngle || m_LastSpeed != Speed)

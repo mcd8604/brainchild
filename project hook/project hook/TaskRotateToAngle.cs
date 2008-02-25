@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskRotateToAngle : Task, TaskIAngle
+	internal class TaskRotateToAngle : Task, TaskIAngle
 	{
-		float m_Angle = 0f;
+		private float m_Angle = 0f;
 		public float Angle
 		{
 			get { return m_Angle; }
@@ -18,8 +18,8 @@ namespace project_hook
 			get { return MathHelper.ToDegrees(Angle); }
 			set { Angle = MathHelper.ToRadians(value); }
 		}
-		public TaskRotateToAngle() { }
-		public TaskRotateToAngle(float p_Angle)
+		internal TaskRotateToAngle() { }
+		internal TaskRotateToAngle(float p_Angle)
 		{
 			Angle = p_Angle;
 		}
@@ -27,7 +27,7 @@ namespace project_hook
 		{
 			on.Rotation = Angle;
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskRotateToAngle(m_Angle);
 		}

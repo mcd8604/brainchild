@@ -12,7 +12,7 @@ namespace project_hook
 		private const int DELAY_SECONDS = 20;
 		private double idleTime = 0;
 
-		public MenuMain()
+		internal MenuMain()
 			: base()
 		{
 			m_BackgroundName = "menu_background";
@@ -32,7 +32,7 @@ namespace project_hook
 			m_MenuItemNames.Add("Quit");
 		}
 
-		public override void accept()
+		internal override void accept()
 		{
 			if (m_selectedIndex == 0)
 			{
@@ -65,7 +65,7 @@ namespace project_hook
 				Menus.Exit = true;
 			}
 		}
-		public override void cancel()
+		internal override void cancel()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.BrainChildLogo);
 		}

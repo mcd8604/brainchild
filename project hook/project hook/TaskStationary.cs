@@ -7,14 +7,14 @@ namespace project_hook
 {
 	class TaskStationary : Task
 	{
-		public TaskStationary() { }
+		internal TaskStationary() { }
 		protected override void Do(Sprite on, GameTime at)
 		{
 			Vector2 temp = on.Center;
 			temp.Y += World.Position.Speed * (float)at.ElapsedGameTime.TotalSeconds;
 			on.Center = temp;
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskStationary();
 		}

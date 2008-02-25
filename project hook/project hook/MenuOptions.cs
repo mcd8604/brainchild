@@ -7,7 +7,7 @@ namespace project_hook
 {
 	class MenuOptions : Menu
 	{
-		public MenuOptions()
+		internal MenuOptions()
 		{
 			m_BackgroundName = "menu_background";
 
@@ -19,31 +19,39 @@ namespace project_hook
 			if (Game.graphics.IsFullScreen)
 			{
 				m_MenuItemNames.Add("Fullscreen On");
-			} else {
+			}
+			else
+			{
 				m_MenuItemNames.Add("Fullscreen Off");
 			}
 			if (Music.getPlaySound())
 			{
 				m_MenuItemNames.Add("Music On");
-			} else {
+			}
+			else
+			{
 				m_MenuItemNames.Add("Music Off");
 			}
 			if (Sound.getPlaySound())
 			{
 				m_MenuItemNames.Add("Sound Effects On");
-			} else {
+			}
+			else
+			{
 				m_MenuItemNames.Add("Sound Effects Off");
 			}
 			if (World.getPrimaryRight())
 			{
 				m_MenuItemNames.Add("Rightclick Primary On");
-			} else {
+			}
+			else
+			{
 				m_MenuItemNames.Add("Rightclick Primary Off");
 			}
 			m_MenuItemNames.Add("Main Menu");
 		}
 
-		public override void accept()
+		internal override void accept()
 		{
 			if (m_selectedIndex == 0)
 			{
@@ -51,7 +59,9 @@ namespace project_hook
 				if (Game.graphics.IsFullScreen)
 				{
 					((TextSprite)m_MenuItemSprites[0]).Text = "Fullscreen On";
-				} else {
+				}
+				else
+				{
 					((TextSprite)m_MenuItemSprites[0]).Text = "Fullscreen Off";
 				}
 			}
@@ -62,7 +72,9 @@ namespace project_hook
 				{
 					Music.setPlaySound(false);
 					((TextSprite)m_MenuItemSprites[1]).Text = "Music Off";
-				} else {
+				}
+				else
+				{
 					Music.setPlaySound(true);
 					((TextSprite)m_MenuItemSprites[1]).Text = "Music On";
 				}
@@ -70,11 +82,13 @@ namespace project_hook
 
 			if (m_selectedIndex == 2)
 			{
-				Sound.setPlaySound();
+				Sound.togglePlaySound();
 				if (Sound.getPlaySound())
 				{
 					((TextSprite)m_MenuItemSprites[2]).Text = "Sound Effects On";
-				} else {
+				}
+				else
+				{
 					((TextSprite)m_MenuItemSprites[2]).Text = "Sound Effects Off";
 				}
 			}
@@ -85,7 +99,9 @@ namespace project_hook
 				if (World.getPrimaryRight())
 				{
 					((TextSprite)m_MenuItemSprites[3]).Text = "Rightclick Primary On";
-				} else {
+				}
+				else
+				{
 					((TextSprite)m_MenuItemSprites[3]).Text = "Rightclick Primary Off";
 				}
 			}
@@ -95,7 +111,7 @@ namespace project_hook
 				Menus.setCurrentMenu(Menus.MenuScreens.Main);
 			}
 		}
-		public override void cancel()
+		internal override void cancel()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.Main);
 		}

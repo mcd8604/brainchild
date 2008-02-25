@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskSeekPoint : Task
+	internal class TaskSeekPoint : Task
 	{
 		private Vector2 m_Goal = Vector2.Zero;
-		public Vector2 Goal
+		internal Vector2 Goal
 		{
 			get
 			{
@@ -20,7 +20,7 @@ namespace project_hook
 			}
 		}
 		private float m_Speed = 0f;
-		public float Speed
+		internal float Speed
 		{
 			get
 			{
@@ -32,7 +32,7 @@ namespace project_hook
 			}
 		}
 		private float m_CloseEnough = 0f;
-		public float CloseEnough
+		internal float CloseEnough
 		{
 			get
 			{
@@ -43,19 +43,19 @@ namespace project_hook
 				m_CloseEnough = value;
 			}
 		}
-		public TaskSeekPoint() { }
-		public TaskSeekPoint(Vector2 p_Goal, float p_Speed)
+		internal TaskSeekPoint() { }
+		internal TaskSeekPoint(Vector2 p_Goal, float p_Speed)
 		{
 			Goal = p_Goal;
 			Speed = p_Speed;
 		}
-		public TaskSeekPoint(Vector2 p_Goal, float p_Speed, float p_CloseEnough)
+		internal TaskSeekPoint(Vector2 p_Goal, float p_Speed, float p_CloseEnough)
 		{
 			Goal = p_Goal;
 			Speed = p_Speed;
 			CloseEnough = p_CloseEnough;
 		}
-		public override bool IsComplete(Sprite on)
+		internal override bool IsComplete(Sprite on)
 		{
 			Vector2 temp = m_Goal - on.Center;
 			return (Math.Abs(temp.X) <= CloseEnough && Math.Abs(temp.Y) <= CloseEnough);
@@ -78,7 +78,7 @@ namespace project_hook
 			}
 			on.Center = Vector2.Add(on.Center, temp2);
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskSeekPoint(m_Goal, m_Speed, m_CloseEnough);
 		}

@@ -5,24 +5,24 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskRepeatingSequence : Task
+	internal class TaskRepeatingSequence : Task
 	{
 		private List<Task> m_Tasks = new List<Task>();
 		private int m_Current = 0;
-		public TaskRepeatingSequence() { }
-		public TaskRepeatingSequence(Task p_Task)
+		internal TaskRepeatingSequence() { }
+		internal TaskRepeatingSequence(Task p_Task)
 		{
 			addTask(p_Task);
 		}
-		public TaskRepeatingSequence(IEnumerable<Task> p_Tasks)
+		internal TaskRepeatingSequence(IEnumerable<Task> p_Tasks)
 		{
 			addTasks(p_Tasks);
 		}
-		public void addTask(Task t)
+		internal void addTask(Task t)
 		{
 			m_Tasks.Add(t);
 		}
-		public void addTasks(IEnumerable<Task> t)
+		internal void addTasks(IEnumerable<Task> t)
 		{
 			m_Tasks.AddRange(t);
 		}
@@ -34,7 +34,7 @@ namespace project_hook
 				m_Current = (m_Current + 1) % m_Tasks.Count;
 			}
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			List<Task> newTasks = new List<Task>();
 			foreach (Task t in m_Tasks)
@@ -43,7 +43,7 @@ namespace project_hook
 			}
 			return new TaskRepeatingSequence(newTasks);
 		}
-		public override IEnumerable<Task> getSubTasks()
+		internal override IEnumerable<Task> getSubTasks()
 		{
 			return m_Tasks;
 		}

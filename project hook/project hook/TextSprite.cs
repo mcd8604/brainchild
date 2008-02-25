@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace project_hook
 {
-	public class TextSprite : Sprite
+	internal class TextSprite : Sprite
 	{
 
-		public delegate String StringFunction();
+		internal delegate String StringFunction();
 
 		private SpriteFont m_Font = null;
 		protected SpriteFont Font
@@ -24,13 +24,13 @@ namespace project_hook
 			}
 
 		}
-		public void setFont(String value)
+		internal void setFont(String value)
 		{
 			m_Font = TextureLibrary.getFont(value);
 		}
 
 		protected String m_Text = "Blank String";
-		public String Text
+		internal String Text
 		{
 			get
 			{
@@ -53,7 +53,7 @@ namespace project_hook
 		}
 
 		private StringFunction m_Func = null;
-		public StringFunction Func
+		internal StringFunction Func
 		{
 			set
 			{
@@ -64,7 +64,7 @@ namespace project_hook
 
 		protected Vector2 m_Origin = Vector2.Zero;
 
-		public override int Height
+		internal override int Height
 		{
 			get
 			{
@@ -88,7 +88,7 @@ namespace project_hook
 			}
 		}
 
-		public override int Width
+		internal override int Width
 		{
 			get
 			{
@@ -112,7 +112,7 @@ namespace project_hook
 			}
 		}
 
-		public TextSprite(String p_Text, Vector2 p_Center)
+		internal TextSprite(String p_Text, Vector2 p_Center)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -124,7 +124,7 @@ namespace project_hook
 			Color = Color.Black;
 		}
 
-		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color)
+		internal TextSprite(String p_Text, Vector2 p_Center, Color p_Color)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -136,7 +136,7 @@ namespace project_hook
 			Color = p_Color;
 		}
 
-		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z)
+		internal TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -149,7 +149,7 @@ namespace project_hook
 			Z = p_Z;
 		}
 
-		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency)
+		internal TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -163,7 +163,7 @@ namespace project_hook
 			Transparency = p_Transparency;
 		}
 
-		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation)
+		internal TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -178,7 +178,7 @@ namespace project_hook
 			Rotation = p_Rotation;
 		}
 
-		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, Vector2 p_Scale)
+		internal TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, Vector2 p_Scale)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -194,7 +194,7 @@ namespace project_hook
 			Scale = p_Scale;
 		}
 
-		public TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, int p_Height, int p_Width)
+		internal TextSprite(String p_Text, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, int p_Height, int p_Width)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -213,7 +213,7 @@ namespace project_hook
 
 
 
-		public TextSprite(StringFunction p_Func, Vector2 p_Center)
+		internal TextSprite(StringFunction p_Func, Vector2 p_Center)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -225,7 +225,7 @@ namespace project_hook
 			Color = Color.Black;
 		}
 
-		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color)
+		internal TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -237,7 +237,7 @@ namespace project_hook
 			Color = p_Color;
 		}
 
-		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z)
+		internal TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -250,7 +250,7 @@ namespace project_hook
 			Z = p_Z;
 		}
 
-		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency)
+		internal TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -264,7 +264,7 @@ namespace project_hook
 			Transparency = p_Transparency;
 		}
 
-		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation)
+		internal TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -279,7 +279,7 @@ namespace project_hook
 			Rotation = p_Rotation;
 		}
 
-		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, Vector2 p_Scale)
+		internal TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, Vector2 p_Scale)
 		{
 			m_Sized = false;
 			setFont("Courier New");
@@ -295,7 +295,7 @@ namespace project_hook
 			Scale = p_Scale;
 		}
 
-		public TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, int p_Height, int p_Width)
+		internal TextSprite(StringFunction p_Func, Vector2 p_Center, Color p_Color, float p_Z, float p_Transparency, float p_Rotation, int p_Height, int p_Width)
 		{
 			m_Sized = false;
 			setFont("Courier New");

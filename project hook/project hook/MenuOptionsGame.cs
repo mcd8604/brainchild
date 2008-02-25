@@ -7,7 +7,7 @@ namespace project_hook
 {
 	class MenuOptionsGame : Menu
 	{
-		public MenuOptionsGame()
+		internal MenuOptionsGame()
 		{
 			m_BackgroundName = "menu_background";
 
@@ -19,31 +19,39 @@ namespace project_hook
 			if (Game.graphics.IsFullScreen)
 			{
 				m_MenuItemNames.Add("Fullscreen On");
-			} else {
+			}
+			else
+			{
 				m_MenuItemNames.Add("Fullscreen Off");
 			}
 			if (Music.IsPlaying("bg2"))
 			{
 				m_MenuItemNames.Add("Music On");
-			} else {
+			}
+			else
+			{
 				m_MenuItemNames.Add("Music Off");
 			}
 			if (Sound.getPlaySound())
 			{
 				m_MenuItemNames.Add("Sound Effects On");
-			} else {
+			}
+			else
+			{
 				m_MenuItemNames.Add("Sound Effects Off");
 			}
 			if (World.getPrimaryRight())
 			{
 				m_MenuItemNames.Add("Rightclick Primary On");
-			} else {
+			}
+			else
+			{
 				m_MenuItemNames.Add("Rightclick Primary Off");
 			}
 			m_MenuItemNames.Add("Back");
 		}
 
-		public override void accept()
+		internal override void accept()
 		{
 			if (m_selectedIndex == 0)
 			{
@@ -75,7 +83,7 @@ namespace project_hook
 
 			if (m_selectedIndex == 2)
 			{
-				Sound.setPlaySound();
+				Sound.togglePlaySound();
 				if (Sound.getPlaySound())
 				{
 					((TextSprite)m_MenuItemSprites[2]).Text = "Sound Effects On";
@@ -99,12 +107,12 @@ namespace project_hook
 				}
 			}
 
-			if (m_selectedIndex ==4)
+			if (m_selectedIndex == 4)
 			{
 				Menus.setCurrentMenu(Menus.MenuScreens.Pause);
 			}
 		}
-		public override void cancel()
+		internal override void cancel()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.Pause);
 		}

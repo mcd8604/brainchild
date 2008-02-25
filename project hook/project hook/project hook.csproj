@@ -78,6 +78,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Boss</Name>
     </Compile>
+    <Compile Include="EnvironmentSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>EnvironmentSprite</Name>
+    </Compile>
     <Compile Include="MenuBrainChildLogo.cs">
       <SubType>Code</SubType>
       <XNAUseContentPipeline>false</XNAUseContentPipeline>

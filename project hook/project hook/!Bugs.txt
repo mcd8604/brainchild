@@ -4,3 +4,7 @@
 -Turret 'necks' not lined up with turret 'bases'.- -Fixed -Adam
 
 Sound effects spamming (blood leaking in to wall, or player colliding with uncaptureable enemy).
+
+Clicking 'Music on' in the in-game options menu in final release mode caused a crash
+Restarting game from in game menu caused a crash
+	- Music Exception: System.ArgumentException: Item has already been added. Key in dictionary: 'bg2'  Key being added: 'bg2' 

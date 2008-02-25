@@ -1,4 +1,3 @@
-#define XBOX360
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -136,9 +135,9 @@ namespace project_hook
 		{
 			return CheckState(action, thisKeyboardState)
 #if XBOX360
-			|| CheckState(action, thisGamePadState)
+ || CheckState(action, thisGamePadState)
 #endif
-			|| CheckState(action, thisMouseState)
+ || CheckState(action, thisMouseState)
 
 			;
 		}
@@ -146,9 +145,9 @@ namespace project_hook
 		{
 			return CheckState(action, lastKeyboardState)
 #if XBOX360
-			|| CheckState(action, lastGamePadState)
+ || CheckState(action, lastGamePadState)
 #endif
-			|| CheckState(action, lastMouseState)
+ || CheckState(action, lastMouseState)
 
 			;
 		}
@@ -290,7 +289,7 @@ namespace project_hook
 		}
 		internal static Boolean HasRightStickMoved()
 		{
-			return thisGamePadState.ThumbSticks.Left != lastGamePadState.ThumbSticks.Left;
+			return thisGamePadState.ThumbSticks.Right != lastGamePadState.ThumbSticks.Right;
 		}
 		internal static Vector2 RightStickPosition
 		{
@@ -315,11 +314,10 @@ namespace project_hook
 
 		internal static Vector2 getMousePosition()
 		{
-				return new Vector2(thisMouseState.X, thisMouseState.Y);
+			return new Vector2(thisMouseState.X, thisMouseState.Y);
 		}
 
-
-
+#if DEBUG
 
 		/// <summary>
 		/// Returns whether a specified key is currently being pressed.
@@ -361,6 +359,7 @@ namespace project_hook
 			return lastKeyboardState.IsKeyDown(Key) && thisKeyboardState.IsKeyUp(Key);
 		}
 
+#endif
 
 	}
 }

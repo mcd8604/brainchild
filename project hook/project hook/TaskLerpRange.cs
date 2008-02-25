@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskLerpRange : Task
+	internal class TaskLerpRange : Task
 	{
 		private Sprite m_From = null;
-		public Sprite From
+		internal Sprite From
 		{
 			get
 			{
@@ -20,7 +20,7 @@ namespace project_hook
 			}
 		}
 		private Sprite m_To = null;
-		public Sprite To
+		internal Sprite To
 		{
 			get
 			{
@@ -32,7 +32,7 @@ namespace project_hook
 			}
 		}
 		private float m_Range = 0f;
-		public float Range
+		internal float Range
 		{
 			get
 			{
@@ -44,8 +44,9 @@ namespace project_hook
 			}
 		}
 
-		public TaskLerpRange() { }
-		public TaskLerpRange(Sprite p_From, Sprite p_To, float p_MaxRangeFromFrom) {
+		internal TaskLerpRange() { }
+		internal TaskLerpRange(Sprite p_From, Sprite p_To, float p_MaxRangeFromFrom)
+		{
 			From = p_From;
 			To = p_To;
 			Range = p_MaxRangeFromFrom;
@@ -54,12 +55,13 @@ namespace project_hook
 		{
 			float value = 1;
 			float distance = Vector2.Distance(From.Center, To.Center);
-			if ( distance > Range ) {
+			if (distance > Range)
+			{
 				value = Range / distance;
 			}
 			on.Center = Vector2.Lerp(From.Center, To.Center, value);
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			throw new Exception("The method or operation is not implemented.");
 		}

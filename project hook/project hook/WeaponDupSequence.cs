@@ -5,29 +5,29 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class WeaponDupSequence : Weapon
+	internal class WeaponDupSequence : Weapon
 	{
 
-		Weapon weapon = null;
-		int repeats = 1;
-		int count = 0;
-		float recycleDelay = 100;
-		public float RecycleDelay
+		private Weapon weapon = null;
+		private int repeats = 1;
+		private int count = 0;
+		private float recycleDelay = 100;
+		internal float RecycleDelay
 		{ get { return recycleDelay; } set { recycleDelay = value; } }
 
-		public void setWeapon(Weapon w)
+		internal void setWeapon(Weapon w)
 		{
 			weapon = w;
 		}
-		public void setRepeats(int r)
+		internal void setRepeats(int r)
 		{
 			repeats = r;
 		}
 
-		public WeaponDupSequence(){ }
-		public WeaponDupSequence(Ship p_Ship):base(p_Ship) { }
+		internal WeaponDupSequence() { }
+		internal WeaponDupSequence(Ship p_Ship) : base(p_Ship) { }
 
-		public override void CreateShot()
+		internal override void CreateShot()
 		{
 			if (m_Cooldown <= 0 && weapon != null)
 			{
@@ -50,17 +50,17 @@ namespace project_hook
 			}
 		}
 
-		public override void Fire(Ship who)
+		internal override void Fire(Ship who)
 		{
 			throw new Exception("The method or operation is not implemented.");
 		}
 
-		public override IList<Shot> changeShotType(Shot type)
+		internal override IList<Shot> changeShotType(Shot type)
 		{
 			return weapon.changeShotType(type);
 		}
 
-		public override IList<Shot> getShots()
+		internal override IList<Shot> getShots()
 		{
 			return weapon.getShots();
 		}

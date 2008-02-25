@@ -41,7 +41,7 @@ namespace project_hook
 		private static String path = System.Environment.CurrentDirectory + "\\Content\\Textures\\";
 
 		//This method will initialize the Texture Dictionarys and set the content manager      
-		public static void iniTextures(ContentManager content)
+		internal static void iniTextures(ContentManager content)
 		{
 			if (m_Textures == null && m_GameTextures == null)
 			{
@@ -51,7 +51,7 @@ namespace project_hook
 			}
 		}
 
-		public static GameTexture getGameTexture(string name)
+		internal static GameTexture getGameTexture(string name)
 		{
 			if (m_GameTextures == null)
 			{
@@ -68,7 +68,7 @@ namespace project_hook
 
 		//This method gets a the GameTexture who has the corresponding name and tag.
 		//If no texture is found NULL is returned. If we're in Debug an Exception will be thrown.
-		public static GameTexture getGameTexture(string name, int tag)
+		internal static GameTexture getGameTexture(string name, int tag)
 		{
 			//Makes sure the Texture lists have been initialized
 			if (m_GameTextures == null)
@@ -99,7 +99,7 @@ namespace project_hook
 
 		//This method gets a the 2DTexture who has the corresponding asset name.
 		//If no texture is found NULL is returned. If we're in Debug an Exception will be thrown.
-		public static Texture2D getTexture2D(string name, string tag)
+		internal static Texture2D getTexture2D(string name, string tag)
 		{
 			//Makes sure the Texture lists have been initialized
 			if (m_Textures == null)
@@ -135,7 +135,7 @@ namespace project_hook
 		//This loads a texture and Stores it in the hashtable.
 		//The Textures name is it's key
 		//If it cannot find or load the texture it will return false;
-		public static Boolean LoadTexture(string textureName)
+		internal static Boolean LoadTexture(string textureName)
 		{
 			if (m_Textures == null || m_GameTextures == null)
 			{
@@ -153,7 +153,7 @@ namespace project_hook
 			{
 				Texture2D tTexture = loadTextureByName(textureName);
 				m_Textures.Add(textureName, tTexture);
-				
+
 				//This code will load up a textures rectangle Description
 
 				string strFilename = path + textureName + ".xml";
@@ -248,7 +248,7 @@ namespace project_hook
 			return true;
 		}
 
-		public static Dictionary<int, GameTexture> getSpriteSheet(String name)
+		internal static Dictionary<int, GameTexture> getSpriteSheet(String name)
 		{
 			if (m_GameTextures != null && m_GameTextures.ContainsKey(name))
 			{
@@ -287,7 +287,7 @@ namespace project_hook
 
 		}
 
-		public static Boolean unloadAll()
+		internal static Boolean unloadAll()
 		{
 			//m_TextureManager.Unload();
 			//m_Textures = null;
@@ -296,7 +296,7 @@ namespace project_hook
 
 		}
 
-		public static void reloadAll()
+		internal static void reloadAll()
 		{
 			foreach (String key in m_GameTextures.Keys)
 			{
@@ -321,7 +321,7 @@ namespace project_hook
 
 
 		// A Quick Method to get access to what I need - temporary
-		public static SpriteFont getFont(String name)
+		internal static SpriteFont getFont(String name)
 		{
 			return m_TextureManager.Load<SpriteFont>(System.Environment.CurrentDirectory + "\\Content\\Fonts\\" + name);
 		}

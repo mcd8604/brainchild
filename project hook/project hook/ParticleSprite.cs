@@ -23,18 +23,18 @@ namespace project_hook
 	/// such as position, velocity, acceleration, and rotation. They'll be drawn as
 	/// sprites, all layered on top of one another, and will be very pretty.
 	/// </summary>
-	public class ParticleSprite : Sprite
+	internal class ParticleSprite : Sprite
 	{
 		// Position, Velocity, and Acceleration represent exactly what their names
-		// indicate. They are public fields rather than properties so that users
+		// indicate. They are internal fields rather than properties so that users
 		// can directly access their .X and .Y properties.
 
-		public Vector2 Velocity;
-		public Vector2 Acceleration;
+		internal Vector2 Velocity;
+		internal Vector2 Acceleration;
 
 		// how long this particle will "live"
 		protected float lifetime;
-		public float Lifetime
+		internal float Lifetime
 		{
 			get { return lifetime; }
 			set { lifetime = value; }
@@ -42,7 +42,7 @@ namespace project_hook
 
 		// how long it has been since initialize was called
 		protected float timeSinceStart;
-		public float TimeSinceStart
+		internal float TimeSinceStart
 		{
 			get { return timeSinceStart; }
 			set { timeSinceStart = value; }
@@ -51,7 +51,7 @@ namespace project_hook
 
 		// how fast does it rotate?
 		protected float rotationSpeed;
-		public float RotationSpeed
+		internal float RotationSpeed
 		{
 			get { return rotationSpeed; }
 			set { rotationSpeed = value; }
@@ -59,13 +59,13 @@ namespace project_hook
 
 		// is this particle still alive? once TimeSinceStart becomes greater than
 		// Lifetime, the particle should no longer be drawn or updated.
-		public bool Active
+		internal bool Active
 		{
 			get { return TimeSinceStart < Lifetime; }
 		}
 
 		protected float originalSize;
-		public float OriginalSize
+		internal float OriginalSize
 		{
 			get { return originalSize; }
 		}
@@ -73,7 +73,7 @@ namespace project_hook
 
 		// initialize is called by ParticleSystem to set up the particle, and prepares
 		// the particle for use.
-		public void Initialize(Vector2 center, Vector2 velocity, Vector2 acceleration,
+		internal void Initialize(Vector2 center, Vector2 velocity, Vector2 acceleration,
 			float lifetime, float scale, float rotationSpeed, String p_Texture, int p_Tag)
 		{
 			// set the values to the requested values
@@ -95,7 +95,7 @@ namespace project_hook
 			Enabled = true;
 		}
 
-		public void Initialize(Vector2 center, Vector2 velocity, Vector2 acceleration,
+		internal void Initialize(Vector2 center, Vector2 velocity, Vector2 acceleration,
 			float lifetime, float scale, float rotationSpeed, String p_Texture, int p_Tag, String p_AnimationName, int p_FPS)
 		{
 			// set the values to the requested values
@@ -121,7 +121,7 @@ namespace project_hook
 
 		// update is called by the ParticleSystem on every frame. This is where the
 		// particle's position and that kind of thing get updated.
-		public void Update(GameTime p_GameTime, float dt)
+		internal void Update(GameTime p_GameTime, float dt)
 		{
 			base.Update(p_GameTime);
 			Velocity += Acceleration * dt;

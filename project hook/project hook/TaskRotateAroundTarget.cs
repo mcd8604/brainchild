@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskRotateAroundTarget : Task
+	internal class TaskRotateAroundTarget : Task
 	{
 		private float m_OffsetAngle = 0f;
-		public float OffsetAngle
+		internal float OffsetAngle
 		{
 			get
 			{
@@ -19,20 +19,20 @@ namespace project_hook
 				m_OffsetAngle = value;
 			}
 		}
-		public float OffsetAngleDegrees
+		internal float OffsetAngleDegrees
 		{
 			get
 			{
-				return MathHelper.ToDegrees( m_OffsetAngle );
+				return MathHelper.ToDegrees(m_OffsetAngle);
 			}
 			set
 			{
-				m_OffsetAngle = MathHelper.ToRadians( value );
+				m_OffsetAngle = MathHelper.ToRadians(value);
 			}
 		}
 
 		private float m_OffsetDistance = 0f;
-		public float OffsetDistance
+		internal float OffsetDistance
 		{
 			get
 			{
@@ -45,7 +45,7 @@ namespace project_hook
 		}
 
 		private Sprite m_Target = null;
-		public Sprite Target
+		internal Sprite Target
 		{
 			get
 			{
@@ -57,23 +57,23 @@ namespace project_hook
 			}
 		}
 
-		public TaskRotateAroundTarget() { }
-		public TaskRotateAroundTarget(Sprite p_Target)
+		internal TaskRotateAroundTarget() { }
+		internal TaskRotateAroundTarget(Sprite p_Target)
 		{
 			Target = p_Target;
 		}
-		public TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance )
+		internal TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance)
 		{
 			Target = p_Target;
 			OffsetDistance = p_OffsetDistance;
 		}
-		public TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance, int p_OffsetAngleDegrees)
+		internal TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance, int p_OffsetAngleDegrees)
 		{
 			Target = p_Target;
 			OffsetDistance = p_OffsetDistance;
 			OffsetAngleDegrees = p_OffsetAngleDegrees;
 		}
-		public TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance, float p_OffsetAngle)
+		internal TaskRotateAroundTarget(Sprite p_Target, float p_OffsetDistance, float p_OffsetAngle)
 		{
 			Target = p_Target;
 			OffsetDistance = p_OffsetDistance;
@@ -88,7 +88,7 @@ namespace project_hook
 			on.Center = newPos;
 		}
 
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskRotateAroundTarget(Target, OffsetDistance, OffsetAngle);
 		}

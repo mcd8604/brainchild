@@ -4,11 +4,11 @@ using System.Text;
 
 namespace project_hook
 {
-	class Boss : Ship
+	internal class Boss : Ship
 	{
-		List<Event> m_EventList;
-		int m_EventTrigger;
-		int EventTrigger
+		private List<Event> m_EventList;
+		private int m_EventTrigger;
+		internal int EventTrigger
 		{
 			get
 			{
@@ -20,14 +20,14 @@ namespace project_hook
 			}
 		}
 
-		public Boss()
+		internal Boss()
 		{
 			m_EventList = new List<Event>();
 			//temp
 			m_EventList.Add(new Event(80));
 		}
 
-		public Boss(List<Event> p_EventList)
+		internal Boss(List<Event> p_EventList)
 		{
 			m_EventList = p_EventList;
 		}
@@ -40,14 +40,18 @@ namespace project_hook
 			if (World.Position.Speed == 0)
 			{
 				if (ToBeRemoved || Faction != Factions.Enemy)
-					EventTrigger = 1;
+				{
+					m_EventTrigger = 1;
+				}
 			}
 			//end temp
 
 			while (m_EventTrigger > 0 && m_EventList.Count > 0)
 			{
 				if (m_EventList[0].Type == Event.Types.ChangeSpeed)
+				{
 					World.Position.setSpeed(m_EventList[0].Speed);
+				}
 
 				m_EventList.RemoveAt(0);
 				m_EventTrigger--;

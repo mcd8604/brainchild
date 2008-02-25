@@ -4,7 +4,7 @@ using System.Text;
 
 namespace project_hook
 {
-	public interface TaskIAngle
+	internal interface TaskIAngle
 	{
 		float Angle
 		{

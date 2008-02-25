@@ -9,7 +9,7 @@ namespace project_hook
 	{
 
 		private Sprite m_From = null;
-		public Sprite From
+		internal Sprite From
 		{
 			get
 			{
@@ -21,7 +21,7 @@ namespace project_hook
 			}
 		}
 		private Sprite m_To = null;
-		public Sprite To
+		internal Sprite To
 		{
 			get
 			{
@@ -33,7 +33,7 @@ namespace project_hook
 			}
 		}
 		private Vector2 m_Offset = Vector2.Zero;
-		public Vector2 Offset
+		internal Vector2 Offset
 		{
 			get
 			{
@@ -46,27 +46,28 @@ namespace project_hook
 		}
 
 
-		public TaskLerp() { }
-		public TaskLerp(Sprite p_From, Sprite p_To) {
+		internal TaskLerp() { }
+		internal TaskLerp(Sprite p_From, Sprite p_To)
+		{
 			From = p_From;
 			To = p_To;
 		}
 
-		public override void Update(Sprite on, GameTime at)
+		internal override void Update(Sprite on, GameTime at)
 		{
 			throw new NotImplementedException("The method or operation is not supported.");
 		}
 
-		public override void Update(ICollection<Sprite> on, GameTime at)
+		internal override void Update(ICollection<Sprite> on, GameTime at)
 		{
 			float i = 1;
 			float div = on.Count + 1;
 			foreach (Sprite s in on)
 			{
-				s.Center = Vector2.Lerp(m_From.Center + m_Offset, m_To.Center, i++ / div );
+				s.Center = Vector2.Lerp(m_From.Center + m_Offset, m_To.Center, i++ / div);
 			}
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			throw new Exception("The method or operation is not implemented.");
 		}

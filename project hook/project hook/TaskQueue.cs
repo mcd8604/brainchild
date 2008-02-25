@@ -5,19 +5,19 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskQueue : Task
+	internal class TaskQueue : Task
 	{
 		private Queue<Task> m_Tasks = new Queue<Task>();
-		public TaskQueue() { }
-		public TaskQueue(Task p_Task)
+		internal TaskQueue() { }
+		internal TaskQueue(Task p_Task)
 		{
 			addTask(p_Task);
 		}
-		public void addTask(Task t)
+		internal void addTask(Task t)
 		{
 			m_Tasks.Enqueue(t);
 		}
-		public override bool IsComplete(Sprite on)
+		internal override bool IsComplete(Sprite on)
 		{
 			return m_Tasks.Count == 0;
 		}
@@ -32,7 +32,7 @@ namespace project_hook
 				}
 			}
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			throw new Exception("The method or operation is not implemented.");
 		}

@@ -5,25 +5,27 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskRotateWithTarget : Task
+	internal class TaskRotateWithTarget : Task
 	{
 		private float m_Offset = 0f;
-		public float Offset
+		internal float Offset
 		{
 			get { return m_Offset; }
 			set { m_Offset = value; }
 		}
 		private Sprite m_Target = null;
-		public Sprite Target
+		internal Sprite Target
 		{
 			get { return m_Target; }
 			set { m_Target = value; }
 		}
-		public TaskRotateWithTarget() { }
-		public TaskRotateWithTarget(Sprite p_Target) {
+		internal TaskRotateWithTarget() { }
+		internal TaskRotateWithTarget(Sprite p_Target)
+		{
 			Target = p_Target;
 		}
-		public TaskRotateWithTarget(Sprite p_Target, float p_Offset) {
+		internal TaskRotateWithTarget(Sprite p_Target, float p_Offset)
+		{
 			Target = p_Target;
 			Offset = p_Offset;
 		}
@@ -31,7 +33,7 @@ namespace project_hook
 		{
 			on.Rotation = Target.Rotation + Offset;
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskRotateWithTarget(m_Target, m_Offset);
 		}

@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class PowerUp : Collidable
+	internal class PowerUp : Collidable
 	{
-		private static List<PowerUp> m_PowerUps;
+		private static readonly List<Sprite> m_PowerUps = new List<Sprite>();
 		private static int nextPowerUp = 0;
 		private const int MAX_POWERUPS = 20;
 		private const int SIZE = 50;
@@ -16,20 +16,19 @@ namespace project_hook
 		private const int RAND_SHIELD_PERCENT_CHANCE = 5;
 		private const int RAND_WEAPON_PERCENT_CHANCE = 20;
 
-		public static void iniPowerups()
+		internal static List<Sprite> iniPowerups()
 		{
-			m_PowerUps = new List<PowerUp>();
-
 			for (int a = 0; a < MAX_POWERUPS; a++)
 			{
 				m_PowerUps.Add(new PowerUp());
-				World.m_World.AddSprite(m_PowerUps[a]);
 			}
+
+			return m_PowerUps;
 		}
 
-		public static void DisplayPowerUp(int size, int value, Vector2 at, PowerType power)
+		internal static void DisplayPowerUp(int size, int value, Vector2 at, PowerType power)
 		{
-			PowerUp p = m_PowerUps[nextPowerUp];
+			PowerUp p = m_PowerUps[nextPowerUp] as PowerUp;
 			if (power == PowerType.Random)
 			{
 				p.Type = getRandomType();
@@ -60,7 +59,7 @@ namespace project_hook
 
 
 		protected int m_Amount;
-		public int Amount
+		internal int Amount
 		{
 			get
 			{
@@ -72,7 +71,7 @@ namespace project_hook
 			}
 		}
 
-		public override int Width
+		internal override int Width
 		{
 			get
 			{
@@ -89,7 +88,7 @@ namespace project_hook
 
 		}
 
-		public override int Height
+		internal override int Height
 		{
 			get
 			{
@@ -105,7 +104,7 @@ namespace project_hook
 			}
 		}
 
-		public override Vector2 Center
+		internal override Vector2 Center
 		{
 			get
 			{
@@ -122,7 +121,7 @@ namespace project_hook
 
 		}
 
-		public enum PowerType
+		internal enum PowerType
 		{
 			Random = -1,
 			None = 0,
@@ -132,7 +131,7 @@ namespace project_hook
 		}
 
 		protected PowerType m_Type;
-		public PowerType Type
+		internal PowerType Type
 		{
 			get
 			{
@@ -161,7 +160,7 @@ namespace project_hook
 
 		protected Sprite[] m_Back;
 
-		public PowerUp()
+		private PowerUp()
 		{
 			m_Back = new Sprite[m_BackCount];
 
@@ -196,7 +195,7 @@ namespace project_hook
 #endif
 		}
 
-		public PowerUp(int size, int value)
+		private PowerUp(int size, int value)
 		{
 			m_Back = new Sprite[m_BackCount];
 
@@ -232,7 +231,7 @@ namespace project_hook
 #endif
 		}
 
-		public PowerUp(int size, int value, Vector2 at)
+		private PowerUp(int size, int value, Vector2 at)
 		{
 			m_Back = new Sprite[m_BackCount];
 
@@ -270,7 +269,7 @@ namespace project_hook
 #endif
 		}
 
-		public PowerUp(int size, int value, PowerType p_type, Vector2 at)
+		private PowerUp(int size, int value, PowerType p_type, Vector2 at)
 		{
 			m_Back = new Sprite[m_BackCount];
 
@@ -334,7 +333,7 @@ namespace project_hook
 		{
 			base.Draw(p_SpriteBatch);
 		}
-		public override void RegisterCollision(Collidable p_Other)
+		internal override void RegisterCollision(Collidable p_Other)
 		{
 			if (p_Other.Faction == Factions.Player)
 			{

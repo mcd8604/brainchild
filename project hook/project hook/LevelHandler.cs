@@ -7,7 +7,7 @@ namespace project_hook
 	class LevelHandler
 	{
 		private Dictionary<int, List<Event>> m_Events;
-		public Dictionary<int, List<Event>> Events
+		internal Dictionary<int, List<Event>> Events
 		{
 			get
 			{
@@ -20,7 +20,7 @@ namespace project_hook
 		}
 
 		private World m_Game;
-		public World Game
+		internal World Game
 		{
 			get
 			{
@@ -34,16 +34,16 @@ namespace project_hook
 
 		private int m_EventDistance = 0;
 
-		public LevelHandler()
+		internal LevelHandler()
 		{
 		}
-		public LevelHandler(Dictionary<int, List<Event>> p_Events, World p_Game)
+		internal LevelHandler(Dictionary<int, List<Event>> p_Events, World p_Game)
 		{
 			Events = p_Events;
 			Game = p_Game;
 		}
 
-		public void CheckEvents(float p_UpToDistance)
+		internal void CheckEvents(float p_UpToDistance)
 		{
 			int CurrentPosition = Convert.ToInt32(Math.Ceiling(p_UpToDistance));
 
@@ -85,7 +85,7 @@ namespace project_hook
 			}
 		}
 
-		public void EndGame()
+		internal void EndGame()
 		{
 			if (!World.PlayerDead)
 			{
@@ -96,36 +96,36 @@ namespace project_hook
 			}
 		}
 
-		public void resetLevel()
+		internal void resetLevel()
 		{
 			m_EventDistance = 0;
 		}
 
-		public void CreateSprite(Sprite p_Sprite)
+		internal void CreateSprite(Sprite p_Sprite)
 		{
 			//add the sprtie to the sprtiebatch in the game class
 			//Sprite.addSprite(p_Collidable);
 			m_Game.AddSprite(p_Sprite);
 		}
 
-		public void ChangeSpeed(int p_Speed)
+		internal void ChangeSpeed(int p_Speed)
 		{
 			//change the speed in the game file
 			//World.Position.setSpeed(p_Speed);
 			m_Game.ChangeSpeed(p_Speed);
 		}
 
-		public void ChangeFile(String p_FileName)
+		internal void ChangeFile(String p_FileName)
 		{
 			//change the fileName in the levelReader class
 			m_Game.ChangeFile(p_FileName);
 			//tell it to read the file
 		}
-		public void LoadBMP(String p_FileName)
+		internal void LoadBMP(String p_FileName)
 		{
 			m_Game.LoadBMP(p_FileName);
 		}
-		public void PleaseLoadBMP(String p_FileName)
+		internal void PleaseLoadBMP(String p_FileName)
 		{
 			m_Game.PleaseLoadBMP(p_FileName);
 		}

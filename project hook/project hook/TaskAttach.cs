@@ -5,27 +5,30 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskAttach : Task
+	internal class TaskAttach : Task
 	{
 		private Sprite m_Target = null;
-		public Sprite Target {
-			get {
+		internal Sprite Target
+		{
+			get
+			{
 				return m_Target;
 			}
-			set {
+			set
+			{
 				m_Target = value;
 			}
 		}
-		public TaskAttach() { }
-		public TaskAttach(Sprite p_Target)
+		internal TaskAttach() { }
+		internal TaskAttach(Sprite p_Target)
 		{
 			Target = p_Target;
 		}
 		protected override void Do(Sprite on, GameTime at)
 		{
-				on.Center = m_Target.Center;
+			on.Center = m_Target.Center;
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskAttach(m_Target);
 		}

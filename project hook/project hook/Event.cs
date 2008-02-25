@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	public class Event
+	internal class Event
 	{
-		public enum Types
+		internal enum Types
 		{
 			CreateSprite,
 			CreateSprites,
@@ -19,20 +19,20 @@ namespace project_hook
 		}
 
 		protected Types m_Type;
-		public Types Type
+		internal Types Type
 		{
 			get
 			{
 				return m_Type;
 			}
 		}
-		public void setType(string type)
+		internal void setType(string type)
 		{
 			m_Type = (Types)Enum.Parse(typeof(Types), type, true);
 		}
 
 		protected Sprite m_Sprite;
-		public Sprite Sprite
+		internal Sprite Sprite
 		{
 			get
 			{
@@ -41,7 +41,7 @@ namespace project_hook
 		}
 
 		protected List<Sprite> m_Sprites;
-		public List<Sprite> Sprites
+		internal List<Sprite> Sprites
 		{
 			get
 			{
@@ -50,7 +50,7 @@ namespace project_hook
 		}
 
 		protected int m_Speed;
-		public int Speed
+		internal int Speed
 		{
 			get
 			{
@@ -59,7 +59,7 @@ namespace project_hook
 		}
 
 		protected String m_FileName;
-		public String FileName
+		internal String FileName
 		{
 			get
 			{
@@ -68,32 +68,32 @@ namespace project_hook
 		}
 
 
-		public Event(Sprite p_Sprite)
+		internal Event(Sprite p_Sprite)
 		{
 			m_Type = Types.CreateSprite;
 			m_Sprite = p_Sprite;
 		}
-		public Event(List<Sprite> p_Sprites)
+		internal Event(List<Sprite> p_Sprites)
 		{
 			m_Type = Types.CreateSprites;
 			m_Sprites = p_Sprites;
 		}
-		public Event(String p_FileName, Types p_Type)
+		internal Event(String p_FileName, Types p_Type)
 		{
 			m_Type = p_Type;
 			m_FileName = p_FileName;
 		}
-		public Event(String p_FileName, String p_Type)
+		internal Event(String p_FileName, String p_Type)
 		{
 			setType(p_Type);
 			m_FileName = p_FileName;
 		}
-		public Event(int p_Speed)
+		internal Event(int p_Speed)
 		{
 			m_Type = Types.ChangeSpeed;
 			m_Speed = p_Speed;
 		}
-		public Event(Types p_Type)
+		internal Event(Types p_Type)
 		{
 			m_Type = p_Type;
 		}

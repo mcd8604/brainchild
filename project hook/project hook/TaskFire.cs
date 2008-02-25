@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class TaskFire : Task
+	internal class TaskFire : Task
 	{
-		public TaskFire() { }
+		internal TaskFire() { }
 		protected override void Do(Sprite on, GameTime at)
 		{
 			Ship temp = on as Ship;
@@ -22,7 +22,7 @@ namespace project_hook
 			}
 #endif
 		}
-		public override Task copy()
+		internal override Task copy()
 		{
 			return new TaskFire();
 		}

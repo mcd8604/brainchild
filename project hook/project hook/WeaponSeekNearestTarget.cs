@@ -5,23 +5,23 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-	class WeaponSeekNearestTarget : Weapon
+	internal class WeaponSeekNearestTarget : Weapon
 	{
 		private Sprite m_LastTarget = null;
 
-		Task m_SeekTask;
-		Task m_StraightTask;
+		private Task m_SeekTask;
+		private Task m_StraightTask;
 
-		public Vector2 m_Position = Vector2.Zero;
+		internal Vector2 m_Position = Vector2.Zero;
 
 		private Collidable.Factions m_Faction;
-		public Collidable.Factions Faction
+		internal Collidable.Factions Faction
 		{
 			get { return m_Faction; }
 			set { m_Faction = value; }
 		}
 
-		public WeaponSeekNearestTarget(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, Collidable.Factions factionToSeek)
+		internal WeaponSeekNearestTarget(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, Collidable.Factions factionToSeek)
 			: base(p_Ship, p_Shot, p_Delay, p_Speed)
 		{
 			m_Faction = factionToSeek;
@@ -32,9 +32,9 @@ namespace project_hook
 			m_StraightTask = task;
 		}
 
-		public override void Fire(Ship who)
+		internal override void Fire(Ship who)
 		{
-			List<Sprite> list = World.m_World.getSpriteList();
+			List<Sprite> list = World.getAllSprites();
 
 			Sprite target = null;
 			float d = float.MaxValue;
@@ -79,11 +79,11 @@ namespace project_hook
 					TaskParallel task = new TaskParallel();
 					task.addTask(new TaskStraightAngle(MathHelper.PiOver2, Speed));
 					task.addTask(new TaskRotateToAngle(MathHelper.PiOver2));
-                    m_StraightTask = task;
+					m_StraightTask = task;
 
 					m_LastSpeed = Speed;
 				}
-			
+
 				m_Shots[m_NextShot].Enabled = true;
 				m_Shots[m_NextShot].Center = who.Center + m_Position;
 				m_Shots[m_NextShot].Faction = who.Faction;

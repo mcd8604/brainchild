@@ -9,7 +9,7 @@ namespace project_hook
 	{
 		double m_Delay = 20;
 
-		public MenuCredits()
+		internal MenuCredits()
 		{
 			//change to so texture that is is made for our title screen
 			m_BackgroundName = "Credits";
@@ -29,11 +29,11 @@ namespace project_hook
 				Menus.setCurrentMenu(Menus.MenuScreens.Main);
 			}
 		}
-		public override void accept()
+		internal override void accept()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.Main);
 		}
-		public override void cancel()
+		internal override void cancel()
 		{
 			Menus.setCurrentMenu(Menus.MenuScreens.Main);
 		}

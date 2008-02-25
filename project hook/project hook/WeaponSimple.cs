@@ -4,20 +4,20 @@ using System.Text;
 
 namespace project_hook
 {
-	class WeaponSimple : Weapon
+	internal class WeaponSimple : Weapon
 	{
 		private Task m_ShotTask;
-		public Task ShotTask { get { return m_ShotTask; } set { m_ShotTask = value; } }
+		internal Task ShotTask { get { return m_ShotTask; } set { m_ShotTask = value; } }
 
-		public WeaponSimple(Ship p_Ship):base(p_Ship) {}
+		internal WeaponSimple(Ship p_Ship) : base(p_Ship) { }
 
-		public WeaponSimple(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
+		internal WeaponSimple(Ship p_Ship, Shot p_Shot, float p_Delay, float p_Speed, Task p_ShotTask)
 			: base(p_Ship, p_Shot, p_Delay, p_Speed)
 		{
 			ShotTask = p_ShotTask;
 		}
 
-		public override void Fire(Ship who)
+		internal override void Fire(Ship who)
 		{
 			m_Shots[m_NextShot].Enabled = true;
 			m_Shots[m_NextShot].Center = who.Center;

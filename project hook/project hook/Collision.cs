@@ -195,7 +195,7 @@ namespace project_hook
 
 		private static bool DoesIntersectCircles(Vector2 pos1, float radiustopoint1, Vector2 pos2, float radiustopoint2)
 		{
-			return ((radiustopoint1 + radiustopoint2)*(radiustopoint1 + radiustopoint2)) > ((pos1.X - pos2.X)*(pos1.X - pos2.X)) + ((pos1.Y - pos2.Y)*(pos1.Y - pos2.Y));
+			return ((radiustopoint1 + radiustopoint2) * (radiustopoint1 + radiustopoint2)) > ((pos1.X - pos2.X) * (pos1.X - pos2.X)) + ((pos1.Y - pos2.Y) * (pos1.Y - pos2.Y));
 		}
 		private static bool DoesIntersectCircleDiamond(Vector2 circ, float circrad, Vector2 diamond, float diamondrad)
 		{

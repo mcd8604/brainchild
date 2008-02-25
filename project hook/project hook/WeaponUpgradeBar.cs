@@ -5,52 +5,52 @@ using Microsoft.Xna.Framework;
 
 namespace project_hook
 {
-    class WeaponUpgradeBar:Sprite
-    {
-       
-        //the ship who's shield and health will be displayed
-        PlayerShip m_Target;
+	internal class WeaponUpgradeBar : Sprite
+	{
 
-        //The poistion the shields and heatlh will be drawn
-		Sprite weapons;
-        Sprite blackS;
+		//the ship who's shield and health will be displayed
+		private PlayerShip m_Target;
 
-     
-        int width;
-        int height;
-      //  Vector2 offset;
-      //  bool attach = false;
+		//The poistion the shields and heatlh will be drawn
+		private Sprite weapons;
+		private Sprite blackS;
 
-     
 
-        public WeaponUpgradeBar(PlayerShip p_Ship, Vector2 pos, int p_Width, int p_Height)
-        {
-            m_Target = p_Ship;
-            width = p_Width;
-            height = p_Height;
-            ini(pos);
+		private int width;
+		private int height;
+		//  Vector2 offset;
+		//  bool attach = false;
+
+
+
+		internal WeaponUpgradeBar(PlayerShip p_Ship, Vector2 pos, int p_Width, int p_Height)
+		{
+			m_Target = p_Ship;
+			width = p_Width;
+			height = p_Height;
+			ini(pos);
 			setBars();
-        }
+		}
 
-        private void ini(Vector2 pos)
-        {
-            weapons = new Sprite(
+		private void ini(Vector2 pos)
+		{
+			weapons = new Sprite(
 #if !FINAL
 				"WeaponBar",
 #endif
-				pos, height, width, TextureLibrary.getGameTexture("WeaponBar"), 200, true, 0.0f, Depth.HUDLayer.Foreground);
+pos, height, width, TextureLibrary.getGameTexture("WeaponBar"), 200, true, 0.0f, Depth.HUDLayer.Bar);
 
-            blackS = new Sprite();
-            blackS.Texture = TextureLibrary.getGameTexture("black");
-            blackS.Z = Depth.HUDLayer.Midground;
-            blackS.Enabled = true;
-            blackS.Width = width;
-            blackS.Height = height;
-            blackS.Alpha = 255;
+			blackS = new Sprite();
+			blackS.Texture = TextureLibrary.getGameTexture("black");
+			blackS.Z = Depth.HUDLayer.BarBackground;
+			blackS.Enabled = true;
+			blackS.Width = width;
+			blackS.Height = height;
+			blackS.Alpha = 255;
 			blackS.Position = pos;
-        }
+		}
 
-		public override Vector2 Position
+		internal override Vector2 Position
 		{
 			get
 			{
@@ -62,7 +62,7 @@ namespace project_hook
 			}
 		}
 
-		public override Vector2 Center
+		internal override Vector2 Center
 		{
 			get
 			{
@@ -74,8 +74,8 @@ namespace project_hook
 			}
 		}
 
-        private void setBars()
-        {
+		private void setBars()
+		{
 
 			if (m_Target.CurrentLevel == PlayerShip.MAX_LEVEL)
 			{
@@ -88,7 +88,7 @@ namespace project_hook
 				int val = m_Target.UpgradeLevel;
 				int levelReq = m_Target.LevelRequirement(m_Target.CurrentLevel + 1);
 				int prevlevel = m_Target.LevelRequirement(m_Target.CurrentLevel);
-				float div =  (float)(val - prevlevel)/(float)(levelReq - prevlevel) ;
+				float div = (float)(val - prevlevel) / (float)(levelReq - prevlevel);
 				int w = (int)(width * div);
 				if (w > 0)
 				{
@@ -107,20 +107,20 @@ namespace project_hook
 
 
 		internal override void Update(GameTime p_Time)
-        {
-            base.Update(p_Time);
-            setBars();
+		{
+			base.Update(p_Time);
+			setBars();
 
 
-        }
+		}
 
 		internal override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch p_SpriteBatch)
-        {
+		{
 			if (weapons != null)
 			{
 				weapons.Draw(p_SpriteBatch);
 				blackS.Draw(p_SpriteBatch);
 			}
-        }
-    }
+		}
+	}
 }

@@ -12,7 +12,7 @@ namespace project_hook
 	/// TODO:
 	/// 
 	/// </summary>
-	public class Ship : Collidable
+	internal class Ship : Collidable
 	{
 		//variable for the weapon that the ship currently has
 		protected List<Weapon> m_Weapons = new List<Weapon>();
@@ -22,7 +22,7 @@ namespace project_hook
 		private const float MAX_SHIELD_ALPHA = 0.65f;
 
 		protected SpriteParticleSystem m_ShieldDamageEffect = null;
-		public SpriteParticleSystem ShieldDamageEffect
+		internal SpriteParticleSystem ShieldDamageEffect
 		{
 			get
 			{
@@ -30,13 +30,13 @@ namespace project_hook
 			}
 		}
 
-		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, int p_Tag)
+		internal void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, int p_Tag)
 		{
 			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
 				Name + "_ShieldDamageEffectParticleSystem",
 #endif
-				p_ShieldDamageEffectTextureName, p_Tag, 1);
+p_ShieldDamageEffectTextureName, p_Tag, 1);
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(1f));
@@ -44,13 +44,13 @@ namespace project_hook
 			m_ShieldDamageEffect.Task = EffectTask;
 			addSprite(m_ShieldDamageEffect);
 		}
-		public void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, int p_Tag, String p_ShieldDamageEffectAnimationName, int p_AnimationFPS)
+		internal void setShieldDamageEffect(String p_ShieldDamageEffectTextureName, int p_Tag, String p_ShieldDamageEffectAnimationName, int p_AnimationFPS)
 		{
 			m_ShieldDamageEffect = new ExplosionSpriteParticleSystem(
 #if !FINAL
 				Name + "_ShieldDamageEffectParticleSystem",
 #endif
-				p_ShieldDamageEffectTextureName, p_Tag, p_ShieldDamageEffectAnimationName, p_AnimationFPS, 1);
+p_ShieldDamageEffectTextureName, p_Tag, p_ShieldDamageEffectAnimationName, p_AnimationFPS, 1);
 			TaskQueue EffectTask = new TaskQueue();
 			EffectTask.addTask(new TaskWait(this.IsDead));
 			EffectTask.addTask(new TaskTimer(1f));
@@ -59,7 +59,7 @@ namespace project_hook
 			addSprite(m_ShieldDamageEffect);
 		}
 
-		public override float Radius
+		internal override float Radius
 		{
 			get
 			{
@@ -77,7 +77,7 @@ namespace project_hook
 		}
 
 		protected float m_MaxShield = 0;
-		public float MaxShield
+		internal float MaxShield
 		{
 			get
 			{
@@ -100,7 +100,7 @@ namespace project_hook
 #if !FINAL
 							"Shield",
 #endif
-							Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield"), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
+Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield"), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
 						m_ShieldSprite.Center = Center;
 						TaskParallel ShieldTask = new TaskParallel();
 						ShieldTask.addTask(new TaskAttach(this));
@@ -113,7 +113,7 @@ namespace project_hook
 #if !FINAL
 							"Shield Overlay",
 #endif
-							Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield"), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
+Vector2.Zero, (int)(2 * base.Radius * 1.30), (int)(2 * base.Radius * 1.30), TextureLibrary.getGameTexture("Shield"), MAX_SHIELD_ALPHA, true, 0, Depth.GameLayer.Shields);
 						m_ShieldOverlay.Center = Center;
 						m_ShieldOverlay.Task = ShieldTask;
 						m_ShieldSprite.Z = this.Z + 0.01f;
@@ -128,7 +128,7 @@ namespace project_hook
 		}
 
 		protected float m_Shield = 0;
-		public float Shield
+		internal float Shield
 		{
 			get
 			{
@@ -145,7 +145,7 @@ namespace project_hook
 		/// <summary>
 		/// Delay after taking damage, before the shield begins regenerating, in seconds.
 		/// </summary>
-		public float ShieldRegenDelay
+		internal float ShieldRegenDelay
 		{
 			get { return m_ShieldRegenDelay; }
 			set { m_ShieldRegenDelay = value; }
@@ -155,20 +155,20 @@ namespace project_hook
 		/// <summary>
 		/// The Rate at which the shield will regenerate, in percent per second.
 		/// </summary>
-		public float ShieldRegenRate
+		internal float ShieldRegenRate
 		{
 			get { return m_ShieldRegenRate; }
 			set { m_ShieldRegenRate = value; }
 		}
 
-		public Ship()
+		internal Ship()
 		{
 #if !FINAL
 			Name = "Unnamed Ship";
 #endif
 			Z = Depth.GameLayer.Ships;
 		}
-		public Ship(Ship p_Ship)
+		internal Ship(Ship p_Ship)
 		{
 			if (p_Ship.Animation != null)
 			{
@@ -227,21 +227,21 @@ namespace project_hook
 				setDeathEffect(p_Ship.DeathEffect.TextureName, p_Ship.DeathEffect.TextureTag);
 			}
 		}
-		public Ship(
+		internal Ship(
 #if !FINAL
 			String p_Name,
 #endif
-			Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_MaxHealth, int p_MaxShield, float p_Radius)
+Vector2 p_Position, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Visible, float p_Rotation, float p_zBuff, Factions p_Faction, int p_MaxHealth, int p_MaxShield, float p_Radius)
 			: base(
 #if !FINAL
 			p_Name,
 #endif
-			p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Rotation, p_zBuff, p_Faction, p_MaxHealth, p_Radius)
+p_Position, p_Height, p_Width, p_Texture, p_Transparency, p_Visible, p_Rotation, p_zBuff, p_Faction, p_MaxHealth, p_Radius)
 		{
 			MaxShield = p_MaxShield;
 		}
 
-		public void addWeapon(Weapon w)
+		internal void addWeapon(Weapon w)
 		{
 			m_Weapons.Add(w);
 			w.BaseShip = this;
@@ -251,7 +251,7 @@ namespace project_hook
 			}
 		}
 
-		public void shoot()
+		internal void shoot()
 		{
 			foreach (Weapon w in m_Weapons)
 			{
@@ -259,7 +259,7 @@ namespace project_hook
 			}
 		}
 
-		public List<Weapon> Weapons
+		internal List<Weapon> Weapons
 		{
 			get
 			{
@@ -345,7 +345,7 @@ namespace project_hook
 			}
 		}
 
-		public override Sprite copy()
+		internal override Sprite copy()
 		{
 			return new Ship(this);
 		}
@@ -353,7 +353,7 @@ namespace project_hook
 		//private VisualEffect m_Last;
 
 		private VisualEffect m_ShootAnimation;
-		public VisualEffect ShootAnimation
+		internal VisualEffect ShootAnimation
 		{
 			get
 			{
@@ -361,7 +361,7 @@ namespace project_hook
 			}
 		}
 
-		public void setShootAnimation(string p_Animation, int p_FramesPerSecond)
+		internal void setShootAnimation(string p_Animation, int p_FramesPerSecond)
 		{
 			m_ShootAnimation = new VisualEffect(p_Animation, this, p_FramesPerSecond, 1);
 

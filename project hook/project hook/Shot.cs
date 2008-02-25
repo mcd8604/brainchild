@@ -14,13 +14,13 @@ namespace project_hook
 	/// 1. move across the screen
 	/// 
 	/// </summary>
-	public class Shot : Collidable
+	internal class Shot : Collidable
 	{
-		public bool DestroyedOnCollision = true;
+		internal bool DestroyedOnCollision = true;
 
-		public Ship m_Ship = null;
+		internal Ship m_Ship = null;
 
-		public Shot()
+		internal Shot()
 		{
 			Enabled = false;
 #if !FINAL
@@ -28,7 +28,7 @@ namespace project_hook
 #endif
 			Z = Depth.GameLayer.Shot;
 		}
-		public Shot(Shot p_Shot)
+		internal Shot(Shot p_Shot)
 		{
 			if (p_Shot.Animation != null)
 			{
@@ -59,16 +59,16 @@ namespace project_hook
 			Width = p_Shot.Width;
 			Z = p_Shot.Z;
 		}
-		public Shot(
+		internal Shot(
 #if !FINAL
 			String p_Name,
 #endif
-			Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled, float p_Rotation, float p_Z, Factions p_Faction, float p_Health, float p_Radius, float p_Damage)
+Vector2 p_Center, int p_Height, int p_Width, GameTexture p_Texture, float p_Transparency, bool p_Enabled, float p_Rotation, float p_Z, Factions p_Faction, float p_Health, float p_Radius, float p_Damage)
 			: base(
 #if !FINAL
 			p_Name,
 #endif
-			p_Center, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_Radius)
+p_Center, p_Height, p_Width, p_Texture, p_Transparency, p_Enabled, p_Rotation, p_Z, p_Faction, p_Health, p_Radius)
 		{
 			Damage = p_Damage;
 			Center = p_Center;
@@ -96,7 +96,7 @@ namespace project_hook
 		}
 
 		private SpriteParticleSystem m_TrailEffect;
-		public SpriteParticleSystem TrailEffect
+		internal SpriteParticleSystem TrailEffect
 		{
 			get
 			{
@@ -117,12 +117,12 @@ namespace project_hook
 			}
 		}
 
-		public override Boolean IsDead()
+		internal override Boolean IsDead()
 		{
 			return false;
 		}
 
-		public override void RegisterCollision(Collidable p_Other)
+		internal override void RegisterCollision(Collidable p_Other)
 		{
 			if (!(p_Other is Shot) && !(p_Other is Tail) && p_Other.Faction != Factions.Blood && p_Other.Faction != Factions.PowerUp)
 			{
@@ -135,7 +135,7 @@ namespace project_hook
 			}
 		}
 
-		public bool CheckShip()
+		internal bool CheckShip()
 		{
 			return (m_Ship == null || (m_Ship.IsDead() || m_Ship.ToBeRemoved));
 		}
