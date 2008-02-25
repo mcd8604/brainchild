@@ -12,7 +12,7 @@ namespace project_hook
 		private static AudioEngine engine;
 		private static WaveBank wavebank;
 		private static SoundBank soundbank;
-		private static Hashtable cueTable = new Hashtable();
+		private static Dictionary<string, Cue> cueTable = new Dictionary<string, Cue>();
 		private static Boolean playSound = true;
 
 		internal static Cue Play(string name)
@@ -20,10 +20,13 @@ namespace project_hook
 			Cue returnVal = null;
 			if (playSound)
 			{
+				if (cueTable.ContainsKey(name))
+				{
+					cueTable.Clear();
+				}
 				returnVal = soundbank.GetCue(name);
 				cueTable.Add(name, returnVal);
 				returnVal.Play();
-				//soundbank.PlayCue(name);
 			}
 			return returnVal;
 		}
@@ -66,7 +69,7 @@ namespace project_hook
 
 		internal static bool IsPlaying(string name)
 		{
-			return cueTable.Contains(name);
+			return cueTable.ContainsKey(name);
 		}
 
 		/// <summary>
@@ -77,7 +80,7 @@ namespace project_hook
 			soundbank.Dispose();
 			wavebank.Dispose();
 			engine.Dispose();
-			foreach (Cue it in cueTable)
+			foreach (Cue it in cueTable.Values)
 				Stop(it.Name);
 		}
 	}
