@@ -166,6 +166,8 @@ namespace project_hook
 			Sound.Initialize();
 			Music.Play("bg2");
 
+			Position.resetDistance();
+
 			m_ELoader = new EnvironmentLoader();
 			AddSprite(m_ELoader.Environment);
 

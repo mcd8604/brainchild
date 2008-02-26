@@ -247,80 +247,86 @@ new Vector2(0f, 0f), tempCR.Height, tempCR.Width, tempCR, 0.75f, true, 0f, Depth
 			//base.RegisterCollision(p_Other);
 			if (!(p_Other is Shot))
 			{
-				if (!p_Other.Grabbable)
-					Sound.Play("can_not_grab");
 
-				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0) && p_Other.Grabbable)
+				if (((p_Other.Faction == Factions.Enemy || p_Other.Faction == Factions.Blood) && m_EnemyCaught == null && m_TailState == TailState.Attacking) && (!(p_Other is Ship) || ((Ship)p_Other).Shield <= 0))
 				{
-					m_EnemyCaught = p_Other;
-					// if (m_EnemyHealth != null)
-					//{
-					//   m_EnemyHealth.ToBeRemoved = true;
-					//  m_EnemyHealth.Enabled = false;
-					// }
-					if (m_EnemyHealth == null)
+					if (!p_Other.Grabbable)
 					{
-						m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(150, 700), 75, 10, 55, 75);
-						addSprite(m_EnemyHealth);
+						Sound.Play("can_not_grab");
 					}
 					else
 					{
-						m_EnemyHealth.Target = m_EnemyCaught;
-						m_EnemyHealth.Enabled = true;
-					}
 
-					Transparency = 0;
-					tailTarget.Enabled = false;
-					m_EnemyCaught.Faction = Factions.Player;
-
-					TaskParallel temp = new TaskParallel();
-					temp.addTask(new TaskAttach(this));
-					temp.addTask(new TaskRotateFaceTarget(m_TargetObject));
-					m_EnemyCaught.Task = temp;
-					m_EnemyCaught.captured();
-
-					//remove any TaskFires from enemy parts 
-					//WARNING, this is not recursive
-					//and will not check parts of parts
-					if (m_EnemyCaught.Parts != null)
-					{
-						foreach (Sprite part in m_EnemyCaught.Parts)
+						m_EnemyCaught = p_Other;
+						// if (m_EnemyHealth != null)
+						//{
+						//   m_EnemyHealth.ToBeRemoved = true;
+						//  m_EnemyHealth.Enabled = false;
+						// }
+						if (m_EnemyHealth == null)
 						{
-							if (part.Task is TaskFire)
+							m_EnemyHealth = new HealthBar(m_EnemyCaught, new Vector2(150, 700), 75, 10, 55, 75);
+							addSprite(m_EnemyHealth);
+						}
+						else
+						{
+							m_EnemyHealth.Target = m_EnemyCaught;
+							m_EnemyHealth.Enabled = true;
+						}
+
+						Transparency = 0;
+						tailTarget.Enabled = false;
+						m_EnemyCaught.Faction = Factions.Player;
+
+						TaskParallel temp = new TaskParallel();
+						temp.addTask(new TaskAttach(this));
+						temp.addTask(new TaskRotateFaceTarget(m_TargetObject));
+						m_EnemyCaught.Task = temp;
+						m_EnemyCaught.captured();
+
+						//remove any TaskFires from enemy parts 
+						//WARNING, this is not recursive
+						//and will not check parts of parts
+						if (m_EnemyCaught.Parts != null)
+						{
+							foreach (Sprite part in m_EnemyCaught.Parts)
 							{
-								part.Task = null;
-							}
-							else if (part.Task is TaskParallel)
-							{
-								TaskParallel curTask = (TaskParallel)part.Task;
-								TaskParallel newTask = new TaskParallel();
-								if (curTask.getSubTasks() is List<Task>)
+								if (part.Task is TaskFire)
 								{
-									List<Task> subTasks = (List<Task>)curTask.getSubTasks();
-									foreach (Task t in subTasks)
+									part.Task = null;
+								}
+								else if (part.Task is TaskParallel)
+								{
+									TaskParallel curTask = (TaskParallel)part.Task;
+									TaskParallel newTask = new TaskParallel();
+									if (curTask.getSubTasks() is List<Task>)
 									{
-										if (!(t is TaskFire))
+										List<Task> subTasks = (List<Task>)curTask.getSubTasks();
+										foreach (Task t in subTasks)
 										{
-											newTask.addTask(t);
+											if (!(t is TaskFire))
+											{
+												newTask.addTask(t);
+											}
 										}
+										part.Task = newTask;
 									}
-									part.Task = newTask;
 								}
 							}
 						}
-					}
 
-					if (m_EnemyCaught is Ship)
-					{
-						foreach (Weapon wep in ((Ship)m_EnemyCaught).Weapons)
+						if (m_EnemyCaught is Ship)
 						{
-							if (wep is WeaponSeek)
+							foreach (Weapon wep in ((Ship)m_EnemyCaught).Weapons)
 							{
-								((WeaponSeek)wep).Target = m_TargetObject;
-							}
-							else if (wep is WeaponComplex)
-							{
-								((WeaponComplex)wep).Target = m_TargetObject;
+								if (wep is WeaponSeek)
+								{
+									((WeaponSeek)wep).Target = m_TargetObject;
+								}
+								else if (wep is WeaponComplex)
+								{
+									((WeaponComplex)wep).Target = m_TargetObject;
+								}
 							}
 						}
 					}
