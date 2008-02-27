@@ -1,0 +1,9 @@
+bin\x86\Debug\content\models\ball.xnb
+bin\x86\Debug\content\textures\test.xnb
+bin\x86\Debug\content\textures\test~0.xnb
+bin\x86\Debug\CelShaders.exe
+bin\x86\Debug\CelShaders.pdb
+obj\x86\Debug\ResolveAssemblyReference.cache
+obj\x86\Debug\CelShaders.exe
+obj\x86\Debug\CelShaders.pdb
+bin\x86\Debug\content\shaders\Cel.xnb

@@ -1,0 +1,9 @@
+C:\Documents and Settings\mxd1365\Desktop\CelShaders\CelShaders\bin\x86\Debug\content\models\ball.xnb
+C:\Documents and Settings\mxd1365\Desktop\CelShaders\CelShaders\bin\x86\Debug\content\textures\test.xnb
+C:\Documents and Settings\mxd1365\Desktop\CelShaders\CelShaders\bin\x86\Debug\content\shaders\Cel.xnb
+C:\Documents and Settings\mxd1365\Desktop\CelShaders\CelShaders\bin\x86\Debug\CelShaders.exe
+C:\Documents and Settings\mxd1365\Desktop\CelShaders\CelShaders\bin\x86\Debug\CelShaders.pdb
+C:\Documents and Settings\mxd1365\Desktop\CelShaders\CelShaders\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\mxd1365\Desktop\CelShaders\CelShaders\obj\x86\Debug\CelShaders.exe
+C:\Documents and Settings\mxd1365\Desktop\CelShaders\CelShaders\obj\x86\Debug\CelShaders.pdb
+C:\Documents and Settings\mxd1365\Desktop\CelShaders\CelShaders\bin\x86\Debug\content\models\cube.xnb
