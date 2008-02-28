@@ -29,12 +29,20 @@ namespace CelShaders
 		Texture2D text;
 
         Vector3 blob2Position = Vector3.Zero;
-        Vector3 blob1Position = new Vector3( -1.5f, 0.0f, 0.0f);
-        Vector3 blob3Position = new Vector3(1.5f, 0.0f, 0.0f);
+        Vector3 blob1Position = new Vector3( -2f, 1.0f, 0.0f);
+        Vector3 blob3Position = new Vector3(2f, 1.0f, 0.0f);
         Vector3 modelscale = Vector3.One;
         Quaternion modelrotation = Quaternion.Identity;
 
-        Vector3 cameraPosition = new Vector3(0.0f, 0.0f, 2.4f);
+        Vector3 cameraPosition = new Vector3(0.0f, 0.0f, 3f);
+
+		// physics stuff:
+		Vector3 gravity = new Vector3(0f, -0.5f, 0f);
+		Vector3 friction = new Vector3(0.1f, 0.1f, 0.1f);
+		Vector3 blob1Force = Vector3.Zero;
+		float blob1Bounce = 8f;
+		Vector3 blob1Velocity = Vector3.Zero;
+		Vector3 blob3Velocity = Vector3.Zero;
 
         public Game1()
         {
@@ -106,16 +114,73 @@ namespace CelShaders
         protected override void Update(GameTime gameTime)
         {
             // Allows the default game to exit on Xbox 360 and Windows
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+			{
+				this.Exit();
+			}
+			if (Keyboard.GetState().IsKeyDown(Keys.Space))
+			{
+				blob1Position = new Vector3(-2f, 1.0f, 0.0f);
+				blob3Position = new Vector3(2f, 1.0f, 0.0f);
+				blob1Velocity = Vector3.Zero;
+				blob3Velocity = Vector3.Zero;
+			}
+			
             Vector3 axis = Vector3.Up;
             axis = Vector3.Transform(axis, Matrix.CreateFromQuaternion(modelrotation));
             modelrotation = Quaternion.Normalize(Quaternion.CreateFromAxisAngle(axis, 0.02f) * modelrotation);
 
+			fakePhysics(gameTime.ElapsedGameTime.TotalSeconds);
+
             base.Update(gameTime);
         }
 
+		// hard-coded example, like the shading:
+		private void fakePhysics(double TotalElaspedSeconds) {
+			// gravity by Euler-Cromer : -0.5 u/s^2
+			blob1Velocity.Y += (float)((gravity.Y + blob1Force.Y) * TotalElaspedSeconds);
+				blob1Force.Y = 0;
+			blob3Velocity.Y += (float)(gravity.Y * TotalElaspedSeconds);
+
+			float frictionslow = (float)(friction.Y * TotalElaspedSeconds);
+
+			blob1Velocity.Y = inhibit(blob1Velocity.Y, frictionslow);
+			blob3Velocity.Y = inhibit(blob3Velocity.Y, frictionslow);
+
+			blob1Position.Y += (float)(blob1Velocity.Y * TotalElaspedSeconds);
+			blob3Position.Y += (float)(blob3Velocity.Y * TotalElaspedSeconds);
+
+			//fake collision
+			if (blob1Position.Y < -1f)
+			{
+				blob1Force.Y += (float)((-blob1Position.Y) * blob1Bounce);
+			}
+			if (blob3Position.Y < -1f)
+			{
+				blob3Position.Y = -1f;
+				blob3Velocity.Y = 0f;
+			}
+		}
+
+		private float inhibit(float baseVal, float reduceBy)
+		{
+			if (reduceBy < 0)
+			{
+				throw new ArgumentOutOfRangeException("reduceBy must be a positive value");
+			} else if (Math.Abs(baseVal) <= Math.Abs(reduceBy))
+			{
+				return 0f;
+			}
+			else if (baseVal > 0)
+			{
+				return baseVal - reduceBy;
+			}
+			else if (baseVal < 0)
+			{
+				return baseVal + reduceBy;
+			}
+			throw new Exception("Invalid operation");
+		}
 
         /// <summary>
         /// This is called when the game should draw itself.
