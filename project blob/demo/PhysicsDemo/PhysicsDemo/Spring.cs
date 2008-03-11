@@ -10,7 +10,9 @@ namespace PhysicsDemo
 		float minimumLength = 0;
 		float minimumLengthBeforeCompression = 1;
 		float maximumLengthBeforeExtension = 1;
-		float maximumLength = float.PositiveInfinity;
+		float maximumLength = 10;
+
+		bool broken = false;
 
 		public float Force = 1;
 
@@ -23,6 +25,8 @@ namespace PhysicsDemo
 			B = two;
 			minimumLengthBeforeCompression = Length;
 			maximumLengthBeforeExtension = Length;
+			minimumLength = Length * 0.1f;
+			maximumLength = Length * 10f;
 			Force = ForceConstant;
 		}
 
@@ -31,23 +35,29 @@ namespace PhysicsDemo
 			float dist = Vector3.Distance(A.getCurrentPosition(), B.getCurrentPosition());
 
 			// use spring displacement vector to avoid check?
-
-			if (dist < minimumLengthBeforeCompression)
+			if (dist < minimumLength || dist > maximumLength)
 			{
-				// vector pointing away from B
-				Vector3 result = A.getCurrentPosition() - B.getCurrentPosition();
-				// normalize
-				result.Normalize();
-				// multiply by the scalar force
-				result = result * (Force * (minimumLengthBeforeCompression - dist));
-				return result;
+				broken = true;
 			}
-			else if (dist > maximumLengthBeforeExtension)
+			if (!broken)
 			{
-				Vector3 result = B.getCurrentPosition() - A.getCurrentPosition();
-				result.Normalize();
-				result = result * (Force * (dist - maximumLengthBeforeExtension));
-				return result;
+				if (dist < minimumLengthBeforeCompression)
+				{
+					// vector pointing away from B
+					Vector3 result = A.getCurrentPosition() - B.getCurrentPosition();
+					// normalize
+					result.Normalize();
+					// multiply by the scalar force
+					result = result * (Force * (minimumLengthBeforeCompression - dist));
+					return result;
+				}
+				else if (dist > maximumLengthBeforeExtension)
+				{
+					Vector3 result = B.getCurrentPosition() - A.getCurrentPosition();
+					result.Normalize();
+					result = result * (Force * (dist - maximumLengthBeforeExtension));
+					return result;
+				}
 			}
 			return Vector3.Zero;
 		}
