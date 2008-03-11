@@ -18,7 +18,7 @@ namespace PhysicsDemo
 		ContentManager content;
 
 
-		Texture2D text;
+		Texture2D text = null;
 
 		//graphics stuff
 		Matrix worldMatrix;
@@ -176,6 +176,10 @@ namespace PhysicsDemo
 			basicEffect.LightingEnabled = true;
 			basicEffect.TextureEnabled = true;
 
+			if (text == null)
+			{
+				throw new Exception();
+			}
 			basicEffect.Texture = text;
 
 			basicEffect.World = worldMatrix;
@@ -438,10 +442,25 @@ namespace PhysicsDemo
 
 			graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
 			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclaration;
-			graphics.GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionColor.SizeInBytes);
 
 			basicEffect.TextureEnabled = false;
+			basicEffect.VertexColorEnabled = true;
 
+			// background (hill + flat)
+			graphics.GraphicsDevice.Vertices[0].SetSource(planeVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+			basicEffect.Begin();
+			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+			{
+				pass.Begin();
+
+				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 2);
+
+				pass.End();
+			}
+			basicEffect.End();
+
+			// corner dots
+			graphics.GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionColor.SizeInBytes);
 			basicEffect.Begin();
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
@@ -453,11 +472,15 @@ namespace PhysicsDemo
 			}
 			basicEffect.End();
 
-			basicEffect.TextureEnabled = true;
-
+			
+			// box
 #if TEXTURE
+			basicEffect.VertexColorEnabled = false;
+			basicEffect.TextureEnabled = true;
 			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
 #else
+			basicEffect.VertexColorEnabled = true;
+			basicEffect.TextureEnabled = false;
 			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionColor.SizeInBytes);
 #endif
 			//graphics.GraphicsDevice.Textures[0] = text;
@@ -472,21 +495,7 @@ namespace PhysicsDemo
 				pass.End();
 			}
 			basicEffect.End();
-
-			/*
-			graphics.GraphicsDevice.Vertices[0].SetSource(planeVertexBuffer, 0, VertexPositionColor.SizeInBytes);
-
-			basicEffect.Begin();
-			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-			{
-				pass.Begin();
-
-				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 2);
-
-				pass.End();
-			}
-			basicEffect.End();
-			*/
+			
 
 
 			base.Draw(gameTime);
