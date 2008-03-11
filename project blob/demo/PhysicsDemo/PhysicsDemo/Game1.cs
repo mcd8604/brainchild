@@ -39,6 +39,7 @@ namespace PhysicsDemo
 
 		bool paused = false;
 		bool triggermode = false;
+		bool follow = false;
 
 		DemoCube testCube;
 		Vector3 cubeStartPosition = new Vector3(2, 8, -2);
@@ -47,10 +48,20 @@ namespace PhysicsDemo
 		VertexPositionColor[] planeVertices;
 		VertexBuffer planeVertexBuffer;
 
+		//text
+		SpriteBatch sprites;
+		SpriteFont font;
+
+		//fps
+		float time = 0f;
+		float update = 1f;
+		int frames = 0;
+		string fps = "";
+
 		// physics stuff
 
 		Vector3 gravity = new Vector3(0f, -9.8f, 0f);
-		float friction = 0.1f;
+		float friction = 6.0f;
 
 		public Game1()
 		{
@@ -75,7 +86,7 @@ namespace PhysicsDemo
 
 
 
-			planeVertices = new VertexPositionColor[6];
+			planeVertices = new VertexPositionColor[15];
 
 			planeVertices[0] = new VertexPositionColor(new Vector3(-5, 0, -5), Color.Red);
 			planeVertices[1] = new VertexPositionColor(new Vector3(-5, 0, 5), Color.Red);
@@ -84,6 +95,18 @@ namespace PhysicsDemo
 			planeVertices[3] = new VertexPositionColor(new Vector3(5, 0, 5), Color.Blue);
 			planeVertices[4] = new VertexPositionColor(new Vector3(5, 10, -5), Color.Blue);
 			planeVertices[5] = new VertexPositionColor(new Vector3(-5, 0, -5), Color.Blue);
+
+			planeVertices[6] = new VertexPositionColor(new Vector3(-5, 0, -5), Color.Yellow);
+			planeVertices[7] = new VertexPositionColor(new Vector3(-15, 0, 5), Color.Yellow);
+			planeVertices[8] = new VertexPositionColor(new Vector3(-5, 0, 5), Color.Yellow);
+
+			planeVertices[9] = new VertexPositionColor(new Vector3(-5, 0, 5), Color.White);
+			planeVertices[11] = new VertexPositionColor(new Vector3(-5, 0, 15), Color.White);
+			planeVertices[10] = new VertexPositionColor(new Vector3(-15, 0, 5), Color.White);
+
+			planeVertices[14] = new VertexPositionColor(new Vector3(5, 0, 5), Color.Orange);
+			planeVertices[13] = new VertexPositionColor(new Vector3(-5, 0, 15), Color.Orange);
+			planeVertices[12] = new VertexPositionColor(new Vector3(-5, 0, 5), Color.Orange);
 	
 
 			planeVertexBuffer = new VertexBuffer(
@@ -118,7 +141,10 @@ namespace PhysicsDemo
 			InitializeEffect();
 			InitializeCube();
 
-			graphics.GraphicsDevice.RenderState.PointSize = 10;
+			graphics.GraphicsDevice.RenderState.PointSize = 5;
+
+			sprites = new SpriteBatch(graphics.GraphicsDevice);
+			font = content.Load<SpriteFont>(@"Courier New");
 
 
 			// TODO: Load any ResourceManagementMode.Manual content
@@ -129,11 +155,7 @@ namespace PhysicsDemo
 		/// </summary>
 		private void InitializeTransform()
 		{
-			//float tilt = MathHelper.ToRadians(22.5f);  // 22.5 degree angle
-			// Use the world matrix to tilt the cube along x and y axes.
-			//worldMatrix = Matrix.CreateRotationX(tilt) *
-			//	Matrix.CreateRotationY(tilt);
-			worldMatrix = Matrix.CreateRotationX(0);
+			worldMatrix = Matrix.Identity;
 
 			viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), new Vector3(0, 4, 0),
 				Vector3.Up);
@@ -260,21 +282,27 @@ namespace PhysicsDemo
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+			InputHandler.Update();
 			// Allows the default game to exit on Xbox 360 and Windows
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 			{
 				this.Exit();
 			}
 
-			if (Keyboard.GetState().IsKeyDown(Keys.Space))
+			if (InputHandler.IsKeyPressed(Keys.Space))
 			{
 				testCube = new DemoCube(cubeStartPosition, 1);
 			}
-			if (Keyboard.GetState().IsKeyDown(Keys.P) || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
+			if (InputHandler.IsKeyPressed(Keys.P) )
+			{
+				paused = !paused;
+			}
+
+			if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
 			{
 				paused = true;
 			}
-			if (Keyboard.GetState().IsKeyDown(Keys.R) || GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed)
+			if ( GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed)
 			{
 				paused = false;
 			}
@@ -313,7 +341,7 @@ namespace PhysicsDemo
 			}
 			if (triggermode)
 			{
-				float newVal = 10f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 110f);
+				float newVal = 10f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 90f);
 				DemoCube.springVal = newVal;
 				testCube.setSpringForce(newVal);
 			}
@@ -359,15 +387,36 @@ namespace PhysicsDemo
 
 
 
-
+			if ( InputHandler.IsKeyPressed(Keys.F))
+			{
+				follow = !follow;
+			}
 			//camera follow
-			//viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), testCube.getCenter(), Vector3.Up);
-			//basicEffect.View = viewMatrix;
+			if (follow)
+			{
+				viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), testCube.getCenter(), Vector3.Up);
+				basicEffect.View = viewMatrix;
+			}
+			else
+			{
+				viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), new Vector3(0, 4, 0),
+				Vector3.Up);
+				basicEffect.View = viewMatrix;
+			}
 
 
+
+			//fps
+			if (time > update)
+			{
+				fps = Convert.ToInt32(frames / time).ToString();
+				time = 0;
+				frames = 0;
+			}
 
 
 			base.Update(gameTime);
+			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
 		}
 
 
@@ -398,7 +447,7 @@ namespace PhysicsDemo
 				
 
 				// friction (?)
-				p.Velocity = inhibit(p.Velocity, friction);
+				p.Velocity = inhibit(p.Velocity, friction * TotalElapsedSeconds);
 
 				// position
 				Vector3 lastPos = p.Position;
@@ -438,6 +487,8 @@ namespace PhysicsDemo
 		}
 
 
+
+
 		/// <summary>
 		/// This is called when the game should draw itself.
 		/// </summary>
@@ -449,35 +500,20 @@ namespace PhysicsDemo
 			graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
 			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationColor;
 
+			// background (hill + flat)
 			basicEffect.TextureEnabled = false;
 			basicEffect.VertexColorEnabled = true;
-
-			// background (hill + flat)
 			graphics.GraphicsDevice.Vertices[0].SetSource(planeVertexBuffer, 0, VertexPositionColor.SizeInBytes);
 			basicEffect.Begin();
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
 				pass.Begin();
 
-				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 2);
+				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 5);
 
 				pass.End();
 			}
 			basicEffect.End();
-
-			// corner dots
-			graphics.GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionColor.SizeInBytes);
-			basicEffect.Begin();
-			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-			{
-				pass.Begin();
-
-				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, 8);
-
-				pass.End();
-			}
-			basicEffect.End();
-
 			
 			// box
 #if TEXTURE
@@ -486,8 +522,6 @@ namespace PhysicsDemo
 			basicEffect.TextureEnabled = true;
 			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
 #else
-			basicEffect.VertexColorEnabled = true;
-			basicEffect.TextureEnabled = false;
 			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionColor.SizeInBytes);
 #endif
 			//graphics.GraphicsDevice.Textures[0] = text;
@@ -502,10 +536,34 @@ namespace PhysicsDemo
 				pass.End();
 			}
 			basicEffect.End();
-			
 
+
+			// corner dots
+			basicEffect.TextureEnabled = false;
+			basicEffect.VertexColorEnabled = true;
+			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationColor;
+			graphics.GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionColor.SizeInBytes);
+			basicEffect.Begin();
+			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+			{
+				pass.Begin();
+
+				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, 8);
+
+				pass.End();
+			}
+			basicEffect.End();
+
+			// GUI
+			sprites.Begin();
+			sprites.DrawString(font, fps, Vector2.Zero, Color.White);
+			if ( paused ) {
+				sprites.DrawString(font, "Paused", new Vector2((graphics.GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (graphics.GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
+			}
+			sprites.End();
 
 			base.Draw(gameTime);
+			++frames;
 		}
 	}
 }
