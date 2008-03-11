@@ -158,52 +158,52 @@ namespace PhysicsDemo
 			VertexPositionColor[] vertexes = new VertexPositionColor[36];
 			
 			// front
-			vertexes[0] = new VertexPositionColor(ftl.Position, Color.White);
+			vertexes[0] = new VertexPositionColor(ftl.Position, Color.Red);
 			vertexes[1] = new VertexPositionColor(fbl.Position, Color.White);
-			vertexes[2] = new VertexPositionColor(ftr.Position, Color.White);
+			vertexes[2] = new VertexPositionColor(ftr.Position, Color.Blue);
 			vertexes[3] = new VertexPositionColor(fbl.Position, Color.White);
-			vertexes[4] = new VertexPositionColor(fbr.Position, Color.White);
-			vertexes[5] = new VertexPositionColor(ftr.Position, Color.White);
+			vertexes[4] = new VertexPositionColor(fbr.Position, Color.Green);
+			vertexes[5] = new VertexPositionColor(ftr.Position, Color.Blue);
 
 			// back
-			vertexes[6] = new VertexPositionColor(btl.Position, Color.White);
-			vertexes[7] = new VertexPositionColor(btr.Position, Color.White);
-			vertexes[8] = new VertexPositionColor(bbl.Position, Color.White);
-			vertexes[9] = new VertexPositionColor(bbl.Position, Color.White);
-			vertexes[10] = new VertexPositionColor(btr.Position, Color.White);
-			vertexes[11] = new VertexPositionColor(bbr.Position, Color.White);
+			vertexes[6] = new VertexPositionColor(btl.Position, Color.Yellow);
+			vertexes[7] = new VertexPositionColor(btr.Position, Color.Black);
+			vertexes[8] = new VertexPositionColor(bbl.Position, Color.Purple);
+			vertexes[9] = new VertexPositionColor(bbl.Position, Color.Purple);
+			vertexes[10] = new VertexPositionColor(btr.Position, Color.Black);
+			vertexes[11] = new VertexPositionColor(bbr.Position, Color.Orange);
 
 			// top
-			vertexes[12] = new VertexPositionColor(ftl.Position, Color.White);
-			vertexes[13] = new VertexPositionColor(btr.Position, Color.White);
-			vertexes[14] = new VertexPositionColor(btl.Position, Color.White);
-			vertexes[15] = new VertexPositionColor(ftl.Position, Color.White);
-			vertexes[16] = new VertexPositionColor(ftr.Position, Color.White);
-			vertexes[17] = new VertexPositionColor(btr.Position, Color.White);
+			vertexes[12] = new VertexPositionColor(ftl.Position, Color.Red);
+			vertexes[13] = new VertexPositionColor(btr.Position, Color.Black);
+			vertexes[14] = new VertexPositionColor(btl.Position, Color.Yellow);
+			vertexes[15] = new VertexPositionColor(ftl.Position, Color.Red);
+			vertexes[16] = new VertexPositionColor(ftr.Position, Color.Blue);
+			vertexes[17] = new VertexPositionColor(btr.Position, Color.Black);
 
 			// bottom
 			vertexes[18] = new VertexPositionColor(fbl.Position, Color.White);
-			vertexes[19] = new VertexPositionColor(bbl.Position, Color.White);
-			vertexes[20] = new VertexPositionColor(bbr.Position, Color.White);
+			vertexes[19] = new VertexPositionColor(bbl.Position, Color.Purple);
+			vertexes[20] = new VertexPositionColor(bbr.Position, Color.Orange);
 			vertexes[21] = new VertexPositionColor(fbl.Position, Color.White);
-			vertexes[22] = new VertexPositionColor(bbr.Position, Color.White);
-			vertexes[23] = new VertexPositionColor(fbr.Position, Color.White);
+			vertexes[22] = new VertexPositionColor(bbr.Position, Color.Orange);
+			vertexes[23] = new VertexPositionColor(fbr.Position, Color.Green);
 
 			// left
-			vertexes[24] = new VertexPositionColor(ftl.Position, Color.White);
-			vertexes[25] = new VertexPositionColor(bbl.Position, Color.White);
+			vertexes[24] = new VertexPositionColor(ftl.Position, Color.Red);
+			vertexes[25] = new VertexPositionColor(bbl.Position, Color.Purple);
 			vertexes[26] = new VertexPositionColor(fbl.Position, Color.White);
-			vertexes[27] = new VertexPositionColor(btl.Position, Color.White);
-			vertexes[28] = new VertexPositionColor(bbl.Position, Color.White);
-			vertexes[29] = new VertexPositionColor(ftl.Position, Color.White);
+			vertexes[27] = new VertexPositionColor(btl.Position, Color.Yellow);
+			vertexes[28] = new VertexPositionColor(bbl.Position, Color.Purple);
+			vertexes[29] = new VertexPositionColor(ftl.Position, Color.Red);
 
 			// right
-			vertexes[30] = new VertexPositionColor(ftr.Position, Color.White);
-			vertexes[31] = new VertexPositionColor(fbr.Position, Color.White);
-			vertexes[32] = new VertexPositionColor(bbr.Position, Color.White);
-			vertexes[33] = new VertexPositionColor(btr.Position, Color.White);
-			vertexes[34] = new VertexPositionColor(ftr.Position, Color.White);
-			vertexes[35] = new VertexPositionColor(bbr.Position, Color.White);
+			vertexes[30] = new VertexPositionColor(ftr.Position, Color.Blue);
+			vertexes[31] = new VertexPositionColor(fbr.Position, Color.Green);
+			vertexes[32] = new VertexPositionColor(bbr.Position, Color.Orange);
+			vertexes[33] = new VertexPositionColor(btr.Position, Color.Black);
+			vertexes[34] = new VertexPositionColor(ftr.Position, Color.Blue);
+			vertexes[35] = new VertexPositionColor(bbr.Position, Color.Orange);
 			
 			return vertexes;
 
