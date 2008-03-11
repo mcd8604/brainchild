@@ -376,11 +376,6 @@ namespace PhysicsDemo
 			{
 				pass.Begin();
 
-				//graphics.GraphicsDevice.DrawPrimitives(
-				//	PrimitiveType.TriangleList,
-				//	0,
-				//	12
-				//);
 				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, 8);
 
 				pass.End();
