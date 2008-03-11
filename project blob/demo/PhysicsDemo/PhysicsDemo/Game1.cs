@@ -108,10 +108,10 @@ namespace PhysicsDemo
 		{
 			if (loadAllContent)
 			{
-				// TODO: Load any ResourceManagementMode.Automatic content
-				text = content.Load<Texture2D>(@"test");
+				// TODO: Load any ResourceManagementMode.Automatic content	
 			}
 
+			text = content.Load<Texture2D>(@"test");
 			// graphics stuff?
 			InitializeTransform();
 			InitializeEffect();
@@ -157,7 +157,7 @@ namespace PhysicsDemo
 			basicEffect.EnableDefaultLighting();
 
 			basicEffect.Alpha = 1.0f;
-			basicEffect.DiffuseColor = new Vector3(1.0f, 0.0f, 1.0f);
+			basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
 			basicEffect.SpecularColor = new Vector3(0.75f, 0.75f, 0.75f);
 			basicEffect.SpecularPower = 5.0f;
 			basicEffect.AmbientLightColor = new Vector3(0.5f, 0.5f, 0.5f);
