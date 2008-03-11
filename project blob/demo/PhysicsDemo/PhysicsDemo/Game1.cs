@@ -26,7 +26,8 @@ namespace PhysicsDemo
 		Matrix projectionMatrix;
 		//
 		VertexPositionColor[] cubeVertices;
-		VertexDeclaration basicEffectVertexDeclaration;
+		VertexDeclaration basicEffectVertexDeclarationColor;
+		VertexDeclaration basicEffectVertexDeclarationTexture;
 		VertexBuffer vertexBuffer;
 		BasicEffect basicEffect;
 #if TEXTURE
@@ -149,8 +150,13 @@ namespace PhysicsDemo
 		/// </summary>
 		private void InitializeEffect()
 		{
-			basicEffectVertexDeclaration = new VertexDeclaration(
+
+			basicEffectVertexDeclarationTexture = new VertexDeclaration(
+				graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+
+			basicEffectVertexDeclarationColor = new VertexDeclaration(
 				graphics.GraphicsDevice, VertexPositionColor.VertexElements);
+
 
 			basicEffect = new BasicEffect(graphics.GraphicsDevice, null);
 
@@ -355,8 +361,8 @@ namespace PhysicsDemo
 
 
 			//camera follow
-			//viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), testCube.getCenter(), Vector3.Up);
-			//basicEffect.View = viewMatrix;
+			viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), testCube.getCenter(), Vector3.Up);
+			basicEffect.View = viewMatrix;
 
 
 
@@ -441,7 +447,7 @@ namespace PhysicsDemo
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
-			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclaration;
+			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationColor;
 
 			basicEffect.TextureEnabled = false;
 			basicEffect.VertexColorEnabled = true;
@@ -475,6 +481,7 @@ namespace PhysicsDemo
 			
 			// box
 #if TEXTURE
+			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationTexture;
 			basicEffect.VertexColorEnabled = false;
 			basicEffect.TextureEnabled = true;
 			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
