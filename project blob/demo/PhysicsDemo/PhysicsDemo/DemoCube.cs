@@ -10,6 +10,16 @@ namespace PhysicsDemo
 		public readonly List<Point> points = new List<Point>();
 		public readonly List<Spring> springs = new List<Spring>();
 
+		public static float springVal = 62.5f;
+
+		public void setSpringForce(float force)
+		{
+			foreach (Spring s in springs)
+			{
+				s.Force = force;
+			}
+		}
+
 		public DemoCube(Vector3 center, float radius)
 		{
 			initCube(center, radius);
@@ -35,7 +45,7 @@ namespace PhysicsDemo
 			{
 				foreach (Point p in points)
 				{
-					springs.Add(new Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), 12.5f));
+					springs.Add(new Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), springVal));
 				}
 				points.Add(t);
 			}

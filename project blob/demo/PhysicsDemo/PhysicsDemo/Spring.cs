@@ -12,7 +12,7 @@ namespace PhysicsDemo
 		float maximumLengthBeforeExtension = 1;
 		float maximumLength = float.PositiveInfinity;
 
-		float Force = 1;
+		public float Force = 1;
 
 		public readonly Point A;
 		public readonly Point B;
