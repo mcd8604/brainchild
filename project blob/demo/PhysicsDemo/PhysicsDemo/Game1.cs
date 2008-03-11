@@ -77,9 +77,9 @@ namespace PhysicsDemo
 
 			planeVertices = new VertexPositionColor[6];
 
-			planeVertices[0] = new VertexPositionColor(new Vector3(-5, 0, -5), Color.Blue);
-			planeVertices[1] = new VertexPositionColor(new Vector3(-5, 0, 5), Color.Blue);
-			planeVertices[2] = new VertexPositionColor(new Vector3(5, 0, 5), Color.Blue);
+			planeVertices[0] = new VertexPositionColor(new Vector3(-5, 0, -5), Color.Red);
+			planeVertices[1] = new VertexPositionColor(new Vector3(-5, 0, 5), Color.Red);
+			planeVertices[2] = new VertexPositionColor(new Vector3(5, 0, 5), Color.Red);
 
 			planeVertices[3] = new VertexPositionColor(new Vector3(5, 0, 5), Color.Blue);
 			planeVertices[4] = new VertexPositionColor(new Vector3(5, 10, -5), Color.Blue);

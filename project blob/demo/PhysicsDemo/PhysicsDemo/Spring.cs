@@ -25,8 +25,8 @@ namespace PhysicsDemo
 			B = two;
 			minimumLengthBeforeCompression = Length;
 			maximumLengthBeforeExtension = Length;
-			minimumLength = Length * 0.1f;
-			maximumLength = Length * 10f;
+			minimumLength = Length * 0.2f;
+			maximumLength = Length * 5f;
 			Force = ForceConstant;
 		}
 
@@ -34,13 +34,14 @@ namespace PhysicsDemo
 		{
 			float dist = Vector3.Distance(A.getCurrentPosition(), B.getCurrentPosition());
 
-			// use spring displacement vector to avoid check?
+			
 			if (dist < minimumLength || dist > maximumLength)
 			{
 				broken = true;
 			}
 			if (!broken)
 			{
+				// use spring displacement vector to avoid check?
 				if (dist < minimumLengthBeforeCompression)
 				{
 					// vector pointing away from B
