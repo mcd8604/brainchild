@@ -58,6 +58,10 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="PowerCollections, Version=1.0.2141.24679, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\PowerCollections.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -68,6 +72,10 @@
     <Compile Include="DemoCube.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>DemoCube</Name>
+    </Compile>
+    <Compile Include="InputHandler.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>InputHandler</Name>
     </Compile>
     <Compile Include="Point.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
@@ -98,6 +106,14 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>test</Name>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Courier New.spritefont">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Name>Courier New</Name>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
