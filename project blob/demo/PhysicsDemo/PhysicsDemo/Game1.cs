@@ -451,8 +451,11 @@ namespace PhysicsDemo
 			basicEffect.End();
 
 
-
+#if TEXTURE
+			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
+#else
 			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+#endif
 			graphics.GraphicsDevice.Textures[0] = text;
 
 			basicEffect.Begin();
