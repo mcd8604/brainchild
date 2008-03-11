@@ -102,7 +102,7 @@ namespace UseBasicEffect
 
             basicEffect = new BasicEffect(graphics.GraphicsDevice, null);
             basicEffect.Alpha = 1.0f;
-            basicEffect.DiffuseColor = new Vector3(1.0f, 0.0f, 1.0f);
+            basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
             basicEffect.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
             basicEffect.SpecularPower = 5.0f;
             basicEffect.AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
