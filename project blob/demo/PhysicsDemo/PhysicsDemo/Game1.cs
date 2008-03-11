@@ -247,7 +247,7 @@ namespace PhysicsDemo
 				DemoCube.springVal = newVal;
 				testCube.setSpringForce(newVal);
 			}
-			if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed)
+			if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed || GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Pressed)
 			{
 				testCube = new DemoCube(cubeStartPosition, 1);
 			}
@@ -281,7 +281,6 @@ namespace PhysicsDemo
 
 		private void doFakePhysics(float TotalElapsedSeconds)
 		{
-			//Console.WriteLine("doing physics stuff: " + testCube.points[0].Position + " for " + TotalElapsedSeconds);
 			foreach (Point p in testCube.points)
 			{
 				// forces
@@ -323,7 +322,6 @@ namespace PhysicsDemo
 						//Vector3 newPos = (lastPos * (1 - u)) + (p.Position * u);
 						Vector3 newPos = lastPos;
 
-						//Console.WriteLine("Point at " + p.Position + "Collided! Pushed to " + newPos);
 						p.Velocity = Vector3.Zero;
 						p.Position = newPos;
 					}
