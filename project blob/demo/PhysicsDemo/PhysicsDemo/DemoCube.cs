@@ -77,62 +77,76 @@ namespace PhysicsDemo
 		}
 
 #if TEXTURE
-		public VertexPositionTexture[] getTriangleVertexes()
+		public VertexPositionNormalTexture[] getTriangleVertexes()
 		{
-			VertexPositionTexture[] vertexes = new VertexPositionTexture[36];
+			VertexPositionNormalTexture[] vertexes = new VertexPositionNormalTexture[36];
 
 			Vector2 textureTopLeft = new Vector2(0.0f, 0.0f);
 			Vector2 textureTopRight = new Vector2(1.0f, 0.0f);
 			Vector2 textureBottomLeft = new Vector2(0.0f, 1.0f);
 			Vector2 textureBottomRight = new Vector2(1.0f, 1.0f);
 
+			Vector3 normal;
+
 			// front
-			vertexes[0] = new VertexPositionTexture(ftl.Position, textureTopLeft);
-			vertexes[1] = new VertexPositionTexture(fbl.Position, textureBottomLeft);
-			vertexes[2] = new VertexPositionTexture(ftr.Position, textureTopRight);
-			vertexes[3] = new VertexPositionTexture(fbl.Position, textureBottomLeft);
-			vertexes[4] = new VertexPositionTexture(fbr.Position, textureBottomRight);
-			vertexes[5] = new VertexPositionTexture(ftr.Position, textureTopRight);
+			normal = new Plane(ftl.Position, fbl.Position, ftr.Position).Normal;
+			vertexes[0] = new VertexPositionNormalTexture(ftl.Position, normal, textureTopLeft);
+			vertexes[1] = new VertexPositionNormalTexture(fbl.Position, normal, textureBottomLeft);
+			vertexes[2] = new VertexPositionNormalTexture(ftr.Position, normal, textureTopRight);
+			normal = new Plane(fbl.Position, fbr.Position, ftr.Position).Normal;
+			vertexes[3] = new VertexPositionNormalTexture(fbl.Position, normal, textureBottomLeft);
+			vertexes[4] = new VertexPositionNormalTexture(fbr.Position, normal, textureBottomRight);
+			vertexes[5] = new VertexPositionNormalTexture(ftr.Position, normal, textureTopRight);
 
 			// back
-			vertexes[6] = new VertexPositionTexture(btl.Position, textureTopRight);
-			vertexes[7] = new VertexPositionTexture(btr.Position, textureTopLeft);
-			vertexes[8] = new VertexPositionTexture(bbl.Position, textureBottomRight);
-			vertexes[9] = new VertexPositionTexture(bbl.Position, textureBottomRight);
-			vertexes[10] = new VertexPositionTexture(btr.Position, textureTopLeft);
-			vertexes[11] = new VertexPositionTexture(bbr.Position, textureBottomLeft);
+			normal = new Plane(btl.Position, btr.Position, bbl.Position).Normal;
+			vertexes[6] = new VertexPositionNormalTexture(btl.Position, normal, textureTopRight);
+			vertexes[7] = new VertexPositionNormalTexture(btr.Position, normal, textureTopLeft);
+			vertexes[8] = new VertexPositionNormalTexture(bbl.Position, normal, textureBottomRight);
+			normal = new Plane(bbl.Position, btr.Position, bbr.Position).Normal;
+			vertexes[9] = new VertexPositionNormalTexture(bbl.Position, normal, textureBottomRight);
+			vertexes[10] = new VertexPositionNormalTexture(btr.Position, normal, textureTopLeft);
+			vertexes[11] = new VertexPositionNormalTexture(bbr.Position, normal, textureBottomLeft);
 
 			// top
-			vertexes[12] = new VertexPositionTexture(ftl.Position, textureBottomLeft);
-			vertexes[13] = new VertexPositionTexture(btr.Position, textureTopRight);
-			vertexes[14] = new VertexPositionTexture(btl.Position, textureTopLeft);
-			vertexes[15] = new VertexPositionTexture(ftl.Position, textureBottomLeft);
-			vertexes[16] = new VertexPositionTexture(ftr.Position, textureBottomRight);
-			vertexes[17] = new VertexPositionTexture(btr.Position, textureTopRight);
+			normal = new Plane(ftl.Position, btr.Position, btl.Position).Normal;
+			vertexes[12] = new VertexPositionNormalTexture(ftl.Position, normal, textureBottomLeft);
+			vertexes[13] = new VertexPositionNormalTexture(btr.Position, normal, textureTopRight);
+			vertexes[14] = new VertexPositionNormalTexture(btl.Position, normal, textureTopLeft);
+			normal = new Plane(ftl.Position, ftr.Position, btr.Position).Normal;
+			vertexes[15] = new VertexPositionNormalTexture(ftl.Position, normal, textureBottomLeft);
+			vertexes[16] = new VertexPositionNormalTexture(ftr.Position, normal, textureBottomRight);
+			vertexes[17] = new VertexPositionNormalTexture(btr.Position, normal, textureTopRight);
 
 			// bottom
-			vertexes[18] = new VertexPositionTexture(fbl.Position, textureTopLeft);
-			vertexes[19] = new VertexPositionTexture(bbl.Position, textureBottomLeft);
-			vertexes[20] = new VertexPositionTexture(bbr.Position, textureBottomRight);
-			vertexes[21] = new VertexPositionTexture(fbl.Position, textureTopLeft);
-			vertexes[22] = new VertexPositionTexture(bbr.Position, textureBottomRight);
-			vertexes[23] = new VertexPositionTexture(fbr.Position, textureTopRight);
+			normal = new Plane(fbl.Position, bbl.Position, bbr.Position).Normal;
+			vertexes[18] = new VertexPositionNormalTexture(fbl.Position, normal, textureTopLeft);
+			vertexes[19] = new VertexPositionNormalTexture(bbl.Position, normal, textureBottomLeft);
+			vertexes[20] = new VertexPositionNormalTexture(bbr.Position, normal, textureBottomRight);
+			normal = new Plane(fbl.Position, bbr.Position, fbr.Position).Normal;
+			vertexes[21] = new VertexPositionNormalTexture(fbl.Position, normal, textureTopLeft);
+			vertexes[22] = new VertexPositionNormalTexture(bbr.Position, normal, textureBottomRight);
+			vertexes[23] = new VertexPositionNormalTexture(fbr.Position, normal, textureTopRight);
 
 			// left
-			vertexes[24] = new VertexPositionTexture(ftl.Position, textureTopRight);
-			vertexes[25] = new VertexPositionTexture(bbl.Position, textureBottomLeft);
-			vertexes[26] = new VertexPositionTexture(fbl.Position, textureBottomRight);
-			vertexes[27] = new VertexPositionTexture(btl.Position, textureTopLeft);
-			vertexes[28] = new VertexPositionTexture(bbl.Position, textureBottomLeft);
-			vertexes[29] = new VertexPositionTexture(ftl.Position, textureTopRight);
+			normal = new Plane(ftl.Position, bbl.Position, fbl.Position).Normal;
+			vertexes[24] = new VertexPositionNormalTexture(ftl.Position, normal, textureTopRight);
+			vertexes[25] = new VertexPositionNormalTexture(bbl.Position, normal, textureBottomLeft);
+			vertexes[26] = new VertexPositionNormalTexture(fbl.Position, normal, textureBottomRight);
+			normal = new Plane(btl.Position, bbl.Position, ftl.Position).Normal;
+			vertexes[27] = new VertexPositionNormalTexture(btl.Position, normal, textureTopLeft);
+			vertexes[28] = new VertexPositionNormalTexture(bbl.Position, normal, textureBottomLeft);
+			vertexes[29] = new VertexPositionNormalTexture(ftl.Position, normal, textureTopRight);
 
 			// right
-			vertexes[30] = new VertexPositionTexture(ftr.Position, textureTopLeft);
-			vertexes[31] = new VertexPositionTexture(fbr.Position, textureBottomLeft);
-			vertexes[32] = new VertexPositionTexture(bbr.Position, textureBottomRight);
-			vertexes[33] = new VertexPositionTexture(btr.Position, textureTopRight);
-			vertexes[34] = new VertexPositionTexture(ftr.Position, textureTopLeft);
-			vertexes[35] = new VertexPositionTexture(bbr.Position, textureBottomRight);
+			normal = new Plane(ftr.Position, fbr.Position, bbr.Position).Normal;
+			vertexes[30] = new VertexPositionNormalTexture(ftr.Position, normal, textureTopLeft);
+			vertexes[31] = new VertexPositionNormalTexture(fbr.Position, normal, textureBottomLeft);
+			vertexes[32] = new VertexPositionNormalTexture(bbr.Position, normal, textureBottomRight);
+			normal = new Plane(btr.Position, ftr.Position, bbr.Position).Normal;
+			vertexes[33] = new VertexPositionNormalTexture(btr.Position, normal, textureTopRight);
+			vertexes[34] = new VertexPositionNormalTexture(ftr.Position, normal, textureTopLeft);
+			vertexes[35] = new VertexPositionNormalTexture(bbr.Position, normal, textureBottomRight);
 			
 
 			return vertexes;

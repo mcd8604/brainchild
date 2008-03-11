@@ -30,7 +30,7 @@ namespace PhysicsDemo
 		VertexBuffer vertexBuffer;
 		BasicEffect basicEffect;
 #if TEXTURE
-		VertexPositionTexture[] triVertices;
+		VertexPositionNormalTexture[] triVertices;
 #else
 		VertexPositionColor[] triVertices;
 #endif
@@ -189,7 +189,7 @@ namespace PhysicsDemo
 
 			cubeVertices = new VertexPositionColor[8];
 #if TEXTURE
-			triVertices = new VertexPositionTexture[36];
+			triVertices = new VertexPositionNormalTexture[36];
 #else
 			triVertices = new VertexPositionColor[36];
 #endif
@@ -202,13 +202,19 @@ namespace PhysicsDemo
 				graphics.GraphicsDevice,
 				VertexPositionColor.SizeInBytes * cubeVertices.Length, ResourceUsage.None);
 
+#if TEXTURE
 			triVertexBuffer = new VertexBuffer(
 				graphics.GraphicsDevice,
-				VertexPositionTexture.SizeInBytes * triVertices.Length, ResourceUsage.None);
+				VertexPositionNormalTexture.SizeInBytes * triVertices.Length, ResourceUsage.None);
+#else
+			triVertexBuffer = new VertexBuffer(
+				graphics.GraphicsDevice,
+				VertexPositionColor.SizeInBytes * triVertices.Length, ResourceUsage.None);
+#endif
 
 			vertexBuffer.SetData<VertexPositionColor>(cubeVertices);
 #if TEXTURE
-			triVertexBuffer.SetData<VertexPositionTexture>(triVertices);
+			triVertexBuffer.SetData<VertexPositionNormalTexture>(triVertices);
 #else
 			triVertexBuffer.SetData<VertexPositionColor>(triVertices);
 #endif
@@ -322,14 +328,19 @@ namespace PhysicsDemo
 			vertexBuffer = new VertexBuffer(
 				graphics.GraphicsDevice,
 				VertexPositionColor.SizeInBytes * cubeVertices.Length, ResourceUsage.None);
-
+#if TEXTURE
 			triVertexBuffer = new VertexBuffer(
 				graphics.GraphicsDevice,
-				VertexPositionTexture.SizeInBytes * triVertices.Length, ResourceUsage.None);
+				VertexPositionNormalTexture.SizeInBytes * triVertices.Length, ResourceUsage.None);
+#else
+			triVertexBuffer = new VertexBuffer(
+				graphics.GraphicsDevice,
+				VertexPositionColor.SizeInBytes * triVertices.Length, ResourceUsage.None);
+#endif
 
 			vertexBuffer.SetData<VertexPositionColor>(cubeVertices);
 #if TEXTURE
-			triVertexBuffer.SetData<VertexPositionTexture>(triVertices);
+			triVertexBuffer.SetData<VertexPositionNormalTexture>(triVertices);
 #else
 			triVertexBuffer.SetData<VertexPositionColor>(triVertices);
 #endif
