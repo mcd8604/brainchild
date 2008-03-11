@@ -23,6 +23,7 @@ namespace UseBasicEffect
         VertexPositionNormalTexture[] cubeVertices;
         VertexDeclaration basicEffectVertexDeclaration;
         VertexBuffer vertexBuffer;
+		IndexBuffer indexBuffer;
         BasicEffect basicEffect;
 
 		Texture2D text;
@@ -315,6 +316,13 @@ namespace UseBasicEffect
                 new VertexPositionNormalTexture(
                 bottomRightBack, rightNormal, textureBottomRight);
 
+			short[] ind = new short[36];
+			for (short i = 0; i < 36; i++)
+				ind[i] = i;
+
+			indexBuffer = new IndexBuffer(graphics.GraphicsDevice, typeof(short), 36, BufferUsage.None);
+			indexBuffer.SetData<short>(ind);
+
             vertexBuffer = new VertexBuffer(
                 graphics.GraphicsDevice,
                 VertexPositionNormalTexture.SizeInBytes * cubeVertices.Length,
@@ -360,45 +368,47 @@ namespace UseBasicEffect
 
             // This code would go between a device 
             // BeginScene-EndScene block.
-            basicEffect.Begin();
-            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-            {
-                pass.Begin();
+			
+			//basicEffect.Begin();
+			//foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+			//{
+			//    pass.Begin();
 
-                graphics.GraphicsDevice.DrawPrimitives(
-                    PrimitiveType.TriangleList,
-                    0,
-                    12
-                );
+			//    graphics.GraphicsDevice.DrawPrimitives(
+			//        PrimitiveType.TriangleList,
+			//        0,
+			//        12
+			//    );
 
-                pass.End();
-            }
-            basicEffect.End();
+			//    pass.End();
+			//}
+			//basicEffect.End();
 
-			/*
+
+			graphics.GraphicsDevice.Indices = indexBuffer;
+			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclaration;
+			graphics.GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
+
 			celshader.Begin();
 			foreach(EffectPass pass in celshader.CurrentTechnique.Passes)
 			{
 				pass.Begin();
 
-				graphics.GraphicsDevice.DrawPrimitives(
-					PrimitiveType.TriangleList,
-					0,
-					12
-				);
+				//graphics.GraphicsDevice.DrawPrimitives(
+				//	PrimitiveType.TriangleList,
+				//	0,
+				//	12
+				//);
 
 				//// Change the device settings for each part to be rendered
-				//graphics.GraphicsDevice.VertexDeclaration = part.VertexDeclaration;
-				//graphics.GraphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
+				graphics.GraphicsDevice.Textures[0] = text;
 				//// Make sure we use the texture for the current part also
-				//graphics.GraphicsDevice.Textures[0] = ((BasicEffect)part.Effect).Texture;
 				//// Finally draw the actual triangles on the screen
-				//graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+				graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 36, 0, 12);
 
 				pass.End();
 			}
 			celshader.End();
-			*/
 
             base.Draw(gameTime);
         }
