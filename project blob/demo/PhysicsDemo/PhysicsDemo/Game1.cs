@@ -213,6 +213,11 @@ namespace PhysicsDemo
 				DemoCube.springVal = 92.5f;
 				testCube.setSpringForce(92.5f);
 			}
+			if (Keyboard.GetState().IsKeyDown(Keys.D))
+			{
+				DemoCube.springVal = 62.5f;
+				testCube.setSpringForce(62.5f);
+			}
 			if (Keyboard.GetState().IsKeyDown(Keys.W))
 			{
 				DemoCube.springVal = 12.5f;
