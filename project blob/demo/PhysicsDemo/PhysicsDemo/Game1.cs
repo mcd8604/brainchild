@@ -91,7 +91,7 @@ namespace PhysicsDemo
 
 			planeVertexBuffer.SetData<VertexPositionColor>(planeVertices);
 
-
+			text = content.Load<Texture2D>(@"test");
 
 
 			base.Initialize();
@@ -166,7 +166,7 @@ namespace PhysicsDemo
 			basicEffect.DirectionalLight0.DiffuseColor = Vector3.One;
 			basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
 			basicEffect.DirectionalLight0.SpecularColor = Vector3.One;
-			
+		
 
 			basicEffect.DirectionalLight1.Enabled = true;
 			basicEffect.DirectionalLight1.DiffuseColor = new Vector3(0.5f, 0.5f, 0.5f);
@@ -175,6 +175,8 @@ namespace PhysicsDemo
 
 			basicEffect.LightingEnabled = true;
 			basicEffect.TextureEnabled = true;
+
+			basicEffect.Texture = text;
 
 			basicEffect.World = worldMatrix;
 			basicEffect.View = viewMatrix;
@@ -438,6 +440,7 @@ namespace PhysicsDemo
 			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclaration;
 			graphics.GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionColor.SizeInBytes);
 
+			basicEffect.TextureEnabled = false;
 
 			basicEffect.Begin();
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
@@ -450,13 +453,14 @@ namespace PhysicsDemo
 			}
 			basicEffect.End();
 
+			basicEffect.TextureEnabled = true;
 
 #if TEXTURE
 			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
 #else
 			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionColor.SizeInBytes);
 #endif
-			graphics.GraphicsDevice.Textures[0] = text;
+			//graphics.GraphicsDevice.Textures[0] = text;
 
 			basicEffect.Begin();
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
