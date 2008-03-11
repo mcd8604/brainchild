@@ -20,6 +20,16 @@ namespace PhysicsDemo
 			}
 		}
 
+		public Vector3 getCenter()
+		{
+			Vector3 ret = Vector3.Zero;
+			foreach (Point p in points)
+			{
+				ret += p.Position;
+			}
+			return ret / points.Count;
+		}
+
 		public DemoCube(Vector3 center, float radius)
 		{
 			initCube(center, radius);
