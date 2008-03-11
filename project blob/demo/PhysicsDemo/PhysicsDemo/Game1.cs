@@ -361,8 +361,8 @@ namespace PhysicsDemo
 
 
 			//camera follow
-			viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), testCube.getCenter(), Vector3.Up);
-			basicEffect.View = viewMatrix;
+			//viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), testCube.getCenter(), Vector3.Up);
+			//basicEffect.View = viewMatrix;
 
 
 
