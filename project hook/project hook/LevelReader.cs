@@ -491,7 +491,7 @@ pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension, texture, 
 			List<Event> t_List = new List<Event>();
 
 			//read next file name
-			p_Reader.ReadStartElement();
+			p_Reader.ReadStartElement("fileName");
 			m_FileName = p_Reader.ReadString();
 			p_Reader.ReadEndElement();
 
@@ -514,7 +514,7 @@ pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension, texture, 
 			List<Event> t_List = new List<Event>();
 
 			//read next file name
-			p_Reader.ReadStartElement();
+			p_Reader.ReadStartElement("fileName");
 			m_FileName = p_Reader.ReadString();
 			p_Reader.ReadEndElement();
 
@@ -533,7 +533,7 @@ pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension, texture, 
 		private void PleaseLoadBMP(XmlReader p_Reader)
 		{
 			//read next file name
-			p_Reader.ReadStartElement();
+			p_Reader.ReadStartElement("fileName");
 			String m_FileName = p_Reader.ReadString();
 			p_Reader.ReadEndElement();
 
@@ -557,7 +557,7 @@ pos, EnvironmentLoader.TileDimension, EnvironmentLoader.TileDimension, texture, 
 			List<Event> t_List = new List<Event>();
 
 			//read speed
-			p_Reader.ReadStartElement();
+			p_Reader.ReadStartElement("speed");
 			m_Speed = int.Parse(p_Reader.ReadString());
 			p_Reader.ReadEndElement();
 
