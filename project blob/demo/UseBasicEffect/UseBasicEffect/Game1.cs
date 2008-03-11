@@ -25,12 +25,18 @@ namespace UseBasicEffect
         VertexBuffer vertexBuffer;
         BasicEffect basicEffect;
 
+		Texture2D text;
+
+		Effect celshader;
+
         GraphicsDeviceManager graphics;
+		ContentManager shaders;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+			shaders = new ContentManager(Services);
         }
 
         /// <summary>
@@ -112,10 +118,52 @@ namespace UseBasicEffect
             basicEffect.DirectionalLight1.SpecularColor = new Vector3(0.5f, 0.5f, 0.5f);
 
             basicEffect.LightingEnabled = true;
+			basicEffect.TextureEnabled = true;
 
             basicEffect.World = worldMatrix;
             basicEffect.View = viewMatrix;
             basicEffect.Projection = projectionMatrix;
+
+			text = Content.Load<Texture2D>(@"textures\\test");
+			basicEffect.Texture = text;
+
+			celshader = Content.Load<Effect>(@"shaders\Cel");
+
+			//Matrix World = Matrix.CreateScale(modelscale) * Matrix.CreateFromQuaternion(modelrotation) * Matrix.CreateTranslation(blob1Position);
+			if (celshader.Parameters["World"] != null)
+				celshader.Parameters["World"].SetValue(worldMatrix);
+
+			if (celshader.Parameters["Projection"] != null)
+				celshader.Parameters["Projection"].SetValue(projectionMatrix);
+
+			if (celshader.Parameters["DiffuseLightColor"] != null)
+				celshader.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.6f, 0.6f, 0.6f, 1.0f));
+
+			if (celshader.Parameters["LightPosition"] != null)
+				celshader.Parameters["LightPosition"].SetValue(new Vector3(5.0f, 600.0f, 600.0f));
+
+			if (celshader.Parameters["LayerOneSharp"] != null)
+				celshader.Parameters["LayerOneSharp"].SetValue(0.6f);
+
+			if (celshader.Parameters["LayerOneRough"] != null)
+				celshader.Parameters["LayerOneRough"].SetValue(0.0f);
+
+			if (celshader.Parameters["LayerOneContrib"] != null)
+				celshader.Parameters["LayerOneContrib"].SetValue(0.05f);
+
+			if (celshader.Parameters["LayerTwoSharp"] != null)
+				celshader.Parameters["LayerTwoSharp"].SetValue(0.85f);
+
+			if (celshader.Parameters["LayerTwoRough"] != null)
+				celshader.Parameters["LayerTwoRough"].SetValue(10.0f);
+
+			if (celshader.Parameters["LayerTwoContrib"] != null)
+				celshader.Parameters["LayerTwoContrib"].SetValue(0.3f);
+
+			if (celshader.Parameters["EdgeOffset"] != null)
+				celshader.Parameters["EdgeOffset"].SetValue(0.016f);
+
+
         }
 
         /// <summary>
@@ -326,6 +374,31 @@ namespace UseBasicEffect
                 pass.End();
             }
             basicEffect.End();
+
+			/*
+			celshader.Begin();
+			foreach(EffectPass pass in celshader.CurrentTechnique.Passes)
+			{
+				pass.Begin();
+
+				graphics.GraphicsDevice.DrawPrimitives(
+					PrimitiveType.TriangleList,
+					0,
+					12
+				);
+
+				//// Change the device settings for each part to be rendered
+				//graphics.GraphicsDevice.VertexDeclaration = part.VertexDeclaration;
+				//graphics.GraphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
+				//// Make sure we use the texture for the current part also
+				//graphics.GraphicsDevice.Textures[0] = ((BasicEffect)part.Effect).Texture;
+				//// Finally draw the actual triangles on the screen
+				//graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+
+				pass.End();
+			}
+			celshader.End();
+			*/
 
             base.Draw(gameTime);
         }
