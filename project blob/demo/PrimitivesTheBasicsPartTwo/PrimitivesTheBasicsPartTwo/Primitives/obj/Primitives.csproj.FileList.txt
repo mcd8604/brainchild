@@ -1,5 +1,0 @@
-bin\x86\Debug\Primitives.exe
-bin\x86\Debug\Primitives.pdb
-obj\x86\Debug\ResolveAssemblyReference.cache
-obj\x86\Debug\Primitives.exe
-obj\x86\Debug\Primitives.pdb
