@@ -284,7 +284,7 @@ namespace PhysicsDemo
 		{
 			InputHandler.Update();
 			// Allows the default game to exit on Xbox 360 and Windows
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || InputHandler.IsKeyPressed(Keys.Escape))
 			{
 				this.Exit();
 			}
@@ -306,31 +306,31 @@ namespace PhysicsDemo
 			{
 				paused = false;
 			}
-			if (Keyboard.GetState().IsKeyDown(Keys.S))
+			if (InputHandler.IsKeyPressed(Keys.S))
 			{
 				DemoCube.springVal = 92.5f;
 				testCube.setSpringForce(92.5f);
 			}
-			if (Keyboard.GetState().IsKeyDown(Keys.D))
+			if (InputHandler.IsKeyPressed(Keys.D))
 			{
 				DemoCube.springVal = 62.5f;
 				testCube.setSpringForce(62.5f);
 			}
-			if (Keyboard.GetState().IsKeyDown(Keys.W))
+			if (InputHandler.IsKeyPressed(Keys.W))
 			{
 				DemoCube.springVal = 12.5f;
 				testCube.setSpringForce(12.5f);
 			}
-			if (Keyboard.GetState().IsKeyDown(Keys.Up))
+			if (InputHandler.IsKeyPressed(Keys.Up))
 			{
-				float newVal = DemoCube.springVal + 0.1f;
+				float newVal = DemoCube.springVal + 1.0f;
 				DemoCube.springVal = newVal;
 				testCube.setSpringForce(newVal);
 				Console.WriteLine("Force set to " + newVal);
 			}
-			if (Keyboard.GetState().IsKeyDown(Keys.Down))
+			if (InputHandler.IsKeyPressed(Keys.Down))
 			{
-				float newVal = DemoCube.springVal - 0.1f;
+				float newVal = DemoCube.springVal - 1.0f;
 				DemoCube.springVal = newVal;
 				testCube.setSpringForce(newVal);
 				Console.WriteLine("Force set to " + newVal);
