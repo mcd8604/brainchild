@@ -18,6 +18,8 @@ namespace PhysicsDemo
 		ContentManager content;
 
 
+		Texture2D text;
+
 		//graphics stuff
 		Matrix worldMatrix;
 		Matrix viewMatrix;
@@ -27,6 +29,12 @@ namespace PhysicsDemo
 		VertexDeclaration basicEffectVertexDeclaration;
 		VertexBuffer vertexBuffer;
 		BasicEffect basicEffect;
+#if TEXTURE
+		VertexPositionTexture[] triVertices;
+#else
+		VertexPositionColor[] triVertices;
+#endif
+		VertexBuffer triVertexBuffer;
 
 		bool paused = false;
 		bool triggermode = false;
@@ -34,6 +42,9 @@ namespace PhysicsDemo
 		DemoCube testCube;
 		Vector3 cubeStartPosition = new Vector3(2, 8, -2);
 		List<Plane> collisionPlanes = new List<Plane>();
+
+		VertexPositionColor[] planeVertices;
+		VertexBuffer planeVertexBuffer;
 
 		// physics stuff
 
@@ -61,6 +72,28 @@ namespace PhysicsDemo
 			collisionPlanes.Add(new Plane(new Vector3(-5, 0, -5), new Vector3(-5, 0, 5), new Vector3(5, 0, 5)));
 			collisionPlanes.Add(new Plane(new Vector3(5, 0, 5), new Vector3(5, 10, -5), new Vector3(-5, 0, -5)));
 
+
+
+			planeVertices = new VertexPositionColor[6];
+
+			planeVertices[0] = new VertexPositionColor(new Vector3(-5, 0, -5), Color.Blue);
+			planeVertices[1] = new VertexPositionColor(new Vector3(-5, 0, 5), Color.Blue);
+			planeVertices[2] = new VertexPositionColor(new Vector3(5, 0, 5), Color.Blue);
+
+			planeVertices[3] = new VertexPositionColor(new Vector3(5, 0, 5), Color.Blue);
+			planeVertices[4] = new VertexPositionColor(new Vector3(5, 10, -5), Color.Blue);
+			planeVertices[5] = new VertexPositionColor(new Vector3(-5, 0, -5), Color.Blue);
+	
+
+			planeVertexBuffer = new VertexBuffer(
+				graphics.GraphicsDevice,
+				VertexPositionColor.SizeInBytes * planeVertices.Length, ResourceUsage.None);
+
+			planeVertexBuffer.SetData<VertexPositionColor>(planeVertices);
+
+
+
+
 			base.Initialize();
 		}
 
@@ -76,6 +109,7 @@ namespace PhysicsDemo
 			if (loadAllContent)
 			{
 				// TODO: Load any ResourceManagementMode.Automatic content
+				text = content.Load<Texture2D>(@"test");
 			}
 
 			// graphics stuff?
@@ -116,19 +150,23 @@ namespace PhysicsDemo
 		private void InitializeEffect()
 		{
 			basicEffectVertexDeclaration = new VertexDeclaration(
-				graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+				graphics.GraphicsDevice, VertexPositionColor.VertexElements);
 
 			basicEffect = new BasicEffect(graphics.GraphicsDevice, null);
+
+			basicEffect.EnableDefaultLighting();
+
 			basicEffect.Alpha = 1.0f;
 			basicEffect.DiffuseColor = new Vector3(1.0f, 0.0f, 1.0f);
-			basicEffect.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
+			basicEffect.SpecularColor = new Vector3(0.75f, 0.75f, 0.75f);
 			basicEffect.SpecularPower = 5.0f;
-			basicEffect.AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
+			basicEffect.AmbientLightColor = new Vector3(0.5f, 0.5f, 0.5f);
 
 			basicEffect.DirectionalLight0.Enabled = true;
 			basicEffect.DirectionalLight0.DiffuseColor = Vector3.One;
 			basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
 			basicEffect.DirectionalLight0.SpecularColor = Vector3.One;
+			
 
 			basicEffect.DirectionalLight1.Enabled = true;
 			basicEffect.DirectionalLight1.DiffuseColor = new Vector3(0.5f, 0.5f, 0.5f);
@@ -136,6 +174,7 @@ namespace PhysicsDemo
 			basicEffect.DirectionalLight1.SpecularColor = new Vector3(0.5f, 0.5f, 0.5f);
 
 			basicEffect.LightingEnabled = true;
+			basicEffect.TextureEnabled = true;
 
 			basicEffect.World = worldMatrix;
 			basicEffect.View = viewMatrix;
@@ -149,6 +188,11 @@ namespace PhysicsDemo
 		{
 
 			cubeVertices = new VertexPositionColor[8];
+#if TEXTURE
+			triVertices = new VertexPositionTexture[36];
+#else
+			triVertices = new VertexPositionColor[36];
+#endif
 
 			for ( int i = 0; i < 8; i++ ) {
 				cubeVertices[i] = new VertexPositionColor(testCube.points[i].Position, Color.White);
@@ -156,10 +200,18 @@ namespace PhysicsDemo
 
 			vertexBuffer = new VertexBuffer(
 				graphics.GraphicsDevice,
-				VertexPositionColor.SizeInBytes * cubeVertices.Length, ResourceUsage.None
-			);
+				VertexPositionColor.SizeInBytes * cubeVertices.Length, ResourceUsage.None);
+
+			triVertexBuffer = new VertexBuffer(
+				graphics.GraphicsDevice,
+				VertexPositionTexture.SizeInBytes * triVertices.Length, ResourceUsage.None);
 
 			vertexBuffer.SetData<VertexPositionColor>(cubeVertices);
+#if TEXTURE
+			triVertexBuffer.SetData<VertexPositionTexture>(triVertices);
+#else
+			triVertexBuffer.SetData<VertexPositionColor>(triVertices);
+#endif
 
 		}
 
@@ -260,18 +312,27 @@ namespace PhysicsDemo
 
 			// update position vert
 			cubeVertices = new VertexPositionColor[8];
+			triVertices = testCube.getTriangleVertexes();
 
 			for (int i = 0; i < 8; i++)
 			{
-				cubeVertices[i] = new VertexPositionColor(testCube.points[i].Position, Color.White);
+				cubeVertices[i] = new VertexPositionColor(testCube.points[i].Position, Color.Black);
 			}
 
 			vertexBuffer = new VertexBuffer(
 				graphics.GraphicsDevice,
-				VertexPositionColor.SizeInBytes * cubeVertices.Length, ResourceUsage.None
-			);
+				VertexPositionColor.SizeInBytes * cubeVertices.Length, ResourceUsage.None);
+
+			triVertexBuffer = new VertexBuffer(
+				graphics.GraphicsDevice,
+				VertexPositionTexture.SizeInBytes * triVertices.Length, ResourceUsage.None);
 
 			vertexBuffer.SetData<VertexPositionColor>(cubeVertices);
+#if TEXTURE
+			triVertexBuffer.SetData<VertexPositionTexture>(triVertices);
+#else
+			triVertexBuffer.SetData<VertexPositionColor>(triVertices);
+#endif
 
 
 
@@ -362,15 +423,11 @@ namespace PhysicsDemo
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			graphics.GraphicsDevice.RenderState.CullMode =
-			CullMode.CullClockwiseFace;
-			graphics.GraphicsDevice.VertexDeclaration =
-				basicEffectVertexDeclaration;
+			graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclaration;
 			graphics.GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionColor.SizeInBytes);
 
 
-
-			// TODO: Add your drawing code here
 			basicEffect.Begin();
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
@@ -382,6 +439,36 @@ namespace PhysicsDemo
 			}
 			basicEffect.End();
 
+
+
+			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+			graphics.GraphicsDevice.Textures[0] = text;
+
+			basicEffect.Begin();
+			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+			{
+				pass.Begin();
+
+				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 12);
+
+				pass.End();
+			}
+			basicEffect.End();
+
+			/*
+			graphics.GraphicsDevice.Vertices[0].SetSource(planeVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+
+			basicEffect.Begin();
+			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+			{
+				pass.Begin();
+
+				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 2);
+
+				pass.End();
+			}
+			basicEffect.End();
+			*/
 
 
 			base.Draw(gameTime);
