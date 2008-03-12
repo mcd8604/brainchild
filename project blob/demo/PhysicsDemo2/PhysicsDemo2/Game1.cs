@@ -70,6 +70,8 @@ namespace PhysicsDemo2
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+
+			graphics.PreferMultiSampling = true;
 		}
 
 		/// <summary>
@@ -80,7 +82,6 @@ namespace PhysicsDemo2
 		/// </summary>
 		protected override void Initialize()
 		{
-
 
 			testCube = new DemoCube(cubeStartPosition, 1);
 			collisionPlanes.Add(new Plane(new Vector3(-5, 0, -5), new Vector3(-5, 0, 5), new Vector3(5, 0, 5)));
@@ -110,7 +111,7 @@ namespace PhysicsDemo2
 
 
 			planeVertexBuffer = new VertexBuffer(
-				graphics.GraphicsDevice,
+				GraphicsDevice,
 				VertexPositionColor.SizeInBytes * planeVertices.Length, BufferUsage.None);
 
 			planeVertexBuffer.SetData<VertexPositionColor>(planeVertices);
@@ -135,7 +136,7 @@ namespace PhysicsDemo2
 			InitializeEffect();
 			InitializeCube();
 
-			graphics.GraphicsDevice.RenderState.PointSize = 5;
+			GraphicsDevice.RenderState.PointSize = 5;
 
 			font = Content.Load<SpriteFont>(@"Courier New");
 		}
@@ -152,7 +153,7 @@ namespace PhysicsDemo2
 
 			projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 				MathHelper.ToRadians(45),  // 45 degree angle
-				(float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
+				(float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height,
 				1.0f, 50.0f);
 		}
 
@@ -164,13 +165,13 @@ namespace PhysicsDemo2
 		{
 
 			basicEffectVertexDeclarationTexture = new VertexDeclaration(
-				graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+				GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
 			basicEffectVertexDeclarationColor = new VertexDeclaration(
-				graphics.GraphicsDevice, VertexPositionColor.VertexElements);
+				GraphicsDevice, VertexPositionColor.VertexElements);
 
 
-			basicEffect = new BasicEffect(graphics.GraphicsDevice, null);
+			basicEffect = new BasicEffect(GraphicsDevice, null);
 
 			basicEffect.Alpha = 1.0f;
 			basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
@@ -220,12 +221,12 @@ namespace PhysicsDemo2
 				cubeVertices[i] = new VertexPositionColor(testCube.points[i].Position, Color.White);
 			}
 
-			vertexBuffer = new VertexBuffer(graphics.GraphicsDevice, VertexPositionColor.SizeInBytes * cubeVertices.Length, BufferUsage.None);
+			vertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * cubeVertices.Length, BufferUsage.None);
 
 #if TEXTURE
-			triVertexBuffer = new VertexBuffer(graphics.GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * triVertices.Length, BufferUsage.None);
+			triVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * triVertices.Length, BufferUsage.None);
 #else
-			triVertexBuffer = new VertexBuffer(graphics.GraphicsDevice, VertexPositionColor.SizeInBytes * triVertices.Length, BufferUsage.None);
+			triVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * triVertices.Length, BufferUsage.None);
 #endif
 
 			vertexBuffer.SetData<VertexPositionColor>(cubeVertices);
@@ -270,6 +271,11 @@ namespace PhysicsDemo2
 			if (InputHandler.IsKeyPressed(Keys.P))
 			{
 				paused = !paused;
+			}
+
+			if (InputHandler.IsKeyPressed(Keys.T))
+			{
+				graphics.ToggleFullScreen();
 			}
 
 			if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
@@ -464,9 +470,11 @@ namespace PhysicsDemo2
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+			GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+
+			//GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
 
 			GraphicsDevice.RenderState.AlphaBlendEnable = false;
 			GraphicsDevice.RenderState.AlphaTestEnable = false;
@@ -475,13 +483,13 @@ namespace PhysicsDemo2
 			// background (hill + flat)
 			basicEffect.TextureEnabled = false;
 			basicEffect.VertexColorEnabled = true;
-			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationColor;
-			graphics.GraphicsDevice.Vertices[0].SetSource(planeVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+			GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationColor;
+			GraphicsDevice.Vertices[0].SetSource(planeVertexBuffer, 0, VertexPositionColor.SizeInBytes);
 			basicEffect.Begin();
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
 				pass.Begin();
-				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 5);
+				GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 5);
 				pass.End();
 			}
 			basicEffect.End();
@@ -492,33 +500,34 @@ namespace PhysicsDemo2
 #if TEXTURE
 			basicEffect.VertexColorEnabled = false;
 			basicEffect.TextureEnabled = true;
-			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationTexture;
-			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
+			GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationTexture;
+			GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
 #else
-			graphics.GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+			GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionColor.SizeInBytes);
 #endif
-			//graphics.GraphicsDevice.Textures[0] = text;
+			//GraphicsDevice.Textures[0] = text;
 
 			basicEffect.Begin();
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
 				pass.Begin();
-				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 12);
+				GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 12);
 				pass.End();
 			}
 			basicEffect.End();
 
 
 			// corner dots
+			GraphicsDevice.RenderState.DepthBufferEnable = false;
 			basicEffect.TextureEnabled = false;
 			basicEffect.VertexColorEnabled = true;
-			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationColor;
-			graphics.GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionColor.SizeInBytes);
+			GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationColor;
+			GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionColor.SizeInBytes);
 			basicEffect.Begin();
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
 				pass.Begin();
-				graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, 8);
+				GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, 8);
 				pass.End();
 			}
 			basicEffect.End();
@@ -530,7 +539,7 @@ namespace PhysicsDemo2
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
 			if (paused)
 			{
-				spriteBatch.DrawString(font, "Paused", new Vector2((graphics.GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (graphics.GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
+				spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
 			}
 			spriteBatch.End();
 
