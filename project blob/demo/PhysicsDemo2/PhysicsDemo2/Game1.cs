@@ -153,7 +153,7 @@ namespace PhysicsDemo2
 			projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 				MathHelper.ToRadians(45),  // 45 degree angle
 				(float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
-				1.0f, 100.0f);
+				1.0f, 50.0f);
 		}
 
 		/// <summary>
@@ -468,7 +468,9 @@ namespace PhysicsDemo2
 
 			graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
 
-
+			GraphicsDevice.RenderState.AlphaBlendEnable = false;
+			GraphicsDevice.RenderState.AlphaTestEnable = false;
+			GraphicsDevice.RenderState.DepthBufferEnable = true;
 
 			// background (hill + flat)
 			basicEffect.TextureEnabled = false;

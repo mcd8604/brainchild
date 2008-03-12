@@ -483,8 +483,10 @@ namespace PhysicsDemo
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
-			
 
+			GraphicsDevice.RenderState.AlphaBlendEnable = false;
+			GraphicsDevice.RenderState.AlphaTestEnable = false;
+			GraphicsDevice.RenderState.DepthBufferEnable = true;
 
 			// background (hill + flat)
 			basicEffect.TextureEnabled = false;
