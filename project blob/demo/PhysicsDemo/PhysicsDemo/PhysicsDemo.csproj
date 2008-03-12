@@ -85,6 +85,8 @@
     <Compile Include="Program.cs">
     </Compile>
     <Compile Include="Game1.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Game1</Name>
     </Compile>
     <Compile Include="Spring.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
