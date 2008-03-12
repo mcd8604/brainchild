@@ -442,7 +442,10 @@ namespace PhysicsDemo
 					if (lastVal > 0 && thisVal < 0) // we were 'above' now 'behind'
 					{
 						//float u = lastVal / (lastVal - thisVal);
-						//Vector3 newPos = (lastPos * (1 - u)) + (p.Position * u);
+						//Vector3 newPos2 = (lastPos * (1 - u)) + (p.Position * u);
+						//Console.WriteLine(c.DotNormal(newPos2));
+
+
 						Vector3 newPos = lastPos;
 
 						p.Velocity = Vector3.Zero;

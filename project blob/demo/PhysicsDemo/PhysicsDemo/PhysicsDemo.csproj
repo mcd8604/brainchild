@@ -69,6 +69,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollisionTri.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>CollisionTri</Name>
+    </Compile>
     <Compile Include="DemoCube.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>DemoCube</Name>
