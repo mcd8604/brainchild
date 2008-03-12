@@ -173,21 +173,21 @@ namespace PhysicsDemo2
 
 			basicEffect = new BasicEffect(GraphicsDevice, null);
 
-			basicEffect.Alpha = 1.0f;
+			basicEffect.Alpha = 0.5f;
 			basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
 			basicEffect.SpecularColor = new Vector3(0.75f, 0.75f, 0.75f);
-			basicEffect.SpecularPower = 5.0f;
-			basicEffect.AmbientLightColor = new Vector3(0.5f, 0.5f, 0.5f);
+			basicEffect.SpecularPower = 0.5f;
+			basicEffect.AmbientLightColor = new Vector3(0.4f, 0.4f, 0.4f);
 
 			basicEffect.DirectionalLight0.Enabled = true;
 			basicEffect.DirectionalLight0.DiffuseColor = Vector3.One;
-			basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
-			basicEffect.DirectionalLight0.SpecularColor = Vector3.One;
+			basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(0.0f, -2.0f, 0.0f));
+			basicEffect.DirectionalLight0.SpecularColor = Vector3.Zero;
 
-			basicEffect.DirectionalLight1.Enabled = true;
-			basicEffect.DirectionalLight1.DiffuseColor = new Vector3(0.5f, 0.5f, 0.5f);
-			basicEffect.DirectionalLight1.Direction = Vector3.Normalize(new Vector3(-1.0f, -1.0f, 1.0f));
-			basicEffect.DirectionalLight1.SpecularColor = new Vector3(0.5f, 0.5f, 0.5f);
+			//basicEffect.DirectionalLight1.Enabled = true;
+			//basicEffect.DirectionalLight1.DiffuseColor = new Vector3(0.5f, 0.5f, 0.5f);
+			//basicEffect.DirectionalLight1.Direction = Vector3.Normalize(new Vector3(-1.0f, -1.0f, 1.0f));
+			//basicEffect.DirectionalLight1.SpecularColor = new Vector3(0.5f, 0.5f, 0.5f);
 
 			basicEffect.LightingEnabled = true;
 			basicEffect.TextureEnabled = true;
