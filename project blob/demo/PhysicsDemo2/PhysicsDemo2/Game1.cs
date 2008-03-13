@@ -378,7 +378,7 @@ namespace PhysicsDemo2
 				Vector3.Multiply(ref tempVec, -1f, out tempVec);
 				tempVec.Normalize();
 				Vector3.Multiply(ref tempVec, 10f, out tempVec);
-				playerForce.Y = 0;
+				tempVec.Y = 0;
 				playerForce = tempVec;
 			}
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
