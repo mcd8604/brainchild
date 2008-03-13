@@ -53,6 +53,7 @@ namespace PhysicsDemo2
 		VertexPositionColor[] planeVertices;
 		VertexBuffer planeVertexBuffer;
 
+		Vector3 tempVec;
 
 		SpriteFont font;
 
@@ -348,37 +349,21 @@ namespace PhysicsDemo2
 				DemoCube.springVal = 12.5f;
 				testCube.setSpringForce(12.5f);
 			}
-			if (InputHandler.IsKeyPressed(Keys.Up))
+			if (InputHandler.IsKeyDown(Keys.Up))
 			{
-				playerForce.X = 0;
-				playerForce.Y = 0;
-				playerForce.Z = -10;
-				//float newVal = DemoCube.springVal + 1.0f;
-				//DemoCube.springVal = newVal;
-				//testCube.setSpringForce(newVal);
-				//Console.WriteLine("Force set to " + newVal);
+				tempVec = viewMatrix.Forward;
 			}
-			if (InputHandler.IsKeyPressed(Keys.Down))
+			if (InputHandler.IsKeyDown(Keys.Down))
 			{
-				playerForce.X = 0;
-				playerForce.Y = 0;
-				playerForce.Z = 10;
-				//float newVal = DemoCube.springVal - 1.0f;
-				//DemoCube.springVal = newVal;
-				//testCube.setSpringForce(newVal);
-				//Console.WriteLine("Force set to " + newVal);
+				tempVec = viewMatrix.Backward;
 			}
-			if (InputHandler.IsKeyPressed(Keys.Right))
+			if (InputHandler.IsKeyDown(Keys.Right))
 			{
-				playerForce.X = 10;
-				playerForce.Y = 0;
-				playerForce.Z = 0;
+				tempVec = viewMatrix.Right;
 			}
-			if (InputHandler.IsKeyPressed(Keys.Left))
+			if (InputHandler.IsKeyDown(Keys.Left))
 			{
-				playerForce.X = -10;
-				playerForce.Y = 0;
-				playerForce.Z = 0;
+				tempVec = viewMatrix.Left;
 			}
 			if (!InputHandler.IsKeyDown(Keys.Up) && !InputHandler.IsKeyDown(Keys.Down) &&
 				!InputHandler.IsKeyDown(Keys.Right) && !InputHandler.IsKeyDown(Keys.Left))
@@ -387,6 +372,14 @@ namespace PhysicsDemo2
 				playerForce.X *= (1f - temp);
 				playerForce.Y *= (1f - temp);
 				playerForce.Z *= (1f - temp);
+			}
+			else
+			{
+				Vector3.Multiply(ref tempVec, -1f, out tempVec);
+				tempVec.Normalize();
+				Vector3.Multiply(ref tempVec, 10f, out tempVec);
+				playerForce.Y = 0;
+				playerForce = tempVec;
 			}
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
 			{
