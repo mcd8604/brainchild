@@ -185,7 +185,7 @@ namespace PhysicsDemo2
 			basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
 			basicEffect.SpecularColor = new Vector3(0.75f, 0.75f, 0.75f);
 			basicEffect.SpecularPower = 0.5f;
-			basicEffect.AmbientLightColor = new Vector3(0.4f, 0.4f, 0.4f);
+			basicEffect.AmbientLightColor = new Vector3(0.0f, 0.0f, 0.0f);
 
 			basicEffect.DirectionalLight0.Enabled = true;
 			basicEffect.DirectionalLight0.DiffuseColor = Vector3.One;
