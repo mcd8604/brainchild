@@ -442,6 +442,16 @@ namespace PhysicsDemo2
 				}
 			}
 
+			if (InputHandler.IsKeyDown(Keys.J))
+			{
+				cameraAngle += cameraAngleStep;
+			}
+
+			if (InputHandler.IsKeyDown(Keys.K))
+			{
+				cameraAngle -= cameraAngleStep;
+			}
+
 			if (follow)
 			{
 				calcCameraPosition();
@@ -463,10 +473,13 @@ namespace PhysicsDemo2
 		}
 
 		//camera stff
-		private Vector3 relativeChasePoint = new Vector3(0, 5, 20);
+		private double cameraAngle = 0;
+		private double cameraAngleStep = MathHelper.Pi / 36; // (5 degrees)
+		private Vector3 cameraOffsetPoint = new Vector3(20, 5, 20);
 
 		private void calcCameraPosition()
 		{
+			Vector3 relativeChasePoint = new Vector3((float)Math.Cos(cameraAngle) * cameraOffsetPoint.X, cameraOffsetPoint.Y, (float)Math.Sin(cameraAngle) * cameraOffsetPoint.Z);
 			Vector3 chasePoint = Vector3.Add(testCube.getCenter(), relativeChasePoint);
 			Vector3 temp = Vector3.Lerp(cameraPosition, chasePoint, 0.5f);
 			cameraPosition = temp;
