@@ -4,7 +4,11 @@ using System.Text;
 
 namespace PhysicsDemo2.Physics
 {
-	class Bind
+	public class Bind
 	{
+		public Bind()
+		{
+
+		}
 	}
 }

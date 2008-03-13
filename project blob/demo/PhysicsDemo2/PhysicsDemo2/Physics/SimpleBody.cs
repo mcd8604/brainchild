@@ -4,7 +4,11 @@ using System.Text;
 
 namespace PhysicsDemo2.Physics
 {
-	class SimpleBody
+	public class SimpleBody
 	{
+		public SimpleBody()
+		{
+
+		}
 	}
 }
