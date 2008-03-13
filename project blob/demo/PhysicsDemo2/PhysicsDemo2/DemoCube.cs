@@ -10,10 +10,10 @@ namespace PhysicsDemo2
 	{
 		public readonly List<Point> points = new List<Point>();
 		public readonly List<Spring> springs = new List<Spring>();
+		public Vector3 force;
+		public float friction;
 
 		public static float springVal = 62.5f;
-
-
 
 		Point ftr;
 		Point ftl;
@@ -46,6 +46,8 @@ namespace PhysicsDemo2
 
 		public DemoCube(Vector3 center, float radius)
 		{
+			friction = 0.9f;
+			force = Vector3.Zero;
 			initCube(center, radius);
 		}
 
