@@ -44,6 +44,8 @@ namespace PhysicsDemo2
 		bool triggermode = false;
 		bool follow = false;
 
+		Vector3 cameraPosition = Vector3.Zero;
+
 		DemoCube testCube;
 		Vector3 cubeStartPosition = new Vector3(2, 8, -2);
 		List<Plane> collisionPlanes = new List<Plane>();
@@ -120,6 +122,8 @@ namespace PhysicsDemo2
 
 			text = Content.Load<Texture2D>(@"test");
 
+			cameraPosition = new Vector3(0, 5, 20);
+
 			base.Initialize();
 		}
 
@@ -152,7 +156,7 @@ namespace PhysicsDemo2
 		{
 			worldMatrix = Matrix.Identity;
 
-			viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), new Vector3(0, 4, 0),
+			viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0),
 				Vector3.Up);
 
 			projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
@@ -432,7 +436,7 @@ namespace PhysicsDemo2
 
 				if (!follow)
 				{
-					viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), new Vector3(0, 4, 0),
+					viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0),
 					Vector3.Up);
 					basicEffect.View = viewMatrix;
 				}
@@ -440,7 +444,8 @@ namespace PhysicsDemo2
 
 			if (follow)
 			{
-				viewMatrix = Matrix.CreateLookAt(new Vector3(0, 5, 20), testCube.getCenter(), Vector3.Up);
+				calcCameraPosition();
+				viewMatrix = Matrix.CreateLookAt(cameraPosition, testCube.getCenter(), Vector3.Up);
 				basicEffect.View = viewMatrix;
 			}
 
@@ -455,6 +460,19 @@ namespace PhysicsDemo2
 
 			base.Update(gameTime);
 			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+		}
+
+		//camera stff
+		private Vector3 relativeChasePoint = new Vector3(0, 5, 20);
+
+		private void calcCameraPosition()
+		{
+			
+			//currentDist = Vector3.Distance(cameraPosition, testCube.getCenter());
+			Vector3 chasePoint = Vector3.Add(testCube.getCenter(), relativeChasePoint);
+
+			Vector3 temp = Vector3.SmoothStep(cameraPosition, chasePoint, 0.5f);
+			cameraPosition = temp;
 		}
 
 
