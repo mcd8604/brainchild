@@ -45,6 +45,8 @@ namespace PhysicsDemo2
 		bool follow = false;
 
 		Vector3 cameraPosition = Vector3.Zero;
+		Model ground;
+		Texture2D ground_text;
 
 		DemoCube testCube;
 		Vector3 cubeStartPosition = new Vector3(2, 8, -2);
@@ -139,6 +141,8 @@ namespace PhysicsDemo2
 
 			text = Content.Load<Texture2D>(@"test");
 			celshader = Content.Load<Effect>(@"shaders\cel");
+			ground = Content.Load<Model>(@"models\level1test");
+			ground_text = Content.Load<Texture2D>(@"textures\free-grass-texture");
 
 			// graphics stuff?
 			InitializeTransform();
@@ -220,9 +224,6 @@ namespace PhysicsDemo2
 			if (celshader.Parameters["Projection"] != null)
 				celshader.Parameters["Projection"].SetValue(projectionMatrix);
 
-			if (celshader.Parameters["EyePosition"] != null)
-				celshader.Parameters["EyePosition"].SetValue(new Vector3(0, 5, 20));
-
 			if (celshader.Parameters["DiffuseLightColor"] != null)
 				celshader.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.9f, 0.4f, 0.4f, 1.0f));
 
@@ -248,7 +249,7 @@ namespace PhysicsDemo2
 				celshader.Parameters["LayerTwoContrib"].SetValue(0.6f);
 
 			if (celshader.Parameters["EdgeOffset"] != null)
-				celshader.Parameters["EdgeOffset"].SetValue(1.00f);
+				celshader.Parameters["EdgeOffset"].SetValue(0.01f);
 		}
 
 		/// <summary>
@@ -584,6 +585,33 @@ namespace PhysicsDemo2
 				pass.End();
 			}
 			basicEffect.End();
+			basicEffect.TextureEnabled = true;
+			basicEffect.VertexColorEnabled = true; ;
+			basicEffect.Texture = ground_text;
+			graphics.GraphicsDevice.Textures[0] = ground_text;
+
+			if (celshader.Parameters["EyePosition"] != null)
+				celshader.Parameters["EyePosition"].SetValue(cameraPosition);
+
+			//basicEffect.Begin();
+			//foreach (ModelMesh mesh in ground.Meshes)
+			//{
+			//    graphics.GraphicsDevice.Indices = mesh.IndexBuffer;
+
+			//    foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+			//    {
+			//        pass.Begin();
+			//        foreach (ModelMeshPart part in mesh.MeshParts)
+			//        {
+			//            graphics.GraphicsDevice.VertexDeclaration = part.VertexDeclaration;
+			//            graphics.GraphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
+
+			//            graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+			//        }
+			//        pass.End();
+			//    }
+			//}
+			//basicEffect.End();
 
 
 
@@ -591,6 +619,7 @@ namespace PhysicsDemo2
 #if TEXTURE
 			basicEffect.VertexColorEnabled = false;
 			basicEffect.TextureEnabled = true;
+			basicEffect.Texture = text;
 			GraphicsDevice.VertexDeclaration = basicEffectVertexDeclarationTexture;
 			GraphicsDevice.Vertices[0].SetSource(triVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
 #else
