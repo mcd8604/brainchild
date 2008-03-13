@@ -54,6 +54,7 @@ namespace PhysicsDemo2
 
 		SpriteFont font;
 
+		private Vector3 playerForce;
 
 		//fps
 		float time = 0f;
@@ -345,17 +346,43 @@ namespace PhysicsDemo2
 			}
 			if (InputHandler.IsKeyPressed(Keys.Up))
 			{
-				float newVal = DemoCube.springVal + 1.0f;
-				DemoCube.springVal = newVal;
-				testCube.setSpringForce(newVal);
-				Console.WriteLine("Force set to " + newVal);
+				playerForce.X = 0;
+				playerForce.Y = 0;
+				playerForce.Z = -10;
+				//float newVal = DemoCube.springVal + 1.0f;
+				//DemoCube.springVal = newVal;
+				//testCube.setSpringForce(newVal);
+				//Console.WriteLine("Force set to " + newVal);
 			}
 			if (InputHandler.IsKeyPressed(Keys.Down))
 			{
-				float newVal = DemoCube.springVal - 1.0f;
-				DemoCube.springVal = newVal;
-				testCube.setSpringForce(newVal);
-				Console.WriteLine("Force set to " + newVal);
+				playerForce.X = 0;
+				playerForce.Y = 0;
+				playerForce.Z = 10;
+				//float newVal = DemoCube.springVal - 1.0f;
+				//DemoCube.springVal = newVal;
+				//testCube.setSpringForce(newVal);
+				//Console.WriteLine("Force set to " + newVal);
+			}
+			if (InputHandler.IsKeyPressed(Keys.Right))
+			{
+				playerForce.X = 10;
+				playerForce.Y = 0;
+				playerForce.Z = 0;
+			}
+			if (InputHandler.IsKeyPressed(Keys.Left))
+			{
+				playerForce.X = -10;
+				playerForce.Y = 0;
+				playerForce.Z = 0;
+			}
+			if (!InputHandler.IsKeyDown(Keys.Up) && !InputHandler.IsKeyDown(Keys.Down) &&
+				!InputHandler.IsKeyDown(Keys.Right) && !InputHandler.IsKeyDown(Keys.Left))
+			{
+				float temp = (float)gameTime.ElapsedGameTime.Milliseconds * 0.01f;
+				playerForce.X *= (1f - temp);
+				playerForce.Y *= (1f - temp);
+				playerForce.Z *= (1f - temp);
 			}
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
 			{
@@ -426,7 +453,6 @@ namespace PhysicsDemo2
 				frames = 0;
 			}
 
-
 			base.Update(gameTime);
 			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
 		}
@@ -434,9 +460,11 @@ namespace PhysicsDemo2
 
 		private void doFakePhysics(float TotalElapsedSeconds)
 		{
+			int i = 0;
 			foreach (Point p in testCube.points)
 			{
 				// forces
+				p.Force += playerForce;
 				p.Force += gravity;
 				foreach (Spring s in testCube.springs)
 				{
@@ -488,7 +516,7 @@ namespace PhysicsDemo2
 				p.Force = Vector3.Zero;
 				p.Acceleration = Vector3.Zero;
 			}
-
+			i++;
 		}
 
 		private Vector3 inhibit(Vector3 baseVal, float reduceBy)
