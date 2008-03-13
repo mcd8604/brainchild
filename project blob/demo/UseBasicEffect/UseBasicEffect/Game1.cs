@@ -100,7 +100,7 @@ namespace UseBasicEffect
         {
             basicEffectVertexDeclaration = new VertexDeclaration(
                 graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
-
+			
             basicEffect = new BasicEffect(graphics.GraphicsDevice, null);
             basicEffect.Alpha = 1.0f;
             basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
@@ -108,12 +108,12 @@ namespace UseBasicEffect
             basicEffect.SpecularPower = 5.0f;
             basicEffect.AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
 
-            basicEffect.DirectionalLight0.Enabled = true;
+            basicEffect.DirectionalLight0.Enabled = false;
             basicEffect.DirectionalLight0.DiffuseColor = Vector3.One;
             basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
             basicEffect.DirectionalLight0.SpecularColor = Vector3.One;
 
-            basicEffect.DirectionalLight1.Enabled = true;
+            basicEffect.DirectionalLight1.Enabled = false;
             basicEffect.DirectionalLight1.DiffuseColor = new Vector3(0.5f, 0.5f, 0.5f);
             basicEffect.DirectionalLight1.Direction = Vector3.Normalize(new Vector3(-1.0f, -1.0f, 1.0f));
             basicEffect.DirectionalLight1.SpecularColor = new Vector3(0.5f, 0.5f, 0.5f);
@@ -134,35 +134,41 @@ namespace UseBasicEffect
 			if (celshader.Parameters["World"] != null)
 				celshader.Parameters["World"].SetValue(worldMatrix);
 
+			if (celshader.Parameters["View"] != null)
+				celshader.Parameters["View"].SetValue(viewMatrix);
+
 			if (celshader.Parameters["Projection"] != null)
 				celshader.Parameters["Projection"].SetValue(projectionMatrix);
 
+			if (celshader.Parameters["EyePosition"] != null)
+				celshader.Parameters["EyePosition"].SetValue(new Vector3(0,0,5));
+
 			if (celshader.Parameters["DiffuseLightColor"] != null)
-				celshader.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.6f, 0.6f, 0.6f, 1.0f));
+				celshader.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.9f, 0.4f, 0.4f, 1.0f));
 
 			if (celshader.Parameters["LightPosition"] != null)
-				celshader.Parameters["LightPosition"].SetValue(new Vector3(5.0f, 600.0f, 600.0f));
+				celshader.Parameters["LightPosition"].SetValue(new Vector3(0,0,2));
 
 			if (celshader.Parameters["LayerOneSharp"] != null)
-				celshader.Parameters["LayerOneSharp"].SetValue(0.6f);
+				celshader.Parameters["LayerOneSharp"].SetValue(0.1f);
 
 			if (celshader.Parameters["LayerOneRough"] != null)
-				celshader.Parameters["LayerOneRough"].SetValue(0.0f);
+				celshader.Parameters["LayerOneRough"].SetValue(0.01f);
 
 			if (celshader.Parameters["LayerOneContrib"] != null)
-				celshader.Parameters["LayerOneContrib"].SetValue(0.05f);
-
+				celshader.Parameters["LayerOneContrib"].SetValue(0.1f);
+			//Does nothing layer two contrib is 0
 			if (celshader.Parameters["LayerTwoSharp"] != null)
-				celshader.Parameters["LayerTwoSharp"].SetValue(0.85f);
-
+				celshader.Parameters["LayerTwoSharp"].SetValue(0.8f);
+			//Does nothing layer two contrib is 0
 			if (celshader.Parameters["LayerTwoRough"] != null)
 				celshader.Parameters["LayerTwoRough"].SetValue(10.0f);
-
+			//layer two contrib is 0
 			if (celshader.Parameters["LayerTwoContrib"] != null)
-				celshader.Parameters["LayerTwoContrib"].SetValue(0.3f);
+				celshader.Parameters["LayerTwoContrib"].SetValue(0.6f);
 
 			if (celshader.Parameters["EdgeOffset"] != null)
-				celshader.Parameters["EdgeOffset"].SetValue(0.016f);
+				celshader.Parameters["EdgeOffset"].SetValue(1.00f);
 
 
         }
@@ -189,12 +195,12 @@ namespace UseBasicEffect
             Vector2 textureBottomLeft = new Vector2(0.0f, 1.0f);
             Vector2 textureBottomRight = new Vector2(1.0f, 1.0f);
 
-            Vector3 frontNormal = new Vector3(0.0f, 0.0f, 1.0f);
-            Vector3 backNormal = new Vector3(0.0f, 0.0f, -1.0f);
-            Vector3 topNormal = new Vector3(0.0f, 1.0f, 0.0f);
-            Vector3 bottomNormal = new Vector3(0.0f, -1.0f, 0.0f);
-            Vector3 leftNormal = new Vector3(-1.0f, 0.0f, 0.0f);
-            Vector3 rightNormal = new Vector3(1.0f, 0.0f, 0.0f);
+			Vector3 frontNormal = new Vector3(0.0f, 0.0f, 1.0f);
+			Vector3 backNormal = new Vector3(0.0f, 0.0f, -1.0f);
+			Vector3 topNormal = new Vector3(0.0f, 1.0f, 0.0f);
+			Vector3 bottomNormal = new Vector3(0.0f, -1.0f, 0.0f);
+			Vector3 leftNormal = new Vector3(-1.0f, 0.0f, 0.0f);
+			Vector3 rightNormal = new Vector3(1.0f, 0.0f, 0.0f);
 
             // Front face.
             cubeVertices[0] =
@@ -388,22 +394,13 @@ namespace UseBasicEffect
 			graphics.GraphicsDevice.Indices = indexBuffer;
 			graphics.GraphicsDevice.VertexDeclaration = basicEffectVertexDeclaration;
 			graphics.GraphicsDevice.Vertices[0].SetSource(vertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
+			graphics.GraphicsDevice.Textures[0] = text;
 
+			//basicEffect.Texture = text;
 			celshader.Begin();
 			foreach(EffectPass pass in celshader.CurrentTechnique.Passes)
 			{
 				pass.Begin();
-
-				//graphics.GraphicsDevice.DrawPrimitives(
-				//	PrimitiveType.TriangleList,
-				//	0,
-				//	12
-				//);
-
-				//// Change the device settings for each part to be rendered
-				graphics.GraphicsDevice.Textures[0] = text;
-				//// Make sure we use the texture for the current part also
-				//// Finally draw the actual triangles on the screen
 				graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 36, 0, 12);
 
 				pass.End();

@@ -19,6 +19,7 @@ namespace PhysicsDemo2
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
+		Effect celshader;
 
 		Texture2D text = null;
 
@@ -131,6 +132,8 @@ namespace PhysicsDemo2
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			text = Content.Load<Texture2D>(@"test");
+			celshader = Content.Load<Effect>(@"shaders\cel");
+
 			// graphics stuff?
 			InitializeTransform();
 			InitializeEffect();
@@ -201,6 +204,45 @@ namespace PhysicsDemo2
 			basicEffect.World = worldMatrix;
 			basicEffect.View = viewMatrix;
 			basicEffect.Projection = projectionMatrix;
+
+			if (celshader.Parameters["World"] != null)
+				celshader.Parameters["World"].SetValue(worldMatrix);
+
+			if (celshader.Parameters["View"] != null)
+				celshader.Parameters["View"].SetValue(viewMatrix);
+
+			if (celshader.Parameters["Projection"] != null)
+				celshader.Parameters["Projection"].SetValue(projectionMatrix);
+
+			if (celshader.Parameters["EyePosition"] != null)
+				celshader.Parameters["EyePosition"].SetValue(new Vector3(0, 5, 20));
+
+			if (celshader.Parameters["DiffuseLightColor"] != null)
+				celshader.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.9f, 0.4f, 0.4f, 1.0f));
+
+			if (celshader.Parameters["LightPosition"] != null)
+				celshader.Parameters["LightPosition"].SetValue(new Vector3(0, -2, 0));
+
+			if (celshader.Parameters["LayerOneSharp"] != null)
+				celshader.Parameters["LayerOneSharp"].SetValue(0.1f);
+
+			if (celshader.Parameters["LayerOneRough"] != null)
+				celshader.Parameters["LayerOneRough"].SetValue(0.01f);
+
+			if (celshader.Parameters["LayerOneContrib"] != null)
+				celshader.Parameters["LayerOneContrib"].SetValue(0.1f);
+			//Does nothing layer two contrib is 0
+			if (celshader.Parameters["LayerTwoSharp"] != null)
+				celshader.Parameters["LayerTwoSharp"].SetValue(0.8f);
+			//Does nothing layer two contrib is 0
+			if (celshader.Parameters["LayerTwoRough"] != null)
+				celshader.Parameters["LayerTwoRough"].SetValue(10.0f);
+			//layer two contrib is 0
+			if (celshader.Parameters["LayerTwoContrib"] != null)
+				celshader.Parameters["LayerTwoContrib"].SetValue(0.6f);
+
+			if (celshader.Parameters["EdgeOffset"] != null)
+				celshader.Parameters["EdgeOffset"].SetValue(1.00f);
 		}
 
 		/// <summary>
