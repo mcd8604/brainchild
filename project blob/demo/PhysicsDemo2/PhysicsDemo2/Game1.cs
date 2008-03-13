@@ -467,11 +467,8 @@ namespace PhysicsDemo2
 
 		private void calcCameraPosition()
 		{
-			
-			//currentDist = Vector3.Distance(cameraPosition, testCube.getCenter());
 			Vector3 chasePoint = Vector3.Add(testCube.getCenter(), relativeChasePoint);
-
-			Vector3 temp = Vector3.SmoothStep(cameraPosition, chasePoint, 0.5f);
+			Vector3 temp = Vector3.Lerp(cameraPosition, chasePoint, 0.5f);
 			cameraPosition = temp;
 		}
 
