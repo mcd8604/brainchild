@@ -318,6 +318,11 @@ internal static class InputHandler
 		}
 	}
 
+	internal static void SetVibration( float low, float high )
+	{
+		GamePad.SetVibration(PlayerIndex.One, low, high);
+	}
+
 	internal static Boolean HasMouseMoved()
 	{
 		return (thisMouseState.X != lastMouseState.X) || (thisMouseState.Y != lastMouseState.Y);
