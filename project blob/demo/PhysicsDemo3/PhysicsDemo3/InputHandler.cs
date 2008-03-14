@@ -12,7 +12,7 @@ using Wintellect.PowerCollections;
 //internal enum Actions { Up, Down, Left, Right, ShipPrimary, ShipSecondary, TailPrimary, TailSecondary, Pause, MenuAccept, MenuBack };
 internal enum Actions { Reset, ToggleStickiness, ToggleElasticity };
 #if XBOX360
-	internal enum GamePadButtons { Up, Down, Left, Right, A, B, Back, LeftShoulder, LeftStick, RightShoulder, RightStick, Start, X, Y };
+internal enum GamePadButtons { Up, Down, Left, Right, A, B, Back, LeftShoulder, LeftStick, RightShoulder, RightStick, Start, X, Y };
 #endif
 internal enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
 
@@ -210,20 +210,20 @@ internal static class InputHandler
 		return false;
 	}
 
-		private static Boolean CheckState(Actions action, GamePadState state)
+	private static Boolean CheckState(Actions action, GamePadState state)
+	{
+		if (thisGamePadState.IsConnected)
 		{
-			if (thisGamePadState.IsConnected)
+			foreach (GamePadButtons button in GamePadMap[action])
 			{
-				foreach (GamePadButtons button in GamePadMap[action])
+				if (IsButtonDown(button, state))
 				{
-					if (IsButtonDown(button, state))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			return false;
 		}
+		return false;
+	}
 
 	private static Boolean CheckState(Actions action, MouseState state)
 	{
@@ -237,42 +237,42 @@ internal static class InputHandler
 		return false;
 	}
 
-		private static Boolean IsButtonDown(GamePadButtons button, GamePadState state)
+	private static Boolean IsButtonDown(GamePadButtons button, GamePadState state)
+	{
+		switch (button)
 		{
-			switch (button)
-			{
-				case GamePadButtons.A:
-					return state.Buttons.A.Equals(ButtonState.Pressed);
-				case GamePadButtons.B:
-					return state.Buttons.B.Equals(ButtonState.Pressed);
-				case GamePadButtons.Back:
-					return state.Buttons.Back.Equals(ButtonState.Pressed);
-				case GamePadButtons.Down:
-					return state.DPad.Down.Equals(ButtonState.Pressed);
-				case GamePadButtons.Left:
-					return state.DPad.Left.Equals(ButtonState.Pressed);
-				case GamePadButtons.LeftShoulder:
-					return state.Buttons.LeftShoulder.Equals(ButtonState.Pressed);
-				case GamePadButtons.LeftStick:
-					return state.Buttons.LeftStick.Equals(ButtonState.Pressed);
-				case GamePadButtons.Right:
-					return state.DPad.Right.Equals(ButtonState.Pressed);
-				case GamePadButtons.RightShoulder:
-					return state.Buttons.RightShoulder.Equals(ButtonState.Pressed);
-				case GamePadButtons.RightStick:
-					return state.Buttons.RightStick.Equals(ButtonState.Pressed);
-				case GamePadButtons.Start:
-					return state.Buttons.Start.Equals(ButtonState.Pressed);
-				case GamePadButtons.Up:
-					return state.DPad.Up.Equals(ButtonState.Pressed);
-				case GamePadButtons.X:
-					return state.Buttons.X.Equals(ButtonState.Pressed);
-				case GamePadButtons.Y:
-					return state.Buttons.Y.Equals(ButtonState.Pressed);
-				default:
-					return false;
-			}
+			case GamePadButtons.A:
+				return state.Buttons.A.Equals(ButtonState.Pressed);
+			case GamePadButtons.B:
+				return state.Buttons.B.Equals(ButtonState.Pressed);
+			case GamePadButtons.Back:
+				return state.Buttons.Back.Equals(ButtonState.Pressed);
+			case GamePadButtons.Down:
+				return state.DPad.Down.Equals(ButtonState.Pressed);
+			case GamePadButtons.Left:
+				return state.DPad.Left.Equals(ButtonState.Pressed);
+			case GamePadButtons.LeftShoulder:
+				return state.Buttons.LeftShoulder.Equals(ButtonState.Pressed);
+			case GamePadButtons.LeftStick:
+				return state.Buttons.LeftStick.Equals(ButtonState.Pressed);
+			case GamePadButtons.Right:
+				return state.DPad.Right.Equals(ButtonState.Pressed);
+			case GamePadButtons.RightShoulder:
+				return state.Buttons.RightShoulder.Equals(ButtonState.Pressed);
+			case GamePadButtons.RightStick:
+				return state.Buttons.RightStick.Equals(ButtonState.Pressed);
+			case GamePadButtons.Start:
+				return state.Buttons.Start.Equals(ButtonState.Pressed);
+			case GamePadButtons.Up:
+				return state.DPad.Up.Equals(ButtonState.Pressed);
+			case GamePadButtons.X:
+				return state.Buttons.X.Equals(ButtonState.Pressed);
+			case GamePadButtons.Y:
+				return state.Buttons.Y.Equals(ButtonState.Pressed);
+			default:
+				return false;
 		}
+	}
 
 	private static Boolean IsButtonDown(MouseButtons button, MouseState state)
 	{
@@ -318,7 +318,7 @@ internal static class InputHandler
 		}
 	}
 
-	internal static void SetVibration( float low, float high )
+	internal static void SetVibration(float low, float high)
 	{
 		GamePad.SetVibration(PlayerIndex.One, low, high);
 	}

@@ -31,7 +31,8 @@ namespace PhysicsDemo3
 			Origin = Vector3.Negate((point1 + point2 + point3) / 3);
 		}
 
-		public bool couldIntersect() {
+		public bool couldIntersect()
+		{
 			return true;
 		}
 
@@ -59,8 +60,8 @@ namespace PhysicsDemo3
 				Vector3 newPos = (start * (1 - u)) + (end * u);
 
 				if (newPos.X >= min.X - 0.1f && newPos.X <= max.X + 0.1f &&
-				    newPos.Y >= min.Y - 0.1f && newPos.Y <= max.Y + 0.1f &&
-				    newPos.Z >= min.Z - 0.1f && newPos.Z <= max.Z + 0.1f)
+					newPos.Y >= min.Y - 0.1f && newPos.Y <= max.Y + 0.1f &&
+					newPos.Z >= min.Z - 0.1f && newPos.Z <= max.Z + 0.1f)
 				{
 					return u;
 				}
