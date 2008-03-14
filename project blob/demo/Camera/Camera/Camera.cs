@@ -21,7 +21,7 @@ namespace Camera
     class Camera
     {
         //Speed of the Camera's rotation
-        public float rotationSpeed = 0.05f;
+        public float rotationSpeed = 0.025f;
 
         //Speed of the Camera's forward movement
         private float forwardSpeed = 0.05f;

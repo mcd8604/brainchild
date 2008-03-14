@@ -1,3 +1,10 @@
+/*  Author: Josh Wilson
+ * 
+ *  Credits: Jeromy Walsh for the Pyramid and Cube. The tutorial that includes these can be found here:
+ *      http://www.gamedev.net/community/forums/topic.asp?topic_id=464662
+ * 
+ * */
+
 #region Using Statements
 using System;
 using System.Collections.Generic;
@@ -19,11 +26,18 @@ namespace Camera
         GraphicsDeviceManager graphics;
         ContentManager content;
 
-        Camera camera;
+        Camera camera1;
+        Camera camera2;
 
-        // Add transforms for the triangle
+        Camera activeCamera;
+
+        // Transform and Data for the triangle
         private Matrix triangleTransform;
         private VertexPositionColor[] triangleData;
+
+        // Transform and Data for the Cube
+        private Matrix rectangleTransform;
+        private VertexPositionColor[] rectangleData;
 
         // The basic effect to use when drawing the geometry
         private BasicEffect basicEffect;
@@ -45,9 +59,12 @@ namespace Camera
         protected override void Initialize()
         {
             //Instantiate a new Camera class
-            camera = new Camera(graphics);
+            camera1 = new Camera(graphics);
+            camera2 = new Camera(graphics);
+            activeCamera = camera1;
 
-            triangleTransform = Matrix.CreateTranslation(new Vector3(-1.5f, 0.0f, -6.0f));
+            triangleTransform = Matrix.CreateTranslation(new Vector3(0.0f, 0.0f, 6.0f));
+            rectangleTransform = Matrix.CreateTranslation(new Vector3(1.5f, 0.0f, 7.0f));
 
             // Initialize the triangle's data (with Vertex Colors)
             triangleData = new VertexPositionColor[12]
@@ -66,6 +83,58 @@ namespace Camera
                 new VertexPositionColor(new Vector3(0.0f, 1.0f, 0.0f), Color.Red),
             };
 
+            // Initialize the Rectangle's data (Do not need vertex colors)
+            rectangleData = new VertexPositionColor[36]
+            {
+                // Front Surface
+                new VertexPositionColor(new Vector3(-1.0f, -1.0f, 1.0f),Color.Red),
+                new VertexPositionColor(new Vector3(-1.0f, 1.0f, 1.0f),Color.Red), 
+                new VertexPositionColor(new Vector3(1.0f, -1.0f, 1.0f),Color.Red), 
+                new VertexPositionColor(new Vector3(1.0f, -1.0f, 1.0f),Color.Red), 
+                new VertexPositionColor(new Vector3(-1.0f, 1.0f, 1.0f),Color.Red), 
+                new VertexPositionColor(new Vector3(1.0f, 1.0f, 1.0f),Color.Red),  
+
+                // Front Surface
+                new VertexPositionColor(new Vector3(1.0f, -1.0f, -1.0f),Color.Yellow),
+                new VertexPositionColor(new Vector3(1.0f, 1.0f, -1.0f),Color.Yellow), 
+                new VertexPositionColor(new Vector3(-1.0f, -1.0f, -1.0f),Color.Yellow),
+                new VertexPositionColor(new Vector3(-1.0f, -1.0f, -1.0f),Color.Yellow),
+                new VertexPositionColor(new Vector3(1.0f, 1.0f, -1.0f),Color.Yellow),  
+                new VertexPositionColor(new Vector3(-1.0f, 1.0f, -1.0f),Color.Yellow), 
+
+                // Left Surface
+                new VertexPositionColor(new Vector3(-1.0f, -1.0f, -1.0f),Color.Blue),
+                new VertexPositionColor(new Vector3(-1.0f, 1.0f, -1.0f),Color.Blue),
+                new VertexPositionColor(new Vector3(-1.0f, -1.0f, 1.0f),Color.Blue),
+                new VertexPositionColor(new Vector3(-1.0f, -1.0f, 1.0f),Color.Blue),
+                new VertexPositionColor(new Vector3(-1.0f, 1.0f, -1.0f),Color.Blue),
+                new VertexPositionColor(new Vector3(-1.0f, 1.0f, 1.0f),Color.Blue),
+
+                // Right Surface
+                new VertexPositionColor(new Vector3(1.0f, -1.0f, 1.0f),Color.Violet),
+                new VertexPositionColor(new Vector3(1.0f, 1.0f, 1.0f),Color.Violet),
+                new VertexPositionColor(new Vector3(1.0f, -1.0f, -1.0f),Color.Violet),
+                new VertexPositionColor(new Vector3(1.0f, -1.0f, -1.0f),Color.Violet),
+                new VertexPositionColor(new Vector3(1.0f, 1.0f, 1.0f),Color.Violet),
+                new VertexPositionColor(new Vector3(1.0f, 1.0f, -1.0f),Color.Violet),
+
+                // Top Surface
+                new VertexPositionColor(new Vector3(-1.0f, 1.0f, 1.0f),Color.Green),
+                new VertexPositionColor(new Vector3(-1.0f, 1.0f, -1.0f),Color.Green),
+                new VertexPositionColor(new Vector3(1.0f, 1.0f, 1.0f),Color.Green),
+                new VertexPositionColor(new Vector3(1.0f, 1.0f, 1.0f),Color.Green),
+                new VertexPositionColor(new Vector3(-1.0f, 1.0f, -1.0f),Color.Green),
+                new VertexPositionColor(new Vector3(1.0f, 1.0f, -1.0f),Color.Green),
+
+                // Bottom Surface
+                new VertexPositionColor(new Vector3(-1.0f, -1.0f, -1.0f),Color.Orange),
+                new VertexPositionColor(new Vector3(-1.0f, -1.0f, 1.0f),Color.Orange),
+                new VertexPositionColor(new Vector3(1.0f, -1.0f, -1.0f),Color.Orange),
+                new VertexPositionColor(new Vector3(1.0f, -1.0f, -1.0f),Color.Orange),
+                new VertexPositionColor(new Vector3(-1.0f, -1.0f, 1.0f),Color.Orange),
+                new VertexPositionColor(new Vector3(1.0f, -1.0f, 1.0f),Color.Orange),
+            };
+
             base.Initialize();
         }
 
@@ -82,7 +151,7 @@ namespace Camera
             {
                 // Create the effect which will be used to set matrices, and colors for rendering
                 basicEffect = new BasicEffect(graphics.GraphicsDevice, null);
-                basicEffect.Projection = camera.GetProjectionMatrix(); 
+                basicEffect.Projection = camera1.GetProjectionMatrix(); 
             }
 
             vertexDeclaration = new VertexDeclaration(graphics.GraphicsDevice,
@@ -122,32 +191,42 @@ namespace Camera
 
             //Move forward
             if (Keyboard.GetState().IsKeyDown(Keys.W))
-                camera.MoveForward();
+                activeCamera.MoveForward();
 
             //Move Back
             if (Keyboard.GetState().IsKeyDown(Keys.S))
-                camera.MoveBack();
+                activeCamera.MoveBack();
 
             //Strafe Left
             if (Keyboard.GetState().IsKeyDown(Keys.A))
-                camera.StrafeLeft();
+                activeCamera.StrafeLeft();
 
             //Strafe Right
             if (Keyboard.GetState().IsKeyDown(Keys.D))
-                camera.StrafeRight();
+                activeCamera.StrafeRight();
 
             //Turn left
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                camera.turnAmt += camera.rotationSpeed;
-                camera.RotateCamera();
+                activeCamera.turnAmt += camera1.rotationSpeed;
+                activeCamera.RotateCamera();
             }
 
             //Turn right
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                camera.turnAmt -= camera.rotationSpeed;
-                camera.RotateCamera();
+                activeCamera.turnAmt -= camera1.rotationSpeed;
+                activeCamera.RotateCamera();
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))
+            {
+                activeCamera = camera1;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D2))
+            {
+                activeCamera = camera2;
             }
 
             base.Update(gameTime);
@@ -166,11 +245,11 @@ namespace Camera
             graphics.GraphicsDevice.VertexDeclaration = vertexDeclaration;
 
             // Set the transform for the triangle, then draw it, using the created effect
-            Matrix tempTransform = Matrix.CreateRotationY(0) * triangleTransform;
+            Matrix tempTransform = triangleTransform; //Matrix.CreateRotationY(0) * 
             basicEffect.World = tempTransform;
             basicEffect.VertexColorEnabled = true;
-            basicEffect.View = camera.GetViewMatrix();
-            basicEffect.Projection = camera.GetProjectionMatrix();
+            basicEffect.View = activeCamera.GetViewMatrix();
+            basicEffect.Projection = activeCamera.GetProjectionMatrix();
 
             basicEffect.Begin();
             foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
@@ -178,8 +257,18 @@ namespace Camera
                 // Begin the current pass
                 pass.Begin();
 
+                // Draw the Pyramid
                 graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
                     PrimitiveType.TriangleList, triangleData, 0, 4);
+
+                tempTransform = rectangleTransform;
+
+                basicEffect.World = tempTransform;
+                basicEffect.CommitChanges();
+
+                // Draw the Cube
+                graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
+                    PrimitiveType.TriangleList, rectangleData, 0, 12);
 
                 // End the current pass
                 pass.End();
