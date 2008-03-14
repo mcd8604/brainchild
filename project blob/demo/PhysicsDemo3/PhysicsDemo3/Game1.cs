@@ -51,7 +51,7 @@ namespace PhysicsDemo3
 		Vector3 cameraPosition = defaultCameraPosition;
 		Vector2 cameraAngle = new Vector2(1f,0.4f);
 		float cameraLength = 20f;
-		float playerCamMulti = 1;
+		float playerCamMulti = 0.1f;
 		float playerMouseLookMulti = 0.005f;
 
 		//private double cameraAngleStep = MathHelper.Pi / 36; // (5 degrees)
@@ -183,7 +183,7 @@ namespace PhysicsDemo3
 			{
 				this.Exit();
 			}
-			if (InputHandler.IsKeyPressed(Keys.Space))
+			if (InputHandler.IsActionPressed(Actions.Reset))
 			{
 				testCube = new DemoCube(cubeStartPosition, 1);
 			}
@@ -307,12 +307,13 @@ namespace PhysicsDemo3
 		}
 
 		#region Some Physics
+		private List<CollisionTri> CollisionChain = new List<CollisionTri>();
 		private void doSomePhysics(float TotalElapsedSeconds)
 		{
 
 			foreach (Point p in testCube.points)
 			{
-
+				CollisionChain.Clear();
 				// Apply Freefall Forces
 				Vector3 Force = p.Force;
 				// forces
@@ -514,6 +515,13 @@ namespace PhysicsDemo3
 						continue;
 					}
 
+					if (CollisionChain.Contains(s))
+					{
+						Console.WriteLine("Duplicate Sliding Collision! Ignoring - This probably means a point is going to fall through the world.");
+						//throw new Exception();
+						continue;
+					}
+
 					//Console.WriteLine("Sliding Collision!");
 
 					if (Collision)
@@ -545,8 +553,10 @@ namespace PhysicsDemo3
 
 			if (Collision)
 			{
+				CollisionChain.Add(s);
+
 				// freefallPhysics first half
-				freefallPhysics(p, time * CollisionU);
+				slidingPhysics(p, time * CollisionU, s);
 
 				// sliding physics second half
 				slidingPhysics(p, time * (1 - CollisionU), CollisionTri);
