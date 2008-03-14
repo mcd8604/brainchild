@@ -10,7 +10,7 @@ using Wintellect.PowerCollections;
 /// List of Actions to which keys may be bound and states queried.
 /// </summary>
 //internal enum Actions { Up, Down, Left, Right, ShipPrimary, ShipSecondary, TailPrimary, TailSecondary, Pause, MenuAccept, MenuBack };
-internal enum Actions { ToggleStickiness, ToggleElasticity };
+internal enum Actions { Reset, ToggleStickiness, ToggleElasticity };
 #if XBOX360
 	internal enum GamePadButtons { Up, Down, Left, Right, A, B, Back, LeftShoulder, LeftStick, RightShoulder, RightStick, Start, X, Y };
 #endif
@@ -75,6 +75,9 @@ internal static class InputHandler
 		MouseMap.Add(Actions.MenuAccept, MouseButtons.Left);
 		MouseMap.Add(Actions.MenuBack, MouseButtons.Right);
 		*/
+
+		KeyboardMap.Add(Actions.Reset, Keys.Space);
+		GamePadMap.Add(Actions.Reset, GamePadButtons.X);
 
 		GamePadMap.Add(Actions.ToggleElasticity, GamePadButtons.RightShoulder);
 		GamePadMap.Add(Actions.ToggleStickiness, GamePadButtons.LeftShoulder);
@@ -163,23 +166,11 @@ internal static class InputHandler
 
 	private static Boolean IsActionDownThis(Actions action)
 	{
-		return CheckState(action, thisKeyboardState)
-#if Err
- || CheckState(action, thisGamePadState)
-#endif
- || CheckState(action, thisMouseState)
-
-		;
+		return CheckState(action, thisKeyboardState) || CheckState(action, thisGamePadState) || CheckState(action, thisMouseState);
 	}
 	private static Boolean IsActionDownLast(Actions action)
 	{
-		return CheckState(action, lastKeyboardState)
-#if Err
- || CheckState(action, lastGamePadState)
-#endif
- || CheckState(action, lastMouseState)
-
-		;
+		return CheckState(action, lastKeyboardState) || CheckState(action, lastGamePadState) || CheckState(action, lastMouseState);
 	}
 
 	/// <summary>
@@ -219,7 +210,6 @@ internal static class InputHandler
 		return false;
 	}
 
-#if Err
 		private static Boolean CheckState(Actions action, GamePadState state)
 		{
 			if (thisGamePadState.IsConnected)
@@ -234,7 +224,6 @@ internal static class InputHandler
 			}
 			return false;
 		}
-#endif
 
 	private static Boolean CheckState(Actions action, MouseState state)
 	{
@@ -248,7 +237,6 @@ internal static class InputHandler
 		return false;
 	}
 
-#if Err
 		private static Boolean IsButtonDown(GamePadButtons button, GamePadState state)
 		{
 			switch (button)
@@ -285,7 +273,6 @@ internal static class InputHandler
 					return false;
 			}
 		}
-#endif
 
 	private static Boolean IsButtonDown(MouseButtons button, MouseState state)
 	{
