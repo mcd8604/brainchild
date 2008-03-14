@@ -29,7 +29,7 @@ namespace PhysicsDemo3
 
 
 		bool paused = false;
-		bool triggermode = false;
+		bool controllermode = false;
 		bool follow = true;
 
 
@@ -53,6 +53,8 @@ namespace PhysicsDemo3
 		float cameraLength = 20f;
 		float playerCamMulti = 0.1f;
 		float playerMouseLookMulti = 0.005f;
+
+		float vb;
 
 		//private double cameraAngleStep = MathHelper.Pi / 36; // (5 degrees)
 		//private Vector3 cameraOffsetPoint = new Vector3(20, 5, 20);
@@ -104,7 +106,7 @@ namespace PhysicsDemo3
 
 
 			//triVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * 3, BufferUsage.None);
-			cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionTexture.SizeInBytes * 16, BufferUsage.None);
+			cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
 
 			InputHandler.LoadDefaultBindings();
 
@@ -144,7 +146,7 @@ namespace PhysicsDemo3
 				(float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height,
 				1.0f, 50.0f);
 
-			VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionTexture.VertexElements);
+			VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
 			VertexDeclarationColor = new VertexDeclaration(GraphicsDevice, VertexPositionColor.VertexElements);
 
@@ -155,6 +157,11 @@ namespace PhysicsDemo3
 			effect.Parameters["xWorld"].SetValue(worldMatrix);
 
 			effect.Parameters["xTexture"].SetValue(text);
+			effect.Parameters["xEnableLighting"].SetValue(true);
+			//effect.Parameters["xShowNormals"].SetValue(true);
+			effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
+			effect.Parameters["xLightPos"].SetValue(new Vector4( -5, 5, 5, 0 ));
+			effect.Parameters["xAmbient"].SetValue(0.25f);
 		}
 
 
@@ -231,14 +238,15 @@ namespace PhysicsDemo3
 			// Xbox
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
 			{
-				triggermode = true;
+				controllermode = true;
 			}
-			if (triggermode)
+			if (controllermode)
 			{
 				testCube.setSpringForce(12.5f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 80f));
 				friction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
+				vb = MathHelper.Clamp(vb - 0.1f, 0f, 1f);
+				InputHandler.SetVibration(vb, vb * 0.25f);
 			}
-
 
 			// Quick Torque
 			Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
@@ -284,9 +292,11 @@ namespace PhysicsDemo3
 				// new Vector3(10, 10, 20)
 				viewMatrix = Matrix.CreateLookAt(cameraPosition, testCube.getCenter(), Vector3.Up);
 				effect.Parameters["xView"].SetValue( viewMatrix );
+
+				//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 			}
 
-			cubeVertexBuffer.SetData<VertexPositionTexture>(testCube.getTriangleVertexes());
+			cubeVertexBuffer.SetData<VertexPositionNormalTexture>(testCube.getTriangleVertexes());
 
 
 
@@ -453,7 +463,7 @@ namespace PhysicsDemo3
 			Vector3 NormalEffect = (s.Normal() * (p.Velocity.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(p.Velocity, s.Normal()).Length(), Vector3.Dot(p.Velocity, s.Normal())))));
 			p.Velocity = (p.Velocity - NormalEffect);
 
-
+			vb += NormalEffect.Length() * 0.1f;
 
 			// forces
 			Vector3 Force = p.Force;
@@ -613,8 +623,8 @@ namespace PhysicsDemo3
 			// Box
 			effect.CurrentTechnique = effect.Techniques["Textured"];
 			GraphicsDevice.VertexDeclaration = VertexDeclarationTexture;
-			cubeVertexBuffer.SetData<VertexPositionTexture>(testCube.getTriangleVertexes());
-			GraphicsDevice.Vertices[0].SetSource(cubeVertexBuffer, 0, VertexPositionTexture.SizeInBytes);
+			cubeVertexBuffer.SetData<VertexPositionNormalTexture>(testCube.getTriangleVertexes());
+			GraphicsDevice.Vertices[0].SetSource(cubeVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
 			effect.Begin();
 			foreach (EffectPass pass in effect.CurrentTechnique.Passes)
 			{

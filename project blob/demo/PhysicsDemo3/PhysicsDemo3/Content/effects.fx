@@ -76,7 +76,7 @@ VertexToPixel ColoredVS( float4 inPos : POSITION, float4 inColor: COLOR, float3 
 	float3 Normal = normalize(mul(normalize(inNormal), xWorld));	
 	Output.LightingFactor = 1;
 	if (xEnableLighting)
-		Output.LightingFactor = dot(Normal, -xLightDirection);
+		Output.LightingFactor =  ( 1 - (distance(inPos, xLightPos ) * 0.075));
     
 	return Output;    
 }
@@ -85,7 +85,7 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
 {
 	PixelToFrame Output = (PixelToFrame)0;		
     
-	Output.Color = PSIn.Color*clamp(PSIn.LightingFactor + xAmbient,0,1);
+	Output.Color = PSIn.Color*clamp((PSIn.LightingFactor + xAmbient),0,1);
 	
 	return Output;
 }
@@ -113,8 +113,9 @@ VertexToPixel TexturedVS( float4 inPos : POSITION, float3 inNormal: NORMAL, floa
 	float3 Normal = normalize(mul(normalize(inNormal), xWorld));	
 	Output.LightingFactor = 1;
 	if (xEnableLighting)
-		Output.LightingFactor = dot(Normal, -xLightDirection);
-    
+	//dot(Normal, -xLightDirection)
+		Output.LightingFactor = dot(Normal, (xLightPos - inPos)) * ( 1 - (distance(inPos, xLightPos ) * 0.075));
+		
 	return Output;    
 }
 
