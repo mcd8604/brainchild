@@ -20,7 +20,7 @@ namespace PhysicsDemo3
 		SpriteBatch spriteBatch;
 
 		//graphics stuff
-		BasicEffect effect;
+		Effect effect;
 		Matrix worldMatrix;
 		Matrix viewMatrix;
 		Matrix projectionMatrix;
@@ -148,16 +148,13 @@ namespace PhysicsDemo3
 
 			VertexDeclarationColor = new VertexDeclaration(GraphicsDevice, VertexPositionColor.VertexElements);
 
+			effect = Content.Load<Effect>("effects");
 
-			BasicEffect basicEffect = new BasicEffect(GraphicsDevice, null);
-			basicEffect.TextureEnabled = true;
-			basicEffect.Texture = text;
-			basicEffect.World = worldMatrix;
-			basicEffect.View = viewMatrix;
-			basicEffect.Projection = projectionMatrix;
+			effect.Parameters["xView"].SetValue(viewMatrix);
+			effect.Parameters["xProjection"].SetValue(projectionMatrix);
+			effect.Parameters["xWorld"].SetValue(worldMatrix);
 
-			effect = basicEffect;
-
+			effect.Parameters["xTexture"].SetValue(text);
 		}
 
 
@@ -203,7 +200,7 @@ namespace PhysicsDemo3
 				{
 					cameraPosition = defaultCameraPosition;
 					viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
-					effect.View = viewMatrix;
+					effect.Parameters["xView"].SetValue( viewMatrix );
 				}
 			}
 			if (InputHandler.IsKeyPressed(Keys.S))
@@ -286,7 +283,7 @@ namespace PhysicsDemo3
 
 				// new Vector3(10, 10, 20)
 				viewMatrix = Matrix.CreateLookAt(cameraPosition, testCube.getCenter(), Vector3.Up);
-				effect.View = viewMatrix;
+				effect.Parameters["xView"].SetValue( viewMatrix );
 			}
 
 			cubeVertexBuffer.SetData<VertexPositionTexture>(testCube.getTriangleVertexes());
@@ -596,8 +593,7 @@ namespace PhysicsDemo3
 			GraphicsDevice.RenderState.DepthBufferEnable = true;
 
 			// Collision Tris
-			effect.TextureEnabled = false;
-			effect.VertexColorEnabled = true;
+			effect.CurrentTechnique = effect.Techniques["Colored"];
 			GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
 			foreach (CollisionTri c in collision)
 			{
@@ -615,8 +611,7 @@ namespace PhysicsDemo3
 			}
 
 			// Box
-			effect.VertexColorEnabled = false;
-			effect.TextureEnabled = true;
+			effect.CurrentTechnique = effect.Techniques["Textured"];
 			GraphicsDevice.VertexDeclaration = VertexDeclarationTexture;
 			cubeVertexBuffer.SetData<VertexPositionTexture>(testCube.getTriangleVertexes());
 			GraphicsDevice.Vertices[0].SetSource(cubeVertexBuffer, 0, VertexPositionTexture.SizeInBytes);
@@ -631,8 +626,7 @@ namespace PhysicsDemo3
 
 
 			// Corner Dots -
-			effect.TextureEnabled = false;
-			effect.VertexColorEnabled = true;
+			effect.CurrentTechnique = effect.Techniques["Colored"];
 			GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
 			GraphicsDevice.RenderState.DepthBufferEnable = false;
 			VertexPositionColor[] dotVertices = new VertexPositionColor[8];
