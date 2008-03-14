@@ -38,7 +38,7 @@ namespace PhysicsDemo3
 			Vector3 ret = Vector3.Zero;
 			foreach (Point p in points)
 			{
-			    ret += p.Position;
+				ret += p.Position;
 			}
 			return ret / points.Count;
 			//return Center.Position;

@@ -49,16 +49,15 @@ namespace PhysicsDemo3
 
 		static Vector3 defaultCameraPosition = new Vector3(0, 5, 20);
 		Vector3 cameraPosition = defaultCameraPosition;
-		Vector2 cameraAngle = new Vector2(1f,0.4f);
+		Vector2 cameraAngle = new Vector2(1f, 0.4f);
 		float cameraLength = 20f;
 		float playerCamMulti = 0.1f;
 		float playerMouseLookMulti = 0.005f;
 
 		float vb;
 
-		//private double cameraAngleStep = MathHelper.Pi / 36; // (5 degrees)
-		//private Vector3 cameraOffsetPoint = new Vector3(20, 5, 20);
-		
+		bool drawMode = true;
+
 
 
 		//fps
@@ -160,8 +159,10 @@ namespace PhysicsDemo3
 			effect.Parameters["xEnableLighting"].SetValue(true);
 			//effect.Parameters["xShowNormals"].SetValue(true);
 			effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
-			effect.Parameters["xLightPos"].SetValue(new Vector4( -5, 5, 5, 0 ));
+			effect.Parameters["xLightPos"].SetValue(new Vector4(-5, 5, 5, 0));
 			effect.Parameters["xAmbient"].SetValue(0.25f);
+
+			effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 		}
 
 
@@ -207,7 +208,9 @@ namespace PhysicsDemo3
 				{
 					cameraPosition = defaultCameraPosition;
 					viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
-					effect.Parameters["xView"].SetValue( viewMatrix );
+					effect.Parameters["xView"].SetValue(viewMatrix);
+
+					effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 				}
 			}
 			if (InputHandler.IsKeyPressed(Keys.S))
@@ -233,6 +236,10 @@ namespace PhysicsDemo3
 			if (InputHandler.IsKeyPressed(Keys.A))
 			{
 				friction = 12f;
+			}
+			if (InputHandler.IsKeyPressed(Keys.Z))
+			{
+				drawMode = !drawMode;
 			}
 
 			// Xbox
@@ -286,14 +293,15 @@ namespace PhysicsDemo3
 				cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
 
 				// following camera
-				Vector3 Offset = new Vector3( (float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin( cameraAngle.Y ) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
+				Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
 				cameraPosition = testCube.getCenter() + Offset;
 
 				// new Vector3(10, 10, 20)
 				viewMatrix = Matrix.CreateLookAt(cameraPosition, testCube.getCenter(), Vector3.Up);
-				effect.Parameters["xView"].SetValue( viewMatrix );
+				effect.Parameters["xView"].SetValue(viewMatrix);
 
 				//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+				effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 			}
 
 			cubeVertexBuffer.SetData<VertexPositionNormalTexture>(testCube.getTriangleVertexes());
@@ -596,11 +604,20 @@ namespace PhysicsDemo3
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
-			//GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+			if (drawMode)
+			{
+				GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+				GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+				GraphicsDevice.RenderState.DepthBufferEnable = true;
+			}
+			else
+			{
+				GraphicsDevice.RenderState.CullMode = CullMode.None;
+				GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+				GraphicsDevice.RenderState.DepthBufferEnable = false;
+			}
 			GraphicsDevice.RenderState.AlphaBlendEnable = false;
 			GraphicsDevice.RenderState.AlphaTestEnable = false;
-			GraphicsDevice.RenderState.DepthBufferEnable = true;
 
 			// Collision Tris
 			effect.CurrentTechnique = effect.Techniques["Colored"];
@@ -659,6 +676,7 @@ namespace PhysicsDemo3
 
 
 			// GUI
+			GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			spriteBatch.Begin();
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
 			if (DemoCube.springVal < 40)

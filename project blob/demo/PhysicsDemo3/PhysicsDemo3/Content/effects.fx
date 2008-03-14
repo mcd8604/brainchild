@@ -25,6 +25,8 @@ bool xShowNormals;
 float4 xLightPos;
 float xLightPower;
 
+float4 xCameraPos;
+
 bool xUseBrownInsteadOfTextures;
 
 //------- Texture Samplers --------
@@ -114,7 +116,7 @@ VertexToPixel TexturedVS( float4 inPos : POSITION, float3 inNormal: NORMAL, floa
 	Output.LightingFactor = 1;
 	if (xEnableLighting)
 	//dot(Normal, -xLightDirection)
-		Output.LightingFactor = dot(Normal, (xLightPos - inPos)) * ( 1 - (distance(inPos, xLightPos ) * 0.075));
+		Output.LightingFactor = dot(Normal, (xLightPos - inPos)) * ( 1 - (distance(inPos, xLightPos ) * 0.075)) + (dot(reflect((xLightPos - inPos), Normal), xCameraPos) * 0.01);
 		
 	return Output;    
 }
