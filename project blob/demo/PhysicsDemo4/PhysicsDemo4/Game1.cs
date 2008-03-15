@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace PhysicsDemo3
+namespace PhysicsDemo4
 {
 	/// <summary>
 	/// This is the main type for your game
@@ -34,8 +34,8 @@ namespace PhysicsDemo3
 
 
 		DemoCube testCube;
-		Vector3 cubeStartPosition = new Vector3(2, 10, -2);
-		List<CollisionTri> collision = new List<CollisionTri>();
+		Vector3 cubeStartPosition = new Vector3(0, 10, 0);
+		List<Collidable> collision = new List<Collidable>();
 
 
 
@@ -47,7 +47,7 @@ namespace PhysicsDemo3
 
 
 
-		static Vector3 defaultCameraPosition = new Vector3(0, 5, 20);
+		static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
 		Vector3 cameraPosition = defaultCameraPosition;
 		Vector2 cameraAngle = new Vector2(1f, 0.4f);
 		float cameraLength = 20f;
@@ -68,10 +68,60 @@ namespace PhysicsDemo3
 
 
 		// physics stuff
-		Vector3 gravity = new Vector3(0f, -9.8f, 0f);
 		float friction = 12.0f;
 		float airfriction = 1f;
 		float playerMoveMulti = 12 / 60f;
+
+		bool OrientCamera = false;
+
+		Vector3 gravityOrigin = Vector3.Zero;
+
+		Vector3 getGravity(Vector3 from)
+		{
+			//return new Vector3(0f, -9.8f, 0f);
+			//return Vector3.Normalize(gravityOrigin - from) * ((9.8f * 25f) / Vector3.DistanceSquared(from, gravityOrigin) );
+			return Vector3.Normalize(gravityOrigin - from) * 9.8f;
+		}
+		Vector3 getUp(Vector3 from)
+		{
+			bool Collision = false;
+			Collidable CollisionTri = null;
+			float CollisionU = 1;
+			foreach (Collidable c in collision)
+			{
+
+				float u = c.didIntersect(from, gravityOrigin);
+				if (u < 1)
+				{
+					if (!Collision)
+					{
+						CollisionTri = c;
+						CollisionU = u;
+						Collision = true;
+					}
+					else
+					{
+						if (u < CollisionU)
+						{
+							CollisionTri = c;
+							CollisionU = u;
+						}
+					}
+
+
+				}
+
+			}
+
+			if (Collision)
+			{
+				return CollisionTri.Normal();
+			}
+			else
+			{
+				return Vector3.Up;
+			}
+		}
 
 
 		public Game1()
@@ -92,22 +142,27 @@ namespace PhysicsDemo3
 		{
 			testCube = new DemoCube(cubeStartPosition, 1);
 
-			collision.Add(new CollisionTri(new Vector3(-5, 0, -5), new Vector3(-5, 0, 5), new Vector3(5, 0, 5), Color.Red));
-			collision.Add(new CollisionTri(new Vector3(5, 0, 5), new Vector3(5, 8, -5), new Vector3(-5, 0, -5), Color.Blue)); //
-			collision.Add(new CollisionTri(new Vector3(-5, 0, -5), new Vector3(-15, 0, 5), new Vector3(-5, 0, 5), Color.Yellow));
-			collision.Add(new CollisionTri(new Vector3(-15, 0, 5), new Vector3(-5, 0, 15), new Vector3(-5, 0, 5), Color.White));
-			collision.Add(new CollisionTri(new Vector3(-5, 0, 5), new Vector3(-5, 0, 15), new Vector3(5, 0, 5), Color.Orange));
-			collision.Add(new CollisionTri(new Vector3(-15, 8, 15), new Vector3(-5, 0, 15), new Vector3(-15, 0, 5), Color.Purple));
-
-			collision.Add(new CollisionTri(new Vector3(-5, 0, -5), new Vector3(-15, 0, -5), new Vector3(-15, 0, 5), Color.Yellow));
-			collision.Add(new CollisionTri(new Vector3(-5, 0, 15), new Vector3(5, 0, 15), new Vector3(5, 0, 5), Color.Orange));
 
 
+			// 'world' cube
 
-			//triVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * 3, BufferUsage.None);
+			collision.Add(new CollisionQuad(new Vector3(-5, 5, 5), new Vector3(5, 5, 5), new Vector3(5, 5, -5), new Vector3(-5, 5, -5), Color.Orange)); // 'top'
+			collision.Add(new CollisionQuad(new Vector3(-5, -5, 5), new Vector3(-5, -5, -5), new Vector3(5, -5, -5), new Vector3(5, -5, 5), Color.Blue));
+
+
+			collision.Add(new CollisionQuad(new Vector3(-5, -5, 5), new Vector3(5, -5, 5), new Vector3(5, 5, 5), new Vector3(-5, 5, 5), Color.Red));
+			collision.Add(new CollisionQuad(new Vector3(-5, -5, -5), new Vector3(-5, 5, -5), new Vector3(5, 5, -5), new Vector3(5, -5, -5), Color.Green));
+
+			collision.Add(new CollisionQuad(new Vector3(5, -5, -5), new Vector3(5, 5, -5), new Vector3(5, 5, 5), new Vector3(5, -5, 5), Color.Yellow));
+			collision.Add(new CollisionQuad(new Vector3(-5, -5, -5), new Vector3(-5, -5, 5), new Vector3(-5, 5, 5), new Vector3(-5, 5, -5), Color.Purple));
+
+
+
+
 			cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
 
 			InputHandler.LoadDefaultBindings();
+
 
 			base.Initialize();
 		}
@@ -129,6 +184,7 @@ namespace PhysicsDemo3
 			// graphics stuff?
 			InitializeEffect();
 		}
+
 
 		/// <summary>
 		/// Initializes the basic effect (parameter setting and technique selection)
@@ -159,7 +215,7 @@ namespace PhysicsDemo3
 			effect.Parameters["xEnableLighting"].SetValue(true);
 			//effect.Parameters["xShowNormals"].SetValue(true);
 			effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
-			effect.Parameters["xLightPos"].SetValue(new Vector4(-5, 5, 5, 0));
+			effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
 			effect.Parameters["xAmbient"].SetValue(0.25f);
 
 			effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
@@ -241,6 +297,10 @@ namespace PhysicsDemo3
 			{
 				drawMode = !drawMode;
 			}
+			if (InputHandler.IsKeyPressed(Keys.O))
+			{
+				OrientCamera = !OrientCamera;
+			}
 
 			// Xbox
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
@@ -297,7 +357,14 @@ namespace PhysicsDemo3
 				cameraPosition = testCube.getCenter() + Offset;
 
 				// new Vector3(10, 10, 20)
-				viewMatrix = Matrix.CreateLookAt(cameraPosition, testCube.getCenter(), Vector3.Up);
+				if (OrientCamera)
+				{
+					viewMatrix = Matrix.CreateLookAt(cameraPosition, testCube.getCenter(), getUp(testCube.getCenter()));
+				}
+				else
+				{
+					viewMatrix = Matrix.CreateLookAt(cameraPosition, testCube.getCenter(), Vector3.Up);
+				}
 				effect.Parameters["xView"].SetValue(viewMatrix);
 
 				//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
@@ -321,8 +388,9 @@ namespace PhysicsDemo3
 			base.Update(gameTime);
 		}
 
+
 		#region Some Physics
-		private List<CollisionTri> CollisionChain = new List<CollisionTri>();
+		private List<Collidable> CollisionChain = new List<Collidable>();
 		private void doSomePhysics(float TotalElapsedSeconds)
 		{
 
@@ -332,7 +400,7 @@ namespace PhysicsDemo3
 				// Apply Freefall Forces
 				Vector3 Force = p.Force;
 				// forces
-				Force += gravity * p.mass;
+				Force += getGravity(p.Position) * p.mass;
 				foreach (Spring s in testCube.springs)
 				{
 					if (p == s.A)
@@ -364,9 +432,9 @@ namespace PhysicsDemo3
 
 				// Check for Collision
 				bool Collision = false;
-				CollisionTri CollisionTri = null;
+				Collidable CollisionTri = null;
 				float CollisionU = float.MaxValue;
-				foreach (CollisionTri c in collision)
+				foreach (Collidable c in collision)
 				{
 					float u = c.didIntersect(originalPosition, finalPosition);
 					// If Collision ( u < 1 ) - Split Time and redo
@@ -426,7 +494,7 @@ namespace PhysicsDemo3
 		{
 
 			// forces
-			p.Force += gravity * p.mass;
+			p.Force += getGravity(p.Position) * p.mass;
 			foreach (Spring s in testCube.springs)
 			{
 				if (p == s.A)
@@ -457,7 +525,7 @@ namespace PhysicsDemo3
 			p.Acceleration = Vector3.Zero;
 
 		}
-		private void slidingPhysics(Point p, float time, CollisionTri s)
+		private void slidingPhysics(Point p, float time, Collidable s)
 		{
 
 			// nudge it out just enough to be above the plane to keep floating point error from falling through
@@ -475,7 +543,7 @@ namespace PhysicsDemo3
 
 			// forces
 			Vector3 Force = p.Force;
-			Force += gravity * p.mass;
+			Force += getGravity(p.Position) * p.mass;
 			foreach (Spring sp in testCube.springs)
 			{
 				if (p == sp.A)
@@ -514,9 +582,9 @@ namespace PhysicsDemo3
 
 
 			bool Collision = false;
-			CollisionTri CollisionTri = null;
+			Collidable CollisionTri = null;
 			float CollisionU = float.MaxValue;
-			foreach (CollisionTri c in collision)
+			foreach (Collidable c in collision)
 			{
 				float u = c.didIntersect(originalPosition, finalPosition);
 				// If Collision ( u < 1 ) - Split Time and redo
@@ -622,7 +690,7 @@ namespace PhysicsDemo3
 			// Collision Tris
 			effect.CurrentTechnique = effect.Techniques["Colored"];
 			GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
-			foreach (CollisionTri c in collision)
+			foreach (Collidable c in collision)
 			{
 				VertexPositionColor[] temp = c.getTriangleVertexes();
 				VertexBuffer tempVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * temp.Length, BufferUsage.None);
