@@ -319,8 +319,17 @@ namespace PhysicsDemo4
 			Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
 			if (move != Vector2.Zero)
 			{
-				Vector3 Horizontal = Vector3.Cross(testCube.getCenter() - cameraPosition, Vector3.Up);
-				Vector3 Run = Vector3.Cross(Horizontal, Vector3.Up);
+				Vector3 Up;
+				if (OrientCamera)
+				{
+					Up = getUp(testCube.getCenter());
+				}
+				else
+				{
+					Up = Vector3.Up;
+				}
+				Vector3 Horizontal = Vector3.Cross(testCube.getCenter() - cameraPosition, Up);
+				Vector3 Run = Vector3.Cross(Horizontal, Up);
 				foreach (Point p in testCube.points)
 				{
 					p.Force += Vector3.Cross(p.Position - testCube.getCenter(), Horizontal) * (move.Y * playerMoveMulti);
@@ -367,7 +376,7 @@ namespace PhysicsDemo4
 				}
 				effect.Parameters["xView"].SetValue(viewMatrix);
 
-				//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+				//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
 				effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 			}
 

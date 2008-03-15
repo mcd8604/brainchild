@@ -116,7 +116,7 @@ VertexToPixel TexturedVS( float4 inPos : POSITION, float3 inNormal: NORMAL, floa
 	Output.LightingFactor = 1;
 	if (xEnableLighting)
 	//dot(Normal, -xLightDirection)
-		Output.LightingFactor = dot(Normal, (xLightPos - inPos)) * ( 1 - (distance(inPos, xLightPos ) * 0.075)) + (dot(reflect((xLightPos - inPos), Normal), xCameraPos) * 0.01);
+		Output.LightingFactor = (dot(Normal, (xLightPos - inPos)) * clamp( 1 - (distance(inPos, xLightPos ) * 0.075),0,1)) + (clamp(dot(reflect((xLightPos - inPos), Normal), xCameraPos) * 0.01,0,1));
 		
 	return Output;    
 }
