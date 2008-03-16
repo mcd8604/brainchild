@@ -68,7 +68,7 @@ namespace PhysicsDemo5
 
 
 		// physics - input
-		float playerMoveMulti = 0.25f;
+		float playerMoveMulti = 7.5f;
 
 
 		public Game1()
@@ -263,7 +263,7 @@ namespace PhysicsDemo5
 			projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 				MathHelper.ToRadians(45),  // 45 degree angle
 				(float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height,
-				1.0f, 50.0f);
+				1.0f, 100.0f);
 
 			VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
@@ -431,12 +431,12 @@ namespace PhysicsDemo5
 				{
 					Up = Vector3.Up;
 				}
-				Vector3 Horizontal = Vector3.Cross(playerCube.getCenter() - cameraPosition, Up);
-				Vector3 Run = Vector3.Cross(Horizontal, Up);
+				Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(playerCube.getCenter() - cameraPosition, Up));
+				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 				foreach (Physics.Point p in playerCube.points)
 				{
-					p.Force += Vector3.Cross(p.Position - playerCube.getCenter(), Horizontal) * (move.Y * playerMoveMulti);
-					p.Force += Vector3.Cross(p.Position - playerCube.getCenter(), Run) * (move.X * playerMoveMulti);
+					p.Force += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
+					p.Force += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Run)) * (move.X * playerMoveMulti);
 				}
 			}
 
@@ -463,6 +463,7 @@ namespace PhysicsDemo5
 				cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
 
 				// following camera
+				cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
 				Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
 				cameraPosition = playerCube.getCenter() + Offset;
 

@@ -38,7 +38,6 @@ internal static class InputHandler
 	internal static void LoadDefaultBindings()
 	{
 
-
 		KeyboardMap.Add(Actions.Reset, Keys.Space);
 		GamePadMap.Add(Actions.Reset, GamePadButtons.X);
 
@@ -308,6 +307,10 @@ internal static class InputHandler
 	internal static Vector2 getMouseDeltaPosition()
 	{
 		return new Vector2(thisMouseState.X, thisMouseState.Y) - new Vector2(lastMouseState.X, lastMouseState.Y);
+	}
+	internal static int getMouseWheelDelta()
+	{
+		return thisMouseState.ScrollWheelValue - lastMouseState.ScrollWheelValue;
 	}
 
 #if DEBUG
