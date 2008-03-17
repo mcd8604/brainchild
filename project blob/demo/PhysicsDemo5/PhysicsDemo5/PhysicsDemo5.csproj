@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SoftCube.cs" />
     <Compile Include="StaticQuad.cs" />
     <Compile Include="DemoCube.cs" />
     <Compile Include="Drawable.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="StaticTri.cs" />
+    <Compile Include="Tri.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

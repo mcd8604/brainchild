@@ -34,6 +34,8 @@ namespace Physics
 
 		static Vector3 gravityOrigin = Vector3.Zero;
 
+        static List<Body> bodys = new List<Body>();
+
 		static List<Collidable> collision = new List<Collidable>();
 		static List<Point> points = new List<Point>();
 		static List<Spring> springs = new List<Spring>();
@@ -42,6 +44,10 @@ namespace Physics
 		{
 			collision.Add(c);
 		}
+        public static void AddCollidables(IEnumerable<Collidable> c)
+        {
+            collision.AddRange(c);
+        }
 		public static void AddPoint(Point p)
 		{
 			points.Add(p);
