@@ -178,11 +178,15 @@ namespace PhysicsDemo5
 
         public IEnumerable<Physics.Collidable> getCollidables()
         {
-            List<Physics.Collidable> temp = new List<Physics.Collidable>();
-            foreach ( Tri t in collidables ) {
-                temp.Add( t as Physics.Collidable );
-            }
-            return temp;
+            // Disabled collision planes for softcubes until I can figure out what's wrong.
+
+            //List<Physics.Collidable> temp = new List<Physics.Collidable>();
+            //foreach ( Tri t in collidables ) {
+            //    temp.Add( t as Physics.Collidable );
+            //}
+            //return temp;
+
+            return new List<Physics.Collidable>();
         }
 
         public IEnumerable<Drawable> getDrawables()
