@@ -7,7 +7,7 @@ namespace Physics
 	public static class Physics
 	{
 
-		static float friction = 12.0f;
+		static float friction = 42.0f;
 		public static float TEMP_SurfaceFriction
 		{
 			get
@@ -160,6 +160,11 @@ namespace Physics
 		{
 			impact = 0;
 
+            foreach (Body b in bodys)
+            {
+                b.sumSpringForces();
+            }
+
 			doSomePhysics(TotalElapsedSeconds);
 
             foreach (Body b in bodys)
@@ -187,17 +192,17 @@ namespace Physics
                     Vector3 Force = p.Force;
                     // forces
                     Force += getGravity(p.Position) * p.mass;
-                    foreach (Spring s in b.getSprings())
-                    {
-                        if (p == s.A)
-                        {
-                            Force += s.getForceVectorOnA();
-                        }
-                        else if (p == s.B)
-                        {
-                            Force += s.getForceVectorOnB();
-                        }
-                    }
+                    //foreach (Spring s in b.getSprings())
+                    //{
+                    //    if (p == s.A)
+                    //    {
+                    //        Force += s.getForceVectorOnA();
+                    //    }
+                    //    else if (p == s.B)
+                    //    {
+                    //        Force += s.getForceVectorOnB();
+                    //    }
+                    //}
 
                     // Air Friction
                     Force += Vector3.Negate(p.Velocity) * airfriction;
@@ -290,17 +295,17 @@ namespace Physics
 
 			// forces
 			p.Force += getGravity(p.Position) * p.mass;
-                foreach (Spring s in b.getSprings())
-                {
-                    if (p == s.A)
-                    {
-                        p.Force += s.getForceVectorOnA();
-                    }
-                    else if (p == s.B)
-                    {
-                        p.Force += s.getForceVectorOnB();
-                    }
-                }
+                //foreach (Spring s in b.getSprings())
+                //{
+                //    if (p == s.A)
+                //    {
+                //        p.Force += s.getForceVectorOnA();
+                //    }
+                //    else if (p == s.B)
+                //    {
+                //        p.Force += s.getForceVectorOnB();
+                //    }
+                //}
 
 			// air friction
 			p.Force += Vector3.Negate(p.Velocity) * airfriction;
@@ -339,17 +344,17 @@ namespace Physics
 			// forces
 			Vector3 Force = p.Force;
 			Force += getGravity(p.NextPosition) * p.mass;
-                foreach (Spring sp in b.getSprings())
-                {
-                    if (p == sp.A)
-                    {
-                        p.Force += sp.getForceVectorOnA();
-                    }
-                    else if (p == sp.B)
-                    {
-                        p.Force += sp.getForceVectorOnB();
-                    }
-                }
+                //foreach (Spring sp in b.getSprings())
+                //{
+                //    if (p == sp.A)
+                //    {
+                //        p.Force += sp.getForceVectorOnA();
+                //    }
+                //    else if (p == sp.B)
+                //    {
+                //        p.Force += sp.getForceVectorOnB();
+                //    }
+                //}
 
 			// normal force
 			Vector3 NormalForce = (s.Normal() * (Force.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(Force, s.Normal()).Length(), Vector3.Dot(Force, s.Normal())))));

@@ -4,16 +4,25 @@ using System.Text;
 
 namespace Physics
 {
-    public interface Body
+    public abstract class Body
     {
 
-        IEnumerable<Point> getPoints();
+        public void sumSpringForces()
+        {
+                foreach (Spring s in getSprings())
+                {
+                    s.A.Force += s.getForceVectorOnA();
+                    s.B.Force += s.getForceVectorOnB();
+                }
+        }
 
-        IEnumerable<Collidable> getCollidables();
+        public abstract IEnumerable<Point> getPoints();
 
-        IEnumerable<Spring> getSprings();
+        public abstract IEnumerable<Collidable> getCollidables();
 
-        float getVolume();
+        public abstract IEnumerable<Spring> getSprings();
+
+        public abstract float getVolume();
 
     }
 }
