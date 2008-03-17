@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Body.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Point.cs" />

@@ -5,27 +5,28 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PhysicsDemo5
 {
-	public class DemoCube
-	{
-		public readonly List<Physics.Point> points = new List<Physics.Point>();
-		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
-        //public readonly List<Physics.Collidable> collidables = new List<Physics.Collidable>();
+    class SoftCube : Physics.Body
+    {
 
-		public float friction = 0.9f;
-		public static float springVal = 62.5f;
+        public readonly List<Physics.Point> points = new List<Physics.Point>();
+        public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
+        public readonly List<Tri> collidables = new List<Tri>();
 
-		Physics.Point ftr;
-		Physics.Point ftl;
-		Physics.Point fbr;
-		Physics.Point fbl;
-		Physics.Point btr;
-		Physics.Point btl;
-		Physics.Point bbr;
-		Physics.Point bbl;
 
-		//Point Center;
+        public float friction = 0.9f;
+        public static float springVal = 62.5f;
 
-		public void setSpringForce(float force)
+        Physics.Point ftr;
+        Physics.Point ftl;
+        Physics.Point fbr;
+        Physics.Point fbl;
+        Physics.Point btr;
+        Physics.Point btl;
+        Physics.Point bbr;
+        Physics.Point bbl;
+
+
+        public void setSpringForce(float force)
 		{
 			springVal = force;
 			foreach (Physics.Spring s in springs)
@@ -45,7 +46,7 @@ namespace PhysicsDemo5
 			//return Center.Position;
 		}
 
-		public DemoCube(Vector3 center, float radius)
+		public SoftCube(Vector3 center, float radius)
 		{
 			initCube(center, radius);
 		}
@@ -78,6 +79,20 @@ namespace PhysicsDemo5
 				}
 				points.Add(t);
 			}
+
+            collidables.Add( new Tri( ftr, fbr, bbr, Color.White ));
+            collidables.Add( new Tri( ftr, bbr, btr, Color.White ));
+            collidables.Add( new Tri( ftr, btr, btl, Color.White ));
+            collidables.Add( new Tri( ftr, btl, ftl, Color.White ));
+            collidables.Add( new Tri( ftr, ftl, fbl, Color.White ));
+            collidables.Add( new Tri( ftr, fbl, fbr, Color.White ));
+
+            collidables.Add( new Tri( bbl, bbr, fbr, Color.White ));
+            collidables.Add( new Tri( bbl, fbr, fbl, Color.White ));
+            collidables.Add( new Tri( bbl, fbl, ftl, Color.White ));
+            collidables.Add( new Tri( bbl, ftl, btl, Color.White ));
+            collidables.Add( new Tri( bbl, btl, btr, Color.White ));
+            collidables.Add( new Tri( bbl, btr, bbr, Color.White ));
 
 		}
 
@@ -156,15 +171,28 @@ namespace PhysicsDemo5
 		}
 
 
-
-        public IEnumerable<Point> getPoints()
+        public IEnumerable<Physics.Point> getPoints()
         {
-            return (IEnumerable<Point>)points;
+            return points;
         }
 
         public IEnumerable<Physics.Collidable> getCollidables()
         {
-            return (IEnumerable<Physics.Collidable>)new List<Physics.Collidable>();
+            List<Physics.Collidable> temp = new List<Physics.Collidable>();
+            foreach ( Tri t in collidables ) {
+                temp.Add( t as Physics.Collidable );
+            }
+            return temp;
+        }
+
+        public IEnumerable<Drawable> getDrawables()
+        {
+            List<Drawable> temp = new List<Drawable>();
+            foreach (Tri t in collidables)
+            {
+                temp.Add(t as Drawable);
+            }
+            return temp;
         }
 
         public IEnumerable<Physics.Spring> getSprings()
@@ -174,8 +202,9 @@ namespace PhysicsDemo5
 
         public float getVolume()
         {
+            // TODO
             return 1;
         }
 
-	}
+    }
 }

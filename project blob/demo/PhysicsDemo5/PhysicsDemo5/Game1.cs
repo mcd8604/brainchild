@@ -49,6 +49,7 @@ namespace PhysicsDemo5
 
 		bool drawMode = true;
 		int gameMode = 0;
+        bool points = false;
 
 		List<Drawable> drawables = new List<Drawable>();
 
@@ -146,7 +147,7 @@ namespace PhysicsDemo5
 			Physics.Physics.AddPoints(playerCube.points);
 			Physics.Physics.AddSprings(playerCube.springs);
 
-
+            
 
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 10, 0), new Vector3(-7, 7, 7), new Vector3(7, 7, 7), Color.Orange));
@@ -202,6 +203,12 @@ namespace PhysicsDemo5
 			Physics.Physics.AddPoints(playerCube.points);
 			Physics.Physics.AddSprings(playerCube.springs);
 
+            //SoftCube test = new SoftCube(new Vector3(0, 5, 0), 1);
+
+            //Physics.Physics.AddPoints(test.getPoints());
+            //Physics.Physics.AddSprings(test.getSprings());
+            //Physics.Physics.AddCollidables(test.getCollidables());
+            //drawables.AddRange(test.getDrawables());
 
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, -5), new Vector3(-5, 0, 5), new Vector3(5, 0, 5), Color.Red));
@@ -404,6 +411,10 @@ namespace PhysicsDemo5
 					initGlobe();
 				}
 			}
+            if (InputHandler.IsKeyPressed(Keys.OemPeriod))
+            {
+                points = !points;
+            }
 
 			// Xbox
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
@@ -559,28 +570,29 @@ namespace PhysicsDemo5
 			}
 			effect.End();
 
-
-			// Corner Dots -
-			effect.CurrentTechnique = effect.Techniques["Colored"];
-			GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
-			GraphicsDevice.RenderState.DepthBufferEnable = false;
-			VertexPositionColor[] dotVertices = new VertexPositionColor[8];
-			for (int i = 0; i < 8; ++i)
-			{
-				dotVertices[i] = new VertexPositionColor(playerCube.points[i].Position, Color.Black);
-			}
-			VertexBuffer dotvertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * 8, BufferUsage.None);
-			dotvertexBuffer.SetData<VertexPositionColor>(dotVertices);
-			GraphicsDevice.Vertices[0].SetSource(dotvertexBuffer, 0, VertexPositionColor.SizeInBytes);
-			effect.Begin();
-			foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-			{
-				pass.Begin();
-				GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, 8);
-				pass.End();
-			}
-			effect.End();
-
+            if (points)
+            {
+                // Corner Dots -
+                effect.CurrentTechnique = effect.Techniques["Colored"];
+                GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
+                GraphicsDevice.RenderState.DepthBufferEnable = false;
+                VertexPositionColor[] dotVertices = new VertexPositionColor[8];
+                for (int i = 0; i < 8; ++i)
+                {
+                    dotVertices[i] = new VertexPositionColor(playerCube.points[i].Position, Color.Black);
+                }
+                VertexBuffer dotvertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * 8, BufferUsage.None);
+                dotvertexBuffer.SetData<VertexPositionColor>(dotVertices);
+                GraphicsDevice.Vertices[0].SetSource(dotvertexBuffer, 0, VertexPositionColor.SizeInBytes);
+                effect.Begin();
+                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                {
+                    pass.Begin();
+                    GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, 8);
+                    pass.End();
+                }
+                effect.End();
+            }
 
 
 			// GUI
