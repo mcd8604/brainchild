@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PhysicsDemo5
 {
-	class StaticQuad : Physics.Collidable, Drawable
+	class StaticQuad : T
 	{
 		internal Plane myPlane;
 		internal Vector3 max;

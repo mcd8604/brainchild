@@ -73,7 +73,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="StaticTri.cs" />
+    <Compile Include="T.cs" />
     <Compile Include="Tri.cs" />
+    <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

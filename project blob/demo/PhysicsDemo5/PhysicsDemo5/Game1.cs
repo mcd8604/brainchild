@@ -33,7 +33,7 @@ namespace PhysicsDemo5
 		bool follow = true;
 
 
-		DemoCube playerCube;
+		SoftCube playerCube;
 		Vector3 cubeStartPosition = new Vector3(0, 10, 0);
 
 		VertexBuffer cubeVertexBuffer;
@@ -72,6 +72,11 @@ namespace PhysicsDemo5
 		float playerMoveMulti = 7.5f;
 
 
+
+        World world;
+
+
+
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -102,32 +107,39 @@ namespace PhysicsDemo5
 		{
 
 			cubeStartPosition = new Vector3(0, 10, 0);
-			playerCube = new DemoCube(cubeStartPosition, 1);
-			Physics.Physics.AddPoints(playerCube.points);
-			Physics.Physics.AddSprings(playerCube.springs);
+			//playerCube = new DemoCube(cubeStartPosition, 1);
+			//Physics.Physics.AddPoints(playerCube.points);
+			//Physics.Physics.AddSprings(playerCube.springs);
+            playerCube = new SoftCube(cubeStartPosition, 1);
+            Physics.Physics.AddBody(playerCube);
 
 			// 'world' 'cube'
 
+            world = new World();
+
 			StaticQuad temp = new StaticQuad(new Vector3(-5, 5, 5), new Vector3(5, 5, 5), new Vector3(5, 5, -5), new Vector3(-5, 5, -5), Color.Orange); // 'top'
-			Physics.Physics.AddCollidable(temp);
+            world.collidables.Add(temp);
 			drawables.Add(temp);
 			temp = new StaticQuad(new Vector3(-5, -5, 5), new Vector3(-5, -5, -5), new Vector3(5, -5, -5), new Vector3(5, -5, 5), Color.Blue);
-			Physics.Physics.AddCollidable(temp);
+            world.collidables.Add(temp);
 			drawables.Add(temp);
 
 			temp = new StaticQuad(new Vector3(-5, -5, 5), new Vector3(5, -5, 5), new Vector3(5, 5, 5), new Vector3(-5, 5, 5), Color.Red);
-			Physics.Physics.AddCollidable(temp);
+            world.collidables.Add(temp);
 			drawables.Add(temp);
 			temp = new StaticQuad(new Vector3(-5, -5, -5), new Vector3(-5, 5, -5), new Vector3(5, 5, -5), new Vector3(5, -5, -5), Color.Green);
-			Physics.Physics.AddCollidable(temp);
+            world.collidables.Add(temp);
 			drawables.Add(temp);
 
 			temp = new StaticQuad(new Vector3(5, -5, -5), new Vector3(5, 5, -5), new Vector3(5, 5, 5), new Vector3(5, -5, 5), Color.Yellow);
-			Physics.Physics.AddCollidable(temp);
+            world.collidables.Add(temp);
 			drawables.Add(temp);
 			temp = new StaticQuad(new Vector3(-5, -5, -5), new Vector3(-5, -5, 5), new Vector3(-5, 5, 5), new Vector3(-5, 5, -5), Color.Purple);
-			Physics.Physics.AddCollidable(temp);
+            world.collidables.Add(temp);
 			drawables.Add(temp);
+
+
+            Physics.Physics.AddBody(world);
 
 
 			Physics.Physics.setGravityMode(true);
@@ -143,11 +155,14 @@ namespace PhysicsDemo5
 		{
 
 			cubeStartPosition = new Vector3(0, 12, 0);
-			playerCube = new DemoCube(cubeStartPosition, 1);
-			Physics.Physics.AddPoints(playerCube.points);
-			Physics.Physics.AddSprings(playerCube.springs);
+            //playerCube = new DemoCube(cubeStartPosition, 1);
+            //Physics.Physics.AddPoints(playerCube.points);
+            //Physics.Physics.AddSprings(playerCube.springs);
+            playerCube = new SoftCube(cubeStartPosition, 1);
+            Physics.Physics.AddBody(playerCube);
 
-            
+            world = new World();
+
 
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 10, 0), new Vector3(-7, 7, 7), new Vector3(7, 7, 7), Color.Orange));
@@ -186,6 +201,7 @@ namespace PhysicsDemo5
 			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 0, 0), new Vector3(-7, 7, -7), new Vector3(-7, -7, -7), Color.Purple));
 
 
+            Physics.Physics.AddBody(world);
 
 			Physics.Physics.setGravityMode(true);
 
@@ -198,17 +214,17 @@ namespace PhysicsDemo5
 
 			cubeStartPosition = new Vector3(2, 12, -2);
 
-			playerCube = new DemoCube(cubeStartPosition, 1);
+            //playerCube = new DemoCube(cubeStartPosition, 1);
+            //Physics.Physics.AddPoints(playerCube.points);
+            //Physics.Physics.AddSprings(playerCube.springs);
+            playerCube = new SoftCube(cubeStartPosition, 1);
+            Physics.Physics.AddBody(playerCube);
 
-			Physics.Physics.AddPoints(playerCube.points);
-			Physics.Physics.AddSprings(playerCube.springs);
+            SoftCube test = new SoftCube(new Vector3(0, 5, 0), 1);
+            Physics.Physics.AddBody(test);
+            drawables.AddRange(test.getDrawables());
 
-            //SoftCube test = new SoftCube(new Vector3(0, 5, 0), 1);
-
-            //Physics.Physics.AddPoints(test.getPoints());
-            //Physics.Physics.AddSprings(test.getSprings());
-            //Physics.Physics.AddCollidables(test.getCollidables());
-            //drawables.AddRange(test.getDrawables());
+            world = new World();
 
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, -5), new Vector3(-5, 0, 5), new Vector3(5, 0, 5), Color.Red));
@@ -221,6 +237,9 @@ namespace PhysicsDemo5
 			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 15), new Vector3(5, 0, 15), new Vector3(5, 0, 5), Color.Orange));
 
 
+            Physics.Physics.AddBody(world);
+
+
 			Physics.Physics.setGravityMode(false);
 
 
@@ -229,10 +248,10 @@ namespace PhysicsDemo5
 		}
 
 
-		private void addToPhysicsAndDraw(StaticTri t)
+		private void addToPhysicsAndDraw(T t)
 		{
 
-			Physics.Physics.AddCollidable(t);
+            world.collidables.Add(t);
 			drawables.Add(t);
 
 		}
@@ -599,11 +618,11 @@ namespace PhysicsDemo5
 			GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			spriteBatch.Begin();
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
-			if (DemoCube.springVal < 40)
+			if (SoftCube.springVal < 40)
 			{
 				spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
 			}
-			else if (DemoCube.springVal > 70)
+			else if (SoftCube.springVal > 70)
 			{
 				spriteBatch.DrawString(font, "Firm", new Vector2(150, 0), Color.White);
 			}

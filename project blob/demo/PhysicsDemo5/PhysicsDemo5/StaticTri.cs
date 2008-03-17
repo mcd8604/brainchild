@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PhysicsDemo5
 {
-	class StaticTri : Physics.Collidable, Drawable
+	class StaticTri : T
 	{
 
 		internal Plane myPlane;

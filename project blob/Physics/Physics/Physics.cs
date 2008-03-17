@@ -36,40 +36,51 @@ namespace Physics
 
         static List<Body> bodys = new List<Body>();
 
-		static List<Collidable> collision = new List<Collidable>();
-		static List<Point> points = new List<Point>();
-		static List<Spring> springs = new List<Spring>();
-
-		public static void AddCollidable(Collidable c)
-		{
-			collision.Add(c);
-		}
-        public static void AddCollidables(IEnumerable<Collidable> c)
+        public static void AddBody(Body b)
         {
-            collision.AddRange(c);
+            bodys.Add(b);
         }
-		public static void AddPoint(Point p)
-		{
-			points.Add(p);
-		}
-		public static void AddPoints(IEnumerable<Point> p)
-		{
-			points.AddRange(p);
-		}
-		public static void AddSpring(Spring s)
-		{
-			springs.Add(s);
-		}
-		public static void AddSprings(IEnumerable<Spring> s)
-		{
-			springs.AddRange(s);
-		}
+        public static void AddBodys(IEnumerable<Body> b)
+        {
+            bodys.AddRange(b);
+        }
+
+
+        //static List<Collidable> collision = new List<Collidable>();
+        //static List<Point> points = new List<Point>();
+        //static List<Spring> springs = new List<Spring>();
+
+        //public static void AddCollidable(Collidable c)
+        //{
+        //    collision.Add(c);
+        //}
+        //public static void AddCollidables(IEnumerable<Collidable> c)
+        //{
+        //    collision.AddRange(c);
+        //}
+        //public static void AddPoint(Point p)
+        //{
+        //    points.Add(p);
+        //}
+        //public static void AddPoints(IEnumerable<Point> p)
+        //{
+        //    points.AddRange(p);
+        //}
+        //public static void AddSpring(Spring s)
+        //{
+        //    springs.Add(s);
+        //}
+        //public static void AddSprings(IEnumerable<Spring> s)
+        //{
+        //    springs.AddRange(s);
+        //}
 
 		public static void Clear()
 		{
-			collision.Clear();
-			points.Clear();
-			springs.Clear();
+			//collision.Clear();
+			//points.Clear();
+			//springs.Clear();
+            bodys.Clear();
 		}
 
 		static float gravityForce = 9.8f;
@@ -97,31 +108,34 @@ namespace Physics
 			bool Collision = false;
 			Collidable CollisionTri = null;
 			float CollisionU = 1;
-			foreach (Collidable c in collision)
-			{
+            foreach (Body b in bodys)
+            {
+                foreach (Collidable c in b.getCollidables())
+                {
 
-				float u = c.didIntersect(from, gravityOrigin);
-				if (u < 1)
-				{
-					if (!Collision)
-					{
-						CollisionTri = c;
-						CollisionU = u;
-						Collision = true;
-					}
-					else
-					{
-						if (u < CollisionU)
-						{
-							CollisionTri = c;
-							CollisionU = u;
-						}
-					}
+                    float u = c.didIntersect(from, gravityOrigin);
+                    if (u < 1)
+                    {
+                        if (!Collision)
+                        {
+                            CollisionTri = c;
+                            CollisionU = u;
+                            Collision = true;
+                        }
+                        else
+                        {
+                            if (u < CollisionU)
+                            {
+                                CollisionTri = c;
+                                CollisionU = u;
+                            }
+                        }
 
 
-				}
+                    }
 
-			}
+                }
+            }
 
 			if (Collision)
 			{
@@ -148,128 +162,145 @@ namespace Physics
 
 			doSomePhysics(TotalElapsedSeconds);
 
-			foreach (Point p in points)
-			{
-				p.updatePosition();
-			}
+            foreach (Body b in bodys)
+            {
+
+                foreach (Point p in b.getPoints())
+                {
+                    p.updatePosition();
+                }
+
+            }
 		}
 
 		private static List<Collidable> CollisionChain = new List<Collidable>();
 		private static void doSomePhysics(float TotalElapsedSeconds)
 		{
 
-			foreach (Point p in points)
-			{
-				CollisionChain.Clear();
-				// Apply Freefall Forces
-				Vector3 Force = p.Force;
-				// forces
-				Force += getGravity(p.Position) * p.mass;
-				foreach (Spring s in springs)
-				{
-					if (p == s.A)
-					{
-						Force += s.getForceVectorOnA();
-					}
-					else if (p == s.B)
-					{
-						Force += s.getForceVectorOnB();
-					}
-				}
+            foreach (Body b in bodys)
+            {
 
-				// Air Friction
-				Force += Vector3.Negate(p.Velocity) * airfriction;
+                foreach (Point p in b.getPoints())
+                {
+                    CollisionChain.Clear();
+                    // Apply Freefall Forces
+                    Vector3 Force = p.Force;
+                    // forces
+                    Force += getGravity(p.Position) * p.mass;
+                    foreach (Spring s in b.getSprings())
+                    {
+                        if (p == s.A)
+                        {
+                            Force += s.getForceVectorOnA();
+                        }
+                        else if (p == s.B)
+                        {
+                            Force += s.getForceVectorOnB();
+                        }
+                    }
 
-				// Calc Acceleration
-				Vector3 Acceleration = p.Acceleration;
-				Acceleration = Force / p.mass;
+                    // Air Friction
+                    Force += Vector3.Negate(p.Velocity) * airfriction;
 
-				// Calc Velocity
-				Vector3 Velocity = p.Velocity;
-				Velocity += Acceleration * TotalElapsedSeconds;
+                    // Calc Acceleration
+                    Vector3 Acceleration = p.Acceleration;
+                    Acceleration = Force / p.mass;
 
-				// Calc New Position
-				Vector3 originalPosition = p.Position;
-				Vector3 finalPosition = p.Position;
-				finalPosition += Velocity * TotalElapsedSeconds;
+                    // Calc Velocity
+                    Vector3 Velocity = p.Velocity;
+                    Velocity += Acceleration * TotalElapsedSeconds;
 
-
-				// Check for Collision
-				bool Collision = false;
-				Collidable CollisionTri = null;
-				float CollisionU = float.MaxValue;
-				foreach (Collidable c in collision)
-				{
-					float u = c.didIntersect(originalPosition, finalPosition);
-					// If Collision ( u < 1 ) - Split Time and redo
-					if (u < 1)
-					{
-
-						if (Collision)
-						{
-
-							//Console.WriteLine("Secondary Collision!");
-
-						}
+                    // Calc New Position
+                    Vector3 originalPosition = p.Position;
+                    Vector3 finalPosition = p.Position;
+                    finalPosition += Velocity * TotalElapsedSeconds;
 
 
-						if (!Collision)
-						{
-							CollisionTri = c;
-							CollisionU = u;
-							Collision = true;
-						}
-						else
-						{
-							if (u < CollisionU)
-							{
-								CollisionTri = c;
-								CollisionU = u;
-							}
-						}
+                    // Check for Collision
+                    bool Collision = false;
+                    Collidable CollisionTri = null;
+                    float CollisionU = float.MaxValue;
+                    foreach (Body b2 in bodys)
+                    {
+                        if (b2 != b)
+                        {
+                            foreach (Collidable c in b2.getCollidables())
+                            {
+                                float u = c.didIntersect(originalPosition, finalPosition);
+                                // If Collision ( u < 1 ) - Split Time and redo
+                                if (u < 1)
+                                {
+
+                                    if (Collision)
+                                    {
+
+                                        //Console.WriteLine("Secondary Collision!");
+
+                                    }
 
 
-					}
+                                    if (!Collision)
+                                    {
+                                        CollisionTri = c;
+                                        CollisionU = u;
+                                        Collision = true;
+                                    }
+                                    else
+                                    {
+                                        if (u < CollisionU)
+                                        {
+                                            CollisionTri = c;
+                                            CollisionU = u;
+                                        }
+                                    }
 
-				}
 
-				if (Collision)
-				{
-					// freefallPhysics first half
-					freefallPhysics(p, TotalElapsedSeconds * CollisionU);
+                                }
 
-					// sliding physics second half
-					slidingPhysics(p, TotalElapsedSeconds * (1 - CollisionU), CollisionTri);
-				}
+                            }
 
-				// If No Collision, apply values Calc'd Above
-				if (!Collision)
-				{
-					p.Force = Vector3.Zero;
-					p.Acceleration = Vector3.Zero;
-					p.Velocity = Velocity;
-					p.NextPosition = finalPosition;
-				}
+                        }
 
-			}
+                    }
+
+                    if (Collision)
+                    {
+                        // freefallPhysics first half
+                        freefallPhysics(b, p, TotalElapsedSeconds * CollisionU);
+
+                        // sliding physics second half
+                        slidingPhysics(b, p, TotalElapsedSeconds * (1 - CollisionU), CollisionTri);
+                    }
+
+                    // If No Collision, apply values Calc'd Above
+                    if (!Collision)
+                    {
+                        p.Force = Vector3.Zero;
+                        p.Acceleration = Vector3.Zero;
+                        p.Velocity = Velocity;
+                        p.NextPosition = finalPosition;
+                    }
+
+                }
+            }
 
 		}
-		private static void freefallPhysics(Point p, float time)
+		private static void freefallPhysics(Body b, Point p, float time)
 		{
 
 			// forces
 			p.Force += getGravity(p.Position) * p.mass;
-			foreach (Spring s in springs)
-			{
-				if (p == s.A)
-				{
-					p.Force += s.getForceVectorOnA();
-				}
-				else if (p == s.B)
-				{
-					p.Force += s.getForceVectorOnB();
-				}
-			}
+                foreach (Spring s in b.getSprings())
+                {
+                    if (p == s.A)
+                    {
+                        p.Force += s.getForceVectorOnA();
+                    }
+                    else if (p == s.B)
+                    {
+                        p.Force += s.getForceVectorOnB();
+                    }
+                }
 
 			// air friction
 			p.Force += Vector3.Negate(p.Velocity) * airfriction;
@@ -289,7 +320,7 @@ namespace Physics
 			p.Acceleration = Vector3.Zero;
 
 		}
-		private static void slidingPhysics(Point p, float time, Collidable s)
+		private static void slidingPhysics(Body b, Point p, float time, Collidable s)
 		{
 
 			// nudge it out just enough to be above the plane to keep floating point error from falling through
@@ -308,17 +339,17 @@ namespace Physics
 			// forces
 			Vector3 Force = p.Force;
 			Force += getGravity(p.NextPosition) * p.mass;
-			foreach (Spring sp in springs)
-			{
-				if (p == sp.A)
-				{
-					Force += sp.getForceVectorOnA();
-				}
-				else if (p == sp.B)
-				{
-					Force += sp.getForceVectorOnB();
-				}
-			}
+                foreach (Spring sp in b.getSprings())
+                {
+                    if (p == sp.A)
+                    {
+                        p.Force += sp.getForceVectorOnA();
+                    }
+                    else if (p == sp.B)
+                    {
+                        p.Force += sp.getForceVectorOnB();
+                    }
+                }
 
 			// normal force
 			Vector3 NormalForce = (s.Normal() * (Force.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(Force, s.Normal()).Length(), Vector3.Dot(Force, s.Normal())))));
@@ -348,65 +379,71 @@ namespace Physics
 			bool Collision = false;
 			Collidable CollisionTri = null;
 			float CollisionU = float.MaxValue;
-			foreach (Collidable c in collision)
-			{
-				float u = c.didIntersect(originalPosition, finalPosition);
-				// If Collision ( u < 1 ) - Split Time and redo
-				if (u < 1)
-				{
+            foreach (Body b2 in bodys)
+            {
+                if (b2 != b)
+                {
+                    foreach (Collidable c in b2.getCollidables())
+                    {
+                        float u = c.didIntersect(originalPosition, finalPosition);
+                        // If Collision ( u < 1 ) - Split Time and redo
+                        if (u < 1)
+                        {
 
-					if (s == c)
-					{
-						Console.WriteLine("Duplicate Collision!");
-						//throw new Exception();
-						continue;
-					}
+                            if (s == c)
+                            {
+                                Console.WriteLine("Duplicate Collision!");
+                                //throw new Exception();
+                                continue;
+                            }
 
-					if (CollisionChain.Contains(s))
-					{
-						Console.WriteLine("Duplicate Sliding Collision! Ignoring - This probably means a point is going to fall through the world.");
-						//throw new Exception();
-						continue;
-					}
+                            if (CollisionChain.Contains(s))
+                            {
+                                Console.WriteLine("Duplicate Sliding Collision! Ignoring - This probably means a point is going to fall through the world.");
+                                //throw new Exception();
+                                continue;
+                            }
 
-					//Console.WriteLine("Sliding Collision!");
+                            //Console.WriteLine("Sliding Collision!");
 
-					if (Collision)
-					{
+                            if (Collision)
+                            {
 
-						//Console.WriteLine("Secondary Sliding Collision!");
+                                //Console.WriteLine("Secondary Sliding Collision!");
 
-					}
+                            }
 
 
-					if (!Collision)
-					{
-						CollisionTri = c;
-						CollisionU = u;
-						Collision = true;
-					}
-					else
-					{
-						if (u < CollisionU)
-						{
-							CollisionTri = c;
-							CollisionU = u;
-						}
-					}
+                            if (!Collision)
+                            {
+                                CollisionTri = c;
+                                CollisionU = u;
+                                Collision = true;
+                            }
+                            else
+                            {
+                                if (u < CollisionU)
+                                {
+                                    CollisionTri = c;
+                                    CollisionU = u;
+                                }
+                            }
 
-				}
+                        }
 
-			}
+                    }
+                }
+            }
 
 			if (Collision)
 			{
 				CollisionChain.Add(s);
 
 				// freefallPhysics first half
-				slidingPhysics(p, time * CollisionU, s);
+				slidingPhysics(b, p, time * CollisionU, s);
 
 				// sliding physics second half
-				slidingPhysics(p, time * (1 - CollisionU), CollisionTri);
+				slidingPhysics(b, p, time * (1 - CollisionU), CollisionTri);
 			}
 
 			// If No Collision, apply values Calc'd Above
