@@ -171,12 +171,12 @@ namespace PhysicsDemo5
 		}
 
 
-        public IEnumerable<Physics.Point> getPoints()
+        public override IEnumerable<Physics.Point> getPoints()
         {
             return points;
         }
 
-        public IEnumerable<Physics.Collidable> getCollidables()
+        public override IEnumerable<Physics.Collidable> getCollidables()
         {
             // Disabled collision planes for softcubes until I can figure out what's wrong.
 
@@ -199,12 +199,12 @@ namespace PhysicsDemo5
             return temp;
         }
 
-        public IEnumerable<Physics.Spring> getSprings()
+        public override IEnumerable<Physics.Spring> getSprings()
         {
             return springs;
         }
 
-        public float getVolume()
+        public override float getVolume()
         {
             // TODO
             return 1;

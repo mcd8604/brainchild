@@ -11,12 +11,12 @@ namespace PhysicsDemo5
         public List<Physics.Spring> springs = new List<Physics.Spring>();
         public List<T> collidables = new List<T>();
 
-        public IEnumerable<Physics.Point> getPoints()
+        public override IEnumerable<Physics.Point> getPoints()
         {
             return points;
         }
 
-        public IEnumerable<Physics.Collidable> getCollidables()
+        public override IEnumerable<Physics.Collidable> getCollidables()
         {
             List<Physics.Collidable> temp = new List<Physics.Collidable>();
             foreach (T t in collidables)
@@ -36,12 +36,12 @@ namespace PhysicsDemo5
             return temp;
         }
 
-        public IEnumerable<Physics.Spring> getSprings()
+        public override IEnumerable<Physics.Spring> getSprings()
         {
             return springs;
         }
 
-        public float getVolume()
+        public override float getVolume()
         {
             // TODO
             return 1;

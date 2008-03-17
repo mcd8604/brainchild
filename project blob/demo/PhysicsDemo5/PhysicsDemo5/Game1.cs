@@ -390,7 +390,7 @@ namespace PhysicsDemo5
 			}
 			if (InputHandler.IsKeyPressed(Keys.Q))
 			{
-				Physics.Physics.TEMP_SurfaceFriction = 24f;
+				Physics.Physics.TEMP_SurfaceFriction = 48f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.E))
 			{
