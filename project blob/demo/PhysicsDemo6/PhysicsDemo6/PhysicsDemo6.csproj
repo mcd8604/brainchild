@@ -62,6 +62,9 @@
   <ItemGroup>
     <Compile Include="Physics\Body.cs" />
     <Compile Include="Physics\Collidable.cs" />
+    <Compile Include="Physics\Gravity.cs" />
+    <Compile Include="Physics\GravityPoint.cs" />
+    <Compile Include="Physics\GravityVector.cs" />
     <Compile Include="Physics\Physics.cs" />
     <Compile Include="Physics\Point.cs" />
     <Compile Include="Physics\Spring.cs" />

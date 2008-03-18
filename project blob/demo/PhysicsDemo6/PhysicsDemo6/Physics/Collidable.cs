@@ -4,7 +4,7 @@ namespace Physics
 {
 	public interface Collidable
 	{
-		bool couldIntersect( Point p );
+		bool couldIntersect(Point p);
 
 		float didIntersect(Vector3 start, Vector3 end);
 

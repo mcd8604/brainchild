@@ -66,26 +66,21 @@ namespace Physics
 			springs.Clear();
 		}
 
-		static float gravityForce = 9.8f;
-		static bool gravityMode = true;
-
-		public static void setGravityMode(bool point)
+		private static Gravity gravity;
+		public static Gravity Gravity
 		{
-			gravityMode = point;
+			get
+			{
+				return gravity;
+			}
+			set
+			{
+				gravity = value;
+			}
 		}
 
-		static Vector3 getGravity(Vector3 from)
-		{
-			if (gravityMode)
-			{
-				return Vector3.Normalize(gravityOrigin - from) * gravityForce;
-			}
-			else
-			{
-				return new Vector3(0f, -gravityForce, 0f);
-			}
-			//return Vector3.Normalize(gravityOrigin - from) * ((9.8f * 25f) / Vector3.DistanceSquared(from, gravityOrigin) );
-		}
+		public static int DEBUG_BumpLoops = 0;
+
 		public static Vector3 getUp(Vector3 from)
 		{
 			bool Collision = false;
@@ -119,7 +114,7 @@ namespace Physics
 
 			if (Collision)
 			{
-				return CollisionTri.Normal();
+				return CollisionTri.getPlane().Normal;
 			}
 			else
 			{
@@ -144,6 +139,10 @@ namespace Physics
 			{
 				s.ApplyForces();
 			}
+			foreach (Point p in points)
+			{
+				p.CurrentForce += gravity.getForceOn(p);
+			}
 
 			doSomePhysics(TotalElapsedSeconds);
 
@@ -161,9 +160,9 @@ namespace Physics
 			{
 				CollisionChain.Clear();
 				// Apply Freefall Forces
-				Vector3 Force = p.Force;
+				Vector3 Force = p.CurrentForce;
 				// forces
-				Force += getGravity(p.Position) * p.mass;
+				//Force += getGravity(p.Position) * p.mass;
 				//foreach (Spring s in springs)
 				//{
 				//    if (p == s.A)
@@ -177,19 +176,19 @@ namespace Physics
 				//}
 
 				// Air Friction
-				Force += Vector3.Negate(p.Velocity) * airfriction;
+				Force += Vector3.Negate(p.NextVelocity) * airfriction;
 
 				// Calc Acceleration
-				Vector3 Acceleration = p.Acceleration;
+				Vector3 Acceleration = p.CurrentAcceleration;
 				Acceleration = Force / p.mass;
 
 				// Calc Velocity
-				Vector3 Velocity = p.Velocity;
+				Vector3 Velocity = p.NextVelocity;
 				Velocity += Acceleration * TotalElapsedSeconds;
 
 				// Calc New Position
-				Vector3 originalPosition = p.Position;
-				Vector3 finalPosition = p.Position;
+				Vector3 originalPosition = p.NextPosition;
+				Vector3 finalPosition = p.NextPosition;
 				finalPosition += Velocity * TotalElapsedSeconds;
 
 
@@ -247,9 +246,9 @@ namespace Physics
 				// If No Collision, apply values Calc'd Above
 				if (!Collision)
 				{
-					p.Force = Vector3.Zero;
-					p.Acceleration = Vector3.Zero;
-					p.Velocity = Velocity;
+					//p.CurrentForce = Vector3.Zero;
+					//p.CurrentAcceleration = Vector3.Zero;
+					p.NextVelocity = Velocity;
 					p.NextPosition = finalPosition;
 				}
 
@@ -260,8 +259,8 @@ namespace Physics
 		{
 
 			// forces
-			Vector3 Force = p.Force;
-			Force += getGravity(p.Position) * p.mass;
+			Vector3 Force = p.CurrentForce;
+			//Force += getGravity(p.Position) * p.mass;
 			//foreach (Spring s in springs)
 			//{
 			//    if (p == s.A)
@@ -275,14 +274,14 @@ namespace Physics
 			//}
 
 			// air friction
-			Force += Vector3.Negate(p.Velocity) * airfriction;
+			Force += Vector3.Negate(p.NextVelocity) * airfriction;
 
 			// acceleration
-			Vector3 Acceleration = p.Acceleration;
+			Vector3 Acceleration = p.CurrentAcceleration;
 			Acceleration = Force / p.mass;
 
 			// velocity - by euler-cromer
-			Vector3 Velocity = p.Velocity;
+			Vector3 Velocity = p.NextVelocity;
 			Velocity += Acceleration * time;
 
 			// position
@@ -297,22 +296,26 @@ namespace Physics
 		private static void slidingPhysics(Point p, float time, Collidable s)
 		{
 
+			Vector3 collisionNormal = s.getPlane().Normal;
+
 			// nudge it out just enough to be above the plane to keep floating point error from falling through
 			while (s.DotNormal(p.NextPosition) <= 0)
+			//while ( Vector3.Dot( collisionNormal, p.NextPosition) <= 0)
 			{
-				p.NextPosition += (s.Normal() * 0.001f);
+				p.NextPosition += (collisionNormal * 0.001f);
+				++DEBUG_BumpLoops;
 			}
 
 
 			// Stop Velocity in direction of the wall
-			Vector3 NormalEffect = (s.Normal() * (p.Velocity.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(p.Velocity, s.Normal()).Length(), Vector3.Dot(p.Velocity, s.Normal())))));
-			p.Velocity = (p.Velocity - NormalEffect);
+			Vector3 NormalEffect = (collisionNormal * (p.NextVelocity.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(p.NextVelocity, collisionNormal).Length(), Vector3.Dot(p.NextVelocity, collisionNormal)))));
+			p.NextVelocity = (p.NextVelocity - NormalEffect);
 
 			impact += NormalEffect.Length() * 0.1f;
 
 			// forces
-			Vector3 Force = p.Force;
-			Force += getGravity(p.NextPosition) * p.mass;
+			Vector3 Force = p.CurrentForce;
+			//Force += getGravity(p.NextPosition) * p.mass;
 			//foreach (Spring sp in springs)
 			//{
 			//    if (p == sp.A)
@@ -326,22 +329,22 @@ namespace Physics
 			//}
 
 			// normal force
-			Vector3 NormalForce = (s.Normal() * (Force.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(Force, s.Normal()).Length(), Vector3.Dot(Force, s.Normal())))));
+			Vector3 NormalForce = (collisionNormal * (Force.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(Force, collisionNormal).Length(), Vector3.Dot(Force, collisionNormal)))));
 			Force = (Force - NormalForce);
 
 			// air friction
-			Force += Vector3.Negate(p.Velocity) * airfriction;
+			Force += Vector3.Negate(p.NextVelocity) * airfriction;
 
 			// surface friction !
-			Force += Vector3.Negate(p.Velocity) * friction;
+			Force += Vector3.Negate(p.NextVelocity) * friction;
 
 
 			// acceleration
-			Vector3 Acceleration = p.Acceleration;
+			Vector3 Acceleration = p.CurrentAcceleration;
 			Acceleration = Force / p.mass;
 
 			// velocity
-			Vector3 Velocity = p.Velocity;
+			Vector3 Velocity = p.NextVelocity;
 			Velocity += Acceleration * time;
 
 			// position
@@ -364,14 +367,14 @@ namespace Physics
 
 						if (s == c)
 						{
-							Console.WriteLine("Duplicate Collision!");
+							//Console.WriteLine("Duplicate Collision!");
 							//throw new Exception();
 							continue;
 						}
 
 						if (CollisionChain.Contains(s))
 						{
-							Console.WriteLine("Duplicate Sliding Collision! Ignoring - This probably means a point is going to fall through the world.");
+							//Console.WriteLine("Duplicate Sliding Collision! Ignoring - This probably means a point is going to fall through the world.");
 							//throw new Exception();
 							continue;
 						}
@@ -415,21 +418,30 @@ namespace Physics
 				// sliding physics second half
 				slidingPhysics(p, time * (1 - CollisionU), CollisionTri);
 			}
+			else
+			{ // If No Collision, apply values Calc'd Above
 
-			// If No Collision, apply values Calc'd Above
-			if (!Collision)
-			{
-				p.Force = Vector3.Zero;
-				p.Acceleration = Vector3.Zero;
-				p.Velocity = Velocity;
+				//p.CurrentForce = Vector3.Zero;
+				//p.CurrentAcceleration = Vector3.Zero;
+				p.NextVelocity = Velocity;
 				p.NextPosition = finalPosition;
 			}
 
-
+			if (s.DotNormal(p.NextPosition) <= 0)
+			{
+				// point just fell through
+				// this really shouldn't happen, floating point error?
+				// so for now, I'll just bump it up some more
+				while (s.DotNormal(p.NextPosition) <= 0)
+				{
+					p.NextPosition += (collisionNormal * 0.001f);
+					++DEBUG_BumpLoops;
+				}
+			}
 
 			// done
-			p.Force = Vector3.Zero;
-			p.Acceleration = Vector3.Zero;
+			//p.CurrentForce = Vector3.Zero;
+			//p.CurrentAcceleration = Vector3.Zero;
 
 		}
 
