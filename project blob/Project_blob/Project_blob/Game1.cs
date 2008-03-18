@@ -23,6 +23,7 @@ namespace Project_blob
         Display m_Display;
         Matrix worldMatrix, viewMatrix, projectionMatrix;
         Texture2D text;
+        Texture2D text2;
         Effect m_Effect;
 
         public Game1()
@@ -51,9 +52,11 @@ namespace Project_blob
         protected override void LoadContent()
         {
             text = Content.Load<Texture2D>("test");
+            text2 = Content.Load<Texture2D>("test2");
             m_Effect = Content.Load<Effect>("effects");
 
             TextureInfo ti = new TextureInfo(text, 0);
+            TextureInfo ti2 = new TextureInfo(text2, 1);
             // Create a new SpriteBatch, which can be used to draw textures.
             //spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -378,9 +381,12 @@ namespace Project_blob
 
             List<VertexBuffer> list = new List<VertexBuffer>();
             list.Add(vertexBuffer);
-            list.Add(vertexBuffer2);
+
+            List<VertexBuffer> list2 = new List<VertexBuffer>();
+            list2.Add(vertexBuffer2);
 
             m_Display.DrawnList.Add(ti, list);
+            m_Display.DrawnList.Add(ti2, list2);
 
 
         }
