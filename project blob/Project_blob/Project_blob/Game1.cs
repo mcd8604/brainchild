@@ -24,6 +24,7 @@ namespace Project_blob
         Matrix worldMatrix, viewMatrix, projectionMatrix;
         Texture2D text;
         Texture2D text2;
+        DrawableModel model;
         Effect m_Effect;
 
         public Game1()
@@ -54,6 +55,8 @@ namespace Project_blob
             text = Content.Load<Texture2D>("test");
             text2 = Content.Load<Texture2D>("test2");
             m_Effect = Content.Load<Effect>("effects");
+            model = new DrawableModel();
+            model.ModelObject = Content.Load<Model>("ball");
 
             TextureInfo ti = new TextureInfo(text, 0);
             TextureInfo ti2 = new TextureInfo(text2, 1);
@@ -379,11 +382,15 @@ namespace Project_blob
                 BufferUsage.None
             );
 
+            model.setGraphicsDevice(graphics.GraphicsDevice);
+            model.Position = Matrix.CreateTranslation(new Vector3(0,-5,0));
+
             vertexBuffer2.SetData<VertexPositionNormalTexture>(cube2Vertices);
             testCube.setGraphicsDevice(graphics.GraphicsDevice);
             testCube2.setGraphicsDevice(graphics.GraphicsDevice);
             List<Drawable> list = new List<Drawable>();
             list.Add(testCube);
+            list.Add(model);
 
             List<Drawable> list2 = new List<Drawable>();
             list2.Add(testCube2);

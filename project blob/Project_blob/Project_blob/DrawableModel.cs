@@ -89,8 +89,6 @@ namespace Project_blob
                 // Change the device settings for each part to be rendered
                 m_GraphicsDevice.VertexDeclaration = part.VertexDeclaration;
                 m_GraphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
-                // Make sure we use the texture for the current part also
-                m_GraphicsDevice.Textures[0] = ((BasicEffect)part.Effect).Texture;
                 // Finally draw the actual triangles on the screen
                 m_GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
             }
