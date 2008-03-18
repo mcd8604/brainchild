@@ -6,10 +6,10 @@ using System.Text;
 namespace Project_blob
 {
     //This class stores information about a texture needed to sort it and draw it
-    class TextureInfo
+    public class TextureInfo
     {
-        Texture m_Texture;
-        public Texture TextureObject
+        Texture2D m_Texture;
+        public Texture2D TextureObject
         {
             get
             {
@@ -34,10 +34,24 @@ namespace Project_blob
             }
         }
 
-        public TextureInfo(Texture p_Texture, int p_SortNumber)
+        public TextureInfo(Texture2D p_Texture, int p_SortNumber)
         {
             m_Texture = p_Texture;
             m_SortNumber = p_SortNumber;
+        }
+    }
+
+    public class TextureInfoComparer : IComparer<TextureInfo>
+    {
+        public int Compare(TextureInfo x, TextureInfo y)
+        {
+            int retInt = 0;
+            if (x.SortNumber < y.SortNumber)
+                retInt = -1;
+            else if (x.SortNumber > y.SortNumber)
+                retInt = 1;
+
+            return retInt;
         }
     }
 }

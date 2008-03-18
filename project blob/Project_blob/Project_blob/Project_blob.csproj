@@ -56,15 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Body.cs" />
-    <Compile Include="Collidable.cs" />
     <Compile Include="Display.cs" />
-    <Compile Include="Physics.cs" />
-    <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Spring.cs" />
     <Compile Include="TextureInfo.cs" />
   </ItemGroup>
   <ItemGroup>
