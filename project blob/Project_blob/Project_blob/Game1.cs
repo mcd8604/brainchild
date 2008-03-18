@@ -18,6 +18,11 @@ namespace Project_blob
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        VertexPositionNormalTexture[] cubeVertices;
+        Display m_Display;
+        Matrix worldMatrix, viewMatrix, projectionMatrix;
+        Texture2D text;
+        Effect m_Effect;
 
         public Game1()
         {
@@ -44,10 +49,186 @@ namespace Project_blob
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            text = Content.Load<Texture2D>("test");
+            m_Effect = Content.Load<Effect>("effects");
 
-            // TODO: use this.Content to load your game content here
+            TextureInfo ti = new TextureInfo(text, 0);
+            // Create a new SpriteBatch, which can be used to draw textures.
+            //spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            cubeVertices = new VertexPositionNormalTexture[36];
+
+            Vector3 topLeftFront = new Vector3(-1.0f, 1.0f, 1.0f);
+            Vector3 bottomLeftFront = new Vector3(-1.0f, -1.0f, 1.0f);
+            Vector3 topRightFront = new Vector3(1.0f, 1.0f, 1.0f);
+            Vector3 bottomRightFront = new Vector3(1.0f, -1.0f, 1.0f);
+            Vector3 topLeftBack = new Vector3(-1.0f, 1.0f, -1.0f);
+            Vector3 topRightBack = new Vector3(1.0f, 1.0f, -1.0f);
+            Vector3 bottomLeftBack = new Vector3(-1.0f, -1.0f, -1.0f);
+            Vector3 bottomRightBack = new Vector3(1.0f, -1.0f, -1.0f);
+
+            Vector2 textureTopLeft = new Vector2(0.0f, 0.0f);
+            Vector2 textureTopRight = new Vector2(1.0f, 0.0f);
+            Vector2 textureBottomLeft = new Vector2(0.0f, 1.0f);
+            Vector2 textureBottomRight = new Vector2(1.0f, 1.0f);
+
+            Vector3 frontNormal = new Vector3(0.0f, 0.0f, 1.0f);
+            Vector3 backNormal = new Vector3(0.0f, 0.0f, -1.0f);
+            Vector3 topNormal = new Vector3(0.0f, 1.0f, 0.0f);
+            Vector3 bottomNormal = new Vector3(0.0f, -1.0f, 0.0f);
+            Vector3 leftNormal = new Vector3(-1.0f, 0.0f, 0.0f);
+            Vector3 rightNormal = new Vector3(1.0f, 0.0f, 0.0f);
+
+            // Front face.
+            cubeVertices[0] =
+                new VertexPositionNormalTexture(
+                topLeftFront, frontNormal, textureTopLeft);
+            cubeVertices[1] =
+                new VertexPositionNormalTexture(
+                bottomLeftFront, frontNormal, textureBottomLeft);
+            cubeVertices[2] =
+                new VertexPositionNormalTexture(
+                topRightFront, frontNormal, textureTopRight);
+            cubeVertices[3] =
+                new VertexPositionNormalTexture(
+                bottomLeftFront, frontNormal, textureBottomLeft);
+            cubeVertices[4] =
+                new VertexPositionNormalTexture(
+                bottomRightFront, frontNormal, textureBottomRight);
+            cubeVertices[5] =
+                new VertexPositionNormalTexture(
+                topRightFront, frontNormal, textureTopRight);
+
+            // Back face.
+            cubeVertices[6] =
+                new VertexPositionNormalTexture(
+                topLeftBack, backNormal, textureTopRight);
+            cubeVertices[7] =
+                new VertexPositionNormalTexture(
+                topRightBack, backNormal, textureTopLeft);
+            cubeVertices[8] =
+                new VertexPositionNormalTexture(
+                bottomLeftBack, backNormal, textureBottomRight);
+            cubeVertices[9] =
+                new VertexPositionNormalTexture(
+                bottomLeftBack, backNormal, textureBottomRight);
+            cubeVertices[10] =
+                new VertexPositionNormalTexture(
+                topRightBack, backNormal, textureTopLeft);
+            cubeVertices[11] =
+                new VertexPositionNormalTexture(
+                bottomRightBack, backNormal, textureBottomLeft);
+
+            // Top face.
+            cubeVertices[12] =
+                new VertexPositionNormalTexture(
+                topLeftFront, topNormal, textureBottomLeft);
+            cubeVertices[13] =
+                new VertexPositionNormalTexture(
+                topRightBack, topNormal, textureTopRight);
+            cubeVertices[14] =
+                new VertexPositionNormalTexture(
+                topLeftBack, topNormal, textureTopLeft);
+            cubeVertices[15] =
+                new VertexPositionNormalTexture(
+                topLeftFront, topNormal, textureBottomLeft);
+            cubeVertices[16] =
+                new VertexPositionNormalTexture(
+                topRightFront, topNormal, textureBottomRight);
+            cubeVertices[17] =
+                new VertexPositionNormalTexture(
+                topRightBack, topNormal, textureTopRight);
+
+            // Bottom face. 
+            cubeVertices[18] =
+                new VertexPositionNormalTexture(
+                bottomLeftFront, bottomNormal, textureTopLeft);
+            cubeVertices[19] =
+                new VertexPositionNormalTexture(
+                bottomLeftBack, bottomNormal, textureBottomLeft);
+            cubeVertices[20] =
+                new VertexPositionNormalTexture(
+                bottomRightBack, bottomNormal, textureBottomRight);
+            cubeVertices[21] =
+                new VertexPositionNormalTexture(
+                bottomLeftFront, bottomNormal, textureTopLeft);
+            cubeVertices[22] =
+                new VertexPositionNormalTexture(
+                bottomRightBack, bottomNormal, textureBottomRight);
+            cubeVertices[23] =
+                new VertexPositionNormalTexture(
+                bottomRightFront, bottomNormal, textureTopRight);
+
+            // Left face.
+            cubeVertices[24] =
+                new VertexPositionNormalTexture(
+                topLeftFront, leftNormal, textureTopRight);
+            cubeVertices[25] =
+                new VertexPositionNormalTexture(
+                bottomLeftBack, leftNormal, textureBottomLeft);
+            cubeVertices[26] =
+                new VertexPositionNormalTexture(
+                bottomLeftFront, leftNormal, textureBottomRight);
+            cubeVertices[27] =
+                new VertexPositionNormalTexture(
+                topLeftBack, leftNormal, textureTopLeft);
+            cubeVertices[28] =
+                new VertexPositionNormalTexture(
+                bottomLeftBack, leftNormal, textureBottomLeft);
+            cubeVertices[29] =
+                new VertexPositionNormalTexture(
+                topLeftFront, leftNormal, textureTopRight);
+
+            // Right face. 
+            cubeVertices[30] =
+                new VertexPositionNormalTexture(
+                topRightFront, rightNormal, textureTopLeft);
+            cubeVertices[31] =
+                new VertexPositionNormalTexture(
+                bottomRightFront, rightNormal, textureBottomLeft);
+            cubeVertices[32] =
+                new VertexPositionNormalTexture(
+                bottomRightBack, rightNormal, textureBottomRight);
+            cubeVertices[33] =
+                new VertexPositionNormalTexture(
+                topRightBack, rightNormal, textureTopRight);
+            cubeVertices[34] =
+                new VertexPositionNormalTexture(
+                topRightFront, rightNormal, textureTopLeft);
+            cubeVertices[35] =
+                new VertexPositionNormalTexture(
+                bottomRightBack, rightNormal, textureBottomRight);
+
+            VertexDeclaration basicEffectVertexDeclaration = new VertexDeclaration(
+                graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+
+            float tilt = MathHelper.ToRadians(22.5f);  // 22.5 degree angle
+            // Use the world matrix to tilt the cube along x and y axes.
+            worldMatrix = Matrix.CreateRotationX(tilt) *
+                Matrix.CreateRotationY(tilt);
+
+            viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero,
+                Vector3.Up);
+
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
+                MathHelper.ToRadians(45),  // 45 degree angle
+                (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
+                1.0f, 100.0f);
+
+            m_Display = new Display(worldMatrix,viewMatrix,projectionMatrix, new EffectPool(), basicEffectVertexDeclaration);
+
+            VertexBuffer vertexBuffer = new VertexBuffer(
+                graphics.GraphicsDevice,
+                VertexPositionNormalTexture.SizeInBytes * cubeVertices.Length,
+                BufferUsage.None
+            );
+
+            vertexBuffer.SetData<VertexPositionNormalTexture>(cubeVertices);
+            List<VertexBuffer> list = new List<VertexBuffer>();
+            list.Add(vertexBuffer);
+            m_Display.DrawnList.Add(ti, list);
+
+
         }
 
         /// <summary>
@@ -83,7 +264,7 @@ namespace Project_blob
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            m_Display.Draw(PrimitiveType.TriangleList, 12, VertexPositionNormalTexture.SizeInBytes);
 
             base.Draw(gameTime);
         }
