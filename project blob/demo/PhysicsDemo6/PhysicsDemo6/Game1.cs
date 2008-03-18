@@ -36,7 +36,7 @@ namespace PhysicsDemo6
 		DemoCube playerCube;
 		Vector3 cubeStartPosition = new Vector3(0, 10, 0);
 
-		VertexBuffer cubeVertexBuffer;
+		//VertexBuffer cubeVertexBuffer;
 
 		VertexDeclaration VertexDeclarationColor;
 		VertexDeclaration VertexDeclarationTexture;
@@ -91,7 +91,7 @@ namespace PhysicsDemo6
 			initGlobe();
 			Physics.Physics.AirFriction = 0.5f;
 
-			cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
+			//cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
 
 			InputHandler.LoadDefaultBindings();
 
@@ -135,6 +135,11 @@ namespace PhysicsDemo6
 
 			lightPosition = new Vector4(5, 5, 5, 0);
 
+			playerCube.setGraphicsDevice(GraphicsDevice);
+			foreach (Drawable d in drawables)
+			{
+				d.setGraphicsDevice(GraphicsDevice);
+			}
 
 		}
 
@@ -190,6 +195,13 @@ namespace PhysicsDemo6
 			Physics.Physics.Gravity = new Physics.GravityPoint();
 
 			lightPosition = new Vector4(7, 7, 7, 0);
+
+
+			playerCube.setGraphicsDevice(GraphicsDevice);
+			foreach (Drawable d in drawables)
+			{
+				d.setGraphicsDevice(GraphicsDevice);
+			}
 		}
 
 
@@ -203,6 +215,15 @@ namespace PhysicsDemo6
 			Physics.Physics.AddPoints(playerCube.points);
 			Physics.Physics.AddSprings(playerCube.springs);
 
+
+			DemoCube cubeTwo = new DemoCube( new Vector3(-2, 5, 2), 1.5f);
+
+			Physics.Physics.AddPoints(cubeTwo.points);
+			Physics.Physics.AddSprings(cubeTwo.springs);
+			foreach (T t in cubeTwo.collidables)
+			{
+				addToPhysicsAndDraw(t);
+			}
 
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, -5), new Vector3(-5, 0, 5), new Vector3(5, 0, 5), Color.Red));
@@ -220,10 +241,17 @@ namespace PhysicsDemo6
 
 			lightPosition = new Vector4(-5, 5, 5, 0);
 
+
+			playerCube.setGraphicsDevice(GraphicsDevice);
+			foreach (Drawable d in drawables)
+			{
+				d.setGraphicsDevice(GraphicsDevice);
+			}
+
 		}
 
 
-		private void addToPhysicsAndDraw(StaticTri t)
+		private void addToPhysicsAndDraw(T t)
 		{
 
 			Physics.Physics.AddCollidable(t);
@@ -409,6 +437,10 @@ namespace PhysicsDemo6
 			{
 				points = !points;
 			}
+			if (InputHandler.IsKeyPressed(Keys.N))
+			{
+				Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
+			}
 
 			// Xbox
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
@@ -487,7 +519,7 @@ namespace PhysicsDemo6
 				effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 			}
 
-			cubeVertexBuffer.SetData<VertexPositionNormalTexture>(playerCube.getTriangleVertexes());
+			//cubeVertexBuffer.SetData<VertexPositionNormalTexture>(playerCube.getTriangleVertexes());
 
 
 
@@ -536,15 +568,16 @@ namespace PhysicsDemo6
 			GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
 			foreach (Drawable d in drawables)
 			{
-				VertexPositionColor[] temp = d.getTriangleVertexes();
-				VertexBuffer tempVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * temp.Length, BufferUsage.None);
-				tempVertexBuffer.SetData<VertexPositionColor>(temp);
-				GraphicsDevice.Vertices[0].SetSource(tempVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+				//VertexPositionColor[] temp = d.getTriangleVertexes();
+				//VertexBuffer tempVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * temp.Length, BufferUsage.None);
+				//tempVertexBuffer.SetData<VertexPositionColor>(temp);
+				//GraphicsDevice.Vertices[0].SetSource(tempVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+				GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
 				effect.Begin();
 				foreach (EffectPass pass in effect.CurrentTechnique.Passes)
 				{
 					pass.Begin();
-					d.DrawMe(GraphicsDevice);
+					d.DrawMe();
 					pass.End();
 				}
 				effect.End();
@@ -553,13 +586,14 @@ namespace PhysicsDemo6
 			// Box
 			effect.CurrentTechnique = effect.Techniques["Textured"];
 			GraphicsDevice.VertexDeclaration = VertexDeclarationTexture;
-			cubeVertexBuffer.SetData<VertexPositionNormalTexture>(playerCube.getTriangleVertexes());
-			GraphicsDevice.Vertices[0].SetSource(cubeVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
+			//cubeVertexBuffer.SetData<VertexPositionNormalTexture>(playerCube.getTriangleVertexes());
+			//GraphicsDevice.Vertices[0].SetSource(cubeVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
+			GraphicsDevice.Vertices[0].SetSource(playerCube.getVertexBuffer(), 0, playerCube.getVertexStride());
 			effect.Begin();
 			foreach (EffectPass pass in effect.CurrentTechnique.Passes)
 			{
 				pass.Begin();
-				playerCube.DrawMe(GraphicsDevice);
+				playerCube.DrawMe();
 				pass.End();
 			}
 			effect.End();

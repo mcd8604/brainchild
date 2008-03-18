@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PhysicsDemo6
 {
-	public class DemoCube
+	public class DemoCube : Drawable
 	{
 		public readonly List<Physics.Point> points = new List<Physics.Point>();
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
@@ -24,6 +24,11 @@ namespace PhysicsDemo6
 		Physics.Point bbl;
 
 		//Point Center;
+
+		VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[16];
+
+		private GraphicsDevice theDevice;
+		private VertexBuffer myVertexBuffer;
 
 		public void setSpringForce(float force)
 		{
@@ -93,12 +98,27 @@ namespace PhysicsDemo6
 			collidables.Add(new Tri(bbl, btl, btr, Color.White));
 			collidables.Add(new Tri(bbl, btr, bbr, Color.White));
 
+			vertices[0] = new VertexPositionNormalTexture(ftr.Position, Vector3.Up, Vector2.Zero);
+			vertices[1] = new VertexPositionNormalTexture(fbr.Position, Vector3.Up, new Vector2(0f, 1f));
+			vertices[2] = new VertexPositionNormalTexture(bbr.Position, Vector3.Up, Vector2.One);
+			vertices[3] = new VertexPositionNormalTexture(btr.Position, Vector3.Up, new Vector2(1f, 0f));
+			vertices[4] = new VertexPositionNormalTexture(btl.Position, Vector3.Up, Vector2.One);
+			vertices[5] = new VertexPositionNormalTexture(ftl.Position, Vector3.Up, new Vector2(0f, 1f));
+			vertices[6] = new VertexPositionNormalTexture(fbl.Position, Vector3.Up, Vector2.One);
+			vertices[7] = new VertexPositionNormalTexture(fbr.Position, Vector3.Up, new Vector2(1f, 0f));
+			vertices[8] = new VertexPositionNormalTexture(bbl.Position, Vector3.Up, Vector2.Zero);
+			vertices[9] = new VertexPositionNormalTexture(bbr.Position, Vector3.Up, new Vector2(0f, 1f));
+			vertices[10] = new VertexPositionNormalTexture(fbr.Position, Vector3.Up, Vector2.One);
+			vertices[11] = new VertexPositionNormalTexture(fbl.Position, Vector3.Up, new Vector2(1f, 0f));
+			vertices[12] = new VertexPositionNormalTexture(ftl.Position, Vector3.Up, Vector2.One);
+			vertices[13] = new VertexPositionNormalTexture(btl.Position, Vector3.Up, new Vector2(0f, 1f));
+			vertices[14] = new VertexPositionNormalTexture(btr.Position, Vector3.Up, Vector2.One);
+			vertices[15] = new VertexPositionNormalTexture(bbr.Position, Vector3.Up, new Vector2(1f, 0f));
+
 		}
 
 		public VertexPositionNormalTexture[] getTriangleVertexes()
 		{
-			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[16];
-
 
 			// ----- normals?
 
@@ -142,7 +162,7 @@ namespace PhysicsDemo6
 
 			// ----- end normals
 
-
+			/*
 			vertices[0] = new VertexPositionNormalTexture(ftr.Position, normal_ftr, Vector2.Zero);
 			vertices[1] = new VertexPositionNormalTexture(fbr.Position, normal_fbr, new Vector2(0f, 1f));
 			vertices[2] = new VertexPositionNormalTexture(bbr.Position, normal_bbr, Vector2.One);
@@ -159,14 +179,66 @@ namespace PhysicsDemo6
 			vertices[13] = new VertexPositionNormalTexture(btl.Position, normal_btl, new Vector2(0f, 1f));
 			vertices[14] = new VertexPositionNormalTexture(btr.Position, normal_btr, Vector2.One);
 			vertices[15] = new VertexPositionNormalTexture(bbr.Position, normal_bbr, new Vector2(1f, 0f));
+			 */
+
+			vertices[0].Position = ftr.Position;
+			vertices[0].Normal = normal_ftr;
+			vertices[1].Position = fbr.Position;
+			vertices[1].Normal = normal_fbr;
+			vertices[2].Position = bbr.Position;
+			vertices[2].Normal = normal_bbr;
+			vertices[3].Position = btr.Position;
+			vertices[3].Normal = normal_btr;
+			vertices[4].Position = btl.Position;
+			vertices[4].Normal = normal_btl;
+			vertices[5].Position = ftl.Position;
+			vertices[5].Normal = normal_ftl;
+			vertices[6].Position = fbl.Position;
+			vertices[6].Normal = normal_fbl;
+			vertices[7].Position = fbr.Position;
+			vertices[7].Normal = normal_fbr;
+			vertices[8].Position = bbl.Position;
+			vertices[8].Normal = normal_bbl;
+			vertices[9].Position = bbr.Position;
+			vertices[9].Normal = normal_bbr;
+			vertices[10].Position = fbr.Position;
+			vertices[10].Normal = normal_fbr;
+			vertices[11].Position = fbl.Position;
+			vertices[11].Normal = normal_fbl;
+			vertices[12].Position = ftl.Position;
+			vertices[12].Normal = normal_ftl;
+			vertices[13].Position = btl.Position;
+			vertices[13].Normal = normal_btl;
+			vertices[14].Position = btr.Position;
+			vertices[14].Normal = normal_btr;
+			vertices[15].Position = bbr.Position;
+			vertices[15].Normal = normal_bbr;
+			
 
 			return vertices;
 		}
 
-		public void DrawMe(GraphicsDevice device)
+		public VertexBuffer getVertexBuffer()
 		{
-			device.DrawPrimitives(PrimitiveType.TriangleFan, 0, 6);
-			device.DrawPrimitives(PrimitiveType.TriangleFan, 8, 6);
+			myVertexBuffer.SetData<VertexPositionNormalTexture>(getTriangleVertexes());
+			return myVertexBuffer;
+		}
+
+		public void setGraphicsDevice(GraphicsDevice device)
+		{
+			theDevice = device;
+			myVertexBuffer = new VertexBuffer(device, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
+		}
+
+		public int getVertexStride()
+		{
+			return VertexPositionNormalTexture.SizeInBytes;
+		}
+
+		public void DrawMe()
+		{
+			theDevice.DrawPrimitives(PrimitiveType.TriangleFan, 0, 6);
+			theDevice.DrawPrimitives(PrimitiveType.TriangleFan, 8, 6);
 		}
 
 		/*

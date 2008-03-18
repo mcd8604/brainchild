@@ -13,6 +13,9 @@ namespace PhysicsDemo6
 
 		internal Vector3 Origin;
 
+		private GraphicsDevice theDevice;
+		private VertexBuffer myVertexBuffer;
+
 		public StaticTri(Vector3 point1, Vector3 point2, Vector3 point3, Color color)
 		{
 			vertices = new VertexPositionColor[3];
@@ -94,11 +97,29 @@ namespace PhysicsDemo6
 			return vertices;
 		}
 
-		public void DrawMe(GraphicsDevice device)
-		{
-			device.DrawPrimitives(PrimitiveType.TriangleList, 0, 1);
+		public VertexBuffer getVertexBuffer() {
+			return myVertexBuffer;
 		}
 
+		public void setGraphicsDevice(GraphicsDevice device)
+		{
+			theDevice = device;
+			myVertexBuffer = new VertexBuffer(device, VertexPositionColor.SizeInBytes * 3, BufferUsage.None);
+			myVertexBuffer.SetData<VertexPositionColor>(vertices);
+		}
 
+		public int getVertexStride()
+		{
+			return VertexPositionColor.SizeInBytes;
+		}
+
+		public void DrawMe()
+		{
+			theDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 1);
+		}
+
+		public void ApplyForce(Vector3 at, Vector3 f) { }
+
+		public void ImpartVelocity(Vector3 at, Vector3 v) { }
 	}
 }
