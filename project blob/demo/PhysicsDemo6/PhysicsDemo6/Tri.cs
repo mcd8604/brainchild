@@ -7,22 +7,22 @@ namespace PhysicsDemo6
 	public class Tri : T
 	{
 
-        internal Physics.Point[] points;
+		internal Physics.Point[] points;
 
-        Color color;
+		Color color;
 
-        public Tri(Physics.Point point1, Physics.Point point2, Physics.Point point3, Color p_color)
+		public Tri(Physics.Point point1, Physics.Point point2, Physics.Point point3, Color p_color)
 		{
-            points = new Physics.Point[3];
+			points = new Physics.Point[3];
 
-            points[0] = point1;
-            points[1] = point2;
-            points[2] = point3;
+			points[0] = point1;
+			points[1] = point2;
+			points[2] = point3;
 
-            color = p_color;
+			color = p_color;
 		}
 
-		public bool couldIntersect( Physics.Point p )
+		public bool couldIntersect(Physics.Point p)
 		{
 			return p != points[0] && p != points[1] && p != points[2];
 		}
@@ -32,14 +32,14 @@ namespace PhysicsDemo6
 			return new Plane(points[0].Position, points[1].Position, points[2].Position).DotNormal(pos + getOrigin());
 		}
 
-        private Vector3 getOrigin()
-        {
-            return Vector3.Negate((points[0].Position + points[1].Position + points[2].Position) / 3);
-        }
+		private Vector3 getOrigin()
+		{
+			return Vector3.Negate((points[0].Position + points[1].Position + points[2].Position) / 3);
+		}
 
 		public Vector3 Normal()
 		{
-            return new Plane(points[0].Position, points[1].Position, points[2].Position).Normal;
+			return new Plane(points[0].Position, points[1].Position, points[2].Position).Normal;
 		}
 
 		public float didIntersect(Vector3 start, Vector3 end)
@@ -57,13 +57,13 @@ namespace PhysicsDemo6
 
 				// temp - this is overly verbose and not terribly efficient, but it works
 
-                Vector3 AB = points[1].Position - points[0].Position;
-                Vector3 BC = points[2].Position - points[1].Position;
-                Vector3 CA = points[0].Position - points[2].Position;
+				Vector3 AB = points[1].Position - points[0].Position;
+				Vector3 BC = points[2].Position - points[1].Position;
+				Vector3 CA = points[0].Position - points[2].Position;
 
-                Vector3 AP = points[0].Position - newPos;
-                Vector3 BP = points[1].Position - newPos;
-                Vector3 CP = points[2].Position - newPos;
+				Vector3 AP = points[0].Position - newPos;
+				Vector3 BP = points[1].Position - newPos;
+				Vector3 CP = points[2].Position - newPos;
 
 				Vector3 A = Vector3.Cross(AP, AB);
 				Vector3 B = Vector3.Cross(BP, BC);
@@ -87,16 +87,16 @@ namespace PhysicsDemo6
 
 		public Plane getPlane()
 		{
-            return new Plane(points[0].Position, points[1].Position, points[2].Position);
+			return new Plane(points[0].Position, points[1].Position, points[2].Position);
 		}
 
 		public VertexPositionColor[] getTriangleVertexes()
 		{
-            VertexPositionColor[] vertices = new VertexPositionColor[3];
+			VertexPositionColor[] vertices = new VertexPositionColor[3];
 
-            vertices[0] = new VertexPositionColor(points[0].Position, color);
-            vertices[1] = new VertexPositionColor(points[1].Position, color);
-            vertices[2] = new VertexPositionColor(points[2].Position, color);
+			vertices[0] = new VertexPositionColor(points[0].Position, color);
+			vertices[1] = new VertexPositionColor(points[1].Position, color);
+			vertices[2] = new VertexPositionColor(points[2].Position, color);
 			return vertices;
 		}
 

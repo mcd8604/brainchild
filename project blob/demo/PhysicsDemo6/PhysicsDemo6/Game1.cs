@@ -130,7 +130,7 @@ namespace PhysicsDemo6
 			drawables.Add(temp);
 
 
-			Physics.Physics.setGravityMode(true);
+			Physics.Physics.Gravity = new Physics.GravityPoint();
 
 
 			lightPosition = new Vector4(5, 5, 5, 0);
@@ -187,7 +187,7 @@ namespace PhysicsDemo6
 
 
 
-			Physics.Physics.setGravityMode(true);
+			Physics.Physics.Gravity = new Physics.GravityPoint();
 
 			lightPosition = new Vector4(7, 7, 7, 0);
 		}
@@ -215,7 +215,7 @@ namespace PhysicsDemo6
 			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 15), new Vector3(5, 0, 15), new Vector3(5, 0, 5), Color.Orange));
 
 
-			Physics.Physics.setGravityMode(false);
+			Physics.Physics.Gravity = new Physics.GravityVector();
 
 
 			lightPosition = new Vector4(-5, 5, 5, 0);
@@ -369,7 +369,7 @@ namespace PhysicsDemo6
 			}
 			if (InputHandler.IsKeyPressed(Keys.E))
 			{
-				Physics.Physics.TEMP_SurfaceFriction = 0f;
+				Physics.Physics.TEMP_SurfaceFriction = 1f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.A))
 			{
@@ -440,8 +440,8 @@ namespace PhysicsDemo6
 				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 				foreach (Physics.Point p in playerCube.points)
 				{
-					p.Force += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
-					p.Force += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Run)) * (move.X * playerMoveMulti);
+					p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
+					p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Run)) * (move.X * playerMoveMulti);
 				}
 			}
 
@@ -621,6 +621,7 @@ namespace PhysicsDemo6
 			{
 				spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
 			}
+			spriteBatch.DrawString(font, Physics.Physics.DEBUG_BumpLoops.ToString(), new Vector2(600, 0), Color.White);
 			spriteBatch.End();
 
 

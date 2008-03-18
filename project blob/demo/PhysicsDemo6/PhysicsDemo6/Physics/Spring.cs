@@ -66,8 +66,8 @@ namespace Physics
 
 		public void ApplyForces()
 		{
-				A.Force += getForceVectorOnA();
-				B.Force += getForceVectorOnB();
+			A.CurrentForce += getForceVectorOnA();
+			B.CurrentForce += getForceVectorOnB();
 		}
 
 	}

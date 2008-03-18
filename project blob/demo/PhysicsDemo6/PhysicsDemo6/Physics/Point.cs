@@ -4,18 +4,35 @@ namespace Physics
 {
 	public class Point
 	{
-		public Vector3 Position = Vector3.Zero;
-		public Vector3 Velocity = Vector3.Zero;
-		public Vector3 Acceleration = Vector3.Zero;
-		public Vector3 Force = Vector3.Zero;
+		private Vector3 position = Vector3.Zero;
+		public Vector3 Position
+		{
+			get
+			{
+				return position;
+			}
+		}
+
+		private Vector3 velocity = Vector3.Zero;
+		public Vector3 Velocity
+		{
+			get
+			{
+				return velocity;
+			}
+		}
+
+		public Vector3 CurrentAcceleration = Vector3.Zero;
+		public Vector3 CurrentForce = Vector3.Zero;
 
 		internal Vector3 NextPosition = Vector3.Zero;
+		internal Vector3 NextVelocity = Vector3.Zero;
 
 		public float mass = 1;
 
 		public Point(Vector3 startPosition)
 		{
-			Position = startPosition;
+			position = startPosition;
 			NextPosition = Position;
 		}
 
@@ -26,7 +43,10 @@ namespace Physics
 
 		internal void updatePosition()
 		{
-			Position = NextPosition;
+			position = NextPosition;
+			velocity = NextVelocity;
+			CurrentAcceleration = Vector3.Zero;
+			CurrentForce = Vector3.Zero;
 		}
 
 	}
