@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics
 {
-	public interface Gravity
+	public interface Gravity : Mover
 	{
 
 		/// <summary>

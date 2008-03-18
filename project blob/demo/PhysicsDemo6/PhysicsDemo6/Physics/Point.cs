@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics
 {
-	public class Point
+	public class Point : Actor
 	{
 		private Vector3 position = Vector3.Zero;
 		public Vector3 Position
