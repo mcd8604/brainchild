@@ -59,6 +59,11 @@ namespace Project_blob
             be.SpecularPower = 5.0f;
             be.AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
 
+            be.DirectionalLight0.Enabled = true;
+            be.DirectionalLight0.DiffuseColor = Vector3.One;
+            be.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
+            be.DirectionalLight0.SpecularColor = Vector3.One;
+
             be.LightingEnabled = true;
             be.TextureEnabled = true;
 
