@@ -11,7 +11,7 @@ namespace PhysicsDemo6
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
 		public readonly List<Tri> collidables = new List<Tri>();
 
-		public float friction = 0.9f;
+		//public float friction = 0.9f;
 		public static float springVal = 62.5f;
 
 		Physics.Point ftr;

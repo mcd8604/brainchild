@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PhysicsDemo5</RootNamespace>
-    <AssemblyName>PhysicsDemo5</AssemblyName>
+    <RootNamespace>PhysicsDemo6</RootNamespace>
+    <AssemblyName>PhysicsDemo6</AssemblyName>
     <XnaFrameworkVersion>v2.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaCrossPlatformGroupID>b7095484-6439-4cc4-914c-e6023d841f0e</XnaCrossPlatformGroupID>
@@ -60,11 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Physics\Actor.cs" />
     <Compile Include="Physics\Body.cs" />
     <Compile Include="Physics\Collidable.cs" />
     <Compile Include="Physics\Gravity.cs" />
     <Compile Include="Physics\GravityPoint.cs" />
     <Compile Include="Physics\GravityVector.cs" />
+    <Compile Include="Physics\Mover.cs" />
     <Compile Include="Physics\Physics.cs" />
     <Compile Include="Physics\Point.cs" />
     <Compile Include="Physics\Spring.cs" />
