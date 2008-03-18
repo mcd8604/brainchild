@@ -16,20 +16,20 @@ namespace Project_blob
     //This is a framework, nothing in here is complete!!
     class Display
     {
-        SortedList<TextureInfo, List<VertexBuffer>> vertexBuffer_List_Level ;
-        SortedList<TextureInfo, List<VertexBuffer>> vertexBuffer_List_Drawn = new SortedList<TextureInfo, List<VertexBuffer>>();
+        SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
+        SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
         VertexDeclaration m_VertexDeclaration;
         Effect m_CurrentEffect;
 
-        public SortedList<TextureInfo, List<VertexBuffer>> DrawnList
+        public SortedList<TextureInfo, List<Drawable>> DrawnList
         {
             get
             {
-                return vertexBuffer_List_Drawn;
+                return drawable_List_Drawn;
             }
             set 
             {
-                vertexBuffer_List_Drawn = value; 
+                drawable_List_Drawn = value; 
             }
         }
 
@@ -67,36 +67,37 @@ namespace Project_blob
             be.LightingEnabled = true;
             be.TextureEnabled = true;
 
-            vertexBuffer_List_Level = new SortedList<TextureInfo, List<VertexBuffer>>(new TextureInfoComparer());
-            vertexBuffer_List_Drawn = new SortedList<TextureInfo, List<VertexBuffer>>(new TextureInfoComparer());
+            drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
+            drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
             
             be.World = p_World;
             be.View = p_View;
             be.Projection = p_Projection;
         }
 
-        public void Draw(PrimitiveType p_DrawType, int p_PrimitiveCount, int p_VertexStride)
+        public void Draw()
         {
 
-            int currentTextureNumber = vertexBuffer_List_Drawn.Keys[0].SortNumber;
+            int currentTextureNumber = drawable_List_Drawn.Keys[0].SortNumber;
             //m_GraphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
-            be.Texture = vertexBuffer_List_Drawn.Keys[0].TextureObject;
+            be.Texture = drawable_List_Drawn.Keys[0].TextureObject;
             m_VertexDeclaration.GraphicsDevice.VertexDeclaration = m_VertexDeclaration;
 
-            foreach (TextureInfo ti in vertexBuffer_List_Drawn.Keys)
+            foreach (TextureInfo ti in drawable_List_Drawn.Keys)
             {
                if(ti.SortNumber != currentTextureNumber)
                    be.Texture = ti.TextureObject;
 
-                foreach(VertexBuffer vb in vertexBuffer_List_Drawn[ti])
+                foreach(Drawable d in drawable_List_Drawn[ti])
                 {
-                   m_VertexDeclaration.GraphicsDevice.Vertices[0].SetSource(vb, 0, p_VertexStride);
+                   m_VertexDeclaration.GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
                    be.Begin();
                    // Loop through each pass in the effect like we do elsewhere
                    foreach (EffectPass pass in be.CurrentTechnique.Passes)
                    {
                        pass.Begin();
-                       m_VertexDeclaration.GraphicsDevice.DrawPrimitives(p_DrawType, 0, p_PrimitiveCount);
+                       d.DrawMe();
+                       //m_VertexDeclaration.GraphicsDevice.DrawPrimitives(p_DrawType, 0, p_PrimitiveCount);
                        pass.End();
                    }
                    be.End();
