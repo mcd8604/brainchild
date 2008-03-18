@@ -1,7 +1,0 @@
-C:\Documents and Settings\student\Desktop\temp\Project_blob\Project_blob\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\student\Desktop\temp\Project_blob\Project_blob\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Documents and Settings\student\Desktop\temp\Project_blob\Project_blob\obj\x86\Debug\Project_blob.obj.x86.Debug.Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Documents and Settings\student\Desktop\temp\Project_blob\Project_blob\bin\x86\Debug\Project_blob.exe
-C:\Documents and Settings\student\Desktop\temp\Project_blob\Project_blob\bin\x86\Debug\Project_blob.pdb
-C:\Documents and Settings\student\Desktop\temp\Project_blob\Project_blob\obj\x86\Debug\Project_blob.exe
-C:\Documents and Settings\student\Desktop\temp\Project_blob\Project_blob\obj\x86\Debug\Project_blob.pdb
