@@ -27,9 +27,9 @@ namespace Project_blob
             {
                 return drawable_List_Drawn;
             }
-            set 
+            set
             {
-                drawable_List_Drawn = value; 
+                drawable_List_Drawn = value;
             }
         }
 
@@ -69,7 +69,7 @@ namespace Project_blob
 
             drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
             drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
-            
+
             be.World = p_World;
             be.View = p_View;
             be.Projection = p_Projection;
@@ -77,7 +77,6 @@ namespace Project_blob
 
         public void Draw()
         {
-
             int currentTextureNumber = drawable_List_Drawn.Keys[0].SortNumber;
             //m_GraphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
             be.Texture = drawable_List_Drawn.Keys[0].TextureObject;
@@ -85,24 +84,56 @@ namespace Project_blob
 
             foreach (TextureInfo ti in drawable_List_Drawn.Keys)
             {
-               if(ti.SortNumber != currentTextureNumber)
-                   be.Texture = ti.TextureObject;
+                if (ti.SortNumber != currentTextureNumber)
+                    be.Texture = ti.TextureObject;
 
-                foreach(Drawable d in drawable_List_Drawn[ti])
+                foreach (Drawable d in drawable_List_Drawn[ti])
                 {
-                   m_VertexDeclaration.GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
-                   be.Begin();
-                   // Loop through each pass in the effect like we do elsewhere
-                   foreach (EffectPass pass in be.CurrentTechnique.Passes)
-                   {
-                       pass.Begin();
-                       d.DrawMe();
-                       //m_VertexDeclaration.GraphicsDevice.DrawPrimitives(p_DrawType, 0, p_PrimitiveCount);
-                       pass.End();
-                   }
-                   be.End();
+                    if (d is DrawableModel)
+                    {
+                        DrawModel(be.World, (DrawableModel)d);
+                    }
+                    else
+                    {
+                        DrawPrimitives(d);
+                    }
                 }
             }
+        }
+
+        public void DrawPrimitives(Drawable d)
+        {
+            m_VertexDeclaration.GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
+
+            be.Begin();
+            foreach (EffectPass pass in be.CurrentTechnique.Passes)
+            {
+                pass.Begin();
+                d.DrawMe();
+                pass.End();
+            }
+            be.End();
+        }
+
+        public void DrawModel(Matrix p_CurrentWorld, DrawableModel d)
+        {
+            Matrix currentWorld = p_CurrentWorld;
+            be.World = Matrix.Add(d.Scale, Matrix.Add(d.Rotation, Matrix.Add(p_CurrentWorld, d.Position )));
+            foreach (ModelMesh mesh in d.ModelObject.Meshes)
+            {
+                m_VertexDeclaration.GraphicsDevice.Indices = mesh.IndexBuffer;
+                be.Begin();
+
+                // Loop through each pass in the effect like we do elsewhere
+                foreach (EffectPass pass in be.CurrentTechnique.Passes)
+                {
+                    pass.Begin();
+                    d.DrawMe(mesh);
+                    pass.End();
+                }
+                be.End();
+            }
+            be.World = currentWorld;
         }
     }
 }
