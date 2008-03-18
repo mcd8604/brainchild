@@ -6,9 +6,15 @@ namespace PhysicsDemo6
 	interface Drawable
 	{
 
-		VertexPositionColor[] getTriangleVertexes();
+		//VertexPositionColor[] getTriangleVertexes();
 
-		void DrawMe(GraphicsDevice device);
+		VertexBuffer getVertexBuffer();
+
+		void setGraphicsDevice(GraphicsDevice device);
+
+		int getVertexStride();
+
+		void DrawMe();
 
 	}
 }

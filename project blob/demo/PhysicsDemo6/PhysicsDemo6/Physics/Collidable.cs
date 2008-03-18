@@ -13,5 +13,9 @@ namespace Physics
 		Vector3 Normal();
 
 		Plane getPlane();
+
+		void ApplyForce(Vector3 at, Vector3 f);
+
+		void ImpartVelocity(Vector3 at, Vector3 v);
 	}
 }

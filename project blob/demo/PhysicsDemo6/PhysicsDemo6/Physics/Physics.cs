@@ -310,6 +310,7 @@ namespace Physics
 			// Stop Velocity in direction of the wall
 			Vector3 NormalEffect = (collisionNormal * (p.NextVelocity.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(p.NextVelocity, collisionNormal).Length(), Vector3.Dot(p.NextVelocity, collisionNormal)))));
 			p.NextVelocity = (p.NextVelocity - NormalEffect);
+			s.ImpartVelocity(p.NextPosition, NormalEffect);
 
 			impact += NormalEffect.Length() * 0.1f;
 
@@ -331,6 +332,7 @@ namespace Physics
 			// normal force
 			Vector3 NormalForce = (collisionNormal * (Force.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(Force, collisionNormal).Length(), Vector3.Dot(Force, collisionNormal)))));
 			Force = (Force - NormalForce);
+			s.ApplyForce(p.NextPosition, NormalForce);
 
 			// air friction
 			Force += Vector3.Negate(p.NextVelocity) * airfriction;
