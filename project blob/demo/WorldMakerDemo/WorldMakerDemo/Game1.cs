@@ -22,6 +22,7 @@ namespace WorldMakerDemo
         Display m_Display;
 
         DrawableModel model;
+        DrawableModel model2;
         //VertexPositionNormalTexture[] cubeVertices;
         //VertexPositionNormalTexture[] cube2Vertices;
 
@@ -42,6 +43,12 @@ namespace WorldMakerDemo
         Vector3 focusPoint = new Vector3(0, 0, 0);
         Vector3 Up = Vector3.Up;
         Vector3 Horizontal = new Vector3();
+
+        Vector3 position = new Vector3(0, 0, 0);
+        float scale = 1;
+        float x_rotation = 0;
+        float y_rotation = 0;
+        float z_rotation = 0;
 
         static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
         Vector3 cameraPosition = defaultCameraPosition;
@@ -83,14 +90,17 @@ namespace WorldMakerDemo
         /// </summary>
         protected override void LoadContent()
         {
-            text = Content.Load<Texture2D>("test");
-            //text2 = Content.Load<Texture2D>("test2");
-            effect = Content.Load<Effect>("effects");
+            text = Content.Load<Texture2D>("grass");
+            text2 = Content.Load<Texture2D>("test");
+            //effect = Content.Load<Effect>("effects");
             model = new DrawableModel();
-            model.ModelObject = Content.Load<Model>("ball");
+            model.ModelObject = Content.Load<Model>("cube");
+
+            model2 = new DrawableModel();
+            model2.ModelObject = Content.Load<Model>("ball");
 
             TextureInfo ti = new TextureInfo(text, 0);
-            //TextureInfo ti2 = new TextureInfo(text2, 1);
+            TextureInfo ti2 = new TextureInfo(text2, 1);
 
             //cubeVertices = new VertexPositionNormalTexture[36];
             //cube2Vertices = new VertexPositionNormalTexture[36];
@@ -115,11 +125,13 @@ namespace WorldMakerDemo
             m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, new EffectPool(), basicEffectVertexDeclaration);
 
             model.setGraphicsDevice(graphics.GraphicsDevice);
-            model.TranslationPriority = 1;
-            //model.ScalePriority = 0;
+            model2.setGraphicsDevice(graphics.GraphicsDevice);
+            model.TranslationPriority = 2;
+            model.ScalePriority = 1;
             model.RotationPriority = 0;
-            model.Rotation = Matrix.CreateRotationZ(MathHelper.ToRadians(90));
-            model.Position = Matrix.CreateTranslation(new Vector3(0, -2, 0));
+            //model.RotationPriority = 0;
+            //model.Rotation = Matrix.CreateRotationZ(MathHelper.ToRadians(45));
+            //model.Position = Matrix.CreateTranslation(new Vector3(0, -2, 0));
             //model.Scale = Matrix.CreateScale(5);
 
             //vertexBuffer2.SetData<VertexPositionNormalTexture>(cube2Vertices);
@@ -129,11 +141,14 @@ namespace WorldMakerDemo
             //list.Add(testCube);
             list.Add(model);
 
-            //List<Drawable> list2 = new List<Drawable>();
-            //list2.Add(testCube2);
+            List<Drawable> list2 = new List<Drawable>();
+            list2.Add(model2);
 
             m_Display.DrawnList.Add(ti, list);
-            //m_Display.DrawnList.Add(ti2, list2);
+            m_Display.DrawnList.Add(ti2, list2);
+
+
+            
         }
 
         /// <summary>
@@ -242,6 +257,67 @@ namespace WorldMakerDemo
                 effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
             }
 
+            if (InputHandler.IsKeyPressed(Keys.Up))
+            {
+                position.Y += .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.Down))
+            {
+                position.Y -= .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.Right))
+            {
+                position.X += .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.Left))
+            {
+                position.X -= .5f;
+            }
+
+            if (InputHandler.IsKeyPressed(Keys.NumPad8))
+            {
+                scale += .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.NumPad2))
+            {
+                scale -= .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.NumPad1))
+            {
+                position.Z -= .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.NumPad3))
+            {
+                position.Z += .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.NumPad7))
+            {
+                y_rotation -= .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.NumPad9))
+            {
+                y_rotation += .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.PageDown))
+            {
+                x_rotation -= .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.PageUp))
+            {
+                x_rotation += .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.Home))
+            {
+                z_rotation -= .5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.End))
+            {
+                z_rotation += .5f;
+            }
+
+            model.Rotation = Matrix.CreateRotationX(x_rotation) * Matrix.CreateRotationY(y_rotation) * Matrix.CreateRotationZ(z_rotation);
+            model.Scale = Matrix.CreateScale(scale);
+            model.Position = Matrix.CreateTranslation(position);
             base.Update(gameTime);
         }
 

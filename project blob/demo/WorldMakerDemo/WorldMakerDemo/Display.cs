@@ -50,7 +50,7 @@ namespace WorldMakerDemo
         {
             m_VertexDeclaration = p_VertexDeclaration;
             m_VertexDeclaration.GraphicsDevice.RenderState.CullMode =
-                CullMode.CullClockwiseFace;
+                CullMode.CullCounterClockwiseFace;
 
             be = new BasicEffect(m_VertexDeclaration.GraphicsDevice, null);
             be.Alpha = 1.0f;
@@ -82,9 +82,9 @@ namespace WorldMakerDemo
             be.Texture = drawable_List_Drawn.Keys[0].TextureObject;
             m_VertexDeclaration.GraphicsDevice.VertexDeclaration = m_VertexDeclaration;
 
-            m_VertexDeclaration.GraphicsDevice.RenderState.CullMode = CullMode.None;
-            m_VertexDeclaration.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
-            m_VertexDeclaration.GraphicsDevice.RenderState.DepthBufferEnable = false;
+            //m_VertexDeclaration.GraphicsDevice.RenderState.CullMode = CullMode.None;
+            //m_VertexDeclaration.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+            //m_VertexDeclaration.GraphicsDevice.RenderState.DepthBufferEnable = false;
 
             foreach (TextureInfo ti in drawable_List_Drawn.Keys)
             {
