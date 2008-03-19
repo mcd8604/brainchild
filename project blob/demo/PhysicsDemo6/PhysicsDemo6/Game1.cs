@@ -48,7 +48,7 @@ namespace PhysicsDemo6
 		float playerCamMulti = 0.1f;
 
 		bool drawMode = true;
-		int gameMode = 0;
+		int gameMode = 3;
 		bool points = true;
 
 		List<Drawable> drawables = new List<Drawable>();
@@ -69,7 +69,8 @@ namespace PhysicsDemo6
 
 
 		// physics - input
-		float playerMoveMulti = 7.5f;
+		//float playerMoveMulti = 7.5f;
+		float playerMoveMulti = 50f;
 
 
 		public Game1()
@@ -88,14 +89,64 @@ namespace PhysicsDemo6
 		/// </summary>
 		protected override void Initialize()
 		{
-			initGlobe();
-			Physics.Physics.AirFriction = 0.5f;
+			initLoop();
+			//Physics.Physics.AirFriction = 0.5f;
+			Physics.Physics.AirFriction = 2f;
 
 			//cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
 
 			InputHandler.LoadDefaultBindings();
 
 			base.Initialize();
+		}
+
+		private void initLoop()
+		{
+			cubeStartPosition = new Vector3(0, 4, 0);
+			playerCube = new DemoCube(cubeStartPosition, 1);
+			Physics.Physics.AddPoints(playerCube.points);
+			Physics.Physics.AddSprings(playerCube.springs);
+
+
+
+
+			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, 10), new Vector3(10, 0, 10), Color.Red));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), Color.Yellow));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, 10), new Vector3(10, 0, -10), Color.White));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, -10), new Vector3(-10, 0, -10), Color.Orange));
+
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-5, 0, -5), new Vector3(-10, 5, -5), Color.Pink));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-10, 5, -5), new Vector3(-10, 5, 5), Color.Red));
+
+			addToPhysicsAndDraw(new StaticTri(new Vector3(5, 0, -5), new Vector3(5, 0, 5), new Vector3(10, 5, -5), Color.Pink));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(5, 0, 5), new Vector3(10, 5, 5), new Vector3(10, 5, -5), Color.Red));
+
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 15, 5), new Vector3(-10, 15, -5), new Vector3(-5, 20, -5), Color.Pink));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 15, 5), new Vector3(-5, 20, -5), new Vector3(-5, 20, 5), Color.Red));
+
+			addToPhysicsAndDraw(new StaticTri(new Vector3(10, 15, -5), new Vector3(10, 15, 5), new Vector3(5, 20, -5), Color.Pink));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(10, 15, 5), new Vector3(5, 20, 5), new Vector3(5, 20, -5), Color.Red));
+
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 5, 5), new Vector3(-10, 5, -5), new Vector3(-10, 15, -5), Color.Pink));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 5, 5), new Vector3(-10, 15, -5), new Vector3(-10, 15, 5), Color.Red));
+
+			addToPhysicsAndDraw(new StaticTri(new Vector3(10, 5, -5), new Vector3(10, 5, 5), new Vector3(10, 15, -5), Color.Pink));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(10, 5, 5), new Vector3(10, 15, 5), new Vector3(10, 15, -5), Color.Red));
+
+			addToPhysicsAndDraw(new StaticTri(new Vector3(5, 20, -5), new Vector3(5, 20, 5), new Vector3(-5, 20, -5), Color.Pink));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(5, 20, 5), new Vector3(-5, 20, 5), new Vector3(-5, 20, -5), Color.Red));
+
+
+
+			Physics.Physics.Gravity = new Physics.GravityVector();
+
+			lightPosition = new Vector4(0, 5, 0, 0);
+
+			playerCube.setGraphicsDevice(GraphicsDevice);
+			foreach (Drawable d in drawables)
+			{
+				d.setGraphicsDevice(GraphicsDevice);
+			}
 		}
 
 		private void initCube()
@@ -339,6 +390,12 @@ namespace PhysicsDemo6
 			}
 			if (InputHandler.IsActionPressed(Actions.Reset))
 			{
+				if (gameMode == 3)
+				{
+					Physics.Physics.Clear();
+					drawables.Clear();
+					initLoop();
+				}
 				if (gameMode == 2)
 				{
 					Physics.Physics.Clear();
@@ -393,15 +450,15 @@ namespace PhysicsDemo6
 			}
 			if (InputHandler.IsKeyPressed(Keys.Q))
 			{
-				Physics.Physics.TEMP_SurfaceFriction = 24f;
+				Physics.Physics.TEMP_SurfaceFriction = 2f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.E))
 			{
-				Physics.Physics.TEMP_SurfaceFriction = 1f;
+				Physics.Physics.TEMP_SurfaceFriction = 0.5f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.A))
 			{
-				Physics.Physics.TEMP_SurfaceFriction = 12f;
+				Physics.Physics.TEMP_SurfaceFriction = 1f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.Z))
 			{
@@ -413,7 +470,13 @@ namespace PhysicsDemo6
 			}
 			if (InputHandler.IsKeyPressed(Keys.M))
 			{
-				gameMode = (gameMode + 1) % 3;
+				gameMode = (gameMode + 1) % 4;
+				if (gameMode == 3)
+				{
+					Physics.Physics.Clear();
+					drawables.Clear();
+					initLoop();
+				}
 				if (gameMode == 2)
 				{
 					Physics.Physics.Clear();
@@ -639,11 +702,11 @@ namespace PhysicsDemo6
 			{
 				spriteBatch.DrawString(font, "Normal", new Vector2(150, 0), Color.White);
 			}
-			if (Physics.Physics.TEMP_SurfaceFriction < 8)
+			if (Physics.Physics.TEMP_SurfaceFriction < 1)
 			{
 				spriteBatch.DrawString(font, "Slick", new Vector2(350, 0), Color.White);
 			}
-			else if (Physics.Physics.TEMP_SurfaceFriction > 16)
+			else if (Physics.Physics.TEMP_SurfaceFriction > 1)
 			{
 				spriteBatch.DrawString(font, "Sticky", new Vector2(350, 0), Color.White);
 			}
