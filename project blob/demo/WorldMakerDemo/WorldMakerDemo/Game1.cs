@@ -19,18 +19,21 @@ namespace WorldMakerDemo
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         ContentManager content;
+        Display m_Display;
 
-        Model blob1;
-        Model blob2;
-        Model blob3;
+        DrawableModel model;
+        //VertexPositionNormalTexture[] cubeVertices;
+        //VertexPositionNormalTexture[] cube2Vertices;
 
         Effect effect;
         //Effect celshader;
         Matrix worldMatrix;
         Matrix viewMatrix;
         Matrix projectionMatrix;
-        Texture2D text = null;
         SpriteFont font;
+
+        Texture2D text;
+        Texture2D text2;
 
         VertexDeclaration VertexDeclarationColor;
         VertexDeclaration VertexDeclarationTexture;
@@ -78,15 +81,59 @@ namespace WorldMakerDemo
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void  LoadContent()
+        protected override void LoadContent()
         {
-                //blob1 = content.Load<Model>(@"content\models\ball");
-                //blob2 = content.Load<Model>(@"content\models\ball");
-                //blob3 = content.Load<Model>(@"content\models\cube");
-                //text = content.Load<Texture2D>(@"content\textures\test");
-            blob1 = content.Load<Model>(@"ball");
+            text = Content.Load<Texture2D>("test");
+            //text2 = Content.Load<Texture2D>("test2");
+            effect = Content.Load<Effect>("effects");
+            model = new DrawableModel();
+            model.ModelObject = Content.Load<Model>("ball");
 
-            // TODO: use this.Content to load your game content here
+            TextureInfo ti = new TextureInfo(text, 0);
+            //TextureInfo ti2 = new TextureInfo(text2, 1);
+
+            //cubeVertices = new VertexPositionNormalTexture[36];
+            //cube2Vertices = new VertexPositionNormalTexture[36];
+            //DemoCube testCube = new DemoCube(Vector3.Zero, 1);
+            //DemoCube testCube2 = new DemoCube(new Vector3(0, 3, 0), 1);
+
+            VertexDeclaration basicEffectVertexDeclaration = new VertexDeclaration(
+                graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+
+            float tilt = MathHelper.ToRadians(22.5f);  // 22.5 degree angle
+            // Use the world matrix to tilt the cube along x and y axes.
+            worldMatrix = Matrix.Identity;
+
+            viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero,
+                Vector3.Up);
+
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
+                MathHelper.ToRadians(45),  // 45 degree angle
+                (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
+                1.0f, 100.0f);
+
+            m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, new EffectPool(), basicEffectVertexDeclaration);
+
+            model.setGraphicsDevice(graphics.GraphicsDevice);
+            model.TranslationPriority = 1;
+            //model.ScalePriority = 0;
+            model.RotationPriority = 0;
+            model.Rotation = Matrix.CreateRotationZ(MathHelper.ToRadians(90));
+            model.Position = Matrix.CreateTranslation(new Vector3(0, -2, 0));
+            //model.Scale = Matrix.CreateScale(5);
+
+            //vertexBuffer2.SetData<VertexPositionNormalTexture>(cube2Vertices);
+            //testCube.setGraphicsDevice(graphics.GraphicsDevice);
+            //testCube2.setGraphicsDevice(graphics.GraphicsDevice);
+            List<Drawable> list = new List<Drawable>();
+            //list.Add(testCube);
+            list.Add(model);
+
+            //List<Drawable> list2 = new List<Drawable>();
+            //list2.Add(testCube2);
+
+            m_Display.DrawnList.Add(ti, list);
+            //m_Display.DrawnList.Add(ti2, list2);
         }
 
         /// <summary>
@@ -205,6 +252,7 @@ namespace WorldMakerDemo
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            m_Display.Draw();
 
             // TODO: Add your drawing code here
 
