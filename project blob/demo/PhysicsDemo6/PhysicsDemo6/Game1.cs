@@ -147,6 +147,7 @@ namespace PhysicsDemo6
 			{
 				d.setGraphicsDevice(GraphicsDevice);
 			}
+            float cameraLengthMulti = 1f;
 		}
 
 		private void initCube()
@@ -192,7 +193,7 @@ namespace PhysicsDemo6
 			{
 				d.setGraphicsDevice(GraphicsDevice);
 			}
-
+            float cameraLengthMulti = 1f;
 		}
 
 
@@ -254,6 +255,7 @@ namespace PhysicsDemo6
 			{
 				d.setGraphicsDevice(GraphicsDevice);
 			}
+            float cameraLengthMulti = 1f;
 		}
 
 
@@ -299,7 +301,7 @@ namespace PhysicsDemo6
 			{
 				d.setGraphicsDevice(GraphicsDevice);
 			}
-
+            float cameraLengthMulti = 1f;
 		}
 
 
