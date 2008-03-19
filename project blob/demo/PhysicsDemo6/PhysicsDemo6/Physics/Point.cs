@@ -22,11 +22,13 @@ namespace Physics
 			}
 		}
 
-		public Vector3 CurrentAcceleration = Vector3.Zero;
+		public Vector3 acceleration = Vector3.Zero;
+
 		public Vector3 CurrentForce = Vector3.Zero;
 
 		internal Vector3 NextPosition = Vector3.Zero;
 		internal Vector3 NextVelocity = Vector3.Zero;
+        internal Vector3 NextAcceleration = Vector3.Zero;
 
 		internal Collidable LastCollision = null;
 
@@ -47,7 +49,7 @@ namespace Physics
 		{
 			position = NextPosition;
 			velocity = NextVelocity;
-			CurrentAcceleration = Vector3.Zero;
+            acceleration = NextAcceleration;
 			CurrentForce = Vector3.Zero;
 
 			if (LastCollision != null && Physics.TEMP_SurfaceFriction >= 1)

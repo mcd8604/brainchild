@@ -52,7 +52,7 @@ namespace PhysicsDemo6
 
 		private Vector3 getOrigin()
 		{
-			return Vector3.Negate((points[0].Position + points[1].Position + points[2].Position) / 3);
+			return Vector3.Negate((points[0].Position + points[1].Position + points[2].Position) / 3f);
 		}
 
 		public Vector3 Normal()

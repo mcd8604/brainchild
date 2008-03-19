@@ -44,6 +44,7 @@ namespace PhysicsDemo6
 		static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
 		Vector3 cameraPosition = defaultCameraPosition;
 		Vector2 cameraAngle = new Vector2(1f, 0.4f);
+        float cameraLengthMulti = 1f;
 		float cameraLength = 20f;
 		float playerCamMulti = 0.1f;
 
@@ -109,26 +110,25 @@ namespace PhysicsDemo6
 
 
 
-
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, 10), new Vector3(10, 0, 10), Color.Red));
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), Color.Yellow));
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, 10), new Vector3(10, 0, -10), Color.White));
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, -10), new Vector3(-10, 0, -10), Color.Orange));
 
-			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-5, 0, -5), new Vector3(-10, 5, -5), Color.Pink));
-			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-10, 5, -5), new Vector3(-10, 5, 5), Color.Red));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-5, 0, -5), new Vector3(-10, 5, -5), Color.Red));
+            addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-10, 5, -5), new Vector3(-10, 5, 5), Color.Pink));
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(5, 0, -5), new Vector3(5, 0, 5), new Vector3(10, 5, -5), Color.Pink));
 			addToPhysicsAndDraw(new StaticTri(new Vector3(5, 0, 5), new Vector3(10, 5, 5), new Vector3(10, 5, -5), Color.Red));
 
-			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 15, 5), new Vector3(-10, 15, -5), new Vector3(-5, 20, -5), Color.Pink));
-			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 15, 5), new Vector3(-5, 20, -5), new Vector3(-5, 20, 5), Color.Red));
+            addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 15, 5), new Vector3(-10, 15, -5), new Vector3(-5, 20, -5), Color.Red));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 15, 5), new Vector3(-5, 20, -5), new Vector3(-5, 20, 5), Color.Pink));
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(10, 15, -5), new Vector3(10, 15, 5), new Vector3(5, 20, -5), Color.Pink));
 			addToPhysicsAndDraw(new StaticTri(new Vector3(10, 15, 5), new Vector3(5, 20, 5), new Vector3(5, 20, -5), Color.Red));
 
-			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 5, 5), new Vector3(-10, 5, -5), new Vector3(-10, 15, -5), Color.Pink));
-			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 5, 5), new Vector3(-10, 15, -5), new Vector3(-10, 15, 5), Color.Red));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 5, 5), new Vector3(-10, 5, -5), new Vector3(-10, 15, -5), Color.Red));
+            addToPhysicsAndDraw(new StaticTri(new Vector3(-10, 5, 5), new Vector3(-10, 15, -5), new Vector3(-10, 15, 5), Color.Pink));
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(10, 5, -5), new Vector3(10, 5, 5), new Vector3(10, 15, -5), Color.Pink));
 			addToPhysicsAndDraw(new StaticTri(new Vector3(10, 5, 5), new Vector3(10, 15, 5), new Vector3(10, 15, -5), Color.Red));
@@ -156,6 +156,7 @@ namespace PhysicsDemo6
 			playerCube = new DemoCube(cubeStartPosition, 1);
 			Physics.Physics.AddPoints(playerCube.points);
 			Physics.Physics.AddSprings(playerCube.springs);
+
 
 			// 'world' 'cube'
 
@@ -540,8 +541,28 @@ namespace PhysicsDemo6
 				}
 			}
 
+            if (InputHandler.IsKeyPressed(Keys.PageUp))
+            {
+                playerCube.setSpringLength(0.1f);
+                cameraLengthMulti *= 1.015f;
+            }
+            else if (InputHandler.IsKeyPressed(Keys.PageDown))
+            {
+                playerCube.setSpringLength(-0.1f);
+                cameraLengthMulti *= 0.985f;
+            }
+            
 
-
+            if (InputHandler.IsKeyDown(Keys.X))
+            {
+                playerCube.idealVolume = playerCube.baseVolume + 50f;
+            }
+            else
+            {
+                playerCube.idealVolume = playerCube.baseVolume;
+            }
+            Console.WriteLine(playerCube.getVolume());
+            playerCube.update();
 
 			if (!paused)
 			{
@@ -564,7 +585,7 @@ namespace PhysicsDemo6
 
 				// following camera
 				cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
-				Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
+                Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
 				cameraPosition = playerCube.getCenter() + Offset;
 
 				// new Vector3(10, 10, 20)

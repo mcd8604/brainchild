@@ -179,7 +179,7 @@ namespace Physics
 				Force += Vector3.Negate(p.NextVelocity) * airfriction;
 
 				// Calc Acceleration
-				Vector3 Acceleration = p.CurrentAcceleration;
+				Vector3 Acceleration = p.NextAcceleration;
 				Acceleration = Force / p.mass;
 
 				// Calc Velocity
@@ -241,13 +241,12 @@ namespace Physics
 
 					// sliding physics second half
 					slidingPhysics(p, TotalElapsedSeconds * (1 - CollisionU), CollisionTri);
-				}
-
+				} else 
 				// If No Collision, apply values Calc'd Above
-				if (!Collision)
 				{
 					//p.CurrentForce = Vector3.Zero;
 					//p.CurrentAcceleration = Vector3.Zero;
+                    p.NextAcceleration = Acceleration;
 					p.NextVelocity = Velocity;
 					p.NextPosition = finalPosition;
 					p.LastCollision = null;
@@ -278,20 +277,21 @@ namespace Physics
 			Force += Vector3.Negate(p.NextVelocity) * airfriction;
 
 			// acceleration
-			Vector3 Acceleration = p.CurrentAcceleration;
-			Acceleration = Force / p.mass;
+			//Vector3 Acceleration = p.NextAcceleration;
+            p.NextAcceleration = Force / p.mass;
 
 			// velocity - by euler-cromer
-			Vector3 Velocity = p.NextVelocity;
-			Velocity += Acceleration * time;
+			//Vector3 Velocity = p.NextVelocity;
+            p.NextVelocity += p.NextAcceleration * time;
 
 			// position
-			p.NextPosition += Velocity * time;
+			p.NextPosition += p.NextVelocity * time;
 
 
 			//done
-			Force = Vector3.Zero;
-			Acceleration = Vector3.Zero;
+			//Force = Vector3.Zero;
+			//Acceleration = Vector3.Zero;
+            
 
 		}
 		private static void slidingPhysics(Point p, float time, Collidable s)
@@ -366,7 +366,7 @@ namespace Physics
 
 
 			// acceleration
-			Vector3 Acceleration = p.CurrentAcceleration;
+			Vector3 Acceleration = p.NextAcceleration;
 			Acceleration = Force / p.mass;
 
 			// velocity
@@ -449,6 +449,7 @@ namespace Physics
 
 				//p.CurrentForce = Vector3.Zero;
 				//p.CurrentAcceleration = Vector3.Zero;
+                p.NextAcceleration = Acceleration;
 				p.NextVelocity = Velocity;
 				p.NextPosition = finalPosition;
 				p.LastCollision = s;

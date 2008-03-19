@@ -4,10 +4,10 @@ namespace Physics
 {
 	public class Spring : Mover
 	{
-		float minimumLength = 0;
-		float minimumLengthBeforeCompression = 1;
-		float maximumLengthBeforeExtension = 1;
-		float maximumLength = float.PositiveInfinity;
+		public float minimumLength = 0;
+        public float minimumLengthBeforeCompression = 1;
+        public float maximumLengthBeforeExtension = 1;
+        public float maximumLength = float.PositiveInfinity;
 
 		bool broken = false;
 
