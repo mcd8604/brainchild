@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace Project_blob
+namespace WorldMakerDemo
 {
     //This class holds a list of VectorLists to be drawn to the screen
     //This is a framework, nothing in here is complete!!
@@ -50,7 +50,7 @@ namespace Project_blob
         {
             m_VertexDeclaration = p_VertexDeclaration;
             m_VertexDeclaration.GraphicsDevice.RenderState.CullMode =
-                CullMode.CullClockwiseFace;
+                CullMode.CullCounterClockwiseFace;
 
             be = new BasicEffect(m_VertexDeclaration.GraphicsDevice, null);
             be.Alpha = 1.0f;
@@ -121,8 +121,42 @@ namespace Project_blob
 
         public void DrawModel(Matrix p_CurrentWorld, DrawableModel d)
         {
+            Stack<Matrix> drawStack = new Stack<Matrix>();
             Matrix currentWorld = p_CurrentWorld;
-            be.World = Matrix.Add(d.Scale, Matrix.Add(d.Rotation, Matrix.Add(p_CurrentWorld, d.Position )));
+
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (d.PriorityArray[i] == j)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                if(d.Position != null)
+                                    drawStack.Push(d.Position);
+                                break;
+                            case 1:
+                                if(d.Rotation != null)
+                                    drawStack.Push(d.Rotation);
+                                break;
+                            case 2:
+                                if(d.Scale != null)
+                                    drawStack.Push(d.Scale);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+            be.World = p_CurrentWorld;
+            while (drawStack.Count > 0)
+                be.World = Matrix.Multiply(drawStack.Pop(), be.World);
+
+            //be.World = Matrix.Add(Matrix.CreateRotationZ(MathHelper.ToRadians(90)),be.World);
+            
             foreach (ModelMesh mesh in d.ModelObject.Meshes)
             {
                 m_VertexDeclaration.GraphicsDevice.Indices = mesh.IndexBuffer;
