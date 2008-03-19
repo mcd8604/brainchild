@@ -28,6 +28,8 @@ namespace Physics
 		internal Vector3 NextPosition = Vector3.Zero;
 		internal Vector3 NextVelocity = Vector3.Zero;
 
+		internal Collidable LastCollision = null;
+
 		public float mass = 1;
 
 		public Point(Vector3 startPosition)
@@ -47,6 +49,11 @@ namespace Physics
 			velocity = NextVelocity;
 			CurrentAcceleration = Vector3.Zero;
 			CurrentForce = Vector3.Zero;
+
+			if (LastCollision != null && Physics.TEMP_SurfaceFriction >= 1)
+			{
+				CurrentForce -= LastCollision.getPlane().Normal * (100 * Physics.TEMP_SurfaceFriction * 0.75f );
+			}
 		}
 
 	}

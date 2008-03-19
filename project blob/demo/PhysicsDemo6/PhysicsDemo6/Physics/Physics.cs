@@ -7,7 +7,7 @@ namespace Physics
 	public static class Physics
 	{
 
-		static float friction = 12.0f;
+		static float friction = 1f;
 		public static float TEMP_SurfaceFriction
 		{
 			get
@@ -250,6 +250,7 @@ namespace Physics
 					//p.CurrentAcceleration = Vector3.Zero;
 					p.NextVelocity = Velocity;
 					p.NextPosition = finalPosition;
+					p.LastCollision = null;
 				}
 
 			}
@@ -337,8 +338,31 @@ namespace Physics
 			// air friction
 			Force += Vector3.Negate(p.NextVelocity) * airfriction;
 
-			// surface friction !
-			Force += Vector3.Negate(p.NextVelocity) * friction;
+			// surface friction !  F = uN
+
+			//Force += Vector3.Negate(p.NextVelocity) * friction;
+
+			Vector3 FrictionForce = Vector3.Normalize( Vector3.Negate(p.NextVelocity) ) * ( NormalForce.Length() *  friction);
+
+			Vector3 MaxFriction = Vector3.Negate( (p.NextVelocity / time) * p.mass );
+
+			if (FrictionForce.LengthSquared() > MaxFriction.LengthSquared())
+			{
+				//Console.WriteLine("Maxed out friction: " + (FrictionForce.Length() / MaxFriction.Length()));
+				Force += MaxFriction;
+			}
+			else
+			{
+				//Console.WriteLine("Didn't: " + (FrictionForce.Length() / MaxFriction.Length()));
+				Force += FrictionForce;
+			}
+
+
+			//if ( FrictionForce.LengthSquared() > Force.LengthSquared() ){
+			//    Force = Vector3.Zero;
+			//} else {
+			//    Force += FrictionForce;
+			//}
 
 
 			// acceleration
@@ -427,6 +451,7 @@ namespace Physics
 				//p.CurrentAcceleration = Vector3.Zero;
 				p.NextVelocity = Velocity;
 				p.NextPosition = finalPosition;
+				p.LastCollision = s;
 			}
 
 			if (s.DotNormal(p.NextPosition) <= 0)
