@@ -10,13 +10,66 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace Project_blob
+namespace WorldMakerDemo
 {
     public class DrawableModel : Drawable
     {
         Model m_Model;
         GraphicsDevice m_GraphicsDevice;
         Matrix m_Position, m_Rotation, m_Scale;
+
+        //priority for translation, rotation, and scale
+        //index 0 = translation
+        //index 1 = rotation
+        //index 2 = scale
+        int[] m_PriorityArray = new int[3];
+
+        public int[] PriorityArray
+        {
+            get
+            {
+                return m_PriorityArray;
+            }
+            set
+            {
+                m_PriorityArray = value;
+            }
+        }
+        public int TranslationPriority
+        {
+            get
+            {
+                return m_PriorityArray[0];
+            }
+            set
+            {
+                m_PriorityArray[0] = value;
+            }
+        }
+
+        public int RotationPriority
+        {
+            get
+            {
+                return m_PriorityArray[1];
+            }
+            set
+            {
+                m_PriorityArray[1] = value;
+            }
+        }
+
+        public int ScalePriority
+        {
+            get
+            {
+                return m_PriorityArray[2];
+            }
+            set
+            {
+                m_PriorityArray[2] = value;
+            }
+        }
 
         public Matrix Position
         {
@@ -68,6 +121,17 @@ namespace Project_blob
         public VertexBuffer getVertexBuffer()
         {
             return null;
+        }
+
+        public DrawableModel()
+        {
+            for (int i = 0; i < 3; i++)
+                m_PriorityArray[i] = 3;
+
+            m_Position = Matrix.CreateTranslation(Vector3.Zero);
+            m_Rotation = Matrix.CreateRotationZ(0);
+            m_Scale = Matrix.CreateScale(1);
+
         }
 
         public void setGraphicsDevice(GraphicsDevice device)
