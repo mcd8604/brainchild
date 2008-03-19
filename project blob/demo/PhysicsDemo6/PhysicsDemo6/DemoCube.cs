@@ -39,6 +39,17 @@ namespace PhysicsDemo6
 			}
 		}
 
+        public void setSpringLength(float delta)
+        {
+
+            foreach (Physics.Spring s in springs)
+            {
+                s.maximumLengthBeforeExtension += delta;
+                s.minimumLengthBeforeCompression += delta;
+            }
+
+        }
+
 		public Vector3 getCenter()
 		{
 			Vector3 ret = Vector3.Zero;
@@ -114,6 +125,8 @@ namespace PhysicsDemo6
 			vertices[13] = new VertexPositionNormalTexture(btl.Position, Vector3.Up, new Vector2(0f, 1f));
 			vertices[14] = new VertexPositionNormalTexture(btr.Position, Vector3.Up, Vector2.One);
 			vertices[15] = new VertexPositionNormalTexture(bbr.Position, Vector3.Up, new Vector2(1f, 0f));
+
+            baseVolume = (2 * radius) * (2 * radius) * (2 * radius);
 
 		}
 
@@ -274,12 +287,77 @@ namespace PhysicsDemo6
         {
             return springs;
         }
-
-        public override float getVolume()
+        */
+        public float getVolume()
         {
             // TODO
-            return 1;
+
+            // 1/3 * area of base ( face ) * height ( center of face to center of cube )
+
+            float totalVolume = 0;
+
+            Vector3 centerOfCube = getCenter();
+
+
+            for (int i = 1; i < 7; ++i)
+            {
+
+                totalVolume += getFaceVolume(vertices[0].Position, vertices[i].Position, vertices[i + 1].Position);
+
+            }
+
+            totalVolume += getFaceVolume(vertices[0].Position, vertices[7].Position, vertices[1].Position);
+
+            for (int i = 9; i < 15; ++i)
+            {
+
+                totalVolume += getFaceVolume(vertices[8].Position, vertices[i].Position, vertices[i + 1].Position);
+
+            }
+
+            totalVolume += getFaceVolume(vertices[8].Position, vertices[15].Position, vertices[9].Position);
+
+
+            return totalVolume;
         }
-		*/
+
+        private float getFaceVolume(Vector3 point1, Vector3 point2, Vector3 point3)
+        {
+
+            Vector3 a = point2 - point1;
+            Vector3 b = point3 - point1;
+            Vector3 c = Vector3.Cross(a, b);
+
+            float area = 0.5f * c.Length();
+
+            // not correct, need length along perpendicular vector
+            Vector3 center = (point1 + point2 + point3) / 3f;
+
+            float height = Vector3.Distance(getCenter(), center);
+
+            float volume = height * area * (1f / 3f);
+
+            return volume;
+
+        }
+
+        public float baseVolume = 10f;
+        public float idealVolume = 10f;
+
+        public void update()
+        {
+
+            Vector3 center = getCenter();
+            float volume = getVolume();
+
+            foreach (Physics.Point p in points)
+            {
+
+                p.CurrentForce += (center - p.Position) * (volume - idealVolume) * (1f);
+
+            }
+
+        }
+
 	}
 }
