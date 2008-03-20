@@ -2,61 +2,61 @@ using Microsoft.Xna.Framework;
 
 namespace Physics
 {
-	public class Point : Actor
-	{
-		private Vector3 position = Vector3.Zero;
-		public Vector3 Position
-		{
-			get
-			{
-				return position;
-			}
-		}
+    public class Point : Actor
+    {
+        private Vector3 position = Vector3.Zero;
+        public Vector3 Position
+        {
+            get
+            {
+                return position;
+            }
+        }
 
-		private Vector3 velocity = Vector3.Zero;
-		public Vector3 Velocity
-		{
-			get
-			{
-				return velocity;
-			}
-		}
+        private Vector3 velocity = Vector3.Zero;
+        public Vector3 Velocity
+        {
+            get
+            {
+                return velocity;
+            }
+        }
 
-		public Vector3 acceleration = Vector3.Zero;
+        public Vector3 acceleration = Vector3.Zero;
 
-		public Vector3 CurrentForce = Vector3.Zero;
+        public Vector3 CurrentForce = Vector3.Zero;
 
-		internal Vector3 NextPosition = Vector3.Zero;
-		internal Vector3 NextVelocity = Vector3.Zero;
+        internal Vector3 NextPosition = Vector3.Zero;
+        internal Vector3 NextVelocity = Vector3.Zero;
         internal Vector3 NextAcceleration = Vector3.Zero;
 
-		internal Collidable LastCollision = null;
+        internal Collidable LastCollision = null;
 
-		public float mass = 1;
+        public float mass = 1;
 
-		public Point(Vector3 startPosition)
-		{
-			position = startPosition;
-			NextPosition = Position;
-		}
+        public Point(Vector3 startPosition)
+        {
+            position = startPosition;
+            NextPosition = Position;
+        }
 
-		public Vector3 getCurrentPosition()
-		{
-			return Position;
-		}
+        public Vector3 getCurrentPosition()
+        {
+            return Position;
+        }
 
-		internal void updatePosition()
-		{
-			position = NextPosition;
-			velocity = NextVelocity;
+        internal void updatePosition()
+        {
+            position = NextPosition;
+            velocity = NextVelocity;
             acceleration = NextAcceleration;
-			CurrentForce = Vector3.Zero;
+            CurrentForce = Vector3.Zero;
 
             //if (LastCollision != null && Physics.TEMP_SurfaceFriction >= 1)
             //{
             //    CurrentForce -= LastCollision.getPlane().Normal * (100 * Physics.TEMP_SurfaceFriction * 0.75f );
             //}
-		}
+        }
 
-	}
+    }
 }
