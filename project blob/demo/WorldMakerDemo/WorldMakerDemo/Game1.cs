@@ -43,6 +43,7 @@ namespace WorldMakerDemo
         Vector3 focusPoint = new Vector3(0, 0, 0);
         Vector3 Up = Vector3.Up;
         Vector3 Horizontal = new Vector3();
+        Vector3 Run = new Vector3();
 
         Vector3 position = new Vector3(0, 0, 0);
         float scale = 1;
@@ -208,26 +209,33 @@ namespace WorldMakerDemo
             {
                 this.Exit();
             }
+            Horizontal = Vector3.Normalize(Vector3.Cross(focusPoint - cameraPosition, Up));
+            Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
             if (InputHandler.IsKeyPressed(Keys.A))
             {
                 //strif to the left
-                this.focusPoint += Vector3.Normalize(Vector3.Cross(focusPoint - cameraPosition, Up));
+                
+                this.focusPoint += Horizontal;
+                //Console.WriteLine(focusPoint);
             }
             if (InputHandler.IsKeyPressed(Keys.D))
             {
                 //strif to the right
-                this.focusPoint -= Vector3.Normalize(Vector3.Cross(focusPoint - cameraPosition, Up));
+                this.focusPoint -= Horizontal;
+                //Console.WriteLine(focusPoint);
             }
             if (InputHandler.IsKeyPressed(Keys.W))
             {
                 //move foward
-                this.focusPoint += Vector3.Normalize(Vector3.Cross(Horizontal, Up));
+                this.focusPoint += Run;
+                //Console.WriteLine(focusPoint);
             }
             if (InputHandler.IsKeyPressed(Keys.S))
             {
                 //move backwards
-                this.focusPoint -= Vector3.Normalize(Vector3.Cross(Horizontal, Up));
+                this.focusPoint -= Run;
+                //Console.WriteLine(focusPoint);
             }
 
             if (follow)
@@ -250,7 +258,9 @@ namespace WorldMakerDemo
                 cameraPosition = focusPoint + Offset;
 
                 viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
-                
+
+                m_Display.TestEffect.View = viewMatrix;
+
                 effect.Parameters["xView"].SetValue(viewMatrix);
 
                 //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
