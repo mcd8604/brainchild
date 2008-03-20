@@ -10,6 +10,7 @@ namespace WorldMakerDemo.Level
     public static class Level
     {
         private static List<Area> _areas;
+        private static String _name;
 
         public static List<Area> Areas
         {
@@ -17,9 +18,15 @@ namespace WorldMakerDemo.Level
             set { _areas = value; }
         }
 
+        public static String Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
         public static void SaveLevel(String levelName)
         {
-
+            _name = levelName;
             Stream s = File.Create(levelName + ".lev");
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(s, _areas);
@@ -28,6 +35,7 @@ namespace WorldMakerDemo.Level
 
         public static void LoadLevel(String levelName)
         {
+            _name = levelName;
             Stream s = File.Open(levelName + ".lev", FileMode.Open);
             BinaryFormatter bf = new BinaryFormatter();
             _areas = (List<Area>)bf.Deserialize(s);
