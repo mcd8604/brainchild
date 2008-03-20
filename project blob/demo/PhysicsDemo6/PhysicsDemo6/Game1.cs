@@ -341,6 +341,11 @@ namespace PhysicsDemo6
             physics.Player.Resilience.Maximum = 92.5f;
             physics.Player.Resilience.Delta = 10;
 
+            physics.Player.Volume.Minimum = -100f;
+            physics.Player.Volume.Origin = 0f;
+            physics.Player.Volume.Maximum = 100f;
+            physics.Player.Volume.Delta = 5;
+
             drawables.Clear();
         }
 
@@ -591,14 +596,21 @@ namespace PhysicsDemo6
 
             if (InputHandler.IsKeyDown(Keys.X))
             {
-                playerCube.idealVolume = playerCube.baseVolume + 50f;
+                //playerCube.idealVolume = playerCube.baseVolume + 50f;
+                physics.Player.Volume.Target = 1f;
+            }
+            else if (InputHandler.IsKeyDown(Keys.C))
+            {
+                //playerCube.idealVolume = playerCube.baseVolume + 50f;
+                physics.Player.Volume.Target = 0f;
             }
             else
             {
-                playerCube.idealVolume = playerCube.baseVolume;
+                //playerCube.idealVolume = playerCube.baseVolume;
+                physics.Player.Volume.Target = 0.5f;
             }
-            Console.WriteLine(playerCube.getVolume());
-            playerCube.update();
+            //Console.WriteLine(playerCube.getVolume());
+            //playerCube.update();
 
 			if (!paused)
 			{
@@ -747,11 +759,11 @@ namespace PhysicsDemo6
 			GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			spriteBatch.Begin();
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
-			if (DemoCube.springVal < 40)
+			if (physics.Player.Resilience.current < 0.5)
 			{
 				spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
 			}
-			else if (DemoCube.springVal > 70)
+            else if (physics.Player.Resilience.current > 0.5)
 			{
 				spriteBatch.DrawString(font, "Firm", new Vector2(150, 0), Color.White);
 			}
