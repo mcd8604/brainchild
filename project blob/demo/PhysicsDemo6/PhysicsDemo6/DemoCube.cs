@@ -126,7 +126,7 @@ namespace PhysicsDemo6
 			vertices[14] = new VertexPositionNormalTexture(btr.Position, Vector3.Up, Vector2.One);
 			vertices[15] = new VertexPositionNormalTexture(bbr.Position, Vector3.Up, new Vector2(1f, 0f));
 
-            baseVolume = (2 * radius) * (2 * radius) * (2 * radius);
+            //baseVolume = (2 * radius) * (2 * radius) * (2 * radius);
 
 		}
 
@@ -341,23 +341,23 @@ namespace PhysicsDemo6
 
         }
 
-        public float baseVolume = 10f;
-        public float idealVolume = 10f;
+        //public float baseVolume = 10f;
+        //public float idealVolume = 10f;
 
-        public void update()
-        {
+        //public void update()
+        //{
 
-            Vector3 center = getCenter();
-            float volume = getVolume();
+        //    Vector3 center = getCenter();
+        //    float volume = getVolume();
 
-            foreach (Physics.Point p in points)
-            {
+        //    foreach (Physics.Point p in points)
+        //    {
 
-                p.CurrentForce += (center - p.Position) * (volume - idealVolume) * (1f);
+        //        p.CurrentForce += (center - p.Position) * (volume - idealVolume) * (1f);
 
-            }
+        //    }
 
-        }
+        //}
 
 	}
 }

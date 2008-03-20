@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Xna.Framework;
 
 namespace Physics
 {
@@ -7,6 +8,9 @@ namespace Physics
 
 
         private Body playerBody = null;
+        /// <summary>
+        /// The Body controlled by the player.
+        /// </summary>
         public Body PlayerBody
         {
             set
@@ -22,6 +26,9 @@ namespace Physics
 
         // Cling
         Property cling = new Property();
+        /// <summary>
+        /// The ability to stick to surfaces.
+        /// </summary>
         public Property Cling
         {
             get
@@ -33,6 +40,9 @@ namespace Physics
 
         // Traction
         Property traction = new Property();
+        /// <summary>
+        /// The friction opposing sliding along a surface.
+        /// </summary>
         public Property Traction
         {
             get
@@ -43,6 +53,9 @@ namespace Physics
 
         // Resilience
         Property resilience = new Property();
+        /// <summary>
+        /// The resistance to deformation.
+        /// </summary>
         public Property Resilience
         {
             get
@@ -53,6 +66,9 @@ namespace Physics
 
         // Volume
         Property volume = new Property();
+        /// <summary>
+        /// The internal pressure.
+        /// </summary>
         public Property Volume
         {
             get
@@ -84,6 +100,13 @@ namespace Physics
             foreach (Spring s in playerBody.getSprings())
             {
                 s.Force = resilience.value;
+            }
+
+            Vector3 CurrentPlayerCenter = playerBody.getCenter();
+            float CurrentPlayerVolume = playerBody.getVolume();
+            foreach (Physics.Point p in playerBody.getPoints())
+            {
+                p.CurrentForce += (CurrentPlayerCenter - p.Position) * (CurrentPlayerVolume - volume.value);
             }
         }
 
