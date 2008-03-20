@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace WorldMakerDemo
+namespace Project_blob
 {
     //This class holds a list of VectorLists to be drawn to the screen
     //This is a framework, nothing in here is complete!!

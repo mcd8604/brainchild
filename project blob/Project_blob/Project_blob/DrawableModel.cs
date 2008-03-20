@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace WorldMakerDemo
+namespace Project_blob
 {
     public class DrawableModel : Drawable
     {

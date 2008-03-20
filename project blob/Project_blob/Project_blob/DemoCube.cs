@@ -181,38 +181,39 @@ namespace Project_blob
 			vertices[15] = new VertexPositionNormalTexture(bbr.Position, normal_bbr, new Vector2(1f, 0f));
 			 */
 
-			vertices[0].Position = ftr.Position;
-			vertices[0].Normal = normal_ftr;
-			vertices[1].Position = fbr.Position;
-			vertices[1].Normal = normal_fbr;
-			vertices[2].Position = bbr.Position;
-			vertices[2].Normal = normal_bbr;
-			vertices[3].Position = btr.Position;
-			vertices[3].Normal = normal_btr;
-			vertices[4].Position = btl.Position;
-			vertices[4].Normal = normal_btl;
-			vertices[5].Position = ftl.Position;
-			vertices[5].Normal = normal_ftl;
-			vertices[6].Position = fbl.Position;
-			vertices[6].Normal = normal_fbl;
-			vertices[7].Position = fbr.Position;
-			vertices[7].Normal = normal_fbr;
-			vertices[8].Position = bbl.Position;
-			vertices[8].Normal = normal_bbl;
-			vertices[9].Position = bbr.Position;
-			vertices[9].Normal = normal_bbr;
-			vertices[10].Position = fbr.Position;
-			vertices[10].Normal = normal_fbr;
-			vertices[11].Position = fbl.Position;
-			vertices[11].Normal = normal_fbl;
-			vertices[12].Position = ftl.Position;
-			vertices[12].Normal = normal_ftl;
-			vertices[13].Position = btl.Position;
-			vertices[13].Normal = normal_btl;
-			vertices[14].Position = btr.Position;
-			vertices[14].Normal = normal_btr;
-			vertices[15].Position = bbr.Position;
-			vertices[15].Normal = normal_bbr;
+            vertices[0].Position = ftr.Position;
+            vertices[0].Normal = normal_ftr;
+            vertices[1].Position = fbr.Position;
+            vertices[1].Normal = normal_fbr;
+            vertices[2].Position = bbr.Position;
+            vertices[2].Normal = normal_bbr;
+            vertices[3].Position = btr.Position;
+            vertices[3].Normal = normal_btr;
+            vertices[4].Position = btl.Position;
+            vertices[4].Normal = normal_btl;
+            vertices[5].Position = ftl.Position;
+            vertices[5].Normal = normal_ftl;
+            vertices[6].Position = fbl.Position;
+            vertices[6].Normal = normal_fbl;
+            vertices[7].Position = fbr.Position;
+            vertices[7].Normal = normal_fbr;
+            vertices[8].Position = bbl.Position;
+            vertices[8].Normal = normal_bbl;
+            vertices[9].Position = bbr.Position;
+            vertices[9].Normal = normal_bbr;
+            vertices[10].Position = fbr.Position;
+            vertices[10].Normal = normal_fbr;
+            vertices[11].Position = fbl.Position;
+            vertices[11].Normal = normal_fbl;
+            vertices[12].Position = ftl.Position;
+            vertices[12].Normal = normal_ftl;
+            vertices[13].Position = btl.Position;
+            vertices[13].Normal = normal_btl;
+            vertices[14].Position = btr.Position;
+            vertices[14].Normal = normal_btr;
+            vertices[15].Position = bbr.Position;
+            vertices[15].Normal = normal_bbr;
+
 			
 
 			return vertices;
@@ -220,6 +221,7 @@ namespace Project_blob
 
 		public VertexBuffer getVertexBuffer()
 		{
+
 			myVertexBuffer.SetData<VertexPositionNormalTexture>(getTriangleVertexes());
 			return myVertexBuffer;
 		}

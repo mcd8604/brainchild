@@ -26,6 +26,7 @@ namespace Project_blob
         Texture2D text2;
         DrawableModel model;
         Effect m_Effect;
+        StaticTri ground;
 
         public Game1()
         {
@@ -52,27 +53,28 @@ namespace Project_blob
         /// </summary>
         protected override void LoadContent()
         {
-            //text = Content.Load<Texture2D>("test");
-            //text2 = Content.Load<Texture2D>("test2");
+            text = Content.Load<Texture2D>("test");
+            text2 = Content.Load<Texture2D>("test2");
             m_Effect = Content.Load<Effect>("effects");
             model = new DrawableModel();
             model.ModelObject = Content.Load<Model>("ball");
 
-            //TextureInfo ti = new TextureInfo(text, 0);
-            //TextureInfo ti2 = new TextureInfo(text2, 1);
+            TextureInfo ti = new TextureInfo(text, 0);
+            TextureInfo ti2 = new TextureInfo(text2, 1);
+
+            ground = new StaticTri(new Vector3(-10, -2,-5), new Vector3(8, -2, -5), new Vector3(0, -2, 5), Color.Blue);
             
             cubeVertices = new VertexPositionNormalTexture[36];
             cube2Vertices = new VertexPositionNormalTexture[36];
-            DemoCube testCube = new DemoCube(Vector3.Zero, 1);
-            DemoCube testCube2 = new DemoCube(new Vector3(0, 3, 0), 1);
+            DemoCube testCube = new DemoCube(new Vector3(-2,0,0), 1);
+            DemoCube testCube2 = new DemoCube(new Vector3(2,0,0), 1);
             
             VertexDeclaration basicEffectVertexDeclaration = new VertexDeclaration(
                 graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
             float tilt = MathHelper.ToRadians(22.5f);  // 22.5 degree angle
             // Use the world matrix to tilt the cube along x and y axes.
-            worldMatrix = Matrix.CreateRotationX(tilt) *
-                Matrix.CreateRotationY(tilt);
+            worldMatrix = Matrix.Identity;
 
             viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero,
                 Vector3.Up);
@@ -99,20 +101,29 @@ namespace Project_blob
             );
 
             model.setGraphicsDevice(graphics.GraphicsDevice);
-            model.Position = Matrix.CreateTranslation(new Vector3(0,-5,0));
+            model.Position = Matrix.CreateTranslation(new Vector3(0,2,0));
 
             vertexBuffer2.SetData<VertexPositionNormalTexture>(cube2Vertices);
             testCube.setGraphicsDevice(graphics.GraphicsDevice);
             testCube2.setGraphicsDevice(graphics.GraphicsDevice);
+            ground.setGraphicsDevice(graphics.GraphicsDevice);
             List<Drawable> list = new List<Drawable>();
             list.Add(testCube);
             list.Add(model);
+            list.Add(ground);
 
             List<Drawable> list2 = new List<Drawable>();
             list2.Add(testCube2);
 
             m_Display.DrawnList.Add(ti, list);
             m_Display.DrawnList.Add(ti2, list2);
+
+            Physics.Physics.Gravity = new Physics.GravityVector();
+            Physics.Physics.AddCollidable(ground);
+            Physics.Physics.AddPoints(testCube.points);
+            Physics.Physics.AddSprings(testCube.springs);
+            Physics.Physics.AddPoints(testCube2.points);
+            Physics.Physics.AddSprings(testCube2.springs);
         }
 
         /// <summary>
@@ -135,7 +146,7 @@ namespace Project_blob
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            Physics.Physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             base.Update(gameTime);
         }
