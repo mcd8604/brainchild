@@ -93,7 +93,7 @@ namespace Physics
                 if (p.LastCollision != null && cling.value > 0)
                 {
                     //CurrentForce -= LastCollision.getPlane().Normal * (100 * Physics.TEMP_SurfaceFriction * 0.75f);
-                    p.CurrentForce -= p.LastCollision.getPlane().Normal * cling.value;
+                    p.CurrentForce -= p.LastCollision.Normal() * cling.value;
                 }
             }
 

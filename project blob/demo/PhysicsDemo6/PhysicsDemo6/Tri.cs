@@ -103,6 +103,11 @@ namespace PhysicsDemo6
 
 		}
 
+        public bool shouldPhysicsBlock(Physics.Point p)
+        {
+            return true;
+        }
+
 		public Plane getPlane()
 		{
 			return new Plane(points[0].Position, points[1].Position, points[2].Position);

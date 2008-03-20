@@ -125,7 +125,7 @@ namespace Physics
 
 			if (Collision)
 			{
-				return CollisionTri.getPlane().Normal;
+				return CollisionTri.Normal();
 			}
 			else
 			{
@@ -314,7 +314,7 @@ namespace Physics
 		private  void slidingPhysics(Point p, float time, Collidable s)
 		{
 
-			Vector3 collisionNormal = s.getPlane().Normal;
+			Vector3 collisionNormal = s.Normal();
 
 			// nudge it out just enough to be above the plane to keep floating point error from falling through
 			while (s.DotNormal(p.NextPosition) <= 0)
