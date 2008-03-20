@@ -40,12 +40,6 @@ namespace Physics
 		Vector3 Normal();
 
         /// <summary>
-        /// The Plane along which this collidable lies, if applicable.
-        /// </summary>
-        /// <returns></returns>
-		Plane getPlane();
-
-        /// <summary>
         /// This collidable was hit by a point, and this force was transferred into the collidable.
         /// </summary>
         /// <param name="at"></param>
