@@ -77,9 +77,14 @@ namespace Physics
             }
         }
 
-
-
-
+        public void applyTorque(float Magnitude, Vector3 Around)
+        {
+            Vector3 CurrentPlayerCenter = playerBody.getCenter();
+            foreach (Physics.Point p in playerBody.getPoints())
+            {
+                p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - CurrentPlayerCenter, Around)) * Magnitude;
+            }
+        }
 
         internal void update(float time)
         {

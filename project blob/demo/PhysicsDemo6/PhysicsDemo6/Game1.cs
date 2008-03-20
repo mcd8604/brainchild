@@ -338,11 +338,11 @@ namespace PhysicsDemo6
             physics.Player.Resilience.Maximum = 92.5f;
             physics.Player.Resilience.Delta = 10;
 
-            physics.Player.Volume.Minimum = -100f;
-            physics.Player.Volume.Origin = 0f;
-            physics.Player.Volume.Maximum = 100f;
+            physics.Player.Volume.Minimum = 0f;
+            physics.Player.Volume.Origin = 10f;
+            physics.Player.Volume.Maximum = 200f;
             physics.Player.Volume.Delta = 5;
-
+            
             drawables.Clear();
         }
 
@@ -572,11 +572,15 @@ namespace PhysicsDemo6
 				}
 				Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(playerCube.getCenter() - cameraPosition, Up));
 				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
-				foreach (Physics.Point p in playerCube.points)
-				{
-					p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
-					p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Run)) * (move.X * playerMoveMulti);
-				}
+
+                physics.Player.applyTorque(move.Y * playerMoveMulti, Horizontal);
+                physics.Player.applyTorque(move.X * playerMoveMulti, Run);
+
+				//foreach (Physics.Point p in playerCube.points)
+                //{
+                //    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
+                //    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Run)) * (move.X * playerMoveMulti);
+                //}
 			}
 
             if (InputHandler.IsKeyPressed(Keys.PageUp))
