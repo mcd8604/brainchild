@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WorldMakerDemo
+namespace Project_blob
 {
 	interface Drawable
 	{
