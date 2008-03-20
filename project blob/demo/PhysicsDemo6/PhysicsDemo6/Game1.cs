@@ -316,12 +316,9 @@ namespace PhysicsDemo6
 
 		private void addToPhysicsAndDraw(T t)
 		{
-
             physics.AddCollidable(t);
 			drawables.Add(t);
-
 		}
-
 
 
         private void reset()

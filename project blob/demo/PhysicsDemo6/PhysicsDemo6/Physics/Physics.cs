@@ -218,30 +218,34 @@ namespace Physics
 						if (u < 1)
 						{
 
-							if (Collision)
-							{
+                            // should physics interact
+                            if (c.shouldPhysicsBlock(p))
+                            {
 
-								//Console.WriteLine("Secondary Collision!");
+                                if (Collision)
+                                {
 
-							}
+                                    //Console.WriteLine("Secondary Collision!");
 
-
-							if (!Collision)
-							{
-								CollisionTri = c;
-								CollisionU = u;
-								Collision = true;
-							}
-							else
-							{
-								if (u < CollisionU)
-								{
-									CollisionTri = c;
-									CollisionU = u;
-								}
-							}
+                                }
 
 
+                                if (!Collision)
+                                {
+                                    CollisionTri = c;
+                                    CollisionU = u;
+                                    Collision = true;
+                                }
+                                else
+                                {
+                                    if (u < CollisionU)
+                                    {
+                                        CollisionTri = c;
+                                        CollisionU = u;
+                                    }
+                                }
+
+                            }
 						}
 
 					}
