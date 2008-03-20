@@ -4,16 +4,16 @@ using System.Text;
 
 namespace Physics
 {
-	public abstract class Body
+	public interface Body
 	{
 
-		public abstract IEnumerable<Point> getPoints();
+		IEnumerable<Point> getPoints();
 
-		public abstract IEnumerable<Collidable> getCollidables();
+		IEnumerable<Collidable> getCollidables();
 
-		public abstract IEnumerable<Spring> getSprings();
+		IEnumerable<Spring> getSprings();
 
-		public abstract float getVolume();
+		float getVolume();
 
 	}
 }

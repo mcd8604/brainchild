@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PhysicsDemo6
 {
-	public class DemoCube : Drawable
+	public class DemoCube : Drawable, Physics.Body
 	{
 		public readonly List<Physics.Point> points = new List<Physics.Point>();
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
@@ -30,14 +30,14 @@ namespace PhysicsDemo6
 		private GraphicsDevice theDevice;
 		private VertexBuffer myVertexBuffer;
 
-		public void setSpringForce(float force)
-		{
-			springVal = force;
-			foreach (Physics.Spring s in springs)
-			{
-				s.Force = force;
-			}
-		}
+        //public void setSpringForce(float force)
+        //{
+        //    springVal = force;
+        //    foreach (Physics.Spring s in springs)
+        //    {
+        //        s.Force = force;
+        //    }
+        //}
 
         public void setSpringLength(float delta)
         {
@@ -254,13 +254,13 @@ namespace PhysicsDemo6
 			theDevice.DrawPrimitives(PrimitiveType.TriangleFan, 8, 6);
 		}
 
-		/*
-        public override IEnumerable<Physics.Point> getPoints()
+		
+        public IEnumerable<Physics.Point> getPoints()
         {
             return points;
         }
 
-        public override IEnumerable<Physics.Collidable> getCollidables()
+        public IEnumerable<Physics.Collidable> getCollidables()
         {
             // Disabled collision planes for softcubes until I can figure out what's wrong.
 
@@ -283,11 +283,11 @@ namespace PhysicsDemo6
             return temp;
         }
 
-        public override IEnumerable<Physics.Spring> getSprings()
+        public IEnumerable<Physics.Spring> getSprings()
         {
             return springs;
         }
-        */
+        
         public float getVolume()
         {
             // TODO

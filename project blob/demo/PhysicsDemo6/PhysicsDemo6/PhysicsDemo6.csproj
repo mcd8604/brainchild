@@ -68,7 +68,9 @@
     <Compile Include="Physics\GravityVector.cs" />
     <Compile Include="Physics\Mover.cs" />
     <Compile Include="Physics\Physics.cs" />
-    <Compile Include="Physics\Player.cs" />
+    <Compile Include="Physics\Player.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Physics\Point.cs" />
     <Compile Include="Physics\Spring.cs" />
     <Compile Include="StaticQuad.cs" />

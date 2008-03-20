@@ -74,6 +74,9 @@ namespace PhysicsDemo6
 		float playerMoveMulti = 50f;
 
 
+        Physics.PhysicsManager physics;
+
+
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -90,9 +93,10 @@ namespace PhysicsDemo6
 		/// </summary>
 		protected override void Initialize()
 		{
+            reset();
 			initLoop();
 			//Physics.Physics.AirFriction = 0.5f;
-			Physics.Physics.AirFriction = 2f;
+            physics.AirFriction = 2f;
 
 			//cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
 
@@ -105,9 +109,10 @@ namespace PhysicsDemo6
 		{
 			cubeStartPosition = new Vector3(0, 4, 0);
 			playerCube = new DemoCube(cubeStartPosition, 1);
-			Physics.Physics.AddPoints(playerCube.points);
-			Physics.Physics.AddSprings(playerCube.springs);
+            physics.AddPoints(playerCube.points);
+            physics.AddSprings(playerCube.springs);
 
+            physics.Player.PlayerBody = playerCube;
 
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, 10), new Vector3(10, 0, 10), Color.Red));
@@ -138,7 +143,7 @@ namespace PhysicsDemo6
 
 
 
-			Physics.Physics.Gravity = new Physics.GravityVector();
+            physics.Gravity = new Physics.GravityVector();
 
 			lightPosition = new Vector4(0, 5, 0, 0);
 
@@ -155,35 +160,36 @@ namespace PhysicsDemo6
 
 			cubeStartPosition = new Vector3(0, 10, 0);
 			playerCube = new DemoCube(cubeStartPosition, 1);
-			Physics.Physics.AddPoints(playerCube.points);
-			Physics.Physics.AddSprings(playerCube.springs);
+            physics.AddPoints(playerCube.points);
+            physics.AddSprings(playerCube.springs);
 
+            physics.Player.PlayerBody = playerCube;
 
 			// 'world' 'cube'
 
 			StaticQuad temp = new StaticQuad(new Vector3(-5, 5, 5), new Vector3(5, 5, 5), new Vector3(5, 5, -5), new Vector3(-5, 5, -5), Color.Orange); // 'top'
-			Physics.Physics.AddCollidable(temp);
+            physics.AddCollidable(temp);
 			drawables.Add(temp);
 			temp = new StaticQuad(new Vector3(-5, -5, 5), new Vector3(-5, -5, -5), new Vector3(5, -5, -5), new Vector3(5, -5, 5), Color.Blue);
-			Physics.Physics.AddCollidable(temp);
+            physics.AddCollidable(temp);
 			drawables.Add(temp);
 
 			temp = new StaticQuad(new Vector3(-5, -5, 5), new Vector3(5, -5, 5), new Vector3(5, 5, 5), new Vector3(-5, 5, 5), Color.Red);
-			Physics.Physics.AddCollidable(temp);
+            physics.AddCollidable(temp);
 			drawables.Add(temp);
 			temp = new StaticQuad(new Vector3(-5, -5, -5), new Vector3(-5, 5, -5), new Vector3(5, 5, -5), new Vector3(5, -5, -5), Color.Green);
-			Physics.Physics.AddCollidable(temp);
+            physics.AddCollidable(temp);
 			drawables.Add(temp);
 
 			temp = new StaticQuad(new Vector3(5, -5, -5), new Vector3(5, 5, -5), new Vector3(5, 5, 5), new Vector3(5, -5, 5), Color.Yellow);
-			Physics.Physics.AddCollidable(temp);
+            physics.AddCollidable(temp);
 			drawables.Add(temp);
 			temp = new StaticQuad(new Vector3(-5, -5, -5), new Vector3(-5, -5, 5), new Vector3(-5, 5, 5), new Vector3(-5, 5, -5), Color.Purple);
-			Physics.Physics.AddCollidable(temp);
+            physics.AddCollidable(temp);
 			drawables.Add(temp);
 
 
-			Physics.Physics.Gravity = new Physics.GravityPoint();
+            physics.Gravity = new Physics.GravityPoint();
 
 
 			lightPosition = new Vector4(5, 5, 5, 0);
@@ -202,10 +208,10 @@ namespace PhysicsDemo6
 
 			cubeStartPosition = new Vector3(0, 12, 0);
 			playerCube = new DemoCube(cubeStartPosition, 1);
-			Physics.Physics.AddPoints(playerCube.points);
-			Physics.Physics.AddSprings(playerCube.springs);
+            physics.AddPoints(playerCube.points);
+            physics.AddSprings(playerCube.springs);
 
-
+            physics.Player.PlayerBody = playerCube;
 
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 10, 0), new Vector3(-7, 7, 7), new Vector3(7, 7, 7), Color.Orange));
@@ -245,7 +251,7 @@ namespace PhysicsDemo6
 
 
 
-			Physics.Physics.Gravity = new Physics.GravityPoint();
+            physics.Gravity = new Physics.GravityPoint();
 
 			lightPosition = new Vector4(7, 7, 7, 0);
 
@@ -266,14 +272,17 @@ namespace PhysicsDemo6
 
 			playerCube = new DemoCube(cubeStartPosition, 1);
 
-			Physics.Physics.AddPoints(playerCube.points);
-			Physics.Physics.AddSprings(playerCube.springs);
+            physics.AddPoints(playerCube.points);
+            physics.AddSprings(playerCube.springs);
+
+            physics.Player.PlayerBody = playerCube;
+
 
 
 			DemoCube cubeTwo = new DemoCube( new Vector3(-2, 5, 2), 1.5f);
 
-			Physics.Physics.AddPoints(cubeTwo.points);
-			Physics.Physics.AddSprings(cubeTwo.springs);
+            physics.AddPoints(cubeTwo.points);
+            physics.AddSprings(cubeTwo.springs);
 			foreach (T t in cubeTwo.collidables)
 			{
 				addToPhysicsAndDraw(t);
@@ -290,7 +299,7 @@ namespace PhysicsDemo6
 			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 15), new Vector3(5, 0, 15), new Vector3(5, 0, 5), Color.Orange));
 
 
-			Physics.Physics.Gravity = new Physics.GravityVector();
+            physics.Gravity = new Physics.GravityVector();
 
 
 			lightPosition = new Vector4(-5, 5, 5, 0);
@@ -308,11 +317,32 @@ namespace PhysicsDemo6
 		private void addToPhysicsAndDraw(T t)
 		{
 
-			Physics.Physics.AddCollidable(t);
+            physics.AddCollidable(t);
 			drawables.Add(t);
 
 		}
 
+
+
+        private void reset()
+        {
+            physics = new Physics.PhysicsManager();
+
+            physics.Player.Traction.Minimum = 0.5f;
+            physics.Player.Traction.Origin = 1f;
+            physics.Player.Traction.Maximum = 2f;
+
+            physics.Player.Cling.Minimum = 0f;
+            physics.Player.Cling.Origin = 100f;
+            physics.Player.Cling.Maximum = 200f;
+
+            physics.Player.Resilience.Minimum = 12.5f;
+            physics.Player.Resilience.Origin = 62.5f;
+            physics.Player.Resilience.Maximum = 92.5f;
+            physics.Player.Resilience.Delta = 10;
+
+            drawables.Clear();
+        }
 
 		/// <summary>
 		/// LoadContent will be called once per game and is the place to load
@@ -395,26 +425,22 @@ namespace PhysicsDemo6
 			{
 				if (gameMode == 3)
 				{
-					Physics.Physics.Clear();
-					drawables.Clear();
+                    reset();
 					initLoop();
 				}
 				if (gameMode == 2)
 				{
-					Physics.Physics.Clear();
-					drawables.Clear();
+                    reset();
 					initCube();
 				}
 				else if (gameMode == 1)
 				{
-					Physics.Physics.Clear();
-					drawables.Clear();
+                    reset();
 					initThree();
 				}
 				else if (gameMode == 0)
 				{
-					Physics.Physics.Clear();
-					drawables.Clear();
+                    reset();
 					initGlobe();
 				}
 			}
@@ -439,29 +465,39 @@ namespace PhysicsDemo6
 					effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 				}
 			}
+
 			if (InputHandler.IsKeyPressed(Keys.S))
 			{
-				playerCube.setSpringForce(92.5f);
+				//playerCube.setSpringForce(92.5f);
+                physics.Player.Resilience.target = 1f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.D))
 			{
-				playerCube.setSpringForce(62.5f);
+				//playerCube.setSpringForce(62.5f);
+                physics.Player.Resilience.target = 0.5f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.W))
 			{
-				playerCube.setSpringForce(12.5f);
+				//playerCube.setSpringForce(12.5f);
+                physics.Player.Resilience.target = 0f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.Q))
 			{
-				Physics.Physics.TEMP_SurfaceFriction = 2f;
+				//Physics.PhysicsManager.TEMP_SurfaceFriction = 2f;
+                physics.Player.Traction.Target = 1f;
+                physics.Player.Cling.Target = 1f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.E))
 			{
-				Physics.Physics.TEMP_SurfaceFriction = 0.5f;
+				//Physics.PhysicsManager.TEMP_SurfaceFriction = 0.5f;
+                physics.Player.Traction.Target = 0f;
+                physics.Player.Cling.Target = 0f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.A))
 			{
-				Physics.Physics.TEMP_SurfaceFriction = 1f;
+				//Physics.PhysicsManager.TEMP_SurfaceFriction = 1f;
+                physics.Player.Traction.Target = 0.5f;
+                physics.Player.Cling.Target = 0.5f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.Z))
 			{
@@ -476,26 +512,22 @@ namespace PhysicsDemo6
 				gameMode = (gameMode + 1) % 4;
 				if (gameMode == 3)
 				{
-					Physics.Physics.Clear();
-					drawables.Clear();
+                    reset();
 					initLoop();
 				}
 				if (gameMode == 2)
 				{
-					Physics.Physics.Clear();
-					drawables.Clear();
+                    reset();
 					initCube();
 				}
 				else if (gameMode == 1)
 				{
-					Physics.Physics.Clear();
-					drawables.Clear();
+                    reset();
 					initThree();
 				}
 				else if (gameMode == 0)
 				{
-					Physics.Physics.Clear();
-					drawables.Clear();
+                    reset();
 					initGlobe();
 				}
 			}
@@ -515,9 +547,11 @@ namespace PhysicsDemo6
 			}
 			if (controllermode)
 			{
-				playerCube.setSpringForce(12.5f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 80f));
-				Physics.Physics.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
-				float vb = MathHelper.Clamp(Physics.Physics.ImpactThisFrame - 0.1f, 0f, 1f);
+				//playerCube.setSpringForce(12.5f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 80f));
+                physics.Player.Resilience.Target = GamePad.GetState(PlayerIndex.One).Triggers.Right;
+				//Physics.PhysicsManager.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
+                physics.Player.Traction.Target = GamePad.GetState(PlayerIndex.One).Triggers.Left;
+				float vb = MathHelper.Clamp( physics.ImpactThisFrame - 0.1f, 0f, 1f);
 				InputHandler.SetVibration(vb, 0f);
 			}
 
@@ -528,7 +562,7 @@ namespace PhysicsDemo6
 				Vector3 Up;
 				if (OrientCamera)
 				{
-					Up = Physics.Physics.getUp(playerCube.getCenter());
+					Up = physics.getUp(playerCube.getCenter());
 				}
 				else
 				{
@@ -568,7 +602,7 @@ namespace PhysicsDemo6
 
 			if (!paused)
 			{
-				Physics.Physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+				physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 			}
 
 			if (follow)
@@ -593,7 +627,7 @@ namespace PhysicsDemo6
 				// new Vector3(10, 10, 20)
 				if (OrientCamera)
 				{
-					viewMatrix = Matrix.CreateLookAt(cameraPosition, playerCube.getCenter(), Physics.Physics.getUp(playerCube.getCenter()));
+					viewMatrix = Matrix.CreateLookAt(cameraPosition, playerCube.getCenter(), physics.getUp(playerCube.getCenter()));
 				}
 				else
 				{
@@ -725,11 +759,11 @@ namespace PhysicsDemo6
 			{
 				spriteBatch.DrawString(font, "Normal", new Vector2(150, 0), Color.White);
 			}
-			if (Physics.Physics.TEMP_SurfaceFriction < 1)
+			if (physics.Player.Traction.current < 0.5)
 			{
 				spriteBatch.DrawString(font, "Slick", new Vector2(350, 0), Color.White);
 			}
-			else if (Physics.Physics.TEMP_SurfaceFriction > 1)
+            else if (physics.Player.Traction.current > 0.5)
 			{
 				spriteBatch.DrawString(font, "Sticky", new Vector2(350, 0), Color.White);
 			}
@@ -741,7 +775,7 @@ namespace PhysicsDemo6
 			{
 				spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
 			}
-			spriteBatch.DrawString(font, Physics.Physics.DEBUG_BumpLoops.ToString(), new Vector2(600, 0), Color.White);
+			spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(600, 0), Color.White);
 			spriteBatch.End();
 
 

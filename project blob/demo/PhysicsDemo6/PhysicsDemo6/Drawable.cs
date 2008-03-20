@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PhysicsDemo6
 {
-	interface Drawable
+	public interface Drawable
 	{
 
 		//VertexPositionColor[] getTriangleVertexes();
