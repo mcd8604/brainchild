@@ -4,23 +4,34 @@ using Microsoft.Xna.Framework;
 
 namespace Physics
 {
-	public static class Physics
+	public class PhysicsManager
 	{
 
-		static float friction = 1f;
-		public static float TEMP_SurfaceFriction
-		{
-			get
-			{
-				return friction;
-			}
-			set
-			{
-				friction = value;
-			}
-		}
-		static float airfriction = 1f;
-		public static float AirFriction
+
+        private Physics.Player player = new Player();
+        public Physics.Player Player
+        {
+            get
+            {
+                return player;
+            }
+        }
+
+
+        //float friction = 1f;
+        //public float TEMP_SurfaceFriction
+        //{
+        //    get
+        //    {
+        //        return friction;
+        //    }
+        //    set
+        //    {
+        //        friction = value;
+        //    }
+        //}
+		float airfriction = 1f;
+		public float AirFriction
 		{
 			get
 			{
@@ -32,42 +43,42 @@ namespace Physics
 			}
 		}
 
-		static Vector3 gravityOrigin = Vector3.Zero;
+		Vector3 gravityOrigin = Vector3.Zero;
 
-		static List<Collidable> collision = new List<Collidable>();
-		static List<Point> points = new List<Point>();
-		static List<Spring> springs = new List<Spring>();
+		 List<Collidable> collision = new List<Collidable>();
+		 List<Point> points = new List<Point>();
+		 List<Spring> springs = new List<Spring>();
 
-		public static void AddCollidable(Collidable c)
+		public void AddCollidable(Collidable c)
 		{
 			collision.Add(c);
 		}
-		public static void AddPoint(Point p)
+		public  void AddPoint(Point p)
 		{
 			points.Add(p);
 		}
-		public static void AddPoints(IEnumerable<Point> p)
+		public void AddPoints(IEnumerable<Point> p)
 		{
 			points.AddRange(p);
 		}
-		public static void AddSpring(Spring s)
+		public void AddSpring(Spring s)
 		{
 			springs.Add(s);
 		}
-		public static void AddSprings(IEnumerable<Spring> s)
+		public  void AddSprings(IEnumerable<Spring> s)
 		{
 			springs.AddRange(s);
 		}
 
-		public static void Clear()
-		{
-			collision.Clear();
-			points.Clear();
-			springs.Clear();
-		}
+        //public void Clear()
+        //{
+        //    collision.Clear();
+        //    points.Clear();
+        //    springs.Clear();
+        //}
 
-		private static Gravity gravity;
-		public static Gravity Gravity
+		private  Gravity gravity;
+		public  Gravity Gravity
 		{
 			get
 			{
@@ -79,9 +90,9 @@ namespace Physics
 			}
 		}
 
-		public static int DEBUG_BumpLoops = 0;
+		public  int DEBUG_BumpLoops = 0;
 
-		public static Vector3 getUp(Vector3 from)
+		public  Vector3 getUp(Vector3 from)
 		{
 			bool Collision = false;
 			Collidable CollisionTri = null;
@@ -122,8 +133,8 @@ namespace Physics
 			}
 		}
 
-		static float impact = 0;
-		public static float ImpactThisFrame
+		 float impact = 0;
+		public  float ImpactThisFrame
 		{
 			get
 			{
@@ -131,9 +142,11 @@ namespace Physics
 			}
 		}
 
-		public static void update(float TotalElapsedSeconds)
+		public  void update(float TotalElapsedSeconds)
 		{
 			impact = 0;
+
+            player.update(TotalElapsedSeconds);
 
 			foreach (Spring s in springs)
 			{
@@ -152,8 +165,8 @@ namespace Physics
 			}
 		}
 
-		private static List<Collidable> CollisionChain = new List<Collidable>();
-		private static void doSomePhysics(float TotalElapsedSeconds)
+		private  List<Collidable> CollisionChain = new List<Collidable>();
+		private  void doSomePhysics(float TotalElapsedSeconds)
 		{
 
 			foreach (Point p in points)
@@ -255,7 +268,7 @@ namespace Physics
 			}
 
 		}
-		private static void freefallPhysics(Point p, float time)
+		private void freefallPhysics(Point p, float time)
 		{
 
 			// forces
@@ -294,7 +307,7 @@ namespace Physics
             
 
 		}
-		private static void slidingPhysics(Point p, float time, Collidable s)
+		private  void slidingPhysics(Point p, float time, Collidable s)
 		{
 
 			Vector3 collisionNormal = s.getPlane().Normal;
@@ -342,7 +355,7 @@ namespace Physics
 
 			//Force += Vector3.Negate(p.NextVelocity) * friction;
 
-			Vector3 FrictionForce = Vector3.Normalize( Vector3.Negate(p.NextVelocity) ) * ( NormalForce.Length() *  friction);
+			Vector3 FrictionForce = Vector3.Normalize( Vector3.Negate(p.NextVelocity) ) * ( NormalForce.Length() *  player.Traction.value);
 
 			Vector3 MaxFriction = Vector3.Negate( (p.NextVelocity / time) * p.mass );
 

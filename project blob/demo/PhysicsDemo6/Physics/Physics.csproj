@@ -65,6 +65,9 @@
     <Compile Include="..\PhysicsDemo6\Physics\Physics.cs">
       <Link>Physics.cs</Link>
     </Compile>
+    <Compile Include="..\PhysicsDemo6\Physics\Player.cs">
+      <Link>Player.cs</Link>
+    </Compile>
     <Compile Include="..\PhysicsDemo6\Physics\Point.cs">
       <Link>Point.cs</Link>
     </Compile>

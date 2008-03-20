@@ -52,10 +52,10 @@ namespace Physics
             acceleration = NextAcceleration;
 			CurrentForce = Vector3.Zero;
 
-			if (LastCollision != null && Physics.TEMP_SurfaceFriction >= 1)
-			{
-				CurrentForce -= LastCollision.getPlane().Normal * (100 * Physics.TEMP_SurfaceFriction * 0.75f );
-			}
+            //if (LastCollision != null && Physics.TEMP_SurfaceFriction >= 1)
+            //{
+            //    CurrentForce -= LastCollision.getPlane().Normal * (100 * Physics.TEMP_SurfaceFriction * 0.75f );
+            //}
 		}
 
 	}
