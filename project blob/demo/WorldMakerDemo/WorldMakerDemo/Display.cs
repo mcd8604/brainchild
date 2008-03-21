@@ -84,16 +84,16 @@ namespace WorldMakerDemo
             }
         }
 
-        bool m_TechniqueFlag = false;
-        public bool TechniqueSet
+        String m_TechniqueName = null;
+        public String TechniqueName
         {
             get
             {
-                return m_TechniqueFlag;
+                return m_TechniqueName;
             }
             set
             {
-                m_TechniqueFlag = false;
+                m_TechniqueName = value;
             }
         }
 
@@ -128,7 +128,7 @@ namespace WorldMakerDemo
             ((BasicEffect)m_Effect).Projection = p_Projection;
         }
 
-        public Display(Matrix p_World, VertexDeclaration p_VertexDeclaration, Effect p_Effect, String p_WorldParameterName, String p_TextureParameterName, bool p_TechniqueSet)
+        public Display(Matrix p_World, VertexDeclaration p_VertexDeclaration, Effect p_Effect, String p_WorldParameterName, String p_TextureParameterName, String p_TechniqueName)
         {
             m_VertexDeclaration = p_VertexDeclaration;
             m_VertexDeclaration.GraphicsDevice.RenderState.CullMode =
@@ -142,14 +142,14 @@ namespace WorldMakerDemo
             m_WorldParameterName = p_WorldParameterName;
             m_TextureParameterName = p_TextureParameterName;
 
-            m_TechniqueFlag = p_TechniqueSet;
+            m_TechniqueName = p_TechniqueName;
 
         }
 
         public void Draw()
         {
-            if(m_TechniqueFlag)
-                m_Effect.CurrentTechnique = m_Effect.Techniques["Textured"];
+            if(m_TechniqueName != null)
+                m_Effect.CurrentTechnique = m_Effect.Techniques[m_TechniqueName];
 
             int currentTextureNumber = drawable_List_Drawn.Keys[0].SortNumber;
             //m_GraphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
