@@ -40,7 +40,7 @@ namespace WorldMakerDemo
             {
                 ScaleX.Minimum = Convert.ToInt32(MinScaleX.Text);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         private void MinScaleY_TextChanged(object sender, EventArgs e)
@@ -49,7 +49,7 @@ namespace WorldMakerDemo
             {
                 ScaleY.Minimum = Convert.ToInt32(MinScaleY.Text);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         private void MinScaleZ_TextChanged(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace WorldMakerDemo
             {
                 ScaleZ.Minimum = Convert.ToInt32(MinScaleZ.Text);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -72,7 +72,7 @@ namespace WorldMakerDemo
             {
                 ScaleX.Maximum = Convert.ToInt32(MaxScaleX.Text);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         private void MaxScaleY_TextChanged(object sender, EventArgs e)
@@ -81,7 +81,7 @@ namespace WorldMakerDemo
             {
                 ScaleY.Maximum = Convert.ToInt32(MaxScaleY.Text);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         private void MaxScaleZ_TextChanged(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace WorldMakerDemo
             {
                 ScaleZ.Maximum = Convert.ToInt32(MaxScaleZ.Text);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -178,7 +178,7 @@ namespace WorldMakerDemo
             {
                 m_Game.model.Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         private void PositionY_TextChanged(object sender, EventArgs e)
@@ -187,7 +187,7 @@ namespace WorldMakerDemo
             {
                 m_Game.model.Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         private void PositionZ_TextChanged(object sender, EventArgs e)
@@ -196,7 +196,7 @@ namespace WorldMakerDemo
             {
                 m_Game.model.Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
         #endregion
 
