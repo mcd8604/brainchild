@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
+
 namespace WorldMakerDemo
 {
     /// <summary>
@@ -19,9 +20,9 @@ namespace WorldMakerDemo
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         ContentManager content;
-        Display m_Display;
+        public Display m_Display;
 
-        DrawableModel model;
+        public DrawableModel model;
         DrawableModel model2;
         //VertexPositionNormalTexture[] cubeVertices;
         //VertexPositionNormalTexture[] cube2Vertices;
@@ -40,16 +41,10 @@ namespace WorldMakerDemo
         VertexDeclaration VertexDeclarationTexture;
 
         bool follow = true;
-        Vector3 focusPoint = new Vector3(0, 0, 0);
+        public Vector3 focusPoint = new Vector3(0, 0, 0);
         Vector3 Up = Vector3.Up;
         Vector3 Horizontal = new Vector3();
         Vector3 Run = new Vector3();
-
-        Vector3 position = new Vector3(0, 0, 0);
-        float scale = 1;
-        float x_rotation = 0;
-        float y_rotation = 0;
-        float z_rotation = 0;
 
         static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
         Vector3 cameraPosition = defaultCameraPosition;
@@ -84,6 +79,15 @@ namespace WorldMakerDemo
             // graphics stuff?
             InitializeEffect();
 
+            //gui
+            System.Windows.Forms.Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+
+            new System.Threading.Thread(delegate()
+            {
+                System.Windows.Forms.Application.Run(new Form1(this));
+            }).Start();
+
             base.Initialize();
         }
 
@@ -96,10 +100,10 @@ namespace WorldMakerDemo
             text = Content.Load<Texture2D>("grass");
             text2 = Content.Load<Texture2D>("test");
             //effect = Content.Load<Effect>("effects");
-            model = new DrawableModel();
+            model = new DrawableModel("cube");
             model.ModelObject = Content.Load<Model>("cube");
 
-            model2 = new DrawableModel();
+            model2 = new DrawableModel("ball");
             model2.ModelObject = Content.Load<Model>("ball");
 
             TextureInfo ti = new TextureInfo(text, 0);
@@ -123,7 +127,7 @@ namespace WorldMakerDemo
                 (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
                 1.0f, 100.0f);
 
-            //m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration);
+            m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration);
             effect.Parameters["xView"].SetValue(viewMatrix);
             effect.Parameters["xProjection"].SetValue(projectionMatrix);
             effect.Parameters["xWorld"].SetValue(worldMatrix);
@@ -137,7 +141,7 @@ namespace WorldMakerDemo
             //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
             VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
-            m_Display = new Display(worldMatrix, VertexDeclarationTexture, effect, "xWorld", "xTexture");
+            //m_Display = new Display(worldMatrix, VertexDeclarationTexture, effect, "xWorld", "xTexture");
 
             model.setGraphicsDevice(graphics.GraphicsDevice);
             model2.setGraphicsDevice(graphics.GraphicsDevice);
@@ -160,9 +164,7 @@ namespace WorldMakerDemo
             list2.Add(model2);
 
             m_Display.DrawnList.Add(ti, list);
-            m_Display.DrawnList.Add(ti2, list2);
-
-            
+            m_Display.DrawnList.Add(ti2, list2);            
         }
 
         /// <summary>
@@ -277,73 +279,12 @@ namespace WorldMakerDemo
                 else
                     m_Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
 
-                //effect.Parameters["xView"].SetValue(viewMatrix);
+                //m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
 
                 //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
                 effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
             }
 
-            if (InputHandler.IsKeyPressed(Keys.Up))
-            {
-                position.Y += .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.Down))
-            {
-                position.Y -= .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.Right))
-            {
-                position.X += .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.Left))
-            {
-                position.X -= .5f;
-            }
-
-            if (InputHandler.IsKeyPressed(Keys.NumPad8))
-            {
-                scale += .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.NumPad2))
-            {
-                scale -= .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.NumPad1))
-            {
-                position.Z -= .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.NumPad3))
-            {
-                position.Z += .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.NumPad7))
-            {
-                y_rotation -= .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.NumPad9))
-            {
-                y_rotation += .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.PageDown))
-            {
-                x_rotation -= .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.PageUp))
-            {
-                x_rotation += .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.Home))
-            {
-                z_rotation -= .5f;
-            }
-            if (InputHandler.IsKeyPressed(Keys.End))
-            {
-                z_rotation += .5f;
-            }
-
-            model.Rotation = Matrix.CreateRotationX(x_rotation) * Matrix.CreateRotationY(y_rotation) * Matrix.CreateRotationZ(z_rotation);
-            model.Scale = Matrix.CreateScale(scale);
-            model.Position = Matrix.CreateTranslation(position);
             base.Update(gameTime);
         }
 

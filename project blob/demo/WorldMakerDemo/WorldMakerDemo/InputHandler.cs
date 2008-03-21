@@ -306,7 +306,14 @@ internal static class InputHandler
 
 	internal static Vector2 getMouseDeltaPosition()
 	{
-		return new Vector2(thisMouseState.X, thisMouseState.Y) - new Vector2(lastMouseState.X, lastMouseState.Y);
+        if (thisMouseState.RightButton == ButtonState.Pressed)
+        {
+            return new Vector2(thisMouseState.X, thisMouseState.Y) - new Vector2(lastMouseState.X, lastMouseState.Y);
+        }
+        else
+        {
+            return Vector2.Zero;
+        }
 	}
 	internal static int getMouseWheelDelta()
 	{

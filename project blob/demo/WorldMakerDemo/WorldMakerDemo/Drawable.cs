@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WorldMakerDemo
 {
-	interface Drawable
+	public interface Drawable
 	{
 
 		//VertexPositionColor[] getTriangleVertexes();
