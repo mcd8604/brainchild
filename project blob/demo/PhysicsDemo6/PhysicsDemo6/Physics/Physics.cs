@@ -53,6 +53,10 @@ namespace Physics
         {
             collision.Add(c);
         }
+        public void AddCollidables(IEnumerable<Collidable> c)
+        {
+            collision.AddRange(c);
+        }
         public void AddPoint(Point p)
         {
             points.Add(p);
@@ -163,6 +167,8 @@ namespace Physics
             {
                 p.updatePosition();
             }
+
+
         }
 
         private List<Collidable> CollisionChain = new List<Collidable>();

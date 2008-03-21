@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PhysicsDemo6
 {
-	class StaticTri : T
+	public class StaticTri : T
 	{
 
 		internal Plane myPlane;
@@ -87,7 +87,7 @@ namespace PhysicsDemo6
 
 		}
 
-        public bool shouldPhysicsBlock(Physics.Point p)
+        public virtual bool shouldPhysicsBlock(Physics.Point p)
         {
             return true;
         }
@@ -126,5 +126,10 @@ namespace PhysicsDemo6
 		public void ApplyForce(Vector3 at, Vector3 f) { }
 
 		public void ImpartVelocity(Vector3 at, Vector3 v) { }
+
+        public Physics.Material getMaterial()
+        {
+            return new Physics.NormalMaterial();
+        }
 	}
 }

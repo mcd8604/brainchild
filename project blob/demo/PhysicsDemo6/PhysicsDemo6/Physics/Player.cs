@@ -113,6 +113,24 @@ namespace Physics
             {
                 p.CurrentForce += (CurrentPlayerCenter - p.Position) * (CurrentPlayerVolume - volume.value);
             }
+
+            //bool bounce = false;
+            //Vector3 norm = Vector3.Zero;
+            //foreach (Point p in playerBody.getPoints())
+            //{
+            //    if ( p.LastCollision != null && p.LastCollision.getMaterial().getBounce() > 0)
+            //    {
+            //        bounce = true;
+            //        norm = p.LastCollision.Normal();
+            //    }
+            //}
+            //if (bounce)
+            //{
+            //    foreach (Point p in playerBody.getPoints())
+            //    {
+            //        p.NextForce += norm * 500f;
+            //    }
+            //}
         }
 
         private void update(Property p, float time)

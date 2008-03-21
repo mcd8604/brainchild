@@ -183,5 +183,10 @@ namespace PhysicsDemo6
 
 		}
 
+        public Physics.Material getMaterial()
+        {
+            return new Physics.NormalMaterial();
+        }
+
 	}
 }
