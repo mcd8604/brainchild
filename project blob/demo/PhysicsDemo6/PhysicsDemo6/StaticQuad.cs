@@ -121,5 +121,10 @@ namespace PhysicsDemo6
 
 		public void ImpartVelocity(Vector3 at, Vector3 v) { }
 
+        public Physics.Material getMaterial()
+        {
+            return new Physics.NormalMaterial();
+        }
+
 	}
 }

@@ -52,5 +52,7 @@ namespace Physics
         /// <param name="at"></param>
         /// <param name="v"></param>
 		void ImpartVelocity(Vector3 at, Vector3 v);
+
+        Material getMaterial();
 	}
 }

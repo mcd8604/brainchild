@@ -59,8 +59,14 @@
     <Compile Include="..\PhysicsDemo6\Physics\GravityVector.cs">
       <Link>GravityVector.cs</Link>
     </Compile>
+    <Compile Include="..\PhysicsDemo6\Physics\Material.cs">
+      <Link>Material.cs</Link>
+    </Compile>
     <Compile Include="..\PhysicsDemo6\Physics\Mover.cs">
       <Link>Mover.cs</Link>
+    </Compile>
+    <Compile Include="..\PhysicsDemo6\Physics\NormalMaterial.cs">
+      <Link>NormalMaterial.cs</Link>
     </Compile>
     <Compile Include="..\PhysicsDemo6\Physics\Physics.cs">
       <Link>Physics.cs</Link>

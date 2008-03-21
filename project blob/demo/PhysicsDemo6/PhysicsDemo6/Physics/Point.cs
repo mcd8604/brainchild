@@ -29,10 +29,13 @@ namespace Physics
         internal Vector3 NextPosition = Vector3.Zero;
         internal Vector3 NextVelocity = Vector3.Zero;
         internal Vector3 NextAcceleration = Vector3.Zero;
+        internal Vector3 NextForce = Vector3.Zero;
 
         internal Collidable LastCollision = null;
 
         public float mass = 1;
+
+        public bool isStatic = false;
 
         public Point(Vector3 startPosition)
         {
@@ -47,15 +50,19 @@ namespace Physics
 
         internal void updatePosition()
         {
-            position = NextPosition;
-            velocity = NextVelocity;
-            acceleration = NextAcceleration;
-            CurrentForce = Vector3.Zero;
+            if (!isStatic)
+            {
+                position = NextPosition;
+                velocity = NextVelocity;
+                acceleration = NextAcceleration;
+                CurrentForce = NextForce;
+                NextForce = Vector3.Zero;
 
-            //if (LastCollision != null && Physics.TEMP_SurfaceFriction >= 1)
-            //{
-            //    CurrentForce -= LastCollision.getPlane().Normal * (100 * Physics.TEMP_SurfaceFriction * 0.75f );
-            //}
+                //if (LastCollision != null && Physics.TEMP_SurfaceFriction >= 1)
+                //{
+                //    CurrentForce -= LastCollision.getPlane().Normal * (100 * Physics.TEMP_SurfaceFriction * 0.75f );
+                //}
+            }
         }
 
     }

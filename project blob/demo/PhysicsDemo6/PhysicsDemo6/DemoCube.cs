@@ -66,6 +66,8 @@ namespace PhysicsDemo6
 			initCube(center, radius);
 		}
 
+        public Physics.Collidable bottom;
+
 		private void initCube(Vector3 center, float radius)
 		{
 
@@ -108,6 +110,8 @@ namespace PhysicsDemo6
 			collidables.Add(new Tri(bbl, ftl, btl, Color.White));
 			collidables.Add(new Tri(bbl, btl, btr, Color.White));
 			collidables.Add(new Tri(bbl, btr, bbr, Color.White));
+
+            bottom = new Tri(bbl, bbr, fbr, Color.White);
 
 			vertices[0] = new VertexPositionNormalTexture(ftr.Position, Vector3.Up, Vector2.Zero);
 			vertices[1] = new VertexPositionNormalTexture(fbr.Position, Vector3.Up, new Vector2(0f, 1f));

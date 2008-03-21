@@ -6,6 +6,7 @@ namespace Physics
 	{
 		public float minimumLength = 0;
         public float minimumLengthBeforeCompression = 1;
+        public float length = 1;
         public float maximumLengthBeforeExtension = 1;
         public float maximumLength = float.PositiveInfinity;
 
@@ -21,6 +22,7 @@ namespace Physics
 			A = one;
 			B = two;
 			minimumLengthBeforeCompression = Length;
+            length = Length;
 			maximumLengthBeforeExtension = Length;
 			Force = ForceConstant;
 		}
@@ -44,14 +46,14 @@ namespace Physics
 					// normalize
 					result.Normalize();
 					// multiply by the scalar force
-					result = result * (Force * (minimumLengthBeforeCompression - dist));
+					result = result * (Force * (length - dist));
 					return result;
 				}
 				else if (dist > maximumLengthBeforeExtension)
 				{
 					Vector3 result = B.getCurrentPosition() - A.getCurrentPosition();
 					result.Normalize();
-					result = result * (Force * (dist - maximumLengthBeforeExtension));
+					result = result * (Force * (dist - length));
 					return result;
 				}
 			}

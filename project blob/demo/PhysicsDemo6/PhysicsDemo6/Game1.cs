@@ -95,7 +95,7 @@ namespace PhysicsDemo6
 		{
             reset();
 			initLoop();
-			//Physics.Physics.AirFriction = 0.5f;
+            //physics.AirFriction = 0.5f;
             physics.AirFriction = 2f;
 
 			//cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
@@ -105,6 +105,8 @@ namespace PhysicsDemo6
 			base.Initialize();
 		}
 
+        private Physics.Point c;
+
 		private void initLoop()
 		{
 			cubeStartPosition = new Vector3(0, 4, 0);
@@ -112,13 +114,44 @@ namespace PhysicsDemo6
             physics.AddPoints(playerCube.points);
             physics.AddSprings(playerCube.springs);
 
+            physics.AddCollidables(playerCube.getCollidables());
+
             physics.Player.PlayerBody = playerCube;
 
-
+            
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, 10), new Vector3(10, 0, 10), Color.Red));
-			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), Color.Yellow));
-			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, 10), new Vector3(10, 0, -10), Color.White));
-			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, -10), new Vector3(-10, 0, -10), Color.Orange));
+            addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), Color.Yellow));
+            addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, 10), new Vector3(10, 0, -10), Color.White));
+            addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, -10), new Vector3(-10, 0, -10), Color.Orange));
+             
+            /*
+            Physics.Point pp = new Physics.Point(new Vector3(10, 0, 10));
+            pp.isStatic =true;
+            Physics.Point pn = new Physics.Point(new Vector3(10, 0, -10));
+            pn.isStatic =true;
+            Physics.Point np = new Physics.Point(new Vector3(-10, 0, 10));
+            np.isStatic =true;
+            Physics.Point nn = new Physics.Point(new Vector3(-10, 0, -10));
+            nn.isStatic =true;
+
+            c = new Physics.Point(new Vector3(0, 0, 0));
+
+            Physics.Point p = new Physics.Point(new Vector3(0, 2, 0));
+            p.isStatic =true;
+
+            physics.AddPoint(c);
+            Physics.Spring t = new Physics.Spring(c, p, 2, 1000);
+            t.maximumLengthBeforeExtension = 3;
+            physics.AddSpring( t );
+            physics.AddSpring(new Physics.Spring(c, p, 2, 20));
+
+            addToPhysicsAndDraw(new Tri(c, np, pp, Color.Red));
+            addToPhysicsAndDraw(new Tri(c, nn, np, Color.Yellow));
+            addToPhysicsAndDraw(new Tri(c, pp, pn, Color.White));
+            addToPhysicsAndDraw(new Tri(c,pn, nn, Color.Orange));
+            */
+
+           
 
 			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-5, 0, -5), new Vector3(-10, 5, -5), Color.Red));
             addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-10, 5, -5), new Vector3(-10, 5, 5), Color.Pink));
@@ -393,7 +426,7 @@ namespace PhysicsDemo6
 			effect.Parameters["xTexture"].SetValue(text);
 			effect.Parameters["xEnableLighting"].SetValue(true);
 			//effect.Parameters["xShowNormals"].SetValue(true);
-			effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
+			//effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
 			effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
 			effect.Parameters["xAmbient"].SetValue(0.25f);
 
@@ -417,6 +450,7 @@ namespace PhysicsDemo6
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+
 			InputHandler.Update();
 			// Allows the game to exit
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || InputHandler.IsKeyPressed(Keys.Escape))
@@ -615,7 +649,9 @@ namespace PhysicsDemo6
 
 			if (!paused)
 			{
+                //Console.WriteLine( "1: " + playerCube.bottom.DotNormal(c.Position));
 				physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+                //Console.WriteLine("2: " + playerCube.bottom.DotNormal(c.Position));
 			}
 
 			if (follow)
