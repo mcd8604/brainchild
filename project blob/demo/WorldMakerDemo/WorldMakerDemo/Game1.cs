@@ -27,14 +27,14 @@ namespace WorldMakerDemo
         //VertexPositionNormalTexture[] cubeVertices;
         //VertexPositionNormalTexture[] cube2Vertices;
 
-        const String effectName = "Cel";
+        const String effectName = "effects";
 
         Effect effect;
         //Effect celshader;
         Matrix worldMatrix;
         Matrix viewMatrix;
         Matrix projectionMatrix;
-        SpriteFont font;
+        //SpriteFont font;
 
         Texture2D text;
         Texture2D text2;
