@@ -79,6 +79,8 @@ namespace WorldMakerDemo
 
             GraphicsDevice.RenderState.PointSize = 5;
 
+            InputHandler.LoadDefaultBindings();
+
             // graphics stuff?
             InitializeEffect();
 
@@ -111,8 +113,6 @@ namespace WorldMakerDemo
             VertexDeclaration basicEffectVertexDeclaration = new VertexDeclaration(
                 graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
-            float tilt = MathHelper.ToRadians(22.5f);  // 22.5 degree angle
-            // Use the world matrix to tilt the cube along x and y axes.
             worldMatrix = Matrix.Identity;
 
             viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero,
@@ -123,7 +123,21 @@ namespace WorldMakerDemo
                 (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
                 1.0f, 100.0f);
 
-            m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, new EffectPool(), basicEffectVertexDeclaration);
+            //m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration);
+            effect.Parameters["xView"].SetValue(viewMatrix);
+            effect.Parameters["xProjection"].SetValue(projectionMatrix);
+            effect.Parameters["xWorld"].SetValue(worldMatrix);
+
+            effect.Parameters["xEnableLighting"].SetValue(true);
+            //effect.Parameters["xShowNormals"].SetValue(true);
+            //effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
+            effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
+            effect.Parameters["xAmbient"].SetValue(0.25f);
+
+            //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+            VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+
+            m_Display = new Display(worldMatrix, VertexDeclarationTexture, effect, "xWorld", "xTexture");
 
             model.setGraphicsDevice(graphics.GraphicsDevice);
             model2.setGraphicsDevice(graphics.GraphicsDevice);
@@ -147,7 +161,6 @@ namespace WorldMakerDemo
 
             m_Display.DrawnList.Add(ti, list);
             m_Display.DrawnList.Add(ti2, list2);
-
 
             
         }
@@ -259,9 +272,12 @@ namespace WorldMakerDemo
 
                 viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
 
-                m_Display.TestEffect.View = viewMatrix;
+                if (m_Display.CurrentEffect is BasicEffect)
+                    ((BasicEffect)m_Display.CurrentEffect).View = viewMatrix;
+                else
+                    m_Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
 
-                effect.Parameters["xView"].SetValue(viewMatrix);
+                //effect.Parameters["xView"].SetValue(viewMatrix);
 
                 //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
                 effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
