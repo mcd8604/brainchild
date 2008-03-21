@@ -84,6 +84,19 @@ namespace WorldMakerDemo
             }
         }
 
+        bool m_TechniqueFlag = false;
+        public bool TechniqueSet
+        {
+            get
+            {
+                return m_TechniqueFlag;
+            }
+            set
+            {
+                m_TechniqueFlag = false;
+            }
+        }
+
         public Display(Matrix p_World, Matrix p_View, Matrix p_Projection, VertexDeclaration p_VertexDeclaration)
         {
             m_VertexDeclaration = p_VertexDeclaration;
@@ -115,7 +128,7 @@ namespace WorldMakerDemo
             ((BasicEffect)m_Effect).Projection = p_Projection;
         }
 
-        public Display(Matrix p_World, VertexDeclaration p_VertexDeclaration, Effect p_Effect, String p_WorldParameterName, String p_TextureParameterName)
+        public Display(Matrix p_World, VertexDeclaration p_VertexDeclaration, Effect p_Effect, String p_WorldParameterName, String p_TextureParameterName, bool p_TechniqueSet)
         {
             m_VertexDeclaration = p_VertexDeclaration;
             m_VertexDeclaration.GraphicsDevice.RenderState.CullMode =
@@ -129,11 +142,13 @@ namespace WorldMakerDemo
             m_WorldParameterName = p_WorldParameterName;
             m_TextureParameterName = p_TextureParameterName;
 
+            m_TechniqueFlag = p_TechniqueSet;
+
         }
 
         public void Draw()
         {
-            if(!(m_Effect is BasicEffect))
+            if(m_TechniqueFlag)
                 m_Effect.CurrentTechnique = m_Effect.Techniques["Textured"];
 
             int currentTextureNumber = drawable_List_Drawn.Keys[0].SortNumber;
@@ -145,7 +160,8 @@ namespace WorldMakerDemo
             else
             {
                 m_VertexDeclaration.GraphicsDevice.Textures[0] = drawable_List_Drawn.Keys[0].TextureObject;
-                m_Effect.Parameters[m_TextureParameterName].SetValue(drawable_List_Drawn.Keys[0].TextureObject);
+                if(m_TextureParameterName != "NONE")
+                    m_Effect.Parameters[m_TextureParameterName].SetValue(drawable_List_Drawn.Keys[0].TextureObject);
             }
 
             m_VertexDeclaration.GraphicsDevice.VertexDeclaration = m_VertexDeclaration;
@@ -165,7 +181,8 @@ namespace WorldMakerDemo
                     else
                     {
                         m_VertexDeclaration.GraphicsDevice.Textures[0] = ti.TextureObject;
-                        m_Effect.Parameters[m_TextureParameterName].SetValue(ti.TextureObject);
+                        if (m_TextureParameterName != "NONE")
+                            m_Effect.Parameters[m_TextureParameterName].SetValue(ti.TextureObject);
                     }
                 }
 

@@ -27,6 +27,8 @@ namespace WorldMakerDemo
         //VertexPositionNormalTexture[] cubeVertices;
         //VertexPositionNormalTexture[] cube2Vertices;
 
+        const String effectName = "Cel";
+
         Effect effect;
         //Effect celshader;
         Matrix worldMatrix;
@@ -37,7 +39,7 @@ namespace WorldMakerDemo
         Texture2D text;
         Texture2D text2;
 
-        VertexDeclaration VertexDeclarationColor;
+        //VertexDeclaration VertexDeclarationColor;
         VertexDeclaration VertexDeclarationTexture;
 
         bool follow = true;
@@ -76,9 +78,6 @@ namespace WorldMakerDemo
 
             InputHandler.LoadDefaultBindings();
 
-            // graphics stuff?
-            InitializeEffect();
-
             //gui
             System.Windows.Forms.Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
@@ -97,6 +96,9 @@ namespace WorldMakerDemo
         /// </summary>
         protected override void LoadContent()
         {
+            if(effectName != "basic")
+                effect = Content.Load<Effect>(effectName);
+
             text = Content.Load<Texture2D>("grass");
             text2 = Content.Load<Texture2D>("test");
             //effect = Content.Load<Effect>("effects");
@@ -127,16 +129,62 @@ namespace WorldMakerDemo
                 (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
                 1.0f, 100.0f);
 
-            m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration);
-            effect.Parameters["xView"].SetValue(viewMatrix);
-            effect.Parameters["xProjection"].SetValue(projectionMatrix);
-            effect.Parameters["xWorld"].SetValue(worldMatrix);
+            if(effectName == "basic")
+            {
+                m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration);
+            }
+            else if (effectName == "effects")
+            {
+                effect.Parameters["xView"].SetValue(viewMatrix);
+                effect.Parameters["xProjection"].SetValue(projectionMatrix);
+                effect.Parameters["xWorld"].SetValue(worldMatrix);
 
-            effect.Parameters["xEnableLighting"].SetValue(true);
-            //effect.Parameters["xShowNormals"].SetValue(true);
-            //effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
-            effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
-            effect.Parameters["xAmbient"].SetValue(0.25f);
+                effect.Parameters["xEnableLighting"].SetValue(true);
+                //effect.Parameters["xShowNormals"].SetValue(true);
+                //effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
+                effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
+                effect.Parameters["xAmbient"].SetValue(0.25f);
+
+                m_Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "xWorld", "xTexture",true);
+            }
+            else if (effectName == "Cel")
+            {
+                if (effect.Parameters["World"] != null)
+                    effect.Parameters["World"].SetValue(worldMatrix);
+
+                if (effect.Parameters["Projection"] != null)
+                    effect.Parameters["Projection"].SetValue(projectionMatrix);
+
+                if (effect.Parameters["DiffuseLightColor"] != null)
+                    effect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
+
+                if (effect.Parameters["LightPosition"] != null)
+                    effect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
+
+                if (effect.Parameters["LayerOneSharp"] != null)
+                    effect.Parameters["LayerOneSharp"].SetValue(.9f);
+
+                if (effect.Parameters["LayerOneRough"] != null)
+                    effect.Parameters["LayerOneRough"].SetValue(0.15f);
+
+                if (effect.Parameters["LayerOneContrib"] != null)
+                    effect.Parameters["LayerOneContrib"].SetValue(0.08f);
+
+                if (effect.Parameters["LayerTwoSharp"] != null)
+                    effect.Parameters["LayerTwoSharp"].SetValue(0.05f);
+
+                if (effect.Parameters["LayerTwoRough"] != null)
+                    effect.Parameters["LayerTwoRough"].SetValue(2.0f);
+
+                if (effect.Parameters["LayerTwoContrib"] != null)
+                    effect.Parameters["LayerTwoContrib"].SetValue(0.4f);
+
+                if (effect.Parameters["EdgeOffset"] != null)
+                    effect.Parameters["EdgeOffset"].SetValue(0.03f);
+
+                m_Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "World", "NONE",false);
+            
+            }
 
             //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
             VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
@@ -167,40 +215,7 @@ namespace WorldMakerDemo
             m_Display.DrawnList.Add(ti2, list2);            
         }
 
-        /// <summary>
-        /// Initializes the basic effect (parameter setting and technique selection)
-        /// used for the 3D model.
-        /// </summary>
-        private void InitializeEffect()
-        {
-            worldMatrix = Matrix.Identity;
-
-            viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
-
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.ToRadians(45),  // 45 degree angle
-                (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height,
-                1.0f, 100.0f);
-
-            VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
-
-            VertexDeclarationColor = new VertexDeclaration(GraphicsDevice, VertexPositionColor.VertexElements);
-
-            effect = Content.Load<Effect>("effects");
-
-            effect.Parameters["xView"].SetValue(viewMatrix);
-            effect.Parameters["xProjection"].SetValue(projectionMatrix);
-            effect.Parameters["xWorld"].SetValue(worldMatrix);
-
-            effect.Parameters["xTexture"].SetValue(text);
-            effect.Parameters["xEnableLighting"].SetValue(true);
-            //effect.Parameters["xShowNormals"].SetValue(true);
-            effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
-            effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
-            effect.Parameters["xAmbient"].SetValue(0.25f);
-
-            effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-        }
+      
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -275,14 +290,25 @@ namespace WorldMakerDemo
                 viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
 
                 if (m_Display.CurrentEffect is BasicEffect)
+                {
                     ((BasicEffect)m_Display.CurrentEffect).View = viewMatrix;
+                }
                 else
-                    m_Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
+                {
+                    if (effectName == "effects")
+                        m_Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
+                    else if (effectName == "Cel")
+                        m_Display.CurrentEffect.Parameters["View"].SetValue(viewMatrix);
+                }
 
                 //m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
 
                 //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
-                effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+
+                if (effectName == "effects")
+                    effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                else if (effectName == "Cel")
+                    effect.Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
             }
 
             base.Update(gameTime);
