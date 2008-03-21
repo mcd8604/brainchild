@@ -139,19 +139,32 @@ namespace WorldMakerDemo
         /*
          * Rotation
          */
+        private float rotation_x, rotation_y, rotation_z;
         private void RotationX_Scroll(object sender, EventArgs e)
         {
-            m_Game.model.Rotation = Matrix.CreateRotationX(MathHelper.ToRadians((float)Convert.ToInt32(RotationX.Value.ToString())));
+            rotation_x = (float)Convert.ToInt32(RotationX.Value.ToString());
+            SetRotation();
+            //m_Game.model.Rotation = Matrix.Multiply(m_Game.model.Rotation,Matrix.CreateRotationX(MathHelper.ToRadians((float)Convert.ToInt32(RotationX.Value.ToString()))));
         }
 
         private void RotationY_Scroll(object sender, EventArgs e)
         {
-            m_Game.model.Rotation = Matrix.CreateRotationY(MathHelper.ToRadians((float)Convert.ToInt32(RotationY.Value.ToString())));
+            rotation_y = (float)Convert.ToInt32(RotationY.Value.ToString());
+            SetRotation();
+            //m_Game.model.Rotation = Matrix.Multiply(m_Game.model.Rotation,Matrix.CreateRotationY(MathHelper.ToRadians((float)Convert.ToInt32(RotationY.Value.ToString()))));
         }
 
         private void RotationZ_Scroll(object sender, EventArgs e)
         {
-            m_Game.model.Rotation = Matrix.CreateRotationZ(MathHelper.ToRadians((float)Convert.ToInt32(RotationZ.Value.ToString())));
+            rotation_z = (float)Convert.ToInt32(RotationZ.Value.ToString());
+            SetRotation();
+            //m_Game.model.Rotation = Matrix.Multiply(m_Game.model.Rotation,Matrix.CreateRotationZ(MathHelper.ToRadians((float)Convert.ToInt32(RotationZ.Value.ToString()))));
+        }
+
+        private void SetRotation()
+        {
+            m_Game.model.Rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(rotation_x)),Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(rotation_y)), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation_z))));
+        
         }
 #endregion
 
