@@ -14,7 +14,7 @@ namespace WorldMakerDemo
 {
     //This class holds a list of VectorLists to be drawn to the screen
     //This is a framework, nothing in here is complete!!
-    class Display
+    public class Display
     {
         SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
         SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
@@ -133,7 +133,9 @@ namespace WorldMakerDemo
 
         public void Draw()
         {
-            m_Effect.CurrentTechnique = m_Effect.Techniques["Textured"];
+            if(!(m_Effect is BasicEffect))
+                m_Effect.CurrentTechnique = m_Effect.Techniques["Textured"];
+
             int currentTextureNumber = drawable_List_Drawn.Keys[0].SortNumber;
             //m_GraphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
             if (m_Effect is BasicEffect)

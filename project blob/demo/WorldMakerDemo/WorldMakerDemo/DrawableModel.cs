@@ -14,6 +14,7 @@ namespace WorldMakerDemo
 {
     public class DrawableModel : Drawable
     {
+        String m_Name;
         Model m_Model;
         GraphicsDevice m_GraphicsDevice;
         Matrix m_Position, m_Rotation, m_Scale;
@@ -123,8 +124,9 @@ namespace WorldMakerDemo
             return null;
         }
 
-        public DrawableModel()
+        public DrawableModel(String p_Name)
         {
+            m_Name = p_Name;
             for (int i = 0; i < 3; i++)
                 m_PriorityArray[i] = 3;
 
