@@ -120,6 +120,7 @@ namespace WorldMakerDemo
             this.ScaleZ.Name = "ScaleZ";
             this.ScaleZ.Size = new System.Drawing.Size(104, 42);
             this.ScaleZ.TabIndex = 12;
+            this.ScaleZ.Value = 1;
             this.ScaleZ.Scroll += new System.EventHandler(this.ScaleZ_Scroll);
             // 
             // MinScaleZ
@@ -164,6 +165,7 @@ namespace WorldMakerDemo
             this.ScaleY.Name = "ScaleY";
             this.ScaleY.Size = new System.Drawing.Size(104, 42);
             this.ScaleY.TabIndex = 7;
+            this.ScaleY.Value = 1;
             this.ScaleY.Scroll += new System.EventHandler(this.ScaleY_Scroll);
             // 
             // MinScaleY
@@ -208,6 +210,7 @@ namespace WorldMakerDemo
             this.ScaleX.Name = "ScaleX";
             this.ScaleX.Size = new System.Drawing.Size(104, 42);
             this.ScaleX.TabIndex = 2;
+            this.ScaleX.Value = 1;
             this.ScaleX.Scroll += new System.EventHandler(this.ScaleX_Scroll);
             // 
             // MinScaleX
@@ -250,7 +253,9 @@ namespace WorldMakerDemo
             this.RotationZ.Minimum = -180;
             this.RotationZ.Name = "RotationZ";
             this.RotationZ.Size = new System.Drawing.Size(184, 42);
+            this.RotationZ.SmallChange = 15;
             this.RotationZ.TabIndex = 5;
+            this.RotationZ.TickFrequency = 15;
             this.RotationZ.Scroll += new System.EventHandler(this.RotationZ_Scroll);
             // 
             // Rotation_Z
@@ -269,7 +274,9 @@ namespace WorldMakerDemo
             this.RotationY.Minimum = -180;
             this.RotationY.Name = "RotationY";
             this.RotationY.Size = new System.Drawing.Size(184, 42);
+            this.RotationY.SmallChange = 15;
             this.RotationY.TabIndex = 3;
+            this.RotationY.TickFrequency = 15;
             this.RotationY.Scroll += new System.EventHandler(this.RotationY_Scroll);
             // 
             // Rotation_Y
@@ -288,7 +295,9 @@ namespace WorldMakerDemo
             this.RotationX.Minimum = -180;
             this.RotationX.Name = "RotationX";
             this.RotationX.Size = new System.Drawing.Size(184, 42);
+            this.RotationX.SmallChange = 15;
             this.RotationX.TabIndex = 1;
+            this.RotationX.TickFrequency = 15;
             this.RotationX.Scroll += new System.EventHandler(this.RotationX_Scroll);
             // 
             // Rotation_X

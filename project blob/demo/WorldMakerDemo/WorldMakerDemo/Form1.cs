@@ -12,7 +12,7 @@ namespace WorldMakerDemo
     public partial class Form1 : Form
     {
         private Game1 m_Game;
-        
+
         public Form1(Game1 p_Game)
         {
             InitializeComponent();
@@ -25,7 +25,7 @@ namespace WorldMakerDemo
 
         }
 
-#region Scale
+        #region Scale
         /*
          * Scale
          */
@@ -38,9 +38,9 @@ namespace WorldMakerDemo
         {
             try
             {
-              ScaleX.Minimum = Convert.ToInt32(MinScaleX.Text);
+                ScaleX.Minimum = Convert.ToInt32(MinScaleX.Text);
             }
-            catch (Exception ex){}
+            catch (Exception ex) { }
         }
 
         private void MinScaleY_TextChanged(object sender, EventArgs e)
@@ -133,9 +133,9 @@ namespace WorldMakerDemo
             m_Game.model.Scale = Matrix.CreateScale((float)Convert.ToInt32(ScaleXValue.Text), (float)Convert.ToInt32(ScaleYValue.Text), (float)Convert.ToInt32(ScaleZValue.Text));
         }
         #endregion
-#endregion
+        #endregion
 
-#region Rotations
+        #region Rotations
         /*
          * Rotation
          */
@@ -163,30 +163,42 @@ namespace WorldMakerDemo
 
         private void SetRotation()
         {
-            m_Game.model.Rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(rotation_x)),Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(rotation_y)), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation_z))));
-        
-        }
-#endregion
+            m_Game.model.Rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(rotation_x)), Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(rotation_y)), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation_z))));
 
-#region Positions
+        }
+        #endregion
+
+        #region Positions
         /*
          * Position
          */
         private void PositionX_TextChanged(object sender, EventArgs e)
         {
-            m_Game.model.Position=Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
+            try
+            {
+                m_Game.model.Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
+            }
+            catch (Exception ex) { }
         }
 
         private void PositionY_TextChanged(object sender, EventArgs e)
         {
-            m_Game.model.Position=Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
+            try
+            {
+                m_Game.model.Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
+            }
+            catch (Exception ex) { }
         }
 
         private void PositionZ_TextChanged(object sender, EventArgs e)
         {
-            m_Game.model.Position=Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
+            try
+            {
+                m_Game.model.Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
+            }
+            catch (Exception ex) { }
         }
-#endregion
+        #endregion
 
         private void Focus_Click(object sender, EventArgs e)
         {
@@ -195,7 +207,7 @@ namespace WorldMakerDemo
 
         private void ModelName_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
