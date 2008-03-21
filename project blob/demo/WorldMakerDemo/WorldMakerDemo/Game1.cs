@@ -27,7 +27,7 @@ namespace WorldMakerDemo
         //VertexPositionNormalTexture[] cubeVertices;
         //VertexPositionNormalTexture[] cube2Vertices;
 
-        const String effectName = "effects";
+        const String effectName = "basic";
 
         Effect effect;
         //Effect celshader;
@@ -145,7 +145,7 @@ namespace WorldMakerDemo
                 effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
                 effect.Parameters["xAmbient"].SetValue(0.25f);
 
-                m_Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "xWorld", "xTexture",true);
+                m_Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "xWorld", "xTexture", "Textured");
             }
             else if (effectName == "Cel")
             {
@@ -182,7 +182,7 @@ namespace WorldMakerDemo
                 if (effect.Parameters["EdgeOffset"] != null)
                     effect.Parameters["EdgeOffset"].SetValue(0.03f);
 
-                m_Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "World", "NONE",false);
+                m_Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "World", "NONE",null);
             
             }
 
