@@ -23,7 +23,15 @@ namespace WorldMakerDemo
         ContentManager content;
         public Display m_Display;
 
-        public DrawableModel model;
+        Drawable _activeDrawable;
+
+        public Drawable ActiveDrawable
+        {
+            get { return _activeDrawable; }
+            set { _activeDrawable = value; }
+        }
+
+        DrawableModel model;
         DrawableModel model2;
         //VertexPositionNormalTexture[] cubeVertices;
         //VertexPositionNormalTexture[] cube2Vertices;
@@ -116,6 +124,8 @@ namespace WorldMakerDemo
 
             TextureInfo ti = new TextureInfo(text, 0);
             TextureInfo ti2 = new TextureInfo(text2, 1);
+
+            _activeDrawable = model;
 
             //cubeVertices = new VertexPositionNormalTexture[36];
             //cube2Vertices = new VertexPositionNormalTexture[36];
