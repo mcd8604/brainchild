@@ -169,7 +169,6 @@ namespace WorldMakerDemo
             //m_VertexDeclaration.GraphicsDevice.RenderState.CullMode = CullMode.None;
             //m_VertexDeclaration.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
             //m_VertexDeclaration.GraphicsDevice.RenderState.DepthBufferEnable = false;
-
             foreach (TextureInfo ti in drawable_List_Drawn.Keys)
             {
                 if (ti.SortNumber != currentTextureNumber)

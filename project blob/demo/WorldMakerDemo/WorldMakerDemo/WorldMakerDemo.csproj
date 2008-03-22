@@ -66,14 +66,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LevelEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelEditor.Designer.cs">
+      <DependentUpon>LevelEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Display.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="DrawableModel.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="ModelEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ModelEditor.Designer.cs">
+      <DependentUpon>ModelEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="InputHandler.cs" />
     <Compile Include="Level\Area.cs" />
@@ -95,9 +101,13 @@
     </NestedContentProject>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="LevelEditor.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Form1.cs</DependentUpon>
+      <DependentUpon>LevelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelEditor.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ModelEditor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

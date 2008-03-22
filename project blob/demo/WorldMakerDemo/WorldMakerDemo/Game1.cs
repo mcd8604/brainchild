@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using WorldMakerDemo.Level;
 
 
 namespace WorldMakerDemo
@@ -84,7 +85,12 @@ namespace WorldMakerDemo
 
             new System.Threading.Thread(delegate()
             {
-                System.Windows.Forms.Application.Run(new Form1(this));
+                System.Windows.Forms.Application.Run(new ModelEditor(this));
+            }).Start();
+
+            new System.Threading.Thread(delegate()
+            {
+                System.Windows.Forms.Application.Run(new LevelEditor(this));
             }).Start();
 
             base.Initialize();
