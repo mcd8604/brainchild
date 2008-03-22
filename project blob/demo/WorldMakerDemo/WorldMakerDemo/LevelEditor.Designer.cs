@@ -82,6 +82,7 @@ namespace WorldMakerDemo
             this.loadButton.TabIndex = 3;
             this.loadButton.Text = "Load Level";
             this.loadButton.UseVisualStyleBackColor = true;
+            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
             // saveButton
             // 
