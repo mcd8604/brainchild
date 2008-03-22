@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WorldMakerDemo.Level
 {
@@ -30,8 +32,18 @@ namespace WorldMakerDemo.Level
         //    set { _collidables = value; }
         //}
 
-        public Area()
+        public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix, VertexDeclaration basicEffectVertexDeclaration)
         {
+            _display = new Display(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration);
+            _drawables = new Dictionary<String, Drawable>();
+
+            //_collidables = new Dictionary<String, Collidable>();
+        }
+
+        public Area(Matrix worldMatrix, VertexDeclaration basicEffectVertexDeclaration, Effect effect, 
+            String worldParameterName, String textureParameterName, String techniqueName)
+        {
+            _display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, worldParameterName, textureParameterName, techniqueName);
             _drawables = new Dictionary<String, Drawable>();
 
             //_collidables = new Dictionary<String, Collidable>();
@@ -60,6 +72,10 @@ namespace WorldMakerDemo.Level
         public void AddDrawable(String drawableName, TextureInfo textureInfo, Drawable drawable)
         {
             _drawables.Add(drawableName, drawable);
+            if (!_display.DrawnList.ContainsKey(textureInfo))
+            {
+                _display.DrawnList.Add(textureInfo, new List<Drawable>());
+            }
             _display.DrawnList[textureInfo].Add(drawable); 
         }
 
