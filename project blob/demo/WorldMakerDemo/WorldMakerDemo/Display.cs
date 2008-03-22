@@ -128,7 +128,8 @@ namespace WorldMakerDemo
             ((BasicEffect)m_Effect).Projection = p_Projection;
         }
 
-        public Display(Matrix p_World, VertexDeclaration p_VertexDeclaration, Effect p_Effect, String p_WorldParameterName, String p_TextureParameterName, String p_TechniqueName)
+        public Display(Matrix p_World, VertexDeclaration p_VertexDeclaration, Effect p_Effect, String p_WorldParameterName, 
+            String p_TextureParameterName, String p_TechniqueName)
         {
             m_VertexDeclaration = p_VertexDeclaration;
             m_VertexDeclaration.GraphicsDevice.RenderState.CullMode =
