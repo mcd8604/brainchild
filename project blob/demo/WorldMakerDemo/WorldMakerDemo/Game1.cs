@@ -23,11 +23,17 @@ namespace WorldMakerDemo
         ContentManager content;
 
         Drawable _activeDrawable;
-        Area testArea;
         public Drawable ActiveDrawable
         {
             get { return _activeDrawable; }
             set { _activeDrawable = value; }
+        }
+
+        Area _activeArea;
+        public Area ActiveArea
+        {
+            get { return _activeArea; }
+            set { _activeArea = value; }
         }
 
         DrawableModel model;
@@ -146,7 +152,7 @@ namespace WorldMakerDemo
 
             if(effectName == "basic")
             {
-                testArea = new Area(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration);
+                Level.Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration));
             }
             else if (effectName == "effects")
             {
@@ -160,7 +166,7 @@ namespace WorldMakerDemo
                 effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
                 effect.Parameters["xAmbient"].SetValue(0.25f);
 
-                testArea = new Area(worldMatrix, basicEffectVertexDeclaration, effect, "xWorld", "xTexture", "Textured");
+                Level.Level.AddArea("testArea", new Area(worldMatrix, basicEffectVertexDeclaration, effect, "xWorld", "xTexture", "Textured"));
             }
             else if (effectName == "Cel")
             {
@@ -197,10 +203,9 @@ namespace WorldMakerDemo
                 if (effect.Parameters["EdgeOffset"] != null)
                     effect.Parameters["EdgeOffset"].SetValue(0.03f);
 
-                testArea.Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "World", "NONE", null);
-            
+                Level.Level.AddArea("testArea", new Area(worldMatrix, basicEffectVertexDeclaration, effect, "World", "NONE", null));
             }
-
+            _activeArea = Level.Level.Areas["testArea"];
             //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
             VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
@@ -226,8 +231,8 @@ namespace WorldMakerDemo
             //List<Drawable> list2 = new List<Drawable>();
             //list2.Add(model2);
 
-            testArea.AddDrawable("cube", ti, model);
-            testArea.AddDrawable("sphere", ti2, model2);
+            _activeArea.AddDrawable("cube", ti, model);
+            _activeArea.AddDrawable("sphere", ti2, model2);
         }
 
       
@@ -304,16 +309,16 @@ namespace WorldMakerDemo
 
                 viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
 
-                if (testArea.Display.CurrentEffect is BasicEffect)
+                if (_activeArea.Display.CurrentEffect is BasicEffect)
                 {
-                    ((BasicEffect)testArea.Display.CurrentEffect).View = viewMatrix;
+                    ((BasicEffect)_activeArea.Display.CurrentEffect).View = viewMatrix;
                 }
                 else
                 {
                     if (effectName == "effects")
-                        testArea.Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
+                       _activeArea.Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
                     else if (effectName == "Cel")
-                        testArea.Display.CurrentEffect.Parameters["View"].SetValue(viewMatrix);
+                       _activeArea.Display.CurrentEffect.Parameters["View"].SetValue(viewMatrix);
                 }
 
                 //m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
@@ -336,7 +341,7 @@ namespace WorldMakerDemo
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-            testArea.Display.Draw();
+            _activeArea.Display.Draw();
 
             // TODO: Add your drawing code here
 
