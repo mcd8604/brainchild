@@ -50,6 +50,7 @@ namespace WorldMakerDemo
             this.areaListBox.Name = "areaListBox";
             this.areaListBox.Size = new System.Drawing.Size(269, 132);
             this.areaListBox.TabIndex = 0;
+            this.areaListBox.SelectedIndexChanged += new System.EventHandler(this.areaListBox_SelectedIndexChanged);
             // 
             // modelListBox
             // 
@@ -60,6 +61,7 @@ namespace WorldMakerDemo
             this.modelListBox.Name = "modelListBox";
             this.modelListBox.Size = new System.Drawing.Size(269, 308);
             this.modelListBox.TabIndex = 1;
+            this.modelListBox.SelectedIndexChanged += new System.EventHandler(this.modelListBox_SelectedIndexChanged);
             // 
             // nameDisplay
             // 
