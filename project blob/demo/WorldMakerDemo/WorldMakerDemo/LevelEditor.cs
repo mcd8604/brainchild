@@ -18,5 +18,15 @@ namespace WorldMakerDemo
 
             m_Game = p_Game;
         }
+
+        private void areaListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void modelListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //m_Game.
+        }
     }
 }
