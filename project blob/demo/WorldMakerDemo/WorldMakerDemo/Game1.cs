@@ -21,10 +21,9 @@ namespace WorldMakerDemo
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         ContentManager content;
-        public Display m_Display;
 
         Drawable _activeDrawable;
-
+        Area testArea;
         public Drawable ActiveDrawable
         {
             get { return _activeDrawable; }
@@ -147,7 +146,7 @@ namespace WorldMakerDemo
 
             if(effectName == "basic")
             {
-                m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration);
+                testArea = new Area(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration);
             }
             else if (effectName == "effects")
             {
@@ -161,7 +160,7 @@ namespace WorldMakerDemo
                 effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
                 effect.Parameters["xAmbient"].SetValue(0.25f);
 
-                m_Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "xWorld", "xTexture", "Textured");
+                testArea = new Area(worldMatrix, basicEffectVertexDeclaration, effect, "xWorld", "xTexture", "Textured");
             }
             else if (effectName == "Cel")
             {
@@ -198,7 +197,7 @@ namespace WorldMakerDemo
                 if (effect.Parameters["EdgeOffset"] != null)
                     effect.Parameters["EdgeOffset"].SetValue(0.03f);
 
-                m_Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "World", "NONE",null);
+                testArea.Display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, "World", "NONE", null);
             
             }
 
@@ -220,15 +219,15 @@ namespace WorldMakerDemo
             //vertexBuffer2.SetData<VertexPositionNormalTexture>(cube2Vertices);
             //testCube.setGraphicsDevice(graphics.GraphicsDevice);
             //testCube2.setGraphicsDevice(graphics.GraphicsDevice);
-            List<Drawable> list = new List<Drawable>();
-            //list.Add(testCube);
-            list.Add(model);
+            //List<Drawable> list = new List<Drawable>();
+            ////list.Add(testCube);
+            //list.Add(model);
 
-            List<Drawable> list2 = new List<Drawable>();
-            list2.Add(model2);
+            //List<Drawable> list2 = new List<Drawable>();
+            //list2.Add(model2);
 
-            m_Display.DrawnList.Add(ti, list);
-            m_Display.DrawnList.Add(ti2, list2);            
+            testArea.AddDrawable("cube", ti, model);
+            testArea.AddDrawable("sphere", ti2, model2);
         }
 
       
@@ -305,16 +304,16 @@ namespace WorldMakerDemo
 
                 viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
 
-                if (m_Display.CurrentEffect is BasicEffect)
+                if (testArea.Display.CurrentEffect is BasicEffect)
                 {
-                    ((BasicEffect)m_Display.CurrentEffect).View = viewMatrix;
+                    ((BasicEffect)testArea.Display.CurrentEffect).View = viewMatrix;
                 }
                 else
                 {
                     if (effectName == "effects")
-                        m_Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
+                        testArea.Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
                     else if (effectName == "Cel")
-                        m_Display.CurrentEffect.Parameters["View"].SetValue(viewMatrix);
+                        testArea.Display.CurrentEffect.Parameters["View"].SetValue(viewMatrix);
                 }
 
                 //m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
@@ -337,7 +336,7 @@ namespace WorldMakerDemo
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-            m_Display.Draw();
+            testArea.Display.Draw();
 
             // TODO: Add your drawing code here
 
