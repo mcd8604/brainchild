@@ -9,10 +9,10 @@ namespace WorldMakerDemo.Level
 {
     public static class Level
     {
-        private static List<Area> _areas;
+        private static Dictionary<String, Area> _areas;
         private static String _name;
 
-        public static List<Area> Areas
+        public static Dictionary<String, Area> Areas
         {
             get { return _areas; }
             set { _areas = value; }
@@ -22,6 +22,28 @@ namespace WorldMakerDemo.Level
         {
             get { return _name; }
             set { _name = value; }
+        }
+
+        public static Area GetArea(String areaName)
+        {
+            if (_areas.ContainsKey(areaName))
+            {
+                return _areas[areaName];
+            }
+            return null;
+        }
+
+        public static void RemoveArea(String areaName)
+        {
+            if (_areas.ContainsKey(areaName))
+            {
+                _areas.Remove(areaName);
+            }
+        }
+
+        public static void AddArea(String areaName, Area area)
+        {
+            _areas.Add(areaName, area);
         }
 
         public static void SaveLevel(String levelName)
@@ -38,7 +60,7 @@ namespace WorldMakerDemo.Level
             _name = levelName;
             Stream s = File.Open(levelName + ".lev", FileMode.Open);
             BinaryFormatter bf = new BinaryFormatter();
-            _areas = (List<Area>)bf.Deserialize(s);
+            _areas = (Dictionary<String, Area>)bf.Deserialize(s);
             Console.WriteLine("Level Loaded");
             s.Close();
         }
