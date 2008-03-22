@@ -6,11 +6,19 @@ namespace WorldMakerDemo.Level
 {
     public class Area
     {
-        private Dictionary<String, DrawableModel> _drawables;
+        private Display _display;
+
+        private Dictionary<String, Drawable> _drawables;
 
         //private Dictionary<String, Collidable> _collidables;
 
-        public Dictionary<String, DrawableModel> Drawables
+        public Display Display
+        {
+            get { return _display; }
+            set { _display = value; }
+        }
+
+        public Dictionary<String, Drawable> Drawables
         {
             get { return _drawables; }
             set { _drawables = value; }
@@ -24,12 +32,12 @@ namespace WorldMakerDemo.Level
 
         public Area()
         {
-            _drawables = new Dictionary<String, DrawableModel>();
+            _drawables = new Dictionary<String, Drawable>();
 
             //_collidables = new Dictionary<String, Collidable>();
         }
 
-        public DrawableModel GetDrawable(String drawableName)
+        public Drawable GetDrawable(String drawableName)
         {
             if (_drawables.ContainsKey(drawableName))
             {
@@ -38,17 +46,21 @@ namespace WorldMakerDemo.Level
             return null;
         }
 
-        public void RemoveDrawable(String drawableName)
+        public void RemoveDrawable(String drawableName, TextureInfo textureInfo)
         {
             if (_drawables.ContainsKey(drawableName))
             {
+                Drawable tempDrawable;
+                tempDrawable = _drawables[drawableName];
                 _drawables.Remove(drawableName);
+                _display.DrawnList[textureInfo].Remove(tempDrawable); 
             }
         }
 
-        public void AddDrawable(String drawableName, DrawableModel drawable)
+        public void AddDrawable(String drawableName, TextureInfo textureInfo, Drawable drawable)
         {
             _drawables.Add(drawableName, drawable);
+            _display.DrawnList[textureInfo].Add(drawable); 
         }
 
         //public Collidable GetCollidable(String collidableName)
