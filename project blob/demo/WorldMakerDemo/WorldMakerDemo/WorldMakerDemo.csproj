@@ -85,6 +85,12 @@
     <Compile Include="Level\Area.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Level\Trigger.cs" />
+    <Compile Include="ModelSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModelSelect.Designer.cs">
+      <DependentUpon>ModelSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -108,6 +114,10 @@
     <EmbeddedResource Include="ModelEditor.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ModelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelSelect.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ModelSelect.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

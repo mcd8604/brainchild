@@ -22,6 +22,8 @@ namespace WorldMakerDemo
         SpriteBatch spriteBatch;
         ContentManager content;
 
+        Vector3 lightPos = new Vector3(0,20,0);
+
         Drawable _activeDrawable;
         public Drawable ActiveDrawable
         {
@@ -41,7 +43,7 @@ namespace WorldMakerDemo
         //VertexPositionNormalTexture[] cubeVertices;
         //VertexPositionNormalTexture[] cube2Vertices;
 
-        const String effectName = "basic";
+        const String effectName = "Cel";
 
         Effect effect;
         //Effect celshader;
@@ -117,19 +119,19 @@ namespace WorldMakerDemo
         protected override void LoadContent()
         {
             if(effectName != "basic")
-                effect = Content.Load<Effect>(effectName);
+                effect = Content.Load<Effect>(@"Shaders\\" + effectName);
 
-            text = Content.Load<Texture2D>("grass");
-            text2 = Content.Load<Texture2D>("test");
-            pointText = Content.Load<Texture2D>("point_text");
+            text = Content.Load<Texture2D>(@"Models\\free-grass-texture");
+            text2 = Content.Load<Texture2D>(@"Textures\\test");
+            pointText = Content.Load<Texture2D>(@"Textures\\point_text");
 
             //effect = Content.Load<Effect>("effects");
             model = new DrawableModel("cube");
-            model.ModelObject = Content.Load<Model>("cube");
+            model.ModelObject = Content.Load<Model>(@"Models\\cube");
             model.PointTexture = pointText;
 
             model2 = new DrawableModel("ball");
-            model2.ModelObject = Content.Load<Model>("ball");
+            model2.ModelObject = Content.Load<Model>(@"Models\\ball");
             model2.PointTexture = pointText;
 
             TextureInfo ti = new TextureInfo(text, 0);
@@ -169,7 +171,7 @@ namespace WorldMakerDemo
                 //effect.Parameters["xShowNormals"].SetValue(true);
                 //effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
                 effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
-                effect.Parameters["xAmbient"].SetValue(0.25f);
+                effect.Parameters["xAmbient"].SetValue(0.5f);
 
                 Level.Level.AddArea("testArea", new Area(worldMatrix, basicEffectVertexDeclaration, effect, "xWorld", "xTexture", "Textured"));
             }
@@ -185,7 +187,7 @@ namespace WorldMakerDemo
                     effect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
 
                 if (effect.Parameters["LightPosition"] != null)
-                    effect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
+                    effect.Parameters["LightPosition"].SetValue(lightPos);
 
                 if (effect.Parameters["LayerOneSharp"] != null)
                     effect.Parameters["LayerOneSharp"].SetValue(.9f);

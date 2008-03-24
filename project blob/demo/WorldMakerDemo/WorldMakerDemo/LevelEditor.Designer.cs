@@ -143,6 +143,7 @@ namespace WorldMakerDemo
             this.modelDelButton.TabIndex = 9;
             this.modelDelButton.Text = "Delete Model";
             this.modelDelButton.UseVisualStyleBackColor = true;
+            this.modelDelButton.Click += new System.EventHandler(this.modelDelButton_Click);
             // 
             // modelAddButton
             // 
@@ -153,6 +154,7 @@ namespace WorldMakerDemo
             this.modelAddButton.TabIndex = 10;
             this.modelAddButton.Text = "Add Model";
             this.modelAddButton.UseVisualStyleBackColor = true;
+            this.modelAddButton.Click += new System.EventHandler(this.modelAddButton_Click);
             // 
             // LevelEditor
             // 

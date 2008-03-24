@@ -11,6 +11,7 @@ namespace WorldMakerDemo
     public partial class LevelEditor : Form
     {
         private Game1 _gameRef;
+        ModelSelect _modelSelect;
 
         public LevelEditor(Game1 game)
         {
@@ -19,6 +20,7 @@ namespace WorldMakerDemo
             _gameRef = game;
             
         }
+
 
         private void areaListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -46,6 +48,27 @@ namespace WorldMakerDemo
                 Console.WriteLine(str + " loaded");
             }
             areaListBox.Update();
+        }
+
+        private void modelAddButton_Click(object sender, EventArgs e)
+        {
+            string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
+            for (int i = 0; i < models.Length; i++)
+                models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
+
+            _modelSelect = new ModelSelect(this, models, _gameRef);
+            _modelSelect.ShowDialog();
+            if (_modelSelect.DialogResult == DialogResult.OK)
+            {
+                Console.WriteLine(_modelSelect.CurrentSelection.Name);
+
+                _gameRef.ActiveArea.Display.DrawnList.Values[0].Add(_modelSelect.CurrentSelection);
+            }
+        }
+
+        private void modelDelButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
