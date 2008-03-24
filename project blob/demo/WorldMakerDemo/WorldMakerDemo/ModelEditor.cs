@@ -194,6 +194,7 @@ namespace WorldMakerDemo
         {
             if (m_Game.ActiveDrawable is DrawableModel)
             {
+                
                 ((DrawableModel)m_Game.ActiveDrawable).Scale = Matrix.CreateScale((float)Convert.ToInt32(ScaleXValue.Text), (float)Convert.ToInt32(ScaleYValue.Text), (float)Convert.ToInt32(ScaleZValue.Text));
             }
         }
@@ -231,6 +232,8 @@ namespace WorldMakerDemo
         {
             if (m_Game.ActiveDrawable is DrawableModel)
             {
+                ((DrawableModel)m_Game.ActiveDrawable).RotationPriority = 0;
+                ((DrawableModel)m_Game.ActiveDrawable).TranslationPriority = 1;
                 ((DrawableModel)m_Game.ActiveDrawable).Rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(rotation_x)), Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(rotation_y)), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation_z))));
             }
         }
