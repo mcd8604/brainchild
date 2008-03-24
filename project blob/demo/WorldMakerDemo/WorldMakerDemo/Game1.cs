@@ -265,7 +265,6 @@ namespace WorldMakerDemo
             if (InputHandler.IsKeyPressed(Keys.A))
             {
                 //strif to the left
-                
                 this.focusPoint += Horizontal;
                 //Console.WriteLine(focusPoint);
             }
