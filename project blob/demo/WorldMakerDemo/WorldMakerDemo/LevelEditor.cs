@@ -12,6 +12,7 @@ namespace WorldMakerDemo
     {
         private Game1 _gameRef;
         ModelSelect _modelSelect;
+        YesNo _deleteChecker;
         // This is currently to allow for multiple objects by forcing a change of name
         // Needs to be not hard coded
         private static int num = 1;
@@ -80,7 +81,30 @@ namespace WorldMakerDemo
 
         private void modelDelButton_Click(object sender, EventArgs e)
         {
+            if (modelListBox.SelectedIndex != -1)
+            {
+                _deleteChecker = new YesNo();
+                _deleteChecker.ShowDialog();
+                if (_deleteChecker.DialogResult == DialogResult.Yes)
+                {
+                    modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
+                    modelListBox.Update();
+                }
+            }
+        }
 
+        private void areaDelButton_Click(object sender, EventArgs e)
+        {
+            if (areaListBox.SelectedIndex != -1)
+            {
+                _deleteChecker = new YesNo();
+                _deleteChecker.ShowDialog();
+                if (_deleteChecker.DialogResult == DialogResult.Yes)
+                {
+                    areaListBox.Items.RemoveAt(areaListBox.SelectedIndex);
+                    areaListBox.Update();
+                }
+            }
         }
     }
 }
