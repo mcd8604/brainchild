@@ -58,14 +58,21 @@ namespace WorldMakerDemo.Level
             return null;
         }
 
-        public void RemoveDrawable(String drawableName, TextureInfo textureInfo)
+        public void RemoveDrawable(String drawableName)
         {
             if (_drawables.ContainsKey(drawableName))
             {
                 Drawable tempDrawable;
                 tempDrawable = _drawables[drawableName];
                 _drawables.Remove(drawableName);
-                _display.DrawnList[textureInfo].Remove(tempDrawable); 
+                foreach (TextureInfo textureInfo in _display.DrawnList.Keys)
+                {
+                    if (_display.DrawnList[textureInfo].Contains(tempDrawable))
+                    {
+                        _display.DrawnList[textureInfo].Remove(tempDrawable);
+                        return;
+                    }
+                }
             }
         }
 

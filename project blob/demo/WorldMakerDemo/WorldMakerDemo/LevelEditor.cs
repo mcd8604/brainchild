@@ -78,6 +78,7 @@ namespace WorldMakerDemo
                 Console.WriteLine(_modelSelect.CurrentModel.Name);
 
                 _gameRef.ActiveArea.AddDrawable( _modelSelect.CurrentModel.Name, _modelSelect.CurrentTexture, _modelSelect.CurrentModel);
+                modelListBox.Items.Add("newObject" + num);
                 num++;
                 modelListBox.Update();
             }
@@ -91,6 +92,7 @@ namespace WorldMakerDemo
                 _deleteChecker.ShowDialog();
                 if (_deleteChecker.DialogResult == DialogResult.Yes)
                 {
+                    _gameRef.ActiveArea.RemoveDrawable((String)modelListBox.Items[modelListBox.SelectedIndex]);
                     modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
                     modelListBox.Update();
                 }
