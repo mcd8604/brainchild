@@ -52,6 +52,7 @@ namespace WorldMakerDemo
 
         Texture2D text;
         Texture2D text2;
+        Texture2D pointText;
 
         //VertexDeclaration VertexDeclarationColor;
         VertexDeclaration VertexDeclarationTexture;
@@ -120,12 +121,16 @@ namespace WorldMakerDemo
 
             text = Content.Load<Texture2D>("grass");
             text2 = Content.Load<Texture2D>("test");
+            pointText = Content.Load<Texture2D>("point_text");
+
             //effect = Content.Load<Effect>("effects");
             model = new DrawableModel("cube");
             model.ModelObject = Content.Load<Model>("cube");
+            model.PointTexture = pointText;
 
             model2 = new DrawableModel("ball");
             model2.ModelObject = Content.Load<Model>("ball");
+            model2.PointTexture = pointText;
 
             TextureInfo ti = new TextureInfo(text, 0);
             TextureInfo ti2 = new TextureInfo(text2, 1);

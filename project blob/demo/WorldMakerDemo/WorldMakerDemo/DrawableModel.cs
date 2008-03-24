@@ -14,7 +14,32 @@ namespace WorldMakerDemo
 {
     public class DrawableModel : Drawable
     {
+
+        Texture2D m_PointTexture;
+        public Texture2D PointTexture
+        {
+            get
+            {
+                return m_PointTexture;
+            }
+            set
+            {
+                m_PointTexture = value;
+            }
+        }
+
         String m_Name;
+        public String Name
+        {
+            get
+            {
+                return m_Name;
+            }
+            set
+            {
+                m_Name = value;
+            }
+        }
         Model m_Model;
         GraphicsDevice m_GraphicsDevice;
         Matrix m_Position, m_Rotation, m_Scale;
@@ -119,6 +144,19 @@ namespace WorldMakerDemo
             }
         }
 
+        bool m_ShowVertices = false;
+        public bool ShowVertices
+        {
+            get
+            {
+                return m_ShowVertices;
+            }
+            set
+            {
+                m_ShowVertices = value;
+            }
+        }
+
         public VertexBuffer getVertexBuffer()
         {
             return null;
@@ -157,6 +195,14 @@ namespace WorldMakerDemo
                 m_GraphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
                 // Finally draw the actual triangles on the screen
                 m_GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+
+                if (this.ShowVertices)
+                {
+                    Texture2D temp = (Texture2D)m_GraphicsDevice.Textures[0];
+                    m_GraphicsDevice.Textures[0] = PointTexture;
+                    m_GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
+                    m_GraphicsDevice.Textures[0] = temp;
+                }
             }
         }
     }

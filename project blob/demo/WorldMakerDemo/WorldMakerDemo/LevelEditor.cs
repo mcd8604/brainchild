@@ -34,6 +34,8 @@ namespace WorldMakerDemo
         private void modelListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _gameRef.ActiveDrawable = _gameRef.ActiveArea.Drawables[(String)(modelListBox.Items[modelListBox.SelectedIndex])];
+            if(_gameRef.ActiveDrawable is DrawableModel)
+                _gameRef.ActiveArea.Display.CurrentlySelected = ((DrawableModel)_gameRef.ActiveDrawable).Name;
         }
 
         private void loadButton_Click(object sender, EventArgs e)

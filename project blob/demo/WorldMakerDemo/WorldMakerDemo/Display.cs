@@ -20,6 +20,19 @@ namespace WorldMakerDemo
         SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
         VertexDeclaration m_VertexDeclaration;
 
+        String m_CurrentlySelected = "";
+        public String CurrentlySelected
+        {
+            get
+            {
+                return m_CurrentlySelected;
+            }
+            set
+            {
+                m_CurrentlySelected = value;
+            }
+        }
+
         public SortedList<TextureInfo, List<Drawable>> DrawnList
         {
             get
@@ -219,6 +232,11 @@ namespace WorldMakerDemo
         {
             Stack<Matrix> drawStack = new Stack<Matrix>();
             Matrix currentWorld = p_CurrentWorld;
+
+            if (d.Name == CurrentlySelected)
+                d.ShowVertices = true;
+            else
+                d.ShowVertices = false;
 
             for (int j = 0; j < 4; j++)
             {
