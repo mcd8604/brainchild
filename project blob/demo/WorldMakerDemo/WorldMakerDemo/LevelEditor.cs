@@ -78,7 +78,7 @@ namespace WorldMakerDemo
                 Console.WriteLine(_modelSelect.CurrentModel.Name);
 
                 _gameRef.ActiveArea.AddDrawable( _modelSelect.CurrentModel.Name, _modelSelect.CurrentTexture, _modelSelect.CurrentModel);
-                modelListBox.Items.Add("newObject" + num);
+                modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
                 num++;
                 modelListBox.Update();
             }
