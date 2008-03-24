@@ -31,54 +31,52 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ball.fbx">
+    <Compile Include="Models\ball.fbx">
       <Name>ball</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="ground.fbx">
+    <Compile Include="Models\ground.fbx">
       <Name>ground</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="free-grass-texture.jpg">
-      <Name>grass</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="effects.fx">
+    <Compile Include="Shaders\effects.fx">
       <Name>effects</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="test.tga">
+    <Compile Include="Textures\test.tga">
       <Name>test</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cube.FBX">
+    <Compile Include="Models\cube.FBX">
       <Name>cube</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cel.fx">
+    <Compile Include="Shaders\Cel.fx">
       <Name>Cel</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="point_text.JPG">
+    <Compile Include="Models\free-grass-texture.jpg">
+      <Name>free-grass-texture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\point_text.JPG">
       <Name>point_text</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
