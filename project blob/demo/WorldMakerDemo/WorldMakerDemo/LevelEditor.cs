@@ -12,6 +12,9 @@ namespace WorldMakerDemo
     {
         private Game1 _gameRef;
         ModelSelect _modelSelect;
+        // This is currently to allow for multiple objects by forcing a change of name
+        // Needs to be not hard coded
+        private static int num = 1;
 
         public LevelEditor(Game1 game)
         {
@@ -25,6 +28,7 @@ namespace WorldMakerDemo
         private void areaListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _gameRef.ActiveArea = Level.Level.Areas[(String)(areaListBox.Items[areaListBox.SelectedIndex])];
+            modelListBox.Items.Clear();
             foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
             {
                 modelListBox.Items.Add(str);
@@ -62,7 +66,9 @@ namespace WorldMakerDemo
             {
                 Console.WriteLine(_modelSelect.CurrentSelection.Name);
 
-                _gameRef.ActiveArea.Display.DrawnList.Values[0].Add(_modelSelect.CurrentSelection);
+                _gameRef.ActiveArea.AddDrawable("newObject" + num, _gameRef.ActiveArea.Display.DrawnList.Keys[0], _modelSelect.CurrentSelection);
+                num++;
+                modelListBox.Update();
             }
         }
 
