@@ -237,47 +237,35 @@ namespace WorldMakerDemo
         #region values
         private void RotationXValue_TextChanged(object sender, EventArgs e)
         {
-            if (RotationXValue.Text.Equals(""))
-            {
-                rotation_x = 0;
-                RotationXValue.Text = "0";
-            }
-            else
+            try
             {
                 rotation_x = (float)Convert.ToDouble(RotationXValue.Text);
+                RotationX.Value = (int)rotation_x;
+                SetRotation();
             }
-            RotationX.Value = (int)rotation_x;
-            SetRotation();
+            catch (Exception) { }
         }
 
         private void RotationYValue_TextChanged(object sender, EventArgs e)
         {
-            if (RotationYValue.Text.Equals(""))
-            {
-                rotation_y = 0;
-                RotationYValue.Text = "0";
-            }
-            else
+             try
             {
                 rotation_y = (float)Convert.ToDouble(RotationYValue.Text);
+                RotationY.Value = (int)rotation_y;
+                SetRotation();
             }
-            RotationY.Value = (int)rotation_y;
-            SetRotation();
+            catch (Exception) { }
         }
 
         private void RotationZValue_TextChanged(object sender, EventArgs e)
         {
-            if (RotationZValue.Text.Equals(""))
-            {
-                rotation_z = 0;
-                RotationZValue.Text = "0";
-            }
-            else
+           try
             {
                 rotation_z = (float)Convert.ToDouble(RotationZValue.Text);
+                RotationZ.Value = (int)rotation_z;
+                SetRotation();
             }
-            RotationZ.Value = (int)rotation_z;
-            SetRotation();
+            catch (Exception) { }
         }
         #endregion
 
