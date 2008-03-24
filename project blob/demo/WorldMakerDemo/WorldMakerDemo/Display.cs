@@ -13,12 +13,31 @@ using Microsoft.Xna.Framework.Storage;
 namespace WorldMakerDemo
 {
     //This class holds a list of VectorLists to be drawn to the screen
-    //This is a framework, nothing in here is complete!!
     public class Display
     {
         SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
         SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
         VertexDeclaration m_VertexDeclaration;
+        Texture2D m_BlackTexture;
+
+        public Texture2D BlackTexture
+        {
+            get { return m_BlackTexture; }
+            set { m_BlackTexture = value; }
+        }
+
+        bool m_ShowAxis = false;
+        public bool ShowAxis
+        {
+            get
+            {
+                return m_ShowAxis;
+            }
+            set
+            {
+                m_ShowAxis = value;
+            }
+        }
 
         String m_CurrentlySelected = "";
         public String CurrentlySelected
@@ -183,6 +202,37 @@ namespace WorldMakerDemo
             //m_VertexDeclaration.GraphicsDevice.RenderState.CullMode = CullMode.None;
             //m_VertexDeclaration.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
             //m_VertexDeclaration.GraphicsDevice.RenderState.DepthBufferEnable = false;
+            if (ShowAxis)
+            {
+                VertexPositionNormalTexture[] axisVertices = new VertexPositionNormalTexture[6];
+
+                axisVertices[0] = new VertexPositionNormalTexture(new Vector3(-2, 0, 0), Vector3.Zero, Vector2.Zero);
+                axisVertices[1] = new VertexPositionNormalTexture(new Vector3(2, 0, 0), Vector3.Zero, new Vector2(0, 1));
+                axisVertices[2] = new VertexPositionNormalTexture(new Vector3(0, -2, 0), Vector3.Zero, Vector2.Zero);
+                axisVertices[3] = new VertexPositionNormalTexture(new Vector3(0, 2, 0), Vector3.Zero, new Vector2(0, 1));
+                axisVertices[4] = new VertexPositionNormalTexture(new Vector3(0, 0, -2), Vector3.Zero, Vector2.Zero);
+                axisVertices[5] = new VertexPositionNormalTexture(new Vector3(0, 0, 2), Vector3.Zero, new Vector2(0, 1));
+
+                VertexBuffer vb = new VertexBuffer(m_VertexDeclaration.GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 6, BufferUsage.None);
+                vb.SetData<VertexPositionNormalTexture>(axisVertices);
+
+                //VertexStream tempBuffer = m_VertexDeclaration.GraphicsDevice.Vertices[0];
+                m_VertexDeclaration.GraphicsDevice.Vertices[0].SetSource(vb, 0, VertexPositionNormalTexture.SizeInBytes);
+                Texture temp = m_VertexDeclaration.GraphicsDevice.Textures[0];
+                m_VertexDeclaration.GraphicsDevice.Textures[0] = BlackTexture;
+                m_Effect.Begin();
+
+                foreach (EffectPass pass in m_Effect.CurrentTechnique.Passes)
+                {
+                    pass.Begin();
+                    m_VertexDeclaration.GraphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, 6);
+                    pass.End();
+                }
+                m_Effect.End();
+                m_VertexDeclaration.GraphicsDevice.Textures[0] = temp;
+                //m_VertexDeclaration.GraphicsDevice.Vertices[0].SetSource(tempBuffer.VertexBuffer,0,tempBuffer.VertexStride);
+            }
+
             foreach (TextureInfo ti in drawable_List_Drawn.Keys)
             {
                 if (ti.SortNumber != currentTextureNumber)
@@ -233,10 +283,16 @@ namespace WorldMakerDemo
             Stack<Matrix> drawStack = new Stack<Matrix>();
             Matrix currentWorld = p_CurrentWorld;
 
+
             if (d.Name == CurrentlySelected)
+            {
                 d.ShowVertices = true;
+                d.PointTexture = BlackTexture;
+            }
             else
+            {
                 d.ShowVertices = false;
+            }
 
             for (int j = 0; j < 4; j++)
             {
