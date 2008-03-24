@@ -165,8 +165,10 @@ namespace WorldMakerDemo
         public DrawableModel(String p_Name)
         {
             m_Name = p_Name;
-            for (int i = 0; i < 3; i++)
-                m_PriorityArray[i] = 3;
+
+            TranslationPriority = 2;
+            RotationPriority = 1;
+            ScalePriority = 0;
 
             m_Position = Matrix.CreateTranslation(Vector3.Zero);
             m_Rotation = Matrix.CreateRotationZ(0);
