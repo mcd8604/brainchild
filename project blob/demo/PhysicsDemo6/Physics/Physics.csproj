@@ -24,6 +24,16 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Release|x86' ">
+    <OutputPath>bin\x86\Debug Release\</OutputPath>
+    <Optimize>true</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>
+    </DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
       <Private>False</Private>
@@ -68,8 +78,8 @@
     <Compile Include="..\PhysicsDemo6\Physics\NormalMaterial.cs">
       <Link>NormalMaterial.cs</Link>
     </Compile>
-    <Compile Include="..\PhysicsDemo6\Physics\Physics.cs">
-      <Link>Physics.cs</Link>
+    <Compile Include="..\PhysicsDemo6\Physics\PhysicsManager.cs">
+      <Link>PhysicsManager.cs</Link>
     </Compile>
     <Compile Include="..\PhysicsDemo6\Physics\Player.cs">
       <Link>Player.cs</Link>

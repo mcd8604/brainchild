@@ -7,20 +7,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physics", "Physics\Physics.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Release|x86 = Debug Release|x86
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B2BBA0A-43C3-404E-938E-186796097122}.Debug Release|x86.ActiveCfg = Debug Release|x86
+		{9B2BBA0A-43C3-404E-938E-186796097122}.Debug Release|x86.Build.0 = Debug Release|x86
 		{9B2BBA0A-43C3-404E-938E-186796097122}.Debug|x86.ActiveCfg = Debug|x86
 		{9B2BBA0A-43C3-404E-938E-186796097122}.Debug|x86.Build.0 = Debug|x86
 		{9B2BBA0A-43C3-404E-938E-186796097122}.Release|x86.ActiveCfg = Release|x86
 		{9B2BBA0A-43C3-404E-938E-186796097122}.Release|x86.Build.0 = Release|x86
-		{5BCC3A5A-8ED7-453C-89E0-9B24162A7171}.Debug|x86.ActiveCfg = Debug|x86
-		{5BCC3A5A-8ED7-453C-89E0-9B24162A7171}.Release|x86.ActiveCfg = Release|x86
+		{FEE9663E-8E85-4879-941F-3134C9F672CA}.Debug Release|x86.ActiveCfg = Debug Release|x86
+		{FEE9663E-8E85-4879-941F-3134C9F672CA}.Debug Release|x86.Build.0 = Debug Release|x86
 		{FEE9663E-8E85-4879-941F-3134C9F672CA}.Debug|x86.ActiveCfg = Release|x86
 		{FEE9663E-8E85-4879-941F-3134C9F672CA}.Debug|x86.Build.0 = Release|x86
 		{FEE9663E-8E85-4879-941F-3134C9F672CA}.Release|x86.ActiveCfg = Release|x86
 		{FEE9663E-8E85-4879-941F-3134C9F672CA}.Release|x86.Build.0 = Release|x86
+		{5BCC3A5A-8ED7-453C-89E0-9B24162A7171}.Debug Release|x86.ActiveCfg = Debug Release|x86
+		{5BCC3A5A-8ED7-453C-89E0-9B24162A7171}.Debug|x86.ActiveCfg = Debug|x86
+		{5BCC3A5A-8ED7-453C-89E0-9B24162A7171}.Release|x86.ActiveCfg = Release|x86
+		{8158E9E9-BCDD-4E0B-9573-32B6782D0D1C}.Debug Release|x86.ActiveCfg = Debug Release|x86
 		{8158E9E9-BCDD-4E0B-9573-32B6782D0D1C}.Debug|x86.ActiveCfg = Debug|x86
 		{8158E9E9-BCDD-4E0B-9573-32B6782D0D1C}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
