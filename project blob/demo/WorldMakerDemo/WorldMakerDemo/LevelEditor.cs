@@ -67,13 +67,17 @@ namespace WorldMakerDemo
             for (int i = 0; i < models.Length; i++)
                 models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
 
-            _modelSelect = new ModelSelect(this, models, _gameRef);
+            string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
+            for (int i = 0; i < textures.Length; i++)
+                textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
+
+            _modelSelect = new ModelSelect(this, models,textures, _gameRef);
             _modelSelect.ShowDialog();
             if (_modelSelect.DialogResult == DialogResult.OK)
             {
-                Console.WriteLine(_modelSelect.CurrentSelection.Name);
+                Console.WriteLine(_modelSelect.CurrentModel.Name);
 
-                _gameRef.ActiveArea.AddDrawable("newObject" + num, _gameRef.ActiveArea.Display.DrawnList.Keys[0], _modelSelect.CurrentSelection);
+                _gameRef.ActiveArea.AddDrawable( _modelSelect.CurrentModel.Name, _modelSelect.CurrentTexture, _modelSelect.CurrentModel);
                 num++;
                 modelListBox.Update();
             }

@@ -7,44 +7,62 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace WorldMakerDemo
 {
     public partial class ModelSelect : Form
     {
-        DrawableModel m_CurrentSelection;
-        public DrawableModel CurrentSelection
+        DrawableModel m_CurrentModel;
+        public DrawableModel CurrentModel
         {
             get
             {
-                return m_CurrentSelection;
+                return m_CurrentModel;
             }
             set
             {
-                m_CurrentSelection = value;
+                m_CurrentModel = value;
+            }
+        }
+
+        TextureInfo m_CurrentTexture;
+        public TextureInfo CurrentTexture
+        {
+            get
+            {
+                return m_CurrentTexture;
+            }
+            set
+            {
+                m_CurrentTexture = value;
             }
         }
 
         LevelEditor levelEditor;
         Game1 _gameRef;
 
-        public ModelSelect(LevelEditor p_LE, string[] models, Game1 game)
+        public ModelSelect(LevelEditor p_LE, string[] models, string [] textures, Game1 game)
         {
             InitializeComponent();
             _gameRef = game;
             
             levelEditor = p_LE;
-            m_CurrentSelection = new DrawableModel("none");
+            m_CurrentModel = new DrawableModel("none");
+            Random rand = new Random();
+            m_CurrentTexture = new TextureInfo(null, rand.Next());
 
             for( int i = 0; i < models.Length; i++)
                 listBox1.Items.Add(models[i]);
+
+            for (int i = 0; i < textures.Length; i++)
+                listBox2.Items.Add(textures[i]);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            m_CurrentSelection.ModelObject = _gameRef.Content.Load<Model>(@"Models\\" + ((String)(listBox1.Items[listBox1.SelectedIndex])).Substring(0, ((String)(listBox1.Items[listBox1.SelectedIndex])).LastIndexOf(".")));
-            m_CurrentSelection.setGraphicsDevice(_gameRef.GraphicsDevice);
-            m_CurrentSelection.Name = (String)(listBox1.Items[listBox1.SelectedIndex]);
+            m_CurrentModel.ModelObject = _gameRef.Content.Load<Model>(@"Models\\" + ((String)(listBox1.Items[listBox1.SelectedIndex])).Substring(0, ((String)(listBox1.Items[listBox1.SelectedIndex])).LastIndexOf(".")));
+            m_CurrentModel.setGraphicsDevice(_gameRef.GraphicsDevice);
 
         }
 
@@ -60,5 +78,14 @@ namespace WorldMakerDemo
             this.Close();
         }
 
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            m_CurrentTexture.TextureObject = _gameRef.Content.Load<Texture2D>(@"Textures\\" + ((String)(listBox2.Items[listBox2.SelectedIndex])).Substring(0, ((String)(listBox2.Items[listBox2.SelectedIndex])).LastIndexOf(".")));
+        }
+
+        private void ModelName_TextChanged(object sender, EventArgs e)
+        {
+            m_CurrentModel.Name = ModelName.Text;
+        }
     }
 }
