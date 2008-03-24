@@ -46,8 +46,11 @@ namespace WorldMakerDemo
             try
             {
                 ScaleX.Minimum = Convert.ToInt32(MinScaleX.Text);
+                MinScaleX.ForeColor = Color.Black;
             }
-            catch (Exception) { }
+            catch (Exception) {
+                MinScaleX.ForeColor = Color.Red;
+            }
         }
 
         private void MinScaleY_TextChanged(object sender, EventArgs e)
@@ -55,8 +58,12 @@ namespace WorldMakerDemo
             try
             {
                 ScaleY.Minimum = Convert.ToInt32(MinScaleY.Text);
+                MinScaleY.ForeColor = Color.Black;
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                MinScaleY.ForeColor = Color.Red;
+            }
         }
 
         private void MinScaleZ_TextChanged(object sender, EventArgs e)
@@ -64,8 +71,12 @@ namespace WorldMakerDemo
             try
             {
                 ScaleZ.Minimum = Convert.ToInt32(MinScaleZ.Text);
+                MinScaleZ.ForeColor = Color.Black;
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                MinScaleZ.ForeColor = Color.Red;
+            }
         }
         #endregion
 
@@ -78,8 +89,12 @@ namespace WorldMakerDemo
             try
             {
                 ScaleX.Maximum = Convert.ToInt32(MaxScaleX.Text);
+                MaxScaleX.ForeColor = Color.Black;
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                MaxScaleX.ForeColor = Color.Red;
+            }
         }
 
         private void MaxScaleY_TextChanged(object sender, EventArgs e)
@@ -87,8 +102,12 @@ namespace WorldMakerDemo
             try
             {
                 ScaleY.Maximum = Convert.ToInt32(MaxScaleY.Text);
+                MaxScaleY.ForeColor = Color.Black;
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                MaxScaleX.ForeColor = Color.Red;
+            }
         }
 
         private void MaxScaleZ_TextChanged(object sender, EventArgs e)
@@ -96,8 +115,12 @@ namespace WorldMakerDemo
             try
             {
                 ScaleZ.Maximum = Convert.ToInt32(MaxScaleZ.Text);
+                MaxScaleZ.ForeColor = Color.Black;
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                MaxScaleZ.ForeColor = Color.Red;
+            }
         }
         #endregion
 
@@ -105,17 +128,17 @@ namespace WorldMakerDemo
         /*
          * TrackBars
          */
-        private void ScaleX_Scroll(object sender, EventArgs e)
+        private void ScaleX_ValueChanged(object sender, EventArgs e)
         {
             ScaleXValue.Text = ScaleX.Value.ToString();
         }
 
-        private void ScaleY_Scroll(object sender, EventArgs e)
+        private void ScaleY_ValueChanged(object sender, EventArgs e)
         {
             ScaleYValue.Text = ScaleY.Value.ToString();
         }
 
-        private void ScaleZ_Scroll(object sender, EventArgs e)
+        private void ScaleZ_ValueChanged(object sender, EventArgs e)
         {
             ScaleZValue.Text = ScaleZ.Value.ToString();
         }
@@ -127,27 +150,54 @@ namespace WorldMakerDemo
          */
         private void ScaleZValue_TextChanged(object sender, EventArgs e)
         {
-            if (m_Game.ActiveDrawable is DrawableModel)
+            try
             {
-                ((DrawableModel)m_Game.ActiveDrawable).Scale = Matrix.CreateScale((float)Convert.ToInt32(ScaleXValue.Text), (float)Convert.ToInt32(ScaleYValue.Text), (float)Convert.ToInt32(ScaleZValue.Text));
+                ScaleZ.Value = Convert.ToInt32(ScaleZValue.Text);
+                ScaleZValue.ForeColor = Color.Black;
+                setScale();
+            }
+            catch (Exception)
+            {
+                ScaleZValue.ForeColor = Color.Red;
             }
         }
 
         private void ScaleYValue_TextChanged(object sender, EventArgs e)
         {
-            if (m_Game.ActiveDrawable is DrawableModel)
+            try
             {
-                ((DrawableModel)m_Game.ActiveDrawable).Scale = Matrix.CreateScale((float)Convert.ToInt32(ScaleXValue.Text), (float)Convert.ToInt32(ScaleYValue.Text), (float)Convert.ToInt32(ScaleZValue.Text));
+                ScaleY.Value = Convert.ToInt32(ScaleYValue.Text);
+                ScaleYValue.ForeColor = Color.Black;
+                setScale();
+            }
+            catch (Exception)
+            {
+                ScaleYValue.ForeColor = Color.Red;
             }
         }
 
         private void ScaleXValue_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ScaleX.Value = Convert.ToInt32(ScaleXValue.Text);
+                ScaleXValue.ForeColor = Color.Black;
+                setScale();
+            }
+            catch (Exception)
+            {
+                ScaleXValue.ForeColor = Color.Red;
+            }
+        }
+
+        private void setScale()
         {
             if (m_Game.ActiveDrawable is DrawableModel)
             {
                 ((DrawableModel)m_Game.ActiveDrawable).Scale = Matrix.CreateScale((float)Convert.ToInt32(ScaleXValue.Text), (float)Convert.ToInt32(ScaleYValue.Text), (float)Convert.ToInt32(ScaleZValue.Text));
             }
         }
+
         #endregion
         #endregion
 

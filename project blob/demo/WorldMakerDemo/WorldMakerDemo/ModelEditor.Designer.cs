@@ -121,7 +121,7 @@ namespace WorldMakerDemo
             this.ScaleZ.Size = new System.Drawing.Size(104, 42);
             this.ScaleZ.TabIndex = 12;
             this.ScaleZ.Value = 1;
-            this.ScaleZ.Scroll += new System.EventHandler(this.ScaleZ_Scroll);
+            this.ScaleZ.ValueChanged += new System.EventHandler(this.ScaleZ_ValueChanged);
             // 
             // MinScaleZ
             // 
@@ -166,7 +166,7 @@ namespace WorldMakerDemo
             this.ScaleY.Size = new System.Drawing.Size(104, 42);
             this.ScaleY.TabIndex = 7;
             this.ScaleY.Value = 1;
-            this.ScaleY.Scroll += new System.EventHandler(this.ScaleY_Scroll);
+            this.ScaleY.ValueChanged += new System.EventHandler(this.ScaleY_ValueChanged);
             // 
             // MinScaleY
             // 
@@ -211,7 +211,7 @@ namespace WorldMakerDemo
             this.ScaleX.Size = new System.Drawing.Size(104, 42);
             this.ScaleX.TabIndex = 2;
             this.ScaleX.Value = 1;
-            this.ScaleX.Scroll += new System.EventHandler(this.ScaleX_Scroll);
+            this.ScaleX.ValueChanged += new System.EventHandler(this.ScaleX_ValueChanged);
             // 
             // MinScaleX
             // 
