@@ -128,11 +128,9 @@ namespace WorldMakerDemo
             //effect = Content.Load<Effect>("effects");
             model = new DrawableModel("cube");
             model.ModelObject = Content.Load<Model>(@"Models\\cube");
-            model.PointTexture = pointText;
 
             model2 = new DrawableModel("ball");
             model2.ModelObject = Content.Load<Model>(@"Models\\ball");
-            model2.PointTexture = pointText;
 
             TextureInfo ti = new TextureInfo(text, 0);
             TextureInfo ti2 = new TextureInfo(text2, 1);
@@ -238,6 +236,8 @@ namespace WorldMakerDemo
             //List<Drawable> list2 = new List<Drawable>();
             //list2.Add(model2);
 
+            _activeArea.Display.BlackTexture = pointText;
+            _activeArea.Display.ShowAxis = true;
             _activeArea.AddDrawable("cube", ti, model);
             _activeArea.AddDrawable("sphere", ti2, model2);
         }
