@@ -123,6 +123,7 @@ namespace WorldMakerDemo
             this.areaDelButton.TabIndex = 7;
             this.areaDelButton.Text = "Delete Area";
             this.areaDelButton.UseVisualStyleBackColor = true;
+            this.areaDelButton.Click += new System.EventHandler(this.areaDelButton_Click);
             // 
             // areaAddButton
             // 

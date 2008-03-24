@@ -95,6 +95,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="TextureInfo.cs" />
+    <Compile Include="YesNo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YesNo.Designer.cs">
+      <DependentUpon>YesNo.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -118,6 +124,10 @@
     <EmbeddedResource Include="ModelSelect.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ModelSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YesNo.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>YesNo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
