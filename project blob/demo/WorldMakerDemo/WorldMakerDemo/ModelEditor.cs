@@ -207,9 +207,12 @@ namespace WorldMakerDemo
          * Rotation
          */
         private float rotation_x, rotation_y, rotation_z;
+
+        #region scroll
         private void RotationX_Scroll(object sender, EventArgs e)
         {
             rotation_x = (float)Convert.ToInt32(RotationX.Value.ToString());
+            RotationXValue.Text = rotation_x.ToString();
             SetRotation();
             //m_Game.model.Rotation = Matrix.Multiply(m_Game.model.Rotation,Matrix.CreateRotationX(MathHelper.ToRadians((float)Convert.ToInt32(RotationX.Value.ToString()))));
         }
@@ -217,6 +220,7 @@ namespace WorldMakerDemo
         private void RotationY_Scroll(object sender, EventArgs e)
         {
             rotation_y = (float)Convert.ToInt32(RotationY.Value.ToString());
+            RotationYValue.Text = rotation_y.ToString();
             SetRotation();
             //m_Game.model.Rotation = Matrix.Multiply(m_Game.model.Rotation,Matrix.CreateRotationY(MathHelper.ToRadians((float)Convert.ToInt32(RotationY.Value.ToString()))));
         }
@@ -224,9 +228,58 @@ namespace WorldMakerDemo
         private void RotationZ_Scroll(object sender, EventArgs e)
         {
             rotation_z = (float)Convert.ToInt32(RotationZ.Value.ToString());
+            RotationZValue.Text = rotation_z.ToString();
             SetRotation();
             //m_Game.model.Rotation = Matrix.Multiply(m_Game.model.Rotation,Matrix.CreateRotationZ(MathHelper.ToRadians((float)Convert.ToInt32(RotationZ.Value.ToString()))));
         }
+        #endregion
+
+        #region values
+        private void RotationXValue_TextChanged(object sender, EventArgs e)
+        {
+            if (RotationXValue.Text.Equals(""))
+            {
+                rotation_x = 0;
+                RotationXValue.Text = "0";
+            }
+            else
+            {
+                rotation_x = (float)Convert.ToDouble(RotationXValue.Text);
+            }
+            RotationX.Value = (int)rotation_x;
+            SetRotation();
+        }
+
+        private void RotationYValue_TextChanged(object sender, EventArgs e)
+        {
+            if (RotationYValue.Text.Equals(""))
+            {
+                rotation_y = 0;
+                RotationYValue.Text = "0";
+            }
+            else
+            {
+                rotation_y = (float)Convert.ToDouble(RotationYValue.Text);
+            }
+            RotationY.Value = (int)rotation_y;
+            SetRotation();
+        }
+
+        private void RotationZValue_TextChanged(object sender, EventArgs e)
+        {
+            if (RotationZValue.Text.Equals(""))
+            {
+                rotation_z = 0;
+                RotationZValue.Text = "0";
+            }
+            else
+            {
+                rotation_z = (float)Convert.ToDouble(RotationZValue.Text);
+            }
+            RotationZ.Value = (int)rotation_z;
+            SetRotation();
+        }
+        #endregion
 
         private void SetRotation()
         {

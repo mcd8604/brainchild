@@ -61,6 +61,9 @@ namespace WorldMakerDemo
             this.Focus = new System.Windows.Forms.Button();
             this.Model_Name = new System.Windows.Forms.Label();
             this.ModelName = new System.Windows.Forms.TextBox();
+            this.RotationXValue = new System.Windows.Forms.TextBox();
+            this.RotationYValue = new System.Windows.Forms.TextBox();
+            this.RotationZValue = new System.Windows.Forms.TextBox();
             this.Scale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleY)).BeginInit();
@@ -233,6 +236,9 @@ namespace WorldMakerDemo
             // 
             // Rotation
             // 
+            this.Rotation.Controls.Add(this.RotationZValue);
+            this.Rotation.Controls.Add(this.RotationYValue);
+            this.Rotation.Controls.Add(this.RotationXValue);
             this.Rotation.Controls.Add(this.RotationZ);
             this.Rotation.Controls.Add(this.Rotation_Z);
             this.Rotation.Controls.Add(this.RotationY);
@@ -241,7 +247,7 @@ namespace WorldMakerDemo
             this.Rotation.Controls.Add(this.Rotation_X);
             this.Rotation.Location = new System.Drawing.Point(304, 48);
             this.Rotation.Name = "Rotation";
-            this.Rotation.Size = new System.Drawing.Size(200, 194);
+            this.Rotation.Size = new System.Drawing.Size(272, 194);
             this.Rotation.TabIndex = 1;
             this.Rotation.TabStop = false;
             this.Rotation.Text = "Rotation";
@@ -317,7 +323,7 @@ namespace WorldMakerDemo
             this.Position.Controls.Add(this.Y);
             this.Position.Controls.Add(this.PositionX);
             this.Position.Controls.Add(this.X);
-            this.Position.Location = new System.Drawing.Point(510, 48);
+            this.Position.Location = new System.Drawing.Point(582, 48);
             this.Position.Name = "Position";
             this.Position.Size = new System.Drawing.Size(190, 84);
             this.Position.TabIndex = 2;
@@ -380,7 +386,7 @@ namespace WorldMakerDemo
             // 
             // Focus
             // 
-            this.Focus.Location = new System.Drawing.Point(510, 138);
+            this.Focus.Location = new System.Drawing.Point(582, 138);
             this.Focus.Name = "Focus";
             this.Focus.Size = new System.Drawing.Size(75, 23);
             this.Focus.TabIndex = 3;
@@ -405,11 +411,38 @@ namespace WorldMakerDemo
             this.ModelName.TabIndex = 5;
             this.ModelName.TextChanged += new System.EventHandler(this.ModelName_TextChanged);
             // 
+            // RotationXValue
+            // 
+            this.RotationXValue.Location = new System.Drawing.Point(201, 42);
+            this.RotationXValue.Name = "RotationXValue";
+            this.RotationXValue.Size = new System.Drawing.Size(65, 20);
+            this.RotationXValue.TabIndex = 6;
+            this.RotationXValue.Text = "0";
+            this.RotationXValue.TextChanged += new System.EventHandler(this.RotationXValue_TextChanged);
+            // 
+            // RotationYValue
+            // 
+            this.RotationYValue.Location = new System.Drawing.Point(200, 97);
+            this.RotationYValue.Name = "RotationYValue";
+            this.RotationYValue.Size = new System.Drawing.Size(65, 20);
+            this.RotationYValue.TabIndex = 7;
+            this.RotationYValue.Text = "0";
+            this.RotationYValue.TextChanged += new System.EventHandler(this.RotationYValue_TextChanged);
+            // 
+            // RotationZValue
+            // 
+            this.RotationZValue.Location = new System.Drawing.Point(201, 150);
+            this.RotationZValue.Name = "RotationZValue";
+            this.RotationZValue.Size = new System.Drawing.Size(65, 20);
+            this.RotationZValue.TabIndex = 8;
+            this.RotationZValue.Text = "0";
+            this.RotationZValue.TextChanged += new System.EventHandler(this.RotationZValue_TextChanged);
+            // 
             // ModelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(721, 264);
+            this.ClientSize = new System.Drawing.Size(784, 264);
             this.Controls.Add(this.ModelName);
             this.Controls.Add(this.Model_Name);
             this.Controls.Add(this.Focus);
@@ -471,5 +504,8 @@ namespace WorldMakerDemo
         private System.Windows.Forms.Button Focus;
         private System.Windows.Forms.Label Model_Name;
         private System.Windows.Forms.TextBox ModelName;
+        private System.Windows.Forms.TextBox RotationZValue;
+        private System.Windows.Forms.TextBox RotationYValue;
+        private System.Windows.Forms.TextBox RotationXValue;
     }
 }
