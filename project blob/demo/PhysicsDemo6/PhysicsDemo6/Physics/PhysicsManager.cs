@@ -160,7 +160,20 @@ namespace Physics
             {
                 p.CurrentForce += gravity.getForceOn(p);
             }
+            /*
+            // fall
+            foreach (Point p in points)
+            {
+                fall(p, TotalElapsedSeconds);
+            }
 
+            // do some collisions
+
+            foreach (Point p in points)
+            {
+                checkCollisions(p, TotalElapsedSeconds);
+            }
+            */
             doSomePhysics(TotalElapsedSeconds);
 
             foreach (Point p in points)
@@ -170,6 +183,42 @@ namespace Physics
 
 
         }
+
+
+        private void fall( Point p, float time )
+        {
+            Vector3 EffectiveForce = p.CurrentForce;
+            EffectiveForce += Vector3.Negate(p.Velocity) * airfriction;
+            p.NextAcceleration = EffectiveForce / p.mass;
+            p.NextVelocity += p.NextAcceleration * time;
+            p.NextPosition += p.NextVelocity * time;
+        }
+
+
+        private void checkCollisions(Point p, float time)
+        {
+
+            foreach (Collidable c in collision)
+            {
+                if (c.couldIntersect(p))
+                {
+                    float u = c.didIntersect(p.Position, p.NextPosition);
+                    // If Collision ( u < 1 ) - Split Time and redo
+                    if (u < 1)
+                    {
+
+                        // should physics interact
+                        if (c.shouldPhysicsBlock(p))
+                        {
+                            // stuff
+                        }
+                    }
+                }
+            }
+
+        }
+
+
 
         private List<Collidable> CollisionChain = new List<Collidable>();
         private void doSomePhysics(float TotalElapsedSeconds)

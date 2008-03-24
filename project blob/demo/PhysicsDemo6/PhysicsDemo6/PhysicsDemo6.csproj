@@ -37,6 +37,17 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Release|x86' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\x86\Debug Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
       <Private>False</Private>
@@ -70,7 +81,7 @@
     <Compile Include="Physics\GravityVector.cs" />
     <Compile Include="Physics\Material.cs" />
     <Compile Include="Physics\Mover.cs" />
-    <Compile Include="Physics\Physics.cs" />
+    <Compile Include="Physics\PhysicsManager.cs" />
     <Compile Include="Physics\Player.cs">
       <SubType>Code</SubType>
     </Compile>
