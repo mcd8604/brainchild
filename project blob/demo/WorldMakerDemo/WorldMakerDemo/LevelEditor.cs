@@ -27,21 +27,27 @@ namespace WorldMakerDemo
 
         private void areaListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _gameRef.ActiveArea = Level.Level.Areas[(String)(areaListBox.Items[areaListBox.SelectedIndex])];
-            modelListBox.Items.Clear();
-            foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
+            if (areaListBox.SelectedIndex != -1)
             {
-                modelListBox.Items.Add(str);
-                Console.WriteLine(str + " loaded");
+                _gameRef.ActiveArea = Level.Level.Areas[(String)(areaListBox.Items[areaListBox.SelectedIndex])];
+                modelListBox.Items.Clear();
+                foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
+                {
+                    modelListBox.Items.Add(str);
+                    Console.WriteLine(str + " loaded");
+                }
+                modelListBox.Update();
             }
-            modelListBox.Update();
         }
 
         private void modelListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _gameRef.ActiveDrawable = _gameRef.ActiveArea.Drawables[(String)(modelListBox.Items[modelListBox.SelectedIndex])];
-            if(_gameRef.ActiveDrawable is DrawableModel)
-                _gameRef.ActiveArea.Display.CurrentlySelected = ((DrawableModel)_gameRef.ActiveDrawable).Name;
+            if (modelListBox.SelectedIndex != -1)
+            {
+                _gameRef.ActiveDrawable = _gameRef.ActiveArea.Drawables[(String)(modelListBox.Items[modelListBox.SelectedIndex])];
+                if (_gameRef.ActiveDrawable is DrawableModel)
+                    _gameRef.ActiveArea.Display.CurrentlySelected = ((DrawableModel)_gameRef.ActiveDrawable).Name;
+            }
         }
 
         private void loadButton_Click(object sender, EventArgs e)
