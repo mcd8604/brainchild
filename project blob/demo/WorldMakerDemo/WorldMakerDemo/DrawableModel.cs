@@ -12,9 +12,10 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace WorldMakerDemo
 {
+    [Serializable]
     public class DrawableModel : Drawable
     {
-
+        [NonSerialized]
         Texture2D m_PointTexture;
         public Texture2D PointTexture
         {
@@ -40,7 +41,9 @@ namespace WorldMakerDemo
                 m_Name = value;
             }
         }
+        [NonSerialized]
         Model m_Model;
+        [NonSerialized]
         GraphicsDevice m_GraphicsDevice;
         Matrix m_Position, m_Rotation, m_Scale;
 

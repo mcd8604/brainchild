@@ -12,6 +12,7 @@ namespace WorldMakerDemo
     {
         private Game1 _gameRef;
         private ModelSelect _modelSelect;
+        private LevelSelect _levelSelect;
         private YesNo _deleteChecker;
         private static List<String> _drawablesToDelete = new List<String>();
 
@@ -56,12 +57,27 @@ namespace WorldMakerDemo
 
         private void loadButton_Click(object sender, EventArgs e)
         {
+            string[] levels = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Levels");
+            for (int i = 0; i < levels.Length; i++)
+            {
+                levels[i] = levels[i].Substring(levels[i].LastIndexOf("\\") + 1);
+            }
+            _levelSelect = new LevelSelect(levels);
+            _levelSelect.ShowDialog();
             foreach (String str in Level.Level.Areas.Keys)
             {
                 areaListBox.Items.Add(str);
                 Console.WriteLine(str + " loaded");
             }
             areaListBox.Update();
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            if (!levelName.Text.Equals(""))
+            {
+                Level.Level.SaveLevel(levelName.Text);
+            }
         }
 
         private void modelAddButton_Click(object sender, EventArgs e)
@@ -114,5 +130,6 @@ namespace WorldMakerDemo
                 }
             }
         }
+        
     }
 }

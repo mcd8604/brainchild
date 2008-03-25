@@ -13,11 +13,14 @@ using Microsoft.Xna.Framework.Storage;
 namespace WorldMakerDemo
 {
     //This class holds a list of VectorLists to be drawn to the screen
+    [Serializable]
     public class Display
     {
         SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
         SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
+        [NonSerialized]
         VertexDeclaration m_VertexDeclaration;
+        [NonSerialized]
         Texture2D m_BlackTexture;
 
         public Texture2D BlackTexture
@@ -63,7 +66,7 @@ namespace WorldMakerDemo
                 drawable_List_Drawn = value;
             }
         }
-
+        [NonSerialized]
         Effect m_Effect;
         public Effect CurrentEffect
         {

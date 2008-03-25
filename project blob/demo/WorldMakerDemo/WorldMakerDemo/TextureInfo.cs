@@ -6,8 +6,10 @@ using System.Text;
 namespace WorldMakerDemo
 {
     //This class stores information about a texture needed to sort it and draw it
+    [Serializable]
     public class TextureInfo
     {
+        [NonSerialized]
         Texture2D m_Texture;
         public Texture2D TextureObject
         {
@@ -41,6 +43,7 @@ namespace WorldMakerDemo
         }
     }
 
+    [Serializable]
     public class TextureInfoComparer : IComparer<TextureInfo>
     {
         public int Compare(TextureInfo x, TextureInfo y)
