@@ -11,11 +11,14 @@ namespace WorldMakerDemo
     public partial class LevelEditor : Form
     {
         private Game1 _gameRef;
-        ModelSelect _modelSelect;
-        YesNo _deleteChecker;
-        // This is currently to allow for multiple objects by forcing a change of name
-        // Needs to be not hard coded
-        private static int num = 1;
+        private ModelSelect _modelSelect;
+        private YesNo _deleteChecker;
+        private static List<String> _drawablesToDelete = new List<String>();
+
+        public static List<String> DrawablesToDelete
+        {
+            get { return _drawablesToDelete; }
+        }
 
         public LevelEditor(Game1 game)
         {
@@ -79,7 +82,6 @@ namespace WorldMakerDemo
 
                 _gameRef.ActiveArea.AddDrawable( _modelSelect.CurrentModel.Name, _modelSelect.CurrentTexture, _modelSelect.CurrentModel);
                 modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
-                num++;
                 modelListBox.Update();
             }
         }
@@ -92,7 +94,7 @@ namespace WorldMakerDemo
                 _deleteChecker.ShowDialog();
                 if (_deleteChecker.DialogResult == DialogResult.Yes)
                 {
-                    _gameRef.ActiveArea.RemoveDrawable((String)modelListBox.Items[modelListBox.SelectedIndex]);
+                    _drawablesToDelete.Add((String)modelListBox.Items[modelListBox.SelectedIndex]);
                     modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
                     modelListBox.Update();
                 }

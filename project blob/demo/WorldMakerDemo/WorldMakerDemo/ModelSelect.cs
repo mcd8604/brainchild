@@ -61,8 +61,11 @@ namespace WorldMakerDemo
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            m_CurrentModel.ModelObject = _gameRef.Content.Load<Model>(@"Models\\" + ((String)(listBox1.Items[listBox1.SelectedIndex])).Substring(0, ((String)(listBox1.Items[listBox1.SelectedIndex])).LastIndexOf(".")));
-            m_CurrentModel.setGraphicsDevice(_gameRef.GraphicsDevice);
+            if (listBox1.SelectedIndex != -1)
+            {
+                m_CurrentModel.ModelObject = _gameRef.Content.Load<Model>(@"Models\\" + ((String)(listBox1.Items[listBox1.SelectedIndex])).Substring(0, ((String)(listBox1.Items[listBox1.SelectedIndex])).LastIndexOf(".")));
+                m_CurrentModel.setGraphicsDevice(_gameRef.GraphicsDevice);
+            }
 
         }
 
@@ -80,7 +83,10 @@ namespace WorldMakerDemo
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            m_CurrentTexture.TextureObject = _gameRef.Content.Load<Texture2D>(@"Textures\\" + ((String)(listBox2.Items[listBox2.SelectedIndex])).Substring(0, ((String)(listBox2.Items[listBox2.SelectedIndex])).LastIndexOf(".")));
+            if (listBox2.SelectedIndex != -1)
+            {
+                m_CurrentTexture.TextureObject = _gameRef.Content.Load<Texture2D>(@"Textures\\" + ((String)(listBox2.Items[listBox2.SelectedIndex])).Substring(0, ((String)(listBox2.Items[listBox2.SelectedIndex])).LastIndexOf(".")));
+            }
         }
 
         private void ModelName_TextChanged(object sender, EventArgs e)
