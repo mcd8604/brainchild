@@ -346,6 +346,11 @@ namespace WorldMakerDemo
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            foreach (String str in LevelEditor.DrawablesToDelete)
+            {
+                _activeArea.RemoveDrawable(str);
+            }
+            LevelEditor.DrawablesToDelete.Clear();
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
             _activeArea.Display.Draw();
 
