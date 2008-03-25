@@ -39,6 +39,7 @@ namespace WorldMakerDemo
             this.areaAddButton = new System.Windows.Forms.Button();
             this.modelDelButton = new System.Windows.Forms.Button();
             this.modelAddButton = new System.Windows.Forms.Button();
+            this.levelName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // areaListBox
@@ -93,6 +94,7 @@ namespace WorldMakerDemo
             this.saveButton.TabIndex = 4;
             this.saveButton.Text = "Save Level";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // areaLabel
             // 
@@ -157,11 +159,20 @@ namespace WorldMakerDemo
             this.modelAddButton.UseVisualStyleBackColor = true;
             this.modelAddButton.Click += new System.EventHandler(this.modelAddButton_Click);
             // 
+            // levelName
+            // 
+            this.levelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.levelName.Location = new System.Drawing.Point(74, 70);
+            this.levelName.Name = "levelName";
+            this.levelName.Size = new System.Drawing.Size(207, 22);
+            this.levelName.TabIndex = 11;
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(293, 739);
+            this.Controls.Add(this.levelName);
             this.Controls.Add(this.modelAddButton);
             this.Controls.Add(this.modelDelButton);
             this.Controls.Add(this.areaAddButton);
@@ -193,5 +204,6 @@ namespace WorldMakerDemo
         private System.Windows.Forms.Button areaAddButton;
         private System.Windows.Forms.Button modelDelButton;
         private System.Windows.Forms.Button modelAddButton;
+        private System.Windows.Forms.TextBox levelName;
     }
 }

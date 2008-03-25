@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WorldMakerDemo.Level
 {
+    [Serializable]
     public class Area
     {
         private Display _display;

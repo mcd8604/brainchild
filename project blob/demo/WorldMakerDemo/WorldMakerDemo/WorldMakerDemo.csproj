@@ -76,6 +76,12 @@
     <Compile Include="Display.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="DrawableModel.cs" />
+    <Compile Include="LevelSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelSelect.Designer.cs">
+      <DependentUpon>LevelSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModelEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,10 @@
     <EmbeddedResource Include="LevelEditor.resx">
       <SubType>Designer</SubType>
       <DependentUpon>LevelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelSelect.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LevelSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModelEditor.resx">
       <SubType>Designer</SubType>

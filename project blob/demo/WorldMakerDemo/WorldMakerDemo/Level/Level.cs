@@ -49,16 +49,17 @@ namespace WorldMakerDemo.Level
         public static void SaveLevel(String levelName)
         {
             _name = levelName;
-            Stream s = File.Create(levelName + ".lev");
+            Stream s = File.Create(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + levelName + ".lev");
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(s, _areas);
             s.Close();
+            Console.WriteLine("Level Saved");
         }
 
         public static void LoadLevel(String levelName)
         {
             _name = levelName;
-            Stream s = File.Open(levelName + ".lev", FileMode.Open);
+            Stream s = File.Open(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + levelName + ".lev", FileMode.Open);
             BinaryFormatter bf = new BinaryFormatter();
             _areas = (Dictionary<String, Area>)bf.Deserialize(s);
             Console.WriteLine("Level Loaded");
