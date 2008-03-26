@@ -351,6 +351,10 @@ namespace WorldMakerDemo
                 _activeArea.RemoveDrawable(str);
             }
             LevelEditor.DrawablesToDelete.Clear();
+            foreach (DrawableInfo drawableInfo in LevelEditor.DrawablesToAdd)
+            {
+                _activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureInfo, drawableInfo.drawable);
+            }
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
             _activeArea.Display.Draw();
 
