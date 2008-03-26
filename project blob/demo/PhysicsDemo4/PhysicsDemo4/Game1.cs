@@ -27,6 +27,10 @@ namespace PhysicsDemo4
 		Texture2D text = null;
 		SpriteFont font;
 
+        //shadow stuff
+        Matrix lightViewProjectionMatrix;
+        RenderTarget2D renderTarget;
+        Texture2D texturedRenderedTo;
 
 		bool paused = false;
 		bool controllermode = false;
@@ -182,7 +186,9 @@ namespace PhysicsDemo4
 			GraphicsDevice.RenderState.PointSize = 5;
 
 			// graphics stuff?
-			InitializeEffect();
+            InitializeEffect();
+
+            renderTarget = new RenderTarget2D(graphics.GraphicsDevice, 512, 512, 1, SurfaceFormat.Color);
 		}
 
 
@@ -215,8 +221,13 @@ namespace PhysicsDemo4
 			effect.Parameters["xEnableLighting"].SetValue(true);
 			//effect.Parameters["xShowNormals"].SetValue(true);
 			effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
-			effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
+            effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
+            effect.Parameters["xMaxDepth"].SetValue(0.7f);
 			effect.Parameters["xAmbient"].SetValue(0.25f);
+
+            Vector4 lightPos = effect.Parameters["xLightPos"].GetValueVector4();
+            lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(lightPos.X, lightPos.Y, lightPos.Z), testCube.getCenter(), new Vector3(0, 0, 1)) * Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)this.Window.ClientBounds.Width / (float)this.Window.ClientBounds.Height, 1f, 100f);
+            effect.Parameters["xLightViewProjection"].SetValue(lightViewProjectionMatrix);
 
 			effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 		}
@@ -383,6 +394,10 @@ namespace PhysicsDemo4
 			cubeVertexBuffer.SetData<VertexPositionNormalTexture>(testCube.getTriangleVertexes());
 
 
+
+            Vector4 lightPos = effect.Parameters["xLightPos"].GetValueVector4();
+            lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(lightPos.X, lightPos.Y, lightPos.Z), testCube.getCenter(), new Vector3(0, 0, 1)) * Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)this.Window.ClientBounds.Width / (float)this.Window.ClientBounds.Height, 1f, 100f);
+            effect.Parameters["xLightViewProjection"].SetValue(lightViewProjectionMatrix);
 
 
 			//fps
@@ -678,7 +693,9 @@ namespace PhysicsDemo4
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
-		{
+        {
+            graphics.GraphicsDevice.SetRenderTarget(0, renderTarget);
+
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			if (drawMode)
@@ -715,6 +732,20 @@ namespace PhysicsDemo4
 				effect.End();
 			}
 
+            // Collision Tris ShadowMap
+            effect.CurrentTechnique = effect.Techniques["ShadowMap"];
+            foreach (Collidable c in collision)
+            {
+                effect.Begin();
+                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                {
+                    pass.Begin();
+                    c.DrawMe(GraphicsDevice);
+                    pass.End();
+                }
+                effect.End();
+            }
+
 			// Box
 			effect.CurrentTechnique = effect.Techniques["Textured"];
 			GraphicsDevice.VertexDeclaration = VertexDeclarationTexture;
@@ -729,6 +760,16 @@ namespace PhysicsDemo4
 			}
 			effect.End();
 
+            // Box ShadowMap
+            effect.CurrentTechnique = effect.Techniques["ShadowMap"];
+            effect.Begin();
+            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+            {
+                pass.Begin();
+                testCube.DrawMe(GraphicsDevice);
+                pass.End();
+            }
+            effect.End();
 
 			// Corner Dots -
 			effect.CurrentTechnique = effect.Techniques["Colored"];
@@ -751,6 +792,17 @@ namespace PhysicsDemo4
 			}
 			effect.End();
 
+            graphics.GraphicsDevice.ResolveRenderTarget(0);
+            texturedRenderedTo = renderTarget.GetTexture();
+
+            graphics.GraphicsDevice.SetRenderTarget(0, null);
+            graphics.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+            using (SpriteBatch sprite = new SpriteBatch(graphics.GraphicsDevice))
+            {
+                sprite.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
+                sprite.Draw(texturedRenderedTo, new Vector2(0, 0), null, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 1);
+                sprite.End();
+            }
 
 
 			// GUI
