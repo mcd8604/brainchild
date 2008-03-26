@@ -93,26 +93,26 @@ namespace Physics
             update(resilience, time);
             update(volume, time);
 
-            foreach (Point p in playerBody.getPoints())
-            {
-                if (p.LastCollision != null && cling.value > 0)
-                {
-                    //CurrentForce -= LastCollision.getPlane().Normal * (100 * Physics.TEMP_SurfaceFriction * 0.75f);
-                    p.CurrentForce -= p.LastCollision.Normal() * cling.value;
-                }
-            }
+			//foreach (Point p in playerBody.getPoints())
+			//{
+			//    if (p.LastCollision != null && cling.value > 0)
+			//    {
+			//        //CurrentForce -= LastCollision.getPlane().Normal * (100 * Physics.TEMP_SurfaceFriction * 0.75f);
+			//        p.CurrentForce -= p.LastCollision.Normal() * cling.value;
+			//    }
+			//}
 
-            foreach (Spring s in playerBody.getSprings())
-            {
-                s.Force = resilience.value;
-            }
+			//foreach (Spring s in playerBody.getSprings())
+			//{
+			//    s.Force = resilience.value;
+			//}
 
-            Vector3 CurrentPlayerCenter = playerBody.getCenter();
-            float CurrentPlayerVolume = playerBody.getVolume();
-            foreach (Physics.Point p in playerBody.getPoints())
-            {
-                p.CurrentForce += (CurrentPlayerCenter - p.Position) * (CurrentPlayerVolume - volume.value);
-            }
+			//Vector3 CurrentPlayerCenter = playerBody.getCenter();
+			//float CurrentPlayerVolume = playerBody.getVolume();
+			//foreach (Physics.Point p in playerBody.getPoints())
+			//{
+			//    p.CurrentForce += (CurrentPlayerCenter - p.Position) * (CurrentPlayerVolume - volume.value);
+            //}
 
             //bool bounce = false;
             //Vector3 norm = Vector3.Zero;

@@ -101,7 +101,7 @@ namespace BlobImport
 
             physics.AddCollidables(theBlob.getCollidables());
 
-            physics.Player.PlayerBody = theBlob;
+            //physics.Player.PlayerBody = theBlob;
                 
             addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-5, 0, -5), new Vector3(-10, 5, -5), Color.Red));
             addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-10, 5, -5), new Vector3(-10, 5, 5), Color.Pink));
@@ -152,7 +152,7 @@ namespace BlobImport
         {
             worldMatrix = Matrix.Identity;
 
-            viewMatrix = Matrix.CreateLookAt(new Vector3(12, 4, -12), new Vector3(0, 4, 0), Vector3.Up);
+            viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -10), new Vector3(0, 0, 0), Vector3.Up);
 
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.ToRadians(45),  // 45 degree angle
@@ -176,7 +176,7 @@ namespace BlobImport
             effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
             effect.Parameters["xAmbient"].SetValue(0.25f);
 
-            effect.Parameters["xCameraPos"].SetValue(new Vector4(5, 5, 1, 0));
+            effect.Parameters["xCameraPos"].SetValue(new Vector4(0,0,-5, 0));
         }
 
 
@@ -231,26 +231,27 @@ namespace BlobImport
             effect.End();
 
             // Collision Tris
-            /*effect.CurrentTechnique = effect.Techniques["Colored"];
+            effect.CurrentTechnique = effect.Techniques["Colored"];
             GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
-            foreach (Drawable d in drawables)
-            {
-                //VertexPositionColor[] temp = d.getTriangleVertexes();
-                //VertexBuffer tempVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * temp.Length, BufferUsage.None);
-                //tempVertexBuffer.SetData<VertexPositionColor>(temp);
-                //GraphicsDevice.Vertices[0].SetSource(tempVertexBuffer, 0, VertexPositionColor.SizeInBytes);
-                GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
-                effect.Begin();
-                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-                {
-                    pass.Begin();
-                    d.DrawMe();
-                    pass.End();
-                }
-                effect.End();
-            }*/
+			//GraphicsDevice.Indices = null;
+			//foreach (Drawable d in drawables)
+			//{
+			//    //VertexPositionColor[] temp = d.getTriangleVertexes();
+			//    //VertexBuffer tempVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * temp.Length, BufferUsage.None);
+			//    //tempVertexBuffer.SetData<VertexPositionColor>(temp);
+			//    //GraphicsDevice.Vertices[0].SetSource(tempVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+			//    GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
+			//    effect.Begin();
+			//    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+			//    {
+			//        pass.Begin();
+			//        d.DrawMe();
+			//        pass.End();
+			//    }
+			//    effect.End();
+			//}
 
-            base.Draw(gameTime);
+			//base.Draw(gameTime);
         }
     }
 }

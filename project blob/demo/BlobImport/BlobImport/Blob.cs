@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace BlobImport
 {
-	public class Blob : Drawable, Physics.Body
+	public class Blob : Drawable
 	{
 		public readonly List<Physics.Point> points = new List<Physics.Point>();
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
@@ -17,7 +17,7 @@ namespace BlobImport
         private GraphicsDevice theDevice;
 
         VertexPositionNormalTexture[] vertices;
-        short[] indices;
+        int[] indices;
 
         private VertexDeclaration myVertexDeclaration;
 		private VertexBuffer myVertexBuffer;
@@ -65,35 +65,37 @@ namespace BlobImport
 
             Vector3 center = mesh.BoundingSphere.Center;
 
-            myVertexStride = part.VertexStride;
+            myVertexStride = VertexPositionNormalTexture.SizeInBytes;
 
 
             Type vertexType;
 
 
-          /*  switch(myVertexStride) {
-                case 16:
-                    vertexType = typeof(VertexPositionColor);
-
-
-            }
-            */
+			if (myVertexStride == VertexPositionColorTexture.SizeInBytes)
+			{
+				Console.WriteLine("VertexPositionColorTexture");
+			}
+            
             // VertexBuffer
-            VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[blobModel.Meshes[0].VertexBuffer.SizeInBytes / myVertexStride];
+            VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[part.NumVertices];
             mesh.VertexBuffer.GetData<VertexPositionColorTexture>(tempVertices);
            
             vertices = new VertexPositionNormalTexture[tempVertices.Length];
             for(int i = 0; i < tempVertices.Length; i++) 
             {
-                vertices[i] = new VertexPositionNormalTexture(tempVertices[i].Position, Vector3.Up, tempVertices[i].TextureCoordinate);
+				Vector3 testNorm = Vector3.Normalize(Vector3.Subtract(tempVertices[i].Position,center));
+                vertices[i] = new VertexPositionNormalTexture(tempVertices[i].Position, testNorm, tempVertices[i].TextureCoordinate);
             }
             
             // Physics Points
             List<Physics.Point> tempList = new List<Physics.Point>();
+			int num_points = 0;
             foreach (VertexPositionNormalTexture v in vertices)
             {
                 tempList.Add(new Physics.Point(center + new Vector3(v.Position.X, v.Position.Y, v.Position.Z)));
+				num_points++;
             }
+			int check = vertices.Length;
 
             // Physics Springs
 			foreach (Physics.Point t in tempList)
@@ -102,36 +104,39 @@ namespace BlobImport
 				{
                     if (Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()) != 0)
                     {
-                        springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), springVal));
+                        //springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), springVal));
                     }
 				}
 				points.Add(t);
 			}
 
             // IndexBuffer
-            int indexSize;
-            if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
-            {
-                indexSize = sizeof(short);
-            } else {
-                indexSize = sizeof(int);
-            }
-            int numIndices = mesh.IndexBuffer.SizeInBytes / indexSize;
-            indices = new short[numIndices];
-            mesh.IndexBuffer.GetData<short>(indices);
-            myIndexBuffer = mesh.IndexBuffer;
-
+			if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
+			{
+				indices = new int[vertices.Length];
+				short[] temp = new short[vertices.Length];
+				mesh.IndexBuffer.GetData<short>(temp);
+				for (int i = 0; i < vertices.Length; i++)
+					indices[i] = temp[i];
+			}
+			else
+			{
+				indices = new int[vertices.Length];
+				mesh.IndexBuffer.GetData<int>(indices);
+			}
+			myIndexBuffer = mesh.IndexBuffer;
             // Collidables
             for (int i = 0; i < part.PrimitiveCount; i++)
             {
                 //collidables.Add(new Tri(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]], Color.White));
             }
 
-            myVertexDeclaration = part.VertexDeclaration;
-            myStreamOffset = part.StreamOffset;
-            myBaseVertex = part.BaseVertex;
-            myNumVertices = part.NumVertices;
-            myStartIndex = part.StartIndex;
+
+            
+            myStreamOffset = 0;
+            myBaseVertex = 0;
+            myNumVertices = vertices.Length;
+            myStartIndex = 0;
             myPrimitiveCount = part.PrimitiveCount;
 
 		}
@@ -169,6 +174,7 @@ namespace BlobImport
 		{
             theDevice = device;
             myVertexBuffer = new VertexBuffer(device, VertexPositionNormalTexture.SizeInBytes * vertices.Length, BufferUsage.None);
+			myVertexDeclaration = new VertexDeclaration(device, VertexPositionNormalTexture.VertexElements);
 		}
 
 		public int getVertexStride()
@@ -182,7 +188,7 @@ namespace BlobImport
             theDevice.VertexDeclaration = myVertexDeclaration;
             theDevice.Indices = myIndexBuffer;
             theDevice.Vertices[0].SetSource(getVertexBuffer(), myStreamOffset, myVertexStride);
-            theDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, myBaseVertex, 0, myNumVertices, myStartIndex, myPrimitiveCount);
+            theDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList,0, 0,vertices.Length,0, myPrimitiveCount);
             theDevice.Indices = null;
             theDevice.Vertices[0].SetSource(null, 0, 0);
 		}
