@@ -180,3 +180,16 @@ technique PointSprites
     }
 }
 
+technique Main <
+	string Script = "Pass=p0;";
+> {
+    pass p0 <
+	string Script = "Draw=geometry;";
+    > {
+        VertexShader = compile vs_3_0 std_VS();
+		ZEnable = true;
+		ZWriteEnable = true;
+		CullMode = None;
+        PixelShader = compile ps_3_0 std_PS();
+    }
+}
