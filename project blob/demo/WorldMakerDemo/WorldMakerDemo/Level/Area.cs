@@ -79,12 +79,15 @@ namespace WorldMakerDemo.Level
 
         public void AddDrawable(String drawableName, TextureInfo textureInfo, Drawable drawable)
         {
-            _drawables.Add(drawableName, drawable);
-            if (!_display.DrawnList.ContainsKey(textureInfo))
+            if (!_drawables.ContainsKey(drawableName))
             {
-                _display.DrawnList.Add(textureInfo, new List<Drawable>());
+                _drawables.Add(drawableName, drawable);
+                if (!_display.DrawnList.ContainsKey(textureInfo))
+                {
+                    _display.DrawnList.Add(textureInfo, new List<Drawable>());
+                }
+                _display.DrawnList[textureInfo].Add(drawable);
             }
-            _display.DrawnList[textureInfo].Add(drawable); 
         }
 
         //public Collidable GetCollidable(String collidableName)

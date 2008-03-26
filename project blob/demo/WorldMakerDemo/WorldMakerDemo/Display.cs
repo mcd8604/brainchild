@@ -16,18 +16,33 @@ namespace WorldMakerDemo
     [Serializable]
     public class Display
     {
-        SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
-        SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
         [NonSerialized]
         VertexDeclaration m_VertexDeclaration;
+
         [NonSerialized]
         Texture2D m_BlackTexture;
-
         public Texture2D BlackTexture
         {
             get { return m_BlackTexture; }
             set { m_BlackTexture = value; }
         }
+
+        [NonSerialized]
+        Effect m_Effect;
+        public Effect CurrentEffect
+        {
+            get
+            {
+                return m_Effect;
+            }
+            set
+            {
+                m_Effect = value;
+            }
+        }
+
+        SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
+        SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
 
         bool m_ShowAxis = false;
         public bool ShowAxis
@@ -64,19 +79,6 @@ namespace WorldMakerDemo
             set
             {
                 drawable_List_Drawn = value;
-            }
-        }
-        [NonSerialized]
-        Effect m_Effect;
-        public Effect CurrentEffect
-        {
-            get
-            {
-                return m_Effect;
-            }
-            set
-            {
-                m_Effect = value;
             }
         }
 

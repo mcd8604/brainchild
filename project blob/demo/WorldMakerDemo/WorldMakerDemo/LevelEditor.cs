@@ -10,15 +10,22 @@ namespace WorldMakerDemo
 {
     public partial class LevelEditor : Form
     {
+        private DrawableInfo _drawableInfo;
         private Game1 _gameRef;
         private ModelSelect _modelSelect;
         private LevelSelect _levelSelect;
         private YesNo _deleteChecker;
         private static List<String> _drawablesToDelete = new List<String>();
+        private static List<DrawableInfo> _drawablesToAdd = new List<DrawableInfo>();
 
         public static List<String> DrawablesToDelete
         {
             get { return _drawablesToDelete; }
+        }
+
+        public static List<DrawableInfo> DrawablesToAdd
+        {
+            get { return _drawablesToAdd; }
         }
 
         public LevelEditor(Game1 game)
@@ -64,12 +71,19 @@ namespace WorldMakerDemo
             }
             _levelSelect = new LevelSelect(levels);
             _levelSelect.ShowDialog();
-            foreach (String str in Level.Level.Areas.Keys)
+            if (_levelSelect.DialogResult.Equals(DialogResult.OK))
             {
-                areaListBox.Items.Add(str);
-                Console.WriteLine(str + " loaded");
+                levelName.Text = _levelSelect.LevelName.Substring(0, _levelSelect.LevelName.LastIndexOf("."));
+                //This is currently commented due to unserializable items, fix!
+                //Level.Level.LoadLevel(levelName.Text);
+                areaListBox.Items.Clear();
+                foreach (String str in Level.Level.Areas.Keys)
+                {
+                    areaListBox.Items.Add(str);
+                    Console.WriteLine(str + " loaded");
+                }
+                areaListBox.Update();
             }
-            areaListBox.Update();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -92,11 +106,13 @@ namespace WorldMakerDemo
 
             _modelSelect = new ModelSelect(this, models,textures, _gameRef);
             _modelSelect.ShowDialog();
-            if (_modelSelect.DialogResult == DialogResult.OK)
+            if (_modelSelect.DialogResult == DialogResult.OK && _modelSelect.CurrentModel.ModelObject != null && _modelSelect.CurrentTexture.TextureObject != null)
             {
                 Console.WriteLine(_modelSelect.CurrentModel.Name);
-
-                _gameRef.ActiveArea.AddDrawable( _modelSelect.CurrentModel.Name, _modelSelect.CurrentTexture, _modelSelect.CurrentModel);
+                _drawableInfo.name = _modelSelect.CurrentModel.Name;
+                _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
+                _drawableInfo.drawable = _modelSelect.CurrentModel;
+                _drawablesToAdd.Add(_drawableInfo);
                 modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
                 modelListBox.Update();
             }

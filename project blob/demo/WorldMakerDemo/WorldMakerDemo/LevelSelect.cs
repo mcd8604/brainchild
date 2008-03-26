@@ -10,6 +10,13 @@ namespace WorldMakerDemo
 {
     public partial class LevelSelect : Form
     {
+        private String _levelName = "";
+
+        public String LevelName
+        {
+            get { return _levelName; }
+        }
+
         public LevelSelect(string[] levels)
         {
             InitializeComponent();
@@ -22,11 +29,17 @@ namespace WorldMakerDemo
 
         private void openButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (levelListBox.SelectedIndex != -1)
+            {
+                this.DialogResult = DialogResult.OK;
+                _levelName = (String)levelListBox.Items[levelListBox.SelectedIndex];
+                this.Close();
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }
