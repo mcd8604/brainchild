@@ -56,7 +56,7 @@ namespace WorldMakerDemo.Level
             Console.WriteLine("Level Saved");
         }
 
-        public static void LoadLevel(String levelName)
+        public static void LoadLevel(String levelName, Game1 game)
         {
             _name = levelName;
             Stream s = File.Open(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + levelName + ".lev", FileMode.Open);
@@ -64,6 +64,10 @@ namespace WorldMakerDemo.Level
             _areas = (Dictionary<String, Area>)bf.Deserialize(s);
             Console.WriteLine("Level Loaded");
             s.Close();
+            foreach (Area area in _areas.Values)
+            {
+                area.Display.CurrentEffect = game.FX;
+            }
         }
     }
 }

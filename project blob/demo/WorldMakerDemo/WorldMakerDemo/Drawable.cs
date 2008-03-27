@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace WorldMakerDemo
 {
@@ -7,7 +8,6 @@ namespace WorldMakerDemo
 	{
 
 		//VertexPositionColor[] getTriangleVertexes();
-
 		VertexBuffer getVertexBuffer();
 
 		void setGraphicsDevice(GraphicsDevice device);

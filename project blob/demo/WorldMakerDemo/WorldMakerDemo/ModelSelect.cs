@@ -48,7 +48,7 @@ namespace WorldMakerDemo
             _gameRef = game;
             
             levelEditor = p_LE;
-            m_CurrentModel = new DrawableModel("none");
+            m_CurrentModel = new DrawableModel(null, "none", "none");
             Random rand = new Random();
             m_CurrentTexture = new TextureInfo(null, rand.Next());
 
