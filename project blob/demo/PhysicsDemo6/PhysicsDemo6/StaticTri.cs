@@ -34,6 +34,11 @@ namespace PhysicsDemo6
 			return true;
 		}
 
+		public float NextDotNormal(Vector3 pos)
+		{
+			return DotNormal(pos);
+		}
+
 		public float DotNormal(Vector3 pos)
 		{
 			return myPlane.DotNormal(pos + Origin);
@@ -70,7 +75,7 @@ namespace PhysicsDemo6
 				Vector3 A = Vector3.Cross(AP, AB);
 				Vector3 B = Vector3.Cross(BP, BC);
 				Vector3 C = Vector3.Cross(CP, CA);
-
+				/*
 				Vector3 t = (A + B + C);
 				float sl = t.Length();
 
@@ -79,12 +84,29 @@ namespace PhysicsDemo6
 				if (Math.Abs(sl - tl) < 0.1)
 				{
 					return u;
+				}*/
+				if (((A.X >= 0 && B.X >= 0 && C.X >= 0) || (A.X <= 0 && B.X <= 0 && C.X <= 0)) &&
+					((A.Y >= 0 && B.Y >= 0 && C.Y >= 0) || (A.Y <= 0 && B.Y <= 0 && C.Y <= 0)) &&
+					((A.Z >= 0 && B.Z >= 0 && C.Z >= 0) || (A.Z <= 0 && B.Z <= 0 && C.Z <= 0)))
+				{
+					return u;
+				}
+				if (((A.X >= -0.1 && B.X >= -0.1 && C.X >= -0.1) || (A.X <= 0.1 && B.X <= 0.1 && C.X <= 0.1)) &&
+					((A.Y >= -0.1 && B.Y >= -0.1 && C.Y >= -0.1) || (A.Y <= 0.1 && B.Y <= 0.1 && C.Y <= 0.1)) &&
+					((A.Z >= -0.1 && B.Z >= -0.1 && C.Z >= -0.1) || (A.Z <= 0.1 && B.Z <= 0.1 && C.Z <= 0.1)))
+				{
+					Console.WriteLine("Close");
+					return u;
 				}
 
 			}
 
 			return float.MaxValue;
 
+		}
+		public float didIntersect2(Vector3 start, Vector3 end)
+		{
+			return didIntersect(start, end);
 		}
 
         public virtual bool shouldPhysicsBlock(Physics.Point p)

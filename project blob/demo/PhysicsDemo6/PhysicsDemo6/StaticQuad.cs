@@ -44,6 +44,11 @@ namespace PhysicsDemo6
 			return true;
 		}
 
+		public float NextDotNormal(Vector3 pos)
+		{
+			return DotNormal(pos);
+		}
+
 		public float DotNormal(Vector3 pos)
 		{
 			return myPlane.DotNormal(pos + Origin);
@@ -78,6 +83,10 @@ namespace PhysicsDemo6
 
 			return float.MaxValue;
 
+		}
+		public float didIntersect2(Vector3 start, Vector3 end)
+		{
+			return didIntersect(start, end);
 		}
 
         public bool shouldPhysicsBlock(Physics.Point p)

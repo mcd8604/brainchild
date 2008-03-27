@@ -18,6 +18,7 @@ namespace Physics
         /// <param name="end"></param>
         /// <returns></returns>
 		float didIntersect(Vector3 start, Vector3 end);
+		float didIntersect2(Vector3 start, Vector3 end);
 
         /// <summary>
         /// Should this point p, which hit this collidable, be blocked.
@@ -32,6 +33,8 @@ namespace Physics
         /// <param name="pos"></param>
         /// <returns></returns>
 		float DotNormal(Vector3 pos);
+
+		float NextDotNormal(Vector3 pos);
 
         /// <summary>
         /// The Normal to this collidable surface, if applicable.

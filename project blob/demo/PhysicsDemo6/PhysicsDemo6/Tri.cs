@@ -50,6 +50,11 @@ namespace PhysicsDemo6
 			return new Plane(points[0].Position, points[1].Position, points[2].Position).DotNormal(pos + getOrigin());
 		}
 
+		public float NextDotNormal(Vector3 pos)
+		{
+			return new Plane(points[0].NextPosition, points[1].NextPosition, points[2].NextPosition).DotNormal(pos + getOrigin());
+		}
+
 		private Vector3 getOrigin()
 		{
 			return Vector3.Negate((points[0].Position + points[1].Position + points[2].Position) / 3f);
@@ -63,10 +68,14 @@ namespace PhysicsDemo6
 		public float didIntersect(Vector3 start, Vector3 end)
 		{
 
-			float lastVal = DotNormal(start);
-			float thisVal = DotNormal(end);
+			float oldlastVal = DotNormal(start);
+			float oldthisVal = DotNormal(end);
 
-			if (lastVal > 0 && thisVal < 0) // we were 'above' now 'behind'
+			float lastVal = NextDotNormal(start);
+			float thisVal = NextDotNormal(end);
+
+
+			if ((lastVal > 0 && thisVal < 0) || (oldthisVal > 0 && thisVal < 0) || (oldlastVal > 0 && lastVal < 0) || Math.Sign(thisVal) != Math.Sign(oldthisVal)) // we were 'above' now 'behind'
 			{
 
 				float u = lastVal / (lastVal - thisVal);
@@ -87,20 +96,88 @@ namespace PhysicsDemo6
 				Vector3 B = Vector3.Cross(BP, BC);
 				Vector3 C = Vector3.Cross(CP, CA);
 
+				/*
 				Vector3 t = (A + B + C);
 				float sl = t.Length();
 
 				float tl = A.Length() + B.Length() + C.Length();
 
-				if (Math.Abs(sl - tl) < 0.1)
+				if (Math.Abs(sl - tl) < (sl + tl) * 0.01f)
+				{
+					return u;
+				}
+				else
+				{
+					Console.WriteLine("Diff was: " + (sl - tl));
+				}
+				 */
+				if (((A.X >= 0 && B.X >= 0 && C.X >= 0) || (A.X <= 0 && B.X <= 0 && C.X <= 0)) &&
+					((A.Y >= 0 && B.Y >= 0 && C.Y >= 0) || (A.Y <= 0 && B.Y <= 0 && C.Y <= 0)) &&
+					((A.Z >= 0 && B.Z >= 0 && C.Z >= 0) || (A.Z <= 0 && B.Z <= 0 && C.Z <= 0)))
 				{
 					return u;
 				}
 
 			}
+			else
+			{
+				if (Math.Sign(lastVal) != Math.Sign(oldlastVal))
+				{
+					Console.WriteLine("1 Was: " + oldlastVal + " Now: " + lastVal);
+				}
+				if (Math.Sign(thisVal) != Math.Sign(oldthisVal))
+				{
+					Console.WriteLine("2 Was: " + oldthisVal + " Now: " + thisVal);
+				}
+				if (Math.Sign(lastVal) != Math.Sign(oldthisVal))
+				{
+					Console.WriteLine("3 Was: " + oldthisVal + " Now: " + lastVal);
+				}
+				if (Math.Sign(thisVal) != Math.Sign(oldlastVal))
+				{
+					Console.WriteLine("4 Was: " + oldlastVal + " Now: " + thisVal);
+				}
+			}
 
 			return float.MaxValue;
 
+		}
+		public float didIntersect2(Vector3 last, Vector3 next)
+		{
+			float before = DotNormal(last);
+
+			float later = NextDotNormal(next);
+
+			if (before >= 0 && later <= 0)
+			{
+
+				float u = before / (before - later);
+				// check limits
+				Vector3 newPos = (last * (1 - u)) + (next * u);
+
+				// temp - this is overly verbose and not terribly efficient, but it works
+
+				Vector3 AB = points[1].Position - points[0].Position;
+				Vector3 BC = points[2].Position - points[1].Position;
+				Vector3 CA = points[0].Position - points[2].Position;
+
+				Vector3 AP = points[0].Position - newPos;
+				Vector3 BP = points[1].Position - newPos;
+				Vector3 CP = points[2].Position - newPos;
+
+				Vector3 A = Vector3.Cross(AP, AB);
+				Vector3 B = Vector3.Cross(BP, BC);
+				Vector3 C = Vector3.Cross(CP, CA);
+
+				if (((A.X >= 0 && B.X >= 0 && C.X >= 0) || (A.X <= 0 && B.X <= 0 && C.X <= 0)) &&
+					((A.Y >= 0 && B.Y >= 0 && C.Y >= 0) || (A.Y <= 0 && B.Y <= 0 && C.Y <= 0)) &&
+					((A.Z >= 0 && B.Z >= 0 && C.Z >= 0) || (A.Z <= 0 && B.Z <= 0 && C.Z <= 0)))
+				{
+					return u;
+				}
+			}
+
+			return float.MaxValue;
 		}
 
         public bool shouldPhysicsBlock(Physics.Point p)

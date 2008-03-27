@@ -95,8 +95,6 @@ namespace PhysicsDemo6
 		{
             reset();
 			initLoop();
-            //physics.AirFriction = 0.5f;
-            physics.AirFriction = 2f;
 
 			//cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
 
@@ -105,25 +103,19 @@ namespace PhysicsDemo6
 			base.Initialize();
 		}
 
-        private Physics.Point c;
-
 		private void initLoop()
 		{
-			cubeStartPosition = new Vector3(0, 4, 0);
-			playerCube = new DemoCube(cubeStartPosition, 1);
-            physics.AddPoints(playerCube.points);
-            physics.AddSprings(playerCube.springs);
 
-            physics.AddCollidables(playerCube.getCollidables());
+			addToPhysicsAndDraw(new StaticQuad(new Vector3(10, 0, 10), new Vector3(10, 0, -10), new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), Color.White));
 
-            physics.Player.PlayerBody = playerCube;
 
-            
+            /*
 			addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, 10), new Vector3(10, 0, 10), Color.Red));
             addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), Color.Yellow));
             addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, 10), new Vector3(10, 0, -10), Color.White));
             addToPhysicsAndDraw(new StaticTri(new Vector3(0, 0, 0), new Vector3(10, 0, -10), new Vector3(-10, 0, -10), Color.Orange));
-             
+            */
+			
             /*
             Physics.Point pp = new Physics.Point(new Vector3(10, 0, 10));
             pp.isStatic =true;
@@ -134,13 +126,14 @@ namespace PhysicsDemo6
             Physics.Point nn = new Physics.Point(new Vector3(-10, 0, -10));
             nn.isStatic =true;
 
-            c = new Physics.Point(new Vector3(0, 0, 0));
+            Physics.Point c = new Physics.Point(new Vector3(0, 0, 0));
+			c.isStatic = true;
 
             Physics.Point p = new Physics.Point(new Vector3(0, 2, 0));
-            p.isStatic =true;
+            p.isStatic =true; //
 
             physics.AddPoint(c);
-            Physics.Spring t = new Physics.Spring(c, p, 2, 1000);
+            Physics.Spring t = new Physics.Spring(c, p, 2, 10);
             t.maximumLengthBeforeExtension = 3;
             physics.AddSpring( t );
             physics.AddSpring(new Physics.Spring(c, p, 2, 20));
@@ -149,7 +142,21 @@ namespace PhysicsDemo6
             addToPhysicsAndDraw(new Tri(c, nn, np, Color.Yellow));
             addToPhysicsAndDraw(new Tri(c, pp, pn, Color.White));
             addToPhysicsAndDraw(new Tri(c,pn, nn, Color.Orange));
-            */
+			*/
+
+
+
+
+			cubeStartPosition = new Vector3(0.1f, 1.0001f, 0.1f);
+			playerCube = new DemoCube(cubeStartPosition, 1);
+			physics.AddPoints(playerCube.points);
+			physics.AddSprings(playerCube.springs);
+
+			//physics.AddCollidables(playerCube.getCollidables());
+
+			physics.Player.PlayerBody = playerCube;
+
+
 
            
 
@@ -358,21 +365,24 @@ namespace PhysicsDemo6
         {
             physics = new Physics.PhysicsManager();
 
+			//physics.AirFriction = 0.5f;
+			physics.AirFriction = 2f;
+
             physics.Player.Traction.Minimum = 0.5f;
             physics.Player.Traction.Origin = 1f;
             physics.Player.Traction.Maximum = 2f;
 
             physics.Player.Cling.Minimum = 0f;
-            physics.Player.Cling.Origin = 100f;
-            physics.Player.Cling.Maximum = 200f;
+            physics.Player.Cling.Origin = 0f;
+            physics.Player.Cling.Maximum = 0f;
 
-            physics.Player.Resilience.Minimum = 12.5f;
-            physics.Player.Resilience.Origin = 62.5f;
-            physics.Player.Resilience.Maximum = 92.5f;
+            physics.Player.Resilience.Minimum = 10f;
+            physics.Player.Resilience.Origin = 20f;
+            physics.Player.Resilience.Maximum = 40f;
             physics.Player.Resilience.Delta = 10;
 
             physics.Player.Volume.Minimum = 0f;
-            physics.Player.Volume.Origin = 10f;
+            physics.Player.Volume.Origin = 8f;
             physics.Player.Volume.Maximum = 200f;
             physics.Player.Volume.Delta = 5;
             
@@ -649,9 +659,7 @@ namespace PhysicsDemo6
 
 			if (!paused)
 			{
-                //Console.WriteLine( "1: " + playerCube.bottom.DotNormal(c.Position));
 				physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
-                //Console.WriteLine("2: " + playerCube.bottom.DotNormal(c.Position));
 			}
 
 			if (follow)
@@ -824,7 +832,8 @@ namespace PhysicsDemo6
 			{
 				spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
 			}
-			spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(600, 0), Color.White);
+			spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(550, 0), Color.White);
+			spriteBatch.DrawString(font, playerCube.getVolume().ToString(), new Vector2(675, 0), Color.White);
 			spriteBatch.End();
 
 

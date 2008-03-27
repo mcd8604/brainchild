@@ -12,7 +12,7 @@ namespace PhysicsDemo6
 		public readonly List<Tri> collidables = new List<Tri>();
 
 		//public float friction = 0.9f;
-		public static float springVal = 62.5f;
+		public static float springVal = 20f;
 
 		Physics.Point ftr;
 		Physics.Point ftl;
@@ -93,7 +93,11 @@ namespace PhysicsDemo6
 			{
 				foreach (Physics.Point p in points)
 				{
-					springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), springVal));
+					float d = Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition());
+					if (d > 0 && d <= 2 * radius)
+					{
+						springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), springVal));
+					}
 				}
 				points.Add(t);
 			}
