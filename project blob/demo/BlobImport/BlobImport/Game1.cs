@@ -54,6 +54,8 @@ namespace BlobImport
             reset();
             physics.AirFriction = 2f;
 
+			InputHandler.LoadDefaultBindings();
+
             base.Initialize();
         }
 
@@ -66,8 +68,8 @@ namespace BlobImport
             physics.Player.Traction.Maximum = 2f;
 
             physics.Player.Cling.Minimum = 0f;
-            physics.Player.Cling.Origin = 100f;
-            physics.Player.Cling.Maximum = 200f;
+            physics.Player.Cling.Origin = 0f;
+            physics.Player.Cling.Maximum = 0f;
 
             physics.Player.Resilience.Minimum = 12.5f;
             physics.Player.Resilience.Origin = 62.5f;
@@ -75,8 +77,8 @@ namespace BlobImport
             physics.Player.Resilience.Delta = 10;
 
             physics.Player.Volume.Minimum = 0f;
-            physics.Player.Volume.Origin = 10f;
-            physics.Player.Volume.Maximum = 200f;
+            physics.Player.Volume.Origin = 5f;
+            physics.Player.Volume.Maximum = 10f;
             physics.Player.Volume.Delta = 5;
 
             //drawables.Clear();
@@ -101,7 +103,7 @@ namespace BlobImport
 
             physics.AddCollidables(theBlob.getCollidables());
 
-            //physics.Player.PlayerBody = theBlob;
+            physics.Player.PlayerBody = theBlob;
                 
             addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-5, 0, -5), new Vector3(-10, 5, -5), Color.Red));
             addToPhysicsAndDraw(new StaticTri(new Vector3(-5, 0, 5), new Vector3(-10, 5, -5), new Vector3(-10, 5, 5), Color.Pink));
@@ -124,9 +126,12 @@ namespace BlobImport
             addToPhysicsAndDraw(new StaticTri(new Vector3(5, 20, -5), new Vector3(5, 20, 5), new Vector3(-5, 20, -5), Color.Pink));
             addToPhysicsAndDraw(new StaticTri(new Vector3(5, 20, 5), new Vector3(-5, 20, 5), new Vector3(-5, 20, -5), Color.Red));
 
+			addToPhysicsAndDraw(new StaticTri(new Vector3(-5, -2, -5), new Vector3(-5, -2, 5), new Vector3(5, -2, 5), Color.White));
+			addToPhysicsAndDraw(new StaticTri(new Vector3(5, -2, 5), new Vector3(5, -2, -5), new Vector3(-5, -2, -5), Color.White));
 
 
-            physics.Gravity = new Physics.GravityVector(1.0f, new Vector3(0f, -1.0f, 0f));
+
+            physics.Gravity = new Physics.GravityVector(0.5f, new Vector3(0f, -1.0f, 0f));
 
             theBlob.setGraphicsDevice(GraphicsDevice);
             foreach (Drawable d in drawables)
@@ -200,6 +205,42 @@ namespace BlobImport
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+			InputHandler.Update();
+
+
+
+			viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -10), theBlob.getCenter(), Vector3.Up);
+			effect.Parameters["xView"].SetValue(viewMatrix);
+
+
+			// Quick Torque
+			Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
+			if (move != Vector2.Zero)
+			{
+				Vector3 Up;
+				//if (OrientCamera)
+				//{
+				//	Up = physics.getUp(theBlob.getCenter());
+				//}
+				//else
+				//{
+					Up = Vector3.Up;
+				//}
+					Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - new Vector3(0, 0, -20), Up));
+				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
+
+				physics.Player.applyTorque(move.Y * 10f, Horizontal);
+				physics.Player.applyTorque(move.X * 10f, Run);
+
+				//foreach (Physics.Point p in playerCube.points)
+				//{
+				//    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
+				//    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - playerCube.getCenter(), Run)) * (move.X * playerMoveMulti);
+				//}
+			}
+
+
+
 
             physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
@@ -216,8 +257,8 @@ namespace BlobImport
 
 
             GraphicsDevice.RenderState.CullMode = CullMode.None;
-            GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
-            GraphicsDevice.RenderState.DepthBufferEnable = false;
+            //GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+            //GraphicsDevice.RenderState.DepthBufferEnable = false;
 
             // Box
             effect.CurrentTechnique = effect.Techniques["Textured"];
@@ -233,23 +274,23 @@ namespace BlobImport
             // Collision Tris
             effect.CurrentTechnique = effect.Techniques["Colored"];
             GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
-			//GraphicsDevice.Indices = null;
-			//foreach (Drawable d in drawables)
-			//{
-			//    //VertexPositionColor[] temp = d.getTriangleVertexes();
-			//    //VertexBuffer tempVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * temp.Length, BufferUsage.None);
-			//    //tempVertexBuffer.SetData<VertexPositionColor>(temp);
-			//    //GraphicsDevice.Vertices[0].SetSource(tempVertexBuffer, 0, VertexPositionColor.SizeInBytes);
-			//    GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
-			//    effect.Begin();
-			//    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-			//    {
-			//        pass.Begin();
-			//        d.DrawMe();
-			//        pass.End();
-			//    }
-			//    effect.End();
-			//}
+			GraphicsDevice.Indices = null;
+			foreach (Drawable d in drawables)
+			{
+				//VertexPositionColor[] temp = d.getTriangleVertexes();
+				//VertexBuffer tempVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * temp.Length, BufferUsage.None);
+				//tempVertexBuffer.SetData<VertexPositionColor>(temp);
+				//GraphicsDevice.Vertices[0].SetSource(tempVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+				GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
+				effect.Begin();
+				foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+				{
+					pass.Begin();
+					d.DrawMe();
+					pass.End();
+				}
+				effect.End();
+			}
 
 			//base.Draw(gameTime);
         }

@@ -109,8 +109,8 @@ namespace BlobImport
 		public void setGraphicsDevice(GraphicsDevice device)
 		{
 			theDevice = device;
-			//myVertexBuffer = new VertexBuffer(device, VertexPositionColor.SizeInBytes * 3, BufferUsage.None);
-			//myVertexBuffer.SetData<VertexPositionColor>(vertices);
+			myVertexBuffer = new VertexBuffer(device, VertexPositionColor.SizeInBytes * 3, BufferUsage.None);
+			myVertexBuffer.SetData<VertexPositionColor>(vertices);
 		}
 
 		public int getVertexStride()

@@ -366,20 +366,25 @@ namespace Physics
 
             //Force += Vector3.Negate(p.NextVelocity) * friction;
 
-            Vector3 FrictionForce = Vector3.Normalize(Vector3.Negate(p.NextVelocity)) * (NormalForce.Length() * player.Traction.value);
+			if (p.NextVelocity.LengthSquared() > 0)
+			{
 
-            Vector3 MaxFriction = Vector3.Negate((p.NextVelocity / time) * p.mass);
+				Vector3 FrictionForce = Vector3.Normalize(Vector3.Negate(p.NextVelocity)) * (NormalForce.Length() * player.Traction.value);
 
-            if (FrictionForce.LengthSquared() > MaxFriction.LengthSquared())
-            {
-                //Console.WriteLine("Maxed out friction: " + (FrictionForce.Length() / MaxFriction.Length()));
-                Force += MaxFriction;
-            }
-            else
-            {
-                //Console.WriteLine("Didn't: " + (FrictionForce.Length() / MaxFriction.Length()));
-                Force += FrictionForce;
-            }
+				Vector3 MaxFriction = Vector3.Negate((p.NextVelocity / time) * p.mass);
+
+				if (FrictionForce.LengthSquared() > MaxFriction.LengthSquared())
+				{
+					//Console.WriteLine("Maxed out friction: " + (FrictionForce.Length() / MaxFriction.Length()));
+					Force += MaxFriction;
+				}
+				else
+				{
+					//Console.WriteLine("Didn't: " + (FrictionForce.Length() / MaxFriction.Length()));
+					Force += FrictionForce;
+				}
+
+			}
 
 
             //if ( FrictionForce.LengthSquared() > Force.LengthSquared() ){

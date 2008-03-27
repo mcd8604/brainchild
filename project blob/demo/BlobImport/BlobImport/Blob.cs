@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace BlobImport
 {
-	public class Blob : Drawable
+	public class Blob : Drawable, Physics.Body
 	{
 		public readonly List<Physics.Point> points = new List<Physics.Point>();
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
@@ -102,9 +102,10 @@ namespace BlobImport
 			{
 				foreach (Physics.Point p in points)
 				{
-                    if (Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()) != 0)
+					float d = Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition());
+                    if (d > 0 && d < 0.5f)
                     {
-                        //springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), springVal));
+                        springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), springVal * 100));
                     }
 				}
 				points.Add(t);
@@ -146,10 +147,6 @@ namespace BlobImport
             //update points
             for (int i = 0; i < vertices.Length; i++)
             {
-                if (vertices[i].Position.Equals(points[i].Position))
-                {
-                    throw new Exception("PHYSICS POINT WAS NOT CHANGED IN BLOB");
-                }
                 vertices[i].Position = points[i].Position;
             }
         }
