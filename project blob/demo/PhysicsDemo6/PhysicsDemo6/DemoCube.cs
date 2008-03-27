@@ -39,6 +39,9 @@ namespace PhysicsDemo6
         //    }
         //}
 
+		private Vector3 min;
+		private Vector3 max;
+
         public void setSpringLength(float delta)
         {
 
@@ -65,8 +68,6 @@ namespace PhysicsDemo6
 		{
 			initCube(center, radius);
 		}
-
-        public Physics.Collidable bottom;
 
 		private void initCube(Vector3 center, float radius)
 		{
@@ -110,8 +111,6 @@ namespace PhysicsDemo6
 			collidables.Add(new Tri(bbl, ftl, btl, Color.White));
 			collidables.Add(new Tri(bbl, btl, btr, Color.White));
 			collidables.Add(new Tri(bbl, btr, bbr, Color.White));
-
-            bottom = new Tri(bbl, bbr, fbr, Color.White);
 
 			vertices[0] = new VertexPositionNormalTexture(ftr.Position, Vector3.Up, Vector2.Zero);
 			vertices[1] = new VertexPositionNormalTexture(fbr.Position, Vector3.Up, new Vector2(0f, 1f));
@@ -302,7 +301,7 @@ namespace PhysicsDemo6
 
             Vector3 centerOfCube = getCenter();
 
-
+			/*
             for (int i = 1; i < 7; ++i)
             {
 
@@ -320,6 +319,46 @@ namespace PhysicsDemo6
             }
 
             totalVolume += getFaceVolume(vertices[8].Position, vertices[15].Position, vertices[9].Position);
+			*/
+
+
+			min = centerOfCube;
+			max = centerOfCube;
+
+
+			for (int i = 0; i < vertices.Length; i++)
+			{
+
+				if (vertices[i].Position.X < min.X)
+				{
+					min.X = vertices[i].Position.X;
+				}
+				if (vertices[i].Position.Y < min.Y)
+				{
+					min.Y = vertices[i].Position.Y;
+				}
+				if (vertices[i].Position.Z < min.Z)
+				{
+					min.Z = vertices[i].Position.Z;
+				}
+
+				if (vertices[i].Position.X > max.X)
+				{
+					max.X = vertices[i].Position.X;
+				}
+				if (vertices[i].Position.Y > max.Y)
+				{
+					max.Y = vertices[i].Position.Y;
+				}
+				if (vertices[i].Position.Z > max.Z)
+				{
+					max.Z = vertices[i].Position.Z;
+				}
+
+			}
+
+
+			totalVolume = (max.X - min.X) * (max.Y - min.Y) * (max.Z - min.Z);
 
 
             return totalVolume;

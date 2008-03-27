@@ -259,8 +259,8 @@ namespace BlobImport
 					Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - new Vector3(0, 0, -20), Up));
 				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
-				physics.Player.applyTorque(move.Y * 10f, Horizontal);
-				physics.Player.applyTorque(move.X * 10f, Run);
+				physics.Player.applyTorque(move.Y * 20f, Horizontal);
+				physics.Player.applyTorque(move.X * 20f, Run);
 
 				//foreach (Physics.Point p in playerCube.points)
 				//{
