@@ -317,14 +317,18 @@ namespace BlobImport
             float totalVolume = 0;
 
             Vector3 center = getCenter();
+            int[] test = indices;
+            int numVertices = 0;
 
-            for (int i = 0; i < vertices.Length - 2; i++)
+            for (int i = 0; i < indices.Length - 3; i=i+3)
             {
 
-                totalVolume += getFaceVolume(vertices[i].Position, vertices[i + 1].Position, vertices[i + 2].Position);
+                totalVolume += getFaceVolumeTest(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position);
+                numVertices++;
 
             }
 
+            float test2 = (4f / 3f) * ((float)Math.PI);
             Console.WriteLine("New Volume Estimate: " + totalVolume);
             return totalVolume;
 
@@ -345,6 +349,7 @@ namespace BlobImport
             float height = Vector3.Distance(getCenter(), center);
 
             float volume = height * area * (1f / 3f);
+            
 
             return volume;
 
@@ -359,10 +364,15 @@ namespace BlobImport
             float area = 0.5f * c.Length();
 
             Plane facePlane = new Plane(point1,point2,point3);
-            Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
-            float height = MathHelper.Distance(facePlane.D, centerPlane.D);
+            //Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
+
+            float distance = Vector3.Dot(facePlane.Normal, Vector3.Subtract(getCenter(),facePlane.Normal * facePlane.D));
+            Vector3 closestPoint = Vector3.Subtract(getCenter(), Vector3.Multiply(facePlane.Normal, distance));
+            float height = Vector3.Distance(getCenter(), closestPoint);
 
             float volume = height * area * (1f / 3f);
+            if (float.IsNaN(volume))
+                throw new Exception("Why?");
 
             return volume;
         }
