@@ -159,11 +159,11 @@ namespace Physics
 
             if (p.current > 0.5f)
             {
-                p.value = p.origin + ((p.current - 0.5f) * (p.maximum - p.origin));
+                p.value = p.origin + (((p.current - 0.5f) * 2) * (p.maximum - p.origin));
             }
             else
             {
-                p.value = p.minimum + (p.current * (p.origin - p.minimum));
+                p.value = p.minimum + ((p.current * 2) * (p.origin - p.minimum));
             }
 
         }

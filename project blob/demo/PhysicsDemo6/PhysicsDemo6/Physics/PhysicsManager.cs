@@ -156,11 +156,14 @@ namespace Physics
             {
                 s.ApplyForces();
             }
-            foreach (Point p in points)
-            {
-                p.CurrentForce += gravity.getForceOn(p);
-            }
-            /*
+			if (gravity != null)
+			{
+				foreach (Point p in points)
+				{
+					p.CurrentForce += gravity.getForceOn(p);
+				}
+			}
+            ///*
             // fall
             foreach (Point p in points)
             {
@@ -173,8 +176,8 @@ namespace Physics
             {
                 checkCollisions(p, TotalElapsedSeconds);
             }
-            */
-            doSomePhysics(TotalElapsedSeconds);
+            //*/
+            //doSomePhysics(TotalElapsedSeconds);
 
             foreach (Point p in points)
             {
@@ -189,20 +192,23 @@ namespace Physics
         {
             Vector3 EffectiveForce = p.CurrentForce;
             EffectiveForce += Vector3.Negate(p.Velocity) * airfriction;
-            p.NextAcceleration = EffectiveForce / p.mass;
-            p.NextVelocity += p.NextAcceleration * time;
-            p.NextPosition += p.NextVelocity * time;
+            p.NextAcceleration = p.acceleration + (EffectiveForce / p.mass);
+            p.NextVelocity = p.Velocity + (p.NextAcceleration * time);
+            p.NextPosition = p.Position + (p.NextVelocity * time);
         }
 
-
+		private List<Collidable> CollisionChain2 = new List<Collidable>();
         private void checkCollisions(Point p, float time)
         {
-
+			CollisionChain2.Clear();
+			bool Collision = false;
+			Collidable Collidable = null;
+			float CollisionU = float.MaxValue;
             foreach (Collidable c in collision)
             {
                 if (c.couldIntersect(p))
                 {
-                    float u = c.didIntersect(p.Position, p.NextPosition);
+                    float u = c.didIntersect2(p.Position, p.NextPosition);
                     // If Collision ( u < 1 ) - Split Time and redo
                     if (u < 1)
                     {
@@ -210,13 +216,191 @@ namespace Physics
                         // should physics interact
                         if (c.shouldPhysicsBlock(p))
                         {
-                            // stuff
+							if (!Collision)
+							{
+								Collidable = c;
+								CollisionU = u;
+								Collision = true;
+							}
+							else
+							{
+								if (u < CollisionU)
+								{
+									Collidable = c;
+									CollisionU = u;
+								}
+							}
                         }
                     }
                 }
             }
+			if (Collision)
+			{
+				// freefallPhysics first half
+				fall(p, time * CollisionU);
 
+				// sliding physics second half
+				slide(p, time * (1 - CollisionU), Collidable);
+			}
         }
+
+		private void slide(Point p, float time, Collidable s)
+		{
+			Vector3 collisionNormal = s.Normal();
+
+			while (s.NextDotNormal(p.NextPosition) <= 0)
+			{
+				p.NextPosition += (collisionNormal * 0.001f);
+				++DEBUG_BumpLoops;
+			}
+
+			// Stop Velocity in direction of the wall
+			Vector3 NormalEffect = (collisionNormal * (p.NextVelocity.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(p.NextVelocity, collisionNormal).Length(), Vector3.Dot(p.NextVelocity, collisionNormal)))));
+			p.NextVelocity = (p.NextVelocity - NormalEffect);
+			s.ImpartVelocity(p.NextPosition, NormalEffect);
+
+			impact += NormalEffect.Length() * 0.1f;
+
+			// forces
+			Vector3 Force = p.CurrentForce;
+
+			// normal force
+			Vector3 NormalForce = (collisionNormal * (Force.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(Force, collisionNormal).Length(), Vector3.Dot(Force, collisionNormal)))));
+			Force = (Force - NormalForce);
+			s.ApplyForce(p.NextPosition, NormalForce);
+
+			// air friction
+			if (p.NextVelocity.LengthSquared() > 0)
+			{
+				Vector3 Drag = Vector3.Negate(p.NextVelocity) * airfriction;
+				Force += Drag;
+
+				// surface friction !  F = uN
+
+				//Force += Vector3.Negate(p.NextVelocity) * friction;
+
+				Vector3 FrictionForce = Vector3.Normalize(Vector3.Negate(p.NextVelocity)) * (NormalForce.Length() * player.Traction.value);
+
+				Vector3 MaxFriction = Vector3.Negate((p.NextVelocity / time) * p.mass);
+
+				if (FrictionForce.LengthSquared() > MaxFriction.LengthSquared())
+				{
+					//Console.WriteLine("Maxed out friction: " + (FrictionForce.Length() / MaxFriction.Length()));
+					Force += MaxFriction;
+				}
+				else
+				{
+					//Console.WriteLine("Didn't: " + (FrictionForce.Length() / MaxFriction.Length()));
+					Force += FrictionForce;
+				}
+
+			}
+
+
+			// acceleration
+			Vector3 Acceleration = p.NextAcceleration;
+			Acceleration = Force / p.mass;
+
+			// velocity
+			Vector3 Velocity = p.NextVelocity;
+			Velocity += Acceleration * time;
+
+			// surface friction?
+
+			// position
+			Vector3 originalPosition = p.NextPosition;
+			Vector3 finalPosition = p.NextPosition;
+			finalPosition += Velocity * time;
+
+
+			bool Collision = false;
+			Collidable CollisionTri = null;
+			float CollisionU = float.MaxValue;
+			foreach (Collidable c in collision)
+			{
+				if (c.couldIntersect(p))
+				{
+					float u = c.didIntersect(originalPosition, finalPosition);
+					// If Collision ( u < 1 ) - Split Time and redo
+					if (u < 1)
+					{
+
+						 if (s == c)
+						{
+							//Console.WriteLine("Duplicate Collision!");
+							//throw new Exception();
+							continue;
+						}
+
+						if (CollisionChain2.Contains(s))
+						{
+							//Console.WriteLine("Duplicate Sliding Collision! Ignoring - This probably means a point is going to fall through the world.");
+							//throw new Exception();
+							continue;
+						}
+
+						//Console.WriteLine("Sliding Collision!");
+
+						if (Collision)
+						{
+
+							//Console.WriteLine("Secondary Sliding Collision!");
+
+						}
+
+
+						if (!Collision)
+						{
+							CollisionTri = c;
+							CollisionU = u;
+							Collision = true;
+						}
+						else
+						{
+							if (u < CollisionU)
+							{
+								CollisionTri = c;
+								CollisionU = u;
+							}
+						}
+
+					}
+				}
+			}
+
+			if (Collision)
+			{
+				CollisionChain2.Add(s);
+
+				// freefallPhysics first half
+				slidingPhysics(p, time * CollisionU, s);
+
+				// sliding physics second half
+				slidingPhysics(p, time * (1 - CollisionU), CollisionTri);
+			}
+			else
+			{ // If No Collision, apply values Calc'd Above
+
+				//p.CurrentForce = Vector3.Zero;
+				//p.CurrentAcceleration = Vector3.Zero;
+				p.NextAcceleration = Acceleration;
+				p.NextVelocity = Velocity;
+				p.NextPosition = finalPosition;
+				p.LastCollision = s;
+			}
+
+			if (s.NextDotNormal(p.NextPosition) <= 0)
+			{
+				// point just fell through
+				// this really shouldn't happen, floating point error?
+				// so for now, I'll just bump it up some more
+				while (s.NextDotNormal(p.NextPosition) <= 0)
+				{
+					p.NextPosition += (collisionNormal * 0.001f);
+					++DEBUG_BumpLoops;
+				}
+			}
+		}
 
 
 
