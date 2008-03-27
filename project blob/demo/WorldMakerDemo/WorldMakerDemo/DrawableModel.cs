@@ -9,20 +9,20 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using System.Runtime.Serialization;
 
 namespace WorldMakerDemo
 {
     [Serializable]
-    public class DrawableModel : Drawable
+    public class DrawableModel : Drawable 
     {
+        private String _modelName;
         [NonSerialized]
-        Model m_Model;
-
+        private Model m_Model;
         [NonSerialized]
-        GraphicsDevice m_GraphicsDevice;
-
+        private GraphicsDevice m_GraphicsDevice;
         [NonSerialized]
-        Texture2D m_PointTexture;
+        private Texture2D m_PointTexture;
         public Texture2D PointTexture
         {
             get
@@ -168,10 +168,10 @@ namespace WorldMakerDemo
             return null;
         }
 
-        public DrawableModel(String p_Name)
+        public DrawableModel(String p_Name, String fileName)
         {
             m_Name = p_Name;
-
+            _modelName = fileName;
             TranslationPriority = 2;
             RotationPriority = 1;
             ScalePriority = 0;
@@ -213,5 +213,6 @@ namespace WorldMakerDemo
                 }
             }
         }
+
     }
 }

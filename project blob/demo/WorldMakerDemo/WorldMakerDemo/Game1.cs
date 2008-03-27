@@ -45,7 +45,13 @@ namespace WorldMakerDemo
 
         const String effectName = "Cel";
 
-        Effect effect;
+        private Effect effect;
+        public Effect FX
+        {
+            get { return effect; }
+            set { effect = value; }
+        }
+
         //Effect celshader;
         Matrix worldMatrix;
         Matrix viewMatrix;
@@ -126,11 +132,9 @@ namespace WorldMakerDemo
             pointText = Content.Load<Texture2D>(@"Textures\\point_text");
 
             //effect = Content.Load<Effect>("effects");
-            model = new DrawableModel("cube");
-            model.ModelObject = Content.Load<Model>(@"Models\\cube");
+            model = new DrawableModel(content, "cube", "cube");
 
-            model2 = new DrawableModel("ball");
-            model2.ModelObject = Content.Load<Model>(@"Models\\ball");
+            model2 = new DrawableModel(content, "ball", "ball");
 
             TextureInfo ti = new TextureInfo(text, 0);
             TextureInfo ti2 = new TextureInfo(text2, 1);
@@ -322,9 +326,9 @@ namespace WorldMakerDemo
                 else
                 {
                     if (effectName == "effects")
-                       _activeArea.Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
+                        _activeArea.Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
                     else if (effectName == "Cel")
-                       _activeArea.Display.CurrentEffect.Parameters["View"].SetValue(viewMatrix);
+                        _activeArea.Display.CurrentEffect.Parameters["View"].SetValue(viewMatrix);
                 }
 
                 //m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);

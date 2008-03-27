@@ -9,6 +9,13 @@ namespace WorldMakerDemo
     [Serializable]
     public class TextureInfo
     {
+        private String _textureName;
+        public String TextureName
+        {
+            get { return _textureName; }
+            set { _textureName = value; }
+        }
+
         [NonSerialized]
         Texture2D m_Texture;
         public Texture2D TextureObject
