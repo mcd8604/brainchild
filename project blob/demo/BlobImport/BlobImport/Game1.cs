@@ -36,6 +36,14 @@ namespace BlobImport
 
         Physics.PhysicsManager physics;
 
+		SpriteFont font;
+		//fps
+		float time = 0f;
+		float update = 1f;
+		int frames = 0;
+		string fps = "";
+		bool drawMode = true;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -77,8 +85,8 @@ namespace BlobImport
             physics.Player.Resilience.Delta = 10;
 
             physics.Player.Volume.Minimum = 0f;
-            physics.Player.Volume.Origin = 5f;
-            physics.Player.Volume.Maximum = 10f;
+			physics.Player.Volume.Origin = 110f;
+            physics.Player.Volume.Maximum = 100f;
             physics.Player.Volume.Delta = 5;
 
             //drawables.Clear();
@@ -92,6 +100,8 @@ namespace BlobImport
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+			font = Content.Load<SpriteFont>(@"Courier New");
 
             // TODO: use this.Content to load your game content here
             blobModel = this.Content.Load<Model>(@"ball");
@@ -131,7 +141,7 @@ namespace BlobImport
 
 
 
-            physics.Gravity = new Physics.GravityVector(0.5f, new Vector3(0f, -1.0f, 0f));
+            physics.Gravity = new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f));
 
             theBlob.setGraphicsDevice(GraphicsDevice);
             foreach (Drawable d in drawables)
@@ -201,12 +211,32 @@ namespace BlobImport
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
 			InputHandler.Update();
+            // Allows the game to exit
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || InputHandler.IsKeyPressed(Keys.Escape))
+			{
+				this.Exit();
+			}
 
+			if (InputHandler.IsKeyPressed(Keys.T))
+			{
+				graphics.ToggleFullScreen();
+			}
+			if (InputHandler.IsKeyPressed(Keys.Z))
+			{
+				drawMode = !drawMode;
+			}
+
+			if (InputHandler.IsKeyPressed(Keys.PageUp))
+			{
+				physics.Player.Volume.Origin += 1f;
+				Console.WriteLine(physics.Player.Volume.Origin);
+			}
+			else if (InputHandler.IsKeyPressed(Keys.PageDown))
+			{
+				physics.Player.Volume.Origin -= 1f;
+				Console.WriteLine(physics.Player.Volume.Origin);
+			}
 
 
 			viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -10), theBlob.getCenter(), Vector3.Up);
@@ -244,6 +274,15 @@ namespace BlobImport
 
             physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
+
+			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			if (time > update)
+			{
+				fps = Convert.ToInt32(frames / time).ToString();
+				time = 0;
+				frames = 0;
+			}
+
             base.Update(gameTime);
         }
 
@@ -256,9 +295,20 @@ namespace BlobImport
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
-            GraphicsDevice.RenderState.CullMode = CullMode.None;
-            //GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
-            //GraphicsDevice.RenderState.DepthBufferEnable = false;
+			if (drawMode)
+			{
+				GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+				GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+				GraphicsDevice.RenderState.DepthBufferEnable = true;
+			}
+			else
+			{
+				GraphicsDevice.RenderState.CullMode = CullMode.None;
+				GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+				GraphicsDevice.RenderState.DepthBufferEnable = false;
+			}
+			GraphicsDevice.RenderState.AlphaBlendEnable = false;
+			GraphicsDevice.RenderState.AlphaTestEnable = false;
 
             // Box
             effect.CurrentTechnique = effect.Techniques["Textured"];
@@ -291,6 +341,25 @@ namespace BlobImport
 				}
 				effect.End();
 			}
+
+
+
+
+
+
+			// GUI
+			GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+			spriteBatch.Begin();
+			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
+
+			spriteBatch.DrawString(font, theBlob.getVolume().ToString(), new Vector2(250, 0), Color.White);
+			
+			spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(600, 0), Color.White);
+			spriteBatch.End();
+
+
+			//fps
+			++frames;
 
 			//base.Draw(gameTime);
         }
