@@ -18,5 +18,7 @@ namespace Physics
 
 		float getVolume();
 
+        float getNewVolume();
+
 	}
 }

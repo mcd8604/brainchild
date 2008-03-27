@@ -352,7 +352,8 @@ namespace BlobImport
 			spriteBatch.Begin();
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
 
-			spriteBatch.DrawString(font, theBlob.getVolume().ToString(), new Vector2(250, 0), Color.White);
+			spriteBatch.DrawString(font, "Orig Vol: " + theBlob.getVolume().ToString(), new Vector2(250, 0), Color.White);
+            spriteBatch.DrawString(font, "New Vol: " + theBlob.getNewVolume().ToString(), new Vector2(250, 30), Color.White);
 			
 			spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(600, 0), Color.White);
 			spriteBatch.End();
