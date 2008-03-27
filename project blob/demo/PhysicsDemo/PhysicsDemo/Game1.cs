@@ -484,9 +484,9 @@ namespace PhysicsDemo
 
 			graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
 
-            graphics.GraphicsDevice.RenderState.AlphaBlendEnable = false;
-            graphics.GraphicsDevice.RenderState.AlphaTestEnable = false;
-            graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
+			GraphicsDevice.RenderState.AlphaBlendEnable = false;
+			GraphicsDevice.RenderState.AlphaTestEnable = false;
+			GraphicsDevice.RenderState.DepthBufferEnable = true;
 
 			// background (hill + flat)
 			basicEffect.TextureEnabled = false;
