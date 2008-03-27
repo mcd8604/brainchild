@@ -28,6 +28,9 @@ namespace BlobImport
         private int myNumVertices;
         private int myStartIndex;
         private int myPrimitiveCount;
+
+		private Vector3 min;
+		private Vector3 max;
         
         public void setSpringLength(float delta)
         {
@@ -234,7 +237,7 @@ namespace BlobImport
 
             Vector3 centerOfCube = getCenter();
 
-
+			/*
             for (int i = 1; i < 7; ++i)
             {
 
@@ -252,6 +255,58 @@ namespace BlobImport
             }
 
             totalVolume += getFaceVolume(vertices[8].Position, vertices[15].Position, vertices[9].Position);
+			*/
+
+			// really really rough appoximation for a blob
+
+			
+			/*
+			for (int i = 0; i < vertices.Length - 2; i++)
+			{
+
+				totalVolume += getFaceVolume(vertices[i].Position, vertices[i + 1].Position, vertices[i + 2].Position);
+
+			}
+			 */
+
+
+			min = getCenter();
+			max = getCenter();
+
+
+			for (int i = 0; i < vertices.Length; i++)
+			{
+
+				if (vertices[i].Position.X < min.X)
+				{
+					min.X = vertices[i].Position.X;
+				}
+				if (vertices[i].Position.Y < min.Y)
+				{
+					min.Y = vertices[i].Position.Y;
+				}
+				if (vertices[i].Position.Z < min.Z)
+				{
+					min.Z = vertices[i].Position.Z;
+				}
+
+				if (vertices[i].Position.X > max.X)
+				{
+					max.X = vertices[i].Position.X;
+				}
+				if (vertices[i].Position.Y > max.Y)
+				{
+					max.Y = vertices[i].Position.Y;
+				}
+				if (vertices[i].Position.Z > max.Z)
+				{
+					max.Z = vertices[i].Position.Z;
+				}
+
+			}
+
+
+			totalVolume = (max.X - min.X) * (max.Y - min.Y) * (max.Z - min.Z);
 
 
             return totalVolume;
