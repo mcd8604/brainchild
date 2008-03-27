@@ -308,8 +308,26 @@ namespace BlobImport
 
 			totalVolume = (max.X - min.X) * (max.Y - min.Y) * (max.Z - min.Z);
 
-
+            Console.WriteLine("Original Volume Estimate: " + totalVolume);
             return totalVolume;
+        }
+
+        public float getNewVolume()
+        {
+            float totalVolume = 0;
+
+            Vector3 center = getCenter();
+
+            for (int i = 0; i < vertices.Length - 2; i++)
+            {
+
+                totalVolume += getFaceVolume(vertices[i].Position, vertices[i + 1].Position, vertices[i + 2].Position);
+
+            }
+
+            Console.WriteLine("New Volume Estimate: " + totalVolume);
+            return totalVolume;
+
         }
 
         private float getFaceVolume(Vector3 point1, Vector3 point2, Vector3 point3)
@@ -330,6 +348,23 @@ namespace BlobImport
 
             return volume;
 
+        }
+
+        private float getFaceVolumeTest(Vector3 point1, Vector3 point2, Vector3 point3)
+        {
+            Vector3 a = point2 - point1;
+            Vector3 b = point3 - point1;
+            Vector3 c = Vector3.Cross(a, b);
+
+            float area = 0.5f * c.Length();
+
+            Plane facePlane = new Plane(point1,point2,point3);
+            Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
+            float height = MathHelper.Distance(facePlane.D, centerPlane.D);
+
+            float volume = height * area * (1f / 3f);
+
+            return volume;
         }
 
         //public float baseVolume = 10f;
