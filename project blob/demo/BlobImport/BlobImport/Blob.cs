@@ -117,15 +117,15 @@ namespace BlobImport
             // IndexBuffer
 			if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
 			{
-				indices = new int[vertices.Length];
-				short[] temp = new short[vertices.Length];
+                indices = new int[(mesh.IndexBuffer.SizeInBytes)*8 / 16];
+                short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
 				mesh.IndexBuffer.GetData<short>(temp);
-				for (int i = 0; i < vertices.Length; i++)
+				for (int i = 0; i < temp.Length; i++)
 					indices[i] = temp[i];
 			}
 			else
 			{
-				indices = new int[vertices.Length];
+                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
 				mesh.IndexBuffer.GetData<int>(indices);
 			}
 			myIndexBuffer = mesh.IndexBuffer;
@@ -317,14 +317,15 @@ namespace BlobImport
             float totalVolume = 0;
 
             Vector3 center = getCenter();
+            //myIndexBuffer.GetData<
             int[] test = indices;
-            int numVertices = 0;
+            int numFaces = 0;
 
             for (int i = 0; i < indices.Length - 3; i=i+3)
             {
 
                 totalVolume += getFaceVolumeTest(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position);
-                numVertices++;
+                numFaces++;
 
             }
 
@@ -361,7 +362,7 @@ namespace BlobImport
             Vector3 b = point3 - point1;
             Vector3 c = Vector3.Cross(a, b);
 
-            float area = 0.5f * c.Length();
+            float area = .5f * c.Length();
 
             Plane facePlane = new Plane(point1,point2,point3);
             //Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
@@ -372,7 +373,7 @@ namespace BlobImport
 
             float volume = height * area * (1f / 3f);
             if (float.IsNaN(volume))
-                throw new Exception("Why?");
+                throw new Exception("Not Good");
 
             return volume;
         }
