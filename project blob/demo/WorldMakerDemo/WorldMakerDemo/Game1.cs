@@ -133,12 +133,12 @@ namespace WorldMakerDemo
             TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
             TextureManager.getSingleton.AddTexture("point_text", Content.Load<Texture2D>(@"Textures\\point_text"));
 
-            //effect = Content.Load<Effect>("effects");
             ModelManager.getSingleton.AddModel("cube", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube"));
             ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
+            ModelManager.getSingleton.AddModel("ground", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ground"));
             model = new DrawableModel("cube", "cube");
-            model.ModelName = "cube";
             model2 = new DrawableModel("ball", "ball");
+            model.ModelName = "cube";
             model2.ModelName = "ball";
             TextureInfo ti = new TextureInfo("grass", 0);
             TextureInfo ti2 = new TextureInfo("test", 1);
@@ -363,6 +363,7 @@ namespace WorldMakerDemo
             {
                 _activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureInfo, drawableInfo.drawable);
             }
+            LevelEditor.DrawablesToAdd.Clear();
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
             _activeArea.Display.Draw();
 
