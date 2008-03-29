@@ -43,13 +43,13 @@ namespace WorldMakerDemo
         //VertexPositionNormalTexture[] cubeVertices;
         //VertexPositionNormalTexture[] cube2Vertices;
 
-        const String effectName = "Cel";
+        const String EFFECT_TYPE = "Cel";
 
-        private Effect effect;
-        public Effect FX
+        private String _effectName;
+        public String EffectName
         {
-            get { return effect; }
-            set { effect = value; }
+            get { return _effectName; }
+            set { _effectName = value; }
         }
 
         //Effect celshader;
@@ -60,7 +60,7 @@ namespace WorldMakerDemo
 
         Texture2D text;
         Texture2D text2;
-        Texture2D pointText;
+        const String POINT_TEXT = "point_text";
 
         //VertexDeclaration VertexDeclarationColor;
         VertexDeclaration VertexDeclarationTexture;
@@ -92,6 +92,7 @@ namespace WorldMakerDemo
         /// </summary>
         protected override void Initialize()
         {
+            _effectName = EFFECT_TYPE;
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //text = Content.Load<Texture2D>(@"test");
@@ -124,20 +125,23 @@ namespace WorldMakerDemo
         /// </summary>
         protected override void LoadContent()
         {
-            if(effectName != "basic")
-                effect = Content.Load<Effect>(@"Shaders\\" + effectName);
+            if(EFFECT_TYPE != "basic")
+                EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
 
-            text = Content.Load<Texture2D>(@"Models\\free-grass-texture");
-            text2 = Content.Load<Texture2D>(@"Textures\\test");
-            pointText = Content.Load<Texture2D>(@"Textures\\point_text");
+
+            TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Models\\free-grass-texture"));
+            TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
+            TextureManager.getSingleton.AddTexture("point_text", Content.Load<Texture2D>(@"Textures\\point_text"));
 
             //effect = Content.Load<Effect>("effects");
+            ModelManager.getSingleton.AddModel("cube", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube"));
+            ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
             model = new DrawableModel("cube", "cube");
-            model.ModelObject = content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube");
+            model.ModelName = "cube";
             model2 = new DrawableModel("ball", "ball");
-            model2.ModelObject = content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball");
-            TextureInfo ti = new TextureInfo(text, 0);
-            TextureInfo ti2 = new TextureInfo(text2, 1);
+            model2.ModelName = "ball";
+            TextureInfo ti = new TextureInfo("grass", 0);
+            TextureInfo ti2 = new TextureInfo("test", 1);
 
             _activeDrawable = model;
 
@@ -159,60 +163,60 @@ namespace WorldMakerDemo
                 (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
                 1.0f, 100.0f);
 
-            if(effectName == "basic")
+            if (EFFECT_TYPE == "basic")
             {
                 Level.Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration));
             }
-            else if (effectName == "effects")
+            else if (EFFECT_TYPE == "effects")
             {
-                effect.Parameters["xView"].SetValue(viewMatrix);
-                effect.Parameters["xProjection"].SetValue(projectionMatrix);
-                effect.Parameters["xWorld"].SetValue(worldMatrix);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xView"].SetValue(viewMatrix);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xProjection"].SetValue(projectionMatrix);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xWorld"].SetValue(worldMatrix);
 
-                effect.Parameters["xEnableLighting"].SetValue(true);
-                //effect.Parameters["xShowNormals"].SetValue(true);
-                //effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
-                effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
-                effect.Parameters["xAmbient"].SetValue(0.5f);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(true);
+                //EffectManager.getSingleton.GetEffect(_effectName).Parameters["xShowNormals"].SetValue(true);
+                //EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightDirection"].SetValue(Vector3.Down);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xAmbient"].SetValue(0.5f);
 
-                Level.Level.AddArea("testArea", new Area(worldMatrix, basicEffectVertexDeclaration, effect, "xWorld", "xTexture", "Textured"));
+                Level.Level.AddArea("testArea", new Area(worldMatrix, basicEffectVertexDeclaration, _effectName, "xWorld", "xTexture", "Textured"));
             }
-            else if (effectName == "Cel")
+            else if (EFFECT_TYPE == "Cel")
             {
-                if (effect.Parameters["World"] != null)
-                    effect.Parameters["World"].SetValue(worldMatrix);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"].SetValue(worldMatrix);
 
-                if (effect.Parameters["Projection"] != null)
-                    effect.Parameters["Projection"].SetValue(projectionMatrix);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"].SetValue(projectionMatrix);
 
-                if (effect.Parameters["DiffuseLightColor"] != null)
-                    effect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
 
-                if (effect.Parameters["LightPosition"] != null)
-                    effect.Parameters["LightPosition"].SetValue(lightPos);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"].SetValue(lightPos);
 
-                if (effect.Parameters["LayerOneSharp"] != null)
-                    effect.Parameters["LayerOneSharp"].SetValue(.9f);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"].SetValue(.9f);
 
-                if (effect.Parameters["LayerOneRough"] != null)
-                    effect.Parameters["LayerOneRough"].SetValue(0.15f);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"].SetValue(0.15f);
 
-                if (effect.Parameters["LayerOneContrib"] != null)
-                    effect.Parameters["LayerOneContrib"].SetValue(0.08f);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"].SetValue(0.08f);
 
-                if (effect.Parameters["LayerTwoSharp"] != null)
-                    effect.Parameters["LayerTwoSharp"].SetValue(0.05f);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"].SetValue(0.05f);
 
-                if (effect.Parameters["LayerTwoRough"] != null)
-                    effect.Parameters["LayerTwoRough"].SetValue(2.0f);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"].SetValue(2.0f);
 
-                if (effect.Parameters["LayerTwoContrib"] != null)
-                    effect.Parameters["LayerTwoContrib"].SetValue(0.4f);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"].SetValue(0.4f);
 
-                if (effect.Parameters["EdgeOffset"] != null)
-                    effect.Parameters["EdgeOffset"].SetValue(0.03f);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"].SetValue(0.03f);
 
-                Level.Level.AddArea("testArea", new Area(worldMatrix, basicEffectVertexDeclaration, effect, "World", "NONE", null));
+                Level.Level.AddArea("testArea", new Area(worldMatrix, basicEffectVertexDeclaration, _effectName, "World", "NONE", null));
             }
             _activeArea = Level.Level.Areas["testArea"];
             //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
@@ -240,7 +244,7 @@ namespace WorldMakerDemo
             //List<Drawable> list2 = new List<Drawable>();
             //list2.Add(model2);
 
-            _activeArea.Display.BlackTexture = pointText;
+            _activeArea.Display.TextureName = POINT_TEXT;
             _activeArea.Display.ShowAxis = true;
             _activeArea.AddDrawable("cube", ti, model);
             _activeArea.AddDrawable("sphere", ti2, model2);
@@ -319,26 +323,26 @@ namespace WorldMakerDemo
 
                 viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
 
-                if (_activeArea.Display.CurrentEffect is BasicEffect)
+                if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
                 {
-                    ((BasicEffect)_activeArea.Display.CurrentEffect).View = viewMatrix;
+                    ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
                 }
                 else
                 {
-                    if (effectName == "effects")
-                        _activeArea.Display.CurrentEffect.Parameters["xView"].SetValue(viewMatrix);
-                    else if (effectName == "Cel")
-                        _activeArea.Display.CurrentEffect.Parameters["View"].SetValue(viewMatrix);
+                    if (EFFECT_TYPE == "effects")
+                        EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
+                    else if (EFFECT_TYPE == "Cel")
+                        EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
                 }
 
                 //m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
 
                 //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
 
-                if (effectName == "effects")
-                    effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                else if (effectName == "Cel")
-                    effect.Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+                if (EFFECT_TYPE == "effects")
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                else if (EFFECT_TYPE == "Cel")
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
             }
 
             base.Update(gameTime);

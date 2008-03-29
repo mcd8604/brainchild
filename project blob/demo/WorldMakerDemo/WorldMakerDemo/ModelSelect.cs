@@ -63,7 +63,7 @@ namespace WorldMakerDemo
         {
             if (listBox1.SelectedIndex != -1)
             {
-                m_CurrentModel.ModelObject = _gameRef.Content.Load<Model>(@"Models\\" + ((String)(listBox1.Items[listBox1.SelectedIndex])).Substring(0, ((String)(listBox1.Items[listBox1.SelectedIndex])).LastIndexOf(".")));
+                m_CurrentModel.ModelName = ((String)(listBox1.Items[listBox1.SelectedIndex])).Substring(0, ((String)(listBox1.Items[listBox1.SelectedIndex])).LastIndexOf("."));
                 m_CurrentModel.setGraphicsDevice(_gameRef.GraphicsDevice);
             }
 
@@ -85,7 +85,7 @@ namespace WorldMakerDemo
         {
             if (listBox2.SelectedIndex != -1)
             {
-                m_CurrentTexture.TextureObject = _gameRef.Content.Load<Texture2D>(@"Textures\\" + ((String)(listBox2.Items[listBox2.SelectedIndex])).Substring(0, ((String)(listBox2.Items[listBox2.SelectedIndex])).LastIndexOf(".")));
+                m_CurrentTexture.TextureName = ((String)(listBox2.Items[listBox2.SelectedIndex])).Substring(0, ((String)(listBox2.Items[listBox2.SelectedIndex])).LastIndexOf("."));
             }
         }
 

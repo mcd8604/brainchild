@@ -41,10 +41,10 @@ namespace WorldMakerDemo.Level
             //_collidables = new Dictionary<String, Collidable>();
         }
 
-        public Area(Matrix worldMatrix, VertexDeclaration basicEffectVertexDeclaration, Effect effect, 
+        public Area(Matrix worldMatrix, VertexDeclaration basicEffectVertexDeclaration, String effectName, 
             String worldParameterName, String textureParameterName, String techniqueName)
         {
-            _display = new Display(worldMatrix, basicEffectVertexDeclaration, effect, worldParameterName, textureParameterName, techniqueName);
+            _display = new Display(worldMatrix, basicEffectVertexDeclaration, effectName, worldParameterName, textureParameterName, techniqueName);
             _drawables = new Dictionary<String, Drawable>();
 
             //_collidables = new Dictionary<String, Collidable>();

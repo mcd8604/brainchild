@@ -17,25 +17,24 @@ namespace WorldMakerDemo
     public class DrawableModel : Drawable 
     {
         private String _modelName;
-        [NonSerialized]
-        private Model m_Model;
+
         [NonSerialized]
         private GraphicsDevice m_GraphicsDevice;
-        [NonSerialized]
-        private Texture2D m_PointTexture;
-        public Texture2D PointTexture
+
+        private String _textureName;
+        public String TextureName
         {
             get
             {
-                return m_PointTexture;
+                return _textureName;
             }
             set
             {
-                m_PointTexture = value;
+                _textureName = value;
             }
         }
 
-        String m_Name;
+        private String m_Name;
         public String Name
         {
             get
@@ -138,15 +137,15 @@ namespace WorldMakerDemo
             }
         }
 
-        public Model ModelObject
+        public String ModelName
         {
             get
             {
-                return m_Model;
+                return _modelName;
             }
             set
             {
-                m_Model = value;
+                _modelName = value;
             }
         }
 
@@ -207,7 +206,7 @@ namespace WorldMakerDemo
                 if (this.ShowVertices)
                 {
                     Texture2D temp = (Texture2D)m_GraphicsDevice.Textures[0];
-                    m_GraphicsDevice.Textures[0] = PointTexture;
+                    m_GraphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(TextureName);
                     m_GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
                     m_GraphicsDevice.Textures[0] = temp;
                 }

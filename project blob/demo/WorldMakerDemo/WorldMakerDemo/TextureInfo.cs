@@ -16,20 +16,6 @@ namespace WorldMakerDemo
             set { _textureName = value; }
         }
 
-        [NonSerialized]
-        Texture2D m_Texture;
-        public Texture2D TextureObject
-        {
-            get
-            {
-                return m_Texture;
-            }
-            set
-            {
-                m_Texture = value;
-            }
-        }
-
         int m_SortNumber;
         public int SortNumber
         {
@@ -43,9 +29,9 @@ namespace WorldMakerDemo
             }
         }
 
-        public TextureInfo(Texture2D p_Texture, int p_SortNumber)
+        public TextureInfo(String texutreName, int p_SortNumber)
         {
-            m_Texture = p_Texture;
+            _textureName = texutreName;
             m_SortNumber = p_SortNumber;
         }
     }
