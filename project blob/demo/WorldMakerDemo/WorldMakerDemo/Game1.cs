@@ -132,10 +132,10 @@ namespace WorldMakerDemo
             pointText = Content.Load<Texture2D>(@"Textures\\point_text");
 
             //effect = Content.Load<Effect>("effects");
-            model = new DrawableModel(content, "cube", "cube");
-
-            model2 = new DrawableModel(content, "ball", "ball");
-
+            model = new DrawableModel("cube", "cube");
+            model.ModelObject = content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube");
+            model2 = new DrawableModel("ball", "ball");
+            model2.ModelObject = content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball");
             TextureInfo ti = new TextureInfo(text, 0);
             TextureInfo ti2 = new TextureInfo(text2, 1);
 
