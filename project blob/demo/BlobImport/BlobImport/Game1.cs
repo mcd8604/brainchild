@@ -93,21 +93,21 @@ namespace BlobImport
             physics = new Physics.PhysicsManager();
 
             physics.Player.Traction.Minimum = 0.5f;
-            physics.Player.Traction.Origin = 1f;
-            physics.Player.Traction.Maximum = 2f;
+            physics.Player.Traction.Origin = 50f;
+            physics.Player.Traction.Maximum = 100f;
 
             physics.Player.Cling.Minimum = 0f;
-            physics.Player.Cling.Origin = 0f;
-            physics.Player.Cling.Maximum = 0f;
+            physics.Player.Cling.Origin = 5f;
+            physics.Player.Cling.Maximum = 10f;
 
-            physics.Player.Resilience.Minimum = 12.5f;
-            physics.Player.Resilience.Origin = 62.5f;
-            physics.Player.Resilience.Maximum = 92.5f;
+            physics.Player.Resilience.Minimum = 2f;
+            physics.Player.Resilience.Origin = 150f;
+            physics.Player.Resilience.Maximum = 300f;
             physics.Player.Resilience.Delta = 10;
 
             physics.Player.Volume.Minimum = 0f;
 			physics.Player.Volume.Origin = 110f;
-            physics.Player.Volume.Maximum = 100f;
+            physics.Player.Volume.Maximum = 200f;
             physics.Player.Volume.Delta = 5;
 
             //drawables.Clear();
@@ -552,21 +552,25 @@ namespace BlobImport
                 if (gameMode == 3)
                 {
                     reset();
+                    drawables.Clear();
                     initLoop();
                 }
                 if (gameMode == 2)
                 {
                     reset();
+                    drawables.Clear();
                     initCube();
                 }
                 else if (gameMode == 1)
                 {
                     reset();
+                    drawables.Clear();
                     initThree();
                 }
                 else if (gameMode == 0)
                 {
                     reset();
+                    drawables.Clear();
                     initGlobe();
                 }
             }
