@@ -103,6 +103,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="TextureInfo.cs" />
+    <Compile Include="TextureManager.cs" />
     <Compile Include="YesNo.cs">
       <SubType>Form</SubType>
     </Compile>

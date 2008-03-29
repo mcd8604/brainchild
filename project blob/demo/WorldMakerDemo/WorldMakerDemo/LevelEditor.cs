@@ -75,7 +75,7 @@ namespace WorldMakerDemo
             {
                 levelName.Text = _levelSelect.LevelName.Substring(0, _levelSelect.LevelName.LastIndexOf("."));
                 //This is currently commented due to unserializable items, fix!
-                Level.Level.LoadLevel(levelName.Text,_gameRef);
+                //Level.Level.LoadLevel(levelName.Text,_gameRef);
                 areaListBox.Items.Clear();
                 foreach (String str in Level.Level.Areas.Keys)
                 {
