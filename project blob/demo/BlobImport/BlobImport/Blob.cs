@@ -56,17 +56,20 @@ namespace BlobImport
 
 		public Blob(Model aModel)
 		{
-            initBlob(aModel);
+            initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center);
 		}
+
+        public Blob(Model aModel, Vector3 startPos)
+        {
+            initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center + startPos);
+        }
 
         public Physics.Collidable bottom;
 
-		private void initBlob(Model blobModel)
+		private void initBlob(Model blobModel, Vector3 center)
         {
             ModelMesh mesh = blobModel.Meshes[0];
             ModelMeshPart part = mesh.MeshParts[0];
-
-            Vector3 center = mesh.BoundingSphere.Center;
 
             myVertexStride = VertexPositionNormalTexture.SizeInBytes;
 
@@ -106,10 +109,10 @@ namespace BlobImport
 				foreach (Physics.Point p in points)
 				{
 					float d = Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition());
-                    if (d > 0 && d < 0.5f)
-                    {
+                    //if (d > 0 && d < 0.5f)
+                    //{
                         springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), springVal * 100));
-                    }
+                    //}
 				}
 				points.Add(t);
 			}
@@ -308,7 +311,7 @@ namespace BlobImport
 
 			totalVolume = (max.X - min.X) * (max.Y - min.Y) * (max.Z - min.Z);
 
-            Console.WriteLine("Original Volume Estimate: " + totalVolume);
+            //Console.WriteLine("Original Volume Estimate: " + totalVolume);
             return totalVolume;
         }
 
@@ -330,7 +333,7 @@ namespace BlobImport
             }
 
             float test2 = (4f / 3f) * ((float)Math.PI);
-            Console.WriteLine("New Volume Estimate: " + totalVolume);
+            //Console.WriteLine("New Volume Estimate: " + totalVolume);
             return totalVolume;
 
         }
