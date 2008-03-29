@@ -66,7 +66,7 @@ namespace WorldMakerDemo.Level
             s.Close();
             foreach (Area area in _areas.Values)
             {
-                area.Display.CurrentEffect = game.FX;
+                area.Display.EffectName = game.EffectName;
             }
         }
     }

@@ -106,7 +106,7 @@ namespace WorldMakerDemo
 
             _modelSelect = new ModelSelect(this, models,textures, _gameRef);
             _modelSelect.ShowDialog();
-            if (_modelSelect.DialogResult == DialogResult.OK && _modelSelect.CurrentModel.ModelObject != null && _modelSelect.CurrentTexture.TextureObject != null)
+            if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
             {
                 Console.WriteLine(_modelSelect.CurrentModel.Name);
                 _drawableInfo.name = _modelSelect.CurrentModel.Name;
