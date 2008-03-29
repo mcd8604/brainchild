@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="DemoCube.cs" />
     <Compile Include="DrawableInfo.cs" />
+    <Compile Include="EffectManager.cs" />
     <Compile Include="LevelEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +94,7 @@
     <Compile Include="Level\Area.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Level\Trigger.cs" />
+    <Compile Include="ModelManager.cs" />
     <Compile Include="ModelSelect.cs">
       <SubType>Form</SubType>
     </Compile>
