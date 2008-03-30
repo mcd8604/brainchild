@@ -25,6 +25,7 @@ namespace BlobImport
         Texture text;
 
         Effect effect;
+        Effect celEffect;
 
         Matrix worldMatrix;
         Matrix viewMatrix;
@@ -123,6 +124,8 @@ namespace BlobImport
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			font = Content.Load<SpriteFont>(@"Courier New");
+
+            celEffect = Content.Load<Effect>(@"Cel");
 
             // TODO: use this.Content to load your game content here
             blobModel = this.Content.Load<Model>(@"soccerball");
@@ -431,10 +434,26 @@ namespace BlobImport
             effect.Parameters["xEnableLighting"].SetValue(true);
             //effect.Parameters["xShowNormals"].SetValue(true);
             //effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
-            effect.Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
+            effect.Parameters["xLightPos"].SetValue(new Vector4(0, 5, 0, 0));
             effect.Parameters["xAmbient"].SetValue(0.25f);
 
             effect.Parameters["xCameraPos"].SetValue(new Vector4(0,0,-5, 0));
+
+            celEffect.Parameters["World"].SetValue(worldMatrix);
+            celEffect.Parameters["View"].SetValue(viewMatrix);
+            celEffect.Parameters["Projection"].SetValue(projectionMatrix);
+
+            celEffect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
+            celEffect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
+            celEffect.Parameters["LayerOneSharp"].SetValue(.9f);
+            celEffect.Parameters["LayerOneRough"].SetValue(0.15f);
+            celEffect.Parameters["LayerOneContrib"].SetValue(0.15f);
+            celEffect.Parameters["LayerTwoSharp"].SetValue(0.10f);
+            celEffect.Parameters["LayerTwoRough"].SetValue(4.0f);
+            celEffect.Parameters["LayerTwoContrib"].SetValue(0.8f);
+            celEffect.Parameters["EdgeOffset"].SetValue(0.03f);
+
+            celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
         }
 
 
@@ -501,6 +520,8 @@ namespace BlobImport
                     viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
                     effect.Parameters["xView"].SetValue(viewMatrix);
 
+                    celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
+                    celEffect.Parameters["View"].SetValue(viewMatrix);
                     effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
                 }
             }
@@ -688,6 +709,7 @@ namespace BlobImport
                     viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), Vector3.Up);
                 }
                 effect.Parameters["xView"].SetValue(viewMatrix);
+                celEffect.Parameters["View"].SetValue(viewMatrix);
 
                 //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
                 effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
@@ -827,9 +849,9 @@ namespace BlobImport
                 spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
             }
             spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(550, 0), Color.White);
-            //spriteBatch.DrawString(font, "Orig Vol: " + theBlob.getVolume().ToString(), new Vector2(250, 0), Color.White);
-            //spriteBatch.DrawString(font, "New Vol: " + theBlob.getNewVolume().ToString(), new Vector2(250, 30), Color.White);
-            spriteBatch.DrawString(font, theBlob.getVolume().ToString(), new Vector2(675, 0), Color.White);
+            spriteBatch.DrawString(font, "Orig Vol: " + theBlob.getVolume().ToString(), new Vector2(450, 30), Color.White);
+            spriteBatch.DrawString(font, "New Vol: " + theBlob.getNewVolume().ToString(), new Vector2(450, 60), Color.White);
+            //spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
             spriteBatch.End();
 
 			//fps
