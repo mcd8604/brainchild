@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using WorldMakerDemo.Level;
 
 namespace WorldMakerDemo
 {
@@ -41,7 +42,8 @@ namespace WorldMakerDemo
         {
             if (areaListBox.SelectedIndex != -1)
             {
-                _gameRef.ActiveArea = Level.Level.Areas[(String)(areaListBox.Items[areaListBox.SelectedIndex])];
+                areaTextBox.Text = (String)areaListBox.Items[areaListBox.SelectedIndex];
+                _gameRef.ActiveArea = Level.Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]];
                 modelListBox.Items.Clear();
                 foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
                 {
@@ -73,9 +75,15 @@ namespace WorldMakerDemo
             _levelSelect.ShowDialog();
             if (_levelSelect.DialogResult.Equals(DialogResult.OK))
             {
+                foreach (String str in modelListBox.Items)
+                {
+                    DrawablesToDelete.Add(str);
+                }
+                modelListBox.Items.Clear();
+                modelListBox.Update();
                 levelName.Text = _levelSelect.LevelName.Substring(0, _levelSelect.LevelName.LastIndexOf("."));
                 //This is currently commented due to unserializable items, fix!
-                //Level.Level.LoadLevel(levelName.Text,_gameRef);
+                Level.Level.LoadLevel(levelName.Text,_gameRef);
                 areaListBox.Items.Clear();
                 foreach (String str in Level.Level.Areas.Keys)
                 {
@@ -96,25 +104,29 @@ namespace WorldMakerDemo
 
         private void modelAddButton_Click(object sender, EventArgs e)
         {
-            string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
-            for (int i = 0; i < models.Length; i++)
-                models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
-
-            string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
-            for (int i = 0; i < textures.Length; i++)
-                textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
-
-            _modelSelect = new ModelSelect(this, models,textures, _gameRef);
-            _modelSelect.ShowDialog();
-            if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
+            if (areaListBox.SelectedIndex != -1)
             {
-                Console.WriteLine(_modelSelect.CurrentModel.Name);
-                _drawableInfo.name = _modelSelect.CurrentModel.Name;
-                _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
-                _drawableInfo.drawable = _modelSelect.CurrentModel;
-                _drawablesToAdd.Add(_drawableInfo);
-                modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
-                modelListBox.Update();
+                string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
+                for (int i = 0; i < models.Length; i++)
+                    models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
+
+                string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
+                for (int i = 0; i < textures.Length; i++)
+                    textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
+
+                _modelSelect = new ModelSelect(this, models, textures, _gameRef);
+                _modelSelect.ShowDialog();
+                if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
+                {
+                    Console.WriteLine(_modelSelect.CurrentModel.Name);
+                    _drawableInfo.name = _modelSelect.CurrentModel.Name;
+                    _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
+                    _drawableInfo.drawable = _modelSelect.CurrentModel;
+                    _drawablesToAdd.Add(_drawableInfo);
+                    modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
+
+                    modelListBox.Update();
+                }
             }
         }
 
@@ -141,44 +153,83 @@ namespace WorldMakerDemo
                 _deleteChecker.ShowDialog();
                 if (_deleteChecker.DialogResult == DialogResult.Yes)
                 {
+                    Level.Level.RemoveArea((String)areaListBox.Items[areaListBox.SelectedIndex]);
                     areaListBox.Items.RemoveAt(areaListBox.SelectedIndex);
                     areaListBox.Update();
+                    foreach (String str in modelListBox.Items)
+                    {
+                        DrawablesToDelete.Add(str);
+                    }
+                    modelListBox.Items.Clear();  
                 }
             }
         }
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            DrawableModel current = (DrawableModel)(_gameRef.ActiveArea.GetDrawable(_gameRef.ActiveArea.Display.CurrentlySelected));
-            _gameRef.ActiveArea.RemoveDrawable(_gameRef.ActiveArea.Display.CurrentlySelected);
-            
-            string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
-            for (int i = 0; i < models.Length; i++)
-                models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
-
-            string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
-            for (int i = 0; i < textures.Length; i++)
-                textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
-
-            _modelSelect = new ModelSelect(this, models, textures, _gameRef);
-            _modelSelect.ShowDialog();
-            if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
+            if (modelListBox.SelectedIndex != -1)
             {
-                Console.WriteLine(_modelSelect.CurrentModel.Name);
-                _drawableInfo.name = _modelSelect.CurrentModel.Name;
-                _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
-                DrawableModel temp = _modelSelect.CurrentModel;
-                temp.Rotation = current.Rotation;
-                temp.Position = current.Position;
-                temp.Scale = current.Scale;
-                _drawableInfo.drawable = temp;
-                _drawablesToAdd.Add(_drawableInfo);
-                modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
+                DrawableModel current = (DrawableModel)(_gameRef.ActiveArea.GetDrawable(_gameRef.ActiveArea.Display.CurrentlySelected));
+                _gameRef.ActiveArea.RemoveDrawable(_gameRef.ActiveArea.Display.CurrentlySelected);
+
+                string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
+                for (int i = 0; i < models.Length; i++)
+                    models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
+
+                string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
+                for (int i = 0; i < textures.Length; i++)
+                    textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
+
+                _modelSelect = new ModelSelect(this, models, textures, _gameRef);
+                _modelSelect.ShowDialog();
+                if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
+                {
+                    Console.WriteLine(_modelSelect.CurrentModel.Name);
+                    _drawableInfo.name = _modelSelect.CurrentModel.Name;
+                    _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
+                    DrawableModel temp = _modelSelect.CurrentModel;
+                    temp.Rotation = current.Rotation;
+                    temp.Position = current.Position;
+                    temp.Scale = current.Scale;
+                    _drawableInfo.drawable = temp;
+                    _drawablesToAdd.Add(_drawableInfo);
+                    modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
+                    modelListBox.Update();
+                }
+
+                modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
                 modelListBox.Update();
             }
+        }
 
-            modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
-            modelListBox.Update();
+        private void areaAddButton_Click(object sender, EventArgs e)
+        {
+            //Area tempArea;
+            //if (Game1.EFFECT_TYPE.Equals("basic"))
+            //{
+            //    Level.Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix));
+            //}
+            //else if (Game1.EFFECT_TYPE.Equals("effects"))
+            //{
+            //    Level.Level.AddArea("testArea", new Area(worldMatrix, _gameRef.EffectName, "xWorld", "xTexture", "Textured"));
+            //}
+            //else if (Game1.EFFECT_TYPE.Equals("cel"))
+            //{
+            //    Level.Level.AddArea("testArea", new Area(worldMatrix, _gameRef.EffectName, "World", "NONE", null));
+            //}
+             
+            //areaListBox.Items.Add(tempArea);
+            //areaListBox.Update();
+        }
+
+        private void nameButton_Click(object sender, EventArgs e)
+        {
+            if (areaListBox.SelectedIndex != -1 && !areaTextBox.Text.Equals("") && !areaTextBox.Text.Equals((String)areaListBox.Items[areaListBox.SelectedIndex]))
+            {
+                Level.Level.Areas.Add(areaTextBox.Text, Level.Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]]);
+                Level.Level.RemoveArea((String)areaListBox.Items[areaListBox.SelectedIndex]);
+                areaListBox.Items[areaListBox.SelectedIndex] = areaTextBox.Text;
+            }
         }
         
     }

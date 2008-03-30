@@ -64,7 +64,6 @@ namespace WorldMakerDemo
             if (listBox1.SelectedIndex != -1)
             {
                 m_CurrentModel.ModelName = ((String)(listBox1.Items[listBox1.SelectedIndex])).Substring(0, ((String)(listBox1.Items[listBox1.SelectedIndex])).LastIndexOf("."));
-                m_CurrentModel.setGraphicsDevice(_gameRef.GraphicsDevice);
             }
 
         }
