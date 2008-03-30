@@ -16,8 +16,6 @@ namespace WorldMakerDemo
     [Serializable]
     public class Display
     {
-        [NonSerialized]
-        VertexDeclaration m_VertexDeclaration;
 
         private String _textureName;
         public String TextureName
@@ -39,6 +37,7 @@ namespace WorldMakerDemo
             }
         }
 
+        [NonSerialized]
         private Model _modelTemp;
 
         SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
@@ -134,12 +133,8 @@ namespace WorldMakerDemo
             }
         }
 
-        public Display(Matrix p_World, Matrix p_View, Matrix p_Projection, VertexDeclaration p_VertexDeclaration)
+        public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
         {
-            m_VertexDeclaration = p_VertexDeclaration;
-            m_VertexDeclaration.GraphicsDevice.RenderState.CullMode =
-                CullMode.CullCounterClockwiseFace;
-
             _effectName = "basic";
             ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Alpha = 1.0f;
             ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
@@ -165,13 +160,9 @@ namespace WorldMakerDemo
             ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Projection = p_Projection;
         }
 
-        public Display(Matrix p_World, VertexDeclaration p_VertexDeclaration, String effectName, String p_WorldParameterName, 
+        public Display(Matrix p_World, String effectName, String p_WorldParameterName, 
             String p_TextureParameterName, String p_TechniqueName)
         {
-            m_VertexDeclaration = p_VertexDeclaration;
-            m_VertexDeclaration.GraphicsDevice.RenderState.CullMode =
-                CullMode.CullCounterClockwiseFace;
-
             drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
             drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
 
@@ -184,94 +175,96 @@ namespace WorldMakerDemo
 
         }
 
-        public void Draw()
+        public void Draw(GraphicsDevice graphicsDevice)
         {
-            if(m_TechniqueName != null)
-                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques[m_TechniqueName];
-
-            int currentTextureNumber = drawable_List_Drawn.Keys[0].SortNumber;
-            //m_GraphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
-            if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
+            if (drawable_List_Drawn.Count > 0)
             {
-                ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
-            }
-            else
-            {
-                m_VertexDeclaration.GraphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
-                if(m_TextureParameterName != "NONE")
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName));
-            }
+                if (m_TechniqueName != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques[m_TechniqueName];
 
-            m_VertexDeclaration.GraphicsDevice.VertexDeclaration = m_VertexDeclaration;
-
-            //m_VertexDeclaration.GraphicsDevice.RenderState.CullMode = CullMode.None;
-            //m_VertexDeclaration.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
-            //m_VertexDeclaration.GraphicsDevice.RenderState.DepthBufferEnable = false;
-            if (ShowAxis)
-            {
-                VertexPositionNormalTexture[] axisVertices = new VertexPositionNormalTexture[6];
-
-                axisVertices[0] = new VertexPositionNormalTexture(new Vector3(-2, 0, 0), Vector3.Zero, Vector2.Zero);
-                axisVertices[1] = new VertexPositionNormalTexture(new Vector3(2, 0, 0), Vector3.Zero, new Vector2(0, 1));
-                axisVertices[2] = new VertexPositionNormalTexture(new Vector3(0, -2, 0), Vector3.Zero, Vector2.Zero);
-                axisVertices[3] = new VertexPositionNormalTexture(new Vector3(0, 2, 0), Vector3.Zero, new Vector2(0, 1));
-                axisVertices[4] = new VertexPositionNormalTexture(new Vector3(0, 0, -2), Vector3.Zero, Vector2.Zero);
-                axisVertices[5] = new VertexPositionNormalTexture(new Vector3(0, 0, 2), Vector3.Zero, new Vector2(0, 1));
-
-                VertexBuffer vb = new VertexBuffer(m_VertexDeclaration.GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 6, BufferUsage.None);
-                vb.SetData<VertexPositionNormalTexture>(axisVertices);
-
-                //VertexStream tempBuffer = m_VertexDeclaration.GraphicsDevice.Vertices[0];
-                m_VertexDeclaration.GraphicsDevice.Vertices[0].SetSource(vb, 0, VertexPositionNormalTexture.SizeInBytes);
-                Texture temp = m_VertexDeclaration.GraphicsDevice.Textures[0];
-                m_VertexDeclaration.GraphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(TextureName);
-                EffectManager.getSingleton.GetEffect(_effectName).Begin();
-
-                foreach (EffectPass pass in EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique.Passes)
+                int currentTextureNumber = drawable_List_Drawn.Keys[0].SortNumber;
+                //graphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
+                if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
                 {
-                    pass.Begin();
-                    m_VertexDeclaration.GraphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, 6);
-                    pass.End();
+                    ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
                 }
-                EffectManager.getSingleton.GetEffect(_effectName).End();
-                m_VertexDeclaration.GraphicsDevice.Textures[0] = temp;
-                //m_VertexDeclaration.GraphicsDevice.Vertices[0].SetSource(tempBuffer.VertexBuffer,0,tempBuffer.VertexStride);
-            }
-
-            foreach (TextureInfo ti in drawable_List_Drawn.Keys)
-            {
-                if (ti.SortNumber != currentTextureNumber)
+                else
                 {
-                    if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                    {
-                        ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                    }
-                    else
-                    {
-                        m_VertexDeclaration.GraphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                        if (m_TextureParameterName != "NONE")
-                            EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-                    }
+                    graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
+                    if (m_TextureParameterName != "NONE")
+                        EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName));
                 }
 
-                foreach (Drawable d in drawable_List_Drawn[ti])
+                //graphicsDevice.RenderState.CullMode = CullMode.None;
+                //graphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+                //graphicsDevice.RenderState.DepthBufferEnable = false;
+
+                if (ShowAxis)
                 {
-                    if (d is DrawableModel)
+                    VertexPositionNormalTexture[] axisVertices = new VertexPositionNormalTexture[6];
+
+                    axisVertices[0] = new VertexPositionNormalTexture(new Vector3(-2, 0, 0), Vector3.Zero, Vector2.Zero);
+                    axisVertices[1] = new VertexPositionNormalTexture(new Vector3(2, 0, 0), Vector3.Zero, new Vector2(0, 1));
+                    axisVertices[2] = new VertexPositionNormalTexture(new Vector3(0, -2, 0), Vector3.Zero, Vector2.Zero);
+                    axisVertices[3] = new VertexPositionNormalTexture(new Vector3(0, 2, 0), Vector3.Zero, new Vector2(0, 1));
+                    axisVertices[4] = new VertexPositionNormalTexture(new Vector3(0, 0, -2), Vector3.Zero, Vector2.Zero);
+                    axisVertices[5] = new VertexPositionNormalTexture(new Vector3(0, 0, 2), Vector3.Zero, new Vector2(0, 1));
+
+                    VertexBuffer vb = new VertexBuffer(graphicsDevice, VertexPositionNormalTexture.SizeInBytes * 6, BufferUsage.None);
+                    vb.SetData<VertexPositionNormalTexture>(axisVertices);
+
+                    //VertexStream tempBuffer = m_VertexDeclaration.GraphicsDevice.Vertices[0];
+                    graphicsDevice.Vertices[0].SetSource(vb, 0, VertexPositionNormalTexture.SizeInBytes);
+                    Texture temp = graphicsDevice.Textures[0];
+                    graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(TextureName);
+                    EffectManager.getSingleton.GetEffect(_effectName).Begin();
+
+                    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique.Passes)
                     {
-                        DrawModel(m_WorldMatrix, (DrawableModel)d);
-        
+                        pass.Begin();
+                        graphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, 6);
+                        pass.End();
                     }
-                    else
+                    EffectManager.getSingleton.GetEffect(_effectName).End();
+                    graphicsDevice.Textures[0] = temp;
+                    //graphicsDevice.Vertices[0].SetSource(tempBuffer.VertexBuffer,0,tempBuffer.VertexStride);
+                }
+
+                foreach (TextureInfo ti in drawable_List_Drawn.Keys)
+                {
+                    if (ti.SortNumber != currentTextureNumber)
                     {
-                        DrawPrimitives(d);
+                        if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
+                        {
+                            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                        }
+                        else
+                        {
+                            graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                            if (m_TextureParameterName != "NONE")
+                                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                        }
+                    }
+
+                    foreach (Drawable d in drawable_List_Drawn[ti])
+                    {
+                        if (d is DrawableModel)
+                        {
+                            DrawModel(m_WorldMatrix, (DrawableModel)d, graphicsDevice);
+
+                        }
+                        else
+                        {
+                            DrawPrimitives(d, graphicsDevice);
+                        }
                     }
                 }
             }
         }
 
-        public void DrawPrimitives(Drawable d)
+        public void DrawPrimitives(Drawable d, GraphicsDevice graphicsDevice)
         {
-            m_VertexDeclaration.GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
+            graphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
 
             EffectManager.getSingleton.GetEffect(_effectName).Begin();
             foreach (EffectPass pass in EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique.Passes)
@@ -283,7 +276,7 @@ namespace WorldMakerDemo
             EffectManager.getSingleton.GetEffect(_effectName).End();
         }
 
-        public void DrawModel(Matrix p_CurrentWorld, DrawableModel d)
+        public void DrawModel(Matrix p_CurrentWorld, DrawableModel d, GraphicsDevice graphicsDevice)
         {
             Stack<Matrix> drawStack = new Stack<Matrix>();
             Matrix currentWorld = p_CurrentWorld;
@@ -343,14 +336,14 @@ namespace WorldMakerDemo
             {
                 foreach (ModelMesh mesh in _modelTemp.Meshes)
                 {
-                    m_VertexDeclaration.GraphicsDevice.Indices = mesh.IndexBuffer;
+                    graphicsDevice.Indices = mesh.IndexBuffer;
                     EffectManager.getSingleton.GetEffect(_effectName).Begin();
 
                     // Loop through each pass in the effect like we do elsewhere
                     foreach (EffectPass pass in EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique.Passes)
                     {
                         pass.Begin();
-                        d.DrawMe(mesh);
+                        d.DrawMe(mesh, graphicsDevice);
                         pass.End();
                     }
                     EffectManager.getSingleton.GetEffect(_effectName).End();

@@ -23,9 +23,6 @@ namespace WorldMakerDemo
             return m_Name;
         }
 
-        [NonSerialized]
-        private GraphicsDevice m_GraphicsDevice;
-
         private String _textureName;
         public String TextureName
         {
@@ -186,10 +183,6 @@ namespace WorldMakerDemo
 
         }
 
-        public void setGraphicsDevice(GraphicsDevice device)
-        {
-            m_GraphicsDevice = device;
-        }
 
         public int getVertexStride()
         {
@@ -198,22 +191,22 @@ namespace WorldMakerDemo
 
         public void DrawMe(){}
 
-        public void DrawMe(ModelMesh mesh)
+        public void DrawMe(ModelMesh mesh, GraphicsDevice graphicsDevice)
         {
             foreach (ModelMeshPart part in mesh.MeshParts)
             {
                 // Change the device settings for each part to be rendered
-                m_GraphicsDevice.VertexDeclaration = part.VertexDeclaration;
-                m_GraphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
+                graphicsDevice.VertexDeclaration = part.VertexDeclaration;
+                graphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
                 // Finally draw the actual triangles on the screen
-                m_GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+                graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
 
                 if (this.ShowVertices)
                 {
-                    Texture2D temp = (Texture2D)m_GraphicsDevice.Textures[0];
-                    m_GraphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(TextureName);
-                    m_GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
-                    m_GraphicsDevice.Textures[0] = temp;
+                    Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
+                    graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(TextureName);
+                    graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
+                    graphicsDevice.Textures[0] = temp;
                 }
             }
         }

@@ -38,12 +38,7 @@ namespace WorldMakerDemo
             set { _activeArea = value; }
         }
 
-        DrawableModel model;
-        DrawableModel model2;
-        //VertexPositionNormalTexture[] cubeVertices;
-        //VertexPositionNormalTexture[] cube2Vertices;
-
-        const String EFFECT_TYPE = "Cel";
+        public const String EFFECT_TYPE = "Cel";
 
         private String _effectName;
         public String EffectName
@@ -58,8 +53,6 @@ namespace WorldMakerDemo
         Matrix projectionMatrix;
         //SpriteFont font;
 
-        Texture2D text;
-        Texture2D text2;
         const String POINT_TEXT = "point_text";
 
         //VertexDeclaration VertexDeclarationColor;
@@ -94,9 +87,6 @@ namespace WorldMakerDemo
         {
             _effectName = EFFECT_TYPE;
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            //text = Content.Load<Texture2D>(@"test");
-            //font = Content.Load<SpriteFont>(@"Courier New");
 
             GraphicsDevice.RenderState.PointSize = 5;
 
@@ -136,21 +126,8 @@ namespace WorldMakerDemo
             ModelManager.getSingleton.AddModel("cube", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube"));
             ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
             ModelManager.getSingleton.AddModel("ground", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ground"));
-            model = new DrawableModel("cube", "cube");
-            model2 = new DrawableModel("ball", "ball");
-            model.ModelName = "cube";
-            model2.ModelName = "ball";
-            TextureInfo ti = new TextureInfo("grass", 0);
-            TextureInfo ti2 = new TextureInfo("test", 1);
 
-            _activeDrawable = model;
-
-            //cubeVertices = new VertexPositionNormalTexture[36];
-            //cube2Vertices = new VertexPositionNormalTexture[36];
-            //DemoCube testCube = new DemoCube(Vector3.Zero, 1);
-            //DemoCube testCube2 = new DemoCube(new Vector3(0, 3, 0), 1);
-
-            VertexDeclaration basicEffectVertexDeclaration = new VertexDeclaration(
+            graphics.GraphicsDevice.VertexDeclaration = new VertexDeclaration(
                 graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
             worldMatrix = Matrix.Identity;
@@ -165,7 +142,7 @@ namespace WorldMakerDemo
 
             if (EFFECT_TYPE == "basic")
             {
-                Level.Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix, basicEffectVertexDeclaration));
+                Level.Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix));
             }
             else if (EFFECT_TYPE == "effects")
             {
@@ -179,7 +156,7 @@ namespace WorldMakerDemo
                 EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
                 EffectManager.getSingleton.GetEffect(_effectName).Parameters["xAmbient"].SetValue(0.5f);
 
-                Level.Level.AddArea("testArea", new Area(worldMatrix, basicEffectVertexDeclaration, _effectName, "xWorld", "xTexture", "Textured"));
+                Level.Level.AddArea("testArea", new Area(worldMatrix, _effectName, "xWorld", "xTexture", "Textured"));
             }
             else if (EFFECT_TYPE == "Cel")
             {
@@ -216,38 +193,14 @@ namespace WorldMakerDemo
                 if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"] != null)
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"].SetValue(0.03f);
 
-                Level.Level.AddArea("testArea", new Area(worldMatrix, basicEffectVertexDeclaration, _effectName, "World", "NONE", null));
+                Level.Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
             }
             _activeArea = Level.Level.Areas["testArea"];
             //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
             VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
-            //m_Display = new Display(worldMatrix, VertexDeclarationTexture, effect, "xWorld", "xTexture");
-
-            model.setGraphicsDevice(graphics.GraphicsDevice);
-            model2.setGraphicsDevice(graphics.GraphicsDevice);
-            model.TranslationPriority = 2;
-            model.ScalePriority = 1;
-            model.RotationPriority = 0;
-            //model.RotationPriority = 0;
-            //model.Rotation = Matrix.CreateRotationZ(MathHelper.ToRadians(45));
-            //model.Position = Matrix.CreateTranslation(new Vector3(0, -2, 0));
-            //model.Scale = Matrix.CreateScale(5);
-
-            //vertexBuffer2.SetData<VertexPositionNormalTexture>(cube2Vertices);
-            //testCube.setGraphicsDevice(graphics.GraphicsDevice);
-            //testCube2.setGraphicsDevice(graphics.GraphicsDevice);
-            //List<Drawable> list = new List<Drawable>();
-            ////list.Add(testCube);
-            //list.Add(model);
-
-            //List<Drawable> list2 = new List<Drawable>();
-            //list2.Add(model2);
-
             _activeArea.Display.TextureName = POINT_TEXT;
             _activeArea.Display.ShowAxis = true;
-            _activeArea.AddDrawable("cube", ti, model);
-            _activeArea.AddDrawable("sphere", ti2, model2);
         }
 
       
@@ -365,9 +318,7 @@ namespace WorldMakerDemo
             }
             LevelEditor.DrawablesToAdd.Clear();
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-            _activeArea.Display.Draw();
-
-            // TODO: Add your drawing code here
+            _activeArea.Display.Draw(graphics.GraphicsDevice);
 
             base.Draw(gameTime);
         }

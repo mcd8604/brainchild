@@ -67,7 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoCube.cs" />
-    <Compile Include="DrawableInfo.cs" />
+    <Compile Include="DrawableInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="EffectManager.cs" />
     <Compile Include="LevelEditor.cs">
       <SubType>Form</SubType>
