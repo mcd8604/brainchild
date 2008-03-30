@@ -108,7 +108,7 @@ namespace Physics
             }
 
             Vector3 CurrentPlayerCenter = playerBody.getCenter();
-            float CurrentPlayerVolume = playerBody.getVolume();
+            float CurrentPlayerVolume = playerBody.getNewVolume();
             foreach (Physics.Point p in playerBody.getPoints())
             {
                 p.CurrentForce += (CurrentPlayerCenter - p.Position) * (CurrentPlayerVolume - volume.value);

@@ -154,6 +154,7 @@ namespace BlobImport
             for (int i = 0; i < vertices.Length; i++)
             {
                 vertices[i].Position = points[i].Position;
+                vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter() ));
             }
         }
 
@@ -370,9 +371,14 @@ namespace BlobImport
             Plane facePlane = new Plane(point1,point2,point3);
             //Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
 
-            float distance = Vector3.Dot(facePlane.Normal, Vector3.Subtract(getCenter(),facePlane.Normal * facePlane.D));
-            Vector3 closestPoint = Vector3.Subtract(getCenter(), Vector3.Multiply(facePlane.Normal, distance));
-            float height = Vector3.Distance(getCenter(), closestPoint);
+           // float distance = Vector3.Dot(facePlane.Normal, Vector3.Subtract(getCenter(),facePlane.Normal * facePlane.D));
+            //Vector3 closestPoint = Vector3.Subtract(getCenter(), Vector3.Multiply(facePlane.Normal, distance));
+            //float height = Vector3.Distance(getCenter(), closestPoint);
+
+            Vector3 center = getCenter();
+            //negation because we are drawing the planes upside down
+            float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), getCenter());
+            float height = MathHelper.Distance( distanceToCenter, facePlane.D);
 
             float volume = height * area * (1f / 3f);
             if (float.IsNaN(volume))
