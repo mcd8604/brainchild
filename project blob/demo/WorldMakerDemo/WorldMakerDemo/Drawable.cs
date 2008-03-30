@@ -16,5 +16,7 @@ namespace WorldMakerDemo
 
 		void DrawMe();
 
+        String getName();
+
 	}
 }

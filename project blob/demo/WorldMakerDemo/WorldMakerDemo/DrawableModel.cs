@@ -18,6 +18,11 @@ namespace WorldMakerDemo
     {
         private String _modelName;
 
+        public String getName()
+        {
+            return m_Name;
+        }
+
         [NonSerialized]
         private GraphicsDevice m_GraphicsDevice;
 
