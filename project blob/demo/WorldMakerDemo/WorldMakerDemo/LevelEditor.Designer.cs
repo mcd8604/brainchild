@@ -40,6 +40,7 @@ namespace WorldMakerDemo
             this.modelDelButton = new System.Windows.Forms.Button();
             this.modelAddButton = new System.Windows.Forms.Button();
             this.levelName = new System.Windows.Forms.TextBox();
+            this.EditButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // areaListBox
@@ -167,11 +168,22 @@ namespace WorldMakerDemo
             this.levelName.Size = new System.Drawing.Size(207, 22);
             this.levelName.TabIndex = 11;
             // 
+            // EditButton
+            // 
+            this.EditButton.Location = new System.Drawing.Point(12, 733);
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Size = new System.Drawing.Size(125, 47);
+            this.EditButton.TabIndex = 12;
+            this.EditButton.Text = "Edit Model";
+            this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 739);
+            this.ClientSize = new System.Drawing.Size(293, 814);
+            this.Controls.Add(this.EditButton);
             this.Controls.Add(this.levelName);
             this.Controls.Add(this.modelAddButton);
             this.Controls.Add(this.modelDelButton);
@@ -205,5 +217,6 @@ namespace WorldMakerDemo
         private System.Windows.Forms.Button modelDelButton;
         private System.Windows.Forms.Button modelAddButton;
         private System.Windows.Forms.TextBox levelName;
+        private System.Windows.Forms.Button EditButton;
     }
 }

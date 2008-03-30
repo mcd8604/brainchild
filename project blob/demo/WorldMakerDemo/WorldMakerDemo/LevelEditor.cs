@@ -146,6 +146,40 @@ namespace WorldMakerDemo
                 }
             }
         }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            DrawableModel current = (DrawableModel)(_gameRef.ActiveArea.GetDrawable(_gameRef.ActiveArea.Display.CurrentlySelected));
+            _gameRef.ActiveArea.RemoveDrawable(_gameRef.ActiveArea.Display.CurrentlySelected);
+            
+            string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
+            for (int i = 0; i < models.Length; i++)
+                models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
+
+            string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
+            for (int i = 0; i < textures.Length; i++)
+                textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
+
+            _modelSelect = new ModelSelect(this, models, textures, _gameRef);
+            _modelSelect.ShowDialog();
+            if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
+            {
+                Console.WriteLine(_modelSelect.CurrentModel.Name);
+                _drawableInfo.name = _modelSelect.CurrentModel.Name;
+                _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
+                DrawableModel temp = _modelSelect.CurrentModel;
+                temp.Rotation = current.Rotation;
+                temp.Position = current.Position;
+                temp.Scale = current.Scale;
+                _drawableInfo.drawable = temp;
+                _drawablesToAdd.Add(_drawableInfo);
+                modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
+                modelListBox.Update();
+            }
+
+            modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
+            modelListBox.Update();
+        }
         
     }
 }

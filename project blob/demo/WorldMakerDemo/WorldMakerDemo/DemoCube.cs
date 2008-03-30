@@ -7,6 +7,12 @@ namespace WorldMakerDemo
 {
 	public class DemoCube : Drawable
 	{
+
+        public String m_Name;
+        public String getName()
+        {
+            return m_Name;
+        }
 		public readonly List<Physics.Point> points = new List<Physics.Point>();
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
 		//public readonly List<Tri> collidables = new List<Tri>();
