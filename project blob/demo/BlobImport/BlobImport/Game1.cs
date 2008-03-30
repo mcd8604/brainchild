@@ -451,7 +451,7 @@ namespace BlobImport
             celEffect.Parameters["LayerTwoSharp"].SetValue(0.10f);
             celEffect.Parameters["LayerTwoRough"].SetValue(4.0f);
             celEffect.Parameters["LayerTwoContrib"].SetValue(0.8f);
-            celEffect.Parameters["EdgeOffset"].SetValue(0.03f);
+            celEffect.Parameters["EdgeOffset"].SetValue(0.05f);
 
             celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
         }
@@ -762,14 +762,15 @@ namespace BlobImport
 
             // Box
             effect.CurrentTechnique = effect.Techniques["Textured"];
-            effect.Begin();
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+            GraphicsDevice.Textures[0] = text;
+            celEffect.Begin();
+            foreach (EffectPass pass in celEffect.CurrentTechnique.Passes)
             {
                 pass.Begin();
                 theBlob.DrawMe();
                 pass.End();
             }
-            effect.End();
+            celEffect.End();
 
             // Collision Tris
             effect.CurrentTechnique = effect.Techniques["Colored"];
