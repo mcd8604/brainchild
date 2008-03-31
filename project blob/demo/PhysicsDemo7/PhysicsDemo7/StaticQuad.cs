@@ -7,6 +7,10 @@ namespace PhysicsDemo7
 {
     class StaticQuad : T
     {
+		public void test(Physics.Point p)
+		{
+		}
+
         internal Plane myPlane;
         internal Vector3 max;
         internal Vector3 min;
@@ -59,6 +63,23 @@ namespace PhysicsDemo7
             return myPlane.Normal;
         }
 
+		public Vector3[] getCollisionVerticies()
+		{
+			Vector3[] ret = new Vector3[3];
+			ret[0] = vertices[0].Position;
+			ret[1] = vertices[1].Position;
+			ret[2] = vertices[2].Position;
+			return ret;
+		}
+		public Vector3[] getNextCollisionVerticies()
+		{
+			Vector3[] ret = new Vector3[3];
+			ret[0] = vertices[0].Position;
+			ret[1] = vertices[1].Position;
+			ret[2] = vertices[2].Position;
+			return ret;
+		}
+
         public float didIntersect(Vector3 start, Vector3 end)
         {
 
@@ -72,9 +93,9 @@ namespace PhysicsDemo7
                 // check limits
                 Vector3 newPos = (start * (1 - u)) + (end * u);
 
-                if (newPos.X >= min.X - 0.1f && newPos.X <= max.X + 0.1f &&
-                    newPos.Y >= min.Y - 0.1f && newPos.Y <= max.Y + 0.1f &&
-                    newPos.Z >= min.Z - 0.1f && newPos.Z <= max.Z + 0.1f)
+                if (newPos.X >= min.X - 0.001f && newPos.X <= max.X + 0.001f &&
+                    newPos.Y >= min.Y - 0.001f && newPos.Y <= max.Y + 0.001f &&
+                    newPos.Z >= min.Z - 0.001f && newPos.Z <= max.Z + 0.001f)
                 {
                     return u;
                 }

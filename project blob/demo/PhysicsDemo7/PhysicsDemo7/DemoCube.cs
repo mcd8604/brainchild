@@ -66,11 +66,11 @@ namespace PhysicsDemo7
             {
                 foreach (Physics.Point p in points)
                 {
-                    float d = Vector3.Distance(t.CurrentPosition, p.CurrentPosition);
-                    if (d > 0 && d <= 2 * radius)
-                    {
-                        springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), 1));
-                    }
+                    //float d = Vector3.Distance(t.CurrentPosition, p.CurrentPosition);
+                    //if (d > 0 && d <= 2 * radius)
+                    //{
+                        springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), 100));
+                    //}
                 }
                 points.Add(t);
             }

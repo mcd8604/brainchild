@@ -97,7 +97,7 @@ namespace Physics
                     float IdealVolume = pb.getIdealVolume();
                     foreach (Physics.Point p in pb.getPoints())
                     {
-                        p.ForceThisFrame += (CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume);
+                        p.ForceThisFrame += Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume);
                     }
                 }
             }
@@ -122,7 +122,7 @@ namespace Physics
             //temp
             foreach (Point p in points)
             {
-                checkCollisions(p, TotalElapsedSeconds);
+                checkCollisions2(p, TotalElapsedSeconds);
             }
 
             foreach (Point p in points)
@@ -134,7 +134,7 @@ namespace Physics
 
         private void fall(Point p, float time)
         {
-
+			/*
             p.PotientialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.mass);
             p.PotientialVelocity = p.CurrentVelocity + (p.PotientialAcceleration * time);
 
@@ -207,8 +207,108 @@ namespace Physics
 
             p.PotientialPosition = p.CurrentPosition + (p.PotientialVelocity * time);
 
+			 */
+
+
+			p.PotientialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.mass);
+			p.PotientialVelocity = p.CurrentVelocity + (p.PotientialAcceleration * time);
+
+			if (p.PotientialVelocity != Vector3.Zero)
+			{
+				Vector3 FrictionForce = p.PotientialVelocity * airfriction;
+				Vector3 AccelerationDrag = (FrictionForce / p.mass);
+				Vector3 VelocityDrag = (AccelerationDrag * time);
+
+				if ((p.PotientialVelocity.X > 0 && p.PotientialVelocity.X - VelocityDrag.X <= 0) ||
+					(p.PotientialVelocity.X < 0 && p.PotientialVelocity.X - VelocityDrag.X >= 0))
+				{
+					p.PotientialVelocity.X = 0;
+					VelocityDrag.X = 0;
+				}
+				if ((p.PotientialVelocity.Y > 0 && p.PotientialVelocity.Y - VelocityDrag.Y <= 0) ||
+					(p.PotientialVelocity.Y < 0 && p.PotientialVelocity.Y - VelocityDrag.Y >= 0))
+				{
+					p.PotientialVelocity.Y = 0;
+					VelocityDrag.Y = 0;
+				}
+				if ((p.PotientialVelocity.Z > 0 && p.PotientialVelocity.Z - VelocityDrag.Z <= 0) ||
+					(p.PotientialVelocity.Z < 0 && p.PotientialVelocity.Z - VelocityDrag.Z >= 0))
+				{
+					p.PotientialVelocity.Z = 0;
+					VelocityDrag.Z = 0;
+				}
+				p.PotientialVelocity -= VelocityDrag;
+			}
+
+			p.PotientialPosition = p.CurrentPosition + (p.PotientialVelocity * time);
 
         }
+
+		private void checkCollisions2(Point p, float time)
+		{
+			bool Collision = false;
+			Collidable Collidable = null;
+			float CollisionU = float.MaxValue;
+			foreach (Collidable c in collision)
+			{
+				if (c.couldIntersect(p))
+				{
+					Vector3[] lx = c.getNextCollisionVerticies();
+					Vector3 li;
+					float lu = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, lx[0], lx[1], lx[2], out li);
+
+					c.test(p);
+
+					Vector3[] x = c.getNextCollisionVerticies();
+					Vector3 i;
+					float u = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, x[0], x[1], x[2], out i);
+					// If Collision ( u < 1 ) - Split Time and redo
+					if (u > 0 && u < 1)
+					{
+
+						// should physics interact
+						if (c.shouldPhysicsBlock(p))
+						{
+
+							if (!Collision)
+							{
+								Collidable = c;
+								CollisionU = u;
+								Collision = true;
+							}
+							else
+							{
+								if (u < CollisionU)
+								{
+									Collidable = c;
+									CollisionU = u;
+								}
+							}
+
+						}
+
+					}
+
+				}
+			}
+			if (Collision)
+			{
+				// freefallPhysics first half
+				fall(p, time * CollisionU);
+
+				// sliding physics second half
+				slide(p, time * (1 - CollisionU), Collidable);
+			}
+			else
+			{
+
+				p.NextAcceleration = p.PotientialAcceleration;
+				p.NextPosition = p.PotientialPosition;
+				p.NextVelocity = p.PotientialVelocity;
+
+			}
+
+		}
 
         private List<Collidable> CollisionChain = new List<Collidable>();
         private void checkCollisions(Point p, float time)
@@ -231,20 +331,20 @@ namespace Physics
                         if (c.shouldPhysicsBlock(p))
                         {
 
-                            if (!Collision)
-                            {
-                                Collidable = c;
-                                CollisionU = u;
-                                Collision = true;
-                            }
-                            else
-                            {
-                                if (u < CollisionU)
-                                {
-                                    Collidable = c;
-                                    CollisionU = u;
-                                }
-                            }
+							if (!Collision)
+							{
+								Collidable = c;
+								CollisionU = u;
+								Collision = true;
+							}
+							else
+							{
+								if (u < CollisionU)
+								{
+									Collidable = c;
+									CollisionU = u;
+								}
+							}
 
                         }
 
