@@ -20,7 +20,9 @@ namespace BlobImport
         SpriteBatch spriteBatch;
 
         Model blobModel;
+
         Blob theBlob;
+        Ramp theRamp;
         Vector3 blobStartPosition = new Vector3(0, 10, 0);
         Texture text;
 
@@ -198,7 +200,6 @@ namespace BlobImport
             physics.AddSprings(theBlob.springs);
 
             //physics.AddCollidables(theBlob.getCollidables());
-
             physics.Player.PlayerBody = theBlob;
 
 
@@ -398,6 +399,27 @@ namespace BlobImport
             cameraLengthMulti = 1f;
         }
 
+        private void initRamp()
+        {
+            blobStartPosition = new Vector3(-4, 12, -10);
+
+            theBlob = new Blob(blobModel, blobStartPosition);
+            theBlob.setGraphicsDevice(GraphicsDevice);
+
+            physics.AddPoints(theBlob.points);
+            physics.AddSprings(theBlob.springs);
+
+            physics.Player.PlayerBody = theBlob;
+
+            physics.Gravity = new Physics.GravityVector();
+
+            theRamp = new Ramp(Content.Load<Model>("skiRampNew"));
+            theRamp.setGraphicsDevice(GraphicsDevice);
+
+            physics.AddCollidables(theRamp.getCollidables());
+     
+        }
+
 
         private void addToPhysicsAndDraw(T t)
         {
@@ -445,12 +467,12 @@ namespace BlobImport
 
             celEffect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
             celEffect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
-            celEffect.Parameters["LayerOneSharp"].SetValue(.9f);
+            celEffect.Parameters["LayerOneSharp"].SetValue(.3f);
             celEffect.Parameters["LayerOneRough"].SetValue(0.15f);
             celEffect.Parameters["LayerOneContrib"].SetValue(0.15f);
             celEffect.Parameters["LayerTwoSharp"].SetValue(0.10f);
             celEffect.Parameters["LayerTwoRough"].SetValue(4.0f);
-            celEffect.Parameters["LayerTwoContrib"].SetValue(0.8f);
+            celEffect.Parameters["LayerTwoContrib"].SetValue(0.3f);
             celEffect.Parameters["EdgeOffset"].SetValue(0.05f);
 
             celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
@@ -481,6 +503,11 @@ namespace BlobImport
             }
             if (InputHandler.IsActionPressed(Actions.Reset))
             {
+                if (gameMode == 4)
+                {
+                    reset();
+                    initRamp();
+                }
                 if (gameMode == 3)
                 {
                     reset();
@@ -569,7 +596,13 @@ namespace BlobImport
             }
             if (InputHandler.IsKeyPressed(Keys.M))
             {
-                gameMode = (gameMode + 1) % 4;
+                gameMode = (gameMode + 1) % 5;
+                if (gameMode == 4)
+                {
+                    reset();
+                    drawables.Clear();
+                    initRamp();
+                }
                 if (gameMode == 3)
                 {
                     reset();
@@ -768,6 +801,8 @@ namespace BlobImport
             {
                 pass.Begin();
                 theBlob.DrawMe();
+                if (gameMode == 4)
+                    theRamp.DrawMe();
                 pass.End();
             }
             celEffect.End();
