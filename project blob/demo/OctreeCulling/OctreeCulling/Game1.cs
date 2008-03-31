@@ -36,6 +36,9 @@ namespace OctreeCulling
         private Matrix triangleTransform;
         private VertexPositionColor[] triangleData;
 
+        private Matrix rectangleTransform;
+        private VertexPositionColor[] rectangleData;
+
         // The basic effect to use when drawing the geometry
         private BasicEffect basicEffect;
         private VertexDeclaration vertexDeclaration;
@@ -62,9 +65,9 @@ namespace OctreeCulling
             camera = new BasicCamera();
             camera.AspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
 
-            BuildTriangle(Vector3.One, Vector3.One);
-            
-            //BuildCube(Vector3.One, Vector3.One);
+            BuildTriangle(Vector3.One, new Vector3(-1.0f, 0.0f, 6.0f));
+
+            BuildCube(Vector3.One, new Vector3(1.5f, 0.0f, 7.0f));
 
             base.Initialize();
         }
@@ -217,13 +220,26 @@ namespace OctreeCulling
                 pass.Begin();
 
                 graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
-                    PrimitiveType.TriangleList, triangleData, 0, 4);
+                    PrimitiveType.TriangleList, triangleData, 0, 6);
+
+                tempTransform = Matrix.CreateFromYawPitchRoll(0.0f, 0.0f, 0.0f) * rectangleTransform;
+
+                basicEffect.World = tempTransform;
+                basicEffect.CommitChanges();
+
+                // Draw the six different surfaces of the cube
+                graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
+                    PrimitiveType.TriangleList, rectangleData, 0, 12);
 
                 // End the current pass
                 pass.End();
             }
 
             basicEffect.End();
+
+            //spriteBatch.Begin();
+            ////spriteBatch.DrawString(
+            //spriteBatch.End();
 
             //effect.Begin();
             //graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, shapeTriangles);
@@ -232,39 +248,14 @@ namespace OctreeCulling
             base.Draw(gameTime);
         }
 
-        public void BuildCube(Vector3 size, Vector3 position)
-        {
-            //shapeSize = size;
-            //shapePosition = position;
-            ////shapeTriangles = 12;
-            ////shapeVertices = new VertexPositionNormalTexture[36];
-            //shapeVertices = new VertexPositionColor[8];
-
-            //Vector3 topLeftFront = shapePosition + new Vector3(-1.0f, 1.0f, -1.0f) * shapeSize;
-            //Vector3 bottomLeftFront = shapePosition + new Vector3(-1.0f, -1.0f, -1.0f) * shapeSize;
-            //Vector3 topRightFront = shapePosition + new Vector3(1.0f, 1.0f, -1.0f) * shapeSize;
-            //Vector3 bottomRightFront = shapePosition + new Vector3(1.0f, -1.0f, -1.0f) * shapeSize;
-            //Vector3 topLeftBack = shapePosition + new Vector3(-1.0f, 1.0f, 1.0f) * shapeSize;
-            //Vector3 topRightBack = shapePosition + new Vector3(1.0f, 1.0f, 1.0f) * shapeSize;
-            //Vector3 bottomLeftBack = shapePosition + new Vector3(-1.0f, -1.0f, 1.0f) * shapeSize;
-            //Vector3 bottomRightBack = shapePosition + new Vector3(1.0f, -1.0f, 1.0f) * shapeSize;
-
-            //shapeVertices[0] = new VertexPositionColor(topLeftFront, Color.Red);
-            //shapeVertices[1] = new VertexPositionColor(bottomLeftFront, Color.Blue);
-            //shapeVertices[2] = new VertexPositionColor(topRightFront, Color.Yellow);
-            //shapeVertices[3] = new VertexPositionColor(bottomRightFront, Color.Purple);
-            //shapeVertices[4] = new VertexPositionColor(topLeftBack, Color.Green);
-            //shapeVertices[5] = new VertexPositionColor(topRightBack, Color.Red);
-            //shapeVertices[6] = new VertexPositionColor(bottomLeftBack, Color.Blue);
-            //shapeVertices[7] = new VertexPositionColor(bottomRightBack, Color.Yellow);
-        }
-
         public void BuildTriangle(Vector3 size, Vector3 position)
         {
-            triangleTransform = Matrix.CreateTranslation(new Vector3(-1.0f, 0.0f, 6.0f));
+            triangleTransform = Matrix.CreateTranslation(position);
+            //triangleTransform = Matrix.CreateTranslation(new Vector3(-1.0f, 0.0f, 6.0f));
 
             // Initialize the triangle's data (with Vertex Colors)
-            triangleData = new VertexPositionColor[12]
+            //triangleData = new VertexPositionColor[12]
+            triangleData = new VertexPositionColor[18]
             {
                 new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size, Color.Blue),
                 new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size, Color.Green),
@@ -277,7 +268,73 @@ namespace OctreeCulling
                 new VertexPositionColor(position + new Vector3(0.0f, 1.0f, 0.0f) * size, Color.Red),
                 new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size, Color.Green),
                 new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, -1.0f) * size, Color.Blue),
-                new VertexPositionColor(position + new Vector3(0.0f, 1.0f, 0.0f) * size, Color.Red)
+                new VertexPositionColor(position + new Vector3(0.0f, 1.0f, 0.0f) * size, Color.Red),
+
+                // Bottom Surface
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, -1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, -1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, -1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size,Color.Orange),
+            };
+        }
+
+        public void BuildCube(Vector3 size, Vector3 position)
+        {
+            rectangleTransform = Matrix.CreateTranslation(position);
+            //rectangleTransform = Matrix.CreateTranslation(new Vector3(1.5f, 0.0f, -7.0f));
+
+            // Initialize the Rectangle's data (Do not need vertex colors)
+            rectangleData = new VertexPositionColor[36]
+            {
+                // Front Surface
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size,Color.Red),
+                new VertexPositionColor(position + new Vector3(-1.0f, 1.0f, 1.0f) * size,Color.Red), 
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size,Color.Red), 
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size,Color.Red), 
+                new VertexPositionColor(position + new Vector3(-1.0f, 1.0f, 1.0f) * size,Color.Red), 
+                new VertexPositionColor(position + new Vector3(1.0f, 1.0f, 1.0f) * size,Color.Red),  
+
+                // Front Surface
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, -1.0f) * size,Color.Yellow),
+                new VertexPositionColor(position + new Vector3(1.0f, 1.0f, -1.0f) * size,Color.Yellow), 
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, -1.0f) * size,Color.Yellow),
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, -1.0f) * size,Color.Yellow),
+                new VertexPositionColor(position + new Vector3(1.0f, 1.0f, -1.0f) * size,Color.Yellow),  
+                new VertexPositionColor(position + new Vector3(-1.0f, 1.0f, -1.0f) * size,Color.Yellow), 
+
+                // Left Surface
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, -1.0f) * size,Color.Blue),
+                new VertexPositionColor(position + new Vector3(-1.0f, 1.0f, -1.0f) * size,Color.Blue),
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size,Color.Blue),
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size,Color.Blue),
+                new VertexPositionColor(position + new Vector3(-1.0f, 1.0f, -1.0f) * size,Color.Blue),
+                new VertexPositionColor(position + new Vector3(-1.0f, 1.0f, 1.0f) * size,Color.Blue),
+
+                // Right Surface
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size,Color.Violet),
+                new VertexPositionColor(position + new Vector3(1.0f, 1.0f, 1.0f) * size,Color.Violet),
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, -1.0f) * size,Color.Violet),
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, -1.0f) * size,Color.Violet),
+                new VertexPositionColor(position + new Vector3(1.0f, 1.0f, 1.0f) * size,Color.Violet),
+                new VertexPositionColor(position + new Vector3(1.0f, 1.0f, -1.0f) * size,Color.Violet),
+
+                // Top Surface
+                new VertexPositionColor(position + new Vector3(-1.0f, 1.0f, 1.0f) * size,Color.Green),
+                new VertexPositionColor(position + new Vector3(-1.0f, 1.0f, -1.0f) * size,Color.Green),
+                new VertexPositionColor(position + new Vector3(1.0f, 1.0f, 1.0f) * size,Color.Green),
+                new VertexPositionColor(position + new Vector3(1.0f, 1.0f, 1.0f) * size,Color.Green),
+                new VertexPositionColor(position + new Vector3(-1.0f, 1.0f, -1.0f) * size,Color.Green),
+                new VertexPositionColor(position + new Vector3(1.0f, 1.0f, -1.0f) * size,Color.Green),
+
+                // Bottom Surface
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, -1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, -1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, -1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size,Color.Orange),
+                new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size,Color.Orange),
             };
         }
     }
