@@ -74,7 +74,7 @@ namespace BlobImport
             myVertexStride = VertexPositionNormalTexture.SizeInBytes;
 
 
-            Type vertexType;
+            //Type vertexType;
 
 
 			if (myVertexStride == VertexPositionColorTexture.SizeInBytes)
