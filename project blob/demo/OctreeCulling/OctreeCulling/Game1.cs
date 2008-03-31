@@ -60,6 +60,7 @@ namespace OctreeCulling
             worldMatrix = Matrix.Identity;
 
             camera = new BasicCamera();
+            camera.AspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
 
             BuildTriangle(Vector3.One, Vector3.One);
             
@@ -82,6 +83,9 @@ namespace OctreeCulling
             basicEffect.Projection = camera.Projection;
             vertexDeclaration = new VertexDeclaration(graphics.GraphicsDevice,
                                      VertexPositionColor.VertexElements);
+
+            graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
+            graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
         }
 
         /// <summary>
@@ -123,7 +127,7 @@ namespace OctreeCulling
             //Turn left
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                camera._yaw += camera.rotationSpeed;
+                camera.Yaw += camera.RotationSpeed;
                 //camera.RotateCameraY();
                 camera.RotateCamera();
             }
@@ -131,7 +135,7 @@ namespace OctreeCulling
             //Turn right
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                camera._yaw -= camera.rotationSpeed;
+                camera.Yaw -= camera.RotationSpeed;
                 //camera.RotateCameraY();
                 camera.RotateCamera();
             }
@@ -151,7 +155,7 @@ namespace OctreeCulling
             //Rotate down
             if (Keyboard.GetState().IsKeyDown(Keys.G))
             {
-                camera._pitch += camera.rotationSpeed;
+                camera.Pitch += camera.RotationSpeed;
                 //camera.RotateCameraX();
                 camera.RotateCamera();
             }
@@ -159,9 +163,28 @@ namespace OctreeCulling
             //Rotate up
             if (Keyboard.GetState().IsKeyDown(Keys.T))
             {
-                camera._pitch -= camera.rotationSpeed;
+                camera.Pitch -= camera.RotationSpeed;
                 //camera.RotateCameraX();
                 camera.RotateCamera();
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                camera.Reset();
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Tab))
+            {
+                if (graphics.GraphicsDevice.RenderState.FillMode == FillMode.Solid)
+                {
+                    graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
+                    graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+                }
+                else
+                {
+                    graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
+                    graphics.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+                }
             }
 
             base.Update(gameTime);
@@ -238,7 +261,7 @@ namespace OctreeCulling
 
         public void BuildTriangle(Vector3 size, Vector3 position)
         {
-            triangleTransform = Matrix.CreateTranslation(new Vector3(-1.5f, 0.0f, 6.0f));
+            triangleTransform = Matrix.CreateTranslation(new Vector3(-1.0f, 0.0f, 6.0f));
 
             // Initialize the triangle's data (with Vertex Colors)
             triangleData = new VertexPositionColor[12]
@@ -254,7 +277,7 @@ namespace OctreeCulling
                 new VertexPositionColor(position + new Vector3(0.0f, 1.0f, 0.0f) * size, Color.Red),
                 new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size, Color.Green),
                 new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, -1.0f) * size, Color.Blue),
-                new VertexPositionColor(position + new Vector3(0.0f, 1.0f, 0.0f) * size, Color.Red),
+                new VertexPositionColor(position + new Vector3(0.0f, 1.0f, 0.0f) * size, Color.Red)
             };
         }
     }
