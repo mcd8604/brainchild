@@ -51,6 +51,18 @@ namespace WorldMakerDemo
         Matrix worldMatrix;
         Matrix viewMatrix;
         Matrix projectionMatrix;
+        public Matrix WorldMatrix
+        {
+            get { return worldMatrix; }
+        }
+        public Matrix ViewMatrix
+        {
+            get { return viewMatrix; }
+        }
+        public Matrix ProjectionMatrix
+        {
+            get { return projectionMatrix; }
+        }
         //SpriteFont font;
 
         const String POINT_TEXT = "point_text";

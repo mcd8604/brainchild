@@ -43,7 +43,10 @@ namespace WorldMakerDemo.Level
 
         public static void AddArea(String areaName, Area area)
         {
-            _areas.Add(areaName, area);
+            if (!_areas.ContainsKey(areaName))
+            {
+                _areas.Add(areaName, area);
+            }
         }
 
         public static void SaveLevel(String levelName)

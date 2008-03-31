@@ -37,7 +37,6 @@ namespace WorldMakerDemo
             
         }
 
-
         private void areaListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (areaListBox.SelectedIndex != -1)
@@ -82,7 +81,6 @@ namespace WorldMakerDemo
                 modelListBox.Items.Clear();
                 modelListBox.Update();
                 levelName.Text = _levelSelect.LevelName.Substring(0, _levelSelect.LevelName.LastIndexOf("."));
-                //This is currently commented due to unserializable items, fix!
                 Level.Level.LoadLevel(levelName.Text,_gameRef);
                 areaListBox.Items.Clear();
                 foreach (String str in Level.Level.Areas.Keys)
@@ -145,6 +143,33 @@ namespace WorldMakerDemo
             }
         }
 
+        private void areaAddButton_Click(object sender, EventArgs e)
+        {
+            if (!areaTextBox.Text.Equals(""))
+            {
+                Area tempArea;
+                if (Game1.EFFECT_TYPE.Equals("basic"))
+                {
+                    tempArea = new Area(_gameRef.WorldMatrix, _gameRef.ViewMatrix, _gameRef.ProjectionMatrix);
+                }
+                else if (Game1.EFFECT_TYPE.Equals("effects"))
+                {
+                    tempArea = new Area(_gameRef.WorldMatrix, _gameRef.EffectName, "xWorld", "xTexture", "Textured");
+                }
+                else if (Game1.EFFECT_TYPE.Equals("Cel"))
+                {
+                    tempArea = new Area(_gameRef.WorldMatrix, _gameRef.EffectName, "World", "NONE", null);
+                }
+                else
+                {
+                    tempArea = new Area(_gameRef.WorldMatrix, _gameRef.ViewMatrix, _gameRef.ProjectionMatrix);
+                }
+                Level.Level.AddArea(areaTextBox.Text, tempArea);
+                areaListBox.Items.Add(areaTextBox.Text);
+                areaListBox.Update();
+            }
+        }
+
         private void areaDelButton_Click(object sender, EventArgs e)
         {
             if (areaListBox.SelectedIndex != -1)
@@ -170,7 +195,6 @@ namespace WorldMakerDemo
             if (modelListBox.SelectedIndex != -1)
             {
                 DrawableModel current = (DrawableModel)(_gameRef.ActiveArea.GetDrawable(_gameRef.ActiveArea.Display.CurrentlySelected));
-                _gameRef.ActiveArea.RemoveDrawable(_gameRef.ActiveArea.Display.CurrentlySelected);
 
                 string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
                 for (int i = 0; i < models.Length; i++)
@@ -184,6 +208,7 @@ namespace WorldMakerDemo
                 _modelSelect.ShowDialog();
                 if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
                 {
+                    _gameRef.ActiveArea.RemoveDrawable(_gameRef.ActiveArea.Display.CurrentlySelected);
                     Console.WriteLine(_modelSelect.CurrentModel.Name);
                     _drawableInfo.name = _modelSelect.CurrentModel.Name;
                     _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
@@ -194,32 +219,12 @@ namespace WorldMakerDemo
                     _drawableInfo.drawable = temp;
                     _drawablesToAdd.Add(_drawableInfo);
                     modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
+                    modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
                     modelListBox.Update();
                 }
 
-                modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
-                modelListBox.Update();
+                
             }
-        }
-
-        private void areaAddButton_Click(object sender, EventArgs e)
-        {
-            //Area tempArea;
-            //if (Game1.EFFECT_TYPE.Equals("basic"))
-            //{
-            //    Level.Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix));
-            //}
-            //else if (Game1.EFFECT_TYPE.Equals("effects"))
-            //{
-            //    Level.Level.AddArea("testArea", new Area(worldMatrix, _gameRef.EffectName, "xWorld", "xTexture", "Textured"));
-            //}
-            //else if (Game1.EFFECT_TYPE.Equals("cel"))
-            //{
-            //    Level.Level.AddArea("testArea", new Area(worldMatrix, _gameRef.EffectName, "World", "NONE", null));
-            //}
-             
-            //areaListBox.Items.Add(tempArea);
-            //areaListBox.Update();
         }
 
         private void nameButton_Click(object sender, EventArgs e)
