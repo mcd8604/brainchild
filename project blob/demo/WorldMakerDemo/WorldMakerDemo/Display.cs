@@ -136,6 +136,8 @@ namespace WorldMakerDemo
         public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
         {
             _effectName = "basic";
+            _textureName = "point_text";
+            ShowAxis = true;
             ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Alpha = 1.0f;
             ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
             ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
@@ -167,6 +169,8 @@ namespace WorldMakerDemo
             drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
 
             _effectName = effectName;
+            _textureName = "point_text";
+            ShowAxis = true;
             m_WorldMatrix = p_World;
             m_WorldParameterName = p_WorldParameterName;
             m_TextureParameterName = p_TextureParameterName;
