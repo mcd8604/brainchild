@@ -7,6 +7,12 @@ namespace PhysicsDemo7
     class Tri : T
     {
 
+		public void test(Physics.Point p)
+		{
+			Vector3 i;
+			Physics.CollisionMath.PointTriangleIntersect(p, points[0], points[1], points[2], out i);
+		}
+
         public static bool DEBUG_DrawNormal = false;
         const int Num_Vertex = 5; // max 5 for drawnormal
 
@@ -59,6 +65,22 @@ namespace PhysicsDemo7
             return new Plane(points[0].NextPosition, points[1].NextPosition, points[2].NextPosition).DotNormal(pos + getOrigin());
         }
 
+		public Vector3[] getCollisionVerticies()
+		{
+			Vector3[] ret = new Vector3[3];
+			ret[0] = points[0].CurrentPosition;
+			ret[1] = points[1].CurrentPosition;
+			ret[2] = points[2].CurrentPosition;
+			return ret;
+		}
+		public Vector3[] getNextCollisionVerticies()
+		{
+			Vector3[] ret = new Vector3[3];
+			ret[0] = points[0].NextPosition;
+			ret[1] = points[1].NextPosition;
+			ret[2] = points[2].NextPosition;
+			return ret;
+		}
 
         public float didIntersect(Vector3 last, Vector3 next)
         {
@@ -72,7 +94,13 @@ namespace PhysicsDemo7
                 // check limits
                 Vector3 newPos = (last * (1 - u)) + (next * u);
 
-                // temp - this is overly verbose and not terribly efficient, but it works
+				while (DotNormal(newPos) <= 0)
+				{
+				    newPos += (Normal() * 0.001f);
+				    //++DEBUG_BumpLoops;
+				}
+
+                // temp - this is overly verbose and not terribly efficient, but it works - not
 
                 Vector3 AB = points[1].NextPosition - points[0].NextPosition;
                 Vector3 BC = points[2].NextPosition - points[1].NextPosition;
@@ -86,15 +114,15 @@ namespace PhysicsDemo7
                 Vector3 B = Vector3.Cross(BP, BC);
                 Vector3 C = Vector3.Cross(CP, CA);
 
-                if (((A.X >= 0 && B.X >= 0 && C.X >= 0) || (A.X <= 0 && B.X <= 0 && C.X <= 0)) &&
-                    ((A.Y >= 0 && B.Y >= 0 && C.Y >= 0) || (A.Y <= 0 && B.Y <= 0 && C.Y <= 0)) &&
-                    ((A.Z >= 0 && B.Z >= 0 && C.Z >= 0) || (A.Z <= 0 && B.Z <= 0 && C.Z <= 0)))
+				if (((A.X >= -0.001 && B.X >= -0.001 && C.X >= -0.001) || (A.X <= 0.001 && B.X <= 0.001 && C.X <= 0.001)) &&
+					((A.Y >= -0.001 && B.Y >= -0.001 && C.Y >= -0.001) || (A.Y <= 0.001 && B.Y <= 0.001 && C.Y <= 0.001)) &&
+					((A.Z >= -0.001 && B.Z >= -0.001 && C.Z >= -0.001) || (A.Z <= 0.001 && B.Z <= 0.001 && C.Z <= 0.001)))
                 {
                     return u;
                 }
                 else
                 {
-                    Console.WriteLine("Check: " + A + ", " + B);
+                    //Console.WriteLine("Check: " + A + ", " + B);
                 }
             }
 

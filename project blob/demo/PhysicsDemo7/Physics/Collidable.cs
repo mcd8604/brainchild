@@ -54,5 +54,10 @@ namespace Physics
         void ImpartVelocity(Vector3 at, Vector3 v);
 
         Material getMaterial();
+
+		Vector3[] getCollisionVerticies();
+		Vector3[] getNextCollisionVerticies();
+
+		void test( Point p );
     }
 }

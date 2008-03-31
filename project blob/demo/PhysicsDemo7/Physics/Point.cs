@@ -82,7 +82,8 @@ namespace Physics
             {
                 CurrentPosition = NextPosition;
                 CurrentVelocity = NextVelocity;
-                CurrentAcceleration = NextAcceleration;
+				CurrentAcceleration = Vector3.Zero;
+				nextAcceleration = Vector3.Zero;
                 ForceThisFrame = ForceNextFrame;
                 ForceNextFrame = Vector3.Zero;
             }

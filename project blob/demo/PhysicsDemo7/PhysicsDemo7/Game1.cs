@@ -87,10 +87,12 @@ namespace PhysicsDemo7
             InputHandler.LoadDefaultBindings();
 
             reset();
-            initBasic();
+            //initBasic();
 
             base.Initialize();
         }
+
+		Physics.Point testPoint;
 
         private void initBasic()
         {
@@ -98,10 +100,18 @@ namespace PhysicsDemo7
             playerCube = new DemoCube(cubeStartPosition, 1);
             physics.AddPoints(playerCube.points);
             physics.AddSprings(playerCube.springs);
+			physics.AddBody(playerCube);
             physics.Player.PlayerBody = playerCube;
 
 
-            addToPhysicsAndDraw(new StaticQuad(new Vector3(10, 0, 10), new Vector3(10, 0, -10), new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), Color.White));
+
+			addToPhysicsAndDraw(new StaticQuad(new Vector3(10, 0, 10), new Vector3(10, 0, -10), new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), Color.White));
+			addToPhysicsAndDraw(new StaticQuad(new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), new Vector3(10, 0, 10), new Vector3(10, 0, -10), Color.White));
+
+
+			testPoint = new Physics.Point(new Vector3(0, 10, 25));
+			addToPhysicsAndDraw(new TriAA(new Physics.Point(new Vector3(10, 0, 10)), new Physics.Point(new Vector3(-10, 0, 10)), testPoint, Color.Red));
+			
 
 
             physics.AddGravity( new Physics.GravityVector());
@@ -137,13 +147,13 @@ namespace PhysicsDemo7
             physics.Player.Cling.Origin = 0f;
             physics.Player.Cling.Maximum = 0f;
 
-            physics.Player.Resilience.Minimum = 10f;
-            physics.Player.Resilience.Origin = 20f;
-            physics.Player.Resilience.Maximum = 40f;
+            physics.Player.Resilience.Minimum = 20f;
+            physics.Player.Resilience.Origin = 100f;
+            physics.Player.Resilience.Maximum = 200f;
             physics.Player.Resilience.Delta = 10;
 
             physics.Player.Volume.Minimum = 0f;
-            physics.Player.Volume.Origin = 8f;
+            physics.Player.Volume.Origin = 100f;
             physics.Player.Volume.Maximum = 20f;
             physics.Player.Volume.Delta = 5;
 
@@ -381,16 +391,16 @@ namespace PhysicsDemo7
                 //}
             }
 
-            //if (InputHandler.IsKeyPressed(Keys.PageUp))
-            //{
-            //    playerCube.setSpringLength(0.1f);
-            //    cameraLengthMulti *= 1.015f;
-            //}
-            //else if (InputHandler.IsKeyPressed(Keys.PageDown))
-            //{
-            //    playerCube.setSpringLength(-0.1f);
-            //    cameraLengthMulti *= 0.985f;
-            //}
+            if (InputHandler.IsKeyPressed(Keys.PageUp))
+            {
+				testPoint.PotientialPosition.Y += 1;
+				testPoint.NextPosition.Y += 1;
+            }
+            else if (InputHandler.IsKeyPressed(Keys.PageDown))
+            {
+				testPoint.PotientialPosition.Y -= 1;
+				testPoint.NextPosition.Y -= 1;
+            }
 
 
             if (InputHandler.IsKeyDown(Keys.X))
@@ -414,6 +424,7 @@ namespace PhysicsDemo7
             if (!paused)
             {
                 physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+				testPoint.CurrentPosition = testPoint.NextPosition;
             }
 
             if (follow)
