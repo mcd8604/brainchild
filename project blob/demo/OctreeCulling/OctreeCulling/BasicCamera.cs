@@ -8,32 +8,46 @@ namespace OctreeCulling
     class BasicCamera : Camera
     {
         //Speed of the Camera's rotation
-        public float rotationSpeed = 0.05f;
+        private float rotationSpeed = 0.05f;
+        public float RotationSpeed
+        {
+            get { return rotationSpeed; }
+            set { rotationSpeed = value; }
+        }
 
         //Speed of the Camera's forward movement
         private float forwardSpeed = 0.05f;
 
         //Amount that the camera will turn about the y-axis
-        public float _yaw;
+        private float _yaw = 0.0f;
+        public float Yaw
+        {
+            get { return _yaw; }
+            set { _yaw = value; }
+        }
 
         //Amount that the camera will turn about the x-axis
-        public float _pitch;
+        private float _pitch = 0.0f;
+        public float Pitch
+        {
+            get { return _pitch; }
+            set { _pitch = value; }
+        }
 
         //reference vectors
         private Vector3 transRef;
         private Vector3 cameraRef;
 
-        //Screen's Aspect ratio
-        private float aspectRatio = 0.0f;
-
         //Contains the Camera' Rotation Matrix
         private Matrix cameraRotation;
 
-        //private float _yaw = 0.0f;
-        //private float _pitch = 0.0f;
-
         //Amount that the camera will turn about the z-axis
-        public float _roll = 0.0f;
+        private float _roll = 0.0f;
+        public float Roll
+        {
+            get { return _roll; }
+            set { _roll = value; }
+        }
 
         /// <summary>
         /// Camera Constructor
@@ -54,7 +68,7 @@ namespace OctreeCulling
 
             //Aspect ratio of screen
             //aspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
-            aspectRatio = 4.0f/3.0f;
+            AspectRatio = 4.0f/3.0f;
 
             //Initialize our camera rotation to identity
             cameraRotation = Matrix.Identity;
@@ -64,7 +78,7 @@ namespace OctreeCulling
 
             //Create general projection matrix for the screen
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),
-                    aspectRatio, 0.01f, 10000.0f);
+                    AspectRatio, 0.01f, 10000.0f);
         }
 
         /// <summary>
@@ -222,6 +236,24 @@ namespace OctreeCulling
             LookAt = transRef + Position;
 
             //Create view matrix for update
+            View = Matrix.CreateLookAt(Position, LookAt, Vector3.Up);
+        }
+
+        public override void Reset()
+        {
+            //Look down the Z-axis by default
+            LookAt = transRef = new Vector3(0.0f, 0.0f, 1.0f);
+
+            //Starting position of the camera
+            Position = new Vector3(0.0f, 0.0f, 0.0f);
+
+            //Direction camera points without rotations applied
+            cameraRef = new Vector3(0.0f, 0.0f, 1.0f);
+
+            //Initialize our camera rotation to identity
+            cameraRotation = Matrix.Identity;
+
+            //Create a general view matrix from start position and original lookat
             View = Matrix.CreateLookAt(Position, LookAt, Vector3.Up);
         }
     }
