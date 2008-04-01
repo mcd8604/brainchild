@@ -102,9 +102,9 @@ namespace Project_blob.Level
             throw new Exception("do nothing");
         }
 
-        public Physics.Material getMaterial()
+        /*public Physics.Material getMaterial()
         {
             return new Physics.NormalMaterial();
-        }
+        }*/
     }
 }
