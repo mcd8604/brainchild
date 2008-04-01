@@ -74,6 +74,8 @@ namespace OctreeCulling
             //Update our lookAt Matrix
             LookAt = Position + transRef;
             View = Matrix.CreateLookAt(Position, LookAt, Vector3.Up);
+
+            Frustum = new BoundingFrustum(Matrix.Multiply(View, Projection));
         }
 
         /// <summary>
