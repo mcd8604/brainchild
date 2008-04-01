@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
-using WorldMakerDemo.Level;
+using Project_blob.Level;
 
 
 namespace WorldMakerDemo
@@ -154,7 +154,7 @@ namespace WorldMakerDemo
 
             if (EFFECT_TYPE == "basic")
             {
-                Level.Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix));
+                Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix));
             }
             else if (EFFECT_TYPE == "effects")
             {
@@ -168,7 +168,7 @@ namespace WorldMakerDemo
                 EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
                 EffectManager.getSingleton.GetEffect(_effectName).Parameters["xAmbient"].SetValue(0.5f);
 
-                Level.Level.AddArea("testArea", new Area(worldMatrix, _effectName, "xWorld", "xTexture", "Textured"));
+                Level.AddArea("testArea", new Area(worldMatrix, _effectName, "xWorld", "xTexture", "Textured"));
             }
             else if (EFFECT_TYPE == "Cel")
             {
@@ -205,9 +205,9 @@ namespace WorldMakerDemo
                 if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"] != null)
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"].SetValue(0.03f);
 
-                Level.Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
+                Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
             }
-            _activeArea = Level.Level.Areas["testArea"];
+            _activeArea = Level.Areas["testArea"];
             //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
             VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
