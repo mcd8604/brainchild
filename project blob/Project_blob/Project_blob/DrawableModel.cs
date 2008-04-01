@@ -9,13 +9,46 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using System.Runtime.Serialization;
 
 namespace Project_blob
 {
-    public class DrawableModel : Drawable
+    [Serializable]
+    public class DrawableModel : Drawable 
     {
-        Model m_Model;
-        GraphicsDevice m_GraphicsDevice;
+        private String _modelName;
+
+        public String getName()
+        {
+            return m_Name;
+        }
+
+        private String _textureName;
+        public String TextureName
+        {
+            get
+            {
+                return _textureName;
+            }
+            set
+            {
+                _textureName = value;
+            }
+        }
+
+        private String m_Name;
+        public String Name
+        {
+            get
+            {
+                return m_Name;
+            }
+            set
+            {
+                m_Name = value;
+            }
+        }
+        
         Matrix m_Position, m_Rotation, m_Scale;
 
         //priority for translation, rotation, and scale
@@ -106,15 +139,28 @@ namespace Project_blob
             }
         }
 
-        public Model ModelObject
+        public String ModelName
         {
             get
             {
-                return m_Model;
+                return _modelName;
             }
             set
             {
-                m_Model = value;
+                _modelName = value;
+            }
+        }
+
+        bool m_ShowVertices = false;
+        public bool ShowVertices
+        {
+            get
+            {
+                return m_ShowVertices;
+            }
+            set
+            {
+                m_ShowVertices = value;
             }
         }
 
@@ -123,10 +169,13 @@ namespace Project_blob
             return null;
         }
 
-        public DrawableModel()
+        public DrawableModel(String p_Name, String fileName)
         {
-            for (int i = 0; i < 3; i++)
-                m_PriorityArray[i] = 3;
+            m_Name = p_Name;
+            _modelName = fileName;
+            TranslationPriority = 2;
+            RotationPriority = 1;
+            ScalePriority = 0;
 
             m_Position = Matrix.CreateTranslation(Vector3.Zero);
             m_Rotation = Matrix.CreateRotationZ(0);
@@ -134,10 +183,6 @@ namespace Project_blob
 
         }
 
-        public void setGraphicsDevice(GraphicsDevice device)
-        {
-            m_GraphicsDevice = device;
-        }
 
         public int getVertexStride()
         {
@@ -146,16 +191,25 @@ namespace Project_blob
 
         public void DrawMe(){}
 
-        public void DrawMe(ModelMesh mesh)
+        public void DrawMe(ModelMesh mesh, GraphicsDevice graphicsDevice)
         {
             foreach (ModelMeshPart part in mesh.MeshParts)
             {
                 // Change the device settings for each part to be rendered
-                m_GraphicsDevice.VertexDeclaration = part.VertexDeclaration;
-                m_GraphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
+                graphicsDevice.VertexDeclaration = part.VertexDeclaration;
+                graphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
                 // Finally draw the actual triangles on the screen
-                m_GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+                graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+
+                if (this.ShowVertices)
+                {
+                    Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
+                    graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(TextureName);
+                    graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
+                    graphicsDevice.Textures[0] = temp;
+                }
             }
         }
+
     }
 }
