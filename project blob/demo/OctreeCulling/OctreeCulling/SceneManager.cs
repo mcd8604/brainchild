@@ -15,6 +15,26 @@ namespace OctreeCulling
         private static volatile SceneManager _instance;
         private static object _syncRoot = new Object();
 
+        private int _drawn = 0;
+        public int Drawn
+        {
+            get { return _drawn; }
+            set { _drawn = value; }
+        }
+
+        private int _culled = 0;
+        public int Culled
+        {
+            get { return _culled; }
+            set { _culled = value; }
+        }
+
+        private int _sceneObjectCount;
+        public int SceneObjectCount
+        {
+            get { return _sceneObjectCount; }
+        }
+
         /// <summary>
         /// The root of the scene graph
         /// </summary>
@@ -49,6 +69,9 @@ namespace OctreeCulling
 
         public void Draw(GameTime gameTime)
         {
+            _drawn = 0;
+            _culled = 0;
+
             _root.Draw(gameTime);
         }
 
@@ -56,6 +79,7 @@ namespace OctreeCulling
         {
             SceneObjectNode node = new SceneObjectNode(sceneObject);
             _root.AddNode(node);
+            _sceneObjectCount += 1;
         }
     }
 }

@@ -21,6 +21,8 @@ namespace OctreeCulling
 
         public override void Draw(GameTime gameTime)
         {
+            SceneManager.getSingleton.Drawn += 1;
+
             _sceneObject.Draw(gameTime);
 
             //Do Culling
