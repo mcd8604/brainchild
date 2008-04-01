@@ -14,6 +14,10 @@ namespace OctreeCulling
         private SortedDictionary<string, Camera> _cameras;
 
         private Camera _activeCamera;
+        public Camera ActiveCamera
+        {
+            get { return _activeCamera; }
+        }
 
         public CameraManager()
         {
@@ -58,6 +62,18 @@ namespace OctreeCulling
             if(_cameras.ContainsKey(cameraName))
             {
                 _activeCamera = _cameras[cameraName];
+            }
+        }
+
+        public Camera GetCamera(string cameraName)
+        {
+            if (_cameras.ContainsKey(cameraName))
+            {
+                return _cameras[cameraName];
+            }
+            else
+            {
+                return null;
             }
         }
     }

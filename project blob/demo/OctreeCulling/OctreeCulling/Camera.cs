@@ -134,6 +134,38 @@ namespace OctreeCulling
             set { _aspectRatio = value; }
         }
 
+        //Speed of the Camera's rotation
+        private float _rotationSpeed = 0.05f;
+        public float RotationSpeed
+        {
+            get { return _rotationSpeed; }
+            set { _rotationSpeed = value; }
+        }
+
+        //Speed of the Camera's forward movement
+        private float _forwardSpeed = 0.05f;
+        public float ForwardSpeed
+        {
+            get { return _forwardSpeed; }
+            set { _forwardSpeed = value; }
+        }
+
+        //Amount that the camera will turn about the y-axis
+        private float _yaw = 0.0f;
+        public float Yaw
+        {
+            get { return _yaw; }
+            set { _yaw = value; }
+        }
+
+        //Amount that the camera will turn about the x-axis
+        private float _pitch = 0.0f;
+        public float Pitch
+        {
+            get { return _pitch; }
+            set { _pitch = value; }
+        }
+
         public Camera()
         {
 
@@ -170,6 +202,41 @@ namespace OctreeCulling
         }
 
         public virtual void Reset()
+        {
+
+        }
+
+        public virtual void MoveForward()
+        {
+
+        }
+
+        public virtual void MoveBack()
+        {
+
+        }
+
+        public virtual void MoveUp()
+        {
+
+        }
+
+        public virtual void MoveDown()
+        {
+
+        }
+
+        public virtual void StrafeLeft()
+        {
+
+        }
+
+        public virtual void StrafeRight()
+        {
+
+        }
+
+        public virtual void RotateCamera()
         {
 
         }
