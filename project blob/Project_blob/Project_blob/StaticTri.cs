@@ -1,15 +1,16 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Project_blob
 {
-	class StaticTri : T
+	public class StaticTri : T
 	{
 
 		internal Plane myPlane;
 
-		internal VertexPositionNormalTexture[] vertices;
+		internal VertexPositionColor[] vertices;
 
 		internal Vector3 Origin;
 
@@ -18,13 +19,13 @@ namespace Project_blob
 
 		public StaticTri(Vector3 point1, Vector3 point2, Vector3 point3, Color color)
 		{
-			vertices = new VertexPositionNormalTexture[3];
+			vertices = new VertexPositionColor[3];
 
-            myPlane = new Plane(point1, point3, point2);
+			myPlane = new Plane(point1, point2, point3);
 
-            vertices[0] = new VertexPositionNormalTexture(point1, Vector3.Up, Vector2.Zero);
-            vertices[1] = new VertexPositionNormalTexture(point2, Vector3.Up, new Vector2(0,1));
-            vertices[2] = new VertexPositionNormalTexture(point3, Vector3.Up, Vector2.One);
+			vertices[0] = new VertexPositionColor(point1, color);
+			vertices[1] = new VertexPositionColor(point2, color);
+			vertices[2] = new VertexPositionColor(point3, color);
 
 			Origin = Vector3.Negate((point1 + point2 + point3) / 3);
 		}
@@ -87,12 +88,17 @@ namespace Project_blob
 
 		}
 
+        public virtual bool shouldPhysicsBlock(Physics.Point p)
+        {
+            return true;
+        }
+
 		public Plane getPlane()
 		{
 			return myPlane;
 		}
 
-		public VertexPositionNormalTexture[] getTriangleVertexes()
+		public VertexPositionColor[] getTriangleVertexes()
 		{
 			return vertices;
 		}
@@ -104,13 +110,13 @@ namespace Project_blob
 		public void setGraphicsDevice(GraphicsDevice device)
 		{
 			theDevice = device;
-			myVertexBuffer = new VertexBuffer(device, VertexPositionNormalTexture.SizeInBytes * 3, BufferUsage.None);
-			myVertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+			myVertexBuffer = new VertexBuffer(device, VertexPositionColor.SizeInBytes * 3, BufferUsage.None);
+			myVertexBuffer.SetData<VertexPositionColor>(vertices);
 		}
 
 		public int getVertexStride()
 		{
-            return VertexPositionNormalTexture.SizeInBytes;
+			return VertexPositionColor.SizeInBytes;
 		}
 
 		public void DrawMe()
@@ -121,5 +127,31 @@ namespace Project_blob
 		public void ApplyForce(Vector3 at, Vector3 f) { }
 
 		public void ImpartVelocity(Vector3 at, Vector3 v) { }
+
+        public Physics.Material getMaterial()
+        {
+            return new Physics.NormalMaterial();
+        }
+
+        public Vector3[] getCollisionVerticies()
+        {
+            throw new Exception("Not used");
+        }
+
+        public Vector3[] getNextCollisionVerticies()
+        {
+            throw new Exception("Not used");
+        }
+
+        public void test(Physics.Point p)
+        {
+
+            throw new Exception("do nothing!");
+        }
+
+        public bool inBoundingBox(Vector3 v)
+        {
+            throw new Exception("do nothing");
+        }
 	}
 }

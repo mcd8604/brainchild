@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using Project_blob.Level;
+
 
 namespace Project_blob
 {
@@ -18,20 +20,73 @@ namespace Project_blob
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        VertexPositionNormalTexture[] cubeVertices;
-        VertexPositionNormalTexture[] cube2Vertices;
-        Display m_Display;
-        Matrix worldMatrix, viewMatrix, projectionMatrix;
-        Texture2D text;
-        Texture2D text2;
-        DrawableModel model;
-        Effect m_Effect;
-        StaticTri ground;
+        ContentManager content;
+
+        Vector3 lightPos = new Vector3(0,20,0);
+
+        Drawable _activeDrawable;
+        public Drawable ActiveDrawable
+        {
+            get { return _activeDrawable; }
+            set { _activeDrawable = value; }
+        }
+
+        Area _activeArea;
+        public Area ActiveArea
+        {
+            get { return _activeArea; }
+            set { _activeArea = value; }
+        }
+
+        public const String EFFECT_TYPE = "Cel";
+
+        private String _effectName;
+        public String EffectName
+        {
+            get { return _effectName; }
+            set { _effectName = value; }
+        }
+
+        //Effect celshader;
+        Matrix worldMatrix;
+        Matrix viewMatrix;
+        Matrix projectionMatrix;
+        public Matrix WorldMatrix
+        {
+            get { return worldMatrix; }
+        }
+        public Matrix ViewMatrix
+        {
+            get { return viewMatrix; }
+        }
+        public Matrix ProjectionMatrix
+        {
+            get { return projectionMatrix; }
+        }
+        //SpriteFont font;
+
+        const String POINT_TEXT = "point_text";
+
+        //VertexDeclaration VertexDeclarationColor;
+        VertexDeclaration VertexDeclarationTexture;
+
+        bool follow = true;
+        public Vector3 focusPoint = new Vector3(0, 0, 0);
+        Vector3 Up = Vector3.Up;
+        Vector3 Horizontal = new Vector3();
+        Vector3 Run = new Vector3();
+
+        static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
+        Vector3 cameraPosition = defaultCameraPosition;
+        Vector2 cameraAngle = new Vector2(1f, 0.4f);
+        float cameraLength = 20f;
+        float playerCamMulti = 0.1f;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            content = new ContentManager(Services);
         }
 
         /// <summary>
@@ -42,7 +97,26 @@ namespace Project_blob
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _effectName = EFFECT_TYPE;
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            GraphicsDevice.RenderState.PointSize = 5;
+
+            InputHandler.LoadDefaultBindings();
+
+            //gui
+            System.Windows.Forms.Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+
+            new System.Threading.Thread(delegate()
+            {
+                System.Windows.Forms.Application.Run(new ModelEditor(this));
+            }).Start();
+
+            new System.Threading.Thread(delegate()
+            {
+                System.Windows.Forms.Application.Run(new LevelEditor(this));
+            }).Start();
 
             base.Initialize();
         }
@@ -53,27 +127,21 @@ namespace Project_blob
         /// </summary>
         protected override void LoadContent()
         {
-            text = Content.Load<Texture2D>("test");
-            text2 = Content.Load<Texture2D>("test2");
-            m_Effect = Content.Load<Effect>("effects");
-            model = new DrawableModel();
-            model.ModelObject = Content.Load<Model>("ball");
+            if(EFFECT_TYPE != "basic")
+                EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
 
-            TextureInfo ti = new TextureInfo(text, 0);
-            TextureInfo ti2 = new TextureInfo(text2, 1);
 
-            ground = new StaticTri(new Vector3(-10, -2,-5), new Vector3(8, -2, -5), new Vector3(0, -2, 5), Color.Blue);
-            
-            cubeVertices = new VertexPositionNormalTexture[36];
-            cube2Vertices = new VertexPositionNormalTexture[36];
-            DemoCube testCube = new DemoCube(new Vector3(-2,0,0), 1);
-            DemoCube testCube2 = new DemoCube(new Vector3(2,0,0), 1);
-            
-            VertexDeclaration basicEffectVertexDeclaration = new VertexDeclaration(
+            TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Textures\\free-grass-texture"));
+            TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
+            TextureManager.getSingleton.AddTexture("point_text", Content.Load<Texture2D>(@"Textures\\point_text"));
+
+            ModelManager.getSingleton.AddModel("cube", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube"));
+            ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
+            ModelManager.getSingleton.AddModel("ground", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ground"));
+
+            graphics.GraphicsDevice.VertexDeclaration = new VertexDeclaration(
                 graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
-            float tilt = MathHelper.ToRadians(22.5f);  // 22.5 degree angle
-            // Use the world matrix to tilt the cube along x and y axes.
             worldMatrix = Matrix.Identity;
 
             viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero,
@@ -84,55 +152,78 @@ namespace Project_blob
                 (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
                 1.0f, 100.0f);
 
-            m_Display = new Display(worldMatrix, viewMatrix, projectionMatrix, new EffectPool(), basicEffectVertexDeclaration);
+            if (EFFECT_TYPE == "basic")
+            {
+                Level.Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix));
+            }
+            else if (EFFECT_TYPE == "effects")
+            {
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xView"].SetValue(viewMatrix);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xProjection"].SetValue(projectionMatrix);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xWorld"].SetValue(worldMatrix);
 
-            VertexBuffer vertexBuffer = new VertexBuffer(
-                graphics.GraphicsDevice,
-                VertexPositionNormalTexture.SizeInBytes * cubeVertices.Length,
-                BufferUsage.None
-            );
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(true);
+                //EffectManager.getSingleton.GetEffect(_effectName).Parameters["xShowNormals"].SetValue(true);
+                //EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightDirection"].SetValue(Vector3.Down);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xAmbient"].SetValue(0.5f);
 
-            vertexBuffer.SetData<VertexPositionNormalTexture>(cubeVertices);
+                Level.Level.AddArea("testArea", new Area(worldMatrix, _effectName, "xWorld", "xTexture", "Textured"));
+            }
+            else if (EFFECT_TYPE == "Cel")
+            {
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"].SetValue(worldMatrix);
 
-            VertexBuffer vertexBuffer2 = new VertexBuffer(
-                graphics.GraphicsDevice,
-                VertexPositionNormalTexture.SizeInBytes * cubeVertices.Length,
-                BufferUsage.None
-            );
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"].SetValue(projectionMatrix);
 
-            model.setGraphicsDevice(graphics.GraphicsDevice);
-            model.Position = Matrix.CreateTranslation(new Vector3(0,2,0));
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
 
-            vertexBuffer2.SetData<VertexPositionNormalTexture>(cube2Vertices);
-            testCube.setGraphicsDevice(graphics.GraphicsDevice);
-            testCube2.setGraphicsDevice(graphics.GraphicsDevice);
-            ground.setGraphicsDevice(graphics.GraphicsDevice);
-            List<Drawable> list = new List<Drawable>();
-            list.Add(testCube);
-            list.Add(model);
-            list.Add(ground);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"].SetValue(lightPos);
 
-            List<Drawable> list2 = new List<Drawable>();
-            list2.Add(testCube2);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"].SetValue(.9f);
 
-            m_Display.DrawnList.Add(ti, list);
-            m_Display.DrawnList.Add(ti2, list2);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"].SetValue(0.15f);
 
-            Physics.Physics.Gravity = new Physics.GravityVector();
-            Physics.Physics.AddCollidable(ground);
-            Physics.Physics.AddPoints(testCube.points);
-            Physics.Physics.AddSprings(testCube.springs);
-            Physics.Physics.AddPoints(testCube2.points);
-            Physics.Physics.AddSprings(testCube2.springs);
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"].SetValue(0.08f);
+
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"].SetValue(0.05f);
+
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"].SetValue(2.0f);
+
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"].SetValue(0.4f);
+
+                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"] != null)
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"].SetValue(0.03f);
+
+                Level.Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
+            }
+            _activeArea = Level.Level.Areas["testArea"];
+            //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+            VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+
+            _activeArea.Display.TextureName = POINT_TEXT;
+            _activeArea.Display.ShowAxis = true;
         }
+
+      
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
-        protected override void UnloadContent()
+        protected override void  UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+                content.Unload();
         }
 
         /// <summary>
@@ -142,11 +233,82 @@ namespace Project_blob
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            InputHandler.Update();
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || InputHandler.IsKeyPressed(Keys.Escape))
+            {
                 this.Exit();
+            }
+            Horizontal = Vector3.Normalize(Vector3.Cross(focusPoint - cameraPosition, Up));
+            Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
-            Physics.Physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+            if (InputHandler.IsKeyPressed(Keys.A))
+            {
+                //strif to the left
+                this.focusPoint += Horizontal;
+                //Console.WriteLine(focusPoint);
+            }
+            if (InputHandler.IsKeyPressed(Keys.D))
+            {
+                //strif to the right
+                this.focusPoint -= Horizontal;
+                //Console.WriteLine(focusPoint);
+            }
+            if (InputHandler.IsKeyPressed(Keys.W))
+            {
+                //move foward
+                this.focusPoint += Run;
+                //Console.WriteLine(focusPoint);
+            }
+            if (InputHandler.IsKeyPressed(Keys.S))
+            {
+                //move backwards
+                this.focusPoint -= Run;
+                //Console.WriteLine(focusPoint);
+            }
+
+            if (follow)
+            {
+                cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
+                if (cameraAngle.X < -MathHelper.Pi)
+                {
+                    cameraAngle.X += MathHelper.TwoPi;
+                }
+                else if (cameraAngle.X > MathHelper.Pi)
+                {
+                    cameraAngle.X -= MathHelper.TwoPi;
+                }
+
+                cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
+
+                // following camera
+                cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
+                Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
+                cameraPosition = focusPoint + Offset;
+
+                viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
+
+                if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
+                {
+                    ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
+                }
+                else
+                {
+                    if (EFFECT_TYPE == "effects")
+                        EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
+                    else if (EFFECT_TYPE == "Cel")
+                        EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
+                }
+
+                //m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
+
+                //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
+
+                if (EFFECT_TYPE == "effects")
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                else if (EFFECT_TYPE == "Cel")
+                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+            }
 
             base.Update(gameTime);
         }
@@ -157,9 +319,18 @@ namespace Project_blob
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            foreach (String str in LevelEditor.DrawablesToDelete)
+            {
+                _activeArea.RemoveDrawable(str);
+            }
+            LevelEditor.DrawablesToDelete.Clear();
+            foreach (DrawableInfo drawableInfo in LevelEditor.DrawablesToAdd)
+            {
+                _activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureInfo, drawableInfo.drawable);
+            }
+            LevelEditor.DrawablesToAdd.Clear();
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            m_Display.Draw();
+            _activeArea.Display.Draw(graphics.GraphicsDevice);
 
             base.Draw(gameTime);
         }

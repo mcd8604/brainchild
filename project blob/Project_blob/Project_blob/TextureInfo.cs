@@ -6,19 +6,14 @@ using System.Text;
 namespace Project_blob
 {
     //This class stores information about a texture needed to sort it and draw it
+    [Serializable]
     public class TextureInfo
     {
-        Texture2D m_Texture;
-        public Texture2D TextureObject
+        private String _textureName;
+        public String TextureName
         {
-            get
-            {
-                return m_Texture;
-            }
-            set
-            {
-                m_Texture = value;
-            }
+            get { return _textureName; }
+            set { _textureName = value; }
         }
 
         int m_SortNumber;
@@ -34,13 +29,14 @@ namespace Project_blob
             }
         }
 
-        public TextureInfo(Texture2D p_Texture, int p_SortNumber)
+        public TextureInfo(String texutreName, int p_SortNumber)
         {
-            m_Texture = p_Texture;
+            _textureName = texutreName;
             m_SortNumber = p_SortNumber;
         }
     }
 
+    [Serializable]
     public class TextureInfoComparer : IComparer<TextureInfo>
     {
         public int Compare(TextureInfo x, TextureInfo y)
