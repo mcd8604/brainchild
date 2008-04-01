@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Physics;
 
-namespace WorldMakerDemo.Level
+namespace Project_blob.Level
 {
     public class Trigger : Collidable
     {
@@ -79,6 +79,32 @@ namespace WorldMakerDemo.Level
         /// <param name="v"></param>
         public void ImpartVelocity(Vector3 at, Vector3 v)
         {
+        }
+
+        public Vector3[] getCollisionVerticies()
+        {
+            throw new Exception("Not used");
+        }
+
+        public Vector3[] getNextCollisionVerticies()
+        {
+            throw new Exception("Not used");
+        }
+
+        public void test(Physics.Point p)
+        {
+
+            throw new Exception("do nothing!");
+        }
+
+        public bool inBoundingBox(Vector3 v)
+        {
+            throw new Exception("do nothing");
+        }
+
+        public Physics.Material getMaterial()
+        {
+            return new Physics.NormalMaterial();
         }
     }
 }
