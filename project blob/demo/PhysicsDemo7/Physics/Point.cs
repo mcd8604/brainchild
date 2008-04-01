@@ -73,6 +73,7 @@ namespace Physics
         public Point(Vector3 startPosition)
         {
             CurrentPosition = startPosition;
+			PotientialPosition = CurrentPosition;
             NextPosition = CurrentPosition;
         }
 

@@ -130,6 +130,12 @@ namespace PhysicsDemo7
         }
 
 
+		public bool inBoundingBox(Vector3 i)
+		{
+			return true;
+		}
+
+
         public bool shouldPhysicsBlock(Physics.Point p)
         {
             return true;

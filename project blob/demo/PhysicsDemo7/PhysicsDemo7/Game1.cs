@@ -66,7 +66,7 @@ namespace PhysicsDemo7
 
         Physics.PhysicsManager physics;
 
-
+		List<Physics.Point> test = new List<Physics.Point>();
 
         public Game1()
         {
@@ -98,10 +98,10 @@ namespace PhysicsDemo7
         {
 
             playerCube = new DemoCube(cubeStartPosition, 1);
-            physics.AddPoints(playerCube.points);
-            physics.AddSprings(playerCube.springs);
+			physics.AddPoints(playerCube.points);
+			physics.AddSprings(playerCube.springs);
 			physics.AddBody(playerCube);
-            physics.Player.PlayerBody = playerCube;
+			physics.Player.PlayerBody = playerCube;
 
 
 
@@ -110,8 +110,11 @@ namespace PhysicsDemo7
 
 
 			testPoint = new Physics.Point(new Vector3(0, 10, 25));
-			addToPhysicsAndDraw(new TriAA(new Physics.Point(new Vector3(10, 0, 10)), new Physics.Point(new Vector3(-10, 0, 10)), testPoint, Color.Red));
+			addToPhysicsAndDraw(new TriAA(testPoint, new Physics.Point(new Vector3(10, 0, 10)), new Physics.Point(new Vector3(-10, 0, 10)), Color.Red));
 			
+
+			//addToPhysicsAndDraw(new StaticQuad(new Vector3(8, 0, 15), new Vector3(8, 0, 5), new Vector3(-2, 0, 5), new Vector3(-2, 0, 5), Color.White));
+			//addToPhysicsAndDraw(new StaticQuad(new Vector3(-12, 0, -12), new Vector3(-8, 0, -4), new Vector3(-4, 0, -4), new Vector3(-4, 0, -4), Color.White));
 
 
             physics.AddGravity( new Physics.GravityVector());
@@ -402,6 +405,21 @@ namespace PhysicsDemo7
 				testPoint.NextPosition.Y -= 1;
             }
 
+			if (InputHandler.IsKeyPressed(Keys.V))
+			{
+				if (test.Count == 0)
+				{
+					for (float x = -20; x < 20; x += 1f)
+					{
+						for (float z = -20; z < 20; z += 1f)
+						{
+							test.Add(new Physics.Point(new Vector3(x, 20, z)));
+						}
+					}
+					physics.AddPoints(test);
+				}
+			}
+
 
             if (InputHandler.IsKeyDown(Keys.X))
             {
@@ -563,6 +581,29 @@ namespace PhysicsDemo7
                 }
                 effect.End();
             }
+
+			if (test.Count == 1600)
+			{
+				effect.CurrentTechnique = effect.Techniques["Colored"];
+				GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
+				GraphicsDevice.RenderState.DepthBufferEnable = true;
+				VertexPositionColor[] testVertices = new VertexPositionColor[1600];
+				for (int i = 0; i < 1600; ++i)
+				{
+					testVertices[i] = new VertexPositionColor(test[i].CurrentPosition, Color.Pink);
+				}
+				VertexBuffer testvertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * 1600, BufferUsage.None);
+				testvertexBuffer.SetData<VertexPositionColor>(testVertices);
+				GraphicsDevice.Vertices[0].SetSource(testvertexBuffer, 0, VertexPositionColor.SizeInBytes);
+				effect.Begin();
+				foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+				{
+					pass.Begin();
+					GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, 1600);
+					pass.End();
+				}
+				effect.End();
+			}
 
 
             // GUI

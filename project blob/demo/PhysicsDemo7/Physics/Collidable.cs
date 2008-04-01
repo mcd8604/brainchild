@@ -59,5 +59,7 @@ namespace Physics
 		Vector3[] getNextCollisionVerticies();
 
 		void test( Point p );
+
+		bool inBoundingBox(Vector3 v);
     }
 }

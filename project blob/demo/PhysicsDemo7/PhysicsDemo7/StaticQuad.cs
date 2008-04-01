@@ -110,6 +110,13 @@ namespace PhysicsDemo7
             return didIntersect(start, end);
         }
 
+		public bool inBoundingBox(Vector3 i)
+		{
+			return (i.X >= min.X - 0.001f && i.X <= max.X + 0.001f &&
+					i.Y >= min.Y - 0.001f && i.Y <= max.Y + 0.001f &&
+					i.Z >= min.Z - 0.001f && i.Z <= max.Z + 0.001f);
+		}
+
         public bool shouldPhysicsBlock(Physics.Point p)
         {
             return true;
