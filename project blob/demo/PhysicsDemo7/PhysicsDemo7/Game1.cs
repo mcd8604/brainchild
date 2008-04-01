@@ -93,6 +93,9 @@ namespace PhysicsDemo7
         }
 
 		Physics.Point testPoint;
+        Physics.Point testPoint2;
+            Physics.Point testPoint3;
+        Physics.Point testPoint4;
 
         private void initBasic()
         {
@@ -101,20 +104,31 @@ namespace PhysicsDemo7
 			physics.AddPoints(playerCube.points);
 			physics.AddSprings(playerCube.springs);
 			physics.AddBody(playerCube);
+
 			physics.Player.PlayerBody = playerCube;
 
 
 
-			addToPhysicsAndDraw(new StaticQuad(new Vector3(10, 0, 10), new Vector3(10, 0, -10), new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), Color.White));
-			addToPhysicsAndDraw(new StaticQuad(new Vector3(-10, 0, -10), new Vector3(-10, 0, 10), new Vector3(10, 0, 10), new Vector3(10, 0, -10), Color.White));
+			addToPhysicsAndDraw(new StaticQuad(new Vector3(10, 1, 10), new Vector3(10, 1, -10), new Vector3(-10, 1, -10), new Vector3(-10, 1, 10), Color.White));
+			addToPhysicsAndDraw(new StaticQuad(new Vector3(-10, 1, -10), new Vector3(-10, 1, 10), new Vector3(10, 1, 10), new Vector3(10, 1, -10), Color.White));
 
 
-			testPoint = new Physics.Point(new Vector3(0, 10, 25));
-			addToPhysicsAndDraw(new TriAA(testPoint, new Physics.Point(new Vector3(10, 0, 10)), new Physics.Point(new Vector3(-10, 0, 10)), Color.Red));
+			testPoint = new Physics.Point(new Vector3(0, 1, 25));
+			addToPhysicsAndDraw(new TriAA(testPoint, new Physics.Point(new Vector3(10, 1, 10)), new Physics.Point(new Vector3(-10, 1, 10)), Color.Red));
+
+
+            testPoint2 = new Physics.Point(new Vector3(-10, 1, -10));
+           testPoint3 = new Physics.Point(new Vector3(10, 1, -10));
+           testPoint4 = new Physics.Point(new Vector3(0, 1, -25));
+
+            addToPhysicsAndDraw(new TriAA(testPoint2, testPoint3, testPoint4, Color.Green));
 			
 
 			//addToPhysicsAndDraw(new StaticQuad(new Vector3(8, 0, 15), new Vector3(8, 0, 5), new Vector3(-2, 0, 5), new Vector3(-2, 0, 5), Color.White));
 			//addToPhysicsAndDraw(new StaticQuad(new Vector3(-12, 0, -12), new Vector3(-8, 0, -4), new Vector3(-4, 0, -4), new Vector3(-4, 0, -4), Color.White));
+
+
+            physics.AddCollidables(playerCube.getCollidables());
 
 
             physics.AddGravity( new Physics.GravityVector());
@@ -139,8 +153,7 @@ namespace PhysicsDemo7
         {
             physics = new Physics.PhysicsManager();
 
-            //physics.AirFriction = 0.5f;
-            physics.AirFriction = 2f;
+            physics.AirFriction = 1f;
 
             physics.Player.Traction.Minimum = 0.5f;
             physics.Player.Traction.Origin = 1f;
@@ -394,26 +407,38 @@ namespace PhysicsDemo7
                 //}
             }
 
-            if (InputHandler.IsKeyPressed(Keys.PageUp))
+            if (InputHandler.IsKeyDown(Keys.PageUp))
             {
-				testPoint.PotientialPosition.Y += 1;
-				testPoint.NextPosition.Y += 1;
+				testPoint.PotientialPosition.Y += 0.1f;
+				testPoint.NextPosition.Y += 0.1f;
+                testPoint2.PotientialPosition.Y += 0.1f;
+                testPoint2.NextPosition.Y += 0.1f;
+                testPoint3.PotientialPosition.Y += 0.1f;
+                testPoint3.NextPosition.Y += 0.1f;
+                testPoint4.PotientialPosition.Y += 0.1f;
+                testPoint4.NextPosition.Y += 0.1f;
             }
-            else if (InputHandler.IsKeyPressed(Keys.PageDown))
+            else if (InputHandler.IsKeyDown(Keys.PageDown))
             {
-				testPoint.PotientialPosition.Y -= 1;
-				testPoint.NextPosition.Y -= 1;
+				testPoint.PotientialPosition.Y -= 0.1f;
+				testPoint.NextPosition.Y -= 0.1f;
+                testPoint2.PotientialPosition.Y -= 0.1f;
+                testPoint2.NextPosition.Y -= 0.1f;
+                testPoint3.PotientialPosition.Y -= 0.1f;
+                testPoint3.NextPosition.Y -= 0.1f;
+                testPoint4.PotientialPosition.Y -= 0.1f;
+                testPoint4.NextPosition.Y -= 0.1f;
             }
 
 			if (InputHandler.IsKeyPressed(Keys.V))
 			{
 				if (test.Count == 0)
 				{
-					for (float x = -20; x < 20; x += 1f)
+					for (float x = -10; x < 10; x += 1f)
 					{
-						for (float z = -20; z < 20; z += 1f)
+						for (float z = -10; z < 10; z += 1f)
 						{
-							test.Add(new Physics.Point(new Vector3(x, 20, z)));
+							test.Add(new Physics.Point(new Vector3(x, 10, z)));
 						}
 					}
 					physics.AddPoints(test);
@@ -582,24 +607,24 @@ namespace PhysicsDemo7
                 effect.End();
             }
 
-			if (test.Count == 1600)
+			if (test.Count > 0)
 			{
 				effect.CurrentTechnique = effect.Techniques["Colored"];
 				GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
 				GraphicsDevice.RenderState.DepthBufferEnable = true;
-				VertexPositionColor[] testVertices = new VertexPositionColor[1600];
-				for (int i = 0; i < 1600; ++i)
+				VertexPositionColor[] testVertices = new VertexPositionColor[test.Count];
+                for (int i = 0; i < test.Count; ++i)
 				{
 					testVertices[i] = new VertexPositionColor(test[i].CurrentPosition, Color.Pink);
 				}
-				VertexBuffer testvertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * 1600, BufferUsage.None);
+                VertexBuffer testvertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * test.Count, BufferUsage.None);
 				testvertexBuffer.SetData<VertexPositionColor>(testVertices);
 				GraphicsDevice.Vertices[0].SetSource(testvertexBuffer, 0, VertexPositionColor.SizeInBytes);
 				effect.Begin();
 				foreach (EffectPass pass in effect.CurrentTechnique.Passes)
 				{
 					pass.Begin();
-					GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, 1600);
+                    GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, test.Count);
 					pass.End();
 				}
 				effect.End();
