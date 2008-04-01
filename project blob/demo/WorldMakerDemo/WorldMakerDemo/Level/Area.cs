@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WorldMakerDemo.Level
+namespace Project_blob.Level
 {
     [Serializable]
     public class Area
