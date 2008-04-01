@@ -253,9 +253,9 @@ namespace Physics
 			{
 				if (c.couldIntersect(p))
 				{
-					Vector3[] lx = c.getNextCollisionVerticies();
-					Vector3 li;
-					float lu = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, lx[0], lx[1], lx[2], out li);
+					//Vector3[] lx = c.getNextCollisionVerticies();
+					//Vector3 li;
+					//float lu = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, lx[0], lx[1], lx[2], out li);
 
 					c.test(p);
 

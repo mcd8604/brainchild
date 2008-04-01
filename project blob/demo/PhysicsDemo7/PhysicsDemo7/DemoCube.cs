@@ -76,19 +76,19 @@ namespace PhysicsDemo7
             }
 
 
-            collidables.Add(new Tri(ftr, fbr, bbr, Color.White));
-            collidables.Add(new Tri(ftr, bbr, btr, Color.White));
-            collidables.Add(new Tri(ftr, btr, btl, Color.White));
-            collidables.Add(new Tri(ftr, btl, ftl, Color.White));
-            collidables.Add(new Tri(ftr, ftl, fbl, Color.White));
-            collidables.Add(new Tri(ftr, fbl, fbr, Color.White));
+            collidables.Add(new TriAA(ftr, fbr, bbr, Color.White));
+            collidables.Add(new TriAA(ftr, bbr, btr, Color.White));
+            collidables.Add(new TriAA(ftr, btr, btl, Color.White));
+            collidables.Add(new TriAA(ftr, btl, ftl, Color.White));
+            collidables.Add(new TriAA(ftr, ftl, fbl, Color.White));
+            collidables.Add(new TriAA(ftr, fbl, fbr, Color.White));
 
-            collidables.Add(new Tri(bbl, bbr, fbr, Color.White));
-            collidables.Add(new Tri(bbl, fbr, fbl, Color.White));
-            collidables.Add(new Tri(bbl, fbl, ftl, Color.White));
-            collidables.Add(new Tri(bbl, ftl, btl, Color.White));
-            collidables.Add(new Tri(bbl, btl, btr, Color.White));
-            collidables.Add(new Tri(bbl, btr, bbr, Color.White));
+            collidables.Add(new TriAA(bbl, bbr, fbr, Color.White));
+            collidables.Add(new TriAA(bbl, fbr, fbl, Color.White));
+            collidables.Add(new TriAA(bbl, fbl, ftl, Color.White));
+            collidables.Add(new TriAA(bbl, ftl, btl, Color.White));
+            collidables.Add(new TriAA(bbl, btl, btr, Color.White));
+            collidables.Add(new TriAA(bbl, btr, bbr, Color.White));
 
 
             vertices[0] = new VertexPositionNormalTexture(ftr.CurrentPosition, Vector3.Up, Vector2.Zero);
@@ -222,12 +222,21 @@ namespace PhysicsDemo7
 
         public IEnumerable<Physics.Collidable> getCollidables()
         {
-            return (IEnumerable<Physics.Collidable>)collidables;
+            List<Physics.Collidable> temp = new List<Physics.Collidable>();
+            foreach( T t in collidables ) {
+                temp.Add( (Physics.Collidable) t );
+            }
+            return temp;
         }
 
         public IEnumerable<Drawable> getDrawables()
         {
-            return (IEnumerable<Drawable>)collidables;
+            List<Drawable> temp = new List<Drawable>();
+            foreach (T t in collidables)
+            {
+                temp.Add((Drawable)t);
+            }
+            return temp;
         }
 
         public IEnumerable<Physics.Spring> getSprings()
