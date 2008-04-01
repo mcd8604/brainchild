@@ -36,8 +36,18 @@ namespace OctreeCulling
         private BasicEffect basicEffect;
         private VertexDeclaration vertexDeclaration;
 
+        bool drawMode = true;
+
         Pyramid pyramid;
         Cube cube;
+
+        SpriteFont font;
+
+        //FPS counter variables
+        float time = 0f;
+        float update = 1f;
+        int frames = 0;
+        string fps = "";
 
         public Game1()
         {
@@ -80,6 +90,10 @@ namespace OctreeCulling
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // Load the default sprite font.
+            font = Content.Load<SpriteFont>(@"Fonts/ComicSansMS");
+            //font = Content.Load<SpriteFont>(@"Fonts/Courier New");
+
             // TODO: use this.Content to load your game content here
             basicEffect = new BasicEffect(graphics.GraphicsDevice, null);
             basicEffect.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
@@ -117,6 +131,16 @@ namespace OctreeCulling
         protected override void Update(GameTime gameTime)
         {
             CameraManager.getSingleton.ActiveCamera.Update(gameTime);
+
+            // Update the FPS counter.
+            time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (time > update)
+            {
+                fps = Convert.ToInt32(frames / time).ToString();
+                time = 0;
+                frames = 0;
+            }
+            ++frames;
 
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
@@ -190,6 +214,8 @@ namespace OctreeCulling
 
             if (Keyboard.GetState().IsKeyDown(Keys.Tab))
             {
+                drawMode = !drawMode;
+
                 if (graphics.GraphicsDevice.RenderState.FillMode == FillMode.Solid)
                 {
                     graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
@@ -218,11 +244,12 @@ namespace OctreeCulling
             // Set the vertex declaration
             graphics.GraphicsDevice.VertexDeclaration = vertexDeclaration;
 
+
             SceneManager.getSingleton.Draw(gameTime);
             //pyramid.Draw(gameTime);
             //cube.Draw(gameTime);
 
-
+            #region drawing no longer used
             // Set the transform for the triangle, then draw it, using the created effect
             //Matrix tempTransform = Matrix.CreateRotationY(0) * triangleTransform;
             //basicEffect.World = tempTransform;
@@ -252,11 +279,25 @@ namespace OctreeCulling
             //    pass.End();
             //}
 
-            //basicEffect.End();           
+            //basicEffect.End();   
+            #endregion
 
-            //spriteBatch.Begin();
-            ////spriteBatch.DrawString(
-            //spriteBatch.End();
+            graphics.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+
+            spriteBatch.Begin();
+
+            spriteBatch.DrawString(font, "FPS: " + fps, new Vector2(10.0f, 10.0f), Color.White);
+            spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 30.0f), Color.White);
+            spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 50.0f), Color.White);
+            spriteBatch.DrawString(font, "Objects Culled: " + SceneManager.getSingleton.Culled, new Vector2(10.0f, 70.0f), Color.White);
+
+            spriteBatch.End();
+
+            if (drawMode)
+            {
+                graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
+                graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+            }
 
             base.Draw(gameTime);
         }
