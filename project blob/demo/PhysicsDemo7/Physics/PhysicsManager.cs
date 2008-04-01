@@ -263,7 +263,7 @@ namespace Physics
 					Vector3 i;
 					float u = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, x[0], x[1], x[2], out i);
 					// If Collision ( u < 1 ) - Split Time and redo
-					if (u > 0 && u < 1)
+					if (u > 0 && u < 1 /* && c.inBoundingBox(i)*/)
 					{
 
 						// should physics interact

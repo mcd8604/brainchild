@@ -30,6 +30,12 @@ namespace Physics
 				return -1;
 			}
 
+			// addition
+			//if (a < 0 && b < 0)
+			//{
+			//    return -1;
+			//}
+
 			float r = a / b;
 			if (r < 0f || r > 1f)
 			{
@@ -45,19 +51,83 @@ namespace Physics
 			float wu = Vector3.Dot(w, u);
 			float wv = Vector3.Dot(w, v);
 
-			float d = uv * uv - uu * vv;
+			float d = (uv * uv) - (uu * vv);
 
-			float s = (uv * wv - vv * wu) / d;
+			float s = ((uv * wv) - (vv * wu)) / d;
 
 			if (s < 0f || s > 1f)
 			{
 				return -1;
 			}
-			float t = (uv * wu - uu * wv) / d;
+			float t = ((uv * wu) - (uu * wv)) / d;
 			if (t < 0f || t > 1f)
 			{
 				return -1;
 			}
+
+
+
+			Vector3 planeNormal = new Plane(v0, v1, v2).Normal;
+			Vector3 lineNormal = Vector3.Cross(planeNormal, v2 - v1);
+
+			float check1 = Vector3.Dot(lineNormal, v0 - v1);
+			float check2 = Vector3.Dot(lineNormal, i - v1);
+
+			if (check1 * check2 < 0)
+			{
+				return -1;
+			}
+
+
+			//Vector3 check1 = Vector3.Cross(v0 - v1, v2 - v1);
+			//Vector3 check2 = Vector3.Cross(i - v1, v2 - v1);
+
+			//if (check1.Length() * check2.Length() < 0)
+			//{
+			//    return -1;
+			//}
+
+
+			//float check1 = Vector3.Dot(v0 - v1, v2 - v1);
+			//float check1i = Vector3.Dot(v0 - v1, i - v1);
+			//if (check1i < check1)
+			//{
+			//    return -1;
+			//}
+
+			//float check2 = Vector3.Dot(v0 - v2, v1 - v2);
+			//float check2i = Vector3.Dot(v0 - v2, i - v2);
+			//if (check2i < check2)
+			//{
+			//    return -1;
+			//}
+
+
+			/*
+			Vector3 q = i - v2;
+			float qu = Vector3.Dot(q, u);
+			float qv = Vector3.Dot(q, v);
+
+			//float d = (uv * uv) - (uu * vv);
+
+			float sq = ((uv * qv) - (vv * qu)) / d;
+
+			if (sq < 0f || sq > 1f)
+			{
+				return -1;
+			}
+			float tq = ((uv * qu) - (uu * qv)) / d;
+			if (tq < 0f || tq > 1f)
+			{
+				return -1;
+			}
+			 */ 
+
+
+			//if (t > 0.5 || s > 0.5)
+			//{
+			//    return -1;
+			//}
 
 			return r;
 
@@ -96,7 +166,10 @@ namespace Physics
 
 			if (c_r > 0 && n_r < 0)
 			{
-				throw new Exception();
+				// collidable passed through point
+				//throw new Exception();
+
+				p.CurrentPosition += (v0.PotientialPosition - v0.CurrentPosition);
 			}
 
 			return 0;
