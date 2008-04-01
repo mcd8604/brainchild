@@ -111,7 +111,7 @@ namespace Physics
             float CurrentPlayerVolume = playerBody.getNewVolume();
             foreach (Physics.Point p in playerBody.getPoints())
             {
-                p.CurrentForce += (CurrentPlayerCenter - p.Position) * (CurrentPlayerVolume - volume.value);
+                p.CurrentForce += (CurrentPlayerCenter - p.Position) * (CurrentPlayerVolume - volume.value) * 4;
             }
 
             //bool bounce = false;
@@ -131,6 +131,25 @@ namespace Physics
             //        p.NextForce += norm * 500f;
             //    }
             //}
+
+            //Vector3 AngularVelocity = Vector3.Zero;
+            //int i = 0;
+
+            float max_vel = 100000;
+
+            foreach (Physics.Point p in playerBody.getPoints())
+            {
+                float Check = (Vector3.Cross(p.Position - CurrentPlayerCenter, p.NextVelocity) / ((p.Position - CurrentPlayerCenter) * (p.Position - CurrentPlayerCenter))).Length();
+                if (Check > max_vel)
+                {
+                    // Try capping angular velocity;
+                    p.NextVelocity = p.NextVelocity * (max_vel / Check);
+                }
+
+                //AngularVelocity += Vector3.Cross(p.Position - CurrentPlayerCenter, p.NextVelocity) / ((p.Position - CurrentPlayerCenter) * (p.Position - CurrentPlayerCenter));
+                //++i;
+            }
+            //Console.WriteLine(AngularVelocity.Length() / (float)i);
         }
 
         private void update(Property p, float time)
@@ -159,11 +178,11 @@ namespace Physics
 
             if (p.current > 0.5f)
             {
-                p.value = p.origin + ((p.current - 0.5f) * (p.maximum - p.origin));
+                p.value = p.origin + (((p.current - 0.5f) * 2) * (p.maximum - p.origin));
             }
             else
             {
-                p.value = p.minimum + (p.current * (p.origin - p.minimum));
+                p.value = p.minimum + ((p.current * 2) * (p.origin - p.minimum));
             }
 
         }

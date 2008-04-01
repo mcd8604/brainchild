@@ -48,7 +48,7 @@ namespace BlobImport
 
         bool drawMode = true;
         int gameMode = 3;
-        bool points = true;
+        bool points = false;
 
 		SpriteFont font;
 		//fps
@@ -95,23 +95,23 @@ namespace BlobImport
         {
             physics = new Physics.PhysicsManager();
 
-            physics.Player.Traction.Minimum = 0.5f;
+            physics.Player.Traction.Minimum = 0f;
             physics.Player.Traction.Origin = 50f;
             physics.Player.Traction.Maximum = 100f;
 
             physics.Player.Cling.Minimum = 0f;
-            physics.Player.Cling.Origin = 5f;
-            physics.Player.Cling.Maximum = 10f;
+            physics.Player.Cling.Origin = 100f;
+            physics.Player.Cling.Maximum = 400f;
 
-            physics.Player.Resilience.Minimum = 2f;
-            physics.Player.Resilience.Origin = 150f;
-            physics.Player.Resilience.Maximum = 300f;
+            physics.Player.Resilience.Minimum = 10f;
+            physics.Player.Resilience.Origin = 40f;
+            physics.Player.Resilience.Maximum = 120f;
             physics.Player.Resilience.Delta = 10;
 
             physics.Player.Volume.Minimum = 0f;
-			physics.Player.Volume.Origin = 110f;
-            physics.Player.Volume.Maximum = 200f;
-            physics.Player.Volume.Delta = 5;
+			physics.Player.Volume.Origin = 10f;
+            physics.Player.Volume.Maximum = 50f;
+            physics.Player.Volume.Delta = 1;
 
             //drawables.Clear();
         }
