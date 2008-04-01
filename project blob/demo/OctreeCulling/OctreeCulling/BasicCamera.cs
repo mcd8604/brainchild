@@ -7,33 +7,6 @@ namespace OctreeCulling
 {
     class BasicCamera : Camera
     {
-        //Speed of the Camera's rotation
-        private float rotationSpeed = 0.05f;
-        public float RotationSpeed
-        {
-            get { return rotationSpeed; }
-            set { rotationSpeed = value; }
-        }
-
-        //Speed of the Camera's forward movement
-        private float forwardSpeed = 0.05f;
-
-        //Amount that the camera will turn about the y-axis
-        private float _yaw = 0.0f;
-        public float Yaw
-        {
-            get { return _yaw; }
-            set { _yaw = value; }
-        }
-
-        //Amount that the camera will turn about the x-axis
-        private float _pitch = 0.0f;
-        public float Pitch
-        {
-            get { return _pitch; }
-            set { _pitch = value; }
-        }
-
         //reference vectors
         private Vector3 transRef;
         private Vector3 cameraRef;
@@ -55,7 +28,7 @@ namespace OctreeCulling
         public BasicCamera()
         {
             //Start aiming forward (no turn)
-            _yaw = 0;
+            Yaw = 0;
 
             //Look down the Z-axis by default
             LookAt = transRef = new Vector3(0.0f, 0.0f, 1.0f);
@@ -88,7 +61,7 @@ namespace OctreeCulling
         private void UpdatePosition(Vector3 newPos)
         {
             //Create a new rotation matrix about the Y-Axis
-            Matrix yRotation = Matrix.CreateRotationY(_yaw);
+            Matrix yRotation = Matrix.CreateRotationY(Yaw);
 
             Vector3 currPos = Vector3.Transform(newPos, yRotation);
 
@@ -106,10 +79,10 @@ namespace OctreeCulling
         /// <summary>
         /// Move camera along the Z-Axis using forwardSpeed
         /// </summary>
-        public void MoveForward()
+        public override void MoveForward()
         {
             //Create a new vector to calculate speeds in certain directions
-            Vector3 v = new Vector3(0.0f, 0.0f, forwardSpeed);
+            Vector3 v = new Vector3(0.0f, 0.0f, ForwardSpeed);
 
             UpdatePosition(v);
         }
@@ -117,10 +90,10 @@ namespace OctreeCulling
         /// <summary>
         /// Move camera along the Z-Axis using -forwardSpeed
         /// </summary>
-        public void MoveBack()
+        public override void MoveBack()
         {
             //Create a new vector to calculate speeds in certain directions
-            Vector3 v = new Vector3(0.0f, 0.0f, -forwardSpeed);
+            Vector3 v = new Vector3(0.0f, 0.0f, -ForwardSpeed);
 
             UpdatePosition(v);
         }
@@ -128,10 +101,10 @@ namespace OctreeCulling
         /// <summary>
         /// Move camera along the X-Axis using forwardSpeed
         /// </summary>
-        public void StrafeLeft()
+        public override void StrafeLeft()
         {
             //Create a new vector to calculate speeds in certain directions
-            Vector3 v = new Vector3(forwardSpeed, 0.0f, 0.0f);
+            Vector3 v = new Vector3(ForwardSpeed, 0.0f, 0.0f);
 
             UpdatePosition(v);
         }
@@ -139,24 +112,24 @@ namespace OctreeCulling
         /// <summary>
         /// Move camera along the X-Axis using -forwardSpeed
         /// </summary>
-        public void StrafeRight()
+        public override void StrafeRight()
         {
             //Create a new vector to calculate speeds in certain directions
-            Vector3 v = new Vector3(-forwardSpeed, 0.0f, 0.0f);
+            Vector3 v = new Vector3(-ForwardSpeed, 0.0f, 0.0f);
 
             UpdatePosition(v);
         }
 
-        public void MoveUp()
+        public override void MoveUp()
         {
-            Vector3 v = new Vector3(0.0f, forwardSpeed, 0.0f);
+            Vector3 v = new Vector3(0.0f, ForwardSpeed, 0.0f);
 
             UpdatePosition(v);
         }
 
-        public void MoveDown()
+        public override void MoveDown()
         {
-            Vector3 v = new Vector3(0.0f, -forwardSpeed, 0.0f);
+            Vector3 v = new Vector3(0.0f, -ForwardSpeed, 0.0f);
 
             UpdatePosition(v);
         }
@@ -224,10 +197,10 @@ namespace OctreeCulling
         /// <summary>
         /// Rotates Camera Around the respective axises with yaw, pitch, roll
         /// </summary>
-        public void RotateCamera()
+        public override void RotateCamera()
         {
             //Figure out rotation about x, y, z
-            cameraRotation = Matrix.CreateFromYawPitchRoll(_yaw, _pitch, _roll);
+            cameraRotation = Matrix.CreateFromYawPitchRoll(Yaw, Pitch, _roll);
 
             //Calculate transform between constant reference position and our rotation
             transRef = Vector3.Transform(cameraRef, cameraRotation);

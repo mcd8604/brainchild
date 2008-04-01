@@ -229,7 +229,7 @@ namespace OctreeCulling
         /// <summary>
         /// Move camera along the Z-Axis using forwardSpeed
         /// </summary>
-        public void MoveForward()
+        public override void MoveForward()
         {
             //Create a new vector to calculate speeds in certain directions
             Vector3 v = new Vector3(0.0f, 0.0f, forwardSpeed);
@@ -240,7 +240,7 @@ namespace OctreeCulling
         /// <summary>
         /// Move camera along the Z-Axis using -forwardSpeed
         /// </summary>
-        public void MoveBack()
+        public override void MoveBack()
         {
             //Create a new vector to calculate speeds in certain directions
             Vector3 v = new Vector3(0.0f, 0.0f, -forwardSpeed);
@@ -251,7 +251,7 @@ namespace OctreeCulling
         /// <summary>
         /// Move camera along the X-Axis using forwardSpeed
         /// </summary>
-        public void StrafeLeft()
+        public override void StrafeLeft()
         {
             //Create a new vector to calculate speeds in certain directions
             Vector3 v = new Vector3(forwardSpeed, 0.0f, 0.0f);
@@ -262,7 +262,7 @@ namespace OctreeCulling
         /// <summary>
         /// Move camera along the X-Axis using -forwardSpeed
         /// </summary>
-        public void StrafeRight()
+        public override void StrafeRight()
         {
             //Create a new vector to calculate speeds in certain directions
             Vector3 v = new Vector3(-forwardSpeed, 0.0f, 0.0f);
@@ -294,7 +294,7 @@ namespace OctreeCulling
         /// <summary>
         /// Rotates Camera Around the Y-Axis
         /// </summary>
-        public void RotateCamera()
+        public override void RotateCamera()
         {
             //Figure out rotation about Y
             _cameraRotation = Matrix.CreateRotationY(turnAmt);

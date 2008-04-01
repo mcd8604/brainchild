@@ -19,29 +19,25 @@ namespace OctreeCulling
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //private Vector3 shapeSize;
-        //private Vector3 shapePosition;
-        //private VertexPositionColor[] shapeVertices;
-        //private VertexPositionNormalTexture[] shapeVertices;
-        //private int shapeTriangles;
-        //private VertexBuffer shapeBuffer;
-
         //BasicEffect effect;
         Matrix worldMatrix;
 
         //CameraManager _cameraManager;
-        BasicCamera camera;
+        //BasicCamera camera;
 
         // Add transforms for the triangle
-        private Matrix triangleTransform;
-        private VertexPositionColor[] triangleData;
+        //private Matrix triangleTransform;
+        //private VertexPositionColor[] triangleData;
 
-        private Matrix rectangleTransform;
-        private VertexPositionColor[] rectangleData;
+        //private Matrix rectangleTransform;
+        //private VertexPositionColor[] rectangleData;
 
         // The basic effect to use when drawing the geometry
         private BasicEffect basicEffect;
         private VertexDeclaration vertexDeclaration;
+
+        Pyramid pyramid;
+        Cube cube;
 
         public Game1()
         {
@@ -62,12 +58,15 @@ namespace OctreeCulling
 
             worldMatrix = Matrix.Identity;
 
+            BasicCamera camera = new BasicCamera();
+            camera.AspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
+            CameraManager.getSingleton.AddCamera("default", camera);
+
             camera = new BasicCamera();
             camera.AspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
+            CameraManager.getSingleton.AddCamera("test", camera);
 
-            BuildTriangle(Vector3.One, new Vector3(-1.0f, 0.0f, 6.0f));
-
-            BuildCube(Vector3.One, new Vector3(1.5f, 0.0f, 7.0f));
+            CameraManager.getSingleton.SetActiveCamera("default");
 
             base.Initialize();
         }
@@ -83,12 +82,22 @@ namespace OctreeCulling
 
             // TODO: use this.Content to load your game content here
             basicEffect = new BasicEffect(graphics.GraphicsDevice, null);
-            basicEffect.Projection = camera.Projection;
+            basicEffect.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
             vertexDeclaration = new VertexDeclaration(graphics.GraphicsDevice,
                                      VertexPositionColor.VertexElements);
 
             graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
             graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+
+            //Load all objects
+            pyramid = new Pyramid(Vector3.One, new Vector3(-1.0f, 0.0f, 6.0f), basicEffect, graphics);
+            cube = new Cube(Vector3.One, new Vector3(1.5f, 0.0f, 7.0f), basicEffect, graphics);
+
+            SceneManager.getSingleton.AddObject(pyramid);
+            SceneManager.getSingleton.AddObject(cube);
+
+            //BuildTriangle(Vector3.One, new Vector3(-1.0f, 0.0f, 6.0f));
+            //BuildCube(Vector3.One, new Vector3(1.5f, 0.0f, 7.0f));
         }
 
         /// <summary>
@@ -108,72 +117,73 @@ namespace OctreeCulling
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
             //Move forward
             if (Keyboard.GetState().IsKeyDown(Keys.W))
-                camera.MoveForward();
+                CameraManager.getSingleton.ActiveCamera.MoveForward();
 
             //Move Back
             if (Keyboard.GetState().IsKeyDown(Keys.S))
-                camera.MoveBack();
+                CameraManager.getSingleton.ActiveCamera.MoveBack();
 
             //Strafe Left
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
-                camera.StrafeLeft();
+                CameraManager.getSingleton.ActiveCamera.StrafeLeft();
 
             //Strafe Right
             if (Keyboard.GetState().IsKeyDown(Keys.E))
-                camera.StrafeRight();
+                CameraManager.getSingleton.ActiveCamera.StrafeRight();
 
             //Turn left
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                camera.Yaw += camera.RotationSpeed;
+                CameraManager.getSingleton.ActiveCamera.Yaw += CameraManager.getSingleton.ActiveCamera.RotationSpeed;
                 //camera.RotateCameraY();
-                camera.RotateCamera();
+                CameraManager.getSingleton.ActiveCamera.RotateCamera();
             }
 
             //Turn right
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                camera.Yaw -= camera.RotationSpeed;
+                CameraManager.getSingleton.ActiveCamera.Yaw -= CameraManager.getSingleton.ActiveCamera.RotationSpeed;
                 //camera.RotateCameraY();
-                camera.RotateCamera();
+                CameraManager.getSingleton.ActiveCamera.RotateCamera();
             }
 
             //Move up
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                camera.MoveUp();
+                CameraManager.getSingleton.ActiveCamera.MoveUp();
             }
 
             //Move down
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                camera.MoveDown();
+                CameraManager.getSingleton.ActiveCamera.MoveDown();
             }
 
             //Rotate down
             if (Keyboard.GetState().IsKeyDown(Keys.G))
             {
-                camera.Pitch += camera.RotationSpeed;
+                CameraManager.getSingleton.ActiveCamera.Pitch += CameraManager.getSingleton.ActiveCamera.RotationSpeed;
                 //camera.RotateCameraX();
-                camera.RotateCamera();
+                CameraManager.getSingleton.ActiveCamera.RotateCamera();
             }
 
             //Rotate up
             if (Keyboard.GetState().IsKeyDown(Keys.T))
             {
-                camera.Pitch -= camera.RotationSpeed;
+                CameraManager.getSingleton.ActiveCamera.Pitch -= CameraManager.getSingleton.ActiveCamera.RotationSpeed;
                 //camera.RotateCameraX();
-                camera.RotateCamera();
+                CameraManager.getSingleton.ActiveCamera.RotateCamera();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                camera.Reset();
+                CameraManager.getSingleton.ActiveCamera.Reset();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Tab))
@@ -206,55 +216,55 @@ namespace OctreeCulling
             // Set the vertex declaration
             graphics.GraphicsDevice.VertexDeclaration = vertexDeclaration;
 
+            SceneManager.getSingleton.Draw(gameTime);
+            //pyramid.Draw(gameTime);
+            //cube.Draw(gameTime);
+
+
             // Set the transform for the triangle, then draw it, using the created effect
-            Matrix tempTransform = Matrix.CreateRotationY(0) * triangleTransform;
-            basicEffect.World = tempTransform;
-            basicEffect.VertexColorEnabled = true;
-            basicEffect.View = camera.GetViewMatrix();
-            basicEffect.Projection = camera.Projection;
+            //Matrix tempTransform = Matrix.CreateRotationY(0) * triangleTransform;
+            //basicEffect.World = tempTransform;
+            //basicEffect.VertexColorEnabled = true;
+            //basicEffect.View = camera.GetViewMatrix();
+            //basicEffect.Projection = camera.Projection;
 
-            basicEffect.Begin();
-            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-            {
-                // Begin the current pass
-                pass.Begin();
+            //basicEffect.Begin();
+            //foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+            //{
+            //    // Begin the current pass
+            //    pass.Begin();
 
-                graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
-                    PrimitiveType.TriangleList, triangleData, 0, 6);
+            //    graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
+            //        PrimitiveType.TriangleList, triangleData, 0, 6);
 
-                tempTransform = Matrix.CreateFromYawPitchRoll(0.0f, 0.0f, 0.0f) * rectangleTransform;
+            //    tempTransform = Matrix.CreateFromYawPitchRoll(0.0f, 0.0f, 0.0f) * rectangleTransform;
 
-                basicEffect.World = tempTransform;
-                basicEffect.CommitChanges();
+            //    basicEffect.World = tempTransform;
+            //    basicEffect.CommitChanges();
 
-                // Draw the six different surfaces of the cube
-                graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
-                    PrimitiveType.TriangleList, rectangleData, 0, 12);
+            //    // Draw the six different surfaces of the cube
+            //    graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
+            //        PrimitiveType.TriangleList, rectangleData, 0, 12);
 
-                // End the current pass
-                pass.End();
-            }
+            //    // End the current pass
+            //    pass.End();
+            //}
 
-            basicEffect.End();
+            //basicEffect.End();           
 
             //spriteBatch.Begin();
             ////spriteBatch.DrawString(
             //spriteBatch.End();
 
-            //effect.Begin();
-            //graphics.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, shapeTriangles);
-            //effect.End();
-
             base.Draw(gameTime);
         }
 
+        /*Not Used
         public void BuildTriangle(Vector3 size, Vector3 position)
         {
             triangleTransform = Matrix.CreateTranslation(position);
-            //triangleTransform = Matrix.CreateTranslation(new Vector3(-1.0f, 0.0f, 6.0f));
 
             // Initialize the triangle's data (with Vertex Colors)
-            //triangleData = new VertexPositionColor[12]
             triangleData = new VertexPositionColor[18]
             {
                 new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size, Color.Blue),
@@ -283,7 +293,6 @@ namespace OctreeCulling
         public void BuildCube(Vector3 size, Vector3 position)
         {
             rectangleTransform = Matrix.CreateTranslation(position);
-            //rectangleTransform = Matrix.CreateTranslation(new Vector3(1.5f, 0.0f, -7.0f));
 
             // Initialize the Rectangle's data (Do not need vertex colors)
             rectangleData = new VertexPositionColor[36]
@@ -336,6 +345,19 @@ namespace OctreeCulling
                 new VertexPositionColor(position + new Vector3(-1.0f, -1.0f, 1.0f) * size,Color.Orange),
                 new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size,Color.Orange),
             };
+        }
+         * */
+
+        public void BuildTestCameraFrustum()
+        {
+            BasicCamera testCamera = (BasicCamera)CameraManager.getSingleton.GetCamera("test");
+
+            Plane top = testCamera.Frustum.Top;
+            Plane bottom = testCamera.Frustum.Bottom;
+            Plane left = testCamera.Frustum.Left;
+            Plane right = testCamera.Frustum.Right;
+            Plane near = testCamera.Frustum.Near;
+            Plane far = testCamera.Frustum.Far;            
         }
     }
 }
