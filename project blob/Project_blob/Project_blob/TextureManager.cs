@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob
 {
-    class TextureManager
+    public class TextureManager
     {
         // Objects to ensure singleton design
         private static volatile TextureManager _instance;

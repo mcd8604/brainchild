@@ -10,7 +10,7 @@ namespace Project_blob
 	{
 		public readonly List<Physics.Point> points = new List<Physics.Point>();
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
-		public readonly List<Tri> collidables = new List<Tri>();
+		List<Tri> collidables = new List<Tri>();
 
         public static float springVal = 62.5f;
 
@@ -37,8 +37,8 @@ namespace Project_blob
 
             foreach (Physics.Spring s in springs)
             {
-                s.maximumLengthBeforeExtension += delta;
-                s.minimumLengthBeforeCompression += delta;
+                s.MaximumLengthBeforeExtension += delta;
+                s.MinimumLengthBeforeCompression += delta;
             }
 
         }
@@ -48,7 +48,7 @@ namespace Project_blob
 			Vector3 ret = Vector3.Zero;
 			foreach (Physics.Point p in points)
 			{
-				ret += p.Position;
+				ret += p.CurrentPosition;
 			}
 			return ret / points.Count;
 			//return Center.Position;
@@ -108,10 +108,10 @@ namespace Project_blob
 			{
 				foreach (Physics.Point p in points)
 				{
-					float d = Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition());
+                    float d = Vector3.Distance(t.CurrentPosition, p.CurrentPosition);
                     //if (d > 0 && d < 0.5f)
                     //{
-                        springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.getCurrentPosition(), p.getCurrentPosition()), springVal * 100));
+                    springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), springVal * 100));
                     //}
 				}
 				points.Add(t);
@@ -153,7 +153,7 @@ namespace Project_blob
             //update points
             for (int i = 0; i < vertices.Length; i++)
             {
-                vertices[i].Position = points[i].Position;
+                vertices[i].Position = points[i].CurrentPosition;
                 vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter() ));
             }
         }

@@ -130,7 +130,7 @@ namespace Project_blob
 
         public Physics.Material getMaterial()
         {
-            return new Physics.NormalMaterial();
+            return new Physics.MaterialBasic();
         }
 
         public Vector3[] getCollisionVerticies()

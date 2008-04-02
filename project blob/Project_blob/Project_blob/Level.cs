@@ -5,11 +5,11 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace WorldMakerDemo.Level
+namespace Project_blob
 {
     public static class Level
     {
-        private static Dictionary<String, Area> _areas = new Dictionary<string,Area>();
+        private static Dictionary<String, Area> _areas = new Dictionary<string, Area>();
         private static String _name = "";
 
         public static Dictionary<String, Area> Areas
@@ -59,7 +59,7 @@ namespace WorldMakerDemo.Level
             Console.WriteLine("Level Saved");
         }
 
-        public static void LoadLevel(String levelName, Game1 game)
+        public static void LoadLevel(String levelName, String effectName)
         {
             _name = levelName;
             Stream s = File.Open(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + levelName + ".lev", FileMode.Open);
@@ -69,7 +69,7 @@ namespace WorldMakerDemo.Level
             s.Close();
             foreach (Area area in _areas.Values)
             {
-                area.Display.EffectName = game.EffectName;
+                area.Display.EffectName = effectName;
             }
         }
     }
