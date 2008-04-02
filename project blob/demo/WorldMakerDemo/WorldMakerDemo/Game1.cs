@@ -98,8 +98,14 @@ namespace WorldMakerDemo
 
         protected override void Dispose(bool disposing)
         {
-            modelEditor.Invoke(new ModelEditor.Callback(modelEditor.Close));
-            levelEditor.Invoke(new LevelEditor.Callback(levelEditor.Close));
+            if (!modelEditor.IsDisposed)
+            {
+                modelEditor.Invoke(new ModelEditor.Callback(modelEditor.Close));
+            }
+            if (!levelEditor.IsDisposed)
+            {
+                levelEditor.Invoke(new LevelEditor.Callback(levelEditor.Close));
+            }
             base.Dispose(disposing);
         }
 
