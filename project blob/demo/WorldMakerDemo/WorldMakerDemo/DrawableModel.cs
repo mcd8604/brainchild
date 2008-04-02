@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 namespace WorldMakerDemo
 {
     [Serializable]
-    public class DrawableModel : Drawable 
+    public class DrawableModel : Drawable
     {
         private String _modelName;
 
@@ -48,7 +48,7 @@ namespace WorldMakerDemo
                 m_Name = value;
             }
         }
-        
+
         Matrix m_Position, m_Rotation, m_Scale;
 
         //priority for translation, rotation, and scale
@@ -189,7 +189,7 @@ namespace WorldMakerDemo
             return VertexPositionNormalTexture.SizeInBytes;
         }
 
-        public void DrawMe(){}
+        public void DrawMe() { }
 
         public void DrawMe(ModelMesh mesh, GraphicsDevice graphicsDevice)
         {

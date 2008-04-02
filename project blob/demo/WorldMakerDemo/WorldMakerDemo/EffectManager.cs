@@ -25,9 +25,12 @@ namespace WorldMakerDemo
         //! Instance
         public static EffectManager getSingleton
         {
-            get {
-                if (_instance == null) {
-                    lock (_syncRoot) {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_syncRoot)
+                    {
                         if (_instance == null)
                             _instance = new EffectManager();
                     }

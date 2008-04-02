@@ -42,17 +42,17 @@ namespace WorldMakerDemo
         LevelEditor levelEditor;
         Game1 _gameRef;
 
-        public ModelSelect(LevelEditor p_LE, string[] models, string [] textures, Game1 game)
+        public ModelSelect(LevelEditor p_LE, string[] models, string[] textures, Game1 game)
         {
             InitializeComponent();
             _gameRef = game;
-            
+
             levelEditor = p_LE;
             m_CurrentModel = new DrawableModel("none", "none");
             Random rand = new Random();
             m_CurrentTexture = new TextureInfo(null, rand.Next());
 
-            for( int i = 0; i < models.Length; i++)
+            for (int i = 0; i < models.Length; i++)
                 listBox1.Items.Add(models[i]);
 
             for (int i = 0; i < textures.Length; i++)

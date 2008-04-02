@@ -162,7 +162,7 @@ namespace WorldMakerDemo
             ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Projection = p_Projection;
         }
 
-        public Display(Matrix p_World, String effectName, String p_WorldParameterName, 
+        public Display(Matrix p_World, String effectName, String p_WorldParameterName,
             String p_TextureParameterName, String p_TechniqueName)
         {
             drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
@@ -305,15 +305,15 @@ namespace WorldMakerDemo
                         switch (i)
                         {
                             case 0:
-                                if(d.Position != null)
+                                if (d.Position != null)
                                     drawStack.Push(d.Position);
                                 break;
                             case 1:
-                                if(d.Rotation != null)
+                                if (d.Rotation != null)
                                     drawStack.Push(d.Rotation);
                                 break;
                             case 2:
-                                if(d.Scale != null)
+                                if (d.Scale != null)
                                     drawStack.Push(d.Scale);
                                 break;
                             default:

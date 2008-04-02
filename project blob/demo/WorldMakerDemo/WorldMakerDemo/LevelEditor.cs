@@ -36,7 +36,7 @@ namespace WorldMakerDemo
             InitializeComponent();
 
             _gameRef = game;
-            
+
         }
 
         private void areaListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -68,7 +68,8 @@ namespace WorldMakerDemo
         private void loadButton_Click(object sender, EventArgs e)
         {
             string levelDir = System.Environment.CurrentDirectory + "\\Content\\Levels";
-            if(!System.IO.Directory.Exists(levelDir)) {
+            if (!System.IO.Directory.Exists(levelDir))
+            {
                 System.IO.Directory.CreateDirectory(levelDir);
             }
             string[] levels = System.IO.Directory.GetFiles(levelDir);
@@ -87,7 +88,7 @@ namespace WorldMakerDemo
                 modelListBox.Items.Clear();
                 modelListBox.Update();
                 levelName.Text = _levelSelect.LevelName.Substring(0, _levelSelect.LevelName.LastIndexOf("."));
-                Level.LoadLevel(levelName.Text,_gameRef);
+                Level.LoadLevel(levelName.Text, _gameRef);
                 areaListBox.Items.Clear();
                 foreach (String str in Level.Areas.Keys)
                 {
@@ -191,7 +192,7 @@ namespace WorldMakerDemo
                     {
                         DrawablesToDelete.Add(str);
                     }
-                    modelListBox.Items.Clear();  
+                    modelListBox.Items.Clear();
                 }
             }
         }
@@ -229,7 +230,7 @@ namespace WorldMakerDemo
                     modelListBox.Update();
                 }
 
-                
+
             }
         }
 
@@ -242,6 +243,6 @@ namespace WorldMakerDemo
                 areaListBox.Items[areaListBox.SelectedIndex] = areaTextBox.Text;
             }
         }
-        
+
     }
 }

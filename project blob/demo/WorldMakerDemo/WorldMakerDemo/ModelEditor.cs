@@ -246,7 +246,8 @@ namespace WorldMakerDemo
                 RotationX.Value = (int)rotation_x;
                 SetRotation();
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 RotationXValue.ForeColor = Color.Red;
             }
         }
@@ -259,7 +260,8 @@ namespace WorldMakerDemo
                 RotationY.Value = (int)rotation_y;
                 SetRotation();
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 RotationYValue.ForeColor = Color.Red;
             }
         }
@@ -272,7 +274,8 @@ namespace WorldMakerDemo
                 RotationZ.Value = (int)rotation_z;
                 SetRotation();
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 RotationZValue.ForeColor = Color.Red;
             }
         }
@@ -282,8 +285,6 @@ namespace WorldMakerDemo
         {
             if (m_Game.ActiveDrawable is DrawableModel)
             {
-                //((DrawableModel)m_Game.ActiveDrawable).RotationPriority = 0;
-                //((DrawableModel)m_Game.ActiveDrawable).TranslationPriority = 1;
                 ((DrawableModel)m_Game.ActiveDrawable).Rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(rotation_x)), Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(rotation_y)), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation_z))));
             }
         }
@@ -302,7 +303,8 @@ namespace WorldMakerDemo
                     ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 PositionX.ForeColor = Color.Red;
             }
         }
@@ -316,7 +318,8 @@ namespace WorldMakerDemo
                     ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 PositionY.ForeColor = Color.Red;
             }
         }
@@ -330,7 +333,8 @@ namespace WorldMakerDemo
                     ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 PositionZ.ForeColor = Color.Red;
             }
         }
@@ -368,7 +372,7 @@ namespace WorldMakerDemo
                     PositionZ.Text = theTranslation.Z.ToString();
 
                     ((DrawableModel)m_Game.ActiveDrawable).Rotation.Decompose(out theScale, out theRotation, out theTranslation);
-                   
+
                     //RotationXValue.Text = MathHelper.ToDegrees(theRotation.X).ToString();
                     //RotationYValue.Text = MathHelper.ToDegrees(theRotation.Y).ToString();
                     //RotationZValue.Text = MathHelper.ToDegrees(theRotation.Z).ToString();

@@ -10,7 +10,7 @@ namespace Project_blob.Level
 {
     public static class Level
     {
-        private static Dictionary<String, Area> _areas = new Dictionary<string,Area>();
+        private static Dictionary<String, Area> _areas = new Dictionary<string, Area>();
         private static String _name = "";
 
         public static Dictionary<String, Area> Areas

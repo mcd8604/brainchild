@@ -22,13 +22,14 @@ namespace WorldMakerDemo
         SpriteBatch spriteBatch;
         ContentManager content;
 
-        Vector3 lightPos = new Vector3(0,20,0);
+        Vector3 lightPos = new Vector3(0, 20, 0);
 
         private Drawable _activeDrawable;
         public Drawable ActiveDrawable
         {
             get { return _activeDrawable; }
-            set { 
+            set
+            {
                 _activeDrawable = value;
                 modelEditor.UpdateValues();
             }
@@ -142,7 +143,7 @@ namespace WorldMakerDemo
         /// </summary>
         protected override void LoadContent()
         {
-            if(EFFECT_TYPE != "basic")
+            if (EFFECT_TYPE != "basic")
                 EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
 
 
@@ -165,12 +166,14 @@ namespace WorldMakerDemo
             //ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
             //ModelManager.getSingleton.AddModel("ground", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ground"));
 
-            if(System.IO.Directory.Exists(@"Content\Models"))
+            if (System.IO.Directory.Exists(@"Content\Models"))
             {
                 string[] modelPaths = System.IO.Directory.GetFiles(@"Content\Models");
-                foreach(string s in modelPaths) {
+                foreach (string s in modelPaths)
+                {
                     string modelFile = s.Substring(s.LastIndexOf("\\") + 1);
-                    if(modelFile.EndsWith(".xnb")) {
+                    if (modelFile.EndsWith(".xnb"))
+                    {
                         string modelName = modelFile.Remove(modelFile.LastIndexOf('.'));
                         ModelManager.getSingleton.AddModel(modelName, content.Load<Model>(@"Content\\Models\\" + modelName));
                     }
@@ -252,15 +255,15 @@ namespace WorldMakerDemo
             _activeArea.Display.ShowAxis = true;
         }
 
-      
+
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
-        protected override void  UnloadContent()
+        protected override void UnloadContent()
         {
-                content.Unload();
+            content.Unload();
         }
 
         /// <summary>
