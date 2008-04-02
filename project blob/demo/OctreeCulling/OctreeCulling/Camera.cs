@@ -276,14 +276,14 @@ namespace OctreeCulling
 
             BoundingFrustumDrawData = new VertexPositionColor[8]
             {
-                new VertexPositionColor(frustumPoints[0], Color.Blue),
-                new VertexPositionColor(frustumPoints[1], Color.Blue),
-                new VertexPositionColor(frustumPoints[2], Color.Blue),
-                new VertexPositionColor(frustumPoints[3], Color.Blue),
-                new VertexPositionColor(frustumPoints[4], Color.Blue),
-                new VertexPositionColor(frustumPoints[5], Color.Blue),
-                new VertexPositionColor(frustumPoints[6], Color.Blue),
-                new VertexPositionColor(frustumPoints[7], Color.Blue),
+                new VertexPositionColor(Position + frustumPoints[0], Color.Blue),
+                new VertexPositionColor(Position + frustumPoints[1], Color.Blue),
+                new VertexPositionColor(Position + frustumPoints[2], Color.Blue),
+                new VertexPositionColor(Position + frustumPoints[3], Color.Blue),
+                new VertexPositionColor(Position + frustumPoints[4], Color.Blue),
+                new VertexPositionColor(Position + frustumPoints[5], Color.Blue),
+                new VertexPositionColor(Position + frustumPoints[6], Color.Blue),
+                new VertexPositionColor(Position + frustumPoints[7], Color.Blue),
                 //new VertexPositionColor(Position + new Vector3(BoundingBox.Min.X, BoundingBox.Min.Y, BoundingBox.Min.Z), Color.Red),
                 //new VertexPositionColor(Position + new Vector3(BoundingBox.Max.X, BoundingBox.Min.Y, BoundingBox.Min.Z), Color.Red),
                 //new VertexPositionColor(Position + new Vector3(BoundingBox.Max.X, BoundingBox.Min.Y, BoundingBox.Max.Z), Color.Red),
