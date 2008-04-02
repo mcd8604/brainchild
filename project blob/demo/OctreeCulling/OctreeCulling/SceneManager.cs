@@ -35,6 +35,13 @@ namespace OctreeCulling
             get { return _sceneObjectCount; }
         }
 
+        private bool _cull = false;
+        public bool Cull
+        {
+            get { return _cull; }
+            set { _cull = value; }
+        }
+
         /// <summary>
         /// The root of the scene graph
         /// </summary>
@@ -72,7 +79,15 @@ namespace OctreeCulling
             _drawn = 0;
             _culled = 0;
 
-            _root.Draw(gameTime);
+            if (_cull)
+            {
+                //Draw will be replaced with Culling Draw
+                _root.CullDraw(gameTime);
+            }
+            else
+            {
+                _root.Draw(gameTime);
+            }
         }
 
         public void AddObject(SceneObject sceneObject)

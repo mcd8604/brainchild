@@ -58,6 +58,20 @@ namespace OctreeCulling
             set { _boundingBox = value; }
         }
 
+        private VertexPositionColor[] _boundingBoxDrawData;
+        public VertexPositionColor[] BoundingBoxDrawData
+        {
+            get { return _boundingBoxDrawData; }
+            set { _boundingBoxDrawData = value; }
+        }
+
+        private int[] _boundingBoxIndex;
+        public int[] BoundingBoxIndex
+        {
+            get { return _boundingBoxIndex; }
+            set { _boundingBoxIndex = value; }
+        }
+
         /// <summary>
         /// Bounding sphere of the object
         /// </summary>
@@ -90,6 +104,18 @@ namespace OctreeCulling
         protected virtual void CreateBoundingBox()
         {
 
+        }
+
+        public virtual BoundingBox GetBoundingBoxTransformed()
+        {
+            Vector3 min, max;
+            min = BoundingBox.Min;
+            max = BoundingBox.Max;
+
+            min = Vector3.Transform(BoundingBox.Min, Matrix.CreateTranslation(Position));
+            max = Vector3.Transform(BoundingBox.Max, Matrix.CreateTranslation(Position));
+
+            return new BoundingBox(min, max);
         }
 
         public virtual void Draw(GameTime gameTime)
