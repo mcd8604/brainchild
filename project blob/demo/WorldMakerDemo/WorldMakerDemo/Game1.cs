@@ -131,14 +131,36 @@ namespace WorldMakerDemo
                 EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
 
 
-            TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Models\\free-grass-texture"));
-            TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
-            TextureManager.getSingleton.AddTexture("point_text", Content.Load<Texture2D>(@"Textures\\point_text"));
+            //TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Models\\free-grass-texture"));
+            //TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
+            //TextureManager.getSingleton.AddTexture("point_text", Content.Load<Texture2D>(@"Textures\\point_text"));
 
-            ModelManager.getSingleton.AddModel("cube", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube"));
-            ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
-            ModelManager.getSingleton.AddModel("ground", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ground"));
+            if (System.IO.Directory.Exists(@"Content\Textures"))
+            {
+                string[] texturePaths = System.IO.Directory.GetFiles(@"Content\Textures");
+                foreach (string s in texturePaths)
+                {
+                    string textureFile = s.Substring(s.LastIndexOf("\\") + 1);
+                    string textureName = textureFile.Remove(textureFile.LastIndexOf('.'));
+                    TextureManager.getSingleton.AddTexture(textureName, content.Load<Texture2D>(@"Content\\Textures\\" + textureName));
+                }
+            }
 
+            //ModelManager.getSingleton.AddModel("cube", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube"));
+            //ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
+            //ModelManager.getSingleton.AddModel("ground", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ground"));
+
+            if(System.IO.Directory.Exists(@"Content\Models"))
+            {
+                string[] modelPaths = System.IO.Directory.GetFiles(@"Content\Models");
+                foreach(string s in modelPaths) {
+                    string modelFile = s.Substring(s.LastIndexOf("\\") + 1);
+                    if(modelFile.EndsWith(".xnb")) {
+                        string modelName = modelFile.Remove(modelFile.LastIndexOf('.'));
+                        ModelManager.getSingleton.AddModel(modelName, content.Load<Model>(@"Content\\Models\\" + modelName));
+                    }
+                }
+            }
             graphics.GraphicsDevice.VertexDeclaration = new VertexDeclaration(
                 graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
