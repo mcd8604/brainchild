@@ -11,6 +11,8 @@ namespace WorldMakerDemo
 {
     public partial class LevelEditor : Form
     {
+        public delegate void Callback();
+
         private DrawableInfo _drawableInfo;
         private Game1 _gameRef;
         private ModelSelect _modelSelect;

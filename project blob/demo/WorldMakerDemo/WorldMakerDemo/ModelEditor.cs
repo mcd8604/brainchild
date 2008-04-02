@@ -11,6 +11,9 @@ namespace WorldMakerDemo
 {
     public partial class ModelEditor : Form
     {
+
+        public delegate void Callback();
+
         private Game1 m_Game;
         private Drawable _drawableRef;
 
@@ -48,7 +51,8 @@ namespace WorldMakerDemo
                 ScaleX.Minimum = Convert.ToInt32(MinScaleX.Text);
                 MinScaleX.ForeColor = Color.Black;
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 MinScaleX.ForeColor = Color.Red;
             }
         }
@@ -194,7 +198,6 @@ namespace WorldMakerDemo
         {
             if (m_Game.ActiveDrawable is DrawableModel)
             {
-                
                 ((DrawableModel)m_Game.ActiveDrawable).Scale = Matrix.CreateScale((float)Convert.ToInt32(ScaleXValue.Text), (float)Convert.ToInt32(ScaleYValue.Text), (float)Convert.ToInt32(ScaleZValue.Text));
             }
         }
@@ -239,33 +242,39 @@ namespace WorldMakerDemo
         {
             try
             {
-                rotation_x = (float)Convert.ToDouble(RotationXValue.Text);
+                rotation_x = Convert.ToSingle(RotationXValue.Text);
                 RotationX.Value = (int)rotation_x;
                 SetRotation();
             }
-            catch (Exception) { }
+            catch (Exception) {
+                RotationXValue.ForeColor = Color.Red;
+            }
         }
 
         private void RotationYValue_TextChanged(object sender, EventArgs e)
         {
-             try
+            try
             {
-                rotation_y = (float)Convert.ToDouble(RotationYValue.Text);
+                rotation_y = Convert.ToSingle(RotationYValue.Text);
                 RotationY.Value = (int)rotation_y;
                 SetRotation();
             }
-            catch (Exception) { }
+            catch (Exception) {
+                RotationYValue.ForeColor = Color.Red;
+            }
         }
 
         private void RotationZValue_TextChanged(object sender, EventArgs e)
         {
-           try
+            try
             {
-                rotation_z = (float)Convert.ToDouble(RotationZValue.Text);
+                rotation_z = Convert.ToSingle(RotationZValue.Text);
                 RotationZ.Value = (int)rotation_z;
                 SetRotation();
             }
-            catch (Exception) { }
+            catch (Exception) {
+                RotationZValue.ForeColor = Color.Red;
+            }
         }
         #endregion
 
@@ -293,7 +302,9 @@ namespace WorldMakerDemo
                     ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
                 }
             }
-            catch (Exception) { }
+            catch (Exception) {
+                PositionX.ForeColor = Color.Red;
+            }
         }
 
         private void PositionY_TextChanged(object sender, EventArgs e)
@@ -305,7 +316,9 @@ namespace WorldMakerDemo
                     ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
                 }
             }
-            catch (Exception) { }
+            catch (Exception) {
+                PositionY.ForeColor = Color.Red;
+            }
         }
 
         private void PositionZ_TextChanged(object sender, EventArgs e)
@@ -317,7 +330,9 @@ namespace WorldMakerDemo
                     ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
                 }
             }
-            catch (Exception) { }
+            catch (Exception) {
+                PositionZ.ForeColor = Color.Red;
+            }
         }
         #endregion
 
@@ -329,9 +344,50 @@ namespace WorldMakerDemo
             }
         }
 
-        private void ModelName_TextChanged(object sender, EventArgs e)
+        public void UpdateValues()
         {
 
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Callback(this.UpdateValues));
+            }
+            else
+            {
+
+                if (m_Game.ActiveDrawable is DrawableModel)
+                {
+
+                    Vector3 theTranslation;
+                    Quaternion theRotation;
+                    Vector3 theScale;
+
+                    ((DrawableModel)m_Game.ActiveDrawable).Position.Decompose(out theScale, out theRotation, out theTranslation);
+
+                    PositionX.Text = theTranslation.X.ToString();
+                    PositionY.Text = theTranslation.Y.ToString();
+                    PositionZ.Text = theTranslation.Z.ToString();
+
+                    ((DrawableModel)m_Game.ActiveDrawable).Rotation.Decompose(out theScale, out theRotation, out theTranslation);
+                   
+                    //RotationXValue.Text = MathHelper.ToDegrees(theRotation.X).ToString();
+                    //RotationYValue.Text = MathHelper.ToDegrees(theRotation.Y).ToString();
+                    //RotationZValue.Text = MathHelper.ToDegrees(theRotation.Z).ToString();
+
+                    RotationXValue.Text = "-";
+                    RotationYValue.Text = "-";
+                    RotationZValue.Text = "-";
+
+                    ScaleXValue.Text = theScale.X.ToString();
+                    ScaleYValue.Text = theScale.Y.ToString();
+                    ScaleZValue.Text = theScale.Z.ToString();
+                }
+            }
+
+        }
+
+        private void ModelName_TextChanged(object sender, EventArgs e)
+        {
+            throw new Exception("Not Implemented");
         }
     }
 }
