@@ -55,7 +55,7 @@ namespace Physics
 
         Material getMaterial();
 
-		Vector3[] getCollisionVerticies();
+		//Vector3[] getCollisionVerticies();
 		Vector3[] getNextCollisionVerticies();
 
 		void test( Point p );
