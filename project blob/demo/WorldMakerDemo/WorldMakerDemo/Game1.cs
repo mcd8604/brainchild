@@ -292,25 +292,21 @@ namespace WorldMakerDemo
             {
                 //strif to the left
                 this.focusPoint += Horizontal;
-                //Console.WriteLine(focusPoint);
             }
             if (InputHandler.IsKeyPressed(Keys.D))
             {
                 //strif to the right
                 this.focusPoint -= Horizontal;
-                //Console.WriteLine(focusPoint);
             }
             if (InputHandler.IsKeyPressed(Keys.W))
             {
                 //move foward
                 this.focusPoint += RunVector;
-                //Console.WriteLine(focusPoint);
             }
             if (InputHandler.IsKeyPressed(Keys.S))
             {
                 //move backwards
                 this.focusPoint -= RunVector;
-                //Console.WriteLine(focusPoint);
             }
 
             if (follow)
