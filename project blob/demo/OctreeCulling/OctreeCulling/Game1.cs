@@ -58,6 +58,13 @@ namespace OctreeCulling
         int frames = 0;
         string fps = "";
 
+        //Test variables
+        List<SceneObject> _objects;
+        bool _cull = false;
+        int _culled = 0;
+        int _drawn = 0;
+        int _total = 0;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -74,6 +81,8 @@ namespace OctreeCulling
         {
             // TODO: Add your initialization logic here
             //_cameraManager = new CameraManager();
+
+            _objects = new List<SceneObject>();
 
             worldMatrix = Matrix.Identity;
 
@@ -119,8 +128,9 @@ namespace OctreeCulling
             SceneManager.getSingleton.AddObject(pyramid);
             SceneManager.getSingleton.AddObject(cube);
 
-            //BuildTriangle(Vector3.One, new Vector3(-1.0f, 0.0f, 6.0f));
-            //BuildCube(Vector3.One, new Vector3(1.5f, 0.0f, 7.0f));
+            _objects.Add(pyramid);
+            _objects.Add(cube);
+            _total = _objects.Count;
         }
 
         /// <summary>
@@ -259,6 +269,15 @@ namespace OctreeCulling
                 {
                     culling = "Off";
                 }
+                //_cull = !_cull;
+                //if (_cull)
+                //{
+                //    culling = "On";
+                //}
+                //else
+                //{
+                //    culling = "Off";
+                //}
             }
 
             base.Update(gameTime);
@@ -279,6 +298,32 @@ namespace OctreeCulling
 
 
             SceneManager.getSingleton.Draw(gameTime);
+
+            //Test
+            //_culled = 0;
+            //_drawn = 0;
+            //foreach(SceneObject obj in _objects)
+            //{
+            //    if (_cull)
+            //    {
+            //        if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(obj.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
+            //        {
+            //            ++_culled;
+            //        }
+            //        else
+            //        {
+            //            obj.Draw(gameTime);
+            //            ++_drawn;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        obj.Draw(gameTime);
+            //        ++_drawn;
+            //    }
+            //}
+            //End Test
+
             //pyramid.Draw(gameTime);
             //cube.Draw(gameTime);
 
@@ -315,6 +360,12 @@ namespace OctreeCulling
             graphics.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 
             spriteBatch.Begin();
+
+            //spriteBatch.DrawString(font, "FPS: " + fps, new Vector2(10.0f, 10.0f), Color.White);
+            //spriteBatch.DrawString(font, "Culling: " + culling, new Vector2(10.0f, 30.0f), Color.White);
+            //spriteBatch.DrawString(font, "Object Count: " + _total, new Vector2(10.0f, 50.0f), Color.White);
+            //spriteBatch.DrawString(font, "Objects Drawn: " + _drawn, new Vector2(10.0f, 70.0f), Color.White);
+            //spriteBatch.DrawString(font, "Objects Culled: " + _culled, new Vector2(10.0f, 90.0f), Color.White);
 
             spriteBatch.DrawString(font, "FPS: " + fps, new Vector2(10.0f, 10.0f), Color.White);
             spriteBatch.DrawString(font, "Culling: " + culling, new Vector2(10.0f, 30.0f), Color.White);

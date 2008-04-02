@@ -40,6 +40,7 @@ namespace OctreeCulling
                 SceneManager.getSingleton.Drawn += 1;
                 _sceneObject.Draw(gameTime);
             }
+            else
             {
                 SceneManager.getSingleton.Culled += 1;
             }
@@ -51,7 +52,8 @@ namespace OctreeCulling
             //containment = CameraManager.getSingleton.ActiveCamera.Frustum.Contains(_sceneObject.BoundingBox);
 
             //if (CameraManager.getSingleton.GetCamera("test").Frustum.Contains(_sceneObject.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
-            if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(_sceneObject.BoundingBox) == ContainmentType.Disjoint)
+            if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(_sceneObject.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
+            //if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(_sceneObject.BoundingBox) == ContainmentType.Disjoint)
             {
                 _culled = true;
 
