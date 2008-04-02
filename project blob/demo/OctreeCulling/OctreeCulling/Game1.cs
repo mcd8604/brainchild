@@ -92,6 +92,7 @@ namespace OctreeCulling
 
             camera = new BasicCamera();
             camera.AspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
+            camera.FarPlane = 10.0f;
             CameraManager.getSingleton.AddCamera("test", camera);
 
             CameraManager.getSingleton.SetActiveCamera("default");
@@ -327,7 +328,7 @@ namespace OctreeCulling
             //pyramid.Draw(gameTime);
             //cube.Draw(gameTime);
 
-            /*
+            //*
             //Draw camera frustum
             basicEffect.World = Matrix.CreateTranslation(CameraManager.getSingleton.GetCamera("test").Position);
             //basicEffect.World = Matrix.CreateWorld(CameraManager.getSingleton.GetCamera("test").Position,
@@ -355,7 +356,7 @@ namespace OctreeCulling
                 pass.End();
             }
             basicEffect.End(); 
-             * */
+            // * */
 
             graphics.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 
