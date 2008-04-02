@@ -25,9 +25,12 @@ namespace WorldMakerDemo
         //! Instance
         public static ModelManager getSingleton
         {
-            get {
-                if (_instance == null) {
-                    lock (_syncRoot) {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_syncRoot)
+                    {
                         if (_instance == null)
                             _instance = new ModelManager();
                     }
@@ -48,7 +51,8 @@ namespace WorldMakerDemo
 
         public void AddModel(String modelName, Model model)
         {
-            if (!_models.ContainsKey(modelName)){
+            if (!_models.ContainsKey(modelName))
+            {
                 _models.Add(modelName, model);
             }
         }

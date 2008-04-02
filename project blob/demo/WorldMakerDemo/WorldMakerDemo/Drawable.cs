@@ -4,14 +4,14 @@ using System;
 
 namespace WorldMakerDemo
 {
-	public interface Drawable
-	{
-		//VertexPositionColor[] getTriangleVertexes();
-		VertexBuffer getVertexBuffer();
+    public interface Drawable
+    {
+        //VertexPositionColor[] getTriangleVertexes();
+        VertexBuffer getVertexBuffer();
 
-		int getVertexStride();
+        int getVertexStride();
 
-		void DrawMe();
+        void DrawMe();
 
-	}
+    }
 }
