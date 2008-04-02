@@ -8,8 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using Project_blob;
 
-namespace Project_blob
+namespace WorldMaker
 {
     /// <summary>
     /// This is the main type for your game
@@ -20,13 +21,17 @@ namespace Project_blob
         SpriteBatch spriteBatch;
         ContentManager content;
 
-        Vector3 lightPos = new Vector3(0,20,0);
+        Vector3 lightPos = new Vector3(0, 20, 0);
 
-        Drawable _activeDrawable;
+        private Drawable _activeDrawable;
         public Drawable ActiveDrawable
         {
             get { return _activeDrawable; }
-            set { _activeDrawable = value; }
+            set
+            {
+                _activeDrawable = value;
+                modelEditor.UpdateValues();
+            }
         }
 
         Area _activeArea;
@@ -72,7 +77,7 @@ namespace Project_blob
         public Vector3 focusPoint = new Vector3(0, 0, 0);
         Vector3 Up = Vector3.Up;
         Vector3 Horizontal = new Vector3();
-        Vector3 Run = new Vector3();
+        Vector3 RunVector = new Vector3();
 
         static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
         Vector3 cameraPosition = defaultCameraPosition;
@@ -80,11 +85,27 @@ namespace Project_blob
         float cameraLength = 20f;
         float playerCamMulti = 0.1f;
 
+        static ModelEditor modelEditor;
+        static LevelEditor levelEditor;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             content = new ContentManager(Services);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!modelEditor.IsDisposed)
+            {
+                modelEditor.Invoke(new ModelEditor.Callback(modelEditor.Close));
+            }
+            if (!levelEditor.IsDisposed)
+            {
+                levelEditor.Invoke(new LevelEditor.Callback(levelEditor.Close));
+            }
+            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -102,6 +123,22 @@ namespace Project_blob
 
             InputHandler.LoadDefaultBindings();
 
+            //gui
+            System.Windows.Forms.Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+
+            modelEditor = new ModelEditor(this);
+            new System.Threading.Thread(delegate()
+            {
+                System.Windows.Forms.Application.Run(modelEditor);
+            }).Start();
+
+            levelEditor = new LevelEditor(this);
+            new System.Threading.Thread(delegate()
+            {
+                System.Windows.Forms.Application.Run(levelEditor);
+            }).Start();
+
             base.Initialize();
         }
 
@@ -111,8 +148,13 @@ namespace Project_blob
         /// </summary>
         protected override void LoadContent()
         {
-            if(EFFECT_TYPE != "basic")
+            if (EFFECT_TYPE != "basic")
                 EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
+
+
+            //TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Models\\free-grass-texture"));
+            //TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
+            //TextureManager.getSingleton.AddTexture("point_text", Content.Load<Texture2D>(@"Textures\\point_text"));
 
             if (System.IO.Directory.Exists(@"Content\Textures"))
             {
@@ -124,6 +166,10 @@ namespace Project_blob
                     TextureManager.getSingleton.AddTexture(textureName, content.Load<Texture2D>(@"Content\\Textures\\" + textureName));
                 }
             }
+
+            //ModelManager.getSingleton.AddModel("cube", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube"));
+            //ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
+            //ModelManager.getSingleton.AddModel("ground", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ground"));
 
             if (System.IO.Directory.Exists(@"Content\Models"))
             {
@@ -212,20 +258,17 @@ namespace Project_blob
 
             _activeArea.Display.TextureName = POINT_TEXT;
             _activeArea.Display.ShowAxis = true;
-
-            //Load Default Level
-            Level.LoadLevel("StickBall", this.EffectName);
         }
 
-      
+
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
-        protected override void  UnloadContent()
+        protected override void UnloadContent()
         {
-                content.Unload();
+            content.Unload();
         }
 
         /// <summary>
@@ -242,31 +285,27 @@ namespace Project_blob
                 this.Exit();
             }
             Horizontal = Vector3.Normalize(Vector3.Cross(focusPoint - cameraPosition, Up));
-            Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
+            RunVector = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
             if (InputHandler.IsKeyPressed(Keys.A))
             {
                 //strif to the left
                 this.focusPoint += Horizontal;
-                //Console.WriteLine(focusPoint);
             }
             if (InputHandler.IsKeyPressed(Keys.D))
             {
                 //strif to the right
                 this.focusPoint -= Horizontal;
-                //Console.WriteLine(focusPoint);
             }
             if (InputHandler.IsKeyPressed(Keys.W))
             {
                 //move foward
-                this.focusPoint += Run;
-                //Console.WriteLine(focusPoint);
+                this.focusPoint += RunVector;
             }
             if (InputHandler.IsKeyPressed(Keys.S))
             {
                 //move backwards
-                this.focusPoint -= Run;
-                //Console.WriteLine(focusPoint);
+                this.focusPoint -= RunVector;
             }
 
             if (follow)
@@ -321,6 +360,16 @@ namespace Project_blob
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            foreach (String str in LevelEditor.DrawablesToDelete)
+            {
+                _activeArea.RemoveDrawable(str);
+            }
+            LevelEditor.DrawablesToDelete.Clear();
+            foreach (DrawableInfo drawableInfo in LevelEditor.DrawablesToAdd)
+            {
+                _activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureInfo, drawableInfo.drawable);
+            }
+            LevelEditor.DrawablesToAdd.Clear();
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
             _activeArea.Display.Draw(graphics.GraphicsDevice);
 
