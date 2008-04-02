@@ -52,6 +52,8 @@ namespace OctreeCulling
             //Create general projection matrix for the screen
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),
                     AspectRatio, 0.01f, 10000.0f);
+
+            UpdatePosition(Position);
         }
 
         /// <summary>
@@ -76,6 +78,8 @@ namespace OctreeCulling
             View = Matrix.CreateLookAt(Position, LookAt, Vector3.Up);
 
             Frustum = new BoundingFrustum(Matrix.Multiply(View, Projection));
+
+            CreateBoundingFrustrumWireFrame();
         }
 
         /// <summary>
@@ -202,16 +206,24 @@ namespace OctreeCulling
         public override void RotateCamera()
         {
             //Figure out rotation about x, y, z
-            cameraRotation = Matrix.CreateFromYawPitchRoll(Yaw, Pitch, _roll);
+            //cameraRotation = Matrix.CreateFromYawPitchRoll(Yaw, Pitch, _roll);
+
+            Matrix rotationMatrix = Matrix.CreateRotationY(Yaw);
+            Matrix pitchMatrix = Matrix.Multiply(Matrix.CreateRotationX(Pitch), rotationMatrix);
+            transRef = Vector3.Transform(cameraRef, pitchMatrix);
 
             //Calculate transform between constant reference position and our rotation
-            transRef = Vector3.Transform(cameraRef, cameraRotation);
+            //transRef = Vector3.Transform(cameraRef, cameraRotation);
 
             //Look at the angle reference + position offset
             LookAt = transRef + Position;
 
             //Create view matrix for update
             View = Matrix.CreateLookAt(Position, LookAt, Vector3.Up);
+
+            Frustum = new BoundingFrustum(Matrix.Multiply(View, Projection));
+
+            CreateBoundingFrustrumWireFrame();
         }
 
         public override void Reset()
@@ -230,6 +242,10 @@ namespace OctreeCulling
 
             //Create a general view matrix from start position and original lookat
             View = Matrix.CreateLookAt(Position, LookAt, Vector3.Up);
+
+            Frustum = new BoundingFrustum(Matrix.Multiply(View, Projection));
+
+            CreateBoundingFrustrumWireFrame();
         }
     }
 }

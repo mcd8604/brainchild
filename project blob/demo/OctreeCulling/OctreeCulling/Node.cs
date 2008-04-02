@@ -31,5 +31,13 @@ namespace OctreeCulling
                 node.Draw(gameTime);
             }
         }
+
+        public virtual void CullDraw(GameTime gameTime)
+        {
+            foreach (Node node in _nodes)
+            {
+                node.CullDraw(gameTime);
+            }
+        }
     }
 }

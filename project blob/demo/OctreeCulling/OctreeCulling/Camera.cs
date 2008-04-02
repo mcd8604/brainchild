@@ -126,6 +126,20 @@ namespace OctreeCulling
             set { _frustum = value; }
         }
 
+        private VertexPositionColor[] _boundingFrustumDrawData;
+        public VertexPositionColor[] BoundingFrustumDrawData
+        {
+            get { return _boundingFrustumDrawData; }
+            set { _boundingFrustumDrawData = value; }
+        }
+
+        private int[] _boundingFrustumIndex;
+        public int[] BoundingFrustumIndex
+        {
+            get { return _boundingFrustumIndex; }
+            set { _boundingFrustumIndex = value; }
+        }
+
         //Screen's Aspect ratio
         private float _aspectRatio = 0.0f;
         public float AspectRatio
@@ -155,7 +169,14 @@ namespace OctreeCulling
         public float Yaw
         {
             get { return _yaw; }
-            set { _yaw = value; }
+            set 
+            {
+                _yaw = value;
+                //if (_yaw >= MathHelper.Pi * 2)
+                //    _yaw = MathHelper.ToRadians(0.0f);
+                //else if (_yaw <= -MathHelper.Pi * 2)
+                //    _yaw = MathHelper.ToRadians(0.0f);
+            }
         }
 
         //Amount that the camera will turn about the x-axis
@@ -163,7 +184,14 @@ namespace OctreeCulling
         public float Pitch
         {
             get { return _pitch; }
-            set { _pitch = value; }
+            set 
+            { 
+                _pitch = value;
+                //if (_pitch >= MathHelper.ToRadians(75))
+                //    _pitch = MathHelper.ToRadians(75);
+                //else if (_pitch <= MathHelper.ToRadians(-75))
+                //    _pitch = MathHelper.ToRadians(-75);
+            }
         }
 
         public Camera()
@@ -239,6 +267,60 @@ namespace OctreeCulling
         public virtual void RotateCamera()
         {
 
+        }
+
+        public virtual void CreateBoundingFrustrumWireFrame()
+        {
+            Vector3[] frustumPoints = new Vector3[8];
+            frustumPoints = _frustum.GetCorners();
+
+            BoundingFrustumDrawData = new VertexPositionColor[8]
+            {
+                new VertexPositionColor(frustumPoints[0], Color.Blue),
+                new VertexPositionColor(frustumPoints[1], Color.Blue),
+                new VertexPositionColor(frustumPoints[2], Color.Blue),
+                new VertexPositionColor(frustumPoints[3], Color.Blue),
+                new VertexPositionColor(frustumPoints[4], Color.Blue),
+                new VertexPositionColor(frustumPoints[5], Color.Blue),
+                new VertexPositionColor(frustumPoints[6], Color.Blue),
+                new VertexPositionColor(frustumPoints[7], Color.Blue),
+                //new VertexPositionColor(Position + new Vector3(BoundingBox.Min.X, BoundingBox.Min.Y, BoundingBox.Min.Z), Color.Red),
+                //new VertexPositionColor(Position + new Vector3(BoundingBox.Max.X, BoundingBox.Min.Y, BoundingBox.Min.Z), Color.Red),
+                //new VertexPositionColor(Position + new Vector3(BoundingBox.Max.X, BoundingBox.Min.Y, BoundingBox.Max.Z), Color.Red),
+                //new VertexPositionColor(Position + new Vector3(BoundingBox.Min.X, BoundingBox.Min.Y, BoundingBox.Max.Z), Color.Red),
+                //new VertexPositionColor(Position + new Vector3(BoundingBox.Min.X, BoundingBox.Max.Y, BoundingBox.Min.Z), Color.Red),
+                //new VertexPositionColor(Position + new Vector3(BoundingBox.Max.X, BoundingBox.Max.Y, BoundingBox.Min.Z), Color.Red),
+                //new VertexPositionColor(Position + new Vector3(BoundingBox.Max.X, BoundingBox.Max.Y, BoundingBox.Max.Z), Color.Red),
+                //new VertexPositionColor(Position + new Vector3(BoundingBox.Min.X, BoundingBox.Max.Y, BoundingBox.Max.Z), Color.Red)
+            };
+
+            BoundingFrustumIndex = new int[24];
+            BoundingFrustumIndex[0] = 0;
+            BoundingFrustumIndex[1] = 1;
+            BoundingFrustumIndex[2] = 1;
+            BoundingFrustumIndex[3] = 2;
+            BoundingFrustumIndex[4] = 2;
+            BoundingFrustumIndex[5] = 3;
+            BoundingFrustumIndex[6] = 3;
+            BoundingFrustumIndex[7] = 0;
+
+            BoundingFrustumIndex[8] = 4;
+            BoundingFrustumIndex[9] = 5;
+            BoundingFrustumIndex[10] = 5;
+            BoundingFrustumIndex[11] = 6;
+            BoundingFrustumIndex[12] = 6;
+            BoundingFrustumIndex[13] = 7;
+            BoundingFrustumIndex[14] = 7;
+            BoundingFrustumIndex[15] = 4;
+
+            BoundingFrustumIndex[16] = 0;
+            BoundingFrustumIndex[17] = 4;
+            BoundingFrustumIndex[18] = 1;
+            BoundingFrustumIndex[19] = 5;
+            BoundingFrustumIndex[20] = 2;
+            BoundingFrustumIndex[21] = 6;
+            BoundingFrustumIndex[22] = 3;
+            BoundingFrustumIndex[23] = 7;
         }
     }
 }

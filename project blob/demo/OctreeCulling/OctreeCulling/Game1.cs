@@ -38,6 +38,8 @@ namespace OctreeCulling
 
         bool drawMode = true;
 
+        string culling = "Off";
+
         Pyramid pyramid;
         Cube cube;
 
@@ -131,6 +133,8 @@ namespace OctreeCulling
         protected override void Update(GameTime gameTime)
         {
             CameraManager.getSingleton.ActiveCamera.Update(gameTime);
+            
+            InputHandler.Update();
 
             // Update the FPS counter.
             time += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -149,19 +153,27 @@ namespace OctreeCulling
 
             //Move forward
             if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
                 CameraManager.getSingleton.ActiveCamera.MoveForward();
+            }
 
             //Move Back
             if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
                 CameraManager.getSingleton.ActiveCamera.MoveBack();
+            }
 
             //Strafe Left
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
                 CameraManager.getSingleton.ActiveCamera.StrafeLeft();
+            }
 
             //Strafe Right
             if (Keyboard.GetState().IsKeyDown(Keys.E))
+            {
                 CameraManager.getSingleton.ActiveCamera.StrafeRight();
+            }
 
             //Turn left
             if (Keyboard.GetState().IsKeyDown(Keys.A))
@@ -212,7 +224,7 @@ namespace OctreeCulling
                 CameraManager.getSingleton.ActiveCamera.Reset();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Tab))
+            if (InputHandler.IsKeyPressed(Keys.Tab))
             {
                 drawMode = !drawMode;
 
@@ -225,6 +237,20 @@ namespace OctreeCulling
                 {
                     graphics.GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
                     graphics.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+                }
+            }
+
+            if (InputHandler.IsKeyPressed(Keys.C))
+            {
+                SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
+
+                if (SceneManager.getSingleton.Cull)
+                {
+                    culling = "On";
+                }
+                else
+                {
+                    culling = "Off";
                 }
             }
 
@@ -249,47 +275,45 @@ namespace OctreeCulling
             //pyramid.Draw(gameTime);
             //cube.Draw(gameTime);
 
-            #region drawing no longer used
-            // Set the transform for the triangle, then draw it, using the created effect
-            //Matrix tempTransform = Matrix.CreateRotationY(0) * triangleTransform;
-            //basicEffect.World = tempTransform;
-            //basicEffect.VertexColorEnabled = true;
-            //basicEffect.View = camera.GetViewMatrix();
-            //basicEffect.Projection = camera.Projection;
+            /*
+            //Draw camera frustum
+            basicEffect.World = Matrix.CreateTranslation(CameraManager.getSingleton.GetCamera("test").Position);
+            //basicEffect.World = Matrix.CreateWorld(CameraManager.getSingleton.GetCamera("test").Position,
+            //    CameraManager.getSingleton.GetCamera("test").LookAt,
+            //    CameraManager.getSingleton.GetCamera("test").Up);
+            basicEffect.View = CameraManager.getSingleton.ActiveCamera.View;
+            basicEffect.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
+            basicEffect.VertexColorEnabled = true;
 
-            //basicEffect.Begin();
-            //foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-            //{
-            //    // Begin the current pass
-            //    pass.Begin();
+            basicEffect.Begin();
+            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+            {
+                // Begin the current pass
+                pass.Begin();
 
-            //    graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
-            //        PrimitiveType.TriangleList, triangleData, 0, 6);
+                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                    PrimitiveType.LineList, CameraManager.getSingleton.GetCamera("test").BoundingFrustumDrawData,
+                    0, 8, CameraManager.getSingleton.GetCamera("test").BoundingFrustumIndex, 0, 12);
 
-            //    tempTransform = Matrix.CreateFromYawPitchRoll(0.0f, 0.0f, 0.0f) * rectangleTransform;
+                //graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                //    PrimitiveType.LineList, CameraManager.getSingleton.ActiveCamera.BoundingFrustumDrawData,
+                //    0, 8, CameraManager.getSingleton.ActiveCamera.BoundingFrustumIndex, 0, 12);
 
-            //    basicEffect.World = tempTransform;
-            //    basicEffect.CommitChanges();
-
-            //    // Draw the six different surfaces of the cube
-            //    graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
-            //        PrimitiveType.TriangleList, rectangleData, 0, 12);
-
-            //    // End the current pass
-            //    pass.End();
-            //}
-
-            //basicEffect.End();   
-            #endregion
+                // End the current pass
+                pass.End();
+            }
+            basicEffect.End(); 
+             * */
 
             graphics.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 
             spriteBatch.Begin();
 
             spriteBatch.DrawString(font, "FPS: " + fps, new Vector2(10.0f, 10.0f), Color.White);
-            spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 30.0f), Color.White);
-            spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 50.0f), Color.White);
-            spriteBatch.DrawString(font, "Objects Culled: " + SceneManager.getSingleton.Culled, new Vector2(10.0f, 70.0f), Color.White);
+            spriteBatch.DrawString(font, "Culling: " + culling, new Vector2(10.0f, 30.0f), Color.White);
+            spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
+            spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
+            spriteBatch.DrawString(font, "Objects Culled: " + SceneManager.getSingleton.Culled, new Vector2(10.0f, 90.0f), Color.White);
 
             spriteBatch.End();
 
