@@ -24,11 +24,14 @@ namespace WorldMakerDemo
 
         Vector3 lightPos = new Vector3(0,20,0);
 
-        Drawable _activeDrawable;
+        private Drawable _activeDrawable;
         public Drawable ActiveDrawable
         {
             get { return _activeDrawable; }
-            set { _activeDrawable = value; }
+            set { 
+                _activeDrawable = value;
+                modelEditor.UpdateValues();
+            }
         }
 
         Area _activeArea;
@@ -82,11 +85,21 @@ namespace WorldMakerDemo
         float cameraLength = 20f;
         float playerCamMulti = 0.1f;
 
+        static ModelEditor modelEditor;
+        static LevelEditor levelEditor;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             content = new ContentManager(Services);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            modelEditor.Invoke(new ModelEditor.Callback(modelEditor.Close));
+            levelEditor.Invoke(new LevelEditor.Callback(levelEditor.Close));
+            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -108,14 +121,16 @@ namespace WorldMakerDemo
             System.Windows.Forms.Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
 
+            modelEditor = new ModelEditor(this);
             new System.Threading.Thread(delegate()
             {
-                System.Windows.Forms.Application.Run(new ModelEditor(this));
+                System.Windows.Forms.Application.Run(modelEditor);
             }).Start();
 
+            levelEditor = new LevelEditor(this);
             new System.Threading.Thread(delegate()
             {
-                System.Windows.Forms.Application.Run(new LevelEditor(this));
+                System.Windows.Forms.Application.Run(levelEditor);
             }).Start();
 
             base.Initialize();
