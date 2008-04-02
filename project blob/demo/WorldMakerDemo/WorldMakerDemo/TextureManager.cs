@@ -42,7 +42,7 @@ namespace WorldMakerDemo
 
         public Texture2D GetTexture(String textureName)
         {
-            if (_textures.ContainsKey(textureName))
+            if ( textureName != null && _textures.ContainsKey(textureName))
             {
                 return _textures[textureName];
             }
@@ -51,7 +51,7 @@ namespace WorldMakerDemo
 
         public void AddTexture(String textureName, Texture2D texture)
         {
-            if (!_textures.ContainsKey(textureName))
+            if (textureName != null && !_textures.ContainsKey(textureName))
             {
                 _textures.Add(textureName, texture);
             }
@@ -59,7 +59,7 @@ namespace WorldMakerDemo
 
         public void RemoveTexture(String textureName)
         {
-            if (_textures.ContainsKey(textureName))
+            if (textureName != null && _textures.ContainsKey(textureName))
             {
                 _textures.Remove(textureName);
             }
