@@ -51,8 +51,9 @@ namespace WorldMakerDemo
                 ScaleX.Minimum = Convert.ToInt32(MinScaleX.Text);
                 MinScaleX.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 MinScaleX.ForeColor = Color.Red;
             }
         }
@@ -64,8 +65,9 @@ namespace WorldMakerDemo
                 ScaleY.Minimum = Convert.ToInt32(MinScaleY.Text);
                 MinScaleY.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 MinScaleY.ForeColor = Color.Red;
             }
         }
@@ -77,8 +79,9 @@ namespace WorldMakerDemo
                 ScaleZ.Minimum = Convert.ToInt32(MinScaleZ.Text);
                 MinScaleZ.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 MinScaleZ.ForeColor = Color.Red;
             }
         }
@@ -95,8 +98,9 @@ namespace WorldMakerDemo
                 ScaleX.Maximum = Convert.ToInt32(MaxScaleX.Text);
                 MaxScaleX.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 MaxScaleX.ForeColor = Color.Red;
             }
         }
@@ -108,8 +112,9 @@ namespace WorldMakerDemo
                 ScaleY.Maximum = Convert.ToInt32(MaxScaleY.Text);
                 MaxScaleY.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 MaxScaleX.ForeColor = Color.Red;
             }
         }
@@ -121,8 +126,9 @@ namespace WorldMakerDemo
                 ScaleZ.Maximum = Convert.ToInt32(MaxScaleZ.Text);
                 MaxScaleZ.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 MaxScaleZ.ForeColor = Color.Red;
             }
         }
@@ -157,11 +163,12 @@ namespace WorldMakerDemo
             try
             {
                 ScaleZ.Value = Convert.ToInt32(ScaleZValue.Text);
-                ScaleZValue.ForeColor = Color.Black;
                 setScale();
+                ScaleXValue.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 ScaleZValue.ForeColor = Color.Red;
             }
         }
@@ -171,11 +178,12 @@ namespace WorldMakerDemo
             try
             {
                 ScaleY.Value = Convert.ToInt32(ScaleYValue.Text);
-                ScaleYValue.ForeColor = Color.Black;
                 setScale();
+                ScaleXValue.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 ScaleYValue.ForeColor = Color.Red;
             }
         }
@@ -185,11 +193,12 @@ namespace WorldMakerDemo
             try
             {
                 ScaleX.Value = Convert.ToInt32(ScaleXValue.Text);
-                ScaleXValue.ForeColor = Color.Black;
                 setScale();
+                ScaleXValue.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 ScaleXValue.ForeColor = Color.Red;
             }
         }
@@ -245,9 +254,11 @@ namespace WorldMakerDemo
                 rotation_x = Convert.ToSingle(RotationXValue.Text);
                 RotationX.Value = (int)rotation_x;
                 SetRotation();
+                ScaleXValue.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 RotationXValue.ForeColor = Color.Red;
             }
         }
@@ -259,9 +270,11 @@ namespace WorldMakerDemo
                 rotation_y = Convert.ToSingle(RotationYValue.Text);
                 RotationY.Value = (int)rotation_y;
                 SetRotation();
+                ScaleXValue.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 RotationYValue.ForeColor = Color.Red;
             }
         }
@@ -273,9 +286,11 @@ namespace WorldMakerDemo
                 rotation_z = Convert.ToSingle(RotationZValue.Text);
                 RotationZ.Value = (int)rotation_z;
                 SetRotation();
+                ScaleXValue.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 RotationZValue.ForeColor = Color.Red;
             }
         }
@@ -302,9 +317,11 @@ namespace WorldMakerDemo
                 {
                     ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
                 }
+                ScaleXValue.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 PositionX.ForeColor = Color.Red;
             }
         }
@@ -317,9 +334,11 @@ namespace WorldMakerDemo
                 {
                     ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
                 }
+                ScaleXValue.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 PositionY.ForeColor = Color.Red;
             }
         }
@@ -332,9 +351,11 @@ namespace WorldMakerDemo
                 {
                     ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
                 }
+                ScaleXValue.ForeColor = Color.Black;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 PositionZ.ForeColor = Color.Red;
             }
         }
