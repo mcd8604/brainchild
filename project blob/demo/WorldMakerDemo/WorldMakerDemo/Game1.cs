@@ -78,7 +78,7 @@ namespace WorldMakerDemo
         public Vector3 focusPoint = new Vector3(0, 0, 0);
         Vector3 Up = Vector3.Up;
         Vector3 Horizontal = new Vector3();
-        Vector3 Run = new Vector3();
+        Vector3 RunVector = new Vector3();
 
         static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
         Vector3 cameraPosition = defaultCameraPosition;
@@ -280,7 +280,7 @@ namespace WorldMakerDemo
                 this.Exit();
             }
             Horizontal = Vector3.Normalize(Vector3.Cross(focusPoint - cameraPosition, Up));
-            Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
+            RunVector = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
             if (InputHandler.IsKeyPressed(Keys.A))
             {
@@ -297,13 +297,13 @@ namespace WorldMakerDemo
             if (InputHandler.IsKeyPressed(Keys.W))
             {
                 //move foward
-                this.focusPoint += Run;
+                this.focusPoint += RunVector;
                 //Console.WriteLine(focusPoint);
             }
             if (InputHandler.IsKeyPressed(Keys.S))
             {
                 //move backwards
-                this.focusPoint -= Run;
+                this.focusPoint -= RunVector;
                 //Console.WriteLine(focusPoint);
             }
 

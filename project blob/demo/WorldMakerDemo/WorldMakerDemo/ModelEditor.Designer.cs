@@ -28,7 +28,7 @@ namespace WorldMakerDemo
         /// </summary>
         private void InitializeComponent()
         {
-            this.Scale = new System.Windows.Forms.GroupBox();
+            this.ScaleBox = new System.Windows.Forms.GroupBox();
             this.ScaleZValue = new System.Windows.Forms.TextBox();
             this.MaxScaleZ = new System.Windows.Forms.TextBox();
             this.ScaleZ = new System.Windows.Forms.TrackBar();
@@ -61,8 +61,8 @@ namespace WorldMakerDemo
             this.Y = new System.Windows.Forms.Label();
             this.PositionX = new System.Windows.Forms.TextBox();
             this.X = new System.Windows.Forms.Label();
-            this.Focus = new System.Windows.Forms.Button();
-            this.Scale.SuspendLayout();
+            this.FocusButton = new System.Windows.Forms.Button();
+            this.ScaleBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleX)).BeginInit();
@@ -75,27 +75,27 @@ namespace WorldMakerDemo
             // 
             // Scale
             // 
-            this.Scale.Controls.Add(this.ScaleZValue);
-            this.Scale.Controls.Add(this.MaxScaleZ);
-            this.Scale.Controls.Add(this.ScaleZ);
-            this.Scale.Controls.Add(this.MinScaleZ);
-            this.Scale.Controls.Add(this.Scale_Z);
-            this.Scale.Controls.Add(this.ScaleYValue);
-            this.Scale.Controls.Add(this.MaxScaleY);
-            this.Scale.Controls.Add(this.ScaleY);
-            this.Scale.Controls.Add(this.MinScaleY);
-            this.Scale.Controls.Add(this.Scale_Y);
-            this.Scale.Controls.Add(this.ScaleXValue);
-            this.Scale.Controls.Add(this.MaxScaleX);
-            this.Scale.Controls.Add(this.ScaleX);
-            this.Scale.Controls.Add(this.MinScaleX);
-            this.Scale.Controls.Add(this.Scale_X);
-            this.Scale.Location = new System.Drawing.Point(12, 12);
-            this.Scale.Name = "Scale";
-            this.Scale.Size = new System.Drawing.Size(277, 194);
-            this.Scale.TabIndex = 0;
-            this.Scale.TabStop = false;
-            this.Scale.Text = "Scale";
+            this.ScaleBox.Controls.Add(this.ScaleZValue);
+            this.ScaleBox.Controls.Add(this.MaxScaleZ);
+            this.ScaleBox.Controls.Add(this.ScaleZ);
+            this.ScaleBox.Controls.Add(this.MinScaleZ);
+            this.ScaleBox.Controls.Add(this.Scale_Z);
+            this.ScaleBox.Controls.Add(this.ScaleYValue);
+            this.ScaleBox.Controls.Add(this.MaxScaleY);
+            this.ScaleBox.Controls.Add(this.ScaleY);
+            this.ScaleBox.Controls.Add(this.MinScaleY);
+            this.ScaleBox.Controls.Add(this.Scale_Y);
+            this.ScaleBox.Controls.Add(this.ScaleXValue);
+            this.ScaleBox.Controls.Add(this.MaxScaleX);
+            this.ScaleBox.Controls.Add(this.ScaleX);
+            this.ScaleBox.Controls.Add(this.MinScaleX);
+            this.ScaleBox.Controls.Add(this.Scale_X);
+            this.ScaleBox.Location = new System.Drawing.Point(12, 12);
+            this.ScaleBox.Name = "Scale";
+            this.ScaleBox.Size = new System.Drawing.Size(277, 194);
+            this.ScaleBox.TabIndex = 0;
+            this.ScaleBox.TabStop = false;
+            this.ScaleBox.Text = "Scale";
             // 
             // ScaleZValue
             // 
@@ -411,28 +411,28 @@ namespace WorldMakerDemo
             // 
             // Focus
             // 
-            this.Focus.Location = new System.Drawing.Point(582, 102);
-            this.Focus.Name = "Focus";
-            this.Focus.Size = new System.Drawing.Size(190, 102);
-            this.Focus.TabIndex = 3;
-            this.Focus.Text = "Focus";
-            this.Focus.UseVisualStyleBackColor = true;
-            this.Focus.Click += new System.EventHandler(this.Focus_Click);
+            this.FocusButton.Location = new System.Drawing.Point(582, 102);
+            this.FocusButton.Name = "Focus";
+            this.FocusButton.Size = new System.Drawing.Size(190, 102);
+            this.FocusButton.TabIndex = 3;
+            this.FocusButton.Text = "Focus";
+            this.FocusButton.UseVisualStyleBackColor = true;
+            this.FocusButton.Click += new System.EventHandler(this.Focus_Click);
             // 
             // ModelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 217);
-            this.Controls.Add(this.Focus);
+            this.Controls.Add(this.FocusButton);
             this.Controls.Add(this.Position);
             this.Controls.Add(this.Rotation);
-            this.Controls.Add(this.Scale);
+            this.Controls.Add(this.ScaleBox);
             this.Name = "ModelEditor";
             this.Text = "ModelEditor";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Scale.ResumeLayout(false);
-            this.Scale.PerformLayout();
+            this.ScaleBox.ResumeLayout(false);
+            this.ScaleBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleX)).EndInit();
@@ -449,7 +449,7 @@ namespace WorldMakerDemo
 
         #endregion
 
-        private System.Windows.Forms.GroupBox Scale;
+        private System.Windows.Forms.GroupBox ScaleBox;
         private System.Windows.Forms.TrackBar ScaleX;
         private System.Windows.Forms.TextBox MinScaleX;
         private System.Windows.Forms.Label Scale_X;
@@ -479,7 +479,7 @@ namespace WorldMakerDemo
         private System.Windows.Forms.Label Y;
         private System.Windows.Forms.TextBox PositionX;
         private System.Windows.Forms.Label X;
-        private System.Windows.Forms.Button Focus;
+        private System.Windows.Forms.Button FocusButton;
         private System.Windows.Forms.TextBox RotationZValue;
         private System.Windows.Forms.TextBox RotationYValue;
         private System.Windows.Forms.TextBox RotationXValue;
