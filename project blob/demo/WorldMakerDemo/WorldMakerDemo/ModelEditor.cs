@@ -300,7 +300,7 @@ namespace WorldMakerDemo
             {
                 if (m_Game.ActiveDrawable is DrawableModel)
                 {
-                    ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
+                    ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
                 }
             }
             catch (Exception)
@@ -315,7 +315,7 @@ namespace WorldMakerDemo
             {
                 if (m_Game.ActiveDrawable is DrawableModel)
                 {
-                    ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
+                    ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
                 }
             }
             catch (Exception)
@@ -330,7 +330,7 @@ namespace WorldMakerDemo
             {
                 if (m_Game.ActiveDrawable is DrawableModel)
                 {
-                    ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToInt32(PositionX.Text), (float)Convert.ToInt32(PositionY.Text), (float)Convert.ToInt32(PositionZ.Text));
+                    ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
                 }
             }
             catch (Exception)
@@ -371,7 +371,7 @@ namespace WorldMakerDemo
                     PositionY.Text = theTranslation.Y.ToString();
                     PositionZ.Text = theTranslation.Z.ToString();
 
-                    ((DrawableModel)m_Game.ActiveDrawable).Rotation.Decompose(out theScale, out theRotation, out theTranslation);
+                    //((DrawableModel)m_Game.ActiveDrawable).Rotation.Decompose(out theScale, out theRotation, out theTranslation);
 
                     //RotationXValue.Text = MathHelper.ToDegrees(theRotation.X).ToString();
                     //RotationYValue.Text = MathHelper.ToDegrees(theRotation.Y).ToString();
