@@ -80,7 +80,6 @@
     <Compile Include="ModelEditor.designer.cs">
       <DependentUpon>ModelEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelManager.cs" />
     <Compile Include="ModelSelect.cs">
       <SubType>Form</SubType>
     </Compile>
