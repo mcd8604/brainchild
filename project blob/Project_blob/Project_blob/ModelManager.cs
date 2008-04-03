@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob
 {
-    class ModelManager
+    public class ModelManager
     {
         // Objects to ensure singleton design
         private static volatile ModelManager _instance;
