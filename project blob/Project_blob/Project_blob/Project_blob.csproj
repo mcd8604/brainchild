@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blob.cs" />
+    <Compile Include="CollidableTri.cs" />
     <Compile Include="DemoCube.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="Drawable.cs" />

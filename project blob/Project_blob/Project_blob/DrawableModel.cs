@@ -17,6 +17,50 @@ namespace Project_blob
     public class DrawableModel : Drawable 
     {
         private String _modelName;
+        
+        [NonSerialized]
+        private List<Physics.Collidable> m_collidables;
+        public void setCollidables(Model m, Physics.PhysicsManager p)
+        {
+            foreach (ModelMesh mesh in m.Meshes)
+            {
+                // Vertices
+                int numVertices = 0;
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    numVertices += part.NumVertices;
+                }
+                VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
+                mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+
+                // Indices
+                int[] indices;
+                if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
+                {
+                    indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+                    short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+                    mesh.IndexBuffer.GetData<short>(temp);
+                    for (int i = 0; i < temp.Length; i++)
+                        indices[i] = temp[i];
+                }
+                else
+                {
+                    indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
+                    mesh.IndexBuffer.GetData<int>(indices);
+                }
+
+                // Collidables
+                m_collidables = new List<Physics.Collidable>();
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    for (int i = 0; i < part.PrimitiveCount; i++)
+                    {
+                        m_collidables.Add(new CollidableTri(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position));
+                    }
+                }
+                p.AddCollidables(m_collidables);
+            }
+        }
 
         public String getName()
         {
