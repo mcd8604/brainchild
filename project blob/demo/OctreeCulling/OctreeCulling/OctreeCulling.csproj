@@ -60,10 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicCamera.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="CameraManager.cs" />
-    <Compile Include="ChaseCamera.cs" />
     <Compile Include="Cube.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Node.cs" />
@@ -71,10 +69,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Pyramid.cs" />
-    <Compile Include="Scene.cs" />
     <Compile Include="SceneManager.cs" />
     <Compile Include="SceneObject.cs" />
     <Compile Include="SceneObjectNode.cs" />
+    <Compile Include="TestCamera.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
