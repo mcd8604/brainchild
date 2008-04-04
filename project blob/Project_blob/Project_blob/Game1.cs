@@ -180,7 +180,7 @@ namespace Project_blob
 
             VertexDeclarationColor = new VertexDeclaration(GraphicsDevice, VertexPositionColor.VertexElements);
 
-            effect = Content.Load<Effect>("effects");
+            effect = Content.Load<Effect>("Shaders\\effects");
 
             effect.Parameters["xView"].SetValue(viewMatrix);
             effect.Parameters["xProjection"].SetValue(projectionMatrix);
