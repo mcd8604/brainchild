@@ -67,6 +67,8 @@ namespace Project_blob
 
         float playerMoveMulti = 50f;
 
+        Display theDisplay;
+
         Area currentArea;
 
         public Game1()
@@ -164,6 +166,8 @@ namespace Project_blob
 
                 //load level models and textures
                 IEnumerator drawablesEnum = currentArea.Drawables.GetEnumerator();
+                int i = 0;
+                List<TextureInfo> textureInfos = new List<TextureInfo>();
                 while (drawablesEnum.MoveNext())
                 {
                     KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
@@ -173,46 +177,10 @@ namespace Project_blob
                         DrawableModel dm = (DrawableModel)d;
                         Model model = Content.Load<Model>(@"Models\\" + dm.ModelName);
                         ModelManager.getSingleton.AddModel(dm.ModelName, model);
-
-                        //add collidables
-                        foreach (ModelMesh mesh in model.Meshes)
-                        {
-                            // Vertices
-                            int numVertices = 0;
-                            foreach (ModelMeshPart part in mesh.MeshParts)
-                            {
-                                numVertices += part.NumVertices;
-                            }
-                            VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[numVertices];
-                            mesh.VertexBuffer.GetData<VertexPositionColorTexture>(vertices);
-
-                            // Indices
-                            int[] indices;
-                            if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
-                            {
-                                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-                                short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-                                mesh.IndexBuffer.GetData<short>(temp);
-                                for (int i = 0; i < temp.Length; i++)
-                                    indices[i] = temp[i];
-                            }
-                            else
-                            {
-                                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
-                                mesh.IndexBuffer.GetData<int>(indices);
-                            }
-
-                            // Collidables
-                            foreach (ModelMeshPart part in mesh.MeshParts)
-                            {
-                                for (int i = 0; i < part.PrimitiveCount; i++)
-                                {
-                                    physics.AddCollidable(new StaticTri(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position, Color.White));
-                                }
-                            }
-                        }
-
                         TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
+                        textureInfos.Add(new TextureInfo(dm.TextureName, i++));
+                        //Collidables
+                        dm.setCollidables(model, physics);
                     }
                 }
             }
@@ -221,14 +189,17 @@ namespace Project_blob
                 //empty level
             }  
 
-            InitializeEffect();    
+            InitializeEffect();
+
+            //theDisplay = new Display(worldMatrix, viewMatrix, projectionMatrix);
+            //theDisplay.DrawnList.Add(
         }
 
-        private void addToPhysicsAndDraw(T t)
+        /*private void addToPhysicsAndDraw(T t)
         {
             physics.AddCollidable(t);
             drawables.Add(t);
-        }
+        }*/
 
         /// <summary>
         /// Initializes the basic effect (parameter setting and technique selection)
@@ -556,7 +527,7 @@ namespace Project_blob
             celEffect.End();
 
             // Collision Tris
-           /* effect.CurrentTechnique = effect.Techniques["Colored"];
+            /*effect.CurrentTechnique = effect.Techniques["Colored"];
             GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
 			GraphicsDevice.Indices = null;
 			foreach (Drawable d in drawables)
