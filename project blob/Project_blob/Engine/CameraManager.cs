@@ -10,14 +10,16 @@ namespace Engine
         private static volatile CameraManager _instance;
         private static object _syncRoot = new Object();
 
-        //private List<Camera> _cameras;
         private SortedDictionary<string, Camera> _cameras;
 
         private Camera _activeCamera;
+        public Camera ActiveCamera
+        {
+            get { return _activeCamera; }
+        }
 
         public CameraManager()
         {
-            //_cameras = new List<Camera>();
             _cameras = new SortedDictionary<string,Camera>();
         }
 
@@ -46,7 +48,6 @@ namespace Engine
 
         public void AddCamera(string cameraName, Camera camera)
         {
-            //_cameras.Add(camera);
             if(!_cameras.ContainsKey(cameraName))
             {
                 _cameras.Add(cameraName, camera);
@@ -58,6 +59,18 @@ namespace Engine
             if(_cameras.ContainsKey(cameraName))
             {
                 _activeCamera = _cameras[cameraName];
+            }
+        }
+
+        public Camera GetCamera(string cameraName)
+        {
+            if (_cameras.ContainsKey(cameraName))
+            {
+                return _cameras[cameraName];
+            }
+            else
+            {
+                return null;
             }
         }
     }
