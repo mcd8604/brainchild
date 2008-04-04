@@ -153,7 +153,7 @@ namespace Project_blob
             resetBlob();
 
             //load default level
-            Level.LoadLevel("ground", "effects");
+            Level.LoadLevel("ground", "celEffect");
 
             //load first area
             if (Level.Areas.Count > 0)
@@ -537,7 +537,7 @@ namespace Project_blob
 			}*/
 
             //Level Models
-            currentArea.Display.WorldParameterName = "xWorld";
+            currentArea.Display.WorldParameterName = "World";
             currentArea.Display.Draw(GraphicsDevice);
 
             if (points)
