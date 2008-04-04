@@ -113,8 +113,18 @@ namespace Project_blob
 			physics.Player.Volume.Origin = 10f;
             physics.Player.Volume.Maximum = 50f;
             physics.Player.Volume.Delta = 1;
+        }
 
-            //drawables.Clear();
+        private void resetBlob()
+        {
+            blobStartPosition = new Vector3(0.1f, 1.0001f, 0.1f);
+            theBlob = new Blob(blobModel, blobStartPosition);
+            theBlob.setGraphicsDevice(GraphicsDevice);
+
+            physics.Player.PlayerBody = theBlob;
+            physics.AddPoints(theBlob.points);
+            physics.AddSprings(theBlob.springs);
+            physics.AddGravity(new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f)));
         }
 
         /// <summary>
@@ -134,17 +144,8 @@ namespace Project_blob
             blobModel = this.Content.Load<Model>(@"Models\\soccerball");
             text = this.Content.Load<Texture2D>(@"Textures\\test");
 
-			blobStartPosition = new Vector3(0.1f, 1.0001f, 0.1f);
-			theBlob = new Blob(blobModel, blobStartPosition);
+            resetBlob();
 
-			physics.Player.PlayerBody = theBlob;
-
-			physics.AddPoints(theBlob.points);
-			physics.AddSprings(theBlob.springs);
-
-			physics.AddGravity(new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f)));
-
-            theBlob.setGraphicsDevice(GraphicsDevice);
             /*foreach (Drawable d in drawables)
             {
                 d.setGraphicsDevice(GraphicsDevice);
@@ -159,14 +160,17 @@ namespace Project_blob
 
             Level.LoadLevel("ground", "effects");
 
+            //load first area
             if (Level.Areas.Count > 0)
             {
                 IEnumerator e = Level.Areas.Values.GetEnumerator();
-                e.MoveNext(); e.MoveNext();
-                currentArea = (Area)e.Current; 
-            } else {
-                //empty level
+                e.MoveNext();
+                currentArea = (Area)e.Current;
             }
+            else
+            {
+                //empty level
+            }        
         }
 
         private void addToPhysicsAndDraw(T t)
@@ -255,7 +259,8 @@ namespace Project_blob
             }
             if (InputHandler.IsActionPressed(Actions.Reset))
             {
-				reset();
+                reset();
+                resetBlob();
             }
             if (InputHandler.IsKeyPressed(Keys.P))
             {
