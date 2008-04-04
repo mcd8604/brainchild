@@ -53,10 +53,11 @@ namespace OctreeCulling
         SpriteFont font;
 
         //FPS counter variables
-        float time = 0f;
-        float update = 1f;
+        //float time = 0f;
+        TimeSpan time;
+        float fpsUpdate = 1.0f;
         int frames = 0;
-        string fps = "";
+        int fps = 0;
 
         //Test variables
         List<SceneObject> _objects;
@@ -64,6 +65,11 @@ namespace OctreeCulling
         int _culled = 0;
         int _drawn = 0;
         int _total = 0;
+
+        
+
+        //Matrix objScaleMatrix;
+        //float objScale = 0.005f;
 
         public Game1()
         {
@@ -86,13 +92,27 @@ namespace OctreeCulling
 
             worldMatrix = Matrix.Identity;
 
-            BasicCamera camera = new BasicCamera();
-            camera.AspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
+            /*
+            //BasicCamera camera = new BasicCamera();
+            //camera.AspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
+            float aspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
+            BasicCamera camera = new BasicCamera(0.1f, 500.0f, aspectRatio, 45.0f);
             CameraManager.getSingleton.AddCamera("default", camera);
 
             camera = new BasicCamera();
             camera.AspectRatio = graphics.GraphicsDevice.Viewport.Width / graphics.GraphicsDevice.Viewport.Height;
-            camera.FarPlane = 10.0f;
+            CameraManager.getSingleton.AddCamera("test", camera);
+
+            CameraManager.getSingleton.SetActiveCamera("default");
+             * */
+
+            TestCamera camera = new TestCamera(graphics.GraphicsDevice.Viewport);
+            camera.Position = new Vector3(0.0f, 10.0f, -40.0f);
+            //camera.Position = new Vector3(250.0f, 250.0f, 2000.0f);
+            CameraManager.getSingleton.AddCamera("default", camera);
+
+            camera = new TestCamera(graphics.GraphicsDevice.Viewport);
+            camera.FarPlane = 30.0f;
             CameraManager.getSingleton.AddCamera("test", camera);
 
             CameraManager.getSingleton.SetActiveCamera("default");
@@ -122,15 +142,39 @@ namespace OctreeCulling
             graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
             graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
 
+            //Vector3 scale = new Vector3(objScale, objScale, objScale);
+            //objScaleMatrix = Matrix.CreateScale(objScale);
+            //CameraManager.getSingleton.ActiveCamera.Scale = objScaleMatrix;
+
             //Load all objects
-            pyramid = new Pyramid(Vector3.One, new Vector3(-1.0f, 0.0f, 6.0f), basicEffect, graphics);
-            cube = new Cube(Vector3.One, new Vector3(1.5f, 0.0f, 7.0f), basicEffect, graphics);
+            //pyramid = new Pyramid(Vector3.One, new Vector3(-1.0f, 0.0f, 6.0f), basicEffect, graphics);
+            //_objects.Add(pyramid);
+            //pyramid = new Pyramid(Vector3.One, new Vector3(-1.0f, 0.0f, 16.0f), basicEffect, graphics);
+            //_objects.Add(pyramid);
+            //cube = new Cube(Vector3.One, new Vector3(1.5f, 0.0f, 7.0f), basicEffect, graphics);
+            //_objects.Add(cube);
+            //cube = new Cube(Vector3.One, new Vector3(1.5f, 0.0f, -3.0f), basicEffect, graphics);
+            //_objects.Add(cube);
+            for (int i = 0; i < 10; ++i)
+            {
+                for (int j = 0; j < 10; ++j)
+                {
+                    for (int k = 0; k < 10; ++k)
+                    {
+                        cube = new Cube(Vector3.One, new Vector3(5 * i, 5* j, 5 * k), basicEffect, graphics);
+                        _objects.Add(cube);
+                    }
+                    
+                }
+
+            }
+
+            //cube = new Cube(Vector3.One, new Vector3(0.0f, 0.0f, 10.0f), basicEffect, graphics);
+            //_objects.Add(cube);
 
             SceneManager.getSingleton.AddObject(pyramid);
             SceneManager.getSingleton.AddObject(cube);
 
-            _objects.Add(pyramid);
-            _objects.Add(cube);
             _total = _objects.Count;
         }
 
@@ -150,20 +194,35 @@ namespace OctreeCulling
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            CameraManager.getSingleton.ActiveCamera.Update(gameTime);
+            //CameraManager.getSingleton.ActiveCamera.Update(gameTime);
+            CameraManager.getSingleton.Update(gameTime);
+            CameraManager.getSingleton.GetCamera("test").Update(gameTime);
             
             InputHandler.Update();
 
+            #region fps counter
             // Update the FPS counter.
-            time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (time > update)
+            //time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //if (time > fpsUpdate)
+            //{
+            //    fps = Convert.ToInt32(frames / time).ToString();
+            //    time = 0;
+            //    frames = 0;
+            //}
+            //++frames;
+
+            time += gameTime.ElapsedGameTime;
+
+            if (time > TimeSpan.FromSeconds(1))
             {
-                fps = Convert.ToInt32(frames / time).ToString();
-                time = 0;
+                time -= TimeSpan.FromSeconds(1);
+                fps = frames;
                 frames = 0;
             }
-            ++frames;
+            #endregion
 
+            Vector3 translation = Vector3.Zero;
+            
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -172,74 +231,136 @@ namespace OctreeCulling
             //Move forward
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                CameraManager.getSingleton.ActiveCamera.MoveForward();
+                //CameraManager.getSingleton.ActiveCamera.MoveForward();
+
+                //CameraManager.getSingleton.ActiveCamera.Translate(
+                //    new Vector3(0.0f, 0.0f, -CameraManager.getSingleton.ActiveCamera.TranslationSpeed));
+                
+                //translation.Z -= 0.05f;
+
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, 0.0f, 0.05f));
             }
 
             //Move Back
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                CameraManager.getSingleton.ActiveCamera.MoveBack();
+                //CameraManager.getSingleton.ActiveCamera.MoveBack();
+
+                //CameraManager.getSingleton.ActiveCamera.Translate(
+                //    new Vector3(0.0f, 0.0f, CameraManager.getSingleton.ActiveCamera.TranslationSpeed));
+                
+                //translation.Z += 0.05f;
+
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, 0.0f, -0.05f));
             }
 
             //Strafe Left
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
-                CameraManager.getSingleton.ActiveCamera.StrafeLeft();
+                //CameraManager.getSingleton.ActiveCamera.StrafeLeft();
+
+                //CameraManager.getSingleton.ActiveCamera.Translate(
+                //    new Vector3(-CameraManager.getSingleton.ActiveCamera.TranslationSpeed, 0.0f, 0.0f));
+                
+                //translation.X -= 0.05f;
+
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.05f, 0.0f, 0.0f));
             }
 
             //Strafe Right
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                CameraManager.getSingleton.ActiveCamera.StrafeRight();
+                //CameraManager.getSingleton.ActiveCamera.StrafeRight();
+
+                //CameraManager.getSingleton.ActiveCamera.Translate(
+                //    new Vector3(CameraManager.getSingleton.ActiveCamera.TranslationSpeed, 0.0f, 0.0f));
+                
+                //translation.X += 0.05f;
+
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(-0.05f, 0.0f, 0.0f));
             }
+
+            //Move up
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                //CameraManager.getSingleton.ActiveCamera.MoveUp();
+
+                //CameraManager.getSingleton.ActiveCamera.Translate(
+                //    new Vector3(0.0f, CameraManager.getSingleton.ActiveCamera.TranslationSpeed, 0.0f));
+                
+                //translation.Y += 0.05f;
+
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, 0.05f, 0.0f));
+            }
+
+            //Move down
+            if (Keyboard.GetState().IsKeyDown(Keys.F))
+            {
+                //CameraManager.getSingleton.ActiveCamera.MoveDown();
+
+                //CameraManager.getSingleton.ActiveCamera.Translate(
+                //    new Vector3(0.0f, -CameraManager.getSingleton.ActiveCamera.TranslationSpeed, 0.0f));
+                
+                //translation.Y -= 0.05f;
+
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, -0.05f, 0.0f));
+            }
+
+            //CameraManager.getSingleton.ActiveCamera.Translate(translation);
 
             //Turn left
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                CameraManager.getSingleton.ActiveCamera.Yaw += CameraManager.getSingleton.ActiveCamera.RotationSpeed;
-                //camera.RotateCameraY();
-                CameraManager.getSingleton.ActiveCamera.RotateCamera();
+                //CameraManager.getSingleton.ActiveCamera.Yaw += CameraManager.getSingleton.ActiveCamera.RotationSpeed;
+                //CameraManager.getSingleton.ActiveCamera.RotateCamera();
+                
+                //CameraManager.getSingleton.ActiveCamera.Rotate(
+                //    Vector3.UnitY, CameraManager.getSingleton.ActiveCamera.RotationSpeed);
+
+                CameraManager.getSingleton.ActiveCamera.RotateY(1.0f);
             }
 
             //Turn right
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                CameraManager.getSingleton.ActiveCamera.Yaw -= CameraManager.getSingleton.ActiveCamera.RotationSpeed;
-                //camera.RotateCameraY();
-                CameraManager.getSingleton.ActiveCamera.RotateCamera();
-            }
+                //CameraManager.getSingleton.ActiveCamera.Yaw -= CameraManager.getSingleton.ActiveCamera.RotationSpeed;
+                //CameraManager.getSingleton.ActiveCamera.RotateCamera();
+                
+                //CameraManager.getSingleton.ActiveCamera.Rotate(
+                //    Vector3.UnitY, -CameraManager.getSingleton.ActiveCamera.RotationSpeed);
 
-            //Move up
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                CameraManager.getSingleton.ActiveCamera.MoveUp();
-            }
-
-            //Move down
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                CameraManager.getSingleton.ActiveCamera.MoveDown();
+                CameraManager.getSingleton.ActiveCamera.RotateY(-1.0f);
             }
 
             //Rotate down
             if (Keyboard.GetState().IsKeyDown(Keys.G))
             {
-                CameraManager.getSingleton.ActiveCamera.Pitch += CameraManager.getSingleton.ActiveCamera.RotationSpeed;
-                //camera.RotateCameraX();
-                CameraManager.getSingleton.ActiveCamera.RotateCamera();
+                //CameraManager.getSingleton.ActiveCamera.Pitch += CameraManager.getSingleton.ActiveCamera.RotationSpeed;
+                //CameraManager.getSingleton.ActiveCamera.RotateCamera();
+                
+                //CameraManager.getSingleton.ActiveCamera.Rotate(
+                //    Vector3.UnitX, CameraManager.getSingleton.ActiveCamera.RotationSpeed);
+
+                CameraManager.getSingleton.ActiveCamera.RotateX(1.0f);
             }
 
             //Rotate up
             if (Keyboard.GetState().IsKeyDown(Keys.T))
             {
-                CameraManager.getSingleton.ActiveCamera.Pitch -= CameraManager.getSingleton.ActiveCamera.RotationSpeed;
-                //camera.RotateCameraX();
-                CameraManager.getSingleton.ActiveCamera.RotateCamera();
+                //CameraManager.getSingleton.ActiveCamera.Pitch -= CameraManager.getSingleton.ActiveCamera.RotationSpeed;
+                //CameraManager.getSingleton.ActiveCamera.RotateCamera();
+                
+                //CameraManager.getSingleton.ActiveCamera.Rotate(
+                //    Vector3.UnitX, -CameraManager.getSingleton.ActiveCamera.RotationSpeed);
+
+                CameraManager.getSingleton.ActiveCamera.RotateX(-1.0f);
             }
+
+            //CameraManager.getSingleton.ActiveCamera.Update();
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                CameraManager.getSingleton.ActiveCamera.Reset();
+                //CameraManager.getSingleton.ActiveCamera.Reset();
             }
 
             if (InputHandler.IsKeyPressed(Keys.Tab))
@@ -260,18 +381,9 @@ namespace OctreeCulling
 
             if (InputHandler.IsKeyPressed(Keys.C))
             {
-                SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
+                //SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
 
-                if (SceneManager.getSingleton.Cull)
-                {
-                    culling = "On";
-                }
-                else
-                {
-                    culling = "Off";
-                }
-                //_cull = !_cull;
-                //if (_cull)
+                //if (SceneManager.getSingleton.Cull)
                 //{
                 //    culling = "On";
                 //}
@@ -279,7 +391,80 @@ namespace OctreeCulling
                 //{
                 //    culling = "Off";
                 //}
+                _cull = !_cull;
+                if (_cull)
+                {
+                    culling = "On";
+                }
+                else
+                {
+                    culling = "Off";
+                }
             }
+
+            //Turn left
+            if (Keyboard.GetState().IsKeyDown(Keys.J))
+            {
+                //CameraManager.getSingleton.GetCamera("test").Yaw += CameraManager.getSingleton.GetCamera("test").RotationSpeed;
+                //CameraManager.getSingleton.GetCamera("test").RotateCamera();
+                
+                //CameraManager.getSingleton.ActiveCamera.Rotate(
+                //    Vector3.UnitY, CameraManager.getSingleton.ActiveCamera.RotationSpeed);
+
+                CameraManager.getSingleton.GetCamera("test").RotateY(1.0f);
+            }
+
+            //Turn right
+            if (Keyboard.GetState().IsKeyDown(Keys.L))
+            {
+                //CameraManager.getSingleton.GetCamera("test").Yaw -= CameraManager.getSingleton.GetCamera("test").RotationSpeed;
+                //CameraManager.getSingleton.GetCamera("test").RotateCamera();
+                
+                //CameraManager.getSingleton.ActiveCamera.Rotate(
+                //    Vector3.UnitY, -CameraManager.getSingleton.ActiveCamera.RotationSpeed);
+
+                CameraManager.getSingleton.GetCamera("test").RotateY(-1.0f);
+            }
+
+            //Move forward
+            if (Keyboard.GetState().IsKeyDown(Keys.I))
+            {
+                //CameraManager.getSingleton.GetCamera("test").MoveForward();
+
+                //CameraManager.getSingleton.GetCamera("test").Translate(
+                //    new Vector3(0.0f, 0.0f, CameraManager.getSingleton.ActiveCamera.TranslationSpeed));
+
+                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.0f, 0.05f));
+            }
+
+            //Move Back
+            if (Keyboard.GetState().IsKeyDown(Keys.K))
+            {
+                //CameraManager.getSingleton.GetCamera("test").MoveBack();
+
+                //CameraManager.getSingleton.GetCamera("test").Translate(
+                //    new Vector3(0.0f, 0.0f, -CameraManager.getSingleton.ActiveCamera.TranslationSpeed));
+
+                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.0f, -0.05f));
+            }
+
+            //Vector2 camdelta = InputHandler.getMouseDeltaPosition();
+            //if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+            //{
+            //    if (camdelta.X != 0)
+            //    {
+            //        CameraManager.getSingleton.ActiveCamera.Rotate(Vector3.UnitY, (float)(camdelta.X) * -0.005f);
+            //    }
+
+            //    if (camdelta.Y != 0)
+            //    {
+            //        CameraManager.getSingleton.ActiveCamera.Rotate(Vector3.UnitX, (float)(camdelta.Y) * -0.005f);
+            //    }
+            //}
+
+            //// Rotate the camera.
+            //CameraManager.getSingleton.ActiveCamera.Update();
+
 
             base.Update(gameTime);
         }
@@ -297,32 +482,34 @@ namespace OctreeCulling
             // Set the vertex declaration
             graphics.GraphicsDevice.VertexDeclaration = vertexDeclaration;
 
-
-            SceneManager.getSingleton.Draw(gameTime);
+            //SceneManager.getSingleton.Draw(gameTime);
 
             //Test
-            //_culled = 0;
-            //_drawn = 0;
-            //foreach(SceneObject obj in _objects)
-            //{
-            //    if (_cull)
-            //    {
-            //        if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(obj.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
-            //        {
-            //            ++_culled;
-            //        }
-            //        else
-            //        {
-            //            obj.Draw(gameTime);
-            //            ++_drawn;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        obj.Draw(gameTime);
-            //        ++_drawn;
-            //    }
-            //}
+            _culled = 0;
+            _drawn = 0;
+            foreach (SceneObject obj in _objects)
+            {
+                if (_cull)
+                {
+                    //if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(obj.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
+                    ContainmentType type = CameraManager.getSingleton.GetCamera("test").Frustum.Contains(obj.GetBoundingBoxTransformed());
+                    if( type == ContainmentType.Disjoint)
+                    //if (CameraManager.getSingleton.GetCamera("test").Frustum.Contains(obj.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
+                    {
+                        ++_culled;
+                    }
+                    else
+                    {
+                        obj.Draw(gameTime);
+                        ++_drawn;
+                    }
+                }
+                else
+                {
+                    obj.Draw(gameTime);
+                    ++_drawn;
+                }
+            }
             //End Test
 
             //pyramid.Draw(gameTime);
@@ -330,10 +517,12 @@ namespace OctreeCulling
 
             //*
             //Draw camera frustum
-            basicEffect.World = Matrix.CreateTranslation(CameraManager.getSingleton.GetCamera("test").Position);
+            //basicEffect.World = Matrix.CreateTranslation(CameraManager.getSingleton.GetCamera("test").Position);
             //basicEffect.World = Matrix.CreateWorld(CameraManager.getSingleton.GetCamera("test").Position,
             //    CameraManager.getSingleton.GetCamera("test").LookAt,
             //    CameraManager.getSingleton.GetCamera("test").Up);
+            //basicEffect.World = CameraManager.getSingleton.ActiveCamera.World;
+            basicEffect.World = Matrix.Identity;
             basicEffect.View = CameraManager.getSingleton.ActiveCamera.View;
             basicEffect.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
             basicEffect.VertexColorEnabled = true;
@@ -362,17 +551,26 @@ namespace OctreeCulling
 
             spriteBatch.Begin();
 
-            //spriteBatch.DrawString(font, "FPS: " + fps, new Vector2(10.0f, 10.0f), Color.White);
-            //spriteBatch.DrawString(font, "Culling: " + culling, new Vector2(10.0f, 30.0f), Color.White);
-            //spriteBatch.DrawString(font, "Object Count: " + _total, new Vector2(10.0f, 50.0f), Color.White);
-            //spriteBatch.DrawString(font, "Objects Drawn: " + _drawn, new Vector2(10.0f, 70.0f), Color.White);
-            //spriteBatch.DrawString(font, "Objects Culled: " + _culled, new Vector2(10.0f, 90.0f), Color.White);
-
             spriteBatch.DrawString(font, "FPS: " + fps, new Vector2(10.0f, 10.0f), Color.White);
             spriteBatch.DrawString(font, "Culling: " + culling, new Vector2(10.0f, 30.0f), Color.White);
-            spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
-            spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
-            spriteBatch.DrawString(font, "Objects Culled: " + SceneManager.getSingleton.Culled, new Vector2(10.0f, 90.0f), Color.White);
+            spriteBatch.DrawString(font, "Object Count: " + _total, new Vector2(10.0f, 50.0f), Color.White);
+            spriteBatch.DrawString(font, "Objects Drawn: " + _drawn, new Vector2(10.0f, 70.0f), Color.White);
+            spriteBatch.DrawString(font, "Objects Culled: " + _culled, new Vector2(10.0f, 90.0f), Color.White);
+            spriteBatch.DrawString(font, "Camera Position: {" +
+                CameraManager.getSingleton.ActiveCamera.Position.X + ", " +
+                CameraManager.getSingleton.ActiveCamera.Position.Y + ", " +
+                CameraManager.getSingleton.ActiveCamera.Position.Z + "}", new Vector2(10.0f, 110.0f), Color.White);
+            //spriteBatch.DrawString(font, "Camera LookAt: {" +
+            //    CameraManager.getSingleton.ActiveCamera.CameraReference.X + ", " +
+            //    CameraManager.getSingleton.ActiveCamera.CameraReference.Y + ", " +
+            //    CameraManager.getSingleton.ActiveCamera.CameraReference.Z + "}",
+            //    new Vector2(10.0f, 130.0f), Color.White);
+
+            //spriteBatch.DrawString(font, "FPS: " + fps, new Vector2(10.0f, 10.0f), Color.White);
+            //spriteBatch.DrawString(font, "Culling: " + culling, new Vector2(10.0f, 30.0f), Color.White);
+            //spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
+            //spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
+            //spriteBatch.DrawString(font, "Objects Culled: " + SceneManager.getSingleton.Culled, new Vector2(10.0f, 90.0f), Color.White);
 
             spriteBatch.End();
 
@@ -381,6 +579,9 @@ namespace OctreeCulling
                 graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
                 graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
             }
+
+            //Update frames counter for FPS
+            ++frames;
 
             base.Draw(gameTime);
         }
@@ -472,7 +673,7 @@ namespace OctreeCulling
                 new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size,Color.Orange),
             };
         }
-         * */
+         
 
         public void BuildTestCameraFrustum()
         {
@@ -485,5 +686,6 @@ namespace OctreeCulling
             Plane near = testCamera.Frustum.Near;
             Plane far = testCamera.Frustum.Far;            
         }
+         * * */
     }
 }

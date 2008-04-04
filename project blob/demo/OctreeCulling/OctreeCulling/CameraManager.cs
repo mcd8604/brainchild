@@ -46,6 +46,7 @@ namespace OctreeCulling
         public void Update(GameTime gameTime)
         {
             _activeCamera.Update(gameTime);
+            //_activeCamera.Update();
         }
 
         public void AddCamera(string cameraName, Camera camera)

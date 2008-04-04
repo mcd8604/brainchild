@@ -132,7 +132,10 @@ namespace OctreeCulling
         {
             //base.Draw(gameTime);
 
-            Effect.World = _triangleTransform;
+            //Effect.World = _triangleTransform;
+            //Effect.World = CameraManager.getSingleton.ActiveCamera.World * Matrix.CreateTranslation(Position);
+            //Effect.World = CameraManager.getSingleton.ActiveCamera.World;
+            Effect.World = Matrix.Identity;
             Effect.View = CameraManager.getSingleton.ActiveCamera.View;
             Effect.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
             Effect.VertexColorEnabled = true;
