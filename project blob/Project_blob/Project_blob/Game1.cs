@@ -86,8 +86,7 @@ namespace Project_blob
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            reset();
-            physics.AirFriction = 2f;
+            resetPhysics();
             InputHandler.LoadDefaultBindings();
 
             lightPosition = new Vector4(5, 5, 5, 0);
@@ -97,9 +96,11 @@ namespace Project_blob
             base.Initialize();
         }
 
-        private void reset()
+        private void resetPhysics()
         {
             physics = new Physics.PhysicsManager();
+
+            physics.AirFriction = 2f;
 
             physics.Player.Traction.Minimum = 0f;
             physics.Player.Traction.Origin = 50f;
@@ -173,15 +174,15 @@ namespace Project_blob
                 {
                     KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
                     Drawable d = (Drawable)kvp.Value;
-                    if (d is DrawableModel)
+                    if (d is StaticModel)
                     {
-                        DrawableModel dm = (DrawableModel)d;
+                        StaticModel dm = (StaticModel)d;
                         Model model = Content.Load<Model>(@"Models\\" + dm.ModelName);
                         ModelManager.getSingleton.AddModel(dm.ModelName, model);
                         TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
                         textureInfos.Add(new TextureInfo(dm.TextureName, i++));
                         //Collidables
-                        dm.setCollidables(model, physics);
+                        physics.AddCollidables(dm.createCollidables(model));
                     }
                 }
             }
@@ -282,7 +283,6 @@ namespace Project_blob
             }
             if (InputHandler.IsActionPressed(Actions.Reset))
             {
-                reset();
                 resetBlob();
             }
             if (InputHandler.IsKeyPressed(Keys.P))
