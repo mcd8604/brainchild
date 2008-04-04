@@ -88,7 +88,6 @@ namespace Project_blob
             // TODO: Add your initialization logic here
             reset();
             physics.AirFriction = 2f;
-
             InputHandler.LoadDefaultBindings();
 
             lightPosition = new Vector4(5, 5, 5, 0);
@@ -119,6 +118,8 @@ namespace Project_blob
 			physics.Player.Volume.Origin = 10f;
             physics.Player.Volume.Maximum = 50f;
             physics.Player.Volume.Delta = 1;
+
+            physics.AddGravity(new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f)));
         }
 
         private void resetBlob()
@@ -130,7 +131,6 @@ namespace Project_blob
             physics.Player.PlayerBody = theBlob;
             physics.AddPoints(theBlob.points);
             physics.AddSprings(theBlob.springs);
-            physics.AddGravity(new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f)));
         }
 
         /// <summary>
@@ -163,6 +163,7 @@ namespace Project_blob
                 IEnumerator e = Level.Areas.Values.GetEnumerator();
                 e.MoveNext();
                 currentArea = (Area)e.Current;
+                currentArea.Display.ShowAxis = false;
 
                 //load level models and textures
                 IEnumerator drawablesEnum = currentArea.Drawables.GetEnumerator();
