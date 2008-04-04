@@ -60,8 +60,8 @@ namespace WorldMaker
             if (modelListBox.SelectedIndex != -1)
             {
                 _gameRef.ActiveDrawable = _gameRef.ActiveArea.Drawables[(String)(modelListBox.Items[modelListBox.SelectedIndex])];
-                if (_gameRef.ActiveDrawable is DrawableModel)
-                    _gameRef.ActiveArea.Display.CurrentlySelected = ((DrawableModel)_gameRef.ActiveDrawable).Name;
+                if (_gameRef.ActiveDrawable is StaticModel)
+                    _gameRef.ActiveArea.Display.CurrentlySelected = ((StaticModel)_gameRef.ActiveDrawable).Name;
             }
         }
 
@@ -201,7 +201,7 @@ namespace WorldMaker
         {
             if (modelListBox.SelectedIndex != -1)
             {
-                DrawableModel current = (DrawableModel)(_gameRef.ActiveArea.GetDrawable(_gameRef.ActiveArea.Display.CurrentlySelected));
+                StaticModel current = (StaticModel)(_gameRef.ActiveArea.GetDrawable(_gameRef.ActiveArea.Display.CurrentlySelected));
 
                 string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
                 for (int i = 0; i < models.Length; i++)
@@ -219,7 +219,7 @@ namespace WorldMaker
                     Console.WriteLine(_modelSelect.CurrentModel.Name);
                     _drawableInfo.name = _modelSelect.CurrentModel.Name;
                     _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
-                    DrawableModel temp = _modelSelect.CurrentModel;
+                    StaticModel temp = _modelSelect.CurrentModel;
                     temp.Rotation = current.Rotation;
                     temp.Position = current.Position;
                     temp.Scale = current.Scale;
