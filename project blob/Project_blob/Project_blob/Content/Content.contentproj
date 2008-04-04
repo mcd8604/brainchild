@@ -71,10 +71,24 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Levels\StickBall.lev">
-      <Name>StickBall</Name>
+    <Compile Include="Courier New.spritefont">
+      <Name>Courier New</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <None Include="Levels\ground.lev">
+      <Name>ground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\test.lev">
+      <Name>test</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Models\soccerball.fbx">
+      <Name>soccerball</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\ball.fbx">
       <Name>ball</Name>
       <Importer>FbxImporter</Importer>
