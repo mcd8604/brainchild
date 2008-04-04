@@ -332,7 +332,7 @@ namespace Engine
         /// <summary>
         /// Rebuilds camera's view and projection matricies.
         /// </summary>
-        private void UpdateMatrices()
+        public override void UpdateMatrices()
         {
             View = Matrix.CreateLookAt(this.Position, this.LookAt, this.Up);
             Projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView,
