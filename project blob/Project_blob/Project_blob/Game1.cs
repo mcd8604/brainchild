@@ -171,7 +171,47 @@ namespace Project_blob
                     if (d is DrawableModel)
                     {
                         DrawableModel dm = (DrawableModel)d;
-                        ModelManager.getSingleton.AddModel(dm.ModelName, Content.Load<Model>(@"Models\\" + dm.ModelName));
+                        Model model = Content.Load<Model>(@"Models\\" + dm.ModelName);
+                        ModelManager.getSingleton.AddModel(dm.ModelName, model);
+
+                        //add collidables
+                        foreach (ModelMesh mesh in model.Meshes)
+                        {
+                            // Vertices
+                            int numVertices = 0;
+                            foreach (ModelMeshPart part in mesh.MeshParts)
+                            {
+                                numVertices += part.NumVertices;
+                            }
+                            VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[numVertices];
+                            mesh.VertexBuffer.GetData<VertexPositionColorTexture>(vertices);
+
+                            // Indices
+                            int[] indices;
+                            if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
+                            {
+                                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+                                short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+                                mesh.IndexBuffer.GetData<short>(temp);
+                                for (int i = 0; i < temp.Length; i++)
+                                    indices[i] = temp[i];
+                            }
+                            else
+                            {
+                                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
+                                mesh.IndexBuffer.GetData<int>(indices);
+                            }
+
+                            // Collidables
+                            foreach (ModelMeshPart part in mesh.MeshParts)
+                            {
+                                for (int i = 0; i < part.PrimitiveCount; i++)
+                                {
+                                    physics.AddCollidable(new StaticTri(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position, Color.White));
+                                }
+                            }
+                        }
+
                         TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
                     }
                 }
