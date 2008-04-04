@@ -121,9 +121,12 @@ namespace OctreeCulling
                     for (int k = 0; k < 10; ++k)
                     {
                         cube = new Cube(Vector3.One, new Vector3(5 * i, 5* j, 5 * k), basicEffect, graphics);
+                        //pyramid = new Pyramid(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics);
+
                         //_objects.Add(cube);
 
                         SceneManager.getSingleton.AddObject(cube);
+                        //SceneManager.getSingleton.AddObject(pyramid);
                     }
                     
                 }
