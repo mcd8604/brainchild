@@ -31,22 +31,25 @@ namespace OctreeCulling
         /// <summary>
         /// Yaw, pitch and roll of the object.
         /// </summary>
-        private Quaternion _rotation = Quaternion.Identity;
-        public Quaternion Rotation
-        {
-            get { return _rotation; }
-            set { _rotation = value; }
-        }
+        //private Quaternion _rotation = Quaternion.Identity;
+        //public Quaternion Rotation
+        //{
+        //    get { return _rotation; }
+        //    set { _rotation = value; }
+        //}
 
-        public virtual Matrix World
-        {
-            get
-            {
-                return Matrix.CreateScale(this.Scale) *
-                       Matrix.CreateFromQuaternion(this.Rotation) *
-                       Matrix.CreateTranslation(this.Position);
-            }
-        }
+        /// <summary>
+        /// World matrix of the object
+        /// </summary>
+        //public virtual Matrix World
+        //{
+        //    get
+        //    {
+        //        return Matrix.CreateScale(this.Scale) *
+        //               Matrix.CreateFromQuaternion(this.Rotation) *
+        //               Matrix.CreateTranslation(this.Position);
+        //    }
+        //}
 
         /// <summary>
         /// Bounding box of the object
