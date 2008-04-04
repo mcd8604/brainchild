@@ -10,7 +10,6 @@ namespace OctreeCulling
         private static volatile CameraManager _instance;
         private static object _syncRoot = new Object();
 
-        //private List<Camera> _cameras;
         private SortedDictionary<string, Camera> _cameras;
 
         private Camera _activeCamera;
@@ -21,7 +20,6 @@ namespace OctreeCulling
 
         public CameraManager()
         {
-            //_cameras = new List<Camera>();
             _cameras = new SortedDictionary<string,Camera>();
         }
 
@@ -46,12 +44,10 @@ namespace OctreeCulling
         public void Update(GameTime gameTime)
         {
             _activeCamera.Update(gameTime);
-            //_activeCamera.Update();
         }
 
         public void AddCamera(string cameraName, Camera camera)
         {
-            //_cameras.Add(camera);
             if(!_cameras.ContainsKey(cameraName))
             {
                 _cameras.Add(cameraName, camera);

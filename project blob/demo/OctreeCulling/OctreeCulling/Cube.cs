@@ -154,12 +154,7 @@ namespace OctreeCulling
 
         public override void Draw(GameTime gameTime)
         {
-            //base.Draw(gameTime);
-
-            //Effect.World = _rectangleTransform;
             Effect.World = Matrix.Identity;
-            //Effect.World = CameraManager.getSingleton.ActiveCamera.World *
-            //    CameraManager.getSingleton.ActiveCamera.Scale * Matrix.CreateTranslation(Position);
             Effect.View = CameraManager.getSingleton.ActiveCamera.View;
             Effect.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
             Effect.VertexColorEnabled = true;

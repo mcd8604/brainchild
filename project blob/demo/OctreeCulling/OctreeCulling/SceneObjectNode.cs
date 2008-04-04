@@ -51,9 +51,8 @@ namespace OctreeCulling
             //ContainmentType containment;
             //containment = CameraManager.getSingleton.ActiveCamera.Frustum.Contains(_sceneObject.BoundingBox);
 
-            //if (CameraManager.getSingleton.GetCamera("test").Frustum.Contains(_sceneObject.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
-            if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(_sceneObject.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
-            //if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(_sceneObject.BoundingBox) == ContainmentType.Disjoint)
+            if (CameraManager.getSingleton.GetCamera("test").Frustum.Contains(_sceneObject.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
+            //if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(_sceneObject.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
             {
                 _culled = true;
 
