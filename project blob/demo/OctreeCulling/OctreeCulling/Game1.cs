@@ -102,7 +102,6 @@ namespace OctreeCulling
 
             // Load the default sprite font.
             font = Content.Load<SpriteFont>(@"Fonts/ComicSansMS");
-            //font = Content.Load<SpriteFont>(@"Fonts/Courier New");
 
             // TODO: use this.Content to load your game content here
             basicEffect = new BasicEffect(graphics.GraphicsDevice, null);
