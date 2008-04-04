@@ -18,73 +18,58 @@ namespace Project_blob
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        ContentManager content;
 
-        Vector3 lightPos = new Vector3(0,20,0);
+        Model blobModel;
 
-        Drawable _activeDrawable;
-        public Drawable ActiveDrawable
-        {
-            get { return _activeDrawable; }
-            set { _activeDrawable = value; }
-        }
+        Blob theBlob;
+        Vector3 blobStartPosition = new Vector3(0, 10, 0);
+        Texture text;
 
-        Area _activeArea;
-        public Area ActiveArea
-        {
-            get { return _activeArea; }
-            set { _activeArea = value; }
-        }
+        Effect effect;
+        Effect celEffect;
 
-        public const String EFFECT_TYPE = "Cel";
-
-        private String _effectName;
-        public String EffectName
-        {
-            get { return _effectName; }
-            set { _effectName = value; }
-        }
-
-        //Effect celshader;
         Matrix worldMatrix;
         Matrix viewMatrix;
         Matrix projectionMatrix;
-        public Matrix WorldMatrix
-        {
-            get { return worldMatrix; }
-        }
-        public Matrix ViewMatrix
-        {
-            get { return viewMatrix; }
-        }
-        public Matrix ProjectionMatrix
-        {
-            get { return projectionMatrix; }
-        }
-        //SpriteFont font;
 
-        const String POINT_TEXT = "point_text";
-
-        //VertexDeclaration VertexDeclarationColor;
+        VertexDeclaration VertexDeclarationColor;
         VertexDeclaration VertexDeclarationTexture;
 
+        List<Drawable> drawables = new List<Drawable>();
+
+        Vector4 lightPosition;
+
+        Physics.PhysicsManager physics;
+
+        bool paused = false;
+        bool controllermode = false;
         bool follow = true;
-        public Vector3 focusPoint = new Vector3(0, 0, 0);
-        Vector3 Up = Vector3.Up;
-        Vector3 Horizontal = new Vector3();
-        Vector3 Run = new Vector3();
+
+        bool drawMode = true;
+        bool points = false;
+
+		SpriteFont font;
+		//fps
+		float time = 0f;
+		float update = 1f;
+		int frames = 0;
+		string fps = "";
 
         static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
         Vector3 cameraPosition = defaultCameraPosition;
         Vector2 cameraAngle = new Vector2(1f, 0.4f);
+        float cameraLengthMulti = 1f;
         float cameraLength = 20f;
         float playerCamMulti = 0.1f;
+
+        bool OrientCamera = false;
+
+        float playerMoveMulti = 50f;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            content = new ContentManager(Services);
         }
 
         /// <summary>
@@ -95,14 +80,38 @@ namespace Project_blob
         /// </summary>
         protected override void Initialize()
         {
-            _effectName = EFFECT_TYPE;
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            // TODO: Add your initialization logic here
+            reset();
+            physics.AirFriction = 2f;
 
-            GraphicsDevice.RenderState.PointSize = 5;
-
-            InputHandler.LoadDefaultBindings();
+			InputHandler.LoadDefaultBindings();
 
             base.Initialize();
+        }
+
+        private void reset()
+        {
+            physics = new Physics.PhysicsManager();
+
+            physics.Player.Traction.Minimum = 0f;
+            physics.Player.Traction.Origin = 50f;
+            physics.Player.Traction.Maximum = 100f;
+
+            physics.Player.Cling.Minimum = 0f;
+            physics.Player.Cling.Origin = 100f;
+            physics.Player.Cling.Maximum = 400f;
+
+            physics.Player.Resilience.Minimum = 10f;
+            physics.Player.Resilience.Origin = 40f;
+            physics.Player.Resilience.Maximum = 120f;
+            physics.Player.Resilience.Delta = 10;
+
+            physics.Player.Volume.Minimum = 0f;
+			physics.Player.Volume.Origin = 10f;
+            physics.Player.Volume.Maximum = 50f;
+            physics.Player.Volume.Delta = 1;
+
+            //drawables.Clear();
         }
 
         /// <summary>
@@ -111,121 +120,106 @@ namespace Project_blob
         /// </summary>
         protected override void LoadContent()
         {
-            if(EFFECT_TYPE != "basic")
-                EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            if (System.IO.Directory.Exists(@"Content\Textures"))
+			font = Content.Load<SpriteFont>(@"Courier New");
+
+            celEffect = Content.Load<Effect>(@"Shaders\\Cel");
+
+            // TODO: use this.Content to load your game content here
+            blobModel = this.Content.Load<Model>(@"Models\\soccerball");
+            text = this.Content.Load<Texture2D>(@"test");
+
+			blobStartPosition = new Vector3(0.1f, 1.0001f, 0.1f);
+			theBlob = new Blob(blobModel, blobStartPosition);
+
+			physics.Player.PlayerBody = theBlob;
+
+			physics.AddPoints(theBlob.points);
+			physics.AddSprings(theBlob.springs);
+
+			physics.AddGravity(new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f)));
+
+            theBlob.setGraphicsDevice(GraphicsDevice);
+            /*foreach (Drawable d in drawables)
             {
-                string[] texturePaths = System.IO.Directory.GetFiles(@"Content\Textures");
-                foreach (string s in texturePaths)
-                {
-                    string textureFile = s.Substring(s.LastIndexOf("\\") + 1);
-                    string textureName = textureFile.Remove(textureFile.LastIndexOf('.'));
-                    TextureManager.getSingleton.AddTexture(textureName, content.Load<Texture2D>(@"Content\\Textures\\" + textureName));
-                }
-            }
+                d.setGraphicsDevice(GraphicsDevice);
+            }*/
+			//cameraLengthMulti = 1f;
 
-            if (System.IO.Directory.Exists(@"Content\Models"))
-            {
-                string[] modelPaths = System.IO.Directory.GetFiles(@"Content\Models");
-                foreach (string s in modelPaths)
-                {
-                    string modelFile = s.Substring(s.LastIndexOf("\\") + 1);
-                    if (modelFile.EndsWith(".xnb"))
-                    {
-                        string modelName = modelFile.Remove(modelFile.LastIndexOf('.'));
-                        ModelManager.getSingleton.AddModel(modelName, content.Load<Model>(@"Content\\Models\\" + modelName));
-                    }
-                }
-            }
-            graphics.GraphicsDevice.VertexDeclaration = new VertexDeclaration(
-                graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+			lightPosition = new Vector4(5, 5, 5, 0);
 
+            GraphicsDevice.RenderState.PointSize = 5;
+
+            InitializeEffect();
+        }
+
+        private void addToPhysicsAndDraw(T t)
+        {
+            physics.AddCollidable(t);
+            drawables.Add(t);
+        }
+
+        /// <summary>
+        /// Initializes the basic effect (parameter setting and technique selection)
+        /// used for the 3D model.
+        /// </summary>
+        private void InitializeEffect()
+        {
             worldMatrix = Matrix.Identity;
 
-            viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero,
-                Vector3.Up);
+            viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -10), new Vector3(0, 0, 0), Vector3.Up);
 
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.ToRadians(45),  // 45 degree angle
-                (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
+                (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height,
                 1.0f, 100.0f);
 
-            if (EFFECT_TYPE == "basic")
-            {
-                Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix));
-            }
-            else if (EFFECT_TYPE == "effects")
-            {
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xView"].SetValue(viewMatrix);
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xProjection"].SetValue(projectionMatrix);
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xWorld"].SetValue(worldMatrix);
-
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(true);
-                //EffectManager.getSingleton.GetEffect(_effectName).Parameters["xShowNormals"].SetValue(true);
-                //EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightDirection"].SetValue(Vector3.Down);
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xAmbient"].SetValue(0.5f);
-
-                Level.AddArea("testArea", new Area(worldMatrix, _effectName, "xWorld", "xTexture", "Textured"));
-            }
-            else if (EFFECT_TYPE == "Cel")
-            {
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"].SetValue(worldMatrix);
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"].SetValue(projectionMatrix);
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"].SetValue(lightPos);
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"].SetValue(.9f);
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"].SetValue(0.15f);
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"].SetValue(0.08f);
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"].SetValue(0.05f);
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"].SetValue(2.0f);
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"].SetValue(0.4f);
-
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"].SetValue(0.03f);
-
-                Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
-            }
-            _activeArea = Level.Areas["testArea"];
-            //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
             VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
-            _activeArea.Display.TextureName = POINT_TEXT;
-            _activeArea.Display.ShowAxis = true;
+            VertexDeclarationColor = new VertexDeclaration(GraphicsDevice, VertexPositionColor.VertexElements);
 
-            //Load Default Level
-            Level.LoadLevel("StickBall", this.EffectName);
+            effect = Content.Load<Effect>("effects");
+
+            effect.Parameters["xView"].SetValue(viewMatrix);
+            effect.Parameters["xProjection"].SetValue(projectionMatrix);
+            effect.Parameters["xWorld"].SetValue(worldMatrix);
+
+            effect.Parameters["xTexture"].SetValue(text);
+            effect.Parameters["xEnableLighting"].SetValue(true);
+            //effect.Parameters["xShowNormals"].SetValue(true);
+            //effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
+            effect.Parameters["xLightPos"].SetValue(new Vector4(0, 5, 0, 0));
+            effect.Parameters["xAmbient"].SetValue(0.25f);
+
+            effect.Parameters["xCameraPos"].SetValue(new Vector4(0,0,-5, 0));
+
+            celEffect.Parameters["World"].SetValue(worldMatrix);
+            celEffect.Parameters["View"].SetValue(viewMatrix);
+            celEffect.Parameters["Projection"].SetValue(projectionMatrix);
+
+            celEffect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
+            celEffect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
+            celEffect.Parameters["LayerOneSharp"].SetValue(.3f);
+            celEffect.Parameters["LayerOneRough"].SetValue(0.15f);
+            celEffect.Parameters["LayerOneContrib"].SetValue(0.15f);
+            celEffect.Parameters["LayerTwoSharp"].SetValue(0.10f);
+            celEffect.Parameters["LayerTwoRough"].SetValue(4.0f);
+            celEffect.Parameters["LayerTwoContrib"].SetValue(0.3f);
+            celEffect.Parameters["EdgeOffset"].SetValue(0.05f);
+
+            celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
         }
 
-      
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
-        protected override void  UnloadContent()
+        protected override void UnloadContent()
         {
-                content.Unload();
+            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -241,32 +235,158 @@ namespace Project_blob
             {
                 this.Exit();
             }
-            Horizontal = Vector3.Normalize(Vector3.Cross(focusPoint - cameraPosition, Up));
-            Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
-
-            if (InputHandler.IsKeyPressed(Keys.A))
+            if (InputHandler.IsActionPressed(Actions.Reset))
             {
-                //strif to the left
-                this.focusPoint += Horizontal;
-                //Console.WriteLine(focusPoint);
+				reset();
+            }
+            if (InputHandler.IsKeyPressed(Keys.P))
+            {
+                paused = !paused;
+            }
+            if (InputHandler.IsKeyPressed(Keys.T))
+            {
+                graphics.ToggleFullScreen();
+            }
+            if (InputHandler.IsKeyPressed(Keys.F))
+            {
+                follow = !follow;
+                //camera follow
+                if (!follow)
+                {
+                    cameraPosition = defaultCameraPosition;
+                    viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
+                    effect.Parameters["xView"].SetValue(viewMatrix);
+
+                    celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
+                    celEffect.Parameters["View"].SetValue(viewMatrix);
+                    effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                }
+            }
+
+            if (InputHandler.IsKeyPressed(Keys.S))
+            {
+                //theBlob.setSpringForce(92.5f);
+                physics.Player.Resilience.Target = 1f;
             }
             if (InputHandler.IsKeyPressed(Keys.D))
             {
-                //strif to the right
-                this.focusPoint -= Horizontal;
-                //Console.WriteLine(focusPoint);
+                //theBlob.setSpringForce(62.5f);
+				physics.Player.Resilience.Target = 0.5f;
             }
             if (InputHandler.IsKeyPressed(Keys.W))
             {
-                //move foward
-                this.focusPoint += Run;
-                //Console.WriteLine(focusPoint);
+                //theBlob.setSpringForce(12.5f);
+				physics.Player.Resilience.Target = 0f;
             }
-            if (InputHandler.IsKeyPressed(Keys.S))
+            if (InputHandler.IsKeyPressed(Keys.Q))
             {
-                //move backwards
-                this.focusPoint -= Run;
-                //Console.WriteLine(focusPoint);
+                //Physics.PhysicsManager.TEMP_SurfaceFriction = 2f;
+                physics.Player.Traction.Target = 1f;
+                physics.Player.Cling.Target = 1f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.E))
+            {
+                //Physics.PhysicsManager.TEMP_SurfaceFriction = 0.5f;
+                physics.Player.Traction.Target = 0f;
+                physics.Player.Cling.Target = 0f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.A))
+            {
+                //Physics.PhysicsManager.TEMP_SurfaceFriction = 1f;
+                physics.Player.Traction.Target = 0.5f;
+                physics.Player.Cling.Target = 0.5f;
+            }
+            if (InputHandler.IsKeyPressed(Keys.Z))
+            {
+                drawMode = !drawMode;
+            }
+            if (InputHandler.IsKeyPressed(Keys.O))
+            {
+                OrientCamera = !OrientCamera;
+            }
+            if (InputHandler.IsKeyPressed(Keys.OemPeriod))
+            {
+                points = !points;
+            }
+            if (InputHandler.IsKeyPressed(Keys.N))
+            {
+                Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
+            }
+
+            // Xbox
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
+            {
+                controllermode = true;
+            }
+            if (controllermode)
+            {
+                //theBlob.setSpringForce(12.5f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 80f));
+                physics.Player.Resilience.Target = GamePad.GetState(PlayerIndex.One).Triggers.Right;
+                //Physics.PhysicsManager.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
+                physics.Player.Traction.Target = GamePad.GetState(PlayerIndex.One).Triggers.Left;
+                /*float vb = MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f);
+                InputHandler.SetVibration(vb, 0f);*/
+            }
+
+            // Quick Torque
+            Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
+            if (move != Vector2.Zero)
+            {
+                Vector3 Up;
+                /*if (OrientCamera)
+                {
+                    Up = physics.getUp(theBlob.getCenter());
+                }
+                else
+                {*/
+                    Up = Vector3.Up;
+                //}
+                Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - cameraPosition, Up));
+                Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
+
+                physics.Player.applyTorque(move.Y * playerMoveMulti, Horizontal);
+                physics.Player.applyTorque(move.X * playerMoveMulti, Run);
+
+                //foreach (Physics.Point p in theBlob.points)
+                //{
+                //    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
+                //    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Run)) * (move.X * playerMoveMulti);
+                //}
+            }
+
+            if (InputHandler.IsKeyPressed(Keys.PageUp))
+            {
+                theBlob.setSpringLength(0.1f);
+                cameraLengthMulti *= 1.015f;
+            }
+            else if (InputHandler.IsKeyPressed(Keys.PageDown))
+            {
+                theBlob.setSpringLength(-0.1f);
+                cameraLengthMulti *= 0.985f;
+            }
+
+
+            if (InputHandler.IsKeyDown(Keys.X))
+            {
+                //theBlob.idealVolume = theBlob.baseVolume + 50f;
+                physics.Player.Volume.Target = 1f;
+            }
+            else if (InputHandler.IsKeyDown(Keys.C))
+            {
+                //theBlob.idealVolume = theBlob.baseVolume + 50f;
+                physics.Player.Volume.Target = 0f;
+            }
+            else
+            {
+                //theBlob.idealVolume = theBlob.baseVolume;
+                physics.Player.Volume.Target = 0.5f;
+            }
+            //Console.WriteLine(theBlob.getVolume());
+            //theBlob.update();
+
+            if (!paused)
+            {
+                physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
             }
 
             if (follow)
@@ -285,31 +405,41 @@ namespace Project_blob
 
                 // following camera
                 cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
-                Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
-                cameraPosition = focusPoint + Offset;
+                Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
+                cameraPosition = theBlob.getCenter() + Offset;
 
-                viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
-
-                if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
+                // new Vector3(10, 10, 20)
+                /*if (OrientCamera)
                 {
-                    ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
+                    viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), physics.getUp(theBlob.getCenter()));
                 }
                 else
-                {
-                    if (EFFECT_TYPE == "effects")
-                        EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
-                    else if (EFFECT_TYPE == "Cel")
-                        EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
-                }
-
-                //m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
+                {*/
+                    viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), Vector3.Up);
+                //}
+                effect.Parameters["xView"].SetValue(viewMatrix);
+                celEffect.Parameters["View"].SetValue(viewMatrix);
 
                 //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
+                effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+            }
 
-                if (EFFECT_TYPE == "effects")
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                else if (EFFECT_TYPE == "Cel")
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+            //cubeVertexBuffer.SetData<VertexPositionNormalTexture>(theBlob.getTriangleVertexes());
+
+
+
+            // light
+            effect.Parameters["xLightPos"].SetValue(lightPosition);
+
+
+
+            //fps
+            time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (time > update)
+            {
+                fps = Convert.ToInt32(frames / time).ToString();
+                time = 0;
+                frames = 0;
             }
 
             base.Update(gameTime);
@@ -322,9 +452,122 @@ namespace Project_blob
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-            _activeArea.Display.Draw(graphics.GraphicsDevice);
 
-            base.Draw(gameTime);
+
+			if (drawMode)
+			{
+				GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+				GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+				GraphicsDevice.RenderState.DepthBufferEnable = true;
+			}
+			else
+			{
+				GraphicsDevice.RenderState.CullMode = CullMode.None;
+				GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+				GraphicsDevice.RenderState.DepthBufferEnable = false;
+			}
+			GraphicsDevice.RenderState.AlphaBlendEnable = false;
+			GraphicsDevice.RenderState.AlphaTestEnable = false;
+
+            // Box
+            effect.CurrentTechnique = effect.Techniques["Textured"];
+            GraphicsDevice.Textures[0] = text;
+            celEffect.Begin();
+            foreach (EffectPass pass in celEffect.CurrentTechnique.Passes)
+            {
+                pass.Begin();
+                theBlob.DrawMe();
+                pass.End();
+            }
+            celEffect.End();
+
+            // Collision Tris
+            effect.CurrentTechnique = effect.Techniques["Colored"];
+            GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
+			GraphicsDevice.Indices = null;
+			foreach (Drawable d in drawables)
+			{
+				//VertexPositionColor[] temp = d.getTriangleVertexes();
+				//VertexBuffer tempVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * temp.Length, BufferUsage.None);
+				//tempVertexBuffer.SetData<VertexPositionColor>(temp);
+				//GraphicsDevice.Vertices[0].SetSource(tempVertexBuffer, 0, VertexPositionColor.SizeInBytes);
+				GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
+				effect.Begin();
+				foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+				{
+					pass.Begin();
+					d.DrawMe();
+					pass.End();
+				}
+				effect.End();
+			}
+
+            if (points)
+            {
+                // Corner Dots -
+                effect.CurrentTechnique = effect.Techniques["Colored"];
+                GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
+                GraphicsDevice.RenderState.DepthBufferEnable = false;
+                VertexPositionColor[] dotVertices = new VertexPositionColor[theBlob.points.Count];
+                for (int i = 0; i < theBlob.points.Count; ++i)
+                {
+                    dotVertices[i] = new VertexPositionColor(theBlob.points[i].CurrentPosition, Color.Black);
+                }
+                VertexBuffer dotvertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * theBlob.points.Count, BufferUsage.None);
+                dotvertexBuffer.SetData<VertexPositionColor>(dotVertices);
+                GraphicsDevice.Vertices[0].SetSource(dotvertexBuffer, 0, VertexPositionColor.SizeInBytes);
+                effect.Begin();
+                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                {
+                    pass.Begin();
+                    GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, theBlob.points.Count);
+                    pass.End();
+                }
+                effect.End();
+            }
+
+            // GUI
+            GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+            spriteBatch.Begin();
+            spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
+            if (physics.Player.Resilience.Target < 0.5)
+            {
+                spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
+            }
+			else if (physics.Player.Resilience.Target > 0.5)
+            {
+                spriteBatch.DrawString(font, "Firm", new Vector2(150, 0), Color.White);
+            }
+            else
+            {
+                spriteBatch.DrawString(font, "Normal", new Vector2(150, 0), Color.White);
+            }
+			if (physics.Player.Traction.Target < 0.5)
+            {
+                spriteBatch.DrawString(font, "Slick", new Vector2(350, 0), Color.White);
+            }
+			else if (physics.Player.Traction.Target > 0.5)
+            {
+                spriteBatch.DrawString(font, "Sticky", new Vector2(350, 0), Color.White);
+            }
+            else
+            {
+                spriteBatch.DrawString(font, "Normal", new Vector2(350, 0), Color.White);
+            }
+            if (paused)
+            {
+                spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
+            }
+            //spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(550, 0), Color.White);
+            spriteBatch.DrawString(font, "Orig Vol: " + theBlob.getVolume().ToString(), new Vector2(450, 30), Color.White);
+            spriteBatch.DrawString(font, "New Vol: " + theBlob.getNewVolume().ToString(), new Vector2(450, 60), Color.White);
+            //spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
+            spriteBatch.End();
+
+			//fps
+			++frames;
+
+			//base.Draw(gameTime);
         }
     }
 }
