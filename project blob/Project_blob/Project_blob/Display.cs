@@ -254,9 +254,9 @@ namespace Project_blob
 
                     foreach (Drawable d in drawable_List_Drawn[ti])
                     {
-                        if (d is DrawableModel)
+                        if (d is StaticModel)
                         {
-                            DrawModel(m_WorldMatrix, (DrawableModel)d, graphicsDevice);
+                            DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
 
                         }
                         else
@@ -282,7 +282,7 @@ namespace Project_blob
             EffectManager.getSingleton.GetEffect(_effectName).End();
         }
 
-        public void DrawModel(Matrix p_CurrentWorld, DrawableModel d, GraphicsDevice graphicsDevice)
+        public void DrawModel(Matrix p_CurrentWorld, StaticModel d, GraphicsDevice graphicsDevice)
         {
             Stack<Matrix> drawStack = new Stack<Matrix>();
             Matrix currentWorld = p_CurrentWorld;

@@ -14,14 +14,15 @@ using System.Runtime.Serialization;
 namespace Project_blob
 {
     [Serializable]
-    public class DrawableModel : Drawable 
+    public class StaticModel : Drawable 
     {
         private String _modelName;
         
-        [NonSerialized]
-        private List<Physics.Collidable> m_collidables;
-        public void setCollidables(Model m, Physics.PhysicsManager p)
+        //[NonSerialized]
+        //private List<Physics.Collidable> m_collidables;
+        public List<Physics.Collidable> createCollidables(Model m)
         {
+            List<Physics.Collidable> collidables = new List<Physics.Collidable>();
             foreach (ModelMesh mesh in m.Meshes)
             {
                 // Vertices
@@ -50,16 +51,15 @@ namespace Project_blob
                 }
 
                 // Collidables
-                m_collidables = new List<Physics.Collidable>();
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
                     for (int i = 0; i < part.PrimitiveCount; i++)
                     {
-                        m_collidables.Add(new CollidableTri(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position));
+                        collidables.Add(new CollidableTri(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position));
                     }
-                }
-                p.AddCollidables(m_collidables);
+                } 
             }
+            return collidables;
         }
 
         public String getName()
@@ -213,7 +213,7 @@ namespace Project_blob
             return null;
         }
 
-        public DrawableModel(String p_Name, String fileName)
+        public StaticModel(String p_Name, String fileName)
         {
             m_Name = p_Name;
             _modelName = fileName;
