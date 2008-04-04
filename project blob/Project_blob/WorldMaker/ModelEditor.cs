@@ -234,9 +234,9 @@ namespace WorldMaker
 
         private void setScale()
         {
-            if (m_Game.ActiveDrawable is DrawableModel)
+            if (m_Game.ActiveDrawable is StaticModel)
             {
-                ((DrawableModel)m_Game.ActiveDrawable).Scale = Matrix.CreateScale(Convert.ToSingle(ScaleXValue.Text), Convert.ToSingle(ScaleYValue.Text), Convert.ToSingle(ScaleZValue.Text));
+                ((StaticModel)m_Game.ActiveDrawable).Scale = Matrix.CreateScale(Convert.ToSingle(ScaleXValue.Text), Convert.ToSingle(ScaleYValue.Text), Convert.ToSingle(ScaleZValue.Text));
             }
         }
 
@@ -367,9 +367,9 @@ namespace WorldMaker
 
         private void SetRotation()
         {
-            if (m_Game.ActiveDrawable is DrawableModel)
+            if (m_Game.ActiveDrawable is StaticModel)
             {
-                ((DrawableModel)m_Game.ActiveDrawable).Rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(Convert.ToSingle(RotationXValue.Text))), Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(Convert.ToSingle(RotationYValue.Text))), Matrix.CreateRotationZ(MathHelper.ToRadians(Convert.ToSingle(RotationZValue.Text)))));
+                ((StaticModel)m_Game.ActiveDrawable).Rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(Convert.ToSingle(RotationXValue.Text))), Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(Convert.ToSingle(RotationYValue.Text))), Matrix.CreateRotationZ(MathHelper.ToRadians(Convert.ToSingle(RotationZValue.Text)))));
             }
         }
         #endregion
@@ -382,9 +382,9 @@ namespace WorldMaker
         {
             try
             {
-                if (m_Game.ActiveDrawable is DrawableModel)
+                if (m_Game.ActiveDrawable is StaticModel)
                 {
-                    ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
+                    ((StaticModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
                 }
                 PositionX.ForeColor = Color.Black;
             }
@@ -399,9 +399,9 @@ namespace WorldMaker
         {
             try
             {
-                if (m_Game.ActiveDrawable is DrawableModel)
+                if (m_Game.ActiveDrawable is StaticModel)
                 {
-                    ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
+                    ((StaticModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
                 }
                 PositionY.ForeColor = Color.Black;
             }
@@ -416,9 +416,9 @@ namespace WorldMaker
         {
             try
             {
-                if (m_Game.ActiveDrawable is DrawableModel)
+                if (m_Game.ActiveDrawable is StaticModel)
                 {
-                    ((DrawableModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
+                    ((StaticModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
                 }
                 PositionZ.ForeColor = Color.Black;
             }
@@ -432,9 +432,9 @@ namespace WorldMaker
 
         private void Focus_Click(object sender, EventArgs e)
         {
-            if (m_Game.ActiveDrawable is DrawableModel)
+            if (m_Game.ActiveDrawable is StaticModel)
             {
-                m_Game.focusPoint = ((DrawableModel)m_Game.ActiveDrawable).Position.Translation;
+                m_Game.focusPoint = ((StaticModel)m_Game.ActiveDrawable).Position.Translation;
             }
         }
 
@@ -448,20 +448,20 @@ namespace WorldMaker
             else
             {
 
-                if (m_Game.ActiveDrawable is DrawableModel)
+                if (m_Game.ActiveDrawable is StaticModel)
                 {
 
                     Vector3 theTranslation;
                     Quaternion theRotation;
                     Vector3 theScale;
 
-                    ((DrawableModel)m_Game.ActiveDrawable).Position.Decompose(out theScale, out theRotation, out theTranslation);
+                    ((StaticModel)m_Game.ActiveDrawable).Position.Decompose(out theScale, out theRotation, out theTranslation);
 
                     PositionX.Text = theTranslation.X.ToString();
                     PositionY.Text = theTranslation.Y.ToString();
                     PositionZ.Text = theTranslation.Z.ToString();
 
-                    //((DrawableModel)m_Game.ActiveDrawable).Rotation.Decompose(out theScale, out theRotation, out theTranslation);
+                    //((StaticModel)m_Game.ActiveDrawable).Rotation.Decompose(out theScale, out theRotation, out theTranslation);
 
                     //RotationXValue.Text = MathHelper.ToDegrees(theRotation.X).ToString();
                     //RotationYValue.Text = MathHelper.ToDegrees(theRotation.Y).ToString();

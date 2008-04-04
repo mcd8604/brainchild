@@ -14,8 +14,8 @@ namespace WorldMaker
 {
     public partial class ModelSelect : Form
     {
-        DrawableModel m_CurrentModel;
-        public DrawableModel CurrentModel
+        StaticModel m_CurrentModel;
+        public StaticModel CurrentModel
         {
             get
             {
@@ -49,7 +49,7 @@ namespace WorldMaker
             _gameRef = game;
 
             levelEditor = p_LE;
-            m_CurrentModel = new DrawableModel("none", "none");
+            m_CurrentModel = new StaticModel("none", "none");
             Random rand = new Random();
             m_CurrentTexture = new TextureInfo(null, rand.Next());
 
