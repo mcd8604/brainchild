@@ -24,7 +24,7 @@ namespace Project_blob
 
         Blob theBlob;
         Vector3 blobStartPosition = new Vector3(0, 10, 0);
-        Texture text;
+        Texture blobTexture;
 
         Effect effect;
         Effect celEffect;
@@ -87,7 +87,11 @@ namespace Project_blob
             reset();
             physics.AirFriction = 2f;
 
-			InputHandler.LoadDefaultBindings();
+            InputHandler.LoadDefaultBindings();
+
+            lightPosition = new Vector4(5, 5, 5, 0);
+
+            GraphicsDevice.RenderState.PointSize = 5;
 
             base.Initialize();
         }
@@ -134,30 +138,21 @@ namespace Project_blob
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);  
 
+            //load fonts
 			font = Content.Load<SpriteFont>(@"Fonts\\Courier New");
 
+            //load shaders
             celEffect = Content.Load<Effect>(@"Shaders\\Cel");
-
-            // TODO: use this.Content to load your game content here
+    
             blobModel = this.Content.Load<Model>(@"Models\\soccerball");
-            text = this.Content.Load<Texture2D>(@"Textures\\test");
+
+            blobTexture = this.Content.Load<Texture2D>(@"Textures\\test");
 
             resetBlob();
 
-            /*foreach (Drawable d in drawables)
-            {
-                d.setGraphicsDevice(GraphicsDevice);
-            }*/
-			//cameraLengthMulti = 1f;
-
-			lightPosition = new Vector4(5, 5, 5, 0);
-
-            GraphicsDevice.RenderState.PointSize = 5;
-
-            InitializeEffect();
-
+            //load default level
             Level.LoadLevel("ground", "effects");
 
             //load first area
@@ -166,11 +161,27 @@ namespace Project_blob
                 IEnumerator e = Level.Areas.Values.GetEnumerator();
                 e.MoveNext();
                 currentArea = (Area)e.Current;
+
+                //load level models and textures
+                IEnumerator drawablesEnum = currentArea.Drawables.GetEnumerator();
+                while (drawablesEnum.MoveNext())
+                {
+                    KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
+                    Drawable d = (Drawable)kvp.Value;
+                    if (d is DrawableModel)
+                    {
+                        DrawableModel dm = (DrawableModel)d;
+                        ModelManager.getSingleton.AddModel(dm.ModelName, Content.Load<Model>(@"Models\\" + dm.ModelName));
+                        TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
+                    }
+                }
             }
             else
             {
                 //empty level
-            }        
+            }  
+
+            InitializeEffect();    
         }
 
         private void addToPhysicsAndDraw(T t)
@@ -204,7 +215,7 @@ namespace Project_blob
             effect.Parameters["xProjection"].SetValue(projectionMatrix);
             effect.Parameters["xWorld"].SetValue(worldMatrix);
 
-            effect.Parameters["xTexture"].SetValue(text);
+            effect.Parameters["xTexture"].SetValue(blobTexture);
             effect.Parameters["xEnableLighting"].SetValue(true);
             //effect.Parameters["xShowNormals"].SetValue(true);
             //effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
@@ -494,7 +505,7 @@ namespace Project_blob
 
             // Box
             effect.CurrentTechnique = effect.Techniques["Textured"];
-            GraphicsDevice.Textures[0] = text;
+            GraphicsDevice.Textures[0] = blobTexture;
             celEffect.Begin();
             foreach (EffectPass pass in celEffect.CurrentTechnique.Passes)
             {
