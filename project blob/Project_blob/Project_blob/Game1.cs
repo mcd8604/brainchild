@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using System.Collections;
 
 namespace Project_blob
 {
@@ -65,6 +66,8 @@ namespace Project_blob
         bool OrientCamera = false;
 
         float playerMoveMulti = 50f;
+
+        Area currentArea;
 
         public Game1()
         {
@@ -153,6 +156,17 @@ namespace Project_blob
             GraphicsDevice.RenderState.PointSize = 5;
 
             InitializeEffect();
+
+            Level.LoadLevel("ground", "effects");
+
+            if (Level.Areas.Count > 0)
+            {
+                IEnumerator e = Level.Areas.Values.GetEnumerator();
+                e.MoveNext(); e.MoveNext();
+                currentArea = (Area)e.Current; 
+            } else {
+                //empty level
+            }
         }
 
         private void addToPhysicsAndDraw(T t)
@@ -195,6 +209,8 @@ namespace Project_blob
 
             effect.Parameters["xCameraPos"].SetValue(new Vector4(0,0,-5, 0));
 
+            EffectManager.getSingleton.AddEffect("effects", effect);
+
             celEffect.Parameters["World"].SetValue(worldMatrix);
             celEffect.Parameters["View"].SetValue(viewMatrix);
             celEffect.Parameters["Projection"].SetValue(projectionMatrix);
@@ -210,6 +226,8 @@ namespace Project_blob
             celEffect.Parameters["EdgeOffset"].SetValue(0.05f);
 
             celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
+
+            EffectManager.getSingleton.AddEffect("celEffect", celEffect);
         }
 
 
@@ -482,7 +500,7 @@ namespace Project_blob
             celEffect.End();
 
             // Collision Tris
-            effect.CurrentTechnique = effect.Techniques["Colored"];
+           /* effect.CurrentTechnique = effect.Techniques["Colored"];
             GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
 			GraphicsDevice.Indices = null;
 			foreach (Drawable d in drawables)
@@ -500,7 +518,11 @@ namespace Project_blob
 					pass.End();
 				}
 				effect.End();
-			}
+			}*/
+
+            //Level Models
+            currentArea.Display.WorldParameterName = "xWorld";
+            currentArea.Display.Draw(GraphicsDevice);
 
             if (points)
             {
