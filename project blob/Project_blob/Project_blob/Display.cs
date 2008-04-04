@@ -171,9 +171,8 @@ namespace Project_blob
             _effectName = effectName;
             _textureName = "point_text";
             
-            Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().FullName);
             ShowAxis = true;
-            ShowAxis = false;
+
             m_WorldMatrix = p_World;
             m_WorldParameterName = p_WorldParameterName;
             m_TextureParameterName = p_TextureParameterName;
