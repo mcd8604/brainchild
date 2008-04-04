@@ -123,13 +123,13 @@ namespace Project_blob
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			font = Content.Load<SpriteFont>(@"Courier New");
+			font = Content.Load<SpriteFont>(@"Fonts\\Courier New");
 
             celEffect = Content.Load<Effect>(@"Shaders\\Cel");
 
             // TODO: use this.Content to load your game content here
             blobModel = this.Content.Load<Model>(@"Models\\soccerball");
-            text = this.Content.Load<Texture2D>(@"test");
+            text = this.Content.Load<Texture2D>(@"Textures\\test");
 
 			blobStartPosition = new Vector3(0.1f, 1.0001f, 0.1f);
 			theBlob = new Blob(blobModel, blobStartPosition);
