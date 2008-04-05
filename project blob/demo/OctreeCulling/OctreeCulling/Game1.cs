@@ -49,10 +49,13 @@ namespace OctreeCulling
 
         //Test variables
         List<SceneObject> _objects;
-        //bool _cull = false;
-        //int _culled = 0;
-        //int _drawn = 0;
-        //int _total = 0;
+        List<SceneObject> _listGraphObjects;
+        bool _cull = false;
+        int _culled = 0;
+        int _drawn = 0;
+        int _total = 0;
+
+        int graphType = 1;
 
         //Matrix objScaleMatrix;
         //float objScale = 0.005f;
@@ -77,6 +80,7 @@ namespace OctreeCulling
             //_cameraManager = new CameraManager();
 
             _objects = new List<SceneObject>();
+            _listGraphObjects = new List<SceneObject>();
 
             TestCamera camera = new TestCamera(graphics.GraphicsDevice.Viewport);
             camera.Position = new Vector3(0.0f, 10.0f, -40.0f);
@@ -129,16 +133,17 @@ namespace OctreeCulling
                         _objects.Add(cube);
                         //_objects.Add(pyramid);
 
-                        SceneManager.getSingleton.AddObject(cube);
+                        //SceneManager.getSingleton.AddObject(cube);
                         //SceneManager.getSingleton.AddObject(pyramid);
                     }
                     
                 }
 
             }
-
-            OctreeManager.getSingleton.Octree.Distribute(ref _objects);
-            //_total = _objects.Count;
+            _listGraphObjects = new List<SceneObject>(_objects);
+            //OctreeManager.getSingleton.Octree.Distribute(ref _objects);
+            SceneManager.getSingleton.Distribute(ref _objects);
+            _total = _listGraphObjects.Count;
         }
 
         /// <summary>
@@ -264,11 +269,13 @@ namespace OctreeCulling
 
             if (InputHandler.IsKeyPressed(Keys.C))
             {
-                OctreeManager.getSingleton.Cull = !OctreeManager.getSingleton.Cull;
-                //SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
+                //OctreeManager.getSingleton.Cull = !OctreeManager.getSingleton.Cull;
+                SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
+                
+                _cull = !_cull;
 
-                if (OctreeManager.getSingleton.Cull)
-                //if (SceneManager.getSingleton.Cull)
+                //if (OctreeManager.getSingleton.Cull)
+                if (SceneManager.getSingleton.Cull)
                 {
                     culling = "On";
                 }
@@ -276,17 +283,23 @@ namespace OctreeCulling
                 {
                     culling = "Off";
                 }
-
-
                 //_cull = !_cull;
-                //if (_cull)
-                //{
-                //    culling = "On";
-                //}
-                //else
-                //{
-                //    culling = "Off";
-                //}
+                //    if (_cull)
+                //    {
+                //        culling = "On";
+                //    }
+                //    else
+                //    {
+                //        culling = "Off";
+                //    }
+            }
+
+            if (InputHandler.IsKeyPressed(Keys.M))
+            {
+                if (graphType == 0)
+                    graphType = 1;
+                else if (graphType == 1)
+                    graphType = 0;
             }
 
             //Turn left
@@ -346,37 +359,45 @@ namespace OctreeCulling
             //SceneManager.getSingleton.Draw(gameTime);
             //timer.Stop();
 
-            timer.Start();
-            OctreeManager.getSingleton.Draw(gameTime);
-            timer.Stop();
-
-            //Test
-            //_culled = 0;
-            //_drawn = 0;
-            //foreach (SceneObject obj in _objects)
-            //{
-            //    if (_cull)
-            //    {
-            //        //if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(obj.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
-            //        ContainmentType type = CameraManager.getSingleton.GetCamera("test").Frustum.Contains(obj.GetBoundingBoxTransformed());
-            //        if( type == ContainmentType.Disjoint)
-            //        //if (CameraManager.getSingleton.GetCamera("test").Frustum.Contains(obj.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
-            //        {
-            //            ++_culled;
-            //        }
-            //        else
-            //        {
-            //            obj.Draw(gameTime);
-            //            ++_drawn;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        obj.Draw(gameTime);
-            //        ++_drawn;
-            //    }
-            //}
-            //End Test
+            if (graphType == 1)
+            {
+                timer.Start();
+                //OctreeManager.getSingleton.Draw(gameTime);
+                SceneManager.getSingleton.Draw(gameTime);
+                timer.Stop();
+            }
+            else if (graphType == 0)
+            {
+                timer.Start();
+                //Test
+                _culled = 0;
+                _drawn = 0;
+                foreach (SceneObject obj in _listGraphObjects)
+                {
+                    if (_cull)
+                    {
+                        //if (CameraManager.getSingleton.ActiveCamera.Frustum.Contains(obj.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
+                        ContainmentType type = CameraManager.getSingleton.GetCamera("test").Frustum.Contains(obj.GetBoundingBoxTransformed());
+                        if (type == ContainmentType.Disjoint)
+                        //if (CameraManager.getSingleton.GetCamera("test").Frustum.Contains(obj.GetBoundingBoxTransformed()) == ContainmentType.Disjoint)
+                        {
+                            ++_culled;
+                        }
+                        else
+                        {
+                            obj.Draw(gameTime);
+                            ++_drawn;
+                        }
+                    }
+                    else
+                    {
+                        obj.Draw(gameTime);
+                        ++_drawn;
+                    }
+                }
+                //End Test
+                timer.Stop();
+            }
 
             //*
             //Draw camera frustum
@@ -411,9 +432,25 @@ namespace OctreeCulling
 
             spriteBatch.DrawString(font, "FPS: " + fps, new Vector2(10.0f, 10.0f), Color.White);
             spriteBatch.DrawString(font, "Culling: " + culling, new Vector2(10.0f, 30.0f), Color.White);
-            //spriteBatch.DrawString(font, "Object Count: " + _total, new Vector2(10.0f, 50.0f), Color.White);
-            //spriteBatch.DrawString(font, "Objects Drawn: " + _drawn, new Vector2(10.0f, 70.0f), Color.White);
-            //spriteBatch.DrawString(font, "Objects Culled: " + _culled, new Vector2(10.0f, 90.0f), Color.White);
+            if (graphType == 0)
+            {
+                spriteBatch.DrawString(font, "Object Count: " + _total, new Vector2(10.0f, 50.0f), Color.White);
+                spriteBatch.DrawString(font, "Objects Drawn: " + _drawn, new Vector2(10.0f, 70.0f), Color.White);
+                spriteBatch.DrawString(font, "Objects Culled: " + _culled, new Vector2(10.0f, 90.0f), Color.White);
+                spriteBatch.DrawString(font, "Graph Mode: List", new Vector2(10.0f, 150.0f), Color.White);
+            }
+            else if (graphType == 1)
+            {
+                //int culled = OctreeManager.getSingleton.SceneObjectCount - OctreeManager.getSingleton.Drawn;
+                int culled = SceneManager.getSingleton.SceneObjectCount - SceneManager.getSingleton.Drawn;
+                //spriteBatch.DrawString(font, "Object Count: " + OctreeManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
+                //spriteBatch.DrawString(font, "Objects Drawn: " + OctreeManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
+                //spriteBatch.DrawString(font, "Objects Culled: " + culled.ToString(), new Vector2(10.0f, 90.0f), Color.White);
+                spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
+                spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
+                spriteBatch.DrawString(font, "Objects Culled: " + culled.ToString(), new Vector2(10.0f, 90.0f), Color.White);
+                spriteBatch.DrawString(font, "Graph Mode: Octree", new Vector2(10.0f, 150.0f), Color.White);
+            }
             spriteBatch.DrawString(font, "Camera Position: {" +
                 CameraManager.getSingleton.ActiveCamera.Position.X + ", " +
                 CameraManager.getSingleton.ActiveCamera.Position.Y + ", " +
@@ -422,13 +459,6 @@ namespace OctreeCulling
             //spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
             //spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
             //spriteBatch.DrawString(font, "Objects Culled: " + SceneManager.getSingleton.Culled, new Vector2(10.0f, 90.0f), Color.White);
-
-            int culled = OctreeManager.getSingleton.SceneObjectCount - OctreeManager.getSingleton.Drawn;
-
-            spriteBatch.DrawString(font, "Object Count: " + OctreeManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
-            spriteBatch.DrawString(font, "Objects Drawn: " + OctreeManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
-            spriteBatch.DrawString(font, "Objects Culled: " + culled.ToString(), new Vector2(10.0f, 90.0f), Color.White);
-            
 
             spriteBatch.DrawString(font, "Time to Cull+Draw: " + timer.ElapsedMilliseconds + " milliseconds", new Vector2(10.0f, 130.0f), Color.White);
             

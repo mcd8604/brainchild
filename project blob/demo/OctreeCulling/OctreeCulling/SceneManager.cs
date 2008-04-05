@@ -45,15 +45,36 @@ namespace OctreeCulling
         /// <summary>
         /// The root of the scene graph
         /// </summary>
-        private static Node _root;
-        public static Node Root
+        //private static Node _root;
+        //public static Node Root
+        //{
+        //    get { return _root; }
+        //}
+
+        private Octree _octree;
+        public Octree Octree
         {
-            get { return _root; }
+            get { return _octree; }
+            set { _octree = value; }
         }
+
+        public enum SceneGraphType
+        {
+            Octree = 0
+        }
+
+        private SceneGraphType _graphType = 0;
+        public SceneGraphType GraphType
+        {
+            get { return _graphType; }
+            set { _graphType = value; }
+        }
+
 
         public SceneManager()
         {
-            _root = new Node();
+            //_root = new Node();
+            _octree = new Octree();
         }
 
         /*! Returns singleton instance of the SceneManager */
@@ -79,22 +100,37 @@ namespace OctreeCulling
             _drawn = 0;
             _culled = 0;
 
-            if (_cull)
+            if (_graphType == SceneGraphType.Octree)
             {
-                //Draw will be replaced with Culling Draw
-                _root.CullDraw(gameTime);
-            }
-            else
-            {
-                _root.Draw(gameTime);
+                if (_cull)
+                {
+                    //Draw will be replaced with Culling Draw
+                    //_root.CullDraw(gameTime);
+                    _octree.DrawVisible(gameTime);
+                }
+                else
+                {
+                    //_root.Draw(gameTime);
+                    _octree.Draw(gameTime);
+                }
             }
         }
 
-        public void AddObject(SceneObject sceneObject)
+        public void Distribute(ref List<SceneObject> scene)
         {
-            SceneObjectNode node = new SceneObjectNode(sceneObject);
-            _root.AddNode(node);
-            _sceneObjectCount += 1;
+            _sceneObjectCount = scene.Count;
+
+            if (_graphType == SceneGraphType.Octree)
+            {
+                _octree.Distribute(ref scene);
+            }
         }
+
+        //public void AddObject(SceneObject sceneObject)
+        //{
+        //    SceneObjectNode node = new SceneObjectNode(sceneObject);
+        //    _root.AddNode(node);
+        //    _sceneObjectCount += 1;
+        //}
     }
 }
