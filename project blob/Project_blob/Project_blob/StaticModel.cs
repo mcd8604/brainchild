@@ -34,6 +34,39 @@ namespace Project_blob
                 VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
                 mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
+                Matrix transformMatrix = Matrix.Identity;
+                Stack<Matrix> drawStack = new Stack<Matrix>();
+                for (int j = 0; j < 4; j++)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (m_PriorityArray[i] == j)
+                        {
+                            switch (i)
+                            {
+                                case 0:
+                                    if (this.Position != null)
+                                        drawStack.Push(this.Position);
+                                    break;
+                                case 1:
+                                    if (this.Rotation != null)
+                                        drawStack.Push(this.Rotation);
+                                    break;
+                                case 2:
+                                    if (this.Scale != null)
+                                        drawStack.Push(this.Scale);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                while (drawStack.Count > 0)
+                {
+                     transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
+                }
                 // Indices
                 int[] indices;
                 if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
@@ -53,9 +86,27 @@ namespace Project_blob
                 // Collidables
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
-                    for (int i = 0; i < part.PrimitiveCount; i++)
+                    int numCol = 0;
+                    for (int i = 0; i < indices.Length; i+=3)
                     {
-                        collidables.Add(new CollidableTri(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position));
+                        //does this work?
+                        Vector3 p1 = vertices[indices[i]].Position;
+                        Vector3.Transform(p1, m_Position);
+                        Vector3.Transform(p1, m_Rotation);
+                        Vector3.Transform(p1, m_Scale);
+                        if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
+                        {
+                            //transform points to correct position
+                            vertices[indices[i]].Position = Vector3.Transform(vertices[indices[i]].Position, transformMatrix);
+                            vertices[indices[i]].Normal = Vector3.TransformNormal(vertices[indices[i]].Normal, transformMatrix);
+                            vertices[indices[i + 1]].Position = Vector3.Transform(vertices[indices[i + 1]].Position, transformMatrix);
+                            vertices[indices[i + 1]].Normal = Vector3.TransformNormal(vertices[indices[i + 1]].Normal, transformMatrix);
+                            vertices[indices[i + 2]].Position = Vector3.Transform(vertices[indices[i + 2]].Position, transformMatrix);
+                            vertices[indices[i + 2]].Normal = Vector3.TransformNormal(vertices[indices[i + 2]].Normal, transformMatrix);
+
+                            collidables.Add(new CollidableTri(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]]));
+                            numCol++;
+                        }
                     }
                 } 
             }
