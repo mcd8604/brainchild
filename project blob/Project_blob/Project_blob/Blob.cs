@@ -405,5 +405,25 @@ namespace Project_blob
 
         //}
 
+
+        #region Drawable Members
+
+
+        public TextureInfo GetTextureKey()
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        public BoundingBox GetBoundingBox()
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        public BoundingSphere GetBoundingSphere()
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        #endregion
     }
 }

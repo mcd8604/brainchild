@@ -14,10 +14,15 @@ using System.Runtime.Serialization;
 namespace Project_blob
 {
     [Serializable]
-    public class StaticModel : Drawable 
+    public class StaticModel : Drawable
     {
         private String _modelName;
-        
+
+        private TextureInfo m_TextureKey;
+
+        private BoundingBox m_BoundingBox;
+        private BoundingSphere m_BoundingSphere;
+
         //[NonSerialized]
         //private List<Physics.Collidable> m_collidables;
         public List<Physics.Collidable> createCollidables(Model m)
@@ -65,7 +70,7 @@ namespace Project_blob
 
                 while (drawStack.Count > 0)
                 {
-                     transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
+                    transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
                 }
 
                 for (int i = 0; i < vertices.Length; i++)
@@ -94,8 +99,8 @@ namespace Project_blob
                 int numCol = 0;
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
-                    
-                    for (int i = 0; i < indices.Length; i+=3)
+
+                    for (int i = 0; i < indices.Length; i += 3)
                     {
                         if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
                         {
@@ -103,7 +108,7 @@ namespace Project_blob
                             numCol++;
                         }
                     }
-                } 
+                }
             }
             return collidables;
         }
@@ -138,7 +143,7 @@ namespace Project_blob
                 m_Name = value;
             }
         }
-        
+
         Matrix m_Position, m_Rotation, m_Scale;
 
         //priority for translation, rotation, and scale
@@ -267,9 +272,41 @@ namespace Project_blob
             RotationPriority = 1;
             ScalePriority = 0;
 
+
+            foreach (ModelMesh mesh in ModelManager.getSingleton.GetModel(p_Name).Meshes)
+            {
+                m_BoundingSphere = BoundingSphere.CreateMerged(m_BoundingSphere, mesh.BoundingSphere);
+            }
+            m_BoundingBox = BoundingBox.CreateFromSphere(m_BoundingSphere);
+
             m_Position = Matrix.CreateTranslation(Vector3.Zero);
             m_Rotation = Matrix.CreateRotationZ(0);
             m_Scale = Matrix.CreateScale(1);
+
+            m_TextureKey = null;
+
+        }
+
+        public StaticModel(String p_Name, String fileName, TextureInfo p_TextureKey)
+        {
+            m_Name = p_Name;
+            _modelName = fileName;
+            TranslationPriority = 2;
+            RotationPriority = 1;
+            ScalePriority = 0;
+
+
+            foreach (ModelMesh mesh in ModelManager.getSingleton.GetModel(p_Name).Meshes)
+            {
+                m_BoundingSphere = BoundingSphere.CreateMerged(m_BoundingSphere, mesh.BoundingSphere);
+            }
+            m_BoundingBox = BoundingBox.CreateFromSphere(m_BoundingSphere);
+
+            m_Position = Matrix.CreateTranslation(Vector3.Zero);
+            m_Rotation = Matrix.CreateRotationZ(0);
+            m_Scale = Matrix.CreateScale(1);
+
+            m_TextureKey = p_TextureKey;
 
         }
 
@@ -279,7 +316,7 @@ namespace Project_blob
             return VertexPositionNormalTexture.SizeInBytes;
         }
 
-        public void DrawMe(){}
+        public void DrawMe() { }
 
         public void DrawMe(ModelMesh mesh, GraphicsDevice graphicsDevice, bool gameMode)
         {
@@ -301,5 +338,102 @@ namespace Project_blob
             }
         }
 
+
+        #region Drawable Members
+
+
+        public TextureInfo GetTextureKey()
+        {
+            return m_TextureKey;
+        }
+
+
+        public BoundingBox GetBoundingBox()
+        {
+            Matrix transformMatrix = Matrix.Identity;
+            Stack<Matrix> drawStack = new Stack<Matrix>();
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (m_PriorityArray[i] == j)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                if (this.Position != null)
+                                    drawStack.Push(this.Position);
+                                break;
+                            case 1:
+                                if (this.Rotation != null)
+                                    drawStack.Push(this.Rotation);
+                                break;
+                            case 2:
+                                if (this.Scale != null)
+                                    drawStack.Push(this.Scale);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+            while (drawStack.Count > 0)
+            {
+                transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
+            }
+            Vector3 min = m_BoundingBox.Min;
+            Vector3 max = m_BoundingBox.Max;
+
+            min = Vector3.Transform(min, transformMatrix);
+            max = Vector3.Transform(max, transformMatrix);
+
+            return new BoundingBox(min, max) ;
+        }
+
+
+        public BoundingSphere GetBoundingSphere()
+        {
+            Matrix transformMatrix = Matrix.Identity;
+            Stack<Matrix> drawStack = new Stack<Matrix>();
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (m_PriorityArray[i] == j)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                if (this.Position != null)
+                                    drawStack.Push(this.Position);
+                                break;
+                            case 1:
+                                if (this.Rotation != null)
+                                    drawStack.Push(this.Rotation);
+                                break;
+                            case 2:
+                                if (this.Scale != null)
+                                    drawStack.Push(this.Scale);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+            while (drawStack.Count > 0)
+            {
+                transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
+            }
+            Vector3 center = m_BoundingSphere.Center;
+            float radius;
+
+            throw new Exception("Fix This");
+            return m_BoundingSphere;
+        }
     }
+#endregion
 }

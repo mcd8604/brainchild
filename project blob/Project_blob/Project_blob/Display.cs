@@ -139,6 +139,11 @@ namespace Project_blob
             }
         }
 
+        public void AddToBeDrawn(Drawable p_Drawable)
+        {
+
+        }
+
         public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
         {
             _effectName = "basic";
