@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob
 {
@@ -13,17 +14,19 @@ namespace Project_blob
 
 		internal Vector3 Origin;
 
-        public CollidableTri(Vector3 point1, Vector3 point2, Vector3 point3)
+        public CollidableTri(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3)
 		{
 			vertices = new Vector3[3];
 
-			myPlane = new Plane(point1, point2, point3);
+			myPlane = new Plane(point1.Position, point2.Position, point3.Position);
 
-            vertices[0] = point1;
-            vertices[1] = point2;
-            vertices[2] = point3;
+            vertices[0] = point1.Position;
+            vertices[1] = point2.Position;
+            vertices[2] = point3.Position;
 
-			Origin = Vector3.Negate((point1 + point2 + point3) / 3);
+            myPlane.Normal = Vector3.Normalize(Vector3.Add(point3.Normal, Vector3.Add(point1.Normal, point2.Normal)));
+
+			Origin = Vector3.Negate((point1.Position + point2.Position + point3.Position) / 3);
 		}
 
 		public bool couldIntersect(Physics.Point p)
