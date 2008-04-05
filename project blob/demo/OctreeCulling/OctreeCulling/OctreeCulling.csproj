@@ -64,17 +64,14 @@
     <Compile Include="CameraManager.cs" />
     <Compile Include="Cube.cs" />
     <Compile Include="InputHandler.cs" />
-    <Compile Include="Node.cs" />
     <Compile Include="Octree.cs" />
     <Compile Include="OctreeLeaf.cs" />
-    <Compile Include="OctreeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Pyramid.cs" />
     <Compile Include="SceneManager.cs" />
     <Compile Include="SceneObject.cs" />
-    <Compile Include="SceneObjectNode.cs" />
     <Compile Include="TestCamera.cs" />
   </ItemGroup>
   <ItemGroup>

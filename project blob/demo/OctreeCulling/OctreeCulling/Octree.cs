@@ -23,8 +23,6 @@ namespace OctreeCulling
 
         public void Distribute(ref List<SceneObject> scene)
         {
-            OctreeManager.getSingleton.SceneObjectCount = scene.Count;
-
             ContainedObjects = scene;
             Bounds();
             base.Distribute();
