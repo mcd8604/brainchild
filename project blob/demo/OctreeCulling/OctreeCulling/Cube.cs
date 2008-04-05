@@ -154,6 +154,8 @@ namespace OctreeCulling
 
         public override void Draw(GameTime gameTime)
         {
+            OctreeManager.getSingleton.Drawn += 1;
+
             Effect.World = Matrix.Identity;
             Effect.View = CameraManager.getSingleton.ActiveCamera.View;
             Effect.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
