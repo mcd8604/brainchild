@@ -7,6 +7,7 @@
  * */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -47,16 +48,16 @@ namespace OctreeCulling
         int fps = 0;
 
         //Test variables
-        //List<SceneObject> _objects;
+        List<SceneObject> _objects;
         //bool _cull = false;
         //int _culled = 0;
         //int _drawn = 0;
         //int _total = 0;
 
-        
-
         //Matrix objScaleMatrix;
         //float objScale = 0.005f;
+
+        Stopwatch timer;
 
         public Game1()
         {
@@ -75,7 +76,7 @@ namespace OctreeCulling
             // TODO: Add your initialization logic here
             //_cameraManager = new CameraManager();
 
-            //_objects = new List<SceneObject>();
+            _objects = new List<SceneObject>();
 
             TestCamera camera = new TestCamera(graphics.GraphicsDevice.Viewport);
             camera.Position = new Vector3(0.0f, 10.0f, -40.0f);
@@ -87,6 +88,9 @@ namespace OctreeCulling
             CameraManager.getSingleton.AddCamera("test", camera);
 
             CameraManager.getSingleton.SetActiveCamera("default");
+
+            //Used to track the amount of time it takes to cull and draw all the objects
+            timer = new Stopwatch();
 
             base.Initialize();
         }
@@ -113,16 +117,17 @@ namespace OctreeCulling
             graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
 
             //Load all objects
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 20; ++i)
             {
-                for (int j = 0; j < 10; ++j)
+                for (int j = 0; j < 20; ++j)
                 {
-                    for (int k = 0; k < 10; ++k)
+                    for (int k = 0; k < 20; ++k)
                     {
                         cube = new Cube(Vector3.One, new Vector3(5 * i, 5* j, 5 * k), basicEffect, graphics);
                         //pyramid = new Pyramid(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics);
 
-                        //_objects.Add(cube);
+                        _objects.Add(cube);
+                        //_objects.Add(pyramid);
 
                         SceneManager.getSingleton.AddObject(cube);
                         //SceneManager.getSingleton.AddObject(pyramid);
@@ -132,6 +137,7 @@ namespace OctreeCulling
 
             }
 
+            OctreeManager.getSingleton.Octree.Distribute(ref _objects);
             //_total = _objects.Count;
         }
 
@@ -258,9 +264,11 @@ namespace OctreeCulling
 
             if (InputHandler.IsKeyPressed(Keys.C))
             {
-                SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
+                OctreeManager.getSingleton.Cull = !OctreeManager.getSingleton.Cull;
+                //SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
 
-                if (SceneManager.getSingleton.Cull)
+                if (OctreeManager.getSingleton.Cull)
+                //if (SceneManager.getSingleton.Cull)
                 {
                     culling = "On";
                 }
@@ -268,6 +276,8 @@ namespace OctreeCulling
                 {
                     culling = "Off";
                 }
+
+
                 //_cull = !_cull;
                 //if (_cull)
                 //{
@@ -303,6 +313,18 @@ namespace OctreeCulling
                 CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.0f, -0.05f));
             }
 
+            //Move up
+            if (Keyboard.GetState().IsKeyDown(Keys.Y))
+            {
+                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.05f, 0.0f));
+            }
+
+            //Move down
+            if (Keyboard.GetState().IsKeyDown(Keys.H))
+            {
+                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, -0.05f, 0.0f));
+            }
+
 
             base.Update(gameTime);
         }
@@ -320,7 +342,13 @@ namespace OctreeCulling
             // Set the vertex declaration
             graphics.GraphicsDevice.VertexDeclaration = vertexDeclaration;
 
-            SceneManager.getSingleton.Draw(gameTime);
+            //timer.Start();
+            //SceneManager.getSingleton.Draw(gameTime);
+            //timer.Stop();
+
+            timer.Start();
+            OctreeManager.getSingleton.Draw(gameTime);
+            timer.Stop();
 
             //Test
             //_culled = 0;
@@ -391,10 +419,19 @@ namespace OctreeCulling
                 CameraManager.getSingleton.ActiveCamera.Position.Y + ", " +
                 CameraManager.getSingleton.ActiveCamera.Position.Z + "}", new Vector2(10.0f, 110.0f), Color.White);
 
-            spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
-            spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
-            spriteBatch.DrawString(font, "Objects Culled: " + SceneManager.getSingleton.Culled, new Vector2(10.0f, 90.0f), Color.White);
+            //spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
+            //spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
+            //spriteBatch.DrawString(font, "Objects Culled: " + SceneManager.getSingleton.Culled, new Vector2(10.0f, 90.0f), Color.White);
 
+            int culled = OctreeManager.getSingleton.SceneObjectCount - OctreeManager.getSingleton.Drawn;
+
+            spriteBatch.DrawString(font, "Object Count: " + OctreeManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
+            spriteBatch.DrawString(font, "Objects Drawn: " + OctreeManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
+            spriteBatch.DrawString(font, "Objects Culled: " + culled.ToString(), new Vector2(10.0f, 90.0f), Color.White);
+            
+
+            spriteBatch.DrawString(font, "Time to Cull+Draw: " + timer.ElapsedMilliseconds + " milliseconds", new Vector2(10.0f, 130.0f), Color.White);
+            
             spriteBatch.End();
 
             if (drawMode)
@@ -405,6 +442,8 @@ namespace OctreeCulling
 
             //Update frames counter for FPS
             ++frames;
+
+            timer.Reset();
 
             base.Draw(gameTime);
         }
