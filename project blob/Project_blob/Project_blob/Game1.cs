@@ -165,6 +165,7 @@ namespace Project_blob
                 e.MoveNext();
                 currentArea = (Area)e.Current;
                 currentArea.Display.ShowAxis = false;
+                currentArea.Display.GameMode = true;
 
                 //load level models and textures
                 IEnumerator drawablesEnum = currentArea.Drawables.GetEnumerator();
@@ -179,11 +180,17 @@ namespace Project_blob
                         StaticModel dm = (StaticModel)d;
                         Model model = Content.Load<Model>(@"Models\\" + dm.ModelName);
                         ModelManager.getSingleton.AddModel(dm.ModelName, model);
-                        TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
-                        textureInfos.Add(new TextureInfo(dm.TextureName, i++));
+                        //TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
+                        //textureInfos.Add(new TextureInfo(dm.TextureName, i++));
                         //Collidables
                         physics.AddCollidables(dm.createCollidables(model));
                     }
+                }
+
+                //change to level list, rather than drawn
+                foreach (TextureInfo ti in currentArea.Display.DrawnList.Keys)
+                {
+                    TextureManager.getSingleton.AddTexture(ti.TextureName, Content.Load<Texture2D>(@"Textures\\" + ti.TextureName));
                 }
             }
             else
