@@ -107,8 +107,8 @@ namespace Project_blob
             physics.Player.Traction.Maximum = 100f;
 
             physics.Player.Cling.Minimum = 0f;
-            physics.Player.Cling.Origin = 100f;
-            physics.Player.Cling.Maximum = 400f;
+            physics.Player.Cling.Origin = 50f;
+            physics.Player.Cling.Maximum = 100f;
 
             physics.Player.Resilience.Minimum = 10f;
             physics.Player.Resilience.Origin = 40f;
