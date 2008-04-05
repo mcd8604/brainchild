@@ -1,3 +1,9 @@
+/*  Author: Josh Wilson
+ * 
+ *  Nathan Levesque for his tutorial on Octree:
+ *      http://rhysyngsun.spaces.live.com/Blog/cns!FBBD62480D87119D!129.entry
+ * */
+
 using System;
 using System.Collections.Generic;
 using System.Text;
