@@ -1,3 +1,4 @@
 C:\Documents and Settings\student\Desktop\blob\WorldMaker\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\student\Desktop\New Folder\Project_blob\WorldMaker\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\student\Desktop\Project_blob\WorldMaker\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\student\Desktop\temp\Project_blob\WorldMaker\Content\obj\x86\Debug\ResolveAssemblyReference.cache

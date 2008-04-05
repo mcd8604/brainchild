@@ -16,6 +16,12 @@ namespace Project_blob
     [Serializable]
     public class Display
     {
+        private bool m_GameMode = false;
+        public bool GameMode
+        {
+            get { return m_GameMode; }
+            set { m_GameMode = value; }
+        }
 
         private String _textureName;
         public String TextureName
@@ -188,7 +194,7 @@ namespace Project_blob
                 if (m_TechniqueName != null)
                     EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques[m_TechniqueName];
 
-                int currentTextureNumber = drawable_List_Drawn.Keys[0].SortNumber;
+                int currentTextureNumber = -1;
                 //graphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
                 if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
                 {
@@ -291,7 +297,7 @@ namespace Project_blob
             if (d.Name == CurrentlySelected)
             {
                 d.ShowVertices = true;
-                d.TextureName = TextureName;
+                //d.TextureName = TextureName;
             }
             else
             {
@@ -349,7 +355,7 @@ namespace Project_blob
                     foreach (EffectPass pass in EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique.Passes)
                     {
                         pass.Begin();
-                        d.DrawMe(mesh, graphicsDevice);
+                        d.DrawMe(mesh, graphicsDevice, m_GameMode);
                         pass.End();
                     }
                     EffectManager.getSingleton.GetEffect(_effectName).End();

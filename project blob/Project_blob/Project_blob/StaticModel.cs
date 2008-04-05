@@ -67,18 +67,18 @@ namespace Project_blob
             return m_Name;
         }
 
-        private String _textureName;
-        public String TextureName
-        {
-            get
-            {
-                return _textureName;
-            }
-            set
-            {
-                _textureName = value;
-            }
-        }
+        //private String _textureName;
+        //public String TextureName
+        //{
+        //    get
+        //    {
+        //        return _textureName;
+        //    }
+        //    set
+        //    {
+        //        _textureName = value;
+        //    }
+        //}
 
         private String m_Name;
         public String Name
@@ -235,7 +235,7 @@ namespace Project_blob
 
         public void DrawMe(){}
 
-        public void DrawMe(ModelMesh mesh, GraphicsDevice graphicsDevice)
+        public void DrawMe(ModelMesh mesh, GraphicsDevice graphicsDevice, bool gameMode)
         {
             foreach (ModelMeshPart part in mesh.MeshParts)
             {
@@ -245,10 +245,10 @@ namespace Project_blob
                 // Finally draw the actual triangles on the screen
                 graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
 
-                if (this.ShowVertices)
+                if (this.ShowVertices && !gameMode)
                 {
                     Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
-                    graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(TextureName);
+                    graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture("point_text");
                     graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
                     graphicsDevice.Textures[0] = temp;
                 }
