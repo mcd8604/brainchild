@@ -150,7 +150,8 @@ namespace WorldMaker
         {
             if (EFFECT_TYPE != "basic")
                 EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
-
+            else
+                EffectManager.getSingleton.AddEffect(EFFECT_TYPE, new BasicEffect(GraphicsDevice, null));
 
             //TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Models\\free-grass-texture"));
             //TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
