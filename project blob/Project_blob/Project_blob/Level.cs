@@ -62,14 +62,21 @@ namespace Project_blob
         public static void LoadLevel(String levelName, String effectName)
         {
             _name = levelName;
-            Stream s = File.Open(System.Environment.CurrentDirectory + "\\Content\\Levels\\" + levelName + ".lev", FileMode.Open);
-            BinaryFormatter bf = new BinaryFormatter();
-            _areas = (Dictionary<String, Area>)bf.Deserialize(s);
-            Console.WriteLine("Level Loaded");
-            s.Close();
-            foreach (Area area in _areas.Values)
-            {
-                area.Display.EffectName = effectName;
+            Stream s ;
+            BinaryFormatter bf;
+            try {
+                s = File.Open( System.Environment.CurrentDirectory + "\\Content\\Levels\\" + levelName + ".lev", FileMode.Open );
+                bf = new BinaryFormatter( );
+                _areas = (Dictionary<String, Area>)bf.Deserialize( s );
+                s.Close();
+                Console.WriteLine( "Level Loaded" );
+                foreach( Area area in _areas.Values ) {
+                    area.Display.EffectName = effectName;
+                }
+            } catch( SerializationException se ) {
+                string msg = "Could not deserialize: " + levelName;
+                Console.WriteLine(msg);
+                System.Windows.Forms.MessageBox.Show( msg ); ;
             }
         }
     }
