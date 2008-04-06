@@ -52,6 +52,10 @@
       <Name>ground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\playground.lev">
+      <Name>playground</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\test.lev">
       <Name>test</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
