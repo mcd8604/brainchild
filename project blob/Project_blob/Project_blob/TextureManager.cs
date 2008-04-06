@@ -39,9 +39,10 @@ namespace Project_blob
 
         public Texture2D GetTexture(String textureName)
         {
-            if (_textures.ContainsKey(textureName))
-            {
-                return _textures[textureName];
+            if( textureName != null ) {
+                if( _textures.ContainsKey( textureName ) ) {
+                    return _textures[textureName];
+                }
             }
             return null;
         }
