@@ -125,7 +125,6 @@ namespace Project_blob
 
         private void resetBlob()
         {
-            blobStartPosition = new Vector3(0.1f, 1.0001f, 0.1f);
             theBlob = new Blob(blobModel, blobStartPosition);
             theBlob.setGraphicsDevice(GraphicsDevice);
 
@@ -156,13 +155,14 @@ namespace Project_blob
             resetBlob();
 
             //load default level
-            Level.LoadLevel("ground", "celEffect");
+            Level.LoadLevel("playground", "celEffect");
 
             //load first area
             if (Level.Areas.Count > 0)
             {
                 IEnumerator e = Level.Areas.Values.GetEnumerator();
-                e.MoveNext();
+                e.MoveNext( );
+                e.MoveNext( );
                 currentArea = (Area)e.Current;
                 currentArea.Display.ShowAxis = false;
                 currentArea.Display.GameMode = true;
