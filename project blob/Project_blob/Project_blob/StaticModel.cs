@@ -19,6 +19,11 @@ namespace Project_blob
         private String _modelName;
 
         private TextureInfo m_TextureKey;
+        public TextureInfo TextureKey
+        {
+            get { return m_TextureKey; }
+            set { m_TextureKey = value; }
+        }
 
         private BoundingBox m_BoundingBox;
         private BoundingSphere m_BoundingSphere;

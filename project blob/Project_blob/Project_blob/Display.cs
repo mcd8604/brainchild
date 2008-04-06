@@ -139,9 +139,25 @@ namespace Project_blob
             }
         }
 
+        public void WipeDrawn()
+        {
+            drawable_List_Drawn.Clear();
+        }
+
         public void AddToBeDrawn(Drawable p_Drawable)
         {
-
+            if (drawable_List_Drawn.Keys.Contains(p_Drawable.GetTextureKey()))
+            {
+                List<Drawable> temp = drawable_List_Drawn[p_Drawable.GetTextureKey()];
+                temp.Add(p_Drawable);
+                drawable_List_Drawn[p_Drawable.GetTextureKey()] = temp;
+            }
+            else
+            {
+                List<Drawable> temp = new List<Drawable>();
+                temp.Add(p_Drawable);
+                drawable_List_Drawn[p_Drawable.GetTextureKey()] = temp;
+            }
         }
 
         public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
