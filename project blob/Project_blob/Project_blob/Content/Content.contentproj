@@ -60,6 +60,10 @@
       <Name>test</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\test2.lev">
+      <Name>test2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="Models\quarterBowl.fbx">
       <Name>quarterBowl</Name>
       <Importer>FbxImporter</Importer>

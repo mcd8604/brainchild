@@ -150,7 +150,7 @@ namespace Project_blob
     
             blobModel = this.Content.Load<Model>(@"Models\\soccerball");
 
-            blobTexture = this.Content.Load<Texture2D>(@"Textures\\test");
+            blobTexture = this.Content.Load<Texture2D>(@"Textures\\point_text");
 
             resetBlob();
 
@@ -163,6 +163,7 @@ namespace Project_blob
                 IEnumerator e = Level.Areas.Values.GetEnumerator();
                 e.MoveNext( );
                 e.MoveNext( );
+                //e.MoveNext();
                 currentArea = (Area)e.Current;
                 currentArea.Display.ShowAxis = false;
                 currentArea.Display.GameMode = true;
@@ -258,11 +259,33 @@ namespace Project_blob
             celEffect.Parameters["LayerTwoSharp"].SetValue(0.10f);
             celEffect.Parameters["LayerTwoRough"].SetValue(4.0f);
             celEffect.Parameters["LayerTwoContrib"].SetValue(0.3f);
-            celEffect.Parameters["EdgeOffset"].SetValue(0.05f);
+            celEffect.Parameters["EdgeOffset"].SetValue(0.01f);
 
             celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
 
             EffectManager.getSingleton.AddEffect("celEffect", celEffect);
+
+            BasicEffect be = new BasicEffect(GraphicsDevice, null);
+
+            be.Alpha = 1.0f;
+            be.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
+            be.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
+            be.SpecularPower = 5.0f;
+            be.AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
+
+            be.DirectionalLight0.Enabled = true;
+            be.DirectionalLight0.DiffuseColor = Vector3.One;
+            be.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
+            be.DirectionalLight0.SpecularColor = Vector3.One;
+
+            be.LightingEnabled = true;
+            be.TextureEnabled = true;
+
+            be.World = worldMatrix;
+            be.View = viewMatrix;
+            be.Projection = projectionMatrix;
+
+            EffectManager.getSingleton.AddEffect("basic", be);
         }
 
 

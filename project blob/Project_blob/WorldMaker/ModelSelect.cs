@@ -52,7 +52,7 @@ namespace WorldMaker
             m_CurrentModel = new StaticModel("none", "none");
             Random rand = new Random();
             m_CurrentTexture = new TextureInfo(null, rand.Next());
-
+            m_CurrentModel.TextureKey = m_CurrentTexture;
             for (int i = 0; i < models.Length; i++)
                 listBox1.Items.Add(models[i]);
 
