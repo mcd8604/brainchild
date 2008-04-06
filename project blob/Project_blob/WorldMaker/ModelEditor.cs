@@ -450,12 +450,46 @@ namespace WorldMaker
 
                 if (m_Game.ActiveDrawable is StaticModel)
                 {
+                    StaticModel m = ( (StaticModel)m_Game.ActiveDrawable );
 
                     Vector3 theTranslation;
                     Quaternion theRotation;
                     Vector3 theScale;
 
-                    ((StaticModel)m_Game.ActiveDrawable).Position.Decompose(out theScale, out theRotation, out theTranslation);
+                    Matrix transformMatrix = Matrix.Identity;
+                    Stack<Matrix> drawStack = new Stack<Matrix>();
+                    for (int j = 0; j < 4; j++)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if (m.PriorityArray[i] == j)
+                            {
+                                switch (i)
+                                {
+                                    case 0:
+                                        if (m.Position != null)
+                                            drawStack.Push(m.Position);
+                                        break;
+                                    case 1:
+                                        if (m.Rotation != null)
+                                            drawStack.Push(m.Rotation);
+                                        break;
+                                    case 2:
+                                        if (m.Scale != null)
+                                            drawStack.Push(m.Scale);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                    }
+
+                    while (drawStack.Count > 0)
+                    {
+                        transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
+                    }
+                    transformMatrix.Decompose( out theScale, out theRotation, out theTranslation );
 
                     PositionX.Text = theTranslation.X.ToString();
                     PositionY.Text = theTranslation.Y.ToString();
