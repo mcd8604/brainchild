@@ -23,7 +23,7 @@ namespace Project_blob
         Model blobModel;
 
         Blob theBlob;
-        Vector3 blobStartPosition = new Vector3(0, 10, 0);
+        Vector3 blobStartPosition = new Vector3(-30, 10, -40);
         Texture blobTexture;
 
         Effect effect;
