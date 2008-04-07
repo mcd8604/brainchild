@@ -356,6 +356,16 @@ namespace Project_blob
 
         public BoundingBox GetBoundingBox()
         {
+            Model m = ModelManager.getSingleton.GetModel(_modelName);
+            if (m != null)
+            {
+                foreach (ModelMesh mesh in m.Meshes)
+                {
+                    m_BoundingSphere = BoundingSphere.CreateMerged(m_BoundingSphere, mesh.BoundingSphere);
+                }
+                m_BoundingBox = BoundingBox.CreateFromSphere(m_BoundingSphere);
+            }
+
             Matrix transformMatrix = Matrix.Identity;
             Stack<Matrix> drawStack = new Stack<Matrix>();
             for (int j = 0; j < 4; j++)
