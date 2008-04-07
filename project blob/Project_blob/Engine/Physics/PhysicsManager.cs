@@ -44,6 +44,26 @@ namespace Physics
         {
             collision.AddRange(c);
         }
+        public int NumCollidables
+        {
+            get
+            {
+                return collision.Count;
+            }
+        }
+
+        Dictionary<BoundingBox, List<Collidable>> collisionBoxes = new Dictionary<BoundingBox, List<Collidable>>();
+        public void AddCollidableBox(BoundingBox b, List<Collidable> c)
+        {
+            if (collisionBoxes.ContainsKey(b))
+            {
+                collisionBoxes[b].AddRange(c);
+            }
+            else
+            {
+                collisionBoxes.Add(b, c);
+            }
+        }
 
         List<Point> points = new List<Point>();
         public void AddPoint(Point p)
@@ -122,7 +142,8 @@ namespace Physics
             //temp
             foreach (Point p in points)
             {
-                checkCollisions2(p, TotalElapsedSeconds);
+                checkCollisionBoxes(p, TotalElapsedSeconds);
+                //checkCollisions2(p, TotalElapsedSeconds);
             }
 
             foreach (Point p in points)
@@ -242,6 +263,101 @@ namespace Physics
 
 			p.PotientialPosition = p.CurrentPosition + (p.PotientialVelocity * time);
 
+        }
+
+        private void checkCollisionBoxes(Point p, float time)
+        {
+            bool Collision = false;
+            BoundingBox bb = new BoundingBox();
+            foreach (BoundingBox b in collisionBoxes.Keys)
+            {
+                ContainmentType ct = b.Contains(p.CurrentPosition);
+                if (ct.Equals(ContainmentType.Contains))
+                {
+                    Collision = true;
+                    bb = b;
+                }
+            }
+
+            if (Collision)
+            {
+                checkCollisionBox(bb, p, time);
+            }
+            else
+            {
+
+                p.NextAcceleration = p.PotientialAcceleration;
+                p.NextPosition = p.PotientialPosition;
+                p.NextVelocity = p.PotientialVelocity;
+
+            }
+        }
+
+        private void checkCollisionBox(BoundingBox b, Point p, float time)
+		{
+			bool Collision = false;
+			Collidable Collidable = null;
+			float CollisionU = float.MaxValue;
+            foreach(Collidable c in collisionBoxes[b]) {
+			{
+				if (c.couldIntersect(p))
+				{
+					//Vector3[] lx = c.getNextCollisionVerticies();
+					//Vector3 li;
+					//float lu = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, lx[0], lx[1], lx[2], out li);
+
+					c.test(p);
+
+					Vector3[] x = c.getNextCollisionVerticies();
+					Vector3 i;
+					float u = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, x[0], x[1], x[2], out i);
+					// If Collision ( u < 1 ) - Split Time and redo
+					if (u > 0 && u < 1 /* && c.inBoundingBox(i)*/)
+					{
+
+						// should physics interact
+						if (c.shouldPhysicsBlock(p))
+						{
+
+							if (!Collision)
+							{
+								Collidable = c;
+								CollisionU = u;
+								Collision = true;
+							}
+							else
+							{
+								if (u < CollisionU)
+								{
+									Collidable = c;
+									CollisionU = u;
+								}
+							}
+
+						}
+
+					}
+
+				}
+			}
+			if (Collision)
+			{
+				// freefallPhysics first half
+				fall(p, time * CollisionU);
+
+				// sliding physics second half
+				slide(p, time * (1 - CollisionU), Collidable);
+			}
+			else
+			{
+
+				p.NextAcceleration = p.PotientialAcceleration;
+				p.NextPosition = p.PotientialPosition;
+				p.NextVelocity = p.PotientialVelocity;
+
+			}
+
+		}
         }
 
 		private void checkCollisions2(Point p, float time)

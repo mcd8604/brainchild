@@ -184,7 +184,8 @@ namespace Project_blob
                         //TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
                         //textureInfos.Add(new TextureInfo(dm.TextureName, i++));
                         //Collidables
-                        physics.AddCollidables(dm.createCollidables(model));
+                        //physics.AddCollidables(dm.createCollidables(model));
+                        physics.AddCollidableBox(dm.GetBoundingBox(), dm.createCollidables(model));
                     }
                 }
 
@@ -639,9 +640,10 @@ namespace Project_blob
                 spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
             }
             //spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(550, 0), Color.White);
-            spriteBatch.DrawString(font, "Orig Vol: " + theBlob.getVolume().ToString(), new Vector2(450, 30), Color.White);
-            spriteBatch.DrawString(font, "New Vol: " + theBlob.getNewVolume().ToString(), new Vector2(450, 60), Color.White);
+            //spriteBatch.DrawString(font, "Orig Vol: " + theBlob.getVolume().ToString(), new Vector2(450, 30), Color.White);
+            //spriteBatch.DrawString(font, "New Vol: " + theBlob.getNewVolume().ToString(), new Vector2(450, 60), Color.White);
             //spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
+            spriteBatch.DrawString(font, "Collidables: " + physics.NumCollidables, new Vector2(500, 0), Color.White);
             spriteBatch.End();
 
 			//fps
