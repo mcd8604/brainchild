@@ -103,12 +103,12 @@ namespace Project_blob
             physics.AirFriction = 2f;
 
             physics.Player.Traction.Minimum = 0f;
-            physics.Player.Traction.Origin = 50f;
-            physics.Player.Traction.Maximum = 100f;
+            physics.Player.Traction.Origin = 100f;
+            physics.Player.Traction.Maximum = 200f;
 
             physics.Player.Cling.Minimum = 0f;
-            physics.Player.Cling.Origin = 50f;
-            physics.Player.Cling.Maximum = 100f;
+            physics.Player.Cling.Origin = 25f;
+            physics.Player.Cling.Maximum = 50f;
 
             physics.Player.Resilience.Minimum = 10f;
             physics.Player.Resilience.Origin = 40f;
