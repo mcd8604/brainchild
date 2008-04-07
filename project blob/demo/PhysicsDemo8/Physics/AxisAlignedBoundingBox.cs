@@ -48,7 +48,7 @@ namespace Physics
 				{
 					Max.X = pt.X;
 				}
-				if (pt.Y <Min.Y)
+				if (pt.Y < Min.Y)
 				{
 					Min.Y = pt.Y;
 				}
@@ -75,6 +75,29 @@ namespace Physics
 		public bool intersects(ref AxisAlignedBoundingBox box)
 		{
 			return Min.X <= box.Max.X && Max.X >= box.Min.X && Min.Y <= box.Max.Y && Max.Y >= box.Min.Y && Min.Z <= box.Max.Z && Max.Z >= box.Min.Z;
+		}
+
+		public bool lineIntersects(ref Vector3 pt1, ref Vector3 pt2)
+		{
+			if (pt2.X < Min.X && pt1.X < Min.X) return false;
+			if (pt2.X > Max.X && pt1.X > Max.X) return false;
+			if (pt2.Y < Min.Y && pt1.Y < Min.Y) return false;
+			if (pt2.Y > Max.Y && pt1.Y > Max.Y) return false;
+			if (pt2.Z < Min.Z && pt1.Z < Min.Z) return false;
+			if (pt2.Z > Max.Z && pt1.Z > Max.Z) return false;
+			if ((pt1.X > Min.X && pt1.X < Max.X &&
+				pt1.Y > Min.Y && pt1.Y < Max.Y &&
+				pt1.Z > Min.Z && pt1.Z < Max.Z) ||
+			(pt2.X > Min.X && pt2.X < Max.X &&
+				pt2.Y > Min.Y && pt2.Y < Max.Y &&
+				pt2.Z > Min.Z && pt2.Z < Max.Z))
+			{
+				return true;
+			}
+
+			//check?
+
+			return true;
 		}
 
 	}
