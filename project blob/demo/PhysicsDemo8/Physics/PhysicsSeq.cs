@@ -421,7 +421,7 @@ namespace Physics
 
 				//Force += Vector3.Negate(p.NextVelocity) * friction;
 
-				Vector3 FrictionForce = Vector3.Normalize(Vector3.Negate(p.NextVelocity)) * (NormalForce.Length() * player.Traction.value);
+				Vector3 FrictionForce = Vector3.Normalize(Vector3.Negate(p.NextVelocity)) * (NormalForce.Length() * (player.Traction.value * s.getMaterial().getFriction()));
 
 				Vector3 MaxFriction = Vector3.Negate((p.NextVelocity / time) * p.mass);
 
