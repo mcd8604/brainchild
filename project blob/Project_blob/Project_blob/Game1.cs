@@ -227,7 +227,7 @@ namespace Project_blob
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.ToRadians(45),  // 45 degree angle
                 (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height,
-                1.0f, 100.0f);
+                1.0f, 1000.0f);
 
             VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 

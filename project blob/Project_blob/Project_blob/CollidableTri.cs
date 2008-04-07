@@ -39,14 +39,9 @@ namespace Project_blob
 
 		public override bool couldIntersect(Physics.Point p)
 		{
-            return true;
+            //return true;
             //return myBoundingBox.contains(ref p.CurrentPosition) || myBoundingBox.contains(ref p.PotientialPosition);
-            return ((p.CurrentPosition.X <= myBoundingBox.Min.X && p.PotientialPosition.X >= myBoundingBox.Max.X) ||
-                (p.CurrentPosition.X >= myBoundingBox.Max.X && p.PotientialPosition.X <= myBoundingBox.Min.X) ||
-                (p.CurrentPosition.Y <= myBoundingBox.Min.Y && p.PotientialPosition.Y >= myBoundingBox.Max.Y) ||
-                (p.CurrentPosition.Y >= myBoundingBox.Max.Y && p.PotientialPosition.Y <= myBoundingBox.Min.Y) ||
-                (p.CurrentPosition.Z <= myBoundingBox.Min.Z && p.PotientialPosition.Z >= myBoundingBox.Max.Z) ||
-                (p.CurrentPosition.Z >= myBoundingBox.Max.Z && p.PotientialPosition.Z <= myBoundingBox.Min.Z));
+            return myBoundingBox.lineIntersects(ref p.CurrentPosition, ref p.PotientialPosition);
 		}
 
         public override float DotNormal(Vector3 pos)

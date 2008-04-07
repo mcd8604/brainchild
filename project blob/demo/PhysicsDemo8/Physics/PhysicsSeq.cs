@@ -110,7 +110,7 @@ namespace Physics
                     float IdealVolume = pb.getIdealVolume();
                     foreach (Physics.Point p in pb.getPoints())
                     {
-						p.ForceThisFrame += (Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.PotientialPosition) * (NextVolume - IdealVolume));
+						p.ForceThisFrame += ((Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.PotientialPosition) * (NextVolume - IdealVolume)) / 2f);
                     }
                 }
             }
