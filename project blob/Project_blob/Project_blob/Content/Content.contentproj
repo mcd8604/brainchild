@@ -48,6 +48,10 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
+    <None Include="Levels\cube.lev">
+      <Name>cube</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\ground.lev">
       <Name>ground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -60,10 +64,11 @@
       <Name>test</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Levels\test2.lev">
-      <Name>test2</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Compile Include="Models\pipe.fbx">
+      <Name>pipe</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\quarterBowl.fbx">
       <Name>quarterBowl</Name>
       <Importer>FbxImporter</Importer>
