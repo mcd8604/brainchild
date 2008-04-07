@@ -47,6 +47,10 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Physics, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Physics.dll</HintPath>
+    </Reference>
     <Reference Include="PowerCollections, Version=1.0.2141.24679, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Project_blob\PowerCollections.dll</HintPath>
@@ -63,22 +67,6 @@
     <Compile Include="CameraManager.cs" />
     <Compile Include="Octree.cs" />
     <Compile Include="OctreeLeaf.cs" />
-    <Compile Include="Physics\Actor.cs" />
-    <Compile Include="Physics\Body.cs" />
-    <Compile Include="Physics\Collidable.cs" />
-    <Compile Include="Physics\CollisionMath.cs" />
-    <Compile Include="Physics\Gravity.cs" />
-    <Compile Include="Physics\GravityPoint.cs" />
-    <Compile Include="Physics\GravityVector.cs" />
-    <Compile Include="Physics\Material.cs" />
-    <Compile Include="Physics\MaterialBasic.cs" />
-    <Compile Include="Physics\Mover.cs" />
-    <Compile Include="Physics\PhysicsManager.cs" />
-    <Compile Include="Physics\Player.cs" />
-    <Compile Include="Physics\Point.cs" />
-    <Compile Include="Physics\PressureBody.cs" />
-    <Compile Include="Physics\Property.cs" />
-    <Compile Include="Physics\Spring.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SceneManager.cs" />
     <Compile Include="SceneObject.cs" />

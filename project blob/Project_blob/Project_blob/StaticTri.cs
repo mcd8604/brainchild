@@ -30,22 +30,22 @@ namespace Project_blob
 			Origin = Vector3.Negate((point1 + point2 + point3) / 3);
 		}
 
-		public bool couldIntersect(Physics.Point p)
+        public override bool couldIntersect(Physics.Point p)
 		{
 			return true;
 		}
 
-		public float DotNormal(Vector3 pos)
+        public override float DotNormal(Vector3 pos)
 		{
 			return myPlane.DotNormal(pos + Origin);
 		}
 
-		public Vector3 Normal()
+        public override Vector3 Normal()
 		{
 			return myPlane.Normal;
 		}
 
-		public float didIntersect(Vector3 start, Vector3 end)
+        public override float didIntersect(Vector3 start, Vector3 end)
 		{
 
 			float lastVal = DotNormal(start);
@@ -88,22 +88,23 @@ namespace Project_blob
 
 		}
 
-        public virtual bool shouldPhysicsBlock(Physics.Point p)
+        public override bool shouldPhysicsBlock(Physics.Point p)
         {
             return true;
         }
 
-		public Plane getPlane()
+        public Plane getPlane()
 		{
 			return myPlane;
 		}
 
-		public VertexPositionColor[] getTriangleVertexes()
+        public VertexPositionColor[] getTriangleVertexes()
 		{
 			return vertices;
 		}
 
-		public VertexBuffer getVertexBuffer() {
+        public override VertexBuffer getVertexBuffer()
+        {
 			return myVertexBuffer;
 		}
 
@@ -114,42 +115,42 @@ namespace Project_blob
 			myVertexBuffer.SetData<VertexPositionColor>(vertices);
 		}
 
-		public int getVertexStride()
+        public override int getVertexStride()
 		{
 			return VertexPositionColor.SizeInBytes;
 		}
 
-		public void DrawMe()
+        public override void DrawMe()
 		{
 			theDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 1);
 		}
 
-		public void ApplyForce(Vector3 at, Vector3 f) { }
+        public override void ApplyForce(Vector3 at, Vector3 f) { }
 
-		public void ImpartVelocity(Vector3 at, Vector3 v) { }
+        public override void ImpartVelocity(Vector3 at, Vector3 v) { }
 
-        public Physics.Material getMaterial()
-        {
-            return new Physics.MaterialBasic();
-        }
+        //public override Physics.Material getMaterial()
+        //{
+        //    return new Physics.MaterialBasic();
+        //}
 
         public Vector3[] getCollisionVerticies()
         {
             throw new Exception("Not used");
         }
 
-        public Vector3[] getNextCollisionVerticies()
+        public override Vector3[] getNextCollisionVerticies()
         {
             throw new Exception("Not used");
         }
 
-        public void test(Physics.Point p)
+        public override void test(Physics.Point p)
         {
 
             throw new Exception("do nothing!");
         }
 
-        public bool inBoundingBox(Vector3 v)
+        public override bool inBoundingBox(Vector3 v)
         {
             throw new Exception("do nothing");
         }
@@ -157,17 +158,17 @@ namespace Project_blob
         #region Drawable Members
 
 
-        public TextureInfo GetTextureKey()
+        public override TextureInfo GetTextureKey()
         {
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public BoundingBox GetBoundingBox()
+        public override BoundingBox GetBoundingBox()
         {
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public BoundingSphere GetBoundingSphere()
+        public override BoundingSphere GetBoundingSphere()
         {
             throw new Exception("The method or operation is not implemented.");
         }

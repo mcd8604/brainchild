@@ -10,6 +10,7 @@ namespace Project_blob
     public class Trigger : Collidable
     {
         public Trigger()
+            :base(null)
         {
         }
 
@@ -18,7 +19,7 @@ namespace Project_blob
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public bool couldIntersect(Physics.Point p)
+        public override bool couldIntersect(Physics.Point p)
         {
             return false;
         }
@@ -29,7 +30,7 @@ namespace Project_blob
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public float didIntersect(Vector3 start, Vector3 end)
+        public override float didIntersect(Vector3 start, Vector3 end)
         {
             return -1;
         }
@@ -39,7 +40,7 @@ namespace Project_blob
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public bool shouldPhysicsBlock(Physics.Point p)
+        public override bool shouldPhysicsBlock(Physics.Point p)
         {
             return false;
         }
@@ -49,7 +50,7 @@ namespace Project_blob
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public float DotNormal(Vector3 pos)
+        public override float DotNormal(Vector3 pos)
         {
             return -1;
         }
@@ -58,7 +59,7 @@ namespace Project_blob
         /// The Normal to this collidable surface, if applicable.
         /// </summary>
         /// <returns></returns>
-        public Vector3 Normal()
+        public override Vector3 Normal()
         {
             return Vector3.Zero;
         }
@@ -68,7 +69,7 @@ namespace Project_blob
         /// </summary>
         /// <param name="at"></param>
         /// <param name="f"></param>
-        public void ApplyForce(Vector3 at, Vector3 f)
+        public override void ApplyForce(Vector3 at, Vector3 f)
         {
         }
 
@@ -77,7 +78,7 @@ namespace Project_blob
         /// </summary>
         /// <param name="at"></param>
         /// <param name="v"></param>
-        public void ImpartVelocity(Vector3 at, Vector3 v)
+        public override void ImpartVelocity(Vector3 at, Vector3 v)
         {
         }
 
@@ -86,25 +87,25 @@ namespace Project_blob
             throw new Exception("Not used");
         }
 
-        public Vector3[] getNextCollisionVerticies()
+        public override Vector3[] getNextCollisionVerticies()
         {
             throw new Exception("Not used");
         }
 
-        public void test(Physics.Point p)
+        public override void test(Physics.Point p)
         {
 
             throw new Exception("do nothing!");
         }
 
-        public bool inBoundingBox(Vector3 v)
+        public override bool inBoundingBox(Vector3 v)
         {
             throw new Exception("do nothing");
         }
 
-        public Physics.Material getMaterial()
-        {
-            return new Physics.MaterialBasic();// NormalMaterial();
-        }
+        //public override Physics.Material getMaterial()
+        //{
+        //    return new Physics.MaterialBasic();// NormalMaterial();
+        //}
     }
 }

@@ -7,7 +7,7 @@ namespace Project_blob
     class Tri : T
     {
 
-		public void test(Physics.Point p)
+        public override void test(Physics.Point p)
 		{
 			Vector3 i;
 			Physics.CollisionMath.PointTriangleIntersect(p, points[0], points[1], points[2], out i);
@@ -45,7 +45,7 @@ namespace Project_blob
 
         }
 
-        public bool couldIntersect(Physics.Point p)
+        public override bool couldIntersect(Physics.Point p)
         {
             return p != points[0] && p != points[1] && p != points[2];
         }
@@ -55,17 +55,17 @@ namespace Project_blob
             return Vector3.Negate((points[0].NextPosition + points[1].NextPosition + points[2].NextPosition) / 3f);
         }
 
-        public Vector3 Normal()
+        public override Vector3 Normal()
         {
             return new Plane(points[0].NextPosition, points[1].NextPosition, points[2].NextPosition).Normal;
         }
 
-        public float DotNormal(Vector3 pos)
+        public override float DotNormal(Vector3 pos)
         {
             return new Plane(points[0].NextPosition, points[1].NextPosition, points[2].NextPosition).DotNormal(pos + getOrigin());
         }
 
-		public Vector3[] getCollisionVerticies()
+        public Vector3[] getCollisionVerticies()
 		{
 			Vector3[] ret = new Vector3[3];
 			ret[0] = points[0].CurrentPosition;
@@ -73,7 +73,7 @@ namespace Project_blob
 			ret[2] = points[2].CurrentPosition;
 			return ret;
 		}
-		public Vector3[] getNextCollisionVerticies()
+        public override Vector3[] getNextCollisionVerticies()
 		{
 			Vector3[] ret = new Vector3[3];
 			ret[0] = points[0].NextPosition;
@@ -82,7 +82,7 @@ namespace Project_blob
 			return ret;
 		}
 
-        public float didIntersect(Vector3 last, Vector3 next)
+        public override float didIntersect(Vector3 last, Vector3 next)
         {
             float before = new Plane(points[0].CurrentPosition, points[1].CurrentPosition, points[2].CurrentPosition).DotNormal(last + getOrigin());
             float later = DotNormal(next);
@@ -130,18 +130,18 @@ namespace Project_blob
         }
 
 
-		public bool inBoundingBox(Vector3 i)
+        public override bool inBoundingBox(Vector3 i)
 		{
 			return true;
 		}
 
 
-        public bool shouldPhysicsBlock(Physics.Point p)
+        public override bool shouldPhysicsBlock(Physics.Point p)
         {
             return true;
         }
 
-        public void ApplyForce(Vector3 at, Vector3 f)
+        public override void ApplyForce(Vector3 at, Vector3 f)
         {
 
             float dist0 = Vector3.Distance(points[0].NextPosition, at);
@@ -155,7 +155,7 @@ namespace Project_blob
 
         }
 
-        public void ImpartVelocity(Vector3 at, Vector3 v)
+        public override void ImpartVelocity(Vector3 at, Vector3 v)
         {
 
 
@@ -172,10 +172,10 @@ namespace Project_blob
 
         }
 
-        public Physics.Material getMaterial()
-        {
-            return new Physics.MaterialBasic();
-        }
+        //public override Physics.Material getMaterial()
+        //{
+        //    return new Physics.MaterialBasic();
+        //}
 
         // Drawable:
 
@@ -194,7 +194,7 @@ namespace Project_blob
             return vertices;
         }
 
-        public VertexBuffer getVertexBuffer()
+        public override VertexBuffer getVertexBuffer()
         {
             myVertexBuffer.SetData<VertexPositionColor>(getTriangleVertexes());
             return myVertexBuffer;
@@ -206,12 +206,12 @@ namespace Project_blob
             myVertexBuffer = new VertexBuffer(device, VertexPositionColor.SizeInBytes * Num_Vertex, BufferUsage.None);
         }
 
-        public int getVertexStride()
+        public override int getVertexStride()
         {
             return VertexPositionColor.SizeInBytes;
         }
 
-        public void DrawMe()
+        public override void DrawMe()
         {
             theDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 1);
             if (DEBUG_DrawNormal)
@@ -224,17 +224,17 @@ namespace Project_blob
         #region Drawable Members
 
 
-        public TextureInfo GetTextureKey()
+        public override TextureInfo GetTextureKey()
         {
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public BoundingBox GetBoundingBox()
+        public override BoundingBox GetBoundingBox()
         {
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public BoundingSphere GetBoundingSphere()
+        public override BoundingSphere GetBoundingSphere()
         {
             throw new Exception("The method or operation is not implemented.");
         }

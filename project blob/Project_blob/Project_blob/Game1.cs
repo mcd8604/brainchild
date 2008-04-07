@@ -98,7 +98,7 @@ namespace Project_blob
 
         private void resetPhysics()
         {
-            physics = new Physics.PhysicsManager();
+            physics = Physics.PhysicsManager.getInstance();
 
             physics.AirFriction = 2f;
 
@@ -117,7 +117,7 @@ namespace Project_blob
 
             physics.Player.Volume.Minimum = 0f;
 			physics.Player.Volume.Origin = 10f;
-            physics.Player.Volume.Maximum = 50f;
+            physics.Player.Volume.Maximum = 500f;
             physics.Player.Volume.Delta = 1;
 
             physics.AddGravity(new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f)));
@@ -131,6 +131,7 @@ namespace Project_blob
             physics.Player.PlayerBody = theBlob;
             physics.AddPoints(theBlob.points);
             physics.AddSprings(theBlob.springs);
+            physics.AddBody(theBlob);
         }
 
         /// <summary>
@@ -184,8 +185,9 @@ namespace Project_blob
                         //TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
                         //textureInfos.Add(new TextureInfo(dm.TextureName, i++));
                         //Collidables
-                        //physics.AddCollidables(dm.createCollidables(model));
-                        physics.AddCollidableBox(dm.GetBoundingBox(), dm.createCollidables(model));
+                        physics.AddCollidables(dm.createCollidables(model));
+
+                        //physics.AddCollidableBox(dm.GetBoundingBox(), dm.createCollidables(model));
                     }
                 }
 
@@ -643,7 +645,7 @@ namespace Project_blob
             //spriteBatch.DrawString(font, "Orig Vol: " + theBlob.getVolume().ToString(), new Vector2(450, 30), Color.White);
             //spriteBatch.DrawString(font, "New Vol: " + theBlob.getNewVolume().ToString(), new Vector2(450, 60), Color.White);
             //spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
-            spriteBatch.DrawString(font, "Collidables: " + physics.NumCollidables, new Vector2(500, 0), Color.White);
+            spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
             spriteBatch.End();
 
 			//fps

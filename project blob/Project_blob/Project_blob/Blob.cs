@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Project_blob
 {
-	public class Blob : Drawable, Physics.Body
+    public class Blob : Physics.PressureBody, Drawable
 	{
 		public readonly List<Physics.Point> points = new List<Physics.Point>();
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
@@ -43,7 +43,7 @@ namespace Project_blob
 
         }
 
-		public Vector3 getCenter()
+        public override Vector3 getCenter()
 		{
 			Vector3 ret = Vector3.Zero;
 			foreach (Physics.Point p in points)
@@ -53,6 +53,17 @@ namespace Project_blob
 			return ret / points.Count;
 			//return Center.Position;
 		}
+
+        public override Vector3 getNextCenter()
+        {
+            Vector3 ret = Vector3.Zero;
+            foreach (Physics.Point p in points)
+            {
+                ret += p.PotientialPosition;
+            }
+            return ret / points.Count;
+            //return Center.Position;
+        }
 
 		public Blob(Model aModel)
 		{
@@ -197,13 +208,13 @@ namespace Project_blob
             theDevice.Vertices[0].SetSource(null, 0, 0);
 		}
 
-		
-        public IEnumerable<Physics.Point> getPoints()
+
+        public override IEnumerable<Physics.Point> getPoints()
         {
             return points;
         }
 
-        public IEnumerable<Physics.Collidable> getCollidables()
+        public override IEnumerable<Physics.Collidable> getCollidables()
         {
             // Disabled collision planes for softcubes until I can figure out what's wrong.
 
@@ -226,12 +237,12 @@ namespace Project_blob
             return temp;
         }
 
-        public IEnumerable<Physics.Spring> getSprings()
+        public override IEnumerable<Physics.Spring> getSprings()
         {
             return springs;
         }
         
-        public float getVolume()
+        public float getOldVolume()
         {
             // TODO
 
@@ -316,7 +327,23 @@ namespace Project_blob
             return totalVolume;
         }
 
-        public float getNewVolume()
+        private float idealVolume = 10;
+        public override float getIdealVolume()
+        {
+            return idealVolume;
+        }
+        public override void setIdealVolume(float volume)
+        {
+            idealVolume = volume;
+        }
+
+        public override float getNextVolume()
+        {
+            //throw new Exception("The method or operation is not implemented.");
+            return getVolume();
+        }
+
+        public override float getVolume()
         {
             float totalVolume = 0;
 
