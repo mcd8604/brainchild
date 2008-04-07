@@ -461,7 +461,7 @@ namespace OctreeCulling
             //spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
             //spriteBatch.DrawString(font, "Objects Culled: " + SceneManager.getSingleton.Culled, new Vector2(10.0f, 90.0f), Color.White);
 
-            spriteBatch.DrawString(font, "Time to Cull+Draw: " + timer.ElapsedMilliseconds + " milliseconds", new Vector2(10.0f, 130.0f), Color.White);
+            spriteBatch.DrawString(font, "Time to Cull+Draw: " + timer.Elapsed.TotalMilliseconds + " milliseconds", new Vector2(10.0f, 130.0f), Color.White);
             
             spriteBatch.End();
 
