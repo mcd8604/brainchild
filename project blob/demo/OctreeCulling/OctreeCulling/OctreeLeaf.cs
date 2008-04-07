@@ -36,11 +36,19 @@ namespace OctreeCulling
             set { _containerBox = value; }
         }
 
+        private BoundingSphere _containerSphere;
+        public BoundingSphere ContainerSphere
+        {
+            get { return _containerSphere; }
+            set { _containerSphere = value; }
+        }
+
         public OctreeLeaf(BoundingBox box)
         {
             _containedObjects = new List<SceneObject>();
             _childLeaves = new List<OctreeLeaf>();
             _containerBox = box;
+            _containerSphere = BoundingSphere.CreateFromBoundingBox(_containerBox);
         }
 
         protected void Split()

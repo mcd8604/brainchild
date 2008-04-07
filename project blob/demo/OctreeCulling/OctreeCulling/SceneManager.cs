@@ -116,13 +116,13 @@ namespace OctreeCulling
             }
         }
 
-        public void Distribute(ref List<SceneObject> scene)
+        public void Distribute(List<SceneObject> scene)
         {
             _sceneObjectCount = scene.Count;
 
             if (_graphType == SceneGraphType.Octree)
             {
-                _octree.Distribute(ref scene);
+                _octree.Distribute(scene);
             }
         }
 
