@@ -14,7 +14,10 @@ namespace Project_blob
 
 		internal Vector3 Origin;
 
+        internal Physics.AxisAlignedBoundingBox myBoundingBox;
+
         public CollidableTri(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3)
+            :base(null)
 		{
 			vertices = new Vector3[3];
 
@@ -27,24 +30,36 @@ namespace Project_blob
             myPlane.Normal = Vector3.Normalize(Vector3.Add(point3.Normal, Vector3.Add(point1.Normal, point2.Normal)));
 
 			Origin = Vector3.Negate((point1.Position + point2.Position + point3.Position) / 3);
+
+            myBoundingBox = new Physics.AxisAlignedBoundingBox();
+            myBoundingBox.expandToInclude(ref point1.Position);
+            myBoundingBox.expandToInclude(ref point2.Position);
+            myBoundingBox.expandToInclude(ref point3.Position);
 		}
 
-		public bool couldIntersect(Physics.Point p)
+		public override bool couldIntersect(Physics.Point p)
 		{
-			return true;
+            return true;
+            //return myBoundingBox.contains(ref p.CurrentPosition) || myBoundingBox.contains(ref p.PotientialPosition);
+            return ((p.CurrentPosition.X <= myBoundingBox.Min.X && p.PotientialPosition.X >= myBoundingBox.Max.X) ||
+                (p.CurrentPosition.X >= myBoundingBox.Max.X && p.PotientialPosition.X <= myBoundingBox.Min.X) ||
+                (p.CurrentPosition.Y <= myBoundingBox.Min.Y && p.PotientialPosition.Y >= myBoundingBox.Max.Y) ||
+                (p.CurrentPosition.Y >= myBoundingBox.Max.Y && p.PotientialPosition.Y <= myBoundingBox.Min.Y) ||
+                (p.CurrentPosition.Z <= myBoundingBox.Min.Z && p.PotientialPosition.Z >= myBoundingBox.Max.Z) ||
+                (p.CurrentPosition.Z >= myBoundingBox.Max.Z && p.PotientialPosition.Z <= myBoundingBox.Min.Z));
 		}
 
-		public float DotNormal(Vector3 pos)
+        public override float DotNormal(Vector3 pos)
 		{
 			return myPlane.DotNormal(pos + Origin);
 		}
 
-		public Vector3 Normal()
+        public override Vector3 Normal()
 		{
 			return myPlane.Normal;
 		}
 
-		public float didIntersect(Vector3 start, Vector3 end)
+        public override float didIntersect(Vector3 start, Vector3 end)
 		{
 
 			float lastVal = DotNormal(start);
@@ -87,34 +102,35 @@ namespace Project_blob
 
 		}
 
-        public virtual bool shouldPhysicsBlock(Physics.Point p)
+        public override bool shouldPhysicsBlock(Physics.Point p)
         {
             return true;
         }
 
-		public Plane getPlane()
+        public Plane getPlane()
 		{
 			return myPlane;
 		}
 
-		public Vector3[] getTriangleVertexes()
+        public Vector3[] getTriangleVertexes()
 		{
 			return vertices;
 		}
 
-		public void ApplyForce(Vector3 at, Vector3 f) {
+        public override void ApplyForce(Vector3 at, Vector3 f)
+        {
             //throw new Exception("Cannot Apply Force on CollidableTri");
         }
 
-        public void ImpartVelocity(Vector3 at, Vector3 v)
+        public override void ImpartVelocity(Vector3 at, Vector3 v)
         {
             //throw new Exception("Cannot Impart Velocity on CollidableTri");
         }
 
-        public Physics.Material getMaterial()
-        {
-            return new Physics.MaterialBasic();
-        }
+        //public override Physics.Material getMaterial()
+        //{
+        //    return new Physics.MaterialBasic();
+        //}
 
         public Vector3[] getCollisionVerticies()
         {
@@ -122,18 +138,18 @@ namespace Project_blob
             return vertices;
         }
 
-        public Vector3[] getNextCollisionVerticies()
+        public override Vector3[] getNextCollisionVerticies()
         {
             //throw new Exception("Not used");
             return vertices;
         }
 
-        public bool inBoundingBox(Vector3 v)
+        public override bool inBoundingBox(Vector3 v)
         {
             throw new Exception("do nothing");
         }
 
-        public void test(Physics.Point p)
+        public override void test(Physics.Point p)
         {
             //throw new Exception("do nothing");
         }

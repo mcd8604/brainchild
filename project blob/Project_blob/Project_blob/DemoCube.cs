@@ -31,7 +31,7 @@ namespace Project_blob
         private Vector3 max;
         private float idealVolume;
 
-        public Vector3 getCenter()
+        public override Vector3 getCenter()
         {
             Vector3 ret = Vector3.Zero;
             foreach (Physics.Point p in points)
@@ -39,6 +39,17 @@ namespace Project_blob
                 ret += p.CurrentPosition;
             }
             return ret / points.Count;
+        }
+
+        public override Vector3 getNextCenter()
+        {
+            Vector3 ret = Vector3.Zero;
+            foreach (Physics.Point p in points)
+            {
+                ret += p.PotientialPosition;
+            }
+            return ret / points.Count;
+            //return Center.Position;
         }
 
         public DemoCube(Vector3 center, float radius)
@@ -215,12 +226,12 @@ namespace Project_blob
         }
 
 
-        public IEnumerable<Physics.Point> getPoints()
+        public override IEnumerable<Physics.Point> getPoints()
         {
             return points;
         }
 
-        public IEnumerable<Physics.Collidable> getCollidables()
+        public override IEnumerable<Physics.Collidable> getCollidables()
         {
             List<Physics.Collidable> temp = new List<Physics.Collidable>();
             foreach( T t in collidables ) {
@@ -239,12 +250,12 @@ namespace Project_blob
             return temp;
         }
 
-        public IEnumerable<Physics.Spring> getSprings()
+        public override IEnumerable<Physics.Spring> getSprings()
         {
             return springs;
         }
 
-        public float getVolume()
+        public override float getVolume()
         {
             float totalVolume = 0;
             Vector3 centerOfCube = getCenter();
@@ -287,11 +298,16 @@ namespace Project_blob
             return totalVolume;
         }
 
-        public float getIdealVolume()
+        public override float getNextVolume()
+        {
+            return 0;
+        }
+
+        public override float getIdealVolume()
         {
             return idealVolume;
         }
-        public void setIdealVolume( float v )
+        public override void setIdealVolume(float v)
         {
             idealVolume = v;
         }

@@ -8,7 +8,7 @@ namespace Physics
     {
 
         private Player player = new Player();
-        public Player Player
+        public override Player Player
         {
             get
             {
@@ -17,7 +17,7 @@ namespace Physics
         }
 
         float airfriction = 1f;
-        public float AirFriction
+        public override float AirFriction
         {
             get
             {
@@ -29,53 +29,58 @@ namespace Physics
             }
         }
 
+        public override int DEBUG_GetNumCollidables()
+        {
+            return collision.Count;
+        }
+
         private List<Gravity> gravity = new List<Gravity>();
-        public void AddGravity(Gravity g)
+        public override void AddGravity(Gravity g)
         {
             gravity.Add(g);
         }
 
         List<Collidable> collision = new List<Collidable>();
-        public void AddCollidable(Collidable c)
+        public override void AddCollidable(Collidable c)
         {
             collision.Add(c);
         }
-        public void AddCollidables(IEnumerable<Collidable> c)
+        public override void AddCollidables(IEnumerable<Collidable> c)
         {
             collision.AddRange(c);
         }
 
         List<Point> points = new List<Point>();
-        public void AddPoint(Point p)
+        public override void AddPoint(Point p)
         {
             points.Add(p);
         }
-        public void AddPoints(IEnumerable<Point> p)
+        public override void AddPoints(IEnumerable<Point> p)
         {
             points.AddRange(p);
         }
 
         List<Spring> springs = new List<Spring>();
-        public void AddSpring(Spring s)
+        public override void AddSpring(Spring s)
         {
             springs.Add(s);
         }
-        public void AddSprings(IEnumerable<Spring> s)
+        public override void AddSprings(IEnumerable<Spring> s)
         {
             springs.AddRange(s);
         }
 
         List<Body> bodys = new List<Body>();
-        public void AddBody(Body b)
+        public override void AddBody(Body b)
         {
             bodys.Add(b);
         }
-        public void AddBodys(IEnumerable<Body> b)
+        public override void AddBodys(IEnumerable<Body> b)
         {
             bodys.AddRange(b);
         }
 
-        public void update(float TotalElapsedSeconds)
+        public override void update(float TotalElapsedSeconds)
         {
 
             player.update(TotalElapsedSeconds);
