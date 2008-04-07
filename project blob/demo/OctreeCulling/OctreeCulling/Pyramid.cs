@@ -60,13 +60,13 @@ namespace OctreeCulling
                 new VertexPositionColor(position + new Vector3(1.0f, -1.0f, 1.0f) * size, Color.Orange),
             };
 
-            CreateBoundingSphere();
             CreateBoundingBox();
+            CreateBoundingSphere();
         }
 
         protected override void CreateBoundingSphere()
         {
-
+            BoundingSphere = BoundingSphere.CreateFromBoundingBox(BoundingBox);
         }
 
         protected override void CreateBoundingBox()

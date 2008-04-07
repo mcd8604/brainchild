@@ -27,9 +27,9 @@ namespace OctreeCulling
             }
         }
 
-        public void Distribute(ref List<SceneObject> scene)
+        public void Distribute(List<SceneObject> scene)
         {
-            ContainedObjects = scene;
+            ContainedObjects = new List<SceneObject>(scene);
             Bounds();
             base.Distribute();
         }

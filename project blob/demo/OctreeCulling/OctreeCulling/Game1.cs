@@ -83,12 +83,13 @@ namespace OctreeCulling
             _listGraphObjects = new List<SceneObject>();
 
             TestCamera camera = new TestCamera(graphics.GraphicsDevice.Viewport);
-            camera.Position = new Vector3(0.0f, 10.0f, -40.0f);
+            camera.Position = new Vector3(20.0f, 20.0f, -40.0f);
             //camera.Position = new Vector3(250.0f, 250.0f, 2000.0f);
             CameraManager.getSingleton.AddCamera("default", camera);
 
             camera = new TestCamera(graphics.GraphicsDevice.Viewport);
             camera.FarPlane = 30.0f;
+            camera.Position = new Vector3(20.0f, 10.0f, 0.0f);
             CameraManager.getSingleton.AddCamera("test", camera);
 
             CameraManager.getSingleton.SetActiveCamera("default");
@@ -142,7 +143,7 @@ namespace OctreeCulling
             }
             _listGraphObjects = new List<SceneObject>(_objects);
             //OctreeManager.getSingleton.Octree.Distribute(ref _objects);
-            SceneManager.getSingleton.Distribute(ref _objects);
+            SceneManager.getSingleton.Distribute(_objects);
             _total = _listGraphObjects.Count;
         }
 
