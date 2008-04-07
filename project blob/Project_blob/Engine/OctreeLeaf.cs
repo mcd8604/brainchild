@@ -22,6 +22,13 @@ namespace Engine
             set { _containedObjects = value; }
         }
 
+        //private List<Drawable> _containedObjects;
+        //public List<Drawable> ContainedObjects
+        //{
+        //    get { return _containedObjects; }
+        //    set { _containedObjects = value; }
+        //}
+
         private List<OctreeLeaf> _childLeaves;
         public List<OctreeLeaf> ChildLeaves
         {
@@ -38,6 +45,7 @@ namespace Engine
 
         public OctreeLeaf(BoundingBox box)
         {
+            //_containedObjects = new List<Drawable>();
             _containedObjects = new List<SceneObject>();
             _childLeaves = new List<OctreeLeaf>();
             _containerBox = box;
@@ -65,31 +73,18 @@ namespace Engine
             if (_containedObjects.Count > _maxobjects)
             {
                 Split();
-                //for (int i = ContainedObjects.Count - 1; i >= 0; --i)
-                //{
-                //    foreach (OctreeLeaf leaf in ChildLeaves)
-                //    {
-                //        if (leaf.ContainerBox.Contains(ContainedObjects[i].GetBoundingBoxTransformed()) == ContainmentType.Contains)
-                //        //if (leaf.ContainerBox.Contains(ContainedObjects[i].BoundingBox) == ContainmentType.Contains)
-                //        {
-                //            leaf.ContainedObjects.Add(ContainedObjects[i]);
-                //            _containedObjects.Remove(ContainedObjects[i]);
-                //            break;
-                //        }
-                //    }
-                //}
 
                 foreach (OctreeLeaf leaf in ChildLeaves)
                 {
                     for (int i = ContainedObjects.Count - 1; i >= 0; --i)
                     {
+                        //if ((leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains) ||
+                        //    (leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains))
                         if ((leaf.ContainerBox.Contains(ContainedObjects[i].GetBoundingBoxTransformed()) == ContainmentType.Contains) ||
                             (leaf.ContainerBox.Contains(ContainedObjects[i].GetBoundingBoxTransformed()) == ContainmentType.Intersects))
-                        //if (leaf.ContainerBox.Contains(ContainedObjects[i].BoundingBox) == ContainmentType.Contains)
                         {
                             leaf.ContainedObjects.Add(ContainedObjects[i]);
                             _containedObjects.Remove(ContainedObjects[i]);
-                            //break;
                         }
                     }
                 }
@@ -106,9 +101,11 @@ namespace Engine
             //BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
             BoundingFrustum frustum = CameraManager.getSingleton.GetCamera("test").Frustum;
 
+            //foreach (Drawable obj in _containedObjects)
             foreach (SceneObject obj in _containedObjects)
             {
                 obj.Draw(gameTime);
+                //SceneManager.getSingleton.Display.AddToBeDrawn(obj);
             }
             foreach (OctreeLeaf leaf in ChildLeaves)
             {
@@ -148,6 +145,7 @@ namespace Engine
             foreach (SceneObject obj in _containedObjects)
             {
                 obj.Draw(gameTime);
+                //SceneManager.getSingleton.Display.AddToBeDrawn(obj);
             }
             foreach (OctreeLeaf leaf in ChildLeaves)
             {
