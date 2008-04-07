@@ -112,7 +112,7 @@ namespace Project_blob
 
             physics.Player.Resilience.Minimum = 10f;
             physics.Player.Resilience.Origin = 40f;
-            physics.Player.Resilience.Maximum = 120f;
+            physics.Player.Resilience.Maximum = 80f;
             physics.Player.Resilience.Delta = 10;
 
             physics.Player.Volume.Minimum = 0f;
