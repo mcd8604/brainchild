@@ -48,10 +48,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-    <None Include="Levels\cube.lev">
-      <Name>cube</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Levels\ground.lev">
       <Name>ground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
