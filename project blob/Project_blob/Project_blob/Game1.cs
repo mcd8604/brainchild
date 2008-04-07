@@ -257,12 +257,12 @@ namespace Project_blob
             celEffect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
             celEffect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
             celEffect.Parameters["LayerOneSharp"].SetValue(.3f);
-            celEffect.Parameters["LayerOneRough"].SetValue(0.15f);
-            celEffect.Parameters["LayerOneContrib"].SetValue(0.15f);
+            celEffect.Parameters["LayerOneRough"].SetValue(10.0f);
+            celEffect.Parameters["LayerOneContrib"].SetValue(0.08f);
             celEffect.Parameters["LayerTwoSharp"].SetValue(0.10f);
-            celEffect.Parameters["LayerTwoRough"].SetValue(4.0f);
-            celEffect.Parameters["LayerTwoContrib"].SetValue(0.3f);
-            celEffect.Parameters["EdgeOffset"].SetValue(0.01f);
+            celEffect.Parameters["LayerTwoRough"].SetValue(1.0f);
+            celEffect.Parameters["LayerTwoContrib"].SetValue(0.2f);
+            celEffect.Parameters["EdgeOffset"].SetValue(0.009f);
 
             celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
 
@@ -642,8 +642,8 @@ namespace Project_blob
                 spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
             }
             //spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(550, 0), Color.White);
-            //spriteBatch.DrawString(font, "Orig Vol: " + theBlob.getVolume().ToString(), new Vector2(450, 30), Color.White);
-            //spriteBatch.DrawString(font, "New Vol: " + theBlob.getNewVolume().ToString(), new Vector2(450, 60), Color.White);
+            spriteBatch.DrawString(font, "Vol: " + theBlob.getVolume().ToString(), new Vector2(450, 30), Color.White);
+            spriteBatch.DrawString(font, "Next Vol: " + theBlob.getNextVolume().ToString(), new Vector2(450, 60), Color.White);
             //spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
             spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
             spriteBatch.End();

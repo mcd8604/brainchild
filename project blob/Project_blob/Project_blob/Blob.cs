@@ -339,7 +339,16 @@ namespace Project_blob
 
         public override float getNextVolume()
         {
-            //throw new Exception("The method or operation is not implemented.");
+            float totalVolume = 0;
+
+            Vector3 center = getCenter();
+
+            for (int i = 0; i < indices.Length - 3; i = i + 3)
+            {
+                totalVolume += getFaceVolumeTest(points[indices[i]].PotientialPosition, points[indices[i + 1]].PotientialPosition, points[indices[i + 2]].PotientialPosition);
+            }
+
+            //Console.WriteLine("Next Volume Estimate: " + totalVolume);
             return getVolume();
         }
 
@@ -348,20 +357,13 @@ namespace Project_blob
             float totalVolume = 0;
 
             Vector3 center = getCenter();
-            //myIndexBuffer.GetData<
-            int[] test = indices;
-            int numFaces = 0;
-
+     
             for (int i = 0; i < indices.Length - 3; i=i+3)
             {
-
-                totalVolume += getFaceVolumeTest(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position);
-                numFaces++;
-
+                totalVolume += getFaceVolumeTest(points[indices[i]].CurrentPosition, points[indices[i + 1]].CurrentPosition, points[indices[i + 2]].CurrentPosition);
             }
 
-            float test2 = (4f / 3f) * ((float)Math.PI);
-            //Console.WriteLine("New Volume Estimate: " + totalVolume);
+            //Console.WriteLine("Volume Estimate: " + totalVolume);
             return totalVolume;
 
         }
