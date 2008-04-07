@@ -22,14 +22,15 @@ namespace Engine
         {
             foreach (SceneObject obj in ContainedObjects)
             {
-                //ContainerBox = BoundingBox.CreateMerged(ContainerBox, obj.BoundingBox);
                 ContainerBox = BoundingBox.CreateMerged(ContainerBox, obj.GetBoundingBoxTransformed());
+                //ContainerBox = BoundingBox.CreateMerged(ContainerBox, obj.GetBoundingBox());
             }
         }
 
         public void Distribute(ref List<SceneObject> scene)
         {
-            ContainedObjects = scene;
+            //ContainedObjects = new List<Drawable>(scene);
+            ContainedObjects = new List<SceneObject>(scene);
             Bounds();
             base.Distribute();
         }

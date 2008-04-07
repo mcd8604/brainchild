@@ -70,6 +70,12 @@ namespace Engine
             set { _graphType = value; }
         }
 
+        //private Display _display = null;
+        //public Display Display
+        //{
+        //    get { return _display; }
+        //    set { _display = value; }
+        //}
 
         public SceneManager()
         {
@@ -116,6 +122,7 @@ namespace Engine
             }
         }
 
+        //public void Distribute(ref List<Drawable> scene)
         public void Distribute(ref List<SceneObject> scene)
         {
             _sceneObjectCount = scene.Count;
