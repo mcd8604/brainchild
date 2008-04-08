@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Engine
 {
-    public class BasisCamera
+    public class BasicCamera
     {
         private Vector3 _position;
         public Vector3 Postiion
@@ -80,7 +80,7 @@ namespace Engine
             set { _frustum = value; }
         }
 
-        public BasisCamera()
+        public BasicCamera()
         {
 
         }
