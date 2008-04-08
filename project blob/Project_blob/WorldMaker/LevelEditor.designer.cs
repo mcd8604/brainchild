@@ -51,6 +51,8 @@ namespace WorldMaker
             this.areaListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.areaListBox.FormattingEnabled = true;
             this.areaListBox.ItemHeight = 16;
+            this.areaListBox.Items.AddRange(new object[] {
+            "testArea"});
             this.areaListBox.Location = new System.Drawing.Point(12, 161);
             this.areaListBox.Name = "areaListBox";
             this.areaListBox.Size = new System.Drawing.Size(269, 132);
@@ -171,6 +173,7 @@ namespace WorldMaker
             this.levelName.Name = "levelName";
             this.levelName.Size = new System.Drawing.Size(207, 22);
             this.levelName.TabIndex = 11;
+            this.levelName.Text = "testLevel";
             // 
             // EditButton
             // 
