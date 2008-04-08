@@ -76,7 +76,7 @@ namespace Project_blob
         System.Diagnostics.Stopwatch physicsTime = new System.Diagnostics.Stopwatch();
         System.Diagnostics.Stopwatch drawTime = new System.Diagnostics.Stopwatch();
 
-        BasisCamera camera;
+        BasicCamera camera;
 
         public Game1()
         {
@@ -209,7 +209,7 @@ namespace Project_blob
                 //empty level
             }
 
-            camera = new BasisCamera();
+            camera = new BasicCamera();
             camera.Postiion = defaultCameraPosition;
             camera.FieldOfView = MathHelper.ToRadians(45.0f);
             camera.AspectRatio = (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height;
