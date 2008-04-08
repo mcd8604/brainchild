@@ -71,6 +71,9 @@
     <Compile Include="Display.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="DrawableInfo.cs" />
+    <Compile Include="Octree.cs" />
+    <Compile Include="OctreeLeaf.cs" />
+    <Compile Include="SceneManager.cs" />
     <Compile Include="StaticModel.cs" />
     <Compile Include="EffectManager.cs" />
     <Compile Include="InputHandler.cs" />
