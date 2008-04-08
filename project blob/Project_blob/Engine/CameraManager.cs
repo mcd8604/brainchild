@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Engine
 {
-    class CameraManager
+    public class CameraManager
     {
         private static volatile CameraManager _instance;
         private static object _syncRoot = new Object();
