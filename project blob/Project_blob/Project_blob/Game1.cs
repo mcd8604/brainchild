@@ -165,6 +165,9 @@ namespace Project_blob
             //load default level
             Level.LoadLevel("playground", "celEffect");
 
+            //List of Static Drawables to add to Scene
+            List<Drawable> staticDrawables = new List<Drawable>();
+
             //load first area
             if (Level.Areas.Count > 0)
             {
@@ -175,6 +178,9 @@ namespace Project_blob
                 currentArea = (Area)e.Current;
                 currentArea.Display.ShowAxis = false;
                 currentArea.Display.GameMode = true;
+
+                //Give the SceneManager a reference to the display
+                SceneManager.getSingleton.Display = currentArea.Display;
 
                 //load level models and textures
                 IEnumerator drawablesEnum = currentArea.Drawables.GetEnumerator();
@@ -195,6 +201,14 @@ namespace Project_blob
                         physics.AddCollidables(dm.createCollidables(model));
 
                         //physics.AddCollidableBox(dm.GetBoundingBox(), dm.createCollidables(model));
+                        foreach (TextureInfo info in currentArea.Display.DrawnList.Keys)
+                        {
+                            if (currentArea.Display.DrawnList[info].Contains(dm))
+                            {
+                                dm.TextureKey = info;
+                            }
+                        }
+                        staticDrawables.Add(dm);
                     }
                 }
 
@@ -208,6 +222,11 @@ namespace Project_blob
             {
                 //empty level
             }
+
+            //Add the Static Drawables to the Octree
+            List<Drawable> temp = new List<Drawable>(staticDrawables);
+            SceneManager.getSingleton.BuildOctree(ref temp);
+
 
             //Initialize the camera
             BasicCamera camera = new BasicCamera();
@@ -639,6 +658,13 @@ namespace Project_blob
 				effect.End();
 			}*/
 
+            //Octree Cull the Static Drawables
+            foreach (TextureInfo info in currentArea.Display.DrawnList.Keys)
+            {
+                currentArea.Display.DrawnList[info].Clear();
+            }
+            SceneManager.getSingleton.UpdateVisibleDrawables(gameTime);
+
             //Level Models
             currentArea.Display.WorldParameterName = "World";
             currentArea.Display.Draw(GraphicsDevice);
@@ -706,6 +732,9 @@ namespace Project_blob
             spriteBatch.DrawString(font, "Next Vol: " + theBlob.getNextVolume().ToString(), new Vector2(450, 60), Color.White);
             //spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
             spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
+
+            spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(0, 90), Color.White);
+            
             spriteBatch.End();
 
             //fps
