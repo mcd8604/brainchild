@@ -76,7 +76,7 @@ namespace Project_blob
         System.Diagnostics.Stopwatch physicsTime = new System.Diagnostics.Stopwatch();
         System.Diagnostics.Stopwatch drawTime = new System.Diagnostics.Stopwatch();
 
-        BasicCamera camera;
+        
 
         public Game1()
         {
@@ -209,12 +209,19 @@ namespace Project_blob
                 //empty level
             }
 
-            camera = new BasicCamera();
-            camera.Postiion = defaultCameraPosition;
+            //Initialize the camera
+            BasicCamera camera = new BasicCamera();
             camera.FieldOfView = MathHelper.ToRadians(45.0f);
             camera.AspectRatio = (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height;
             camera.NearPlane = 1.0f;
             camera.FarPlane = 1000.0f;
+
+            camera.Position = new Vector3(0, 0, -10);
+            camera.Target = Vector3.Zero;
+            camera.Up = Vector3.Up;
+
+            CameraManager.getSingleton.AddCamera("default", camera);
+            CameraManager.getSingleton.SetActiveCamera("default");
 
             InitializeEffect();
 
@@ -239,14 +246,14 @@ namespace Project_blob
             worldMatrix = Matrix.Identity;
 
             //viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -10), new Vector3(0, 0, 0), Vector3.Up);
-            camera.View = Matrix.CreateLookAt(new Vector3(0, 0, -10), new Vector3(0, 0, 0), Vector3.Up);
+            //camera.View = Matrix.CreateLookAt(new Vector3(0, 0, -10), new Vector3(0, 0, 0), Vector3.Up);
 
             //projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
             //    MathHelper.ToRadians(45),  // 45 degree angle
             //    (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height,
             //    1.0f, 1000.0f);
-            camera.Projection = Matrix.CreatePerspectiveFieldOfView(camera.FieldOfView,  // 45 degree angle
-                camera.AspectRatio, camera.NearPlane, camera.FarPlane);
+            //camera.Projection = Matrix.CreatePerspectiveFieldOfView(camera.FieldOfView,  // 45 degree angle
+            //    camera.AspectRatio, camera.NearPlane, camera.FarPlane);
 
             VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
@@ -256,8 +263,8 @@ namespace Project_blob
 
             //effect.Parameters["xView"].SetValue(viewMatrix);
             //effect.Parameters["xProjection"].SetValue(projectionMatrix);
-            effect.Parameters["xView"].SetValue(camera.View);
-            effect.Parameters["xProjection"].SetValue(camera.Projection);
+            effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+            effect.Parameters["xProjection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
             effect.Parameters["xWorld"].SetValue(worldMatrix);
 
             effect.Parameters["xTexture"].SetValue(blobTexture);
@@ -274,8 +281,8 @@ namespace Project_blob
             celEffect.Parameters["World"].SetValue(worldMatrix);
             //celEffect.Parameters["View"].SetValue(viewMatrix);
             //celEffect.Parameters["Projection"].SetValue(projectionMatrix);
-            celEffect.Parameters["View"].SetValue(camera.View);
-            celEffect.Parameters["Projection"].SetValue(camera.Projection);
+            celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+            celEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
 
             celEffect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
             celEffect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
@@ -288,7 +295,7 @@ namespace Project_blob
             celEffect.Parameters["EdgeOffset"].SetValue(0.009f);
 
             //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-            celEffect.Parameters["EyePosition"].SetValue(camera.Postiion);
+            celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
 
             EffectManager.getSingleton.AddEffect("celEffect", celEffect);
 
@@ -311,8 +318,8 @@ namespace Project_blob
             be.World = worldMatrix;
             //be.View = viewMatrix;
             //be.Projection = projectionMatrix;
-            be.View = camera.View;
-            be.Projection = camera.Projection;
+            be.View = CameraManager.getSingleton.ActiveCamera.View;
+            be.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
 
             EffectManager.getSingleton.AddEffect("basic", be);
         }
@@ -335,7 +342,8 @@ namespace Project_blob
         protected override void Update(GameTime gameTime)
         {
             //Update Camera
-            camera.Update(gameTime);
+            //camera.Update(gameTime);
+            CameraManager.getSingleton.Update(gameTime);
 
             InputHandler.Update();
             // Allows the game to exit
@@ -362,18 +370,21 @@ namespace Project_blob
                 if (!follow)
                 {
                     //cameraPosition = defaultCameraPosition;
-                    camera.Postiion = defaultCameraPosition;
+                    CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
                     //viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
                     //effect.Parameters["xView"].SetValue(viewMatrix);
-                    camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
-                    effect.Parameters["xView"].SetValue(camera.View);
+                    //camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
+                    CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
+                    CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
+
+                    effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
                     //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-                    celEffect.Parameters["EyePosition"].SetValue(camera.Postiion);
+                    celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
                     //celEffect.Parameters["View"].SetValue(viewMatrix);
-                    celEffect.Parameters["View"].SetValue(camera.View);
+                    celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
                     //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                    effect.Parameters["xCameraPos"].SetValue(new Vector4(camera.Postiion, 0));
+                    effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
                 }
             }
 
@@ -456,7 +467,7 @@ namespace Project_blob
                 Up = Vector3.Up;
                 //}
                 //Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - cameraPosition, Up));
-                Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - camera.Postiion, Up));
+                Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - CameraManager.getSingleton.ActiveCamera.Position, Up));
                 Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
                 physics.Player.applyTorque(move.Y * playerMoveMulti, Horizontal);
@@ -525,7 +536,7 @@ namespace Project_blob
                 cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
                 Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
                 //cameraPosition = theBlob.getCenter() + Offset;
-                camera.Postiion = theBlob.getCenter() + Offset;
+                CameraManager.getSingleton.ActiveCamera.Position = theBlob.getCenter() + Offset;
 
                 // new Vector3(10, 10, 20)
                 /*if (OrientCamera)
@@ -535,16 +546,17 @@ namespace Project_blob
                 else
                 {*/
                 //viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), Vector3.Up);
-                camera.View = Matrix.CreateLookAt(camera.Postiion, theBlob.getCenter(), Vector3.Up);
+                //camera.View = Matrix.CreateLookAt(camera.Postiion, theBlob.getCenter(), Vector3.Up);
+                CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
                 //}
                 //effect.Parameters["xView"].SetValue(viewMatrix);
                 //celEffect.Parameters["View"].SetValue(viewMatrix);
-                effect.Parameters["xView"].SetValue(camera.View);
-                celEffect.Parameters["View"].SetValue(camera.View);
+                effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
                 //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
                 //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                effect.Parameters["xCameraPos"].SetValue(new Vector4(camera.Postiion, 0));
+                effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
             }
 
             //cubeVertexBuffer.SetData<VertexPositionNormalTexture>(theBlob.getTriangleVertexes());
