@@ -71,6 +71,9 @@ namespace Project_blob
 
         Area currentArea;
 
+        System.Diagnostics.Stopwatch physicsTime = new System.Diagnostics.Stopwatch();
+        System.Diagnostics.Stopwatch drawTime = new System.Diagnostics.Stopwatch();
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -465,7 +468,10 @@ namespace Project_blob
 
             if (!paused)
             {
+                physicsTime.Reset();
+                physicsTime.Start();
                 physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+                physicsTime.Stop();
             }
 
             if (follow)
@@ -530,6 +536,8 @@ namespace Project_blob
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            drawTime.Reset();
+            drawTime.Start();
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
@@ -608,11 +616,13 @@ namespace Project_blob
                 }
                 effect.End();
             }
-
+            drawTime.Stop();
             // GUI
             GraphicsDevice.RenderState.FillMode = FillMode.Solid;
             spriteBatch.Begin();
             spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
+            spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);
             if (physics.Player.Resilience.Target < 0.5)
             {
                 spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
@@ -642,7 +652,7 @@ namespace Project_blob
                 spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
             }
             //spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(550, 0), Color.White);
-            spriteBatch.DrawString(font, "Vol: " + theBlob.getVolume().ToString(), new Vector2(450, 30), Color.White);
+            spriteBatch.DrawString(font, "Vol: " + theBlob.getVolume().ToString(), new Vector2(545, 30), Color.White);
             spriteBatch.DrawString(font, "Next Vol: " + theBlob.getNextVolume().ToString(), new Vector2(450, 60), Color.White);
             //spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
             spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
