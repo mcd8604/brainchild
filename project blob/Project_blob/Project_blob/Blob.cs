@@ -349,7 +349,7 @@ namespace Project_blob
             }
 
             //Console.WriteLine("Next Volume Estimate: " + totalVolume);
-            return getVolume();
+            return totalVolume;
         }
 
         public override float getVolume()
