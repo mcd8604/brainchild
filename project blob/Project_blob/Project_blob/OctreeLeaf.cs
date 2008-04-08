@@ -90,13 +90,13 @@ namespace Project_blob
 
         public void DrawVisible(GameTime gameTime)
         {
-            //BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
-            BoundingFrustum frustum = CameraManager.getSingleton.GetCamera("test").Frustum;
+            BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
 
             foreach (Drawable obj in _containedObjects)
             {
                 //obj.Draw(gameTime);
                 SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+                SceneManager.getSingleton.Drawn += 1;
             }
             foreach (OctreeLeaf leaf in ChildLeaves)
             {
@@ -131,6 +131,7 @@ namespace Project_blob
             {
                 //obj.Draw(gameTime);
                 SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+                SceneManager.getSingleton.Drawn += 1;
             }
             foreach (OctreeLeaf leaf in ChildLeaves)
             {

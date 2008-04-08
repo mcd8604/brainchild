@@ -35,7 +35,7 @@ namespace Project_blob
             get { return _sceneObjectCount; }
         }
 
-        private bool _cull = false;
+        private bool _cull = true;
         public bool Cull
         {
             get { return _cull; }
@@ -91,7 +91,7 @@ namespace Project_blob
             }
         }
 
-        public void Draw(GameTime gameTime)
+        public void UpdateVisibleDrawables(GameTime gameTime)
         {
             _drawn = 0;
             _culled = 0;
@@ -110,7 +110,7 @@ namespace Project_blob
             }
         }
 
-        public void Distribute(ref List<Drawable> scene)
+        public void BuildOctree(ref List<Drawable> scene)
         {
             _sceneObjectCount = scene.Count;
 
