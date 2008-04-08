@@ -94,7 +94,7 @@ namespace Engine
         public void UpdateMatrices()
         {
 
-            View = Matrix.CreateLookAt(_position, _target, _up);
+            //View = Matrix.CreateLookAt(_position, _target, _up);
 
             Projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearPlane, FarPlane);
 
