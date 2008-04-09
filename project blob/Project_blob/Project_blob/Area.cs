@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections;
 
 namespace Project_blob
 {
@@ -58,6 +59,18 @@ namespace Project_blob
             return null;
         }
 
+        public List<Drawable> getDrawableList()
+        {
+            List<Drawable> drawableList = new List<Drawable>();
+            IEnumerator drawablesEnum = this.Drawables.GetEnumerator();
+            while (drawablesEnum.MoveNext())
+            {
+                KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
+                drawableList.Add((Drawable)kvp.Value);
+            }
+            return drawableList;
+        }
+
         public void RemoveDrawable(String drawableName)
         {
             if (_drawables.ContainsKey(drawableName))
@@ -110,5 +123,70 @@ namespace Project_blob
         //{
         //    _collidables.Add(collidableName, collidable);
         //}
+
+        [NonSerialized]
+        private List<Physics.Collidable> _collidables = new List<Physics.Collidable>();
+        public List<Physics.Collidable> getCollidables()
+        {
+            return this._collidables;
+        }
+
+        public void LoadAreaGameplay(Game game)
+        {
+            this._display.ShowAxis = false;
+            this._display.GameMode = true;
+
+            //Give the SceneManager a reference to the display
+            SceneManager.getSingleton.Display = this._display;
+
+            this._collidables = new List<Physics.Collidable>();
+            
+            List<TextureInfo> textureInfos = new List<TextureInfo>();
+
+            //load level models and textures
+            IEnumerator drawablesEnum = this.Drawables.GetEnumerator();
+            while (drawablesEnum.MoveNext())
+            {
+                KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
+                Drawable d = (Drawable)kvp.Value;
+                if (d is StaticModel)
+                {
+                    StaticModel dm = (StaticModel)d;
+                    Model model = game.Content.Load<Model>(@"Models\\" + dm.ModelName);
+                    ModelManager.getSingleton.AddModel(dm.ModelName, model);
+                    //TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
+                    //textureInfos.Add(new TextureInfo(dm.TextureName, i++));
+                    //Collidables
+
+                    //physics.AddCollidableBox(dm.GetBoundingBox(), dm.createCollidables(model));
+                    foreach (TextureInfo info in this.Display.DrawnList.Keys)
+                    {
+                        if (this.Display.DrawnList[info].Contains(dm))
+                        {
+                            dm.TextureKey = info;
+                        }
+                    }
+
+                    List<Physics.Collidable> colls = dm.createCollidables(model);
+
+                    this._collidables.AddRange(colls);
+
+                    //temporary material stuff
+                    foreach (CollidableTri c in colls)
+                    {
+                        if (dm.TextureKey.TextureName.Equals("sticky"))
+                        {
+                            c.setMaterial(new Physics.MaterialCustom(50f, 5f));
+                        }
+                    }
+                }
+            }
+
+            //change to level list, rather than drawn
+            foreach (TextureInfo ti in this.Display.DrawnList.Keys)
+            {
+                TextureManager.getSingleton.AddTexture(ti.TextureName, game.Content.Load<Texture2D>(@"Textures\\" + ti.TextureName));
+            }
+        }
     }
 }
