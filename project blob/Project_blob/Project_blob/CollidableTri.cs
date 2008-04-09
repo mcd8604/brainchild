@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob
 {
-    class CollidableTri : Physics.Collidable
+    public class CollidableTri : Physics.Collidable
     {
 		internal Plane myPlane;
 
@@ -147,6 +147,18 @@ namespace Project_blob
         public override void test(Physics.Point p)
         {
             //throw new Exception("do nothing");
+        }
+
+        internal Physics.Material myMaterial = Physics.MaterialBasic.getDefaultMaterial();
+
+        public override Physics.Material getMaterial()
+        {
+            return myMaterial;
+        }
+
+        public void setMaterial(Physics.Material m) 
+        {
+            myMaterial = m;
         }
     }
 }
