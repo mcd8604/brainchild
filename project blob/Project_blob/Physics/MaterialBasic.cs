@@ -8,5 +8,10 @@ namespace Physics
             return 1;
         }
 
+		public override float getCling()
+		{
+			return 1;
+		}
+
     }
 }

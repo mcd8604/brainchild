@@ -12,5 +12,7 @@ namespace Physics
 
         public abstract float getFriction();
 
+		public abstract float getCling();
+
     }
 }
