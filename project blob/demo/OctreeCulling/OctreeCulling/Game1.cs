@@ -50,7 +50,7 @@ namespace OctreeCulling
         //Test variables
         List<SceneObject> _objects;
         List<SceneObject> _listGraphObjects;
-        bool _cull = false;
+        bool _cull = true;//false;
         int _culled = 0;
         int _drawn = 0;
         int _total = 0;
@@ -122,11 +122,11 @@ namespace OctreeCulling
             graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
 
             //Load all objects
-            for (int i = 0; i < 20; ++i)
+            for (int i = 0; i < 30; ++i)
             {
-                for (int j = 0; j < 20; ++j)
+                for (int j = 0; j < 30; ++j)
                 {
-                    for (int k = 0; k < 20; ++k)
+                    for (int k = 0; k < 30; ++k)
                     {
                         cube = new Cube(Vector3.One, new Vector3(5 * i, 5* j, 5 * k), basicEffect, graphics);
                         //pyramid = new Pyramid(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics);

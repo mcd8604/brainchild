@@ -13,7 +13,7 @@ namespace OctreeCulling
 {
     class OctreeLeaf
     {
-        private const int _maxobjects = 1;
+        private const int _maxobjects = 4;
 
         private List<SceneObject> _containedObjects;
         public List<SceneObject> ContainedObjects
@@ -114,40 +114,79 @@ namespace OctreeCulling
             //BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
             BoundingFrustum frustum = CameraManager.getSingleton.GetCamera("test").Frustum;
 
+            BoundingSphere sphere = CameraManager.getSingleton.GetCamera("test").BoundingSphere;
+
             foreach (SceneObject obj in _containedObjects)
             {
                 obj.Draw(gameTime);
             }
             foreach (OctreeLeaf leaf in ChildLeaves)
             {
-                //Add functionality to test the containment type of the bounding box with the frustum.
-                //If the entire box is inside the frustum the call Draw as everything needs to be drawn.
-
                 //if (leaf.ContainerBox.Intersects(frustum))
                 //    leaf.DrawVisible(gameTime);
 
-                ContainmentType type = frustum.Contains(leaf.ContainerBox);
-
-                switch (type)
+                //ContainmentType typeSphere = CameraManager.getSingleton.ActiveCamera.BoundingSphere.Contains(leaf.ContainerSphere);
+                ContainmentType typeSphere = sphere.Contains(leaf.ContainerSphere);
+                //ContainmentType typeSphere = frustum.Contains(leaf.ContainerSphere);
+                switch(typeSphere)
                 {
                     case ContainmentType.Contains:
-                        {
-                            leaf.Draw(gameTime);
-                        }
-                        break;
+                        //{
+                        //    leaf.Draw(gameTime);
+                        //}
+                        //break;
 
                     case ContainmentType.Intersects:
                         {
-                            leaf.DrawVisible(gameTime);
+                            typeSphere = frustum.Contains(leaf.ContainerSphere);
+                            switch (typeSphere)
+                            {
+                                case ContainmentType.Contains:
+                                    {
+                                        leaf.Draw(gameTime);
+                                    }
+                                    break;
+                                case ContainmentType.Intersects:
+                                    {
+                                        ContainmentType type = frustum.Contains(leaf.ContainerBox);
+
+                                        switch (type)
+                                        {
+                                            case ContainmentType.Contains:
+                                                {
+                                                    leaf.Draw(gameTime);
+                                                }
+                                                break;
+
+                                            case ContainmentType.Intersects:
+                                                {
+                                                    leaf.DrawVisible(gameTime);
+                                                }
+                                                break;
+
+                                            case ContainmentType.Disjoint:
+                                                {
+                                                    //Bounding box is culled.
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                case ContainmentType.Disjoint:
+                                    {
+                                        //Bounding sphere is culled.
+                                    }
+                                    break;
+                            }
                         }
                         break;
 
                     case ContainmentType.Disjoint:
                         {
-                            //Bounding box is culled.
+                            //Bounding sphere is culled.
                         }
                         break;
-                }
+                }       
             }
         }
 
