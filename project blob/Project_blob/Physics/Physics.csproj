@@ -50,6 +50,8 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="MaterialBasic.cs" />
     <Compile Include="Mover.cs" />
     <Compile Include="PhysicsManager.cs" />
+    <Compile Include="PhysicsParallel.cs" />
     <Compile Include="PhysicsSeq.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Point.cs" />
