@@ -69,7 +69,7 @@ namespace Project_blob
 
         float playerMoveMulti = 50f;
 
-        Display theDisplay;
+        //Display theDisplay;
 
         Area currentArea;
 
@@ -184,7 +184,7 @@ namespace Project_blob
 
                 //load level models and textures
                 IEnumerator drawablesEnum = currentArea.Drawables.GetEnumerator();
-                int i = 0;
+                //int i = 0;
                 List<TextureInfo> textureInfos = new List<TextureInfo>();
                 while (drawablesEnum.MoveNext())
                 {

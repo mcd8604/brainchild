@@ -24,9 +24,9 @@ namespace Project_blob
         private IndexBuffer myIndexBuffer;
         private int myVertexStride;
         private int myStreamOffset;
-        private int myBaseVertex;
+        //private int myBaseVertex;
         private int myNumVertices;
-        private int myStartIndex;
+        //private int myStartIndex;
         private int myPrimitiveCount;
 
 		private Vector3 min;
@@ -152,9 +152,9 @@ namespace Project_blob
 
             
             myStreamOffset = 0;
-            myBaseVertex = 0;
+            //myBaseVertex = 0;
             myNumVertices = vertices.Length;
-            myStartIndex = 0;
+            //myStartIndex = 0;
             myPrimitiveCount = part.PrimitiveCount;
 
 		}

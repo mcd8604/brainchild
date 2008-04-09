@@ -445,10 +445,10 @@ namespace Project_blob
                 transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
             }
             Vector3 center = m_BoundingSphere.Center;
-            float radius;
+            //float radius;
 
             throw new Exception("Fix This");
-            return m_BoundingSphere;
+            //return m_BoundingSphere;
         }
     }
 #endregion
