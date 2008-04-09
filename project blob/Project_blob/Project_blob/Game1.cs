@@ -127,7 +127,7 @@ namespace Project_blob
             physics.Player.Resilience.Delta = 10;
 
             physics.Player.Volume.Minimum = 0f;
-            physics.Player.Volume.Origin = 10f;
+            physics.Player.Volume.Origin = 100f;
             physics.Player.Volume.Maximum = 500f;
             physics.Player.Volume.Delta = 1;
 
@@ -537,7 +537,7 @@ namespace Project_blob
                 //theBlob.idealVolume = theBlob.baseVolume + 50f;
                 physics.Player.Volume.Target = 0f;
             }
-            else
+			else if (InputHandler.IsKeyDown(Keys.V))
             {
                 //theBlob.idealVolume = theBlob.baseVolume;
                 physics.Player.Volume.Target = 0.5f;

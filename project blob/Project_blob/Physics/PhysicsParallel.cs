@@ -43,6 +43,7 @@ namespace Physics
 			});
 			WorkerThread.IsBackground = true;
 			WorkerThread.Name = "Physics Thread";
+			WorkerThread.Priority = System.Threading.ThreadPriority.AboveNormal;
 			WorkerThread.Start();
 
 		}
