@@ -15,7 +15,7 @@ namespace Project_blob
 {
     class OctreeLeaf
     {
-        private const int _maxobjects = 1;
+        private const int _maxobjects = 4;
 
         private List<Drawable> _containedObjects;
         public List<Drawable> ContainedObjects
@@ -73,7 +73,7 @@ namespace Project_blob
                     for (int i = ContainedObjects.Count - 1; i >= 0; --i)
                     {
                         if ((leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains) ||
-                            (leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains))
+                            (leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Intersects))
                         {
                             leaf.ContainedObjects.Add(ContainedObjects[i]);
                             _containedObjects.Remove(ContainedObjects[i]);
