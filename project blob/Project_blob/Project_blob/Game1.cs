@@ -132,6 +132,11 @@ namespace Project_blob
             physics.Player.Volume.Delta = 1;
 
             physics.AddGravity(new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f)));
+
+            if (currentArea != null)
+            {
+                physics.AddCollidables(currentArea.getCollidables());
+            }
         }
 
         private void resetBlob()
@@ -182,60 +187,9 @@ namespace Project_blob
                 e.MoveNext();
                 //e.MoveNext();
                 currentArea = (Area)e.Current;
-                currentArea.Display.ShowAxis = false;
-                currentArea.Display.GameMode = true;
-
-                //Give the SceneManager a reference to the display
-                SceneManager.getSingleton.Display = currentArea.Display;
-
-                //load level models and textures
-                IEnumerator drawablesEnum = currentArea.Drawables.GetEnumerator();
-                //int i = 0;
-                List<TextureInfo> textureInfos = new List<TextureInfo>();
-                while (drawablesEnum.MoveNext())
-                {
-                    KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
-                    Drawable d = (Drawable)kvp.Value;
-                    if (d is StaticModel)
-                    {
-                        StaticModel dm = (StaticModel)d;
-                        Model model = Content.Load<Model>(@"Models\\" + dm.ModelName);
-                        ModelManager.getSingleton.AddModel(dm.ModelName, model);
-                        //TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
-                        //textureInfos.Add(new TextureInfo(dm.TextureName, i++));
-                        //Collidables
-
-                        //physics.AddCollidableBox(dm.GetBoundingBox(), dm.createCollidables(model));
-                        foreach (TextureInfo info in currentArea.Display.DrawnList.Keys)
-                        {
-                            if (currentArea.Display.DrawnList[info].Contains(dm))
-                            {
-                                dm.TextureKey = info;
-                            }
-                        }
-
-                        List<Physics.Collidable> colls = dm.createCollidables(model);
-                        physics.AddCollidables(colls);
-
-                        //temporary material stuff
-
-                        foreach (CollidableTri c in colls)
-                        {
-                            if (dm.TextureKey.TextureName.Equals("sticky"))
-                            {
-                                c.setMaterial(new Physics.MaterialCustom(50f, 5f));
-                            }
-                        }
-
-                        staticDrawables.Add(dm);
-                    }
-                }
-
-                //change to level list, rather than drawn
-                foreach (TextureInfo ti in currentArea.Display.DrawnList.Keys)
-                {
-                    TextureManager.getSingleton.AddTexture(ti.TextureName, Content.Load<Texture2D>(@"Textures\\" + ti.TextureName));
-                }
+                currentArea.LoadAreaGameplay(this);
+                staticDrawables = currentArea.getDrawableList();
+                physics.AddCollidables(currentArea.getCollidables());
             }
             else
             {
