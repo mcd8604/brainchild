@@ -105,6 +105,10 @@ namespace Project_blob
 
         private void resetPhysics()
         {
+			if (physics != null)
+			{
+				physics.stop();
+			}
             physics = Physics.PhysicsManager.getInstance();
 
             physics.AirFriction = 2f;
@@ -117,9 +121,9 @@ namespace Project_blob
             physics.Player.Cling.Origin = 25f;
             physics.Player.Cling.Maximum = 50f;
 
-            physics.Player.Resilience.Minimum = 10f;
+            physics.Player.Resilience.Minimum = 5f;
             physics.Player.Resilience.Origin = 40f;
-            physics.Player.Resilience.Maximum = 80f;
+            physics.Player.Resilience.Maximum = 50f;
             physics.Player.Resilience.Delta = 10;
 
             physics.Player.Volume.Minimum = 0f;
@@ -132,6 +136,8 @@ namespace Project_blob
 
         private void resetBlob()
         {
+			resetPhysics();
+
             theBlob = new Blob(blobModel, blobStartPosition);
             theBlob.setGraphicsDevice(GraphicsDevice);
 
@@ -360,6 +366,16 @@ namespace Project_blob
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+
+			if (!paused)
+			{
+				physicsTime.Reset();
+				physicsTime.Start();
+				physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+				physicsTime.Stop();
+			}
+
             //Update Camera
             //camera.Update(gameTime);
             CameraManager.getSingleton.Update(gameTime);
@@ -529,13 +545,6 @@ namespace Project_blob
             //Console.WriteLine(theBlob.getVolume());
             //theBlob.update();
 
-            if (!paused)
-            {
-                physicsTime.Reset();
-                physicsTime.Start();
-                physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
-                physicsTime.Stop();
-            }
 
             if (follow)
             {
@@ -698,7 +707,7 @@ namespace Project_blob
             spriteBatch.Begin();
             spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
             spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
-            spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);
+			spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);
             if (physics.Player.Resilience.Target < 0.5)
             {
                 spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
@@ -728,12 +737,12 @@ namespace Project_blob
                 spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
             }
             //spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(550, 0), Color.White);
-            spriteBatch.DrawString(font, "Vol: " + theBlob.getVolume().ToString(), new Vector2(545, 30), Color.White);
-            spriteBatch.DrawString(font, "Next Vol: " + theBlob.getNextVolume().ToString(), new Vector2(450, 60), Color.White);
+            spriteBatch.DrawString(font, "Vol: " + theBlob.getVolume().ToString(), new Vector2(345, 30), Color.White);
+            spriteBatch.DrawString(font, "Next Vol: " + theBlob.getNextVolume().ToString(), new Vector2(250, 60), Color.White);
             //spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
             spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
 
-            spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(0, 90), Color.White);
+            spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(600, 30), Color.White);
             
             spriteBatch.End();
 

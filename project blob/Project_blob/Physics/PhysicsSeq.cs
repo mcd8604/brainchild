@@ -50,7 +50,7 @@ namespace Physics
             collision.AddRange(c);
         }
 
-        List<Point> points = new List<Point>();
+        internal List<Point> points = new List<Point>();
         public override void AddPoint(Point p)
         {
             points.Add(p);
@@ -83,60 +83,7 @@ namespace Physics
         public override void update(float TotalElapsedSeconds)
         {
 
-            player.update(TotalElapsedSeconds);
-
-			// Predict potiential position
-			foreach (Point p in points)
-			{
-				p.PotientialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
-			}
-
-            // Springs
-            foreach (Spring s in springs)
-            {
-                s.ApplyForces();
-            }
-
-            // Volumes
-            foreach (Body b in bodys)
-            {
-                PressureBody pb = b as PressureBody;
-                if (pb != null)
-                {
-                    Vector3 CurrentCenter = pb.getCenter();
-					Vector3 NextCenter = pb.getNextCenter();
-                    float CurrentVolume = pb.getVolume();
-					float NextVolume = pb.getNextVolume();
-                    float IdealVolume = pb.getIdealVolume();
-                    foreach (Physics.Point p in pb.getPoints())
-                    {
-						p.ForceThisFrame += ((Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.PotientialPosition) * (NextVolume - IdealVolume)) / 2f);
-                    }
-                }
-            }
-
-            // Gravity
-            foreach (Gravity g in gravity)
-            {
-                foreach (Point p in points)
-                {
-                    p.ForceThisFrame += g.getForceOn(p);
-                }
-            }
-
-            foreach (Point p in points)
-            {
-                fall(p, TotalElapsedSeconds);
-            }
-
-            // Collisions
-
-
-            //temp
-            foreach (Point p in points)
-            {
-                checkCollisions2(p, TotalElapsedSeconds);
-            }
+			doPhysics(TotalElapsedSeconds);
 
             foreach (Point p in points)
             {
@@ -144,6 +91,66 @@ namespace Physics
             }
 
         }
+
+		internal void doPhysics(float TotalElapsedSeconds)
+		{
+
+			player.update(TotalElapsedSeconds);
+
+			// Predict potiential position
+			foreach (Point p in points)
+			{
+				p.PotientialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+			}
+
+			// Springs
+			foreach (Spring s in springs)
+			{
+				s.ApplyForces();
+			}
+
+			// Volumes
+			foreach (Body b in bodys)
+			{
+				PressureBody pb = b as PressureBody;
+				if (pb != null)
+				{
+					Vector3 CurrentCenter = pb.getCenter();
+					Vector3 NextCenter = pb.getNextCenter();
+					float CurrentVolume = pb.getVolume();
+					float NextVolume = pb.getNextVolume();
+					float IdealVolume = pb.getIdealVolume();
+					foreach (Physics.Point p in pb.getPoints())
+					{
+						p.ForceThisFrame += ((Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.PotientialPosition) * (NextVolume - IdealVolume)) / 2f);
+					}
+				}
+			}
+
+			// Gravity
+			foreach (Gravity g in gravity)
+			{
+				foreach (Point p in points)
+				{
+					p.ForceThisFrame += g.getForceOn(p);
+				}
+			}
+
+			foreach (Point p in points)
+			{
+				fall(p, TotalElapsedSeconds);
+			}
+
+			// Collisions
+
+
+			//temp
+			foreach (Point p in points)
+			{
+				checkCollisions2(p, TotalElapsedSeconds);
+			}
+
+		}
 
         private void fall(Point p, float time)
         {

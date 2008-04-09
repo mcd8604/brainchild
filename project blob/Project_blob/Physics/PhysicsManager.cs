@@ -7,12 +7,15 @@ namespace Physics
 	public abstract class PhysicsManager
 	{
 
+		public static bool enableParallel = true;
+
 		public static PhysicsManager getInstance()
 		{
             int i = System.Environment.ProcessorCount;
-            if (i > 1)
+            if (i > 1 && enableParallel)
             {
                 Console.WriteLine("More than one processor core; There are " + i + "; Parallelize!");
+				return new PhysicsParallel();
             }
 			return new PhysicsSeq();
 		}
@@ -45,6 +48,8 @@ namespace Physics
         public abstract void AddBodys(IEnumerable<Body> b);
 
         public abstract void update(float TotalElapsedSeconds);
+
+		public virtual void stop() { }
 
 	}
 }
