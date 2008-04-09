@@ -41,7 +41,7 @@ namespace WorldMaker
             set { _activeArea = value; }
         }
 
-        public const String EFFECT_TYPE = "basic";
+        public readonly String EFFECT_TYPE = "basic";
 
         private String _effectName;
         public String EffectName

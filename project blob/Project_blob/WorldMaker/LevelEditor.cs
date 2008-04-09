@@ -155,15 +155,15 @@ namespace WorldMaker
             if (!areaTextBox.Text.Equals(""))
             {
                 Area tempArea;
-                if (Game1.EFFECT_TYPE.Equals("basic"))
+                if (_gameRef.EFFECT_TYPE.Equals("basic"))
                 {
                     tempArea = new Area(_gameRef.WorldMatrix, _gameRef.ViewMatrix, _gameRef.ProjectionMatrix);
                 }
-                else if (Game1.EFFECT_TYPE.Equals("effects"))
+                else if (_gameRef.EFFECT_TYPE.Equals("effects"))
                 {
                     tempArea = new Area(_gameRef.WorldMatrix, _gameRef.EffectName, "xWorld", "xTexture", "Textured");
                 }
-                else if (Game1.EFFECT_TYPE.Equals("Cel"))
+                else if (_gameRef.EFFECT_TYPE.Equals("Cel"))
                 {
                     tempArea = new Area(_gameRef.WorldMatrix, _gameRef.EffectName, "World", "NONE", null);
                 }
