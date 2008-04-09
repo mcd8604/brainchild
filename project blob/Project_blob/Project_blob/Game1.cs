@@ -204,7 +204,6 @@ namespace Project_blob
                         //TextureManager.getSingleton.AddTexture(dm.TextureName, Content.Load<Texture2D>(@"Textures\\" + dm.TextureName));
                         //textureInfos.Add(new TextureInfo(dm.TextureName, i++));
                         //Collidables
-                        physics.AddCollidables(dm.createCollidables(model));
 
                         //physics.AddCollidableBox(dm.GetBoundingBox(), dm.createCollidables(model));
                         foreach (TextureInfo info in currentArea.Display.DrawnList.Keys)
@@ -214,6 +213,20 @@ namespace Project_blob
                                 dm.TextureKey = info;
                             }
                         }
+
+                        List<Physics.Collidable> colls = dm.createCollidables(model);
+                        physics.AddCollidables(colls);
+
+                        //temporary material stuff
+
+                        foreach (CollidableTri c in colls)
+                        {
+                            if (dm.TextureKey.TextureName.Equals("sticky"))
+                            {
+                                c.setMaterial(new Physics.MaterialCustom(10000f));
+                            }
+                        }
+
                         staticDrawables.Add(dm);
                     }
                 }

@@ -64,6 +64,7 @@
     <Compile Include="GravityVector.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MaterialBasic.cs" />
+    <Compile Include="MaterialCustom.cs" />
     <Compile Include="Mover.cs" />
     <Compile Include="PhysicsManager.cs" />
     <Compile Include="PhysicsParallel.cs" />
