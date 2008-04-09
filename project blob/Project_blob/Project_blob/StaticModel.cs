@@ -405,6 +405,30 @@ namespace Project_blob
             min = Vector3.Transform(min, transformMatrix);
             max = Vector3.Transform(max, transformMatrix);
 
+			if (min.X > max.X)
+			{
+				float temp = min.X;
+				min.X = max.X;
+				max.X = temp;
+			}
+			if (min.Y > max.Y)
+			{
+				float temp = min.Y;
+				min.Y = max.Y;
+				max.Y = temp;
+			}
+			if (min.Z > max.Z)
+			{
+				float temp = min.Z;
+				min.Z = max.Z;
+				max.Z = temp;
+			}
+
+			if (min.X > max.X || min.Y > max.Y || min.Z > max.Z)
+			{
+				throw new Exception("Min GREATER than Max!!!");
+			}
+
             return new BoundingBox(min, max) ;
         }
 
