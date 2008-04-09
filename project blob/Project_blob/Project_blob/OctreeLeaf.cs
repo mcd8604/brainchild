@@ -78,10 +78,12 @@ namespace Project_blob
                             (leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Intersects))
                         {
                             leaf.ContainedObjects.Add(ContainedObjects[i]);
-                            _containedObjects.Remove(ContainedObjects[i]);
+                            //_containedObjects.Remove(ContainedObjects[i]);
                         }
                     }
                 }
+
+				_containedObjects.Clear();
 
                 foreach (OctreeLeaf leaf in ChildLeaves)
                 {
