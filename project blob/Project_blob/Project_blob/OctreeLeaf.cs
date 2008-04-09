@@ -72,18 +72,19 @@ namespace Project_blob
                 {
                     for (int i = ContainedObjects.Count - 1; i >= 0; --i)
                     {
-						BoundingBox box = _containedObjects[i].GetBoundingBox();
+						//BoundingBox box = _containedObjects[i].GetBoundingBox();
 
-                        if ((leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains) ||
-                            (leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Intersects))
+                        if (leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains)
+                        //if ((leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains) ||
+                        //    (leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Intersects))
                         {
                             leaf.ContainedObjects.Add(ContainedObjects[i]);
-                            //_containedObjects.Remove(ContainedObjects[i]);
+                            _containedObjects.Remove(ContainedObjects[i]);
                         }
                     }
                 }
 
-				_containedObjects.Clear();
+				//_containedObjects.Clear();
 
                 foreach (OctreeLeaf leaf in ChildLeaves)
                 {
