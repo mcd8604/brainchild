@@ -223,7 +223,7 @@ namespace Project_blob
                         {
                             if (dm.TextureKey.TextureName.Equals("sticky"))
                             {
-                                c.setMaterial(new Physics.MaterialCustom(10000f));
+                                c.setMaterial(new Physics.MaterialCustom(50f, 5f));
                             }
                         }
 
