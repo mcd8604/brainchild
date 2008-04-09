@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+using Engine;
+
 namespace Project_blob
 {
     class SceneManager
@@ -100,8 +102,14 @@ namespace Project_blob
             {
                 if (_cull)
                 {
-                    //Draw will be replaced with Culling Draw
-                    _octree.DrawVisible(gameTime);
+                    BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
+
+                    if ((frustum.Contains(_octree.ContainerBox) == ContainmentType.Contains) ||
+                        (frustum.Contains(_octree.ContainerBox) == ContainmentType.Intersects))
+                    {
+                        //Draw will be replaced with Culling Draw
+                        _octree.DrawVisible(gameTime);
+                    }
                 }
                 else
                 {
