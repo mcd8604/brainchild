@@ -139,16 +139,16 @@ technique Toon
 	//Render the Cel shader surface color
 	pass P0
 	{
-		VertexShader = compile vs_3_0 Transform();
-		PixelShader  = compile ps_3_0 Cel();
+		VertexShader = compile vs_2_0 Transform();
+		PixelShader  = compile ps_2_0 Cel();
 		CullMode = CCW;
 	}
 	
 	//Render the outline surface inverted to create fake edge detection
 	pass P1
 	{
-		VertexShader = compile vs_3_0 Outline();
-		PixelShader  = compile ps_3_0 Black();
+		VertexShader = compile vs_2_0 Outline();
+		PixelShader  = compile ps_2_0 Black();
 		CullMode = CW;
 	}
 	
