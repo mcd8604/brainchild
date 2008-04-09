@@ -301,19 +301,21 @@ namespace Project_blob
             RotationPriority = 1;
             ScalePriority = 0;
 
-
-            foreach (ModelMesh mesh in ModelManager.getSingleton.GetModel(p_Name).Meshes)
-            {
-                m_BoundingSphere = BoundingSphere.CreateMerged(m_BoundingSphere, mesh.BoundingSphere);
-            }
-            m_BoundingBox = BoundingBox.CreateFromSphere(m_BoundingSphere);
+			Model m = ModelManager.getSingleton.GetModel(p_Name);
+			if (m != null)
+			{
+				foreach (ModelMesh mesh in ModelManager.getSingleton.GetModel(p_Name).Meshes)
+				{
+					m_BoundingSphere = BoundingSphere.CreateMerged(m_BoundingSphere, mesh.BoundingSphere);
+				}
+				m_BoundingBox = BoundingBox.CreateFromSphere(m_BoundingSphere);
+			}
 
             m_Position = Matrix.CreateTranslation(Vector3.Zero);
             m_Rotation = Matrix.CreateRotationZ(0);
             m_Scale = Matrix.CreateScale(1);
 
             m_TextureKey = p_TextureKey;
-
         }
 
 
@@ -356,16 +358,6 @@ namespace Project_blob
 
         public BoundingBox GetBoundingBox()
         {
-            Model m = ModelManager.getSingleton.GetModel(_modelName);
-            if (m != null)
-            {
-                foreach (ModelMesh mesh in m.Meshes)
-                {
-                    m_BoundingSphere = BoundingSphere.CreateMerged(m_BoundingSphere, mesh.BoundingSphere);
-                }
-                m_BoundingBox = BoundingBox.CreateFromSphere(m_BoundingSphere);
-            }
-
             Matrix transformMatrix = Matrix.Identity;
             Stack<Matrix> drawStack = new Stack<Matrix>();
             for (int j = 0; j < 4; j++)
