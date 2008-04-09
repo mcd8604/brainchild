@@ -3,7 +3,7 @@ namespace Physics
     public class MaterialBasic : Material
     {
 
-        public float getFriction()
+        public override float getFriction()
         {
             return 1;
         }

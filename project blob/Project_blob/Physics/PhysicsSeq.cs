@@ -4,11 +4,11 @@ using Microsoft.Xna.Framework;
 
 namespace Physics
 {
-    public class PhysicsManager
+    public class PhysicsSeq : PhysicsManager
     {
 
         private Player player = new Player();
-        public Player Player
+        public override Player Player
         {
             get
             {
@@ -17,7 +17,7 @@ namespace Physics
         }
 
         float airfriction = 1f;
-        public float AirFriction
+        public override float AirFriction
         {
             get
             {
@@ -29,76 +29,67 @@ namespace Physics
             }
         }
 
+        public override int DEBUG_GetNumCollidables()
+        {
+            return collision.Count;
+        }
+
         private List<Gravity> gravity = new List<Gravity>();
-        public void AddGravity(Gravity g)
+        public override void AddGravity(Gravity g)
         {
             gravity.Add(g);
         }
 
         List<Collidable> collision = new List<Collidable>();
-        public void AddCollidable(Collidable c)
+        public override void AddCollidable(Collidable c)
         {
             collision.Add(c);
         }
-        public void AddCollidables(IEnumerable<Collidable> c)
+        public override void AddCollidables(IEnumerable<Collidable> c)
         {
             collision.AddRange(c);
         }
-        public int NumCollidables
-        {
-            get
-            {
-                return collision.Count;
-            }
-        }
-
-        Dictionary<BoundingBox, List<Collidable>> collisionBoxes = new Dictionary<BoundingBox, List<Collidable>>();
-        public void AddCollidableBox(BoundingBox b, List<Collidable> c)
-        {
-            if (collisionBoxes.ContainsKey(b))
-            {
-                collisionBoxes[b].AddRange(c);
-            }
-            else
-            {
-                collisionBoxes.Add(b, c);
-            }
-        }
 
         List<Point> points = new List<Point>();
-        public void AddPoint(Point p)
+        public override void AddPoint(Point p)
         {
             points.Add(p);
         }
-        public void AddPoints(IEnumerable<Point> p)
+        public override void AddPoints(IEnumerable<Point> p)
         {
             points.AddRange(p);
         }
 
         List<Spring> springs = new List<Spring>();
-        public void AddSpring(Spring s)
+        public override void AddSpring(Spring s)
         {
             springs.Add(s);
         }
-        public void AddSprings(IEnumerable<Spring> s)
+        public override void AddSprings(IEnumerable<Spring> s)
         {
             springs.AddRange(s);
         }
 
         List<Body> bodys = new List<Body>();
-        public void AddBody(Body b)
+        public override void AddBody(Body b)
         {
             bodys.Add(b);
         }
-        public void AddBodys(IEnumerable<Body> b)
+        public override void AddBodys(IEnumerable<Body> b)
         {
             bodys.AddRange(b);
         }
 
-        public void update(float TotalElapsedSeconds)
+        public override void update(float TotalElapsedSeconds)
         {
 
             player.update(TotalElapsedSeconds);
+
+			// Predict potiential position
+			foreach (Point p in points)
+			{
+				p.PotientialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+			}
 
             // Springs
             foreach (Spring s in springs)
@@ -113,11 +104,13 @@ namespace Physics
                 if (pb != null)
                 {
                     Vector3 CurrentCenter = pb.getCenter();
+					Vector3 NextCenter = pb.getNextCenter();
                     float CurrentVolume = pb.getVolume();
+					float NextVolume = pb.getNextVolume();
                     float IdealVolume = pb.getIdealVolume();
                     foreach (Physics.Point p in pb.getPoints())
                     {
-                        p.ForceThisFrame += Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume);
+						p.ForceThisFrame += ((Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.PotientialPosition) * (NextVolume - IdealVolume)) / 2f);
                     }
                 }
             }
@@ -142,8 +135,7 @@ namespace Physics
             //temp
             foreach (Point p in points)
             {
-                checkCollisionBoxes(p, TotalElapsedSeconds);
-                //checkCollisions2(p, TotalElapsedSeconds);
+                checkCollisions2(p, TotalElapsedSeconds);
             }
 
             foreach (Point p in points)
@@ -263,101 +255,6 @@ namespace Physics
 
 			p.PotientialPosition = p.CurrentPosition + (p.PotientialVelocity * time);
 
-        }
-
-        private void checkCollisionBoxes(Point p, float time)
-        {
-            bool Collision = false;
-            BoundingBox bb = new BoundingBox();
-            foreach (BoundingBox b in collisionBoxes.Keys)
-            {
-                ContainmentType ct = b.Contains(p.CurrentPosition);
-                if (ct.Equals(ContainmentType.Contains))
-                {
-                    Collision = true;
-                    bb = b;
-                }
-            }
-
-            if (Collision)
-            {
-                checkCollisionBox(bb, p, time);
-            }
-            else
-            {
-
-                p.NextAcceleration = p.PotientialAcceleration;
-                p.NextPosition = p.PotientialPosition;
-                p.NextVelocity = p.PotientialVelocity;
-
-            }
-        }
-
-        private void checkCollisionBox(BoundingBox b, Point p, float time)
-		{
-			bool Collision = false;
-			Collidable Collidable = null;
-			float CollisionU = float.MaxValue;
-            foreach(Collidable c in collisionBoxes[b]) {
-			{
-				if (c.couldIntersect(p))
-				{
-					//Vector3[] lx = c.getNextCollisionVerticies();
-					//Vector3 li;
-					//float lu = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, lx[0], lx[1], lx[2], out li);
-
-					c.test(p);
-
-					Vector3[] x = c.getNextCollisionVerticies();
-					Vector3 i;
-					float u = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, x[0], x[1], x[2], out i);
-					// If Collision ( u < 1 ) - Split Time and redo
-					if (u > 0 && u < 1 /* && c.inBoundingBox(i)*/)
-					{
-
-						// should physics interact
-						if (c.shouldPhysicsBlock(p))
-						{
-
-							if (!Collision)
-							{
-								Collidable = c;
-								CollisionU = u;
-								Collision = true;
-							}
-							else
-							{
-								if (u < CollisionU)
-								{
-									Collidable = c;
-									CollisionU = u;
-								}
-							}
-
-						}
-
-					}
-
-				}
-			}
-			if (Collision)
-			{
-				// freefallPhysics first half
-				fall(p, time * CollisionU);
-
-				// sliding physics second half
-				slide(p, time * (1 - CollisionU), Collidable);
-			}
-			else
-			{
-
-				p.NextAcceleration = p.PotientialAcceleration;
-				p.NextPosition = p.PotientialPosition;
-				p.NextVelocity = p.PotientialVelocity;
-
-			}
-
-		}
         }
 
 		private void checkCollisions2(Point p, float time)
@@ -524,7 +421,7 @@ namespace Physics
 
 				//Force += Vector3.Negate(p.NextVelocity) * friction;
 
-				Vector3 FrictionForce = Vector3.Normalize(Vector3.Negate(p.NextVelocity)) * (NormalForce.Length() * player.Traction.value);
+				Vector3 FrictionForce = Vector3.Normalize(Vector3.Negate(p.NextVelocity)) * (NormalForce.Length() * (player.Traction.value * s.getMaterial().getFriction()));
 
 				Vector3 MaxFriction = Vector3.Negate((p.NextVelocity / time) * p.mass);
 
