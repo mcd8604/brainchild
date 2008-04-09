@@ -473,6 +473,14 @@ namespace Project_blob
                 Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
             }
 
+			if (InputHandler.IsKeyPressed(Keys.B))
+			{
+				DEBUG_MaxPhys = -1;
+				DEBUG_MinPhys = -1;
+				DEBUG_MaxDraw = -1;
+				DEBUG_MinDraw = -1;
+			}
+
             // Xbox
             if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
             {

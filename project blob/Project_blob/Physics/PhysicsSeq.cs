@@ -388,7 +388,7 @@ namespace Physics
                 p.NextAcceleration = p.PotientialAcceleration;
                 p.NextPosition = p.PotientialPosition;
                 p.NextVelocity = p.PotientialVelocity;
-
+				p.LastCollision = null;
             }
 
         }
