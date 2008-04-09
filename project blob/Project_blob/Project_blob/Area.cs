@@ -174,10 +174,20 @@ namespace Project_blob
                     //temporary material stuff
                     foreach (CollidableTri c in colls)
                     {
+                        Physics.Material m;
                         if (dm.TextureKey.TextureName.Equals("sticky"))
                         {
-                            c.setMaterial(new Physics.MaterialCustom(50f, 5f));
+                            m = new Physics.MaterialCustom(50f, 5f);
                         }
+                        else if (dm.TextureKey.TextureName.Equals("slick"))
+                        {
+                            m = new Physics.MaterialCustom(0f);
+                        }
+                        else
+                        {
+                            m = Physics.Material.getDefaultMaterial();
+                        }
+                        c.setMaterial(m);
                     }
                 }
             }
