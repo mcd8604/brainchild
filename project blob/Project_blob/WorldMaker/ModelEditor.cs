@@ -56,10 +56,13 @@ namespace WorldMaker
 				ScaleX.Minimum = Convert.ToInt32(MinScaleX.Text);
 				MinScaleX.ForeColor = Color.Black;
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				MinScaleX.ForeColor = Color.Red;
 			}
@@ -72,10 +75,13 @@ namespace WorldMaker
 				ScaleY.Minimum = Convert.ToInt32(MinScaleY.Text);
 				MinScaleY.ForeColor = Color.Black;
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				MinScaleY.ForeColor = Color.Red;
 			}
@@ -88,10 +94,13 @@ namespace WorldMaker
 				ScaleZ.Minimum = Convert.ToInt32(MinScaleZ.Text);
 				MinScaleZ.ForeColor = Color.Black;
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				MinScaleZ.ForeColor = Color.Red;
 			}
@@ -109,10 +118,13 @@ namespace WorldMaker
 				ScaleX.Maximum = Convert.ToInt32(MaxScaleX.Text);
 				MaxScaleX.ForeColor = Color.Black;
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				MaxScaleX.ForeColor = Color.Red;
 			}
@@ -125,10 +137,13 @@ namespace WorldMaker
 				ScaleY.Maximum = Convert.ToInt32(MaxScaleY.Text);
 				MaxScaleY.ForeColor = Color.Black;
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				MaxScaleX.ForeColor = Color.Red;
 			}
@@ -141,10 +156,13 @@ namespace WorldMaker
 				ScaleZ.Maximum = Convert.ToInt32(MaxScaleZ.Text);
 				MaxScaleZ.ForeColor = Color.Black;
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				MaxScaleZ.ForeColor = Color.Red;
 			}
@@ -186,18 +204,24 @@ namespace WorldMaker
 					ScaleZ.Value = Convert.ToInt32(ScaleZValue.Text);
 					ScaleZValue.ForeColor = Color.Black;
 				}
-				catch (Exception ex)
-				{
 #if VERBOSE
-                    Console.WriteLine(ex);
+			catch (Exception ex)
+			{
+                Console.WriteLine(ex);
+#else
+				catch (Exception)
+				{
 #endif
 					ScaleZValue.ForeColor = Color.Orange;
 				}
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				ScaleZValue.ForeColor = Color.Red;
 			}
@@ -213,18 +237,24 @@ namespace WorldMaker
 					ScaleY.Value = Convert.ToInt32(ScaleYValue.Text);
 					ScaleYValue.ForeColor = Color.Black;
 				}
-				catch (Exception ex)
-				{
 #if VERBOSE
-                    Console.WriteLine(ex);
+			catch (Exception ex)
+			{
+                Console.WriteLine(ex);
+#else
+				catch (Exception)
+				{
 #endif
 					ScaleYValue.ForeColor = Color.Orange;
 				}
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				ScaleYValue.ForeColor = Color.Red;
 			}
@@ -240,19 +270,25 @@ namespace WorldMaker
 					ScaleX.Value = Convert.ToInt32(ScaleXValue.Text);
 					ScaleXValue.ForeColor = Color.Black;
 				}
-				catch (Exception ex)
-				{
 #if VERBOSE
-                    Console.WriteLine(ex);
+			catch (Exception ex)
+			{
+                Console.WriteLine(ex);
+#else
+				catch (Exception)
+				{
 #endif
 					ScaleXValue.ForeColor = Color.Orange;
 				}
 
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				ScaleXValue.ForeColor = Color.Red;
 			}
@@ -284,10 +320,13 @@ namespace WorldMaker
 			{
 				SetRotation();
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 			}
 		}
@@ -300,10 +339,13 @@ namespace WorldMaker
 			{
 				SetRotation();
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 			}
 		}
@@ -316,10 +358,13 @@ namespace WorldMaker
 			{
 				SetRotation();
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 			}
 		}
@@ -337,18 +382,24 @@ namespace WorldMaker
 
 					RotationXValue.ForeColor = Color.Black;
 				}
-				catch (Exception ex)
-				{
 #if VERBOSE
-                    Console.WriteLine(ex);
+			catch (Exception ex)
+			{
+                Console.WriteLine(ex);
+#else
+				catch (Exception)
+				{
 #endif
 					RotationXValue.ForeColor = Color.Orange;
 				}
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				RotationXValue.ForeColor = Color.Red;
 			}
@@ -364,18 +415,24 @@ namespace WorldMaker
 					RotationY.Value = Convert.ToInt32(Convert.ToSingle(RotationYValue.Text));
 					RotationYValue.ForeColor = Color.Black;
 				}
-				catch (Exception ex)
-				{
 #if VERBOSE
-                    Console.WriteLine(ex);
+			catch (Exception ex)
+			{
+                Console.WriteLine(ex);
+#else
+				catch (Exception)
+				{
 #endif
 					RotationYValue.ForeColor = Color.Orange;
 				}
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				RotationYValue.ForeColor = Color.Red;
 			}
@@ -391,18 +448,24 @@ namespace WorldMaker
 					RotationZ.Value = Convert.ToInt32(Convert.ToSingle(RotationZValue.Text));
 					RotationZValue.ForeColor = Color.Black;
 				}
-				catch (Exception ex)
-				{
 #if VERBOSE
-                    Console.WriteLine(ex);
+			catch (Exception ex)
+			{
+                Console.WriteLine(ex);
+#else
+				catch (Exception)
+				{
 #endif
 					RotationZValue.ForeColor = Color.Orange;
 				}
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
-                Console.WriteLine(ex); 
+                Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				RotationZValue.ForeColor = Color.Red;
 			}
@@ -432,10 +495,13 @@ namespace WorldMaker
 				}
 				PositionX.ForeColor = Color.Black;
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				PositionX.ForeColor = Color.Red;
 			}
@@ -451,10 +517,13 @@ namespace WorldMaker
 				}
 				PositionY.ForeColor = Color.Black;
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				PositionY.ForeColor = Color.Red;
 			}
@@ -470,10 +539,13 @@ namespace WorldMaker
 				}
 				PositionZ.ForeColor = Color.Black;
 			}
+#if VERBOSE
 			catch (Exception ex)
 			{
-#if VERBOSE
                 Console.WriteLine(ex);
+#else
+			catch (Exception)
+			{
 #endif
 				PositionZ.ForeColor = Color.Red;
 			}

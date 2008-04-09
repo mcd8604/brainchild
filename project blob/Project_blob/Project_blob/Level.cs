@@ -74,7 +74,7 @@ namespace Project_blob
                     area.Display.EffectName = effectName;
                 }
             } catch( SerializationException se ) {
-                string msg = "Could not deserialize: " + levelName;
+                string msg = "Could not deserialize: " + levelName + " : " + se;
                 Console.WriteLine(msg);
                 System.Windows.Forms.MessageBox.Show( msg ); ;
             }
