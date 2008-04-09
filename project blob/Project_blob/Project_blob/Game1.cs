@@ -702,12 +702,55 @@ namespace Project_blob
                 effect.End();
             }
             drawTime.Stop();
+
+
+			if (DEBUG_MaxPhys == -1)
+			{
+				DEBUG_MaxPhys = (float)physicsTime.Elapsed.TotalMilliseconds;
+			}
+			else
+			{
+				DEBUG_MaxPhys = Math.Max(DEBUG_MaxPhys, (float)physicsTime.Elapsed.TotalMilliseconds);
+			}
+			if (DEBUG_MinPhys == -1)
+			{
+				DEBUG_MinPhys = (float)physicsTime.Elapsed.TotalMilliseconds;
+			}
+			else
+			{
+				DEBUG_MinPhys = Math.Min(DEBUG_MinPhys, (float)physicsTime.Elapsed.TotalMilliseconds);
+			}
+			if (DEBUG_MaxDraw == -1)
+			{
+				DEBUG_MaxDraw = (float)drawTime.Elapsed.TotalMilliseconds;
+			}
+			else
+			{
+				DEBUG_MaxDraw = Math.Max(DEBUG_MaxDraw, (float)drawTime.Elapsed.TotalMilliseconds);
+			}
+			if (DEBUG_MinDraw == -1)
+			{
+				DEBUG_MinDraw = (float)drawTime.Elapsed.TotalMilliseconds;
+			}
+			else
+			{
+				DEBUG_MinDraw = Math.Min(DEBUG_MinDraw, (float)drawTime.Elapsed.TotalMilliseconds);
+			}
+
+
             // GUI
             GraphicsDevice.RenderState.FillMode = FillMode.Solid;
             spriteBatch.Begin();
             spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
             spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
 			spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);
+
+			spriteBatch.DrawString(font, "Phys(Max): " + DEBUG_MaxPhys, new Vector2(0, 100), Color.White);
+			spriteBatch.DrawString(font, "Draw(Max): " + DEBUG_MaxDraw, new Vector2(0, 130), Color.White);
+
+			spriteBatch.DrawString(font, "Phys(Min): " + DEBUG_MinPhys, new Vector2(320, 100), Color.White);
+			spriteBatch.DrawString(font, "Draw(Min): " + DEBUG_MinDraw, new Vector2(320, 130), Color.White);
+
             if (physics.Player.Resilience.Target < 0.5)
             {
                 spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
@@ -751,5 +794,11 @@ namespace Project_blob
 
             //base.Draw(gameTime);
         }
+
+		float DEBUG_MaxPhys = -1;
+		float DEBUG_MinPhys = -1;
+		float DEBUG_MaxDraw = -1;
+		float DEBUG_MinDraw = -1;
+
     }
 }
