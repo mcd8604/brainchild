@@ -48,6 +48,10 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
+    <None Include="Audio\bob.stuff">
+      <Name>bob</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\ground.lev">
       <Name>ground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

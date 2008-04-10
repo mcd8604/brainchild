@@ -43,7 +43,7 @@ namespace WorldMaker
         LevelEditor levelEditor;
         Game1 _gameRef;
 
-        public ModelSelect(LevelEditor p_LE, string[] models, string[] textures, Game1 game)
+        public ModelSelect(LevelEditor p_LE, string[] models, string[] textures, string[] audio, Game1 game)
         {
             InitializeComponent();
             _gameRef = game;
@@ -54,17 +54,20 @@ namespace WorldMaker
             m_CurrentTexture = new TextureInfo(null, rand.Next());
             m_CurrentModel.TextureKey = m_CurrentTexture;
             for (int i = 0; i < models.Length; i++)
-                listBox1.Items.Add(models[i]);
+                modelBox.Items.Add(models[i]);
 
             for (int i = 0; i < textures.Length; i++)
-                listBox2.Items.Add(textures[i]);
+                textureBox.Items.Add(textures[i]);
+
+            for (int i = 0; i < audio.Length; i++)
+                audioBox.Items.Add(audio[i]);
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void modelBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != -1)
+            if (modelBox.SelectedIndex != -1)
             {
-                m_CurrentModel.ModelName = ((String)(listBox1.Items[listBox1.SelectedIndex])).Substring(0, ((String)(listBox1.Items[listBox1.SelectedIndex])).LastIndexOf("."));
+                m_CurrentModel.ModelName = ((String)(modelBox.Items[modelBox.SelectedIndex])).Substring(0, ((String)(modelBox.Items[modelBox.SelectedIndex])).LastIndexOf("."));
             }
 
         }
@@ -81,17 +84,25 @@ namespace WorldMaker
             this.Close();
         }
 
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void textureBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox2.SelectedIndex != -1)
+            if (textureBox.SelectedIndex != -1)
             {
-                m_CurrentTexture.TextureName = ((String)(listBox2.Items[listBox2.SelectedIndex])).Substring(0, ((String)(listBox2.Items[listBox2.SelectedIndex])).LastIndexOf("."));
+                m_CurrentTexture.TextureName = ((String)(textureBox.Items[textureBox.SelectedIndex])).Substring(0, ((String)(textureBox.Items[textureBox.SelectedIndex])).LastIndexOf("."));
             }
         }
 
         private void ModelName_TextChanged(object sender, EventArgs e)
         {
             m_CurrentModel.Name = ModelName.Text;
+        }
+
+        private void audioBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (textureBox.SelectedIndex != -1)
+            {
+                m_CurrentModel.AudioName = ((String)(audioBox.Items[audioBox.SelectedIndex])).Substring(0, ((String)(audioBox.Items[audioBox.SelectedIndex])).LastIndexOf("."));
+            }
         }
     }
 }

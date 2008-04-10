@@ -119,7 +119,11 @@ namespace WorldMaker
                 for (int i = 0; i < textures.Length; i++)
                     textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
 
-                _modelSelect = new ModelSelect(this, models, textures, _gameRef);
+                string[] audio = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Audio");
+                for (int i = 0; i < audio.Length; i++)
+                    audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
+
+                _modelSelect = new ModelSelect(this, models, textures, audio, _gameRef);
                 _modelSelect.ShowDialog();
                 if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
                 {
@@ -211,7 +215,11 @@ namespace WorldMaker
                 for (int i = 0; i < textures.Length; i++)
                     textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
 
-                _modelSelect = new ModelSelect(this, models, textures, _gameRef);
+                string[] audio = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Audio");
+                for (int i = 0; i < audio.Length; i++)
+                    audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
+
+                _modelSelect = new ModelSelect(this, models, textures, audio, _gameRef);
                 _modelSelect.ShowDialog();
                 if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
                 {
