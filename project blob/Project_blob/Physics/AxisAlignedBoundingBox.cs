@@ -5,8 +5,8 @@ namespace Physics
 	public class AxisAlignedBoundingBox
 	{
 
-		public Vector3 Max;
-		public Vector3 Min;
+		internal Vector3 Max;
+		internal Vector3 Min;
 		private bool Valid;
 
 		public AxisAlignedBoundingBox()
@@ -26,14 +26,6 @@ namespace Physics
 		{
 			Min = Max = Vector3.Zero;
 			Valid = false;
-		}
-		public bool contains(ref Vector3 pt)
-		{
-			if (Valid)
-			{
-				return pt.X >= Min.X && pt.X <= Max.X && pt.Y >= Min.Y && pt.Y <= Max.Y && pt.Z >= Min.Z && pt.Z <= Max.Z;
-			}
-			return false;
 		}
 
 		public void expandToInclude(ref Vector3 pt)
@@ -72,32 +64,97 @@ namespace Physics
 			}
 		}
 
+		public void expandToInclude(ref AxisAlignedBoundingBox bb)
+		{
+			if (Valid)
+			{
+				expandToInclude(ref bb.Max);
+				expandToInclude(ref bb.Min);
+			}
+			else
+			{
+				Max = bb.Max;
+				Min = bb.Min;
+				Valid = true;
+			}
+		}
+
+		public bool contains(ref Vector3 pt)
+		{
+			if (Valid)
+			{
+				return pt.X >= Min.X && pt.X <= Max.X && pt.Y >= Min.Y && pt.Y <= Max.Y && pt.Z >= Min.Z && pt.Z <= Max.Z;
+			}
+			return false;
+		}
+
+		public bool contains(ref AxisAlignedBoundingBox bb)
+		{
+			if (Valid)
+			{
+				return Min.X <= bb.Min.X && Max.X >= bb.Max.X && Min.Y <= bb.Min.Y && Max.Y >= bb.Max.Y && Min.Z <= bb.Min.Z && Max.Z >= bb.Max.Z;
+			}
+			return false;
+		}
+
 		public bool intersects(ref AxisAlignedBoundingBox box)
 		{
-			return Min.X <= box.Max.X && Max.X >= box.Min.X && Min.Y <= box.Max.Y && Max.Y >= box.Min.Y && Min.Z <= box.Max.Z && Max.Z >= box.Min.Z;
+			if (Valid)
+			{
+				if ((Max.X < box.Min.X) || (Min.X > box.Max.X))
+				{
+					return false;
+				}
+				if ((Max.Y < box.Min.Y) || (Min.Y > box.Max.Y))
+				{
+					return false;
+				}
+				return ((Max.Z >= box.Min.Z) && (Min.Z <= box.Max.Z));
+
+			}
+			return false;
 		}
 
 		public bool lineIntersects(ref Vector3 pt1, ref Vector3 pt2)
 		{
-			if (pt2.X < Min.X && pt1.X < Min.X) return false;
-			if (pt2.X > Max.X && pt1.X > Max.X) return false;
-			if (pt2.Y < Min.Y && pt1.Y < Min.Y) return false;
-			if (pt2.Y > Max.Y && pt1.Y > Max.Y) return false;
-			if (pt2.Z < Min.Z && pt1.Z < Min.Z) return false;
-			if (pt2.Z > Max.Z && pt1.Z > Max.Z) return false;
-			if ((pt1.X > Min.X && pt1.X < Max.X &&
-				pt1.Y > Min.Y && pt1.Y < Max.Y &&
-				pt1.Z > Min.Z && pt1.Z < Max.Z) ||
-			(pt2.X > Min.X && pt2.X < Max.X &&
-				pt2.Y > Min.Y && pt2.Y < Max.Y &&
-				pt2.Z > Min.Z && pt2.Z < Max.Z))
+			if (Valid)
 			{
+				if (pt2.X < Min.X && pt1.X < Min.X)
+				{
+					return false;
+				}
+				if (pt2.X > Max.X && pt1.X > Max.X)
+				{
+					return false;
+				}
+				if (pt2.Y < Min.Y && pt1.Y < Min.Y)
+				{
+					return false;
+				}
+				if (pt2.Y > Max.Y && pt1.Y > Max.Y)
+				{
+					return false;
+				}
+				if (pt2.Z < Min.Z && pt1.Z < Min.Z)
+				{
+					return false;
+				}
+				if (pt2.Z > Max.Z && pt1.Z > Max.Z)
+				{
+					return false;
+				}
+				if ((pt1.X > Min.X && pt1.X < Max.X && pt1.Y > Min.Y && pt1.Y < Max.Y && pt1.Z > Min.Z && pt1.Z < Max.Z) ||
+					(pt2.X > Min.X && pt2.X < Max.X && pt2.Y > Min.Y && pt2.Y < Max.Y && pt2.Z > Min.Z && pt2.Z < Max.Z))
+				{
+					return true;
+				}
+
+				//check?
+
 				return true;
+
 			}
-
-			//check?
-
-			return true;
+			return false;
 		}
 
 	}

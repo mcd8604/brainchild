@@ -169,18 +169,18 @@ namespace Project_blob
 			return float.MaxValue;
 		}
 
-        public override bool inBoundingBox(Vector3 i)
-		{
-			Vector3 max = Vector3.Max(points[0].NextPosition, points[1].NextPosition);
-			max = Vector3.Max(max, points[2].NextPosition);
+		//public override bool inBoundingBox(Vector3 i)
+		//{
+		//    Vector3 max = Vector3.Max(points[0].NextPosition, points[1].NextPosition);
+		//    max = Vector3.Max(max, points[2].NextPosition);
 
-			Vector3 min = Vector3.Min(points[0].NextPosition, points[1].NextPosition);
-			min = Vector3.Min(min, points[2].NextPosition);
+		//    Vector3 min = Vector3.Min(points[0].NextPosition, points[1].NextPosition);
+		//    min = Vector3.Min(min, points[2].NextPosition);
 
-			return (i.X >= min.X - 0.001f && i.X <= max.X + 0.001f &&
-					i.Y >= min.Y - 0.001f && i.Y <= max.Y + 0.001f &&
-					i.Z >= min.Z - 0.001f && i.Z <= max.Z + 0.001f);
-		}
+		//    return (i.X >= min.X - 0.001f && i.X <= max.X + 0.001f &&
+		//            i.Y >= min.Y - 0.001f && i.Y <= max.Y + 0.001f &&
+		//            i.Z >= min.Z - 0.001f && i.Z <= max.Z + 0.001f);
+		//}
 
         public override bool shouldPhysicsBlock(Physics.Point p)
 		{
