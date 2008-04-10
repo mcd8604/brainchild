@@ -72,7 +72,7 @@ namespace Project_blob
                 {
                     for (int i = ContainedObjects.Count - 1; i >= 0; --i)
                     {
-						//BoundingBox box = _containedObjects[i].GetBoundingBox();
+						BoundingBox box = _containedObjects[i].GetBoundingBox();
 
                         if (leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains)
                         //if ((leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains) ||
