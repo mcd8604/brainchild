@@ -18,6 +18,13 @@ namespace Project_blob
     {
         private String _modelName;
 
+        private String _audioName;
+        public String AudioName
+        {
+            get { return _audioName; }
+            set { _audioName = value; }
+        }
+
         private TextureInfo m_TextureKey;
         public TextureInfo TextureKey
         {
@@ -123,18 +130,18 @@ namespace Project_blob
             return m_Name;
         }
 
-        //private String _textureName;
-        //public String TextureName
-        //{
-        //    get
-        //    {
-        //        return _textureName;
-        //    }
-        //    set
-        //    {
-        //        _textureName = value;
-        //    }
-        //}
+        private String _textureName;
+        public String TextureName
+        {
+            get
+            {
+                return _textureName;
+            }
+            set
+            {
+                _textureName = value;
+            }
+        }
 
         private String m_Name;
         public String Name

@@ -61,6 +61,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="InputHandler.cs" />
     <Compile Include="LevelEditor.cs">
       <SubType>Form</SubType>
