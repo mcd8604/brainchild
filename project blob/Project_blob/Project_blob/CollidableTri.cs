@@ -139,10 +139,10 @@ namespace Project_blob
             return vertices;
         }
 
-        public override bool inBoundingBox(Vector3 v)
-        {
-            throw new Exception("do nothing");
-        }
+		//public override bool inBoundingBox(Vector3 v)
+		//{
+		//    throw new Exception("do nothing");
+		//}
 
         public override void test(Physics.Point p)
         {

@@ -73,7 +73,7 @@ namespace Physics
 
 		public abstract void test(Point p);
 
-		public abstract bool inBoundingBox(Vector3 v);
+		//public abstract bool inBoundingBox(Vector3 v);
 
 	}
 }

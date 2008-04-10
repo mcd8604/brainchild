@@ -130,10 +130,10 @@ namespace Project_blob
         }
 
 
-        public override bool inBoundingBox(Vector3 i)
-		{
-			return true;
-		}
+		//public override bool inBoundingBox(Vector3 i)
+		//{
+		//    return true;
+		//}
 
 
         public override bool shouldPhysicsBlock(Physics.Point p)

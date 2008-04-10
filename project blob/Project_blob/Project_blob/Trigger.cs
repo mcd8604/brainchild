@@ -98,10 +98,10 @@ namespace Project_blob
             throw new Exception("do nothing!");
         }
 
-        public override bool inBoundingBox(Vector3 v)
-        {
-            throw new Exception("do nothing");
-        }
+		//public override bool inBoundingBox(Vector3 v)
+		//{
+		//    throw new Exception("do nothing");
+		//}
 
         //public override Physics.Material getMaterial()
         //{
