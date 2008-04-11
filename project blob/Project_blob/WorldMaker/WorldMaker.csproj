@@ -59,10 +59,17 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioManager.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EventSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventSelector.Designer.cs">
+      <DependentUpon>EventSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="InputHandler.cs" />
     <Compile Include="LevelEditor.cs">
@@ -110,6 +117,10 @@
     </NestedContentProject>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="EventSelector.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EventSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LevelEditor.resx">
       <DependentUpon>LevelEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
