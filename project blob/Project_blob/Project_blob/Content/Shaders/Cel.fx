@@ -40,7 +40,10 @@ struct VS_INPUT
 {
 	float4 Position		: POSITION0;
 	float3 Normal		: NORMAL0;
-	float2 Texcoord		: TEXCOORD0;
+	float2 Texcoord		: TEXCOORD1;  
+	
+	// FOR SOME REASON, THIS NEEDS TO BE TEXCOORD1 WHEN USING AN
+	//  FBX MODEL EXPORTED FROM MAYA.  NO CLUE WHY
 
 };
 
@@ -90,7 +93,7 @@ VS_OUTPUT2 Outline(VS_INPUT Input)
 	VS_OUTPUT2 Output;
 	Output.Normal			= mul(Input.Normal, World);
 	Output.Position			= mul(Input.Position, WorldViewProjection)+(mul(EdgeOffset, mul(Input.Normal, WorldViewProjection)));
-	
+
 	return Output;
 }
 
