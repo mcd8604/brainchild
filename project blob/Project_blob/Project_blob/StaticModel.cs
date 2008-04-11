@@ -276,10 +276,11 @@ namespace Project_blob
             return null;
         }
 
-        public StaticModel(String p_Name, String fileName)
+        public StaticModel(String p_Name, String fileName, String audioName)
         {
             m_Name = p_Name;
             _modelName = fileName;
+            _audioName = audioName;
             TranslationPriority = 2;
             RotationPriority = 1;
             ScalePriority = 0;
@@ -293,10 +294,11 @@ namespace Project_blob
             m_TextureKey = null;
         }
 
-        public StaticModel(String p_Name, String fileName, TextureInfo p_TextureKey)
+        public StaticModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey)
         {
             m_Name = p_Name;
             _modelName = fileName;
+            _audioName = audioName;
             TranslationPriority = 2;
             RotationPriority = 1;
             ScalePriority = 0;

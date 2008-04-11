@@ -60,10 +60,11 @@
       <Name>playground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Levels\test.lev">
-      <Name>test</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Compile Include="Models\bowl.fbx">
+      <Name>bowl</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\pipe.fbx">
       <Name>pipe</Name>
       <Importer>FbxImporter</Importer>
@@ -184,6 +185,13 @@
   <ItemGroup>
     <Compile Include="Textures\sticky.jpg">
       <Name>sticky</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\event.JPG">
+      <Name>event</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
