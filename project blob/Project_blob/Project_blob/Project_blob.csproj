@@ -62,11 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blob.cs" />
+    <Compile Include="CameraEvent.cs" />
     <Compile Include="CollidableTri.cs" />
     <Compile Include="DemoCube.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="DrawableInfo.cs" />
+    <Compile Include="EventTrigger.cs" />
     <Compile Include="Octree.cs" />
     <Compile Include="OctreeLeaf.cs" />
     <Compile Include="SceneManager.cs" />
@@ -75,6 +77,8 @@
     <Compile Include="InputHandler.cs" />
     <Compile Include="Area.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="SwitchEvent.cs" />
+    <Compile Include="TransitionEvent.cs" />
     <Compile Include="TriAA.cs" />
     <Compile Include="Trigger.cs" />
     <Compile Include="ModelManager.cs" />
@@ -86,6 +90,7 @@
     <Compile Include="TextureInfo.cs" />
     <Compile Include="TextureManager.cs" />
     <Compile Include="Tri.cs" />
+    <Compile Include="WarpEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
