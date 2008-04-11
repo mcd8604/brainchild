@@ -14,6 +14,8 @@ namespace WorldMaker
 {
     public partial class ModelSelect : Form
     {
+        private EventSelector _events;
+
         StaticModel m_CurrentModel;
         public StaticModel CurrentModel
         {
@@ -77,6 +79,12 @@ namespace WorldMaker
             if (!m_CurrentModel.AudioName.Equals("none") && !m_CurrentModel.ModelName.Equals("none") &&
                 !m_CurrentTexture.TextureName.Equals("none") && !m_CurrentModel.Name.Equals(""))
             {
+                Console.WriteLine(m_CurrentTexture.TextureName);
+                if (m_CurrentTexture.TextureName.Equals("event"))
+                {
+                    _events = new EventSelector();
+                    _events.ShowDialog();
+                }
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

@@ -65,6 +65,12 @@
     <Compile Include="AudioManager.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CameraPanSetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CameraPanSetter.Designer.cs">
+      <DependentUpon>CameraPanSetter.cs</DependentUpon>
+    </Compile>
     <Compile Include="EventSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="SwitchSetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SwitchSetter.Designer.cs">
+      <DependentUpon>SwitchSetter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransitionSetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransitionSetter.Designer.cs">
+      <DependentUpon>TransitionSetter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WarpSetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WarpSetter.Designer.cs">
+      <DependentUpon>WarpSetter.cs</DependentUpon>
+    </Compile>
     <Compile Include="YesNo.cs">
       <SubType>Form</SubType>
     </Compile>
