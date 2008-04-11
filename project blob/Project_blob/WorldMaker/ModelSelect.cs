@@ -49,7 +49,7 @@ namespace WorldMaker
             _gameRef = game;
 
             levelEditor = p_LE;
-            m_CurrentModel = new StaticModel("none", "none");
+            m_CurrentModel = new StaticModel("none", "none", "none");
             Random rand = new Random();
             m_CurrentTexture = new TextureInfo(null, rand.Next());
             m_CurrentModel.TextureKey = m_CurrentTexture;
@@ -74,8 +74,12 @@ namespace WorldMaker
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (!m_CurrentModel.AudioName.Equals("none") && !m_CurrentModel.ModelName.Equals("none") &&
+                !m_CurrentTexture.TextureName.Equals("none") && !m_CurrentModel.Name.Equals(""))
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -99,7 +103,7 @@ namespace WorldMaker
 
         private void audioBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (textureBox.SelectedIndex != -1)
+            if (audioBox.SelectedIndex != -1)
             {
                 m_CurrentModel.AudioName = ((String)(audioBox.Items[audioBox.SelectedIndex])).Substring(0, ((String)(audioBox.Items[audioBox.SelectedIndex])).LastIndexOf("."));
             }
