@@ -82,6 +82,13 @@ namespace Project_blob
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            ScreenManager screenManager = new ScreenManager(this);
+
+            Components.Add(screenManager);
+
+            // Activate the first screens.
+            screenManager.AddScreen(new MainMenuScreen());
         }
 
         /// <summary>
@@ -593,6 +600,7 @@ namespace Project_blob
             drawTime.Start();
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            base.Draw(gameTime);
 
             if (drawMode)
             {
