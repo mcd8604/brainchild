@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 
-namespace Project_blob
+namespace Project_blob.GameState
 {
     public enum ScreenState
     {

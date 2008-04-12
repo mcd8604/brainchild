@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 
-namespace Project_blob
+namespace Project_blob.GameState
 {
     class LoadingScreen : GameScreen
     {
