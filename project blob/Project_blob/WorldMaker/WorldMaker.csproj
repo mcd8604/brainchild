@@ -158,6 +158,14 @@
       <DependentUpon>ModelSelect.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="TransitionSetter.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TransitionSetter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WarpSetter.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WarpSetter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="YesNo.resx">
       <DependentUpon>YesNo.cs</DependentUpon>
       <SubType>Designer</SubType>

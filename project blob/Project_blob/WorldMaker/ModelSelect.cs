@@ -76,8 +76,7 @@ namespace WorldMaker
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
-            if (!m_CurrentModel.AudioName.Equals("none") && !m_CurrentModel.ModelName.Equals("none") &&
-                !m_CurrentTexture.TextureName.Equals("none") && !m_CurrentModel.Name.Equals(""))
+            if (!m_CurrentModel.ModelName.Equals("none") && !m_CurrentTexture.TextureName.Equals("none") && !m_CurrentModel.Name.Equals(""))
             {
                 Console.WriteLine(m_CurrentTexture.TextureName);
                 if (m_CurrentTexture.TextureName.Equals("event"))
@@ -85,8 +84,10 @@ namespace WorldMaker
                     _events = new EventSelector();
                     _events.ShowDialog();
                 }
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                if( !m_CurrentTexture.TextureName.Equals("event") || _events.DialogResult != DialogResult.Cancel ) {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close( );
+                }
             }
         }
 
