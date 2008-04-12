@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Text;
 
-namespace Project_blob
+namespace Project_blob.GameState
 {
     class MessageBoxScreen : GameScreen
     {

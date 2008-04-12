@@ -12,7 +12,7 @@ using System.Collections;
 
 using Engine;
 
-namespace Project_blob
+namespace Project_blob.GameState
 {
     class GameplayScreen : GameScreen
     {
