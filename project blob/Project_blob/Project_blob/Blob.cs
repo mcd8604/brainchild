@@ -123,10 +123,10 @@ namespace Project_blob
 				foreach (Physics.Point p in points)
 				{
                     float d = Vector3.Distance(t.CurrentPosition, p.CurrentPosition);
-                    //if (d > 0 && d < 0.5f)
-                    //{
-                    springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), springVal * 100));
-                    //}
+                    if (d > 0)
+                    {
+                        springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), springVal * 100));
+                    }
 				}
 				points.Add(t);
 			}
