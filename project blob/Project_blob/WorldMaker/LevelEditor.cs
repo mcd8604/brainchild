@@ -14,12 +14,18 @@ namespace WorldMaker
         public delegate void Callback();
 
         private DrawableInfo _drawableInfo;
+        private EventInfo _eventInfo;
         private Game1 _gameRef;
         private ModelSelect _modelSelect;
         private LevelSelect _levelSelect;
         private YesNo _deleteChecker;
+        private static List<EventInfo> _eventsToAdd = new List<EventInfo>();
         private static List<String> _drawablesToDelete = new List<String>();
         private static List<DrawableInfo> _drawablesToAdd = new List<DrawableInfo>();
+
+        public static List<EventInfo> EventsToAdd {
+            get { return _eventsToAdd; }
+        }
 
         public static List<String> DrawablesToDelete
         {
@@ -132,8 +138,12 @@ namespace WorldMaker
                     _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
                     _drawableInfo.drawable = _modelSelect.CurrentModel;
                     _drawablesToAdd.Add(_drawableInfo);
+                    if(_modelSelect.Event != null) {
+                        _eventInfo.eventTrigger = _modelSelect.Event;
+                        _eventInfo.name = _modelSelect.CurrentModel.Name;
+                        _eventsToAdd.Add(_eventInfo);
+                    } 
                     modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
-
                     modelListBox.Update();
                 }
             }
@@ -154,30 +164,23 @@ namespace WorldMaker
             }
         }
 
-        private void areaAddButton_Click(object sender, EventArgs e)
-        {
-            if (!areaTextBox.Text.Equals(""))
-            {
-                Area tempArea;
-                if (_gameRef.EFFECT_TYPE.Equals("basic"))
-                {
-                    tempArea = new Area(_gameRef.WorldMatrix, _gameRef.ViewMatrix, _gameRef.ProjectionMatrix);
+        private void areaAddButton_Click(object sender, EventArgs e) {
+            if(!areaTextBox.Text.Equals("")) {
+                if(!Level.Areas.ContainsKey(areaTextBox.Text)) {
+                    Area tempArea;
+                    if(_gameRef.EFFECT_TYPE.Equals("basic")) {
+                        tempArea = new Area(_gameRef.WorldMatrix, _gameRef.ViewMatrix, _gameRef.ProjectionMatrix);
+                    } else if(_gameRef.EFFECT_TYPE.Equals("effects")) {
+                        tempArea = new Area(_gameRef.WorldMatrix, _gameRef.EffectName, "xWorld", "xTexture", "Textured");
+                    } else if(_gameRef.EFFECT_TYPE.Equals("Cel")) {
+                        tempArea = new Area(_gameRef.WorldMatrix, _gameRef.EffectName, "World", "NONE", null);
+                    } else {
+                        tempArea = new Area(_gameRef.WorldMatrix, _gameRef.ViewMatrix, _gameRef.ProjectionMatrix);
+                    }
+                    Level.AddArea(areaTextBox.Text, tempArea);
+                    areaListBox.Items.Add(areaTextBox.Text);
+                    areaListBox.Update();
                 }
-                else if (_gameRef.EFFECT_TYPE.Equals("effects"))
-                {
-                    tempArea = new Area(_gameRef.WorldMatrix, _gameRef.EffectName, "xWorld", "xTexture", "Textured");
-                }
-                else if (_gameRef.EFFECT_TYPE.Equals("Cel"))
-                {
-                    tempArea = new Area(_gameRef.WorldMatrix, _gameRef.EffectName, "World", "NONE", null);
-                }
-                else
-                {
-                    tempArea = new Area(_gameRef.WorldMatrix, _gameRef.ViewMatrix, _gameRef.ProjectionMatrix);
-                }
-                Level.AddArea(areaTextBox.Text, tempArea);
-                areaListBox.Items.Add(areaTextBox.Text);
-                areaListBox.Update();
             }
         }
 
@@ -223,7 +226,7 @@ namespace WorldMaker
                 _modelSelect.ShowDialog();
                 if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
                 {
-                    _gameRef.ActiveArea.RemoveDrawable(_gameRef.ActiveArea.Display.CurrentlySelected);
+                    _drawablesToDelete.Add(_gameRef.ActiveArea.Display.CurrentlySelected);
                     Console.WriteLine(_modelSelect.CurrentModel.Name);
                     _drawableInfo.name = _modelSelect.CurrentModel.Name;
                     _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
@@ -233,6 +236,11 @@ namespace WorldMaker
                     temp.Scale = current.Scale;
                     _drawableInfo.drawable = temp;
                     _drawablesToAdd.Add(_drawableInfo);
+                    if(_modelSelect.Event != null) {
+                        _eventInfo.eventTrigger = _modelSelect.Event;
+                        _eventInfo.name = _modelSelect.CurrentModel.Name;
+                        _eventsToAdd.Add(_eventInfo);
+                    } 
                     modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
                     modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
                     modelListBox.Update();

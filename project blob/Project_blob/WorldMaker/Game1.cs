@@ -364,13 +364,21 @@ namespace WorldMaker
             foreach (String str in LevelEditor.DrawablesToDelete)
             {
                 _activeArea.RemoveDrawable(str);
+                _activeArea.RemoveEvent(str);
             }
             LevelEditor.DrawablesToDelete.Clear();
+
             foreach (DrawableInfo drawableInfo in LevelEditor.DrawablesToAdd)
             {
                 _activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureInfo, drawableInfo.drawable);
             }
             LevelEditor.DrawablesToAdd.Clear();
+
+            foreach(EventInfo eventInfo in LevelEditor.EventsToAdd) {
+                _activeArea.AddEvent(eventInfo.name, eventInfo.eventTrigger);
+            }
+            LevelEditor.EventsToAdd.Clear();
+
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
             _activeArea.Display.Draw(graphics.GraphicsDevice);
 

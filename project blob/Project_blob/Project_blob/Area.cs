@@ -14,6 +14,8 @@ namespace Project_blob
 
         private Dictionary<String, Drawable> _drawables;
 
+        private Dictionary<String, EventTrigger> _events;
+
         //private Dictionary<String, Collidable> _collidables;
 
         public Display Display
@@ -28,6 +30,11 @@ namespace Project_blob
             set { _drawables = value; }
         }
 
+        public Dictionary<String, EventTrigger> Events {
+            get { return _events; }
+            set { _events = value; }
+        }
+
         //public Dictionary<String, Collidable> Collidables
         //{
         //    get { return _collidables; }
@@ -38,6 +45,7 @@ namespace Project_blob
         {
             _display = new Display(worldMatrix, viewMatrix, projectionMatrix);
             _drawables = new Dictionary<String, Drawable>();
+            _events = new Dictionary<String, EventTrigger>();
 
             //_collidables = new Dictionary<String, Collidable>();
         }
@@ -46,6 +54,7 @@ namespace Project_blob
         {
             _display = new Display(worldMatrix, effectName, worldParameterName, textureParameterName, techniqueName);
             _drawables = new Dictionary<String, Drawable>();
+            _events = new Dictionary<String, EventTrigger>();
 
             //_collidables = new Dictionary<String, Collidable>();
         }
@@ -99,6 +108,37 @@ namespace Project_blob
                     _display.DrawnList.Add(textureInfo, new List<Drawable>());
                 }
                 _display.DrawnList[textureInfo].Add(drawable);
+            }
+        }
+
+        public EventTrigger GetEvent(String eventName) {
+            if(_events.ContainsKey(eventName)) {
+                return _events[eventName];
+            }
+            return null;
+        }
+
+        public List<EventTrigger> getEventList() {
+            List<EventTrigger> eventList = new List<EventTrigger>();
+            IEnumerator eventEnum = this.Events.GetEnumerator();
+            while(eventEnum.MoveNext()) {
+                KeyValuePair<String, EventTrigger> kvp = (KeyValuePair<String, EventTrigger>)eventEnum.Current;
+                eventList.Add((EventTrigger)kvp.Value);
+            }
+            return eventList;
+        }
+
+        public void RemoveEvent(String eventName) {
+            if(_drawables.ContainsKey(eventName)) {
+                EventTrigger tempEvent;
+                tempEvent = _events[eventName];
+                _events.Remove(eventName);
+            }
+        }
+
+        public void AddEvent(String eventName, EventTrigger eventTrigger) {
+            if(!_events.ContainsKey(eventName)) {
+                _events.Add(eventName, eventTrigger);
             }
         }
 

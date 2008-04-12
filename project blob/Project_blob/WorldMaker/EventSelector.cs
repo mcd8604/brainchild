@@ -34,7 +34,7 @@ namespace WorldMaker {
                     case Events.AREATRANSITION:
                         _transitionSetter = new TransitionSetter( );
                         _transitionSetter.ShowDialog( );
-                        //_eventTrigger = _transitionSetter;
+                        _eventTrigger = _transitionSetter.Transition;
                         break;
                     case Events.PLAYERWARP:
                         _warpSetter = new WarpSetter( );
