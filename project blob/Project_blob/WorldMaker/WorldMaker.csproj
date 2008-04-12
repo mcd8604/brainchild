@@ -62,9 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AudioManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="CameraPanSetter.cs">
       <SubType>Form</SubType>
     </Compile>
