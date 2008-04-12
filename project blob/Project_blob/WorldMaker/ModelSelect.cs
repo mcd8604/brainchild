@@ -16,6 +16,16 @@ namespace WorldMaker
     {
         private EventSelector _events;
 
+        public EventTrigger Event {
+            get {
+                if(_events != null) {
+                    return _events.EventTrigger;
+                } else {
+                    return null;
+                }
+            }
+        }
+
         StaticModel m_CurrentModel;
         public StaticModel CurrentModel
         {
@@ -108,6 +118,9 @@ namespace WorldMaker
         private void ModelName_TextChanged(object sender, EventArgs e)
         {
             m_CurrentModel.Name = ModelName.Text;
+            if(_gameRef.ActiveArea.Drawables.ContainsKey(m_CurrentModel.ModelName)) {
+                m_CurrentModel.ModelName = "";
+            }
         }
 
         private void audioBox_SelectedIndexChanged(object sender, EventArgs e)

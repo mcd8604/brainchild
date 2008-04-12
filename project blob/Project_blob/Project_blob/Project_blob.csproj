@@ -69,6 +69,7 @@
     <Compile Include="Display.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="DrawableInfo.cs" />
+    <Compile Include="EventInfo.cs" />
     <Compile Include="EventTrigger.cs" />
     <Compile Include="GameState\GameplayScreen.cs" />
     <Compile Include="GameState\GameScreen.cs" />
