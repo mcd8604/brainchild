@@ -348,10 +348,6 @@ namespace Project_blob
 
             for (int i = 0; i < indices.Length - 3; i = i + 3)
             {
-                if (float.IsNaN(points[indices[i+2]].PotientialPosition.X))
-                {
-                    Console.WriteLine("Nan PotentialPosition");
-                }
                 totalVolume += getFaceVolumeTest(points[indices[i]].PotientialPosition, points[indices[i + 1]].PotientialPosition, points[indices[i + 2]].PotientialPosition);
             }
 
