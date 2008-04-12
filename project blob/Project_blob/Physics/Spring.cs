@@ -41,14 +41,20 @@ namespace Physics
                     // vector pointing away from B
                     Vector3 dir = A.CurrentPosition - B.CurrentPosition;
                     // normalize
-                   dir.Normalize();
+                    if (!dir.Equals(Vector3.Zero))
+                    {
+                        dir.Normalize();
+                    }
                     // multiply by the scalar force
                     force += dir * (Force * (Length - dist));
                 }
                 else if (dist > MaximumLengthBeforeExtension)
                 {
                     Vector3 dir = B.CurrentPosition - A.CurrentPosition;
-                    dir.Normalize();
+                    if (!dir.Equals(Vector3.Zero))
+                    {
+                        dir.Normalize();
+                    }
                     force += dir * (Force * (dist - Length));
                 }
 
@@ -56,18 +62,23 @@ namespace Physics
 				{
 					// vector pointing away from B
 					Vector3 dir = A.PotientialPosition - B.PotientialPosition;
-					// normalize
-					dir.Normalize();
+                    // normalize
+                    if (!dir.Equals(Vector3.Zero))
+                    {
+                        dir.Normalize();
+                    }
 					// multiply by the scalar force
 					force += dir * (Force * (Length - dist));
 				}
 				else if (next_dist > MaximumLengthBeforeExtension)
 				{
-					Vector3 dir = B.PotientialPosition - A.PotientialPosition;
-					dir.Normalize();
+                    Vector3 dir = B.PotientialPosition - A.PotientialPosition;
+                    if (!dir.Equals(Vector3.Zero))
+                    {
+                        dir.Normalize();
+                    }
 					force += dir * (Force * (dist - Length));
 				}
-            
             return force;
         }
 
@@ -84,14 +95,20 @@ namespace Physics
 				// vector pointing away from B
 				Vector3 dir = B.CurrentPosition - A.CurrentPosition;
 				// normalize
-				dir.Normalize();
+                if (!dir.Equals(Vector3.Zero))
+                {
+                    dir.Normalize();
+                }
 				// multiply by the scalar force
 				force += dir * (Force * (Length - dist));
 			}
 			else if (dist > MaximumLengthBeforeExtension)
 			{
-				Vector3 dir = A.CurrentPosition - B.CurrentPosition;
-				dir.Normalize();
+                Vector3 dir = A.CurrentPosition - B.CurrentPosition;
+                if (!dir.Equals(Vector3.Zero))
+                {
+                    dir.Normalize();
+                }
 				force += dir * (Force * (dist - Length));
 			}
 
@@ -99,18 +116,23 @@ namespace Physics
 			{
 				// vector pointing away from B
 				Vector3 dir = B.PotientialPosition - A.PotientialPosition;
-				// normalize
-				dir.Normalize();
+                // normalize
+                if (!dir.Equals(Vector3.Zero))
+                {
+                    dir.Normalize();
+                }
 				// multiply by the scalar force
 				force += dir * (Force * (Length - dist));
 			}
 			else if (next_dist > MaximumLengthBeforeExtension)
 			{
-				Vector3 dir = A.PotientialPosition - B.PotientialPosition;
-				dir.Normalize();
+                Vector3 dir = A.PotientialPosition - B.PotientialPosition;
+                if (!dir.Equals(Vector3.Zero))
+                {
+                    dir.Normalize();
+                }
 				force += dir * (Force * (dist - Length));
 			}
-
 			return force;
         }
 
