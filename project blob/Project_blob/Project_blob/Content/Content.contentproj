@@ -60,6 +60,11 @@
       <Name>playground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\blob.FBX">
+      <Name>blob</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\bowl.fbx">
       <Name>bowl</Name>
       <Importer>FbxImporter</Importer>
