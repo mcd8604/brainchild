@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioManager.cs" />
     <Compile Include="Blob.cs" />
     <Compile Include="CameraEvent.cs" />
     <Compile Include="CollidableTri.cs" />
