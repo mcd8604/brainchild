@@ -175,7 +175,7 @@ namespace Project_blob
             //load shaders
             celEffect = Content.Load<Effect>(@"Shaders\\Cel");
 
-            blobModel = this.Content.Load<Model>(@"Models\\soccerball");
+            blobModel = this.Content.Load<Model>(@"Models\\blob");
 
             blobTexture = this.Content.Load<Texture2D>(@"Textures\\point_text");
 
