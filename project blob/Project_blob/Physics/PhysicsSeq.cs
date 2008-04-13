@@ -376,6 +376,7 @@ namespace Physics
 
             if (Collision)
             {
+                if (Collidable is Trigger)
                 // freefallPhysics first half
                 fall(p, time * CollisionU);
 

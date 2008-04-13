@@ -58,6 +58,7 @@
     <Compile Include="AxisAlignedBoundingBox.cs" />
     <Compile Include="Body.cs" />
     <Compile Include="Collidable.cs" />
+    <Compile Include="CollidableTri.cs" />
     <Compile Include="CollisionMath.cs" />
     <Compile Include="Gravity.cs" />
     <Compile Include="GravityPoint.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="Spring.cs" />
+    <Compile Include="Trigger.cs" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content\Content.contentproj">
