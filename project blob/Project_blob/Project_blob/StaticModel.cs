@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using Physics;
 using System.Runtime.Serialization;
 
 namespace Project_blob
@@ -37,8 +38,9 @@ namespace Project_blob
 
         //[NonSerialized]
         //private List<Physics.Collidable> m_collidables;
-        public List<Physics.Collidable> createCollidables(Model m)
+        public List<Physics.Collidable> createCollidables()
         {
+            Model m = ModelManager.getSingleton.GetModel(_modelName);
             List<Physics.Collidable> collidables = new List<Physics.Collidable>();
             foreach (ModelMesh mesh in m.Meshes)
             {
