@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
+using Physics;
 
 namespace Project_blob
 {
@@ -207,7 +208,7 @@ namespace Project_blob
                         }
                     }
 
-                    List<Physics.Collidable> colls = dm.createCollidables(model);
+                    List<Physics.Collidable> colls = dm.createCollidables();
 
                     this._collidables.AddRange(colls);
 
