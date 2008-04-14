@@ -29,7 +29,7 @@ namespace Project_blob.GameState
         public override void HandleInput()
         {
             // Move to the previous menu entry?
-            if (InputHandler.IsKeyDown(Keys.Up))
+            if (InputHandler.IsKeyPressed(Keys.Up))
             {
                 selectedEntry--;
 
@@ -38,7 +38,7 @@ namespace Project_blob.GameState
             }
 
             // Move to the next menu entry?
-            if (InputHandler.IsKeyDown(Keys.Down))
+            if (InputHandler.IsKeyPressed(Keys.Down))
             {
                 selectedEntry++;
 
@@ -47,11 +47,11 @@ namespace Project_blob.GameState
             }
 
             // Accept or cancel the menu?
-            if (InputHandler.IsKeyDown(Keys.Enter))
+            if (InputHandler.IsKeyPressed(Keys.Enter))
             {
                 OnSelectEntry(selectedEntry);
             }
-            else if (InputHandler.IsKeyDown(Keys.Escape))
+            else if (InputHandler.IsKeyPressed(Keys.Escape))
             {
                 OnCancel();
             }

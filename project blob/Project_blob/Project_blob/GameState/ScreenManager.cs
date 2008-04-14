@@ -12,6 +12,8 @@ namespace Project_blob.GameState
         List<GameScreen> screens = new List<GameScreen>();
         List<GameScreen> screensToUpdate = new List<GameScreen>();
 
+        public Game gameWorld;
+
         SpriteBatch spriteBatch;
         SpriteFont font;
         Texture2D blankTexture;
@@ -39,6 +41,7 @@ namespace Project_blob.GameState
         public ScreenManager(Game game)
             : base(game)
         {
+            gameWorld = game;
         }
 
         public override void Initialize()
@@ -76,7 +79,7 @@ namespace Project_blob.GameState
         public override void Update(GameTime gameTime)
         {
             // Read the keyboard and gamepad.
-            InputHandler.Update();
+            //InputHandler.Update();
 
             // Make a copy of the master screen list, to avoid confusion if
             // the process of updating one screen adds or removes others.
