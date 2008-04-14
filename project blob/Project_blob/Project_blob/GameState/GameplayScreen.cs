@@ -142,14 +142,14 @@ namespace Project_blob.GameState
             spriteBatch = new SpriteBatch(ScreenManager.GraphicsDevice);
 
             //load fonts
-            font = ScreenManager.gameWorld.Content.Load<SpriteFont>(@"Fonts\\Courier New");
+            font = ScreenManager.Content.Load<SpriteFont>(@"Fonts\\Courier New");
 
             //load shaders
-            celEffect = ScreenManager.gameWorld.Content.Load<Effect>(@"Shaders\\Cel");
+            celEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Cel");
 
-            blobModel = ScreenManager.gameWorld.Content.Load<Model>(@"Models\\blob");
+            blobModel = ScreenManager.Content.Load<Model>(@"Models\\blob");
 
-            blobTexture = ScreenManager.gameWorld.Content.Load<Texture2D>(@"Textures\\point_text");
+            blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\point_text");
 
             resetBlob();
 
@@ -167,7 +167,7 @@ namespace Project_blob.GameState
                 e.MoveNext();
                 //e.MoveNext();
                 currentArea = (Area)e.Current;
-                currentArea.LoadAreaGameplay(ScreenManager.gameWorld);
+                currentArea.LoadAreaGameplay(ScreenManager);
                 staticDrawables = currentArea.getDrawableList();
                 physics.AddCollidables(currentArea.getCollidables());
             }
@@ -231,7 +231,7 @@ namespace Project_blob.GameState
 
             VertexDeclarationColor = new VertexDeclaration(ScreenManager.GraphicsDevice, VertexPositionColor.VertexElements);
 
-            effect = ScreenManager.gameWorld.Content.Load<Effect>("Shaders\\effects");
+            effect = ScreenManager.Content.Load<Effect>("Shaders\\effects");
 
             //effect.Parameters["xView"].SetValue(viewMatrix);
             //effect.Parameters["xProjection"].SetValue(projectionMatrix);

@@ -82,7 +82,7 @@
     <Compile Include="OctreeLeaf.cs" />
     <Compile Include="GameState\OptionsMenuScreen.cs" />
     <Compile Include="SceneManager.cs" />
-    <Compile Include="GameState\ScreenManager.cs" />
+    <Compile Include="ScreenManager.cs" />
     <Compile Include="StaticModel.cs" />
     <Compile Include="EffectManager.cs" />
     <Compile Include="InputHandler.cs" />
@@ -94,7 +94,6 @@
     <Compile Include="ModelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
     <Compile Include="StaticTri.cs" />
     <Compile Include="T.cs" />
     <Compile Include="TextureInfo.cs" />

@@ -47,7 +47,7 @@ namespace Project_blob.GameState
 
         void ConfirmExitMessageBoxAccepted(object sender, EventArgs e)
         {
-            ScreenManager.Game.Exit();
+            ScreenManager.Exit();
         }
     }
 }
