@@ -103,7 +103,7 @@ technique Colored
 
 //------- Technique: Textured --------
 
-VertexToPixel TexturedVS( float4 inPos : POSITION, float3 inNormal: NORMAL, float2 inTexCoords: TEXCOORD0)
+VertexToPixel TexturedVS( float4 inPos : POSITION, float3 inNormal: NORMAL1, float2 inTexCoords: TEXCOORD1)
 {	
 	VertexToPixel Output = (VertexToPixel)0;
 	float4x4 preViewProjection = mul (xView, xProjection);
