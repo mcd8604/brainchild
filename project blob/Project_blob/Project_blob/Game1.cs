@@ -119,15 +119,15 @@ namespace Project_blob
 			}
             physics = Physics.PhysicsManager.getInstance();
 
-            physics.AirFriction = 2f;
+            physics.AirFriction = 1f;
 
             physics.Player.Traction.Minimum = 0f;
             physics.Player.Traction.Origin = 100f;
             physics.Player.Traction.Maximum = 200f;
 
             physics.Player.Cling.Minimum = 0f;
-            physics.Player.Cling.Origin = 25f;
-            physics.Player.Cling.Maximum = 50f;
+            physics.Player.Cling.Origin = 5f;
+            physics.Player.Cling.Maximum = 10f;
 
             physics.Player.Resilience.Minimum = 5f;
             physics.Player.Resilience.Origin = 40f;
@@ -361,6 +361,11 @@ namespace Project_blob
             {
                 this.Exit();
             }
+			if (InputHandler.IsKeyPressed(Keys.OemTilde))
+			{
+				Physics.PhysicsManager.enableParallel = !Physics.PhysicsManager.enableParallel;
+				resetBlob();
+			}
             if (InputHandler.IsActionPressed(Actions.Reset))
             {
                 resetBlob();
