@@ -1,20 +1,29 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Net;
+using Microsoft.Xna.Framework.Storage;
+using System.Collections;
+using Project_blob.GameState;
 using System.Text;
 
-namespace Project_blob.GameState
+using Engine;
+
+namespace Project_blob
 {
-    public class ScreenManager : DrawableGameComponent
+    public class ScreenManager : Game
     {
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
+
         List<GameScreen> screens = new List<GameScreen>();
         List<GameScreen> screensToUpdate = new List<GameScreen>();
 
-        public Game gameWorld;
-
-        SpriteBatch spriteBatch;
         SpriteFont font;
         Texture2D blankTexture;
 
@@ -38,14 +47,22 @@ namespace Project_blob.GameState
             set { traceEnabled = value; }
         }
 
-        public ScreenManager(Game game)
-            : base(game)
+        public ScreenManager()
         {
-            gameWorld = game;
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+
+
+
+            AddScreen(new MainMenuScreen());
         }
 
-        public override void Initialize()
+        protected override void Initialize()
         {
+            InputHandler.LoadDefaultBindings();
+
+            GraphicsDevice.RenderState.PointSize = 5;
+           
             base.Initialize();
 
             isInitialized = true;
@@ -54,11 +71,11 @@ namespace Project_blob.GameState
         protected override void LoadContent()
         {
             // Load content belonging to the screen manager.
-            ContentManager content = Game.Content;
+            //ContentManager content = Game.Content;
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = content.Load<SpriteFont>(@"Fonts\\Courier New");
-            blankTexture = content.Load<Texture2D>("blank");
+            font = Content.Load<SpriteFont>(@"Fonts\\Courier New");
+            blankTexture = Content.Load<Texture2D>("blank");
 
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)
@@ -76,10 +93,10 @@ namespace Project_blob.GameState
             }
         }
 
-        public override void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
             // Read the keyboard and gamepad.
-            //InputHandler.Update();
+            InputHandler.Update();
 
             // Make a copy of the master screen list, to avoid confusion if
             // the process of updating one screen adds or removes others.
@@ -88,7 +105,7 @@ namespace Project_blob.GameState
             foreach (GameScreen screen in screens)
                 screensToUpdate.Add(screen);
 
-            bool otherScreenHasFocus = !Game.IsActive;
+            bool otherScreenHasFocus = !this.IsActive;
             bool coveredByOtherScreen = false;
 
             // Loop as long as there are screens waiting to be updated.
@@ -123,8 +140,10 @@ namespace Project_blob.GameState
 
         }
 
-        public override void Draw(GameTime gameTime)
+        protected override void Draw(GameTime gameTime)
         {
+            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+
             foreach (GameScreen screen in screens)
             {
                 if (screen.ScreenState == ScreenState.Hidden)
@@ -132,6 +151,8 @@ namespace Project_blob.GameState
 
                 screen.Draw(gameTime);
             }
+
+            base.Draw(gameTime);
         }
 
         public void AddScreen(GameScreen screen)

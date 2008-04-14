@@ -38,7 +38,7 @@ namespace Project_blob.GameState
 
         public override void LoadContent()
         {
-            ContentManager content = ScreenManager.Game.Content;
+            ContentManager content = ScreenManager.Content;
 
             gradientTexture = content.Load<Texture2D>("gradient");
         }
