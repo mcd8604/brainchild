@@ -313,14 +313,11 @@ namespace Physics
 			}
 			if (Collision)
 			{
-                if(Collidable is Trigger) {
-                } else {
                     // freefallPhysics first half
                     fall(p, time * CollisionU);
 
                     // sliding physics second half
                     slide(p, time * (1 - CollisionU), Collidable);
-                }
 			}
 			else
 			{
@@ -379,14 +376,11 @@ namespace Physics
 
             if (Collision)
             {
-                if(Collidable is Trigger) {
-                } else {
                     // freefallPhysics first half
                     fall(p, time * CollisionU);
 
                     // sliding physics second half
                     slide(p, time * (1 - CollisionU), Collidable);
-                }
             }
             else
             {

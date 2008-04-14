@@ -99,7 +99,7 @@ namespace Physics
 
         public override bool shouldPhysicsBlock(Physics.Point p)
         {
-            return true;
+            return false;
         }
 
         public Plane getPlane()
