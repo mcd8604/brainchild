@@ -154,7 +154,7 @@ namespace Project_blob.GameState
             resetBlob();
 
             //load default level
-            Level.LoadLevel("playground", "celEffect");
+            Level.LoadLevel("playground", "effects");
 
             //List of Static Drawables to add to Scene
             List<Drawable> staticDrawables = new List<Drawable>();
@@ -168,6 +168,8 @@ namespace Project_blob.GameState
                 //e.MoveNext();
                 currentArea = (Area)e.Current;
                 currentArea.LoadAreaGameplay(ScreenManager);
+                currentArea.Display.WorldParameterName = "xWorld";
+                currentArea.Display.TextureParameterName = "xTexture";
                 staticDrawables = currentArea.getDrawableList();
                 physics.AddCollidables(currentArea.getCollidables());
             }
@@ -345,6 +347,7 @@ namespace Project_blob.GameState
             if (InputHandler.IsKeyPressed(Keys.P))
             {
                 paused = !paused;
+                ScreenManager.AddScreen(new PauseMenuScreen());
             }
             if (InputHandler.IsKeyPressed(Keys.T))
             {
@@ -628,7 +631,6 @@ namespace Project_blob.GameState
 			SceneManager.getSingleton.UpdateVisibleDrawables(gameTime);
 
 			//Level Models
-			currentArea.Display.WorldParameterName = "World";
             currentArea.Display.Draw(ScreenManager.GraphicsDevice);
 
 			if (points)
