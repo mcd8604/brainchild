@@ -8,6 +8,9 @@ namespace Physics
 {
     public class Trigger : Collidable
     {
+        private String _modelRef;
+        public String ModelRef { get { return _modelRef; } }
+
         internal Plane myPlane;
 
 		internal Vector3[] vertices;
@@ -16,9 +19,11 @@ namespace Physics
 
         internal Physics.AxisAlignedBoundingBox myBoundingBox;
 
-        public Trigger(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3)
+        public Trigger(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3, String modelRef)
             :base(null)
 		{
+            _modelRef = modelRef;
+
 			vertices = new Vector3[3];
 
 			myPlane = new Plane(point1.Position, point2.Position, point3.Position);

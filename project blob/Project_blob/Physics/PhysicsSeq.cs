@@ -6,6 +6,8 @@ namespace Physics
 {
 	public class PhysicsSeq : PhysicsManager
 	{
+        public PhysicsSeq() {
+        }
 
 		private Player player = new Player();
 		public override Player Player
@@ -318,6 +320,10 @@ namespace Physics
 
 				// sliding physics second half
 				slide(p, time * (1 - CollisionU), Collidable);
+
+                if(Collidable is Trigger) {
+                    _((Trigger)Collidable).ModelRef
+                }
 			}
 			else
 			{
