@@ -4,93 +4,93 @@ using Microsoft.Xna.Framework;
 
 namespace Physics
 {
-    public class PhysicsSeq : PhysicsManager
-    {
+	public class PhysicsSeq : PhysicsManager
+	{
 
-        private Player player = new Player();
-        public override Player Player
-        {
-            get
-            {
-                return player;
-            }
-        }
+		private Player player = new Player();
+		public override Player Player
+		{
+			get
+			{
+				return player;
+			}
+		}
 
-        float airfriction = 1f;
-        public override float AirFriction
-        {
-            get
-            {
-                return airfriction;
-            }
-            set
-            {
-                airfriction = value;
-            }
-        }
+		float airfriction = 1f;
+		public override float AirFriction
+		{
+			get
+			{
+				return airfriction;
+			}
+			set
+			{
+				airfriction = value;
+			}
+		}
 
-        public override int DEBUG_GetNumCollidables()
-        {
-            return collision.Count;
-        }
+		public override int DEBUG_GetNumCollidables()
+		{
+			return collision.Count;
+		}
 
-        private List<Gravity> gravity = new List<Gravity>();
-        public override void AddGravity(Gravity g)
-        {
-            gravity.Add(g);
-        }
+		private List<Gravity> gravity = new List<Gravity>();
+		public override void AddGravity(Gravity g)
+		{
+			gravity.Add(g);
+		}
 
-        List<Collidable> collision = new List<Collidable>();
-        public override void AddCollidable(Collidable c)
-        {
-            collision.Add(c);
-        }
-        public override void AddCollidables(IEnumerable<Collidable> c)
-        {
-            collision.AddRange(c);
-        }
+		List<Collidable> collision = new List<Collidable>();
+		public override void AddCollidable(Collidable c)
+		{
+			collision.Add(c);
+		}
+		public override void AddCollidables(IEnumerable<Collidable> c)
+		{
+			collision.AddRange(c);
+		}
 
-        internal List<Point> points = new List<Point>();
-        public override void AddPoint(Point p)
-        {
-            points.Add(p);
-        }
-        public override void AddPoints(IEnumerable<Point> p)
-        {
-            points.AddRange(p);
-        }
+		internal List<Point> points = new List<Point>();
+		public override void AddPoint(Point p)
+		{
+			points.Add(p);
+		}
+		public override void AddPoints(IEnumerable<Point> p)
+		{
+			points.AddRange(p);
+		}
 
-        List<Spring> springs = new List<Spring>();
-        public override void AddSpring(Spring s)
-        {
-            springs.Add(s);
-        }
-        public override void AddSprings(IEnumerable<Spring> s)
-        {
-            springs.AddRange(s);
-        }
+		List<Spring> springs = new List<Spring>();
+		public override void AddSpring(Spring s)
+		{
+			springs.Add(s);
+		}
+		public override void AddSprings(IEnumerable<Spring> s)
+		{
+			springs.AddRange(s);
+		}
 
-        List<Body> bodys = new List<Body>();
-        public override void AddBody(Body b)
-        {
-            bodys.Add(b);
-        }
-        public override void AddBodys(IEnumerable<Body> b)
-        {
-            bodys.AddRange(b);
-        }
+		List<Body> bodys = new List<Body>();
+		public override void AddBody(Body b)
+		{
+			bodys.Add(b);
+		}
+		public override void AddBodys(IEnumerable<Body> b)
+		{
+			bodys.AddRange(b);
+		}
 
-        public override void update(float TotalElapsedSeconds)
-        {
+		public override void update(float TotalElapsedSeconds)
+		{
 
 			doPhysics(TotalElapsedSeconds);
 
-            foreach (Point p in points)
-            {
-                p.updatePosition();
-            }
+			foreach (Point p in points)
+			{
+				p.updatePosition();
+			}
 
-        }
+		}
 
 		internal void doPhysics(float TotalElapsedSeconds)
 		{
@@ -152,8 +152,8 @@ namespace Physics
 
 		}
 
-        private void fall(Point p, float time)
-        {
+		private void fall(Point p, float time)
+		{
 			/*
             p.PotientialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.mass);
             p.PotientialVelocity = p.CurrentVelocity + (p.PotientialAcceleration * time);
@@ -262,7 +262,7 @@ namespace Physics
 
 			p.PotientialPosition = p.CurrentPosition + (p.PotientialVelocity * time);
 
-        }
+		}
 
 		private void checkCollisions2(Point p, float time)
 		{
@@ -313,11 +313,11 @@ namespace Physics
 			}
 			if (Collision)
 			{
-                    // freefallPhysics first half
-                    fall(p, time * CollisionU);
+				// freefallPhysics first half
+				fall(p, time * CollisionU);
 
-                    // sliding physics second half
-                    slide(p, time * (1 - CollisionU), Collidable);
+				// sliding physics second half
+				slide(p, time * (1 - CollisionU), Collidable);
 			}
 			else
 			{
@@ -330,26 +330,26 @@ namespace Physics
 
 		}
 
-        private List<Collidable> CollisionChain = new List<Collidable>();
-        private void checkCollisions(Point p, float time)
-        {
-            CollisionChain.Clear();
-            bool Collision = false;
-            Collidable Collidable = null;
-            float CollisionU = float.MaxValue;
+		private List<Collidable> CollisionChain = new List<Collidable>();
+		private void checkCollisions(Point p, float time)
+		{
+			CollisionChain.Clear();
+			bool Collision = false;
+			Collidable Collidable = null;
+			float CollisionU = float.MaxValue;
 
-            foreach (Collidable c in collision)
-            {
-                if (c.couldIntersect(p))
-                {
-                    float u = c.didIntersect(p.CurrentPosition, p.PotientialPosition);
-                    // If Collision ( u < 1 ) - Split Time and redo
-                    if (u < 1)
-                    {
+			foreach (Collidable c in collision)
+			{
+				if (c.couldIntersect(p))
+				{
+					float u = c.didIntersect(p.CurrentPosition, p.PotientialPosition);
+					// If Collision ( u < 1 ) - Split Time and redo
+					if (u < 1)
+					{
 
-                        // should physics interact
-                        if (c.shouldPhysicsBlock(p))
-                        {
+						// should physics interact
+						if (c.shouldPhysicsBlock(p))
+						{
 
 							if (!Collision)
 							{
@@ -366,34 +366,34 @@ namespace Physics
 								}
 							}
 
-                        }
+						}
 
-                    }
+					}
 
-                }
+				}
 
-            }
+			}
 
-            if (Collision)
-            {
-                    // freefallPhysics first half
-                    fall(p, time * CollisionU);
+			if (Collision)
+			{
+				// freefallPhysics first half
+				fall(p, time * CollisionU);
 
-                    // sliding physics second half
-                    slide(p, time * (1 - CollisionU), Collidable);
-            }
-            else
-            {
+				// sliding physics second half
+				slide(p, time * (1 - CollisionU), Collidable);
+			}
+			else
+			{
 
-                p.NextAcceleration = p.PotientialAcceleration;
-                p.NextPosition = p.PotientialPosition;
-                p.NextVelocity = p.PotientialVelocity;
+				p.NextAcceleration = p.PotientialAcceleration;
+				p.NextPosition = p.PotientialPosition;
+				p.NextVelocity = p.PotientialVelocity;
 				p.LastCollision = null;
-            }
+			}
 
-        }
+		}
 
-            private void slide(Point p, float time, Collidable s)
+		private void slide(Point p, float time, Collidable s)
 		{
 			Vector3 collisionNormal = s.Normal();
 
@@ -474,7 +474,7 @@ namespace Physics
 					if (u < 1)
 					{
 
-						 if (s == c)
+						if (s == c)
 						{
 							//Console.WriteLine("Duplicate Collision!");
 							//throw new Exception();
@@ -549,7 +549,7 @@ namespace Physics
 			}
 		}
 
-        
 
-    }
+
+	}
 }
