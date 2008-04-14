@@ -322,7 +322,7 @@ namespace Physics
 				slide(p, time * (1 - CollisionU), Collidable);
 
                 if(Collidable is Trigger) {
-                    _((Trigger)Collidable).ModelRef
+                    //_((Trigger)Collidable).ModelRef;
                 }
 			}
 			else
