@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,7 @@ namespace Project_blob
 
         VertexPositionNormalTexture[] vertices;
         int[] indices;
+        private List<int> pointsToUpdate = new List<int>(); //index is the point array index, value is the vertice to update
 
         private VertexDeclaration myVertexDeclaration;
 		private VertexBuffer myVertexBuffer;
@@ -106,17 +108,89 @@ namespace Project_blob
 
             vertices = new VertexPositionNormalTexture[part.NumVertices];
             mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+
+            Hashtable pointTable = new Hashtable(new Physics.PointComparater()) ;
+
+            // IndexBuffer
+            if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
+            {
+                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+                short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+                mesh.IndexBuffer.GetData<short>(temp);
+                for (int i = 0; i < temp.Length; i++)
+                    indices[i] = temp[i];
+            }
+            else
+            {
+                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
+                mesh.IndexBuffer.GetData<int>(indices);
+            }
+            myIndexBuffer = mesh.IndexBuffer;
             
             // Physics Points
             List<Physics.Point> tempList = new List<Physics.Point>();
 			int num_points = 0;
+            int repeated_points = 0;
+            int iter = 0;
+
             foreach (VertexPositionNormalTexture v in vertices)
             {
-                tempList.Add(new Physics.Point(center + new Vector3(v.Position.X, v.Position.Y, v.Position.Z)));
-				num_points++;
+                tempList.Add(new Physics.Point(center + v.Position));
             }
-			int check = vertices.Length;
+            /*
+            for(int i = 0; i < vertices.Length; i++)
+            {
+                Physics.Point temp = new Physics.Point(center + new Vector3(vertices[i].Position.X, vertices[i].Position.Y, vertices[i].Position.Z));
+                if (pointTable.ContainsKey(temp))
+                {
+                    ((List<int>)pointTable[temp]).Add(i);
+                    repeated_points++;
+                }
+                else
+                {
+                    List<int> tableList = new List<int>();
+                    tableList.Add(i);
+                    pointTable[temp] = tableList;
+                    tempList.Add(temp);
+                    pointsToUpdate.Add(iter);
+                    num_points++;
+                }
+                iter++;
+            }
+            
+			//int check = vertices.Length;
 
+            
+
+            //change indices
+            for (int i = 0; i < indices.Length; i++)
+            {
+                Physics.Point tempPoint = new Physics.Point(center + vertices[indices[i]].Position);
+                if (((List<int>)pointTable[tempPoint]).Count > 1)
+                {
+                    indices[i] = ((List<int>)pointTable[tempPoint])[0];
+                }
+            }
+            */
+
+            //weed out duplicate vertices and alert indices of the change
+            //VertexPositionNormalTexture[] tempArray = new VertexPositionNormalTexture[pointTable.Keys.Count];
+            //int it = 0;
+            //foreach (Physics.Point p in pointTable.Keys)
+            //{
+            //    tempArray[it] = vertices[((List<int>)pointTable[p])[0]];
+            //    for (int i = 0; i < indices.Length; i++)
+            //    {
+            //        if (indices[i] == ((List<int>)pointTable[p])[0])
+            //        {
+            //            indices[i] = it;
+            //            if (i == 118)
+            //                throw new Exception("Stop");
+            //        }
+            //    }
+            //    it++;
+            //}
+            //vertices = tempArray;
             // Physics Springs
 			foreach (Physics.Point t in tempList)
 			{
@@ -131,26 +205,12 @@ namespace Project_blob
 				points.Add(t);
 			}
 
-            // IndexBuffer
-			if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
-			{
-                indices = new int[(mesh.IndexBuffer.SizeInBytes)*8 / 16];
-                short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-				mesh.IndexBuffer.GetData<short>(temp);
-				for (int i = 0; i < temp.Length; i++)
-					indices[i] = temp[i];
-			}
-			else
-			{
-                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
-				mesh.IndexBuffer.GetData<int>(indices);
-			}
-			myIndexBuffer = mesh.IndexBuffer;
+            
             // Collidables
-            for (int i = 0; i < part.PrimitiveCount; i++)
-            {
-                //collidables.Add(new Tri(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]], Color.White));
-            }
+            //for (int i = 0; i < part.PrimitiveCount; i++)
+            //{
+            //    //collidables.Add(new Tri(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]], Color.White));
+            //}
 
 
             
@@ -165,10 +225,13 @@ namespace Project_blob
         private void updateVertices()
         {
             //update points
-            for (int i = 0; i < vertices.Length; i++)
+            for (int i = 0; i < vertices.Length/*pointsToUpdate.Count*/; i++)
             {
                 vertices[i].Position = points[i].CurrentPosition;
                 vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter() ));
+            
+                //vertices[pointsToUpdate[i]].Position = points[i].CurrentPosition;
+                //vertices[pointsToUpdate[i]].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter() ));
             }
         }
 
@@ -185,6 +248,8 @@ namespace Project_blob
 
         public IndexBuffer getIndexBuffer()
         {
+            //myIndexBuffer = new IndexBuffer(theDevice, sizeof(int) * indices.Length, BufferUsage.None, IndexElementSize.SixteenBits);
+            //myIndexBuffer.SetData<int>(indices);
             return myIndexBuffer;
         }
 
@@ -348,7 +413,23 @@ namespace Project_blob
 
             for (int i = 0; i < indices.Length - 3; i = i + 3)
             {
+                /*
+                Vector3 p1 = new Vector3();
+                Vector3 p2 = new Vector3();
+                Vector3 p3 = new Vector3();
+                for (int j = 0; j < pointsToUpdate.Count; j++)
+                {
+
+                    if (pointsToUpdate[j] == indices[i])
+                        p1 = points[j].PotientialPosition;
+                    if (pointsToUpdate[j] == indices[i+1])
+                        p2 = points[j].PotientialPosition;
+                    if (pointsToUpdate[j] == indices[i + 2])
+                        p3 = points[j].PotientialPosition;
+                }
+                */
                 totalVolume += getFaceVolumeTest(points[indices[i]].PotientialPosition, points[indices[i + 1]].PotientialPosition, points[indices[i + 2]].PotientialPosition);
+                //totalVolume += getFaceVolumeTest(p1, p2, p3);
             }
 
             //Console.WriteLine("Next Volume Estimate: " + totalVolume);
@@ -363,6 +444,22 @@ namespace Project_blob
      
             for (int i = 0; i < indices.Length - 3; i=i+3)
             {
+                /*
+                Vector3 p1 = new Vector3();
+                Vector3 p2 = new Vector3();
+                Vector3 p3 = new Vector3();
+                for (int j = 0; j < pointsToUpdate.Count; j++)
+                {
+
+                    if (pointsToUpdate[j] == indices[i])
+                        p1 = points[j].CurrentPosition;
+                    if (pointsToUpdate[j] == indices[i + 1])
+                        p2 = points[j].CurrentPosition;
+                    if (pointsToUpdate[j] == indices[i + 2])
+                        p3 = points[j].CurrentPosition;
+                }
+                totalVolume += getFaceVolumeTest(p1, p2, p3);
+                */
                 totalVolume += getFaceVolumeTest(points[indices[i]].CurrentPosition, points[indices[i + 1]].CurrentPosition, points[indices[i + 2]].CurrentPosition);
             }
 

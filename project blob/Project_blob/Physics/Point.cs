@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using System.Collections;
+using System;
 
 namespace Physics
 {
@@ -90,5 +92,26 @@ namespace Physics
             }
         }
 
+    }
+
+    public class PointComparater : IEqualityComparer
+    {
+
+        public new bool Equals(object obj1, object obj2)
+        {
+            return ((Physics.Point)obj1).CurrentPosition == ((Physics.Point)obj2).CurrentPosition;
+        }
+
+
+
+        #region IEqualityComparer Members
+
+
+        public int GetHashCode(object obj)
+        {
+            return obj.ToString().ToLower().GetHashCode();
+        }
+
+        #endregion
     }
 }
