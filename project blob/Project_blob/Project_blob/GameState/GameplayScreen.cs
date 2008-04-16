@@ -484,8 +484,8 @@ namespace Project_blob.GameState
 				Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - CameraManager.getSingleton.ActiveCamera.Position, Up));
 				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
-				physics.Player.applyTorque(move.Y * playerMoveMulti, Horizontal);
-				physics.Player.applyTorque(move.X * playerMoveMulti, Run);
+				physics.Player.applyTorque(move.Y * playerMoveMulti * physics.Player.Traction.Target, Horizontal);
+				physics.Player.applyTorque(move.X * playerMoveMulti * physics.Player.Traction.Target, Run);
 
 				//foreach (Physics.Point p in theBlob.points)
 				//{
@@ -589,6 +589,8 @@ namespace Project_blob.GameState
 
 		public override void Draw(GameTime gameTime)
 		{
+			drawTime.Reset();
+			drawTime.Start();
 			ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
 			if (drawMode)
@@ -672,7 +674,10 @@ namespace Project_blob.GameState
 				}
 				effect.End();
 			}
+
+
 			drawTime.Stop();
+
 
 
 			if (DEBUG_MaxPhys == -1)

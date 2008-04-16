@@ -30,7 +30,7 @@ namespace Project_blob
         bool isInitialized;
 
         bool traceEnabled;
-        
+
         public SpriteBatch SpriteBatch
         {
             get { return spriteBatch; }
@@ -41,6 +41,7 @@ namespace Project_blob
             get { return font; }
         }
 
+        // And what does this do, exactly?
         public bool TraceEnabled
         {
             get { return traceEnabled; }
@@ -62,7 +63,7 @@ namespace Project_blob
             InputHandler.LoadDefaultBindings();
 
             GraphicsDevice.RenderState.PointSize = 5;
-           
+
             base.Initialize();
 
             isInitialized = true;
