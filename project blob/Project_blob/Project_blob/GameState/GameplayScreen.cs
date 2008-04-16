@@ -322,273 +322,274 @@ namespace Project_blob.GameState
 		public override void Update(GameTime gameTime, bool otherScreenHasFocus,
 													   bool coveredByOtherScreen)
 		{
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+
+            if (IsActive)
+            {
+                if (!paused)
+                {
+                    physicsTime.Reset();
+                    physicsTime.Start();
+                    physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+                    physicsTime.Stop();
+                    //if (((PhysicsSeq)physics).EventCollision)
+                    //{
+                    //    foreach (String str in ((PhysicsSeq)physics).EventsToTrigger)
+                    //    {
+                    //        currentArea.Events[str].PerformEvent(this);
+                    //    }
+                    //}
+                }
+
+                //Update Camera
+                //camera.Update(gameTime);
+                CameraManager.getSingleton.Update(gameTime);
+
+                // Allows the game to exit
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || InputHandler.IsKeyPressed(Keys.Escape))
+                {
+                    ScreenManager.AddScreen(new PauseMenuScreen());
+                }
+                if (InputHandler.IsKeyPressed(Keys.OemTilde))
+                {
+                    if (Physics.PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
+                    {
+                        Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
+                    }
+                    else
+                    {
+                        Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
+                    }
+                    resetBlob();
+                }
+                if (InputHandler.IsActionPressed(Actions.Reset))
+                {
+                    resetBlob();
+                }
+                if (InputHandler.IsKeyPressed(Keys.P))
+                {
+                    paused = !paused;
+                    ScreenManager.AddScreen(new PauseMenuScreen());
+                }
+                if (InputHandler.IsKeyPressed(Keys.T))
+                {
+                    //graphics.ToggleFullScreen();
+                }
+                if (InputHandler.IsKeyPressed(Keys.F))
+                {
+                    follow = !follow;
+                    //camera follow
+                    if (!follow)
+                    {
+                        //cameraPosition = defaultCameraPosition;
+                        CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
+                        //viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
+                        //effect.Parameters["xView"].SetValue(viewMatrix);
+                        //camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
+                        CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
+                        CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
+
+                        effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+
+                        //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
+                        celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+                        //celEffect.Parameters["View"].SetValue(viewMatrix);
+                        celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                        //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                        effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+                    }
+                }
+
+                if (InputHandler.IsKeyPressed(Keys.S))
+                {
+                    //theBlob.setSpringForce(92.5f);
+                    physics.Player.Resilience.Target = 1f;
+                }
+                if (InputHandler.IsKeyPressed(Keys.D))
+                {
+                    //theBlob.setSpringForce(62.5f);
+                    physics.Player.Resilience.Target = 0.5f;
+                }
+                if (InputHandler.IsKeyPressed(Keys.W))
+                {
+                    //theBlob.setSpringForce(12.5f);
+                    physics.Player.Resilience.Target = 0f;
+                }
+                if (InputHandler.IsKeyPressed(Keys.Q))
+                {
+                    //Physics.PhysicsManager.TEMP_SurfaceFriction = 2f;
+                    physics.Player.Traction.Target = 1f;
+                    physics.Player.Cling.Target = 1f;
+                }
+                if (InputHandler.IsKeyPressed(Keys.E))
+                {
+                    //Physics.PhysicsManager.TEMP_SurfaceFriction = 0.5f;
+                    physics.Player.Traction.Target = 0f;
+                    physics.Player.Cling.Target = 0f;
+                }
+                if (InputHandler.IsKeyPressed(Keys.A))
+                {
+                    //Physics.PhysicsManager.TEMP_SurfaceFriction = 1f;
+                    physics.Player.Traction.Target = 0.5f;
+                    physics.Player.Cling.Target = 0.5f;
+                }
+                if (InputHandler.IsKeyPressed(Keys.Z))
+                {
+                    drawMode = !drawMode;
+                }
+                if (InputHandler.IsKeyPressed(Keys.O))
+                {
+                    OrientCamera = !OrientCamera;
+                }
+                if (InputHandler.IsKeyPressed(Keys.OemPeriod))
+                {
+                    points = !points;
+                }
+                if (InputHandler.IsKeyPressed(Keys.N))
+                {
+                    Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
+                }
+
+                if (InputHandler.IsKeyPressed(Keys.B))
+                {
+                    DEBUG_MaxPhys = -1;
+                    DEBUG_MinPhys = -1;
+                    DEBUG_MaxDraw = -1;
+                    DEBUG_MinDraw = -1;
+                }
+
+                // Xbox
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
+                {
+                    controllermode = true;
+                }
+                if (controllermode)
+                {
+                    //theBlob.setSpringForce(12.5f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 80f));
+                    physics.Player.Resilience.Target = GamePad.GetState(PlayerIndex.One).Triggers.Right;
+                    //Physics.PhysicsManager.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
+                    physics.Player.Traction.Target = GamePad.GetState(PlayerIndex.One).Triggers.Left;
+                    /*float vb = MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f);
+                    InputHandler.SetVibration(vb, 0f);*/
+                }
+
+                // Quick Torque
+                Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
+                if (move != Vector2.Zero)
+                {
+                    Vector3 Up;
+                    /*if (OrientCamera)
+                    {
+                        Up = physics.getUp(theBlob.getCenter());
+                    }
+                    else
+                    {*/
+                    Up = Vector3.Up;
+                    //}
+                    //Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - cameraPosition, Up));
+                    Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - CameraManager.getSingleton.ActiveCamera.Position, Up));
+                    Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
+
+                    physics.Player.applyTorque(move.Y * playerMoveMulti * physics.Player.Traction.Target, Horizontal);
+                    physics.Player.applyTorque(move.X * playerMoveMulti * physics.Player.Traction.Target, Run);
+
+                    //foreach (Physics.Point p in theBlob.points)
+                    //{
+                    //    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
+                    //    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Run)) * (move.X * playerMoveMulti);
+                    //}
+                }
+
+                if (InputHandler.IsKeyPressed(Keys.PageUp))
+                {
+                    theBlob.setSpringLength(0.1f);
+                    cameraLengthMulti *= 1.015f;
+                }
+                else if (InputHandler.IsKeyPressed(Keys.PageDown))
+                {
+                    theBlob.setSpringLength(-0.1f);
+                    cameraLengthMulti *= 0.985f;
+                }
 
 
-			if (!paused)
-			{
-				physicsTime.Reset();
-				physicsTime.Start();
-				physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
-				physicsTime.Stop();
-                //if (((PhysicsSeq)physics).EventCollision)
-                //{
-                //    foreach (String str in ((PhysicsSeq)physics).EventsToTrigger)
-                //    {
-                //        currentArea.Events[str].PerformEvent(this);
-                //    }
-                //}
-			}
-
-			//Update Camera
-			//camera.Update(gameTime);
-			CameraManager.getSingleton.Update(gameTime);
-
-			// Allows the game to exit
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || InputHandler.IsKeyPressed(Keys.Escape))
-			{
-				ScreenManager.AddScreen(new PauseMenuScreen());
-			}
-			if (InputHandler.IsKeyPressed(Keys.OemTilde))
-			{
-				if (Physics.PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
-				{
-					Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
-				}
-				else
-				{
-					Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
-				}
-				resetBlob();
-			}
-			if (InputHandler.IsActionPressed(Actions.Reset))
-			{
-				resetBlob();
-			}
-			if (InputHandler.IsKeyPressed(Keys.P))
-			{
-				paused = !paused;
-				ScreenManager.AddScreen(new PauseMenuScreen());
-			}
-			if (InputHandler.IsKeyPressed(Keys.T))
-			{
-				//graphics.ToggleFullScreen();
-			}
-			if (InputHandler.IsKeyPressed(Keys.F))
-			{
-				follow = !follow;
-				//camera follow
-				if (!follow)
-				{
-					//cameraPosition = defaultCameraPosition;
-					CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
-					//viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
-					//effect.Parameters["xView"].SetValue(viewMatrix);
-					//camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
-					CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
-					CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
-
-					effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-
-					//celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-					celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-					//celEffect.Parameters["View"].SetValue(viewMatrix);
-					celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-					effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-				}
-			}
-
-			if (InputHandler.IsKeyPressed(Keys.S))
-			{
-				//theBlob.setSpringForce(92.5f);
-				physics.Player.Resilience.Target = 1f;
-			}
-			if (InputHandler.IsKeyPressed(Keys.D))
-			{
-				//theBlob.setSpringForce(62.5f);
-				physics.Player.Resilience.Target = 0.5f;
-			}
-			if (InputHandler.IsKeyPressed(Keys.W))
-			{
-				//theBlob.setSpringForce(12.5f);
-				physics.Player.Resilience.Target = 0f;
-			}
-			if (InputHandler.IsKeyPressed(Keys.Q))
-			{
-				//Physics.PhysicsManager.TEMP_SurfaceFriction = 2f;
-				physics.Player.Traction.Target = 1f;
-				physics.Player.Cling.Target = 1f;
-			}
-			if (InputHandler.IsKeyPressed(Keys.E))
-			{
-				//Physics.PhysicsManager.TEMP_SurfaceFriction = 0.5f;
-				physics.Player.Traction.Target = 0f;
-				physics.Player.Cling.Target = 0f;
-			}
-			if (InputHandler.IsKeyPressed(Keys.A))
-			{
-				//Physics.PhysicsManager.TEMP_SurfaceFriction = 1f;
-				physics.Player.Traction.Target = 0.5f;
-				physics.Player.Cling.Target = 0.5f;
-			}
-			if (InputHandler.IsKeyPressed(Keys.Z))
-			{
-				drawMode = !drawMode;
-			}
-			if (InputHandler.IsKeyPressed(Keys.O))
-			{
-				OrientCamera = !OrientCamera;
-			}
-			if (InputHandler.IsKeyPressed(Keys.OemPeriod))
-			{
-				points = !points;
-			}
-			if (InputHandler.IsKeyPressed(Keys.N))
-			{
-				Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
-			}
-
-			if (InputHandler.IsKeyPressed(Keys.B))
-			{
-				DEBUG_MaxPhys = -1;
-				DEBUG_MinPhys = -1;
-				DEBUG_MaxDraw = -1;
-				DEBUG_MinDraw = -1;
-			}
-
-			// Xbox
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
-			{
-				controllermode = true;
-			}
-			if (controllermode)
-			{
-				//theBlob.setSpringForce(12.5f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 80f));
-				physics.Player.Resilience.Target = GamePad.GetState(PlayerIndex.One).Triggers.Right;
-				//Physics.PhysicsManager.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
-				physics.Player.Traction.Target = GamePad.GetState(PlayerIndex.One).Triggers.Left;
-				/*float vb = MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f);
-				InputHandler.SetVibration(vb, 0f);*/
-			}
-
-			// Quick Torque
-			Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
-			if (move != Vector2.Zero)
-			{
-				Vector3 Up;
-				/*if (OrientCamera)
-				{
-					Up = physics.getUp(theBlob.getCenter());
-				}
-				else
-				{*/
-				Up = Vector3.Up;
-				//}
-				//Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - cameraPosition, Up));
-				Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - CameraManager.getSingleton.ActiveCamera.Position, Up));
-				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
-
-				physics.Player.applyTorque(move.Y * playerMoveMulti * physics.Player.Traction.Target, Horizontal);
-				physics.Player.applyTorque(move.X * playerMoveMulti * physics.Player.Traction.Target, Run);
-
-				//foreach (Physics.Point p in theBlob.points)
-				//{
-				//    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
-				//    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Run)) * (move.X * playerMoveMulti);
-				//}
-			}
-
-			if (InputHandler.IsKeyPressed(Keys.PageUp))
-			{
-				theBlob.setSpringLength(0.1f);
-				cameraLengthMulti *= 1.015f;
-			}
-			else if (InputHandler.IsKeyPressed(Keys.PageDown))
-			{
-				theBlob.setSpringLength(-0.1f);
-				cameraLengthMulti *= 0.985f;
-			}
+                if (InputHandler.IsKeyDown(Keys.X))
+                {
+                    //theBlob.idealVolume = theBlob.baseVolume + 50f;
+                    physics.Player.Volume.Target = 1f;
+                }
+                else if (InputHandler.IsKeyDown(Keys.C))
+                {
+                    //theBlob.idealVolume = theBlob.baseVolume + 50f;
+                    physics.Player.Volume.Target = 0f;
+                }
+                else if (InputHandler.IsKeyDown(Keys.V))
+                {
+                    //theBlob.idealVolume = theBlob.baseVolume;
+                    physics.Player.Volume.Target = 0.5f;
+                }
+                //Console.WriteLine(theBlob.getVolume());
+                //theBlob.update();
 
 
-			if (InputHandler.IsKeyDown(Keys.X))
-			{
-				//theBlob.idealVolume = theBlob.baseVolume + 50f;
-				physics.Player.Volume.Target = 1f;
-			}
-			else if (InputHandler.IsKeyDown(Keys.C))
-			{
-				//theBlob.idealVolume = theBlob.baseVolume + 50f;
-				physics.Player.Volume.Target = 0f;
-			}
-			else if (InputHandler.IsKeyDown(Keys.V))
-			{
-				//theBlob.idealVolume = theBlob.baseVolume;
-				physics.Player.Volume.Target = 0.5f;
-			}
-			//Console.WriteLine(theBlob.getVolume());
-			//theBlob.update();
+                if (follow)
+                {
+                    cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
+                    if (cameraAngle.X < -MathHelper.Pi)
+                    {
+                        cameraAngle.X += MathHelper.TwoPi;
+                    }
+                    else if (cameraAngle.X > MathHelper.Pi)
+                    {
+                        cameraAngle.X -= MathHelper.TwoPi;
+                    }
 
+                    cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
 
-			if (follow)
-			{
-				cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
-				if (cameraAngle.X < -MathHelper.Pi)
-				{
-					cameraAngle.X += MathHelper.TwoPi;
-				}
-				else if (cameraAngle.X > MathHelper.Pi)
-				{
-					cameraAngle.X -= MathHelper.TwoPi;
-				}
+                    // following camera
+                    cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
+                    Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
+                    //cameraPosition = theBlob.getCenter() + Offset;
+                    CameraManager.getSingleton.ActiveCamera.Position = theBlob.getCenter() + Offset;
 
-				cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
+                    // new Vector3(10, 10, 20)
+                    /*if (OrientCamera)
+                    {
+                        viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), physics.getUp(theBlob.getCenter()));
+                    }
+                    else
+                    {*/
+                    //viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), Vector3.Up);
+                    //camera.View = Matrix.CreateLookAt(camera.Postiion, theBlob.getCenter(), Vector3.Up);
+                    CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
+                    //}
+                    //effect.Parameters["xView"].SetValue(viewMatrix);
+                    //celEffect.Parameters["View"].SetValue(viewMatrix);
+                    effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                    celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
-				// following camera
-				cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
-				Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
-				//cameraPosition = theBlob.getCenter() + Offset;
-				CameraManager.getSingleton.ActiveCamera.Position = theBlob.getCenter() + Offset;
+                    //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
+                    //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                    effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+                }
 
-				// new Vector3(10, 10, 20)
-				/*if (OrientCamera)
-				{
-					viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), physics.getUp(theBlob.getCenter()));
-				}
-				else
-				{*/
-				//viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), Vector3.Up);
-				//camera.View = Matrix.CreateLookAt(camera.Postiion, theBlob.getCenter(), Vector3.Up);
-				CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
-				//}
-				//effect.Parameters["xView"].SetValue(viewMatrix);
-				//celEffect.Parameters["View"].SetValue(viewMatrix);
-				effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-				celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-
-				//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
-				//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-				effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-			}
-
-			//cubeVertexBuffer.SetData<VertexPositionNormalTexture>(theBlob.getTriangleVertexes());
-
-
-
-			// light
-			effect.Parameters["xLightPos"].SetValue(lightPosition);
+                //cubeVertexBuffer.SetData<VertexPositionNormalTexture>(theBlob.getTriangleVertexes());
 
 
 
-			//fps
-			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-			if (time > update)
-			{
-				fps = Convert.ToInt32(frames / time).ToString();
-				time = 0;
-				frames = 0;
-			}
+                // light
+                effect.Parameters["xLightPos"].SetValue(lightPosition);
 
-			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+
+
+                //fps
+                time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (time > update)
+                {
+                    fps = Convert.ToInt32(frames / time).ToString();
+                    time = 0;
+                    frames = 0;
+                }
+            }
 		}
 
 		public override void Draw(GameTime gameTime)
