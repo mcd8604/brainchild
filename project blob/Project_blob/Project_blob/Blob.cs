@@ -7,45 +7,45 @@ using Microsoft.Xna.Framework;
 
 namespace Project_blob
 {
-    public class Blob : Physics.PressureBody, Drawable
+	public class Blob : Physics.PressureBody, Drawable
 	{
 		public readonly List<Physics.Point> points = new List<Physics.Point>();
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
 		List<Tri> collidables = new List<Tri>();
 
-        public static float springVal = 62.5f;
+		public static float springVal = 62.5f;
 
-        private GraphicsDevice theDevice;
+		private GraphicsDevice theDevice;
 
-        VertexPositionNormalTexture[] vertices;
-        int[] indices;
-        private List<int> pointsToUpdate = new List<int>(); //index is the point array index, value is the vertice to update
+		VertexPositionNormalTexture[] vertices;
+		int[] indices;
+		private List<int> pointsToUpdate = new List<int>(); //index is the point array index, value is the vertice to update
 
-        private VertexDeclaration myVertexDeclaration;
+		private VertexDeclaration myVertexDeclaration;
 		private VertexBuffer myVertexBuffer;
-        private IndexBuffer myIndexBuffer;
-        private int myVertexStride;
-        private int myStreamOffset;
-        //private int myBaseVertex;
-        private int myNumVertices;
-        //private int myStartIndex;
-        private int myPrimitiveCount;
+		private IndexBuffer myIndexBuffer;
+		private int myVertexStride;
+		private int myStreamOffset;
+		//private int myBaseVertex;
+		private int myNumVertices;
+		//private int myStartIndex;
+		private int myPrimitiveCount;
 
 		private Vector3 min;
 		private Vector3 max;
-        
-        public void setSpringLength(float delta)
-        {
 
-            foreach (Physics.Spring s in springs)
-            {
-                s.MaximumLengthBeforeExtension += delta;
-                s.MinimumLengthBeforeCompression += delta;
-            }
+		public void setSpringLength(float delta)
+		{
 
-        }
+			foreach (Physics.Spring s in springs)
+			{
+				s.MaximumLengthBeforeExtension += delta;
+				s.MinimumLengthBeforeCompression += delta;
+			}
 
-        public override Vector3 getCenter()
+		}
+
+		public override Vector3 getCenter()
 		{
 			Vector3 ret = Vector3.Zero;
 			foreach (Physics.Point p in points)
@@ -56,207 +56,207 @@ namespace Project_blob
 			//return Center.Position;
 		}
 
-        public override Vector3 getNextCenter()
-        {
-            Vector3 ret = Vector3.Zero;
-            foreach (Physics.Point p in points)
-            {
-                ret += p.PotientialPosition;
-            }
-            return ret / points.Count;
-            //return Center.Position;
-        }
+		public override Vector3 getNextCenter()
+		{
+			Vector3 ret = Vector3.Zero;
+			foreach (Physics.Point p in points)
+			{
+				ret += p.PotientialPosition;
+			}
+			return ret / points.Count;
+			//return Center.Position;
+		}
 
 		public Blob(Model aModel)
 		{
-            initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center);
+			initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center);
 		}
 
-        public Blob(Model aModel, Vector3 startPos)
-        {
-            initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center + startPos);
-        }
+		public Blob(Model aModel, Vector3 startPos)
+		{
+			initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center + startPos);
+		}
 
-        public Physics.Collidable bottom;
+		public Physics.Collidable bottom;
 
 		private void initBlob(Model blobModel, Vector3 center)
-        {
-            ModelMesh mesh = blobModel.Meshes[0];
-            ModelMeshPart part = mesh.MeshParts[0];
+		{
+			ModelMesh mesh = blobModel.Meshes[0];
+			ModelMeshPart part = mesh.MeshParts[0];
 
-            myVertexStride = VertexPositionNormalTexture.SizeInBytes;
+			myVertexStride = VertexPositionNormalTexture.SizeInBytes;
 
 
-            //Type vertexType;
+			//Type vertexType;
 
 
 			if (myVertexStride == VertexPositionColorTexture.SizeInBytes)
 			{
 				Console.WriteLine("VertexPositionColorTexture");
 			}
-            
-            // VertexBuffer
-            /*VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[part.NumVertices];
-            mesh.VertexBuffer.GetData<VertexPositionColorTexture>(tempVertices);
+
+			// VertexBuffer
+			/*VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[part.NumVertices];
+			mesh.VertexBuffer.GetData<VertexPositionColorTexture>(tempVertices);
            
-            vertices = new VertexPositionNormalTexture[tempVertices.Length];
-            for(int i = 0; i < tempVertices.Length; i++) 
-            {
+			vertices = new VertexPositionNormalTexture[tempVertices.Length];
+			for(int i = 0; i < tempVertices.Length; i++) 
+			{
 				Vector3 testNorm = Vector3.Normalize(Vector3.Subtract(tempVertices[i].Position,center));
-                vertices[i] = new VertexPositionNormalTexture(tempVertices[i].Position, testNorm, tempVertices[i].TextureCoordinate);
-            }*/
+				vertices[i] = new VertexPositionNormalTexture(tempVertices[i].Position, testNorm, tempVertices[i].TextureCoordinate);
+			}*/
 
-            vertices = new VertexPositionNormalTexture[part.NumVertices];
-            mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+			vertices = new VertexPositionNormalTexture[part.NumVertices];
+			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
-            Hashtable pointTable = new Hashtable(new Physics.PointComparater()) ;
+			Hashtable pointTable = new Hashtable(new Physics.PointComparater());
 
-            // IndexBuffer
-            if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
-            {
-                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-                short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-                mesh.IndexBuffer.GetData<short>(temp);
-                for (int i = 0; i < temp.Length; i++)
-                    indices[i] = temp[i];
-            }
-            else
-            {
-                indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
-                mesh.IndexBuffer.GetData<int>(indices);
-            }
-            myIndexBuffer = mesh.IndexBuffer;
-            
-            // Physics Points
-            List<Physics.Point> tempList = new List<Physics.Point>();
+			// IndexBuffer
+			if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
+			{
+				indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+				short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+				mesh.IndexBuffer.GetData<short>(temp);
+				for (int i = 0; i < temp.Length; i++)
+					indices[i] = temp[i];
+			}
+			else
+			{
+				indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
+				mesh.IndexBuffer.GetData<int>(indices);
+			}
+			myIndexBuffer = mesh.IndexBuffer;
+
+			// Physics Points
+			List<Physics.Point> tempList = new List<Physics.Point>();
 			int num_points = 0;
-            int repeated_points = 0;
-            int iter = 0;
+			int repeated_points = 0;
+			int iter = 0;
 
-            foreach (VertexPositionNormalTexture v in vertices)
-            {
-                tempList.Add(new Physics.Point(center + v.Position));
-            }
-            /*
-            for(int i = 0; i < vertices.Length; i++)
-            {
-                Physics.Point temp = new Physics.Point(center + new Vector3(vertices[i].Position.X, vertices[i].Position.Y, vertices[i].Position.Z));
-                if (pointTable.ContainsKey(temp))
-                {
-                    ((List<int>)pointTable[temp]).Add(i);
-                    repeated_points++;
-                }
-                else
-                {
-                    List<int> tableList = new List<int>();
-                    tableList.Add(i);
-                    pointTable[temp] = tableList;
-                    tempList.Add(temp);
-                    pointsToUpdate.Add(iter);
-                    num_points++;
-                }
-                iter++;
-            }
+			foreach (VertexPositionNormalTexture v in vertices)
+			{
+				tempList.Add(new Physics.Point(center + v.Position, this));
+			}
+			/*
+			for(int i = 0; i < vertices.Length; i++)
+			{
+				Physics.Point temp = new Physics.Point(center + new Vector3(vertices[i].Position.X, vertices[i].Position.Y, vertices[i].Position.Z));
+				if (pointTable.ContainsKey(temp))
+				{
+					((List<int>)pointTable[temp]).Add(i);
+					repeated_points++;
+				}
+				else
+				{
+					List<int> tableList = new List<int>();
+					tableList.Add(i);
+					pointTable[temp] = tableList;
+					tempList.Add(temp);
+					pointsToUpdate.Add(iter);
+					num_points++;
+				}
+				iter++;
+			}
             
 			//int check = vertices.Length;
 
             
 
-            //change indices
-            for (int i = 0; i < indices.Length; i++)
-            {
-                Physics.Point tempPoint = new Physics.Point(center + vertices[indices[i]].Position);
-                if (((List<int>)pointTable[tempPoint]).Count > 1)
-                {
-                    indices[i] = ((List<int>)pointTable[tempPoint])[0];
-                }
-            }
-            */
+			//change indices
+			for (int i = 0; i < indices.Length; i++)
+			{
+				Physics.Point tempPoint = new Physics.Point(center + vertices[indices[i]].Position);
+				if (((List<int>)pointTable[tempPoint]).Count > 1)
+				{
+					indices[i] = ((List<int>)pointTable[tempPoint])[0];
+				}
+			}
+			*/
 
-            //weed out duplicate vertices and alert indices of the change
-            //VertexPositionNormalTexture[] tempArray = new VertexPositionNormalTexture[pointTable.Keys.Count];
-            //int it = 0;
-            //foreach (Physics.Point p in pointTable.Keys)
-            //{
-            //    tempArray[it] = vertices[((List<int>)pointTable[p])[0]];
-            //    for (int i = 0; i < indices.Length; i++)
-            //    {
-            //        if (indices[i] == ((List<int>)pointTable[p])[0])
-            //        {
-            //            indices[i] = it;
-            //            if (i == 118)
-            //                throw new Exception("Stop");
-            //        }
-            //    }
-            //    it++;
-            //}
-            //vertices = tempArray;
-            // Physics Springs
+			//weed out duplicate vertices and alert indices of the change
+			//VertexPositionNormalTexture[] tempArray = new VertexPositionNormalTexture[pointTable.Keys.Count];
+			//int it = 0;
+			//foreach (Physics.Point p in pointTable.Keys)
+			//{
+			//    tempArray[it] = vertices[((List<int>)pointTable[p])[0]];
+			//    for (int i = 0; i < indices.Length; i++)
+			//    {
+			//        if (indices[i] == ((List<int>)pointTable[p])[0])
+			//        {
+			//            indices[i] = it;
+			//            if (i == 118)
+			//                throw new Exception("Stop");
+			//        }
+			//    }
+			//    it++;
+			//}
+			//vertices = tempArray;
+			// Physics Springs
 			foreach (Physics.Point t in tempList)
 			{
 				foreach (Physics.Point p in points)
 				{
-                    float d = Vector3.Distance(t.CurrentPosition, p.CurrentPosition);
-                    if (d > 0)
-                    {
-                        springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), springVal * 100));
-                    }
+					float d = Vector3.Distance(t.CurrentPosition, p.CurrentPosition);
+					if (d > 0)
+					{
+						springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), springVal * 100));
+					}
 				}
 				points.Add(t);
 			}
 
-            
-            // Collidables
-            //for (int i = 0; i < part.PrimitiveCount; i++)
-            //{
-            //    //collidables.Add(new Tri(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]], Color.White));
-            //}
+
+			// Collidables
+			//for (int i = 0; i < part.PrimitiveCount; i++)
+			//{
+			//    //collidables.Add(new Tri(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]], Color.White));
+			//}
 
 
-            
-            myStreamOffset = 0;
-            //myBaseVertex = 0;
-            myNumVertices = vertices.Length;
-            //myStartIndex = 0;
-            myPrimitiveCount = part.PrimitiveCount;
+
+			myStreamOffset = 0;
+			//myBaseVertex = 0;
+			myNumVertices = vertices.Length;
+			//myStartIndex = 0;
+			myPrimitiveCount = part.PrimitiveCount;
 
 		}
 
-        private void updateVertices()
-        {
-            //update points
-            for (int i = 0; i < vertices.Length/*pointsToUpdate.Count*/; i++)
-            {
-                vertices[i].Position = points[i].CurrentPosition;
-                vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter() ));
-            
-                //vertices[pointsToUpdate[i]].Position = points[i].CurrentPosition;
-                //vertices[pointsToUpdate[i]].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter() ));
-            }
-        }
+		private void updateVertices()
+		{
+			//update points
+			for (int i = 0; i < vertices.Length/*pointsToUpdate.Count*/; i++)
+			{
+				vertices[i].Position = points[i].CurrentPosition;
+				vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter()));
 
-        public VertexBuffer getVertexBuffer()
-        {
-            updateVertices();
-            myVertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
-
-
-            //vertices[0].Position.X -= 0.01f;
-            //myVertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
-            return myVertexBuffer;
+				//vertices[pointsToUpdate[i]].Position = points[i].CurrentPosition;
+				//vertices[pointsToUpdate[i]].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter() ));
+			}
 		}
 
-        public IndexBuffer getIndexBuffer()
-        {
-            //myIndexBuffer = new IndexBuffer(theDevice, sizeof(int) * indices.Length, BufferUsage.None, IndexElementSize.SixteenBits);
-            //myIndexBuffer.SetData<int>(indices);
-            return myIndexBuffer;
-        }
+		public VertexBuffer getVertexBuffer()
+		{
+			updateVertices();
+			myVertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+
+
+			//vertices[0].Position.X -= 0.01f;
+			//myVertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+			return myVertexBuffer;
+		}
+
+		public IndexBuffer getIndexBuffer()
+		{
+			//myIndexBuffer = new IndexBuffer(theDevice, sizeof(int) * indices.Length, BufferUsage.None, IndexElementSize.SixteenBits);
+			//myIndexBuffer.SetData<int>(indices);
+			return myIndexBuffer;
+		}
 
 		public void setGraphicsDevice(GraphicsDevice device)
 		{
-            theDevice = device;
-            myVertexBuffer = new VertexBuffer(device, VertexPositionNormalTexture.SizeInBytes * vertices.Length, BufferUsage.None);
+			theDevice = device;
+			myVertexBuffer = new VertexBuffer(device, VertexPositionNormalTexture.SizeInBytes * vertices.Length, BufferUsage.None);
 			myVertexDeclaration = new VertexDeclaration(device, VertexPositionNormalTexture.VertexElements);
 		}
 
@@ -266,59 +266,59 @@ namespace Project_blob
 		}
 
 		public void DrawMe()
-        {
+		{
 
-            theDevice.VertexDeclaration = myVertexDeclaration;
-            theDevice.Indices = myIndexBuffer;
-            theDevice.Vertices[0].SetSource(getVertexBuffer(), myStreamOffset, myVertexStride);
-            theDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList,0, 0,vertices.Length,0, myPrimitiveCount);
-            theDevice.Indices = null;
-            theDevice.Vertices[0].SetSource(null, 0, 0);
+			theDevice.VertexDeclaration = myVertexDeclaration;
+			theDevice.Indices = myIndexBuffer;
+			theDevice.Vertices[0].SetSource(getVertexBuffer(), myStreamOffset, myVertexStride);
+			theDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertices.Length, 0, myPrimitiveCount);
+			theDevice.Indices = null;
+			theDevice.Vertices[0].SetSource(null, 0, 0);
 		}
 
 
-        public override IEnumerable<Physics.Point> getPoints()
-        {
-            return points;
-        }
+		public override IEnumerable<Physics.Point> getPoints()
+		{
+			return points;
+		}
 
-        public override IEnumerable<Physics.Collidable> getCollidables()
-        {
-            // Disabled collision planes for softcubes until I can figure out what's wrong.
+		public override IEnumerable<Physics.Collidable> getCollidables()
+		{
+			// Disabled collision planes for softcubes until I can figure out what's wrong.
 
-            //List<Physics.Collidable> temp = new List<Physics.Collidable>();
-            //foreach ( Tri t in collidables ) 
-            //    temp.Add( t as Physics.Collidable );
-            //}
-            //return temp;
+			//List<Physics.Collidable> temp = new List<Physics.Collidable>();
+			//foreach ( Tri t in collidables ) 
+			//    temp.Add( t as Physics.Collidable );
+			//}
+			//return temp;
 
-            return new List<Physics.Collidable>();
-        }
+			return new List<Physics.Collidable>();
+		}
 
-        public IEnumerable<Drawable> getDrawables()
-        {
-            List<Drawable> temp = new List<Drawable>();
-            foreach (Tri t in collidables)
-            {
-                temp.Add(t as Drawable);
-            }
-            return temp;
-        }
+		public IEnumerable<Drawable> getDrawables()
+		{
+			List<Drawable> temp = new List<Drawable>();
+			foreach (Tri t in collidables)
+			{
+				temp.Add(t as Drawable);
+			}
+			return temp;
+		}
 
-        public override IEnumerable<Physics.Spring> getSprings()
-        {
-            return springs;
-        }
-        
-        public float getOldVolume()
-        {
-            // TODO
+		public override IEnumerable<Physics.Spring> getSprings()
+		{
+			return springs;
+		}
 
-            // 1/3 * area of base ( face ) * height ( center of face to center of cube )
+		public float getOldVolume()
+		{
+			// TODO
 
-            float totalVolume = 0;
+			// 1/3 * area of base ( face ) * height ( center of face to center of cube )
 
-            Vector3 centerOfCube = getCenter();
+			float totalVolume = 0;
+
+			Vector3 centerOfCube = getCenter();
 
 			/*
             for (int i = 1; i < 7; ++i)
@@ -342,7 +342,7 @@ namespace Project_blob
 
 			// really really rough appoximation for a blob
 
-			
+
 			/*
 			for (int i = 0; i < vertices.Length - 2; i++)
 			{
@@ -391,168 +391,168 @@ namespace Project_blob
 
 			totalVolume = (max.X - min.X) * (max.Y - min.Y) * (max.Z - min.Z);
 
-            //Console.WriteLine("Original Volume Estimate: " + totalVolume);
-            return totalVolume;
-        }
+			//Console.WriteLine("Original Volume Estimate: " + totalVolume);
+			return totalVolume;
+		}
 
-        private float idealVolume = 10;
-        public override float getIdealVolume()
-        {
-            return idealVolume;
-        }
-        public override void setIdealVolume(float volume)
-        {
-            idealVolume = volume;
-        }
+		private float idealVolume = 10;
+		public override float getIdealVolume()
+		{
+			return idealVolume;
+		}
+		public override void setIdealVolume(float volume)
+		{
+			idealVolume = volume;
+		}
 
-        public override float getNextVolume()
-        {
-            float totalVolume = 0;
+		public override float getNextVolume()
+		{
+			float totalVolume = 0;
 
-            Vector3 center = getCenter();
+			Vector3 center = getCenter();
 
-            for (int i = 0; i < indices.Length - 3; i = i + 3)
-            {
-                /*
-                Vector3 p1 = new Vector3();
-                Vector3 p2 = new Vector3();
-                Vector3 p3 = new Vector3();
-                for (int j = 0; j < pointsToUpdate.Count; j++)
-                {
+			for (int i = 0; i < indices.Length - 3; i = i + 3)
+			{
+				/*
+				Vector3 p1 = new Vector3();
+				Vector3 p2 = new Vector3();
+				Vector3 p3 = new Vector3();
+				for (int j = 0; j < pointsToUpdate.Count; j++)
+				{
 
-                    if (pointsToUpdate[j] == indices[i])
-                        p1 = points[j].PotientialPosition;
-                    if (pointsToUpdate[j] == indices[i+1])
-                        p2 = points[j].PotientialPosition;
-                    if (pointsToUpdate[j] == indices[i + 2])
-                        p3 = points[j].PotientialPosition;
-                }
-                */
-                totalVolume += getFaceVolumeTest(points[indices[i]].PotientialPosition, points[indices[i + 1]].PotientialPosition, points[indices[i + 2]].PotientialPosition);
-                //totalVolume += getFaceVolumeTest(p1, p2, p3);
-            }
+					if (pointsToUpdate[j] == indices[i])
+						p1 = points[j].PotientialPosition;
+					if (pointsToUpdate[j] == indices[i+1])
+						p2 = points[j].PotientialPosition;
+					if (pointsToUpdate[j] == indices[i + 2])
+						p3 = points[j].PotientialPosition;
+				}
+				*/
+				totalVolume += getFaceVolumeTest(points[indices[i]].PotientialPosition, points[indices[i + 1]].PotientialPosition, points[indices[i + 2]].PotientialPosition);
+				//totalVolume += getFaceVolumeTest(p1, p2, p3);
+			}
 
-            //Console.WriteLine("Next Volume Estimate: " + totalVolume);
-            return totalVolume;
-        }
+			//Console.WriteLine("Next Volume Estimate: " + totalVolume);
+			return totalVolume;
+		}
 
-        public override float getVolume()
-        {
-            float totalVolume = 0;
+		public override float getVolume()
+		{
+			float totalVolume = 0;
 
-            Vector3 center = getCenter();
-     
-            for (int i = 0; i < indices.Length - 3; i=i+3)
-            {
-                /*
-                Vector3 p1 = new Vector3();
-                Vector3 p2 = new Vector3();
-                Vector3 p3 = new Vector3();
-                for (int j = 0; j < pointsToUpdate.Count; j++)
-                {
+			Vector3 center = getCenter();
 
-                    if (pointsToUpdate[j] == indices[i])
-                        p1 = points[j].CurrentPosition;
-                    if (pointsToUpdate[j] == indices[i + 1])
-                        p2 = points[j].CurrentPosition;
-                    if (pointsToUpdate[j] == indices[i + 2])
-                        p3 = points[j].CurrentPosition;
-                }
-                totalVolume += getFaceVolumeTest(p1, p2, p3);
-                */
-                totalVolume += getFaceVolumeTest(points[indices[i]].CurrentPosition, points[indices[i + 1]].CurrentPosition, points[indices[i + 2]].CurrentPosition);
-            }
+			for (int i = 0; i < indices.Length - 3; i = i + 3)
+			{
+				/*
+				Vector3 p1 = new Vector3();
+				Vector3 p2 = new Vector3();
+				Vector3 p3 = new Vector3();
+				for (int j = 0; j < pointsToUpdate.Count; j++)
+				{
 
-            //Console.WriteLine("Volume Estimate: " + totalVolume);
-            return totalVolume;
+					if (pointsToUpdate[j] == indices[i])
+						p1 = points[j].CurrentPosition;
+					if (pointsToUpdate[j] == indices[i + 1])
+						p2 = points[j].CurrentPosition;
+					if (pointsToUpdate[j] == indices[i + 2])
+						p3 = points[j].CurrentPosition;
+				}
+				totalVolume += getFaceVolumeTest(p1, p2, p3);
+				*/
+				totalVolume += getFaceVolumeTest(points[indices[i]].CurrentPosition, points[indices[i + 1]].CurrentPosition, points[indices[i + 2]].CurrentPosition);
+			}
 
-        }
+			//Console.WriteLine("Volume Estimate: " + totalVolume);
+			return totalVolume;
 
-        private float getFaceVolume(Vector3 point1, Vector3 point2, Vector3 point3)
-        {
+		}
 
-            Vector3 a = point2 - point1;
-            Vector3 b = point3 - point1;
-            Vector3 c = Vector3.Cross(a, b);
+		private float getFaceVolume(Vector3 point1, Vector3 point2, Vector3 point3)
+		{
 
-            float area = 0.5f * c.Length();
+			Vector3 a = point2 - point1;
+			Vector3 b = point3 - point1;
+			Vector3 c = Vector3.Cross(a, b);
 
-            // not correct, need length along perpendicular vector
-            Vector3 center = (point1 + point2 + point3) / 3f;
+			float area = 0.5f * c.Length();
 
-            float height = Vector3.Distance(getCenter(), center);
+			// not correct, need length along perpendicular vector
+			Vector3 center = (point1 + point2 + point3) / 3f;
 
-            float volume = height * area * (1f / 3f);
-            
+			float height = Vector3.Distance(getCenter(), center);
 
-            return volume;
-
-        }
-
-        private float getFaceVolumeTest(Vector3 point1, Vector3 point2, Vector3 point3)
-        {
-            Vector3 a = point2 - point1;
-            Vector3 b = point3 - point1;
-            Vector3 c = Vector3.Cross(a, b);
-
-            float area = .5f * c.Length();
-
-            Plane facePlane = new Plane(point1,point2,point3);
-            //Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
-
-           // float distance = Vector3.Dot(facePlane.Normal, Vector3.Subtract(getCenter(),facePlane.Normal * facePlane.D));
-            //Vector3 closestPoint = Vector3.Subtract(getCenter(), Vector3.Multiply(facePlane.Normal, distance));
-            //float height = Vector3.Distance(getCenter(), closestPoint);
-
-            Vector3 center = getCenter();
-            //negation because we are drawing the planes upside down
-            float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), getCenter());
-            float height = MathHelper.Distance( distanceToCenter, facePlane.D);
-
-            float volume = height * area * (1f / 3f);
-            if (float.IsNaN(volume))
-                throw new Exception("Not Good");
-
-            return volume;
-        }
-
-        //public float baseVolume = 10f;
-        //public float idealVolume = 10f;
-
-        //public void update()
-        //{
-
-        //    Vector3 center = getCenter();
-        //    float volume = getVolume();
-
-        //    foreach (Physics.Point p in points)
-        //    {
-
-        //        p.CurrentForce += (center - p.Position) * (volume - idealVolume) * (1f);
-
-        //    }
-
-        //}
+			float volume = height * area * (1f / 3f);
 
 
-        #region Drawable Members
+			return volume;
+
+		}
+
+		private float getFaceVolumeTest(Vector3 point1, Vector3 point2, Vector3 point3)
+		{
+			Vector3 a = point2 - point1;
+			Vector3 b = point3 - point1;
+			Vector3 c = Vector3.Cross(a, b);
+
+			float area = .5f * c.Length();
+
+			Plane facePlane = new Plane(point1, point2, point3);
+			//Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
+
+			// float distance = Vector3.Dot(facePlane.Normal, Vector3.Subtract(getCenter(),facePlane.Normal * facePlane.D));
+			//Vector3 closestPoint = Vector3.Subtract(getCenter(), Vector3.Multiply(facePlane.Normal, distance));
+			//float height = Vector3.Distance(getCenter(), closestPoint);
+
+			Vector3 center = getCenter();
+			//negation because we are drawing the planes upside down
+			float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), getCenter());
+			float height = MathHelper.Distance(distanceToCenter, facePlane.D);
+
+			float volume = height * area * (1f / 3f);
+			if (float.IsNaN(volume))
+				throw new Exception("Not Good");
+
+			return volume;
+		}
+
+		//public float baseVolume = 10f;
+		//public float idealVolume = 10f;
+
+		//public void update()
+		//{
+
+		//    Vector3 center = getCenter();
+		//    float volume = getVolume();
+
+		//    foreach (Physics.Point p in points)
+		//    {
+
+		//        p.CurrentForce += (center - p.Position) * (volume - idealVolume) * (1f);
+
+		//    }
+
+		//}
 
 
-        public TextureInfo GetTextureKey()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+		#region Drawable Members
 
-        public BoundingBox GetBoundingBox()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
 
-        public BoundingSphere GetBoundingSphere()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+		public TextureInfo GetTextureKey()
+		{
+			throw new Exception("The method or operation is not implemented.");
+		}
 
-        #endregion
-    }
+		public BoundingBox GetBoundingBox()
+		{
+			throw new Exception("The method or operation is not implemented.");
+		}
+
+		public BoundingSphere GetBoundingSphere()
+		{
+			throw new Exception("The method or operation is not implemented.");
+		}
+
+		#endregion
+	}
 }
