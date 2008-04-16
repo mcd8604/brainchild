@@ -13,10 +13,10 @@ namespace Physics
 		}
 
 		/// <summary>
-        /// Could this collidable possibly be hit by Point p.
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
+		/// Could this collidable possibly be hit by Point p.
+		/// </summary>
+		/// <param name="p"></param>
+		/// <returns></returns>
 		public abstract bool couldIntersect(Point p);
 
 		/// <summary>
@@ -32,7 +32,8 @@ namespace Physics
 		/// </summary>
 		/// <param name="p"></param>
 		/// <returns></returns>
-		public virtual bool shouldPhysicsBlock(Point p) {
+		public virtual bool shouldPhysicsBlock(Point p)
+		{
 			return parent.shouldPhysicsBlock(p);
 		}
 
