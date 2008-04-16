@@ -78,9 +78,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="Spring.cs" />
-    <Compile Include="Trigger.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content\Content.contentproj">

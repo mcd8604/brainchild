@@ -118,9 +118,9 @@ namespace Project_blob
                     {
                         if(vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position) {
                             if(m_TextureKey.TextureName.Equals("event")) {
-                                //collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]]));
+                                collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], Name));
                             } else {
-                                //collidables.Add(new CollidableTri(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]]));
+                                collidables.Add(new CollidableTri(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]]));
                             }
                             numCol++;
                         }
