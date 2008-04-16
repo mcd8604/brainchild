@@ -6,7 +6,15 @@ namespace Physics
 {
 	public class PhysicsSeq : PhysicsManager
 	{
+        private List<String> _eventsToTrigger;
+        public List<String> EventsToTrigger { get { return _eventsToTrigger; } }
+
+        private bool _eventCollision;
+        public bool EventCollision { get { return _eventCollision; } }
+
         public PhysicsSeq() {
+            _eventsToTrigger = new List<String>();
+            _eventCollision = false;
         }
 
 		private Player player = new Player();
@@ -84,19 +92,18 @@ namespace Physics
 
 		public override void update(float TotalElapsedSeconds)
 		{
-
-			doPhysics(TotalElapsedSeconds);
+            _eventsToTrigger.Clear();
+			_eventCollision = doPhysics(TotalElapsedSeconds);
 
 			foreach (Point p in points)
 			{
 				p.updatePosition();
 			}
-
 		}
 
-		internal void doPhysics(float TotalElapsedSeconds)
+		internal bool doPhysics(float TotalElapsedSeconds)
 		{
-
+            bool temp = false;
 			player.update(TotalElapsedSeconds);
 
 			// Predict potiential position
@@ -149,9 +156,13 @@ namespace Physics
 			//temp
 			foreach (Point p in points)
 			{
-				checkCollisions2(p, TotalElapsedSeconds);
+                if(temp) {
+                    checkCollisions2(p, TotalElapsedSeconds);
+                } else {
+                    temp = checkCollisions2(p, TotalElapsedSeconds);
+                }
 			}
-
+            return temp;
 		}
 
 		private void fall(Point p, float time)
@@ -266,8 +277,9 @@ namespace Physics
 
 		}
 
-		private void checkCollisions2(Point p, float time)
+		private bool checkCollisions2(Point p, float time)
 		{
+            bool trigger = false;
 			bool Collision = false;
 			Collidable Collidable = null;
 			float CollisionU = float.MaxValue;
@@ -322,7 +334,10 @@ namespace Physics
 				slide(p, time * (1 - CollisionU), Collidable);
 
                 if(Collidable is Trigger) {
-                    //_((Trigger)Collidable).ModelRef;
+                    trigger = true;
+                    if(!_eventsToTrigger.Contains(((Trigger)Collidable).ModelRef)) {
+                        _eventsToTrigger.Add(((Trigger)Collidable).ModelRef);
+                    }
                 }
 			}
 			else
@@ -333,13 +348,14 @@ namespace Physics
 				p.NextVelocity = p.PotientialVelocity;
 
 			}
-
+            return trigger;
 		}
 
 		private List<Collidable> CollisionChain = new List<Collidable>();
-		private void checkCollisions(Point p, float time)
+		private bool checkCollisions(Point p, float time)
 		{
 			CollisionChain.Clear();
+            bool trigger = false;
 			bool Collision = false;
 			Collidable Collidable = null;
 			float CollisionU = float.MaxValue;
@@ -387,6 +403,13 @@ namespace Physics
 
 				// sliding physics second half
 				slide(p, time * (1 - CollisionU), Collidable);
+
+                if(Collidable is Trigger) {
+                    trigger = true;
+                    if(!_eventsToTrigger.Contains(((Trigger)Collidable).ModelRef)) {
+                        _eventsToTrigger.Add(((Trigger)Collidable).ModelRef);
+                    }
+                }
 			}
 			else
 			{
@@ -396,7 +419,7 @@ namespace Physics
 				p.NextVelocity = p.PotientialVelocity;
 				p.LastCollision = null;
 			}
-
+            return trigger;
 		}
 
 		private void slide(Point p, float time, Collidable s)

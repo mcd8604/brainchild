@@ -10,7 +10,7 @@ namespace Project_blob
         {
         }
 
-        public void PerformEvent()
+        public void PerformEvent(GameState.GameplayScreen gameRef)
         {
         }
     }

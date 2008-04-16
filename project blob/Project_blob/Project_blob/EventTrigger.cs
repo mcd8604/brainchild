@@ -6,6 +6,6 @@ namespace Project_blob
 {
     public interface EventTrigger
     {
-        void PerformEvent();
+        void PerformEvent(GameState.GameplayScreen gameRef);
     }
 }

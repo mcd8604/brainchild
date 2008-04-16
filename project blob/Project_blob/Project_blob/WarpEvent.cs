@@ -17,8 +17,16 @@ namespace Project_blob
             _moveToVel = new Vector3( xVel, yVel, zVel );
         }
 
-        public void PerformEvent()
+        public void PerformEvent(GameState.GameplayScreen gameRef)
         {
+            Vector3[] offsets = new Vector3[gameRef.Player.points.Count];
+            for(int i = 0; i < offsets.Length; i++) {
+                offsets[i] = gameRef.Player.points[i].CurrentPosition - gameRef.Player.getCenter();
+            }
+            for(int j = 0; j < offsets.Length; j++) {
+                gameRef.Player.points[j].CurrentPosition = offsets[j] + _moveToPos;
+                gameRef.Player.points[j].CurrentVelocity = _moveToVel;
+            }
         }
     }
 }
