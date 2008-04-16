@@ -216,7 +216,7 @@ namespace Project_blob
                     this._collidables.AddRange(colls);
 
                     //temporary material stuff
-                    foreach (CollidableTri c in colls)
+                    foreach (Collidable c in colls)
                     {
                         Physics.Material m;
                         if (dm.TextureKey.TextureName.Equals("sticky"))
@@ -231,7 +231,10 @@ namespace Project_blob
                         {
                             m = Physics.Material.getDefaultMaterial();
                         }
-                        c.setMaterial(m);
+                        if (c is CollidableTri)
+                        {
+                            ((CollidableTri)c).setMaterial(m);
+                        }
                     }
                 }
             }
