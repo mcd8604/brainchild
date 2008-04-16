@@ -121,6 +121,9 @@ namespace Physics
 
 		public void ApplyForces()
 		{
+			// A spring where both ends are at the same location is invalid
+			// therefore, by the Ostrich algorithm, I throw an exception
+			// let me know if you get this.
 			if (A.CurrentPosition == B.CurrentPosition || A.PotientialPosition == B.PotientialPosition)
 			{
 				throw new Exception("Invalid Spring State");
