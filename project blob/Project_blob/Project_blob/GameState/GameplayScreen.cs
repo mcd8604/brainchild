@@ -325,8 +325,8 @@ namespace Project_blob.GameState
                 physicsTime.Start();
                 physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
                 physicsTime.Stop();
-                if(((PhysicsSeq)physics).EventCollision) {
-                    foreach(String str in ((PhysicsSeq)physics).EventsToTrigger) {
+                if(((PhysicsParallel)physics).PhysicsMain.EventCollision) {
+                    foreach(String str in ((PhysicsParallel)physics).PhysicsMain.EventsToTrigger) {
                         currentArea.Events[str].PerformEvent(this);
                     }
                 }

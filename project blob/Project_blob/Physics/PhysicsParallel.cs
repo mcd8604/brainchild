@@ -4,10 +4,11 @@ using System.Text;
 
 namespace Physics
 {
-	class PhysicsParallel : PhysicsManager
+	public class PhysicsParallel : PhysicsManager
 	{
 
-		PhysicsSeq physicsMain;
+		private PhysicsSeq physicsMain;
+        public PhysicsSeq PhysicsMain { get { return physicsMain; } }
 
 		System.Threading.Thread WorkerThread;
 
