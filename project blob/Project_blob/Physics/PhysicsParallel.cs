@@ -58,7 +58,6 @@ namespace Physics
 
 			runForTime = TotalElapsedSeconds;
 			lock (this) System.Threading.Monitor.Pulse(this);
-
 		}
 
 		public override void stop() {

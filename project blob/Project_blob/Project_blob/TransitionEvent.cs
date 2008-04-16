@@ -16,7 +16,7 @@ namespace Project_blob
             _position = new Vector3(xPos, yPos, zPos);
         }
 
-        public void PerformEvent()
+        public void PerformEvent(GameState.GameplayScreen gameRef)
         {
         }
     }

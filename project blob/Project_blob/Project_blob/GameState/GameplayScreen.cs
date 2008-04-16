@@ -9,19 +9,21 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using System.Collections;
-
 using Engine;
+using Physics;
 
 namespace Project_blob.GameState
 {
-    class GameplayScreen : GameScreen
+    public class GameplayScreen : GameScreen
     {
         ContentManager content;
         SpriteBatch spriteBatch;
 
         Model blobModel;
 
-        Blob theBlob;
+        private Blob theBlob;
+        public Blob Player { get { return theBlob; } }
+
         Vector3 blobStartPosition = new Vector3(-30, 10, -40);
         Texture blobTexture;
 
@@ -318,12 +320,16 @@ namespace Project_blob.GameState
         {
 
 
-            if (!paused)
-            {
+            if(!paused) {
                 physicsTime.Reset();
                 physicsTime.Start();
                 physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
                 physicsTime.Stop();
+                if(((PhysicsSeq)physics).EventCollision) {
+                    foreach(String str in ((PhysicsSeq)physics).EventsToTrigger) {
+                        currentArea.Events[str].PerformEvent(this);
+                    }
+                }
             }
 
             //Update Camera
