@@ -138,6 +138,9 @@ namespace Project_blob
         }
 
         public void AddEvent(String eventName, EventTrigger eventTrigger) {
+            if(_events == null) {
+                _events = new Dictionary<string, EventTrigger>();
+            }
             if(!_events.ContainsKey(eventName)) {
                 _events.Add(eventName, eventTrigger);
             }
