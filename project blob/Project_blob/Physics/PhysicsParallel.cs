@@ -4,17 +4,16 @@ using System.Text;
 
 namespace Physics
 {
-	public class PhysicsParallel : PhysicsManager
+	class PhysicsParallel : PhysicsManager
 	{
 
 		private PhysicsSeq physicsMain;
-        public PhysicsSeq PhysicsMain { get { return physicsMain; } }
 
-		System.Threading.Thread WorkerThread;
+		private System.Threading.Thread WorkerThread;
 
-		float runForTime = 0f;
+		private float runForTime = 0f;
 
-		bool run = true;
+		private bool run = true;
 
 		public PhysicsParallel()
 		{
@@ -28,6 +27,10 @@ namespace Physics
 					do
 					{
 						lock (this) System.Threading.Monitor.Wait(this);
+						if (!run)
+						{
+							return;
+						}
 					} while (runForTime == 0f);
 					try
 					{
@@ -65,7 +68,7 @@ namespace Physics
 
 			run = false;
 			physicsMain = null;
-			WorkerThread.Abort();
+			lock (this) System.Threading.Monitor.Pulse(this);
 
 		}
 
