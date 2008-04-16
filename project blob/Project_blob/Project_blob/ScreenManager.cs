@@ -51,9 +51,8 @@ namespace Project_blob
         public ScreenManager()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferMultiSampling = true;
             Content.RootDirectory = "Content";
-
-
 
             AddScreen(new MainMenuScreen());
         }
@@ -63,6 +62,11 @@ namespace Project_blob
             InputHandler.LoadDefaultBindings();
 
             GraphicsDevice.RenderState.PointSize = 5;
+            GraphicsDevice.PresentationParameters.MultiSampleType = MultiSampleType.SixteenSamples;
+            GraphicsDevice.PresentationParameters.MultiSampleQuality = 8;
+            GraphicsDevice.RenderState.MultiSampleAntiAlias = true;
+            GraphicsDevice.RenderState.Wrap0 = TextureWrapCoordinates.Three;
+            graphics.ApplyChanges();
 
             base.Initialize();
 
