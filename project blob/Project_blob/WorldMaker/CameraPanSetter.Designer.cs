@@ -47,11 +47,13 @@ namespace WorldMaker
             this.yUpLabel = new System.Windows.Forms.Label();
             this.yUpText = new System.Windows.Forms.TextBox();
             this.zUpLabel = new System.Windows.Forms.Label();
-            this.zUptext = new System.Windows.Forms.TextBox();
+            this.zUpText = new System.Windows.Forms.TextBox();
             this.editButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
             this.runButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.doneButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pointBox
@@ -60,7 +62,7 @@ namespace WorldMaker
             this.pointBox.FormattingEnabled = true;
             this.pointBox.Location = new System.Drawing.Point(12, 30);
             this.pointBox.Name = "pointBox";
-            this.pointBox.Size = new System.Drawing.Size(145, 173);
+            this.pointBox.Size = new System.Drawing.Size(145, 251);
             this.pointBox.TabIndex = 0;
             this.pointBox.SelectedIndexChanged += new System.EventHandler(this.pointBox_SelectedIndexChanged);
             // 
@@ -220,12 +222,12 @@ namespace WorldMaker
             this.zUpLabel.TabIndex = 18;
             this.zUpLabel.Text = "Z Up";
             // 
-            // zUptext
+            // zUpText
             // 
-            this.zUptext.Location = new System.Drawing.Point(618, 103);
-            this.zUptext.Name = "zUptext";
-            this.zUptext.Size = new System.Drawing.Size(100, 20);
-            this.zUptext.TabIndex = 19;
+            this.zUpText.Location = new System.Drawing.Point(618, 103);
+            this.zUpText.Name = "zUpText";
+            this.zUpText.Size = new System.Drawing.Size(100, 20);
+            this.zUpText.TabIndex = 19;
             // 
             // editButton
             // 
@@ -271,16 +273,40 @@ namespace WorldMaker
             this.runButton.UseVisualStyleBackColor = true;
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
+            // cancelButton
+            // 
+            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelButton.Location = new System.Drawing.Point(591, 219);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(127, 60);
+            this.cancelButton.TabIndex = 24;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
+            // doneButton
+            // 
+            this.doneButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.doneButton.Location = new System.Drawing.Point(446, 219);
+            this.doneButton.Name = "doneButton";
+            this.doneButton.Size = new System.Drawing.Size(127, 60);
+            this.doneButton.TabIndex = 25;
+            this.doneButton.Text = "Done";
+            this.doneButton.UseVisualStyleBackColor = true;
+            this.doneButton.Click += new System.EventHandler(this.doneButton_Click);
+            // 
             // CameraPanSetter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(730, 211);
+            this.ClientSize = new System.Drawing.Size(730, 294);
+            this.Controls.Add(this.doneButton);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.runButton);
             this.Controls.Add(this.removeButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.editButton);
-            this.Controls.Add(this.zUptext);
+            this.Controls.Add(this.zUpText);
             this.Controls.Add(this.zUpLabel);
             this.Controls.Add(this.yUpText);
             this.Controls.Add(this.yUpLabel);
@@ -328,10 +354,12 @@ namespace WorldMaker
         private System.Windows.Forms.Label yUpLabel;
         private System.Windows.Forms.TextBox yUpText;
         private System.Windows.Forms.Label zUpLabel;
-        private System.Windows.Forms.TextBox zUptext;
+        private System.Windows.Forms.TextBox zUpText;
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.Button runButton;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button doneButton;
     }
 }
