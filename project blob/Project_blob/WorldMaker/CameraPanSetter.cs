@@ -14,5 +14,30 @@ namespace WorldMaker
         {
             InitializeComponent();
         }
+
+        private void runButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void removeButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pointBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
