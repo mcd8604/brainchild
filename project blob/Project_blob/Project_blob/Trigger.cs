@@ -108,7 +108,10 @@ namespace Project_blob
         public override bool shouldPhysicsBlock(Physics.Point p)
         {
             // Do the event
-            eventTriggers.Add(_modelRef);
+            if (!eventTriggers.Contains(_modelRef))
+            {
+                eventTriggers.Add(_modelRef);
+            }
             return false;
         }
 
