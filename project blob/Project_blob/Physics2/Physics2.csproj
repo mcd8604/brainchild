@@ -56,8 +56,13 @@
   <ItemGroup>
     <Compile Include="Actor.cs" />
     <Compile Include="Body.cs" />
+    <Compile Include="BodyPressure.cs" />
+    <Compile Include="BodyStatic.cs" />
     <Compile Include="Collidable.cs" />
+    <Compile Include="CollidableStatic.cs" />
+    <Compile Include="Material.cs" />
     <Compile Include="Mover.cs" />
+    <Compile Include="PhysicsManager.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Task.cs" />
