@@ -1,6 +1,27 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+
 namespace Physics2
 {
-	public abstract class BodyStatic : Body
+	public class BodyStatic : Body
 	{
+
+        public new List<CollidableStatic> collidables = new List<CollidableStatic>();
+
+        public new List<BodyStatic> childBodies = null;
+
+        public new AxisAlignedBoundingBox boundingBox = new AxisAlignedBoundingBox();
+
+        public BodyStatic() { }
+
+        public BodyStatic(Body ParentBody)
+            :base(ParentBody)
+        {}
+
+        public override void update()
+        {}
+        public override void updatePosition()
+        { }
+
 	}
 }

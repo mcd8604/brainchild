@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace Physics
+namespace Physics2
 {
     public class Spring : Mover
     {
@@ -119,7 +119,7 @@ namespace Physics
             return force / 2f;
         }
 
-        public void ApplyForces()
+        public void update()
         {
             // A spring where both ends are at the same location is invalid
             // therefore, by the Ostrich algorithm, I throw an exception
