@@ -220,6 +220,8 @@ namespace Project_blob
             }
         }
 
+        public override void TriggerEvents() { }
+
 
         #region Drawable Members
 
