@@ -160,5 +160,7 @@ namespace Physics
         {
             myMaterial = m;
         }
+
+        public override void TriggerEvents() { }
     }
 }

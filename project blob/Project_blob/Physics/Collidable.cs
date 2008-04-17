@@ -69,6 +69,8 @@ namespace Physics
 			return Material.getDefaultMaterial();
 		}
 
+        public abstract void TriggerEvents();
+
 		//public abstract Vector3[] getCollisionVerticies();
 		public abstract Vector3[] getNextCollisionVerticies();
 

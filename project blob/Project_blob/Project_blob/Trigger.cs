@@ -173,7 +173,7 @@ namespace Project_blob
             myMaterial = m;
         }
 
-        public static void runEvents()
+        public override void TriggerEvents()
         {
             foreach (EventTrigger triggered in Events)
             {

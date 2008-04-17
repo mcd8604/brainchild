@@ -6,16 +6,7 @@ namespace Physics
 {
 	public class PhysicsSeq : PhysicsManager
 	{
-        //private List<String> _eventsToTrigger;
-        //public List<String> EventsToTrigger { get { return _eventsToTrigger; } }
-
-        //private bool _eventCollision;
-        //public bool EventCollision { get { return _eventCollision; } }
-
-        //public PhysicsSeq() {
-        //    _eventsToTrigger = new List<String>();
-        //    _eventCollision = false;
-        //}
+        private List<Collidable> _eventsToTrigger = new List<Collidable>();
 
 		private Player player = new Player();
 		public override Player Player
@@ -98,7 +89,6 @@ namespace Physics
 			{
 				p.updatePosition();
 			}
-            
 		}
 
 		internal void doPhysics(float TotalElapsedSeconds)
@@ -163,6 +153,10 @@ namespace Physics
                 //}
 			}
             //return temp;
+            foreach (Collidable c in _eventsToTrigger)
+            {
+                c.TriggerEvents();
+            }
 		}
 
 		private void fall(Point p, float time)
@@ -291,6 +285,8 @@ namespace Physics
 					//Vector3 li;
 					//float lu = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, lx[0], lx[1], lx[2], out li);
 
+                    _eventsToTrigger.Add(c);
+
 					c.test(p);
 
 					Vector3[] x = c.getNextCollisionVerticies();
@@ -363,6 +359,8 @@ namespace Physics
 			{
 				if (c.couldIntersect(p))
 				{
+                    _eventsToTrigger.Add(c);
+
 					float u = c.didIntersect(p.CurrentPosition, p.PotientialPosition);
 					// If Collision ( u < 1 ) - Split Time and redo
 					if (u < 1)
