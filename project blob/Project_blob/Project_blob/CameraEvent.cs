@@ -10,7 +10,7 @@ namespace Project_blob
         {
         }
 
-        public void PerformEvent(GameState.GameplayScreen gameRef)
+		public void PerformEvent(Physics.Point trigger)
         {
         }
     }

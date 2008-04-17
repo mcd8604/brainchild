@@ -12,8 +12,6 @@ namespace Project_blob
         private String _modelRef;
         public String ModelRef { get { return _modelRef; } }
 
-        public static List<String> eventTriggers = new List<String>();
-
         internal Plane myPlane;
 
 		internal Vector3[] vertices;
@@ -108,10 +106,8 @@ namespace Project_blob
         public override bool shouldPhysicsBlock(Physics.Point p)
         {
             // Do the event
-            if (!eventTriggers.Contains(_modelRef))
-            {
-                eventTriggers.Add(_modelRef);
-            }
+            //GameplayScreen.currentArea.Events[_modelRef].PerformEvent(GameplayScreen._gameInstance);
+			GameplayScreen.currentArea.Events[_modelRef].PerformEvent(p);
             return false;
         }
 

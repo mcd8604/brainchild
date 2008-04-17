@@ -9,7 +9,7 @@ namespace Physics
 
 		public enum ParallelSetting { Always, Automatic, Never };
 
-		public static ParallelSetting enableParallel = ParallelSetting.Never;
+		public static ParallelSetting enableParallel = ParallelSetting.Automatic;
 
 		public static PhysicsManager getInstance()
 		{
