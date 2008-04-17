@@ -156,7 +156,7 @@ namespace Project_blob.GameState
 			resetBlob();
 
 			//load default level
-			Level.LoadLevel("playground", "effects");
+			Level.LoadLevel("Transitor", "effects");
 
 			//List of Static Drawables to add to Scene
 			List<Drawable> staticDrawables = new List<Drawable>();
@@ -310,6 +310,18 @@ namespace Project_blob.GameState
 			// TODO: Unload any non ContentManager content here
 		}
 
+        public void ChangeArea(String area, Vector3 position)
+        {
+            currentArea = Level.Areas[area];
+            currentArea.Display.WorldParameterName = "xWorld";
+            currentArea.Display.TextureParameterName = "xTexture";
+            currentArea.LoadAreaGameplay(ScreenManager);
+            blobStartPosition = position;
+            List<Drawable> temp = currentArea.getDrawableList();
+            SceneManager.getSingleton.BuildOctree(ref temp);
+            resetBlob();
+        }
+
 		/// <summary>
 		/// Allows the game to run logic such as updating the world,
 		/// checking for collisions, gathering input, and playing audio.
@@ -328,13 +340,14 @@ namespace Project_blob.GameState
                     physicsTime.Start();
                     physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
                     physicsTime.Stop();
-					//if (Trigger.eventTriggers.Count != 0)
-					//{
-					//    foreach (String str in Trigger.eventTriggers)
-					//    {
-					//        currentArea.Events[str].PerformEvent(this);
-					//    }
-					//}
+                    if (Trigger.eventTriggers.Count != 0)
+                    {
+                        foreach (String str in Trigger.eventTriggers)
+                        {
+                            currentArea.Events[str].PerformEvent(this);
+                        }
+                        Trigger.eventTriggers.Clear();
+                    }
                     //if (((PhysicsSeq)physics).EventCollision)
                     //{
                     //    foreach (String str in ((PhysicsSeq)physics).EventsToTrigger)
