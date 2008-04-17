@@ -92,14 +92,13 @@ namespace Physics
 
 		public override void update(float TotalElapsedSeconds)
 		{
-            //_eventsToTrigger.Clear();
-            //_eventCollision = 
             doPhysics(TotalElapsedSeconds);
 
 			foreach (Point p in points)
 			{
 				p.updatePosition();
 			}
+            
 		}
 
 		internal void doPhysics(float TotalElapsedSeconds)
@@ -300,7 +299,6 @@ namespace Physics
 					// If Collision ( u < 1 ) - Split Time and redo
 					if (u > 0 && u < 1 /* && c.inBoundingBox(i)*/)
 					{
-
 						// should physics interact
 						if (c.shouldPhysicsBlock(p))
 						{

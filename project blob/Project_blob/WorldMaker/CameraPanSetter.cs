@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Project_blob;
+using Engine;
 
 namespace WorldMaker
 {
@@ -40,6 +41,29 @@ namespace WorldMaker
             {
                 try
                 {
+                    Vector3 tempPos = new Vector3();
+                    Vector3 tempLook = new Vector3();
+                    Vector3 tempUp = new Vector3();
+
+                    tempPos.X = float.Parse(xPosText.Text);
+                    tempPos.Y = float.Parse(yPosText.Text);
+                    tempPos.Z = float.Parse(zPosText.Text);
+
+                    tempLook.X = float.Parse(xLookText.Text);
+                    tempLook.Y = float.Parse(yLookText.Text);
+                    tempLook.Z = float.Parse(zLookText.Text);
+
+                    tempUp.X = float.Parse(xUpText.Text);
+                    tempUp.Y = float.Parse(yUpText.Text);
+                    tempUp.Z = float.Parse(zUpText.Text);
+
+                    _cameraPos.Remove((String)pointBox.Items[pointBox.SelectedIndex]);
+                    _cameraLooks.Remove((String)pointBox.Items[pointBox.SelectedIndex]);
+                    _cameraUps.Remove((String)pointBox.Items[pointBox.SelectedIndex]);
+
+                    _cameraPos.Add((String)pointBox.Items[pointBox.SelectedIndex], tempPos);
+                    _cameraLooks.Add((String)pointBox.Items[pointBox.SelectedIndex], tempLook);
+                    _cameraUps.Add((String)pointBox.Items[pointBox.SelectedIndex], tempUp);
                 }
                 catch (Exception)
                 {
@@ -125,7 +149,7 @@ namespace WorldMaker
 
         private void pointBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

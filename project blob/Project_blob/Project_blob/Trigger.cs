@@ -9,10 +9,10 @@ namespace Project_blob
 {
     public class Trigger : Physics.Collidable
     {
-        private String _modelRef;
-        public String ModelRef { get { return _modelRef; } }
+        private EventTrigger _triggeredEvent;
+        public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }
 
-        public static List<String> eventTriggers = new List<String>();
+        public static List<EventTrigger> Events = new List<EventTrigger>();
 
         internal Plane myPlane;
 
@@ -22,10 +22,10 @@ namespace Project_blob
 
         internal Physics.AxisAlignedBoundingBox myBoundingBox;
 
-        public Trigger(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3, String modelRef)
+        public Trigger(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3, EventTrigger triggeredEvent)
             :base(null)
 		{
-            _modelRef = modelRef;
+            _triggeredEvent = triggeredEvent;
 
 			vertices = new Vector3[3];
 
@@ -107,10 +107,9 @@ namespace Project_blob
 
         public override bool shouldPhysicsBlock(Physics.Point p)
         {
-            // Do the event
-            if (!eventTriggers.Contains(_modelRef))
+            if (!Events.Contains(TriggeredEvent))
             {
-                eventTriggers.Add(_modelRef);
+                Events.Add(TriggeredEvent);
             }
             return false;
         }
@@ -172,6 +171,15 @@ namespace Project_blob
         public void setMaterial(Physics.Material m) 
         {
             myMaterial = m;
+        }
+
+        public static void runEvents()
+        {
+            foreach (EventTrigger triggered in Events)
+            {
+                triggered.PerformEvent(GameplayScreen.game);
+            }
+            Events.Clear();
         }
     }
 }

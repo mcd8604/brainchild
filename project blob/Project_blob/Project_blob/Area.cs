@@ -201,7 +201,7 @@ namespace Project_blob
                         }
                     }
 
-                    List<Physics.Collidable> colls = dm.createCollidables();
+                    List<Physics.Collidable> colls = dm.createCollidables(this);
 
                     this._collidables.AddRange(colls);
 

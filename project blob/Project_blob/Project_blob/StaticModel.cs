@@ -38,7 +38,7 @@ namespace Project_blob
 
         //[NonSerialized]
         //private List<Physics.Collidable> m_collidables;
-        public List<Physics.Collidable> createCollidables()
+        public List<Physics.Collidable> createCollidables(Area areaRef)
         {
             Model m = ModelManager.getSingleton.GetModel(_modelName);
             List<Physics.Collidable> collidables = new List<Physics.Collidable>();
@@ -118,7 +118,7 @@ namespace Project_blob
                     {
                         if(vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position) {
                             if(m_TextureKey.TextureName.Equals("event")) {
-                                collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], Name));
+                                collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
                             } else {
                                 collidables.Add(new CollidableTri(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]]));
                             }
