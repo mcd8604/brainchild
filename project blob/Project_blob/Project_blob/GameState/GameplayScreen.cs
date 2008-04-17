@@ -334,6 +334,7 @@ namespace Project_blob.GameState
                         {
                             currentArea.Events[str].PerformEvent(this);
                         }
+                        Trigger.eventTriggers.Clear();
                     }
                     //if (((PhysicsSeq)physics).EventCollision)
                     //{
