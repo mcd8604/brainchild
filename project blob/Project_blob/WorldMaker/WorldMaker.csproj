@@ -138,6 +138,10 @@
     </NestedContentProject>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CameraPanSetter.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CameraPanSetter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EventSelector.resx">
       <SubType>Designer</SubType>
       <DependentUpon>EventSelector.cs</DependentUpon>
