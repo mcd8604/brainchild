@@ -344,17 +344,13 @@ namespace Project_blob.GameState
                     {
                         foreach (String str in Trigger.eventTriggers)
                         {
-                            currentArea.Events[str].PerformEvent(this);
+                            if (currentArea.Events.ContainsKey(str))
+                            {
+                                currentArea.Events[str].PerformEvent(this);
+                            }
                         }
                         Trigger.eventTriggers.Clear();
                     }
-                    //if (((PhysicsSeq)physics).EventCollision)
-                    //{
-                    //    foreach (String str in ((PhysicsSeq)physics).EventsToTrigger)
-                    //    {
-                    //        currentArea.Events[str].PerformEvent(this);
-                    //    }
-                    //}
                 }
 
                 //Update Camera

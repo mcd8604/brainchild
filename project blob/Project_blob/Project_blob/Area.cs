@@ -119,16 +119,6 @@ namespace Project_blob
             return null;
         }
 
-        public List<EventTrigger> getEventList() {
-            List<EventTrigger> eventList = new List<EventTrigger>();
-            IEnumerator eventEnum = this.Events.GetEnumerator();
-            while(eventEnum.MoveNext()) {
-                KeyValuePair<String, EventTrigger> kvp = (KeyValuePair<String, EventTrigger>)eventEnum.Current;
-                eventList.Add((EventTrigger)kvp.Value);
-            }
-            return eventList;
-        }
-
         public void RemoveEvent(String eventName) {
             if(_drawables.ContainsKey(eventName)) {
                 EventTrigger tempEvent;
