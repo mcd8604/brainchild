@@ -355,14 +355,18 @@ namespace Project_blob
             if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
                 ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = p_CurrentWorld;
             else
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(p_CurrentWorld);
+            {
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(currentWorld);
+            }
 
             while (drawStack.Count > 0)
             {
                 if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
                     ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = Matrix.Multiply(drawStack.Pop(), ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World);
                 else
+                {
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(Matrix.Multiply(drawStack.Pop(), EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].GetValueMatrix()));
+                }
             }
             _modelTemp = ModelManager.getSingleton.GetModel(d.ModelName);
             if (_modelTemp != null)

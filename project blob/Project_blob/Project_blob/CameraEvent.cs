@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Project_blob.GameState;
 
 namespace Project_blob
 {
@@ -10,7 +11,7 @@ namespace Project_blob
         {
         }
 
-		public void PerformEvent(Physics.Point trigger)
+        public void PerformEvent(GameplayScreen gameRef)
         {
         }
     }

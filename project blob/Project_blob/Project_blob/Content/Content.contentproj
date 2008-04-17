@@ -60,6 +60,10 @@
       <Name>playground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\Transitor.lev">
+      <Name>Transitor</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="Models\blob.FBX">
       <Name>blob</Name>
       <Importer>FbxImporter</Importer>
