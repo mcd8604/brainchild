@@ -57,6 +57,8 @@ namespace Project_blob.GameState
 		int frames = 0;
 		string fps = "";
 
+        public static GameplayScreen game;
+
 		static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
 		//Vector3 cameraPosition = defaultCameraPosition;
 		Vector2 cameraAngle = new Vector2(1f, 0.4f);
@@ -77,6 +79,7 @@ namespace Project_blob.GameState
 
 		public GameplayScreen()
 		{
+            game = this;
 			TransitionOnTime = TimeSpan.FromSeconds(1.5);
 			TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
@@ -363,17 +366,6 @@ namespace Project_blob.GameState
                     physicsTime.Start();
                     physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
                     physicsTime.Stop();
-                    if (Trigger.eventTriggers.Count != 0)
-                    {
-                        foreach (String str in Trigger.eventTriggers)
-                        {
-                            if (currentArea.Events.ContainsKey(str))
-                            {
-                                currentArea.Events[str].PerformEvent(this);
-                            }
-                        }
-                        Trigger.eventTriggers.Clear();
-                    }
                 }
 
                 //Update Camera

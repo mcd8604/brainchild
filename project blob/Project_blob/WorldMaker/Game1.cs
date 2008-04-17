@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using Project_blob;
+using Engine;
 
 namespace WorldMaker
 {
@@ -50,6 +51,8 @@ namespace WorldMaker
             set { _effectName = value; }
         }
 
+        static Matrix tempView, tempProj;
+
         //Effect celshader;
         Matrix worldMatrix;
         Matrix viewMatrix;
@@ -61,6 +64,7 @@ namespace WorldMaker
         public Matrix ViewMatrix
         {
             get { return viewMatrix; }
+            set { viewMatrix = value; }
         }
         public Matrix ProjectionMatrix
         {
@@ -90,6 +94,7 @@ namespace WorldMaker
 
         public Game1()
         {
+            
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             content = new ContentManager(Services);
@@ -253,6 +258,20 @@ namespace WorldMaker
 
                 Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
             }
+
+            BasicCamera camera = new BasicCamera();
+            camera.FieldOfView = MathHelper.ToRadians(45.0f);
+            camera.AspectRatio = (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height;
+            camera.NearPlane = 1.0f;
+            camera.FarPlane = 1000.0f;
+
+            camera.Position = new Vector3(0, 0, -10);
+            camera.Target = Vector3.Zero;
+            camera.Up = Vector3.Up;
+
+            CameraManager.getSingleton.AddCamera("default", camera);
+            CameraManager.getSingleton.SetActiveCamera("default");
+
             _activeArea = Level.Areas["testArea"];
             //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
             VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
