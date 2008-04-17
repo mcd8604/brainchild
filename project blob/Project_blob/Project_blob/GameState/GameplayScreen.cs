@@ -780,6 +780,8 @@ namespace Project_blob.GameState
 
 			spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(600, 30), Color.White);
 
+			spriteBatch.DrawString(font, "PWR: " + physics.PWR, new Vector2(0, 566), Color.White);
+
 			spriteBatch.End();
 
 			//fps

@@ -61,5 +61,13 @@ namespace Physics
 
 		public virtual void stop() { }
 
+		public virtual float PWR
+		{
+			get
+			{
+				return 1f;
+			}
+		}
+
 	}
 }

@@ -22,6 +22,13 @@ namespace Physics
 			Valid = true;
 		}
 
+		public AxisAlignedBoundingBox(ref AxisAlignedBoundingBox cloneFrom)
+		{
+			Max = cloneFrom.Max;
+			Min = cloneFrom.Min;
+			Valid = cloneFrom.Valid;
+		}
+
 		public void clear()
 		{
 			Min = Max = Vector3.Zero;

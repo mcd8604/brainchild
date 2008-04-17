@@ -15,6 +15,24 @@ namespace Physics
 
 		private bool run = true;
 
+		private System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+		private float waitTimeMsec = 0;
+		private float physicsTimeMsec = 0;
+
+		public override float PWR
+		{
+			get
+			{
+				float pwr = physicsTimeMsec / (waitTimeMsec + physicsTimeMsec);
+				if (physicsTimeMsec > 1000 || waitTimeMsec > 1000)
+				{
+					physicsTimeMsec = 0;
+					waitTimeMsec = 0;
+				}
+				return pwr;
+			}
+		}
+
 		public PhysicsParallel()
 		{
 
@@ -22,6 +40,7 @@ namespace Physics
 
 			WorkerThread = new System.Threading.Thread(delegate()
 			{
+				timer.Start();
 				do
 				{
 					do
@@ -32,6 +51,10 @@ namespace Physics
 							return;
 						}
 					} while (runForTime == 0f);
+					timer.Stop();
+					waitTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
+					timer.Reset();
+					timer.Start();
 					try
 					{
 						physicsMain.doPhysics(runForTime);
@@ -41,6 +64,10 @@ namespace Physics
 						Console.WriteLine(ex);
 						break;
 					}
+					timer.Stop();
+					physicsTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
+					timer.Reset();
+					timer.Start();
 					runForTime = 0f;
 				} while (run);
 
