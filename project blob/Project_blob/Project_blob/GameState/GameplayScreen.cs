@@ -328,14 +328,13 @@ namespace Project_blob.GameState
                     physicsTime.Start();
                     physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
                     physicsTime.Stop();
-                    if (Trigger.eventTriggers.Count != 0)
-                    {
-                        foreach (String str in Trigger.eventTriggers)
-                        {
-                            currentArea.Events[str].PerformEvent(this);
-                        }
-                        Trigger.eventTriggers.Clear();
-                    }
+					//if (Trigger.eventTriggers.Count != 0)
+					//{
+					//    foreach (String str in Trigger.eventTriggers)
+					//    {
+					//        currentArea.Events[str].PerformEvent(this);
+					//    }
+					//}
                     //if (((PhysicsSeq)physics).EventCollision)
                     //{
                     //    foreach (String str in ((PhysicsSeq)physics).EventsToTrigger)
