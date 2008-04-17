@@ -335,6 +335,16 @@ namespace Project_blob.GameState
             resetBlob();
         }
 
+        public void SetUpCinematicCamera(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
+        {
+            CinematicCamera cinematicCamera = (CinematicCamera)CameraManager.getSingleton.GetCamera("cinematic");
+            cinematicCamera.Ups = cameraUps;
+            cinematicCamera.Positions = cameraPos;
+            cinematicCamera.LookAts = cameraLooks;
+            cinematicCamera.Running = true;
+            CameraManager.getSingleton.SetActiveCamera("cinematic");
+        }
+
 		/// <summary>
 		/// Allows the game to run logic such as updating the world,
 		/// checking for collisions, gathering input, and playing audio.

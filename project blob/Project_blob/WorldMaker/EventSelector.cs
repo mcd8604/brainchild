@@ -49,7 +49,7 @@ namespace WorldMaker {
                     case Events.CAMERAPAN:
                         _cameraPanSetter = new CameraPanSetter( );
                         _cameraPanSetter.ShowDialog( );
-                        //_eventTrigger = _cameraPanSetter;
+                        _eventTrigger = _cameraPanSetter.CameraPan;
                         break;
                 };
                 if( _eventTrigger != null ) {
