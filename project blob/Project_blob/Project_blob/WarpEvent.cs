@@ -24,8 +24,8 @@ namespace Project_blob
                 offsets[i] = gameRef.Player.points[i].CurrentPosition - gameRef.Player.getCenter();
             }
             for(int j = 0; j < offsets.Length; j++) {
-                gameRef.Player.points[j].NextPosition = offsets[j] + _moveToPos;
-                //gameRef.Player.points[j].PotientialVelocity = _moveToVel;
+                gameRef.Player.points[j].CurrentPosition = offsets[j] + _moveToPos;
+                gameRef.Player.points[j].CurrentVelocity = _moveToVel;
             }
         }
     }

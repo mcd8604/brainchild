@@ -24,9 +24,6 @@ namespace Project_blob.GameState
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
 
-
-        public static GameplayScreen _gameInstance = null;
-
 		Vector3 blobStartPosition = new Vector3(-30, 10, -40);
 		Texture blobTexture;
 
@@ -80,7 +77,6 @@ namespace Project_blob.GameState
 
 		public GameplayScreen()
 		{
-            _gameInstance = this;
 			TransitionOnTime = TimeSpan.FromSeconds(1.5);
 			TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
@@ -332,6 +328,13 @@ namespace Project_blob.GameState
                     physicsTime.Start();
                     physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
                     physicsTime.Stop();
+                    if (Trigger.eventTriggers.Count != 0)
+                    {
+                        foreach (String str in Trigger.eventTriggers)
+                        {
+                            currentArea.Events[str].PerformEvent(this);
+                        }
+                    }
                     //if (((PhysicsSeq)physics).EventCollision)
                     //{
                     //    foreach (String str in ((PhysicsSeq)physics).EventsToTrigger)
