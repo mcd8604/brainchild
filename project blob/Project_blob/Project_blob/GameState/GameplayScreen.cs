@@ -24,7 +24,7 @@ namespace Project_blob.GameState
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
 
-		Vector3 blobStartPosition = new Vector3(-30, 10, -40);
+		Vector3 blobStartPosition = new Vector3(-20, 10, -40);
 		Texture blobTexture;
 
 		Effect effect;
@@ -152,7 +152,7 @@ namespace Project_blob.GameState
 			//load shaders
 			celEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Cel");
 
-			blobModel = ScreenManager.Content.Load<Model>(@"Models\\blob");
+			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
 
 			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\point_text");
 
@@ -704,7 +704,30 @@ namespace Project_blob.GameState
 					ScreenManager.GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, theBlob.points.Count);
 					pass.End();
 				}
-				effect.End();
+                effect.End();
+
+                // Velocity Vectors			
+                VertexPositionColor[] vectorVertices = new VertexPositionColor[theBlob.points.Count * 2];
+                
+                for(int i = 0; i < theBlob.points.Count; i++)
+                {
+                    vectorVertices[i * 2] = (new VertexPositionColor(theBlob.points[i].CurrentPosition, Color.Red));
+                    vectorVertices[(i * 2) + 1] = (new VertexPositionColor(theBlob.points[i].CurrentPosition + theBlob.points[i].CurrentVelocity, Color.Pink));
+                }
+                VertexBuffer vectorVertexBuffer = new VertexBuffer(ScreenManager.GraphicsDevice, VertexPositionColor.SizeInBytes * vectorVertices.Length, BufferUsage.None);
+                vectorVertexBuffer.SetData<VertexPositionColor>(vectorVertices);
+
+                ScreenManager.GraphicsDevice.Vertices[0].SetSource(vectorVertexBuffer, 0, VertexPositionColor.SizeInBytes * vectorVertices.Length);
+                
+                effect.Begin();
+                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                {
+                    pass.Begin();
+                    ScreenManager.GraphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, theBlob.points.Count);
+                    pass.End();
+                }
+                effect.End();
+
 			}
 
 
