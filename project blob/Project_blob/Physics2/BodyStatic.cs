@@ -18,7 +18,7 @@ namespace Physics2
             :base(ParentBody)
         {}
 
-        public override void update()
+        public override void update(float TotalElapsedSeconds)
         {}
         public override void updatePosition()
         { }

@@ -10,6 +10,7 @@ namespace Physics2
         public List<Point> points = new List<Point>();
         public List<Collidable> collidables = new List<Collidable>();
         public List<Spring> springs = new List<Spring>();
+        public List<Task> tasks = new List<Task>();
 
         public Body parentBody = null;
         public List<Body> childBodies = null;
@@ -48,6 +49,11 @@ namespace Physics2
             return center;
         }
 
+        public virtual Vector3 getPotientialCenter()
+        {
+            return center;
+        }
+
         public virtual IEnumerable<Collidable> getCollidables()
         {
             return collidables;
@@ -63,13 +69,30 @@ namespace Physics2
             return springs;
         }
 
-        public virtual void update()
+        public virtual void update(float TotalElapsedSeconds)
         {
+
+            foreach (Body b in childBodies)
+            {
+                b.update(TotalElapsedSeconds);
+            }
 
             // Predict potiential position
             foreach (Point p in points)
             {
-                //p.PotientialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+                p.PotientialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+            }
+
+            // Springs
+            foreach (Spring s in springs)
+            {
+                s.update();
+            }
+
+            //Tasks
+            foreach (Task t in tasks)
+            {
+                t.update();
             }
 
         }
@@ -80,7 +103,7 @@ namespace Physics2
             boundingBox.clear();
             foreach (Body child in childBodies)
             {
-                child.update();
+                child.updatePosition();
                 boundingBox.expandToInclude(child.getBoundingBox());
             }
 

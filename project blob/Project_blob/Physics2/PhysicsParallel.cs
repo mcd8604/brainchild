@@ -84,7 +84,7 @@ namespace Physics2
 
 			foreach (Body b in physicsMain.bodies)
 			{
-				b.update();
+				b.update(TotalElapsedSeconds);
 			}
 
 			runForTime = TotalElapsedSeconds;

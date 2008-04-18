@@ -22,7 +22,7 @@ namespace Physics2
 
         public abstract void onCollision(Point p);
 
-        public abstract void update();
+        public abstract void update(float TotalElapsedSeconds);
 
 	}
 }
