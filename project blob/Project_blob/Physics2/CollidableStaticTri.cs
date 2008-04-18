@@ -35,7 +35,7 @@ namespace Physics2
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public override void update()
+        public override void update(float TotalElapsedSeconds)
         {
             throw new Exception("The method or operation is not implemented.");
         }

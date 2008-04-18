@@ -3,7 +3,7 @@ namespace Physics2
 	interface Actor
 	{
 
-        void update();
+        void update(float TotalElapsedSeconds);
 
 	}
 }

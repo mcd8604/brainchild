@@ -68,7 +68,7 @@ namespace Physics2
             // Predict potiential position
             foreach (Body b in bodies)
             {
-                b.update();
+                b.update(TotalElapsedSeconds);
             }
 
         }
