@@ -46,6 +46,13 @@ namespace Engine
             set { _lerpSpeed = value; }
         }
 
+        private bool _finishedCinematics = false;
+        public bool FinishedCinematics
+        {
+            get { return _finishedCinematics; }
+            set { _finishedCinematics = value; }
+        }
+
         public CinematicCamera()
         {
             _positions = new List<Vector3>();
@@ -57,21 +64,29 @@ namespace Engine
         {
             //base.Update(gameTime);
 
-            if (_running && (_currentIndex < _positions.Count - 1))
+            if (_running)// && (_currentIndex < _positions.Count - 1))
             {
-                //Run cinematics
-                Position = Vector3.Lerp(_positions[_currentIndex], _positions[_currentIndex + 1], _lerpAmt);
-                Target = Vector3.Lerp(_lookAts[_currentIndex], _lookAts[_currentIndex + 1], _lerpAmt);
-                Up = Vector3.Lerp(_ups[_currentIndex], _ups[_currentIndex + 1], _lerpAmt);
-
-                UpdateMatrices();
-
-                _lerpAmt += _lerpSpeed;
-
-                if (_lerpAmt >= 1.0f)
+                if (_currentIndex < _positions.Count - 1)
                 {
-                    ++_currentIndex;
-                    _lerpAmt = 0.0f;
+                    //Run cinematics
+                    Position = Vector3.Lerp(_positions[_currentIndex], _positions[_currentIndex + 1], _lerpAmt);
+                    Target = Vector3.Lerp(_lookAts[_currentIndex], _lookAts[_currentIndex + 1], _lerpAmt);
+                    Up = Vector3.Lerp(_ups[_currentIndex], _ups[_currentIndex + 1], _lerpAmt);
+
+                    UpdateMatrices();
+
+                    _lerpAmt += _lerpSpeed;
+
+                    if (_lerpAmt >= 1.0f)
+                    {
+                        ++_currentIndex;
+                        _lerpAmt = 0.0f;
+                    }
+                }
+                else
+                {
+                    _running = false;
+                    _finishedCinematics = true;
                 }
             }
         }
