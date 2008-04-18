@@ -1,0 +1,17 @@
+video
+
+-fullscreen
+-anti-aliasing
+-shader
+-screen size (low priority)
+
+audio
+
+-master volume
+
+system
+
+-multithreading (PhysicsManager.enableParallel)
+
+controls (low priority)
+
