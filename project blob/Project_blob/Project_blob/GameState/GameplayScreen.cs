@@ -151,7 +151,7 @@ namespace Project_blob.GameState
 			//load shaders
 			celEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Cel");
 
-			blobModel = ScreenManager.Content.Load<Model>(@"Models\\blob");
+			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
 
 			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\point_text");
 
