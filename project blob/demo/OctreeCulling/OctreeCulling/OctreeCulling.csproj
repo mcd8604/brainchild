@@ -66,6 +66,7 @@
     <Compile Include="InputHandler.cs" />
     <Compile Include="Octree.cs" />
     <Compile Include="OctreeLeaf.cs" />
+    <Compile Include="Portal.cs" />
     <Compile Include="PortalScene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

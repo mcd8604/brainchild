@@ -90,7 +90,7 @@ namespace OctreeCulling
             CreateBoundingSphere();
         }
 
-        public Cube(Vector3 size, Vector3 position, BasicEffect effect, GraphicsDeviceManager graphics, int sectorNum)
+        public Cube(Vector3 size, Vector3 position, BasicEffect effect, GraphicsDeviceManager graphics, List<int> sectorNums)
         {
             Effect = effect;
             Graphics = graphics;
@@ -98,7 +98,7 @@ namespace OctreeCulling
             Position = position;
             Scale = size;
 
-            SectorNum = sectorNum;
+            SectorNums = sectorNums;
 
             _rectangleTransform = Matrix.CreateTranslation(position);
 
