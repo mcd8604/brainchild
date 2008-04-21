@@ -28,6 +28,13 @@ namespace OctreeCulling
             set { _worldBox = value; }
         }
 
+		private Sector _currSector;
+		public Sector CurrSector
+		{
+			get { return _currSector; }
+			set { _currSector = value; }
+		}
+
         public PortalScene()
         {
             _sectors = new SortedDictionary<int, Sector>();
@@ -37,15 +44,22 @@ namespace OctreeCulling
         {
             foreach (SceneObject obj in scene)
             {
-                if (_sectors.ContainsKey(obj.SectorNum))
-                {
-                    _sectors[obj.SectorNum].AddObjectToSector(obj);
-                }
-                else
-                {
-                    _sectors.Add(obj.SectorNum, new Sector());
-                    _sectors[obj.SectorNum].AddObjectToSector(obj);
-                }
+				foreach (int sectorNum in obj.SectorNums)
+				{
+					if(_sectors.ContainsKey(sectorNum))
+					//if (_sectors.ContainsKey(obj.SectorNums))
+					{
+						_sectors[sectorNum].AddObjectToSector(obj);
+						//_sectors[obj.SectorNums].AddObjectToSector(obj);
+					}
+					else
+					{
+						_sectors.Add(sectorNum, new Sector());
+						_sectors[sectorNum].AddObjectToSector(obj);
+						//_sectors.Add(obj.SectorNums, new Sector());
+						//_sectors[obj.SectorNums].AddObjectToSector(obj);
+					}
+				}
 
                 _worldBox = BoundingBox.CreateMerged(_worldBox, obj.GetBoundingBoxTransformed());
             }
@@ -64,6 +78,8 @@ namespace OctreeCulling
                     break;
                 }
             }
+
+			//_currSector.DrawVisible(gameTime);
         }
 
         public void Draw(GameTime gameTime)

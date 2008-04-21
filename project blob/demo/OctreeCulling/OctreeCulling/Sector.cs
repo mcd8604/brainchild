@@ -14,6 +14,13 @@ namespace OctreeCulling
             set { _sectorObjects = value; }
         }
 
+		private List<Portal> _portals;
+		public List<Portal> Portals
+		{
+			get { return _portals; }
+			set { _portals = value; }
+		}
+
         private BoundingBox _containerBox;
         public BoundingBox ContainerBox
         {

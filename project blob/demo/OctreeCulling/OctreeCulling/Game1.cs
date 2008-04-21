@@ -134,10 +134,12 @@ namespace OctreeCulling
                         //_objects.Add(cube);
                         ////_objects.Add(pyramid);
 
-                        cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics, 1);
+						//cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics, );
+						//cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics, 1);
                         _objects.Add(cube);
 
-                        cube = new Cube(Vector3.One, new Vector3(5 * i + 25, 5 * j + 25, 5 * k + 25), basicEffect, graphics, 2);
+						//cube = new Cube(Vector3.One, new Vector3(5 * i + 25, 5 * j + 25, 5 * k + 25), basicEffect, graphics, );
+						//cube = new Cube(Vector3.One, new Vector3(5 * i + 25, 5 * j + 25, 5 * k + 25), basicEffect, graphics, 2);
                         _objects.Add(cube);
                     }
                     
