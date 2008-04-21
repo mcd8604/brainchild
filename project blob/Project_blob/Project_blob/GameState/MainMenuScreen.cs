@@ -36,17 +36,6 @@ namespace Project_blob.GameState
 
         protected override void OnCancel()
         {
-            const string message = "Are you sure you want to exit?";
-
-            MessageBoxScreen confirmExitMessageBox = new MessageBoxScreen(message);
-
-            confirmExitMessageBox.Accepted += ConfirmExitMessageBoxAccepted;
-
-            ScreenManager.AddScreen(confirmExitMessageBox);
-        }
-
-        void ConfirmExitMessageBoxAccepted(object sender, EventArgs e)
-        {
             ScreenManager.Exit();
         }
     }

@@ -30,18 +30,8 @@ namespace Project_blob.GameState
 
         void QuitGameMenuEntrySelected(object sender, EventArgs e)
         {
-            const string message = "Are you sure you want to quit this game?";
-
-            MessageBoxScreen confirmQuitMessageBox = new MessageBoxScreen(message);
-
-            confirmQuitMessageBox.Accepted += ConfirmQuitMessageBoxAccepted;
-
-            ScreenManager.AddScreen(confirmQuitMessageBox);
-        }
-
-        void ConfirmQuitMessageBoxAccepted(object sender, EventArgs e)
-        {
             LoadingScreen.Load(ScreenManager, false, new MainMenuScreen());
+            
         }
 
         public override void Draw(GameTime gameTime)

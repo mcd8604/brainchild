@@ -76,7 +76,6 @@
     <Compile Include="GameState\MainMenuScreen.cs" />
     <Compile Include="GameState\MenuEntry.cs" />
     <Compile Include="GameState\MenuScreen.cs" />
-    <Compile Include="GameState\MessageBoxScreen.cs" />
     <Compile Include="GameState\PauseMenuScreen.cs" />
     <Compile Include="Octree.cs" />
     <Compile Include="OctreeLeaf.cs" />
