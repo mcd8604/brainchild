@@ -60,7 +60,8 @@ namespace OctreeCulling
 
         public enum SceneGraphType
         {
-            Octree = 0
+            Octree = 0,
+            Portal = 1
         }
 
         private SceneGraphType _graphType = 0;
@@ -70,11 +71,18 @@ namespace OctreeCulling
             set { _graphType = value; }
         }
 
+        private PortalScene _portalScene;
+        public PortalScene PortalScene
+        {
+            get { return _portalScene; }
+            set { _portalScene = value; }
+        }
 
         public SceneManager()
         {
             //_root = new Node();
             _octree = new Octree();
+            _portalScene = new PortalScene();
         }
 
         /*! Returns singleton instance of the SceneManager */
@@ -114,6 +122,17 @@ namespace OctreeCulling
                     _octree.Draw(gameTime);
                 }
             }
+            else if (_graphType == SceneGraphType.Portal)
+            {
+                if (_cull)
+                {
+                    _portalScene.DrawVisible(gameTime);
+                }
+                else
+                {
+                    _portalScene.Draw(gameTime);
+                }
+            }
         }
 
         public void Distribute(List<SceneObject> scene)
@@ -123,6 +142,10 @@ namespace OctreeCulling
             if (_graphType == SceneGraphType.Octree)
             {
                 _octree.Distribute(scene);
+            }
+            else if (_graphType == SceneGraphType.Portal)
+            {
+                _portalScene.Distribute(scene);
             }
         }
 

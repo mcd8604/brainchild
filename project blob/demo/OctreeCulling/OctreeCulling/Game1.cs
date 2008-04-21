@@ -83,13 +83,13 @@ namespace OctreeCulling
             _listGraphObjects = new List<SceneObject>();
 
             TestCamera camera = new TestCamera(graphics.GraphicsDevice.Viewport);
-            camera.Position = new Vector3(20.0f, 20.0f, -40.0f);
+            camera.Position = new Vector3(0.0f, 10.0f, -40.0f);
             //camera.Position = new Vector3(250.0f, 250.0f, 2000.0f);
             CameraManager.getSingleton.AddCamera("default", camera);
 
             camera = new TestCamera(graphics.GraphicsDevice.Viewport);
             camera.FarPlane = 30.0f;
-            camera.Position = new Vector3(20.0f, 10.0f, 0.0f);
+            camera.Position = new Vector3(0.0f, 0.0f, 0.0f);
             CameraManager.getSingleton.AddCamera("test", camera);
 
             CameraManager.getSingleton.SetActiveCamera("default");
@@ -122,27 +122,33 @@ namespace OctreeCulling
             graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
 
             //Load all objects
-            for (int i = 0; i < 30; ++i)
+            for (int i = 0; i < 2; ++i)//30
             {
-                for (int j = 0; j < 30; ++j)
+                for (int j = 0; j < 2; ++j)//30
                 {
-                    for (int k = 0; k < 30; ++k)
+                    for (int k = 0; k < 2; ++k)//30
                     {
-                        cube = new Cube(Vector3.One, new Vector3(5 * i, 5* j, 5 * k), basicEffect, graphics);
-                        //pyramid = new Pyramid(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics);
+                        //cube = new Cube(Vector3.One, new Vector3(5 * i, 5* j, 5 * k), basicEffect, graphics);
+                        ////pyramid = new Pyramid(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics);
 
+                        //_objects.Add(cube);
+                        ////_objects.Add(pyramid);
+
+                        cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics, 1);
                         _objects.Add(cube);
-                        //_objects.Add(pyramid);
 
-                        //SceneManager.getSingleton.AddObject(cube);
-                        //SceneManager.getSingleton.AddObject(pyramid);
+                        cube = new Cube(Vector3.One, new Vector3(5 * i + 25, 5 * j + 25, 5 * k + 25), basicEffect, graphics, 2);
+                        _objects.Add(cube);
                     }
                     
                 }
 
             }
             _listGraphObjects = new List<SceneObject>(_objects);
-            //OctreeManager.getSingleton.Octree.Distribute(ref _objects);
+
+            //Set scenegraph to Portal structure
+            SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
+
             SceneManager.getSingleton.Distribute(_objects);
             _total = _listGraphObjects.Count;
         }
@@ -450,7 +456,7 @@ namespace OctreeCulling
                 spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
                 spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);
                 spriteBatch.DrawString(font, "Objects Culled: " + culled.ToString(), new Vector2(10.0f, 90.0f), Color.White);
-                spriteBatch.DrawString(font, "Graph Mode: Octree", new Vector2(10.0f, 150.0f), Color.White);
+                spriteBatch.DrawString(font, "Graph Mode: " + SceneManager.getSingleton.GraphType.ToString(), new Vector2(10.0f, 150.0f), Color.White);
             }
             spriteBatch.DrawString(font, "Camera Position: {" +
                 CameraManager.getSingleton.ActiveCamera.Position.X + ", " +
