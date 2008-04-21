@@ -91,7 +91,7 @@ namespace Project_blob
 
 
 			// VertexBuffer
-			/*VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[part.NumVertices];
+			VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[part.NumVertices];
 			mesh.VertexBuffer.GetData<VertexPositionColorTexture>(tempVertices);
            
 			vertices = new VertexPositionNormalTexture[tempVertices.Length];
@@ -99,12 +99,12 @@ namespace Project_blob
 			{
 				Vector3 testNorm = Vector3.Normalize(Vector3.Subtract(tempVertices[i].Position,center));
 				vertices[i] = new VertexPositionNormalTexture(tempVertices[i].Position, testNorm, tempVertices[i].TextureCoordinate);
-			}*/
+			}
 
-			vertices = new VertexPositionNormalTexture[part.NumVertices];
-			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+            /*vertices = new VertexPositionNormalTexture[part.NumVertices];
+            mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);*/
 
-			Hashtable pointTable = new Hashtable(new Physics.PointComparater());
+            Hashtable pointTable = new Hashtable(new Physics.PointComparater());
 
 			// IndexBuffer
 			if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
