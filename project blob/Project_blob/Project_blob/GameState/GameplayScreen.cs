@@ -152,14 +152,14 @@ namespace Project_blob.GameState
 			//load shaders
 			celEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Cel");
 
-			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
+			blobModel = ScreenManager.Content.Load<Model>(@"Models\\blob");
 
 			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\point_text");
 
 			resetBlob();
 
 			//load default level
-			Level.LoadLevel("playground", "effects");
+			Level.LoadLevel("Transitor", "effects");
 
 			//List of Static Drawables to add to Scene
 			List<Drawable> staticDrawables = new List<Drawable>();
