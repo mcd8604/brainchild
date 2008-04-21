@@ -6,7 +6,7 @@ namespace Physics
 {
 	public class PhysicsSeq : PhysicsManager
 	{
-        private List<Collidable> _eventsToTrigger = new List<Collidable>();
+		private List<Collidable> _eventsToTrigger = new List<Collidable>();
 
 		private Player player = new Player();
 		public override Player Player
@@ -83,7 +83,7 @@ namespace Physics
 
 		public override void update(float TotalElapsedSeconds)
 		{
-            doPhysics(TotalElapsedSeconds);
+			doPhysics(TotalElapsedSeconds);
 
 			foreach (Point p in points)
 			{
@@ -93,13 +93,13 @@ namespace Physics
 
 		internal void doPhysics(float TotalElapsedSeconds)
 		{
-            //bool temp = false;
+			//bool temp = false;
 			player.update(TotalElapsedSeconds);
 
-			// Predict potiential position
+			// Predict potential position
 			foreach (Point p in points)
 			{
-				p.PotientialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+				p.potentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
 			}
 
 			// Springs
@@ -121,7 +121,7 @@ namespace Physics
 					float IdealVolume = pb.getIdealVolume();
 					foreach (Physics.Point p in pb.getPoints())
 					{
-						p.ForceThisFrame += ((Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.PotientialPosition) * (NextVolume - IdealVolume)) / 2f);
+						p.ForceThisFrame += ((Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.potentialPosition) * (NextVolume - IdealVolume)) / 2f);
 					}
 				}
 			}
@@ -144,37 +144,37 @@ namespace Physics
 
 			foreach (Point p in points)
 			{
-                checkCollisions2(p, TotalElapsedSeconds);
+				checkCollisions2(p, TotalElapsedSeconds);
 			}
 
-            foreach (Collidable c in _eventsToTrigger)
-            {
-                c.TriggerEvents();
-            }
-            _eventsToTrigger.Clear();
+			foreach (Collidable c in _eventsToTrigger)
+			{
+				c.TriggerEvents();
+			}
+			_eventsToTrigger.Clear();
 		}
 
 		private void fall(Point p, float time)
 		{
 			/*
-            p.PotientialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.mass);
-            p.PotientialVelocity = p.CurrentVelocity + (p.PotientialAcceleration * time);
+            p.potentialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.mass);
+            p.potentialVelocity = p.CurrentVelocity + (p.potentialAcceleration * time);
 
             bool changed = false;
-            if ((p.PotientialVelocity.X > 0 && p.CurrentVelocity.X < 0) ||
-                (p.PotientialVelocity.X < 0 && p.CurrentVelocity.X > 0))
+            if ((p.potentialVelocity.X > 0 && p.CurrentVelocity.X < 0) ||
+                (p.potentialVelocity.X < 0 && p.CurrentVelocity.X > 0))
             {
                 changed = true;
             }
 
-            if ((p.PotientialVelocity.Y > 0 && p.CurrentVelocity.Y < 0) ||
-                (p.PotientialVelocity.Y < 0 && p.CurrentVelocity.Y > 0))
+            if ((p.potentialVelocity.Y > 0 && p.CurrentVelocity.Y < 0) ||
+                (p.potentialVelocity.Y < 0 && p.CurrentVelocity.Y > 0))
             {
                 changed = true;
             }
 
-            if ((p.PotientialVelocity.Z > 0 && p.CurrentVelocity.Z < 0) ||
-                (p.PotientialVelocity.Z < 0 && p.CurrentVelocity.Z > 0))
+            if ((p.potentialVelocity.Z > 0 && p.CurrentVelocity.Z < 0) ||
+                (p.potentialVelocity.Z < 0 && p.CurrentVelocity.Z > 0))
             {
                 changed = true;
             }
@@ -186,89 +186,89 @@ namespace Physics
                 Vector3 AccelerationWithDrag = p.CurrentAcceleration + (EffectiveForce / p.mass);
                 Vector3 VelocityWithDrag = p.CurrentVelocity + (AccelerationWithDrag * time);
 
-                if ((p.PotientialAcceleration.X >= 0 && AccelerationWithDrag.X <= 0) ||
-                    (p.PotientialAcceleration.X <= 0 && AccelerationWithDrag.X >= 0))
+                if ((p.potentialAcceleration.X >= 0 && AccelerationWithDrag.X <= 0) ||
+                    (p.potentialAcceleration.X <= 0 && AccelerationWithDrag.X >= 0))
                 {
                     AccelerationWithDrag.X = 0;
                 }
 
-                if ((p.PotientialAcceleration.Y >= 0 && AccelerationWithDrag.Y <= 0) ||
-                    (p.PotientialAcceleration.Y <= 0 && AccelerationWithDrag.Y >= 0))
+                if ((p.potentialAcceleration.Y >= 0 && AccelerationWithDrag.Y <= 0) ||
+                    (p.potentialAcceleration.Y <= 0 && AccelerationWithDrag.Y >= 0))
                 {
                     AccelerationWithDrag.Y = 0;
                 }
 
-                if ((p.PotientialAcceleration.Z >= 0 && AccelerationWithDrag.Z <= 0) ||
-                    (p.PotientialAcceleration.Z <= 0 && AccelerationWithDrag.Z >= 0))
+                if ((p.potentialAcceleration.Z >= 0 && AccelerationWithDrag.Z <= 0) ||
+                    (p.potentialAcceleration.Z <= 0 && AccelerationWithDrag.Z >= 0))
                 {
                     AccelerationWithDrag.Z = 0;
                 }
 
-                if ((p.PotientialVelocity.X >= 0 && VelocityWithDrag.X <= 0) ||
-                    (p.PotientialVelocity.X <= 0 && VelocityWithDrag.X >= 0))
+                if ((p.potentialVelocity.X >= 0 && VelocityWithDrag.X <= 0) ||
+                    (p.potentialVelocity.X <= 0 && VelocityWithDrag.X >= 0))
                 {
                     VelocityWithDrag.X = 0;
                 }
 
-                if ((p.PotientialVelocity.Y >= 0 && VelocityWithDrag.Y <= 0) ||
-                    (p.PotientialVelocity.Y <= 0 && VelocityWithDrag.Y >= 0))
+                if ((p.potentialVelocity.Y >= 0 && VelocityWithDrag.Y <= 0) ||
+                    (p.potentialVelocity.Y <= 0 && VelocityWithDrag.Y >= 0))
                 {
                     VelocityWithDrag.Y = 0;
                 }
 
-                if ((p.PotientialVelocity.Z >= 0 && VelocityWithDrag.Z <= 0) ||
-                    (p.PotientialVelocity.Z <= 0 && VelocityWithDrag.Z >= 0))
+                if ((p.potentialVelocity.Z >= 0 && VelocityWithDrag.Z <= 0) ||
+                    (p.potentialVelocity.Z <= 0 && VelocityWithDrag.Z >= 0))
                 {
                     VelocityWithDrag.Z = 0;
                 }
 
-                p.PotientialAcceleration = AccelerationWithDrag;
-                p.PotientialVelocity = VelocityWithDrag;
+                p.potentialAcceleration = AccelerationWithDrag;
+                p.potentialVelocity = VelocityWithDrag;
 
             }
 
-            p.PotientialPosition = p.CurrentPosition + (p.PotientialVelocity * time);
+            p.potentialPosition = p.CurrentPosition + (p.potentialVelocity * time);
 
 			 */
 
 
-			p.PotientialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.mass);
-			p.PotientialVelocity = p.CurrentVelocity + (p.PotientialAcceleration * time);
+			p.potentialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.mass);
+			p.potentialVelocity = p.CurrentVelocity + (p.potentialAcceleration * time);
 
-			if (p.PotientialVelocity != Vector3.Zero)
+			if (p.potentialVelocity != Vector3.Zero)
 			{
-				Vector3 FrictionForce = p.PotientialVelocity * airfriction;
+				Vector3 FrictionForce = p.potentialVelocity * airfriction;
 				Vector3 AccelerationDrag = (FrictionForce / p.mass);
 				Vector3 VelocityDrag = (AccelerationDrag * time);
 
-				if ((p.PotientialVelocity.X > 0 && p.PotientialVelocity.X - VelocityDrag.X <= 0) ||
-					(p.PotientialVelocity.X < 0 && p.PotientialVelocity.X - VelocityDrag.X >= 0))
+				if ((p.potentialVelocity.X > 0 && p.potentialVelocity.X - VelocityDrag.X <= 0) ||
+					(p.potentialVelocity.X < 0 && p.potentialVelocity.X - VelocityDrag.X >= 0))
 				{
-					p.PotientialVelocity.X = 0;
+					p.potentialVelocity.X = 0;
 					VelocityDrag.X = 0;
 				}
-				if ((p.PotientialVelocity.Y > 0 && p.PotientialVelocity.Y - VelocityDrag.Y <= 0) ||
-					(p.PotientialVelocity.Y < 0 && p.PotientialVelocity.Y - VelocityDrag.Y >= 0))
+				if ((p.potentialVelocity.Y > 0 && p.potentialVelocity.Y - VelocityDrag.Y <= 0) ||
+					(p.potentialVelocity.Y < 0 && p.potentialVelocity.Y - VelocityDrag.Y >= 0))
 				{
-					p.PotientialVelocity.Y = 0;
+					p.potentialVelocity.Y = 0;
 					VelocityDrag.Y = 0;
 				}
-				if ((p.PotientialVelocity.Z > 0 && p.PotientialVelocity.Z - VelocityDrag.Z <= 0) ||
-					(p.PotientialVelocity.Z < 0 && p.PotientialVelocity.Z - VelocityDrag.Z >= 0))
+				if ((p.potentialVelocity.Z > 0 && p.potentialVelocity.Z - VelocityDrag.Z <= 0) ||
+					(p.potentialVelocity.Z < 0 && p.potentialVelocity.Z - VelocityDrag.Z >= 0))
 				{
-					p.PotientialVelocity.Z = 0;
+					p.potentialVelocity.Z = 0;
 					VelocityDrag.Z = 0;
 				}
-				p.PotientialVelocity -= VelocityDrag;
+				p.potentialVelocity -= VelocityDrag;
 			}
 
-			p.PotientialPosition = p.CurrentPosition + (p.PotientialVelocity * time);
+			p.potentialPosition = p.CurrentPosition + (p.potentialVelocity * time);
 
 		}
 
 		private void checkCollisions2(Point p, float time)
 		{
-            //bool trigger = false;
+			//bool trigger = false;
 			bool Collision = false;
 			Collidable Collidable = null;
 			float CollisionU = float.MaxValue;
@@ -278,15 +278,15 @@ namespace Physics
 				{
 					//Vector3[] lx = c.getNextCollisionVerticies();
 					//Vector3 li;
-					//float lu = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, lx[0], lx[1], lx[2], out li);
+					//float lu = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.potentialPosition, lx[0], lx[1], lx[2], out li);
 
-                    _eventsToTrigger.Add(c);
+					_eventsToTrigger.Add(c);
 
 					c.test(p);
 
 					Vector3[] x = c.getNextCollisionVerticies();
 					Vector3 i;
-					float u = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.PotientialPosition, x[0], x[1], x[2], out i);
+					float u = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.potentialPosition, x[0], x[1], x[2], out i);
 					// If Collision ( u < 1 ) - Split Time and redo
 					if (u > 0 && u < 1 /* && c.inBoundingBox(i)*/)
 					{
@@ -326,19 +326,19 @@ namespace Physics
 			else
 			{
 
-				p.NextAcceleration = p.PotientialAcceleration;
-				p.NextPosition = p.PotientialPosition;
-				p.NextVelocity = p.PotientialVelocity;
+				p.NextAcceleration = p.potentialAcceleration;
+				p.NextPosition = p.potentialPosition;
+				p.NextVelocity = p.potentialVelocity;
 
 			}
-            //return trigger;
+			//return trigger;
 		}
 
 		private List<Collidable> CollisionChain = new List<Collidable>();
 		private void checkCollisions(Point p, float time)
 		{
 			CollisionChain.Clear();
-            //bool trigger = false;
+			//bool trigger = false;
 			bool Collision = false;
 			Collidable Collidable = null;
 			float CollisionU = float.MaxValue;
@@ -347,9 +347,9 @@ namespace Physics
 			{
 				if (c.couldIntersect(p))
 				{
-                    _eventsToTrigger.Add(c);
+					_eventsToTrigger.Add(c);
 
-					float u = c.didIntersect(p.CurrentPosition, p.PotientialPosition);
+					float u = c.didIntersect(p.CurrentPosition, p.potentialPosition);
 					// If Collision ( u < 1 ) - Split Time and redo
 					if (u < 1)
 					{
@@ -392,12 +392,12 @@ namespace Physics
 			else
 			{
 
-				p.NextAcceleration = p.PotientialAcceleration;
-				p.NextPosition = p.PotientialPosition;
-				p.NextVelocity = p.PotientialVelocity;
+				p.NextAcceleration = p.potentialAcceleration;
+				p.NextPosition = p.potentialPosition;
+				p.NextVelocity = p.potentialVelocity;
 				p.LastCollision = null;
 			}
-            //return trigger;
+			//return trigger;
 		}
 
 		private void slide(Point p, float time, Collidable s)

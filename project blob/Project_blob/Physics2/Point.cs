@@ -2,20 +2,27 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	public class Point : Actor
+	public class Point
 	{
 
-        public Vector3 CurrentPosition;
+		public bool isStatic;
 
-        public Vector3 CurrentVelocity;
+		public Vector3 CurrentPosition;
 
-        public Vector3 PotientialPosition;
+		public Vector3 CurrentVelocity;
 
-        public Collidable LastCollision;
+		public Vector3 potentialPosition;
 
-        public Vector3 ForceThisFrame;
+		public Collidable LastCollision;
 
-        public virtual void update(float TotalElapsedSeconds) { }
+		public Vector3 ForceThisFrame;
+
+		public Vector3 AccelerationThisFrame;
+
+		public void updatePosition()
+		{
+
+		}
 
 	}
 }

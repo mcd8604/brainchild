@@ -58,12 +58,15 @@
     <Compile Include="AxisAlignedBoundingBox.cs" />
     <Compile Include="Body.cs" />
     <Compile Include="BodyPressure.cs" />
+    <Compile Include="BodyRigid.cs" />
     <Compile Include="BodyStatic.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="CollidableStatic.cs" />
     <Compile Include="CollidableStaticTri.cs" />
     <Compile Include="CollidableTri.cs" />
     <Compile Include="CollisionMath.cs" />
+    <Compile Include="GravityPoint.cs" />
+    <Compile Include="GravityVector.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="PhysicsManager.cs" />
     <Compile Include="PhysicsParallel.cs" />
