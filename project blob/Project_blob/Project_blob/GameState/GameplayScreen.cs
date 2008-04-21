@@ -158,7 +158,7 @@ namespace Project_blob.GameState
 			resetBlob();
 
 			//load default level
-			Level.LoadLevel("Transitor", "effects");
+			Level.LoadLevel("Playground", "effects");
 
 			//List of Static Drawables to add to Scene
 			List<Drawable> staticDrawables = new List<Drawable>();
@@ -192,7 +192,7 @@ namespace Project_blob.GameState
 			camera.FieldOfView = MathHelper.ToRadians(45.0f);
 			camera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
 			camera.NearPlane = 1.0f;
-			camera.FarPlane = 1000.0f;
+			camera.FarPlane = 500.0f;
 
 			camera.Position = new Vector3(0, 0, -10);
 			camera.Target = Vector3.Zero;
@@ -206,7 +206,7 @@ namespace Project_blob.GameState
 			cinematicCamera.FieldOfView = MathHelper.ToRadians(45.0f);
 			cinematicCamera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
 			cinematicCamera.NearPlane = 1.0f;
-			cinematicCamera.FarPlane = 1000.0f;
+			cinematicCamera.FarPlane = 500.0f;
 
 			cinematicCamera.Position = new Vector3(0, 0, -10);
 			cinematicCamera.Target = Vector3.Zero;

@@ -201,7 +201,7 @@ namespace WorldMaker
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.ToRadians(45),  // 45 degree angle
                 (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
-                1.0f, 100.0f);
+                1.0f, 1000.0f);
 
             if (EFFECT_TYPE == "basic")
             {
@@ -343,7 +343,7 @@ namespace WorldMaker
                 cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
 
                 // following camera
-                cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
+                cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 500);
                 Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
                 cameraPosition = focusPoint + Offset;
 
