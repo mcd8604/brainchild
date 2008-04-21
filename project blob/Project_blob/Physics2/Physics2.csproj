@@ -65,7 +65,6 @@
     <Compile Include="CollidableTri.cs" />
     <Compile Include="CollisionMath.cs" />
     <Compile Include="Material.cs" />
-    <Compile Include="Mover.cs" />
     <Compile Include="PhysicsManager.cs" />
     <Compile Include="PhysicsParallel.cs" />
     <Compile Include="PhysicsSeq.cs" />

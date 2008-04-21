@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-    public class Spring : Mover
+    public class Spring
     {
 
         public float MinimumLength = 0;

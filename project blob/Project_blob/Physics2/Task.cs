@@ -1,9 +1,9 @@
 namespace Physics2
 {
-	public abstract class Task : Mover
+	public abstract class Task
 	{
 
-        public void update() { }
+        public void update(Body b) { }
 
 	}
 }
