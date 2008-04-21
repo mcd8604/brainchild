@@ -142,17 +142,11 @@ namespace Physics
 
 			// Collisions
 
-
-			//temp
 			foreach (Point p in points)
 			{
-                //if(temp) {
-                    checkCollisions2(p, TotalElapsedSeconds);
-                //} else {
-                //    temp = checkCollisions2(p, TotalElapsedSeconds);
-                //}
+                checkCollisions2(p, TotalElapsedSeconds);
 			}
-            //return temp;
+
             foreach (Collidable c in _eventsToTrigger)
             {
                 c.TriggerEvents();
@@ -327,13 +321,6 @@ namespace Physics
 
 				// sliding physics second half
 				slide(p, time * (1 - CollisionU), Collidable);
-
-                //if(Collidable is Trigger) {
-                //    trigger = true;
-                //    if(!_eventsToTrigger.Contains(((Trigger)Collidable).ModelRef)) {
-                //        _eventsToTrigger.Add(((Trigger)Collidable).ModelRef);
-                //    }
-                //}
 			}
 			else
 			{
@@ -400,13 +387,6 @@ namespace Physics
 
 				// sliding physics second half
 				slide(p, time * (1 - CollisionU), Collidable);
-
-                //if(Collidable is Trigger) {
-                //    trigger = true;
-                //    if(!_eventsToTrigger.Contains(((Trigger)Collidable).ModelRef)) {
-                //        _eventsToTrigger.Add(((Trigger)Collidable).ModelRef);
-                //    }
-                //}
 			}
 			else
 			{

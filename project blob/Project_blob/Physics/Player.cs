@@ -76,10 +76,13 @@ namespace Physics
 
         public void applyTorque(float Magnitude, Vector3 Around)
         {
-            Vector3 CurrentPlayerCenter = playerBody.getCenter();
-            foreach (Physics.Point p in playerBody.getPoints())
+            if (playerBody != null)
             {
-                p.ForceThisFrame += Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, Around)) * Magnitude;
+                Vector3 CurrentPlayerCenter = playerBody.getCenter();
+                foreach (Physics.Point p in playerBody.getPoints())
+                {
+                    p.ForceThisFrame += Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, Around)) * Magnitude;
+                }
             }
         }
 
