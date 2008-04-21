@@ -92,7 +92,7 @@ namespace Physics2
             //Tasks
             foreach (Task t in tasks)
             {
-                t.update();
+                t.update(this);
             }
 
         }
