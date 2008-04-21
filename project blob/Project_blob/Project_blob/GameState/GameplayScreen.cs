@@ -376,26 +376,26 @@ namespace Project_blob.GameState
 				{
 					ScreenManager.AddScreen(new PauseMenuScreen());
 				}
-				if (InputHandler.IsKeyPressed(Keys.OemTilde))
-				{
-					if (Physics.PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
-					{
-						Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
-					}
-					else
-					{
-						Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
-					}
-					resetBlob();
-				}
+				//if (InputHandler.IsKeyPressed(Keys.OemTilde))
+				//{
+				//	if (Physics.PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
+				//	{
+				//		Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
+				//	}
+				//	else
+				//	{
+				//		Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
+				//	}
+				//	resetBlob();
+				//}
 				if (InputHandler.IsActionPressed(Actions.Reset))
 				{
 					resetBlob();
 				}
-				if (InputHandler.IsKeyPressed(Keys.T))
-				{
-					ScreenManager.toggleScreen();
-				}
+				//if (InputHandler.IsKeyPressed(Keys.T))
+				//{
+				//	ScreenManager.toggleScreen();
+				//}
 				if (InputHandler.IsKeyPressed(Keys.F))
 				{
 					follow = !follow;
