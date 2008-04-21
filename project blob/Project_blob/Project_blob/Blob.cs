@@ -428,7 +428,7 @@ namespace Project_blob
 						p3 = points[j].potentialPosition;
 				}
 				*/
-				totalVolume += getFaceVolumeTest(points[indices[i]].potentialPosition, points[indices[i + 1]].potentialPosition, points[indices[i + 2]].potentialPosition);
+				totalVolume += getPotentialFaceVolumeTest(points[indices[i]].potentialPosition, points[indices[i + 1]].potentialPosition, points[indices[i + 2]].potentialPosition);
 				//totalVolume += getFaceVolumeTest(p1, p2, p3);
 			}
 
@@ -506,7 +506,7 @@ namespace Project_blob
 
 			Vector3 center = getCenter();
 			//negation because we are drawing the planes upside down
-			float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), getCenter());
+			float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), center);
 			float height = MathHelper.Distance(distanceToCenter, facePlane.D);
 
 			float volume = height * area * (1f / 3f);
@@ -515,6 +515,33 @@ namespace Project_blob
 
 			return volume;
 		}
+
+        private float getPotentialFaceVolumeTest(Vector3 point1, Vector3 point2, Vector3 point3)
+        {
+            Vector3 a = point2 - point1;
+            Vector3 b = point3 - point1;
+            Vector3 c = Vector3.Cross(a, b);
+
+            float area = .5f * c.Length();
+
+            Plane facePlane = new Plane(point1, point2, point3);
+            //Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
+
+            // float distance = Vector3.Dot(facePlane.Normal, Vector3.Subtract(getCenter(),facePlane.Normal * facePlane.D));
+            //Vector3 closestPoint = Vector3.Subtract(getCenter(), Vector3.Multiply(facePlane.Normal, distance));
+            //float height = Vector3.Distance(getCenter(), closestPoint);
+
+            Vector3 center = getNextCenter();
+            //negation because we are drawing the planes upside down
+            float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), center);
+            float height = MathHelper.Distance(distanceToCenter, facePlane.D);
+
+            float volume = height * area * (1f / 3f);
+            if (float.IsNaN(volume))
+                throw new Exception("Not Good");
+
+            return volume;
+        }
 
 		//public float baseVolume = 10f;
 		//public float idealVolume = 10f;
