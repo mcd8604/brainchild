@@ -782,30 +782,34 @@ namespace Project_blob.GameState
 			spriteBatch.DrawString(font, "Phys(Min): " + DEBUG_MinPhys, new Vector2(320, 100), Color.White);
 			spriteBatch.DrawString(font, "Draw(Min): " + DEBUG_MinDraw, new Vector2(320, 130), Color.White);
 
-			if (physics.Player.Resilience.Target < 0.5)
-			{
-				spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
-			}
-			else if (physics.Player.Resilience.Target > 0.5)
-			{
-				spriteBatch.DrawString(font, "Firm", new Vector2(150, 0), Color.White);
-			}
-			else
-			{
-				spriteBatch.DrawString(font, "Normal", new Vector2(150, 0), Color.White);
-			}
-			if (physics.Player.Traction.Target < 0.5)
-			{
-				spriteBatch.DrawString(font, "Slick", new Vector2(350, 0), Color.White);
-			}
-			else if (physics.Player.Traction.Target > 0.5)
-			{
-				spriteBatch.DrawString(font, "Sticky", new Vector2(350, 0), Color.White);
-			}
-			else
-			{
-				spriteBatch.DrawString(font, "Normal", new Vector2(350, 0), Color.White);
-			}
+            if (physics.Player != null)
+            {
+                if (physics.Player.Resilience.Target < 0.5)
+                {
+                    spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
+                }
+                else if (physics.Player.Resilience.Target > 0.5)
+                {
+                    spriteBatch.DrawString(font, "Firm", new Vector2(150, 0), Color.White);
+                }
+                else
+                {
+                    spriteBatch.DrawString(font, "Normal", new Vector2(150, 0), Color.White);
+                }
+                if (physics.Player.Traction.Target < 0.5)
+                {
+                    spriteBatch.DrawString(font, "Slick", new Vector2(350, 0), Color.White);
+                }
+                else if (physics.Player.Traction.Target > 0.5)
+                {
+                    spriteBatch.DrawString(font, "Sticky", new Vector2(350, 0), Color.White);
+                }
+                else
+                {
+                    spriteBatch.DrawString(font, "Normal", new Vector2(350, 0), Color.White);
+                }
+            }
+
 			if (paused)
 			{
 				spriteBatch.DrawString(font, "Paused", new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (ScreenManager.GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);

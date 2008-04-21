@@ -81,11 +81,13 @@ namespace Physics
 
 		public override void update(float TotalElapsedSeconds)
 		{
-
-			foreach (Point p in physicsMain.points)
-			{
-				p.updatePosition();
-			}
+            if (physicsMain != null)
+            {
+                foreach (Point p in physicsMain.points)
+                {
+                    p.updatePosition();
+                }
+            }
 
 			runForTime = TotalElapsedSeconds;
 			lock (this) System.Threading.Monitor.Pulse(this);
@@ -152,7 +154,14 @@ namespace Physics
 		}
 		public override Player Player
 		{
-			get { return physicsMain.Player; }
+            get
+            {
+                if (physicsMain != null)
+                {
+                    return physicsMain.Player;
+                }
+                return null;
+            }
 		}
 		
 	}
