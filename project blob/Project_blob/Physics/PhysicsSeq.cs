@@ -151,6 +151,7 @@ namespace Physics
             {
                 c.TriggerEvents();
             }
+            _eventsToTrigger.Clear();
 		}
 
 		private void fall(Point p, float time)
