@@ -160,6 +160,16 @@ namespace Project_blob
             base.Draw(gameTime);
         }
 
+        public void toggleScreen()
+        {
+            graphics.ToggleFullScreen();
+        }
+
+        public void toggleAliasing()
+        {
+            GraphicsDevice.RenderState.MultiSampleAntiAlias = !GraphicsDevice.RenderState.MultiSampleAntiAlias;
+        }
+
         public void AddScreen(GameScreen screen)
         {
             screen.ScreenManager = this;

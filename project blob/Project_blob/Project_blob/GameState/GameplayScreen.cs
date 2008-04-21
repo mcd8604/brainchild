@@ -16,7 +16,6 @@ namespace Project_blob.GameState
 {
 	public class GameplayScreen : GameScreen
 	{
-		ContentManager content;
 		SpriteBatch spriteBatch;
 
 		Model blobModel;
@@ -393,14 +392,9 @@ namespace Project_blob.GameState
 				{
 					resetBlob();
 				}
-				if (InputHandler.IsKeyPressed(Keys.P))
-				{
-					paused = !paused;
-					ScreenManager.AddScreen(new PauseMenuScreen());
-				}
 				if (InputHandler.IsKeyPressed(Keys.T))
 				{
-					//graphics.ToggleFullScreen();
+					ScreenManager.toggleScreen();
 				}
 				if (InputHandler.IsKeyPressed(Keys.F))
 				{
