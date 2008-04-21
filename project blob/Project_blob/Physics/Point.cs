@@ -52,18 +52,18 @@ namespace Physics
 			}
 		}
 
-		public Vector3 PotientialPosition = Vector3.Zero;
-		public Vector3 PotientialVelocity = Vector3.Zero;
-		public Vector3 potientialAcceleration = Vector3.Zero;
-		public Vector3 PotientialAcceleration
+		public Vector3 potentialPosition = Vector3.Zero;
+		public Vector3 potentialVelocity = Vector3.Zero;
+		public Vector3 potentialAcceleration = Vector3.Zero;
+		public Vector3 PotentialAcceleration
 		{
 			get
 			{
-				return potientialAcceleration;
+				return potentialAcceleration;
 			}
 			set
 			{
-				potientialAcceleration = value;
+				potentialAcceleration = value;
 			}
 		}
 
@@ -92,7 +92,7 @@ namespace Physics
 		public Point(Vector3 startPosition, Body ParentBody)
 		{
 			CurrentPosition = startPosition;
-			PotientialPosition = CurrentPosition;
+			potentialPosition = CurrentPosition;
 			NextPosition = CurrentPosition;
 			parent = ParentBody;
 		}

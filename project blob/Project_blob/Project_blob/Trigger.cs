@@ -7,62 +7,62 @@ using Project_blob.GameState;
 
 namespace Project_blob
 {
-    public class Trigger : Physics.Collidable
-    {
-        private EventTrigger _triggeredEvent;
-        public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }
+	public class Trigger : Physics.Collidable
+	{
+		private EventTrigger _triggeredEvent;
+		public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }
 
-        public static List<EventTrigger> Events = new List<EventTrigger>();
+		public static List<EventTrigger> Events = new List<EventTrigger>();
 
-        internal Plane myPlane;
+		internal Plane myPlane;
 
 		internal Vector3[] vertices;
 
 		internal Vector3 Origin;
 
-        internal Physics.AxisAlignedBoundingBox myBoundingBox;
+		internal Physics.AxisAlignedBoundingBox myBoundingBox;
 
-        public Trigger(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3, EventTrigger triggeredEvent)
-            :base(null)
+		public Trigger(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3, EventTrigger triggeredEvent)
+			: base(null)
 		{
-            _triggeredEvent = triggeredEvent;
+			_triggeredEvent = triggeredEvent;
 
 			vertices = new Vector3[3];
 
 			myPlane = new Plane(point1.Position, point2.Position, point3.Position);
 
-            vertices[0] = point1.Position;
-            vertices[1] = point2.Position;
-            vertices[2] = point3.Position;
+			vertices[0] = point1.Position;
+			vertices[1] = point2.Position;
+			vertices[2] = point3.Position;
 
-            myPlane.Normal = Vector3.Normalize(Vector3.Add(point3.Normal, Vector3.Add(point1.Normal, point2.Normal)));
+			myPlane.Normal = Vector3.Normalize(Vector3.Add(point3.Normal, Vector3.Add(point1.Normal, point2.Normal)));
 
 			Origin = Vector3.Negate((point1.Position + point2.Position + point3.Position) / 3);
 
-            myBoundingBox = new Physics.AxisAlignedBoundingBox();
-            myBoundingBox.expandToInclude(ref point1.Position);
-            myBoundingBox.expandToInclude(ref point2.Position);
-            myBoundingBox.expandToInclude(ref point3.Position);
+			myBoundingBox = new Physics.AxisAlignedBoundingBox();
+			myBoundingBox.expandToInclude(ref point1.Position);
+			myBoundingBox.expandToInclude(ref point2.Position);
+			myBoundingBox.expandToInclude(ref point3.Position);
 		}
 
 		public override bool couldIntersect(Physics.Point p)
 		{
-            //return true;
-            //return myBoundingBox.contains(ref p.CurrentPosition) || myBoundingBox.contains(ref p.PotientialPosition);
-            return myBoundingBox.lineIntersects(ref p.CurrentPosition, ref p.PotientialPosition);
+			//return true;
+			//return myBoundingBox.contains(ref p.CurrentPosition) || myBoundingBox.contains(ref p.potentialPosition);
+			return myBoundingBox.lineIntersects(ref p.CurrentPosition, ref p.potentialPosition);
 		}
 
-        public override float DotNormal(Vector3 pos)
+		public override float DotNormal(Vector3 pos)
 		{
 			return myPlane.DotNormal(pos + Origin);
 		}
 
-        public override Vector3 Normal()
+		public override Vector3 Normal()
 		{
 			return myPlane.Normal;
 		}
 
-        public override float didIntersect(Vector3 start, Vector3 end)
+		public override float didIntersect(Vector3 start, Vector3 end)
 		{
 
 			float lastVal = DotNormal(start);
@@ -105,81 +105,81 @@ namespace Project_blob
 
 		}
 
-        public override bool shouldPhysicsBlock(Physics.Point p)
-        {
-            if (!Events.Contains(TriggeredEvent))
-            {
-                Events.Add(TriggeredEvent);
-            }
-            return false;
-        }
+		public override bool shouldPhysicsBlock(Physics.Point p)
+		{
+			if (!Events.Contains(TriggeredEvent))
+			{
+				Events.Add(TriggeredEvent);
+			}
+			return false;
+		}
 
-        public Plane getPlane()
+		public Plane getPlane()
 		{
 			return myPlane;
 		}
 
-        public Vector3[] getTriangleVertexes()
+		public Vector3[] getTriangleVertexes()
 		{
 			return vertices;
 		}
 
-        public override void ApplyForce(Vector3 at, Vector3 f)
-        {
-            //throw new Exception("Cannot Apply Force on CollidableTri");
-        }
+		public override void ApplyForce(Vector3 at, Vector3 f)
+		{
+			//throw new Exception("Cannot Apply Force on CollidableTri");
+		}
 
-        public override void ImpartVelocity(Vector3 at, Vector3 v)
-        {
-            //throw new Exception("Cannot Impart Velocity on CollidableTri");
-        }
+		public override void ImpartVelocity(Vector3 at, Vector3 v)
+		{
+			//throw new Exception("Cannot Impart Velocity on CollidableTri");
+		}
 
-        //public override Physics.Material getMaterial()
-        //{
-        //    return new Physics.MaterialBasic();
-        //}
+		//public override Physics.Material getMaterial()
+		//{
+		//    return new Physics.MaterialBasic();
+		//}
 
-        public Vector3[] getCollisionVerticies()
-        {
-            //throw new Exception("Not used");
-            return vertices;
-        }
+		public Vector3[] getCollisionVerticies()
+		{
+			//throw new Exception("Not used");
+			return vertices;
+		}
 
-        public override Vector3[] getNextCollisionVerticies()
-        {
-            //throw new Exception("Not used");
-            return vertices;
-        }
+		public override Vector3[] getNextCollisionVerticies()
+		{
+			//throw new Exception("Not used");
+			return vertices;
+		}
 
 		//public override bool inBoundingBox(Vector3 v)
 		//{
 		//    throw new Exception("do nothing");
 		//}
 
-        public override void test(Physics.Point p)
-        {
-            //throw new Exception("do nothing");
-        }
+		public override void test(Physics.Point p)
+		{
+			//throw new Exception("do nothing");
+		}
 
-        internal Physics.Material myMaterial = Physics.MaterialBasic.getDefaultMaterial();
+		internal Physics.Material myMaterial = Physics.MaterialBasic.getDefaultMaterial();
 
-        public override Physics.Material getMaterial()
-        {
-            return myMaterial;
-        }
+		public override Physics.Material getMaterial()
+		{
+			return myMaterial;
+		}
 
-        public void setMaterial(Physics.Material m) 
-        {
-            myMaterial = m;
-        }
+		public void setMaterial(Physics.Material m)
+		{
+			myMaterial = m;
+		}
 
-        public override void TriggerEvents()
-        {
-            foreach (EventTrigger triggered in Events)
-            {
-                triggered.PerformEvent(GameplayScreen.game);
-            }
-            Events.Clear();
-        }
-    }
+		public override void TriggerEvents()
+		{
+			foreach (EventTrigger triggered in Events)
+			{
+				triggered.PerformEvent(GameplayScreen.game);
+			}
+			Events.Clear();
+		}
+	}
 }

@@ -61,7 +61,7 @@ namespace Project_blob
 			Vector3 ret = Vector3.Zero;
 			foreach (Physics.Point p in points)
 			{
-				ret += p.PotientialPosition;
+				ret += p.potentialPosition;
 			}
 			return ret / points.Count;
 			//return Center.Position;
@@ -89,11 +89,6 @@ namespace Project_blob
 
 			//Type vertexType;
 
-
-			if (myVertexStride == VertexPositionColorTexture.SizeInBytes)
-			{
-				Console.WriteLine("VertexPositionColorTexture");
-			}
 
 			// VertexBuffer
 			/*VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[part.NumVertices];
@@ -129,15 +124,16 @@ namespace Project_blob
 
 			// Physics Points
 			List<Physics.Point> tempList = new List<Physics.Point>();
-			int num_points = 0;
-			int repeated_points = 0;
-			int iter = 0;
 
 			foreach (VertexPositionNormalTexture v in vertices)
 			{
 				tempList.Add(new Physics.Point(center + v.Position, this));
 			}
+
 			/*
+			int num_points = 0;
+			int repeated_points = 0;
+			int iter = 0;
 			for(int i = 0; i < vertices.Length; i++)
 			{
 				Physics.Point temp = new Physics.Point(center + new Vector3(vertices[i].Position.X, vertices[i].Position.Y, vertices[i].Position.Z));
@@ -200,6 +196,10 @@ namespace Project_blob
 					if (d > 0)
 					{
 						springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), springVal * 100));
+					}
+					else
+					{
+						Console.WriteLine("Warning! Duplicate Point!");
 					}
 				}
 				points.Add(t);
@@ -421,14 +421,14 @@ namespace Project_blob
 				{
 
 					if (pointsToUpdate[j] == indices[i])
-						p1 = points[j].PotientialPosition;
+						p1 = points[j].potentialPosition;
 					if (pointsToUpdate[j] == indices[i+1])
-						p2 = points[j].PotientialPosition;
+						p2 = points[j].potentialPosition;
 					if (pointsToUpdate[j] == indices[i + 2])
-						p3 = points[j].PotientialPosition;
+						p3 = points[j].potentialPosition;
 				}
 				*/
-				totalVolume += getFaceVolumeTest(points[indices[i]].PotientialPosition, points[indices[i + 1]].PotientialPosition, points[indices[i + 2]].PotientialPosition);
+				totalVolume += getFaceVolumeTest(points[indices[i]].potentialPosition, points[indices[i + 1]].potentialPosition, points[indices[i + 2]].potentialPosition);
 				//totalVolume += getFaceVolumeTest(p1, p2, p3);
 			}
 

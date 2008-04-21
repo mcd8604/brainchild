@@ -15,7 +15,7 @@ namespace Physics
 
 			Vector3 u = v1 - v0;
 			Vector3 v = v2 - v0;
-			Vector3 n = Vector3.Cross( u, v );
+			Vector3 n = Vector3.Cross(u, v);
 			if (n.LengthSquared() == 0) // degenerate triangle
 			{
 				return -1;
@@ -42,7 +42,7 @@ namespace Physics
 				return -1;
 			}
 
-			i = p0 + (dir * r );
+			i = p0 + (dir * r);
 
 			float uu = Vector3.Dot(u, u);
 			float uv = Vector3.Dot(u, v);
@@ -121,7 +121,7 @@ namespace Physics
 			{
 				return -1;
 			}
-			 */ 
+			 */
 
 
 			//if (t > 0.5 || s > 0.5)
@@ -141,19 +141,19 @@ namespace Physics
 			Vector3 c_u = v1.CurrentPosition - v0.CurrentPosition;
 			Vector3 c_v = v2.CurrentPosition - v0.CurrentPosition;
 			Vector3 c_n = Vector3.Cross(c_u, c_v);
-			Vector3 n_u = v1.PotientialPosition - v0.PotientialPosition;
-			Vector3 n_v = v2.PotientialPosition - v0.PotientialPosition;
+			Vector3 n_u = v1.potentialPosition - v0.potentialPosition;
+			Vector3 n_v = v2.potentialPosition - v0.potentialPosition;
 			Vector3 n_n = Vector3.Cross(n_u, n_v);
 			if (c_n.LengthSquared() == 0 && n_n.LengthSquared() == 0) // degenerate triangle
 			{
 				return -1;
 			}
 
-			Vector3 dir = p.PotientialPosition - p.CurrentPosition;
+			Vector3 dir = p.potentialPosition - p.CurrentPosition;
 			Vector3 c_w0 = p.CurrentPosition - v0.CurrentPosition;
 			float c_a = -Vector3.Dot(c_n, c_w0);
 			float c_b = Vector3.Dot(c_n, dir);
-			Vector3 n_w0 = p.CurrentPosition - v0.PotientialPosition;
+			Vector3 n_w0 = p.CurrentPosition - v0.potentialPosition;
 			float n_a = -Vector3.Dot(n_n, n_w0);
 			float n_b = Vector3.Dot(n_n, dir);
 			if (Math.Abs(c_b) <= Small_num && Math.Abs(c_b) <= Small_num) // parallel to plane
@@ -169,7 +169,7 @@ namespace Physics
 				// collidable passed through point
 				//throw new Exception();
 
-				p.CurrentPosition += (v0.PotientialPosition - v0.CurrentPosition);
+				p.CurrentPosition += (v0.potentialPosition - v0.CurrentPosition);
 			}
 
 			return 0;

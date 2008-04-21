@@ -46,7 +46,7 @@ namespace Project_blob
 			Vector3 ret = Vector3.Zero;
 			foreach (Physics.Point p in points)
 			{
-				ret += p.PotientialPosition;
+				ret += p.potentialPosition;
 			}
 			return ret / points.Count;
 			//return Center.Position;
