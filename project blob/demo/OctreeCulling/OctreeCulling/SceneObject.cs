@@ -99,6 +99,13 @@ namespace OctreeCulling
             set { _graphics = value; }
         }
 
+        private int _sectorNum;
+        public int SectorNum
+        {
+            get { return _sectorNum; }
+            set { _sectorNum = value; }
+        }
+
         protected virtual void CreateBoundingSphere()
         {
 
