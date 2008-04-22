@@ -85,6 +85,7 @@ namespace Engine
                 }
                 else
                 {
+                    _currentIndex = 0;
                     _running = false;
                     _finishedCinematics = true;
                 }

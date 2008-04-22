@@ -36,7 +36,19 @@ namespace WorldMaker
 
         private void runButton_Click(object sender, EventArgs e)
         {
-
+            if (pointBox.Items.Count > 1)
+            {
+                List<Vector3> tempPos = new List<Vector3>();
+                List<Vector3> tempLooks = new List<Vector3>();
+                List<Vector3> tempUps = new List<Vector3>();
+                foreach (String str in pointBox.Items)
+                {
+                    tempPos.Add(_cameraPos[str]);
+                    tempLooks.Add(_cameraLooks[str]);
+                    tempUps.Add(_cameraUps[str]);
+                }
+                Game1.SetUpCinematicCamera(tempPos, tempLooks, tempUps);
+            }
         }
 
         private void editButton_Click(object sender, EventArgs e)

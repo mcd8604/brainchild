@@ -77,6 +77,7 @@ namespace WorldMaker
         //VertexDeclaration VertexDeclarationColor;
         VertexDeclaration VertexDeclarationTexture;
 
+        public static bool cinema = false;
         public static bool follow = true;
         public Vector3 focusPoint = new Vector3(0, 0, 0);
         Vector3 Up = Vector3.Up;
@@ -259,7 +260,7 @@ namespace WorldMaker
                 Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
             }
 
-            BasicCamera camera = new BasicCamera();
+            CinematicCamera camera = new CinematicCamera();
             camera.FieldOfView = MathHelper.ToRadians(45.0f);
             camera.AspectRatio = (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height;
             camera.NearPlane = 1.0f;
@@ -269,8 +270,8 @@ namespace WorldMaker
             camera.Target = Vector3.Zero;
             camera.Up = Vector3.Up;
 
-            CameraManager.getSingleton.AddCamera("default", camera);
-            CameraManager.getSingleton.SetActiveCamera("default");
+            CameraManager.getSingleton.AddCamera("cinematic", camera);
+            CameraManager.getSingleton.SetActiveCamera("cinematic");
 
             _activeArea = Level.Areas["testArea"];
             //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
@@ -280,7 +281,16 @@ namespace WorldMaker
             _activeArea.Display.ShowAxis = true;
         }
 
-
+        public static void SetUpCinematicCamera(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
+        {
+            CinematicCamera cinematicCamera = (CinematicCamera)CameraManager.getSingleton.GetCamera("cinematic");
+            cinematicCamera.Ups = cameraUps;
+            cinematicCamera.Positions = cameraPos;
+            cinematicCamera.LookAts = cameraLooks;
+            cinematicCamera.Running = true;
+            CameraManager.getSingleton.SetActiveCamera("cinematic");
+            cinema = true;
+        }
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -372,25 +382,56 @@ namespace WorldMaker
             }
             else
             {
-                if (CameraPanSetter.ViewMatrix != null)
+                if (cinema)
                 {
-                    viewMatrix = CameraPanSetter.ViewMatrix;
+                    CameraManager.getSingleton.Update(gameTime);
                     if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
                     {
-                        ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
+                        ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = CameraManager.getSingleton.ActiveCamera.View;
                     }
                     else
                     {
                         if (EFFECT_TYPE == "effects")
-                            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
+                            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
                         else if (EFFECT_TYPE == "Cel")
-                            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
+                            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
                     }
 
                     if (EFFECT_TYPE == "effects")
-                        EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                        EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
                     else if (EFFECT_TYPE == "Cel")
-                        EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+                        EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+                    if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
+                    {
+                        cinema = false;
+                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
+                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
+                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
+                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
+                    }
+                }
+                else
+                {
+                    if (CameraPanSetter.ViewMatrix != null)
+                    {
+                        viewMatrix = CameraPanSetter.ViewMatrix;
+                        if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
+                        {
+                            ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
+                        }
+                        else
+                        {
+                            if (EFFECT_TYPE == "effects")
+                                EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
+                            else if (EFFECT_TYPE == "Cel")
+                                EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
+                        }
+
+                        if (EFFECT_TYPE == "effects")
+                            EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                        else if (EFFECT_TYPE == "Cel")
+                            EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+                    }
                 }
             }
 
