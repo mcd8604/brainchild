@@ -22,7 +22,7 @@ namespace Project_blob
 
         public void PerformEvent(GameplayScreen gameRef)
         {
-            
+            gameRef.SetUpCinematicCamera(_cameraPos, _cameraLooks, _cameraUps);
         }
     }
 }
