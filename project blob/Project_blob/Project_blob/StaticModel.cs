@@ -57,7 +57,7 @@ namespace Project_blob
                 mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
                 //-------------------------------------------
-                if (TextureKey.TextureName.Equals("plane"))
+                if (_modelName.Equals("plane"))
                 {
                     m_VertexBuffers = new Dictionary<String, VertexBuffer>();
 
