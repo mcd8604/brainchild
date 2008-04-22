@@ -77,7 +77,7 @@ namespace WorldMaker
         //VertexDeclaration VertexDeclarationColor;
         VertexDeclaration VertexDeclarationTexture;
 
-        bool follow = true;
+        public static bool follow = true;
         public Vector3 focusPoint = new Vector3(0, 0, 0);
         Vector3 Up = Vector3.Up;
         Vector3 Horizontal = new Vector3();
@@ -369,6 +369,29 @@ namespace WorldMaker
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
                 else if (EFFECT_TYPE == "Cel")
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+            }
+            else
+            {
+                if (CameraPanSetter.ViewMatrix != null)
+                {
+                    viewMatrix = CameraPanSetter.ViewMatrix;
+                    if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
+                    {
+                        ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
+                    }
+                    else
+                    {
+                        if (EFFECT_TYPE == "effects")
+                            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
+                        else if (EFFECT_TYPE == "Cel")
+                            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
+                    }
+
+                    if (EFFECT_TYPE == "effects")
+                        EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                    else if (EFFECT_TYPE == "Cel")
+                        EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+                }
             }
 
             base.Update(gameTime);
