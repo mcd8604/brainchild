@@ -42,6 +42,7 @@ namespace Project_blob.GameState
 
 		Physics.PhysicsManager physics;
 
+        bool cinema = false;
 		bool paused = false;
 		bool controllermode = false;
 		bool follow = true;
@@ -345,6 +346,7 @@ namespace Project_blob.GameState
 			cinematicCamera.LookAts = cameraLooks;
 			cinematicCamera.Running = true;
 			CameraManager.getSingleton.SetActiveCamera("cinematic");
+            cinema = true;
 		}
 
 		/// <summary>
@@ -566,8 +568,22 @@ namespace Project_blob.GameState
 				//Console.WriteLine(theBlob.getVolume());
 				//theBlob.update();
 
-
-				if (follow)
+                if (cinema)
+                {
+                    effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                    celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+                    celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                    effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+                    if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
+                    {
+                        cinema = false;
+                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
+                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
+                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
+                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
+                    }
+                }
+				else if (follow)
 				{
 					cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
 					if (cameraAngle.X < -MathHelper.Pi)
