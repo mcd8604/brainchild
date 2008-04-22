@@ -158,7 +158,7 @@ namespace Project_blob.GameState
 			resetBlob();
 
 			//load default level
-			Level.LoadLevel("Playground", "effects");
+			Level.LoadLevel("Transitor", "effects");
 
 			//List of Static Drawables to add to Scene
 			List<Drawable> staticDrawables = new List<Drawable>();
@@ -376,18 +376,18 @@ namespace Project_blob.GameState
 				{
 					ScreenManager.AddScreen(new PauseMenuScreen());
 				}
-				//if (InputHandler.IsKeyPressed(Keys.OemTilde))
-				//{
-				//	if (Physics.PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
-				//	{
-				//		Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
-				//	}
-				//	else
-				//	{
-				//		Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
-				//	}
-				//	resetBlob();
-				//}
+                if (InputHandler.IsKeyPressed(Keys.OemTilde))
+                {
+                    if (Physics.PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
+                    {
+                        Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
+                    }
+                    else
+                    {
+                        Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
+                    }
+                    resetBlob();
+                }
 				if (InputHandler.IsActionPressed(Actions.Reset))
 				{
 					resetBlob();

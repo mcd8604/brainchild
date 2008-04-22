@@ -87,6 +87,15 @@ namespace Physics
 				p.updatePosition();
 			}
 
+            foreach (Collidable c in physicsMain._eventsToTrigger)
+            {
+                c.TriggerEvents();
+            }
+            if (physicsMain != null)
+            {
+                physicsMain._eventsToTrigger.Clear();
+            }
+
 			runForTime = TotalElapsedSeconds;
 			lock (this) System.Threading.Monitor.Pulse(this);
 		}
