@@ -177,7 +177,14 @@ namespace Project_blob
             
             List<TextureInfo> textureInfos = new List<TextureInfo>();
 
-            //load level models and textures
+            //load level textures
+            //TODO: change to level list, rather than drawn
+            foreach (TextureInfo ti in this.Display.DrawnList.Keys)
+            {
+                TextureManager.getSingleton.AddTexture(ti.TextureName, game.Content.Load<Texture2D>(@"Textures\\" + ti.TextureName));
+            }
+
+            //load level models
             IEnumerator drawablesEnum = this.Drawables.GetEnumerator();
             while (drawablesEnum.MoveNext())
             {
@@ -198,6 +205,40 @@ namespace Project_blob
                         if (this.Display.DrawnList[info].Contains(dm))
                         {
                             dm.TextureKey = info;
+
+                            //Texture Coord Stuff
+                            //if (dm.ModelName.Equals("plane"))
+                            //{
+                                Texture2D texture = TextureManager.getSingleton.GetTexture(info.TextureName);
+                                foreach (ModelMesh mesh in model.Meshes)
+                                {
+                                    int numVertices = 0;
+                                    foreach (ModelMeshPart part in mesh.MeshParts)
+                                    {
+                                        numVertices += part.NumVertices;
+                                    }
+                                    VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
+                                    mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+
+                                    /*Vector3[] points = new Vector3[numVertices];
+                                    for (int i = 0; i < vertices.Length; i++)
+                                    {
+                                        points[i] = vertices[i].Position;
+                                    }
+                                    BoundingBox boundingBox = BoundingBox.CreateFromPoints(points);*/
+                                    
+                                    for (int i = 0; i < vertices.Length; i++)
+                                    {
+                                        Vector3 scaleVector = Vector3.Zero;
+                                        Quaternion rotVector = Quaternion.Identity;
+                                        Vector3 transVector = Vector3.Zero;
+                                        dm.Scale.Decompose(out scaleVector, out rotVector, out transVector);
+                                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width / 2f));
+                                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height / 2f));
+                                    }
+                                    mesh.VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+                                //}
+                            }
                         }
                     }
 
@@ -227,12 +268,6 @@ namespace Project_blob
                         }
                     }
                 }
-            }
-
-            //change to level list, rather than drawn
-            foreach (TextureInfo ti in this.Display.DrawnList.Keys)
-            {
-                TextureManager.getSingleton.AddTexture(ti.TextureName, game.Content.Load<Texture2D>(@"Textures\\" + ti.TextureName));
             }
         }
     }
