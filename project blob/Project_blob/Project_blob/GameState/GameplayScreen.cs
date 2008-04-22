@@ -158,7 +158,7 @@ namespace Project_blob.GameState
 			resetBlob();
 
 			//load default level
-			Level.LoadLevel("Transitor", "effects");
+			Level.LoadLevel("Playground", "effects");
 
 			//List of Static Drawables to add to Scene
 			List<Drawable> staticDrawables = new List<Drawable>();
@@ -520,6 +520,21 @@ namespace Project_blob.GameState
 					//    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Run)) * (move.X * playerMoveMulti);
 					//}
 				}
+
+                if (InputHandler.IsKeyPressed(Keys.J))
+                {
+                    // Fake Jump: TODO
+
+                    // Fake Fake Jump:
+
+                    foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
+                    {
+
+                        p.ForceThisFrame += Vector3.Up * 1000;
+
+                    }
+
+                }
 
 				if (InputHandler.IsKeyPressed(Keys.PageUp))
 				{

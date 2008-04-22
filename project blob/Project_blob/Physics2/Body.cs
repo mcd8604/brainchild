@@ -81,7 +81,7 @@ namespace Physics2
 			// Predict potential position
 			foreach (Point p in points)
 			{
-				p.potentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+				p.PotentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
 			}
 
 			// Springs
@@ -118,6 +118,52 @@ namespace Physics2
 			center /= points.Count;
 
 		}
+
+        internal void SolveForNextPosition(float TotalElapsedSeconds)
+        {
+
+            foreach (Body child in childBodies)
+            {
+                SolveForNextPosition(TotalElapsedSeconds);
+            }
+
+            foreach (Point p in points)
+            {
+                p.PotentialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.Mass);
+                p.PotentialVelocity = p.CurrentVelocity + (p.PotentialAcceleration * TotalElapsedSeconds);
+
+                if (p.PotentialVelocity != Vector3.Zero)
+                {
+                    //Vector3 DragForce = p.PotentialVelocity * airfriction;
+                    Vector3 DragForce = p.PotentialVelocity * 1;
+                    Vector3 AccelerationDrag = (DragForce / p.Mass);
+                    Vector3 VelocityDrag = (AccelerationDrag * TotalElapsedSeconds);
+
+                    if ((p.PotentialVelocity.X > 0 && p.PotentialVelocity.X - VelocityDrag.X <= 0) ||
+                        (p.PotentialVelocity.X < 0 && p.PotentialVelocity.X - VelocityDrag.X >= 0))
+                    {
+                        p.PotentialVelocity.X = 0;
+                        VelocityDrag.X = 0;
+                    }
+                    if ((p.PotentialVelocity.Y > 0 && p.PotentialVelocity.Y - VelocityDrag.Y <= 0) ||
+                        (p.PotentialVelocity.Y < 0 && p.PotentialVelocity.Y - VelocityDrag.Y >= 0))
+                    {
+                        p.PotentialVelocity.Y = 0;
+                        VelocityDrag.Y = 0;
+                    }
+                    if ((p.PotentialVelocity.Z > 0 && p.PotentialVelocity.Z - VelocityDrag.Z <= 0) ||
+                        (p.PotentialVelocity.Z < 0 && p.PotentialVelocity.Z - VelocityDrag.Z >= 0))
+                    {
+                        p.PotentialVelocity.Z = 0;
+                        VelocityDrag.Z = 0;
+                    }
+                    p.PotentialVelocity -= VelocityDrag;
+                }
+
+                p.PotentialPosition = p.CurrentPosition + (p.PotentialVelocity * TotalElapsedSeconds);
+            }
+
+        }
 
 	}
 }

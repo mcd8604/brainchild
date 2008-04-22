@@ -72,6 +72,10 @@ namespace Physics2
 			}
 
 			// Solve for the 'Actual' potential positions based on force and acceleration
+            foreach (Body b in bodies)
+            {
+                b.SolveForNextPosition(TotalElapsedSeconds);
+            }
 
 			// Check BoundingBoxes, Find collisions, add to collision list
 
