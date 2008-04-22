@@ -36,10 +36,14 @@ namespace Project_blob
         private BoundingBox m_BoundingBox;
         private BoundingSphere m_BoundingSphere;
 
+        [NonSerialized]
+        private Dictionary<String, VertexBuffer> m_VertexBuffers;
+        
         //[NonSerialized]
         //private List<Physics.Collidable> m_collidables;
         public List<Physics.Collidable> createCollidables(Area areaRef)
         {
+            m_VertexBuffers = new Dictionary<String, VertexBuffer>();
             Model m = ModelManager.getSingleton.GetModel(_modelName);
             List<Physics.Collidable> collidables = new List<Physics.Collidable>();
             foreach (ModelMesh mesh in m.Meshes)
@@ -52,6 +56,31 @@ namespace Project_blob
                 }
                 VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
                 mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+
+                //-------------------------------------------
+
+                //scaleVector used to scale texture coordinates
+                Vector3 scaleVector = Vector3.Zero;
+                Quaternion rotVector = Quaternion.Identity;
+                Vector3 transVector = Vector3.Zero;
+                m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
+
+                Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+
+                for (int i = 0; i < vertices.Length; i++)
+                {
+                    //scale the texture coordinates
+                    vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width / 2f));
+                    vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height / 2f));
+                }
+
+                //VertexBuffer curVertexBuffer = mesh.VertexBuffer;
+                //curVertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+                
+                m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
+                m_VertexBuffers[mesh.Name].SetData<VertexPositionNormalTexture>(vertices);
+
+                //-------------------------------------------
 
                 Matrix transformMatrix = Matrix.Identity;
                 Stack<Matrix> drawStack = new Stack<Matrix>();
@@ -93,6 +122,7 @@ namespace Project_blob
                     vertices[i].Position = Vector3.Transform(vertices[i].Position, transformMatrix);
                     vertices[i].Normal = Vector3.TransformNormal(vertices[i].Normal, transformMatrix);
                 }
+
                 // Indices
                 int[] indices;
                 if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
@@ -331,7 +361,7 @@ namespace Project_blob
             {                
                 // Change the device settings for each part to be rendered
                 graphicsDevice.VertexDeclaration = part.VertexDeclaration;
-                graphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
+                graphicsDevice.Vertices[0].SetSource(m_VertexBuffers[mesh.Name], part.StreamOffset, part.VertexStride);
                 // Finally draw the actual triangles on the screen
                 graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
 

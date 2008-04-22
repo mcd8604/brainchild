@@ -216,84 +216,84 @@ namespace Project_blob
                                 Vector3 transVector = Vector3.Zero;
                                 dm.Scale.Decompose(out scaleVector, out rotVector, out transVector);
 
-                                foreach (ModelMesh mesh in model.Meshes)
-                                {
-                                    int numVertices = 0;
-                                    foreach (ModelMeshPart part in mesh.MeshParts)
-                                    {
-                                        numVertices += part.NumVertices;
-                                    }
-                                    VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
-                                    mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+                            //    foreach (ModelMesh mesh in model.Meshes)
+                            //    {
+                            //        int numVertices = 0;
+                            //        foreach (ModelMeshPart part in mesh.MeshParts)
+                            //        {
+                            //            numVertices += part.NumVertices;
+                            //        }
+                            //        VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
+                            //        mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
-                                    int[] indices;
-                                    if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
-                                    {
-                                        indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-                                        short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-                                        mesh.IndexBuffer.GetData<short>(temp);
-                                        for (int i = 0; i < temp.Length; i++)
-                                            indices[i] = temp[i];
-                                    }
-                                    else
-                                    {
-                                        indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
-                                        mesh.IndexBuffer.GetData<int>(indices);
-                                    }
+                            //        /*int[] indices;
+                            //        if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
+                            //        {
+                            //            indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+                            //            short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+                            //            mesh.IndexBuffer.GetData<short>(temp);
+                            //            for (int i = 0; i < temp.Length; i++)
+                            //                indices[i] = temp[i];
+                            //        }
+                            //        else
+                            //        {
+                            //            indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
+                            //            mesh.IndexBuffer.GetData<int>(indices);
+                            //        }*/
 
 
-                                    //major problem noticed, this algorithm only works for one triangle
-                                    List<int> transTextCord = new List<int>();
-                                    for (int i = 0; i < indices.Length; i += 3)
-                                    {
-                                        //Plane plane = new Plane(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position);
-                                        //plane.Normal;
+                            //        //major problem noticed, this algorithm only works for one triangle
+                            //        /*List<int> transTextCord = new List<int>();
+                            //        for (int i = 0; i < indices.Length; i += 3)
+                            //        {
+                            //            //Plane plane = new Plane(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position);
+                            //            //plane.Normal;
 
-                                        float distOriginal1 = Vector3.Distance(vertices[indices[i]].Position, vertices[indices[i + 1]].Position);
-                                        float distOriginal2 = Vector3.Distance(vertices[indices[i]].Position, vertices[indices[i + 2]].Position);
-                                        //float distOriginal3 = Vector3.Distance(vertices[indices[i + 2]].Position, vertices[indices[i]].Position);
+                            //            float distOriginal1 = Vector3.Distance(vertices[indices[i]].Position, vertices[indices[i + 1]].Position);
+                            //            float distOriginal2 = Vector3.Distance(vertices[indices[i]].Position, vertices[indices[i + 2]].Position);
+                            //            //float distOriginal3 = Vector3.Distance(vertices[indices[i + 2]].Position, vertices[indices[i]].Position);
 
-                                        float distTrans1 = Vector3.Distance(vertices[indices[i]].Position * scaleVector, vertices[indices[i + 1]].Position * scaleVector);
-                                        float distTrans2 = Vector3.Distance(vertices[indices[i]].Position * scaleVector, vertices[indices[i + 2]].Position * scaleVector);
-                                        //float distTrans3 = Vector3.Distance(vertices[indices[i + 2]].Position * scaleVector, vertices[indices[i]].Position * scaleVector);
+                            //            float distTrans1 = Vector3.Distance(vertices[indices[i]].Position * scaleVector, vertices[indices[i + 1]].Position * scaleVector);
+                            //            float distTrans2 = Vector3.Distance(vertices[indices[i]].Position * scaleVector, vertices[indices[i + 2]].Position * scaleVector);
+                            //            //float distTrans3 = Vector3.Distance(vertices[indices[i + 2]].Position * scaleVector, vertices[indices[i]].Position * scaleVector);
                                         
-                                        //vertices[indices[i]].TextureCoordinate.X *= ((distTrans1 / distOriginal1) / (texture.Width / 2f));
-                                        //vertices[indices[i]].TextureCoordinate.Y *= ((distTrans1 / distOriginal1) / (texture.Height / 2f));
+                            //            //vertices[indices[i]].TextureCoordinate.X *= ((distTrans1 / distOriginal1) / (texture.Width / 2f));
+                            //            //vertices[indices[i]].TextureCoordinate.Y *= ((distTrans1 / distOriginal1) / (texture.Height / 2f));
 
-                                        if(!transTextCord.Contains(indices[i + 1]))
-                                        {
-                                            vertices[indices[i + 1]].TextureCoordinate.X *= ((distTrans1 / distOriginal1));// / (texture.Width / 2f));
-                                            vertices[indices[i + 1]].TextureCoordinate.Y *= ((distTrans1 / distOriginal1));// / (texture.Height / 2f));
-                                            transTextCord.Add(indices[i + 1]);
-                                        }
+                            //            if(!transTextCord.Contains(indices[i + 1]))
+                            //            {
+                            //                vertices[indices[i + 1]].TextureCoordinate.X *= ((distTrans1 / distOriginal1));// / (texture.Width / 2f));
+                            //                vertices[indices[i + 1]].TextureCoordinate.Y *= ((distTrans1 / distOriginal1));// / (texture.Height / 2f));
+                            //                transTextCord.Add(indices[i + 1]);
+                            //            }
                                         
-                                        if(!transTextCord.Contains(indices[i + 2]))
-                                        {
-                                            vertices[indices[i + 2]].TextureCoordinate.X *= ((distTrans2 / distOriginal2));// / (texture.Width / 2f));
-                                            vertices[indices[i + 2]].TextureCoordinate.Y *= ((distTrans2 / distOriginal2));// / (texture.Height / 2f));
-                                            transTextCord.Add(indices[i + 2]);
-                                        }
-                                    }
+                            //            if(!transTextCord.Contains(indices[i + 2]))
+                            //            {
+                            //                vertices[indices[i + 2]].TextureCoordinate.X *= ((distTrans2 / distOriginal2));// / (texture.Width / 2f));
+                            //                vertices[indices[i + 2]].TextureCoordinate.Y *= ((distTrans2 / distOriginal2));// / (texture.Height / 2f));
+                            //                transTextCord.Add(indices[i + 2]);
+                            //            }
+                            //        }*/
 
-                                    /*Vector3[] points = new Vector3[numVertices];
-                                    for (int i = 0; i < vertices.Length; i++)
-                                    {
-                                        points[i] = vertices[i].Position;
-                                    }
-                                    BoundingBox boundingBox = BoundingBox.CreateFromPoints(points);*/
+                            //        /*Vector3[] points = new Vector3[numVertices];
+                            //        for (int i = 0; i < vertices.Length; i++)
+                            //        {
+                            //            points[i] = vertices[i].Position;
+                            //        }
+                            //        BoundingBox boundingBox = BoundingBox.CreateFromPoints(points);*/
                                     
-                                    /*for (int i = 0; i < vertices.Length; i++)
-                                    {
-                                        Vector3 scaleVector = Vector3.Zero;
-                                        Quaternion rotVector = Quaternion.Identity;
-                                        Vector3 transVector = Vector3.Zero;
-                                        dm.Scale.Decompose(out scaleVector, out rotVector, out transVector);
-                                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width / 2f));
-                                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height / 2f));
-                                    }*/
-                                    mesh.VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
-                                //}
-                            }
+                            //        /*for (int i = 0; i < vertices.Length; i++)
+                            //        {
+                            //            Vector3 scaleVector = Vector3.Zero;
+                            //            Quaternion rotVector = Quaternion.Identity;
+                            //            Vector3 transVector = Vector3.Zero;
+                            //            dm.Scale.Decompose(out scaleVector, out rotVector, out transVector);
+                            //            vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width / 2f));
+                            //            vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height / 2f));
+                            //        }*/
+                            //        mesh.VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+                            //    //}
+                            //}
                         }
                     }
 
