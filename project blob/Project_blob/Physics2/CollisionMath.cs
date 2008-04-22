@@ -141,19 +141,19 @@ namespace Physics2
 			Vector3 c_u = v1.CurrentPosition - v0.CurrentPosition;
 			Vector3 c_v = v2.CurrentPosition - v0.CurrentPosition;
 			Vector3 c_n = Vector3.Cross(c_u, c_v);
-			Vector3 n_u = v1.potentialPosition - v0.potentialPosition;
-			Vector3 n_v = v2.potentialPosition - v0.potentialPosition;
+			Vector3 n_u = v1.PotentialPosition - v0.PotentialPosition;
+			Vector3 n_v = v2.PotentialPosition - v0.PotentialPosition;
 			Vector3 n_n = Vector3.Cross(n_u, n_v);
 			if (c_n.LengthSquared() == 0 && n_n.LengthSquared() == 0) // degenerate triangle
 			{
 				return -1;
 			}
 
-			Vector3 dir = p.potentialPosition - p.CurrentPosition;
+			Vector3 dir = p.PotentialPosition - p.CurrentPosition;
 			Vector3 c_w0 = p.CurrentPosition - v0.CurrentPosition;
 			float c_a = -Vector3.Dot(c_n, c_w0);
 			float c_b = Vector3.Dot(c_n, dir);
-			Vector3 n_w0 = p.CurrentPosition - v0.potentialPosition;
+			Vector3 n_w0 = p.CurrentPosition - v0.PotentialPosition;
 			float n_a = -Vector3.Dot(n_n, n_w0);
 			float n_b = Vector3.Dot(n_n, dir);
 			if (Math.Abs(c_b) <= Small_num && Math.Abs(c_b) <= Small_num) // parallel to plane
@@ -169,7 +169,7 @@ namespace Physics2
 				// collidable passed through point
 				//throw new Exception();
 
-				p.CurrentPosition += (v0.potentialPosition - v0.CurrentPosition);
+				p.CurrentPosition += (v0.PotentialPosition - v0.CurrentPosition);
 			}
 
 			return 0;
