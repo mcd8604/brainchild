@@ -51,6 +51,14 @@ namespace WorldMaker
             {
                 areaTextBox.Text = (String)areaListBox.Items[areaListBox.SelectedIndex];
                 _gameRef.ActiveArea = Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]];
+                
+                //*hardcode*
+                _gameRef.ActiveArea.Display.EffectName = "effects";
+                _gameRef.ActiveArea.Display.WorldParameterName = "xWorld";
+                _gameRef.ActiveArea.Display.TextureParameterName = "xTexture";
+                _gameRef.ActiveArea.Display.TechniqueName = "Textured";
+                //*end hardcode*
+                
                 modelListBox.Items.Clear();
                 foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
                 {
