@@ -21,8 +21,12 @@ namespace WorldMaker
         private CameraEvent _cameraEvent;
         public CameraEvent CameraPan { get { return _cameraEvent; } }
 
+        private static Matrix _viewMatrix;
+        public static Matrix ViewMatrix { get { return _viewMatrix; } }
+
         public CameraPanSetter()
         {
+            Game1.follow = false;
             _cameraPointCount = 1;
             _cameraUps = new Dictionary<String, Vector3>();
             _cameraLooks = new Dictionary<String, Vector3>();
@@ -138,18 +142,24 @@ namespace WorldMaker
                     tempUps.Add(vec);
                 }
                 _cameraEvent = new CameraEvent(tempPos, tempLooks, tempUps);
+                Game1.follow = true;
                 this.Close();
             }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            Game1.follow = true;
             this.Close();
         }
 
         private void pointBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if (pointBox.SelectedIndex != -1)
+            {
+                String temp = (String)pointBox.Items[pointBox.SelectedIndex];
+                _viewMatrix = Matrix.CreateLookAt(_cameraPos[temp], _cameraLooks[temp], _cameraUps[temp]);
+            }
         }
     }
 }
