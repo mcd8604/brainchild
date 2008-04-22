@@ -43,7 +43,6 @@ namespace Project_blob
         //private List<Physics.Collidable> m_collidables;
         public List<Physics.Collidable> createCollidables(Area areaRef)
         {
-            m_VertexBuffers = new Dictionary<String, VertexBuffer>();
             Model m = ModelManager.getSingleton.GetModel(_modelName);
             List<Physics.Collidable> collidables = new List<Physics.Collidable>();
             foreach (ModelMesh mesh in m.Meshes)
@@ -58,28 +57,28 @@ namespace Project_blob
                 mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
                 //-------------------------------------------
-
-                //scaleVector used to scale texture coordinates
-                Vector3 scaleVector = Vector3.Zero;
-                Quaternion rotVector = Quaternion.Identity;
-                Vector3 transVector = Vector3.Zero;
-                m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
-
-                Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
-
-                for (int i = 0; i < vertices.Length; i++)
+                if (TextureKey.TextureName.Equals("plane"))
                 {
-                    //scale the texture coordinates
-                    vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width / 2f));
-                    vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height / 2f));
+                    m_VertexBuffers = new Dictionary<String, VertexBuffer>();
+
+                    //scaleVector used to scale texture coordinates
+                    Vector3 scaleVector = Vector3.Zero;
+                    Quaternion rotVector = Quaternion.Identity;
+                    Vector3 transVector = Vector3.Zero;
+                    m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
+
+                    Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+
+                    for (int i = 0; i < vertices.Length; i++)
+                    {
+                        //scale the texture coordinates
+                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width / 2f));
+                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height / 2f));
+                    }
+
+                    m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
+                    m_VertexBuffers[mesh.Name].SetData<VertexPositionNormalTexture>(vertices);
                 }
-
-                //VertexBuffer curVertexBuffer = mesh.VertexBuffer;
-                //curVertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
-                
-                m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
-                m_VertexBuffers[mesh.Name].SetData<VertexPositionNormalTexture>(vertices);
-
                 //-------------------------------------------
 
                 Matrix transformMatrix = Matrix.Identity;
@@ -361,10 +360,18 @@ namespace Project_blob
             {                
                 // Change the device settings for each part to be rendered
                 graphicsDevice.VertexDeclaration = part.VertexDeclaration;
-                graphicsDevice.Vertices[0].SetSource(m_VertexBuffers[mesh.Name], part.StreamOffset, part.VertexStride);
+                VertexBuffer vertexBuffer;
+                if (m_VertexBuffers == null)
+                {
+                    vertexBuffer = mesh.VertexBuffer;
+                }
+                else
+                {
+                    vertexBuffer = m_VertexBuffers[mesh.Name];
+                }
+                graphicsDevice.Vertices[0].SetSource(vertexBuffer, part.StreamOffset, part.VertexStride);
                 // Finally draw the actual triangles on the screen
                 graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
-
                 if (this.ShowVertices && !gameMode)
                 {
                     Texture2D temp = (Texture2D)graphicsDevice.Textures[0];

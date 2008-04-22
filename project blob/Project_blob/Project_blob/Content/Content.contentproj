@@ -60,6 +60,10 @@
       <Name>playground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\testLevel.lev">
+      <Name>testLevel</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\Transitor.lev">
       <Name>Transitor</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -215,6 +219,13 @@
   <ItemGroup>
     <Compile Include="gradient.png">
       <Name>gradient</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\cube.png">
+      <Name>cube</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

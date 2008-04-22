@@ -42,7 +42,7 @@ namespace WorldMaker
             set { _activeArea = value; }
         }
 
-        public readonly String EFFECT_TYPE = "basic";
+        public readonly String EFFECT_TYPE = "effects";
 
         private String _effectName;
         public String EffectName
