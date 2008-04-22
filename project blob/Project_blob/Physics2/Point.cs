@@ -7,17 +7,18 @@ namespace Physics2
 
 		public bool isStatic;
 
-		public Vector3 CurrentPosition;
+		private Vector3 currentPosition = Vector3.Zero;
+		public Vector3 CurrentPosition
+		{
+			get { return currentPosition; }
+			internal set { currentPosition = value; }
+		}
 
 		public Vector3 CurrentVelocity;
 
-        public Vector3 CurrentAcceleration;
-
 		public Vector3 PotentialPosition;
 
-        public Vector3 PotentialAcceleration;
-
-        public Vector3 PotentialVelocity;
+		public Vector3 PotentialVelocity;
 
 		public Collidable LastCollision;
 
@@ -25,7 +26,7 @@ namespace Physics2
 
 		public Vector3 AccelerationThisFrame;
 
-        public Vector3 Mass;
+		public Vector3 Mass;
 
 		public void updatePosition()
 		{

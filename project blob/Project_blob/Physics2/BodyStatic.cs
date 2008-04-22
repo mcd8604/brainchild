@@ -6,22 +6,32 @@ namespace Physics2
 	public class BodyStatic : Body
 	{
 
-        public new List<CollidableStatic> collidables = new List<CollidableStatic>();
+		private new List<CollidableStatic> collidables = new List<CollidableStatic>();
 
-        public new List<BodyStatic> childBodies = null;
+		private new List<BodyStatic> childBodies = null;
 
-        public new AxisAlignedBoundingBox boundingBox = new AxisAlignedBoundingBox();
+		public BodyStatic() { }
 
-        public BodyStatic() { }
+		public BodyStatic(List<CollidableStatic> Collidables, Body ParentBody)
+			: base(ParentBody)
+		{
+			collidables = Collidables;
+			foreach (CollidableStatic c in collidables)
+			{
+				boundingBox.expandToInclude(c.getBoundingBox());
+			}
+		}
 
-        public BodyStatic(Body ParentBody)
-            :base(ParentBody)
-        {}
+		public override bool isStatic()
+		{
+			return true;
+		}
 
-        public override void update(float TotalElapsedSeconds)
-        {}
-        public override void updatePosition()
-        { }
+		public override void update(float TotalElapsedSeconds)
+		{ }
+		public override void updatePosition()
+		{ }
+		internal override void SolveForNextPosition(float TotalElapsedSeconds) { }
 
 	}
 }

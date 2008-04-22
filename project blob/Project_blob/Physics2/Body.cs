@@ -40,6 +40,11 @@ namespace Physics2
 			childBodies.Add(childBody);
 		}
 
+		public virtual bool isStatic()
+		{
+			return false;
+		}
+
 		public virtual AxisAlignedBoundingBox getBoundingBox()
 		{
 			return boundingBox;
@@ -50,7 +55,7 @@ namespace Physics2
 			return center;
 		}
 
-		public virtual Vector3 getpotentialCenter()
+		public virtual Vector3 getPotentialCenter()
 		{
 			return center;
 		}
@@ -119,51 +124,115 @@ namespace Physics2
 
 		}
 
-        internal void SolveForNextPosition(float TotalElapsedSeconds)
-        {
+		internal virtual void SolveForNextPosition(float TotalElapsedSeconds)
+		{
 
-            foreach (Body child in childBodies)
-            {
-                SolveForNextPosition(TotalElapsedSeconds);
-            }
+			foreach (Body child in childBodies)
+			{
+				child.SolveForNextPosition(TotalElapsedSeconds);
+			}
 
-            foreach (Point p in points)
-            {
-                p.PotentialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.Mass);
-                p.PotentialVelocity = p.CurrentVelocity + (p.PotentialAcceleration * TotalElapsedSeconds);
+			foreach (Point p in points)
+			{
+				Vector3 Acceleration = p.AccelerationThisFrame + (p.ForceThisFrame / p.Mass);
+				p.PotentialVelocity = p.CurrentVelocity + (Acceleration * TotalElapsedSeconds);
 
-                if (p.PotentialVelocity != Vector3.Zero)
-                {
-                    //Vector3 DragForce = p.PotentialVelocity * airfriction;
-                    Vector3 DragForce = p.PotentialVelocity * 1;
-                    Vector3 AccelerationDrag = (DragForce / p.Mass);
-                    Vector3 VelocityDrag = (AccelerationDrag * TotalElapsedSeconds);
+				if (p.PotentialVelocity != Vector3.Zero)
+				{
+					//Vector3 DragForce = p.PotentialVelocity * airfriction;
+					Vector3 DragForce = p.PotentialVelocity * 1;
+					Vector3 AccelerationDrag = (DragForce / p.Mass);
+					Vector3 VelocityDrag = (AccelerationDrag * TotalElapsedSeconds);
 
-                    if ((p.PotentialVelocity.X > 0 && p.PotentialVelocity.X - VelocityDrag.X <= 0) ||
-                        (p.PotentialVelocity.X < 0 && p.PotentialVelocity.X - VelocityDrag.X >= 0))
-                    {
-                        p.PotentialVelocity.X = 0;
-                        VelocityDrag.X = 0;
-                    }
-                    if ((p.PotentialVelocity.Y > 0 && p.PotentialVelocity.Y - VelocityDrag.Y <= 0) ||
-                        (p.PotentialVelocity.Y < 0 && p.PotentialVelocity.Y - VelocityDrag.Y >= 0))
-                    {
-                        p.PotentialVelocity.Y = 0;
-                        VelocityDrag.Y = 0;
-                    }
-                    if ((p.PotentialVelocity.Z > 0 && p.PotentialVelocity.Z - VelocityDrag.Z <= 0) ||
-                        (p.PotentialVelocity.Z < 0 && p.PotentialVelocity.Z - VelocityDrag.Z >= 0))
-                    {
-                        p.PotentialVelocity.Z = 0;
-                        VelocityDrag.Z = 0;
-                    }
-                    p.PotentialVelocity -= VelocityDrag;
-                }
+					if ((p.PotentialVelocity.X > 0 && p.PotentialVelocity.X - VelocityDrag.X <= 0) ||
+						(p.PotentialVelocity.X < 0 && p.PotentialVelocity.X - VelocityDrag.X >= 0))
+					{
+						p.PotentialVelocity.X = 0;
+						VelocityDrag.X = 0;
+					}
+					if ((p.PotentialVelocity.Y > 0 && p.PotentialVelocity.Y - VelocityDrag.Y <= 0) ||
+						(p.PotentialVelocity.Y < 0 && p.PotentialVelocity.Y - VelocityDrag.Y >= 0))
+					{
+						p.PotentialVelocity.Y = 0;
+						VelocityDrag.Y = 0;
+					}
+					if ((p.PotentialVelocity.Z > 0 && p.PotentialVelocity.Z - VelocityDrag.Z <= 0) ||
+						(p.PotentialVelocity.Z < 0 && p.PotentialVelocity.Z - VelocityDrag.Z >= 0))
+					{
+						p.PotentialVelocity.Z = 0;
+						VelocityDrag.Z = 0;
+					}
+					p.PotentialVelocity -= VelocityDrag;
+				}
 
-                p.PotentialPosition = p.CurrentPosition + (p.PotentialVelocity * TotalElapsedSeconds);
-            }
+				p.PotentialPosition = p.CurrentPosition + (p.PotentialVelocity * TotalElapsedSeconds);
+			}
 
-        }
+		}
+
+		internal virtual List<CollisionEvent> findCollisions(Body c)
+		{
+			List<CollisionEvent> events = new List<CollisionEvent>();
+
+			foreach (Body child in childBodies)
+			{
+				if (child.getBoundingBox().intersects(c.getBoundingBox()))
+				{
+					events.AddRange(child.findCollisions(c));
+				}
+			}
+
+			if (points.Count > 0)
+			{
+				events.AddRange(c.findCollisionsWith(this));
+
+			}
+
+			return events;
+		}
+
+		internal virtual List<CollisionEvent> findCollisionsWith(Body b)
+		{
+			List<CollisionEvent> events = new List<CollisionEvent>();
+
+			foreach (Body child in childBodies)
+			{
+				if (child.getBoundingBox().intersects(b.getBoundingBox()))
+				{
+					events.AddRange(child.findCollisionsWith(b));
+				}
+			}
+
+			if (collidables.Count > 0)
+			{
+				events.AddRange(b.findPointCollisions(this));
+			}
+
+			return events;
+		}
+
+		internal virtual List<CollisionEvent> findPointCollisions(Body c)
+		{
+			List<CollisionEvent> events = new List<CollisionEvent>();
+
+			foreach (Point p in points)
+			{
+				foreach (Collidable x in c.collidables)
+				{
+					if (x.couldIntersect(p.CurrentPosition, p.PotentialPosition))
+					{
+						float u = x.didIntersect(p.CurrentPosition, p.PotentialPosition);
+						if (u > 0 && u < 1)
+						{
+							events.Add(new CollisionEvent(p, x, u));
+						}
+					}
+				}
+			}
+
+			return events;
+
+		}
 
 	}
 }

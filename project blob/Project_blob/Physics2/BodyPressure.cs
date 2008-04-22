@@ -9,7 +9,7 @@ namespace Physics2
 
 		public abstract float getIdealVolume();
 
-		public abstract float getpotentialVolume();
+		public abstract float getPotentialVolume();
 
 		public abstract void setIdealVolume(float volume);
 
@@ -20,9 +20,9 @@ namespace Physics2
 
 			// Volumes
 			Vector3 CurrentCenter = getCenter();
-			Vector3 NextCenter = getpotentialCenter();
+			Vector3 NextCenter = getPotentialCenter();
 			float CurrentVolume = getVolume();
-			float NextVolume = getpotentialVolume();
+			float NextVolume = getPotentialVolume();
 			float IdealVolume = getIdealVolume();
 			foreach (Point p in getPoints())
 			{
