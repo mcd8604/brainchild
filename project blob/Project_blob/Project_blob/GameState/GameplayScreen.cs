@@ -42,7 +42,7 @@ namespace Project_blob.GameState
 
 		Physics.PhysicsManager physics;
 
-        bool cinema = false;
+		bool cinema = false;
 		bool paused = false;
 		bool controllermode = false;
 		bool follow = true;
@@ -98,23 +98,21 @@ namespace Project_blob.GameState
 
 			physics.AirFriction = 1f;
 
-			physics.Player.Traction.Minimum = 200f;
+			physics.Player.Traction.Minimum = 0f;
 			physics.Player.Traction.Origin = 200f;
-			physics.Player.Traction.Maximum = 200f;
+			physics.Player.Traction.Maximum = 1000f;
 
-			physics.Player.Cling.Minimum = 10f;
+			physics.Player.Cling.Minimum = 0f;
 			physics.Player.Cling.Origin = 10f;
-			physics.Player.Cling.Maximum = 10f;
+			physics.Player.Cling.Maximum = 100f;
 
-			physics.Player.Resilience.Minimum = 50f;
-			physics.Player.Resilience.Origin = 50f;
+			physics.Player.Resilience.Minimum = 20f;
+			physics.Player.Resilience.Origin = 40f;
 			physics.Player.Resilience.Maximum = 50f;
-			physics.Player.Resilience.Delta = 0;
 
-			physics.Player.Volume.Minimum = 0f;
+			physics.Player.Volume.Minimum = 50f;
 			physics.Player.Volume.Origin = 100f;
-			physics.Player.Volume.Maximum = 500f;
-			physics.Player.Volume.Delta = 1;
+			physics.Player.Volume.Maximum = 200f;
 
 			physics.AddGravity(new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f)));
 
@@ -346,7 +344,7 @@ namespace Project_blob.GameState
 			cinematicCamera.LookAts = cameraLooks;
 			cinematicCamera.Running = true;
 			CameraManager.getSingleton.SetActiveCamera("cinematic");
-            cinema = true;
+			cinema = true;
 		}
 
 		/// <summary>
@@ -378,18 +376,18 @@ namespace Project_blob.GameState
 				{
 					ScreenManager.AddScreen(new PauseMenuScreen());
 				}
-                if (InputHandler.IsKeyPressed(Keys.OemTilde))
-                {
-                    if (Physics.PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
-                    {
-                        Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
-                    }
-                    else
-                    {
-                        Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
-                    }
-                    resetBlob();
-                }
+				if (InputHandler.IsKeyPressed(Keys.OemTilde))
+				{
+					if (Physics.PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
+					{
+						Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
+					}
+					else
+					{
+						Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
+					}
+					resetBlob();
+				}
 				if (InputHandler.IsActionPressed(Actions.Reset))
 				{
 					resetBlob();
@@ -523,20 +521,20 @@ namespace Project_blob.GameState
 					//}
 				}
 
-                if (InputHandler.IsKeyPressed(Keys.J))
-                {
-                    // Fake Jump: TODO
+				if (InputHandler.IsKeyPressed(Keys.J))
+				{
+					// Fake Jump: TODO
 
-                    // Fake Fake Jump:
+					// Fake Fake Jump:
 
-                    foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
-                    {
+					foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
+					{
 
-                        p.ForceThisFrame += Vector3.Up * 1000;
+						p.ForceNextFrame += Vector3.Up * 1000;
 
-                    }
+					}
 
-                }
+				}
 
 				if (InputHandler.IsKeyPressed(Keys.PageUp))
 				{
@@ -568,21 +566,21 @@ namespace Project_blob.GameState
 				//Console.WriteLine(theBlob.getVolume());
 				//theBlob.update();
 
-                if (cinema)
-                {
-                    effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                    celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-                    celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                    effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-                    if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
-                    {
-                        cinema = false;
-                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
-                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
-                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
-                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
-                    }
-                }
+				if (cinema)
+				{
+					effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+					celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+					if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
+					{
+						cinema = false;
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
+					}
+				}
 				else if (follow)
 				{
 					cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;

@@ -72,14 +72,44 @@ namespace Physics2
 			}
 
 			// Solve for the 'Actual' potential positions based on force and acceleration
-            foreach (Body b in bodies)
-            {
-                b.SolveForNextPosition(TotalElapsedSeconds);
-            }
+			foreach (Body b in bodies)
+			{
+				b.SolveForNextPosition(TotalElapsedSeconds);
+			}
 
 			// Check BoundingBoxes, Find collisions, add to collision list
+			List<CollisionEvent> events = new List<CollisionEvent>();
+
+			foreach (Body b in bodies)
+			{
+				if (!(b is BodyStatic))
+				{
+					AxisAlignedBoundingBox box = b.getBoundingBox();
+					foreach (Body c in bodies)
+					{
+						if (box.intersects(c.getBoundingBox()))
+						{
+							events.AddRange(b.findCollisions(c));
+						}
+					}
+				}
+			}
 
 			// Evaluate collsion list, call onCollsion, set NextPosition
+			events.Sort(CollisionEvent.CompareEvents);
+
+			foreach (CollisionEvent e in events)
+			{
+
+				// handle collision, sliding;
+
+			}
+
+			foreach (CollisionEvent e in events)
+			{
+				e.collidable.onCollision(e.point);
+			}
+
 
 		}
 

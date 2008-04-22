@@ -5,24 +5,31 @@ namespace Physics2
 	public abstract class Collidable : Actor
 	{
 
-        private Body parent;
+		private Body parent;
 
-        public Collidable(Body parentBody)
-        {
-            parent = parentBody;
-        }
+		public Collidable(Body parentBody)
+		{
+			parent = parentBody;
+		}
 
-        public abstract bool couldIntersect(Vector3 start, Vector3 end);
+		public abstract bool couldIntersect(Vector3 start, Vector3 end);
 
-        public abstract float didIntersect(Vector3 start, Vector3 end);
+		public abstract float didIntersect(Vector3 start, Vector3 end);
 
-        public abstract Material getMaterial();
+		public abstract AxisAlignedBoundingBox getBoundingBox();
 
-        public abstract Vector3 Normal();
+		public abstract Material getMaterial();
 
-        public abstract void onCollision(Point p);
+		public virtual bool isStatic()
+		{
+			return parent.isStatic();
+		}
 
-        public abstract void update(float TotalElapsedSeconds);
+		public abstract Vector3 Normal();
+
+		public abstract void onCollision(Point p);
+
+		public abstract void update(float TotalElapsedSeconds);
 
 	}
 }
