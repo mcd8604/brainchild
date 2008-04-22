@@ -6,7 +6,7 @@ namespace Physics
 {
 	public class PhysicsSeq : PhysicsManager
 	{
-		private List<Collidable> _eventsToTrigger = new List<Collidable>();
+		internal List<Collidable> _eventsToTrigger = new List<Collidable>();
 
 		private Player player = new Player();
 		public override Player Player
@@ -85,6 +85,12 @@ namespace Physics
 		{
 			doPhysics(TotalElapsedSeconds);
 
+            foreach (Collidable c in _eventsToTrigger)
+            {
+                c.TriggerEvents();
+            }
+            _eventsToTrigger.Clear();
+
 			foreach (Point p in points)
 			{
 				p.updatePosition();
@@ -147,11 +153,6 @@ namespace Physics
 				checkCollisions2(p, TotalElapsedSeconds);
 			}
 
-			foreach (Collidable c in _eventsToTrigger)
-			{
-				c.TriggerEvents();
-			}
-			_eventsToTrigger.Clear();
 		}
 
 		private void fall(Point p, float time)
