@@ -328,7 +328,7 @@ namespace Project_blob
         public void DrawMe(ModelMesh mesh, GraphicsDevice graphicsDevice, bool gameMode)
         {
             foreach (ModelMeshPart part in mesh.MeshParts)
-            {
+            {                
                 // Change the device settings for each part to be rendered
                 graphicsDevice.VertexDeclaration = part.VertexDeclaration;
                 graphicsDevice.Vertices[0].SetSource(mesh.VertexBuffer, part.StreamOffset, part.VertexStride);
