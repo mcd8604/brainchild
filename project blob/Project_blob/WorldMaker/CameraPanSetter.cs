@@ -61,13 +61,17 @@ namespace WorldMaker
                     tempUp.Y = float.Parse(yUpText.Text);
                     tempUp.Z = float.Parse(zUpText.Text);
 
-                    _cameraPos.Remove((String)pointBox.Items[pointBox.SelectedIndex]);
-                    _cameraLooks.Remove((String)pointBox.Items[pointBox.SelectedIndex]);
-                    _cameraUps.Remove((String)pointBox.Items[pointBox.SelectedIndex]);
+                    String temp = (String)pointBox.Items[pointBox.SelectedIndex];
 
-                    _cameraPos.Add((String)pointBox.Items[pointBox.SelectedIndex], tempPos);
-                    _cameraLooks.Add((String)pointBox.Items[pointBox.SelectedIndex], tempLook);
-                    _cameraUps.Add((String)pointBox.Items[pointBox.SelectedIndex], tempUp);
+                    _cameraPos.Remove(temp);
+                    _cameraLooks.Remove(temp);
+                    _cameraUps.Remove(temp);
+
+                    _cameraPos.Add(temp, tempPos);
+                    _cameraLooks.Add(temp, tempLook);
+                    _cameraUps.Add(temp, tempUp);
+
+                    _viewMatrix = Matrix.CreateLookAt(tempPos, tempLook, tempUp);
                 }
                 catch (Exception)
                 {
@@ -159,6 +163,17 @@ namespace WorldMaker
             {
                 String temp = (String)pointBox.Items[pointBox.SelectedIndex];
                 _viewMatrix = Matrix.CreateLookAt(_cameraPos[temp], _cameraLooks[temp], _cameraUps[temp]);
+                xPosText.Text = _cameraPos[temp].X + "";
+                yPosText.Text = _cameraPos[temp].Y + "";
+                zPosText.Text = _cameraPos[temp].Z + "";
+
+                xLookText.Text = _cameraLooks[temp].X + "";
+                yLookText.Text = _cameraLooks[temp].Y + "";
+                zLookText.Text = _cameraLooks[temp].Z + "";
+
+                xUpText.Text = _cameraUps[temp].X + "";
+                yUpText.Text = _cameraUps[temp].Y + "";
+                zUpText.Text = _cameraUps[temp].Z + "";
             }
         }
     }
