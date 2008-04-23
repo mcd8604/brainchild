@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
@@ -102,6 +101,7 @@ namespace Physics2
 			{
 
 				// handle collision, sliding;
+				Vector3 newPosition = e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when);
 
 			}
 

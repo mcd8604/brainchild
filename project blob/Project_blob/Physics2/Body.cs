@@ -26,7 +26,7 @@ namespace Physics2
 			ParentBody.addChild(this);
 		}
 
-		public void addChild(Body childBody)
+		public virtual void addChild(Body childBody)
 		{
 			if (childBody.parentBody != null)
 			{
