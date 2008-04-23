@@ -58,7 +58,7 @@ namespace WorldMaker
         LevelEditor levelEditor;
         Game1 _gameRef;
 
-        public ModelSelect(LevelEditor p_LE, string[] models, string[] textures, string[] audio, Game1 game)
+        public ModelSelect(LevelEditor p_LE, string[] models, string[] textures, string[] audio, Game1 game, bool editMode)
         {
             InitializeComponent();
             _gameRef = game;
@@ -74,7 +74,7 @@ namespace WorldMaker
             for (int i = 0; i < audio.Length; i++)
                 audioBox.Items.Add(audio[i]);
 
-            if (_gameRef.ActiveDrawable is StaticModel)
+            if (editMode && _gameRef.ActiveDrawable is StaticModel)
             {
                 m_CurrentModel = (StaticModel)_gameRef.ActiveDrawable;
                 originalModel = m_CurrentModel.ModelName;

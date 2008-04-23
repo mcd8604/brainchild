@@ -33,6 +33,47 @@ namespace Project_blob
             set { m_TextureKey = value; }
         }
 
+        private bool repeatingTexture = false;
+        private float textureScale = 1f;
+
+        public void updateTexCoords()
+        {
+            Model m = ModelManager.getSingleton.GetModel(_modelName);
+            foreach (ModelMesh mesh in m.Meshes)
+            {
+                m_VertexBuffers = new Dictionary<String, VertexBuffer>();
+
+                // Vertices
+                int numVertices = 0;
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    numVertices += part.NumVertices;
+                }
+                VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
+                mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+
+                if (repeatingTexture)
+                {
+                    //scaleVector used to scale texture coordinates
+                    Vector3 scaleVector = Vector3.Zero;
+                    Quaternion rotVector = Quaternion.Identity;
+                    Vector3 transVector = Vector3.Zero;
+                    m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
+
+                    Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+
+                    for (int i = 0; i < vertices.Length; i++)
+                    {
+                        //scale the texture coordinates
+                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (textureScale * texture.Width));
+                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (textureScale * texture.Height));
+                    }
+                }
+                m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
+                m_VertexBuffers[mesh.Name].SetData<VertexPositionNormalTexture>(vertices);
+            }
+        }
+
         private BoundingBox m_BoundingBox;
         private BoundingSphere m_BoundingSphere;
 
@@ -277,6 +318,7 @@ namespace Project_blob
             set
             {
                 m_Scale = value;
+                updateTexCoords();
             }
         }
 
@@ -367,7 +409,14 @@ namespace Project_blob
                 }
                 else
                 {
-                    vertexBuffer = m_VertexBuffers[mesh.Name];
+                    try
+                    {
+                        vertexBuffer = m_VertexBuffers[mesh.Name];
+                    }
+                    catch (KeyNotFoundException knfe)
+                    {
+                        vertexBuffer = mesh.VertexBuffer;
+                    }
                 }
                 graphicsDevice.Vertices[0].SetSource(vertexBuffer, part.StreamOffset, part.VertexStride);
                 // Finally draw the actual triangles on the screen

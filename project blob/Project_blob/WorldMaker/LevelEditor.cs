@@ -137,11 +137,12 @@ namespace WorldMaker
                 for (int i = 0; i < audio.Length; i++)
                     audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
 
-                _modelSelect = new ModelSelect(this, models, textures, audio, _gameRef);
+                _modelSelect = new ModelSelect(this, models, textures, audio, _gameRef, false);
                 _modelSelect.ShowDialog();
                 if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
                 {
                     Console.WriteLine(_modelSelect.CurrentModel.Name);
+                    _modelSelect.CurrentModel.updateTexCoords();
                     _drawableInfo.name = _modelSelect.CurrentModel.Name;
                     _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
                     _drawableInfo.drawable = _modelSelect.CurrentModel;
@@ -230,12 +231,13 @@ namespace WorldMaker
                 for (int i = 0; i < audio.Length; i++)
                     audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
 
-                _modelSelect = new ModelSelect(this, models, textures, audio, _gameRef);
+                _modelSelect = new ModelSelect(this, models, textures, audio, _gameRef, true);
                 _modelSelect.ShowDialog();
                 if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
                 {
                     _drawablesToDelete.Add(_gameRef.ActiveArea.Display.CurrentlySelected);
                     Console.WriteLine(_modelSelect.CurrentModel.Name);
+                    _modelSelect.CurrentModel.updateTexCoords();
                     _drawableInfo.name = _modelSelect.CurrentModel.Name;
                     _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
                     StaticModel temp = _modelSelect.CurrentModel;
