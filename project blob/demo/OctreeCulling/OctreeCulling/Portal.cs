@@ -42,9 +42,14 @@ namespace OctreeCulling
             set { _scale = value; }
         }
 
-		public Portal()
+		public Portal(Vector3 size, Vector3 position)
 		{
             _connectedSectors = new List<int>();
+
+            _scale = size;
+            _position = position;
+
+            CreateBoundingBox();
 		}
 
         public BoundingBox GetBoundingBoxTransformed()

@@ -240,8 +240,8 @@ namespace OctreeCulling
                 Graphics.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(
                     PrimitiveType.TriangleList, _rectangleData, 0, 12);
 
-                //Graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
-                //    PrimitiveType.LineList, BoundingBoxDrawData, 0, 8, BoundingBoxIndex, 0, 12);
+                Graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                    PrimitiveType.LineList, BoundingBoxDrawData, 0, 8, BoundingBoxIndex, 0, 12);
 
                 pass.End();
             }

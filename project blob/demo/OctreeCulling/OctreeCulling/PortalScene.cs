@@ -28,8 +28,8 @@ namespace OctreeCulling
             set { _worldBox = value; }
         }
 
-		private Sector _currSector;
-		public Sector CurrSector
+		private int _currSector = 1;
+        public int CurrSector
 		{
 			get { return _currSector; }
 			set { _currSector = value; }
@@ -87,18 +87,28 @@ namespace OctreeCulling
         public void DrawVisible(GameTime gameTime)
         {
             //Test if camera is within the worldbox before checking all the sectors
+            //foreach (Sector sector in _sectors.Values)
+            //{
+            //    //if(sector.ContainerBox.Contains(CameraManager.getSingleton.ActiveCamera.Position) == ContainmentType.Contains)
+            //    if(sector.ContainerBox.Contains(CameraManager.getSingleton.GetCamera("test").Position) == ContainmentType.Contains)
+            //    {
+            //        sector.DrawVisible(gameTime);
+            //        break;
+            //    }
+            //}
 
-            foreach (Sector sector in _sectors.Values)
+            if (_sectors[_currSector].ContainerBox.Contains(
+                CameraManager.getSingleton.GetCamera("test").Position) == ContainmentType.Disjoint)
             {
-                //if(sector.ContainerBox.Contains(CameraManager.getSingleton.ActiveCamera.Position) == ContainmentType.Contains)
-                if(sector.ContainerBox.Contains(CameraManager.getSingleton.GetCamera("test").Position) == ContainmentType.Contains)
+                foreach(KeyValuePair<int, Sector> kvp in _sectors)
                 {
-                    sector.DrawVisible(gameTime);
-                    break;
+                    if (kvp.Value.ContainerBox.Contains(CameraManager.getSingleton.GetCamera("test").Position) == ContainmentType.Contains)
+                    {
+                        _currSector = kvp.Key;
+                    }
                 }
             }
-
-			//_currSector.DrawVisible(gameTime);
+			_sectors[_currSector].DrawVisible(gameTime);
         }
 
         public void Draw(GameTime gameTime)

@@ -126,8 +126,11 @@ namespace OctreeCulling
 
             List<int> tempList1 = new List<int>();
             List<int> tempList2 = new List<int>();
+            List<int> tempList3 = new List<int>();
             tempList1.Add(1);
             tempList2.Add(2);
+            tempList3.Add(1);
+            tempList3.Add(2);
 
             //Load all objects
             for (int i = 0; i < 2; ++i)//30
@@ -181,20 +184,20 @@ namespace OctreeCulling
             //cube.SectorNums.Add(2);
             //_objects.Add(cube);
 
-            cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(-6, 0, 17), basicEffect, graphics, tempList1);
-            cube.SectorNums.Add(2);
+            cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(-6, 0, 17), basicEffect, graphics, tempList3);
+            //cube.SectorNums.Add(2);
             _objects.Add(cube);
 
-            cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(6, 0, 17), basicEffect, graphics, tempList1);
-            cube.SectorNums.Add(2);
+            cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(6, 0, 17), basicEffect, graphics, tempList3);
+            //cube.SectorNums.Add(2);
             _objects.Add(cube);
 
-            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, 6, 17), basicEffect, graphics, tempList1);
-            cube.SectorNums.Add(2);
+            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, 6, 17), basicEffect, graphics, tempList3);
+            //cube.SectorNums.Add(2);
             _objects.Add(cube);
 
-            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, -6, 17), basicEffect, graphics, tempList1);
-            cube.SectorNums.Add(2);
+            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, -6, 17), basicEffect, graphics, tempList3);
+            //cube.SectorNums.Add(2);
             _objects.Add(cube);
             #endregion
             #region room2
@@ -228,9 +231,9 @@ namespace OctreeCulling
             //cube.SectorNums.Add(2);
             //_objects.Add(cube);
 
-            Portal portal = new Portal();
-            portal.Position = new Vector3(0, 0, 17);
-            portal.Scale = new Vector3(2f, 2f, 0.3f);
+            Portal portal = new Portal(new Vector3(2f, 2f, 0f), new Vector3(0, 0, 17));
+            //portal.Position = new Vector3(0, 0, 17);
+            //portal.Scale = new Vector3(2f, 2f, 0.3f);
             portal.ConnectedSectors.Add(1);//SceneManager.getSingleton.PortalScene.Sectors[1]);
             portal.ConnectedSectors.Add(2);//SceneManager.getSingleton.PortalScene.Sectors[2]);
             _portalObjects.Add(portal);
@@ -518,6 +521,10 @@ namespace OctreeCulling
                 //graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
                 //    PrimitiveType.LineList, CameraManager.getSingleton.ActiveCamera.BoundingFrustumDrawData,
                 //    0, 8, CameraManager.getSingleton.ActiveCamera.BoundingFrustumIndex, 0, 12);
+
+                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                    PrimitiveType.LineList, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumDrawData,
+                    0, 8, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumIndex, 0, 12);
 
                 // End the current pass
                 pass.End();
