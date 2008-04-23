@@ -639,5 +639,39 @@ namespace WorldMaker
 		{
 			throw new Exception("Not Implemented");
 		}
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_Game.ActiveDrawable is StaticModel)
+            {
+                ((StaticModel)m_Game.ActiveDrawable).RepeatingTexture = repeatTexture_cb.Checked;
+                ((StaticModel)m_Game.ActiveDrawable).updateTexCoords();
+            }
+        }
+
+        private void textureScaleX_TextChanged(object sender, EventArgs e)
+        {
+            if (m_Game.ActiveDrawable is StaticModel)
+            {
+                float xScale = 0f;
+                if (float.TryParse(textureScaleX.Text, out xScale))
+                {
+                    ((StaticModel)m_Game.ActiveDrawable).TextureScaleX = xScale;
+                    ((StaticModel)m_Game.ActiveDrawable).updateTexCoords();
+                }
+            }
+        }
+
+        private void textureScaleY_TextChanged(object sender, EventArgs e)
+        {
+            if (m_Game.ActiveDrawable is StaticModel)
+            {
+                float yScale = 0f;
+                if(float.TryParse(textureScaleY.Text, out yScale)) {
+                    ((StaticModel)m_Game.ActiveDrawable).TextureScaleY = yScale;
+                    ((StaticModel)m_Game.ActiveDrawable).updateTexCoords();
+                }
+            }
+        }
 	}
 }
