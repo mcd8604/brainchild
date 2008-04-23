@@ -33,8 +33,41 @@ namespace Project_blob
             set { m_TextureKey = value; }
         }
 
-        private bool repeatingTexture = false;
-        private float textureScale = 1f;
+        private bool m_RepeatingTexture = false;
+        public bool RepeatingTexture
+        {
+            get
+            {
+                return m_RepeatingTexture;
+            }
+            set
+            {
+                m_RepeatingTexture = value;
+            }
+        }
+        private float m_TextureScaleX = 1f;
+        public float TextureScaleX {
+            get
+            {
+                return m_TextureScaleX;
+            }
+            set
+            {
+                m_TextureScaleX = value;
+            }
+        }
+        private float m_TextureScaleY = 1f;
+        public float TextureScaleY
+        {
+            get
+            {
+                return m_TextureScaleY;
+            }
+            set
+            {
+                m_TextureScaleY = value;
+            }
+        }
 
         public void updateTexCoords()
         {
@@ -52,7 +85,7 @@ namespace Project_blob
                 VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
                 mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
-                if (repeatingTexture)
+                if (m_RepeatingTexture)
                 {
                     //scaleVector used to scale texture coordinates
                     Vector3 scaleVector = Vector3.Zero;
@@ -65,8 +98,8 @@ namespace Project_blob
                     for (int i = 0; i < vertices.Length; i++)
                     {
                         //scale the texture coordinates
-                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (textureScale * texture.Width));
-                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (textureScale * texture.Height));
+                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
+                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
                     }
                 }
                 m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);

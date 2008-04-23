@@ -62,6 +62,12 @@ namespace WorldMaker
             this.PositionX = new System.Windows.Forms.TextBox();
             this.X = new System.Windows.Forms.Label();
             this.FocusButton = new System.Windows.Forms.Button();
+            this.repeatTexture_cb = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textureScaleY = new System.Windows.Forms.TextBox();
+            this.textureScaleX = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.ScaleBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleY)).BeginInit();
@@ -71,9 +77,10 @@ namespace WorldMaker
             ((System.ComponentModel.ISupportInitialize)(this.RotationY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RotationX)).BeginInit();
             this.Position.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Scale
+            // ScaleBox
             // 
             this.ScaleBox.Controls.Add(this.ScaleZValue);
             this.ScaleBox.Controls.Add(this.MaxScaleZ);
@@ -91,7 +98,7 @@ namespace WorldMaker
             this.ScaleBox.Controls.Add(this.MinScaleX);
             this.ScaleBox.Controls.Add(this.Scale_X);
             this.ScaleBox.Location = new System.Drawing.Point(12, 12);
-            this.ScaleBox.Name = "Scale";
+            this.ScaleBox.Name = "ScaleBox";
             this.ScaleBox.Size = new System.Drawing.Size(277, 194);
             this.ScaleBox.TabIndex = 0;
             this.ScaleBox.TabStop = false;
@@ -409,21 +416,83 @@ namespace WorldMaker
             this.X.TabIndex = 0;
             this.X.Text = "X";
             // 
-            // Focus
+            // FocusButton
             // 
-            this.FocusButton.Location = new System.Drawing.Point(582, 102);
-            this.FocusButton.Name = "Focus";
-            this.FocusButton.Size = new System.Drawing.Size(190, 102);
+            this.FocusButton.Location = new System.Drawing.Point(582, 184);
+            this.FocusButton.Name = "FocusButton";
+            this.FocusButton.Size = new System.Drawing.Size(190, 22);
             this.FocusButton.TabIndex = 3;
             this.FocusButton.Text = "Focus";
             this.FocusButton.UseVisualStyleBackColor = true;
             this.FocusButton.Click += new System.EventHandler(this.Focus_Click);
             // 
+            // repeatTexture_cb
+            // 
+            this.repeatTexture_cb.AutoSize = true;
+            this.repeatTexture_cb.Location = new System.Drawing.Point(10, 53);
+            this.repeatTexture_cb.Name = "repeatTexture_cb";
+            this.repeatTexture_cb.Size = new System.Drawing.Size(75, 17);
+            this.repeatTexture_cb.TabIndex = 4;
+            this.repeatTexture_cb.Text = "Repeating";
+            this.repeatTexture_cb.UseVisualStyleBackColor = true;
+            this.repeatTexture_cb.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textureScaleY);
+            this.groupBox1.Controls.Add(this.textureScaleX);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.repeatTexture_cb);
+            this.groupBox1.Location = new System.Drawing.Point(582, 102);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(190, 76);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Texture";
+            // 
+            // textureScaleY
+            // 
+            this.textureScaleY.Location = new System.Drawing.Point(67, 28);
+            this.textureScaleY.Name = "textureScaleY";
+            this.textureScaleY.Size = new System.Drawing.Size(52, 20);
+            this.textureScaleY.TabIndex = 8;
+            this.textureScaleY.Text = "1.0";
+            this.textureScaleY.TextChanged += new System.EventHandler(this.textureScaleY_TextChanged);
+            // 
+            // textureScaleX
+            // 
+            this.textureScaleX.Location = new System.Drawing.Point(10, 28);
+            this.textureScaleX.Name = "textureScaleX";
+            this.textureScaleX.Size = new System.Drawing.Size(52, 20);
+            this.textureScaleX.TabIndex = 7;
+            this.textureScaleX.Text = "1.0";
+            this.textureScaleX.TextChanged += new System.EventHandler(this.textureScaleX_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(64, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Scale Y";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Scale X";
+            // 
             // ModelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 217);
+            this.ClientSize = new System.Drawing.Size(784, 219);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.FocusButton);
             this.Controls.Add(this.Position);
             this.Controls.Add(this.Rotation);
@@ -443,6 +512,8 @@ namespace WorldMaker
             ((System.ComponentModel.ISupportInitialize)(this.RotationX)).EndInit();
             this.Position.ResumeLayout(false);
             this.Position.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -483,5 +554,11 @@ namespace WorldMaker
         private System.Windows.Forms.TextBox RotationZValue;
         private System.Windows.Forms.TextBox RotationYValue;
         private System.Windows.Forms.TextBox RotationXValue;
+        private System.Windows.Forms.CheckBox repeatTexture_cb;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textureScaleY;
+        private System.Windows.Forms.TextBox textureScaleX;
     }
 }
