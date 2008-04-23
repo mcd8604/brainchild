@@ -20,6 +20,8 @@ namespace Physics2
 
 		public abstract Material getMaterial();
 
+		public abstract bool isSolid();
+
 		public virtual bool isStatic()
 		{
 			return parent.isStatic();

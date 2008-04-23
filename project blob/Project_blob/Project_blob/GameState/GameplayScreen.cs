@@ -392,10 +392,14 @@ namespace Project_blob.GameState
 				{
 					resetBlob();
 				}
-				//if (InputHandler.IsKeyPressed(Keys.T))
-				//{
-				//	ScreenManager.toggleScreen();
-				//}
+				if (InputHandler.IsKeyPressed(Keys.T))
+				{
+					ScreenManager.ToggleFullScreen();
+				}
+				if (InputHandler.IsKeyPressed(Keys.P))
+				{
+					paused = !paused;
+				}
 				if (InputHandler.IsKeyPressed(Keys.F))
 				{
 					follow = !follow;
