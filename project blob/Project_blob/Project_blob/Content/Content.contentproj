@@ -68,6 +68,11 @@
       <Name>Transitor</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\skyBox.fbx">
+      <Name>skyBox</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\blob.FBX">
       <Name>blob</Name>
       <Importer>FbxImporter</Importer>

@@ -139,9 +139,18 @@ namespace Project_blob
             }
         }
 
+		private StaticModel m_skyBox;
+		public StaticModel SkyBox
+		{
+			get { return m_skyBox; }
+			set { m_skyBox = value; }
+		}
+
         public void WipeDrawn()
         {
             drawable_List_Drawn.Clear();
+			if(m_skyBox != null)
+				AddToBeDrawn(m_skyBox);
         }
 
         public void AddToBeDrawn(Drawable p_Drawable)
@@ -314,6 +323,8 @@ namespace Project_blob
             Stack<Matrix> drawStack = new Stack<Matrix>();
             Matrix currentWorld = p_CurrentWorld;
 
+			//if (d.Name == "sky")
+				//throw new Exception("skybox found");
 
             if (d.Name == CurrentlySelected)
             {
