@@ -93,13 +93,16 @@ namespace Project_blob
                     Vector3 transVector = Vector3.Zero;
                     m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
 
-                    Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
-
-                    for (int i = 0; i < vertices.Length; i++)
+                    if (TextureKey != null)
                     {
-                        //scale the texture coordinates
-                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
-                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+                        Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+
+                        for (int i = 0; i < vertices.Length; i++)
+                        {
+                            //scale the texture coordinates
+                            vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
+                            vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+                        }
                     }
                 }
                 m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
