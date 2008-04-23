@@ -145,7 +145,22 @@ namespace OctreeCulling
             }
             else if (_graphType == SceneGraphType.Portal)
             {
-                _portalScene.Distribute(scene);
+                _portalScene.DistributeDrawableObjects(scene);
+            }
+        }
+
+        public void DistributePortals(List<Portal> portals)
+        {
+            //_sceneObjectCount = portals.Count;
+
+            //if (_graphType == SceneGraphType.Octree)
+            //{
+            //    _octree.Distribute(portals);
+            //}
+            //else 
+            if (_graphType == SceneGraphType.Portal)
+            {
+                _portalScene.DistributePortals(portals);
             }
         }
 
