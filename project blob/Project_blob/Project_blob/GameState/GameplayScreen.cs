@@ -19,7 +19,11 @@ namespace Project_blob.GameState
 		SpriteBatch spriteBatch;
 
 		Model blobModel;
+		Model skyBox;
 
+		Texture2D skyTexture;
+		TextureInfo ti;
+		StaticModel sky;
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
 
@@ -152,7 +156,11 @@ namespace Project_blob.GameState
 
 			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
 
-			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\point_text");
+			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\event");
+
+			//load skybox
+			//skyBox = ScreenManager.Content.Load<Model>(@"Models\\skyBox");
+			//skyTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\point_text");
 
 			resetBlob();
 
@@ -180,6 +188,14 @@ namespace Project_blob.GameState
 			{
 				//empty level
 			}
+
+			ti = new TextureInfo("point_text",0);
+			sky = new StaticModel("sky", "skyBox", "none", ti);
+			sky.TextureName = "point_text";
+			sky.Scale = Matrix.CreateScale(2f);
+
+			//currentArea.Display.SkyBox = sky;
+			
 
 			//Add the Static Drawables to the Octree
 			List<Drawable> temp = new List<Drawable>(staticDrawables);
@@ -356,7 +372,7 @@ namespace Project_blob.GameState
 													   bool coveredByOtherScreen)
 		{
 			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
-
+			currentArea.Display.AddToBeDrawn(sky);
 			if (IsActive)
 			{
 				if (!paused)
@@ -365,6 +381,8 @@ namespace Project_blob.GameState
 					physicsTime.Start();
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 					physicsTime.Stop();
+					if(currentArea.Display.SkyBox != null)
+						currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
 				}
 
 				//Update Camera
@@ -650,6 +668,7 @@ namespace Project_blob.GameState
 		{
 			drawTime.Reset();
 			drawTime.Start();
+			
 			ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
 			if (drawMode)
@@ -667,9 +686,9 @@ namespace Project_blob.GameState
 			ScreenManager.GraphicsDevice.RenderState.AlphaBlendEnable = false;
 			ScreenManager.GraphicsDevice.RenderState.AlphaTestEnable = false;
 
-			// Box
 			effect.CurrentTechnique = effect.Techniques["Textured"];
 			ScreenManager.GraphicsDevice.Textures[0] = blobTexture;
+		
 			celEffect.Begin();
 			foreach (EffectPass pass in celEffect.CurrentTechnique.Passes)
 			{
@@ -705,6 +724,9 @@ namespace Project_blob.GameState
 			{
 				currentArea.Display.DrawnList[info].Clear();
 			}
+			if(currentArea.Display.SkyBox != null)
+				currentArea.Display.AddToBeDrawn(currentArea.Display.SkyBox);
+
 			SceneManager.getSingleton.UpdateVisibleDrawables(gameTime);
 
 			//Level Models
