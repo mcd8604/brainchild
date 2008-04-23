@@ -52,6 +52,9 @@ namespace WorldMaker
             }
         }
 
+        private String originalModel;
+        private TextureInfo originalTexture;
+
         LevelEditor levelEditor;
         Game1 _gameRef;
 
@@ -61,10 +64,7 @@ namespace WorldMaker
             _gameRef = game;
 
             levelEditor = p_LE;
-            m_CurrentModel = new StaticModel("none", "none", "none");
-            Random rand = new Random();
-            m_CurrentTexture = new TextureInfo(null, rand.Next());
-            m_CurrentModel.TextureKey = m_CurrentTexture;
+
             for (int i = 0; i < models.Length; i++)
                 modelBox.Items.Add(models[i]);
 
@@ -73,6 +73,38 @@ namespace WorldMaker
 
             for (int i = 0; i < audio.Length; i++)
                 audioBox.Items.Add(audio[i]);
+
+            if (_gameRef.ActiveDrawable is StaticModel)
+            {
+                m_CurrentModel = (StaticModel)_gameRef.ActiveDrawable;
+                originalModel = m_CurrentModel.ModelName;
+                modelBox.SelectedItem = m_CurrentModel.ModelName + ".xnb";
+                ModelName.Text = m_CurrentModel.Name;
+
+                if (m_CurrentModel.TextureKey != null)
+                {
+                    m_CurrentTexture = m_CurrentModel.TextureKey;
+                    originalTexture = m_CurrentModel.TextureKey;
+                    textureBox.SelectedItem = m_CurrentTexture.TextureName + ".xnb";
+                }
+                else
+                {
+                    Random rand = new Random();
+                    m_CurrentTexture = new TextureInfo(null, rand.Next());
+                    m_CurrentModel.TextureKey = m_CurrentTexture;
+                }
+                if (m_CurrentModel.AudioName != null && !m_CurrentModel.AudioName.Equals("none"))
+                {
+                    audioBox.SelectedItem = m_CurrentModel.AudioName + ".xnb";
+                }
+            }
+            else
+            {
+                m_CurrentModel = new StaticModel("none", "none", "none");
+                Random rand = new Random();
+                m_CurrentTexture = new TextureInfo(null, rand.Next());
+                m_CurrentModel.TextureKey = m_CurrentTexture;
+            }
         }
 
         private void modelBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,6 +135,8 @@ namespace WorldMaker
 
         private void closeButton_Click(object sender, EventArgs e)
         {
+            m_CurrentModel.ModelName = originalModel;
+            m_CurrentModel.TextureKey = originalTexture;
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
@@ -112,6 +146,7 @@ namespace WorldMaker
             if (textureBox.SelectedIndex != -1)
             {
                 m_CurrentTexture.TextureName = ((String)(textureBox.Items[textureBox.SelectedIndex])).Substring(0, ((String)(textureBox.Items[textureBox.SelectedIndex])).LastIndexOf("."));
+                m_CurrentModel.TextureKey = m_CurrentTexture;
             }
         }
 
