@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Text;
 using Physics;
@@ -12,9 +13,14 @@ namespace Project_blob.GameState
 		MenuEntry audioMenuEntry;
 		MenuEntry threadedMenuEntry;
 
-		public OptionsMenuScreen()
+		public OptionsMenuScreen(Boolean popup)
 			: base("Options")
 		{
+            if (popup)
+            {
+                IsPopup = true;
+            }
+
 			fullscreenMenuEntry = new MenuEntry(string.Empty);
 			aliasingMenuEntry = new MenuEntry(string.Empty);
 			audioMenuEntry = new MenuEntry(string.Empty);
@@ -80,5 +86,15 @@ namespace Project_blob.GameState
 
 			setMenuText();
 		}
+
+        public override void Draw(GameTime gameTime)
+        {
+            if (IsPopup)
+            {
+                ScreenManager.FadeBackBufferToBlack(TransitionAlpha);
+            }
+
+            base.Draw(gameTime);
+        }
 	}
 }
