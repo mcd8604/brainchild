@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -7,8 +8,6 @@ namespace Physics2
 	{
 
 		private new List<CollidableStatic> collidables = new List<CollidableStatic>();
-
-		private new List<BodyStatic> childBodies = null;
 
 		public BodyStatic() { }
 
@@ -20,6 +19,15 @@ namespace Physics2
 			{
 				boundingBox.expandToInclude(c.getBoundingBox());
 			}
+		}
+
+		public override void addChild(Body childBody)
+		{
+			if (!(childBody is BodyStatic))
+			{
+				throw new Exception("BodyStatic child must also be static");
+			}
+			base.addChild(childBody);
 		}
 
 		public override bool isStatic()
