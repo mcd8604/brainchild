@@ -40,7 +40,7 @@ namespace OctreeCulling
             _sectors = new SortedDictionary<int, Sector>();
         }
 
-        public void Distribute(List<SceneObject> scene)
+        public void DistributeDrawableObjects(List<SceneObject> scene)
         {
             foreach (SceneObject obj in scene)
             {
@@ -62,6 +62,25 @@ namespace OctreeCulling
 				}
 
                 _worldBox = BoundingBox.CreateMerged(_worldBox, obj.GetBoundingBoxTransformed());
+            }
+        }
+
+        public void DistributePortals(List<Portal> portals)
+        {
+            foreach (Portal portal in portals)
+            {
+                foreach (int sectorNum in portal.ConnectedSectors)
+                {
+                    if(_sectors.ContainsKey(sectorNum))
+                    {
+                        _sectors[sectorNum].AddPortalToSector(portal);
+                    }
+                    else
+                    {
+                        _sectors.Add(sectorNum, new Sector());
+                        _sectors[sectorNum].AddPortalToSector(portal);
+                    }
+                }
             }
         }
 

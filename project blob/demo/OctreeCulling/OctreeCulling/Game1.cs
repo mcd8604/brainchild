@@ -50,6 +50,8 @@ namespace OctreeCulling
         //Test variables
         List<SceneObject> _objects;
         List<SceneObject> _listGraphObjects;
+        List<Portal> _portalObjects;
+
         bool _cull = true;//false;
         int _culled = 0;
         int _drawn = 0;
@@ -81,6 +83,7 @@ namespace OctreeCulling
 
             _objects = new List<SceneObject>();
             _listGraphObjects = new List<SceneObject>();
+            _portalObjects = new List<Portal>();
 
             TestCamera camera = new TestCamera(graphics.GraphicsDevice.Viewport);
             camera.Position = new Vector3(0.0f, 10.0f, -40.0f);
@@ -88,7 +91,7 @@ namespace OctreeCulling
             CameraManager.getSingleton.AddCamera("default", camera);
 
             camera = new TestCamera(graphics.GraphicsDevice.Viewport);
-            camera.FarPlane = 30.0f;
+            camera.FarPlane = 300.0f;
             camera.Position = new Vector3(0.0f, 0.0f, 0.0f);
             CameraManager.getSingleton.AddCamera("test", camera);
 
@@ -121,6 +124,11 @@ namespace OctreeCulling
             graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
             graphics.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
 
+            List<int> tempList1 = new List<int>();
+            List<int> tempList2 = new List<int>();
+            tempList1.Add(1);
+            tempList2.Add(2);
+
             //Load all objects
             for (int i = 0; i < 2; ++i)//30
             {
@@ -134,24 +142,106 @@ namespace OctreeCulling
                         //_objects.Add(cube);
                         ////_objects.Add(pyramid);
 
-						//cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics, );
+						cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics, tempList1);
 						//cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics, 1);
                         _objects.Add(cube);
 
-						//cube = new Cube(Vector3.One, new Vector3(5 * i + 25, 5 * j + 25, 5 * k + 25), basicEffect, graphics, );
+						cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k + 20), basicEffect, graphics, tempList2);
 						//cube = new Cube(Vector3.One, new Vector3(5 * i + 25, 5 * j + 25, 5 * k + 25), basicEffect, graphics, 2);
+                        
                         _objects.Add(cube);
                     }
                     
                 }
 
             }
+            #region room1
+            //Near wall
+            cube = new Cube(new Vector3(10f, 10f, 0.3f), new Vector3(0, 0, -3), basicEffect, graphics, tempList1);
+            _objects.Add(cube);
+
+            //Left wall
+            cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(10, 0, 7), basicEffect, graphics, tempList1);
+            _objects.Add(cube);
+
+            //Right wall
+            cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(-10, 0, 7), basicEffect, graphics, tempList1);
+            _objects.Add(cube);
+                        
+            //Ceiling
+            cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(0, -10, 7), basicEffect, graphics, tempList1);
+            _objects.Add(cube);
+
+            //Floor
+            cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(0, 10, 7), basicEffect, graphics, tempList1);
+            _objects.Add(cube);
+
+            //Far wall pieces (in rooms 1 and 2)
+            //cube = new Cube(new Vector3(10f, 10f, 0.3f), new Vector3(0, 0, 17), basicEffect, graphics, tempList1);
+            //cube.SectorNums.Add(2);
+            //_objects.Add(cube);
+
+            cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(-6, 0, 17), basicEffect, graphics, tempList1);
+            cube.SectorNums.Add(2);
+            _objects.Add(cube);
+
+            cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(6, 0, 17), basicEffect, graphics, tempList1);
+            cube.SectorNums.Add(2);
+            _objects.Add(cube);
+
+            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, 6, 17), basicEffect, graphics, tempList1);
+            cube.SectorNums.Add(2);
+            _objects.Add(cube);
+
+            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, -6, 17), basicEffect, graphics, tempList1);
+            cube.SectorNums.Add(2);
+            _objects.Add(cube);
+            #endregion
+            #region room2
+            //Near wall
+            //cube = new Cube(new Vector3(10f, 10f, 0.3f), new Vector3(0, 0, 17), basicEffect, graphics, tempList2);
+            //_objects.Add(cube);
+
+            //Left wall
+            cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(10, 0, 27), basicEffect, graphics, tempList2);
+            _objects.Add(cube);
+
+            //Right wall
+            cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(-10, 0, 27), basicEffect, graphics, tempList2);
+            _objects.Add(cube);
+
+            //Far wall
+            cube = new Cube(new Vector3(10f, 10f, 0.3f), new Vector3(0, 0, 37), basicEffect, graphics, tempList2);
+            _objects.Add(cube);
+
+            //Ceiling
+            cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(0, -10, 27), basicEffect, graphics, tempList2);
+            _objects.Add(cube);
+
+            //Floor
+            cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(0, 10, 27), basicEffect, graphics, tempList2);
+            _objects.Add(cube);
+            #endregion
+
+            //Doorway cube object (will become a portal)
+            //cube = new Cube(new Vector3(2f, 2f, 0.3f), new Vector3(0, 0, 17), basicEffect, graphics, tempList1);
+            //cube.SectorNums.Add(2);
+            //_objects.Add(cube);
+
+            Portal portal = new Portal();
+            portal.Position = new Vector3(0, 0, 17);
+            portal.Scale = new Vector3(2f, 2f, 0.3f);
+            portal.ConnectedSectors.Add(1);//SceneManager.getSingleton.PortalScene.Sectors[1]);
+            portal.ConnectedSectors.Add(2);//SceneManager.getSingleton.PortalScene.Sectors[2]);
+            _portalObjects.Add(portal);
+
             _listGraphObjects = new List<SceneObject>(_objects);
 
             //Set scenegraph to Portal structure
             SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
 
             SceneManager.getSingleton.Distribute(_objects);
+            SceneManager.getSingleton.DistributePortals(_portalObjects);
             _total = _listGraphObjects.Count;
         }
 
@@ -198,37 +288,37 @@ namespace OctreeCulling
             //Move forward
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, 0.0f, 0.05f));
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, 0.0f, 0.2f));
             }
 
             //Move Back
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, 0.0f, -0.05f));
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, 0.0f, -0.2f));
             }
 
             //Strafe Left
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
-                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.05f, 0.0f, 0.0f));
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.2f, 0.0f, 0.0f));
             }
 
             //Strafe Right
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(-0.05f, 0.0f, 0.0f));
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(-0.2f, 0.0f, 0.0f));
             }
 
             //Move up
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, 0.05f, 0.0f));
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, 0.2f, 0.0f));
             }
 
             //Move down
             if (Keyboard.GetState().IsKeyDown(Keys.F))
             {
-                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, -0.05f, 0.0f));
+                CameraManager.getSingleton.ActiveCamera.Translate(new Vector3(0.0f, -0.2f, 0.0f));
             }
 
             //Turn left
@@ -326,25 +416,25 @@ namespace OctreeCulling
             //Move forward
             if (Keyboard.GetState().IsKeyDown(Keys.I))
             {
-                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.0f, 0.05f));
+                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.0f, 0.1f));
             }
 
             //Move Back
             if (Keyboard.GetState().IsKeyDown(Keys.K))
             {
-                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.0f, -0.05f));
+                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.0f, -0.1f));
             }
 
             //Move up
             if (Keyboard.GetState().IsKeyDown(Keys.Y))
             {
-                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.05f, 0.0f));
+                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, 0.1f, 0.0f));
             }
 
             //Move down
             if (Keyboard.GetState().IsKeyDown(Keys.H))
             {
-                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, -0.05f, 0.0f));
+                CameraManager.getSingleton.GetCamera("test").Translate(new Vector3(0.0f, -0.1f, 0.0f));
             }
 
 
