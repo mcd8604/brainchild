@@ -64,6 +64,7 @@
     <Compile Include="AudioManager.cs" />
     <Compile Include="Blob.cs" />
     <Compile Include="CameraEvent.cs" />
+    <Compile Include="DeltaEvent.cs" />
     <Compile Include="DemoCube.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="Drawable.cs" />

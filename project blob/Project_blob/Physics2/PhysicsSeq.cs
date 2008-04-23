@@ -107,7 +107,7 @@ namespace Physics2
 
 			foreach (CollisionEvent e in events)
 			{
-				e.collidable.onCollision(e.point);
+				e.trigger();
 			}
 
 
