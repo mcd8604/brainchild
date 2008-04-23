@@ -630,6 +630,9 @@ namespace WorldMaker
 					ScaleXValue.Text = theScale.X.ToString();
 					ScaleYValue.Text = theScale.Y.ToString();
 					ScaleZValue.Text = theScale.Z.ToString();
+
+                    textureScaleX.Text = m.TextureScaleX.ToString();
+                    textureScaleY.Text = m.TextureScaleY.ToString();
 				}
 			}
 
