@@ -649,7 +649,6 @@ namespace WorldMaker
             if (m_Game.ActiveDrawable is StaticModel)
             {
                 ((StaticModel)m_Game.ActiveDrawable).RepeatingTexture = repeatTexture_cb.Checked;
-                ((StaticModel)m_Game.ActiveDrawable).updateTexCoords();
             }
         }
 
@@ -661,7 +660,6 @@ namespace WorldMaker
                 if (float.TryParse(textureScaleX.Text, out xScale))
                 {
                     ((StaticModel)m_Game.ActiveDrawable).TextureScaleX = xScale;
-                    ((StaticModel)m_Game.ActiveDrawable).updateTexCoords();
                 }
             }
         }
@@ -673,7 +671,6 @@ namespace WorldMaker
                 float yScale = 0f;
                 if(float.TryParse(textureScaleY.Text, out yScale)) {
                     ((StaticModel)m_Game.ActiveDrawable).TextureScaleY = yScale;
-                    ((StaticModel)m_Game.ActiveDrawable).updateTexCoords();
                 }
             }
         }
