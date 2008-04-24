@@ -330,6 +330,7 @@ namespace Physics
 				p.NextAcceleration = p.potentialAcceleration;
 				p.NextPosition = p.potentialPosition;
 				p.NextVelocity = p.potentialVelocity;
+				p.LastCollision = null;
 
 			}
 			//return trigger;
@@ -396,7 +397,6 @@ namespace Physics
 				p.NextAcceleration = p.potentialAcceleration;
 				p.NextPosition = p.potentialPosition;
 				p.NextVelocity = p.potentialVelocity;
-				p.LastCollision = null;
 			}
 			//return trigger;
 		}
