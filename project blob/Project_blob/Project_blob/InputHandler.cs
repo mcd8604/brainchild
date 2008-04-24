@@ -9,7 +9,7 @@ using Wintellect.PowerCollections;
 /// <summary>
 /// List of Actions to which keys may be bound and states queried.
 /// </summary>
-internal enum Actions { Reset, ToggleStickiness, ToggleElasticity };
+internal enum Actions { MenuUp, MenuDown, MenuAccept, MenuCancel, Pause, Reset, ToggleStickiness, ToggleElasticity };
 #if XBOX360
 internal enum GamePadButtons { Up, Down, Left, Right, A, B, Back, LeftShoulder, LeftStick, RightShoulder, RightStick, Start, X, Y };
 #endif
@@ -52,7 +52,22 @@ internal static class InputHandler
 
 		AnalogMap.Add(AnalogActions.Camera, delegate { return InputHandler.thisGamePadState.ThumbSticks.Right; });
 
-		AnalogMap.Add(AnalogActions.Camera, delegate { return InputHandler.getMouseDeltaPosition() / 20; });
+		AnalogMap.Add(AnalogActions.Camera, delegate { return InputHandler.getMouseDeltaPosition() * 0.05f; });
+
+		KeyboardMap.Add(Actions.MenuUp, Keys.Up);
+		KeyboardMap.Add(Actions.MenuDown, Keys.Down);
+		KeyboardMap.Add(Actions.MenuAccept, Keys.Enter);
+		KeyboardMap.Add(Actions.MenuCancel, Keys.Escape);
+
+		GamePadMap.Add(Actions.MenuUp, GamePadButtons.Up);
+		GamePadMap.Add(Actions.MenuDown, GamePadButtons.Down);
+		GamePadMap.Add(Actions.MenuAccept, GamePadButtons.Start);
+		GamePadMap.Add(Actions.MenuAccept, GamePadButtons.A);
+		GamePadMap.Add(Actions.MenuCancel, GamePadButtons.Back);
+		GamePadMap.Add(Actions.MenuCancel, GamePadButtons.B);
+
+		KeyboardMap.Add(Actions.Pause, Keys.Escape);
+		GamePadMap.Add(Actions.Pause, GamePadButtons.Start);
 
 
 	}

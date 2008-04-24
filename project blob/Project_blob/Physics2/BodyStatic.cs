@@ -35,6 +35,11 @@ namespace Physics2
 			return true;
 		}
 
+		public override Vector3 getRelativeVelocity(Point p)
+		{
+			return base.getRelativeVelocity(p);
+		}
+
 		public override void update(float TotalElapsedSeconds)
 		{ }
 		public override void updatePosition()

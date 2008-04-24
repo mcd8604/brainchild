@@ -20,6 +20,11 @@ namespace Physics2
 
 		public abstract Material getMaterial();
 
+		public virtual Vector3 getRelativeVelocity(Point p)
+		{
+			return parent.getRelativeVelocity(p);
+		}
+
 		public abstract bool isSolid();
 
 		public virtual bool isStatic()

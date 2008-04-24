@@ -389,8 +389,7 @@ namespace Project_blob.GameState
 				//camera.Update(gameTime);
 				CameraManager.getSingleton.Update(gameTime);
 
-				// Allows the game to exit
-				if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || InputHandler.IsKeyPressed(Keys.Escape))
+				if (InputHandler.IsActionPressed(Actions.Pause))
 				{
 					ScreenManager.AddScreen(new PauseMenuScreen());
 				}
@@ -585,7 +584,7 @@ namespace Project_blob.GameState
 					jump = Vector3.Normalize(jump);
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.J))
+				if (InputHandler.IsKeyPressed(Keys.J) || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
 				{
 					// Fake Jump: TODO
 
