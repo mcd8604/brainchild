@@ -517,6 +517,16 @@ namespace Project_blob.GameState
 				}
 
 				// Quick Torque
+
+				bool twist = false;
+				foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
+				{
+					if (p.LastCollision != null)
+					{
+						twist = true;
+					}
+				}
+
 				Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
 				if (move != Vector2.Zero)
 				{
@@ -533,14 +543,46 @@ namespace Project_blob.GameState
 					Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - CameraManager.getSingleton.ActiveCamera.Position, Up));
 					Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
-					physics.Player.applyTorque(move.Y * playerMoveMulti * physics.Player.Cling.Target, Horizontal);
-					physics.Player.applyTorque(move.X * playerMoveMulti * physics.Player.Cling.Target, Run);
+
+					if (twist)
+					{
+						physics.Player.applyTorque(move.Y * playerMoveMulti * physics.Player.Cling.Target, Horizontal);
+						physics.Player.applyTorque(move.X * playerMoveMulti * physics.Player.Cling.Target, Run);
+					}
+					else
+					{
+						if (physics.Player.PlayerBody != null)
+						{
+							Vector3 CurrentPlayerCenter = physics.Player.PlayerBody.getCenter();
+							foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
+							{
+								p.ForceNextFrame += Horizontal * (move.X * playerMoveMulti * 0.06f);
+								p.ForceNextFrame += Run * (move.Y * playerMoveMulti * -0.06f);
+							}
+						}
+
+					}
 
 					//foreach (Physics.Point p in theBlob.points)
 					//{
 					//    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
 					//    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Run)) * (move.X * playerMoveMulti);
 					//}
+				}
+
+				Vector3 jump = Vector3.Zero;
+
+				foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
+				{
+					if (p.LastCollision != null)
+					{
+						jump += p.LastCollision.Normal();
+					}
+				}
+
+				if (jump != Vector3.Zero)
+				{
+					jump = Vector3.Normalize(jump);
 				}
 
 				if (InputHandler.IsKeyPressed(Keys.J))
@@ -552,7 +594,8 @@ namespace Project_blob.GameState
 					foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
 					{
 
-						p.ForceNextFrame += Vector3.Up * 1000;
+						p.ForceNextFrame += Vector3.Up * 300;
+						p.ForceNextFrame += jump * 600;
 
 					}
 
