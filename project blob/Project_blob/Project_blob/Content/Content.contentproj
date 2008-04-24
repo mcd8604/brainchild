@@ -68,6 +68,11 @@
       <Name>Transitor</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\skySphere.fbx">
+      <Name>skySphere</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\skyBox.fbx">
       <Name>skyBox</Name>
       <Importer>FbxImporter</Importer>
@@ -231,6 +236,13 @@
   <ItemGroup>
     <Compile Include="Textures\cube.png">
       <Name>cube</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\cloudsky.jpg">
+      <Name>cloudsky</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

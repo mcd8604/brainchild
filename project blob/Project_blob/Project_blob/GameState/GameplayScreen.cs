@@ -189,12 +189,12 @@ namespace Project_blob.GameState
 				//empty level
 			}
 
-			ti = new TextureInfo("point_text",0);
+			ti = new TextureInfo("cloudsky",0);
 			sky = new StaticModel("sky", "skyBox", "none", ti);
-			sky.TextureName = "point_text";
-			sky.Scale = Matrix.CreateScale(2f);
+			sky.TextureName = "cloudsky";
+			sky.Scale = Matrix.CreateScale(750f);
 
-			//currentArea.Display.SkyBox = sky;
+			currentArea.Display.SkyBox = sky;
 			
 
 			//Add the Static Drawables to the Octree
@@ -207,7 +207,7 @@ namespace Project_blob.GameState
 			camera.FieldOfView = MathHelper.ToRadians(45.0f);
 			camera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
 			camera.NearPlane = 1.0f;
-			camera.FarPlane = 500.0f;
+			camera.FarPlane = 1000.0f;
 
 			camera.Position = new Vector3(0, 0, -10);
 			camera.Target = Vector3.Zero;

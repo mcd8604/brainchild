@@ -323,8 +323,10 @@ namespace Project_blob
             Stack<Matrix> drawStack = new Stack<Matrix>();
             Matrix currentWorld = p_CurrentWorld;
 
-			//if (d.Name == "sky")
-				//throw new Exception("skybox found");
+            if (d.Name == "sky")
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(false);
+            else
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(true);
 
             if (d.Name == CurrentlySelected)
             {
