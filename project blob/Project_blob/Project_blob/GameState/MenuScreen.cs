@@ -7,128 +7,128 @@ using System.Text;
 
 namespace Project_blob.GameState
 {
-    abstract class MenuScreen : GameScreen
-    {
-        List<MenuEntry> menuEntries = new List<MenuEntry>();
-        int selectedEntry = 0;
-        string menuTitle;
+	abstract class MenuScreen : GameScreen
+	{
+		List<MenuEntry> menuEntries = new List<MenuEntry>();
+		int selectedEntry = 0;
+		string menuTitle;
 
-        protected IList<MenuEntry> MenuEntries
-        {
-            get { return menuEntries; }
-        }
+		protected IList<MenuEntry> MenuEntries
+		{
+			get { return menuEntries; }
+		}
 
-        public MenuScreen(string menuTitle)
-        {
-            this.menuTitle = menuTitle;
+		public MenuScreen(string menuTitle)
+		{
+			this.menuTitle = menuTitle;
 
-            TransitionOnTime = TimeSpan.FromSeconds(0.5);
-            TransitionOffTime = TimeSpan.FromSeconds(0.5);
-        }
+			TransitionOnTime = TimeSpan.FromSeconds(0.5);
+			TransitionOffTime = TimeSpan.FromSeconds(0.5);
+		}
 
-        public override void HandleInput()
-        {
-            // Move to the previous menu entry?
-            if (InputHandler.IsKeyPressed(Keys.Up))
-            {
-                selectedEntry--;
+		public override void HandleInput()
+		{
+			// Move to the previous menu entry?
+			if (InputHandler.IsKeyPressed(Keys.Up))
+			{
+				selectedEntry--;
 
-                if (selectedEntry < 0)
-                    selectedEntry = menuEntries.Count - 1;
-            }
+				if (selectedEntry < 0)
+					selectedEntry = menuEntries.Count - 1;
+			}
 
-            // Move to the next menu entry?
-            if (InputHandler.IsKeyPressed(Keys.Down))
-            {
-                selectedEntry++;
+			// Move to the next menu entry?
+			if (InputHandler.IsKeyPressed(Keys.Down))
+			{
+				selectedEntry++;
 
-                if (selectedEntry >= menuEntries.Count)
-                    selectedEntry = 0;
-            }
+				if (selectedEntry >= menuEntries.Count)
+					selectedEntry = 0;
+			}
 
-            // Accept or cancel the menu?
-            if (InputHandler.IsKeyPressed(Keys.Enter))
-            {
-                OnSelectEntry(selectedEntry);
-            }
-            else if (InputHandler.IsKeyPressed(Keys.Escape))
-            {
-                OnCancel();
-            }
-        }
+			// Accept or cancel the menu?
+			if (InputHandler.IsKeyPressed(Keys.Enter))
+			{
+				OnSelectEntry(selectedEntry);
+			}
+			else if (InputHandler.IsKeyPressed(Keys.Escape))
+			{
+				OnCancel();
+			}
+		}
 
-        protected virtual void OnSelectEntry(int entryIndex)
-        {
-            menuEntries[selectedEntry].OnSelectEntry();
-        }
+		protected virtual void OnSelectEntry(int entryIndex)
+		{
+			menuEntries[selectedEntry].OnSelectEntry();
+		}
 
-        protected virtual void OnCancel()
-        {
-            ExitScreen();
-        }
+		protected virtual void OnCancel()
+		{
+			ExitScreen();
+		}
 
-        protected void OnCancel(object sender, EventArgs e)
-        {
-            OnCancel();
-        }
+		protected void OnCancel(object sender, EventArgs e)
+		{
+			OnCancel();
+		}
 
-        public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-                                                       bool coveredByOtherScreen)
-        {
-            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+		public override void Update(GameTime gameTime, bool otherScreenHasFocus,
+													   bool coveredByOtherScreen)
+		{
+			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-            // Update each nested MenuEntry object.
-            for (int i = 0; i < menuEntries.Count; i++)
-            {
-                bool isSelected = IsActive && (i == selectedEntry);
+			// Update each nested MenuEntry object.
+			for (int i = 0; i < menuEntries.Count; i++)
+			{
+				bool isSelected = IsActive && (i == selectedEntry);
 
-                menuEntries[i].Update(this, isSelected, gameTime);
-            }
-        }
+				menuEntries[i].Update(this, isSelected, gameTime);
+			}
+		}
 
-        public override void Draw(GameTime gameTime)
-        {
-            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            SpriteFont font = ScreenManager.Font;
+		public override void Draw(GameTime gameTime)
+		{
+			SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+			SpriteFont font = ScreenManager.Font;
 
-            Vector2 position = new Vector2(100, 150);
+			Vector2 position = new Vector2(100, 150);
 
-            // Make the menu slide into place during transitions, using a
-            // power curve to make things look more interesting (this makes
-            // the movement slow down as it nears the end).
-            float transitionOffset = (float)Math.Pow(TransitionPosition, 2);
+			// Make the menu slide into place during transitions, using a
+			// power curve to make things look more interesting (this makes
+			// the movement slow down as it nears the end).
+			float transitionOffset = (float)Math.Pow(TransitionPosition, 2);
 
-            if (ScreenState == ScreenState.TransitionOn)
-                position.X -= transitionOffset * 256;
-            else
-                position.X += transitionOffset * 512;
+			if (ScreenState == ScreenState.TransitionOn)
+				position.X -= transitionOffset * 256;
+			else
+				position.X += transitionOffset * 512;
 
-            spriteBatch.Begin();
+			spriteBatch.Begin();
 
-            // Draw each menu entry in turn.
-            for (int i = 0; i < menuEntries.Count; i++)
-            {
-                MenuEntry menuEntry = menuEntries[i];
+			// Draw each menu entry in turn.
+			for (int i = 0; i < menuEntries.Count; i++)
+			{
+				MenuEntry menuEntry = menuEntries[i];
 
-                bool isSelected = IsActive && (i == selectedEntry);
+				bool isSelected = IsActive && (i == selectedEntry);
 
-                menuEntry.Draw(this, position, isSelected, gameTime);
+				menuEntry.Draw(this, position, isSelected, gameTime);
 
-                position.Y += menuEntry.GetHeight(this);
-            }
+				position.Y += menuEntry.GetHeight(this);
+			}
 
-            // Draw the menu title.
-            Vector2 titlePosition = new Vector2(426, 80);
-            Vector2 titleOrigin = font.MeasureString(menuTitle) / 2;
-            Color titleColor = new Color(192, 192, 192, TransitionAlpha);
-            float titleScale = 1.25f;
+			// Draw the menu title.
+			Vector2 titlePosition = new Vector2(426, 80);
+			Vector2 titleOrigin = font.MeasureString(menuTitle) / 2;
+			Color titleColor = new Color(192, 192, 192, TransitionAlpha);
+			float titleScale = 1.25f;
 
-            titlePosition.Y -= transitionOffset * 100;
+			titlePosition.Y -= transitionOffset * 100;
 
-            spriteBatch.DrawString(font, menuTitle, titlePosition, titleColor, 0,
-                                   titleOrigin, titleScale, SpriteEffects.None, 0);
+			spriteBatch.DrawString(font, menuTitle, titlePosition, titleColor, 0,
+								   titleOrigin, titleScale, SpriteEffects.None, 0);
 
-            spriteBatch.End();
-        }
-    }
+			spriteBatch.End();
+		}
+	}
 }

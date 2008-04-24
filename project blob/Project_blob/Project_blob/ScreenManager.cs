@@ -61,11 +61,27 @@ namespace Project_blob
 		{
 			InputHandler.LoadDefaultBindings();
 
+			GameScreen.ScreenManager = this;
+
 			GraphicsDevice.RenderState.PointSize = 5;
 			GraphicsDevice.PresentationParameters.MultiSampleType = MultiSampleType.SixteenSamples;
 			GraphicsDevice.PresentationParameters.MultiSampleQuality = 8;
 			GraphicsDevice.RenderState.MultiSampleAntiAlias = true;
 			GraphicsDevice.RenderState.Wrap0 = TextureWrapCoordinates.Three;
+
+			CurrentResolution = new Resolution(768, 1024);
+			Resolutions.Add(CurrentResolution);
+
+			foreach (DisplayMode d in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+			{
+				addResolution(d);
+			}
+
+			Resolutions.Sort(Resolution.comparison);
+
+			graphics.PreferredBackBufferHeight = CurrentResolution.Height;
+			graphics.PreferredBackBufferWidth = CurrentResolution.Width;
+
 			graphics.ApplyChanges();
 
 			base.Initialize();
@@ -188,7 +204,6 @@ namespace Project_blob
 
 		public void AddScreen(GameScreen screen)
 		{
-			screen.ScreenManager = this;
 			screen.IsExiting = false;
 
 			// If we have a graphics device, tell the screen to load content.
@@ -229,5 +244,64 @@ namespace Project_blob
 
 			spriteBatch.End();
 		}
+
+		private void addResolution(DisplayMode d)
+		{
+			foreach (Resolution r in Resolutions)
+			{
+				if (d.Height == r.Height && d.Width == r.Width)
+				{
+					return;
+				}
+			}
+			Resolutions.Add(new Resolution(d));
+		}
+
+		public void setResolution(Resolution r)
+		{
+			CurrentResolution = r;
+			graphics.PreferredBackBufferHeight = r.Height;
+			graphics.PreferredBackBufferWidth = r.Width;
+			graphics.ApplyChanges();
+		}
+
+		public Resolution CurrentResolution;
+		public List<Resolution> Resolutions = new List<Resolution>();
+	}
+
+	public struct Resolution
+	{
+
+		public int Height;
+		public int Width;
+
+		public Resolution(DisplayMode d)
+		{
+			Height = d.Height;
+			Width = d.Width;
+		}
+		public Resolution(int height, int width)
+		{
+			Height = height;
+			Width = width;
+		}
+
+		public override string ToString()
+		{
+			return Width.ToString() + "x" + Height.ToString();
+		}
+
+		public static int comparison(Resolution x, Resolution y)
+		{
+			if (x.Width != y.Width)
+			{
+				return x.Width - y.Width;
+			}
+			else
+			{
+				return x.Height - y.Height;
+			}
+		}
+
 	}
 }
