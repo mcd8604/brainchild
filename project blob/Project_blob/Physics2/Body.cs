@@ -75,6 +75,11 @@ namespace Physics2
 			return springs;
 		}
 
+		public virtual Vector3 getRelativeVelocity(Point p)
+		{
+			return Vector3.Zero;
+		}
+
 		public virtual void update(float TotalElapsedSeconds)
 		{
 
