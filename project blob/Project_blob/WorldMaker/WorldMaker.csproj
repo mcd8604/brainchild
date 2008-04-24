@@ -68,6 +68,12 @@
     <Compile Include="CameraPanSetter.Designer.cs">
       <DependentUpon>CameraPanSetter.cs</DependentUpon>
     </Compile>
+    <Compile Include="DeltaSetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeltaSetter.Designer.cs">
+      <DependentUpon>DeltaSetter.cs</DependentUpon>
+    </Compile>
     <Compile Include="EventSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +147,10 @@
     <EmbeddedResource Include="CameraPanSetter.resx">
       <SubType>Designer</SubType>
       <DependentUpon>CameraPanSetter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeltaSetter.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DeltaSetter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EventSelector.resx">
       <SubType>Designer</SubType>
