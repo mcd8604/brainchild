@@ -53,7 +53,8 @@ namespace WorldMaker
         }
 
         private String originalModel;
-        private TextureInfo originalTexture;
+        private String originalTextureName;
+        private int originalTextureSort;
 
         LevelEditor levelEditor;
         Game1 _gameRef;
@@ -84,7 +85,8 @@ namespace WorldMaker
                 if (m_CurrentModel.TextureKey != null)
                 {
                     m_CurrentTexture = m_CurrentModel.TextureKey;
-                    originalTexture = m_CurrentModel.TextureKey;
+                    originalTextureName = m_CurrentTexture.TextureName;
+                    originalTextureSort = m_CurrentTexture.SortNumber;
                     textureBox.SelectedItem = m_CurrentTexture.TextureName + ".xnb";
                 }
                 else
@@ -104,7 +106,8 @@ namespace WorldMaker
                 originalModel = m_CurrentModel.ModelName;
                 Random rand = new Random();
                 m_CurrentTexture = new TextureInfo(null, rand.Next());
-                originalTexture = m_CurrentModel.TextureKey;
+                originalTextureName = m_CurrentTexture.TextureName;
+                originalTextureSort = m_CurrentTexture.SortNumber;
                 m_CurrentModel.TextureKey = m_CurrentTexture;
             }
         }
@@ -138,7 +141,8 @@ namespace WorldMaker
         private void closeButton_Click(object sender, EventArgs e)
         {
             m_CurrentModel.ModelName = originalModel;
-            m_CurrentModel.TextureKey = originalTexture;
+            m_CurrentModel.TextureKey.TextureName = originalTextureName;
+            m_CurrentModel.TextureKey.SortNumber = originalTextureSort;
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
