@@ -633,6 +633,7 @@ namespace WorldMaker
 
                     textureScaleX.Text = m.TextureScaleX.ToString();
                     textureScaleY.Text = m.TextureScaleY.ToString();
+                    repeatTexture_cb.Checked = m.RepeatingTexture;
 				}
 			}
 
