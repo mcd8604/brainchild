@@ -179,6 +179,7 @@ namespace Project_blob
 
             //load level textures
             //TODO: change to level list, rather than drawn
+            TextureManager.getSingleton.AddTexture("cloudsky", game.Content.Load<Texture2D>(@"Textures\\cloudsky"));
             foreach (TextureInfo ti in this.Display.DrawnList.Keys)
             {
                 TextureManager.getSingleton.AddTexture(ti.TextureName, game.Content.Load<Texture2D>(@"Textures\\" + ti.TextureName));
@@ -186,7 +187,7 @@ namespace Project_blob
 
             //load level models
             IEnumerator drawablesEnum = this.Drawables.GetEnumerator();
-			ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\cube"));
+			ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
             while (drawablesEnum.MoveNext())
             {
                 KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
