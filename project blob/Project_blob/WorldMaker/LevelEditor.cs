@@ -142,7 +142,6 @@ namespace WorldMaker
                 if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
                 {
                     Console.WriteLine(_modelSelect.CurrentModel.Name);
-                    _modelSelect.CurrentModel.updateTexCoords();
                     _drawableInfo.name = _modelSelect.CurrentModel.Name;
                     _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
                     _drawableInfo.drawable = _modelSelect.CurrentModel;
@@ -237,7 +236,7 @@ namespace WorldMaker
                 {
                     _drawablesToDelete.Add(_gameRef.ActiveArea.Display.CurrentlySelected);
                     Console.WriteLine(_modelSelect.CurrentModel.Name);
-                    _modelSelect.CurrentModel.updateTexCoords();
+                    _modelSelect.CurrentModel.updateVertexBuffer();
                     _drawableInfo.name = _modelSelect.CurrentModel.Name;
                     _drawableInfo.textureInfo = _modelSelect.CurrentTexture;
                     StaticModel temp = _modelSelect.CurrentModel;

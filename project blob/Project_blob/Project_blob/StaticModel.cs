@@ -30,7 +30,7 @@ namespace Project_blob
         public TextureInfo TextureKey
         {
             get { return m_TextureKey; }
-            set { m_TextureKey = value; }
+            set { m_TextureKey = value; updateVertexBuffer(); }
         }
 
         private bool m_RepeatingTexture = false;
@@ -43,6 +43,7 @@ namespace Project_blob
             set
             {
                 m_RepeatingTexture = value;
+                updateVertexBuffer();
             }
         }
         private float m_TextureScaleX = 1f;
@@ -54,6 +55,7 @@ namespace Project_blob
             set
             {
                 m_TextureScaleX = value;
+                updateVertexBuffer();
             }
         }
         private float m_TextureScaleY = 1f;
@@ -66,35 +68,37 @@ namespace Project_blob
             set
             {
                 m_TextureScaleY = value;
+                updateVertexBuffer();
             }
         }
 
-        public void updateTexCoords()
+        public void updateVertexBuffer()
         {
             Model m = ModelManager.getSingleton.GetModel(_modelName);
-            foreach (ModelMesh mesh in m.Meshes)
+            if (m != null)
             {
-                m_VertexBuffers = new Dictionary<String, VertexBuffer>();
-
-                // Vertices
-                int numVertices = 0;
-                foreach (ModelMeshPart part in mesh.MeshParts)
+                foreach (ModelMesh mesh in m.Meshes)
                 {
-                    numVertices += part.NumVertices;
-                }
-                VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
-                mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+                    m_VertexBuffers = new Dictionary<String, VertexBuffer>();
 
-                if (m_RepeatingTexture)
-                {
-                    //scaleVector used to scale texture coordinates
-                    Vector3 scaleVector = Vector3.Zero;
-                    Quaternion rotVector = Quaternion.Identity;
-                    Vector3 transVector = Vector3.Zero;
-                    m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
-
-                    if (TextureKey != null)
+                    // Vertices
+                    int numVertices = 0;
+                    foreach (ModelMeshPart part in mesh.MeshParts)
                     {
+                        numVertices += part.NumVertices;
+                    }
+
+                    VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
+                    mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+
+                    if (m_RepeatingTexture)
+                    {
+                        //scaleVector used to scale texture coordinates
+                        Vector3 scaleVector = Vector3.Zero;
+                        Quaternion rotVector = Quaternion.Identity;
+                        Vector3 transVector = Vector3.Zero;
+                        m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
+
                         Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
 
                         for (int i = 0; i < vertices.Length; i++)
@@ -104,9 +108,9 @@ namespace Project_blob
                             vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
                         }
                     }
+                    m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
+                    m_VertexBuffers[mesh.Name].SetData<VertexPositionNormalTexture>(vertices);
                 }
-                m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
-                m_VertexBuffers[mesh.Name].SetData<VertexPositionNormalTexture>(vertices);
             }
         }
 
@@ -354,7 +358,7 @@ namespace Project_blob
             set
             {
                 m_Scale = value;
-                updateTexCoords();
+                updateVertexBuffer();
             }
         }
 
@@ -367,6 +371,7 @@ namespace Project_blob
             set
             {
                 _modelName = value;
+                updateVertexBuffer();
             }
         }
 
@@ -438,31 +443,26 @@ namespace Project_blob
             {                
                 // Change the device settings for each part to be rendered
                 graphicsDevice.VertexDeclaration = part.VertexDeclaration;
-                VertexBuffer vertexBuffer;
                 if (m_VertexBuffers == null)
                 {
-                    vertexBuffer = mesh.VertexBuffer;
+                    updateVertexBuffer();
                 }
-                else
+                try
                 {
-                    try
+                    graphicsDevice.Vertices[0].SetSource(m_VertexBuffers[mesh.Name], part.StreamOffset, part.VertexStride);
+                    // Finally draw the actual triangles on the screen
+                    graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+                    if (this.ShowVertices && !gameMode)
                     {
-                        vertexBuffer = m_VertexBuffers[mesh.Name];
-                    }
-                    catch (KeyNotFoundException knfe)
-                    {
-                        vertexBuffer = mesh.VertexBuffer;
+                        Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
+                        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture("point_text");
+                        graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
+                        graphicsDevice.Textures[0] = temp;
                     }
                 }
-                graphicsDevice.Vertices[0].SetSource(vertexBuffer, part.StreamOffset, part.VertexStride);
-                // Finally draw the actual triangles on the screen
-                graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
-                if (this.ShowVertices && !gameMode)
+                catch (KeyNotFoundException knfe)
                 {
-                    Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
-                    graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture("point_text");
-                    graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
-                    graphicsDevice.Textures[0] = temp;
+                    Console.WriteLine("KEY NOT FOUND IN STATIC MODEL: " + this.Name);
                 }
             }
         }
