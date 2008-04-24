@@ -5,7 +5,7 @@ using Project_blob.GameState;
 namespace Project_blob
 {
 	[Serializable]
-	class DeltaEvent : EventTrigger
+	public class DeltaEvent : EventTrigger
 	{
 
 		private Vector3 DeltaPosition;

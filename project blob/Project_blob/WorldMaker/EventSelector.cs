@@ -9,12 +9,13 @@ using Project_blob;
 
 namespace WorldMaker {
     public partial class EventSelector : Form {
-        private enum Events { AREATRANSITION, PLAYERWARP, SWITCHACTIVATION, CAMERAPAN };
+        private enum Events { AREATRANSITION, PLAYERWARP, SWITCHACTIVATION, CAMERAPAN, DELTA };
 
         private WarpSetter _warpSetter;
         private SwitchSetter _switchSetter;
         private CameraPanSetter _cameraPanSetter;
         private TransitionSetter _transitionSetter;
+        private DeltaSetter _deltaSetter;
 
         private EventTrigger _eventTrigger;
         public EventTrigger EventTrigger { get { return _eventTrigger; } }
@@ -50,6 +51,11 @@ namespace WorldMaker {
                         _cameraPanSetter = new CameraPanSetter( );
                         _cameraPanSetter.ShowDialog( );
                         _eventTrigger = _cameraPanSetter.CameraPan;
+                        break;
+                    case Events.DELTA:
+                        _deltaSetter = new DeltaSetter();
+                        _deltaSetter.ShowDialog();
+                        _eventTrigger = _deltaSetter.Delta;
                         break;
                 };
                 if( _eventTrigger != null ) {
