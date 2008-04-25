@@ -44,6 +44,7 @@ namespace WorldMaker
 			this.label2 = new System.Windows.Forms.Label();
 			this.areaTextBox = new System.Windows.Forms.TextBox();
 			this.nameButton = new System.Windows.Forms.Button();
+			this.EventButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// areaListBox
@@ -181,7 +182,7 @@ namespace WorldMaker
 			this.EditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.EditButton.Location = new System.Drawing.Point(12, 733);
 			this.EditButton.Name = "EditButton";
-			this.EditButton.Size = new System.Drawing.Size(269, 47);
+			this.EditButton.Size = new System.Drawing.Size(125, 47);
 			this.EditButton.TabIndex = 12;
 			this.EditButton.Text = "Edit Model";
 			this.EditButton.UseVisualStyleBackColor = true;
@@ -216,11 +217,22 @@ namespace WorldMaker
 			this.nameButton.UseVisualStyleBackColor = true;
 			this.nameButton.Click += new System.EventHandler(this.nameButton_Click);
 			// 
+			// EventButton
+			// 
+			this.EventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.EventButton.Location = new System.Drawing.Point(156, 733);
+			this.EventButton.Name = "EventButton";
+			this.EventButton.Size = new System.Drawing.Size(125, 47);
+			this.EventButton.TabIndex = 17;
+			this.EventButton.UseVisualStyleBackColor = true;
+			this.EventButton.Click += new System.EventHandler(this.EventButton_Click);
+			// 
 			// LevelEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(293, 784);
+			this.Controls.Add(this.EventButton);
 			this.Controls.Add(this.nameButton);
 			this.Controls.Add(this.areaTextBox);
 			this.Controls.Add(this.label2);
@@ -262,5 +274,6 @@ namespace WorldMaker
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox areaTextBox;
 		private System.Windows.Forms.Button nameButton;
+		private System.Windows.Forms.Button EventButton;
 	}
 }

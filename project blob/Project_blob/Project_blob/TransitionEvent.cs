@@ -10,7 +10,29 @@ namespace Project_blob
     public class TransitionEvent : EventTrigger {
         
         private String _area;
+		public String Area
+		{
+			get
+			{
+				return _area;
+			}
+			set
+			{
+				_area = value;
+			}
+		}
         private Vector3 _position;
+		public Vector3 Position
+		{
+			get
+			{
+				return _position;
+			}
+			set
+			{
+				_position = value;
+			}
+		}
     
         public TransitionEvent(String area, float xPos, float yPos, float zPos)
         {

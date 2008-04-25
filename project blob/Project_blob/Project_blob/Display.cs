@@ -153,6 +153,7 @@ namespace Project_blob
 				AddToBeDrawn(m_skyBox);
         }
 
+		// Why is this getting called every frame??
         public void AddToBeDrawn(Drawable p_Drawable)
         {
             if (drawable_List_Drawn.Keys.Contains(p_Drawable.GetTextureKey()))

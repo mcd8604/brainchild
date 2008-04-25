@@ -76,7 +76,19 @@ namespace WorldMaker
 			{
 				_gameRef.ActiveDrawable = _gameRef.ActiveArea.Drawables[(String)(modelListBox.Items[modelListBox.SelectedIndex])];
 				if (_gameRef.ActiveDrawable is StaticModel)
+				{
 					_gameRef.ActiveArea.Display.CurrentlySelected = ((StaticModel)_gameRef.ActiveDrawable).Name;
+
+					if (_gameRef.ActiveArea.Events.ContainsKey(((StaticModel)_gameRef.ActiveDrawable).Name))
+					{
+						EventButton.Text = "Edit Event";
+					}
+					else
+					{
+						EventButton.Text = "Add Event";
+					}
+
+				}
 			}
 		}
 
@@ -280,6 +292,37 @@ namespace WorldMaker
 				Level.RemoveArea((String)areaListBox.Items[areaListBox.SelectedIndex]);
 				areaListBox.Items[areaListBox.SelectedIndex] = areaTextBox.Text;
 			}
+		}
+
+		private void EventButton_Click(object sender, EventArgs e)
+		{
+			EventTrigger existingEvent = null;
+			if( _gameRef.ActiveArea.Events.ContainsKey(((StaticModel)_gameRef.ActiveDrawable).Name)) {
+				existingEvent = _gameRef.ActiveArea.Events[((StaticModel)_gameRef.ActiveDrawable).Name];
+			}
+
+			if (existingEvent == null)
+			{
+				EventSelector selector = new EventSelector();
+				selector.ShowDialog();
+				if (selector.EventTrigger != null)
+				{
+					EventInfo newEvent = new EventInfo();
+					newEvent.eventTrigger = selector.EventTrigger;
+					newEvent.name = ((StaticModel)_gameRef.ActiveDrawable).Name;
+					existingEvent = newEvent.eventTrigger;
+					_eventsToAdd.Add(_eventInfo);
+				}
+			}
+
+
+			if (existingEvent != null)
+			{
+				EventSetter setter = new EventSetter(existingEvent);
+				setter.ShowDialog();
+			}
+
+
 		}
 
 	}
