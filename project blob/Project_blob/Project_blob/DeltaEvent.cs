@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Project_blob.GameState;
+using System.ComponentModel;
 
 namespace Project_blob
 {
@@ -8,10 +9,44 @@ namespace Project_blob
 	public class DeltaEvent : EventTrigger
 	{
 
-		private Vector3 DeltaPosition;
-		private Vector3 DeltaVelocity;
-		private Vector3 DeltaForce;
+		private Vector3 deltaPosition;
+		public Vector3 DeltaPosition
+		{
+			get
+			{
+				return deltaPosition;
+			}
+			set
+			{
+				deltaPosition = value;
+			}
+		}
+		private Vector3 deltaVelocity;
+		public Vector3 DeltaVelocity
+		{
+			get
+			{
+				return deltaVelocity;
+			}
+			set
+			{
+				deltaVelocity = value;
+			}
+		}
+		private Vector3 deltaForce;
+		public Vector3 DeltaForce
+		{
+			get
+			{
+				return deltaForce;
+			}
+			set
+			{
+				deltaForce = value;
+			}
+		}
 
+		public DeltaEvent() { }
 		public DeltaEvent(Vector3 Force)
 		{
 			DeltaForce = Force;

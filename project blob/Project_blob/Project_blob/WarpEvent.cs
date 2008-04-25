@@ -10,7 +10,26 @@ namespace Project_blob
 	public class WarpEvent : EventTrigger
 	{
 		private Vector3 _moveToPos;
+		public Vector3 MoveToPos
+		{
+			get
+			{
+				return _moveToPos;
+			}
+			set
+			{
+				_moveToPos = value;
+			}
+		}
 		private Vector3 _moveToVel;
+		public Vector3 MoveToVel {
+			get{
+				return _moveToVel;
+			}
+			set {
+				_moveToVel = value;
+			}
+		}
 
 		public WarpEvent(float xPos, float yPos, float zPos, float xVel, float yVel, float zVel)
 		{
