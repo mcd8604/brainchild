@@ -57,6 +57,14 @@ namespace Project_blob
             bf.Serialize(s, _areas);
             s.Close();
             Console.WriteLine("Level Saved");
+
+#if DEBUG
+			Stream s2 = File.Create(System.Environment.CurrentDirectory + "\\..\\..\\..\\..\\Project_blob\\Content\\Levels\\" + levelName + ".lev");
+			BinaryFormatter bf2 = new BinaryFormatter();
+			bf2.Serialize(s2, _areas);
+			s2.Close();
+			Console.WriteLine("Level Saved");
+#endif
         }
 
         public static void LoadLevel(String levelName, String effectName)
