@@ -22,6 +22,18 @@ namespace WorldMaker {
 
         public EventSelector( ) {
             InitializeComponent( );
+
+			System.Reflection.Assembly asm = System.Reflection.Assembly.LoadFrom("Project_blob.exe");
+			List<Type> EventSubClasses = new List<Type>();
+			foreach (Type t in asm.GetTypes())
+			{
+				if(typeof(Project_blob.EventTrigger).IsAssignableFrom(t))
+				{
+					Console.WriteLine(t + " is a Event Type.");
+					EventSubClasses.Add(t);
+				}
+			}
+		
         }
 
         private void cancelButton_Click( object sender, EventArgs e ) {
