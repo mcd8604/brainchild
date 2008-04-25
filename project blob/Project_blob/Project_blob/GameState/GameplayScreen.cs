@@ -165,7 +165,7 @@ namespace Project_blob.GameState
 			resetBlob();
 
 			//load default level
-			Level.LoadLevel("playground", "effects");
+			Level.LoadLevel("FinalLevel", "effects");
 
 			//List of Static Drawables to add to Scene
 			List<Drawable> staticDrawables = new List<Drawable>();

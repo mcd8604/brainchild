@@ -52,6 +52,10 @@
       <Name>bob</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\FinalLevel.lev">
+      <Name>FinalLevel</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\ground.lev">
       <Name>ground</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -68,6 +72,26 @@
       <Name>Transitor</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\spring.FBX">
+      <Name>spring</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\tubeLow.fbx">
+      <Name>tubeLow</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\3SidedBox.fbx">
+      <Name>3SidedBox</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\2SidedBox.fbx">
+      <Name>2SidedBox</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\skySphere.fbx">
       <Name>skySphere</Name>
       <Importer>FbxImporter</Importer>
@@ -243,6 +267,27 @@
   <ItemGroup>
     <Compile Include="Textures\cloudsky.jpg">
       <Name>cloudsky</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\wood.png">
+      <Name>wood</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\repeatable_stone.png">
+      <Name>repeatable_stone</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\cube_stone.png">
+      <Name>cube_stone</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
