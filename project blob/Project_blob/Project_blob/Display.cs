@@ -16,6 +16,20 @@ namespace Project_blob
     [Serializable]
     public class Display
     {
+
+        private RenderTarget2D m_SceneRenderTarget = null;
+        public RenderTarget2D SceneRanderTarget
+        {
+            get { return m_SceneRenderTarget; }
+            set { m_SceneRenderTarget = value; }
+        }
+        private RenderTarget2D m_NormalDepthRenderTarget = null;
+        public RenderTarget2D NormalDepthRenderTarget
+        {
+            get { return m_NormalDepthRenderTarget; }
+            set { m_NormalDepthRenderTarget = value; }
+        }
+
         private bool m_GameMode = false;
         public bool GameMode
         {
@@ -220,6 +234,7 @@ namespace Project_blob
 
         public void Draw(GraphicsDevice graphicsDevice)
         {
+
             if (drawable_List_Drawn.Count > 0)
             {
                 if (m_TechniqueName != null)
@@ -272,7 +287,44 @@ namespace Project_blob
                     graphicsDevice.Textures[0] = temp;
                     //graphicsDevice.Vertices[0].SetSource(tempBuffer.VertexBuffer,0,tempBuffer.VertexStride);
                 }
+                if (m_NormalDepthRenderTarget != null)
+                {
+                    graphicsDevice.SetRenderTarget(0, m_NormalDepthRenderTarget);
+                    foreach (TextureInfo ti in drawable_List_Drawn.Keys)
+                    {
+                        if (ti.SortNumber != currentTextureNumber)
+                        {
+                            if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
+                            {
+                                ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                            }
+                            else
+                            {
+                                graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                                if (m_TextureParameterName != "NONE")
+                                    EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                            }
+                        }
 
+                        foreach (Drawable d in drawable_List_Drawn[ti])
+                        {
+                            if (d is StaticModel)
+                            {
+                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+
+                            }
+                            else
+                            {
+                                DrawPrimitives(d, graphicsDevice);
+                            }
+                        }
+                    }
+                }
+
+                if(m_SceneRenderTarget != null)
+                    graphicsDevice.SetRenderTarget(0, m_SceneRenderTarget);
+                else
+                    graphicsDevice.SetRenderTarget(0, null);
                 foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                 {
                     if (ti.SortNumber != currentTextureNumber)
@@ -303,6 +355,8 @@ namespace Project_blob
                     }
                 }
             }
+
+            ApplyPostProcessing(graphicsDevice);
         }
 
         public void DrawPrimitives(Drawable d, GraphicsDevice graphicsDevice)
@@ -404,6 +458,11 @@ namespace Project_blob
                 ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = currentWorld;
             else
                 EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(currentWorld);
+        }
+
+        private void ApplyPostProcessing(GraphicsDevice graphicsDevice)
+        {
+
         }
     }
 }
