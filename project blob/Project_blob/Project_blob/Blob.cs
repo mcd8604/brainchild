@@ -4,11 +4,38 @@ using System.Collections;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Engine;
 
 namespace Project_blob
 {
+    //--------------------------------------------------------------------------------------
+    // Custom types
+    //--------------------------------------------------------------------------------------
+
+    // Vertex format for blob billboards
+    struct POINTVERTEX  
+    {
+        public Vector3 pos;
+        public float       size;
+        public Vector3 color;
+    }; 
+
+    // Vertex format for screen space work
+    struct SCREENVERTEX     
+    {
+        public Vector4 pos;
+        public Vector2 tCurr;
+        public Vector2 tBack;
+        public float       fSize;
+        public Vector3 vColor;
+    };
+
 	public class Blob : Physics.PressureBody, Drawable
 	{
+        int NUM_Blobs;
+
+        POINTVERTEX[] g_BlobPoints;
+
 		public readonly List<Physics.Point> points = new List<Physics.Point>();
 		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
 		List<Tri> collidables = new List<Tri>();
@@ -130,6 +157,17 @@ namespace Project_blob
 				tempList.Add(new Physics.Point(center + v.Position, this));
 			}
 
+            NUM_Blobs = tempList.Count;
+
+            g_BlobPoints = new POINTVERTEX[NUM_Blobs];
+            // Set initial blob states
+            for (int i = 0; i < NUM_Blobs; i++)
+            {
+                g_BlobPoints[i].pos = new Vector3(0.0f, 0.0f, 0.0f);
+                g_BlobPoints[i].size = 1.0f;
+                g_BlobPoints[i].color = new Vector3(0,0.3f,0);
+            }
+
 			/*
 			int num_points = 0;
 			int repeated_points = 0;
@@ -229,6 +267,7 @@ namespace Project_blob
 			{
 				vertices[i].Position = points[i].CurrentPosition;
 				vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter()));
+                g_BlobPoints[i].pos = vertices[i].Position;
 
 				//vertices[pointsToUpdate[i]].Position = points[i].CurrentPosition;
 				//vertices[pointsToUpdate[i]].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter() ));
@@ -561,8 +600,94 @@ namespace Project_blob
 
 		//}
 
+        //-----------------------------------------------------------------------------
+        // Fill the vertex buffer for the blob objects
+        //-----------------------------------------------------------------------------
+        void FillBlobVB(Matrix pmatWorldView, BasicCamera g_Camera)
+        {
 
-		#region Drawable Members
+            SCREENVERTEX[] pBlobVertex = new SCREENVERTEX[6 * NUM_Blobs];
+          
+            //V_RETURN( g_pBlobVB->Lock( 0, 0, (void**)&pBlobVertex, D3DLOCK_DISCARD ) );
+            
+            POINTVERTEX [] blobPos = new POINTVERTEX[ NUM_Blobs ];
+            
+            for( int i=0; i < NUM_Blobs; ++i )
+            {
+                // Transform point to camera space
+                Vector3 blobPosCamera;
+                blobPosCamera = Vector3.Transform(g_BlobPoints[i].pos, pmatWorldView );
+                
+                blobPos[i] = g_BlobPoints[i];
+                blobPos[i].pos.X = blobPosCamera.X;
+                blobPos[i].pos.Y = blobPosCamera.Y;
+                blobPos[i].pos.Z = blobPosCamera.Z;
+            }
+
+            int posCount=0;
+            for( int i=0; i < NUM_Blobs; ++i )
+            {
+                Vector4 BlobscreenPos;
+
+                // For calculating billboarding
+                Vector4 billOfs = new Vector4(blobPos[i].size,blobPos[i].size,blobPos[i].pos.Z,1);
+                Vector4 billOfsScreen;
+
+                // Transform to screenspace
+                Matrix pmatProjection = g_Camera.Projection;
+                BlobscreenPos = Vector4.Transform(blobPos[i].pos, pmatProjection);
+                billOfsScreen = Vector4.Transform(billOfs, pmatProjection);
+
+                // Project
+                BlobscreenPos = Vector4.Multiply(BlobscreenPos, 1.0f / BlobscreenPos.W);
+                billOfsScreen = Vector4.Multiply(billOfsScreen, 1.0f / billOfsScreen.W);
+
+                Vector2 [] vTexCoords = 
+                {
+                    new Vector2(0.0f,0.0f),
+                    new Vector2(1.0f,0.0f),
+                    new Vector2(0.0f,1.0f),
+                    new Vector2(0.0f,1.0f),
+                    new Vector2(1.0f,0.0f),
+                    new Vector2(1.0f,1.0f),
+                };
+
+                Vector4 [] vPosOffset =
+                {
+                    new Vector4(-billOfsScreen.X,-billOfsScreen.Y,0.0f,0.0f),
+                    new Vector4( billOfsScreen.X,-billOfsScreen.Y,0.0f,0.0f),
+                    new Vector4(-billOfsScreen.X, billOfsScreen.Y,0.0f,0.0f),
+                    new Vector4( billOfsScreen.X,-billOfsScreen.Y,0.0f,0.0f),
+                    new Vector4( billOfsScreen.X, billOfsScreen.Y,0.0f,0.0f),
+                };
+                
+                ResolveTexture2D backBuffer = new ResolveTexture2D(theDevice,theDevice.Viewport.Width, theDevice.Viewport.Height,0,SurfaceFormat.Color);
+                theDevice.ResolveBackBuffer(backBuffer);
+                //D3DSURFACE_DESC pBackBufferSurfaceDesc = DXUTGetD3D9BackBufferSurfaceDesc();
+
+                // Set constants across quad
+                for( int j=0; j < 6 ;++j )
+                {
+                    // Scale to pixels
+                    pBlobVertex[posCount].pos = Vector4.Add(BlobscreenPos, vPosOffset[j] );  
+                    
+                    pBlobVertex[posCount].pos.X *= backBuffer.Width;             
+                    pBlobVertex[posCount].pos.Y *= backBuffer.Height;
+                    pBlobVertex[posCount].pos.X += 0.5f * backBuffer.Width; 
+                    pBlobVertex[posCount].pos.Y += 0.5f * backBuffer.Height;
+                    
+                    pBlobVertex[posCount].tCurr = vTexCoords[j];
+                    pBlobVertex[posCount].tBack = new Vector2((0.5f+pBlobVertex[posCount].pos.X)*(1.0f/backBuffer.Width),
+                                                           (0.5f+pBlobVertex[posCount].pos.Y)*(1.0f/backBuffer.Height));
+                    pBlobVertex[posCount].fSize = blobPos[i].size;
+                    pBlobVertex[posCount].vColor = blobPos[i].color;
+
+                    posCount++;
+                }
+            }
+        }      
+
+	    #region Drawable Members
 
 
 		public TextureInfo GetTextureKey()

@@ -32,6 +32,12 @@ namespace Project_blob.GameState
 
 		Effect effect;
 		Effect celEffect;
+        Effect blobEffect;
+        Effect cartoonEffect;
+        Effect postprocessEffect;
+
+        RenderTarget2D sceneRenderTarget;
+        RenderTarget2D normalDepthRenderTarget;
 
 		Matrix worldMatrix;
 		//Matrix viewMatrix;
@@ -156,7 +162,13 @@ namespace Project_blob.GameState
 
 			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
 
-			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\event");
+			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\test");
+
+            blobEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Blobs");
+
+            cartoonEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\CartoonEffect");
+
+            postprocessEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\PostprocessEffect");
 
 			//load skybox
 			//skyBox = ScreenManager.Content.Load<Model>(@"Models\\skyBox");
@@ -328,6 +340,21 @@ namespace Project_blob.GameState
 			be.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
 
 			EffectManager.getSingleton.AddEffect("basic", be);
+
+            cartoonEffect.Parameters["World"].SetValue(worldMatrix);
+            cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
+            cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+            cartoonEffect.Parameters["TextureEnabled"].SetValue(true);
+
+            PresentationParameters pp = ScreenManager.GraphicsDevice.PresentationParameters;
+
+            sceneRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+                pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+            normalDepthRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+                pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 		}
 
 
@@ -430,6 +457,9 @@ namespace Project_blob.GameState
 						//camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
 						CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
 						CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
+
+
+                        cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
 						effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
@@ -730,15 +760,80 @@ namespace Project_blob.GameState
 
 			effect.CurrentTechnique = effect.Techniques["Textured"];
 			ScreenManager.GraphicsDevice.Textures[0] = blobTexture;
-		
-			celEffect.Begin();
-			foreach (EffectPass pass in celEffect.CurrentTechnique.Passes)
+
+            blobEffect.CurrentTechnique = blobEffect.Techniques["BlobBlendTwoPasses"];
+
+            cartoonEffect.Parameters["Texture"].SetValue(blobTexture);
+            
+            // Set suitable renderstates for drawing a 3D model.
+            RenderState renderState = ScreenManager.GraphicsDevice.RenderState;
+
+            cartoonEffect.Parameters["World"].SetValue(worldMatrix);
+            cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+            cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
+
+            renderState.CullMode = CullMode.CullCounterClockwiseFace;
+            
+            //ScreenManager.GraphicsDevice.SetRenderTarget(0, normalDepthRenderTarget);
+            //ScreenManager.GraphicsDevice.Clear(Color.Black);
+            //cartoonEffect.CurrentTechnique = cartoonEffect.Techniques["NormalDepth"];
+            //cartoonEffect.Begin();
+            //foreach (EffectPass pass in cartoonEffect.CurrentTechnique.Passes)
+            //{
+            //    pass.Begin();
+            //    theBlob.DrawMe();
+            //    pass.End();
+            //}
+            //cartoonEffect.End();
+
+            ScreenManager.GraphicsDevice.SetRenderTarget(0, null);
+            ScreenManager.GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            renderState.AlphaBlendEnable = false;
+            renderState.AlphaTestEnable = false;
+            renderState.DepthBufferEnable = true;
+
+            cartoonEffect.CurrentTechnique = cartoonEffect.Techniques["Toon"];
+			cartoonEffect.Begin();
+			foreach (EffectPass pass in cartoonEffect.CurrentTechnique.Passes)
 			{
 				pass.Begin();
 				theBlob.DrawMe();
 				pass.End();
 			}
-			celEffect.End();
+			cartoonEffect.End();
+
+            //ScreenManager.GraphicsDevice.SetRenderTarget(0, null);
+            //Vector2 resolution = new Vector2(sceneRenderTarget.Width,
+            //                                     sceneRenderTarget.Height);
+
+            //Texture2D normalDepthTexture = normalDepthRenderTarget.GetTexture();
+
+            //EffectParameterCollection parameters = postprocessEffect.Parameters;
+            //parameters["EdgeWidth"].SetValue(1.0f);
+            //parameters["EdgeIntensity"].SetValue(1.0f);
+            //parameters["ScreenResolution"].SetValue(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width,ScreenManager.GraphicsDevice.Viewport.Height));
+            //parameters["NormalDepthTexture"].SetValue(normalDepthTexture);
+
+            //postprocessEffect.CurrentTechnique = postprocessEffect.Techniques["EdgeDetect"];
+
+            //// Draw a fullscreen sprite to apply the postprocessing effect.
+            //SpriteBatch spriteBatch = new SpriteBatch(ScreenManager.GraphicsDevice);
+            //spriteBatch.Begin(SpriteBlendMode.None,
+            //                  SpriteSortMode.Immediate,
+            //                  SaveStateMode.None);
+
+            //postprocessEffect.Begin();
+            //postprocessEffect.CurrentTechnique.Passes[0].Begin();
+
+            ////spriteBatch.Draw(sceneRenderTarget.GetTexture(), Vector2.Zero, Color.White);
+
+            //spriteBatch.End();
+
+            //postprocessEffect.CurrentTechnique.Passes[0].End();
+            //postprocessEffect.End();
+
+            //renderState.CullMode = CullMode.CullClockwiseFace;
 
 			// Collision Tris
 			/*effect.CurrentTechnique = effect.Techniques["Colored"];

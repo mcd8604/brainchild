@@ -52,6 +52,11 @@
       <Name>bob</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Shaders\Blobs.fx">
+      <Name>Blobs</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <None Include="Levels\FinalLevel.lev">
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -72,6 +77,16 @@
       <Name>Transitor</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Shaders\PostprocessEffect.Fx">
+      <Name>PostprocessEffect</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Shaders\CartoonEffect.Fx">
+      <Name>CartoonEffect</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <Compile Include="Models\spring.FBX">
       <Name>spring</Name>
       <Importer>FbxImporter</Importer>
