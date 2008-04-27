@@ -355,6 +355,11 @@ namespace Project_blob.GameState
             normalDepthRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
                 pp.BackBufferWidth, pp.BackBufferHeight, 1,
                 pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+            currentArea.Display.SceneRanderTarget = sceneRenderTarget;
+            currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+
+            EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
 		}
 
 
@@ -786,14 +791,15 @@ namespace Project_blob.GameState
             //}
             //cartoonEffect.End();
 
-            ScreenManager.GraphicsDevice.SetRenderTarget(0, null);
-            ScreenManager.GraphicsDevice.Clear(Color.CornflowerBlue);
+            ScreenManager.GraphicsDevice.SetRenderTarget(0, sceneRenderTarget);
+            ScreenManager.GraphicsDevice.Clear(Color.AntiqueWhite);
 
             renderState.AlphaBlendEnable = false;
             renderState.AlphaTestEnable = false;
             renderState.DepthBufferEnable = true;
 
             cartoonEffect.CurrentTechnique = cartoonEffect.Techniques["Toon"];
+           
 			cartoonEffect.Begin();
 			foreach (EffectPass pass in cartoonEffect.CurrentTechnique.Passes)
 			{
