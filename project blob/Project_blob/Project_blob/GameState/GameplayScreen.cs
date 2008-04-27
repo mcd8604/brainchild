@@ -163,7 +163,7 @@ namespace Project_blob.GameState
 
 			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
 
-			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\test");
+			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\transparancy");
 
             blobEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Blobs");
 
