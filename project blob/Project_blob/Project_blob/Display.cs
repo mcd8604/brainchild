@@ -234,6 +234,15 @@ namespace Project_blob
 
         public void Draw(GraphicsDevice graphicsDevice)
         {
+            Draw(graphicsDevice, null);
+        }
+
+        public void Draw(GraphicsDevice graphicsDevice, Blob theBlob)
+        {
+            _effectName = "cartoonEffect";
+            m_TechniqueName = "Toon";
+            m_TextureParameterName = "Texture";
+            m_WorldParameterName = "World";
 
             if (drawable_List_Drawn.Count > 0)
             {
@@ -290,6 +299,7 @@ namespace Project_blob
                 if (m_NormalDepthRenderTarget != null)
                 {
                     graphicsDevice.SetRenderTarget(0, m_NormalDepthRenderTarget);
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["NormalDepth"];
                     foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                     {
                         if (ti.SortNumber != currentTextureNumber)
@@ -318,6 +328,17 @@ namespace Project_blob
                                 DrawPrimitives(d, graphicsDevice);
                             }
                         }
+                        if (theBlob != null)
+                        {
+                            EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                            foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+                            {
+                                pass.Begin();
+                                theBlob.DrawMe();
+                                pass.End();
+                            }
+                            EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+                        }
                     }
                 }
 
@@ -325,6 +346,7 @@ namespace Project_blob
                     graphicsDevice.SetRenderTarget(0, m_SceneRenderTarget);
                 else
                     graphicsDevice.SetRenderTarget(0, null);
+                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Toon"];
                 foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                 {
                     if (ti.SortNumber != currentTextureNumber)
@@ -354,10 +376,22 @@ namespace Project_blob
                         }
                     }
                 }
+                if(theBlob != null)
+                {
+                    graphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+                    {
+                        pass.Begin();
+                        theBlob.DrawMe();
+                        pass.End();
+                    }
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+                    graphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
+                }   
+                if(m_SceneRenderTarget != null)
+                    ApplyPostProcessing(graphicsDevice);
             }
-
-            if(m_SceneRenderTarget != null)
-                ApplyPostProcessing(graphicsDevice);
         }
 
         public void DrawPrimitives(Drawable d, GraphicsDevice graphicsDevice)
@@ -380,9 +414,9 @@ namespace Project_blob
             Matrix currentWorld = p_CurrentWorld;
 
             if (d.Name == "sky")
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(false);
+                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["SkyBox"];
             else
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(true);
+                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Toon"];
 
             if (d.Name == CurrentlySelected)
             {
@@ -461,7 +495,7 @@ namespace Project_blob
                 EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(currentWorld);
         }
 
-        private void ApplyPostProcessing(GraphicsDevice graphicsDevice)
+        public void ApplyPostProcessing(GraphicsDevice graphicsDevice)
         {
             graphicsDevice.SetRenderTarget(0, null);
 

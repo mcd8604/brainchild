@@ -224,3 +224,12 @@ float4 NormalDepthPixelShader(float4 color : COLOR0) : COLOR0
     return color;
 }
 
+// Technique draws the object as normal and depth values.
+technique NormalDepth
+{
+    pass P0
+    {
+        VertexShader = compile vs_1_1 NormalDepthVertexShader();
+        PixelShader = compile ps_1_1 NormalDepthPixelShader();
+    }
+}

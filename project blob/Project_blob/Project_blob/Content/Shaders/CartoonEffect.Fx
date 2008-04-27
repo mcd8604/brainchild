@@ -47,7 +47,7 @@ struct VertexShaderInput
 {
     float4 Position : POSITION0;
     float3 Normal : NORMAL0;
-    float2 TextureCoordinate : TEXCOORD0;
+    float2 TextureCoordinate : TEXCOORD1;
 };
 
 
@@ -118,6 +118,24 @@ float4 ToonPixelShader(LightingPixelShaderInput input) : COLOR0
     return color;
 }
 
+// Vertex shader shared between the Lambert and Toon lighting techniques.
+LightingVertexShaderOutput SkyboxVertexShader(VertexShaderInput input)
+{
+    LightingVertexShaderOutput output;
+
+    // Apply camera matrices to the input position.
+    output.Position = mul(mul(mul(input.Position, World), View), Projection);
+    
+    // Copy across the input texture coordinate.
+    output.TextureCoordinate = input.TextureCoordinate;
+
+    // Compute the overall lighting brightness.
+    float3 worldNormal = mul(input.Normal, World);
+    
+    output.LightAmount = 1;
+    
+    return output;
+}
 
 // Output structure for the vertex shader that renders normal and depth information.
 struct NormalDepthVertexShaderOutput
@@ -154,6 +172,13 @@ float4 NormalDepthPixelShader(float4 color : COLOR0) : COLOR0
     return color;
 }
 
+// Pixel shader applies a simple Lambert shading algorithm.
+float4 SkyBoxPixelShader(LightingPixelShaderInput input) : COLOR0
+{
+    float4 color = TextureEnabled ? tex2D(Sampler, input.TextureCoordinate) : 0;
+    
+    return color;
+}
 
 // Technique draws the object using smooth Lambert shading.
 technique Lambert
@@ -184,5 +209,15 @@ technique NormalDepth
     {
         VertexShader = compile vs_1_1 NormalDepthVertexShader();
         PixelShader = compile ps_1_1 NormalDepthPixelShader();
+    }
+}
+
+// Technique draws the object as normal and depth values.
+technique SkyBox
+{
+    pass P0
+    {
+        VertexShader = compile vs_1_1 SkyboxVertexShader();
+        PixelShader = compile ps_1_1 SkyBoxPixelShader();
     }
 }
