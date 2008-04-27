@@ -360,6 +360,8 @@ namespace Project_blob.GameState
             currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
 
             EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
+
+            EffectManager.getSingleton.AddEffect("cartoonEffect", cartoonEffect);
 		}
 
 
@@ -746,7 +748,7 @@ namespace Project_blob.GameState
 			drawTime.Reset();
 			drawTime.Start();
 			
-			ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
+			//ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
 			if (drawMode)
 			{
@@ -791,24 +793,9 @@ namespace Project_blob.GameState
             //}
             //cartoonEffect.End();
 
-            ScreenManager.GraphicsDevice.SetRenderTarget(0, sceneRenderTarget);
-            ScreenManager.GraphicsDevice.Clear(Color.AntiqueWhite);
+            
 
-            renderState.AlphaBlendEnable = false;
-            renderState.AlphaTestEnable = false;
-            renderState.DepthBufferEnable = true;
-
-            cartoonEffect.CurrentTechnique = cartoonEffect.Techniques["Toon"];
-           
-			cartoonEffect.Begin();
-			foreach (EffectPass pass in cartoonEffect.CurrentTechnique.Passes)
-			{
-				pass.Begin();
-				theBlob.DrawMe();
-				pass.End();
-			}
-			cartoonEffect.End();
-
+            //ScreenManager.GraphicsDevice.SetRenderTarget(0, null);
             //ScreenManager.GraphicsDevice.SetRenderTarget(0, null);
             //Vector2 resolution = new Vector2(sceneRenderTarget.Width,
             //                                     sceneRenderTarget.Height);
@@ -873,7 +860,7 @@ namespace Project_blob.GameState
 			SceneManager.getSingleton.UpdateVisibleDrawables(gameTime);
 
 			//Level Models
-			currentArea.Display.Draw(ScreenManager.GraphicsDevice);
+			currentArea.Display.Draw(ScreenManager.GraphicsDevice, theBlob);
 
 			if (points)
 			{
@@ -922,7 +909,41 @@ namespace Project_blob.GameState
 
 			}
 
+            //ScreenManager.GraphicsDevice.SetRenderTarget(0, normalDepthRenderTarget);
 
+            //renderState.AlphaBlendEnable = false;
+            //renderState.AlphaTestEnable = false;
+            //renderState.DepthBufferEnable = true;
+
+            //cartoonEffect.CurrentTechnique = cartoonEffect.Techniques["NormalDepth"];
+
+            //cartoonEffect.Begin();
+            //foreach (EffectPass pass in cartoonEffect.CurrentTechnique.Passes)
+            //{
+            //    pass.Begin();
+            //    theBlob.DrawMe();
+            //    pass.End();
+            //}
+            //cartoonEffect.End();
+
+            //ScreenManager.GraphicsDevice.SetRenderTarget(0, sceneRenderTarget);
+
+            //renderState.AlphaBlendEnable = false;
+            //renderState.AlphaTestEnable = false;
+            //renderState.DepthBufferEnable = true;
+
+            //cartoonEffect.CurrentTechnique = cartoonEffect.Techniques["Toon"];
+
+            //cartoonEffect.Begin();
+            //foreach (EffectPass pass in cartoonEffect.CurrentTechnique.Passes)
+            //{
+            //    pass.Begin();
+            //    theBlob.DrawMe();
+            //    pass.End();
+            //}
+            //cartoonEffect.End();
+
+            //currentArea.Display.ApplyPostProcessing(ScreenManager.GraphicsDevice);
 			drawTime.Stop();
 
 
