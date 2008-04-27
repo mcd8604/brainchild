@@ -28,7 +28,7 @@ namespace Project_blob.GameState
 		public Blob Player { get { return theBlob; } }
 
 		Vector3 blobStartPosition = new Vector3(-20, 10, -40);
-		Texture blobTexture;
+		Texture2D blobTexture;
 
 		Effect effect;
 		Effect celEffect;
@@ -137,6 +137,7 @@ namespace Project_blob.GameState
 			resetPhysics();
 
 			theBlob = new Blob(blobModel, blobStartPosition);
+            theBlob.text = blobTexture;
 			theBlob.setGraphicsDevice(ScreenManager.GraphicsDevice);
 
 			physics.Player.PlayerBody = theBlob;

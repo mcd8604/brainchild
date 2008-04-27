@@ -244,6 +244,12 @@ namespace Project_blob
             m_TextureParameterName = "Texture";
             m_WorldParameterName = "World";
 
+            RenderState renderState = graphicsDevice.RenderState;
+
+            renderState.AlphaBlendEnable = false;
+            renderState.AlphaTestEnable = false;
+            renderState.DepthBufferEnable = true;
+
             if (drawable_List_Drawn.Count > 0)
             {
                 if (m_TechniqueName != null)
@@ -261,10 +267,6 @@ namespace Project_blob
                     if (m_TextureParameterName != "NONE")
                         EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName));
                 }
-
-                //graphicsDevice.RenderState.CullMode = CullMode.None;
-                //graphicsDevice.RenderState.FillMode = FillMode.WireFrame;
-                //graphicsDevice.RenderState.DepthBufferEnable = false;
 
                 if (ShowAxis)
                 {
@@ -378,7 +380,7 @@ namespace Project_blob
                 }
                 if(theBlob != null)
                 {
-                    graphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
                     EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
                     foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
                     {
@@ -387,7 +389,7 @@ namespace Project_blob
                         pass.End();
                     }
                     EffectManager.getSingleton.GetEffect("cartoonEffect").End();
-                    graphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
+                    
                 }   
                 if(m_SceneRenderTarget != null)
                     ApplyPostProcessing(graphicsDevice);

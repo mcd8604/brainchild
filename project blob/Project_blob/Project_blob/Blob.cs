@@ -8,6 +8,7 @@ using Engine;
 
 namespace Project_blob
 {
+
     //--------------------------------------------------------------------------------------
     // Custom types
     //--------------------------------------------------------------------------------------
@@ -32,6 +33,8 @@ namespace Project_blob
 
 	public class Blob : Physics.PressureBody, Drawable
 	{
+
+        public Texture2D text = null;
         int NUM_Blobs;
 
         POINTVERTEX[] g_BlobPoints;
