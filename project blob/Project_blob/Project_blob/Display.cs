@@ -356,7 +356,8 @@ namespace Project_blob
                 }
             }
 
-            ApplyPostProcessing(graphicsDevice);
+            if(m_SceneRenderTarget != null)
+                ApplyPostProcessing(graphicsDevice);
         }
 
         public void DrawPrimitives(Drawable d, GraphicsDevice graphicsDevice)
@@ -462,7 +463,36 @@ namespace Project_blob
 
         private void ApplyPostProcessing(GraphicsDevice graphicsDevice)
         {
+            graphicsDevice.SetRenderTarget(0, null);
 
+            Vector2 resolution = new Vector2(m_SceneRenderTarget.Width,
+                                                 m_SceneRenderTarget.Height);
+
+            Texture2D normalDepthTexture = m_NormalDepthRenderTarget.GetTexture();
+
+            EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["EdgeWidth"].SetValue(1.0f);
+            EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["EdgeIntensity"].SetValue(1.0f);
+            EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["ScreenResolution"].SetValue(new Vector2(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height));
+            EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["NormalDepthTexture"].SetValue(normalDepthTexture);
+
+            // Activate the appropriate effect technique.
+            EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("postprocessEffect").Techniques["EdgeDetect"];
+
+            // Draw a fullscreen sprite to apply the postprocessing effect.
+            SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
+            spriteBatch.Begin(SpriteBlendMode.None,
+                              SpriteSortMode.Immediate,
+                              SaveStateMode.None);
+
+            EffectManager.getSingleton.GetEffect("postprocessEffect").Begin();
+            EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique.Passes[0].Begin();
+
+            spriteBatch.Draw(m_SceneRenderTarget.GetTexture(), Vector2.Zero, Color.White);
+
+            spriteBatch.End();
+
+            EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique.Passes[0].End();
+            EffectManager.getSingleton.GetEffect("postprocessEffect").End();
         }
     }
 }
