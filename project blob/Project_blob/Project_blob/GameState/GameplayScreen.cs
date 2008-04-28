@@ -565,6 +565,7 @@ namespace Project_blob.GameState
 					physics.Player.Resilience.Target = GamePad.GetState(PlayerIndex.One).Triggers.Right;
 					//Physics.PhysicsManager.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
 					physics.Player.Traction.Target = GamePad.GetState(PlayerIndex.One).Triggers.Left;
+                    physics.Player.Cling.Target = 0.25f + (GamePad.GetState(PlayerIndex.One).Triggers.Left * 0.5f);
 					/*float vb = MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f);
 					InputHandler.SetVibration(vb, 0f);*/
 				}
@@ -638,7 +639,7 @@ namespace Project_blob.GameState
 					jump = Vector3.Normalize(jump);
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.J) || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
+				if (InputHandler.IsKeyPressed(Keys.J) || InputHandler.IsButtonPressed(Buttons.A))
 				{
 					// Fake Jump: TODO
 
@@ -1005,11 +1006,11 @@ namespace Project_blob.GameState
 
 			if (physics.Player != null)
 			{
-				if (physics.Player.Resilience.Target < 0.5)
+				if (physics.Player.Resilience.Target < 0.33)
 				{
 					spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
 				}
-				else if (physics.Player.Resilience.Target > 0.5)
+				else if (physics.Player.Resilience.Target > 0.66)
 				{
 					spriteBatch.DrawString(font, "Firm", new Vector2(150, 0), Color.White);
 				}
@@ -1017,11 +1018,11 @@ namespace Project_blob.GameState
 				{
 					spriteBatch.DrawString(font, "Normal", new Vector2(150, 0), Color.White);
 				}
-				if (physics.Player.Traction.Target < 0.5)
+				if (physics.Player.Traction.Target < 0.33)
 				{
 					spriteBatch.DrawString(font, "Slick", new Vector2(350, 0), Color.White);
 				}
-				else if (physics.Player.Traction.Target > 0.5)
+				else if (physics.Player.Traction.Target > 0.66)
 				{
 					spriteBatch.DrawString(font, "Sticky", new Vector2(350, 0), Color.White);
 				}
