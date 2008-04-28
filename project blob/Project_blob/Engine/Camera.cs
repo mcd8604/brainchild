@@ -99,7 +99,7 @@ namespace Engine
         /// <summary>
         /// Distance to the near clipping plane.
         /// </summary>
-        private float _nearPlane = 0.1f;
+        private float _nearPlane = 1f;
         public float NearPlane
         {
             get { return _nearPlane; }
@@ -113,7 +113,7 @@ namespace Engine
         /// <summary>
         /// Distance to the far clipping plane.
         /// </summary>
-        private float _farPlane = 100.0f;
+        private float _farPlane = 1000.0f;
         public float FarPlane
         {
             get { return _farPlane; }

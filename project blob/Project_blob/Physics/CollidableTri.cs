@@ -14,7 +14,7 @@ namespace Physics
 
 		internal Vector3 Origin;
 
-		internal Physics.AxisAlignedBoundingBox myBoundingBox;
+		internal AxisAlignedBoundingBox myBoundingBox;
 
 		public CollidableTri(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3)
 			: base(null)
@@ -31,17 +31,17 @@ namespace Physics
 
 			Origin = Vector3.Negate((point1.Position + point2.Position + point3.Position) / 3);
 
-			myBoundingBox = new Physics.AxisAlignedBoundingBox();
-			myBoundingBox.expandToInclude(ref point1.Position);
-			myBoundingBox.expandToInclude(ref point2.Position);
-			myBoundingBox.expandToInclude(ref point3.Position);
+			myBoundingBox = new AxisAlignedBoundingBox();
+			myBoundingBox.expandToInclude(point1.Position);
+			myBoundingBox.expandToInclude(point2.Position);
+			myBoundingBox.expandToInclude(point3.Position);
 		}
 
 		public override bool couldIntersect(Physics.Point p)
 		{
 			//return true;
-			//return myBoundingBox.contains(ref p.CurrentPosition) || myBoundingBox.contains(ref p.potentialPosition);
-			return myBoundingBox.lineIntersects(ref p.CurrentPosition, ref p.potentialPosition);
+			//return myBoundingBox.contains(p.CurrentPosition) || myBoundingBox.contains(p.potentialPosition);
+			return myBoundingBox.lineIntersects(p.CurrentPosition, p.potentialPosition);
 		}
 
 		public override float DotNormal(Vector3 pos)

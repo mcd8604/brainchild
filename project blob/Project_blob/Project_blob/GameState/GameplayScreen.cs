@@ -234,7 +234,7 @@ namespace Project_blob.GameState
 			cinematicCamera.FieldOfView = MathHelper.ToRadians(45.0f);
 			cinematicCamera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
 			cinematicCamera.NearPlane = 1.0f;
-			cinematicCamera.FarPlane = 500.0f;
+			cinematicCamera.FarPlane = 1000.0f;
 
 			cinematicCamera.Position = new Vector3(0, 0, -10);
 			cinematicCamera.Target = Vector3.Zero;
