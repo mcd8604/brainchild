@@ -57,7 +57,6 @@ namespace Project_blob.GameState
 		bool controllermode = false;
 		bool follow = true;
 
-		bool drawMode = true;
 		bool points = false;
 
 		SpriteFont font;
@@ -347,28 +346,31 @@ namespace Project_blob.GameState
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["TextureEnabled"].SetValue(true);
 
-            CreateRenderTargets();
+
+			CreateRenderTargets();
 
 			EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
 
 			EffectManager.getSingleton.AddEffect("cartoonEffect", cartoonEffect);
+
+
 		}
 
-        public void CreateRenderTargets()
-        {
-            PresentationParameters pp = ScreenManager.GraphicsDevice.PresentationParameters;
+		public void CreateRenderTargets()
+		{
+			PresentationParameters pp = ScreenManager.GraphicsDevice.PresentationParameters;
 
-            sceneRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+			sceneRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            normalDepthRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+			normalDepthRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            currentArea.Display.SceneRanderTarget = sceneRenderTarget;
-            currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
-        }
+			currentArea.Display.SceneRanderTarget = sceneRenderTarget;
+			currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+		}
 
 		/// <summary>
 		/// UnloadContent will be called once per game and is the place to unload
@@ -527,7 +529,7 @@ namespace Project_blob.GameState
 				}
 				if (InputHandler.IsKeyPressed(Keys.Z))
 				{
-					drawMode = !drawMode;
+					currentArea.Display.DEBUG_WireframeMode = !currentArea.Display.DEBUG_WireframeMode;
 				}
 				if (InputHandler.IsKeyPressed(Keys.O))
 				{
@@ -763,18 +765,9 @@ namespace Project_blob.GameState
 
 			//ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
-			if (drawMode)
-			{
-				ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
-				ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
-				ScreenManager.GraphicsDevice.RenderState.DepthBufferEnable = true;
-			}
-			else
-			{
-				ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.None;
-				ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
-				ScreenManager.GraphicsDevice.RenderState.DepthBufferEnable = false;
-			}
+			ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+			ScreenManager.GraphicsDevice.RenderState.DepthBufferEnable = true;
 			ScreenManager.GraphicsDevice.RenderState.AlphaBlendEnable = false;
 			ScreenManager.GraphicsDevice.RenderState.AlphaTestEnable = false;
 
