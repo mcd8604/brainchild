@@ -64,12 +64,6 @@ namespace Project_blob
 			bf2.Serialize(s2, _areas);
 			s2.Close();
             Console.WriteLine("Level Saved");
-
-            Stream s3 = File.Create(System.Environment.CurrentDirectory + "\\..\\..\\..\\..\\WorldMaker\\Content\\Levels\\" + levelName + ".lev");
-            BinaryFormatter bf3 = new BinaryFormatter();
-            bf3.Serialize(s3, _areas);
-            s3.Close();
-            Console.WriteLine("Level Saved");
 #endif
         }
 
