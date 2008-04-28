@@ -42,7 +42,7 @@ namespace WorldMaker
             set { _activeArea = value; }
         }
 
-        public readonly String EFFECT_TYPE = "effects";
+        public readonly String EFFECT_TYPE = "CartoonEffect";
 
         private String _effectName;
         public String EffectName
@@ -159,6 +159,9 @@ namespace WorldMaker
             else
                 EffectManager.getSingleton.AddEffect(EFFECT_TYPE, new BasicEffect(GraphicsDevice, null));
 
+            EffectManager.getSingleton.AddEffect("cartoonEffect", Content.Load<Effect>(@"Shaders\\CartoonEffect"));
+            EffectManager.getSingleton.AddEffect("postprocessEffect", Content.Load<Effect>(@"Shaders\\PostprocessEffect"));
+
             //TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Models\\free-grass-texture"));
             //TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
             //TextureManager.getSingleton.AddTexture("point_text", Content.Load<Texture2D>(@"Textures\\point_text"));
@@ -256,6 +259,15 @@ namespace WorldMaker
 
                 if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"] != null)
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"].SetValue(0.03f);
+
+                Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
+            }
+            else if (EFFECT_TYPE == "CartoonEffect")
+            {
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["View"].SetValue(viewMatrix);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"].SetValue(projectionMatrix);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"].SetValue(worldMatrix);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters["TextureEnabled"].SetValue(true);
 
                 Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
             }
@@ -367,7 +379,7 @@ namespace WorldMaker
                 {
                     if (EFFECT_TYPE == "effects")
                         EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
-                    else if (EFFECT_TYPE == "Cel")
+                    else //if (EFFECT_TYPE == "Cel")
                         EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
                 }
 
@@ -377,7 +389,7 @@ namespace WorldMaker
 
                 if (EFFECT_TYPE == "effects")
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                else if (EFFECT_TYPE == "Cel")
+                else //if (EFFECT_TYPE == "Cel")
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
             }
             else
@@ -393,13 +405,13 @@ namespace WorldMaker
                     {
                         if (EFFECT_TYPE == "effects")
                             EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                        else if (EFFECT_TYPE == "Cel")
+                        else //if (EFFECT_TYPE == "Cel")
                             EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
                     }
 
                     if (EFFECT_TYPE == "effects")
                         EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-                    else if (EFFECT_TYPE == "Cel")
+                    else //if (EFFECT_TYPE == "Cel")
                         EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
                     if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
                     {
@@ -423,13 +435,13 @@ namespace WorldMaker
                         {
                             if (EFFECT_TYPE == "effects")
                                 EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
-                            else if (EFFECT_TYPE == "Cel")
+                            else //if (EFFECT_TYPE == "Cel")
                                 EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
                         }
 
                         if (EFFECT_TYPE == "effects")
                             EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                        else if (EFFECT_TYPE == "Cel")
+                        else //if (EFFECT_TYPE == "Cel")
                             EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
                     }
                 }
