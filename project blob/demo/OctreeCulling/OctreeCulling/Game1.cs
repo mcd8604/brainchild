@@ -561,9 +561,9 @@ namespace OctreeCulling
                 spriteBatch.DrawString(font, "Graph Mode: " + SceneManager.getSingleton.GraphType.ToString(), new Vector2(10.0f, 150.0f), Color.White);
             }
             spriteBatch.DrawString(font, "Camera Position: {" +
-                CameraManager.getSingleton.ActiveCamera.Position.X + ", " +
-                CameraManager.getSingleton.ActiveCamera.Position.Y + ", " +
-                CameraManager.getSingleton.ActiveCamera.Position.Z + "}", new Vector2(10.0f, 110.0f), Color.White);
+                CameraManager.getSingleton.GetCamera("test").Position.X + ", " +
+                CameraManager.getSingleton.GetCamera("test").Position.Y + ", " +
+                CameraManager.getSingleton.GetCamera("test").Position.Z + "}", new Vector2(10.0f, 110.0f), Color.White);
 
             //spriteBatch.DrawString(font, "Object Count: " + SceneManager.getSingleton.SceneObjectCount, new Vector2(10.0f, 50.0f), Color.White);
             //spriteBatch.DrawString(font, "Objects Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(10.0f, 70.0f), Color.White);

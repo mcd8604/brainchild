@@ -54,7 +54,7 @@ namespace OctreeCulling
 					}
 					else
 					{
-						_sectors.Add(sectorNum, new Sector());
+						_sectors.Add(sectorNum, new Sector(sectorNum));
 						_sectors[sectorNum].AddObjectToSector(obj);
 						//_sectors.Add(obj.SectorNums, new Sector());
 						//_sectors[obj.SectorNums].AddObjectToSector(obj);
@@ -77,7 +77,7 @@ namespace OctreeCulling
                     }
                     else
                     {
-                        _sectors.Add(sectorNum, new Sector());
+                        _sectors.Add(sectorNum, new Sector(sectorNum));
                         _sectors[sectorNum].AddPortalToSector(portal);
                     }
                 }
