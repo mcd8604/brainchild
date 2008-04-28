@@ -16,6 +16,7 @@ namespace Project_blob.GameState
 
 		bool Fullscreen = ScreenManager.IsFullScreen;
 		bool AntiAliasing = ScreenManager.IsAntiAliasing;
+        bool audio = true;
 		Physics.PhysicsManager.ParallelSetting Threading = PhysicsManager.enableParallel;
 		Resolution resolution = ScreenManager.CurrentResolution;
 
@@ -59,7 +60,7 @@ namespace Project_blob.GameState
 			resolutionMenuEntry.Text = "Resolution: " + resolution;
 			fullscreenMenuEntry.Text = "Fullscreen: " + (Fullscreen ? "On" : "Off");
 			aliasingMenuEntry.Text = "Anti-Aliasing: " + (AntiAliasing ? "On" : "Off");
-			audioMenuEntry.Text = "Audio: " + /*(audio ? "On" : "Off")*/ "N/A";
+			audioMenuEntry.Text = "Audio: " + (audio ? "On" : "Off");
 			threadedMenuEntry.Text = "Multithreading: " + Threading;
 		}
 
@@ -83,7 +84,16 @@ namespace Project_blob.GameState
 
 		void audioSelected(object sender, EventArgs e)
 		{
-			//toggle audio on/off
+            /*Probably won't work, last time it was more complex
+            if (audio)
+            {
+                AudioManager.pauseAll();
+            }
+            else
+            {
+                AudioManager.resumeAll();
+            }
+            audio = !audio;*/
 			setMenuText();
 		}
 
