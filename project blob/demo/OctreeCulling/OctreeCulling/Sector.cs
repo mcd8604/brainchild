@@ -29,13 +29,21 @@ namespace OctreeCulling
             set { _containerBox = value; }
         }
 
+        private int _sectorNumber;
+        public int SectorNumber
+        {
+            get { return _sectorNumber; }
+            set { _sectorNumber = value; }
+        }
+
         public VertexPositionColor[] BoundingFrustumDrawData = new VertexPositionColor[8];
         public int[] BoundingFrustumIndex = new int[24];
 
-        public Sector()
+        public Sector(int sectorNum)
         {
             _sectorObjects = new List<SceneObject>();
             _portals = new List<Portal>();
+            _sectorNumber = sectorNum;
         }
 
         //Used in testing
@@ -91,7 +99,8 @@ namespace OctreeCulling
                             foreach (int sectorNum in portal.ConnectedSectors)
                             {
                                 if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
-                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector))
+                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) && 
+                                    (sectorNum != _sectorNumber))
                                 {
                                     SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
                                 }
@@ -151,7 +160,8 @@ namespace OctreeCulling
                             foreach (int sectorNum in portal.ConnectedSectors)
                             {
                                 if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
-                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector))
+                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) && 
+                                    (sectorNum != _sectorNumber))
                                 {
                                     SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
                                 }
@@ -215,18 +225,25 @@ namespace OctreeCulling
             float fieldOfView, aspectRatio, nearPlane;
             Vector3 v1, v2;
 
-            v1 = box.Max - CameraManager.getSingleton.GetCamera("test").Position;
-            v2 = box.Min - CameraManager.getSingleton.GetCamera("test").Position;
+            //v1 = box.Max - CameraManager.getSingleton.GetCamera("test").Position;
+            //v2 = box.Min - CameraManager.getSingleton.GetCamera("test").Position;
 
-            if (v1.Length() < v2.Length())
-                nearPlane = v1.Length();
-            else
-                nearPlane = v2.Length();
+            v1 = (new Vector3(box.Max.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.GetCamera("test").Position;
+            v2 = (new Vector3(box.Min.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.GetCamera("test").Position;
+
+            Vector3 temp = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
+            nearPlane = temp.Length();
+            //if (v1.Length() < v2.Length())
+            //    nearPlane = v1.Length();
+            //else
+            //    nearPlane = v2.Length();
 
             v1 = Vector3.Normalize(v1);
             v2 = Vector3.Normalize(v2);
 
             fieldOfView = (float)Math.Acos(Vector3.Dot(v1, v2));
+            //fieldOfView = (float)Math.Acos(Vector3.Dot(new Vector3(box.Max.X, box.Max.Y, box.Min.Z),
+            //                                           new Vector3(box.Min.X, box.Max.Y, box.Min.Z)));
 
             aspectRatio = (box.Max.X - box.Min.X) /
                           (box.Max.Y - box.Min.Y);
@@ -236,7 +253,8 @@ namespace OctreeCulling
                 nearPlane,
                 CameraManager.getSingleton.GetCamera("test").FarPlane);
 
-            Vector3 target = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
+            //Vector3 target = (((box.Max - box.Min) / 2) + box.Min) - CameraManager.getSingleton.GetCamera("test").Position;
+            Vector3 target = portal.Position;// -CameraManager.getSingleton.GetCamera("test").Position;
 
             Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
                 target, Vector3.Up);
