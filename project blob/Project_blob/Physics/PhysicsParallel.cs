@@ -23,13 +23,22 @@ namespace Physics
 		{
 			get
 			{
-				float pwr = physicsTimeMsec / (waitTimeMsec + physicsTimeMsec);
-				if (physicsTimeMsec > 1000 || waitTimeMsec > 1000)
-				{
-					physicsTimeMsec = 0;
-					waitTimeMsec = 0;
-				}
-				return pwr;
+                if ((waitTimeMsec + physicsTimeMsec) == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    float pwr = physicsTimeMsec / (waitTimeMsec + physicsTimeMsec);
+                    //if (physicsTimeMsec > 1000 || waitTimeMsec > 1000)
+                    //{
+                    //	physicsTimeMsec = 0;
+                    //	waitTimeMsec = 0;
+                    //}
+                    physicsTimeMsec *= 0.5f;
+                    waitTimeMsec *= 0.5f;
+                    return pwr;
+                }
 			}
 		}
 
