@@ -768,27 +768,27 @@ namespace Project_blob.GameState
 
 			//ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
-			ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+			ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
 			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			ScreenManager.GraphicsDevice.RenderState.DepthBufferEnable = true;
 			ScreenManager.GraphicsDevice.RenderState.AlphaBlendEnable = false;
 			ScreenManager.GraphicsDevice.RenderState.AlphaTestEnable = false;
 
-			effect.CurrentTechnique = effect.Techniques["Textured"];
-			ScreenManager.GraphicsDevice.Textures[0] = blobTexture;
+			//effect.CurrentTechnique = effect.Techniques["Textured"];
+			//ScreenManager.GraphicsDevice.Textures[0] = blobTexture;
 
-			blobEffect.CurrentTechnique = blobEffect.Techniques["BlobBlendTwoPasses"];
+			//blobEffect.CurrentTechnique = blobEffect.Techniques["BlobBlendTwoPasses"];
 
-			cartoonEffect.Parameters["Texture"].SetValue(blobTexture);
+			//cartoonEffect.Parameters["Texture"].SetValue(blobTexture);
 
 			// Set suitable renderstates for drawing a 3D model.
-			RenderState renderState = ScreenManager.GraphicsDevice.RenderState;
+			//RenderState renderState = ScreenManager.GraphicsDevice.RenderState;
 
 			cartoonEffect.Parameters["World"].SetValue(worldMatrix);
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
 
-			renderState.CullMode = CullMode.CullCounterClockwiseFace;
+			//renderState.CullMode = CullMode.CullCounterClockwiseFace;
 
 			//ScreenManager.GraphicsDevice.SetRenderTarget(0, normalDepthRenderTarget);
 			//ScreenManager.GraphicsDevice.Clear(Color.Black);
