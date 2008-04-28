@@ -38,6 +38,14 @@ namespace OctreeCulling
             _portals = new List<Portal>();
         }
 
+        //Used in testing
+        private bool _drawPortal;
+        public bool DrawPortal
+        {
+            get { return _drawPortal; }
+            set { _drawPortal = value; }
+        }
+
         public void DrawVisible(GameTime gameTime)
         {
             //BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
@@ -77,6 +85,7 @@ namespace OctreeCulling
                             BoundingFrustum newFrustum = CreatePortalFrustum(portal);
 
                             drawFrustum(newFrustum);
+                            _drawPortal = true;
 
                             //Drawvisible on connected sector
                             foreach (int sectorNum in portal.ConnectedSectors)
@@ -93,6 +102,7 @@ namespace OctreeCulling
                     case ContainmentType.Disjoint:
                         {
                             //Portal is not visible.
+                            _drawPortal = false;
                         }
                         break;
                 }
@@ -135,6 +145,7 @@ namespace OctreeCulling
                             BoundingFrustum newFrustum = CreatePortalFrustum(portal);
 
                             drawFrustum(newFrustum);
+                            _drawPortal = true;
 
                             //Drawvisible on connected sector
                             foreach (int sectorNum in portal.ConnectedSectors)
@@ -151,6 +162,7 @@ namespace OctreeCulling
                     case ContainmentType.Disjoint:
                         {
                             //Portal is not visible.
+                            _drawPortal = false;
                         }
                         break;
                 }
@@ -224,8 +236,15 @@ namespace OctreeCulling
                 nearPlane,
                 CameraManager.getSingleton.GetCamera("test").FarPlane);
 
-            BoundingFrustum newFrustum = new BoundingFrustum(
-                Matrix.Multiply(CameraManager.getSingleton.GetCamera("test").View, projection));
+            Vector3 target = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
+
+            Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
+                target, Vector3.Up);
+
+            BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
+
+            //BoundingFrustum newFrustum = new BoundingFrustum(
+            //    Matrix.Multiply(CameraManager.getSingleton.GetCamera("test").View, projection));
              
 
             //Vector3 topRight, bottomRight, bottomLeft, topLeft;
