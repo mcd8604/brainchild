@@ -57,6 +57,8 @@ namespace Project_blob
             }
         }
 
+        public bool DEBUG_WireframeMode = false;
+
         [NonSerialized]
         private Model _modelTemp;
 
@@ -298,6 +300,13 @@ namespace Project_blob
                     graphicsDevice.Textures[0] = temp;
                     //graphicsDevice.Vertices[0].SetSource(tempBuffer.VertexBuffer,0,tempBuffer.VertexStride);
                 }
+                if (DEBUG_WireframeMode)
+                {
+                    renderState.CullMode = CullMode.None;
+                    renderState.FillMode = FillMode.WireFrame;
+                    renderState.DepthBufferEnable = false;
+                }
+
                 if (m_NormalDepthRenderTarget != null)
                 {
                     graphicsDevice.SetRenderTarget(0, m_NormalDepthRenderTarget);
@@ -344,7 +353,7 @@ namespace Project_blob
                     }
                 }
 
-                if(m_SceneRenderTarget != null)
+                if(m_SceneRenderTarget != null && !DEBUG_WireframeMode)
                     graphicsDevice.SetRenderTarget(0, m_SceneRenderTarget);
                 else
                     graphicsDevice.SetRenderTarget(0, null);
@@ -390,8 +399,15 @@ namespace Project_blob
                     }
                     EffectManager.getSingleton.GetEffect("cartoonEffect").End();
                     
-                }   
-                if(m_SceneRenderTarget != null)
+                }
+                if (DEBUG_WireframeMode)
+                {
+                    renderState.CullMode = CullMode.CullClockwiseFace;
+                    renderState.FillMode = FillMode.Solid;
+                    renderState.DepthBufferEnable = true;
+                }
+
+                if (m_SceneRenderTarget != null && !DEBUG_WireframeMode)
                     ApplyPostProcessing(graphicsDevice);
             }
         }
