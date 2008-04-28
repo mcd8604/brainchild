@@ -418,15 +418,17 @@ namespace Project_blob.GameState
 			currentArea.Display.AddToBeDrawn(sky);
 			if (IsActive)
 			{
+                physicsTime.Reset();
+                physicsTime.Start();
 				if (!paused)
 				{
-					physicsTime.Reset();
-					physicsTime.Start();
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
-					physicsTime.Stop();
-					if (currentArea.Display.SkyBox != null)
-						currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
 				}
+                physicsTime.Stop();
+
+                // actually, shouldn't the skybox be centered around /the camera/ instead of the blob?
+                if (currentArea.Display.SkyBox != null)
+                    currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
 
 				//Update Camera
 				//camera.Update(gameTime);
