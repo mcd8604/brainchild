@@ -347,24 +347,28 @@ namespace Project_blob.GameState
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["TextureEnabled"].SetValue(true);
 
-			PresentationParameters pp = ScreenManager.GraphicsDevice.PresentationParameters;
-
-			sceneRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
-
-			normalDepthRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
-
-			currentArea.Display.SceneRanderTarget = sceneRenderTarget;
-			currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+            CreateRenderTargets();
 
 			EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
 
 			EffectManager.getSingleton.AddEffect("cartoonEffect", cartoonEffect);
 		}
 
+        public void CreateRenderTargets()
+        {
+            PresentationParameters pp = ScreenManager.GraphicsDevice.PresentationParameters;
+
+            sceneRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+                pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+            normalDepthRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+                pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+            currentArea.Display.SceneRanderTarget = sceneRenderTarget;
+            currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+        }
 
 		/// <summary>
 		/// UnloadContent will be called once per game and is the place to unload

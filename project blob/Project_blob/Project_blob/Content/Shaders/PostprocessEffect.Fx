@@ -13,8 +13,8 @@ float EdgeIntensity = 1;
 // How sensitive should the edge detection be to tiny variations in the input data?
 // Smaller settings will make it pick up more subtle edges, while larger values get
 // rid of unwanted noise.
-float NormalThreshold = 0.5;
-float DepthThreshold = 0.1;
+float NormalThreshold = 0.4;
+float DepthThreshold = 0.6;
 
 // How dark should the edges get in response to changes in the input data?
 float NormalSensitivity = 1;

@@ -263,6 +263,10 @@ namespace Project_blob
 			graphics.PreferredBackBufferHeight = r.Height;
 			graphics.PreferredBackBufferWidth = r.Width;
 			graphics.ApplyChanges();
+
+            foreach (GameScreen gs in GetScreens())
+                if (gs is GameplayScreen)
+                    ((GameplayScreen)gs).CreateRenderTargets();
 		}
 
 		public Resolution CurrentResolution;
