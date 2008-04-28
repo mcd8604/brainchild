@@ -522,9 +522,12 @@ namespace OctreeCulling
                 //    PrimitiveType.LineList, CameraManager.getSingleton.ActiveCamera.BoundingFrustumDrawData,
                 //    0, 8, CameraManager.getSingleton.ActiveCamera.BoundingFrustumIndex, 0, 12);
 
-                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
-                    PrimitiveType.LineList, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumDrawData,
-                    0, 8, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumIndex, 0, 12);
+                if (SceneManager.getSingleton.PortalScene.Sectors[SceneManager.getSingleton.PortalScene.CurrSector].DrawPortal)
+                {
+                    graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                        PrimitiveType.LineList, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumDrawData,
+                        0, 8, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumIndex, 0, 12);
+                }
 
                 // End the current pass
                 pass.End();
