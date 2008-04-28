@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Project_blob;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WorldMaker
 {
@@ -59,6 +60,8 @@ namespace WorldMaker
 				_gameRef.ActiveArea.Display.TextureParameterName = "Texture";
 				_gameRef.ActiveArea.Display.TechniqueName = "Lambert";
 				//*end hardcode*
+                
+                CreateRenderTargets();
 
 				modelListBox.Items.Clear();
 				foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
@@ -68,7 +71,23 @@ namespace WorldMaker
 				}
 				modelListBox.Update();
 			}
-		}
+        }
+
+        public void CreateRenderTargets()
+        {
+            PresentationParameters pp = _gameRef.GraphicsDevice.PresentationParameters;
+
+            RenderTarget2D sceneRenderTarget = new RenderTarget2D(_gameRef.GraphicsDevice,
+                pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+            RenderTarget2D normalDepthRenderTarget = new RenderTarget2D(_gameRef.GraphicsDevice,
+                pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+            _gameRef.ActiveArea.Display.SceneRanderTarget = sceneRenderTarget;
+            _gameRef.ActiveArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+        }
 
 		private void modelListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
