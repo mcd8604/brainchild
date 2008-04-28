@@ -16,13 +16,14 @@ namespace Project_blob
     [Serializable]
     public class Display
     {
-
+        [NonSerialized]
         private RenderTarget2D m_SceneRenderTarget = null;
         public RenderTarget2D SceneRanderTarget
         {
             get { return m_SceneRenderTarget; }
             set { m_SceneRenderTarget = value; }
         }
+        [NonSerialized]
         private RenderTarget2D m_NormalDepthRenderTarget = null;
         public RenderTarget2D NormalDepthRenderTarget
         {
