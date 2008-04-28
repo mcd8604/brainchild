@@ -241,10 +241,6 @@ namespace Project_blob
 
         public void Draw(GraphicsDevice graphicsDevice, Blob theBlob)
         {
-            _effectName = "cartoonEffect";
-            m_TechniqueName = "Lambert";
-            m_TextureParameterName = "Texture";
-            m_WorldParameterName = "World";
 
             RenderState renderState = graphicsDevice.RenderState;
 

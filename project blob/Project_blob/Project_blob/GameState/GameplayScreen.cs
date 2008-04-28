@@ -191,8 +191,10 @@ namespace Project_blob.GameState
 				//e.MoveNext();
 				currentArea = (Area)e.Current;
 				currentArea.LoadAreaGameplay(ScreenManager);
-				currentArea.Display.WorldParameterName = "xWorld";
-				currentArea.Display.TextureParameterName = "xTexture";
+                currentArea.Display.EffectName = "cartoonEffect";
+				currentArea.Display.WorldParameterName = "World";
+                currentArea.Display.TextureParameterName = "Texture";
+                currentArea.Display.TechniqueName = "Lambert";
 				staticDrawables = currentArea.getDrawableList();
 				physics.AddCollidables(currentArea.getCollidables());
 			}
