@@ -387,6 +387,10 @@ namespace Project_blob
                 }
                 if(theBlob != null)
                 {
+                    //graphicsDevice.RenderState.SourceBlend = Blend.SourceAlpha;
+                    graphicsDevice.RenderState.AlphaBlendEnable = true;
+                    //graphicsDevice.RenderState.DestinationBlend = Blend.InverseSourceAlpha;
+
                     EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
                     EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
                     foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
