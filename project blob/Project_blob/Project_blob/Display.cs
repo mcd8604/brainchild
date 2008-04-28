@@ -242,7 +242,7 @@ namespace Project_blob
         public void Draw(GraphicsDevice graphicsDevice, Blob theBlob)
         {
             _effectName = "cartoonEffect";
-            m_TechniqueName = "Toon";
+            m_TechniqueName = "Lambert";
             m_TextureParameterName = "Texture";
             m_WorldParameterName = "World";
 
@@ -357,7 +357,7 @@ namespace Project_blob
                     graphicsDevice.SetRenderTarget(0, m_SceneRenderTarget);
                 else
                     graphicsDevice.SetRenderTarget(0, null);
-                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Toon"];
+                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Lambert"];
                 foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                 {
                     if (ti.SortNumber != currentTextureNumber)
@@ -434,7 +434,7 @@ namespace Project_blob
             if (d.Name == "sky")
                 EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["SkyBox"];
             else
-                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Toon"];
+                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Lambert"];
 
             if (d.Name == CurrentlySelected)
             {
