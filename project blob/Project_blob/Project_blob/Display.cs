@@ -353,6 +353,7 @@ namespace Project_blob
                     graphicsDevice.SetRenderTarget(0, m_SceneRenderTarget);
                 else
                     graphicsDevice.SetRenderTarget(0, null);
+                graphicsDevice.Clear(Color.CornflowerBlue);
                 EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Lambert"];
                 foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                 {
