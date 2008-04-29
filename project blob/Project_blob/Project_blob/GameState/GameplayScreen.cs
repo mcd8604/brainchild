@@ -27,7 +27,7 @@ namespace Project_blob.GameState
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
 
-		Vector3 blobStartPosition = new Vector3(0, 10, 0);
+		Vector3 blobStartPosition = new Vector3(-100, 10, -10);
 		Texture2D blobTexture;
 
 		Effect effect;
