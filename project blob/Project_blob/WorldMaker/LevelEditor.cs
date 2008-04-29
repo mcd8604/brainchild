@@ -330,7 +330,7 @@ namespace WorldMaker
 					newEvent.eventTrigger = selector.EventTrigger;
 					newEvent.name = ((StaticModel)_gameRef.ActiveDrawable).Name;
 					existingEvent = newEvent.eventTrigger;
-					_eventsToAdd.Add(_eventInfo);
+					_eventsToAdd.Add(newEvent);
 				}
 			}
 
