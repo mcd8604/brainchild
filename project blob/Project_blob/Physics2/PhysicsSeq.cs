@@ -103,6 +103,32 @@ namespace Physics2
 				// handle collision, sliding;
 				Vector3 newPosition = e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when);
 
+				// bump?
+
+				// stop point velocity in the direction of the collidable
+				Vector3 CollidableNormal = Vector3.Normalize(e.collidable.Normal());
+				if (Vector3.Dot(e.point.PotentialVelocity, CollidableNormal) > 0)
+				{
+					Vector3 CollidableBodyVelocity = Vector3.Dot(e.collidable.getVelocity(), CollidableNormal) * CollidableNormal;
+					Vector3 newVelocity = (Vector3.Cross(CollidableNormal, Vector3.Cross(e.point.PotentialVelocity, CollidableNormal))) + CollidableBodyVelocity;
+
+					// apply velocity to collidable
+					Vector3 VelocityTransfer = (Vector3.Dot(e.point.PotentialVelocity, CollidableNormal) * CollidableNormal) - CollidableBodyVelocity;
+					e.collidable.ImpartVelocity(VelocityTransfer);
+				}
+
+				// normal force
+				if (Vector3.Dot(e.point.ForceThisFrame, CollidableNormal) > 0)
+				{
+
+				// relative velocity
+
+				// surface friction
+
+				// if static then point is relatively static
+
+
+
 			}
 
 			foreach (CollisionEvent e in events)

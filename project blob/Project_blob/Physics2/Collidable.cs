@@ -25,6 +25,13 @@ namespace Physics2
 			return parent.getRelativeVelocity(p);
 		}
 
+		public virtual Vector3 getVelocity()
+		{
+			return parent.getVelocity();
+		}
+
+		public abstract void ImpartVelocity(Vector3 vel);
+
 		public abstract bool isSolid();
 
 		public virtual bool isStatic()

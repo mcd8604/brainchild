@@ -7,6 +7,8 @@ namespace Physics2
 
 		public bool isStatic;
 
+		public bool relativelyStatic;
+
 		private Vector3 currentPosition = Vector3.Zero;
 		public Vector3 CurrentPosition
 		{
