@@ -53,7 +53,8 @@ namespace Project_blob
 
         public enum SceneGraphType
         {
-            Octree = 0
+            Octree = 0,
+            Portal = 1
         }
 
         private SceneGraphType _graphType = 0;
@@ -70,9 +71,17 @@ namespace Project_blob
             set { _display = value; }
         }
 
+        private PortalScene _portalScene;
+        public PortalScene PortalScene
+        {
+            get { return _portalScene; }
+            set { _portalScene = value; }
+        }
+
         public SceneManager()
         {
             _octree = new Octree();
+            _portalScene = new PortalScene();
         }
 
         /*! Returns singleton instance of the SceneManager */
@@ -116,6 +125,17 @@ namespace Project_blob
                     _octree.Draw(gameTime);
                 }
             }
+            else if (_graphType == SceneGraphType.Portal)
+            {
+                if (_cull)
+                {
+                    _portalScene.DrawVisible(gameTime);
+                }
+                else
+                {
+                    _portalScene.Draw(gameTime);
+                }
+            }
         }
 
         public void BuildOctree(ref List<Drawable> scene)
@@ -128,11 +148,16 @@ namespace Project_blob
             }
         }
 
-        //public void AddObject(SceneObject sceneObject)
-        //{
-        //    SceneObjectNode node = new SceneObjectNode(sceneObject);
-        //    _root.AddNode(node);
-        //    _sceneObjectCount += 1;
-        //}
+        public void BuildPortalScene(List<Drawable> scene, List<Portal> portals)
+        {
+            _sceneObjectCount = scene.Count;
+
+            if (_graphType == SceneGraphType.Portal)
+            {
+                _portalScene.DistributeDrawableObjects(scene);
+
+                _portalScene.DistributePortals(portals);
+            }
+        }
     }
 }
