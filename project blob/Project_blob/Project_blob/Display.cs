@@ -31,6 +31,20 @@ namespace Project_blob
             set { m_NormalDepthRenderTarget = value; }
         }
 
+        private RenderTarget2D m_distortionMap = null;
+        public RenderTarget2D DistortionMap
+        {
+            get { return m_distortionMap; }
+            set { m_distortionMap = value; }
+        }
+
+        private ResolveTexture2D m_tempTarget = null;
+        public ResolveTexture2D TempRenderTarget
+        {
+            get { return m_tempTarget; }
+            set { m_tempTarget = value; }
+        }
+
         private bool m_GameMode = false;
         public bool GameMode
         {
@@ -400,7 +414,30 @@ namespace Project_blob
                         pass.End();
                     }
                     EffectManager.getSingleton.GetEffect("cartoonEffect").End();
-                    
+
+                    if (EffectManager.getSingleton.GetEffect("Distorter") != null && m_distortionMap != null)
+                    {
+
+                        EffectManager.getSingleton.GetEffect("Distorter").CurrentTechnique =
+                                EffectManager.getSingleton.GetEffect("Distorter").Techniques["ZeroDisplacement"];
+                        EffectManager.getSingleton.GetEffect("Distorter").Parameters["DistortionScale"].SetValue(0.0003f);
+                        Random r = new Random();
+                        EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.Next()/10.0f);
+                        //EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.NextDouble() * 30.0);
+
+                        graphicsDevice.SetRenderTarget(0, m_distortionMap);
+                        graphicsDevice.Clear(Color.Black);
+                        graphicsDevice.RenderState.DepthBufferEnable = true;
+
+                        EffectManager.getSingleton.GetEffect("Distorter").Begin();
+                        foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("Distorter").CurrentTechnique.Passes)
+                        {
+                            pass.Begin();
+                            theBlob.DrawMe();
+                            pass.End();
+                        }
+                        EffectManager.getSingleton.GetEffect("Distorter").End();
+                    }
                 }
                 if (DEBUG_WireframeMode)
                 {
@@ -547,6 +584,31 @@ namespace Project_blob
 
             EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique.Passes[0].End();
             EffectManager.getSingleton.GetEffect("postprocessEffect").End();
+
+            if (EffectManager.getSingleton.GetEffect("Distort") != null && m_distortionMap != null && m_tempTarget != null)
+            {
+                graphicsDevice.ResolveBackBuffer(m_tempTarget);
+                graphicsDevice.SetRenderTarget(0, null);
+                graphicsDevice.Textures[1] = m_distortionMap.GetTexture();
+                //graphicsDevice.Textures[0] = m_tempTarget;
+                EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique =
+                    EffectManager.getSingleton.GetEffect("Distort").Techniques["Distort"];
+
+                spriteBatch.Begin(SpriteBlendMode.None,
+                              SpriteSortMode.Immediate,
+                              SaveStateMode.None);
+
+                EffectManager.getSingleton.GetEffect("Distort").Begin();
+                EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique.Passes[0].Begin();
+
+                spriteBatch.Draw(m_tempTarget, Vector2.Zero, Color.White);
+
+                spriteBatch.End();
+
+                EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique.Passes[0].End();
+                EffectManager.getSingleton.GetEffect("Distort").End();
+            }
+           
         }
     }
 }

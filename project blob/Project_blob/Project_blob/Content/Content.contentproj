@@ -77,6 +77,16 @@
       <Name>Transitor</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Shaders\Distort.fx">
+      <Name>Distort</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Shaders\Distorters.fx">
+      <Name>Distorters</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <Compile Include="Shaders\PostprocessEffect.Fx">
       <Name>PostprocessEffect</Name>
       <Importer>EffectImporter</Importer>
