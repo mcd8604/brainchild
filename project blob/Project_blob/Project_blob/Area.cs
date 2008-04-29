@@ -309,7 +309,7 @@ namespace Project_blob
                         Physics.Material m;
                         if (dm.TextureKey.TextureName.Equals("sticky"))
                         {
-                            m = new Physics.MaterialCustom(50f, 5f);
+                            m = new Physics.MaterialCustom(50f, 10f);
                         }
                         else if (dm.TextureKey.TextureName.Equals("slick"))
                         {
