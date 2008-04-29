@@ -23,7 +23,7 @@ namespace Project_blob
             set { _worldBox = value; }
         }
 
-		private int _currSector = 1;
+		private int _currSector = 0;
         public int CurrSector
 		{
 			get { return _currSector; }
@@ -39,6 +39,16 @@ namespace Project_blob
         {
             foreach (Drawable obj in scene)
             {
+                if(_sectors.ContainsKey(0))
+                {
+                    _sectors[0].AddObjectToSector(obj);
+                }
+                else
+                {
+                    _sectors.Add(0, new Sector(0));
+                    _sectors[0].AddObjectToSector(obj);
+                }
+
                 //foreach (int sectorNum in obj.SectorNums)
                 //{
                 //    if(_sectors.ContainsKey(sectorNum))
@@ -87,17 +97,19 @@ namespace Project_blob
             //        break;
             //    }
             //}
-
+            
             if (_sectors[_currSector].ContainerBox.Contains(
-                CameraManager.getSingleton.GetCamera("test").Position) == ContainmentType.Disjoint)
+                CameraManager.getSingleton.ActiveCamera.Position) == ContainmentType.Disjoint)
             {
                 foreach(KeyValuePair<int, Sector> kvp in _sectors)
                 {
-                    if (kvp.Value.ContainerBox.Contains(CameraManager.getSingleton.GetCamera("test").Position) == ContainmentType.Contains)
+                    if (kvp.Value.ContainerBox.Contains(CameraManager.getSingleton.ActiveCamera.Position) == ContainmentType.Contains)
                     {
                         _currSector = kvp.Key;
+                        break;
                     }
                 }
+                //_currSector = -1;
             }
 			_sectors[_currSector].DrawVisible(gameTime);
         }

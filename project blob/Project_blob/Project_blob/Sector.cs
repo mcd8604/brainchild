@@ -58,8 +58,7 @@ namespace Project_blob
 
         public void DrawVisible(GameTime gameTime)
         {
-            //BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
-            BoundingFrustum frustum = CameraManager.getSingleton.GetCamera("test").Frustum;
+            BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
 
             foreach (Drawable obj in _sectorObjects)
             {
@@ -71,6 +70,8 @@ namespace Project_blob
                     case ContainmentType.Intersects:
                         {
                             //obj.Draw(gameTime);
+                            SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+                            SceneManager.getSingleton.Drawn += 1;
                         }
                         break;
 
@@ -132,6 +133,8 @@ namespace Project_blob
                     case ContainmentType.Intersects:
                         {
                             //obj.Draw(gameTime);
+                            SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+                            SceneManager.getSingleton.Drawn += 1;
                         }
                         break;
 
@@ -186,6 +189,8 @@ namespace Project_blob
             foreach (Drawable obj in _sectorObjects)
             {
                 //obj.Draw(gameTime);
+                SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+                SceneManager.getSingleton.Drawn += 1;
             }
         }
 
@@ -230,10 +235,10 @@ namespace Project_blob
             //v1 = box.Max - CameraManager.getSingleton.GetCamera("test").Position;
             //v2 = box.Min - CameraManager.getSingleton.GetCamera("test").Position;
 
-            v1 = (new Vector3(box.Max.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.GetCamera("test").Position;
-            v2 = (new Vector3(box.Min.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.GetCamera("test").Position;
+            v1 = (new Vector3(box.Max.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.ActiveCamera.Position;
+            v2 = (new Vector3(box.Min.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.ActiveCamera.Position;
 
-            Vector3 temp = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
+            Vector3 temp = portal.Position - CameraManager.getSingleton.ActiveCamera.Position;
             nearPlane = temp.Length();
             //if (v1.Length() < v2.Length())
             //    nearPlane = v1.Length();
@@ -253,12 +258,12 @@ namespace Project_blob
             Matrix projection = Matrix.CreatePerspectiveFieldOfView(fieldOfView,
                 aspectRatio,
                 nearPlane,
-                CameraManager.getSingleton.GetCamera("test").FarPlane);
+                CameraManager.getSingleton.ActiveCamera.FarPlane);
 
             //Vector3 target = (((box.Max - box.Min) / 2) + box.Min) - CameraManager.getSingleton.GetCamera("test").Position;
             Vector3 target = portal.Position;// -CameraManager.getSingleton.GetCamera("test").Position;
 
-            Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
+            Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.ActiveCamera.Position,
                 target, Vector3.Up);
 
             BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
