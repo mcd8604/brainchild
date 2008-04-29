@@ -121,9 +121,13 @@ namespace Physics2
 				if (Vector3.Dot(e.point.ForceThisFrame, CollidableNormal) > 0)
 				{
 
-				// relative velocity
 
-				// surface friction
+					// relative velocity
+					Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e.point);
+
+					// surface friction
+
+				}
 
 				// if static then point is relatively static
 
