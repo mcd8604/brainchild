@@ -73,13 +73,5 @@ namespace OctreeCulling
         {
             _boundingSphere = BoundingSphere.CreateFromBoundingBox(_boundingBox);
         }
-
-        //public void AddConnectedSector(int sectorNum)
-        //{
-        //    if(SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum))
-        //    {
-        //        _connectedSectors.Add(SceneManager.getSingleton.PortalScene.Sectors[sectorNum]);
-        //    }
-        //}
 	}
 }
