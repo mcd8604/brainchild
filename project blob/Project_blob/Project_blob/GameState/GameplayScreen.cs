@@ -35,9 +35,13 @@ namespace Project_blob.GameState
 		Effect blobEffect;
 		Effect cartoonEffect;
 		Effect postprocessEffect;
+        Effect distortEffect;
+        Effect distorterEffect;
 
 		RenderTarget2D sceneRenderTarget;
 		RenderTarget2D normalDepthRenderTarget;
+        RenderTarget2D distortionMap;
+        ResolveTexture2D tempRenderTarget;
 
 		Matrix worldMatrix;
 		//Matrix viewMatrix;
@@ -169,6 +173,9 @@ namespace Project_blob.GameState
 			cartoonEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\CartoonEffect");
 
 			postprocessEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\PostprocessEffect");
+
+            distortEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distort");
+            distorterEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distorters");
 
 			//load skybox
 			//skyBox = ScreenManager.Content.Load<Model>(@"Models\\skyBox");
@@ -348,12 +355,16 @@ namespace Project_blob.GameState
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["TextureEnabled"].SetValue(true);
 
+            distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+            distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
 			CreateRenderTargets();
 
-			EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
-
+            EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
 			EffectManager.getSingleton.AddEffect("cartoonEffect", cartoonEffect);
+
+            EffectManager.getSingleton.AddEffect("Distorter", distorterEffect);
+            EffectManager.getSingleton.AddEffect("Distort", distortEffect);
 
 
 		}
@@ -370,8 +381,18 @@ namespace Project_blob.GameState
 				pp.BackBufferWidth, pp.BackBufferHeight, 1,
 				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
+            distortionMap = new RenderTarget2D(ScreenManager.GraphicsDevice,
+                pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+            tempRenderTarget = new ResolveTexture2D(ScreenManager.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                pp.BackBufferFormat);
+
 			currentArea.Display.SceneRanderTarget = sceneRenderTarget;
 			currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+            currentArea.Display.DistortionMap = distortionMap;
+            currentArea.Display.TempRenderTarget = tempRenderTarget;
+            
 		}
 
 		/// <summary>
@@ -486,6 +507,8 @@ namespace Project_blob.GameState
 
 
 						cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                        distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+                        distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
 						effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
@@ -689,7 +712,10 @@ namespace Project_blob.GameState
 
 				if (cinema)
 				{
-					effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                    distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+                    distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+                    cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                    effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 					celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
 					celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 					effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
@@ -789,6 +815,10 @@ namespace Project_blob.GameState
 			cartoonEffect.Parameters["World"].SetValue(worldMatrix);
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
+
+            distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+            distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+
 
 			//renderState.CullMode = CullMode.CullCounterClockwiseFace;
 
