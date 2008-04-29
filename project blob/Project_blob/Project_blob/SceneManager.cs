@@ -148,6 +148,16 @@ namespace Project_blob
             }
         }
 
+        public void BuildPortalScene(List<Drawable> scene)
+        {
+            _sceneObjectCount = scene.Count;
+
+            if (_graphType == SceneGraphType.Portal)
+            {
+                _portalScene.DistributeDrawableObjects(scene);
+            }
+        }
+
         public void BuildPortalScene(List<Drawable> scene, List<Portal> portals)
         {
             _sceneObjectCount = scene.Count;
