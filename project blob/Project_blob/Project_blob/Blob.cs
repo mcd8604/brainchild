@@ -35,6 +35,7 @@ namespace Project_blob
 	{
 
         public Texture2D text = null;
+        public Texture2D DisplacementText = null;
         int NUM_Blobs;
 
         POINTVERTEX[] g_BlobPoints;
