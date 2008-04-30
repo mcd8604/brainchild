@@ -81,7 +81,7 @@ namespace Physics
 				Vector3 CurrentPlayerCenter = playerBody.getCenter();
 				foreach (Physics.Point p in playerBody.getPoints())
 				{
-					p.ForceNextFrame += Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, Around)) * Magnitude;
+					p.ForceNextFrame += Vector3.Normalize(Vector3.Cross(p.PhysicsCurrentPosition - CurrentPlayerCenter, Around)) * Magnitude;
 				}
 			}
 		}

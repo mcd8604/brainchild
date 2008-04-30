@@ -41,7 +41,7 @@ namespace Physics
 		{
 			//return true;
 			//return myBoundingBox.contains(p.CurrentPosition) || myBoundingBox.contains(p.potentialPosition);
-			return myBoundingBox.lineIntersects(p.CurrentPosition, p.potentialPosition);
+			return myBoundingBox.lineIntersects(p.PhysicsCurrentPosition, p.potentialPosition);
 		}
 
 		public override float DotNormal(Vector3 pos)

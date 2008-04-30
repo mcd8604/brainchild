@@ -19,26 +19,29 @@ namespace Physics
 		private float waitTimeMsec = 0;
 		private float physicsTimeMsec = 0;
 
+		private const int physicsDivisor = 2;
+		private const int physicsMultiplier = 1;
+
 		public override float PWR
 		{
 			get
 			{
-                if ((waitTimeMsec + physicsTimeMsec) == 0)
-                {
-                    return 0;
-                }
-                else
-                {
-                    float pwr = physicsTimeMsec / (waitTimeMsec + physicsTimeMsec);
-                    //if (physicsTimeMsec > 1000 || waitTimeMsec > 1000)
-                    //{
-                    //	physicsTimeMsec = 0;
-                    //	waitTimeMsec = 0;
-                    //}
-                    physicsTimeMsec *= 0.5f;
-                    waitTimeMsec *= 0.5f;
-                    return pwr;
-                }
+				if ((waitTimeMsec + physicsTimeMsec) == 0)
+				{
+					return 0;
+				}
+				else
+				{
+					float pwr = physicsTimeMsec / (waitTimeMsec + physicsTimeMsec);
+					//if (physicsTimeMsec > 1000 || waitTimeMsec > 1000)
+					//{
+					//	physicsTimeMsec = 0;
+					//	waitTimeMsec = 0;
+					//}
+					physicsTimeMsec *= 0.5f;
+					waitTimeMsec *= 0.5f;
+					return pwr;
+				}
 			}
 		}
 
@@ -54,7 +57,11 @@ namespace Physics
 				{
 					do
 					{
-						lock (this) System.Threading.Monitor.Wait(this);
+						lock (this)
+						{
+							System.Threading.Monitor.Pulse(this);
+							System.Threading.Monitor.Wait(this);
+						}
 						if (!run)
 						{
 							return;
@@ -66,7 +73,10 @@ namespace Physics
 					timer.Start();
 					try
 					{
-						physicsMain.doPhysics(runForTime);
+						for (int i = physicsDivisor; i > 0; --i)
+						{
+							physicsMain.doPhysics(runForTime * ((float)physicsMultiplier / (float)physicsDivisor));
+						}
 					}
 					catch (Exception ex)
 					{
@@ -78,6 +88,7 @@ namespace Physics
 					timer.Reset();
 					timer.Start();
 					runForTime = 0f;
+					lock (this) System.Threading.Monitor.Pulse(this);
 				} while (run);
 
 			});
@@ -90,7 +101,14 @@ namespace Physics
 
 		public override void update(float TotalElapsedSeconds)
 		{
-
+			while (runForTime != 0f)
+			{
+				lock (this)
+				{
+					System.Threading.Monitor.Pulse(this);
+					System.Threading.Monitor.Wait(this);
+				}
+			}
 			foreach (Collidable c in physicsMain._eventsToTrigger)
 			{
 				c.TriggerEvents();

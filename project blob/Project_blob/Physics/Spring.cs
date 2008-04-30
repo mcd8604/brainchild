@@ -30,7 +30,7 @@ namespace Physics
 
 		public Vector3 getForceVectorOnA()
 		{
-			float dist = Vector3.Distance(A.CurrentPosition, B.CurrentPosition) + LengthOffset;
+			float dist = Vector3.Distance(A.PhysicsCurrentPosition, B.PhysicsCurrentPosition) + LengthOffset;
 			float next_dist = Vector3.Distance(A.potentialPosition, B.potentialPosition) + LengthOffset;
 
 			Vector3 force = Vector3.Zero;
@@ -39,7 +39,7 @@ namespace Physics
 			if (dist < MinimumLengthBeforeCompression)
 			{
 				// vector pointing away from B
-				Vector3 dir = A.CurrentPosition - B.CurrentPosition;
+				Vector3 dir = A.PhysicsCurrentPosition - B.PhysicsCurrentPosition;
 				// normalize
 				dir.Normalize();
 				// multiply by the scalar force
@@ -48,7 +48,7 @@ namespace Physics
 			}
 			else if (dist > MaximumLengthBeforeExtension)
 			{
-				Vector3 dir = B.CurrentPosition - A.CurrentPosition;
+				Vector3 dir = B.PhysicsCurrentPosition - A.PhysicsCurrentPosition;
 
 				dir.Normalize();
 				force += dir * (Force * (dist - Length));
@@ -79,7 +79,7 @@ namespace Physics
 
 		public Vector3 getForceVectorOnB()
 		{
-			float dist = Vector3.Distance(A.CurrentPosition, B.CurrentPosition) + LengthOffset;
+			float dist = Vector3.Distance(A.PhysicsCurrentPosition, B.PhysicsCurrentPosition) + LengthOffset;
 			float next_dist = Vector3.Distance(A.potentialPosition, B.potentialPosition) + LengthOffset;
 
 			Vector3 force = Vector3.Zero;
@@ -88,7 +88,7 @@ namespace Physics
 			if (dist < MinimumLengthBeforeCompression)
 			{
 				// vector pointing away from B
-				Vector3 dir = B.CurrentPosition - A.CurrentPosition;
+				Vector3 dir = B.PhysicsCurrentPosition - A.PhysicsCurrentPosition;
 				// normalize
 				dir.Normalize();
 				// multiply by the scalar force
@@ -96,7 +96,7 @@ namespace Physics
 			}
 			else if (dist > MaximumLengthBeforeExtension)
 			{
-				Vector3 dir = A.CurrentPosition - B.CurrentPosition;
+				Vector3 dir = A.PhysicsCurrentPosition - B.PhysicsCurrentPosition;
 				dir.Normalize();
 				force += dir * (Force * (dist - Length));
 			}
@@ -124,7 +124,7 @@ namespace Physics
 			// A spring where both ends are at the same location is invalid
 			// therefore, by the Ostrich algorithm, I throw an exception
 			// let me know if you get this.
-			if (A.CurrentPosition == B.CurrentPosition || A.potentialPosition == B.potentialPosition)
+			if (A.PhysicsCurrentPosition == B.PhysicsCurrentPosition || A.potentialPosition == B.potentialPosition)
 			{
 				throw new Exception("Invalid Spring State");
 			}

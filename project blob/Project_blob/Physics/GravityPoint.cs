@@ -21,7 +21,7 @@ namespace Physics
 
 		public Vector3 getForceOn(Point p)
 		{
-			return Vector3.Normalize(Origin - p.CurrentPosition) * (Magnitude * p.mass);
+			return Vector3.Normalize(Origin - p.PhysicsCurrentPosition) * (Magnitude * p.mass);
 		}
 
 	}
