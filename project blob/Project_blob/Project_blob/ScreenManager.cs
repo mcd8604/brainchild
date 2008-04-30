@@ -54,6 +54,9 @@ namespace Project_blob
 			graphics.PreferMultiSampling = true;
 			Content.RootDirectory = "Content";
 
+            graphics.SynchronizeWithVerticalRetrace = false;
+            IsFixedTimeStep = false;
+
 			AddScreen(new MainMenuScreen());
 		}
 
