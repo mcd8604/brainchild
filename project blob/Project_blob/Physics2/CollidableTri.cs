@@ -55,5 +55,10 @@ namespace Physics2
 			throw new System.Exception("The method or operation is not implemented.");
 		}
 
+        public override void ImpartVelocity(Vector3 vel)
+        {
+            throw new System.Exception("The method or operation is not implemented.");
+        }
+
 	}
 }
