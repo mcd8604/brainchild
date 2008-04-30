@@ -399,7 +399,7 @@ namespace Project_blob
                         }
                     }
                 }
-                if(theBlob != null)
+                if(theBlob != null && !DEBUG_WireframeMode)
                 {
                     //graphicsDevice.RenderState.SourceBlend = Blend.SourceAlpha;
                    
@@ -408,7 +408,7 @@ namespace Project_blob
 
                         EffectManager.getSingleton.GetEffect("Distorter").CurrentTechnique =
                                 EffectManager.getSingleton.GetEffect("Distorter").Techniques["PullIn"];
-                        EffectManager.getSingleton.GetEffect("Distorter").Parameters["DistortionScale"].SetValue(0.5f);
+                        EffectManager.getSingleton.GetEffect("Distorter").Parameters["DistortionScale"].SetValue(0.04f);
                         Random r = new Random();
                         EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.Next()/10.0f);
                         //EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.NextDouble() * 30.0);
@@ -428,12 +428,7 @@ namespace Project_blob
                         EffectManager.getSingleton.GetEffect("Distorter").End();
                     }
                 }
-                if (DEBUG_WireframeMode)
-                {
-                    renderState.CullMode = CullMode.CullClockwiseFace;
-                    renderState.FillMode = FillMode.Solid;
-                    renderState.DepthBufferEnable = true;
-                }
+                
 
                 if (m_SceneRenderTarget != null && !DEBUG_WireframeMode)
                     ApplyPostProcessing(graphicsDevice);
@@ -451,6 +446,12 @@ namespace Project_blob
                 }
                 EffectManager.getSingleton.GetEffect("cartoonEffect").End();
 
+                if (DEBUG_WireframeMode)
+                {
+                    renderState.CullMode = CullMode.CullClockwiseFace;
+                    renderState.FillMode = FillMode.Solid;
+                    renderState.DepthBufferEnable = true;
+                }
             }
         }
 
