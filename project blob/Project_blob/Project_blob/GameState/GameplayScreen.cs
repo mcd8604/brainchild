@@ -29,6 +29,7 @@ namespace Project_blob.GameState
 
 		Vector3 blobStartPosition = new Vector3(-100, 10, -10);
 		Texture2D blobTexture;
+        Texture2D distortMapText;
 
 		Effect effect;
 		Effect celEffect;
@@ -141,6 +142,7 @@ namespace Project_blob.GameState
 
 			theBlob = new Blob(blobModel, blobStartPosition);
 			theBlob.text = blobTexture;
+            theBlob.DisplacementText = distortMapText;
 			theBlob.setGraphicsDevice(ScreenManager.GraphicsDevice);
 
 			physics.Player.PlayerBody = theBlob;
@@ -167,6 +169,7 @@ namespace Project_blob.GameState
 			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
 
 			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\transparancy_png");
+            distortMapText = ScreenManager.Content.Load<Texture2D>(@"Textures\\PrivacyGlass");
 
 			blobEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Blobs");
 

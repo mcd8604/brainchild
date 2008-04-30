@@ -402,25 +402,13 @@ namespace Project_blob
                 if(theBlob != null)
                 {
                     //graphicsDevice.RenderState.SourceBlend = Blend.SourceAlpha;
-                    graphicsDevice.RenderState.AlphaBlendEnable = true;
-                    //graphicsDevice.RenderState.DestinationBlend = Blend.InverseSourceAlpha;
-
-                    EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
-                    EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-                    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
-                    {
-                        pass.Begin();
-                        theBlob.DrawMe();
-                        pass.End();
-                    }
-                    EffectManager.getSingleton.GetEffect("cartoonEffect").End();
-
+                   
                     if (EffectManager.getSingleton.GetEffect("Distorter") != null && m_distortionMap != null)
                     {
 
                         EffectManager.getSingleton.GetEffect("Distorter").CurrentTechnique =
-                                EffectManager.getSingleton.GetEffect("Distorter").Techniques["ZeroDisplacement"];
-                        EffectManager.getSingleton.GetEffect("Distorter").Parameters["DistortionScale"].SetValue(0.0003f);
+                                EffectManager.getSingleton.GetEffect("Distorter").Techniques["PullIn"];
+                        EffectManager.getSingleton.GetEffect("Distorter").Parameters["DistortionScale"].SetValue(0.5f);
                         Random r = new Random();
                         EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.Next()/10.0f);
                         //EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.NextDouble() * 30.0);
@@ -428,6 +416,7 @@ namespace Project_blob
                         graphicsDevice.SetRenderTarget(0, m_distortionMap);
                         graphicsDevice.Clear(Color.Black);
                         graphicsDevice.RenderState.DepthBufferEnable = true;
+                        graphicsDevice.Textures[0] = theBlob.DisplacementText;
 
                         EffectManager.getSingleton.GetEffect("Distorter").Begin();
                         foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("Distorter").CurrentTechnique.Passes)
@@ -448,6 +437,20 @@ namespace Project_blob
 
                 if (m_SceneRenderTarget != null && !DEBUG_WireframeMode)
                     ApplyPostProcessing(graphicsDevice);
+
+                graphicsDevice.RenderState.AlphaBlendEnable = true;
+                //graphicsDevice.RenderState.DestinationBlend = Blend.InverseSourceAlpha;
+
+                EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
+                EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+                {
+                    pass.Begin();
+                    theBlob.DrawMe();
+                    pass.End();
+                }
+                EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+
             }
         }
 
@@ -556,57 +559,61 @@ namespace Project_blob
         {
             graphicsDevice.SetRenderTarget(0, null);
 
-            Vector2 resolution = new Vector2(m_SceneRenderTarget.Width,
-                                                 m_SceneRenderTarget.Height);
-
-            Texture2D normalDepthTexture = m_NormalDepthRenderTarget.GetTexture();
-
-            EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["EdgeWidth"].SetValue(1.0f);
-            EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["EdgeIntensity"].SetValue(1.0f);
-            EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["ScreenResolution"].SetValue(new Vector2(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height));
-            EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["NormalDepthTexture"].SetValue(normalDepthTexture);
-
-            // Activate the appropriate effect technique.
-            EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("postprocessEffect").Techniques["EdgeDetect"];
+            graphicsDevice.Textures[1] = m_distortionMap.GetTexture();
+            //graphicsDevice.Textures[0] = m_tempTarget;
+            EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique =
+                EffectManager.getSingleton.GetEffect("Distort").Techniques["Distort"];
 
             // Draw a fullscreen sprite to apply the postprocessing effect.
             SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
-            spriteBatch.Begin(SpriteBlendMode.None,
-                              SpriteSortMode.Immediate,
-                              SaveStateMode.None);
 
-            EffectManager.getSingleton.GetEffect("postprocessEffect").Begin();
-            EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique.Passes[0].Begin();
+            spriteBatch.Begin(SpriteBlendMode.None,
+                          SpriteSortMode.Immediate,
+                          SaveStateMode.None);
+
+            EffectManager.getSingleton.GetEffect("Distort").Begin();
+            EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique.Passes[0].Begin();
 
             spriteBatch.Draw(m_SceneRenderTarget.GetTexture(), Vector2.Zero, Color.White);
 
             spriteBatch.End();
 
-            EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique.Passes[0].End();
-            EffectManager.getSingleton.GetEffect("postprocessEffect").End();
+            EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique.Passes[0].End();
+            EffectManager.getSingleton.GetEffect("Distort").End();
+
+           
 
             if (EffectManager.getSingleton.GetEffect("Distort") != null && m_distortionMap != null && m_tempTarget != null)
             {
                 graphicsDevice.ResolveBackBuffer(m_tempTarget);
                 graphicsDevice.SetRenderTarget(0, null);
-                graphicsDevice.Textures[1] = m_distortionMap.GetTexture();
-                //graphicsDevice.Textures[0] = m_tempTarget;
-                EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique =
-                    EffectManager.getSingleton.GetEffect("Distort").Techniques["Distort"];
+                Vector2 resolution = new Vector2(m_SceneRenderTarget.Width,
+                                                m_SceneRenderTarget.Height);
 
+                Texture2D normalDepthTexture = m_NormalDepthRenderTarget.GetTexture();
+
+                EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["EdgeWidth"].SetValue(1.0f);
+                EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["EdgeIntensity"].SetValue(1.0f);
+                EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["ScreenResolution"].SetValue(new Vector2(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height));
+                EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["NormalDepthTexture"].SetValue(normalDepthTexture);
+
+                // Activate the appropriate effect technique.
+                EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("postprocessEffect").Techniques["EdgeDetect"];
+
+                
                 spriteBatch.Begin(SpriteBlendMode.None,
-                              SpriteSortMode.Immediate,
-                              SaveStateMode.None);
+                                  SpriteSortMode.Immediate,
+                                  SaveStateMode.None);
 
-                EffectManager.getSingleton.GetEffect("Distort").Begin();
-                EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique.Passes[0].Begin();
+                EffectManager.getSingleton.GetEffect("postprocessEffect").Begin();
+                EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique.Passes[0].Begin();
 
                 spriteBatch.Draw(m_tempTarget, Vector2.Zero, Color.White);
 
                 spriteBatch.End();
 
-                EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique.Passes[0].End();
-                EffectManager.getSingleton.GetEffect("Distort").End();
+                EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique.Passes[0].End();
+                EffectManager.getSingleton.GetEffect("postprocessEffect").End();
             }
            
         }
