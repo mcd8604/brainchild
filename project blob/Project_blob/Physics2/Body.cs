@@ -238,6 +238,9 @@ namespace Physics2
 			return events;
 
 		}
+        public virtual void onCollision(Point p)
+        {
 
+        }
 	}
 }
