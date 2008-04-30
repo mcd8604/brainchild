@@ -38,11 +38,13 @@ namespace Project_blob.GameState
 		Effect postprocessEffect;
         Effect distortEffect;
         Effect distorterEffect;
+        Effect depthBufferEffect;
 
 		RenderTarget2D sceneRenderTarget;
 		RenderTarget2D normalDepthRenderTarget;
         RenderTarget2D distortionMap;
         ResolveTexture2D tempRenderTarget;
+        RenderTarget2D depthBufferRenderTarget;
 
 		Matrix worldMatrix;
 		//Matrix viewMatrix;
@@ -179,6 +181,8 @@ namespace Project_blob.GameState
 
             distortEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distort");
             distorterEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distorters");
+
+            depthBufferEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\DepthBuffer");
 
 			//load skybox
 			//skyBox = ScreenManager.Content.Load<Model>(@"Models\\skyBox");
@@ -369,6 +373,10 @@ namespace Project_blob.GameState
             EffectManager.getSingleton.AddEffect("Distorter", distorterEffect);
             EffectManager.getSingleton.AddEffect("Distort", distortEffect);
 
+            depthBufferEffect.Parameters["MaxDepth"].SetValue(CameraManager.getSingleton.ActiveCamera.FarPlane);
+
+            EffectManager.getSingleton.AddEffect("DepthBuffer", depthBufferEffect);
+
 
 		}
 
@@ -391,10 +399,16 @@ namespace Project_blob.GameState
             tempRenderTarget = new ResolveTexture2D(ScreenManager.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
                 pp.BackBufferFormat);
 
+            depthBufferRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+                pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            
+
 			currentArea.Display.SceneRanderTarget = sceneRenderTarget;
 			currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
             currentArea.Display.DistortionMap = distortionMap;
             currentArea.Display.TempRenderTarget = tempRenderTarget;
+            currentArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
             
 		}
 
@@ -447,6 +461,12 @@ namespace Project_blob.GameState
 				if (!paused)
 				{
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+                    Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
+                    tempPos.Y += 2;
+                    depthBufferEffect.Parameters["LightPos"].SetValue(tempPos);
+                    Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), new Vector3(tempPos.X,tempPos.Y - 2,tempPos.Z), Vector3.Up) *
+                        Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
+                    depthBufferEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
 				}
                 physicsTime.Stop();
 
