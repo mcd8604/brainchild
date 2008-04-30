@@ -242,5 +242,10 @@ namespace Physics2
         {
 
         }
+
+        public Vector3 getVelocity()
+        {
+            return Vector3.Zero;
+        }
 	}
 }
