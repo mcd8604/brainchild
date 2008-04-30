@@ -29,22 +29,22 @@ namespace Project_blob.GameState
 
 		Vector3 blobStartPosition = new Vector3(-100, 10, -10);
 		Texture2D blobTexture;
-        Texture2D distortMapText;
+		Texture2D distortMapText;
 
 		Effect effect;
 		Effect celEffect;
 		Effect blobEffect;
 		Effect cartoonEffect;
 		Effect postprocessEffect;
-        Effect distortEffect;
-        Effect distorterEffect;
-        Effect depthBufferEffect;
+		Effect distortEffect;
+		Effect distorterEffect;
+		Effect depthBufferEffect;
 
 		RenderTarget2D sceneRenderTarget;
 		RenderTarget2D normalDepthRenderTarget;
-        RenderTarget2D distortionMap;
-        ResolveTexture2D tempRenderTarget;
-        RenderTarget2D depthBufferRenderTarget;
+		RenderTarget2D distortionMap;
+		ResolveTexture2D tempRenderTarget;
+		RenderTarget2D depthBufferRenderTarget;
 
 		Matrix worldMatrix;
 		//Matrix viewMatrix;
@@ -84,7 +84,7 @@ namespace Project_blob.GameState
 
 		bool OrientCamera = false;
 
-		float playerMoveMulti = 50f;
+		float playerMoveMulti = 100f;
 
 		//Display theDisplay;
 
@@ -144,7 +144,7 @@ namespace Project_blob.GameState
 
 			theBlob = new Blob(blobModel, blobStartPosition);
 			theBlob.text = blobTexture;
-            theBlob.DisplacementText = distortMapText;
+			theBlob.DisplacementText = distortMapText;
 			theBlob.setGraphicsDevice(ScreenManager.GraphicsDevice);
 
 			physics.Player.PlayerBody = theBlob;
@@ -171,7 +171,7 @@ namespace Project_blob.GameState
 			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
 
 			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\transparancy_png");
-            distortMapText = ScreenManager.Content.Load<Texture2D>(@"Textures\\PrivacyGlass");
+			distortMapText = ScreenManager.Content.Load<Texture2D>(@"Textures\\PrivacyGlass");
 
 			blobEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Blobs");
 
@@ -179,10 +179,10 @@ namespace Project_blob.GameState
 
 			postprocessEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\PostprocessEffect");
 
-            distortEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distort");
-            distorterEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distorters");
+			distortEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distort");
+			distorterEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distorters");
 
-            depthBufferEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\DepthBuffer");
+			depthBufferEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\DepthBuffer");
 
 			//load skybox
 			//skyBox = ScreenManager.Content.Load<Model>(@"Models\\skyBox");
@@ -205,10 +205,10 @@ namespace Project_blob.GameState
 				//e.MoveNext();
 				currentArea = (Area)e.Current;
 				currentArea.LoadAreaGameplay(ScreenManager);
-                currentArea.Display.EffectName = "cartoonEffect";
+				currentArea.Display.EffectName = "cartoonEffect";
 				currentArea.Display.WorldParameterName = "World";
-                currentArea.Display.TextureParameterName = "Texture";
-                currentArea.Display.TechniqueName = "Lambert";
+				currentArea.Display.TextureParameterName = "Texture";
+				currentArea.Display.TechniqueName = "Lambert";
 				staticDrawables = currentArea.getDrawableList();
 				physics.AddCollidables(currentArea.getCollidables());
 			}
@@ -362,20 +362,20 @@ namespace Project_blob.GameState
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["TextureEnabled"].SetValue(true);
 
-            distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-            distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+			distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+			distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
 			CreateRenderTargets();
 
-            EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
+			EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
 			EffectManager.getSingleton.AddEffect("cartoonEffect", cartoonEffect);
 
-            EffectManager.getSingleton.AddEffect("Distorter", distorterEffect);
-            EffectManager.getSingleton.AddEffect("Distort", distortEffect);
+			EffectManager.getSingleton.AddEffect("Distorter", distorterEffect);
+			EffectManager.getSingleton.AddEffect("Distort", distortEffect);
 
-            depthBufferEffect.Parameters["MaxDepth"].SetValue(CameraManager.getSingleton.ActiveCamera.FarPlane);
+			depthBufferEffect.Parameters["MaxDepth"].SetValue(CameraManager.getSingleton.ActiveCamera.FarPlane);
 
-            EffectManager.getSingleton.AddEffect("DepthBuffer", depthBufferEffect);
+			EffectManager.getSingleton.AddEffect("DepthBuffer", depthBufferEffect);
 
 
 		}
@@ -392,24 +392,24 @@ namespace Project_blob.GameState
 				pp.BackBufferWidth, pp.BackBufferHeight, 1,
 				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            distortionMap = new RenderTarget2D(ScreenManager.GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+			distortionMap = new RenderTarget2D(ScreenManager.GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            tempRenderTarget = new ResolveTexture2D(ScreenManager.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat);
+			tempRenderTarget = new ResolveTexture2D(ScreenManager.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat);
 
-            depthBufferRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
-            
+			depthBufferRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
 
 			currentArea.Display.SceneRanderTarget = sceneRenderTarget;
 			currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
-            currentArea.Display.DistortionMap = distortionMap;
-            currentArea.Display.TempRenderTarget = tempRenderTarget;
-            currentArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
-            
+			currentArea.Display.DistortionMap = distortionMap;
+			currentArea.Display.TempRenderTarget = tempRenderTarget;
+			currentArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
+
 		}
 
 		/// <summary>
@@ -456,23 +456,23 @@ namespace Project_blob.GameState
 			currentArea.Display.AddToBeDrawn(sky);
 			if (IsActive)
 			{
-                physicsTime.Reset();
-                physicsTime.Start();
+				physicsTime.Reset();
+				physicsTime.Start();
 				if (!paused)
 				{
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
-                    Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
-                    tempPos.Y += 2;
-                    depthBufferEffect.Parameters["LightPos"].SetValue(tempPos);
-                    Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), new Vector3(tempPos.X,tempPos.Y - 2,tempPos.Z), Vector3.Up) *
-                        Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
-                    depthBufferEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
+					Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
+					tempPos.Y += 2;
+					depthBufferEffect.Parameters["LightPos"].SetValue(tempPos);
+					Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), new Vector3(tempPos.X, tempPos.Y - 2, tempPos.Z), Vector3.Up) *
+						Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
+					depthBufferEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
 				}
-                physicsTime.Stop();
+				physicsTime.Stop();
 
-                // actually, shouldn't the skybox be centered around /the camera/ instead of the blob?
-                if (currentArea.Display.SkyBox != null)
-                    currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
+				// actually, shouldn't the skybox be centered around /the camera/ instead of the blob?
+				if (currentArea.Display.SkyBox != null)
+					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
 
 				//Update Camera
 				//camera.Update(gameTime);
@@ -530,8 +530,8 @@ namespace Project_blob.GameState
 
 
 						cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                        distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-                        distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+						distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+						distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
 						effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
@@ -613,7 +613,7 @@ namespace Project_blob.GameState
 					physics.Player.Resilience.Target = GamePad.GetState(PlayerIndex.One).Triggers.Right;
 					//Physics.PhysicsManager.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
 					physics.Player.Traction.Target = GamePad.GetState(PlayerIndex.One).Triggers.Left;
-                    physics.Player.Cling.Target = 0.25f + (GamePad.GetState(PlayerIndex.One).Triggers.Left * 0.5f);
+					physics.Player.Cling.Target = 0.25f + (GamePad.GetState(PlayerIndex.One).Triggers.Left * 0.5f);
 					/*float vb = MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f);
 					InputHandler.SetVibration(vb, 0f);*/
 				}
@@ -662,6 +662,8 @@ namespace Project_blob.GameState
 								p.ForceNextFrame += Run * (move.Y * playerMoveMulti * -0.06f);
 							}
 						}
+						physics.Player.applyTorque(move.Y * playerMoveMulti * physics.Player.Cling.Target * 0.1f, Horizontal);
+						physics.Player.applyTorque(move.X * playerMoveMulti * physics.Player.Cling.Target * 0.1f, Run);
 
 					}
 
@@ -735,10 +737,10 @@ namespace Project_blob.GameState
 
 				if (cinema)
 				{
-                    distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-                    distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
-                    cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                    effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+					distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+					cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 					celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
 					celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 					effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
@@ -839,8 +841,8 @@ namespace Project_blob.GameState
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
 
-            distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-            distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+			distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+			distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
 
 			//renderState.CullMode = CullMode.CullCounterClockwiseFace;

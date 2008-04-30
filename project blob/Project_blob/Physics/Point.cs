@@ -24,6 +24,10 @@ namespace Physics
 			}
 		}
 
+		internal Vector3 PhysicsCurrentPosition = Vector3.Zero;
+		internal Vector3 PhysicsCurrentVelocity = Vector3.Zero;
+		internal Vector3 PhysicsCurrentAcceleration = Vector3.Zero;
+
 		public Vector3 CurrentPosition = Vector3.Zero;
 		public Vector3 CurrentVelocity = Vector3.Zero;
 		public Vector3 currentAcceleration = Vector3.Zero;
@@ -91,23 +95,28 @@ namespace Physics
 
 		public Point(Vector3 startPosition, Body ParentBody)
 		{
+			PhysicsCurrentPosition = startPosition;
 			CurrentPosition = startPosition;
 			potentialPosition = CurrentPosition;
 			NextPosition = CurrentPosition;
 			parent = ParentBody;
 		}
 
+		internal void updatePhysicsPosition()
+		{
+			PhysicsCurrentPosition = NextPosition;
+			PhysicsCurrentVelocity = NextVelocity;
+			PhysicsCurrentAcceleration = Vector3.Zero;
+			nextAcceleration = Vector3.Zero;
+			ForceThisFrame = ForceNextFrame;
+			ForceNextFrame = Vector3.Zero;
+		}
+
 		internal void updatePosition()
 		{
-			if (!isStatic)
-			{
-				CurrentPosition = NextPosition;
-				CurrentVelocity = NextVelocity;
-				CurrentAcceleration = Vector3.Zero;
-				nextAcceleration = Vector3.Zero;
-				ForceThisFrame = ForceNextFrame;
-				ForceNextFrame = Vector3.Zero;
-			}
+			CurrentPosition = PhysicsCurrentPosition;
+			CurrentVelocity = PhysicsCurrentVelocity;
+			CurrentAcceleration = PhysicsCurrentAcceleration;
 		}
 
 	}
@@ -117,7 +126,7 @@ namespace Physics
 
 		public new bool Equals(object obj1, object obj2)
 		{
-			return ((Physics.Point)obj1).CurrentPosition == ((Physics.Point)obj2).CurrentPosition;
+			return ((Physics.Point)obj1).PhysicsCurrentPosition == ((Physics.Point)obj2).PhysicsCurrentPosition;
 		}
 
 

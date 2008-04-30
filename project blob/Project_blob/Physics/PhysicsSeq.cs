@@ -85,11 +85,11 @@ namespace Physics
 		{
 			doPhysics(TotalElapsedSeconds);
 
-            foreach (Collidable c in _eventsToTrigger)
-            {
-                c.TriggerEvents();
-            }
-            _eventsToTrigger.Clear();
+			foreach (Collidable c in _eventsToTrigger)
+			{
+				c.TriggerEvents();
+			}
+			_eventsToTrigger.Clear();
 
 			foreach (Point p in points)
 			{
@@ -105,7 +105,7 @@ namespace Physics
 			// Predict potential position
 			foreach (Point p in points)
 			{
-				p.potentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+				p.potentialPosition = p.PhysicsCurrentPosition + (p.PhysicsCurrentVelocity * TotalElapsedSeconds);
 			}
 
 			// Springs
@@ -127,7 +127,7 @@ namespace Physics
 					float IdealVolume = pb.getIdealVolume();
 					foreach (Physics.Point p in pb.getPoints())
 					{
-						p.ForceThisFrame += ((Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.potentialPosition) * (NextVolume - IdealVolume)) / 2f);
+						p.ForceThisFrame += ((Vector3.Normalize(CurrentCenter - p.PhysicsCurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.potentialPosition) * (NextVolume - IdealVolume)) / 2f);
 					}
 				}
 			}
@@ -151,6 +151,11 @@ namespace Physics
 			foreach (Point p in points)
 			{
 				checkCollisions2(p, TotalElapsedSeconds);
+			}
+
+			foreach (Point p in points)
+			{
+				p.updatePhysicsPosition();
 			}
 
 		}
@@ -234,7 +239,7 @@ namespace Physics
 
 
 			p.potentialAcceleration = p.CurrentAcceleration + (p.ForceThisFrame / p.mass);
-			p.potentialVelocity = p.CurrentVelocity + (p.potentialAcceleration * time);
+			p.potentialVelocity = p.PhysicsCurrentVelocity + (p.potentialAcceleration * time);
 
 			if (p.potentialVelocity != Vector3.Zero)
 			{
@@ -263,7 +268,7 @@ namespace Physics
 				p.potentialVelocity -= VelocityDrag;
 			}
 
-			p.potentialPosition = p.CurrentPosition + (p.potentialVelocity * time);
+			p.potentialPosition = p.PhysicsCurrentPosition + (p.potentialVelocity * time);
 
 		}
 
@@ -287,7 +292,7 @@ namespace Physics
 
 					Vector3[] x = c.getNextCollisionVerticies();
 					Vector3 i;
-					float u = CollisionMath.LineStaticTriangleIntersect(p.CurrentPosition, p.potentialPosition, x[0], x[1], x[2], out i);
+					float u = CollisionMath.LineStaticTriangleIntersect(p.PhysicsCurrentPosition, p.potentialPosition, x[0], x[1], x[2], out i);
 					// If Collision ( u < 1 ) - Split Time and redo
 					if (u > 0 && u < 1 /* && c.inBoundingBox(i)*/)
 					{
@@ -351,7 +356,7 @@ namespace Physics
 				{
 					_eventsToTrigger.Add(c);
 
-					float u = c.didIntersect(p.CurrentPosition, p.potentialPosition);
+					float u = c.didIntersect(p.PhysicsCurrentPosition, p.potentialPosition);
 					// If Collision ( u < 1 ) - Split Time and redo
 					if (u < 1)
 					{
