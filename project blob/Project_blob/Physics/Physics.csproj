@@ -69,6 +69,7 @@
     <Compile Include="MaterialCustom.cs" />
     <Compile Include="Mover.cs" />
     <Compile Include="PhysicsManager.cs" />
+    <Compile Include="PhysicsPara2.cs" />
     <Compile Include="PhysicsParallel.cs" />
     <Compile Include="PhysicsSeq.cs" />
     <Compile Include="Player.cs" />

@@ -20,7 +20,7 @@ namespace Physics
 		private float physicsTimeMsec = 0;
 
 		private const int physicsDivisor = 2;
-		private const int physicsMultiplier = 1;
+		//public float physicsMultiplier = 1f;
 
 		public override float PWR
 		{
@@ -75,7 +75,7 @@ namespace Physics
 					{
 						for (int i = physicsDivisor; i > 0; --i)
 						{
-							physicsMain.doPhysics(runForTime * ((float)physicsMultiplier / (float)physicsDivisor));
+							physicsMain.doPhysics(runForTime * (physicsMultiplier / (float)physicsDivisor));
 						}
 					}
 					catch (Exception ex)
