@@ -649,7 +649,7 @@ namespace WorldMaker
 		private void updateRoomList()
 		{
 			roomList.Items.Clear();
-			foreach (int s in ((StaticModel)m_Game.ActiveDrawable).GetRooms())
+			foreach (short s in ((StaticModel)m_Game.ActiveDrawable).GetRooms())
 			{
 				roomList.Items.Add(s);
 			}
@@ -695,31 +695,32 @@ namespace WorldMaker
 			}
 		}
 
-		private void addRoom_Click(object sender, EventArgs e)
-		{
-			string text = roomTextBox.Text;
-			if (m_Game.ActiveDrawable != null && !text.Equals(String.Empty))
-			{
-				short roomNum;
-				if (short.TryParse(text, out roomNum))
-				{
-					((StaticModel)m_Game.ActiveDrawable).AddRoom(roomNum);
-					updateRoomList();
-				}
-			}
-		}
-
-		private void removeRoom_Click(object sender, EventArgs e)
-		{
-			if (roomList.SelectedIndex != -1)
-			{
-				((StaticModel)m_Game.ActiveDrawable).RemoveRoom((short)roomList.SelectedItem);
-			}
-		}
-
 		private void roomList_SelectedIndexChanged(object sender, EventArgs e)
 		{
 
 		}
+
+        private void addRoom_Click_1(object sender, EventArgs e)
+        {
+            string text = roomTextBox.Text;
+            if (m_Game.ActiveDrawable != null && !text.Equals(String.Empty))
+            {
+                short roomNum;
+                if (short.TryParse(text, out roomNum))
+                {
+                    ((StaticModel)m_Game.ActiveDrawable).AddRoom(roomNum);
+                    updateRoomList();
+                }
+            }
+        }
+
+        private void removeRoom_Click_1(object sender, EventArgs e)
+        {
+            if (roomList.SelectedIndex != -1)
+            {
+                ((StaticModel)m_Game.ActiveDrawable).RemoveRoom((short)roomList.SelectedItem);
+                updateRoomList();
+            }
+        }
 	}
 }

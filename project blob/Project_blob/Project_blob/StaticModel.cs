@@ -395,6 +395,10 @@ namespace Project_blob
 		}
         public void AddRoom(short room)
 		{
+            if (_rooms == null)
+            {
+                _rooms = new List<short>();
+            }
             if (!_rooms.Contains(room))
 			{
                 _rooms.Add(room);
