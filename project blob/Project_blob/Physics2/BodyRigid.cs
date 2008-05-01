@@ -1,6 +1,6 @@
 namespace Physics2
 {
-	class BodyRigid
+	public class BodyRigid
 	{
 	}
 }

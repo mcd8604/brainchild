@@ -30,7 +30,9 @@ namespace Physics2
 			return parent.getVelocity();
 		}
 
-		public abstract void ImpartVelocity(Vector3 vel);
+		public abstract void ApplyForce(Vector3 at, Vector3 f);
+
+		public abstract void ImpartVelocity(Vector3 at, Vector3 vel);
 
 		public abstract bool isSolid();
 
