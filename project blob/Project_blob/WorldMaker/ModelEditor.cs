@@ -562,7 +562,6 @@ namespace WorldMaker
 
 		public void UpdateValues()
 		{
-
 			if (this.InvokeRequired)
 			{
 				this.Invoke(new Callback(this.UpdateValues));
@@ -697,7 +696,6 @@ namespace WorldMaker
 
 		private void addRoom_Click(object sender, EventArgs e)
 		{
-
 			string text = roomTextBox.Text;
 			if (m_Game.ActiveDrawable != null && !text.Equals(String.Empty))
 			{
