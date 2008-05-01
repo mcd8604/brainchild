@@ -87,6 +87,7 @@ namespace Project_blob
 
         SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
         SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
+        SortedList<short, List<Drawable>> rooms;
 
         public bool saveOut = false;
 
