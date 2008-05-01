@@ -649,7 +649,11 @@ namespace WorldMaker
 		private void updateRoomList()
 		{
 			roomList.Items.Clear();
-			foreach (short s in ((StaticModel)m_Game.ActiveDrawable).GetRooms())
+            if (((StaticModel)m_Game.ActiveDrawable).Rooms == null)
+            {
+                ((StaticModel)m_Game.ActiveDrawable).Rooms = new List<short>();
+            }
+			foreach (short s in ((StaticModel)m_Game.ActiveDrawable).Rooms)
 			{
 				roomList.Items.Add(s);
 			}
