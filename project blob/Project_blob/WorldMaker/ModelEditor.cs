@@ -636,8 +636,8 @@ namespace WorldMaker
 						textureScaleY.Text = m.TextureScaleY.ToString();
 						repeatTexture_cb.Checked = m.RepeatingTexture;
 
+					}
 					updateRoomList();
-
 				}
 				catch (Exception ex)
 				{
@@ -651,11 +651,9 @@ namespace WorldMaker
 			roomList.Items.Clear();
 			foreach (int s in ((StaticModel)m_Game.ActiveDrawable).GetRooms())
 			{
-
-				roomList.Items.Add(s);		
-
+				roomList.Items.Add(s);
 			}
-            roomList.Update();
+			roomList.Update();
 		}
 
 		private void ModelName_TextChanged(object sender, EventArgs e)
@@ -664,13 +662,13 @@ namespace WorldMaker
 		}
 
 
-        private void repeatTexture_cb_CheckedChanged(object sender, EventArgs e)
-        {
-            if (m_Game.ActiveDrawable is StaticModel)
-            {
-                ((StaticModel)m_Game.ActiveDrawable).RepeatingTexture = repeatTexture_cb.Checked;
-            }
-        }
+		private void repeatTexture_cb_CheckedChanged(object sender, EventArgs e)
+		{
+			if (m_Game.ActiveDrawable is StaticModel)
+			{
+				((StaticModel)m_Game.ActiveDrawable).RepeatingTexture = repeatTexture_cb.Checked;
+			}
+		}
 
 
 		private void textureScaleX_TextChanged(object sender, EventArgs e)
@@ -702,7 +700,6 @@ namespace WorldMaker
 
 			string text = roomTextBox.Text;
 			if (m_Game.ActiveDrawable != null && !text.Equals(String.Empty))
-
 			{
 				short roomNum;
 				if (short.TryParse(text, out roomNum))
@@ -721,9 +718,9 @@ namespace WorldMaker
 			}
 		}
 
-        private void roomList_SelectedIndexChanged(object sender, EventArgs e)
-        {
+		private void roomList_SelectedIndexChanged(object sender, EventArgs e)
+		{
 
-        }
+		}
 	}
 }
