@@ -389,9 +389,10 @@ namespace Project_blob
         }
 
 		private List<short> _rooms;
-        public List<short> GetRooms()
+        public List<short> Rooms
 		{
-            return _rooms;
+            get { return _rooms; }
+            set { _rooms = value; }
 		}
         public void AddRoom(short room)
 		{
