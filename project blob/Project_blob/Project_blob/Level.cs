@@ -84,7 +84,7 @@ namespace Project_blob
             } catch( SerializationException se ) {
                 string msg = "Could not deserialize: " + levelName + " : " + se;
                 Console.WriteLine(msg);
-                System.Windows.Forms.MessageBox.Show( msg ); ;
+                System.Windows.Forms.MessageBox.Show( msg );
             }
         }
     }
