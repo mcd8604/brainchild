@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	class PhysicsSeq : PhysicsManager
+	internal class PhysicsSeq : PhysicsManager
 	{
 
 		internal List<Body> bodies = new List<Body>();
@@ -107,30 +107,79 @@ namespace Physics2
 
 				// stop point velocity in the direction of the collidable
 				Vector3 CollidableNormal = Vector3.Normalize(e.collidable.Normal());
+
+				Vector3 VelocityTransfer = Vector3.Zero;
+				Vector3 newVelocity = Vector3.Zero;
+
 				if (Vector3.Dot(e.point.PotentialVelocity, CollidableNormal) > 0)
 				{
 					Vector3 CollidableBodyVelocity = Vector3.Dot(e.collidable.getVelocity(), CollidableNormal) * CollidableNormal;
-					Vector3 newVelocity = (Vector3.Cross(CollidableNormal, Vector3.Cross(e.point.PotentialVelocity, CollidableNormal))) + CollidableBodyVelocity;
+					newVelocity = (Vector3.Cross(CollidableNormal, Vector3.Cross(e.point.PotentialVelocity, CollidableNormal))) + CollidableBodyVelocity;
 
 					// apply velocity to collidable
-					Vector3 VelocityTransfer = (Vector3.Dot(e.point.PotentialVelocity, CollidableNormal) * CollidableNormal) - CollidableBodyVelocity;
-					e.collidable.ImpartVelocity(VelocityTransfer);
+					VelocityTransfer = (Vector3.Dot(e.point.PotentialVelocity, CollidableNormal) * CollidableNormal) - CollidableBodyVelocity;
+					e.collidable.ImpartVelocity(newPosition, VelocityTransfer);
 				}
 
 				// normal force
+				Vector3 NormalForce = Vector3.Zero;
+				Vector3 newForce = Vector3.Zero;
+
 				if (Vector3.Dot(e.point.ForceThisFrame, CollidableNormal) > 0)
 				{
+					NormalForce = (Vector3.Dot(e.point.ForceThisFrame, CollidableNormal) * CollidableNormal);
 
+					newForce = (Vector3.Cross(CollidableNormal, Vector3.Cross(e.point.ForceThisFrame, CollidableNormal)));
 
-					// relative velocity
-					Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e.point);
+					e.collidable.ApplyForce(newPosition, NormalForce);
 
-					// surface friction
+				}
+
+				Vector3 TotalNormalForce = (VelocityTransfer / TotalElapsedSeconds * e.point.Mass) + NormalForce;
+
+				// relative velocity
+				Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e.point) + newVelocity;
+
+				// surface friction !  F = uN
+				if (newVelocity.LengthSquared() > 0)
+				{
+					Vector3 FrictionForce = Vector3.Normalize(Vector3.Negate(newVelocity)) * (TotalNormalForce.Length() * (player.Traction.value * e.collidable.getMaterial().getFriction()));
+
+					Vector3 MaxFriction = Vector3.Negate((newVelocity / e.when) * e.point.Mass) + Vector3.Negate(newForce);
+
+					if (FrictionForce.LengthSquared() > MaxFriction.LengthSquared())
+					{
+						//Console.WriteLine("Maxed out friction: " + (FrictionForce.Length() / MaxFriction.Length()));
+						newForce += MaxFriction;
+					}
+					else
+					{
+						//Console.WriteLine("Didn't: " + (FrictionForce.Length() / MaxFriction.Length()));
+						newForce += FrictionForce;
+					}
 
 				}
 
 				// if static then point is relatively static
+				if (e.isStatic())
+				{
+					e.point.relativelyStatic = true;
+				}
 
+				// acceleration
+				Vector3 Acceleration = newForce / e.point.Mass;
+
+				// velocity
+				Vector3 Velocity = newVelocity + (Acceleration * (TotalElapsedSeconds - e.when));
+
+				// position
+				Vector3 Position = newPosition + (Velocity * (TotalElapsedSeconds - e.when));
+
+				e.point.NextVelocity = Velocity;
+				e.point.NextPosition = Position;
+				e.point.LastCollision = e.collidable;
+
+				// Bump?
 
 
 			}

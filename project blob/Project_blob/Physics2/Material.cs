@@ -8,5 +8,10 @@ namespace Physics2
             throw new System.Exception("The method or operation is not implemented.");
         }
 
+		public float getFriction()
+		{
+			throw new System.Exception("The method or operation is not implemented.");
+		}
+
     }
 }

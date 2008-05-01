@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	class CollidableStaticTri : CollidableStatic
+	public class CollidableStaticTri : CollidableStatic
 	{
 
 		public CollidableStaticTri(Vector3 point1, Vector3 point2, Vector3 point3, BodyStatic parentBody)
@@ -56,7 +56,12 @@ namespace Physics2
 			throw new Exception("The method or operation is not implemented.");
 		}
 
-        public override void ImpartVelocity(Vector3 vel)
+		public override void ApplyForce(Vector3 at, Vector3 f)
+		{
+			throw new Exception("The method or operation is not implemented.");
+		}
+
+        public override void ImpartVelocity(Vector3 at, Vector3 vel)
         {
             throw new Exception("The method or operation is not implemented.");
         }

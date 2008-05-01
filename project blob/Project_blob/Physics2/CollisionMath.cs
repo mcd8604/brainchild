@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	public static class CollisionMath
+	internal static class CollisionMath
 	{
 
 		const float Small_num = float.Epsilon;

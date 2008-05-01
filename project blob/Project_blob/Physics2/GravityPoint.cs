@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	class GravityPoint : Task
+	public class GravityPoint : Task
 	{
 
 		private float Magnitude = 9.8f;

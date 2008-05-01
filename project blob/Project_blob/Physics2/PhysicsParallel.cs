@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Physics2
 {
-	class PhysicsParallel : PhysicsManager
+	internal class PhysicsParallel : PhysicsManager
 	{
 
 		private PhysicsSeq physicsMain;

@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	class CollidableTri : Collidable
+	public class CollidableTri : Collidable
 	{
 
 		public CollidableTri(Point point1, Point point2, Point point3, Body parentBody)
@@ -55,7 +55,12 @@ namespace Physics2
 			throw new System.Exception("The method or operation is not implemented.");
 		}
 
-        public override void ImpartVelocity(Vector3 vel)
+		public override void ApplyForce(Vector3 at, Vector3 f)
+		{
+			throw new System.Exception("The method or operation is not implemented.");
+		}
+
+        public override void ImpartVelocity(Vector3 at, Vector3 vel)
         {
             throw new System.Exception("The method or operation is not implemented.");
         }

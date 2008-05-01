@@ -5,30 +5,28 @@ namespace Physics2
 	public class Point
 	{
 
-		public bool isStatic;
+		public bool isStatic = false;
 
-		public bool relativelyStatic;
+		internal bool relativelyStatic = false;
 
-		private Vector3 currentPosition = Vector3.Zero;
-		public Vector3 CurrentPosition
-		{
-			get { return currentPosition; }
-			internal set { currentPosition = value; }
-		}
+		public Vector3 ExternalPosition = Vector3.Zero;
+		public Vector3 ExternalVelocity = Vector3.Zero;
 
-		public Vector3 CurrentVelocity;
+		internal Vector3 CurrentPosition = Vector3.Zero;
+		internal Vector3 CurrentVelocity = Vector3.Zero;
 
-		public Vector3 PotentialPosition;
+		internal Vector3 PotentialPosition = Vector3.Zero;
+		internal Vector3 PotentialVelocity = Vector3.Zero;
 
-		public Vector3 PotentialVelocity;
+		internal Vector3 NextPosition = Vector3.Zero;
+		internal Vector3 NextVelocity = Vector3.Zero;
 
-		public Collidable LastCollision;
+		public Collidable LastCollision = null;
 
-		public Vector3 ForceThisFrame;
+		public Vector3 ForceThisFrame = Vector3.Zero;
+		public Vector3 AccelerationThisFrame = Vector3.Zero;
 
-		public Vector3 AccelerationThisFrame;
-
-		public Vector3 Mass;
+		public float Mass = 1f;
 
 		public void updatePosition()
 		{
