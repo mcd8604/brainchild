@@ -20,7 +20,6 @@ namespace Physics
         private float physicsTimeMsec = 0;
 
         private const int physicsDivisor = 2;
-        private const int physicsMultiplier = 1;
 
         public override float PWR
         {
