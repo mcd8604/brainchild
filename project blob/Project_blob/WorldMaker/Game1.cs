@@ -299,16 +299,30 @@ namespace WorldMaker
         {
             PresentationParameters pp = GraphicsDevice.PresentationParameters;
 
-            RenderTarget2D sceneRenderTarget = new RenderTarget2D(GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+			RenderTarget2D sceneRenderTarget = new RenderTarget2D(GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            RenderTarget2D normalDepthRenderTarget = new RenderTarget2D(GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+			RenderTarget2D normalDepthRenderTarget = new RenderTarget2D(GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            _activeArea.Display.SceneRanderTarget = sceneRenderTarget;
-            _activeArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+			RenderTarget2D distortionMap = new RenderTarget2D(GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+			ResolveTexture2D tempRenderTarget = new ResolveTexture2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat);
+
+			RenderTarget2D depthBufferRenderTarget = new RenderTarget2D(GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+			_activeArea.Display.SceneRanderTarget = sceneRenderTarget;
+			_activeArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+			_activeArea.Display.DistortionMap = distortionMap;
+			_activeArea.Display.TempRenderTarget = tempRenderTarget;
+			_activeArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
         }
 
         public static void SetUpCinematicCamera(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
