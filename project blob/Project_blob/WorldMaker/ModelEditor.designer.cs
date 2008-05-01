@@ -420,6 +420,7 @@ namespace WorldMaker
             this.removeRoom.TabIndex = 8;
             this.removeRoom.Text = "-";
             this.removeRoom.UseVisualStyleBackColor = true;
+            this.removeRoom.Click += new System.EventHandler(this.removeRoom_Click_1);
             // 
             // addRoom
             // 
@@ -429,6 +430,7 @@ namespace WorldMaker
             this.addRoom.TabIndex = 7;
             this.addRoom.Text = "+";
             this.addRoom.UseVisualStyleBackColor = true;
+            this.addRoom.Click += new System.EventHandler(this.addRoom_Click_1);
             // 
             // roomTextBox
             // 
