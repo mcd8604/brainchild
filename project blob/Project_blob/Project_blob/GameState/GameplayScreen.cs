@@ -38,7 +38,6 @@ namespace Project_blob.GameState
 		Effect postprocessEffect;
 		Effect distortEffect;
 		Effect distorterEffect;
-		Effect depthBufferEffect;
 
 		RenderTarget2D sceneRenderTarget;
 		RenderTarget2D normalDepthRenderTarget;
@@ -182,7 +181,7 @@ namespace Project_blob.GameState
 			distortEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distort");
 			distorterEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distorters");
 
-			depthBufferEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\DepthBuffer");
+			//cartoonEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\DepthBuffer");
 
 			//load skybox
 			//skyBox = ScreenManager.Content.Load<Model>(@"Models\\skyBox");
@@ -358,7 +357,7 @@ namespace Project_blob.GameState
 			EffectManager.getSingleton.AddEffect("basic", be);
 
 			cartoonEffect.Parameters["World"].SetValue(worldMatrix);
-			cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
+            cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["TextureEnabled"].SetValue(true);
 
@@ -373,9 +372,9 @@ namespace Project_blob.GameState
 			EffectManager.getSingleton.AddEffect("Distorter", distorterEffect);
 			EffectManager.getSingleton.AddEffect("Distort", distortEffect);
 
-			depthBufferEffect.Parameters["MaxDepth"].SetValue(CameraManager.getSingleton.ActiveCamera.FarPlane);
+			cartoonEffect.Parameters["MaxDepth"].SetValue(60);
 
-			EffectManager.getSingleton.AddEffect("DepthBuffer", depthBufferEffect);
+			//EffectManager.getSingleton.AddEffect("DepthBuffer", depthBufferEffect);
 
 
 		}
@@ -461,12 +460,14 @@ namespace Project_blob.GameState
 				if (!paused)
 				{
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
-					Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
-					tempPos.Y += 2;
-					depthBufferEffect.Parameters["LightPos"].SetValue(tempPos);
-					Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), new Vector3(tempPos.X, tempPos.Y - 2, tempPos.Z), Vector3.Up) *
-						Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
-					depthBufferEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
+
+                    Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
+                    tempPos.Y += 3;
+                    cartoonEffect.Parameters["LightPos"].SetValue(tempPos);
+                    Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), theBlob.getCenter(), new Vector3(0,0,1)) *
+                        Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
+                    cartoonEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
+
 				}
 				physicsTime.Stop();
 
@@ -601,6 +602,11 @@ namespace Project_blob.GameState
 					DEBUG_MaxDraw = -1;
 					DEBUG_MinDraw = -1;
 				}
+
+                if(InputHandler.IsKeyPressed(Keys.OemPlus))
+                {
+                    currentArea.Display.saveOut = true;
+                }
 
 				// Xbox
 				if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
