@@ -11,6 +11,10 @@ float4x4 World;
 float4x4 View;
 float4x4 Projection;
 
+float xLightPower;
+
+float4x4 LightWorldViewProjection;
+
 // The light direction is shared between the Lambert and Toon lighting techniques.
 float3 LightDirection = normalize(float3(1, 1, 1));
 
@@ -25,6 +29,18 @@ float ToonBrightnessLevels[3] = { 1.3, 0.9, 0.5 };
 // Is texturing enabled?
 bool TextureEnabled;
 
+
+float4 LightPos;
+
+float MaxDepth;
+
+Texture ShadowMap;
+
+sampler ShadowMapSampler = sampler_state { texture = <ShadowMap> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = clamp; AddressV = clamp;};
+
+//Texture ColoredTexture;
+
+//sampler ColoredTextureSampler = sampler_state { texture = <ColoredTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = mirror; AddressV = mirror;};
 
 // The main texture applied to the object, and a sampler for reading it.
 texture Texture;
@@ -180,6 +196,37 @@ float4 SkyBoxPixelShader(LightingPixelShaderInput input) : COLOR0
     return color;
 }
 
+
+struct SMapVertexToPixel
+{
+	 float4 Position     : POSITION;
+	 float3 Position2D    : TEXCOORD1;
+};
+
+struct SMapPixelToFrame
+{
+	float4 Color : COLOR0;
+};
+
+SMapVertexToPixel ShadowMapVertexShader( float4 inPos : POSITION)
+{
+	 SMapVertexToPixel Output = (SMapVertexToPixel)0;
+
+	 Output.Position = mul(inPos, LightWorldViewProjection);
+	 Output.Position2D = Output.Position;
+
+	 return Output;
+}
+
+SMapPixelToFrame ShadowMapPixelShader(SMapVertexToPixel PSIn)
+{
+	SMapPixelToFrame Output = (SMapPixelToFrame)0;
+
+	Output.Color = PSIn.Position2D.z/MaxDepth;
+
+	return Output;
+}
+
 // Technique draws the object using smooth Lambert shading.
 technique Lambert
 {
@@ -220,4 +267,14 @@ technique SkyBox
         VertexShader = compile vs_1_1 SkyboxVertexShader();
         PixelShader = compile ps_1_1 SkyBoxPixelShader();
     }
+}
+
+
+technique ShadowMap
+{
+	pass Pass0
+	{
+		VertexShader = compile vs_2_0 ShadowMapVertexShader();
+		PixelShader = compile ps_2_0 ShadowMapPixelShader();
+	}
 }

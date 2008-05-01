@@ -2,7 +2,7 @@
 float4x4 LightWorldViewProjection;
 float4x4 World;
 float4 LightPos;
-float LightPower;
+//float LightPower;
 
 float MaxDepth;
 //bool UseBrownInsteadOfTextures;

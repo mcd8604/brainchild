@@ -88,6 +88,8 @@ namespace Project_blob
         SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
         SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
 
+        public bool saveOut = false;
+
         bool m_ShowAxis = false;
         public bool ShowAxis
         {
@@ -332,19 +334,19 @@ namespace Project_blob
                     EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["NormalDepth"];
                     foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                     {
-                        if (ti.SortNumber != currentTextureNumber)
-                        {
-                            if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                            {
-                                ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                            }
-                            else
-                            {
-                                graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                                if (m_TextureParameterName != "NONE")
-                                    EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-                            }
-                        }
+                        //if (ti.SortNumber != currentTextureNumber)
+                        //{
+                        //    if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
+                        //    {
+                        //        ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                        //    }
+                        //    else
+                        //    {
+                        //        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                        //        if (m_TextureParameterName != "NONE")
+                        //            EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                        //    }
+                        //}
 
                         foreach (Drawable d in drawable_List_Drawn[ti])
                         {
@@ -372,65 +374,56 @@ namespace Project_blob
                     }
                 }
 
-                //if (m_DepthMapRenderTarget != null && EffectManager.getSingleton.GetEffect("DepthBuffer") != null)
-                //{
-                //    graphicsDevice.SetRenderTarget(0, m_DepthMapRenderTarget);
-                //    graphicsDevice.Clear(Color.Black);
-                //    String tempEffectName = _effectName;
-                //    _effectName = "DepthBuffer";
-                //    EffectManager.getSingleton.GetEffect("DepthBuffer").CurrentTechnique = EffectManager.getSingleton.GetEffect("DepthBuffer").Techniques["ShadowMap"];
-                //    foreach (TextureInfo ti in drawable_List_Drawn.Keys)
-                //    {
-                //        if (ti.SortNumber != currentTextureNumber)
-                //        {
-                //            if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                //            {
-                //                ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                //            }
-                //            else
-                //            {
-                //                graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                //                if (m_TextureParameterName != "NONE" && _effectName != "DepthBuffer")
-                //                    EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-                //            }
-                //        }
+                if (m_DepthMapRenderTarget != null) {
+                    graphicsDevice.SetRenderTarget(0, m_DepthMapRenderTarget);
+                    graphicsDevice.Clear(Color.Black);
+                    
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("cartoonEffect").Techniques["ShadowMap"];
+                    foreach (TextureInfo ti in drawable_List_Drawn.Keys) {
+                        //if (ti.SortNumber != currentTextureNumber) {
+                        //    if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect) {
+                        //        ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                        //    } else {
+                        //        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                        //        if (m_TextureParameterName != "NONE" && _effectName != "DepthBuffer")
+                        //            EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                        //    }
+                        //}
 
-                //        foreach (Drawable d in drawable_List_Drawn[ti])
-                //        {
-                //            if (d is StaticModel)
-                //            {
-                //                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                        foreach (Drawable d in drawable_List_Drawn[ti]) {
+                            if (d is StaticModel) {
+                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
 
-                //            }
-                //            else
-                //            {
-                //                DrawPrimitives(d, graphicsDevice);
-                //            }
-                //        }
-                //        if (theBlob != null)
-                //        {
-                //            EffectManager.getSingleton.GetEffect("DepthBuffer").Begin();
-                //            foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("DepthBuffer").CurrentTechnique.Passes)
-                //            {
-                //                pass.Begin();
-                //                theBlob.DrawMe();
-                //                pass.End();
-                //            }
-                //            EffectManager.getSingleton.GetEffect("DepthBuffer").End();
-                //        }
-                //    }
-                //    _effectName = tempEffectName;
-                //}
+                            } else {
+                                DrawPrimitives(d, graphicsDevice);
+                            }
+                        }
+                        if (theBlob != null) {
+                            EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                            foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes) {
+                                pass.Begin();
+                                theBlob.DrawMe();
+                                pass.End();
+                            }
+                            EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+                        }
+                    }
+                }
 
                 graphicsDevice.SetRenderTarget(0, null);
-                //m_DepthMapRenderTarget.GetTexture().Save("DepthMap.png", ImageFileFormat.Png);
+                if (saveOut) {
+                    m_DepthMapRenderTarget.GetTexture().Save("DepthMap.bmp", ImageFileFormat.Bmp);
+                    m_DepthMapRenderTarget.GetTexture().Save("DepthMap.png", ImageFileFormat.Png);
+                    saveOut = false;
+                }
 
                 if(m_SceneRenderTarget != null && !DEBUG_WireframeMode)
                     graphicsDevice.SetRenderTarget(0, m_SceneRenderTarget);
                 else
                     graphicsDevice.SetRenderTarget(0, null);
 
-                
+                EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["ShadowMap"].SetValue(m_DepthMapRenderTarget.GetTexture());
+
                 graphicsDevice.Clear(Color.CornflowerBlue);
 
                 if(_effectName == "cartoonEffect")
@@ -503,8 +496,7 @@ namespace Project_blob
 
                 EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
                 EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-                foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
-                {
+                foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes) {
                     pass.Begin();
                     theBlob.DrawMe();
                     pass.End();
@@ -539,7 +531,8 @@ namespace Project_blob
             Stack<Matrix> drawStack = new Stack<Matrix>();
             Matrix currentWorld = p_CurrentWorld;
 
-            if(_effectName == "cartoonEffect")
+            if (_effectName == "cartoonEffect" && EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique != EffectManager.getSingleton.GetEffect(_effectName).Techniques["ShadowMap"] &&
+                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique != EffectManager.getSingleton.GetEffect(_effectName).Techniques["ShadowedScene"])
             {
                 if (d.Name == "sky")
                     EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["SkyBox"];
