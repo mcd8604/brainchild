@@ -352,30 +352,30 @@ namespace Project_blob
                         //    }
                         //}
 
-                        foreach (Drawable d in drawable_List_Drawn[ti])
-                        {
-                            if (d is StaticModel)
-                            {
-                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+						foreach (Drawable d in drawable_List_Drawn[ti])
+						{
+							if (d is StaticModel)
+							{
+								DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
 
-                            }
-                            else
-                            {
-                                DrawPrimitives(d, graphicsDevice);
-                            }
-                        }
-                        if (theBlob != null)
-                        {
-                            EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-                            foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
-                            {
-                                pass.Begin();
-                                theBlob.DrawMe();
-                                pass.End();
-                            }
-                            EffectManager.getSingleton.GetEffect("cartoonEffect").End();
-                        }
+							}
+							else
+							{
+								DrawPrimitives(d, graphicsDevice);
+							}
+						}
                     }
+					if (theBlob != null)
+					{
+						EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+						foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+						{
+							pass.Begin();
+							theBlob.DrawMe();
+							pass.End();
+						}
+						EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+					}
                 }
 
                 if (m_DepthMapRenderTarget != null) {
@@ -384,15 +384,19 @@ namespace Project_blob
                     
                     EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("cartoonEffect").Techniques["ShadowMap"];
                     foreach (TextureInfo ti in drawable_List_Drawn.Keys) {
-                        //if (ti.SortNumber != currentTextureNumber) {
-                        //    if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect) {
-                        //        ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                        //    } else {
-                        //        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                        //        if (m_TextureParameterName != "NONE" && _effectName != "DepthBuffer")
-                        //            EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-                        //    }
-                        //}
+						if (ti.SortNumber != currentTextureNumber)
+						{
+							if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
+							{
+								((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
+							}
+							else
+							{
+								graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+								if (m_TextureParameterName != "NONE" && _effectName != "DepthBuffer")
+									EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+							}
+						}
 
                         foreach (Drawable d in drawable_List_Drawn[ti]) {
                             if (d is StaticModel) {
@@ -402,16 +406,19 @@ namespace Project_blob
                                 DrawPrimitives(d, graphicsDevice);
                             }
                         }
-                        if (theBlob != null) {
-                            EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-                            foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes) {
-                                pass.Begin();
-                                theBlob.DrawMe();
-                                pass.End();
-                            }
-                            EffectManager.getSingleton.GetEffect("cartoonEffect").End();
-                        }
+                        
                     }
+					if (theBlob != null)
+					{
+						EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+						foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+						{
+							pass.Begin();
+							theBlob.DrawMe();
+							pass.End();
+						}
+						EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+					}
                 }
 
                 graphicsDevice.SetRenderTarget(0, null);
