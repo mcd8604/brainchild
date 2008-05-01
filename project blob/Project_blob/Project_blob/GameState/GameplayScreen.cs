@@ -462,7 +462,7 @@ namespace Project_blob.GameState
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
                     Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
-                    tempPos.Y += 3;
+                    tempPos.Y += 10;
                     cartoonEffect.Parameters["LightPos"].SetValue(tempPos);
                     Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), theBlob.getCenter(), new Vector3(0,0,1)) *
                         Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
