@@ -330,33 +330,36 @@ namespace WorldMaker
 
 		private void EventButton_Click(object sender, EventArgs e)
 		{
-			EventTrigger existingEvent = null;
-			if( _gameRef.ActiveArea.Events.ContainsKey(((StaticModel)_gameRef.ActiveDrawable).Name)) {
-				existingEvent = _gameRef.ActiveArea.Events[((StaticModel)_gameRef.ActiveDrawable).Name];
-			}
+            if (_gameRef.ActiveDrawable != null)
+            {
+                EventTrigger existingEvent = null;
+                if (_gameRef.ActiveArea.Events.ContainsKey(((StaticModel)_gameRef.ActiveDrawable).Name))
+                {
+                    existingEvent = _gameRef.ActiveArea.Events[((StaticModel)_gameRef.ActiveDrawable).Name];
+                }
 
-			if (existingEvent == null)
-			{
-				EventSelector selector = new EventSelector();
-				selector.ShowDialog();
-				if (selector.EventTrigger != null)
-				{
-					EventInfo newEvent = new EventInfo();
-					newEvent.eventTrigger = selector.EventTrigger;
-					newEvent.name = ((StaticModel)_gameRef.ActiveDrawable).Name;
-					existingEvent = newEvent.eventTrigger;
-					_eventsToAdd.Add(newEvent);
-				}
-			}
-
-
-			if (existingEvent != null)
-			{
-				EventSetter setter = new EventSetter(existingEvent);
-				setter.ShowDialog();
-			}
+                if (existingEvent == null)
+                {
+                    EventSelector selector = new EventSelector();
+                    selector.ShowDialog();
+                    if (selector.EventTrigger != null)
+                    {
+                        EventInfo newEvent = new EventInfo();
+                        newEvent.eventTrigger = selector.EventTrigger;
+                        newEvent.name = ((StaticModel)_gameRef.ActiveDrawable).Name;
+                        existingEvent = newEvent.eventTrigger;
+                        _eventsToAdd.Add(newEvent);
+                    }
+                }
 
 
+                if (existingEvent != null)
+                {
+                    EventSetter setter = new EventSetter(existingEvent);
+                    setter.ShowDialog();
+                }
+
+            }
 		}
 
 	}
