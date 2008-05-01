@@ -55,7 +55,7 @@ namespace WorldMaker
 				_gameRef.ActiveArea = Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]];
 
 				//*hardcode*
-				_gameRef.ActiveArea.Display.EffectName = "CartoonEffect";
+				_gameRef.ActiveArea.Display.EffectName = "cartoonEffect";
 				_gameRef.ActiveArea.Display.WorldParameterName = "World";
 				_gameRef.ActiveArea.Display.TextureParameterName = "Texture";
 				_gameRef.ActiveArea.Display.TechniqueName = "Lambert";
@@ -75,32 +75,33 @@ namespace WorldMaker
 
         public void CreateRenderTargets()
         {
-            PresentationParameters pp = _gameRef.GraphicsDevice.PresentationParameters;
+			PresentationParameters pp = _gameRef.GraphicsDevice.PresentationParameters;
 
-            RenderTarget2D sceneRenderTarget = new RenderTarget2D(_gameRef.GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+			RenderTarget2D sceneRenderTarget = new RenderTarget2D(_gameRef.GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            RenderTarget2D normalDepthRenderTarget = new RenderTarget2D(_gameRef.GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+			RenderTarget2D normalDepthRenderTarget = new RenderTarget2D(_gameRef.GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            RenderTarget2D distortionMap = new RenderTarget2D(_gameRef.GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+			RenderTarget2D distortionMap = new RenderTarget2D(_gameRef.GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            ResolveTexture2D tempRenderTarget = new ResolveTexture2D(_gameRef.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat);
+			ResolveTexture2D tempRenderTarget = new ResolveTexture2D(_gameRef.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat);
 
-            RenderTarget2D depthBufferRenderTarget = new RenderTarget2D(_gameRef.GraphicsDevice,
-                pp.BackBufferWidth, pp.BackBufferHeight, 1,
-                pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+			RenderTarget2D depthBufferRenderTarget = new RenderTarget2D(_gameRef.GraphicsDevice,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            _gameRef.ActiveArea.Display.SceneRanderTarget = sceneRenderTarget;
-            _gameRef.ActiveArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
-            _gameRef.ActiveArea.Display.DistortionMap = distortionMap;
-            _gameRef.ActiveArea.Display.TempRenderTarget = tempRenderTarget;
-            _gameRef.ActiveArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
+			_gameRef.ActiveArea.Display.SceneRanderTarget = sceneRenderTarget;
+			_gameRef.ActiveArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+			_gameRef.ActiveArea.Display.DistortionMap = distortionMap;
+			_gameRef.ActiveArea.Display.TempRenderTarget = tempRenderTarget;
+			_gameRef.ActiveArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
+
         }
 
 		private void modelListBox_SelectedIndexChanged(object sender, EventArgs e)
