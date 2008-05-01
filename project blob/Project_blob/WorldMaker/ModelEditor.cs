@@ -569,76 +569,81 @@ namespace WorldMaker
 			}
 			else
 			{
-
-				if (m_Game.ActiveDrawable is StaticModel)
+				try
 				{
-					StaticModel m = ((StaticModel)m_Game.ActiveDrawable);
-
-					Vector3 theTranslation;
-					Quaternion theRotation;
-					Vector3 theScale;
-
-					Matrix transformMatrix = Matrix.Identity;
-					Stack<Matrix> drawStack = new Stack<Matrix>();
-					for (int j = 0; j < 4; j++)
+					if (m_Game.ActiveDrawable is StaticModel)
 					{
-						for (int i = 0; i < 3; i++)
+						StaticModel m = ((StaticModel)m_Game.ActiveDrawable);
+
+						Vector3 theTranslation;
+						Quaternion theRotation;
+						Vector3 theScale;
+
+						Matrix transformMatrix = Matrix.Identity;
+						Stack<Matrix> drawStack = new Stack<Matrix>();
+						for (int j = 0; j < 4; j++)
 						{
-							if (m.PriorityArray[i] == j)
+							for (int i = 0; i < 3; i++)
 							{
-								switch (i)
+								if (m.PriorityArray[i] == j)
 								{
-									case 0:
-										if (m.Position != null)
-											drawStack.Push(m.Position);
-										break;
-									case 1:
-										if (m.Rotation != null)
-											drawStack.Push(m.Rotation);
-										break;
-									case 2:
-										if (m.Scale != null)
-											drawStack.Push(m.Scale);
-										break;
-									default:
-										break;
+									switch (i)
+									{
+										case 0:
+											if (m.Position != null)
+												drawStack.Push(m.Position);
+											break;
+										case 1:
+											if (m.Rotation != null)
+												drawStack.Push(m.Rotation);
+											break;
+										case 2:
+											if (m.Scale != null)
+												drawStack.Push(m.Scale);
+											break;
+										default:
+											break;
+									}
 								}
 							}
 						}
-					}
 
-					while (drawStack.Count > 0)
-					{
-						transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
-					}
-					transformMatrix.Decompose(out theScale, out theRotation, out theTranslation);
+						while (drawStack.Count > 0)
+						{
+							transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
+						}
+						transformMatrix.Decompose(out theScale, out theRotation, out theTranslation);
 
-					PositionX.Text = theTranslation.X.ToString();
-					PositionY.Text = theTranslation.Y.ToString();
-					PositionZ.Text = theTranslation.Z.ToString();
+						PositionX.Text = theTranslation.X.ToString();
+						PositionY.Text = theTranslation.Y.ToString();
+						PositionZ.Text = theTranslation.Z.ToString();
 
-					//((StaticModel)m_Game.ActiveDrawable).Rotation.Decompose(out theScale, out theRotation, out theTranslation);
+						//((StaticModel)m_Game.ActiveDrawable).Rotation.Decompose(out theScale, out theRotation, out theTranslation);
 
-					//RotationXValue.Text = MathHelper.ToDegrees(theRotation.X).ToString();
-					//RotationYValue.Text = MathHelper.ToDegrees(theRotation.Y).ToString();
-					//RotationZValue.Text = MathHelper.ToDegrees(theRotation.Z).ToString();
+						//RotationXValue.Text = MathHelper.ToDegrees(theRotation.X).ToString();
+						//RotationYValue.Text = MathHelper.ToDegrees(theRotation.Y).ToString();
+						//RotationZValue.Text = MathHelper.ToDegrees(theRotation.Z).ToString();
 
-					RotationXValue.Text = "-";
-					RotationYValue.Text = "-";
-					RotationZValue.Text = "-";
+						RotationXValue.Text = "-";
+						RotationYValue.Text = "-";
+						RotationZValue.Text = "-";
 
-					ScaleXValue.Text = theScale.X.ToString();
-					ScaleYValue.Text = theScale.Y.ToString();
-					ScaleZValue.Text = theScale.Z.ToString();
+						ScaleXValue.Text = theScale.X.ToString();
+						ScaleYValue.Text = theScale.Y.ToString();
+						ScaleZValue.Text = theScale.Z.ToString();
 
-                    textureScaleX.Text = m.TextureScaleX.ToString();
-                    textureScaleY.Text = m.TextureScaleY.ToString();
-                    repeatTexture_cb.Checked = m.RepeatingTexture;
+						textureScaleX.Text = m.TextureScaleX.ToString();
+						textureScaleY.Text = m.TextureScaleY.ToString();
+						repeatTexture_cb.Checked = m.RepeatingTexture;
 
 					updateRoomList();
+
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex);
 				}
 			}
-
 		}
 
 		private void updateRoomList()
@@ -646,7 +651,9 @@ namespace WorldMaker
 			roomList.Items.Clear();
 			foreach (int s in ((StaticModel)m_Game.ActiveDrawable).GetRooms())
 			{
+
 				roomList.Items.Add(s);		
+
 			}
             roomList.Update();
 		}
@@ -656,6 +663,7 @@ namespace WorldMaker
 			throw new Exception("Not Implemented");
 		}
 
+
         private void repeatTexture_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (m_Game.ActiveDrawable is StaticModel)
@@ -664,38 +672,42 @@ namespace WorldMaker
             }
         }
 
-        private void textureScaleX_TextChanged(object sender, EventArgs e)
-        {
-            if (m_Game.ActiveDrawable is StaticModel)
-            {
-                float xScale = 0f;
-                if (float.TryParse(textureScaleX.Text, out xScale))
-                {
-                    ((StaticModel)m_Game.ActiveDrawable).TextureScaleX = xScale;
-                }
-            }
-        }
 
-        private void textureScaleY_TextChanged(object sender, EventArgs e)
-        {
-            if (m_Game.ActiveDrawable is StaticModel)
-            {
-                float yScale = 0f;
-                if(float.TryParse(textureScaleY.Text, out yScale)) {
-                    ((StaticModel)m_Game.ActiveDrawable).TextureScaleY = yScale;
-                }
-            }
-        }
+		private void textureScaleX_TextChanged(object sender, EventArgs e)
+		{
+			if (m_Game.ActiveDrawable is StaticModel)
+			{
+				float xScale = 0f;
+				if (float.TryParse(textureScaleX.Text, out xScale))
+				{
+					((StaticModel)m_Game.ActiveDrawable).TextureScaleX = xScale;
+				}
+			}
+		}
+
+		private void textureScaleY_TextChanged(object sender, EventArgs e)
+		{
+			if (m_Game.ActiveDrawable is StaticModel)
+			{
+				float yScale = 0f;
+				if (float.TryParse(textureScaleY.Text, out yScale))
+				{
+					((StaticModel)m_Game.ActiveDrawable).TextureScaleY = yScale;
+				}
+			}
+		}
 
 		private void addRoom_Click(object sender, EventArgs e)
 		{
+
 			string text = roomTextBox.Text;
 			if (m_Game.ActiveDrawable != null && !text.Equals(String.Empty))
+
 			{
 				short roomNum;
-                if (short.TryParse(text, out roomNum))
+				if (short.TryParse(text, out roomNum))
 				{
-                    ((StaticModel)m_Game.ActiveDrawable).AddRoom(roomNum);
+					((StaticModel)m_Game.ActiveDrawable).AddRoom(roomNum);
 					updateRoomList();
 				}
 			}
