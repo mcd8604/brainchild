@@ -471,6 +471,14 @@ namespace Project_blob.GameState
 				}
 				physicsTime.Stop();
 
+                if (InputHandler.IsKeyPressed(Keys.PageUp))
+                {
+                    physics.physicsMultiplier *= 1.1f;
+                } else if (InputHandler.IsKeyPressed(Keys.PageDown))
+                {
+                    physics.physicsMultiplier *= 0.9f;
+                }
+
 				// actually, shouldn't the skybox be centered around /the camera/ instead of the blob?
 				if (currentArea.Display.SkyBox != null)
 					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
@@ -711,15 +719,15 @@ namespace Project_blob.GameState
 
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.PageUp))
+				if (InputHandler.IsKeyDown(Keys.Home))
 				{
-					theBlob.setSpringLength(0.1f);
-					cameraLengthMulti *= 1.015f;
+					theBlob.setSpringLength(-0.001f);
+					//cameraLengthMulti *= 1.015f;
 				}
-				else if (InputHandler.IsKeyPressed(Keys.PageDown))
+				else if (InputHandler.IsKeyDown(Keys.End))
 				{
-					theBlob.setSpringLength(-0.1f);
-					cameraLengthMulti *= 0.985f;
+					theBlob.setSpringLength(0.001f);
+					//cameraLengthMulti *= 0.985f;
 				}
 
 
@@ -1108,6 +1116,7 @@ namespace Project_blob.GameState
 			spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(600, 30), Color.White);
 
 			spriteBatch.DrawString(font, "PWR: " + physics.PWR, new Vector2(0, 566), Color.White);
+            spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
 
 			spriteBatch.End();
 
