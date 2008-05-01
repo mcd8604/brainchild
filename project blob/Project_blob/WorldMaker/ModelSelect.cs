@@ -102,7 +102,7 @@ namespace WorldMaker
             }
             else
             {
-                m_CurrentModel = new StaticModel("none", "none", "none");
+                m_CurrentModel = new StaticModel("none", "none", "none", new List<short>());
                 originalModel = m_CurrentModel.ModelName;
                 Random rand = new Random();
                 m_CurrentTexture = new TextureInfo(null, rand.Next());

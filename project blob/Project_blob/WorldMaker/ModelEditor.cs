@@ -644,7 +644,7 @@ namespace WorldMaker
 		private void updateSectorList()
 		{
 			sectorList.Items.Clear();
-			foreach (int s in ((StaticModel)m_Game.ActiveDrawable).GetSectors())
+			foreach (int s in ((StaticModel)m_Game.ActiveDrawable).GetRooms())
 			{
 				sectorList.Items.Add(s);		
 			}
@@ -691,10 +691,10 @@ namespace WorldMaker
 			string text = sectorTextBox.Text;
 			if ( text != null && text.Length > 0)
 			{
-				int sectorNum;
-				if (int.TryParse(text, out sectorNum))
+				short roomNum;
+                if (short.TryParse(text, out roomNum))
 				{
-					((StaticModel)m_Game.ActiveDrawable).AddSector(sectorNum);
+                    ((StaticModel)m_Game.ActiveDrawable).AddRoom(roomNum);
 					updateSectorList();
 				}
 			}
@@ -704,7 +704,7 @@ namespace WorldMaker
 		{
 			if (sectorList.SelectedIndex != -1)
 			{
-				((StaticModel)m_Game.ActiveDrawable).RemoveSector((int)sectorList.SelectedItem);
+				((StaticModel)m_Game.ActiveDrawable).RemoveRoom((short)sectorList.SelectedItem);
 			}
 		}
 	}

@@ -388,24 +388,21 @@ namespace Project_blob
             }
         }
 
-		private List<int> m_Sectors;
-		public List<int> GetSectors()
+		private List<short> _rooms;
+        public List<short> GetRooms()
 		{
-			return m_Sectors;
+            return _rooms;
 		}
-		public void AddSector(int sector)
+        public void AddRoom(short room)
 		{
-			if (!m_Sectors.Contains(sector))
+            if (!_rooms.Contains(room))
 			{
-				m_Sectors.Add(sector);
+                _rooms.Add(room);
 			}
 		}
-		public void RemoveSector(int sector)
+        public void RemoveRoom(short room)
 		{
-			if (!m_Sectors.Contains(sector))
-			{
-				m_Sectors.Remove(sector);
-			}
+            _rooms.Remove(room);
 		}
 
         public VertexBuffer getVertexBuffer()
@@ -413,7 +410,7 @@ namespace Project_blob
             return null;
         }
 
-        public StaticModel(String p_Name, String fileName, String audioName)
+        public StaticModel(String p_Name, String fileName, String audioName, List<short> rooms)
         {
             m_Name = p_Name;
             _modelName = fileName;
@@ -422,7 +419,7 @@ namespace Project_blob
             RotationPriority = 1;
             ScalePriority = 0;
 
-			
+            _rooms = rooms;
 
             m_Position = Matrix.CreateTranslation( Vector3.Zero );
             m_Rotation = Matrix.CreateRotationZ( 0 );
@@ -431,7 +428,7 @@ namespace Project_blob
             m_TextureKey = null;
         }
 
-        public StaticModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey)
+        public StaticModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms)
         {
             m_Name = p_Name;
             _modelName = fileName;
@@ -440,7 +437,7 @@ namespace Project_blob
             RotationPriority = 1;
             ScalePriority = 0;
 
-			
+            _rooms = rooms;
 
             m_Position = Matrix.CreateTranslation(Vector3.Zero);
             m_Rotation = Matrix.CreateRotationZ(0);

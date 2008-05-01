@@ -217,7 +217,7 @@ namespace Project_blob.GameState
 			}
 
 			ti = new TextureInfo("cloudsky", 0);
-			sky = new StaticModel("sky", "skyBox", "none", ti);
+			sky = new StaticModel("sky", "skyBox", "none", ti, new List<short>());
 			sky.TextureName = "cloudsky";
 			sky.Scale = Matrix.CreateScale(750f);
 
