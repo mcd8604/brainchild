@@ -70,8 +70,9 @@ namespace Project_blob
 
 			foreach (Physics.Spring s in springs)
 			{
-				s.MaximumLengthBeforeExtension += delta;
-				s.MinimumLengthBeforeCompression += delta;
+				//s.MaximumLengthBeforeExtension += delta;
+				//s.MinimumLengthBeforeCompression += delta;
+                s.LengthOffset += delta;
 			}
 
 		}
