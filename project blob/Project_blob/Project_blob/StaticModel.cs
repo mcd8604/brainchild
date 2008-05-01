@@ -388,6 +388,26 @@ namespace Project_blob
             }
         }
 
+		private List<int> m_Sectors;
+		public List<int> GetSectors()
+		{
+			return m_Sectors;
+		}
+		public void AddSector(int sector)
+		{
+			if (!m_Sectors.Contains(sector))
+			{
+				m_Sectors.Add(sector);
+			}
+		}
+		public void RemoveSector(int sector)
+		{
+			if (!m_Sectors.Contains(sector))
+			{
+				m_Sectors.Remove(sector);
+			}
+		}
+
         public VertexBuffer getVertexBuffer()
         {
             return null;

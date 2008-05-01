@@ -40,15 +40,11 @@ namespace WorldMaker
 
 		}
 
-		#region Scale
-		/*
-         * Scale
-         */
-
 		#region Mins
 		/*
          * minumum TrackBar value
          */
+		/*
 		private void MinScaleX_TextChanged(object sender, EventArgs e)
 		{
 			try
@@ -105,12 +101,14 @@ namespace WorldMaker
 				MinScaleZ.ForeColor = Color.Red;
 			}
 		}
+		*/
 		#endregion
 
 		#region Maxs
 		/*
          * Maximum TrackBar values
          */
+		/*
 		private void MaxScaleX_TextChanged(object sender, EventArgs e)
 		{
 			try
@@ -129,7 +127,7 @@ namespace WorldMaker
 				MaxScaleX.ForeColor = Color.Red;
 			}
 		}
-
+		
 		private void MaxScaleY_TextChanged(object sender, EventArgs e)
 		{
 			try
@@ -167,12 +165,14 @@ namespace WorldMaker
 				MaxScaleZ.ForeColor = Color.Red;
 			}
 		}
+		 * */
 		#endregion
 
 		#region Bars
 		/*
          * TrackBars
          */
+		/*
 		private void ScaleX_ValueChanged(object sender, EventArgs e)
 		{
 			ScaleXValue.Text = ScaleX.Value.ToString();
@@ -187,6 +187,7 @@ namespace WorldMaker
 		{
 			ScaleZValue.Text = ScaleZ.Value.ToString();
 		}
+		*/
 		#endregion
 
 		#region Values
@@ -201,7 +202,7 @@ namespace WorldMaker
 				try
 				{
 
-					ScaleZ.Value = Convert.ToInt32(ScaleZValue.Text);
+					//ScaleZ.Value = Convert.ToInt32(ScaleZValue.Text);
 					ScaleZValue.ForeColor = Color.Black;
 				}
 #if VERBOSE
@@ -234,7 +235,7 @@ namespace WorldMaker
 				setScale();
 				try
 				{
-					ScaleY.Value = Convert.ToInt32(ScaleYValue.Text);
+					//ScaleY.Value = Convert.ToInt32(ScaleYValue.Text);
 					ScaleYValue.ForeColor = Color.Black;
 				}
 #if VERBOSE
@@ -267,7 +268,7 @@ namespace WorldMaker
 				setScale();
 				try
 				{
-					ScaleX.Value = Convert.ToInt32(ScaleXValue.Text);
+					//ScaleX.Value = Convert.ToInt32(ScaleXValue.Text);
 					ScaleXValue.ForeColor = Color.Black;
 				}
 #if VERBOSE
@@ -302,7 +303,6 @@ namespace WorldMaker
 			}
 		}
 
-		#endregion
 		#endregion
 
 		#region Rotations
@@ -634,9 +634,20 @@ namespace WorldMaker
                     textureScaleX.Text = m.TextureScaleX.ToString();
                     textureScaleY.Text = m.TextureScaleY.ToString();
                     repeatTexture_cb.Checked = m.RepeatingTexture;
+
+					updateSectorList();
 				}
 			}
 
+		}
+
+		private void updateSectorList()
+		{
+			sectorList.Items.Clear();
+			foreach (int s in ((StaticModel)m_Game.ActiveDrawable).GetSectors())
+			{
+				sectorList.Items.Add(s);		
+			}
 		}
 
 		private void ModelName_TextChanged(object sender, EventArgs e)
@@ -674,5 +685,27 @@ namespace WorldMaker
                 }
             }
         }
+
+		private void addSector_Click(object sender, EventArgs e)
+		{
+			string text = sectorTextBox.Text;
+			if ( text != null && text.Length > 0)
+			{
+				int sectorNum;
+				if (int.TryParse(text, out sectorNum))
+				{
+					((StaticModel)m_Game.ActiveDrawable).AddSector(sectorNum);
+					updateSectorList();
+				}
+			}
+		}
+
+		private void removeSector_Click(object sender, EventArgs e)
+		{
+			if (sectorList.SelectedIndex != -1)
+			{
+				((StaticModel)m_Game.ActiveDrawable).RemoveSector((int)sectorList.SelectedItem);
+			}
+		}
 	}
 }
