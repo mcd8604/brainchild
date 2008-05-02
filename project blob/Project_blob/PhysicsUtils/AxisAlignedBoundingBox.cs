@@ -120,6 +120,12 @@ public class AxisAlignedBoundingBox
 		return false;
 	}
 
+	/// <summary>
+	/// Does a line from pt1 to pt2 intersect this bounding box?
+	/// </summary>
+	/// <param name="pt1"></param>
+	/// <param name="pt2"></param>
+	/// <returns></returns>
 	public bool lineIntersects(Vector3 pt1, Vector3 pt2)
 	{
 		if (Valid)

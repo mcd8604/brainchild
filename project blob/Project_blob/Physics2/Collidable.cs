@@ -7,16 +7,24 @@ namespace Physics2
 
 		private Body parent;
 
+		private AxisAlignedBoundingBox boundingbox;
+
 		public Collidable(Body parentBody)
 		{
 			parent = parentBody;
 		}
 
-		public abstract bool couldIntersect(Vector3 start, Vector3 end);
+		public virtual bool couldIntersect(Vector3 start, Vector3 end)
+		{
+			return boundingbox.lineIntersects(start, end);
+		}
 
 		public abstract float didIntersect(Vector3 start, Vector3 end);
 
-		public abstract AxisAlignedBoundingBox getBoundingBox();
+		public virtual AxisAlignedBoundingBox getBoundingBox()
+		{
+			return boundingbox;
+		}
 
 		public abstract Material getMaterial();
 
@@ -34,7 +42,10 @@ namespace Physics2
 
 		public abstract void ImpartVelocity(Vector3 at, Vector3 vel);
 
-		public abstract bool isSolid();
+		public virtual bool isSolid()
+		{
+			return parent.isSolid();
+		}
 
 		public virtual bool isStatic()
 		{

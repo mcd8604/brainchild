@@ -45,6 +45,11 @@ namespace Physics2
 			return false;
 		}
 
+		public virtual bool isSolid()
+		{
+			return true;
+		}
+
 		public virtual AxisAlignedBoundingBox getBoundingBox()
 		{
 			return boundingBox;
