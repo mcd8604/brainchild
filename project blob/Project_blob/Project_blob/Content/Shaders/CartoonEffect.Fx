@@ -7,6 +7,7 @@
 
 
 // Camera settings.
+
 float4x4 World;
 float4x4 View;
 float4x4 Projection;
@@ -130,7 +131,7 @@ float DotProduct(float4 LightPos, float3 Pos3D, float3 Normal)
 }
 
 // Pixel shader applies a simple Lambert shading algorithm.
-float4 LambertPixelShader(LightingPixelShaderInput input) : COLOR0
+float4 LambertPixelShader(LightingPixelShaderInput input, uniform bool onBlob) : COLOR0
 {
     float4 color = TextureEnabled ? tex2D(Sampler, input.TextureCoordinate) : 0;
     
@@ -138,7 +139,18 @@ float4 LambertPixelShader(LightingPixelShaderInput input) : COLOR0
     ProjectedTexCoords[0] = input.ShadowMapSamplingPos.x/input.ShadowMapSamplingPos.w/2.0f +0.5f;
     ProjectedTexCoords[1] = -input.ShadowMapSamplingPos.y/input.ShadowMapSamplingPos.w/2.0f +0.5f;
     
-    if(input.Position3D.x < (blobCenter.x+1) &&  input.Position3D.x > (blobCenter.x-1) && input.Position3D.z < (blobCenter.z+1) &&  input.Position3D.z > (blobCenter.z-1) && input.Position3D.y < blobCenter.y)
+    float2 xyCoord;
+    xyCoord[0] = input.Position3D.x;
+    xyCoord[1] = input.Position3D.z;
+    
+    float2 blobCenterVector;
+    blobCenterVector[0] = blobCenter.x;
+    blobCenterVector[1] = blobCenter.z;
+    
+    float shadowRadius = 1.0/clamp(distance(blobCenter.y,input.Position3D.y)/2,1,10000);
+    
+    
+    if(distance(xyCoord,blobCenterVector) < shadowRadius && distance(input.Position3D.y, blobCenter.y) < 10 && input.Position3D.y < blobCenter.y && !onBlob)
     {
 		color.rgb = 0;
 		color.a = .5;
@@ -289,10 +301,22 @@ SMapPixelToFrame ShadowMapPixelShader(SMapVertexToPixel PSIn)
 // Technique draws the object using smooth Lambert shading.
 technique Lambert
 {
+	
     pass P0
     {
         VertexShader = compile vs_1_1 LightingVertexShader();
-        PixelShader = compile ps_2_0 LambertPixelShader();
+        PixelShader = compile ps_2_0 LambertPixelShader(false);
+    }
+}
+
+// Technique draws the object using smooth Lambert shading.
+technique LambertOnBlob
+{
+	
+    pass P0
+    {
+        VertexShader = compile vs_1_1 LightingVertexShader();
+        PixelShader = compile ps_2_0 LambertPixelShader(true);
     }
 }
 
