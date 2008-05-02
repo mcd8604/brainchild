@@ -104,8 +104,36 @@ namespace Project_blob
                         for (int i = 0; i < vertices.Length; i++)
                         {
                             //scale the texture coordinates
-                            vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
-                            vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+							if (vertices[i].Normal.Equals(Vector3.Up))
+							{
+								vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
+								vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+							}
+							else if (vertices[i].Normal.Equals(Vector3.Down))
+							{
+								vertices[i].TextureCoordinate.X *= (scaleVector.Z / (m_TextureScaleX * texture.Width));
+								vertices[i].TextureCoordinate.Y *= (scaleVector.X / (m_TextureScaleY * texture.Height));
+							}
+							else if (vertices[i].Normal.Equals(Vector3.Left))
+							{
+								//vertices[i].TextureCoordinate.X *= (scaleVector.Y / (m_TextureScaleX * texture.Width));
+								//vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+							}
+							else if (vertices[i].Normal.Equals(Vector3.Right))
+							{
+								vertices[i].TextureCoordinate.X *= (scaleVector.Z / (m_TextureScaleX * texture.Width));
+								vertices[i].TextureCoordinate.Y *= (scaleVector.Y / (m_TextureScaleY * texture.Height));
+							}
+							else if (vertices[i].Normal.Equals(Vector3.Forward))
+							{
+								vertices[i].TextureCoordinate.X *= (scaleVector.Z / (m_TextureScaleX * texture.Width));
+								vertices[i].TextureCoordinate.Y *= (scaleVector.Y / (m_TextureScaleY * texture.Height));
+							}
+							else if (vertices[i].Normal.Equals(Vector3.Backward))
+							{
+								//vertices[i].TextureCoordinate.X *= (scaleVector.Y/ (m_TextureScaleX * texture.Width));
+								//vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+							}
                         }
                     }
                     m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
