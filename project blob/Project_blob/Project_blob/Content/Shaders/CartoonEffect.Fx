@@ -147,18 +147,13 @@ float4 LambertPixelShader(LightingPixelShaderInput input, uniform bool onBlob) :
     blobCenterVector[0] = blobCenter.x;
     blobCenterVector[1] = blobCenter.z;
     
-    float shadowRadius = 1.0/clamp((distance(blobCenter.y,input.Position3D.y)/3),1,10000);
-    
-    
-    if(distance(xyCoord,blobCenterVector) < shadowRadius && distance(input.Position3D.y, blobCenter.y) < 15 && input.Position3D.y < blobCenter.y && !onBlob)
+	color.rgb *= saturate(input.LightAmount) * DiffuseLight + AmbientLight;
+	
+	if( !onBlob && input.Position3D.y < blobCenter.y && distance(xyCoord,blobCenterVector) < ( 20 - distance(blobCenter.y,input.Position3D.y) ) * 0.05 )
     {
-		color.rgb = 0;
-		color.a = .5;
+		color.rgb *= 0.3f;
     }
-    else
-	{
-		color.rgb *= saturate(input.LightAmount) * DiffuseLight + AmbientLight;
-	}
+
     
     //if ((saturate(ProjectedTexCoords.x) == ProjectedTexCoords.x) && (saturate(ProjectedTexCoords.y) == ProjectedTexCoords.y))
     //{    
