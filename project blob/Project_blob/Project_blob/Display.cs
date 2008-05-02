@@ -367,14 +367,14 @@ namespace Project_blob
                     }
 					if (theBlob != null)
 					{
-						EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-						foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
-						{
-							pass.Begin();
-							theBlob.DrawMe();
-							pass.End();
-						}
-						EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+					    EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+					    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+					    {
+					        pass.Begin();
+					        theBlob.DrawMe();
+					        pass.End();
+					    }
+					    EffectManager.getSingleton.GetEffect("cartoonEffect").End();
 					}
                 }
 
