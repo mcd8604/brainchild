@@ -380,7 +380,7 @@ namespace Project_blob
 
                 if (m_DepthMapRenderTarget != null) {
                     graphicsDevice.SetRenderTarget(0, m_DepthMapRenderTarget);
-                    
+					graphicsDevice.Clear(Color.White);
                     
                     EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("cartoonEffect").Techniques["ShadowMap"];
 
