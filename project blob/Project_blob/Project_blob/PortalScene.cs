@@ -37,30 +37,30 @@ namespace Project_blob
 
         public void DistributeDrawableObjects(List<Drawable> scene)
         {
-            foreach (Drawable obj in scene)
+            foreach (StaticModel obj in scene)
             {
-                if(_sectors.ContainsKey(0))
-                {
-                    _sectors[0].AddObjectToSector(obj);
-                }
-                else
-                {
-                    _sectors.Add(0, new Sector(0));
-                    _sectors[0].AddObjectToSector(obj);
-                }
-
-                //foreach (int sectorNum in obj.SectorNums)
+                //if (_sectors.ContainsKey(0))
                 //{
-                //    if(_sectors.ContainsKey(sectorNum))
-                //    {
-                //        _sectors[sectorNum].AddObjectToSector(obj);
-                //    }
-                //    else
-                //    {
-                //        _sectors.Add(sectorNum, new Sector(sectorNum));
-                //        _sectors[sectorNum].AddObjectToSector(obj);
-                //    }
+                //    _sectors[0].AddObjectToSector(obj);
                 //}
+                //else
+                //{
+                //    _sectors.Add(0, new Sector(0));
+                //    _sectors[0].AddObjectToSector(obj);
+                //}
+
+                foreach (int sectorNum in obj.Rooms)
+                {
+                    if (_sectors.ContainsKey(sectorNum))
+                    {
+                        _sectors[sectorNum].AddObjectToSector(obj);
+                    }
+                    else
+                    {
+                        _sectors.Add(sectorNum, new Sector(sectorNum));
+                        _sectors[sectorNum].AddObjectToSector(obj);
+                    }
+                }
 
                 //_worldBox = BoundingBox.CreateMerged(_worldBox, obj.GetBoundingBox());
             }

@@ -49,12 +49,12 @@ namespace Project_blob
         }
 
         //Used in testing
-        private bool _drawPortal;
-        public bool DrawPortal
-        {
-            get { return _drawPortal; }
-            set { _drawPortal = value; }
-        }
+        //private bool _drawPortal;
+        //public bool DrawPortal
+        //{
+        //    get { return _drawPortal; }
+        //    set { _drawPortal = value; }
+        //}
 
         public void DrawVisible(GameTime gameTime)
         {
@@ -96,7 +96,7 @@ namespace Project_blob
                             BoundingFrustum newFrustum = CreatePortalFrustum(portal);
 
                             //drawFrustum(newFrustum);
-                            _drawPortal = true;
+                            //_drawPortal = true;
 
                             //Drawvisible on connected sector
                             foreach (int sectorNum in portal.ConnectedSectors)
@@ -114,7 +114,7 @@ namespace Project_blob
                     case ContainmentType.Disjoint:
                         {
                             //Portal is not visible.
-                            _drawPortal = false;
+                            //_drawPortal = false;
                         }
                         break;
                 }
@@ -159,7 +159,7 @@ namespace Project_blob
                             BoundingFrustum newFrustum = CreatePortalFrustum(portal);
 
                             //drawFrustum(newFrustum);
-                            _drawPortal = true;
+                            //_drawPortal = true;
 
                             //Drawvisible on connected sector
                             foreach (int sectorNum in portal.ConnectedSectors)
@@ -177,7 +177,7 @@ namespace Project_blob
                     case ContainmentType.Disjoint:
                         {
                             //Portal is not visible.
-                            _drawPortal = false;
+                            //_drawPortal = false;
                         }
                         break;
                 }
