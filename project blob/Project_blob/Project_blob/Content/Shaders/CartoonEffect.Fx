@@ -11,7 +11,9 @@ float4x4 World;
 float4x4 View;
 float4x4 Projection;
 
-float xLightPower;
+float LightPower;
+
+float3 blobCenter;
 
 float4x4 LightWorldViewProjection;
 
@@ -73,6 +75,12 @@ struct LightingVertexShaderOutput
     float4 Position : POSITION0;
     float2 TextureCoordinate : TEXCOORD0;
     float LightAmount : TEXCOORD1;
+    
+    float4 ShadowMapSamplingPos : TEXCOORD2;
+    
+    float4 RealDistance        : TEXCOORD3;
+	float3 Normal            : TEXCOORD4;
+	float3 Position3D            : TEXCOORD5;
 };
 
 
@@ -81,6 +89,12 @@ struct LightingPixelShaderInput
 {
     float2 TextureCoordinate : TEXCOORD0;
     float LightAmount : TEXCOORD1;
+    
+	float4 ShadowMapSamplingPos : TEXCOORD2;
+	
+	float4 RealDistance        : TEXCOORD3;
+	float3 Normal            : TEXCOORD4;
+	float3 Position3D            : TEXCOORD5;
 };
 
 
@@ -100,16 +114,56 @@ LightingVertexShaderOutput LightingVertexShader(VertexShaderInput input)
     
     output.LightAmount = dot(worldNormal, LightDirection);
     
+    output.ShadowMapSamplingPos = mul(input.Position, LightWorldViewProjection);
+    
+    output.RealDistance = output.ShadowMapSamplingPos.z/MaxDepth;
+    output.Normal = normalize(mul(input.Normal, (float3x3)World));
+    output.Position3D = mul(input.Position, World);
+    
     return output;
 }
 
+float DotProduct(float4 LightPos, float3 Pos3D, float3 Normal)
+{
+    float3 LightDir = normalize(LightPos - Pos3D);
+    return dot(LightDir, Normal);
+}
 
 // Pixel shader applies a simple Lambert shading algorithm.
 float4 LambertPixelShader(LightingPixelShaderInput input) : COLOR0
 {
     float4 color = TextureEnabled ? tex2D(Sampler, input.TextureCoordinate) : 0;
     
-    color.rgb *= saturate(input.LightAmount) * DiffuseLight + AmbientLight;
+    float2 ProjectedTexCoords;
+    ProjectedTexCoords[0] = input.ShadowMapSamplingPos.x/input.ShadowMapSamplingPos.w/2.0f +0.5f;
+    ProjectedTexCoords[1] = -input.ShadowMapSamplingPos.y/input.ShadowMapSamplingPos.w/2.0f +0.5f;
+    
+    if(input.Position3D.x < (blobCenter.x+1) &&  input.Position3D.x > (blobCenter.x-1) && input.Position3D.z < (blobCenter.z+1) &&  input.Position3D.z > (blobCenter.z-1) && input.Position3D.y < blobCenter.y)
+    {
+		color.rgb = 0;
+		color.a = .5;
+    }
+    else
+	{
+		color.rgb *= saturate(input.LightAmount) * DiffuseLight + AmbientLight;
+	}
+    
+    //if ((saturate(ProjectedTexCoords.x) == ProjectedTexCoords.x) && (saturate(ProjectedTexCoords.y) == ProjectedTexCoords.y))
+    //{    
+    //    float StoredDepthInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).x;    
+    //    if ((input.RealDistance.x - 1.0f/100.0f) <= StoredDepthInShadowMap)    
+    //    {
+    //        color.rgb *= saturate(input.LightAmount) * DiffuseLight + AmbientLight;
+    //    }
+    //    else
+    //    {
+	//		color.rgb = 0;
+    //    }
+    //} 
+    //else
+    //{ 
+	//	color.rgb *= saturate(input.LightAmount) * DiffuseLight + AmbientLight;
+    //}
     
     return color;
 }
@@ -149,6 +203,11 @@ LightingVertexShaderOutput SkyboxVertexShader(VertexShaderInput input)
     float3 worldNormal = mul(input.Normal, World);
     
     output.LightAmount = 1;
+    
+    output.RealDistance= 0;
+    output.Normal = input.Normal;
+    output.Position3D = 0;
+    output.ShadowMapSamplingPos = 0;
     
     return output;
 }

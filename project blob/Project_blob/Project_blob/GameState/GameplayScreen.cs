@@ -461,6 +461,8 @@ namespace Project_blob.GameState
 				{
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
+					EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["blobCenter"].SetValue(theBlob.getCenter());
+
                     Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
                     tempPos.Y += 10;
                     cartoonEffect.Parameters["LightPos"].SetValue(tempPos);
