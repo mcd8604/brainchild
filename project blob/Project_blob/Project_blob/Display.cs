@@ -512,6 +512,7 @@ namespace Project_blob
 
 				if (theBlob != null)
 				{
+					EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["LambertOnBlob"];
 					EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
 					EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
 					foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
