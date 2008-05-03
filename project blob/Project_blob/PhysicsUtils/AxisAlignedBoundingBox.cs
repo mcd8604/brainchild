@@ -168,4 +168,9 @@ public class AxisAlignedBoundingBox
 		return false;
 	}
 
+	public BoundingBox GetXNABoundingBox()
+	{
+		return new BoundingBox(Min, Max);
+	}
+
 }

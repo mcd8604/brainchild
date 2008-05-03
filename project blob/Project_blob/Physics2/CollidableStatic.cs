@@ -14,5 +14,9 @@ namespace Physics2
 			return true;
 		}
 
+		public override void ApplyForce(Vector3 at, Vector3 f) { }
+
+		public override void ImpartVelocity(Vector3 at, Vector3 vel) { }
+
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Project_blob.GameState;
+using Physics2;
 
 namespace Project_blob
 {
@@ -11,7 +12,7 @@ namespace Project_blob
         {
         }
 
-        public void PerformEvent(GameplayScreen gameRef)
+        public void PerformEvent(PhysicsPoint p)
         {
         }
     }

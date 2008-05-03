@@ -1,22 +1,17 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Physics2;
 
 namespace Project_blob
 {
-    class Tri : T
+	class Tri : CollidableTri, Drawable
     {
-
-        public override void test(Physics.Point p)
-		{
-			Vector3 i;
-			Physics.CollisionMath.PointTriangleIntersect(p, points[0], points[1], points[2], out i);
-		}
 
         public static bool DEBUG_DrawNormal = false;
         const int Num_Vertex = 5; // max 5 for drawnormal
 
-        internal Physics.Point[] points;
+        internal PhysicsPoint[] points;
 
         VertexPositionColor[] vertices = new VertexPositionColor[Num_Vertex]; 
 
@@ -25,9 +20,10 @@ namespace Project_blob
         private GraphicsDevice theDevice;
         private VertexBuffer myVertexBuffer;
 
-        public Tri(Physics.Point point1, Physics.Point point2, Physics.Point point3, Color p_color)
+		public Tri(PhysicsPoint point1, PhysicsPoint point2, PhysicsPoint point3, Body parentBody, Color p_color)
+			: base(point1, point2, point3, parentBody)
         {
-            points = new Physics.Point[3];
+            points = new PhysicsPoint[3];
 
             points[0] = point1;
             points[1] = point2;
@@ -36,109 +32,18 @@ namespace Project_blob
             color = p_color;
 
 
-            vertices[0] = new VertexPositionColor(points[0].CurrentPosition, color);
-            vertices[1] = new VertexPositionColor(points[1].CurrentPosition, color);
-            vertices[2] = new VertexPositionColor(points[2].CurrentPosition, color);
+			vertices[0] = new VertexPositionColor(points[0].ExternalPosition, color);
+			vertices[1] = new VertexPositionColor(points[1].ExternalPosition, color);
+			vertices[2] = new VertexPositionColor(points[2].ExternalPosition, color);
 
             vertices[3] = new VertexPositionColor(Vector3.Negate(getOrigin()), Color.Pink);
             vertices[4] = new VertexPositionColor(Vector3.Negate(getOrigin()) + Normal(), Color.Red);
 
         }
 
-        public override bool couldIntersect(Physics.Point p)
-        {
-            return p != points[0] && p != points[1] && p != points[2];
-        }
-
         private Vector3 getOrigin()
         {
             return Vector3.Negate((points[0].NextPosition + points[1].NextPosition + points[2].NextPosition) / 3f);
-        }
-
-        public override Vector3 Normal()
-        {
-            return new Plane(points[0].NextPosition, points[1].NextPosition, points[2].NextPosition).Normal;
-        }
-
-        public override float DotNormal(Vector3 pos)
-        {
-            return new Plane(points[0].NextPosition, points[1].NextPosition, points[2].NextPosition).DotNormal(pos + getOrigin());
-        }
-
-        public Vector3[] getCollisionVerticies()
-		{
-			Vector3[] ret = new Vector3[3];
-			ret[0] = points[0].CurrentPosition;
-			ret[1] = points[1].CurrentPosition;
-			ret[2] = points[2].CurrentPosition;
-			return ret;
-		}
-        public override Vector3[] getNextCollisionVerticies()
-		{
-			Vector3[] ret = new Vector3[3];
-			ret[0] = points[0].NextPosition;
-			ret[1] = points[1].NextPosition;
-			ret[2] = points[2].NextPosition;
-			return ret;
-		}
-
-        public override float didIntersect(Vector3 last, Vector3 next)
-        {
-            float before = new Plane(points[0].CurrentPosition, points[1].CurrentPosition, points[2].CurrentPosition).DotNormal(last + getOrigin());
-            float later = DotNormal(next);
-
-            if (before >= 0 && later <= 0)
-            {
-
-                float u = before / (before - later);
-                // check limits
-                Vector3 newPos = (last * (1 - u)) + (next * u);
-
-				while (DotNormal(newPos) <= 0)
-				{
-				    newPos += (Normal() * 0.001f);
-				    //++DEBUG_BumpLoops;
-				}
-
-                // temp - this is overly verbose and not terribly efficient, but it works - not
-
-                Vector3 AB = points[1].NextPosition - points[0].NextPosition;
-                Vector3 BC = points[2].NextPosition - points[1].NextPosition;
-                Vector3 CA = points[0].NextPosition - points[2].NextPosition;
-
-                Vector3 AP = points[0].NextPosition - newPos;
-                Vector3 BP = points[1].NextPosition - newPos;
-                Vector3 CP = points[2].NextPosition - newPos;
-
-                Vector3 A = Vector3.Cross(AP, AB);
-                Vector3 B = Vector3.Cross(BP, BC);
-                Vector3 C = Vector3.Cross(CP, CA);
-
-				if (((A.X >= -0.001 && B.X >= -0.001 && C.X >= -0.001) || (A.X <= 0.001 && B.X <= 0.001 && C.X <= 0.001)) &&
-					((A.Y >= -0.001 && B.Y >= -0.001 && C.Y >= -0.001) || (A.Y <= 0.001 && B.Y <= 0.001 && C.Y <= 0.001)) &&
-					((A.Z >= -0.001 && B.Z >= -0.001 && C.Z >= -0.001) || (A.Z <= 0.001 && B.Z <= 0.001 && C.Z <= 0.001)))
-                {
-                    return u;
-                }
-                else
-                {
-                    //Console.WriteLine("Check: " + A + ", " + B);
-                }
-            }
-
-            return float.MaxValue;
-        }
-
-
-		//public override bool inBoundingBox(Vector3 i)
-		//{
-		//    return true;
-		//}
-
-
-        public override bool shouldPhysicsBlock(Physics.Point p)
-        {
-            return true;
         }
 
         public override void ApplyForce(Vector3 at, Vector3 f)
@@ -194,7 +99,7 @@ namespace Project_blob
             return vertices;
         }
 
-        public override VertexBuffer getVertexBuffer()
+        public VertexBuffer getVertexBuffer()
         {
             myVertexBuffer.SetData<VertexPositionColor>(getTriangleVertexes());
             return myVertexBuffer;
@@ -206,12 +111,12 @@ namespace Project_blob
             myVertexBuffer = new VertexBuffer(device, VertexPositionColor.SizeInBytes * Num_Vertex, BufferUsage.None);
         }
 
-        public override int getVertexStride()
+        public int getVertexStride()
         {
             return VertexPositionColor.SizeInBytes;
         }
 
-        public override void DrawMe()
+        public void DrawMe()
         {
             theDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 1);
             if (DEBUG_DrawNormal)
@@ -220,23 +125,21 @@ namespace Project_blob
             }
         }
 
-        public override void TriggerEvents() { }
-
 
         #region Drawable Members
 
 
-        public override TextureInfo GetTextureKey()
+        public TextureInfo GetTextureKey()
         {
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public override BoundingBox GetBoundingBox()
+        public BoundingBox GetBoundingBox()
         {
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public override BoundingSphere GetBoundingSphere()
+        public BoundingSphere GetBoundingSphere()
         {
             throw new Exception("The method or operation is not implemented.");
         }

@@ -57,7 +57,7 @@ namespace Physics2
 					timer.Start();
 					try
 					{
-						physicsMain.doPhysics(runForTime);
+						physicsMain.doPhysics(runForTime * physicsMultiplier);
 					}
 					catch (Exception ex)
 					{
@@ -84,7 +84,7 @@ namespace Physics2
 
 			foreach (Body b in physicsMain.bodies)
 			{
-				b.update(TotalElapsedSeconds);
+				b.updatePosition();
 			}
 
 			runForTime = TotalElapsedSeconds;

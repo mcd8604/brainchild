@@ -2,7 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Text;
-using Physics;
+using Physics2;
 
 namespace Project_blob.GameState
 {
@@ -17,7 +17,7 @@ namespace Project_blob.GameState
 		bool Fullscreen = ScreenManager.IsFullScreen;
 		bool AntiAliasing = ScreenManager.IsAntiAliasing;
         bool audio = true;
-		Physics.PhysicsManager.ParallelSetting Threading = PhysicsManager.enableParallel;
+		PhysicsManager.ParallelSetting Threading = PhysicsManager.enableParallel;
 		Resolution resolution = ScreenManager.CurrentResolution;
 
 		public OptionsMenuScreen(Boolean popup)

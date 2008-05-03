@@ -3,8 +3,8 @@ namespace Physics2
     public class Material
     {
 
-		private float cling = 1;
-		private float friction = 1;
+		private float Cling = 1;
+		private float Friction = 1;
 
 		private static Material defaultMaterial = new Material();
 
@@ -15,14 +15,20 @@ namespace Physics2
 
 		public Material() { }
 
+		public Material(float cling, float friction)
+		{
+			Cling = cling;
+			Friction = friction;
+		}
+
         public float getCling()
         {
-			return cling;
+			return Cling;
         }
 
 		public float getFriction()
 		{
-			return friction;
+			return Friction;
 		}
 
     }

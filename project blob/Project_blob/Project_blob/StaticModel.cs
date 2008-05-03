@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
-using Physics;
+using Physics2;
 using System.Runtime.Serialization;
 
 namespace Project_blob
@@ -30,7 +30,7 @@ namespace Project_blob
         public TextureInfo TextureKey
         {
             get { return m_TextureKey; }
-            set { m_TextureKey = value; updateVertexBuffer(); }
+            set { m_TextureKey = value; updateTextureCoords(); }
         }
 
         private bool m_RepeatingTexture = false;
@@ -43,7 +43,7 @@ namespace Project_blob
             set
             {
                 m_RepeatingTexture = value;
-                updateVertexBuffer();
+				updateTextureCoords();
             }
         }
         private float m_TextureScaleX = 1f;
@@ -55,7 +55,7 @@ namespace Project_blob
             set
             {
                 m_TextureScaleX = value;
-                updateVertexBuffer();
+				updateTextureCoords();
             }
         }
         private float m_TextureScaleY = 1f;
@@ -68,11 +68,11 @@ namespace Project_blob
             set
             {
                 m_TextureScaleY = value;
-                updateVertexBuffer();
+				updateTextureCoords();
             }
         }
 
-        public void updateVertexBuffer()
+        /*public void updateVertexBuffer()
         {
             Model m = ModelManager.getSingleton.GetModel(_modelName);
             if (m != null)
@@ -140,20 +140,125 @@ namespace Project_blob
                     m_VertexBuffers[mesh.Name].SetData<VertexPositionNormalTexture>(vertices);
                 }
             }
-        }
+        }*/
 
         private BoundingBox m_BoundingBox;
         private BoundingSphere m_BoundingSphere;
 
+		public BoundingBox GetBoundingBox()
+		{
+			return m_BoundingBox;
+		}
+		public void SetBoundingBox(BoundingBox bb)
+		{
+			m_BoundingBox = bb;
+		}
+
+		[NonSerialized]
+		private VertexBuffer m_VertexBuffer;
+		public VertexBuffer getVertexBuffer()
+		{
+			return m_VertexBuffer;
+		}
+		[NonSerialized]
+		private IndexBuffer m_IndexBuffer;
+		public IndexBuffer getIndexBuffer()
+		{
+			return m_IndexBuffer;
+		}
+		[NonSerialized]
+		private VertexDeclaration m_VertexDeclaration;
+		public int getVertexStride()
+		{
+			return m_VertexStride;
+		}
+		[NonSerialized]
+		private int m_VertexStride;
+		[NonSerialized]
+		private int m_StreamOffset;
+		[NonSerialized]
+		private int m_BaseVertex;
+		[NonSerialized]
+		private int m_MinVertexIndex;
+		[NonSerialized]
+		private int m_NumVertices;
+		public int NumVertices
+		{
+			get
+			{
+				return m_NumVertices;
+			}
+		}
+		[NonSerialized]
+		private int m_StartIndex;
+		[NonSerialized]
+		private int m_PrimitiveCount;
+
+		//supports one Mesh per Model
+		public void initialize()
+		{
+			Model m = ModelManager.getSingleton.GetModel(_modelName);
+			ModelMesh mesh = m.Meshes[0];
+			ModelMeshPart part = mesh.MeshParts[0];
+
+			m_VertexBuffer = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
+			m_IndexBuffer = mesh.IndexBuffer;
+
+			m_VertexDeclaration = part.VertexDeclaration;
+			m_VertexStride = part.VertexStride;
+			m_StreamOffset = part.StreamOffset;
+			m_BaseVertex = part.BaseVertex;
+			m_MinVertexIndex = 0;
+			m_NumVertices = part.NumVertices;
+			m_StartIndex = part.StartIndex;
+			m_PrimitiveCount = part.PrimitiveCount;
+
+			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
+			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+			updateVertexBuffer(vertices);
+		}
+
+		public void updateVertexBuffer(VertexPositionNormalTexture[] vertices)
+		{
+			m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+		}
+
+		public void updateTextureCoords()
+		{
+			if (m_RepeatingTexture)
+			{
+				VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
+				m_VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+
+				//scaleVector used to scale texture coordinates
+				Vector3 scaleVector = Vector3.Zero;
+				Quaternion rotVector = Quaternion.Identity;
+				Vector3 transVector = Vector3.Zero;
+				m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
+
+				Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+
+				for (int i = 0; i < vertices.Length; i++)
+				{
+					//scale the texture coordinates
+					vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
+					vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+				}
+
+				m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+			}
+		}
+
+		/*
         [NonSerialized]
         private Dictionary<String, VertexBuffer> m_VertexBuffers;
         
         //[NonSerialized]
         //private List<Physics.Collidable> m_collidables;
-        public List<Physics.Collidable> createCollidables(Area areaRef)
+        public List<Collidable> createCollidables(Area areaRef)
         {
             Model m = ModelManager.getSingleton.GetModel(_modelName);
-            List<Physics.Collidable> collidables = new List<Physics.Collidable>();
+            List<Collidable> collidables = new List<Collidable>();
             foreach (ModelMesh mesh in m.Meshes)
             {
                 // Vertices
@@ -266,7 +371,7 @@ namespace Project_blob
                 }
             }
             return collidables;
-        }
+        }*/
 
         public String getName()
         {
@@ -354,41 +459,93 @@ namespace Project_blob
             }
         }
 
-        public Matrix Position
-        {
-            get
-            {
-                return m_Position;
-            }
-            set
-            {
-                m_Position = value;
-            }
-        }
-        public Matrix Rotation
-        {
-            get
-            {
-                return m_Rotation;
-            }
-            set
-            {
-                m_Rotation = value;
-            }
-        }
+		public Matrix Position
+		{
+			get
+			{
+				return m_Position;
+			}
+			set
+			{
+				m_Position = value;
+				updateTransform();
+			}
+		}
 
-        public Matrix Scale
-        {
-            get
-            {
-                return m_Scale;
-            }
-            set
-            {
-                m_Scale = value;
-                updateVertexBuffer();
-            }
-        }
+		public Matrix Rotation
+		{
+			get
+			{
+				return m_Rotation;
+			}
+			set
+			{
+				m_Rotation = value;
+				updateTransform();
+			}
+		}
+
+		public Matrix Scale
+		{
+			get
+			{
+				return m_Scale;
+			}
+			set
+			{
+				m_Scale = value;
+				updateTransform();
+				updateTextureCoords();
+			}
+		}
+
+		private Matrix m_Transform;
+		public Matrix Transform
+		{
+			get
+			{
+				//temporary update
+				updateTransform();
+				return m_Transform;
+			}
+		}
+
+		private void updateTransform()
+		{
+			m_Transform = Matrix.Identity;
+			Stack<Matrix> drawStack = new Stack<Matrix>();
+			for (int j = 0; j < 4; j++)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					if (m_PriorityArray[i] == j)
+					{
+						switch (i)
+						{
+							case 0:
+								if (this.Position != null)
+									drawStack.Push(this.Position);
+								break;
+							case 1:
+								if (this.Rotation != null)
+									drawStack.Push(this.Rotation);
+								break;
+							case 2:
+								if (this.Scale != null)
+									drawStack.Push(this.Scale);
+								break;
+							default:
+								break;
+						}
+					}
+				}
+			}
+
+			while (drawStack.Count > 0)
+			{
+				m_Transform = Matrix.Multiply(drawStack.Pop(), m_Transform);
+			}
+		}
 
         public String ModelName
         {
@@ -399,7 +556,6 @@ namespace Project_blob
             set
             {
                 _modelName = value;
-                updateVertexBuffer();
             }
         }
 
@@ -438,10 +594,15 @@ namespace Project_blob
             _rooms.Remove(room);
 		}
 
-        public VertexBuffer getVertexBuffer()
-        {
-            return null;
-        }
+		/// <summary>
+		/// Deserialization constructor.
+		/// </summary>
+		/// <param name="info"></param>
+		/// <param name="ctxt"></param>
+		public StaticModel(SerializationInfo info, StreamingContext ctxt)
+		{
+			updateTransform();
+		}
 
         public StaticModel(String p_Name, String fileName, String audioName, List<short> rooms)
         {
@@ -479,44 +640,63 @@ namespace Project_blob
             m_TextureKey = p_TextureKey;
         }
 
+		public void DrawMe() { }
 
-        public int getVertexStride()
-        {
-            return VertexPositionNormalTexture.SizeInBytes;
-        }
+		public void DrawMe(GraphicsDevice graphicsDevice, Effect effect, bool gameMode)
+		{
+			graphicsDevice.Indices = m_IndexBuffer;
+			effect.Begin();
 
-        public void DrawMe() { }
+			// Loop through each pass in the effect like we do elsewhere
+			foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+			{
+				pass.Begin();
+				// Change the device settings for each part to be rendered
+				graphicsDevice.VertexDeclaration = m_VertexDeclaration;
+				graphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
+				// Finally draw the actual triangles on the screen
+				graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, m_BaseVertex, m_MinVertexIndex, m_NumVertices, m_StartIndex, m_PrimitiveCount);
+				if (this.ShowVertices && !gameMode)
+				{
+					Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
+					graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture("point_text");
+					graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, m_NumVertices);
+					graphicsDevice.Textures[0] = temp;
+				}
+				pass.End();
+			}
+			effect.End();
+		}
 
-        public void DrawMe(ModelMesh mesh, GraphicsDevice graphicsDevice, bool gameMode)
-        {
-            foreach (ModelMeshPart part in mesh.MeshParts)
-            {                
-                // Change the device settings for each part to be rendered
-                graphicsDevice.VertexDeclaration = part.VertexDeclaration;
-                if (m_VertexBuffers == null)
-                {
-                    updateVertexBuffer();
-                }
-                try
-                {
-                    graphicsDevice.Vertices[0].SetSource(m_VertexBuffers[mesh.Name], part.StreamOffset, part.VertexStride);
-                    // Finally draw the actual triangles on the screen
-                    graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
-                    if (this.ShowVertices && !gameMode)
-                    {
-                        Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
-                        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture("point_text");
-                        graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
-                        graphicsDevice.Textures[0] = temp;
-                    }
-                }
-                catch (KeyNotFoundException knfe)
-                {
-                    Console.WriteLine("KEY NOT FOUND IN STATIC MODEL: " + this.Name);
-                }
-            }
-        }
-
+		/*public void DrawMe(ModelMesh mesh, GraphicsDevice graphicsDevice, bool gameMode)
+		{
+			foreach (ModelMeshPart part in mesh.MeshParts)
+			{                
+				// Change the device settings for each part to be rendered
+				graphicsDevice.VertexDeclaration = part.VertexDeclaration;
+				if (m_VertexBuffers == null)
+				{
+					updateVertexBuffer();
+				}
+				try
+				{
+					graphicsDevice.Vertices[0].SetSource(m_VertexBuffers[mesh.Name], part.StreamOffset, part.VertexStride);
+					// Finally draw the actual triangles on the screen
+					graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, part.BaseVertex, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+					if (this.ShowVertices && !gameMode)
+					{
+						Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
+						graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture("point_text");
+						graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, part.NumVertices);
+						graphicsDevice.Textures[0] = temp;
+					}
+				}
+				catch (KeyNotFoundException knfe)
+				{
+					Console.WriteLine("KEY NOT FOUND IN STATIC MODEL: " + this.Name);
+				}
+			}
+		}*/
 
         #region Drawable Members
 
@@ -527,7 +707,7 @@ namespace Project_blob
         }
 
 
-        public BoundingBox GetBoundingBox()
+        /*public BoundingBox GetBoundingBox()
         {
 			if (m_BoundingSphere.Radius == 0)
 			{
@@ -606,7 +786,7 @@ namespace Project_blob
 			}
 
             return new BoundingBox(min, max) ;
-        }
+        }*/
 
 
         public BoundingSphere GetBoundingSphere()

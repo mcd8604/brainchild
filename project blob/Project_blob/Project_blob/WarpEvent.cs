@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Project_blob.GameState;
+using Physics2;
 
 namespace Project_blob
 {
@@ -37,31 +38,15 @@ namespace Project_blob
 			_moveToVel = new Vector3(xVel, yVel, zVel);
 		}
 
-		public void PerformEvent(GameplayScreen gameRef)
+		public void PerformEvent(PhysicsPoint point)
 		{
-			Vector3[] offsets = new Vector3[gameRef.Player.points.Count];
-			for (int i = 0; i < offsets.Length; i++)
+			Vector3 diff = _moveToPos - point.ParentBody.getCenter();
+
+			foreach (PhysicsPoint p in point.ParentBody.getPoints())
 			{
-				offsets[i] = gameRef.Player.points[i].CurrentPosition - gameRef.Player.getCenter();
+				p.NextPosition = p.ExternalPosition + diff;
+				p.NextVelocity = _moveToVel;
 			}
-			for (int j = 0; j < offsets.Length; j++)
-			{
-				gameRef.Player.points[j].NextPosition = offsets[j] + _moveToPos;
-				gameRef.Player.points[j].NextVelocity = _moveToVel;
-			}
-
-			//Vector3 diff = _moveToPos - trigger.ParentBody.getCenter();
-
-			//foreach (Physics.Point p in trigger.ParentBody.getPoints())
-			//{
-			//    // Physics is going to be changing soon, this will not be neccessary once events as 'handled' post collision.
-			//    p.potentialPosition = p.CurrentPosition + diff;
-			//    p.NextPosition = p.CurrentPosition + diff;
-
-			//    p.potentialVelocity = _moveToVel;
-			//    p.NextVelocity = _moveToVel;
-			//}
-
 		}
 	}
 }

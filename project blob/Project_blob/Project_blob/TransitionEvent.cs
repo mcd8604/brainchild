@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Project_blob.GameState;
+using Physics2;
 
 namespace Project_blob
 {
@@ -40,9 +41,9 @@ namespace Project_blob
             _position = new Vector3(xPos, yPos, zPos);
         }
 
-        public void PerformEvent(GameplayScreen gameRef)
+        public void PerformEvent(PhysicsPoint p)
         {
-            gameRef.ChangeArea(_area, _position);
+            GameplayScreen.game.ChangeArea(_area, _position);
         }
     }
 }

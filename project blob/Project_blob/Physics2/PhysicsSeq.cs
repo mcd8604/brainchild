@@ -65,8 +65,10 @@ namespace Physics2
 			player.update(TotalElapsedSeconds);
 
 			// Predict potential position
+			DEBUG_NumCollidables = 0;
 			foreach (Body b in bodies)
 			{
+				DEBUG_NumCollidables += b.collidables.Count;
 				b.update(TotalElapsedSeconds);
 			}
 
@@ -86,13 +88,26 @@ namespace Physics2
 					AxisAlignedBoundingBox box = b.getBoundingBox();
 					foreach (Body c in bodies)
 					{
-						if (box.intersects(c.getBoundingBox()))
+						if (b != c)
 						{
-							events.AddRange(b.findCollisions(c));
+							if (box.intersects(c.getBoundingBox()))
+							{
+								events.AddRange(b.findCollisions(c));
+							}
 						}
 					}
+
+					foreach (PhysicsPoint p in b.points)
+					{
+						p.NextVelocity = p.PotentialVelocity;
+						p.NextPosition = p.PotentialPosition;
+						p.LastCollision = null;
+					}
+
 				}
 			}
+
+
 
 			// Evaluate collsion list, call onCollsion, set NextPosition
 			events.Sort(CollisionEvent.CompareEvents);

@@ -24,7 +24,7 @@ namespace Physics2
 			float CurrentVolume = getVolume();
 			float NextVolume = getPotentialVolume();
 			float IdealVolume = getIdealVolume();
-			foreach (Point p in getPoints())
+			foreach (PhysicsPoint p in getPoints())
 			{
 				p.ForceThisFrame += ((Vector3.Normalize(CurrentCenter - p.CurrentPosition) * (CurrentVolume - IdealVolume)) + (Vector3.Normalize(CurrentCenter - p.PotentialPosition) * (NextVolume - IdealVolume)) / 2f);
 			}

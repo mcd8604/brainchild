@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using System.Collections;
 using Engine;
-using Physics;
+using Physics2;
 
 namespace Project_blob.GameState
 {
@@ -56,7 +56,7 @@ namespace Project_blob.GameState
 
 		Vector4 lightPosition;
 
-		Physics.PhysicsManager physics;
+		PhysicsManager physics;
 
 		bool cinema = false;
 		bool paused = false;
@@ -98,18 +98,16 @@ namespace Project_blob.GameState
 			TransitionOnTime = TimeSpan.FromSeconds(1.5);
 			TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
-			resetPhysics();
-
 			lightPosition = new Vector4(5, 5, 5, 0);
 		}
 
-		private void resetPhysics()
+		private void reset()
 		{
 			if (physics != null)
 			{
 				physics.stop();
 			}
-			physics = Physics.PhysicsManager.getInstance();
+			physics = PhysicsManager.getInstance();
 
 			physics.AirFriction = 1f;
 
@@ -129,27 +127,20 @@ namespace Project_blob.GameState
 			physics.Player.Volume.Origin = 100f;
 			physics.Player.Volume.Maximum = 200f;
 
-			physics.AddGravity(new Physics.GravityVector(9.8f, new Vector3(0f, -1.0f, 0f)));
-
-			if (currentArea != null)
-			{
-				physics.AddCollidables(currentArea.getCollidables());
-			}
-		}
-
-		private void resetBlob()
-		{
-			resetPhysics();
-
 			theBlob = new Blob(blobModel, blobStartPosition);
 			theBlob.text = blobTexture;
 			theBlob.DisplacementText = distortMapText;
 			theBlob.setGraphicsDevice(ScreenManager.GraphicsDevice);
 
 			physics.Player.PlayerBody = theBlob;
-			physics.AddPoints(theBlob.points);
-			physics.AddSprings(theBlob.springs);
 			physics.AddBody(theBlob);
+
+			physics.Player.PlayerBody.tasks.Add(new GravityVector(1f, new Vector3(0f, -1.0f, 0f)));
+
+			if (currentArea != null)
+			{
+				physics.AddBodys(currentArea.getBodies());
+			}
 		}
 
 		/// <summary>
@@ -187,7 +178,7 @@ namespace Project_blob.GameState
 			//skyBox = ScreenManager.Content.Load<Model>(@"Models\\skyBox");
 			//skyTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\point_text");
 
-			resetBlob();
+			reset();
 
 			//load default level
 			Level.LoadLevel("FinalLevel", "effects");
@@ -209,7 +200,7 @@ namespace Project_blob.GameState
 				currentArea.Display.TextureParameterName = "Texture";
 				currentArea.Display.TechniqueName = "Lambert";
 				staticDrawables = currentArea.getDrawableList();
-				physics.AddCollidables(currentArea.getCollidables());
+				physics.AddBodys(currentArea.getBodies());
 			}
 			else
 			{
@@ -218,6 +209,7 @@ namespace Project_blob.GameState
 
 			ti = new TextureInfo("cloudsky", 0);
 			sky = new StaticModel("sky", "skyBox", "none", ti, new List<short>());
+			sky.initialize();
 			sky.TextureName = "cloudsky";
 			sky.Scale = Matrix.CreateScale(750f);
 
@@ -429,7 +421,7 @@ namespace Project_blob.GameState
 			blobStartPosition = position;
 			List<Drawable> temp = currentArea.getDrawableList();
 			SceneManager.getSingleton.BuildOctree(ref temp);
-			resetBlob();
+			reset();
 		}
 
 		public void SetUpCinematicCamera(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
@@ -460,6 +452,8 @@ namespace Project_blob.GameState
 				if (!paused)
 				{
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+
+					Console.WriteLine(physics.Player.PlayerBody.getCenter());
 
 					EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["blobCenter"].SetValue(theBlob.getCenter());
 
@@ -495,15 +489,15 @@ namespace Project_blob.GameState
 				}
 				if (InputHandler.IsKeyPressed(Keys.OemTilde))
 				{
-					if (Physics.PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
+					if (PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
 					{
-						Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
+						PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
 					}
 					else
 					{
-						Physics.PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
+						PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
 					}
-					resetBlob();
+					reset();
 					DEBUG_MaxPhys = -1;
 					DEBUG_MinPhys = -1;
 					DEBUG_MaxDraw = -1;
@@ -511,7 +505,7 @@ namespace Project_blob.GameState
 				}
 				if (InputHandler.IsActionPressed(Actions.Reset))
 				{
-					resetBlob();
+					reset();
 					DEBUG_MaxPhys = -1;
 					DEBUG_MinPhys = -1;
 					DEBUG_MaxDraw = -1;
@@ -637,7 +631,7 @@ namespace Project_blob.GameState
 				// Quick Torque
 
 				bool twist = false;
-				foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
+				foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
 				{
 					if (p.LastCollision != null)
 					{
@@ -672,7 +666,7 @@ namespace Project_blob.GameState
 						if (physics.Player.PlayerBody != null)
 						{
 							Vector3 CurrentPlayerCenter = physics.Player.PlayerBody.getCenter();
-							foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
+							foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
 							{
 								p.ForceNextFrame += Horizontal * (move.X * playerMoveMulti * 0.06f);
 								p.ForceNextFrame += Run * (move.Y * playerMoveMulti * -0.06f);
@@ -692,7 +686,7 @@ namespace Project_blob.GameState
 
 				Vector3 jump = Vector3.Zero;
 
-				foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
+				foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
 				{
 					if (p.LastCollision != null)
 					{
@@ -711,7 +705,7 @@ namespace Project_blob.GameState
 
 					// Fake Fake Jump:
 
-					foreach (Physics.Point p in physics.Player.PlayerBody.getPoints())
+					foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
 					{
 
 						p.ForceNextFrame += Vector3.Up * 300;
@@ -953,7 +947,7 @@ namespace Project_blob.GameState
 				VertexPositionColor[] dotVertices = new VertexPositionColor[theBlob.points.Count];
 				for (int i = 0; i < theBlob.points.Count; ++i)
 				{
-					dotVertices[i] = new VertexPositionColor(theBlob.points[i].CurrentPosition, Color.Black);
+					dotVertices[i] = new VertexPositionColor(theBlob.points[i].ExternalPosition, Color.Black);
 				}
 				VertexBuffer dotvertexBuffer = new VertexBuffer(ScreenManager.GraphicsDevice, VertexPositionColor.SizeInBytes * theBlob.points.Count, BufferUsage.None);
 				dotvertexBuffer.SetData<VertexPositionColor>(dotVertices);
@@ -972,8 +966,8 @@ namespace Project_blob.GameState
 
 				for (int i = 0; i < theBlob.points.Count; i++)
 				{
-					vectorVertices[i * 2] = (new VertexPositionColor(theBlob.points[i].CurrentPosition, Color.Red));
-					vectorVertices[(i * 2) + 1] = (new VertexPositionColor(theBlob.points[i].CurrentPosition + theBlob.points[i].CurrentVelocity, Color.Pink));
+					vectorVertices[i * 2] = (new VertexPositionColor(theBlob.points[i].ExternalPosition, Color.Red));
+					vectorVertices[(i * 2) + 1] = (new VertexPositionColor(theBlob.points[i].ExternalPosition + theBlob.points[i].ExternalVelocity, Color.Pink));
 				}
 				VertexBuffer vectorVertexBuffer = new VertexBuffer(ScreenManager.GraphicsDevice, VertexPositionColor.SizeInBytes * vectorVertices.Length, BufferUsage.None);
 				vectorVertexBuffer.SetData<VertexPositionColor>(vectorVertices);
@@ -1111,7 +1105,7 @@ namespace Project_blob.GameState
 			}
 			//spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(550, 0), Color.White);
 			spriteBatch.DrawString(font, "Vol: " + theBlob.getVolume().ToString(), new Vector2(345, 30), Color.White);
-			spriteBatch.DrawString(font, "Next Vol: " + theBlob.getNextVolume().ToString(), new Vector2(250, 60), Color.White);
+			spriteBatch.DrawString(font, "Next Vol: " + theBlob.getPotentialVolume().ToString(), new Vector2(250, 60), Color.White);
 			//spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
 			spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
 

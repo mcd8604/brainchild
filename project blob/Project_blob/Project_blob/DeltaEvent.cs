@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Project_blob.GameState;
 using System.ComponentModel;
+using Physics2;
 
 namespace Project_blob
 {
@@ -68,17 +69,14 @@ namespace Project_blob
 			DeltaPosition = Position;
 		}
 
-		public void PerformEvent(GameplayScreen gameRef)
+		public void PerformEvent(PhysicsPoint point)
 		{
-
-			foreach (Physics.Point p in gameRef.Player.getPoints())
+			foreach (PhysicsPoint p in point.ParentBody.getPoints())
 			{
 				p.NextPosition += DeltaPosition;
 				p.NextVelocity += DeltaVelocity;
 				p.ForceNextFrame += DeltaForce;
 			}
-
 		}
-
 	}
 }

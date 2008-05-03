@@ -5,11 +5,11 @@ namespace Physics2
 	internal class CollisionEvent
 	{
 
-		internal Point point;
+		internal PhysicsPoint point;
 		internal Collidable collidable;
 		internal float when;
 
-		internal CollisionEvent(Point p, Collidable c, float u)
+		internal CollisionEvent(PhysicsPoint p, Collidable c, float u)
 		{
 			point = p;
 			collidable = c;
