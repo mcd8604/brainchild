@@ -6,7 +6,7 @@ namespace Physics2
 {
 	public abstract class BodyPressure : Body
 	{
-		[Obsolete ("The fully qualified constructor is recommended.")]
+
 		public BodyPressure() { }
 
 		public BodyPressure(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks)

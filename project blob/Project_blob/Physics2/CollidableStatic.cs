@@ -12,7 +12,7 @@ namespace Physics2
 			return true;
 		}
 
-		public virtual Vector3 getVelocity()
+		public override Vector3 getVelocity()
 		{
 			return Vector3.Zero;
 		}

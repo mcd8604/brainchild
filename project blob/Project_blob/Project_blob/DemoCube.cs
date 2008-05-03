@@ -30,6 +30,7 @@ namespace Project_blob
 		public DemoCube(Vector3 center, float radius)
 		{
 			initCube(center, radius);
+			initialize();
 		}
 
 		private void initCube(Vector3 center, float radius)
