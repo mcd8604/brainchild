@@ -20,8 +20,8 @@ namespace Project_blob
         private GraphicsDevice theDevice;
         private VertexBuffer myVertexBuffer;
 
-		public Tri(PhysicsPoint point1, PhysicsPoint point2, PhysicsPoint point3, Body parentBody, Color p_color)
-			: base(point1, point2, point3, parentBody)
+		public Tri(PhysicsPoint point1, PhysicsPoint point2, PhysicsPoint point3, Color p_color)
+			: base(point1, point2, point3)
         {
             points = new PhysicsPoint[3];
 

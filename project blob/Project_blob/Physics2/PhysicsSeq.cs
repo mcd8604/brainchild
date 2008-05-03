@@ -29,11 +29,13 @@ namespace Physics2
 			}
 		}
 
+#if DEBUG
 		private int DEBUG_NumCollidables = 0;
 		public override int DEBUG_GetNumCollidables()
 		{
 			return DEBUG_NumCollidables;
 		}
+#endif
 
 		private Player player = new Player();
 		public override Player Player
@@ -65,12 +67,19 @@ namespace Physics2
 			player.update(TotalElapsedSeconds);
 
 			// Predict potential position
-			DEBUG_NumCollidables = 0;
+#if DEBUG
+			int CollidableCount = 0;
+#endif
 			foreach (Body b in bodies)
 			{
-				DEBUG_NumCollidables += b.collidables.Count;
+#if DEBUG
+				CollidableCount += b.collidables.Count;
+#endif
 				b.update(TotalElapsedSeconds);
 			}
+#if DEBUG
+			DEBUG_NumCollidables = CollidableCount;
+#endif
 
 			// Solve for the 'Actual' potential positions based on force and acceleration
 			foreach (Body b in bodies)
@@ -150,17 +159,18 @@ namespace Physics2
 
 				}
 
-				Vector3 TotalNormalForce = (VelocityTransfer / TotalElapsedSeconds * e.point.Mass) + NormalForce;
+				Vector3 TotalNormalForce = (VelocityTransfer / (TotalElapsedSeconds * (1 - e.when) ) * e.point.Mass) + NormalForce;
 
 				// relative velocity
-				Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e.point) + newVelocity;
+				Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e.point) - newVelocity;
 
 				// surface friction !  F = uN
-				if (newVelocity.LengthSquared() > 0)
+				if (relativeVelocity.LengthSquared() > 0)
 				{
-					Vector3 FrictionForce = Vector3.Normalize(Vector3.Negate(newVelocity)) * (TotalNormalForce.Length() * (player.Traction.value * e.collidable.getMaterial().getFriction()));
+					Vector3 FrictionForce = Vector3.Normalize(relativeVelocity) * (TotalNormalForce.Length() * (player.Traction.value * e.collidable.getMaterial().getFriction()));
 
-					Vector3 MaxFriction = Vector3.Negate((newVelocity / e.when) * e.point.Mass) + Vector3.Negate(newForce);
+					// This is the maximum amount of force to stop the point - will need tweaking for conveyor belts
+					Vector3 MaxFriction = ((relativeVelocity / (TotalElapsedSeconds * (1 - e.when))) * e.point.Mass) + Vector3.Negate(newForce);
 
 					if (FrictionForce.LengthSquared() > MaxFriction.LengthSquared())
 					{
@@ -185,10 +195,10 @@ namespace Physics2
 				Vector3 Acceleration = newForce / e.point.Mass;
 
 				// velocity
-				Vector3 Velocity = newVelocity + (Acceleration * (TotalElapsedSeconds - e.when));
+				Vector3 Velocity = newVelocity + (Acceleration * (TotalElapsedSeconds * (1 - e.when)));
 
 				// position
-				Vector3 Position = newPosition + (Velocity * (TotalElapsedSeconds - e.when));
+				Vector3 Position = newPosition + (Velocity * (TotalElapsedSeconds * (1 - e.when)));
 
 				e.point.NextVelocity = Velocity;
 				e.point.NextPosition = Position;

@@ -9,9 +9,6 @@ namespace Physics2
 
 		private List<CollidableStatic> staticCollidables = new List<CollidableStatic>();
 
-		[Obsolete]
-		public BodyStatic() { }
-
 		public BodyStatic(List<CollidableStatic> Collidables, Body ParentBody)
 			: base()
 		{

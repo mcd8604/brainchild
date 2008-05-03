@@ -11,10 +11,7 @@ namespace Physics2
 
 		protected Material material = null;
 
-		public Collidable(Body parentBody)
-		{
-			parent = parentBody;
-		}
+		public Collidable()	{}
 
 		public virtual bool couldIntersect(Vector3 start, Vector3 end)
 		{

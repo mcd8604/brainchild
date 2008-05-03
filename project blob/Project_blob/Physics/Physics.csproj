@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
+    <Compile Include="AxisAlignedBoundingBox.cs" />
     <Compile Include="Body.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="CollidableTri.cs">
@@ -84,12 +85,6 @@
       <Project>030f6709-c807-443d-911d-8bd5e28446ba</Project>
       <Visible>False</Visible>
     </NestedContentProject>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PhysicsUtils\PhysicsUtils.csproj">
-      <Project>{B0BDC6D6-6AB6-4491-951B-7B9A18505B7C}</Project>
-      <Name>PhysicsUtils</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.Common.targets" />
