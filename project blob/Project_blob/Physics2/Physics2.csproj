@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actor.cs" />
     <Compile Include="Body.cs" />
     <Compile Include="BodyPressure.cs" />
     <Compile Include="BodyRigid.cs" />
@@ -72,7 +71,7 @@
     <Compile Include="PhysicsParallel.cs" />
     <Compile Include="PhysicsSeq.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="PhysicsPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="Spring.cs" />

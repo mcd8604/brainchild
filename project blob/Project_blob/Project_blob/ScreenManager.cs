@@ -54,8 +54,8 @@ namespace Project_blob
 			graphics.PreferMultiSampling = true;
 			Content.RootDirectory = "Content";
 
-            graphics.SynchronizeWithVerticalRetrace = false;
-            IsFixedTimeStep = false;
+            //graphics.SynchronizeWithVerticalRetrace = false;
+            //IsFixedTimeStep = false;
 
 			AddScreen(new MainMenuScreen());
 		}
@@ -72,7 +72,7 @@ namespace Project_blob
 			GraphicsDevice.RenderState.MultiSampleAntiAlias = true;
 			GraphicsDevice.RenderState.Wrap0 = TextureWrapCoordinates.Three;
 
-			CurrentResolution = new Resolution(768, 1024);
+			CurrentResolution = new Resolution(GraphicsDevice.Viewport.Height, GraphicsDevice.Viewport.Width);
 			Resolutions.Add(CurrentResolution);
 
 			foreach (DisplayMode d in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)

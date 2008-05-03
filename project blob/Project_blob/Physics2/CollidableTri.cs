@@ -5,34 +5,44 @@ namespace Physics2
 	public class CollidableTri : Collidable
 	{
 
-		public CollidableTri(Point point1, Point point2, Point point3, Body parentBody)
+		PhysicsPoint Point1;
+		PhysicsPoint Point2;
+		PhysicsPoint Point3;
+
+		Plane Plane;
+
+		public CollidableTri(PhysicsPoint point1, PhysicsPoint point2, PhysicsPoint point3, Body parentBody)
 			: base(parentBody)
-		{ }
+		{
+			Point1 = point1;
+			Point2 = point2;
+			Point3 = point3;
+
+			Plane = new Plane(Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition);
+
+			boundingbox.expandToInclude(Point1.CurrentPosition);
+			boundingbox.expandToInclude(Point2.CurrentPosition);
+			boundingbox.expandToInclude(Point3.CurrentPosition);
+		}
 
 		public override float didIntersect(Vector3 start, Vector3 end)
 		{
-			// pointtriangleintersect
-			throw new System.Exception("The method or operation is not implemented.");
-		}
-
-		public override Material getMaterial()
-		{
-			throw new System.Exception("The method or operation is not implemented.");
+			return CollisionMath.LineTriangleIntersect(start, end, Point1, Point2, Point3);
 		}
 
 		public override Vector3 Normal()
 		{
-			throw new System.Exception("The method or operation is not implemented.");
+			return Plane.Normal;
 		}
 
-		public override void onCollision(Point p)
+		public override void update()
 		{
-			throw new System.Exception("The method or operation is not implemented.");
-		}
+			boundingbox.clear();
+			boundingbox.expandToInclude(Point1.CurrentPosition);
+			boundingbox.expandToInclude(Point2.CurrentPosition);
+			boundingbox.expandToInclude(Point3.CurrentPosition);
 
-		public override void update(float TotalElapsedSeconds)
-		{
-			throw new System.Exception("The method or operation is not implemented.");
+			Plane = new Plane(Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition);
 		}
 
 		public override void ApplyForce(Vector3 at, Vector3 f)

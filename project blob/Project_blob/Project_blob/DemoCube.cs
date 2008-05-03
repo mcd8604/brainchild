@@ -2,24 +2,21 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Physics2;
 
 namespace Project_blob
 {
-	class DemoCube : Physics.PressureBody, Drawable
+	class DemoCube : BodyPressure, Drawable
 	{
 
-		public readonly List<Physics.Point> points = new List<Physics.Point>();
-		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
-		public readonly List<T> collidables = new List<T>();
-
-		Physics.Point ftr;
-		Physics.Point ftl;
-		Physics.Point fbr;
-		Physics.Point fbl;
-		Physics.Point btr;
-		Physics.Point btl;
-		Physics.Point bbr;
-		Physics.Point bbl;
+		PhysicsPoint ftr;
+		PhysicsPoint ftl;
+		PhysicsPoint fbr;
+		PhysicsPoint fbl;
+		PhysicsPoint btr;
+		PhysicsPoint btl;
+		PhysicsPoint bbr;
+		PhysicsPoint bbl;
 
 		VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[16];
 
@@ -30,28 +27,6 @@ namespace Project_blob
 		private Vector3 min;
 		private Vector3 max;
 		private float idealVolume;
-
-		public override Vector3 getCenter()
-		{
-			Vector3 ret = Vector3.Zero;
-			foreach (Physics.Point p in points)
-			{
-				ret += p.CurrentPosition;
-			}
-			return ret / points.Count;
-		}
-
-		public override Vector3 getNextCenter()
-		{
-			Vector3 ret = Vector3.Zero;
-			foreach (Physics.Point p in points)
-			{
-				ret += p.potentialPosition;
-			}
-			return ret / points.Count;
-			//return Center.Position;
-		}
-
 		public DemoCube(Vector3 center, float radius)
 		{
 			initCube(center, radius);
@@ -60,64 +35,64 @@ namespace Project_blob
 		private void initCube(Vector3 center, float radius)
 		{
 
-			ftr = new Physics.Point(center + new Vector3(radius, radius, radius), this);
-			ftl = new Physics.Point(center + new Vector3(-radius, radius, radius), this);
-			fbr = new Physics.Point(center + new Vector3(radius, -radius, radius), this);
-			fbl = new Physics.Point(center + new Vector3(-radius, -radius, radius), this);
-			btr = new Physics.Point(center + new Vector3(radius, radius, -radius), this);
-			btl = new Physics.Point(center + new Vector3(-radius, radius, -radius), this);
-			bbr = new Physics.Point(center + new Vector3(radius, -radius, -radius), this);
-			bbl = new Physics.Point(center + new Vector3(-radius, -radius, -radius), this);
+			ftr = new PhysicsPoint(center + new Vector3(radius, radius, radius), this);
+			ftl = new PhysicsPoint(center + new Vector3(-radius, radius, radius), this);
+			fbr = new PhysicsPoint(center + new Vector3(radius, -radius, radius), this);
+			fbl = new PhysicsPoint(center + new Vector3(-radius, -radius, radius), this);
+			btr = new PhysicsPoint(center + new Vector3(radius, radius, -radius), this);
+			btl = new PhysicsPoint(center + new Vector3(-radius, radius, -radius), this);
+			bbr = new PhysicsPoint(center + new Vector3(radius, -radius, -radius), this);
+			bbl = new PhysicsPoint(center + new Vector3(-radius, -radius, -radius), this);
 
-			List<Physics.Point> tempList = new List<Physics.Point>();
+			List<PhysicsPoint> tempList = new List<PhysicsPoint>();
 
 			tempList.Add(ftr); tempList.Add(ftl); tempList.Add(fbr); tempList.Add(fbl); tempList.Add(btr); tempList.Add(btl); tempList.Add(bbr); tempList.Add(bbl);
 
-			foreach (Physics.Point t in tempList)
+			foreach (PhysicsPoint t in tempList)
 			{
-				foreach (Physics.Point p in points)
+				foreach (PhysicsPoint p in points)
 				{
 					//float d = Vector3.Distance(t.CurrentPosition, p.CurrentPosition);
 					//if (d > 0 && d <= 2 * radius)
 					//{
-					springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), 100));
+					springs.Add(new Spring(t, p, Vector3.Distance(t.ExternalPosition, p.ExternalPosition), 100));
 					//}
 				}
 				points.Add(t);
 			}
 
 
-			collidables.Add(new TriAA(ftr, fbr, bbr, Color.White));
-			collidables.Add(new TriAA(ftr, bbr, btr, Color.White));
-			collidables.Add(new TriAA(ftr, btr, btl, Color.White));
-			collidables.Add(new TriAA(ftr, btl, ftl, Color.White));
-			collidables.Add(new TriAA(ftr, ftl, fbl, Color.White));
-			collidables.Add(new TriAA(ftr, fbl, fbr, Color.White));
+			collidables.Add(new TriAA(ftr, fbr, bbr, this, Color.White));
+			collidables.Add(new TriAA(ftr, bbr, btr, this, Color.White));
+			collidables.Add(new TriAA(ftr, btr, btl, this, Color.White));
+			collidables.Add(new TriAA(ftr, btl, ftl, this, Color.White));
+			collidables.Add(new TriAA(ftr, ftl, fbl, this, Color.White));
+			collidables.Add(new TriAA(ftr, fbl, fbr, this, Color.White));
 
-			collidables.Add(new TriAA(bbl, bbr, fbr, Color.White));
-			collidables.Add(new TriAA(bbl, fbr, fbl, Color.White));
-			collidables.Add(new TriAA(bbl, fbl, ftl, Color.White));
-			collidables.Add(new TriAA(bbl, ftl, btl, Color.White));
-			collidables.Add(new TriAA(bbl, btl, btr, Color.White));
-			collidables.Add(new TriAA(bbl, btr, bbr, Color.White));
+			collidables.Add(new TriAA(bbl, bbr, fbr, this, Color.White));
+			collidables.Add(new TriAA(bbl, fbr, fbl, this, Color.White));
+			collidables.Add(new TriAA(bbl, fbl, ftl, this, Color.White));
+			collidables.Add(new TriAA(bbl, ftl, btl, this, Color.White));
+			collidables.Add(new TriAA(bbl, btl, btr, this, Color.White));
+			collidables.Add(new TriAA(bbl, btr, bbr, this, Color.White));
 
 
-			vertices[0] = new VertexPositionNormalTexture(ftr.CurrentPosition, Vector3.Up, Vector2.Zero);
-			vertices[1] = new VertexPositionNormalTexture(fbr.CurrentPosition, Vector3.Up, new Vector2(0f, 1f));
-			vertices[2] = new VertexPositionNormalTexture(bbr.CurrentPosition, Vector3.Up, Vector2.One);
-			vertices[3] = new VertexPositionNormalTexture(btr.CurrentPosition, Vector3.Up, new Vector2(1f, 0f));
-			vertices[4] = new VertexPositionNormalTexture(btl.CurrentPosition, Vector3.Up, Vector2.One);
-			vertices[5] = new VertexPositionNormalTexture(ftl.CurrentPosition, Vector3.Up, new Vector2(0f, 1f));
-			vertices[6] = new VertexPositionNormalTexture(fbl.CurrentPosition, Vector3.Up, Vector2.One);
-			vertices[7] = new VertexPositionNormalTexture(fbr.CurrentPosition, Vector3.Up, new Vector2(1f, 0f));
-			vertices[8] = new VertexPositionNormalTexture(bbl.CurrentPosition, Vector3.Up, Vector2.Zero);
-			vertices[9] = new VertexPositionNormalTexture(bbr.CurrentPosition, Vector3.Up, new Vector2(0f, 1f));
-			vertices[10] = new VertexPositionNormalTexture(fbr.CurrentPosition, Vector3.Up, Vector2.One);
-			vertices[11] = new VertexPositionNormalTexture(fbl.CurrentPosition, Vector3.Up, new Vector2(1f, 0f));
-			vertices[12] = new VertexPositionNormalTexture(ftl.CurrentPosition, Vector3.Up, Vector2.One);
-			vertices[13] = new VertexPositionNormalTexture(btl.CurrentPosition, Vector3.Up, new Vector2(0f, 1f));
-			vertices[14] = new VertexPositionNormalTexture(btr.CurrentPosition, Vector3.Up, Vector2.One);
-			vertices[15] = new VertexPositionNormalTexture(bbr.CurrentPosition, Vector3.Up, new Vector2(1f, 0f));
+			vertices[0] = new VertexPositionNormalTexture(ftr.ExternalPosition, Vector3.Up, Vector2.Zero);
+			vertices[1] = new VertexPositionNormalTexture(fbr.ExternalPosition, Vector3.Up, new Vector2(0f, 1f));
+			vertices[2] = new VertexPositionNormalTexture(bbr.ExternalPosition, Vector3.Up, Vector2.One);
+			vertices[3] = new VertexPositionNormalTexture(btr.ExternalPosition, Vector3.Up, new Vector2(1f, 0f));
+			vertices[4] = new VertexPositionNormalTexture(btl.ExternalPosition, Vector3.Up, Vector2.One);
+			vertices[5] = new VertexPositionNormalTexture(ftl.ExternalPosition, Vector3.Up, new Vector2(0f, 1f));
+			vertices[6] = new VertexPositionNormalTexture(fbl.ExternalPosition, Vector3.Up, Vector2.One);
+			vertices[7] = new VertexPositionNormalTexture(fbr.ExternalPosition, Vector3.Up, new Vector2(1f, 0f));
+			vertices[8] = new VertexPositionNormalTexture(bbl.ExternalPosition, Vector3.Up, Vector2.Zero);
+			vertices[9] = new VertexPositionNormalTexture(bbr.ExternalPosition, Vector3.Up, new Vector2(0f, 1f));
+			vertices[10] = new VertexPositionNormalTexture(fbr.ExternalPosition, Vector3.Up, Vector2.One);
+			vertices[11] = new VertexPositionNormalTexture(fbl.ExternalPosition, Vector3.Up, new Vector2(1f, 0f));
+			vertices[12] = new VertexPositionNormalTexture(ftl.ExternalPosition, Vector3.Up, Vector2.One);
+			vertices[13] = new VertexPositionNormalTexture(btl.ExternalPosition, Vector3.Up, new Vector2(0f, 1f));
+			vertices[14] = new VertexPositionNormalTexture(btr.ExternalPosition, Vector3.Up, Vector2.One);
+			vertices[15] = new VertexPositionNormalTexture(bbr.ExternalPosition, Vector3.Up, new Vector2(1f, 0f));
 
 		}
 
@@ -139,18 +114,18 @@ namespace Project_blob
 			Vector3 normal10;
 			Vector3 normal11;
 
-			normal0 = new Plane(ftl.CurrentPosition, fbl.CurrentPosition, ftr.CurrentPosition).Normal;
-			normal1 = new Plane(fbl.CurrentPosition, fbr.CurrentPosition, ftr.CurrentPosition).Normal;
-			normal2 = new Plane(btl.CurrentPosition, btr.CurrentPosition, bbl.CurrentPosition).Normal;
-			normal3 = new Plane(bbl.CurrentPosition, btr.CurrentPosition, bbr.CurrentPosition).Normal;
-			normal4 = new Plane(ftl.CurrentPosition, btr.CurrentPosition, btl.CurrentPosition).Normal;
-			normal5 = new Plane(ftl.CurrentPosition, ftr.CurrentPosition, btr.CurrentPosition).Normal;
-			normal6 = new Plane(fbl.CurrentPosition, bbl.CurrentPosition, bbr.CurrentPosition).Normal;
-			normal7 = new Plane(fbl.CurrentPosition, bbr.CurrentPosition, fbr.CurrentPosition).Normal;
-			normal8 = new Plane(ftl.CurrentPosition, bbl.CurrentPosition, fbl.CurrentPosition).Normal;
-			normal9 = new Plane(btl.CurrentPosition, bbl.CurrentPosition, ftl.CurrentPosition).Normal;
-			normal10 = new Plane(ftr.CurrentPosition, fbr.CurrentPosition, bbr.CurrentPosition).Normal;
-			normal11 = new Plane(btr.CurrentPosition, ftr.CurrentPosition, bbr.CurrentPosition).Normal;
+			normal0 = new Plane(ftl.ExternalPosition, fbl.ExternalPosition, ftr.ExternalPosition).Normal;
+			normal1 = new Plane(fbl.ExternalPosition, fbr.ExternalPosition, ftr.ExternalPosition).Normal;
+			normal2 = new Plane(btl.ExternalPosition, btr.ExternalPosition, bbl.ExternalPosition).Normal;
+			normal3 = new Plane(bbl.ExternalPosition, btr.ExternalPosition, bbr.ExternalPosition).Normal;
+			normal4 = new Plane(ftl.ExternalPosition, btr.ExternalPosition, btl.ExternalPosition).Normal;
+			normal5 = new Plane(ftl.ExternalPosition, ftr.ExternalPosition, btr.ExternalPosition).Normal;
+			normal6 = new Plane(fbl.ExternalPosition, bbl.ExternalPosition, bbr.ExternalPosition).Normal;
+			normal7 = new Plane(fbl.ExternalPosition, bbr.ExternalPosition, fbr.ExternalPosition).Normal;
+			normal8 = new Plane(ftl.ExternalPosition, bbl.ExternalPosition, fbl.ExternalPosition).Normal;
+			normal9 = new Plane(btl.ExternalPosition, bbl.ExternalPosition, ftl.ExternalPosition).Normal;
+			normal10 = new Plane(ftr.ExternalPosition, fbr.ExternalPosition, bbr.ExternalPosition).Normal;
+			normal11 = new Plane(btr.ExternalPosition, ftr.ExternalPosition, bbr.ExternalPosition).Normal;
 
 			//sum the normals of each plane that a vector is a part of, then normalize the result
 			//this allows for gradual lighting over a plane
@@ -166,37 +141,37 @@ namespace Project_blob
 
 			// ----- end normals
 
-			vertices[0].Position = ftr.CurrentPosition;
+			vertices[0].Position = ftr.ExternalPosition;
 			vertices[0].Normal = normal_ftr;
-			vertices[1].Position = fbr.CurrentPosition;
+			vertices[1].Position = fbr.ExternalPosition;
 			vertices[1].Normal = normal_fbr;
-			vertices[2].Position = bbr.CurrentPosition;
+			vertices[2].Position = bbr.ExternalPosition;
 			vertices[2].Normal = normal_bbr;
-			vertices[3].Position = btr.CurrentPosition;
+			vertices[3].Position = btr.ExternalPosition;
 			vertices[3].Normal = normal_btr;
-			vertices[4].Position = btl.CurrentPosition;
+			vertices[4].Position = btl.ExternalPosition;
 			vertices[4].Normal = normal_btl;
-			vertices[5].Position = ftl.CurrentPosition;
+			vertices[5].Position = ftl.ExternalPosition;
 			vertices[5].Normal = normal_ftl;
-			vertices[6].Position = fbl.CurrentPosition;
+			vertices[6].Position = fbl.ExternalPosition;
 			vertices[6].Normal = normal_fbl;
-			vertices[7].Position = fbr.CurrentPosition;
+			vertices[7].Position = fbr.ExternalPosition;
 			vertices[7].Normal = normal_fbr;
-			vertices[8].Position = bbl.CurrentPosition;
+			vertices[8].Position = bbl.ExternalPosition;
 			vertices[8].Normal = normal_bbl;
-			vertices[9].Position = bbr.CurrentPosition;
+			vertices[9].Position = bbr.ExternalPosition;
 			vertices[9].Normal = normal_bbr;
-			vertices[10].Position = fbr.CurrentPosition;
+			vertices[10].Position = fbr.ExternalPosition;
 			vertices[10].Normal = normal_fbr;
-			vertices[11].Position = fbl.CurrentPosition;
+			vertices[11].Position = fbl.ExternalPosition;
 			vertices[11].Normal = normal_fbl;
-			vertices[12].Position = ftl.CurrentPosition;
+			vertices[12].Position = ftl.ExternalPosition;
 			vertices[12].Normal = normal_ftl;
-			vertices[13].Position = btl.CurrentPosition;
+			vertices[13].Position = btl.ExternalPosition;
 			vertices[13].Normal = normal_btl;
-			vertices[14].Position = btr.CurrentPosition;
+			vertices[14].Position = btr.ExternalPosition;
 			vertices[14].Normal = normal_btr;
-			vertices[15].Position = bbr.CurrentPosition;
+			vertices[15].Position = bbr.ExternalPosition;
 			vertices[15].Normal = normal_bbr;
 
 			return vertices;
@@ -226,32 +201,32 @@ namespace Project_blob
 		}
 
 
-		public override IEnumerable<Physics.Point> getPoints()
+		public override IEnumerable<PhysicsPoint> getPoints()
 		{
 			return points;
 		}
 
-		public override IEnumerable<Physics.Collidable> getCollidables()
-		{
-			List<Physics.Collidable> temp = new List<Physics.Collidable>();
-			foreach (T t in collidables)
-			{
-				temp.Add((Physics.Collidable)t);
-			}
-			return temp;
-		}
+		//public override IEnumerable<Collidable> getCollidables()
+		//{
+		//    List<Collidable> temp = new List<Collidable>();
+		//    foreach (T t in collidables)
+		//    {
+		//        temp.Add((Collidable)t);
+		//    }
+		//    return temp;
+		//}
 
-		public IEnumerable<Drawable> getDrawables()
-		{
-			List<Drawable> temp = new List<Drawable>();
-			foreach (T t in collidables)
-			{
-				temp.Add((Drawable)t);
-			}
-			return temp;
-		}
+		//public IEnumerable<Drawable> getDrawables()
+		//{
+		//    List<Drawable> temp = new List<Drawable>();
+		//    foreach (T t in collidables)
+		//    {
+		//        temp.Add((Drawable)t);
+		//    }
+		//    return temp;
+		//}
 
-		public override IEnumerable<Physics.Spring> getSprings()
+		public override IEnumerable<Spring> getSprings()
 		{
 			return springs;
 		}
@@ -299,7 +274,7 @@ namespace Project_blob
 			return totalVolume;
 		}
 
-		public override float getNextVolume()
+		public override float getPotentialVolume()
 		{
 			return 0;
 		}

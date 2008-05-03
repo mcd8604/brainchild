@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Project_blob.GameState;
 using Microsoft.Xna.Framework;
+using Physics2;
 
 namespace Project_blob
 {
@@ -53,9 +54,9 @@ namespace Project_blob
             _cameraUps = cameraUps;
         }
 
-        public void PerformEvent(GameplayScreen gameRef)
+        public void PerformEvent(PhysicsPoint p)
         {
-            gameRef.SetUpCinematicCamera(_cameraPos, _cameraLooks, _cameraUps);
+			GameplayScreen.game.SetUpCinematicCamera(_cameraPos, _cameraLooks, _cameraUps);
         }
     }
 }

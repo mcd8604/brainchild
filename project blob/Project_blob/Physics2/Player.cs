@@ -77,7 +77,7 @@ namespace Physics2
         public void applyTorque(float Magnitude, Vector3 Around)
         {
             Vector3 CurrentPlayerCenter = playerBody.getCenter();
-            foreach (Point p in playerBody.getPoints())
+            foreach (PhysicsPoint p in playerBody.getPoints())
             {
                 p.ForceThisFrame += Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, Around)) * Magnitude;
             }
@@ -90,7 +90,7 @@ namespace Physics2
             update(resilience, time);
             update(volume, time);
 
-            foreach (Point p in playerBody.getPoints())
+            foreach (PhysicsPoint p in playerBody.getPoints())
             {
                 if (p.LastCollision != null && cling.value > 0)
                 {

@@ -1,41 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Project_blob.GameState;
+using Physics2;
 
 namespace Project_blob
 {
-	public class Trigger : Physics.CollidableTri
+	public class Trigger : Body
 	{
 		private EventTrigger _triggeredEvent;
 		public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }
 
-		public static List<EventTrigger> Events = new List<EventTrigger>();
-
-		public Trigger(VertexPositionNormalTexture point1, VertexPositionNormalTexture point2, VertexPositionNormalTexture point3, EventTrigger triggeredEvent)
-			: base(point1, point2, point3)
+		public Trigger(EventTrigger triggeredEvent)
+			: base()
 		{
 			_triggeredEvent = triggeredEvent;
 		}
 
-		public override bool shouldPhysicsBlock(Physics.Point p)
+		public override bool isSolid()
 		{
-			if (!Events.Contains(TriggeredEvent))
-			{
-				Events.Add(TriggeredEvent);
-			}
 			return false;
 		}
 
-		public override void TriggerEvents()
+		public override void onCollision(PhysicsPoint p)
 		{
-			foreach (EventTrigger triggered in Events)
-			{
-				triggered.PerformEvent(GameplayScreen.game);
-			}
-			Events.Clear();
+			_triggeredEvent.PerformEvent(p);
 		}
 	}
 }

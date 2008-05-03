@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Engine;
+using Physics2;
 
 namespace Project_blob
 {
@@ -31,7 +32,7 @@ namespace Project_blob
         public Vector3 vColor;
     };
 
-	public class Blob : Physics.PressureBody, Drawable
+	public class Blob : BodyPressure, Drawable
 	{
 
         public Texture2D text = null;
@@ -39,10 +40,6 @@ namespace Project_blob
         int NUM_Blobs;
 
         POINTVERTEX[] g_BlobPoints;
-
-		public readonly List<Physics.Point> points = new List<Physics.Point>();
-		public readonly List<Physics.Spring> springs = new List<Physics.Spring>();
-		List<Tri> collidables = new List<Tri>();
 
 		public static float springVal = 62.5f;
 
@@ -68,35 +65,13 @@ namespace Project_blob
 		public void setSpringLength(float delta)
 		{
 
-			foreach (Physics.Spring s in springs)
+			foreach (Spring s in springs)
 			{
 				//s.MaximumLengthBeforeExtension += delta;
 				//s.MinimumLengthBeforeCompression += delta;
                 s.LengthOffset += delta;
 			}
 
-		}
-
-		public override Vector3 getCenter()
-		{
-			Vector3 ret = Vector3.Zero;
-			foreach (Physics.Point p in points)
-			{
-				ret += p.CurrentPosition;
-			}
-			return ret / points.Count;
-			//return Center.Position;
-		}
-
-		public override Vector3 getNextCenter()
-		{
-			Vector3 ret = Vector3.Zero;
-			foreach (Physics.Point p in points)
-			{
-				ret += p.potentialPosition;
-			}
-			return ret / points.Count;
-			//return Center.Position;
 		}
 
 		public Blob(Model aModel)
@@ -109,7 +84,7 @@ namespace Project_blob
 			initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center + startPos);
 		}
 
-		public Physics.Collidable bottom;
+		public Collidable bottom;
 
 		private void initBlob(Model blobModel, Vector3 center)
 		{
@@ -136,7 +111,7 @@ namespace Project_blob
             /*vertices = new VertexPositionNormalTexture[part.NumVertices];
             mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);*/
 
-            Hashtable pointTable = new Hashtable(new Physics.PointComparater());
+            //Hashtable pointTable = new Hashtable(new Physics.PointComparater());
 
 			// IndexBuffer
 			if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
@@ -155,11 +130,11 @@ namespace Project_blob
 			myIndexBuffer = mesh.IndexBuffer;
 
 			// Physics Points
-			List<Physics.Point> tempList = new List<Physics.Point>();
+			List<PhysicsPoint> tempList = new List<PhysicsPoint>();
 
 			foreach (VertexPositionNormalTexture v in vertices)
 			{
-				tempList.Add(new Physics.Point(center + v.Position, this));
+				tempList.Add(new PhysicsPoint(center + v.Position, this));
 			}
 
             NUM_Blobs = tempList.Count;
@@ -231,14 +206,14 @@ namespace Project_blob
 			//}
 			//vertices = tempArray;
 			// Physics Springs
-			foreach (Physics.Point t in tempList)
+			foreach (PhysicsPoint t in tempList)
 			{
-				foreach (Physics.Point p in points)
+				foreach (PhysicsPoint p in points)
 				{
-					float d = Vector3.Distance(t.CurrentPosition, p.CurrentPosition);
+					float d = Vector3.Distance(t.ExternalPosition, p.ExternalPosition);
 					if (d > 0)
 					{
-						springs.Add(new Physics.Spring(t, p, Vector3.Distance(t.CurrentPosition, p.CurrentPosition), springVal * 100));
+						springs.Add(new Spring(t, p, Vector3.Distance(t.ExternalPosition, p.ExternalPosition), springVal * 100));
 					}
 					else
 					{
@@ -270,7 +245,7 @@ namespace Project_blob
 			//update points
 			for (int i = 0; i < vertices.Length/*pointsToUpdate.Count*/; i++)
 			{
-				vertices[i].Position = points[i].CurrentPosition;
+				vertices[i].Position = points[i].ExternalPosition;
 				vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter()));
                 g_BlobPoints[i].pos = vertices[i].Position;
 
@@ -321,12 +296,12 @@ namespace Project_blob
 		}
 
 
-		public override IEnumerable<Physics.Point> getPoints()
+		public override IEnumerable<PhysicsPoint> getPoints()
 		{
 			return points;
 		}
 
-		public override IEnumerable<Physics.Collidable> getCollidables()
+		public override IEnumerable<Collidable> getCollidables()
 		{
 			// Disabled collision planes for softcubes until I can figure out what's wrong.
 
@@ -336,7 +311,7 @@ namespace Project_blob
 			//}
 			//return temp;
 
-			return new List<Physics.Collidable>();
+			return new List<Collidable>();
 		}
 
 		public IEnumerable<Drawable> getDrawables()
@@ -349,7 +324,7 @@ namespace Project_blob
 			return temp;
 		}
 
-		public override IEnumerable<Physics.Spring> getSprings()
+		public override IEnumerable<Spring> getSprings()
 		{
 			return springs;
 		}
@@ -449,7 +424,7 @@ namespace Project_blob
 			idealVolume = volume;
 		}
 
-		public override float getNextVolume()
+		public override float getPotentialVolume()
 		{
 			float totalVolume = 0;
 
@@ -472,7 +447,7 @@ namespace Project_blob
 						p3 = points[j].potentialPosition;
 				}
 				*/
-				totalVolume += getPotentialFaceVolumeTest(points[indices[i]].potentialPosition, points[indices[i + 1]].potentialPosition, points[indices[i + 2]].potentialPosition);
+				totalVolume += getPotentialFaceVolumeTest(points[indices[i]].PotentialPosition, points[indices[i + 1]].PotentialPosition, points[indices[i + 2]].PotentialPosition);
 				//totalVolume += getFaceVolumeTest(p1, p2, p3);
 			}
 
@@ -504,7 +479,7 @@ namespace Project_blob
 				}
 				totalVolume += getFaceVolumeTest(p1, p2, p3);
 				*/
-				totalVolume += getFaceVolumeTest(points[indices[i]].CurrentPosition, points[indices[i + 1]].CurrentPosition, points[indices[i + 2]].CurrentPosition);
+				totalVolume += getFaceVolumeTest(points[indices[i]].ExternalPosition, points[indices[i + 1]].ExternalPosition, points[indices[i + 2]].ExternalPosition);
 			}
 
 			//Console.WriteLine("Volume Estimate: " + totalVolume);
@@ -575,7 +550,7 @@ namespace Project_blob
             //Vector3 closestPoint = Vector3.Subtract(getCenter(), Vector3.Multiply(facePlane.Normal, distance));
             //float height = Vector3.Distance(getCenter(), closestPoint);
 
-            Vector3 center = getNextCenter();
+            Vector3 center = getPotentialCenter();
             //negation because we are drawing the planes upside down
             float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), center);
             float height = MathHelper.Distance(distanceToCenter, facePlane.D);

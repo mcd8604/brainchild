@@ -7,16 +7,28 @@ namespace Physics2
 	public class BodyStatic : Body
 	{
 
-		private new List<CollidableStatic> collidables = new List<CollidableStatic>();
+		private List<CollidableStatic> staticCollidables = new List<CollidableStatic>();
 
+		[Obsolete]
 		public BodyStatic() { }
 
 		public BodyStatic(List<CollidableStatic> Collidables, Body ParentBody)
-			: base(ParentBody)
+			: base()
 		{
-			collidables = Collidables;
-			foreach (CollidableStatic c in collidables)
+			if (ParentBody != null)
 			{
+				ParentBody.addChild(this);
+			}
+			staticCollidables = Collidables;
+
+			foreach (Collidable c in staticCollidables)
+			{
+				collidables.Add(c);
+				if (c.parent != null && c.parent != this)
+				{
+					throw new Exception();
+				}
+				c.parent = this;
 				boundingBox.expandToInclude(c.getBoundingBox());
 			}
 		}
@@ -35,15 +47,13 @@ namespace Physics2
 			return true;
 		}
 
-		public override Vector3 getRelativeVelocity(Point p)
+		public override Vector3 getRelativeVelocity(PhysicsPoint p)
 		{
 			return base.getRelativeVelocity(p);
 		}
 
-		public override void update(float TotalElapsedSeconds)
-		{ }
-		public override void updatePosition()
-		{ }
+		public override void update(float TotalElapsedSeconds)		{ }
+		public override void updatePosition()		{ }
 		internal override void SolveForNextPosition(float TotalElapsedSeconds) { }
 
 	}

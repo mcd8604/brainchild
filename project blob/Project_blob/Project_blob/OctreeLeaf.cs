@@ -48,6 +48,11 @@ namespace Project_blob
         protected void Split()
         {
             Vector3 half = (ContainerBox.Max - ContainerBox.Min) / 2;
+
+			if ( half == Vector3.Zero ) {
+				throw new Exception();
+			}
+
             Vector3 halfx = Vector3.UnitX * half;
             Vector3 halfy = Vector3.UnitY * half;
             Vector3 halfz = Vector3.UnitZ * half;
@@ -66,7 +71,7 @@ namespace Project_blob
         {
             if (_containedObjects.Count > _maxobjects)
             {
-                Split();
+                //Split();
 
                 foreach (OctreeLeaf leaf in ChildLeaves)
                 {

@@ -68,6 +68,7 @@
     <Compile Include="DemoCube.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="Drawable.cs" />
+    <Compile Include="DrawableBody.cs" />
     <Compile Include="DrawableInfo.cs" />
     <Compile Include="EventInfo.cs" />
     <Compile Include="EventTrigger.cs" />
@@ -98,7 +99,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="StaticTri.cs" />
-    <Compile Include="T.cs" />
     <Compile Include="TextureInfo.cs" />
     <Compile Include="TextureManager.cs" />
     <Compile Include="Tri.cs" />
@@ -120,9 +120,13 @@
       <Project>{65494539-D8B5-4A17-9FD4-49E5D5A2949C}</Project>
       <Name>Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Physics\Physics.csproj">
-      <Project>{681AF17A-1BB4-422B-97B7-AEF72D2791DE}</Project>
-      <Name>Physics</Name>
+    <ProjectReference Include="..\Physics2\Physics2.csproj">
+      <Project>{1B356C34-6613-40BA-8476-29A93BFF64B6}</Project>
+      <Name>Physics2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhysicsUtils\PhysicsUtils.csproj">
+      <Project>{B0BDC6D6-6AB6-4491-951B-7B9A18505B7C}</Project>
+      <Name>PhysicsUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -9,6 +9,8 @@ namespace Physics2
 
         public static ParallelSetting enableParallel = ParallelSetting.Automatic;
 
+		public float physicsMultiplier = 1f;
+
         public static PhysicsManager getInstance()
         {
             switch (enableParallel)

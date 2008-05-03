@@ -15,10 +15,10 @@ namespace Physics2
 
 		public float Force = 1;
 
-		private readonly Point A;
-		private readonly Point B;
+		private readonly PhysicsPoint A;
+		private readonly PhysicsPoint B;
 
-		public Spring(Point one, Point two, float theLength, float ForceConstant)
+		public Spring(PhysicsPoint one, PhysicsPoint two, float theLength, float ForceConstant)
 		{
 			A = one;
 			B = two;

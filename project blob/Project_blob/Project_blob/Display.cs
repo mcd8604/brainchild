@@ -613,25 +613,8 @@ namespace Project_blob
                 {
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(Matrix.Multiply(drawStack.Pop(), EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].GetValueMatrix()));
                 }
-            }
-            _modelTemp = ModelManager.getSingleton.GetModel(d.ModelName);
-            if (_modelTemp != null)
-            {
-                foreach (ModelMesh mesh in _modelTemp.Meshes)
-                {
-                    graphicsDevice.Indices = mesh.IndexBuffer;
-                    EffectManager.getSingleton.GetEffect(_effectName).Begin();
-
-                    // Loop through each pass in the effect like we do elsewhere
-                    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique.Passes)
-                    {
-                        pass.Begin();
-                        d.DrawMe(mesh, graphicsDevice, m_GameMode);
-                        pass.End();
-                    }
-                    EffectManager.getSingleton.GetEffect(_effectName).End();
-                }
-            }
+			}
+			d.DrawMe(graphicsDevice,EffectManager.getSingleton.GetEffect(_effectName), m_GameMode);
             if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
                 ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = currentWorld;
             else

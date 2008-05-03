@@ -6,45 +6,37 @@ namespace Physics2
 	public class CollidableStaticTri : CollidableStatic
 	{
 
+		Vector3 Point1;
+		Vector3 Point2;
+		Vector3 Point3;
+
+		Plane Plane;
+
 		public CollidableStaticTri(Vector3 point1, Vector3 point2, Vector3 point3, BodyStatic parentBody)
 			: base(parentBody)
-		{ }
+		{
+			Point1 = point1;
+			Point2 = point2;
+			Point3 = point3;
+
+			Plane = new Plane(Point1, Point2, Point3);
+
+			boundingbox.expandToInclude(Point1);
+			boundingbox.expandToInclude(Point2);
+			boundingbox.expandToInclude(Point3);
+		}
 
 		public override float didIntersect(Vector3 start, Vector3 end)
 		{
-			//linestatictriangleintersect
-			throw new Exception("The method or operation is not implemented.");
-		}
-
-		public override Material getMaterial()
-		{
-			throw new Exception("The method or operation is not implemented.");
+			return CollisionMath.LineStaticTriangleIntersect(start, end, Point1, Point2, Point3);
 		}
 
 		public override Vector3 Normal()
 		{
-			throw new Exception("The method or operation is not implemented.");
+			return Plane.Normal;
 		}
 
-		public override void onCollision(Point p)
-		{
-			throw new Exception("The method or operation is not implemented.");
-		}
-
-		public override void update(float TotalElapsedSeconds)
-		{
-			throw new Exception("The method or operation is not implemented.");
-		}
-
-		public override void ApplyForce(Vector3 at, Vector3 f)
-		{
-			throw new Exception("The method or operation is not implemented.");
-		}
-
-        public override void ImpartVelocity(Vector3 at, Vector3 vel)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+		public override void update() { }
 
 	}
 }

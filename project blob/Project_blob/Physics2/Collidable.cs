@@ -2,12 +2,14 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	public abstract class Collidable : Actor
+	public abstract class Collidable
 	{
 
-		private Body parent;
+		public Body parent;
 
-		private AxisAlignedBoundingBox boundingbox;
+		protected AxisAlignedBoundingBox boundingbox = new AxisAlignedBoundingBox();
+
+		protected Material material = null;
 
 		public Collidable(Body parentBody)
 		{
@@ -26,9 +28,24 @@ namespace Physics2
 			return boundingbox;
 		}
 
-		public abstract Material getMaterial();
+		public virtual Material getMaterial()
+		{
+			if (material == null)
+			{
+				return parent.getMaterial();
+			}
+			else
+			{
+				return material;
+			}
+		}
 
-		public virtual Vector3 getRelativeVelocity(Point p)
+		public virtual void setMaterial(Material m)
+		{
+			material = m;
+		}
+
+		public virtual Vector3 getRelativeVelocity(PhysicsPoint p)
 		{
 			return parent.getRelativeVelocity(p);
 		}
@@ -54,9 +71,9 @@ namespace Physics2
 
 		public abstract Vector3 Normal();
 
-		public abstract void onCollision(Point p);
+		public virtual void onCollision(PhysicsPoint p) { }
 
-		public abstract void update(float TotalElapsedSeconds);
+		public abstract void update();
 
 	}
 }

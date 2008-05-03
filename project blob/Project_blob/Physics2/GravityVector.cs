@@ -22,7 +22,7 @@ namespace Physics2
 
 		public override void update(Body b)
 		{
-			foreach (Point p in b.getPoints())
+			foreach (PhysicsPoint p in b.getPoints())
 			{
 				p.AccelerationThisFrame += Gravity;
 			}

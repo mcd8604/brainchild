@@ -4,26 +4,47 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	public class Body : Actor
+	public class Body
 	{
 
-		public List<Point> points = new List<Point>();
+		public List<PhysicsPoint> points = new List<PhysicsPoint>();
 		public List<Collidable> collidables = new List<Collidable>();
 		public List<Spring> springs = new List<Spring>();
 		public List<Task> tasks = new List<Task>();
 
 		public Body parentBody = null;
-		public List<Body> childBodies = null;
+		public List<Body> childBodies = new List<Body>();
 
 		public AxisAlignedBoundingBox boundingBox = new AxisAlignedBoundingBox();
 
 		public Vector3 center;
+		public Vector3 potentialCenter;
 
+		protected Material material = Material.getDefaultMaterial();
+
+		[Obsolete]
 		public Body() { }
 
-		public Body(Body ParentBody)
+		public Body(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks)
 		{
-			ParentBody.addChild(this);
+			if (ParentBody != null)
+			{
+				ParentBody.addChild(this);
+			}
+			points = p_points;
+			springs = p_springs;
+			collidables = p_collidables;
+			tasks = p_tasks;
+
+			foreach (Collidable c in collidables)
+			{
+				if (c.parent != null && c.parent != this)
+				{
+					throw new Exception();
+				}
+				c.parent = this;
+				boundingBox.expandToInclude(c.getBoundingBox());
+			}
 		}
 
 		public virtual void addChild(Body childBody)
@@ -62,7 +83,7 @@ namespace Physics2
 
 		public virtual Vector3 getPotentialCenter()
 		{
-			return center;
+			return potentialCenter;
 		}
 
 		public virtual IEnumerable<Collidable> getCollidables()
@@ -70,7 +91,7 @@ namespace Physics2
 			return collidables;
 		}
 
-		public virtual IEnumerable<Point> getPoints()
+		public virtual IEnumerable<PhysicsPoint> getPoints()
 		{
 			return points;
 		}
@@ -80,23 +101,40 @@ namespace Physics2
 			return springs;
 		}
 
-		public virtual Vector3 getRelativeVelocity(Point p)
+		public virtual Vector3 getRelativeVelocity(PhysicsPoint p)
 		{
 			return Vector3.Zero;
 		}
 
+		public virtual Material getMaterial()
+		{
+			return material;
+		}
+
+		public virtual void setMaterial(Material m)
+		{
+			material = m;
+		}
+
 		public virtual void update(float TotalElapsedSeconds)
 		{
-
 			foreach (Body b in childBodies)
 			{
 				b.update(TotalElapsedSeconds);
 			}
 
 			// Predict potential position
-			foreach (Point p in points)
+			potentialCenter = Vector3.Zero;
+			foreach (PhysicsPoint p in points)
 			{
 				p.PotentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+				potentialCenter += p.PotentialPosition;
+			}
+			potentialCenter /= points.Count;
+
+			foreach (Collidable c in collidables)
+			{
+				c.update();
 			}
 
 			// Springs
@@ -124,13 +162,19 @@ namespace Physics2
 			}
 
 			center = Vector3.Zero;
-			foreach (Point p in points)
+			foreach (PhysicsPoint p in points)
 			{
 				p.updatePosition();
-				boundingBox.expandToInclude(p.CurrentPosition);
 				center += p.CurrentPosition;
+				boundingBox.expandToInclude(p.CurrentPosition);
 			}
 			center /= points.Count;
+
+			foreach (Collidable c in collidables)
+			{
+				c.update();
+				boundingBox.expandToInclude(c.getBoundingBox());
+			}
 
 		}
 
@@ -142,7 +186,7 @@ namespace Physics2
 				child.SolveForNextPosition(TotalElapsedSeconds);
 			}
 
-			foreach (Point p in points)
+			foreach (PhysicsPoint p in points)
 			{
 				Vector3 Acceleration = p.AccelerationThisFrame + (p.ForceThisFrame / p.Mass);
 				p.PotentialVelocity = p.CurrentVelocity + (Acceleration * TotalElapsedSeconds);
@@ -225,7 +269,7 @@ namespace Physics2
 		{
 			List<CollisionEvent> events = new List<CollisionEvent>();
 
-			foreach (Point p in points)
+			foreach (PhysicsPoint p in points)
 			{
 				foreach (Collidable x in c.collidables)
 				{
@@ -243,14 +287,12 @@ namespace Physics2
 			return events;
 
 		}
-        public virtual void onCollision(Point p)
-        {
+		public virtual void onCollision(PhysicsPoint p) { }
 
-        }
+		public Vector3 getVelocity()
+		{
+			return Vector3.Zero;
+		}
 
-        public Vector3 getVelocity()
-        {
-            return Vector3.Zero;
-        }
 	}
 }

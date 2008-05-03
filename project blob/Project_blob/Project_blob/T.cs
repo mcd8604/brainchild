@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Physics2;
 
 namespace Project_blob
 {
-    public abstract class T : Physics.Collidable, Drawable
+    public abstract class T : Collidable, Drawable
     {
 
         public T()
