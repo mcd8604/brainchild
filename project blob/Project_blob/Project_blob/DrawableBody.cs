@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Physics2;
 
 namespace Project_blob
 {
@@ -9,7 +10,8 @@ namespace Project_blob
 
         private StaticModel m_DrawableModel;
 
-        public DrawableBody(StaticModel p_Model)
+        public DrawableBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, StaticModel p_Model)
+			:base(ParentBody,p_points,p_collidables,p_springs,p_tasks)
         {
             m_DrawableModel = p_Model;
         }

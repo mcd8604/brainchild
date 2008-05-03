@@ -12,8 +12,7 @@ namespace Physics2
 
 		Plane Plane;
 
-		public CollidableStaticTri(Vector3 point1, Vector3 point2, Vector3 point3, BodyStatic parentBody)
-			: base(parentBody)
+		public CollidableStaticTri(Vector3 point1, Vector3 point2, Vector3 point3)
 		{
 			Point1 = point1;
 			Point2 = point2;

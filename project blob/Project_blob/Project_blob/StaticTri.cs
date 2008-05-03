@@ -18,8 +18,8 @@ namespace Project_blob
 		private GraphicsDevice theDevice;
 		private VertexBuffer myVertexBuffer;
 
-		public StaticTri(Vector3 point1, Vector3 point2, Vector3 point3, BodyStatic parentBody, Color color)
-			:base(point1, point2, point3, parentBody)
+		public StaticTri(Vector3 point1, Vector3 point2, Vector3 point3, Color color)
+			:base(point1, point2, point3)
 		{
 			vertices = new VertexPositionColor[3];
 

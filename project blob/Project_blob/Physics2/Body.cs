@@ -22,8 +22,15 @@ namespace Physics2
 
 		protected Material material = Material.getDefaultMaterial();
 
-		[Obsolete]
-		public Body() { }
+		internal Body() { }
+
+		public Body(Body ParentBody)
+		{
+			if (ParentBody != null)
+			{
+				ParentBody.addChild(this);
+			}
+		}
 
 		public Body(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks)
 		{
@@ -36,6 +43,11 @@ namespace Physics2
 			collidables = p_collidables;
 			tasks = p_tasks;
 
+			initialize();
+		}
+
+		public virtual void initialize()
+		{
 			foreach (Collidable c in collidables)
 			{
 				if (c.parent != null && c.parent != this)
@@ -44,6 +56,10 @@ namespace Physics2
 				}
 				c.parent = this;
 				boundingBox.expandToInclude(c.getBoundingBox());
+			}
+			foreach (PhysicsPoint p in points)
+			{
+				boundingBox.expandToInclude(p.CurrentPosition);
 			}
 		}
 

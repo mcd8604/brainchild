@@ -310,7 +310,7 @@ namespace Project_blob
 							}
 							else
 							{
-								collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position, null));
+								collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i]].Position, vertices[indices[i + 1]].Position, vertices[indices[i + 2]].Position));
 							}
 							numCol++;
 						}

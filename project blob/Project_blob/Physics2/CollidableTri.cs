@@ -11,8 +11,7 @@ namespace Physics2
 
 		Plane Plane;
 
-		public CollidableTri(PhysicsPoint point1, PhysicsPoint point2, PhysicsPoint point3, Body parentBody)
-			: base(parentBody)
+		public CollidableTri(PhysicsPoint point1, PhysicsPoint point2, PhysicsPoint point3)
 		{
 			Point1 = point1;
 			Point2 = point2;

@@ -62,19 +62,19 @@ namespace Project_blob
 			}
 
 
-			collidables.Add(new TriAA(ftr, fbr, bbr, this, Color.White));
-			collidables.Add(new TriAA(ftr, bbr, btr, this, Color.White));
-			collidables.Add(new TriAA(ftr, btr, btl, this, Color.White));
-			collidables.Add(new TriAA(ftr, btl, ftl, this, Color.White));
-			collidables.Add(new TriAA(ftr, ftl, fbl, this, Color.White));
-			collidables.Add(new TriAA(ftr, fbl, fbr, this, Color.White));
+			collidables.Add(new TriAA(ftr, fbr, bbr, Color.White));
+			collidables.Add(new TriAA(ftr, bbr, btr, Color.White));
+			collidables.Add(new TriAA(ftr, btr, btl, Color.White));
+			collidables.Add(new TriAA(ftr, btl, ftl, Color.White));
+			collidables.Add(new TriAA(ftr, ftl, fbl, Color.White));
+			collidables.Add(new TriAA(ftr, fbl, fbr, Color.White));
 
-			collidables.Add(new TriAA(bbl, bbr, fbr, this, Color.White));
-			collidables.Add(new TriAA(bbl, fbr, fbl, this, Color.White));
-			collidables.Add(new TriAA(bbl, fbl, ftl, this, Color.White));
-			collidables.Add(new TriAA(bbl, ftl, btl, this, Color.White));
-			collidables.Add(new TriAA(bbl, btl, btr, this, Color.White));
-			collidables.Add(new TriAA(bbl, btr, bbr, this, Color.White));
+			collidables.Add(new TriAA(bbl, bbr, fbr, Color.White));
+			collidables.Add(new TriAA(bbl, fbr, fbl, Color.White));
+			collidables.Add(new TriAA(bbl, fbl, ftl, Color.White));
+			collidables.Add(new TriAA(bbl, ftl, btl, Color.White));
+			collidables.Add(new TriAA(bbl, btl, btr, Color.White));
+			collidables.Add(new TriAA(bbl, btr, bbr, Color.White));
 
 
 			vertices[0] = new VertexPositionNormalTexture(ftr.ExternalPosition, Vector3.Up, Vector2.Zero);
