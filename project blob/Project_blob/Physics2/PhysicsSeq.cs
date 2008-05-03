@@ -206,7 +206,6 @@ namespace Physics2
 
 				// Bump?
 
-
 			}
 
 			foreach (CollisionEvent e in events)

@@ -27,7 +27,6 @@ namespace Project_blob.GameState
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
 
-		Vector3 blobStartPosition = new Vector3(-100, 10, -10);
 		Texture2D blobTexture;
 		Texture2D distortMapText;
 
@@ -101,6 +100,8 @@ namespace Project_blob.GameState
 			lightPosition = new Vector4(5, 5, 5, 0);
 		}
 
+		private Vector3 blobStartPosition = new Vector3(0, 0, 0);
+
 		private void reset()
 		{
 			if (physics != null)
@@ -135,7 +136,7 @@ namespace Project_blob.GameState
 			physics.Player.PlayerBody = theBlob;
 			physics.AddBody(theBlob);
 
-			physics.Player.PlayerBody.tasks.Add(new GravityVector(1f, new Vector3(0f, -1.0f, 0f)));
+			physics.Player.PlayerBody.tasks.Add(new GravityVector(0.981f, new Vector3(0f, -1.0f, 0f)));
 
 			if (currentArea != null)
 			{
