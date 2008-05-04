@@ -23,7 +23,7 @@ namespace Project_blob
             set { _worldBox = value; }
         }
 
-		private int _currSector = 0;
+		private int _currSector = -1;
         public int CurrSector
 		{
 			get { return _currSector; }
@@ -48,17 +48,31 @@ namespace Project_blob
                 //    _sectors.Add(0, new Sector(0));
                 //    _sectors[0].AddObjectToSector(obj);
                 //}
-
-                foreach (int sectorNum in obj.Rooms)
+                if (obj.Rooms.Count != 0)
                 {
-                    if (_sectors.ContainsKey(sectorNum))
+                    foreach (int sectorNum in obj.Rooms)
                     {
-                        _sectors[sectorNum].AddObjectToSector(obj);
+                        if (_sectors.ContainsKey(sectorNum))
+                        {
+                            _sectors[sectorNum].AddObjectToSector(obj);
+                        }
+                        else
+                        {
+                            _sectors.Add(sectorNum, new Sector(sectorNum));
+                            _sectors[sectorNum].AddObjectToSector(obj);
+                        }
+                    }
+                }
+                else
+                {
+                    if (_sectors.ContainsKey(-1))
+                    {
+                        _sectors[-1].AddObjectToSector(obj);
                     }
                     else
                     {
-                        _sectors.Add(sectorNum, new Sector(sectorNum));
-                        _sectors[sectorNum].AddObjectToSector(obj);
+                        _sectors.Add(-1, new Sector(-1));
+                        _sectors[-1].AddObjectToSector(obj);
                     }
                 }
 
