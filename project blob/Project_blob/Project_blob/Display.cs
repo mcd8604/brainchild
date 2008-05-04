@@ -474,6 +474,40 @@ namespace Project_blob
                         }
                     }
                 }
+
+                graphicsDevice.SetRenderTarget(0, m_distortionMap);
+                graphicsDevice.RenderState.DepthBufferEnable = true;
+
+                foreach (TextureInfo ti in drawable_List_Drawn.Keys)
+                {
+                    if (ti.SortNumber != currentTextureNumber)
+                    {
+                        if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
+                        {
+                            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                        }
+                        else
+                        {
+                            graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                            if (m_TextureParameterName != "NONE" && _effectName == "cartoonEffect")
+                                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                        }
+                    }
+
+                    foreach (Drawable d in drawable_List_Drawn[ti])
+                    {
+                        if (d is StaticModel)
+                        {
+                            DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+
+                        }
+                        else
+                        {
+                            DrawPrimitives(d, graphicsDevice);
+                        }
+                    }
+                }
+
                 if(theBlob != null && !DEBUG_WireframeMode)
                 {
                     //graphicsDevice.RenderState.SourceBlend = Blend.SourceAlpha;
@@ -490,8 +524,8 @@ namespace Project_blob
 
                         graphicsDevice.SetRenderTarget(0, m_distortionMap);
                         graphicsDevice.Clear(Color.Black);
-                        graphicsDevice.RenderState.DepthBufferEnable = true;
-                        graphicsDevice.Textures[0] = theBlob.DisplacementText;
+                        
+                        //graphicsDevice.Textures[0] = theBlob.DisplacementText;
 
                         EffectManager.getSingleton.GetEffect("Distorter").Begin();
                         foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("Distorter").CurrentTechnique.Passes)
