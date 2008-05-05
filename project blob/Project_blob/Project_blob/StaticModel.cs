@@ -225,12 +225,12 @@ namespace Project_blob
 
 		public void updateTextureCoords()
 		{
-			if (m_RepeatingTexture)
-			{
-				VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
-                Model m = ModelManager.getSingleton.GetModel(this.ModelName);
-                m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
+            Model m = ModelManager.getSingleton.GetModel(this.ModelName);
+            m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
+            if (m_RepeatingTexture)
+            {
 				//scaleVector used to scale texture coordinates
 				Vector3 scaleVector = Vector3.Zero;
 				Quaternion rotVector = Quaternion.Identity;
@@ -244,10 +244,10 @@ namespace Project_blob
 					//scale the texture coordinates
 					vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
 					vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
-				}
+                }
+            }
 
-				m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
-			}
+			m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
 		}
 
 		/*
