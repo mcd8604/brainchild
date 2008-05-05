@@ -72,7 +72,7 @@
     <Compile Include="DrawableBody.cs" />
     <Compile Include="DrawableInfo.cs" />
     <Compile Include="EventInfo.cs" />
-    <Compile Include="EventSwitchDoorOpen.cs" />
+    <Compile Include="EventDoorOpen.cs" />
     <Compile Include="EventTrigger.cs" />
     <Compile Include="GameState\GameplayScreen.cs" />
     <Compile Include="GameState\GameScreen.cs" />
