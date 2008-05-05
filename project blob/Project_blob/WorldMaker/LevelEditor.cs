@@ -54,6 +54,14 @@ namespace WorldMaker
 				areaTextBox.Text = (String)areaListBox.Items[areaListBox.SelectedIndex];
 				_gameRef.ActiveArea = Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]];
 
+                foreach (Drawable d in _gameRef.ActiveArea.Drawables.Values)
+                {
+                    if (d is StaticModel)
+                    {
+                        ((StaticModel)d).initialize();
+                    }
+                }
+
 				//*hardcode*
 				_gameRef.ActiveArea.Display.EffectName = "cartoonEffect";
 				_gameRef.ActiveArea.Display.WorldParameterName = "World";
