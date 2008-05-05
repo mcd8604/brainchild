@@ -219,11 +219,13 @@ namespace WorldMaker
             // 
             // EventButton
             // 
+            this.EventButton.Enabled = false;
             this.EventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EventButton.Location = new System.Drawing.Point(156, 733);
             this.EventButton.Name = "EventButton";
             this.EventButton.Size = new System.Drawing.Size(125, 47);
             this.EventButton.TabIndex = 17;
+            this.EventButton.Text = "Add Event";
             this.EventButton.UseVisualStyleBackColor = false;
             this.EventButton.Click += new System.EventHandler(this.EventButton_Click);
             // 
@@ -274,6 +276,6 @@ namespace WorldMaker
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox areaTextBox;
 		private System.Windows.Forms.Button nameButton;
-		private System.Windows.Forms.Button EventButton;
+        private System.Windows.Forms.Button EventButton;
 	}
 }
