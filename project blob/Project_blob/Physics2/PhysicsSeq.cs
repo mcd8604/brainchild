@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -94,6 +95,16 @@ namespace Physics2
 			{
 				if (!(b is BodyStatic))
 				{
+
+                    foreach (PhysicsPoint p in b.points)
+                    {
+
+                        if (p.PotentialPosition.Y < -13)
+                        {
+                            int i = 0;
+                        }
+                    }
+
 					AxisAlignedBoundingBox box = b.getBoundingBox();
 					foreach (Body c in bodies)
 					{
@@ -101,6 +112,17 @@ namespace Physics2
 						{
 							if (box.intersects(c.getBoundingBox()))
 							{
+                                // temp
+                                foreach (PhysicsPoint p in b.points)
+                                {
+
+                                    if (p.PotentialPosition.Y < -13)
+                                    {
+                                        int i = 0;
+                                    }
+                                }
+
+
 								events.AddRange(b.findCollisions(c));
 							}
 						}
@@ -205,6 +227,11 @@ namespace Physics2
 				e.point.LastCollision = e.collidable;
 
 				// Bump?
+
+                if (e.point.NextPosition.Y < -13)
+                {
+                    throw new Exception();
+                }
 
 			}
 

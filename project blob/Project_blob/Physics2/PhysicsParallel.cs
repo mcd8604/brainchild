@@ -1,3 +1,6 @@
+
+#define TIMED
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,32 +18,44 @@ namespace Physics2
 
 		private bool run = true;
 
+#if TIMED
 		private System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 		private float waitTimeMsec = 0;
 		private float physicsTimeMsec = 0;
 
-		public override float PWR
-		{
-			get
-			{
-				float pwr = physicsTimeMsec / (waitTimeMsec + physicsTimeMsec);
-				if (physicsTimeMsec > 1000 || waitTimeMsec > 1000)
-				{
-					physicsTimeMsec = 0;
-					waitTimeMsec = 0;
-				}
-				return pwr;
-			}
-		}
+        public override float PWR
+        {
+            get
+            {
+                if ((waitTimeMsec + physicsTimeMsec) == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    float pwr = physicsTimeMsec / (waitTimeMsec + physicsTimeMsec);
+                    //if (physicsTimeMsec > 1000 || waitTimeMsec > 1000)
+                    //{
+                    //	physicsTimeMsec = 0;
+                    //	waitTimeMsec = 0;
+                    //}
+                    physicsTimeMsec *= 0.5f;
+                    waitTimeMsec *= 0.5f;
+                    return pwr;
+                }
+            }
+        }
+#endif
 
 		public PhysicsParallel()
 		{
-
 			physicsMain = new PhysicsSeq();
 
 			WorkerThread = new System.Threading.Thread(delegate()
 			{
+#if TIMED
 				timer.Start();
+#endif
 				do
 				{
 					do
@@ -51,10 +66,12 @@ namespace Physics2
 							return;
 						}
 					} while (runForTime == 0f);
+#if TIMED
 					timer.Stop();
 					waitTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
 					timer.Reset();
 					timer.Start();
+#endif
 					try
 					{
 						physicsMain.doPhysics(runForTime * physicsMultiplier);
@@ -64,10 +81,12 @@ namespace Physics2
 						Console.WriteLine(ex);
 						break;
 					}
+#if TIMED
 					timer.Stop();
 					physicsTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
 					timer.Reset();
 					timer.Start();
+#endif
 					runForTime = 0f;
 				} while (run);
 
@@ -76,12 +95,10 @@ namespace Physics2
 			WorkerThread.Name = "Physics Thread";
 			WorkerThread.Priority = System.Threading.ThreadPriority.AboveNormal;
 			WorkerThread.Start();
-
 		}
 
 		public override void update(float TotalElapsedSeconds)
 		{
-
 			foreach (Body b in physicsMain.bodies)
 			{
 				b.updatePosition();
@@ -98,11 +115,12 @@ namespace Physics2
 			lock (this) System.Threading.Monitor.Pulse(this);
 
 		}
-
+#if DEBUG
 		public override int DEBUG_GetNumCollidables()
 		{
 			return physicsMain.DEBUG_GetNumCollidables();
 		}
+#endif
 		public override void AddBody(Body b)
 		{
 			physicsMain.AddBody(b);
