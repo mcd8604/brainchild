@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob
 {
-    public abstract class DrawableBody : Physics2.Body
+    public abstract class DrawableBody : Physics2.BodyRigid
     {
 
         private StaticModel m_DrawableModel;
@@ -23,6 +23,7 @@ namespace Project_blob
         public override void update(float TotalElapsedSeconds)
         {
             base.update(TotalElapsedSeconds);
+            updateVertices();
         }
 
         private void updateVertices()
