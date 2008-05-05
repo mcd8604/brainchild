@@ -59,6 +59,7 @@ namespace Project_blob.GameState
 
 		bool cinema = false;
 		bool paused = false;
+        bool step = false;
 		bool controllermode = false;
 		bool follow = true;
 
@@ -467,6 +468,17 @@ namespace Project_blob.GameState
 
 				}
 				physicsTime.Stop();
+                if (step)
+                {
+                    paused = true;
+                    step = false;
+                }
+
+                if (InputHandler.IsKeyPressed(Keys.L))
+                {
+                    step = true;
+                    paused = false;
+                }
 
                 if (InputHandler.IsKeyPressed(Keys.PageUp))
                 {

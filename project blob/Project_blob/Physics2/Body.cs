@@ -144,6 +144,10 @@ namespace Physics2
 			foreach (PhysicsPoint p in points)
 			{
 				p.PotentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+
+                // temp
+                boundingBox.expandToInclude(p.PotentialPosition);
+
 				potentialCenter += p.PotentialPosition;
 			}
 			potentialCenter /= points.Count;
@@ -210,7 +214,7 @@ namespace Physics2
 				if (p.PotentialVelocity != Vector3.Zero)
 				{
 					//Vector3 DragForce = p.PotentialVelocity * airfriction;
-					Vector3 DragForce = p.PotentialVelocity * 1;
+					Vector3 DragForce = p.PotentialVelocity * 2;
 					Vector3 AccelerationDrag = (DragForce / p.Mass);
 					Vector3 VelocityDrag = (AccelerationDrag * TotalElapsedSeconds);
 
@@ -287,6 +291,12 @@ namespace Physics2
 
 			foreach (PhysicsPoint p in points)
 			{
+
+                if (p.PotentialPosition.Y < -13)
+                {
+                    int i = 0;
+                }
+
 				foreach (Collidable x in c.collidables)
 				{
 					if (x.couldIntersect(p.CurrentPosition, p.PotentialPosition))
