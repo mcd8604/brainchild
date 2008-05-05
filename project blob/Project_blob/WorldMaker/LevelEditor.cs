@@ -71,6 +71,8 @@ namespace WorldMaker
                 
                 CreateRenderTargets();
 
+                EventButton.Enabled = false;
+
 				modelListBox.Items.Clear();
 				foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
 				{
@@ -114,24 +116,29 @@ namespace WorldMaker
 
 		private void modelListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (modelListBox.SelectedIndex != -1)
-			{
-				_gameRef.ActiveDrawable = _gameRef.ActiveArea.Drawables[(String)(modelListBox.Items[modelListBox.SelectedIndex])];
-				if (_gameRef.ActiveDrawable is StaticModel)
-				{
-					_gameRef.ActiveArea.Display.CurrentlySelected = ((StaticModel)_gameRef.ActiveDrawable).Name;
+            if (modelListBox.SelectedIndex != -1)
+            {
+                _gameRef.ActiveDrawable = _gameRef.ActiveArea.Drawables[(String)(modelListBox.Items[modelListBox.SelectedIndex])];
+                if (_gameRef.ActiveDrawable is StaticModel)
+                {
+                    _gameRef.ActiveArea.Display.CurrentlySelected = ((StaticModel)_gameRef.ActiveDrawable).Name;
 
-					if (_gameRef.ActiveArea.Events.ContainsKey(((StaticModel)_gameRef.ActiveDrawable).Name))
-					{
-						EventButton.Text = "Edit Event";
-					}
-					else
-					{
-						EventButton.Text = "Add Event";
-					}
+                    EventButton.Enabled = true;
+                    if (_gameRef.ActiveArea.Events.ContainsKey(((StaticModel)_gameRef.ActiveDrawable).Name))
+                    {
+                        EventButton.Text = "Edit Event";
+                    }
+                    else
+                    {
+                        EventButton.Text = "Add Event";
+                    }
 
-				}
-			}
+                }
+            }
+            else
+            {
+                EventButton.Enabled = false;
+            }
 		}
 
 		private void loadButton_Click(object sender, EventArgs e)
