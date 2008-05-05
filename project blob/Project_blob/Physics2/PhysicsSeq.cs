@@ -181,7 +181,7 @@ namespace Physics2
 
 				}
 
-				Vector3 TotalNormalForce = (VelocityTransfer / (TotalElapsedSeconds * (1 - e.when) ) * e.point.Mass) + NormalForce;
+				Vector3 TotalNormalForce = (VelocityTransfer / (TotalElapsedSeconds * (1 - e.when)) * e.point.Mass) + NormalForce;
 
 				// relative velocity
 				Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e.point) - newVelocity;
@@ -237,6 +237,17 @@ namespace Physics2
 
 			foreach (CollisionEvent e in events)
 			{
+				// Very Temporary!
+				if (e.collidable.Normal() == Vector3.Down)
+				{
+					Console.WriteLine("Normal Pointing Down!");
+				}
+				else if (e.collidable.Normal() == Vector3.Up)
+				{
+					Console.WriteLine("Normal Pointing Up!");
+				}
+
+
 				e.trigger();
 			}
 

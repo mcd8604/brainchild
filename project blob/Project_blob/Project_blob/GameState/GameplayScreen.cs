@@ -195,6 +195,7 @@ namespace Project_blob.GameState
 				e.MoveNext();
 				e.MoveNext();
 				//e.MoveNext();
+
 				currentArea = (Area)e.Current;
 				currentArea.LoadAreaGameplay(ScreenManager);
 				currentArea.Display.EffectName = "cartoonEffect";
@@ -454,8 +455,6 @@ namespace Project_blob.GameState
 				if (!paused)
 				{
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
-
-					Console.WriteLine(physics.Player.PlayerBody.getCenter());
 
 					EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["blobCenter"].SetValue(theBlob.getCenter());
 
@@ -721,8 +720,8 @@ namespace Project_blob.GameState
 					foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
 					{
 
-						p.ForceNextFrame += Vector3.Up * 300;
-						p.ForceNextFrame += jump * 600;
+						p.ForceNextFrame += Vector3.Up * 3000;
+						p.ForceNextFrame += jump * 6000;
 
 					}
 
@@ -844,7 +843,7 @@ namespace Project_blob.GameState
 
 			//ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
-			ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
+			//ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
 			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			ScreenManager.GraphicsDevice.RenderState.DepthBufferEnable = true;
 			ScreenManager.GraphicsDevice.RenderState.AlphaBlendEnable = false;
