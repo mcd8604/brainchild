@@ -302,7 +302,7 @@ namespace WorldMaker
 				{
 					_drawablesToDelete.Add(_gameRef.ActiveArea.Display.CurrentlySelected);
 					Console.WriteLine(_modelSelect.CurrentModel.Name);
-					//_modelSelect.CurrentModel.updateVertexBuffer();
+					_modelSelect.CurrentModel.updateTextureCoords();
 					_drawableInfo.name = _modelSelect.CurrentModel.Name;
 					_drawableInfo.textureInfo = _modelSelect.CurrentTexture;
 					StaticModel temp = _modelSelect.CurrentModel;
