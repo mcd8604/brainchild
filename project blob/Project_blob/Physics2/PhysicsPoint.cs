@@ -67,6 +67,8 @@ namespace Physics2
 
 			ForceThisFrame = ForceNextFrame;
 			ForceNextFrame = Vector3.Zero;
+
+			AccelerationThisFrame = Vector3.Zero;
 		}
 
 	}

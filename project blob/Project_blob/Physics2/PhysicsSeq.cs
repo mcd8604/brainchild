@@ -95,16 +95,6 @@ namespace Physics2
 			{
 				if (!(b is BodyStatic))
 				{
-
-                    foreach (PhysicsPoint p in b.points)
-                    {
-
-                        if (p.PotentialPosition.Y < -13)
-                        {
-                            int i = 0;
-                        }
-                    }
-
 					AxisAlignedBoundingBox box = b.getBoundingBox();
 					foreach (Body c in bodies)
 					{
@@ -112,17 +102,6 @@ namespace Physics2
 						{
 							if (box.intersects(c.getBoundingBox()))
 							{
-                                // temp
-                                foreach (PhysicsPoint p in b.points)
-                                {
-
-                                    if (p.PotentialPosition.Y < -13)
-                                    {
-                                        int i = 0;
-                                    }
-                                }
-
-
 								events.AddRange(b.findCollisions(c));
 							}
 						}
@@ -145,6 +124,9 @@ namespace Physics2
 
 			foreach (CollisionEvent e in events)
 			{
+
+				//fake it!
+				e.when -= 0.01f;
 
 				// handle collision, sliding;
 				Vector3 newPosition = e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when);
@@ -227,27 +209,10 @@ namespace Physics2
 				e.point.LastCollision = e.collidable;
 
 				// Bump?
-
-                if (e.point.NextPosition.Y < -13)
-                {
-                    throw new Exception();
-                }
-
 			}
 
 			foreach (CollisionEvent e in events)
 			{
-				// Very Temporary!
-				if (e.collidable.Normal() == Vector3.Down)
-				{
-					Console.WriteLine("Normal Pointing Down!");
-				}
-				else if (e.collidable.Normal() == Vector3.Up)
-				{
-					Console.WriteLine("Normal Pointing Up!");
-				}
-
-
 				e.trigger();
 			}
 

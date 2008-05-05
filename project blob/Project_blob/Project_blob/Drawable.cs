@@ -17,7 +17,7 @@ namespace Project_blob
 
         BoundingBox GetBoundingBox();
 
-        BoundingSphere GetBoundingSphere();
+        //BoundingSphere GetBoundingSphere();
 
 	}
 }

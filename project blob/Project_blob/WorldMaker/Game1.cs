@@ -51,7 +51,7 @@ namespace WorldMaker
             set { _effectName = value; }
         }
 
-        static Matrix tempView, tempProj;
+        //static Matrix tempView, tempProj;
 
         //Effect celshader;
         Matrix worldMatrix;

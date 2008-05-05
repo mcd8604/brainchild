@@ -19,9 +19,9 @@ namespace Project_blob.GameState
 		SpriteBatch spriteBatch;
 
 		Model blobModel;
-		Model skyBox;
+		//Model skyBox;
 
-		Texture2D skyTexture;
+		//Texture2D skyTexture;
 		TextureInfo ti;
 		StaticModel sky;
 		private Blob theBlob;
@@ -137,7 +137,7 @@ namespace Project_blob.GameState
 			physics.Player.PlayerBody = theBlob;
 			physics.AddBody(theBlob);
 
-			physics.Player.PlayerBody.tasks.Add(new GravityVector(0.981f, new Vector3(0f, -1.0f, 0f)));
+			physics.Player.PlayerBody.tasks.Add(new GravityVector(10f, new Vector3(0f, -1.0f, 0f)));
 
 			if (currentArea != null)
 			{
@@ -720,8 +720,8 @@ namespace Project_blob.GameState
 					foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
 					{
 
-						p.ForceNextFrame += Vector3.Up * 3000;
-						p.ForceNextFrame += jump * 6000;
+						p.ForceNextFrame += Vector3.Up * 300;
+						p.ForceNextFrame += jump * 600;
 
 					}
 
