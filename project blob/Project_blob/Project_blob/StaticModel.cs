@@ -228,7 +228,8 @@ namespace Project_blob
 			if (m_RepeatingTexture)
 			{
 				VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
-				m_VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+                Model m = ModelManager.getSingleton.GetModel(this.ModelName);
+                m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
 				//scaleVector used to scale texture coordinates
 				Vector3 scaleVector = Vector3.Zero;
