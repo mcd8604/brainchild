@@ -698,6 +698,7 @@ namespace Project_blob.GameState
 
 				Vector3 jump = Vector3.Zero;
 
+				// this occasional breaks due to threading, I'll fix it later
 				foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
 				{
 					if (p.LastCollision != null)
