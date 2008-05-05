@@ -221,7 +221,17 @@ namespace Project_blob
 		public void updateVertexBuffer(VertexPositionNormalTexture[] vertices)
 		{
 			m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
-		}
+        }
+
+        public VertexPositionNormalTexture[] getVertices()
+        {
+            VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
+            if (m_VertexBuffer != null)
+            {
+                m_VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+            }
+            return vertices;
+        }
 
 		public void updateTextureCoords()
 		{
