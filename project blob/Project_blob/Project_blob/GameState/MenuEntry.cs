@@ -52,8 +52,6 @@ namespace Project_blob.GameState
 			// Draw the selected entry in yellow, otherwise white.
 			Color color = isSelected ? Color.Yellow : Color.White;
 
-			float scale = 1;
-
 			// Modify the alpha to fade text out during transitions.
 			color = new Color(color.R, color.G, color.B, screen.TransitionAlpha);
 
@@ -65,7 +63,7 @@ namespace Project_blob.GameState
 			Vector2 origin = new Vector2(0, font.LineSpacing / 2);
 
 			spriteBatch.DrawString(font, text, position, color, 0,
-								   origin, scale, SpriteEffects.None, 0);
+								   origin, 1, SpriteEffects.None, 0);
 		}
 
 		public virtual int GetHeight(MenuScreen screen)
