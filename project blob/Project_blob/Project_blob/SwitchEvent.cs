@@ -8,12 +8,19 @@ namespace Project_blob
 {
     public class SwitchEvent : EventTrigger
     {
-        public SwitchEvent()
+        List<EventTrigger> m_Events = new List<EventTrigger>();
+
+        public SwitchEvent(List<EventTrigger> p_Events)
         {
+            m_Events = p_Events;
         }
 
-        public void PerformEvent(PhysicsPoint p)
+        public void PerformEvent(PhysicsPoint point)
         {
+            foreach (EventTrigger e in m_Events)
+            {
+                e.PerformEvent(point);
+            }
         }
     }
 }
