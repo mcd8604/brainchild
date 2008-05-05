@@ -86,11 +86,11 @@ namespace Project_blob
         public bool DEBUG_WireframeMode = false;
 
         [NonSerialized]
-        private Model _modelTemp;
+        //private Model _modelTemp;
 
         SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
         SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
-        SortedList<short, List<Drawable>> rooms;
+        //SortedList<short, List<Drawable>> rooms;
 
         public bool saveOut = false;
 

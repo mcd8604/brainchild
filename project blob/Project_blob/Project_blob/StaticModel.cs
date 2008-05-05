@@ -143,7 +143,7 @@ namespace Project_blob
         }*/
 
         private BoundingBox m_BoundingBox;
-        private BoundingSphere m_BoundingSphere;
+        //private BoundingSphere m_BoundingSphere;
 
 		public BoundingBox GetBoundingBox()
 		{
@@ -790,47 +790,47 @@ namespace Project_blob
         }*/
 
 
-        public BoundingSphere GetBoundingSphere()
-        {
-            Matrix transformMatrix = Matrix.Identity;
-            Stack<Matrix> drawStack = new Stack<Matrix>();
-            for (int j = 0; j < 4; j++)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (m_PriorityArray[i] == j)
-                    {
-                        switch (i)
-                        {
-                            case 0:
-                                if (this.Position != null)
-                                    drawStack.Push(this.Position);
-                                break;
-                            case 1:
-                                if (this.Rotation != null)
-                                    drawStack.Push(this.Rotation);
-                                break;
-                            case 2:
-                                if (this.Scale != null)
-                                    drawStack.Push(this.Scale);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
-            }
+		//public BoundingSphere GetBoundingSphere()
+		//{
+		//    Matrix transformMatrix = Matrix.Identity;
+		//    Stack<Matrix> drawStack = new Stack<Matrix>();
+		//    for (int j = 0; j < 4; j++)
+		//    {
+		//        for (int i = 0; i < 3; i++)
+		//        {
+		//            if (m_PriorityArray[i] == j)
+		//            {
+		//                switch (i)
+		//                {
+		//                    case 0:
+		//                        if (this.Position != null)
+		//                            drawStack.Push(this.Position);
+		//                        break;
+		//                    case 1:
+		//                        if (this.Rotation != null)
+		//                            drawStack.Push(this.Rotation);
+		//                        break;
+		//                    case 2:
+		//                        if (this.Scale != null)
+		//                            drawStack.Push(this.Scale);
+		//                        break;
+		//                    default:
+		//                        break;
+		//                }
+		//            }
+		//        }
+		//    }
 
-            while (drawStack.Count > 0)
-            {
-                transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
-            }
-            Vector3 center = m_BoundingSphere.Center;
-            //float radius;
+		//    while (drawStack.Count > 0)
+		//    {
+		//        transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
+		//    }
+		//    Vector3 center = m_BoundingSphere.Center;
+		//    //float radius;
 
-            throw new Exception("Fix This");
-            //return m_BoundingSphere;
-        }
+		//    throw new Exception("Fix This");
+		//    //return m_BoundingSphere;
+		//}
     }
 #endregion
 }
