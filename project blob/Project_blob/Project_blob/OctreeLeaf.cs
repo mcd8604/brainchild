@@ -71,7 +71,7 @@ namespace Project_blob
         {
             if (_containedObjects.Count > _maxobjects)
             {
-                //Split();
+                Split();
 
                 foreach (OctreeLeaf leaf in ChildLeaves)
                 {
