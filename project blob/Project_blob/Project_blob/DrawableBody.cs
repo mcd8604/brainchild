@@ -6,9 +6,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob
 {
-    public abstract class DrawableBody : Physics2.BodyRigid
+    /// <summary>
+    /// This class is intended only to update the VertexBuffer of a model.
+    /// </summary>
+    public class DrawableBody : Physics2.BodyRigid
     {
-
         private StaticModel m_DrawableModel;
         private VertexPositionNormalTexture[] vertices;
 
