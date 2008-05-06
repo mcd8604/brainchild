@@ -118,8 +118,8 @@ namespace Project_blob.GameState
 			physics.Player.Traction.Maximum = 1000f;
 
 			physics.Player.Cling.Minimum = 0f;
-			physics.Player.Cling.Origin = 10f;
-			physics.Player.Cling.Maximum = 25f;
+			physics.Player.Cling.Origin = 5f;
+			physics.Player.Cling.Maximum = 20f;
 
 			physics.Player.Resilience.Minimum = 20f;
 			physics.Player.Resilience.Origin = 40f;
@@ -696,37 +696,10 @@ namespace Project_blob.GameState
 					//}
 				}
 
-				Vector3 jump = Vector3.Zero;
-
-				// this occasional breaks due to threading, I'll fix it later
-				foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
-				{
-					if (p.LastCollision != null)
-					{
-						jump += p.LastCollision.Normal;
-					}
-				}
-
-				if (jump != Vector3.Zero)
-				{
-					jump = Vector3.Normalize(jump);
-				}
-
-				if (InputHandler.IsKeyPressed(Keys.J) || InputHandler.IsButtonPressed(Buttons.A))
-				{
-					// Fake Jump: TODO
-
-					// Fake Fake Jump:
-
-					foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
-					{
-
-						p.ForceNextFrame += Vector3.Up * 300;
-						p.ForceNextFrame += jump * 600;
-
-					}
-
-				}
+                if (InputHandler.IsKeyPressed(Keys.J) || InputHandler.IsButtonPressed(Buttons.A))
+                {
+                    physics.Player.jump();
+                }
 
 				if (InputHandler.IsKeyDown(Keys.Home))
 				{
