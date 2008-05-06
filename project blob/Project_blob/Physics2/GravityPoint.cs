@@ -19,7 +19,7 @@ namespace Physics2
 			Origin = p_Origin;
 		}
 
-		public override void update(Body b)
+		public override void update(Body b, float time)
 		{
 			foreach (PhysicsPoint p in b.getPoints())
 			{

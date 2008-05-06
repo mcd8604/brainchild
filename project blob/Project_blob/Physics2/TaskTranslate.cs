@@ -1,44 +1,39 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-    class TaskTranslate : Task
+    public class TaskTranslate : Task
     {
-        List<Vector3> m_PatrolPoints = new List<Vector3>();
-        public List<Vector3> PatrolPoints
-        {
-            get { return m_PatrolPoints; }
+        public IList<Vector3> PatrolPoints;
+        public float Speed;
+        protected int m_index = 0;
 
-            set 
+        public TaskTranslate(IList<Vector3> patrolPoints, float speed)
+        {
+            PatrolPoints = patrolPoints;
+            Speed = speed;
+        }
+
+        public override void update(Body b, float time)
+        {
+            Vector3 CurrentDestination = PatrolPoints[m_index];
+            Vector3 BodyCenter = b.getCenter();
+
+            float travel = Speed * time;
+            float dist = Vector3.Distance(CurrentDestination, BodyCenter);
+
+            if (dist < travel)
             {
-                m_CurDestination = m_PatrolPoints[0];
-                m_PatrolPoints = value; 
+                travel = dist;
+                ++m_index;
             }
-        }
 
-        float m_Speed;
-        public float Speed
-        {
-            get { return m_Speed; }
-            set { m_Speed = value; }
-        }
+            Vector3 delta = Vector3.Normalize(CurrentDestination - BodyCenter) * travel;
 
-        private Vector3 m_CurDestination = new Vector3();
-
-        public override void update(Body b)
-        {
-            if (Vector3.Distance(m_CurDestination, b.getCenter()) < .001)
-                m_CurDestination = m_PatrolPoints[m_PatrolPoints.IndexOf(m_CurDestination) + 1];
-
-            Vector3 accel;
-            accel = Vector3.Normalize(m_CurDestination - b.getCenter()) * Speed;
-
-            for (int i = 0; i < b.points.Count; i++ )
+            foreach (PhysicsPoint p in b.points)
             {
-                b.points[i].CurrentPosition = Vector3.Add(b.points[i].CurrentPosition, accel);
+                p.PotentialPosition = p.CurrentPosition + delta;
             }
         }
     }

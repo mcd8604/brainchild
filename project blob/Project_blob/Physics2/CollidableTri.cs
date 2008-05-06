@@ -9,7 +9,7 @@ namespace Physics2
 		PhysicsPoint Point2;
 		PhysicsPoint Point3;
 
-		Plane Plane;
+		Plane m_Plane;
 
 		public CollidableTri(PhysicsPoint point1, PhysicsPoint point2, PhysicsPoint point3)
 		{
@@ -17,7 +17,7 @@ namespace Physics2
 			Point2 = point2;
 			Point3 = point3;
 
-			Plane = new Plane(Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition);
+			m_Plane = new Plane(Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition);
 
 			boundingbox.expandToInclude(Point1.CurrentPosition);
 			boundingbox.expandToInclude(Point2.CurrentPosition);
@@ -29,9 +29,20 @@ namespace Physics2
 			return CollisionMath.LineTriangleIntersect(start, end, Point1, Point2, Point3);
 		}
 
-		public override Vector3 Normal()
+        public override Plane Plane
+        {
+            get
+            {
+                return m_Plane;
+            }
+        }
+
+		public override Vector3 Normal
 		{
-			return Plane.Normal;
+            get
+            {
+                return m_Plane.Normal;
+            }
 		}
 
 		public override void update()
@@ -41,7 +52,7 @@ namespace Physics2
 			boundingbox.expandToInclude(Point2.CurrentPosition);
 			boundingbox.expandToInclude(Point3.CurrentPosition);
 
-			Plane = new Plane(Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition);
+			m_Plane = new Plane(Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition);
 		}
 
 		public override void ApplyForce(Vector3 at, Vector3 f)

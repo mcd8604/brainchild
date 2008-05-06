@@ -113,7 +113,6 @@ namespace Physics2
 						p.NextPosition = p.PotentialPosition;
 						p.LastCollision = null;
 					}
-
 				}
 			}
 
@@ -124,17 +123,46 @@ namespace Physics2
 
 			foreach (CollisionEvent e in events)
 			{
-
-				//fake it!
-				e.when -= 0.01f;
-
 				// handle collision, sliding;
 				Vector3 newPosition = e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when);
 
 				// bump?
+                //while (s.DotNormal(p.NextPosition) <= 0)
+                //{
+                //    int i = 0;
+                //    //p.NextPosition += (collisionNormal * 0.001f);
+                //    //++DEBUG_BumpLoops;
+                //}
+                //Plane p = e.collidable.Plane;
+                //float d = Vector3.Dot(e.collidable.Normal, newPosition);
+
+
+                //newPosition += Vector3.Normalize(e.collidable.Normal) * 0.01f;
+
+
+                //Plane p2 = e.collidable.Plane;
+                //float d2 = Vector3.Dot(e.collidable.Normal, newPosition);
+
+
+                //Console.WriteLine(d - d2);
+                //if ((d > 0 && d2 < 0) || (d < 0 && d2 > 0))
+                //{
+                //    int i = 0;
+                //}
+
+                //bump
+                float d = e.collidable.Plane.D;
+                float d2 = Vector3.Dot(e.collidable.Normal, newPosition);
+                while ((d + d2) <= 0)
+                {
+                    newPosition += Vector3.Normalize(e.collidable.Normal) * 0.001f;
+                    d2 = Vector3.Dot(e.collidable.Normal, newPosition);
+                    //Console.WriteLine("Bump1");
+                }
+
 
 				// stop point velocity in the direction of the collidable
-				Vector3 CollidableNormal = Vector3.Normalize(e.collidable.Normal());
+				Vector3 CollidableNormal = Vector3.Normalize(e.collidable.Normal);
 
 				Vector3 VelocityTransfer = Vector3.Zero;
 				Vector3 newVelocity = Vector3.Zero;
@@ -204,19 +232,23 @@ namespace Physics2
 				// position
 				Vector3 Position = newPosition + (Velocity * (TotalElapsedSeconds * (1 - e.when)));
 
+                //bump
+                float d22 = Vector3.Dot(e.collidable.Normal, Position);
+                while ((d + d22) <= 0)
+                {
+                    Position += Vector3.Normalize(e.collidable.Normal) * 0.001f;
+                    d22 = Vector3.Dot(e.collidable.Normal, Position);
+                }
+
 				e.point.NextVelocity = Velocity;
 				e.point.NextPosition = Position;
 				e.point.LastCollision = e.collidable;
-
-				// Bump?
 			}
 
 			foreach (CollisionEvent e in events)
 			{
 				e.trigger();
 			}
-
-
 		}
 
 	}
