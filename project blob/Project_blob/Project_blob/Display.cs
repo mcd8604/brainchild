@@ -478,6 +478,8 @@ namespace Project_blob
                 if(!DEBUG_WireframeMode)
                     graphicsDevice.SetRenderTarget(0, m_distortionMap);
                 graphicsDevice.RenderState.DepthBufferEnable = true;
+                graphicsDevice.RenderState.DepthBufferWriteEnable = true;
+                graphicsDevice.Clear(Color.Black);
 
                 foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                 {
@@ -523,8 +525,8 @@ namespace Project_blob
                         EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.Next()/10.0f);
                         //EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.NextDouble() * 30.0);
 
-                        graphicsDevice.SetRenderTarget(0, m_distortionMap);
-                        graphicsDevice.Clear(Color.Black);
+                        //graphicsDevice.SetRenderTarget(0, m_distortionMap);
+                        graphicsDevice.Clear(ClearOptions.Target, Color.Black, 0.0f,0);
                         
                         //graphicsDevice.Textures[0] = theBlob.DisplacementText;
 
@@ -547,16 +549,16 @@ namespace Project_blob
 
 				if (theBlob != null)
 				{
-					EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["LambertOnBlob"];
-					EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
-					EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-					foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
-					{
-						pass.Begin();
-						theBlob.DrawMe();
-						pass.End();
-					}
-					EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+                    //EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["LambertOnBlob"];
+                    //EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
+                    //EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                    //foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+                    //{
+                    //    pass.Begin();
+                    //    theBlob.DrawMe();
+                    //    pass.End();
+                    //}
+                    //EffectManager.getSingleton.GetEffect("cartoonEffect").End();
 				}
 
                 if (DEBUG_WireframeMode)
