@@ -462,6 +462,7 @@ namespace Project_blob.GameState
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
 					EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["blobCenter"].SetValue(theBlob.getCenter());
+                    EffectManager.getSingleton.GetEffect("Distort").Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
 
                     Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
                     tempPos.Y += 10;
