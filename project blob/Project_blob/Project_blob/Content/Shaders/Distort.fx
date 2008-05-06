@@ -12,6 +12,8 @@ sampler DistortionMap : register(s1);
 float2 SampleOffsets[SAMPLE_COUNT];
 float SampleWeights[SAMPLE_COUNT];
 
+float2 blobCenter;
+
 // The Distortion map represents zero displacement as 0.5, but in an 8 bit color
 // channel there is no exact value for 0.5. ZeroOffset adjusts for this error.
 const float ZeroOffset = 0.5f / 255.0f;
@@ -49,7 +51,10 @@ float4 Distort_PixelShader(float2 TexCoord : TEXCOORD0,
         else
         {
             // Look up the displaced color, without multisampling
-            finalColor = tex2D(SceneTexture, TexCoord.xy + displacement);  
+            finalColor = tex2D(SceneTexture, TexCoord.xy + displacement);
+            //finalColor.r += (abs(displacement.r)*20);
+			finalColor.g += (abs(displacement.g)*20);
+            
         }
     }
 
@@ -60,7 +65,7 @@ technique Distort
 {
     pass
     {
-        PixelShader = compile ps_1_4 Distort_PixelShader(false);
+        PixelShader = compile ps_2_0 Distort_PixelShader(false);
     }
 }
 
