@@ -38,11 +38,19 @@ namespace Project_blob
             set { _containerBox = value; }
         }
 
+        private BoundingSphere _containerSphere;
+        public BoundingSphere ContainerSphere
+        {
+            get { return _containerSphere; }
+            set { _containerSphere = value; }
+        }
+
         public OctreeLeaf(BoundingBox box)
         {
             _containedObjects = new List<Drawable>();
             _childLeaves = new List<OctreeLeaf>();
             _containerBox = box;
+            _containerSphere = BoundingSphere.CreateFromBoundingBox(_containerBox);
         }
 
         protected void Split()
@@ -101,6 +109,7 @@ namespace Project_blob
         public void DrawVisible(GameTime gameTime)
         {
             BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
+            BoundingSphere sphere = CameraManager.getSingleton.ActiveCamera.BoundingSphere;
 
             foreach (Drawable obj in _containedObjects)
             {
@@ -124,28 +133,69 @@ namespace Project_blob
             }
             foreach (OctreeLeaf leaf in ChildLeaves)
             {
-                ContainmentType type = frustum.Contains(leaf.ContainerBox);
-
-                switch (type)
+                ContainmentType typeSphere = frustum.Contains(leaf.ContainerSphere);
+                switch (typeSphere)
                 {
                     case ContainmentType.Contains:
                         {
                             leaf.Draw(gameTime);
                         }
                         break;
-
                     case ContainmentType.Intersects:
                         {
-                            leaf.DrawVisible(gameTime);
+                            ContainmentType type = frustum.Contains(leaf.ContainerBox);
+
+                            switch (type)
+                            {
+                                case ContainmentType.Contains:
+                                    {
+                                        leaf.Draw(gameTime);
+                                    }
+                                    break;
+
+                                case ContainmentType.Intersects:
+                                    {
+                                        leaf.DrawVisible(gameTime);
+                                    }
+                                    break;
+
+                                case ContainmentType.Disjoint:
+                                    {
+                                        //Bounding box is culled.
+                                    }
+                                    break;
+                            }
                         }
                         break;
-
                     case ContainmentType.Disjoint:
                         {
-                            //Bounding box is culled.
+                            //Bounding sphere is culled.
                         }
                         break;
                 }
+
+                //ContainmentType type = frustum.Contains(leaf.ContainerBox);
+
+                //switch (type)
+                //{
+                //    case ContainmentType.Contains:
+                //        {
+                //            leaf.Draw(gameTime);
+                //        }
+                //        break;
+
+                //    case ContainmentType.Intersects:
+                //        {
+                //            leaf.DrawVisible(gameTime);
+                //        }
+                //        break;
+
+                //    case ContainmentType.Disjoint:
+                //        {
+                //            //Bounding box is culled.
+                //        }
+                //        break;
+                //}
             }
         }
 
