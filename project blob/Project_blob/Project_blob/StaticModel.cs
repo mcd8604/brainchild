@@ -599,8 +599,6 @@ namespace Project_blob
             _rooms.Remove(room);
 		}
 
-        public List<Task> tasks;
-
 		/// <summary>
 		/// Deserialization constructor.
 		/// </summary>

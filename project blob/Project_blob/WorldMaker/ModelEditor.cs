@@ -634,8 +634,6 @@ namespace WorldMaker
 						textureScaleX.Text = m.TextureScaleX.ToString();
 						textureScaleY.Text = m.TextureScaleY.ToString();
 						repeatTexture_cb.Checked = m.RepeatingTexture;
-
-                        TaskGroup.Enabled = dynamicModel_cb.Checked;
 					}
 					updateRoomList();
 				}
@@ -728,39 +726,5 @@ namespace WorldMaker
             }
         }
 
-        private void dynamicModel_cb_CheckedChanged(object sender, EventArgs e)
-        {
-            if (dynamicModel_cb.Checked)
-            {
-                if (m_Game.ActiveDrawable is StaticModel)
-                {
-                    //((StaticModel)m_Game.ActiveDrawable).tasks = new List<Physics2.Task>();
-                }
-            }
-            else
-            {
-                if (m_Game.ActiveDrawable is StaticModel)
-                {
-                    //((StaticModel)m_Game.ActiveDrawable).tasks = null;
-                }
-            }
-            TaskGroup.Enabled = dynamicModel_cb.Checked;
-
-        }
-
-        private void AddTaskButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditTaskButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RemoveTaskButton_Click(object sender, EventArgs e)
-        {
-
-        }
 	}
 }

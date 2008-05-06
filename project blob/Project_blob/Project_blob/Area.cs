@@ -300,9 +300,8 @@ namespace Project_blob
 
                     Physics2.Body body = null;
 
-                    //If a StaticModel has no tasks, use a BodyStatic
-                    //If it has tasks, DrawableBody
-                    if (dm.tasks == null || dm.tasks.Count == 0)
+                    //StaticModel or subclass of (this is wrong)
+                    if (dm.GetType().Equals(typeof(StaticModel))) 
                     {
                         List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
                         int numCol = 0;
@@ -326,6 +325,8 @@ namespace Project_blob
                     }
                     else
                     {
+                        //need proper cast here
+
                         List<PhysicsPoint> points = new List<PhysicsPoint>();
                         for (int i = 0; i < vertices.Length; i++)
                         {
@@ -342,7 +343,8 @@ namespace Project_blob
                                 numCol++;
                             }
                         }
-                        body = new DrawableBody(null, points, collidables, null, dm.tasks, dm);
+                        //need to get tasks
+                        body = new DrawableBody(null, points, collidables, null, null, dm);
                     }
                     dm.SetBoundingBox(body.boundingBox.GetXNABoundingBox());
 

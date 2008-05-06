@@ -64,12 +64,6 @@ namespace WorldMaker
             this.removeRoom = new System.Windows.Forms.Button();
             this.addRoom = new System.Windows.Forms.Button();
             this.roomTextBox = new System.Windows.Forms.TextBox();
-            this.TaskGroup = new System.Windows.Forms.GroupBox();
-            this.RemoveTaskButton = new System.Windows.Forms.Button();
-            this.EditTaskButton = new System.Windows.Forms.Button();
-            this.AddTaskButton = new System.Windows.Forms.Button();
-            this.TaskList = new System.Windows.Forms.ListBox();
-            this.dynamicModel_cb = new System.Windows.Forms.CheckBox();
             this.ScaleBox.SuspendLayout();
             this.Rotation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationZ)).BeginInit();
@@ -78,7 +72,6 @@ namespace WorldMaker
             this.Position.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.TaskGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // ScaleBox
@@ -201,7 +194,7 @@ namespace WorldMaker
             this.RotationZ.Maximum = 180;
             this.RotationZ.Minimum = -180;
             this.RotationZ.Name = "RotationZ";
-            this.RotationZ.Size = new System.Drawing.Size(184, 42);
+            this.RotationZ.Size = new System.Drawing.Size(184, 45);
             this.RotationZ.SmallChange = 15;
             this.RotationZ.TabIndex = 5;
             this.RotationZ.TickFrequency = 15;
@@ -222,7 +215,7 @@ namespace WorldMaker
             this.RotationY.Maximum = 180;
             this.RotationY.Minimum = -180;
             this.RotationY.Name = "RotationY";
-            this.RotationY.Size = new System.Drawing.Size(184, 42);
+            this.RotationY.Size = new System.Drawing.Size(184, 45);
             this.RotationY.SmallChange = 15;
             this.RotationY.TabIndex = 3;
             this.RotationY.TickFrequency = 15;
@@ -243,7 +236,7 @@ namespace WorldMaker
             this.RotationX.Maximum = 180;
             this.RotationX.Minimum = -180;
             this.RotationX.Name = "RotationX";
-            this.RotationX.Size = new System.Drawing.Size(184, 42);
+            this.RotationX.Size = new System.Drawing.Size(184, 45);
             this.RotationX.SmallChange = 15;
             this.RotationX.TabIndex = 1;
             this.RotationX.TickFrequency = 15;
@@ -447,75 +440,11 @@ namespace WorldMaker
             this.roomTextBox.TabIndex = 9;
             this.roomTextBox.Text = "0";
             // 
-            // TaskGroup
-            // 
-            this.TaskGroup.Controls.Add(this.RemoveTaskButton);
-            this.TaskGroup.Controls.Add(this.EditTaskButton);
-            this.TaskGroup.Controls.Add(this.AddTaskButton);
-            this.TaskGroup.Controls.Add(this.TaskList);
-            this.TaskGroup.Location = new System.Drawing.Point(530, 39);
-            this.TaskGroup.Name = "TaskGroup";
-            this.TaskGroup.Size = new System.Drawing.Size(150, 153);
-            this.TaskGroup.TabIndex = 10;
-            this.TaskGroup.TabStop = false;
-            this.TaskGroup.Text = "Tasks";
-            // 
-            // RemoveTaskButton
-            // 
-            this.RemoveTaskButton.Location = new System.Drawing.Point(87, 122);
-            this.RemoveTaskButton.Name = "RemoveTaskButton";
-            this.RemoveTaskButton.Size = new System.Drawing.Size(55, 23);
-            this.RemoveTaskButton.TabIndex = 3;
-            this.RemoveTaskButton.Text = "Remove";
-            this.RemoveTaskButton.UseVisualStyleBackColor = true;
-            this.RemoveTaskButton.Click += new System.EventHandler(this.RemoveTaskButton_Click);
-            // 
-            // EditTaskButton
-            // 
-            this.EditTaskButton.Location = new System.Drawing.Point(47, 122);
-            this.EditTaskButton.Name = "EditTaskButton";
-            this.EditTaskButton.Size = new System.Drawing.Size(34, 23);
-            this.EditTaskButton.TabIndex = 2;
-            this.EditTaskButton.Text = "Edit";
-            this.EditTaskButton.UseVisualStyleBackColor = true;
-            this.EditTaskButton.Click += new System.EventHandler(this.EditTaskButton_Click);
-            // 
-            // AddTaskButton
-            // 
-            this.AddTaskButton.Location = new System.Drawing.Point(7, 122);
-            this.AddTaskButton.Name = "AddTaskButton";
-            this.AddTaskButton.Size = new System.Drawing.Size(34, 23);
-            this.AddTaskButton.TabIndex = 1;
-            this.AddTaskButton.Text = "Add";
-            this.AddTaskButton.UseVisualStyleBackColor = true;
-            this.AddTaskButton.Click += new System.EventHandler(this.AddTaskButton_Click);
-            // 
-            // TaskList
-            // 
-            this.TaskList.FormattingEnabled = true;
-            this.TaskList.Location = new System.Drawing.Point(7, 20);
-            this.TaskList.Name = "TaskList";
-            this.TaskList.Size = new System.Drawing.Size(135, 95);
-            this.TaskList.TabIndex = 0;
-            // 
-            // dynamicModel_cb
-            // 
-            this.dynamicModel_cb.AutoSize = true;
-            this.dynamicModel_cb.Location = new System.Drawing.Point(531, 16);
-            this.dynamicModel_cb.Name = "dynamicModel_cb";
-            this.dynamicModel_cb.Size = new System.Drawing.Size(99, 17);
-            this.dynamicModel_cb.TabIndex = 11;
-            this.dynamicModel_cb.Text = "Dynamic Model";
-            this.dynamicModel_cb.UseVisualStyleBackColor = true;
-            this.dynamicModel_cb.CheckedChanged += new System.EventHandler(this.dynamicModel_cb_CheckedChanged);
-            // 
             // ModelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(692, 200);
-            this.Controls.Add(this.dynamicModel_cb);
-            this.Controls.Add(this.TaskGroup);
+            this.ClientSize = new System.Drawing.Size(532, 200);
             this.Controls.Add(this.roomTextBox);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -538,7 +467,6 @@ namespace WorldMaker
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.TaskGroup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -581,12 +509,6 @@ namespace WorldMaker
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Button removeRoom;
 		private System.Windows.Forms.Button addRoom;
-		private System.Windows.Forms.TextBox roomTextBox;
-        private System.Windows.Forms.GroupBox TaskGroup;
-        private System.Windows.Forms.CheckBox dynamicModel_cb;
-        private System.Windows.Forms.Button RemoveTaskButton;
-        private System.Windows.Forms.Button EditTaskButton;
-        private System.Windows.Forms.Button AddTaskButton;
-        private System.Windows.Forms.ListBox TaskList;
+        private System.Windows.Forms.TextBox roomTextBox;
     }
 }
