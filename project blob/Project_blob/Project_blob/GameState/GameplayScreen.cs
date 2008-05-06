@@ -119,7 +119,7 @@ namespace Project_blob.GameState
 
 			physics.Player.Cling.Minimum = 0f;
 			physics.Player.Cling.Origin = 10f;
-			physics.Player.Cling.Maximum = 100f;
+			physics.Player.Cling.Maximum = 25f;
 
 			physics.Player.Resilience.Minimum = 20f;
 			physics.Player.Resilience.Origin = 40f;
@@ -703,7 +703,7 @@ namespace Project_blob.GameState
 				{
 					if (p.LastCollision != null)
 					{
-						jump += p.LastCollision.Normal();
+						jump += p.LastCollision.Normal;
 					}
 				}
 

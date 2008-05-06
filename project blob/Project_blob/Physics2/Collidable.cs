@@ -66,7 +66,15 @@ namespace Physics2
 			return parent.isStatic();
 		}
 
-		public abstract Vector3 Normal();
+        public abstract Plane Plane
+        {
+            get;
+        }
+
+        public abstract Vector3 Normal
+        {
+            get;
+        }
 
 		public virtual void onCollision(PhysicsPoint p) { }
 

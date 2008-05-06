@@ -37,7 +37,7 @@ namespace Project_blob
 			vertices[2] = new VertexPositionColor(points[2].ExternalPosition, color);
 
 			vertices[3] = new VertexPositionColor(Vector3.Negate(getOrigin()), Color.Pink);
-			vertices[4] = new VertexPositionColor(Vector3.Negate(getOrigin()) + Normal(), Color.Red);
+			vertices[4] = new VertexPositionColor(Vector3.Negate(getOrigin()) + Normal, Color.Red);
 
 		}
 
@@ -93,7 +93,7 @@ namespace Project_blob
 			if (DEBUG_DrawNormal)
 			{
 				vertices[3].Position = Vector3.Negate(getOrigin());
-				vertices[4].Position = Vector3.Negate(getOrigin()) + Normal();
+				vertices[4].Position = Vector3.Negate(getOrigin()) + Normal;
 			}
 
 			return vertices;

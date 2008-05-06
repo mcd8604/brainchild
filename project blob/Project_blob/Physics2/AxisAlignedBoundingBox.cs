@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 
 public class AxisAlignedBoundingBox
 {
-
 	private Vector3 Max;
 	private Vector3 Min;
 	private bool Valid;
@@ -161,6 +160,8 @@ public class AxisAlignedBoundingBox
 			}
 
 			//check?
+
+            //eh, close enough for now
 
 			return true;
 

@@ -10,7 +10,7 @@ namespace Physics2
 		Vector3 Point2;
 		Vector3 Point3;
 
-		Plane Plane;
+		Plane m_Plane;
 
 		public CollidableStaticTri(Vector3 point1, Vector3 point2, Vector3 point3)
 		{
@@ -18,7 +18,7 @@ namespace Physics2
 			Point2 = point2;
 			Point3 = point3;
 
-			Plane = new Plane(Point1, Point2, Point3);
+			m_Plane = new Plane(Point1, Point2, Point3);
 
 			boundingbox.expandToInclude(Point1);
 			boundingbox.expandToInclude(Point2);
@@ -30,9 +30,20 @@ namespace Physics2
 			return CollisionMath.LineStaticTriangleIntersect(start, end, Point1, Point2, Point3);
 		}
 
-		public override Vector3 Normal()
+        public override Plane Plane
+        {
+            get
+            {
+                return m_Plane;
+            }
+        }
+
+		public override Vector3 Normal
 		{
-			return Plane.Normal;
+            get
+            {
+                return m_Plane.Normal;
+            }
 		}
 
 		public override void update() { }

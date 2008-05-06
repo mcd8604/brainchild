@@ -7,13 +7,13 @@ namespace Physics2
 	public class Body
 	{
 
-		public List<PhysicsPoint> points = new List<PhysicsPoint>();
-		public List<Collidable> collidables = new List<Collidable>();
-		public List<Spring> springs = new List<Spring>();
-		public List<Task> tasks = new List<Task>();
+		public IList<PhysicsPoint> points = new List<PhysicsPoint>();
+		public IList<Collidable> collidables = new List<Collidable>();
+		public IList<Spring> springs = new List<Spring>();
+		public IList<Task> tasks = new List<Task>();
 
 		public Body parentBody = null;
-		public List<Body> childBodies = new List<Body>();
+		public IList<Body> childBodies = new List<Body>();
 
 		public AxisAlignedBoundingBox boundingBox = new AxisAlignedBoundingBox();
 
@@ -32,7 +32,7 @@ namespace Physics2
 			}
 		}
 
-		public Body(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks)
+		public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks)
 		{
 			if (ParentBody != null)
 			{
@@ -166,7 +166,7 @@ namespace Physics2
 			//Tasks
 			foreach (Task t in tasks)
 			{
-				t.update(this);
+				t.update(this, TotalElapsedSeconds);
 			}
 
 		}
@@ -240,12 +240,16 @@ namespace Physics2
 				}
 
 				p.PotentialPosition = p.CurrentPosition + (p.PotentialVelocity * TotalElapsedSeconds);
+
+                // temp again
+                boundingBox.expandToInclude(p.PotentialPosition);
 			}
 
 		}
 
 		internal virtual List<CollisionEvent> findCollisions(Body c)
 		{
+            // fix later
 			List<CollisionEvent> events = new List<CollisionEvent>();
 
 			foreach (Body child in childBodies)
@@ -267,6 +271,7 @@ namespace Physics2
 
 		internal virtual List<CollisionEvent> findCollisionsWith(Body b)
 		{
+            // fix later
 			List<CollisionEvent> events = new List<CollisionEvent>();
 
 			foreach (Body child in childBodies)
@@ -287,6 +292,7 @@ namespace Physics2
 
 		internal virtual List<CollisionEvent> findPointCollisions(Body c)
 		{
+            // fix later
 			List<CollisionEvent> events = new List<CollisionEvent>();
 
 			foreach (PhysicsPoint p in points)

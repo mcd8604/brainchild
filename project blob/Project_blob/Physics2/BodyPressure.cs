@@ -9,7 +9,7 @@ namespace Physics2
 
 		public BodyPressure() { }
 
-		public BodyPressure(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks)
+		public BodyPressure(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks)
 			:base(ParentBody, p_points, p_collidables,p_springs, p_tasks)
 		{ }
 

@@ -20,7 +20,7 @@ namespace Physics2
 			Gravity = p_Direction * p_Magnitude;
 		}
 
-		public override void update(Body b)
+		public override void update(Body b, float time)
 		{
 			foreach (PhysicsPoint p in b.getPoints())
 			{

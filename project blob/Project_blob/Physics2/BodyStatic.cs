@@ -7,9 +7,9 @@ namespace Physics2
 	public class BodyStatic : Body
 	{
 
-		private List<CollidableStatic> staticCollidables = new List<CollidableStatic>();
+		private IList<CollidableStatic> staticCollidables = new List<CollidableStatic>();
 
-		public BodyStatic(List<CollidableStatic> Collidables, Body ParentBody)
+		public BodyStatic(IList<CollidableStatic> Collidables, Body ParentBody)
 			: base()
 		{
 			if (ParentBody != null)

@@ -94,7 +94,7 @@ namespace Physics2
             {
                 if (p.LastCollision != null && cling.value > 0)
                 {
-                    p.ForceThisFrame -= p.LastCollision.Normal() * ( cling.value * p.LastCollision.getMaterial().getCling() * 10 );
+                    p.ForceThisFrame -= p.LastCollision.Normal * ( cling.value * p.LastCollision.getMaterial().getCling() * 10 );
                     p.LastCollision = null;
                 }
             }
