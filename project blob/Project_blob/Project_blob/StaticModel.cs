@@ -196,7 +196,9 @@ namespace Project_blob
 
 		//supports one Mesh per Model
 		public void initialize()
-		{
+        {
+            updateTransform();
+
 			Model m = ModelManager.getSingleton.GetModel(_modelName);
 			ModelMesh mesh = m.Meshes[0];
 			ModelMeshPart part = mesh.MeshParts[0];
@@ -215,7 +217,7 @@ namespace Project_blob
 
 			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
 			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
-			updateVertexBuffer(vertices);
+            updateVertexBuffer(vertices);
 		}
 
 		public void updateVertexBuffer(VertexPositionNormalTexture[] vertices)
@@ -515,8 +517,6 @@ namespace Project_blob
 		{
 			get
 			{
-				//temporary update
-				updateTransform();
 				return m_Transform;
 			}
 		}
@@ -525,30 +525,24 @@ namespace Project_blob
 		{
 			m_Transform = Matrix.Identity;
 			Stack<Matrix> drawStack = new Stack<Matrix>();
-			for (int j = 0; j < 4; j++)
-			{
-				for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
+            {
+                switch (m_PriorityArray[i])
 				{
-					if (m_PriorityArray[i] == j)
-					{
-						switch (i)
-						{
-							case 0:
-								if (this.Position != null)
-									drawStack.Push(this.Position);
-								break;
-							case 1:
-								if (this.Rotation != null)
-									drawStack.Push(this.Rotation);
-								break;
-							case 2:
-								if (this.Scale != null)
-									drawStack.Push(this.Scale);
-								break;
-							default:
-								break;
-						}
-					}
+					case 0:
+						if (this.Position != null)
+							drawStack.Push(this.Position);
+						break;
+					case 1:
+						if (this.Rotation != null)
+							drawStack.Push(this.Rotation);
+						break;
+					case 2:
+						if (this.Scale != null)
+							drawStack.Push(this.Scale);
+						break;
+					default:
+						break;
 				}
 			}
 
@@ -604,6 +598,8 @@ namespace Project_blob
 		{
             _rooms.Remove(room);
 		}
+
+        public List<Task> tasks;
 
 		/// <summary>
 		/// Deserialization constructor.
