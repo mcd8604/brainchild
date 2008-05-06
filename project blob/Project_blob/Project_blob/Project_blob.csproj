@@ -65,6 +65,7 @@
     <Compile Include="Blob.cs" />
     <Compile Include="CameraEvent.cs" />
     <Compile Include="CheckPointEvent.cs" />
+    <Compile Include="ConveyerStatic.cs" />
     <Compile Include="DeathEvent.cs" />
     <Compile Include="DeltaEvent.cs" />
     <Compile Include="DemoCube.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="TextureManager.cs" />
     <Compile Include="Tri.cs" />
     <Compile Include="Trigger.cs" />
+    <Compile Include="TriggerStatic.cs" />
     <Compile Include="WarpEvent.cs" />
   </ItemGroup>
   <ItemGroup>
