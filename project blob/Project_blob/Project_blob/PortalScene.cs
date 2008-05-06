@@ -23,7 +23,7 @@ namespace Project_blob
             set { _worldBox = value; }
         }
 
-		private int _currSector = -1;
+		private int _currSector = 0;
         public int CurrSector
 		{
 			get { return _currSector; }
@@ -65,14 +65,14 @@ namespace Project_blob
                 }
                 else
                 {
-                    if (_sectors.ContainsKey(-1))
+                    if (_sectors.ContainsKey(1))
                     {
-                        _sectors[-1].AddObjectToSector(obj);
+                        _sectors[1].AddObjectToSector(obj);
                     }
                     else
                     {
-                        _sectors.Add(-1, new Sector(-1));
-                        _sectors[-1].AddObjectToSector(obj);
+                        _sectors.Add(1, new Sector(1));
+                        _sectors[1].AddObjectToSector(obj);
                     }
                 }
 
@@ -111,6 +111,7 @@ namespace Project_blob
             //        break;
             //    }
             //}
+
             
             if (_sectors[_currSector].ContainerBox.Contains(
                 CameraManager.getSingleton.ActiveCamera.Position) == ContainmentType.Disjoint)
@@ -123,7 +124,6 @@ namespace Project_blob
                         break;
                     }
                 }
-                //_currSector = -1;
             }
 			_sectors[_currSector].DrawVisible(gameTime);
         }

@@ -183,7 +183,8 @@ namespace Project_blob.GameState
 			reset();
 
 			//load default level
-			Level.LoadLevel("FinalLevel", "effects");
+            Level.LoadLevel("myLevel", "effects");
+            //Level.LoadLevel("FinalLevel", "effects");
 
 			//List of Static Drawables to add to Scene
 			List<Drawable> staticDrawables = new List<Drawable>();
@@ -221,7 +222,10 @@ namespace Project_blob.GameState
 
 			//Add the Static Drawables to the Octree
 			List<Drawable> temp = new List<Drawable>(staticDrawables);
-			SceneManager.getSingleton.BuildOctree(ref temp);
+            //SceneManager.getSingleton.BuildOctree(ref temp);
+            SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
+            SceneManager.getSingleton.BuildPortalScene(temp);
+            SceneManager.getSingleton.PortalScene.CurrSector = 1;
 
 
 			//Initialize the camera
@@ -423,7 +427,8 @@ namespace Project_blob.GameState
 			currentArea.LoadAreaGameplay(ScreenManager);
 			blobStartPosition = position;
 			List<Drawable> temp = currentArea.getDrawableList();
-			SceneManager.getSingleton.BuildOctree(ref temp);
+            //SceneManager.getSingleton.BuildOctree(ref temp);
+            SceneManager.getSingleton.BuildPortalScene(temp);
 			reset();
 		}
 
