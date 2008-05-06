@@ -239,27 +239,30 @@ namespace Project_blob
 		{
 			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
             Model m = ModelManager.getSingleton.GetModel(this.ModelName);
-            m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
-
-            if (m_RepeatingTexture)
+            if (m != null)
             {
-				//scaleVector used to scale texture coordinates
-				Vector3 scaleVector = Vector3.Zero;
-				Quaternion rotVector = Quaternion.Identity;
-				Vector3 transVector = Vector3.Zero;
-				m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
+                m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
-				Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+                if (m_RepeatingTexture)
+                {
+                    //scaleVector used to scale texture coordinates
+                    Vector3 scaleVector = Vector3.Zero;
+                    Quaternion rotVector = Quaternion.Identity;
+                    Vector3 transVector = Vector3.Zero;
+                    m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
 
-				for (int i = 0; i < vertices.Length; i++)
-				{
-					//scale the texture coordinates
-					vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
-					vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+                    Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+
+                    for (int i = 0; i < vertices.Length; i++)
+                    {
+                        //scale the texture coordinates
+                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
+                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+                    }
                 }
-            }
 
-			m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+                m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+            }
 		}
 
 		/*
