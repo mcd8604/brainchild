@@ -104,9 +104,23 @@ namespace Project_blob
 
             foreach (Drawable obj in _containedObjects)
             {
+                switch (frustum.Contains(obj.GetBoundingBox()))
+                {
+                    case ContainmentType.Contains:
+                    case ContainmentType.Intersects:
+                        {
+                            SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+                            SceneManager.getSingleton.Drawn += 1;
+                            break;
+                        }
+                    case ContainmentType.Disjoint:
+                        break;
+
+                }
+
                 //obj.Draw(gameTime);
-                SceneManager.getSingleton.Display.AddToBeDrawn(obj);
-                SceneManager.getSingleton.Drawn += 1;
+                //SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+                //SceneManager.getSingleton.Drawn += 1;
             }
             foreach (OctreeLeaf leaf in ChildLeaves)
             {
