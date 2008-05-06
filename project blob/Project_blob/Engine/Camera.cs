@@ -154,6 +154,13 @@ namespace Engine
             set { _frustum = value; }
         }
 
+        private BoundingSphere _boundingSphere;
+        public BoundingSphere BoundingSphere
+        {
+            get { return _boundingSphere; }
+            set { _boundingSphere = value; }
+        }
+
         /// <summary>
         /// Default constructor
         /// </summary>
