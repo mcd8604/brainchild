@@ -378,67 +378,68 @@ namespace Project_blob
 					}
                 }
 
-                if (m_DepthMapRenderTarget != null) {
-                    graphicsDevice.SetRenderTarget(0, m_DepthMapRenderTarget);
-					graphicsDevice.Clear(Color.White);
+                //if (m_DepthMapRenderTarget != null) {
+                //    graphicsDevice.SetRenderTarget(0, m_DepthMapRenderTarget);
+                //    graphicsDevice.Clear(Color.White);
                     
-                    EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("cartoonEffect").Techniques["ShadowMap"];
+                //    EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("cartoonEffect").Techniques["ShadowMap"];
 
 					
 
-					foreach (TextureInfo ti in drawable_List_Drawn.Keys) {
-						//if (ti.SortNumber != currentTextureNumber)
-						//{
-						//    if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-						//    {
-						//        ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
-						//    }
-						//    else
-						//    {
-						//        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-						//        if (m_TextureParameterName != "NONE" && _effectName != "DepthBuffer")
-						//            EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-						//    }
-						//}
+                    //foreach (TextureInfo ti in drawable_List_Drawn.Keys) 
+                    //{
+                    //    //if (ti.SortNumber != currentTextureNumber)
+                    //    //{
+                    //    //    if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
+                    //    //    {
+                    //    //        ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                    //    //    }
+                    //    //    else
+                    //    //    {
+                    //    //        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                    //    //        if (m_TextureParameterName != "NONE" && _effectName != "DepthBuffer")
+                    //    //            EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                    //    //    }
+                    //    //}
 
-                        foreach (Drawable d in drawable_List_Drawn[ti]) {
-                            if (d is StaticModel) {
-                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                    //    foreach (Drawable d in drawable_List_Drawn[ti]) {
+                    //        if (d is StaticModel) {
+                    //            DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
 
-                            } else {
-                                DrawPrimitives(d, graphicsDevice);
-                            }
-                        }
-                    }
+                    //        } else {
+                    //            DrawPrimitives(d, graphicsDevice);
+                    //        }
+                    //    }
+                    //}
 
-					if (theBlob != null)
-					{
-						EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-						foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
-						{
-							pass.Begin();
-							theBlob.DrawMe();
-							pass.End();
-						}
-						EffectManager.getSingleton.GetEffect("cartoonEffect").End();
-					}
+                    //if (theBlob != null)
+                    //{
+                    //    EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                    //    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+                    //    {
+                    //        pass.Begin();
+                    //        theBlob.DrawMe();
+                    //        pass.End();
+                    //    }
+                    //    EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+                    //}
 					
-                }
+                //}
 
-                graphicsDevice.SetRenderTarget(0, null);
-                if (saveOut) {
-                    m_DepthMapRenderTarget.GetTexture().Save("DepthMap.bmp", ImageFileFormat.Bmp);
-                    m_DepthMapRenderTarget.GetTexture().Save("DepthMap.png", ImageFileFormat.Png);
-                    saveOut = false;
-                }
+                //graphicsDevice.SetRenderTarget(0, null);
+                //if (saveOut) {
+                //    m_DepthMapRenderTarget.GetTexture().Save("DepthMap.bmp", ImageFileFormat.Bmp);
+                //    m_DepthMapRenderTarget.GetTexture().Save("DepthMap.png", ImageFileFormat.Png);
+                //    saveOut = false;
+                //}
 
                 if(m_SceneRenderTarget != null && !DEBUG_WireframeMode)
                     graphicsDevice.SetRenderTarget(0, m_SceneRenderTarget);
                 else
                     graphicsDevice.SetRenderTarget(0, null);
 				
-				if(m_DepthMapRenderTarget != null)
-					EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["ShadowMap"].SetValue(m_DepthMapRenderTarget.GetTexture());
+				//if(m_DepthMapRenderTarget != null)
+					//EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["ShadowMap"].SetValue(m_DepthMapRenderTarget.GetTexture());
 
                 graphicsDevice.Clear(Color.CornflowerBlue);
 
@@ -474,8 +475,8 @@ namespace Project_blob
                         }
                     }
                 }
-
-                graphicsDevice.SetRenderTarget(0, m_distortionMap);
+                if(!DEBUG_WireframeMode)
+                    graphicsDevice.SetRenderTarget(0, m_distortionMap);
                 graphicsDevice.RenderState.DepthBufferEnable = true;
 
                 foreach (TextureInfo ti in drawable_List_Drawn.Keys)
