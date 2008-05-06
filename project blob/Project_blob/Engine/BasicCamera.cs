@@ -26,6 +26,8 @@ namespace Engine
             Projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearPlane, FarPlane);
 
             Frustum = new BoundingFrustum(Matrix.Multiply(View, Projection));
+
+            BoundingSphere = BoundingSphere.CreateFromFrustum(Frustum);
         }
     }
 }
