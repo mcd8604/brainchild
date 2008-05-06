@@ -83,12 +83,50 @@ namespace Physics2
             }
         }
 
+        /// <summary>
+        /// fake jump trigger
+        /// </summary>
+        public void jump() { jumpflag = true; }
+
+        private bool jumpflag = false;
+
+        public float JumpWork = 10;
+        public float AirJumpWork = 5;
+
         internal void update(float time)
         {
             update(cling, time);
             update(traction, time);
             update(resilience, time);
             update(volume, time);
+
+            if (jumpflag)
+            {
+                jumpflag = false;
+                Vector3 jumpVector = Vector3.Zero;
+
+                foreach (PhysicsPoint p in PlayerBody.points)
+                {
+                    if (p.LastCollision != null)
+                    {
+                        jumpVector += p.LastCollision.Normal;
+                    }
+                }
+
+                if (jumpVector != Vector3.Zero)
+                {
+                    jumpVector = Vector3.Normalize(jumpVector);
+                }
+
+                // Fake Jump: TODO
+
+                // Fake Fake Jump:
+                foreach (PhysicsPoint p in playerBody.getPoints())
+                {
+                    p.ForceThisFrame += Vector3.Up * (AirJumpWork / time);
+                    p.ForceThisFrame += jumpVector * (JumpWork / time);
+                }
+            }
 
             foreach (PhysicsPoint p in playerBody.getPoints())
             {
@@ -109,7 +147,6 @@ namespace Physics2
             {
                 pb.setIdealVolume(volume.value);
             }
-
         }
 
         private void update(Property p, float time)

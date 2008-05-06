@@ -370,7 +370,7 @@ namespace Project_blob
                     }
                     dm.SetBoundingBox(body.boundingBox.GetXNABoundingBox());
 
-					Material sticky = new Material(10f, 10f);
+					Material sticky = new Material(2f, 2f);
 					Material slick = new Material(0f, 0f);
 					Material def = Material.getDefaultMaterial();
 
