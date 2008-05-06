@@ -64,6 +64,8 @@
     <Compile Include="AudioManager.cs" />
     <Compile Include="Blob.cs" />
     <Compile Include="CameraEvent.cs" />
+    <Compile Include="CheckPointEvent.cs" />
+    <Compile Include="DeathEvent.cs" />
     <Compile Include="DeltaEvent.cs" />
     <Compile Include="DemoCube.cs" />
     <Compile Include="Display.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Area.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="SwitchEvent.cs" />
+    <Compile Include="TextEvent.cs" />
     <Compile Include="TransitionEvent.cs" />
     <Compile Include="TriAA.cs" />
     <Compile Include="ModelManager.cs" />
