@@ -1,0 +1,9 @@
+List of Events:
+
+-Text Event - Displays Text to "HUD"
+-Death Event - simple for now - just reset the player
+
+
+Other Stuff:
+
+-Checkpoints (Spawnpoint = current Checkpoint)
