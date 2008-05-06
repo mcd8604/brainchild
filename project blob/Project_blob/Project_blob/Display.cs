@@ -605,7 +605,7 @@ namespace Project_blob
                 d.ShowVertices = false;
             }
 
-            for (int j = 0; j < 4; j++)
+            /*for (int j = 0; j < 4; j++)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -630,16 +630,16 @@ namespace Project_blob
                         }
                     }
                 }
-            }
+            }*/
 
             if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
                 ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = p_CurrentWorld;
             else
             {
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(currentWorld);
+                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(d.Transform);
             }
 
-            while (drawStack.Count > 0)
+            /*while (drawStack.Count > 0)
             {
                 if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
                     ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = Matrix.Multiply(drawStack.Pop(), ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World);
@@ -647,7 +647,7 @@ namespace Project_blob
                 {
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(Matrix.Multiply(drawStack.Pop(), EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].GetValueMatrix()));
                 }
-			}
+			}*/
 			d.DrawMe(graphicsDevice,EffectManager.getSingleton.GetEffect(_effectName), m_GameMode);
             if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
                 ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = currentWorld;
