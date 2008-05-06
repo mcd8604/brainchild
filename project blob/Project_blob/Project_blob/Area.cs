@@ -301,8 +301,13 @@ namespace Project_blob
                     Physics2.Body body = null;
 
                     //StaticModel or subclass of (this is wrong)
-                    if (dm.GetType().Equals(typeof(StaticModel))) 
+                    if (dm is StaticModel) 
                     {
+
+                        // temporary
+                        bool eventtrigger = false;
+                        bool conveyer = false;
+
                         List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
                         int numCol = 0;
                         for (int i = 0; i < indices.Length; i += 3)
@@ -312,16 +317,33 @@ namespace Project_blob
                                 if (dm.TextureKey.TextureName.Equals("event"))
                                 {
                                     //collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
+                                    eventtrigger = true;
                                 }
-                                else
+
+                                if (dm.TextureKey.TextureName.Equals("point_text"))
                                 {
-                                    collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+                                    conveyer = true;
                                 }
+                                
+                                
+                                
+                                    collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+                                
                                 numCol++;
                             }
                         }
-
-                        body = new BodyStatic(collidables, null);
+                        if (eventtrigger)
+                        {
+                            body = new TriggerStatic(collidables, null, Events[dm.Name]);
+                        }
+                        else if (conveyer)
+                        {
+                            body = new ConveyerStatic(collidables, null);
+                        }
+                        else
+                        {
+                            body = new BodyStatic(collidables, null);
+                        }
                     }
                     else
                     {

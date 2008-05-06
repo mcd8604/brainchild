@@ -119,6 +119,7 @@ namespace Physics2
 
 		public virtual Vector3 getRelativeVelocity(PhysicsPoint p)
 		{
+            // fix later
 			return Vector3.Zero;
 		}
 
