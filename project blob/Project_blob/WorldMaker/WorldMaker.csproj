@@ -200,6 +200,10 @@
       <Project>{65494539-D8B5-4A17-9FD4-49E5D5A2949C}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Physics2\Physics2.csproj">
+      <Project>{1B356C34-6613-40BA-8476-29A93BFF64B6}</Project>
+      <Name>Physics2</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Project_blob\Project_blob.csproj">
       <Project>{076BE12C-2B3B-423C-BB37-A05F5381A54A}</Project>
       <Name>Project_blob</Name>

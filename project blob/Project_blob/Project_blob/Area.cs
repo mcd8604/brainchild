@@ -270,56 +270,81 @@ namespace Project_blob
 						}
 					}
 
-					// generate collidables
+                    // generate collidables & physics body
 
-					VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[dm.NumVertices];
-					dm.getVertexBuffer().GetData<VertexPositionNormalTexture>(vertices);
+                    VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[dm.NumVertices];
+                    dm.getVertexBuffer().GetData<VertexPositionNormalTexture>(vertices);
 
-					for (int i = 0; i < vertices.Length; i++)
-					{
-						//transform points to correct position
-						vertices[i].Position = Vector3.Transform(vertices[i].Position, dm.Transform);
-						vertices[i].Normal = Vector3.TransformNormal(vertices[i].Normal, dm.Transform);
-					}
+                    for (int i = 0; i < vertices.Length; i++)
+                    {
+                        //transform points to correct position
+                        vertices[i].Position = Vector3.Transform(vertices[i].Position, dm.Transform);
+                        vertices[i].Normal = Vector3.TransformNormal(vertices[i].Normal, dm.Transform);
+                    }
 
-					// Indices
-					int[] indices;
-					if (dm.getIndexBuffer().IndexElementSize == IndexElementSize.SixteenBits)
-					{
-						indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
-						short[] temp = new short[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
-						dm.getIndexBuffer().GetData<short>(temp);
-						for (int i = 0; i < temp.Length; i++)
-							indices[i] = temp[i];
-					}
-					else
-					{
-						indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 32];
-						dm.getIndexBuffer().GetData<int>(indices);
-					}
+                    // Indices
+                    int[] indices;
+                    if (dm.getIndexBuffer().IndexElementSize == IndexElementSize.SixteenBits)
+                    {
+                        indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
+                        short[] temp = new short[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
+                        dm.getIndexBuffer().GetData<short>(temp);
+                        for (int i = 0; i < temp.Length; i++)
+                            indices[i] = temp[i];
+                    }
+                    else
+                    {
+                        indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 32];
+                        dm.getIndexBuffer().GetData<int>(indices);
+                    }
 
-					List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
-					int numCol = 0;
-					for (int i = 0; i < indices.Length; i += 3)
-					{
-						if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
-						{
-							if (dm.TextureKey.TextureName.Equals("event"))
-							{
-								//collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
-							}
-							else
-							{
-								collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
-							}
-							numCol++;
-						}
-					}
+                    Physics2.Body body = null;
 
-					// generate physics body
+                    //If a StaticModel has no tasks, use a BodyStatic
+                    //If it has tasks, DrawableBody
+                    if (dm.tasks == null || dm.tasks.Count == 0)
+                    {
+                        List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
+                        int numCol = 0;
+                        for (int i = 0; i < indices.Length; i += 3)
+                        {
+                            if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
+                            {
+                                if (dm.TextureKey.TextureName.Equals("event"))
+                                {
+                                    //collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
+                                }
+                                else
+                                {
+                                    collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+                                }
+                                numCol++;
+                            }
+                        }
 
-					Physics2.BodyStatic body = new BodyStatic(collidables, null);
-					dm.SetBoundingBox(body.boundingBox.GetXNABoundingBox());
+                        body = new BodyStatic(collidables, null);
+                    }
+                    else
+                    {
+                        List<PhysicsPoint> points = new List<PhysicsPoint>();
+                        for (int i = 0; i < vertices.Length; i++)
+                        {
+                            points.Add(new PhysicsPoint(vertices[i].Position, null));
+                        }
+
+                        List<Physics2.Collidable> collidables = new List<Physics2.Collidable>();
+                        int numCol = 0;
+                        for (int i = 0; i < indices.Length; i += 3)
+                        {
+                            if (points[indices[i]].ExternalPosition != points[indices[i + 1]].ExternalPosition && points[indices[i + 2]].ExternalPosition != points[indices[i]].ExternalPosition && points[indices[i + 1]].ExternalPosition != points[indices[i + 2]].ExternalPosition)
+                            {
+                                collidables.Add(new Physics2.CollidableTri(points[indices[i + 2]], points[indices[i + 1]], points[indices[i]]));
+                                numCol++;
+                            }
+                        }
+                        body = new DrawableBody(null, points, collidables, null, dm.tasks, dm);
+                    }
+                    dm.SetBoundingBox(body.boundingBox.GetXNABoundingBox());
 
 					Material sticky = new Material(10f, 10f);
 					Material slick = new Material(0f, 0f);
