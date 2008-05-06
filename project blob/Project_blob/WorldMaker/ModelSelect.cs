@@ -117,6 +117,7 @@ namespace WorldMaker
             if (modelBox.SelectedIndex != -1)
             {
                 m_CurrentModel.ModelName = ((String)(modelBox.Items[modelBox.SelectedIndex])).Substring(0, ((String)(modelBox.Items[modelBox.SelectedIndex])).LastIndexOf("."));
+                m_CurrentModel.initialize();
             }
 
         }
