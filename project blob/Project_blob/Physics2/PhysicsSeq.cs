@@ -150,7 +150,7 @@ namespace Physics2
                 //    int i = 0;
                 //}
 
-                //bump
+                //bump (this may or may not be neccessary)
                 float d = e.collidable.Plane.D;
                 float d2 = Vector3.Dot(e.collidable.Normal, newPosition);
                 while ((d + d2) <= 0)
@@ -235,7 +235,7 @@ namespace Physics2
 				// position
 				Vector3 Position = newPosition + (Velocity * (TotalElapsedSeconds * (1 - e.when)));
 
-                //bump
+                //bump (this may or may not be neccessary)
                 float d22 = Vector3.Dot(e.collidable.Normal, Position);
                 while ((d + d22) <= 0)
                 {
