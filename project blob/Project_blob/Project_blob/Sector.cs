@@ -73,7 +73,8 @@ namespace Project_blob
 
             foreach (Portal portal in _portals)
             {
-                ContainmentType type = frustum.Contains(portal.GetBoundingBoxTransformed());
+                //ContainmentType type = frustum.Contains(portal.GetBoundingBoxTransformed());
+                ContainmentType type = frustum.Contains(portal.BoundingBox);
 
                 switch (type)
                 {
@@ -131,7 +132,8 @@ namespace Project_blob
 
             foreach (Portal portal in _portals)
             {
-                ContainmentType type = frustum.Contains(portal.GetBoundingBoxTransformed());
+                //ContainmentType type = frustum.Contains(portal.GetBoundingBoxTransformed());
+                ContainmentType type = frustum.Contains(portal.BoundingBox);
 
                 switch (type)
                 {
@@ -205,7 +207,8 @@ namespace Project_blob
         private BoundingFrustum CreatePortalFrustum(Portal portal)
         {
             //Create new frustum from portal
-            BoundingBox box = portal.GetBoundingBoxTransformed();
+            //BoundingBox box = portal.GetBoundingBoxTransformed();
+            BoundingBox box = portal.BoundingBox;
            
             float fieldOfView, aspectRatio, nearPlane;
             Vector3 v1, v2;
