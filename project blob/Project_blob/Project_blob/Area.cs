@@ -272,6 +272,8 @@ namespace Project_blob
 
                     // generate collidables & physics body
 
+                    dm.getVertexBuffer().GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
+
                     VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[dm.NumVertices];
                     dm.getVertexBuffer().GetData<VertexPositionNormalTexture>(vertices);
 
