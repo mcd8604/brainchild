@@ -252,6 +252,8 @@ namespace Project_blob.GameState
 
 			InitializeEffect();
 
+            currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
+
 			//theDisplay = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			//theDisplay.DrawnList.Add(
 
