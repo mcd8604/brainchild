@@ -8,7 +8,7 @@
 sampler SceneTexture : register(s0);
 sampler DistortionMap : register(s1);
 
-#define SAMPLE_COUNT 15
+#define SAMPLE_COUNT 13
 float2 SampleOffsets[SAMPLE_COUNT];
 float SampleWeights[SAMPLE_COUNT];
 
@@ -23,6 +23,8 @@ float4 Distort_PixelShader(float2 TexCoord : TEXCOORD0,
 {
     // Look up the displacement
     float2 displacement = tex2D(DistortionMap, TexCoord).rg;
+    float4 green = 0;
+    green.g = .5;
     
     float4 finalColor = 0;
     // We need to constrain the area potentially subjected to the gaussian blur to the
@@ -41,23 +43,33 @@ float4 Distort_PixelShader(float2 TexCoord : TEXCOORD0,
 
         if (distortionBlur)
         {
+			//finalColor = 1 - (abs(displacement.r) + abs(displacement.g) * 70);
             // Combine a number of weighted displaced-image filter taps
             for (int i = 0; i < SAMPLE_COUNT; i++)
             {
-                finalColor += tex2D(SceneTexture, TexCoord.xy + displacement + 
-                    SampleOffsets[i]) * SampleWeights[i];
+				//finalColor = 1 - (abs(displacement.r) + abs(displacement.g)) * 30;
+				
+				
+               finalColor += tex2D(SceneTexture, TexCoord.xy + displacement + 
+                    SampleOffsets[i]) * SampleWeights[i] ;
+               finalColor = (finalColor * .90) + (green * .10);
+                
+                //finalColor = (finalColor * .5) + ((finalColor - (1 - (abs(displacement.r) + abs(displacement.g)) * 30)) * .5);
             }
+            
         }
         else
         {
             // Look up the displaced color, without multisampling
             finalColor = tex2D(SceneTexture, TexCoord.xy + displacement);
-            finalColor = (finalColor * .0) + ((finalColor - (1 - (abs(displacement.r) + abs(displacement.g)) * 30)) * 1);
+            //finalColor.r += .3;
 			//finalColor.g += (abs(displacement.g)*20);
             
         }
     }
 
+	 
+	
     return finalColor;
 }
 
