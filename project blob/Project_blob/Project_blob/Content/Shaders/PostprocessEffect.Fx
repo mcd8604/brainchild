@@ -14,7 +14,7 @@ float EdgeIntensity = 1;
 // Smaller settings will make it pick up more subtle edges, while larger values get
 // rid of unwanted noise.
 float NormalThreshold = 0.5;
-float DepthThreshold = 0.5;
+float DepthThreshold = 0.2;
 
 // How dark should the edges get in response to changes in the input data?
 float NormalSensitivity = 1;
