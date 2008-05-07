@@ -76,6 +76,11 @@
       <Name>Transitor</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\cauldron.fbx">
+      <Name>cauldron</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\sign.fbx">
       <Name>sign</Name>
       <Importer>FbxImporter</Importer>
@@ -338,8 +343,38 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\2SidedBox.fbx">
+      <Name>2SidedBox</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\3SidedBox.fbx">
+      <Name>3SidedBox</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\doorFrame.fbx">
+      <Name>doorFrame</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\ceiling.PNG">
+      <Name>ceiling</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Textures\Concrete2.jpg">
       <Name>Concrete2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\free-grass-texture.jpg">
+      <Name>free-grass-texture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\lava.jpg">
+      <Name>lava</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
