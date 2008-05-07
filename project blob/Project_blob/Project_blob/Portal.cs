@@ -72,21 +72,27 @@ namespace Project_blob
             CreateBoundingBox();
 		}
 
-        public BoundingBox GetBoundingBoxTransformed()
+        //public BoundingBox GetBoundingBoxTransformed()
+        //{
+        //    Vector3 min, max;
+        //    min = _boundingBox.Min;
+        //    max = _boundingBox.Max;
+
+        //    min = Vector3.Transform(_boundingBox.Min, Matrix.CreateTranslation(_position));
+        //    max = Vector3.Transform(_boundingBox.Max, Matrix.CreateTranslation(_position));
+
+        //    return new BoundingBox(min, max);
+        //}
+
+        public void CreateBoundingBox()
         {
             Vector3 min, max;
-            min = _boundingBox.Min;
-            max = _boundingBox.Max;
 
-            min = Vector3.Transform(_boundingBox.Min, Matrix.CreateTranslation(_position));
-            max = Vector3.Transform(_boundingBox.Max, Matrix.CreateTranslation(_position));
+            min = new Vector3(-1.0f, -1.0f, -1.0f) * Vector3.Divide(_scale, 2) + _position;
+            max = new Vector3(1.0f, 1.0f, 1.0f) * Vector3.Divide(_scale, 2) + _position;
 
-            return new BoundingBox(min, max);
-        }
-
-        private void CreateBoundingBox()
-        {
-            _boundingBox = new BoundingBox(new Vector3(-1.0f, -1.0f, -1.0f) * _scale, new Vector3(1.0f, 1.0f, 1.0f) * _scale);
+            _boundingBox = new BoundingBox(min, max);
+            //_boundingBox = new BoundingBox(new Vector3(-1.0f, -1.0f, -1.0f) * _scale, new Vector3(1.0f, 1.0f, 1.0f) * _scale);
         }
 
         private void CreateBoundingSphere()

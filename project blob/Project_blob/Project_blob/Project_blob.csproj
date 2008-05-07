@@ -78,6 +78,7 @@
     <Compile Include="EventInfo.cs" />
     <Compile Include="EventDoorOpen.cs" />
     <Compile Include="EventTrigger.cs" />
+    <Compile Include="Frustum.cs" />
     <Compile Include="GameState\GameplayScreen.cs" />
     <Compile Include="GameState\GameScreen.cs" />
     <Compile Include="GameState\LoadingScreen.cs" />
