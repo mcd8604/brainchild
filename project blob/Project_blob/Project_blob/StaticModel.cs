@@ -260,8 +260,9 @@ namespace Project_blob
                         vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
                     }
                 }
-
+                m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
                 m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+                m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
             }
 		}
 
@@ -601,6 +602,33 @@ namespace Project_blob
 		{
             _rooms.Remove(room);
 		}
+
+        public StaticModel() { }
+
+        public StaticModel(StaticModel p_Model) 
+        {
+            /*foreach (System.Reflection.PropertyInfo p in p_Model.GetType().GetProperties())
+            {
+         
+            }*/
+            this.AudioName = p_Model.AudioName;
+            this.ModelName = p_Model.ModelName;
+            this.Name = p_Model.Name;
+            this.Position = p_Model.Position;
+            this.PriorityArray = p_Model.PriorityArray;
+            this.RepeatingTexture = p_Model.RepeatingTexture;
+            this.Rooms = p_Model.Rooms;
+            this.Rotation = p_Model.Rotation;
+            this.RotationPriority = p_Model.RotationPriority;
+            this.Scale = p_Model.Scale;
+            this.ScalePriority = p_Model.ScalePriority;
+            this.ShowVertices = p_Model.ShowVertices;
+            this.TextureKey = p_Model.TextureKey;
+            this.TextureName = p_Model.TextureName;
+            this.TextureScaleX = p_Model.TextureScaleX;
+            this.TextureScaleY = p_Model.TextureScaleY;
+            this.TranslationPriority = p_Model.TranslationPriority;
+        }
 
 		/// <summary>
 		/// Deserialization constructor.
