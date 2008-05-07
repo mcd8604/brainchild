@@ -183,6 +183,7 @@ namespace Project_blob.GameState
 
 			//List of Static Drawables to add to Scene
 			List<Drawable> staticDrawables = new List<Drawable>();
+			List<Portal> portals = new List<Portal>();
 
 			//load first area
 			if (Level.Areas.Count > 0)
@@ -199,6 +200,7 @@ namespace Project_blob.GameState
 				currentArea.Display.TextureParameterName = "Texture";
 				currentArea.Display.TechniqueName = "Lambert";
 				staticDrawables = currentArea.getDrawableList();
+				portals = currentArea.Portals;
 				physics.AddBodys(currentArea.getBodies());
 			}
 			else
@@ -219,7 +221,12 @@ namespace Project_blob.GameState
 			List<Drawable> temp = new List<Drawable>(staticDrawables);
             //SceneManager.getSingleton.BuildOctree(ref temp);
             SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
-            SceneManager.getSingleton.BuildPortalScene(temp);
+			//SceneManager.getSingleton.BuildPortalScene(temp);
+			foreach (Portal p in portals)
+			{
+				p.CreateBoundingBox();
+			}
+			SceneManager.getSingleton.BuildPortalScene(temp, portals);
             SceneManager.getSingleton.PortalScene.CurrSector = 1;
 
 
@@ -424,8 +431,14 @@ namespace Project_blob.GameState
 			currentArea.LoadAreaGameplay(ScreenManager);
 			blobStartPosition = position;
 			List<Drawable> temp = currentArea.getDrawableList();
+			List<Portal> portals = currentArea.Portals;
             //SceneManager.getSingleton.BuildOctree(ref temp);
-            SceneManager.getSingleton.BuildPortalScene(temp);
+			//SceneManager.getSingleton.BuildPortalScene(temp);
+			foreach (Portal p in portals)
+			{
+				p.CreateBoundingBox();
+			}
+			SceneManager.getSingleton.BuildPortalScene(temp, portals);
 			reset();
 		}
 
