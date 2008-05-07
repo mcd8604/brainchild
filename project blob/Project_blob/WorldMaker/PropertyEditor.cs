@@ -14,6 +14,7 @@ namespace WorldMaker
         {
             InitializeComponent();
             propertyGrid1.SelectedObject = o;
+            propertyGrid1.ExpandAllGridItems();
         }
     }
 }
