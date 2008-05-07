@@ -31,11 +31,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\free-grass-texture.jpg">
-      <Name>free-grass-texture</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Textures\point_text.JPG">
       <Name>point_text</Name>
       <Importer>TextureImporter</Importer>
@@ -81,6 +76,16 @@
       <Name>Transitor</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\sign.fbx">
+      <Name>sign</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\merry-go-round.fbx">
+      <Name>merry-go-round</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\box.fbx">
       <Name>box</Name>
       <Importer>FbxImporter</Importer>
@@ -121,11 +126,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Models\doorFrame.fbx">
-      <Name>doorFrame</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Shaders\DepthBuffer.fx">
       <Name>DepthBuffer</Name>
       <Importer>EffectImporter</Importer>
@@ -161,33 +161,13 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Models\3SidedBox.fbx">
-      <Name>3SidedBox</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\2SidedBox.fbx">
-      <Name>2SidedBox</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Models\skySphere.fbx">
       <Name>skySphere</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Models\skyBox.fbx">
-      <Name>skyBox</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Models\pipe.fbx">
       <Name>pipe</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\quarterBowl.fbx">
-      <Name>quarterBowl</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -218,21 +198,6 @@
     </Compile>
     <Compile Include="Models\ramp45.fbx">
       <Name>ramp45</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\skiRamp.fbx">
-      <Name>skiRamp</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\skiRampNew.fbx">
-      <Name>skiRampNew</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\trianglePlane.fbx">
-      <Name>trianglePlane</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -337,13 +302,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Null.png">
-      <Name>Null</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\transparancy.jpg">
       <Name>transparancy</Name>
       <Importer>TextureImporter</Importer>
@@ -380,22 +338,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\ceiling.PNG">
-      <Name>ceiling</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\Concrete2.jpg">
       <Name>Concrete2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\lava.jpg">
-      <Name>lava</Name>
+    <Compile Include="Textures\Null.png">
+      <Name>Null</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
