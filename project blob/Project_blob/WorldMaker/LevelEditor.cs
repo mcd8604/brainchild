@@ -434,9 +434,10 @@ namespace WorldMaker
         {
             if (modelListBox.SelectedIndex != -1 && _gameRef.ActiveDrawable is DynamicModel)
             {
-
-                PropertyEditor pe = new PropertyEditor(((DynamicModel)_gameRef.ActiveDrawable));
-                pe.ShowDialog();
+                TaskEditor te = new TaskEditor(((DynamicModel)_gameRef.ActiveDrawable).Tasks);
+                te.ShowDialog();
+                //PropertyEditor pe = new PropertyEditor(((DynamicModel)_gameRef.ActiveDrawable));
+                //pe.ShowDialog();
             }
         }
 

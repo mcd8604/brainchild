@@ -8,6 +8,8 @@ namespace Physics2
         public IList<Vector3> PatrolPoints;
         public float Speed;
         protected int m_index = 0;
+        
+        public TaskTranslate() { }
 
         public TaskTranslate(IList<Vector3> patrolPoints, float speed)
         {
