@@ -38,23 +38,12 @@ namespace Project_blob
             set { _sectorNumber = value; }
         }
 
-        //public VertexPositionColor[] BoundingFrustumDrawData = new VertexPositionColor[8];
-        //public int[] BoundingFrustumIndex = new int[24];
-
         public Sector(int sectorNum)
         {
             _sectorObjects = new List<Drawable>();
             _portals = new List<Portal>();
             _sectorNumber = sectorNum;
         }
-
-        //Used in testing
-        //private bool _drawPortal;
-        //public bool DrawPortal
-        //{
-        //    get { return _drawPortal; }
-        //    set { _drawPortal = value; }
-        //}
 
         public void DrawVisible(GameTime gameTime)
         {
@@ -69,7 +58,6 @@ namespace Project_blob
                     case ContainmentType.Contains:
                     case ContainmentType.Intersects:
                         {
-                            //obj.Draw(gameTime);
                             SceneManager.getSingleton.Display.AddToBeDrawn(obj);
                             SceneManager.getSingleton.Drawn += 1;
                         }
@@ -95,9 +83,6 @@ namespace Project_blob
                             //Create new frustum from portal
                             BoundingFrustum newFrustum = CreatePortalFrustum(portal);
 
-                            //drawFrustum(newFrustum);
-                            //_drawPortal = true;
-
                             //Drawvisible on connected sector
                             foreach (int sectorNum in portal.ConnectedSectors)
                             {
@@ -114,7 +99,6 @@ namespace Project_blob
                     case ContainmentType.Disjoint:
                         {
                             //Portal is not visible.
-                            //_drawPortal = false;
                         }
                         break;
                 }
@@ -132,7 +116,6 @@ namespace Project_blob
                     case ContainmentType.Contains:
                     case ContainmentType.Intersects:
                         {
-                            //obj.Draw(gameTime);
                             SceneManager.getSingleton.Display.AddToBeDrawn(obj);
                             SceneManager.getSingleton.Drawn += 1;
                         }
@@ -158,9 +141,6 @@ namespace Project_blob
                             //Create new frustum from portal
                             BoundingFrustum newFrustum = CreatePortalFrustum(portal);
 
-                            //drawFrustum(newFrustum);
-                            //_drawPortal = true;
-
                             //Drawvisible on connected sector
                             foreach (int sectorNum in portal.ConnectedSectors)
                             {
@@ -177,7 +157,6 @@ namespace Project_blob
                     case ContainmentType.Disjoint:
                         {
                             //Portal is not visible.
-                            //_drawPortal = false;
                         }
                         break;
                 }
@@ -188,7 +167,6 @@ namespace Project_blob
         {
             foreach (Drawable obj in _sectorObjects)
             {
-                //obj.Draw(gameTime);
                 SceneManager.getSingleton.Display.AddToBeDrawn(obj);
                 SceneManager.getSingleton.Drawn += 1;
             }
@@ -284,53 +262,5 @@ namespace Project_blob
 
             return newFrustum;
         }
-
-        /* Used for testing
-        private void drawFrustum(BoundingFrustum frustum)
-        {
-            Vector3[] frustumPoints = new Vector3[8];
-            frustumPoints = frustum.GetCorners();
-
-            BoundingFrustumDrawData = new VertexPositionColor[8]
-            {
-                new VertexPositionColor(frustumPoints[0], Color.Blue),
-                new VertexPositionColor(frustumPoints[1], Color.Blue),
-                new VertexPositionColor(frustumPoints[2], Color.Blue),
-                new VertexPositionColor(frustumPoints[3], Color.Blue),
-                new VertexPositionColor(frustumPoints[4], Color.Blue),
-                new VertexPositionColor(frustumPoints[5], Color.Blue),
-                new VertexPositionColor(frustumPoints[6], Color.Blue),
-                new VertexPositionColor(frustumPoints[7], Color.Blue),
-            };
-
-            BoundingFrustumIndex = new int[24];
-            BoundingFrustumIndex[0] = 0;
-            BoundingFrustumIndex[1] = 1;
-            BoundingFrustumIndex[2] = 1;
-            BoundingFrustumIndex[3] = 2;
-            BoundingFrustumIndex[4] = 2;
-            BoundingFrustumIndex[5] = 3;
-            BoundingFrustumIndex[6] = 3;
-            BoundingFrustumIndex[7] = 0;
-
-            BoundingFrustumIndex[8] = 4;
-            BoundingFrustumIndex[9] = 5;
-            BoundingFrustumIndex[10] = 5;
-            BoundingFrustumIndex[11] = 6;
-            BoundingFrustumIndex[12] = 6;
-            BoundingFrustumIndex[13] = 7;
-            BoundingFrustumIndex[14] = 7;
-            BoundingFrustumIndex[15] = 4;
-
-            BoundingFrustumIndex[16] = 0;
-            BoundingFrustumIndex[17] = 4;
-            BoundingFrustumIndex[18] = 1;
-            BoundingFrustumIndex[19] = 5;
-            BoundingFrustumIndex[20] = 2;
-            BoundingFrustumIndex[21] = 6;
-            BoundingFrustumIndex[22] = 3;
-            BoundingFrustumIndex[23] = 7;
-        }
-         * */
     }
 }

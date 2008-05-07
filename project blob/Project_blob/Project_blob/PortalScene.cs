@@ -39,15 +39,6 @@ namespace Project_blob
         {
             foreach (StaticModel obj in scene)
             {
-                //if (_sectors.ContainsKey(0))
-                //{
-                //    _sectors[0].AddObjectToSector(obj);
-                //}
-                //else
-                //{
-                //    _sectors.Add(0, new Sector(0));
-                //    _sectors[0].AddObjectToSector(obj);
-                //}
                 if (obj.Rooms != null)
                 {
                     if (obj.Rooms.Count != 0)
