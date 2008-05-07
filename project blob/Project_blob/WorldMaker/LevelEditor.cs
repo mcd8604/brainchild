@@ -80,6 +80,8 @@ namespace WorldMaker
 					Console.WriteLine(str + " loaded");
 				}
 				modelListBox.Update();
+
+                updatePortalList();
 			}
         }
 
@@ -376,6 +378,49 @@ namespace WorldMaker
 
             }
 		}
+
+        private void AddPortalButton_Click(object sender, EventArgs e)
+        {
+            _gameRef.ActiveArea.Portals.Add(new Portal());
+            updatePortalList();
+        }
+
+        private void RemovePortalButton_Click(object sender, EventArgs e)
+        {
+            if (portalList.SelectedIndex != -1)
+            {
+                _gameRef.ActiveArea.Portals.Remove(portalList.SelectedItem as Portal);
+                updatePortalList();
+            }
+        }
+
+        private void EditPortalButton_Click(object sender, EventArgs e)
+        {
+            if (portalList.SelectedIndex != -1)
+            {
+                PropertyEditor pe = new PropertyEditor(portalList.SelectedItem);
+                pe.ShowDialog();
+                updatePortalList();
+            }
+        }
+
+        private void portalList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void updatePortalList()
+        {
+            if (_gameRef.ActiveArea.Portals == null)
+            {
+                _gameRef.ActiveArea.Portals = new List<Portal>();
+            }
+            portalList.Items.Clear();
+            foreach (Portal p in _gameRef.ActiveArea.Portals)
+            {
+                portalList.Items.Add(p);
+            }
+            portalList.Update();
+        }
 
 	}
 }

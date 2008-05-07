@@ -5,8 +5,16 @@ using Microsoft.Xna.Framework;
 
 namespace Project_blob
 {
-	class Portal
+    [Serializable]
+	public class Portal
 	{
+        private String _name;
+        public String Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
 		private BoundingBox _boundingBox;
 		public BoundingBox BoundingBox
 		{
@@ -42,8 +50,20 @@ namespace Project_blob
             set { _scale = value; }
         }
 
+        public Portal()
+        {
+            _name = this.GetType().Name;
+            _connectedSectors = new List<int>();
+
+            _scale = Vector3.Zero;
+            _position = Vector3.Zero;
+
+            CreateBoundingBox();
+        }
+
 		public Portal(Vector3 size, Vector3 position)
-		{
+        {
+            _name = this.GetType().Name;
             _connectedSectors = new List<int>();
 
             _scale = size;
@@ -72,6 +92,11 @@ namespace Project_blob
         private void CreateBoundingSphere()
         {
             _boundingSphere = BoundingSphere.CreateFromBoundingBox(_boundingBox);
+        }
+
+        public override string ToString()
+        {
+            return _name;
         }
 	}
 }
