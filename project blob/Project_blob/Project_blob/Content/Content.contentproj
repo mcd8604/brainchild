@@ -56,6 +56,16 @@
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\donut.fbx">
+      <Name>donut</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\crane.fbx">
+      <Name>crane</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\cauldron.fbx">
       <Name>cauldron</Name>
       <Importer>FbxImporter</Importer>
