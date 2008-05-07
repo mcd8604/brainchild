@@ -167,7 +167,7 @@ namespace Physics2
 				Vector3 VelocityTransfer = Vector3.Zero;
 				Vector3 newVelocity = Vector3.Zero;
 
-				if (Vector3.Dot(e.point.PotentialVelocity, CollidableNormal) > 0)
+				if (Vector3.Dot(e.point.PotentialVelocity, CollidableNormal) < 0)
 				{
 					Vector3 CollidableBodyVelocity = Vector3.Dot(e.collidable.getVelocity(), CollidableNormal) * CollidableNormal;
 					newVelocity = (Vector3.Cross(CollidableNormal, Vector3.Cross(e.point.PotentialVelocity, CollidableNormal))) + CollidableBodyVelocity;
@@ -181,7 +181,7 @@ namespace Physics2
 				Vector3 NormalForce = Vector3.Zero;
 				Vector3 newForce = Vector3.Zero;
 
-				if (Vector3.Dot(e.point.ForceThisFrame, CollidableNormal) > 0)
+				if (Vector3.Dot(e.point.ForceThisFrame, CollidableNormal) < 0)
 				{
 					NormalForce = (Vector3.Dot(e.point.ForceThisFrame, CollidableNormal) * CollidableNormal);
 
@@ -203,6 +203,9 @@ namespace Physics2
 
 					// This is the maximum amount of force to stop the point - will need tweaking for conveyor belts
 					Vector3 MaxFriction = ((relativeVelocity / (TotalElapsedSeconds * (1 - e.when))) * e.point.Mass) + Vector3.Negate(newForce);
+
+                    // tweaking for conveyer belts:
+
 
 					if (FrictionForce.LengthSquared() > MaxFriction.LengthSquared())
 					{

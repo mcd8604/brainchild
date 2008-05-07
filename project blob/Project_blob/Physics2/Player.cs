@@ -74,14 +74,21 @@ namespace Physics2
             }
         }
 
-        public void applyTorque(float Magnitude, Vector3 Around)
+        public void move(Vector2 input, Vector3 reference)
         {
-            Vector3 CurrentPlayerCenter = playerBody.getCenter();
-            foreach (PhysicsPoint p in playerBody.getPoints())
-            {
-                p.ForceThisFrame += Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, Around)) * Magnitude;
-            }
+            moveInput = input;
+            refPos = reference;
+            moveflag = true;
         }
+
+        private bool moveflag = false;
+        private Vector2 moveInput;
+        private Vector3 refPos;
+
+        public float Twist = 0.2f;
+        public float AirTwist = 0.05f;
+        public float Drift = -0.0f;
+        public float AirDrift = -0.1f;
 
         /// <summary>
         /// fake jump trigger
@@ -93,6 +100,8 @@ namespace Physics2
         public float JumpWork = 10;
         public float AirJumpWork = 5;
 
+        Vector3 jumpVector;
+
         internal void update(float time)
         {
             update(cling, time);
@@ -100,26 +109,27 @@ namespace Physics2
             update(resilience, time);
             update(volume, time);
 
+            #region Calculate Jump Vector
+            jumpVector = Vector3.Zero;
+
+            foreach (PhysicsPoint p in PlayerBody.points)
+            {
+                if (p.LastCollision != null)
+                {
+                    jumpVector += p.LastCollision.Normal;
+                }
+            }
+
+            if (jumpVector != Vector3.Zero)
+            {
+                jumpVector = Vector3.Normalize(jumpVector);
+            }
+            #endregion
+
+            #region Jump
             if (jumpflag)
             {
                 jumpflag = false;
-                Vector3 jumpVector = Vector3.Zero;
-
-                foreach (PhysicsPoint p in PlayerBody.points)
-                {
-                    if (p.LastCollision != null)
-                    {
-                        jumpVector += p.LastCollision.Normal;
-                    }
-                }
-
-                if (jumpVector != Vector3.Zero)
-                {
-                    jumpVector = Vector3.Normalize(jumpVector);
-                }
-
-                // Fake Jump: TODO
-
                 // Fake Fake Jump:
                 foreach (PhysicsPoint p in playerBody.getPoints())
                 {
@@ -127,6 +137,54 @@ namespace Physics2
                     p.ForceThisFrame += jumpVector * (JumpWork / time);
                 }
             }
+            #endregion
+
+            #region Movement
+            if (moveflag)
+            {
+                moveflag = false;
+                Vector3 CurrentPlayerCenter = playerBody.getCenter();
+
+                Vector3 Up;
+                /*if (OrientCamera)
+                {
+                    Up = physics.getUp(theBlob.getCenter());
+                }
+                else
+                {*/
+                Up = Vector3.Up;
+                //}
+                //Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - cameraPosition, Up));
+                Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(CurrentPlayerCenter - refPos, Up));
+                Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
+
+                Vector3 n = Vector3.Normalize((Horizontal * moveInput.Y) + (Run * moveInput.X));
+                Vector3 n2 = Vector3.Normalize(Vector3.Cross(n, Up));
+                float m = MathHelper.Clamp((float)Math.Sqrt((moveInput.X * moveInput.X) + (moveInput.Y * moveInput.Y)), 0, 1);
+
+                float ClingEffect = MathHelper.Clamp(Cling.value * 0.5f, 2, 4);
+
+                float force = m / time;
+
+                if (jumpVector != Vector3.Zero) // touching something
+                {
+                    foreach (PhysicsPoint p in playerBody.getPoints())
+                    {
+                        p.ForceThisFrame += Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, n)) * (force * Twist * ClingEffect);
+                        p.ForceThisFrame += n2 * (force * Drift);
+                    }
+                }
+                else
+                {
+                    foreach (PhysicsPoint p in playerBody.getPoints())
+                    {
+                        p.ForceThisFrame += Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, n)) * (force * AirTwist * ClingEffect);
+                        p.ForceThisFrame += n2 * (force * AirDrift);
+                    }
+
+                }
+            }
+#endregion
 
             foreach (PhysicsPoint p in playerBody.getPoints())
             {
