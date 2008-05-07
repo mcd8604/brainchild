@@ -56,26 +56,6 @@
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Levels\ground.lev">
-      <Name>ground</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Levels\myLevel.lev">
-      <Name>myLevel</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Levels\playground.lev">
-      <Name>playground</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Levels\testLevel.lev">
-      <Name>testLevel</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Levels\Transitor.lev">
-      <Name>Transitor</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Compile Include="Models\cauldron.fbx">
       <Name>cauldron</Name>
       <Importer>FbxImporter</Importer>
