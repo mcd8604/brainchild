@@ -43,18 +43,12 @@ float4 Distort_PixelShader(float2 TexCoord : TEXCOORD0,
 
         if (distortionBlur)
         {
-			//finalColor = 1 - (abs(displacement.r) + abs(displacement.g) * 70);
             // Combine a number of weighted displaced-image filter taps
             for (int i = 0; i < SAMPLE_COUNT; i++)
             {
-				//finalColor = 1 - (abs(displacement.r) + abs(displacement.g)) * 30;
-				
-				
                finalColor += tex2D(SceneTexture, TexCoord.xy + displacement + 
                     SampleOffsets[i]) * SampleWeights[i] ;
                finalColor = (finalColor * .90) + (green * .10);
-                
-                //finalColor = (finalColor * .5) + ((finalColor - (1 - (abs(displacement.r) + abs(displacement.g)) * 30)) * .5);
             }
             
         }

@@ -550,18 +550,18 @@ namespace Project_blob
 
                 graphicsDevice.RenderState.AlphaBlendEnable = true;
 
-				if (theBlob != null)
+				if (theBlob != null && DEBUG_WireframeMode)
 				{
-                    //EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["LambertOnBlob"];
-                    //EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
-                    //EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-                    //foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
-                    //{
-                    //    pass.Begin();
-                    //    theBlob.DrawMe();
-                    //    pass.End();
-                    //}
-                    //EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+                    EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["LambertOnBlob"];
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+                    {
+                        pass.Begin();
+                        theBlob.DrawMe();
+                        pass.End();
+                    }
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").End();
 				}
 
                 if (DEBUG_WireframeMode)
