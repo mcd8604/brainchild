@@ -135,6 +135,14 @@ namespace WorldMaker
                         EventButton.Text = "Add Event";
                     }
 
+                    if (_gameRef.ActiveDrawable is DynamicModel)
+                    {
+                        EditTasksButton.Enabled = true;
+                    }
+                    else
+                    {
+                        EditTasksButton.Enabled = false;
+                    }
                 }
             }
             else
@@ -420,6 +428,16 @@ namespace WorldMaker
                 portalList.Items.Add(p);
             }
             portalList.Update();
+        }
+
+        private void EditTasksButton_Click(object sender, EventArgs e)
+        {
+            if (modelListBox.SelectedIndex != -1 && _gameRef.ActiveDrawable is DynamicModel)
+            {
+
+                PropertyEditor pe = new PropertyEditor(((DynamicModel)_gameRef.ActiveDrawable));
+                pe.ShowDialog();
+            }
         }
 
 	}

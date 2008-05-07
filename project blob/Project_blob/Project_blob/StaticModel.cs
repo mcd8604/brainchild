@@ -230,6 +230,7 @@ namespace Project_blob
             VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
             if (m_VertexBuffer != null)
             {
+                m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
                 m_VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
             }
             return vertices;
@@ -611,23 +612,24 @@ namespace Project_blob
             {
          
             }*/
-            this.AudioName = p_Model.AudioName;
-            this.ModelName = p_Model.ModelName;
-            this.Name = p_Model.Name;
-            this.Position = p_Model.Position;
-            this.PriorityArray = p_Model.PriorityArray;
-            this.RepeatingTexture = p_Model.RepeatingTexture;
-            this.Rooms = p_Model.Rooms;
-            this.Rotation = p_Model.Rotation;
+            this._audioName = p_Model.AudioName;
+            this._modelName = p_Model.ModelName;
+            this.m_Name= p_Model.Name;
+            this.m_Position = p_Model.Position;
+            this.m_PriorityArray = p_Model.PriorityArray;
+            this.m_RepeatingTexture = p_Model.RepeatingTexture;
+            this._rooms = p_Model.Rooms;
+            this.m_Rotation = p_Model.Rotation;
             this.RotationPriority = p_Model.RotationPriority;
-            this.Scale = p_Model.Scale;
+            this.m_Scale = p_Model.Scale;
             this.ScalePriority = p_Model.ScalePriority;
-            this.ShowVertices = p_Model.ShowVertices;
-            this.TextureKey = p_Model.TextureKey;
-            this.TextureName = p_Model.TextureName;
-            this.TextureScaleX = p_Model.TextureScaleX;
-            this.TextureScaleY = p_Model.TextureScaleY;
+            this.m_ShowVertices = p_Model.ShowVertices;
+            this.m_TextureKey = p_Model.TextureKey;
+            this._textureName = p_Model.TextureName;
+            this.m_TextureScaleX = p_Model.TextureScaleX;
+            this.m_TextureScaleY = p_Model.TextureScaleY;
             this.TranslationPriority = p_Model.TranslationPriority;
+            initialize();
         }
 
 		/// <summary>
