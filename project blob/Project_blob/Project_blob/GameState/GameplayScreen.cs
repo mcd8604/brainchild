@@ -110,8 +110,8 @@ namespace Project_blob.GameState
 			physics.AirFriction = 1f;
 
 			physics.Player.Traction.Minimum = 0.1f;
-			physics.Player.Traction.Origin = 2f;
-			physics.Player.Traction.Maximum = 8f;
+			physics.Player.Traction.Origin = 1f;
+			physics.Player.Traction.Maximum = 5f;
 
 			physics.Player.Cling.Minimum = 0f;
 			physics.Player.Cling.Origin = 5f;
