@@ -50,6 +50,7 @@ namespace WorldMaker
             this.AddPortalButton = new System.Windows.Forms.Button();
             this.RemovePortalButton = new System.Windows.Forms.Button();
             this.EditPortalButton = new System.Windows.Forms.Button();
+            this.EditTasksButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // areaListBox
@@ -226,7 +227,7 @@ namespace WorldMaker
             // 
             this.EventButton.Enabled = false;
             this.EventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EventButton.Location = new System.Drawing.Point(160, 496);
+            this.EventButton.Location = new System.Drawing.Point(160, 485);
             this.EventButton.Name = "EventButton";
             this.EventButton.Size = new System.Drawing.Size(121, 47);
             this.EventButton.TabIndex = 17;
@@ -289,11 +290,24 @@ namespace WorldMaker
             this.EditPortalButton.UseVisualStyleBackColor = true;
             this.EditPortalButton.Click += new System.EventHandler(this.EditPortalButton_Click);
             // 
+            // EditTasksButton
+            // 
+            this.EditTasksButton.Enabled = false;
+            this.EditTasksButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditTasksButton.Location = new System.Drawing.Point(160, 538);
+            this.EditTasksButton.Name = "EditTasksButton";
+            this.EditTasksButton.Size = new System.Drawing.Size(121, 47);
+            this.EditTasksButton.TabIndex = 23;
+            this.EditTasksButton.Text = "Edit Tasks";
+            this.EditTasksButton.UseVisualStyleBackColor = false;
+            this.EditTasksButton.Click += new System.EventHandler(this.EditTasksButton_Click);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(293, 711);
+            this.Controls.Add(this.EditTasksButton);
             this.Controls.Add(this.EditPortalButton);
             this.Controls.Add(this.AddPortalButton);
             this.Controls.Add(this.RemovePortalButton);
@@ -347,5 +361,6 @@ namespace WorldMaker
         private System.Windows.Forms.Button AddPortalButton;
         private System.Windows.Forms.Button RemovePortalButton;
         private System.Windows.Forms.Button EditPortalButton;
+        private System.Windows.Forms.Button EditTasksButton;
 	}
 }

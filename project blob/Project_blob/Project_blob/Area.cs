@@ -360,9 +360,9 @@ namespace Project_blob
                             body = new BodyStatic(collidables, null);
                         }
                     }
-                    else
+                    else if(dm is DynamicModel)
                     {
-                        //need proper cast here
+                        DynamicModel dynModel = (DynamicModel)dm;
 
                         List<PhysicsPoint> points = new List<PhysicsPoint>();
                         for (int i = 0; i < vertices.Length; i++)
@@ -380,8 +380,8 @@ namespace Project_blob
                                 numCol++;
                             }
                         }
-                        //need to get tasks
-                        body = new DrawableBody(null, points, collidables, null, null, dm);
+
+                        body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
                     }
                     dm.SetBoundingBox(body.boundingBox.GetXNABoundingBox());
 
