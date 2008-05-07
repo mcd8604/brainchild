@@ -83,10 +83,6 @@ namespace Project_blob.GameState
 
 		bool OrientCamera = false;
 
-		float playerMoveMulti = 100f;
-
-		//Display theDisplay;
-
 		public static Area currentArea;
 
 		System.Diagnostics.Stopwatch physicsTime = new System.Diagnostics.Stopwatch();
@@ -113,13 +109,13 @@ namespace Project_blob.GameState
 
 			physics.AirFriction = 1f;
 
-			physics.Player.Traction.Minimum = 0f;
+			physics.Player.Traction.Minimum = 10f;
 			physics.Player.Traction.Origin = 200f;
-			physics.Player.Traction.Maximum = 1000f;
+			physics.Player.Traction.Maximum = 800f;
 
 			physics.Player.Cling.Minimum = 0f;
 			physics.Player.Cling.Origin = 5f;
-			physics.Player.Cling.Maximum = 20f;
+			physics.Player.Cling.Maximum = 10f;
 
 			physics.Player.Resilience.Minimum = 20f;
 			physics.Player.Resilience.Origin = 40f;
@@ -585,13 +581,13 @@ namespace Project_blob.GameState
 				{
 					//Physics.PhysicsManager.TEMP_SurfaceFriction = 2f;
 					physics.Player.Traction.Target = 1f;
-					physics.Player.Cling.Target = 0.75f;
+					physics.Player.Cling.Target = 1f;
 				}
 				if (InputHandler.IsKeyPressed(Keys.E))
 				{
 					//Physics.PhysicsManager.TEMP_SurfaceFriction = 0.5f;
 					physics.Player.Traction.Target = 0f;
-					physics.Player.Cling.Target = 0.25f;
+					physics.Player.Cling.Target = 0f;
 				}
 				if (InputHandler.IsKeyPressed(Keys.A))
 				{
@@ -647,58 +643,10 @@ namespace Project_blob.GameState
 
 				// Quick Torque
 
-				bool twist = false;
-				foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
-				{
-					if (p.LastCollision != null)
-					{
-						twist = true;
-					}
-				}
-
 				Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
 				if (move != Vector2.Zero)
 				{
-					Vector3 Up;
-					/*if (OrientCamera)
-					{
-						Up = physics.getUp(theBlob.getCenter());
-					}
-					else
-					{*/
-					Up = Vector3.Up;
-					//}
-					//Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - cameraPosition, Up));
-					Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - CameraManager.getSingleton.ActiveCamera.Position, Up));
-					Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
-
-
-					if (twist)
-					{
-						physics.Player.applyTorque(move.Y * playerMoveMulti * physics.Player.Cling.Target, Horizontal);
-						physics.Player.applyTorque(move.X * playerMoveMulti * physics.Player.Cling.Target, Run);
-					}
-					else
-					{
-						if (physics.Player.PlayerBody != null)
-						{
-							Vector3 CurrentPlayerCenter = physics.Player.PlayerBody.getCenter();
-							foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
-							{
-								p.ForceNextFrame += Horizontal * (move.X * playerMoveMulti * 0.06f);
-								p.ForceNextFrame += Run * (move.Y * playerMoveMulti * -0.06f);
-							}
-						}
-						physics.Player.applyTorque(move.Y * playerMoveMulti * physics.Player.Cling.Target * 0.1f, Horizontal);
-						physics.Player.applyTorque(move.X * playerMoveMulti * physics.Player.Cling.Target * 0.1f, Run);
-
-					}
-
-					//foreach (Physics.Point p in theBlob.points)
-					//{
-					//    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Horizontal)) * (move.Y * playerMoveMulti);
-					//    p.CurrentForce += Vector3.Normalize(Vector3.Cross(p.Position - theBlob.getCenter(), Run)) * (move.X * playerMoveMulti);
-					//}
+                    physics.Player.move(move, CameraManager.getSingleton.ActiveCamera.Position);
 				}
 
                 if (InputHandler.IsKeyPressed(Keys.J) || InputHandler.IsButtonPressed(Buttons.A))
