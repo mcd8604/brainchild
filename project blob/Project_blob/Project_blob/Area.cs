@@ -17,6 +17,19 @@ namespace Project_blob
 
 		private Dictionary<String, EventTrigger> _events;
 
+        private List<Portal> _portals = new List<Portal>();
+        public List<Portal> Portals
+        {
+            get
+            {
+                return _portals;
+            }
+            set
+            {
+                _portals = value;
+            }
+        }
+
 		public Display Display
 		{
 			get { return _display; }
@@ -40,6 +53,7 @@ namespace Project_blob
 			_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			_drawables = new Dictionary<String, Drawable>();
 			_events = new Dictionary<String, EventTrigger>();
+            _portals = new List<Portal>();
 		}
 
 		public Area(Matrix worldMatrix, String effectName, String worldParameterName, String textureParameterName, String techniqueName)
@@ -47,6 +61,7 @@ namespace Project_blob
 			_display = new Display(worldMatrix, effectName, worldParameterName, textureParameterName, techniqueName);
 			_drawables = new Dictionary<String, Drawable>();
 			_events = new Dictionary<String, EventTrigger>();
+            _portals = new List<Portal>();
 		}
 
 		public Drawable GetDrawable(String drawableName)
@@ -130,7 +145,7 @@ namespace Project_blob
 			{
 				_events.Add(eventName, eventTrigger);
 			}
-		}
+        }
 
 		[NonSerialized]
 		private List<Physics2.Body> m_Bodies = new List<Physics2.Body>();

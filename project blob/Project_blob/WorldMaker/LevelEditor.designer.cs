@@ -45,6 +45,11 @@ namespace WorldMaker
             this.areaTextBox = new System.Windows.Forms.TextBox();
             this.nameButton = new System.Windows.Forms.Button();
             this.EventButton = new System.Windows.Forms.Button();
+            this.portalList = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.AddPortalButton = new System.Windows.Forms.Button();
+            this.RemovePortalButton = new System.Windows.Forms.Button();
+            this.EditPortalButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // areaListBox
@@ -56,7 +61,7 @@ namespace WorldMaker
             "testArea"});
             this.areaListBox.Location = new System.Drawing.Point(12, 161);
             this.areaListBox.Name = "areaListBox";
-            this.areaListBox.Size = new System.Drawing.Size(269, 132);
+            this.areaListBox.Size = new System.Drawing.Size(142, 100);
             this.areaListBox.TabIndex = 0;
             this.areaListBox.SelectedIndexChanged += new System.EventHandler(this.areaListBox_SelectedIndexChanged);
             // 
@@ -65,9 +70,9 @@ namespace WorldMaker
             this.modelListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modelListBox.FormattingEnabled = true;
             this.modelListBox.ItemHeight = 16;
-            this.modelListBox.Location = new System.Drawing.Point(12, 369);
+            this.modelListBox.Location = new System.Drawing.Point(12, 289);
             this.modelListBox.Name = "modelListBox";
-            this.modelListBox.Size = new System.Drawing.Size(269, 308);
+            this.modelListBox.Size = new System.Drawing.Size(142, 308);
             this.modelListBox.Sorted = true;
             this.modelListBox.TabIndex = 1;
             this.modelListBox.SelectedIndexChanged += new System.EventHandler(this.modelListBox_SelectedIndexChanged);
@@ -118,7 +123,7 @@ namespace WorldMaker
             // 
             this.modelList.AutoSize = true;
             this.modelList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.modelList.Location = new System.Drawing.Point(12, 346);
+            this.modelList.Location = new System.Drawing.Point(12, 266);
             this.modelList.Name = "modelList";
             this.modelList.Size = new System.Drawing.Size(187, 20);
             this.modelList.TabIndex = 6;
@@ -127,7 +132,7 @@ namespace WorldMaker
             // areaDelButton
             // 
             this.areaDelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.areaDelButton.Location = new System.Drawing.Point(12, 299);
+            this.areaDelButton.Location = new System.Drawing.Point(156, 211);
             this.areaDelButton.Name = "areaDelButton";
             this.areaDelButton.Size = new System.Drawing.Size(125, 44);
             this.areaDelButton.TabIndex = 7;
@@ -138,7 +143,7 @@ namespace WorldMaker
             // areaAddButton
             // 
             this.areaAddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.areaAddButton.Location = new System.Drawing.Point(156, 299);
+            this.areaAddButton.Location = new System.Drawing.Point(156, 161);
             this.areaAddButton.Name = "areaAddButton";
             this.areaAddButton.Size = new System.Drawing.Size(125, 44);
             this.areaAddButton.TabIndex = 8;
@@ -149,9 +154,9 @@ namespace WorldMaker
             // modelDelButton
             // 
             this.modelDelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.modelDelButton.Location = new System.Drawing.Point(12, 683);
+            this.modelDelButton.Location = new System.Drawing.Point(160, 392);
             this.modelDelButton.Name = "modelDelButton";
-            this.modelDelButton.Size = new System.Drawing.Size(125, 44);
+            this.modelDelButton.Size = new System.Drawing.Size(121, 44);
             this.modelDelButton.TabIndex = 9;
             this.modelDelButton.Text = "Delete Model";
             this.modelDelButton.UseVisualStyleBackColor = true;
@@ -160,9 +165,9 @@ namespace WorldMaker
             // modelAddButton
             // 
             this.modelAddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.modelAddButton.Location = new System.Drawing.Point(156, 683);
+            this.modelAddButton.Location = new System.Drawing.Point(160, 289);
             this.modelAddButton.Name = "modelAddButton";
-            this.modelAddButton.Size = new System.Drawing.Size(125, 44);
+            this.modelAddButton.Size = new System.Drawing.Size(121, 44);
             this.modelAddButton.TabIndex = 10;
             this.modelAddButton.Text = "Add Model";
             this.modelAddButton.UseVisualStyleBackColor = true;
@@ -180,9 +185,9 @@ namespace WorldMaker
             // EditButton
             // 
             this.EditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditButton.Location = new System.Drawing.Point(12, 733);
+            this.EditButton.Location = new System.Drawing.Point(160, 339);
             this.EditButton.Name = "EditButton";
-            this.EditButton.Size = new System.Drawing.Size(125, 47);
+            this.EditButton.Size = new System.Drawing.Size(121, 47);
             this.EditButton.TabIndex = 12;
             this.EditButton.Text = "Edit Model";
             this.EditButton.UseVisualStyleBackColor = true;
@@ -221,19 +226,79 @@ namespace WorldMaker
             // 
             this.EventButton.Enabled = false;
             this.EventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EventButton.Location = new System.Drawing.Point(156, 733);
+            this.EventButton.Location = new System.Drawing.Point(160, 496);
             this.EventButton.Name = "EventButton";
-            this.EventButton.Size = new System.Drawing.Size(125, 47);
+            this.EventButton.Size = new System.Drawing.Size(121, 47);
             this.EventButton.TabIndex = 17;
             this.EventButton.Text = "Add Event";
             this.EventButton.UseVisualStyleBackColor = false;
             this.EventButton.Click += new System.EventHandler(this.EventButton_Click);
             // 
+            // portalList
+            // 
+            this.portalList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.portalList.FormattingEnabled = true;
+            this.portalList.ItemHeight = 16;
+            this.portalList.Location = new System.Drawing.Point(12, 623);
+            this.portalList.Name = "portalList";
+            this.portalList.Size = new System.Drawing.Size(142, 84);
+            this.portalList.Sorted = true;
+            this.portalList.TabIndex = 18;
+            this.portalList.SelectedIndexChanged += new System.EventHandler(this.portalList_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 600);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 20);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Portals";
+            // 
+            // AddPortalButton
+            // 
+            this.AddPortalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddPortalButton.Location = new System.Drawing.Point(160, 623);
+            this.AddPortalButton.Name = "AddPortalButton";
+            this.AddPortalButton.Size = new System.Drawing.Size(121, 24);
+            this.AddPortalButton.TabIndex = 21;
+            this.AddPortalButton.Text = "Add Portal";
+            this.AddPortalButton.UseVisualStyleBackColor = true;
+            this.AddPortalButton.Click += new System.EventHandler(this.AddPortalButton_Click);
+            // 
+            // RemovePortalButton
+            // 
+            this.RemovePortalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RemovePortalButton.Location = new System.Drawing.Point(160, 683);
+            this.RemovePortalButton.Name = "RemovePortalButton";
+            this.RemovePortalButton.Size = new System.Drawing.Size(121, 24);
+            this.RemovePortalButton.TabIndex = 20;
+            this.RemovePortalButton.Text = "Delete Portal";
+            this.RemovePortalButton.UseVisualStyleBackColor = true;
+            this.RemovePortalButton.Click += new System.EventHandler(this.RemovePortalButton_Click);
+            // 
+            // EditPortalButton
+            // 
+            this.EditPortalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditPortalButton.Location = new System.Drawing.Point(160, 653);
+            this.EditPortalButton.Name = "EditPortalButton";
+            this.EditPortalButton.Size = new System.Drawing.Size(121, 24);
+            this.EditPortalButton.TabIndex = 22;
+            this.EditPortalButton.Text = "Edit Portal";
+            this.EditPortalButton.UseVisualStyleBackColor = true;
+            this.EditPortalButton.Click += new System.EventHandler(this.EditPortalButton_Click);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 784);
+            this.ClientSize = new System.Drawing.Size(293, 711);
+            this.Controls.Add(this.EditPortalButton);
+            this.Controls.Add(this.AddPortalButton);
+            this.Controls.Add(this.RemovePortalButton);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.portalList);
             this.Controls.Add(this.EventButton);
             this.Controls.Add(this.nameButton);
             this.Controls.Add(this.areaTextBox);
@@ -277,5 +342,10 @@ namespace WorldMaker
 		private System.Windows.Forms.TextBox areaTextBox;
 		private System.Windows.Forms.Button nameButton;
         private System.Windows.Forms.Button EventButton;
+        private System.Windows.Forms.ListBox portalList;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button AddPortalButton;
+        private System.Windows.Forms.Button RemovePortalButton;
+        private System.Windows.Forms.Button EditPortalButton;
 	}
 }
