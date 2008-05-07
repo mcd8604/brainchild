@@ -113,8 +113,11 @@ namespace WorldMaker
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            m_Tasks.Add(((Type)TaskTypeCB.SelectedItem).GetConstructor(System.Type.EmptyTypes).Invoke(null) as Task);
-            UpdateTaskList();
+            if (TaskTypeCB.SelectedIndex != -1)
+            {
+                m_Tasks.Add(((Type)TaskTypeCB.SelectedItem).GetConstructor(System.Type.EmptyTypes).Invoke(null) as Task);
+                UpdateTaskList();
+            }
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
@@ -132,6 +135,7 @@ namespace WorldMaker
             if (taskList.SelectedIndex != -1)
             {
                 propertyGrid1.SelectedObject = taskList.SelectedItem;
+                propertyGrid1.Update();
             }
         }
     }

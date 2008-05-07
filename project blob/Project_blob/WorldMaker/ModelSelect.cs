@@ -87,23 +87,7 @@ namespace WorldMaker
             if (editMode && _gameRef.ActiveDrawable is StaticModel)
             {
                 m_CurrentModel = (StaticModel)_gameRef.ActiveDrawable;
-                originalModel = m_CurrentModel.ModelName;
-                modelBox.SelectedItem = m_CurrentModel.ModelName + ".xnb";
-                ModelName.Text = m_CurrentModel.Name;
-
-                if (m_CurrentModel.TextureKey != null)
-                {
-                    m_CurrentTexture = m_CurrentModel.TextureKey;
-                    originalTextureName = m_CurrentTexture.TextureName;
-                    originalTextureSort = m_CurrentTexture.SortNumber;
-                    textureBox.SelectedItem = m_CurrentTexture.TextureName + ".xnb";
-                }
-                else
-                {
-                    Random rand = new Random();
-                    m_CurrentTexture = new TextureInfo(null, rand.Next());
-                    m_CurrentModel.TextureKey = m_CurrentTexture;
-                }
+                
                 if (m_CurrentModel.AudioName != null && !m_CurrentModel.AudioName.Equals("none"))
                 {
                     audioBox.SelectedItem = m_CurrentModel.AudioName + ".xnb";
@@ -111,15 +95,31 @@ namespace WorldMaker
             }
             else
             {
-                m_CurrentModel = new StaticModel("none", "none", "none", new List<short>());
-                originalModel = m_CurrentModel.ModelName;
-                Random rand = new Random();
-                m_CurrentTexture = new TextureInfo(null, rand.Next());
-                originalTextureName = m_CurrentTexture.TextureName;
-                originalTextureSort = m_CurrentTexture.SortNumber;
+                string modelName = ((string)(modelBox.Items[0])).Substring(0, ((String)(modelBox.Items[0])).LastIndexOf("."));
+                m_CurrentModel = new StaticModel("New Model", modelName, "none", new List<short>());
+                m_CurrentModel.initialize();
+            }
+
+            originalModel = m_CurrentModel.ModelName;
+
+            if (m_CurrentModel.TextureKey == null)
+            {
+                m_CurrentTexture = new TextureInfo();
                 m_CurrentModel.TextureKey = m_CurrentTexture;
             }
+            else
+            {
+                m_CurrentTexture = m_CurrentModel.TextureKey;
+            }
+
+            originalTextureName = m_CurrentTexture.TextureName;
+            originalTextureSort = m_CurrentTexture.SortNumber;
+
+            modelBox.SelectedItem = m_CurrentModel.ModelName + ".xnb";
+            textureBox.SelectedItem = m_CurrentTexture.TextureName + ".xnb";
             ModelType.SelectedItem = m_CurrentModel.GetType();
+
+            ModelName.Text = m_CurrentModel.Name;
         }
 
         private void modelBox_SelectedIndexChanged(object sender, EventArgs e)

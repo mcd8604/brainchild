@@ -5,24 +5,46 @@ namespace Physics2
 {
     public class TaskTranslate : Task
     {
-        public IList<Vector3> PatrolPoints;
-        public float Speed;
+        protected IList<Vector3> m_PatrolPoints;
+        public IList<Vector3> PatrolPoints 
+        {
+            get
+            {
+                return m_PatrolPoints;
+            }
+            set
+            {
+                m_PatrolPoints = value;
+            }
+        }
+        protected float m_Speed;
+        public float Speed
+        {
+            get
+            {
+                return m_Speed;
+            }
+            set
+            {
+                m_Speed = value;
+            }
+        }
         protected int m_index = 0;
         
         public TaskTranslate() { }
 
         public TaskTranslate(IList<Vector3> patrolPoints, float speed)
         {
-            PatrolPoints = patrolPoints;
-            Speed = speed;
+            m_PatrolPoints = patrolPoints;
+            m_Speed = speed;
         }
 
         public override void update(Body b, float time)
         {
-            Vector3 CurrentDestination = PatrolPoints[m_index];
+            Vector3 CurrentDestination = m_PatrolPoints[m_index];
             Vector3 BodyCenter = b.getCenter();
 
-            float travel = Speed * time;
+            float travel = m_Speed * time;
             float dist = Vector3.Distance(CurrentDestination, BodyCenter);
 
             if (dist < travel)
