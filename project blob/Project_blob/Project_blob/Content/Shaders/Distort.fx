@@ -52,8 +52,8 @@ float4 Distort_PixelShader(float2 TexCoord : TEXCOORD0,
         {
             // Look up the displaced color, without multisampling
             finalColor = tex2D(SceneTexture, TexCoord.xy + displacement);
-            //finalColor.r += (abs(displacement.r)*20);
-			finalColor.g += (abs(displacement.g)*20);
+            finalColor = (finalColor * .0) + ((finalColor - (1 - (abs(displacement.r) + abs(displacement.g)) * 30)) * 1);
+			//finalColor.g += (abs(displacement.g)*20);
             
         }
     }

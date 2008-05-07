@@ -151,7 +151,7 @@ float4 LambertPixelShader(LightingPixelShaderInput input, uniform bool onBlob) :
 	
 	if( !onBlob && input.Position3D.y < blobCenter.y && distance(xyCoord,blobCenterVector) < ( 20.0f - distance(blobCenter.y,input.Position3D.y) ) * 0.05f )
     {
-		//color.rgb *= 0.3f;
+		color.rgb *= 0.3f;
     }
 
     
