@@ -9,6 +9,8 @@ namespace Project_blob
     [Serializable]
     public class TextureInfo
     {
+        private const string DEFAULT_TEXTURE_NAME = "default";
+
         private String _textureName;
         public String TextureName
         {
@@ -27,6 +29,13 @@ namespace Project_blob
             {
                 m_SortNumber = value;
             }
+        }
+
+        public TextureInfo()
+        {
+            _textureName = DEFAULT_TEXTURE_NAME;
+            m_SortNumber = new Random().Next();
+
         }
 
         public TextureInfo(String texutreName, int p_SortNumber)
