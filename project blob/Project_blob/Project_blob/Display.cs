@@ -341,19 +341,19 @@ namespace Project_blob
                     EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["NormalDepth"];
                     foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                     {
-                        //if (ti.SortNumber != currentTextureNumber)
-                        //{
-                        //    if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                        //    {
-                        //        ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                        //    }
-                        //    else
-                        //    {
-                        //        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                        //        if (m_TextureParameterName != "NONE")
-                        //            EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-                        //    }
-                        //}
+                        if (ti.SortNumber != currentTextureNumber)
+                        {
+                            if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
+                            {
+                                ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                            }
+                            else
+                            {
+                                graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                                if (m_TextureParameterName != "NONE")
+                                    EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                            }
+                        }
 
 						foreach (Drawable d in drawable_List_Drawn[ti])
 						{

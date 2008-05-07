@@ -335,7 +335,7 @@ namespace Project_blob
                                     eventtrigger = true;
                                 }
 
-                                if (dm.TextureKey.TextureName.Equals("point_text"))
+                                if (dm.TextureKey.TextureName.Equals("conveyor_belt"))
                                 {
                                     conveyer = true;
                                 }

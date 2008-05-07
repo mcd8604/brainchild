@@ -189,7 +189,7 @@ namespace Project_blob.GameState
 			{
 				IEnumerator e = Level.Areas.Values.GetEnumerator();
 				e.MoveNext();
-				e.MoveNext();
+				//e.MoveNext();
 				//e.MoveNext();
 
 				currentArea = (Area)e.Current;
