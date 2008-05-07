@@ -75,6 +75,15 @@ namespace WorldMaker
             for (int i = 0; i < audio.Length; i++)
                 audioBox.Items.Add(audio[i]);
 
+            System.Reflection.Assembly asm = System.Reflection.Assembly.LoadFrom("Project_blob.exe");
+            foreach (Type t in asm.GetTypes())
+            {
+                if (typeof(Project_blob.StaticModel).IsAssignableFrom(t))
+                {
+                    ModelType.Items.Add(t);
+                }
+            }
+
             if (editMode && _gameRef.ActiveDrawable is StaticModel)
             {
                 m_CurrentModel = (StaticModel)_gameRef.ActiveDrawable;
@@ -110,6 +119,7 @@ namespace WorldMaker
                 originalTextureSort = m_CurrentTexture.SortNumber;
                 m_CurrentModel.TextureKey = m_CurrentTexture;
             }
+            ModelType.SelectedItem = m_CurrentModel.GetType();
         }
 
         private void modelBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -170,6 +180,17 @@ namespace WorldMaker
             if (audioBox.SelectedIndex != -1)
             {
                 m_CurrentModel.AudioName = ((String)(audioBox.Items[audioBox.SelectedIndex])).Substring(0, ((String)(audioBox.Items[audioBox.SelectedIndex])).LastIndexOf("."));
+            }
+        }
+
+        private void ModelType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Type newType = ((Type)ModelType.SelectedItem);
+            if (!m_CurrentModel.GetType().Equals(newType))
+            {
+                Type[] types = { typeof(StaticModel) };
+                Object[] parameters = { m_CurrentModel };
+                m_CurrentModel = newType.GetConstructor(types).Invoke(parameters) as StaticModel;
             }
         }
     }

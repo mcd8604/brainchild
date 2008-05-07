@@ -300,10 +300,8 @@ namespace Project_blob
 
                     Physics2.Body body = null;
 
-                    //StaticModel or subclass of (this is wrong)
-                    if (dm is StaticModel) 
+                    if (!dm.GetType().IsSubclassOf(typeof(StaticModel))) 
                     {
-
                         // temporary
                         bool eventtrigger = false;
                         bool conveyer = false;
