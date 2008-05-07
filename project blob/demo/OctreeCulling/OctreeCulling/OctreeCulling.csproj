@@ -63,6 +63,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="CameraManager.cs" />
     <Compile Include="Cube.cs" />
+    <Compile Include="Frustum.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Octree.cs" />
     <Compile Include="OctreeLeaf.cs" />
