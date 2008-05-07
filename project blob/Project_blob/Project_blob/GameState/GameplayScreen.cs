@@ -183,8 +183,7 @@ namespace Project_blob.GameState
 			reset();
 
 			//load default level
-            Level.LoadLevel("myLevel", "effects");
-            //Level.LoadLevel("FinalLevel", "effects");
+            Level.LoadLevel("FinalLevel", "effects");
 
 			//List of Static Drawables to add to Scene
 			List<Drawable> staticDrawables = new List<Drawable>();
@@ -194,7 +193,7 @@ namespace Project_blob.GameState
 			{
 				IEnumerator e = Level.Areas.Values.GetEnumerator();
 				e.MoveNext();
-				//e.MoveNext();
+				e.MoveNext();
 				//e.MoveNext();
 
 				currentArea = (Area)e.Current;
