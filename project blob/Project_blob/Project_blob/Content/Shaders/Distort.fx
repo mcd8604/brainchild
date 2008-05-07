@@ -40,9 +40,12 @@ float4 Distort_PixelShader(float2 TexCoord : TEXCOORD0,
         // Convert from [0,1] to [-.5, .5) 
         // .5 is excluded by adjustment for zero
         displacement -= .5 + ZeroOffset;
-
+        
         if (distortionBlur)
         {
+			finalColor = 0; 
+			
+			
             // Combine a number of weighted displaced-image filter taps
             for (int i = 0; i < SAMPLE_COUNT; i++)
             {

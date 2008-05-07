@@ -135,9 +135,9 @@ float4 LambertPixelShader(LightingPixelShaderInput input, uniform bool onBlob) :
 {
     float4 color = TextureEnabled ? tex2D(Sampler, input.TextureCoordinate) : 0;
     
-    float2 ProjectedTexCoords;
-    ProjectedTexCoords[0] = input.ShadowMapSamplingPos.x/input.ShadowMapSamplingPos.w/2.0f +0.5f;
-    ProjectedTexCoords[1] = -input.ShadowMapSamplingPos.y/input.ShadowMapSamplingPos.w/2.0f +0.5f;
+    //float2 ProjectedTexCoords;
+    //ProjectedTexCoords[0] = input.ShadowMapSamplingPos.x/input.ShadowMapSamplingPos.w/2.0f +0.5f;
+    //ProjectedTexCoords[1] = -input.ShadowMapSamplingPos.y/input.ShadowMapSamplingPos.w/2.0f +0.5f;
     
     float2 xyCoord;
     xyCoord[0] = input.Position3D.x;
@@ -149,7 +149,7 @@ float4 LambertPixelShader(LightingPixelShaderInput input, uniform bool onBlob) :
     
 	color.rgb *= saturate(input.LightAmount) * DiffuseLight + AmbientLight;
 	
-	if( !onBlob && input.Position3D.y < blobCenter.y && distance(xyCoord,blobCenterVector) < ( 20.0f - distance(blobCenter.y,input.Position3D.y) ) * 0.05f )
+	if( !onBlob && input.Position3D.y < blobCenter.y && distance(xyCoord,blobCenterVector) < ( 20.0f - distance(blobCenter.y ,input.Position3D.y) ) * 0.05f )
     {
 		color.rgb *= 0.3f;
     }
