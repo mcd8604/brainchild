@@ -10,6 +10,9 @@ namespace Project_blob
         private EventTrigger _triggeredEvent;
 		public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }
 
+		public float CoolDown = 1f;
+		private float Time = 0f;
+
 		public TriggerStatic(IList<CollidableStatic> Collidables, Body ParentBody, EventTrigger triggeredEvent)
 			: base(Collidables, ParentBody)
 		{
@@ -21,9 +24,19 @@ namespace Project_blob
 			return false;
 		}
 
+		public override void update(float TotalElapsedSeconds)
+		{
+			Time -= TotalElapsedSeconds;
+			base.update(TotalElapsedSeconds);
+		}
+
 		public override void onCollision(PhysicsPoint p)
 		{
-			_triggeredEvent.PerformEvent(p);
+			if (Time < 0)
+			{
+				_triggeredEvent.PerformEvent(p);
+				Time = CoolDown;
+			}
 		}
     }
 }

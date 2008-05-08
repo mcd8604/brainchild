@@ -127,8 +127,17 @@ namespace Physics2
 			// Evaluate collsion list, call onCollsion, set NextPosition
 			events.Sort(CollisionEvent.CompareEvents);
 
+			List<PhysicsPoint> check = new List<PhysicsPoint>();
+
 			foreach (CollisionEvent e in events)
 			{
+
+				if (check.Contains(e.point))
+				{
+					continue;
+				}
+				check.Add(e.point);
+
 				// handle collision, sliding;
 				Vector3 newPosition = e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when);
 
@@ -255,6 +264,8 @@ namespace Physics2
 				e.point.NextPosition = Position;
 				e.point.LastCollision = e.collidable;
 			}
+
+			// check check
 
 			foreach (CollisionEvent e in events)
 			{
