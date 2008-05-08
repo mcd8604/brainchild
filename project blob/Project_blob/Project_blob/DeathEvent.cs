@@ -14,7 +14,7 @@ namespace Project_blob
 
         public void PerformEvent(PhysicsPoint point)
         {
-
+            GameplayScreen.CauseDeath();
         }
     }
 }
