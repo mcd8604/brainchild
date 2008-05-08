@@ -10,6 +10,8 @@ namespace Project_blob
     {
         List<EventTrigger> m_Events = new List<EventTrigger>();
 
+        public SwitchEvent() { }
+
         public SwitchEvent(List<EventTrigger> p_Events)
         {
             m_Events = p_Events;

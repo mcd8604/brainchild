@@ -9,7 +9,7 @@ namespace Project_blob
 {
     [Serializable]
     public class TransitionEvent : EventTrigger {
-        
+
         private String _area;
 		public String Area
 		{
@@ -34,6 +34,8 @@ namespace Project_blob
 				_position = value;
 			}
 		}
+
+        public TransitionEvent() { }
     
         public TransitionEvent(String area, float xPos, float yPos, float zPos)
         {

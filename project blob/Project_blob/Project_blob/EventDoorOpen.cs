@@ -8,6 +8,8 @@ namespace Project_blob
     {
         List<DoorModel> m_DoorList = new List<DoorModel>();
 
+        public EventDoorOpen() { }
+
         public EventDoorOpen(List<DoorModel> p_DoorList)
         {
             m_DoorList = p_DoorList;

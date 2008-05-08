@@ -32,6 +32,8 @@ namespace Project_blob
 			}
 		}
 
+        public WarpEvent() { }
+
 		public WarpEvent(float xPos, float yPos, float zPos, float xVel, float yVel, float zVel)
 		{
 			_moveToPos = new Vector3(xPos, yPos, zPos);
