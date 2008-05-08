@@ -97,7 +97,7 @@ namespace Project_blob.GameState
 			lightPosition = new Vector4(5, 5, 5, 0);
 		}
 
-		private Vector3 blobStartPosition = new Vector3(0, 0, 0);
+		private Vector3 blobStartPosition = new Vector3(0, 10, 0);
 
 		private void reset()
 		{
