@@ -351,7 +351,9 @@ namespace Project_blob
                         }
                         else if (dm is ConveyerBeltStatic)
                         {
-                            body = new BodyStaticConveyerBelt(collidables, null);
+							body = new BodyStaticConveyerBelt(collidables, null);
+							((BodyStaticConveyerBelt)body).Direction = ((ConveyerBeltStatic)dm).Direction;
+							((BodyStaticConveyerBelt)body).Speed = ((ConveyerBeltStatic)dm).Speed;
                         }
                             else if (speed)
                         {
