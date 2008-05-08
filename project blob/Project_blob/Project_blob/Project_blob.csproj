@@ -65,7 +65,8 @@
     <Compile Include="Blob.cs" />
     <Compile Include="CameraEvent.cs" />
     <Compile Include="CheckPointEvent.cs" />
-    <Compile Include="ConveyerStatic.cs" />
+    <Compile Include="ConveyerBeltStatic.cs" />
+    <Compile Include="BodyStaticConveyerBelt.cs" />
     <Compile Include="DeathEvent.cs" />
     <Compile Include="DeltaEvent.cs" />
     <Compile Include="DemoCube.cs" />

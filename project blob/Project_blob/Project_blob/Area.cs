@@ -317,11 +317,10 @@ namespace Project_blob
 
                     Physics2.Body body = null;
 
-                    if (!dm.GetType().IsSubclassOf(typeof(StaticModel))) 
+					if (!(dm is DynamicModel))
                     {
                         // temporary
                         bool eventtrigger = false;
-                        bool conveyer = false;
 
                         List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
                         int numCol = 0;
@@ -333,16 +332,9 @@ namespace Project_blob
                                 {
                                     //collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
                                     eventtrigger = true;
-                                }
-
-                                if (dm.TextureKey.TextureName.Equals("conveyor_belt"))
-                                {
-                                    conveyer = true;
-                                }
-                                
-                                
-                                
-                                    collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+                                }  
+ 
+                                collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
                                 
                                 numCol++;
                             }
@@ -351,16 +343,16 @@ namespace Project_blob
                         {
                             body = new TriggerStatic(collidables, null, Events[dm.Name]);
                         }
-                        else if (conveyer)
+                        else if (dm is ConveyerBeltStatic)
                         {
-                            body = new ConveyerStatic(collidables, null);
+                            body = new BodyStaticConveyerBelt(collidables, null);
                         }
                         else
                         {
                             body = new BodyStatic(collidables, null);
                         }
                     }
-                    else if(dm is DynamicModel)
+                    else
                     {
                         DynamicModel dynModel = (DynamicModel)dm;
 
