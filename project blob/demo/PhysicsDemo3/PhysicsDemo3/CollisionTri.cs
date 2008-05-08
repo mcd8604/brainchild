@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -6,12 +5,10 @@ namespace PhysicsDemo3
 {
 	public class CollisionTri
 	{
-
 		Plane myPlane;
 		Vector3 max;
 		Vector3 min;
 		VertexPositionColor[] vertices = new VertexPositionColor[3];
-
 		Vector3 Origin;
 
 		public CollisionTri(Vector3 point1, Vector3 point2, Vector3 point3, Color color)
@@ -48,28 +45,22 @@ namespace PhysicsDemo3
 
 		public float didIntersect(Vector3 start, Vector3 end)
 		{
-
 			float lastVal = DotNormal(start);
 			float thisVal = DotNormal(end);
 
 			if (lastVal > 0 && thisVal < 0) // we were 'above' now 'behind'
 			{
-
 				float u = lastVal / (lastVal - thisVal);
-				// check limits
 				Vector3 newPos = (start * (1 - u)) + (end * u);
-
+				// check limits
 				if (newPos.X >= min.X - 0.1f && newPos.X <= max.X + 0.1f &&
 					newPos.Y >= min.Y - 0.1f && newPos.Y <= max.Y + 0.1f &&
 					newPos.Z >= min.Z - 0.1f && newPos.Z <= max.Z + 0.1f)
 				{
 					return u;
 				}
-
 			}
-
 			return float.MaxValue;
-
 		}
 
 		public Plane getPlane()
@@ -86,6 +77,5 @@ namespace PhysicsDemo3
 		{
 			device.DrawPrimitives(PrimitiveType.TriangleList, 0, 1);
 		}
-
 	}
 }

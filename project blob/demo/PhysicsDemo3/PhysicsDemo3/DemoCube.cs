@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,8 +21,6 @@ namespace PhysicsDemo3
 		Point bbr;
 		Point bbl;
 
-		//Point Center;
-
 		public void setSpringForce(float force)
 		{
 			springVal = force;
@@ -41,7 +38,6 @@ namespace PhysicsDemo3
 				ret += p.Position;
 			}
 			return ret / points.Count;
-			//return Center.Position;
 		}
 
 		public DemoCube(Vector3 center, float radius)
@@ -61,12 +57,8 @@ namespace PhysicsDemo3
 			bbr = new Point(center + new Vector3(radius, -radius, -radius));
 			bbl = new Point(center + new Vector3(-radius, -radius, -radius));
 
-			//Center = new Point(center);
-			//Center.mass = 0f;
-
 			List<Point> tempList = new List<Point>();
 
-			//tempList.Add(Center);
 			tempList.Add(ftr); tempList.Add(ftl); tempList.Add(fbr); tempList.Add(fbl); tempList.Add(btr); tempList.Add(btl); tempList.Add(bbr); tempList.Add(bbl);
 
 			foreach (Point t in tempList)
@@ -84,8 +76,7 @@ namespace PhysicsDemo3
 		{
 			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[16];
 
-
-			// ----- normals?
+			// ----- normals
 
 			Vector3 normal0;
 			Vector3 normal1;
@@ -113,8 +104,8 @@ namespace PhysicsDemo3
 			normal10 = new Plane(ftr.Position, fbr.Position, bbr.Position).Normal;
 			normal11 = new Plane(btr.Position, ftr.Position, bbr.Position).Normal;
 
-			//sum the normals of each plane that a vector is a part of, then normalize the result
-			//this allows for gradual lighting over a plane
+			// sum the normals of each plane that a vector is a part of, then normalize the result
+			// this allows for gradual lighting over a plane
 			Vector3 normal_ftl = Vector3.Normalize(Vector3.Add(normal9, Vector3.Add(normal4, Vector3.Add(normal5, Vector3.Add(normal0, normal8)))));
 			Vector3 normal_fbl = Vector3.Normalize(Vector3.Add(normal6, Vector3.Add(normal7, Vector3.Add(normal1, Vector3.Add(normal0, normal8)))));
 			Vector3 normal_ftr = Vector3.Normalize(Vector3.Add(normal5, Vector3.Add(normal11, Vector3.Add(normal10, Vector3.Add(normal0, normal1)))));
@@ -126,7 +117,6 @@ namespace PhysicsDemo3
 			Vector3 normal_btr = Vector3.Normalize(Vector3.Add(normal5, Vector3.Add(normal4, Vector3.Add(normal11, Vector3.Add(normal3, normal2)))));
 
 			// ----- end normals
-
 
 			vertices[0] = new VertexPositionNormalTexture(ftr.Position, normal_ftr, Vector2.Zero);
 			vertices[1] = new VertexPositionNormalTexture(fbr.Position, normal_fbr, new Vector2(0f, 1f));
@@ -156,7 +146,5 @@ namespace PhysicsDemo3
 			device.DrawPrimitives(PrimitiveType.TriangleFan, 0, 6);
 			device.DrawPrimitives(PrimitiveType.TriangleFan, 8, 6);
 		}
-
-
 	}
 }

@@ -1,5 +1,3 @@
-using System;
-
 namespace PhysicsDemo3
 {
 	static class Program
@@ -16,4 +14,3 @@ namespace PhysicsDemo3
 		}
 	}
 }
-

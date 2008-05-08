@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.Storage;
 
 namespace PhysicsDemo3
 {
@@ -27,25 +22,18 @@ namespace PhysicsDemo3
 		Texture2D text = null;
 		SpriteFont font;
 
-
 		bool paused = false;
 		bool controllermode = false;
 		bool follow = true;
-
 
 		DemoCube testCube;
 		Vector3 cubeStartPosition = new Vector3(2, 10, -2);
 		List<CollisionTri> collision = new List<CollisionTri>();
 
-
-
-		//VertexBuffer triVertexBuffer;
 		VertexBuffer cubeVertexBuffer;
 
 		VertexDeclaration VertexDeclarationColor;
 		VertexDeclaration VertexDeclarationTexture;
-
-
 
 		static Vector3 defaultCameraPosition = new Vector3(0, 5, 20);
 		Vector3 cameraPosition = defaultCameraPosition;
@@ -58,27 +46,22 @@ namespace PhysicsDemo3
 
 		bool drawMode = true;
 
-
-
 		//fps
 		float time = 0f;
 		float update = 1f;
 		int frames = 0;
 		string fps = "";
 
-
-		// physics stuff
+		// physics constants
 		Vector3 gravity = new Vector3(0f, -9.8f, 0f);
 		float friction = 12.0f;
 		float airfriction = 1f;
-		float playerMoveMulti = 12 / 60f;
-
+		float playerMoveMulti = 0.25f;
 
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
-
 			graphics.PreferMultiSampling = true;
 		}
 
@@ -102,9 +85,6 @@ namespace PhysicsDemo3
 			collision.Add(new CollisionTri(new Vector3(-5, 0, -5), new Vector3(-15, 0, -5), new Vector3(-15, 0, 5), Color.Yellow));
 			collision.Add(new CollisionTri(new Vector3(-5, 0, 15), new Vector3(5, 0, 15), new Vector3(5, 0, 5), Color.Orange));
 
-
-
-			//triVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * 3, BufferUsage.None);
 			cubeVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionNormalTexture.SizeInBytes * 16, BufferUsage.None);
 
 			InputHandler.LoadDefaultBindings();
@@ -126,7 +106,7 @@ namespace PhysicsDemo3
 
 			GraphicsDevice.RenderState.PointSize = 5;
 
-			// graphics stuff?
+			// graphics
 			InitializeEffect();
 		}
 
@@ -165,16 +145,6 @@ namespace PhysicsDemo3
 			effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 		}
 
-
-		/// <summary>
-		/// UnloadContent will be called once per game and is the place to unload
-		/// all content.
-		/// </summary>
-		protected override void UnloadContent()
-		{
-			// TODO: Unload any non ContentManager content here
-		}
-
 		/// <summary>
 		/// Allows the game to run logic such as updating the world,
 		/// checking for collisions, gathering input, and playing audio.
@@ -191,6 +161,8 @@ namespace PhysicsDemo3
 			if (InputHandler.IsActionPressed(Actions.Reset))
 			{
 				testCube = new DemoCube(cubeStartPosition, 1);
+				testCube.setSpringForce(62.5f);
+				friction = 12f;
 			}
 			if (InputHandler.IsKeyPressed(Keys.P))
 			{
@@ -209,31 +181,26 @@ namespace PhysicsDemo3
 					cameraPosition = defaultCameraPosition;
 					viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
 					effect.Parameters["xView"].SetValue(viewMatrix);
-
 					effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 				}
 			}
 			if (InputHandler.IsKeyPressed(Keys.S))
 			{
 				testCube.setSpringForce(92.5f);
-			}
-			if (InputHandler.IsKeyPressed(Keys.D))
+			} else if (InputHandler.IsKeyPressed(Keys.D))
 			{
 				testCube.setSpringForce(62.5f);
-			}
-			if (InputHandler.IsKeyPressed(Keys.W))
+			} else if (InputHandler.IsKeyPressed(Keys.W))
 			{
 				testCube.setSpringForce(12.5f);
 			}
 			if (InputHandler.IsKeyPressed(Keys.Q))
 			{
 				friction = 24f;
-			}
-			if (InputHandler.IsKeyPressed(Keys.E))
+			} else if (InputHandler.IsKeyPressed(Keys.E))
 			{
-				friction = 0f;
-			}
-			if (InputHandler.IsKeyPressed(Keys.A))
+				friction = 1f;
+			} else if (InputHandler.IsKeyPressed(Keys.A))
 			{
 				friction = 12f;
 			}
@@ -267,9 +234,6 @@ namespace PhysicsDemo3
 					p.Force += Vector3.Cross(p.Position - testCube.getCenter(), Run) * (move.X * playerMoveMulti);
 				}
 			}
-
-
-
 
 			if (!paused)
 			{
@@ -305,9 +269,6 @@ namespace PhysicsDemo3
 			}
 
 			cubeVertexBuffer.SetData<VertexPositionNormalTexture>(testCube.getTriangleVertexes());
-
-
-
 
 			//fps
 			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -372,15 +333,6 @@ namespace PhysicsDemo3
 					// If Collision ( u < 1 ) - Split Time and redo
 					if (u < 1)
 					{
-
-						if (Collision)
-						{
-
-							//Console.WriteLine("Secondary Collision!");
-
-						}
-
-
 						if (!Collision)
 						{
 							CollisionTri = c;
@@ -395,7 +347,6 @@ namespace PhysicsDemo3
 								CollisionU = u;
 							}
 						}
-
 
 					}
 
@@ -466,7 +417,6 @@ namespace PhysicsDemo3
 				p.Position += (s.Normal() * 0.001f);
 			}
 
-
 			// Stop Velocity in direction of the wall
 			Vector3 NormalEffect = (s.Normal() * (p.Velocity.Length() * (float)Math.Cos(Math.Atan2(Vector3.Cross(p.Velocity, s.Normal()).Length(), Vector3.Dot(p.Velocity, s.Normal())))));
 			p.Velocity = (p.Velocity - NormalEffect);
@@ -522,31 +472,10 @@ namespace PhysicsDemo3
 				// If Collision ( u < 1 ) - Split Time and redo
 				if (u < 1)
 				{
-
-					if (s == c)
+					if (s == c || CollisionChain.Contains(s))
 					{
-						Console.WriteLine("Duplicate Collision!");
-						//throw new Exception();
 						continue;
 					}
-
-					if (CollisionChain.Contains(s))
-					{
-						Console.WriteLine("Duplicate Sliding Collision! Ignoring - This probably means a point is going to fall through the world.");
-						//throw new Exception();
-						continue;
-					}
-
-					//Console.WriteLine("Sliding Collision!");
-
-					if (Collision)
-					{
-
-						//Console.WriteLine("Secondary Sliding Collision!");
-
-					}
-
-
 					if (!Collision)
 					{
 						CollisionTri = c;
@@ -561,9 +490,7 @@ namespace PhysicsDemo3
 							CollisionU = u;
 						}
 					}
-
 				}
-
 			}
 
 			if (Collision)
@@ -586,15 +513,12 @@ namespace PhysicsDemo3
 				p.Position = finalPosition;
 			}
 
-
-
 			// done
 			p.Force = Vector3.Zero;
 			p.Acceleration = Vector3.Zero;
 
 		}
 		#endregion
-
 
 		/// <summary>
 		/// This is called when the game should draw itself.
@@ -652,7 +576,6 @@ namespace PhysicsDemo3
 			}
 			effect.End();
 
-
 			// Corner Dots -
 			effect.CurrentTechnique = effect.Techniques["Colored"];
 			GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
@@ -673,8 +596,6 @@ namespace PhysicsDemo3
 				pass.End();
 			}
 			effect.End();
-
-
 
 			// GUI
 			GraphicsDevice.RenderState.FillMode = FillMode.Solid;
@@ -709,7 +630,6 @@ namespace PhysicsDemo3
 				spriteBatch.DrawString(font, "Paused", new Vector2((GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
 			}
 			spriteBatch.End();
-
 
 			//fps
 			++frames;
