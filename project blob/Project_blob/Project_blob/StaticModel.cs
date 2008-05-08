@@ -72,6 +72,33 @@ namespace Project_blob
             }
         }
 
+		private float m_TextureOffsetX = 0f;
+		public float TextureOffsetX
+		{
+			get
+			{
+				return m_TextureOffsetX;
+			}
+			set
+			{
+				m_TextureOffsetX = value;
+				updateTextureCoords();
+			}
+		}
+		private float m_TextureOffsetY = 0f;
+		public float TextureOffsetY
+		{
+			get
+			{
+				return m_TextureOffsetY;
+			}
+			set
+			{
+				m_TextureOffsetY = value;
+				updateTextureCoords();
+			}
+		}
+
         /*public void updateVertexBuffer()
         {
             Model m = ModelManager.getSingleton.GetModel(_modelName);
@@ -257,8 +284,8 @@ namespace Project_blob
                     for (int i = 0; i < vertices.Length; i++)
                     {
                         //scale the texture coordinates
-                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
-                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
+						vertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+						vertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
                     }
                 }
                 m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
@@ -678,9 +705,9 @@ namespace Project_blob
             m_TextureKey = p_TextureKey;
         }
 
-		public void DrawMe() { }
+		public virtual void DrawMe() { }
 
-		public void DrawMe(GraphicsDevice graphicsDevice, Effect effect, bool gameMode)
+		public virtual void DrawMe(GraphicsDevice graphicsDevice, Effect effect, bool gameMode)
 		{
 			graphicsDevice.Indices = m_IndexBuffer;
 			effect.Begin();
