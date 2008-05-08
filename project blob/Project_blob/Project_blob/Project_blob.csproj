@@ -57,6 +57,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -87,6 +88,9 @@
     <Compile Include="GameState\MenuEntry.cs" />
     <Compile Include="GameState\MenuScreen.cs" />
     <Compile Include="GameState\PauseMenuScreen.cs" />
+    <Compile Include="SelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Octree.cs" />
     <Compile Include="OctreeLeaf.cs" />
     <Compile Include="GameState\OptionsMenuScreen.cs" />

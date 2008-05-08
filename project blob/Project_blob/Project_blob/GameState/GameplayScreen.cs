@@ -59,7 +59,7 @@ namespace Project_blob.GameState
 
 		bool cinema = false;
 		bool paused = false;
-        bool step = false;
+		bool step = false;
 		bool controllermode = false;
 		bool follow = true;
 
@@ -186,27 +186,49 @@ namespace Project_blob.GameState
 			List<Portal> portals = new List<Portal>();
 
 			//load first area
-			if (Level.Areas.Count > 0)
-			{
-				IEnumerator e = Level.Areas.Values.GetEnumerator();
-				e.MoveNext();
-				//e.MoveNext();
-				//e.MoveNext();
+			//if (Level.Areas.Count > 0)
+			//{
+			//    IEnumerator e = Level.Areas.Values.GetEnumerator();
+			//    e.MoveNext();
+			//    //e.MoveNext();
+			//    //e.MoveNext();
 
-				currentArea = (Area)e.Current;
-				currentArea.LoadAreaGameplay(ScreenManager);
-				currentArea.Display.EffectName = "cartoonEffect";
-				currentArea.Display.WorldParameterName = "World";
-				currentArea.Display.TextureParameterName = "Texture";
-				currentArea.Display.TechniqueName = "Lambert";
-				staticDrawables = currentArea.getDrawableList();
-				portals = currentArea.Portals;
-				physics.AddBodys(currentArea.getBodies());
-			}
-			else
+			//    currentArea = (Area)e.Current;
+			//    currentArea.LoadAreaGameplay(ScreenManager);
+			//    currentArea.Display.EffectName = "cartoonEffect";
+			//    currentArea.Display.WorldParameterName = "World";
+			//    currentArea.Display.TextureParameterName = "Texture";
+			//    currentArea.Display.TechniqueName = "Lambert";
+			//    staticDrawables = currentArea.getDrawableList();
+			//    portals = currentArea.Portals;
+			//    physics.AddBodys(currentArea.getBodies());
+			//}
+			//else
+			//{
+			//    //empty level
+			//}
+
+#if DEBUG
+			String[] tempArray = new string[Level.Areas.Keys.Count];
+			Level.Areas.Keys.CopyTo(tempArray, 0);
+			using (SelectForm f = new SelectForm(tempArray))
 			{
-				//empty level
+				if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				{
+					currentArea = Level.Areas[f.getSelected()];
+					currentArea.LoadAreaGameplay(ScreenManager);
+					currentArea.Display.EffectName = "cartoonEffect";
+					currentArea.Display.WorldParameterName = "World";
+					currentArea.Display.TextureParameterName = "Texture";
+					currentArea.Display.TechniqueName = "Lambert";
+					staticDrawables = currentArea.getDrawableList();
+					portals = currentArea.Portals;
+					physics.AddBodys(currentArea.getBodies());
+				}
 			}
+#endif
+
+
 
 			ti = new TextureInfo("cloudsky", 0);
 			sky = new StaticModel("sky", "skyBox", "none", ti, new List<short>());
@@ -360,7 +382,7 @@ namespace Project_blob.GameState
 			EffectManager.getSingleton.AddEffect("basic", be);
 
 			cartoonEffect.Parameters["World"].SetValue(worldMatrix);
-            cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
+			cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["TextureEnabled"].SetValue(true);
 
@@ -432,7 +454,7 @@ namespace Project_blob.GameState
 			blobStartPosition = position;
 			List<Drawable> temp = currentArea.getDrawableList();
 			List<Portal> portals = currentArea.Portals;
-            //SceneManager.getSingleton.BuildOctree(ref temp);
+			//SceneManager.getSingleton.BuildOctree(ref temp);
 			//SceneManager.getSingleton.BuildPortalScene(temp);
 			foreach (Portal p in portals)
 			{
@@ -472,36 +494,37 @@ namespace Project_blob.GameState
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
 					EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["blobCenter"].SetValue(theBlob.getCenter());
-                    EffectManager.getSingleton.GetEffect("Distort").Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
+					EffectManager.getSingleton.GetEffect("Distort").Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
 
-                    Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
-                    tempPos.Y += 10;
-                    cartoonEffect.Parameters["LightPos"].SetValue(tempPos);
-                    Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), theBlob.getCenter(), new Vector3(0,0,1)) *
-                        Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
-                    cartoonEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
+					Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
+					tempPos.Y += 10;
+					cartoonEffect.Parameters["LightPos"].SetValue(tempPos);
+					Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), theBlob.getCenter(), new Vector3(0, 0, 1)) *
+						Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
+					cartoonEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
 
 				}
 				physicsTime.Stop();
-                if (step)
-                {
-                    paused = true;
-                    step = false;
-                }
+				if (step)
+				{
+					paused = true;
+					step = false;
+				}
 
-                if (InputHandler.IsKeyPressed(Keys.L))
-                {
-                    step = true;
-                    paused = false;
-                }
+				if (InputHandler.IsKeyPressed(Keys.L))
+				{
+					step = true;
+					paused = false;
+				}
 
-                if (InputHandler.IsKeyPressed(Keys.PageUp))
-                {
-                    physics.physicsMultiplier += 0.1f;
-                } else if (InputHandler.IsKeyPressed(Keys.PageDown))
-                {
-                    physics.physicsMultiplier -= 0.1f;
-                }
+				if (InputHandler.IsKeyPressed(Keys.PageUp))
+				{
+					physics.physicsMultiplier += 0.1f;
+				}
+				else if (InputHandler.IsKeyPressed(Keys.PageDown))
+				{
+					physics.physicsMultiplier -= 0.1f;
+				}
 
 				// actually, shouldn't the skybox be centered around /the camera/ instead of the blob?
 				if (currentArea.Display.SkyBox != null)
@@ -635,10 +658,10 @@ namespace Project_blob.GameState
 					DEBUG_MinDraw = -1;
 				}
 
-                if(InputHandler.IsKeyPressed(Keys.OemPlus))
-                {
-                    currentArea.Display.saveOut = true;
-                }
+				if (InputHandler.IsKeyPressed(Keys.OemPlus))
+				{
+					currentArea.Display.saveOut = true;
+				}
 
 				// Xbox
 				if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
@@ -661,13 +684,13 @@ namespace Project_blob.GameState
 				Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
 				if (move != Vector2.Zero)
 				{
-                    physics.Player.move(move, CameraManager.getSingleton.ActiveCamera.Position);
+					physics.Player.move(move, CameraManager.getSingleton.ActiveCamera.Position);
 				}
 
-                if (InputHandler.IsKeyPressed(Keys.J) || InputHandler.IsButtonPressed(Buttons.A))
-                {
-                    physics.Player.jump();
-                }
+				if (InputHandler.IsKeyPressed(Keys.J) || InputHandler.IsButtonPressed(Buttons.A))
+				{
+					physics.Player.jump();
+				}
 
 				if (InputHandler.IsKeyDown(Keys.Home))
 				{
@@ -1065,7 +1088,7 @@ namespace Project_blob.GameState
 			spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(600, 30), Color.White);
 
 			spriteBatch.DrawString(font, "PWR: " + physics.PWR, new Vector2(0, 566), Color.White);
-            spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
+			spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
 
 			spriteBatch.End();
 
