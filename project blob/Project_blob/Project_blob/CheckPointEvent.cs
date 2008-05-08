@@ -10,10 +10,7 @@ namespace Project_blob
     [Serializable]
     public class CheckPointEvent : EventTrigger
     {
-        public CheckPointEvent()
-        {
-
-        }
+        public CheckPointEvent() { }
 
         public void PerformEvent(PhysicsPoint point)
         {

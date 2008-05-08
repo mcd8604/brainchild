@@ -47,6 +47,8 @@ namespace Project_blob
 			}
 		}
 
+        public CameraEvent() { }
+
         public CameraEvent(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
         {
             _cameraPos = cameraPos;

@@ -10,10 +10,7 @@ namespace Project_blob
     [Serializable]
     public class DeathEvent : EventTrigger
     {
-        public DeathEvent()
-        {
-
-        }
+        public DeathEvent() { }
 
         public void PerformEvent(PhysicsPoint point)
         {

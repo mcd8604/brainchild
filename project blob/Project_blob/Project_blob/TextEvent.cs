@@ -10,10 +10,7 @@ namespace Project_blob
     [Serializable]
     public class TextEvent : EventTrigger
     {
-        public TextEvent()
-        {
-            
-        }
+        public TextEvent() { }
 
         public void PerformEvent(PhysicsPoint point)
         {
