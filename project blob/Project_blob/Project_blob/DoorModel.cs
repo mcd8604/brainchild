@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Project_blob
 {
+	[Serializable]
     class DoorModel : DynamicModel
     {
 

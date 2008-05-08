@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
+using System.ComponentModel;
 
 namespace Physics2
 {
+	[Serializable]
     public class TaskTranslate : Task
     {
-        protected IList<Vector3> m_PatrolPoints;
-        public IList<Vector3> PatrolPoints 
+        protected List<Vector3> m_PatrolPoints;
+        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+		public List<Vector3> PatrolPoints 
         {
             get
             {
@@ -29,11 +33,23 @@ namespace Physics2
                 m_Speed = value;
             }
         }
+		protected bool m_IsRepeating;
+		public bool IsRepeating
+		{
+			get
+			{
+				return m_IsRepeating;
+			}
+			set
+			{
+				m_IsRepeating = value;
+			}
+		}
         protected int m_index = 0;
         
         public TaskTranslate() { }
 
-        public TaskTranslate(IList<Vector3> patrolPoints, float speed)
+        public TaskTranslate(List<Vector3> patrolPoints, float speed)
         {
             m_PatrolPoints = patrolPoints;
             m_Speed = speed;
