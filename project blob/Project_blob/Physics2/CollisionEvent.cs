@@ -2,11 +2,11 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	internal class CollisionEvent
+	public class CollisionEvent
 	{
 
-		internal PhysicsPoint point;
-		internal Collidable collidable;
+		public PhysicsPoint point;
+        public Collidable collidable;
 		internal float when;
 
 		internal CollisionEvent(PhysicsPoint p, Collidable c, float u)

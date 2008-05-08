@@ -194,7 +194,7 @@ namespace Physics2
 				Vector3 TotalNormalForce = (VelocityTransfer / (TotalElapsedSeconds * (1 - e.when)) * e.point.Mass) + NormalForce;
 
 				// relative velocity
-				Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e.point) - newVelocity;
+				Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e) - newVelocity;
 
 				// surface friction !  F = uN
 				if (relativeVelocity.LengthSquared() > 0)
@@ -203,9 +203,6 @@ namespace Physics2
 
 					// This is the maximum amount of force to stop the point - will need tweaking for conveyor belts
 					Vector3 MaxFriction = ((relativeVelocity / (TotalElapsedSeconds * (1 - e.when))) * e.point.Mass) + Vector3.Negate(newForce);
-
-                    // tweaking for conveyer belts:
-
 
 					if (FrictionForce.LengthSquared() > MaxFriction.LengthSquared())
 					{
