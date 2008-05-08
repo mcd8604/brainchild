@@ -11,7 +11,7 @@ namespace Physics2
 
 		protected Material material = null;
 
-		public Collidable()	{}
+		public Collidable() { }
 
 		public virtual bool couldIntersect(Vector3 start, Vector3 end)
 		{
@@ -66,17 +66,20 @@ namespace Physics2
 			return parent.isStatic();
 		}
 
-        public abstract Plane Plane
-        {
-            get;
-        }
+		public abstract Plane Plane
+		{
+			get;
+		}
 
-        public abstract Vector3 Normal
-        {
-            get;
-        }
+		public abstract Vector3 Normal
+		{
+			get;
+		}
 
-		public virtual void onCollision(PhysicsPoint p) { }
+		public virtual void onCollision(PhysicsPoint p)
+		{
+			parent.onCollision(p);
+		}
 
 		public abstract void update();
 

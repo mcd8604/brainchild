@@ -696,7 +696,6 @@ namespace Project_blob.GameState
 					//theBlob.idealVolume = theBlob.baseVolume;
 					physics.Player.Volume.Target = 0.5f;
 				}
-				//Console.WriteLine(theBlob.getVolume());
 				//theBlob.update();
 
 				if (cinema)

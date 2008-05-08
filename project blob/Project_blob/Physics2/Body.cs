@@ -15,7 +15,7 @@ namespace Physics2
 		public Body parentBody = null;
 		public IList<Body> childBodies = new List<Body>();
 
-		public AxisAlignedBoundingBox boundingBox = new AxisAlignedBoundingBox();
+		public AxisAlignedBoundingBox boundingBox = null;
 
 		public Vector3 center;
 		public Vector3 potentialCenter;
@@ -48,6 +48,7 @@ namespace Physics2
 
 		public virtual void initialize()
 		{
+			boundingBox = new AxisAlignedBoundingBox();
 			foreach (Collidable c in collidables)
 			{
 				if (c.parent != null && c.parent != this)
@@ -298,6 +299,7 @@ namespace Physics2
 
 			foreach (PhysicsPoint p in points)
 			{
+
 				foreach (Collidable x in c.collidables)
 				{
 					if (x.couldIntersect(p.CurrentPosition, p.PotentialPosition))
@@ -316,8 +318,9 @@ namespace Physics2
 		}
 		public virtual void onCollision(PhysicsPoint p) { }
 
-		public Vector3 getVelocity()
+		public virtual Vector3 getVelocity()
 		{
+			// TODO
 			return Vector3.Zero;
 		}
 
