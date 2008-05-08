@@ -22,6 +22,8 @@ namespace WorldMaker
         SpriteBatch spriteBatch;
         ContentManager content;
 
+		public bool draw = false;
+
         Vector3 lightPos = new Vector3(0, 20, 0);
 
         private Drawable _activeDrawable;
@@ -154,6 +156,8 @@ namespace WorldMaker
         /// </summary>
         protected override void LoadContent()
         {
+			
+
             if (EFFECT_TYPE != "basic")
                 EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
             else
@@ -161,6 +165,8 @@ namespace WorldMaker
 
             EffectManager.getSingleton.AddEffect("cartoonEffect", Content.Load<Effect>(@"Shaders\\CartoonEffect"));
             EffectManager.getSingleton.AddEffect("postprocessEffect", Content.Load<Effect>(@"Shaders\\PostprocessEffect"));
+			EffectManager.getSingleton.AddEffect("distort",Content.Load<Effect>(@"Shaders\\Distort"));
+			EffectManager.getSingleton.AddEffect("distorter",Content.Load<Effect>(@"Shaders\\Distorters"));
 
             //TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Models\\free-grass-texture"));
             //TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
@@ -292,6 +298,8 @@ namespace WorldMaker
             _activeArea.Display.TextureName = POINT_TEXT;
             _activeArea.Display.ShowAxis = true;
 
+			
+
             CreateRenderTargets();
         }
 
@@ -323,6 +331,11 @@ namespace WorldMaker
 			_activeArea.Display.DistortionMap = distortionMap;
 			_activeArea.Display.TempRenderTarget = tempRenderTarget;
 			_activeArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
+
+			_activeArea.Display.Distort = Content.Load<Effect>(@"Shaders\\Distort");
+			_activeArea.Display.Distorter = Content.Load<Effect>(@"Shaders\\Distorters");
+			_activeArea.Display.CartoonEffect = Content.Load<Effect>(@"Shaders\\CartoonEffect");
+			_activeArea.Display.PostProcessEffect = Content.Load<Effect>(@"Shaders\\PostprocessEffect");
         }
 
         public static void SetUpCinematicCamera(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
@@ -488,28 +501,32 @@ namespace WorldMaker
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            foreach (String str in LevelEditor.DrawablesToDelete)
-            {
-                _activeArea.RemoveDrawable(str);
-                _activeArea.RemoveEvent(str);
-            }
-            LevelEditor.DrawablesToDelete.Clear();
+			if (draw)
+			{
+				foreach (String str in LevelEditor.DrawablesToDelete)
+				{
+					_activeArea.RemoveDrawable(str);
+					_activeArea.RemoveEvent(str);
+				}
+				LevelEditor.DrawablesToDelete.Clear();
 
-            foreach (DrawableInfo drawableInfo in LevelEditor.DrawablesToAdd)
-            {
-                _activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureInfo, drawableInfo.drawable);
-            }
-            LevelEditor.DrawablesToAdd.Clear();
+				foreach (DrawableInfo drawableInfo in LevelEditor.DrawablesToAdd)
+				{
+					_activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureInfo, drawableInfo.drawable);
+				}
+				LevelEditor.DrawablesToAdd.Clear();
 
-            foreach(EventInfo eventInfo in LevelEditor.EventsToAdd) {
-                _activeArea.AddEvent(eventInfo.name, eventInfo.eventTrigger);
-            }
-            LevelEditor.EventsToAdd.Clear();
+				foreach (EventInfo eventInfo in LevelEditor.EventsToAdd)
+				{
+					_activeArea.AddEvent(eventInfo.name, eventInfo.eventTrigger);
+				}
+				LevelEditor.EventsToAdd.Clear();
 
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-            _activeArea.Display.Draw(graphics.GraphicsDevice);
+				graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+				_activeArea.Display.Draw(graphics.GraphicsDevice);
 
-            base.Draw(gameTime);
+				base.Draw(gameTime);
+			}
         }
     }
 }

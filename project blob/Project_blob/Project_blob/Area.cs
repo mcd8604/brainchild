@@ -53,7 +53,7 @@ namespace Project_blob
 			_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			_drawables = new Dictionary<String, Drawable>();
 			_events = new Dictionary<String, EventTrigger>();
-            _portals = new List<Portal>();
+			_portals = new List<Portal>();
 		}
 
 		public Area(Matrix worldMatrix, String effectName, String worldParameterName, String textureParameterName, String techniqueName)

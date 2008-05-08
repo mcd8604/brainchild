@@ -86,6 +86,38 @@ namespace Project_blob
             }
         }
 
+		[NonSerialized]
+		Effect m_cartoonEffect;
+		public Effect CartoonEffect
+		{
+			get { return m_cartoonEffect; }
+			set { m_cartoonEffect = value; }
+		}
+
+		[NonSerialized]
+		Effect m_postProcessEffect;
+		public Effect PostProcessEffect
+		{
+			get { return m_postProcessEffect; }
+			set { m_postProcessEffect = value; }
+		}
+
+		[NonSerialized]
+		Effect m_distort;
+		public Effect Distort
+		{
+			get { return m_distort; }
+			set { m_distort = value; }
+		}
+
+		[NonSerialized]
+		Effect m_distorter;
+		public Effect Distorter
+		{
+			get { return m_distorter; }
+			set { m_distorter = value; }
+		}
+
         public bool DEBUG_WireframeMode = false;
 
         [NonSerialized]
@@ -218,34 +250,34 @@ namespace Project_blob
             }
         }
 
-        public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
-        {
-            _effectName = "basic";
-            _textureName = "point_text";
-            ShowAxis = true;
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Alpha = 1.0f;
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).SpecularPower = 5.0f;
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
+		public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
+		{
+			_effectName = "basic";
+			_textureName = "point_text";
+			ShowAxis = true;
+			//m_cartoonEffect.Alpha = 1.0f;
+			//m_cartoonEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
+			//m_cartoonEffect.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
+			//m_cartoonEffect.SpecularPower = 5.0f;
+			//m_cartoonEffect.AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
 
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).DirectionalLight0.Enabled = true;
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).DirectionalLight0.DiffuseColor = Vector3.One;
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).DirectionalLight0.SpecularColor = Vector3.One;
+			//m_cartoonEffect.DirectionalLight0.Enabled = true;
+			//m_cartoonEffect.DirectionalLight0.DiffuseColor = Vector3.One;
+			//m_cartoonEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
+			//m_cartoonEffect.DirectionalLight0.SpecularColor = Vector3.One;
 
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).LightingEnabled = true;
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).TextureEnabled = true;
+			//m_cartoonEffect.LightingEnabled = true;
+			//m_cartoonEffect.TextureEnabled = true;
 
-            drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
-            drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
+			drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
+			drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
 
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = p_World;
-            m_WorldMatrix = p_World;
+			m_cartoonEffect.Parameters["World"].SetValue(p_World);
+			m_WorldMatrix = p_World;
 
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).View = p_View;
-            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Projection = p_Projection;
-        }
+			m_cartoonEffect.Parameters["View"].SetValue(p_View);
+			m_cartoonEffect.Parameters["Projection"].SetValue(p_Projection);
+		}
 
         public Display(Matrix p_World, String effectName, String p_WorldParameterName, 
             String p_TextureParameterName, String p_TechniqueName)
@@ -283,20 +315,15 @@ namespace Project_blob
             if (drawable_List_Drawn.Count > 0)
             {
                 if (m_TechniqueName != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques[m_TechniqueName];
+                    m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques[m_TechniqueName];
 
                 int currentTextureNumber = -1;
                 //graphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
-                if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                {
-                    ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
-                }
-                else
-                {
-                    graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
-                    if (m_TextureParameterName != "NONE")
-                        EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName));
-                }
+               
+                graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
+                if (m_TextureParameterName != "NONE")
+                   m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName));
+           
 
                 if (ShowAxis)
                 {
@@ -316,15 +343,15 @@ namespace Project_blob
                     graphicsDevice.Vertices[0].SetSource(vb, 0, VertexPositionNormalTexture.SizeInBytes);
                     Texture temp = graphicsDevice.Textures[0];
                     graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(TextureName);
-                    EffectManager.getSingleton.GetEffect(_effectName).Begin();
+                   m_cartoonEffect.Begin();
 
-                    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique.Passes)
+                    foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes)
                     {
                         pass.Begin();
                         graphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, 6);
                         pass.End();
                     }
-                    EffectManager.getSingleton.GetEffect(_effectName).End();
+                   m_cartoonEffect.End();
                     graphicsDevice.Textures[0] = temp;
                     //graphicsDevice.Vertices[0].SetSource(tempBuffer.VertexBuffer,0,tempBuffer.VertexStride);
                 }
@@ -339,21 +366,15 @@ namespace Project_blob
                 {
                     graphicsDevice.SetRenderTarget(0, m_NormalDepthRenderTarget);
                     graphicsDevice.RenderState.DepthBufferWriteEnable = true;
-                    EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["NormalDepth"];
+                    m_cartoonEffect.CurrentTechnique =m_cartoonEffect.Techniques["NormalDepth"];
                     foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                     {
                         if (ti.SortNumber != currentTextureNumber)
                         {
-                            if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                            {
-                                ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                            }
-                            else
-                            {
-                                graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                                if (m_TextureParameterName != "NONE")
-                                    EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-                            }
+							graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+							if (m_TextureParameterName != "NONE")
+							   m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+	                   
                         }
 
 						foreach (Drawable d in drawable_List_Drawn[ti])
@@ -371,7 +392,7 @@ namespace Project_blob
                     }
 					if (theBlob != null)
 					{
-                        //EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                        //m_cartoonEffect.Begin();
                         //foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
                         //{
                         //    pass.Begin();
@@ -448,22 +469,18 @@ namespace Project_blob
                 graphicsDevice.Clear(Color.CornflowerBlue);
 
                 if(_effectName == "cartoonEffect")
-                    EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Lambert"];
+                   m_cartoonEffect.CurrentTechnique =m_cartoonEffect.Techniques["Lambert"];
                 
                 foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                 {
                     if (ti.SortNumber != currentTextureNumber)
                     {
-                        if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                        {
-                            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                        }
-                        else
-                        {
-                            graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                            if (m_TextureParameterName != "NONE" && _effectName == "cartoonEffect")
-                                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-                        }
+						Texture2D tempText = TextureManager.getSingleton.GetTexture(ti.TextureName);
+						m_cartoonEffect.Parameters["Texture"].SetValue(tempText);
+						graphicsDevice.Textures[0] = tempText;
+                        if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
+							m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(tempText);
+ 
                     }
 
                     foreach (Drawable d in drawable_List_Drawn[ti])
@@ -489,16 +506,10 @@ namespace Project_blob
                 {
                     if (ti.SortNumber != currentTextureNumber)
                     {
-                        if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                        {
-                            ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                        }
-                        else
-                        {
-                            graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                            if (m_TextureParameterName != "NONE" && _effectName == "cartoonEffect")
-                                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-                        }
+                        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                        if (m_TextureParameterName != "NONE" && _effectName == "cartoonEffect")
+                           m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                 
                     }
 
 
@@ -520,14 +531,14 @@ namespace Project_blob
                 {
                     //graphicsDevice.RenderState.SourceBlend = Blend.SourceAlpha;
                    
-                    if (EffectManager.getSingleton.GetEffect("Distorter") != null && m_distortionMap != null)
+                    if (m_distorter != null && m_distortionMap != null)
                     {
 
-                        EffectManager.getSingleton.GetEffect("Distorter").CurrentTechnique =
-                                EffectManager.getSingleton.GetEffect("Distorter").Techniques["PullIn"];
-                        EffectManager.getSingleton.GetEffect("Distorter").Parameters["DistortionScale"].SetValue(0.1f);
+                        m_distorter.CurrentTechnique =
+                                m_distorter.Techniques["PullIn"];
+                        m_distorter.Parameters["DistortionScale"].SetValue(0.1f);
                         Random r = new Random();
-                        EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.Next()/10.0f);
+                        m_distorter.Parameters["Time"].SetValue(r.Next()/10.0f);
                         //EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.NextDouble() * 30.0);
 
                         //graphicsDevice.SetRenderTarget(0, m_distortionMap);
@@ -535,14 +546,14 @@ namespace Project_blob
                         
                         //graphicsDevice.Textures[0] = theBlob.DisplacementText;
 
-                        EffectManager.getSingleton.GetEffect("Distorter").Begin();
-                        foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("Distorter").CurrentTechnique.Passes)
+                        m_distorter.Begin();
+                        foreach (EffectPass pass in m_distorter.CurrentTechnique.Passes)
                         {
                             pass.Begin();
                             theBlob.DrawMe();
                             pass.End();
                         }
-                        EffectManager.getSingleton.GetEffect("Distorter").End();
+                        m_distorter.End();
                     }
                 }
                 
@@ -554,16 +565,16 @@ namespace Project_blob
 
 				if (theBlob != null && DEBUG_WireframeMode)
 				{
-                    EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["LambertOnBlob"];
-                    EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
-                    EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-                    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+                   m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["LambertOnBlob"];
+                    m_cartoonEffect.Parameters["Texture"].SetValue(theBlob.text);
+                    m_cartoonEffect.Begin();
+                    foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes)
                     {
                         pass.Begin();
                         theBlob.DrawMe();
                         pass.End();
                     }
-                    EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+                    m_cartoonEffect.End();
 				}
 
                 if (DEBUG_WireframeMode)
@@ -579,14 +590,14 @@ namespace Project_blob
         {
             graphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
 
-            EffectManager.getSingleton.GetEffect(_effectName).Begin();
-            foreach (EffectPass pass in EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique.Passes)
+           m_cartoonEffect.Begin();
+            foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes)
             {
                 pass.Begin();
                 d.DrawMe();
                 pass.End();
             }
-            EffectManager.getSingleton.GetEffect(_effectName).End();
+           m_cartoonEffect.End();
         }
 
         public void DrawModel(Matrix p_CurrentWorld, StaticModel d, GraphicsDevice graphicsDevice)
@@ -594,13 +605,13 @@ namespace Project_blob
             Stack<Matrix> drawStack = new Stack<Matrix>();
             Matrix currentWorld = p_CurrentWorld;
 
-            if (_effectName == "cartoonEffect" && EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique != EffectManager.getSingleton.GetEffect(_effectName).Techniques["ShadowMap"] &&
-                EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique != EffectManager.getSingleton.GetEffect(_effectName).Techniques["ShadowedScene"])
+            if (_effectName == "cartoonEffect" && m_cartoonEffect.CurrentTechnique != m_cartoonEffect.Techniques["ShadowMap"] &&
+                m_cartoonEffect.CurrentTechnique != m_cartoonEffect.Techniques["ShadowedScene"])
             {
                 if (d.Name == "sky")
-                    EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["SkyBox"];
+                    m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["SkyBox"];
                 else
-                    EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Lambert"];
+                    m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["Lambert"];
             }
 
             if (d.Name == CurrentlySelected)
@@ -640,27 +651,21 @@ namespace Project_blob
                 }
             }*/
 
-            if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = p_CurrentWorld;
-            else
-            {
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(d.Transform);
-            }
+          
+            m_cartoonEffect.Parameters[m_WorldParameterName].SetValue(d.Transform);
+     
 
             /*while (drawStack.Count > 0)
             {
                 if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                    ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = Matrix.Multiply(drawStack.Pop(), ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World);
+                    cartoonEffect.World = Matrix.Multiply(drawStack.Pop(), cartoonEffect.World);
                 else
                 {
                     EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(Matrix.Multiply(drawStack.Pop(), EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].GetValueMatrix()));
                 }
 			}*/
-			d.DrawMe(graphicsDevice,EffectManager.getSingleton.GetEffect(_effectName), m_GameMode);
-            if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-                ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).World = currentWorld;
-            else
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(currentWorld);
+			d.DrawMe(graphicsDevice,m_cartoonEffect, m_GameMode);
+            m_cartoonEffect.Parameters[m_WorldParameterName].SetValue(currentWorld);
         }
 
         public void ApplyPostProcessing(GraphicsDevice graphicsDevice, bool blob)
@@ -675,8 +680,8 @@ namespace Project_blob
 
 			if (!blob)
             {
-                EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-                EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes[0].Begin();
+                m_cartoonEffect.Begin();
+                m_cartoonEffect.CurrentTechnique.Passes[0].Begin();
 
                 spriteBatch.Begin(SpriteBlendMode.None,
                               SpriteSortMode.Immediate,
@@ -687,11 +692,11 @@ namespace Project_blob
 
                 spriteBatch.End();
 
-                EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes[0].End();
-                EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+                m_cartoonEffect.CurrentTechnique.Passes[0].End();
+                m_cartoonEffect.End();
 			}
 
-            if (EffectManager.getSingleton.GetEffect("postprocessEffect") != null && m_tempTarget != null)
+            if (m_postProcessEffect != null && m_tempTarget != null)
             {
                 
                 graphicsDevice.SetRenderTarget(0, null);
@@ -701,28 +706,28 @@ namespace Project_blob
 				// Invalid Operation Exception: The render target must not be set on the device when calling GetTexture. 
                 Texture2D normalDepthTexture = m_NormalDepthRenderTarget.GetTexture();
 
-                EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["EdgeWidth"].SetValue(1.0f);
-                EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["EdgeIntensity"].SetValue(1.0f);
-                EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["ScreenResolution"].SetValue(new Vector2(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height));
-                EffectManager.getSingleton.GetEffect("postprocessEffect").Parameters["NormalDepthTexture"].SetValue(normalDepthTexture);
+				m_postProcessEffect.Parameters["EdgeWidth"].SetValue(1.0f);
+				m_postProcessEffect.Parameters["EdgeIntensity"].SetValue(1.0f);
+				m_postProcessEffect.Parameters["ScreenResolution"].SetValue(new Vector2(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height));
+				m_postProcessEffect.Parameters["NormalDepthTexture"].SetValue(normalDepthTexture);
 
                 // Activate the appropriate effect technique.
-                EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("postprocessEffect").Techniques["EdgeDetect"];
+				m_postProcessEffect.CurrentTechnique = m_postProcessEffect.Techniques["EdgeDetect"];
 
                 
                 spriteBatch.Begin(SpriteBlendMode.None,
                                   SpriteSortMode.Immediate,
                                   SaveStateMode.None);
 
-                EffectManager.getSingleton.GetEffect("postprocessEffect").Begin();
-                EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique.Passes[0].Begin();
+				m_postProcessEffect.Begin();
+				m_postProcessEffect.CurrentTechnique.Passes[0].Begin();
 
                 spriteBatch.Draw(m_SceneRenderTarget.GetTexture(), Vector2.Zero, Color.White);
 
                 spriteBatch.End();
 
-                EffectManager.getSingleton.GetEffect("postprocessEffect").CurrentTechnique.Passes[0].End();
-                EffectManager.getSingleton.GetEffect("postprocessEffect").End();
+				m_postProcessEffect.CurrentTechnique.Passes[0].End();
+				m_postProcessEffect.End();
             }
 
             if (m_distortionMap != null && blob)
@@ -730,22 +735,21 @@ namespace Project_blob
                 graphicsDevice.ResolveBackBuffer(m_tempTarget);
                 graphicsDevice.Textures[1] = m_distortionMap.GetTexture();
                 //graphicsDevice.Textures[0] = m_tempTarget;
-                EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique =
-                    EffectManager.getSingleton.GetEffect("Distort").Techniques["DistortBlur"];
+                m_distort.CurrentTechnique =
+					m_distort.Techniques["DistortBlur"];
 
                 spriteBatch.Begin(SpriteBlendMode.None,
                               SpriteSortMode.Immediate,
                               SaveStateMode.None);
 
-                EffectManager.getSingleton.GetEffect("Distort").Begin();
-                EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique.Passes[0].Begin();
+				m_distort.Begin();
+				m_distort.CurrentTechnique.Passes[0].Begin();
 
                 spriteBatch.Draw(m_tempTarget, Vector2.Zero, Color.White);
 
                 spriteBatch.End();
-
-                EffectManager.getSingleton.GetEffect("Distort").CurrentTechnique.Passes[0].End();
-                EffectManager.getSingleton.GetEffect("Distort").End();
+				m_distort.CurrentTechnique.Passes[0].End();
+				m_distort.End();
             }
            
         }
@@ -764,8 +768,8 @@ namespace Project_blob
             // Look up the sample weight and offset effect parameters.
             EffectParameter weightsParameter, offsetsParameter;
 
-            weightsParameter = EffectManager.getSingleton.GetEffect("Distort").Parameters["SampleWeights"];
-            offsetsParameter = EffectManager.getSingleton.GetEffect("Distort").Parameters["SampleOffsets"];
+			weightsParameter = m_distort.Parameters["SampleWeights"];
+			offsetsParameter = m_distort.Parameters["SampleOffsets"];
 
             // Look up how many samples our gaussian blur effect supports.
             int sampleCount = weightsParameter.Elements.Count;

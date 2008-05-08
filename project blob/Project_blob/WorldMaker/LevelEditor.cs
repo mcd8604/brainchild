@@ -87,6 +87,13 @@ namespace WorldMaker
 
         public void CreateRenderTargets()
         {
+			_gameRef.draw = false; 
+
+			_gameRef.ActiveArea.Display.Distort = EffectManager.getSingleton.GetEffect("distort");
+			_gameRef.ActiveArea.Display.Distorter = EffectManager.getSingleton.GetEffect("distorter");
+			_gameRef.ActiveArea.Display.CartoonEffect = EffectManager.getSingleton.GetEffect("cartoonEffect");
+			_gameRef.ActiveArea.Display.PostProcessEffect = EffectManager.getSingleton.GetEffect("postprocessEffect");
+
 			PresentationParameters pp = _gameRef.GraphicsDevice.PresentationParameters;
 
 			RenderTarget2D sceneRenderTarget = new RenderTarget2D(_gameRef.GraphicsDevice,
@@ -113,6 +120,8 @@ namespace WorldMaker
 			_gameRef.ActiveArea.Display.DistortionMap = distortionMap;
 			_gameRef.ActiveArea.Display.TempRenderTarget = tempRenderTarget;
 			_gameRef.ActiveArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
+
+			_gameRef.draw = true;
 
         }
 

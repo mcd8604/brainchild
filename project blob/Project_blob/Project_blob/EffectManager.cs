@@ -39,11 +39,11 @@ namespace Project_blob
 
         public Effect GetEffect(String effectName)
         {
-            if (_effects.ContainsKey(effectName))
-            {
+            //if (_effects.ContainsKey(effectName))
+            //{
                 return _effects[effectName];
-            }
-            return null;
+            //}
+            //return null;
         }
 
         public void AddEffect(String effectName, Effect effect)
