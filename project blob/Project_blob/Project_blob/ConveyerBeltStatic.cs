@@ -54,9 +54,10 @@ namespace Project_blob
 
 		public ConveyerBeltStatic(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms) : base(p_Name, fileName, audioName, p_TextureKey, rooms) { }
 
-		public override void  DrawMe(Microsoft.Xna.Framework.Graphics.GraphicsDevice graphicsDevice, Microsoft.Xna.Framework.Graphics.Effect effect, bool gameMode)
+		public override void DrawMe(Microsoft.Xna.Framework.Graphics.GraphicsDevice graphicsDevice, Microsoft.Xna.Framework.Graphics.Effect effect, bool gameMode)
 		{
-			 this.TextureOffsetX += -this.Speed * this.TextureScaleX;
+			// nice effect, but it keeps 'moving' even when the game is paused, because it always changes every frame.
+			 this.TextureOffsetX += -this.Speed * this.TextureScaleX * 0.005f;
  			 base.DrawMe(graphicsDevice, effect, gameMode);
 		} 
 

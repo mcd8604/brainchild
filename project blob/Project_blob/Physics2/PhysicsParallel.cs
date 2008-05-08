@@ -99,6 +99,12 @@ namespace Physics2
 
 		public override void update(float TotalElapsedSeconds)
 		{
+
+			if (TotalElapsedSeconds == 0f)
+			{
+				return;
+			}
+
 			foreach (Body b in physicsMain.bodies)
 			{
 				b.updatePosition();
