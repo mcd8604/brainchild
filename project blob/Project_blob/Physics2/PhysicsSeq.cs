@@ -54,7 +54,13 @@ namespace Physics2
 
 		public override void update(float TotalElapsedSeconds)
 		{
-			doPhysics(TotalElapsedSeconds);
+
+			if (TotalElapsedSeconds == 0f)
+			{
+				return;
+			}
+
+			doPhysics(TotalElapsedSeconds * physicsMultiplier);
 
 			foreach (Body b in bodies)
 			{
@@ -195,6 +201,11 @@ namespace Physics2
 
 				// relative velocity
 				Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e) - newVelocity;
+
+				// fix relative velocity to be along surface
+				relativeVelocity = (Vector3.Cross(CollidableNormal, Vector3.Cross(relativeVelocity, CollidableNormal)));
+				// give it a little bump to keep from falling through
+				relativeVelocity += CollidableNormal;
 
 				// surface friction !  F = uN
 				if (relativeVelocity.LengthSquared() > 0)

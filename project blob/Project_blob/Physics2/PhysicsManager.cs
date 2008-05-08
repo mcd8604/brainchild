@@ -9,6 +9,14 @@ namespace Physics2
 
 		public static ParallelSetting enableParallel = ParallelSetting.Never;
 
+		/// <summary>
+		/// A multiplier for physics time.
+		/// Think of it as changing the speed of a film on a projector.
+		/// Note that due to rounding errors, physics becomes more erratic at high speeds.
+		/// Setting to 0 effectively stops all physics from happening.
+		/// Negative numbers are allowed, and physics will behave as if time was running backwards.
+		/// This feature is not supported, or recommended.
+		/// </summary>
 		public float physicsMultiplier = 1f;
 
         public static PhysicsManager getInstance()

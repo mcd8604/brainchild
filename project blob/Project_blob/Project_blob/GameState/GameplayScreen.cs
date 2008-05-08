@@ -497,10 +497,10 @@ namespace Project_blob.GameState
 
                 if (InputHandler.IsKeyPressed(Keys.PageUp))
                 {
-                    physics.physicsMultiplier *= 1.1f;
+                    physics.physicsMultiplier += 0.1f;
                 } else if (InputHandler.IsKeyPressed(Keys.PageDown))
                 {
-                    physics.physicsMultiplier *= 0.9f;
+                    physics.physicsMultiplier -= 0.1f;
                 }
 
 				// actually, shouldn't the skybox be centered around /the camera/ instead of the blob?
