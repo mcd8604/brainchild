@@ -265,8 +265,6 @@ namespace OctreeCulling
 
 			BoundingFrustum newFrustumTest = new BoundingFrustum(Matrix.Multiply(view, projection));
 
-
-
 			Vector3 tl, tr, bl, br;
 			Vector3 ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr;
 
@@ -275,18 +273,46 @@ namespace OctreeCulling
 			bl = Vector3.Normalize(new Vector3(box.Min.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.GetCamera("test").Position);
 			tl = Vector3.Normalize(new Vector3(box.Min.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.GetCamera("test").Position);
 
+            //Plane far = new Plane(new Vector4(0, 0, -1, 
+            //    (CameraManager.getSingleton.GetCamera("test").Position.Z + CameraManager.getSingleton.GetCamera("test").FarPlane)));
+            Plane far = CameraManager.getSingleton.GetCamera("test").Frustum.Far;
+            //float denom = Vector3.Dot(far.Normal, tr);
+            //if (denom == 0)
+            //{
+            //    throw new Exception();
+            //}
+            //float nom = Vector3.Dot(far.Normal, CameraManager.getSingleton.GetCamera("test").Position) + far.D;
+            //float t = -(nom / denom);
+
+            ftl = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(tl, FarPlaneIntersectPt(far, tl));
+            ftr = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(tr, FarPlaneIntersectPt(far, tr));
+            fbl = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(bl, FarPlaneIntersectPt(far, bl));
+            fbr = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(br, FarPlaneIntersectPt(far, br));
+
 			ntl = CameraManager.getSingleton.GetCamera("test").Position + (new Vector3(box.Min.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.GetCamera("test").Position);
 			ntr = CameraManager.getSingleton.GetCamera("test").Position + (new Vector3(box.Max.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.GetCamera("test").Position);
 			nbl = CameraManager.getSingleton.GetCamera("test").Position + (new Vector3(box.Min.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.GetCamera("test").Position);
 			nbr = CameraManager.getSingleton.GetCamera("test").Position + (new Vector3(box.Max.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.GetCamera("test").Position);
-			ftl = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(tl, CameraManager.getSingleton.GetCamera("test").FarPlane);
-			ftr = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(tr, CameraManager.getSingleton.GetCamera("test").FarPlane);
-			fbl = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(bl, CameraManager.getSingleton.GetCamera("test").FarPlane);
-			fbr = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(br, CameraManager.getSingleton.GetCamera("test").FarPlane);
+            //ftl = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(tl, CameraManager.getSingleton.GetCamera("test").FarPlane);
+            //ftr = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(tr, CameraManager.getSingleton.GetCamera("test").FarPlane);
+            //fbl = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(bl, CameraManager.getSingleton.GetCamera("test").FarPlane);
+            //fbr = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(br, CameraManager.getSingleton.GetCamera("test").FarPlane);
+
+            
 
 			Frustum newFrustum = new Frustum(ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr);
 
             return newFrustum;
+        }
+
+        private float FarPlaneIntersectPt(Plane far, Vector3 ray)
+        {
+            float denom = Vector3.Dot(far.Normal, ray);
+            if (denom == 0)
+                denom = 0.01f;
+            float nom = Vector3.Dot(far.Normal, CameraManager.getSingleton.GetCamera("test").Position) + far.D;
+            float t = -(nom / denom);
+            return t;
         }
 
 		//private void drawFrustum(BoundingFrustum frustum)
