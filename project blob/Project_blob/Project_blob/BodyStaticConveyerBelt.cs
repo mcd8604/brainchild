@@ -6,12 +6,12 @@ using Physics2;
 
 namespace Project_blob
 {
-    class ConveyerStatic :BodyStatic
+    class BodyStaticConveyerBelt :BodyStatic
     {
 
         Vector3 vel = new Vector3(10, 10, 0);
 
-        public ConveyerStatic(IList<CollidableStatic> Collidables, Body ParentBody)
+        public BodyStaticConveyerBelt(IList<CollidableStatic> Collidables, Body ParentBody)
 			: base(Collidables, ParentBody)
 		{
 		}

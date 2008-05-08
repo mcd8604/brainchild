@@ -15,6 +15,16 @@ namespace WorldMaker
             InitializeComponent();
             propertyGrid1.SelectedObject = o;
             propertyGrid1.ExpandAllGridItems();
-        }
+		}
+
+		public PropertyEditor(Object o, bool expanded)
+		{
+			InitializeComponent();
+			propertyGrid1.SelectedObject = o;
+			if (expanded)
+			{
+				propertyGrid1.ExpandAllGridItems();
+			}
+		}
     }
 }

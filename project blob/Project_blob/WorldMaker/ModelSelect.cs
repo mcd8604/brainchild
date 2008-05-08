@@ -193,5 +193,11 @@ namespace WorldMaker
                 m_CurrentModel = newType.GetConstructor(types).Invoke(parameters) as StaticModel;
             }
         }
+
+		private void PropertyButton_Click(object sender, EventArgs e)
+		{
+			PropertyEditor propEditor = new PropertyEditor(m_CurrentModel, false);
+			propEditor.ShowDialog();
+		}
     }
 }
