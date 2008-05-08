@@ -279,7 +279,6 @@ namespace Project_blob
             renderState.AlphaBlendEnable = false;
             renderState.AlphaTestEnable = false;
             renderState.DepthBufferEnable = true;
-            renderState.DepthBufferWriteEnable = true;
 
             if (drawable_List_Drawn.Count > 0)
             {
@@ -383,6 +382,61 @@ namespace Project_blob
 					}
                 }
 
+                //if (m_DepthMapRenderTarget != null) {
+                //    graphicsDevice.SetRenderTarget(0, m_DepthMapRenderTarget);
+                //    graphicsDevice.Clear(Color.White);
+                    
+                //    EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique = EffectManager.getSingleton.GetEffect("cartoonEffect").Techniques["ShadowMap"];
+
+					
+
+                    //foreach (TextureInfo ti in drawable_List_Drawn.Keys) 
+                    //{
+                    //    //if (ti.SortNumber != currentTextureNumber)
+                    //    //{
+                    //    //    if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
+                    //    //    {
+                    //    //        ((BasicEffect)EffectManager.getSingleton.GetEffect(_effectName)).Texture = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                    //    //    }
+                    //    //    else
+                    //    //    {
+                    //    //        graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                    //    //        if (m_TextureParameterName != "NONE" && _effectName != "DepthBuffer")
+                    //    //            EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                    //    //    }
+                    //    //}
+
+                    //    foreach (Drawable d in drawable_List_Drawn[ti]) {
+                    //        if (d is StaticModel) {
+                    //            DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+
+                    //        } else {
+                    //            DrawPrimitives(d, graphicsDevice);
+                    //        }
+                    //    }
+                    //}
+
+                    //if (theBlob != null)
+                    //{
+                    //    EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                    //    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+                    //    {
+                    //        pass.Begin();
+                    //        theBlob.DrawMe();
+                    //        pass.End();
+                    //    }
+                    //    EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+                    //}
+					
+                //}
+
+                //graphicsDevice.SetRenderTarget(0, null);
+                //if (saveOut) {
+                //    m_DepthMapRenderTarget.GetTexture().Save("DepthMap.bmp", ImageFileFormat.Bmp);
+                //    m_DepthMapRenderTarget.GetTexture().Save("DepthMap.png", ImageFileFormat.Png);
+                //    saveOut = false;
+                //}
+
                 if(m_SceneRenderTarget != null && !DEBUG_WireframeMode)
                     graphicsDevice.SetRenderTarget(0, m_SceneRenderTarget);
                 else
@@ -391,7 +445,7 @@ namespace Project_blob
 				//if(m_DepthMapRenderTarget != null)
 					//EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["ShadowMap"].SetValue(m_DepthMapRenderTarget.GetTexture());
 
-                graphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0f, 0);
+                graphicsDevice.Clear(Color.CornflowerBlue);
 
                 if(_effectName == "cartoonEffect")
                     EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["Lambert"];
@@ -427,9 +481,9 @@ namespace Project_blob
                 }
                 if(!DEBUG_WireframeMode)
                     graphicsDevice.SetRenderTarget(0, m_distortionMap);
-                graphicsDevice.RenderState.DepthBufferEnable = false;
-                graphicsDevice.RenderState.DepthBufferWriteEnable = false;
-                graphicsDevice.Clear(ClearOptions.Target, Color.Black, 0f, 0);
+                graphicsDevice.RenderState.DepthBufferEnable = true;
+                graphicsDevice.RenderState.DepthBufferWriteEnable = true;
+                graphicsDevice.Clear(Color.Black);
 
                 foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                 {
@@ -446,6 +500,7 @@ namespace Project_blob
                                 EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
                         }
                     }
+
 
                     foreach (Drawable d in drawable_List_Drawn[ti])
                     {
@@ -496,21 +551,19 @@ namespace Project_blob
                     ApplyPostProcessing(graphicsDevice, theBlob != null);
 
                 graphicsDevice.RenderState.AlphaBlendEnable = true;
-                graphicsDevice.RenderState.DepthBufferWriteEnable = true;
-                graphicsDevice.RenderState.DepthBufferEnable = true;
 
-				if (theBlob != null /*&& DEBUG_WireframeMode*/)
-                {
-                    //EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["LambertOnBlob"];
-                    //EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
-                    //EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
-                    //foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
-                    //{
-                    //    pass.Begin();
-                    //    theBlob.DrawMe();
-                    //    pass.End();
-                    //}
-                    //EffectManager.getSingleton.GetEffect("cartoonEffect").End();
+				if (theBlob != null && DEBUG_WireframeMode)
+				{
+                    EffectManager.getSingleton.GetEffect(_effectName).CurrentTechnique = EffectManager.getSingleton.GetEffect(_effectName).Techniques["LambertOnBlob"];
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["Texture"].SetValue(theBlob.text);
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").Begin();
+                    foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
+                    {
+                        pass.Begin();
+                        theBlob.DrawMe();
+                        pass.End();
+                    }
+                    EffectManager.getSingleton.GetEffect("cartoonEffect").End();
 				}
 
                 if (DEBUG_WireframeMode)
