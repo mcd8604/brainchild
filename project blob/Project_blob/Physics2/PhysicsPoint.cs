@@ -59,6 +59,12 @@ namespace Physics2
 
 		public void updatePosition()
 		{
+			if (NextPosition == CurrentPosition)
+			{
+				NextPosition = PotentialPosition;
+				NextVelocity = PotentialVelocity;
+			}
+
 			CurrentPosition = NextPosition;
 			CurrentVelocity = NextVelocity;
 

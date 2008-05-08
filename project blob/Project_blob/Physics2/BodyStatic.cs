@@ -18,6 +18,7 @@ namespace Physics2
 			}
 			staticCollidables = Collidables;
 
+			boundingBox = new AxisAlignedBoundingBox();
 			foreach (Collidable c in staticCollidables)
 			{
 				collidables.Add(c);
