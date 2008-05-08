@@ -449,6 +449,11 @@ namespace Project_blob.GameState
 			// TODO: Unload any non ContentManager content here
 		}
 
+        public static void CauseDeath()
+        {
+            game.reset();
+        }
+
 		public void ChangeArea(String area, Vector3 position)
 		{
 			currentArea = Level.Areas[area];
