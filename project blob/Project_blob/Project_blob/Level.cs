@@ -33,6 +33,13 @@ namespace Project_blob
             return null;
         }
 
+        public static string[] GetAreaNames()
+        {
+            string[] areaNames = new string[_areas.Count];
+            _areas.Keys.CopyTo(areaNames, 0);
+            return areaNames;
+        }
+
         public static void RemoveArea(String areaName)
         {
             if (_areas.ContainsKey(areaName))

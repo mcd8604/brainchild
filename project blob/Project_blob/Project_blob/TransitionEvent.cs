@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Project_blob.GameState;
 using Physics2;
+using System.ComponentModel;
 
 namespace Project_blob
 {
@@ -11,6 +12,7 @@ namespace Project_blob
     public class TransitionEvent : EventTrigger {
 
         private String _area;
+        [TypeConverter(typeof(AreaConverter))]
 		public String Area
 		{
 			get
@@ -34,6 +36,7 @@ namespace Project_blob
 				_position = value;
 			}
 		}
+    
 
         public TransitionEvent() { }
     
