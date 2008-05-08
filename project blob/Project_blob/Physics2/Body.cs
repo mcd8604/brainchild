@@ -147,8 +147,8 @@ namespace Physics2
 			{
 				p.PotentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
 
-                // temp
-                boundingBox.expandToInclude(p.PotentialPosition);
+                // this is /probably/ not necessary
+                //boundingBox.expandToInclude(p.PotentialPosition);
 
 				potentialCenter += p.PotentialPosition;
 			}
