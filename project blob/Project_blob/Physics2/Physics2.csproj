@@ -68,6 +68,7 @@
     <Compile Include="CollisionMath.cs" />
     <Compile Include="GravityPoint.cs" />
     <Compile Include="GravityVector.cs" />
+    <Compile Include="KeyFrame.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="PhysicsManager.cs" />
     <Compile Include="PhysicsParallel.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Property.cs" />
     <Compile Include="Spring.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="TaskKeyFrameMovement.cs" />
     <Compile Include="TaskTranslate.cs" />
   </ItemGroup>
   <ItemGroup>

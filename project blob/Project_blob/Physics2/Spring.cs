@@ -33,10 +33,12 @@ namespace Physics2
 			// A spring where both ends are at the same location is invalid
 			// therefore, by the Ostrich algorithm, I throw an exception
 			// let me know if you get this.
+#if DEBUG
 			if (A.CurrentPosition == B.CurrentPosition || A.PotentialPosition == B.PotentialPosition)
 			{
 				throw new Exception("Invalid Spring State");
 			}
+#endif
 
 			float dist = Vector3.Distance(A.CurrentPosition, B.CurrentPosition) + LengthOffset;
 			float next_dist = Vector3.Distance(A.PotentialPosition, B.PotentialPosition) + LengthOffset;
