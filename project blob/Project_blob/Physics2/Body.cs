@@ -117,7 +117,7 @@ namespace Physics2
 			return springs;
 		}
 
-		public virtual Vector3 getRelativeVelocity(PhysicsPoint p)
+		public virtual Vector3 getRelativeVelocity(CollisionEvent e)
 		{
             // fix later
 			return Vector3.Zero;

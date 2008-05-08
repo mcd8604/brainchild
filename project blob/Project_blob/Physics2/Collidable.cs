@@ -42,9 +42,9 @@ namespace Physics2
 			material = m;
 		}
 
-		public virtual Vector3 getRelativeVelocity(PhysicsPoint p)
+		public virtual Vector3 getRelativeVelocity(CollisionEvent e)
 		{
-			return parent.getRelativeVelocity(p);
+			return parent.getRelativeVelocity(e);
 		}
 
 		public virtual Vector3 getVelocity()

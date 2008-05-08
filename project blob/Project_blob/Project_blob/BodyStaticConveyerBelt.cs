@@ -16,7 +16,7 @@ namespace Project_blob
 		{
 		}
 
-        public override Vector3 getRelativeVelocity(PhysicsPoint p)
+        public override Vector3 getRelativeVelocity(CollisionEvent e)
         {
             return vel;
         }

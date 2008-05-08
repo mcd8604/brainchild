@@ -321,6 +321,7 @@ namespace Project_blob
                     {
                         // temporary
                         bool eventtrigger = false;
+                        bool speed = false;
 
                         List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
                         int numCol = 0;
@@ -335,6 +336,11 @@ namespace Project_blob
                                 }  
  
                                 collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+
+                                 if (dm.TextureKey.TextureName.Equals("speed"))
+                                {
+                                    speed = true;
+                                }
                                 
                                 numCol++;
                             }
@@ -346,6 +352,10 @@ namespace Project_blob
                         else if (dm is ConveyerBeltStatic)
                         {
                             body = new BodyStaticConveyerBelt(collidables, null);
+                        }
+                            else if (speed)
+                        {
+                            body = new SpeedStatic(collidables, null);
                         }
                         else
                         {
