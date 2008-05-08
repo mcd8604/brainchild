@@ -1,0 +1,22 @@
+Adam's Profiling Results!
+
+Just a quick test, I ran the game for 60 seconds with light profiling embedded, in that time, 69 frames were rendered...
+
+Here's the results:
+
+
+Physics spent most of it's time doing spring math, which I would not have predicted, but on reflection the blob does contain a freaking crapload of them, so that's understandable. I'll look at that and optimize it later.
+
+
+Drawing, on the other hand, was more spread out:
+
+The single most costly method in Drawing was EffectManager.GetEffect. Hmm.. looking up an entry in a string dictionary... who would have every thought that would be slow... Note though, that we spent so much time in there because the rest of the drawing code called that method 168668 times during the profiling....
+
+Apart from StaticModel.DrawMe, which obviously ranking highly, the next was Display.ApplyPostProcessing, which is probably not much more surprising.
+
+
+So, in conclusion, the top (and only) two methods on our collective optimization hit-list are:
+
+Spring.update -> Assigned to Adam
+
+EffectManager.getEffect -> Assigned to _
