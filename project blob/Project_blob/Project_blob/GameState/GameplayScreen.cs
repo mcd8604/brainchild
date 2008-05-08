@@ -30,9 +30,9 @@ namespace Project_blob.GameState
 		Texture2D blobTexture;
 		Texture2D distortMapText;
 
-		Effect effect;
-		Effect celEffect;
-		Effect blobEffect;
+		//Effect effect;
+		//Effect celEffect;
+		//Effect blobEffect;
 		Effect cartoonEffect;
 		Effect postprocessEffect;
 		Effect distortEffect;
@@ -154,14 +154,14 @@ namespace Project_blob.GameState
 			font = ScreenManager.Content.Load<SpriteFont>(@"Fonts\\Courier New");
 
 			//load shaders
-			celEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Cel");
+			//celEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Cel");
 
 			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
 
 			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\transparancy_png");
 			distortMapText = ScreenManager.Content.Load<Texture2D>(@"Textures\\PrivacyGlass");
 
-			blobEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Blobs");
+			//blobEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Blobs");
 
 			cartoonEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\CartoonEffect");
 
@@ -317,87 +317,91 @@ namespace Project_blob.GameState
 
 			VertexDeclarationColor = new VertexDeclaration(ScreenManager.GraphicsDevice, VertexPositionColor.VertexElements);
 
-			effect = ScreenManager.Content.Load<Effect>("Shaders\\effects");
+			//effect = ScreenManager.Content.Load<Effect>("Shaders\\effects");
 
-			//effect.Parameters["xView"].SetValue(viewMatrix);
-			//effect.Parameters["xProjection"].SetValue(projectionMatrix);
-			effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-			effect.Parameters["xProjection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
-			effect.Parameters["xWorld"].SetValue(worldMatrix);
+			////effect.Parameters["xView"].SetValue(viewMatrix);
+			////effect.Parameters["xProjection"].SetValue(projectionMatrix);
+			//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+			//effect.Parameters["xProjection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
+			//effect.Parameters["xWorld"].SetValue(worldMatrix);
 
-			effect.Parameters["xTexture"].SetValue(blobTexture);
-			effect.Parameters["xEnableLighting"].SetValue(true);
-			//effect.Parameters["xShowNormals"].SetValue(true);
-			//effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
-			effect.Parameters["xLightPos"].SetValue(new Vector4(0, 5, 0, 0));
-			effect.Parameters["xAmbient"].SetValue(0.25f);
+			//effect.Parameters["xTexture"].SetValue(blobTexture);
+			//effect.Parameters["xEnableLighting"].SetValue(true);
+			////effect.Parameters["xShowNormals"].SetValue(true);
+			////effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
+			//effect.Parameters["xLightPos"].SetValue(new Vector4(0, 5, 0, 0));
+			//effect.Parameters["xAmbient"].SetValue(0.25f);
 
-			effect.Parameters["xCameraPos"].SetValue(new Vector4(0, 0, -5, 0));
+			//effect.Parameters["xCameraPos"].SetValue(new Vector4(0, 0, -5, 0));
 
-			EffectManager.getSingleton.AddEffect("effects", effect);
+			//EffectManager.getSingleton.AddEffect("effects", effect);
 
-			celEffect.Parameters["World"].SetValue(worldMatrix);
-			//celEffect.Parameters["View"].SetValue(viewMatrix);
-			//celEffect.Parameters["Projection"].SetValue(projectionMatrix);
-			celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-			celEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
+			//celEffect.Parameters["World"].SetValue(worldMatrix);
+			////celEffect.Parameters["View"].SetValue(viewMatrix);
+			////celEffect.Parameters["Projection"].SetValue(projectionMatrix);
+			//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+			//celEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
 
-			celEffect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
-			celEffect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
-			celEffect.Parameters["LayerOneSharp"].SetValue(.3f);
-			celEffect.Parameters["LayerOneRough"].SetValue(10.0f);
-			celEffect.Parameters["LayerOneContrib"].SetValue(0.08f);
-			celEffect.Parameters["LayerTwoSharp"].SetValue(0.10f);
-			celEffect.Parameters["LayerTwoRough"].SetValue(1.0f);
-			celEffect.Parameters["LayerTwoContrib"].SetValue(0.2f);
-			celEffect.Parameters["EdgeOffset"].SetValue(0.009f);
+			//celEffect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
+			//celEffect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
+			//celEffect.Parameters["LayerOneSharp"].SetValue(.3f);
+			//celEffect.Parameters["LayerOneRough"].SetValue(10.0f);
+			//celEffect.Parameters["LayerOneContrib"].SetValue(0.08f);
+			//celEffect.Parameters["LayerTwoSharp"].SetValue(0.10f);
+			//celEffect.Parameters["LayerTwoRough"].SetValue(1.0f);
+			//celEffect.Parameters["LayerTwoContrib"].SetValue(0.2f);
+			//celEffect.Parameters["EdgeOffset"].SetValue(0.009f);
 
 			//celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-			celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+			//celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
 
-			EffectManager.getSingleton.AddEffect("celEffect", celEffect);
+			//EffectManager.getSingleton.AddEffect("celEffect", celEffect);
 
-			BasicEffect be = new BasicEffect(ScreenManager.GraphicsDevice, null);
+			//BasicEffect be = new BasicEffect(ScreenManager.GraphicsDevice, null);
 
-			be.Alpha = 1.0f;
-			be.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
-			be.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
-			be.SpecularPower = 5.0f;
-			be.AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
+			//be.Alpha = 1.0f;
+			//be.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
+			//be.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
+			//be.SpecularPower = 5.0f;
+			//be.AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
 
-			be.DirectionalLight0.Enabled = true;
-			be.DirectionalLight0.DiffuseColor = Vector3.One;
-			be.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
-			be.DirectionalLight0.SpecularColor = Vector3.One;
+			//be.DirectionalLight0.Enabled = true;
+			//be.DirectionalLight0.DiffuseColor = Vector3.One;
+			//be.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
+			//be.DirectionalLight0.SpecularColor = Vector3.One;
 
-			be.LightingEnabled = true;
-			be.TextureEnabled = true;
+			//be.LightingEnabled = true;
+			//be.TextureEnabled = true;
 
-			be.World = worldMatrix;
-			//be.View = viewMatrix;
-			//be.Projection = projectionMatrix;
-			be.View = CameraManager.getSingleton.ActiveCamera.View;
-			be.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
-
-			EffectManager.getSingleton.AddEffect("basic", be);
+			//be.World = worldMatrix;
+			////be.View = viewMatrix;
+			////be.Projection = projectionMatrix;
+			//be.View = CameraManager.getSingleton.ActiveCamera.View;
+			//be.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
 
 			cartoonEffect.Parameters["World"].SetValue(worldMatrix);
 			cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 			cartoonEffect.Parameters["TextureEnabled"].SetValue(true);
+			cartoonEffect.Parameters["MaxDepth"].SetValue(60);
+
+			currentArea.Display.CartoonEffect = cartoonEffect;
 
 			distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
 			distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
 			CreateRenderTargets();
 
-			EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
-			EffectManager.getSingleton.AddEffect("cartoonEffect", cartoonEffect);
+			currentArea.Display.PostProcessEffect = postprocessEffect;
+			//EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
+			//EffectManager.getSingleton.AddEffect("cartoonEffect", cartoonEffect);
 
-			EffectManager.getSingleton.AddEffect("Distorter", distorterEffect);
-			EffectManager.getSingleton.AddEffect("Distort", distortEffect);
+			currentArea.Display.Distort = distortEffect;
+			currentArea.Display.Distorter = distorterEffect;
+			//EffectManager.getSingleton.AddEffect("Distorter", distorterEffect);
+			//EffectManager.getSingleton.AddEffect("Distort", distortEffect);
 
-			cartoonEffect.Parameters["MaxDepth"].SetValue(60);
+			
 
 			//EffectManager.getSingleton.AddEffect("DepthBuffer", depthBufferEffect);
 
@@ -493,15 +497,16 @@ namespace Project_blob.GameState
 				{
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
-					EffectManager.getSingleton.GetEffect("cartoonEffect").Parameters["blobCenter"].SetValue(theBlob.getCenter());
-					EffectManager.getSingleton.GetEffect("Distort").Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
+					cartoonEffect.Parameters["blobCenter"].SetValue(theBlob.getCenter());
+                    distortEffect.Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
 
-					Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
-					tempPos.Y += 10;
-					cartoonEffect.Parameters["LightPos"].SetValue(tempPos);
-					Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), theBlob.getCenter(), new Vector3(0, 0, 1)) *
-						Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
-					cartoonEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
+					//Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
+					//tempPos.Y += 10;
+					//cartoonEffect.Parameters["LightPos"].SetValue(tempPos);
+					//Matrix lightViewProjectionMatrix = Matrix.CreateLookAt(new Vector3(tempPos.X, tempPos.Y, tempPos.Z), theBlob.getCenter(), new Vector3(0,0,1)) *
+					//    Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
+					//cartoonEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
+
 
 				}
 				physicsTime.Stop();
@@ -589,14 +594,14 @@ namespace Project_blob.GameState
 						distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
 						distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
-						effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+						//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
 						//celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-						celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+						//celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
 						//celEffect.Parameters["View"].SetValue(viewMatrix);
-						celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+						//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 						//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-						effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+						//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
 					}
 				}
 
@@ -726,10 +731,10 @@ namespace Project_blob.GameState
 					distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
 					distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 					cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-					celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+					//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+					//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
 					if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
 					{
 						cinema = false;
@@ -765,6 +770,7 @@ namespace Project_blob.GameState
 						viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), physics.getUp(theBlob.getCenter()));
 					}
 					else
+					 * 
 					{*/
 					//viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), Vector3.Up);
 					//camera.View = Matrix.CreateLookAt(camera.Postiion, theBlob.getCenter(), Vector3.Up);
@@ -772,12 +778,12 @@ namespace Project_blob.GameState
 					//}
 					//effect.Parameters["xView"].SetValue(viewMatrix);
 					//celEffect.Parameters["View"].SetValue(viewMatrix);
-					effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
 					//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
 					//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-					effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
 				}
 
 				//cubeVertexBuffer.SetData<VertexPositionNormalTexture>(theBlob.getTriangleVertexes());
@@ -785,7 +791,7 @@ namespace Project_blob.GameState
 
 
 				// light
-				effect.Parameters["xLightPos"].SetValue(lightPosition);
+				//effect.Parameters["xLightPos"].SetValue(lightPosition);
 
 
 
@@ -914,52 +920,52 @@ namespace Project_blob.GameState
 			//Level Models
 			currentArea.Display.Draw(ScreenManager.GraphicsDevice, theBlob);
 
-			if (points)
-			{
-				// Corner Dots -
-				effect.CurrentTechnique = effect.Techniques["Colored"];
-				ScreenManager.GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
-				ScreenManager.GraphicsDevice.RenderState.DepthBufferEnable = false;
-				VertexPositionColor[] dotVertices = new VertexPositionColor[theBlob.points.Count];
-				for (int i = 0; i < theBlob.points.Count; ++i)
-				{
-					dotVertices[i] = new VertexPositionColor(theBlob.points[i].ExternalPosition, Color.Black);
-				}
-				VertexBuffer dotvertexBuffer = new VertexBuffer(ScreenManager.GraphicsDevice, VertexPositionColor.SizeInBytes * theBlob.points.Count, BufferUsage.None);
-				dotvertexBuffer.SetData<VertexPositionColor>(dotVertices);
-				ScreenManager.GraphicsDevice.Vertices[0].SetSource(dotvertexBuffer, 0, VertexPositionColor.SizeInBytes);
-				effect.Begin();
-				foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-				{
-					pass.Begin();
-					ScreenManager.GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, theBlob.points.Count);
-					pass.End();
-				}
-				effect.End();
+			//if (points)
+			//{
+			//    // Corner Dots -
+			//    cartoonEffect.CurrentTechnique = effect.Techniques["Colored"];
+			//    ScreenManager.GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
+			//    ScreenManager.GraphicsDevice.RenderState.DepthBufferEnable = false;
+			//    VertexPositionColor[] dotVertices = new VertexPositionColor[theBlob.points.Count];
+			//    for (int i = 0; i < theBlob.points.Count; ++i)
+			//    {
+			//        dotVertices[i] = new VertexPositionColor(theBlob.points[i].ExternalPosition, Color.Black);
+			//    }
+			//    VertexBuffer dotvertexBuffer = new VertexBuffer(ScreenManager.GraphicsDevice, VertexPositionColor.SizeInBytes * theBlob.points.Count, BufferUsage.None);
+			//    dotvertexBuffer.SetData<VertexPositionColor>(dotVertices);
+			//    ScreenManager.GraphicsDevice.Vertices[0].SetSource(dotvertexBuffer, 0, VertexPositionColor.SizeInBytes);
+			//    effect.Begin();
+			//    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+			//    {
+			//        pass.Begin();
+			//        ScreenManager.GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, theBlob.points.Count);
+			//        pass.End();
+			//    }
+			//    effect.End();
 
-				// Velocity Vectors			
-				VertexPositionColor[] vectorVertices = new VertexPositionColor[theBlob.points.Count * 2];
+			//    // Velocity Vectors			
+			//    VertexPositionColor[] vectorVertices = new VertexPositionColor[theBlob.points.Count * 2];
 
-				for (int i = 0; i < theBlob.points.Count; i++)
-				{
-					vectorVertices[i * 2] = (new VertexPositionColor(theBlob.points[i].ExternalPosition, Color.Red));
-					vectorVertices[(i * 2) + 1] = (new VertexPositionColor(theBlob.points[i].ExternalPosition + theBlob.points[i].ExternalVelocity, Color.Pink));
-				}
-				VertexBuffer vectorVertexBuffer = new VertexBuffer(ScreenManager.GraphicsDevice, VertexPositionColor.SizeInBytes * vectorVertices.Length, BufferUsage.None);
-				vectorVertexBuffer.SetData<VertexPositionColor>(vectorVertices);
+			//    for (int i = 0; i < theBlob.points.Count; i++)
+			//    {
+			//        vectorVertices[i * 2] = (new VertexPositionColor(theBlob.points[i].ExternalPosition, Color.Red));
+			//        vectorVertices[(i * 2) + 1] = (new VertexPositionColor(theBlob.points[i].ExternalPosition + theBlob.points[i].ExternalVelocity, Color.Pink));
+			//    }
+			//    VertexBuffer vectorVertexBuffer = new VertexBuffer(ScreenManager.GraphicsDevice, VertexPositionColor.SizeInBytes * vectorVertices.Length, BufferUsage.None);
+			//    vectorVertexBuffer.SetData<VertexPositionColor>(vectorVertices);
 
-				ScreenManager.GraphicsDevice.Vertices[0].SetSource(vectorVertexBuffer, 0, VertexPositionColor.SizeInBytes * vectorVertices.Length);
+			//    ScreenManager.GraphicsDevice.Vertices[0].SetSource(vectorVertexBuffer, 0, VertexPositionColor.SizeInBytes * vectorVertices.Length);
 
-				effect.Begin();
-				foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-				{
-					pass.Begin();
-					ScreenManager.GraphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, theBlob.points.Count);
-					pass.End();
-				}
-				effect.End();
+			//    effect.Begin();
+			//    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+			//    {
+			//        pass.Begin();
+			//        ScreenManager.GraphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, theBlob.points.Count);
+			//        pass.End();
+			//    }
+			//    effect.End();
 
-			}
+			//}
 
 			//ScreenManager.GraphicsDevice.SetRenderTarget(0, normalDepthRenderTarget);
 
