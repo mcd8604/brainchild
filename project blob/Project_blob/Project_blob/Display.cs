@@ -703,8 +703,7 @@ namespace Project_blob
                 Vector2 resolution = new Vector2(m_SceneRenderTarget.Width,
                                                 m_SceneRenderTarget.Height);
 
-				// Invalid Operation Exception: The render target must not be set on the device when calling GetTexture.
-				// The above exception happened again.
+				// Crash: Invalid Operation Exception: The render target must not be set on the device when calling GetTexture.
                 Texture2D normalDepthTexture = m_NormalDepthRenderTarget.GetTexture();
 
 				m_postProcessEffect.Parameters["EdgeWidth"].SetValue(1.0f);

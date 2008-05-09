@@ -262,6 +262,7 @@ namespace Project_blob
 			Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.ActiveCamera.Position,
 				target, Vector3.Up);
 
+			// Crash: StackOverflowException
 			BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
 
 			//Vector3 tl, tr, bl, br;
