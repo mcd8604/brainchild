@@ -119,7 +119,6 @@ namespace Project_blob
                     case ContainmentType.Intersects:
                         {
                             SceneManager.getSingleton.Display.AddToBeDrawn(obj);
-                            SceneManager.getSingleton.Drawn += 1;
                             break;
                         }
                     case ContainmentType.Disjoint:
@@ -205,7 +204,6 @@ namespace Project_blob
             {
                 //obj.Draw(gameTime);
                 SceneManager.getSingleton.Display.AddToBeDrawn(obj);
-                SceneManager.getSingleton.Drawn += 1;
             }
             foreach (OctreeLeaf leaf in ChildLeaves)
             {

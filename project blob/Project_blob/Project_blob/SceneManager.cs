@@ -17,6 +17,7 @@ namespace Project_blob
         private static volatile SceneManager _instance;
         private static object _syncRoot = new Object();
 
+#if DEBUG
         private int _drawn = 0;
         public int Drawn
         {
@@ -30,6 +31,7 @@ namespace Project_blob
             get { return _culled; }
             set { _culled = value; }
         }
+#endif
 
         private int _sceneObjectCount;
         public int SceneObjectCount
@@ -102,8 +104,10 @@ namespace Project_blob
 
         public void UpdateVisibleDrawables(GameTime gameTime)
         {
+#if DEBUG
             _drawn = 0;
             _culled = 0;
+#endif
 
             if (_graphType == SceneGraphType.Octree)
             {
