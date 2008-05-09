@@ -1,177 +1,180 @@
 using Microsoft.Xna.Framework;
 
-public class AxisAlignedBoundingBox
+namespace Physics2
 {
-	private Vector3 Max;
-	private Vector3 Min;
-	private bool Valid;
-
-	public AxisAlignedBoundingBox()
+	public class AxisAlignedBoundingBox
 	{
-		Min = Max = Vector3.Zero;
-		Valid = false;
-	}
+		private Vector3 Max;
+		private Vector3 Min;
+		private bool Valid;
 
-	public AxisAlignedBoundingBox(Vector3 minPt, Vector3 maxPt)
-	{
-		Min = minPt;
-		Max = maxPt;
-		Valid = true;
-	}
-
-	public AxisAlignedBoundingBox(AxisAlignedBoundingBox cloneFrom)
-	{
-		Max = cloneFrom.Max;
-		Min = cloneFrom.Min;
-		Valid = cloneFrom.Valid;
-	}
-
-	public void clear()
-	{
-		Min = Max = Vector3.Zero;
-		Valid = false;
-	}
-
-	public void expandToInclude(Vector3 pt)
-	{
-		if (Valid)
+		public AxisAlignedBoundingBox()
 		{
-			if (pt.X < Min.X)
-			{
-				Min.X = pt.X;
-			}
-			else if (pt.X > Max.X)
-			{
-				Max.X = pt.X;
-			}
-			if (pt.Y < Min.Y)
-			{
-				Min.Y = pt.Y;
-			}
-			else if (pt.Y > Max.Y)
-			{
-				Max.Y = pt.Y;
-			}
-			if (pt.Z < Min.Z)
-			{
-				Min.Z = pt.Z;
-			}
-			else if (pt.Z > Max.Z)
-			{
-				Max.Z = pt.Z;
-			}
+			Min = Max = Vector3.Zero;
+			Valid = false;
 		}
-		else
+
+		public AxisAlignedBoundingBox(Vector3 minPt, Vector3 maxPt)
 		{
-			Min = Max = pt;
+			Min = minPt;
+			Max = maxPt;
 			Valid = true;
 		}
-	}
 
-	public void expandToInclude(AxisAlignedBoundingBox bb)
-	{
-		if (Valid)
+		public AxisAlignedBoundingBox(AxisAlignedBoundingBox cloneFrom)
 		{
-			expandToInclude(bb.Max);
-			expandToInclude(bb.Min);
+			Max = cloneFrom.Max;
+			Min = cloneFrom.Min;
+			Valid = cloneFrom.Valid;
 		}
-		else
+
+		public void clear()
 		{
-			Max = bb.Max;
-			Min = bb.Min;
-			Valid = true;
+			Min = Max = Vector3.Zero;
+			Valid = false;
 		}
-	}
 
-	public bool contains(Vector3 pt)
-	{
-		if (Valid)
+		public void expandToInclude(Vector3 pt)
 		{
-			return pt.X >= Min.X && pt.X <= Max.X && pt.Y >= Min.Y && pt.Y <= Max.Y && pt.Z >= Min.Z && pt.Z <= Max.Z;
+			if (Valid)
+			{
+				if (pt.X < Min.X)
+				{
+					Min.X = pt.X;
+				}
+				else if (pt.X > Max.X)
+				{
+					Max.X = pt.X;
+				}
+				if (pt.Y < Min.Y)
+				{
+					Min.Y = pt.Y;
+				}
+				else if (pt.Y > Max.Y)
+				{
+					Max.Y = pt.Y;
+				}
+				if (pt.Z < Min.Z)
+				{
+					Min.Z = pt.Z;
+				}
+				else if (pt.Z > Max.Z)
+				{
+					Max.Z = pt.Z;
+				}
+			}
+			else
+			{
+				Min = Max = pt;
+				Valid = true;
+			}
 		}
-		return false;
-	}
 
-	public bool contains(AxisAlignedBoundingBox bb)
-	{
-		if (Valid)
+		public void expandToInclude(AxisAlignedBoundingBox bb)
 		{
-			return Min.X <= bb.Min.X && Max.X >= bb.Max.X && Min.Y <= bb.Min.Y && Max.Y >= bb.Max.Y && Min.Z <= bb.Min.Z && Max.Z >= bb.Max.Z;
+			if (Valid)
+			{
+				expandToInclude(bb.Max);
+				expandToInclude(bb.Min);
+			}
+			else
+			{
+				Max = bb.Max;
+				Min = bb.Min;
+				Valid = true;
+			}
 		}
-		return false;
-	}
 
-	public bool intersects(AxisAlignedBoundingBox box)
-	{
-		if (Valid)
+		public bool contains(Vector3 pt)
 		{
-			if ((Max.X < box.Min.X) || (Min.X > box.Max.X))
+			if (Valid)
 			{
-				return false;
+				return pt.X >= Min.X && pt.X <= Max.X && pt.Y >= Min.Y && pt.Y <= Max.Y && pt.Z >= Min.Z && pt.Z <= Max.Z;
 			}
-			if ((Max.Y < box.Min.Y) || (Min.Y > box.Max.Y))
-			{
-				return false;
-			}
-			return ((Max.Z >= box.Min.Z) && (Min.Z <= box.Max.Z));
-
+			return false;
 		}
-		return false;
-	}
 
-	/// <summary>
-	/// Does a line from pt1 to pt2 intersect this bounding box?
-	/// </summary>
-	/// <param name="pt1"></param>
-	/// <param name="pt2"></param>
-	/// <returns></returns>
-	public bool lineIntersects(Vector3 pt1, Vector3 pt2)
-	{
-		if (Valid)
+		public bool contains(AxisAlignedBoundingBox bb)
 		{
-			if (pt2.X < Min.X && pt1.X < Min.X)
+			if (Valid)
 			{
-				return false;
+				return Min.X <= bb.Min.X && Max.X >= bb.Max.X && Min.Y <= bb.Min.Y && Max.Y >= bb.Max.Y && Min.Z <= bb.Min.Z && Max.Z >= bb.Max.Z;
 			}
-			if (pt2.X > Max.X && pt1.X > Max.X)
+			return false;
+		}
+
+		public bool intersects(AxisAlignedBoundingBox box)
+		{
+			if (Valid)
 			{
-				return false;
+				if ((Max.X < box.Min.X) || (Min.X > box.Max.X))
+				{
+					return false;
+				}
+				if ((Max.Y < box.Min.Y) || (Min.Y > box.Max.Y))
+				{
+					return false;
+				}
+				return ((Max.Z >= box.Min.Z) && (Min.Z <= box.Max.Z));
+
 			}
-			if (pt2.Y < Min.Y && pt1.Y < Min.Y)
+			return false;
+		}
+
+		/// <summary>
+		/// Does a line from pt1 to pt2 intersect this bounding box?
+		/// </summary>
+		/// <param name="pt1"></param>
+		/// <param name="pt2"></param>
+		/// <returns></returns>
+		public bool lineIntersects(Vector3 pt1, Vector3 pt2)
+		{
+			if (Valid)
 			{
-				return false;
-			}
-			if (pt2.Y > Max.Y && pt1.Y > Max.Y)
-			{
-				return false;
-			}
-			if (pt2.Z < Min.Z && pt1.Z < Min.Z)
-			{
-				return false;
-			}
-			if (pt2.Z > Max.Z && pt1.Z > Max.Z)
-			{
-				return false;
-			}
-			if ((pt1.X > Min.X && pt1.X < Max.X && pt1.Y > Min.Y && pt1.Y < Max.Y && pt1.Z > Min.Z && pt1.Z < Max.Z) ||
-				(pt2.X > Min.X && pt2.X < Max.X && pt2.Y > Min.Y && pt2.Y < Max.Y && pt2.Z > Min.Z && pt2.Z < Max.Z))
-			{
+				if (pt2.X < Min.X && pt1.X < Min.X)
+				{
+					return false;
+				}
+				if (pt2.X > Max.X && pt1.X > Max.X)
+				{
+					return false;
+				}
+				if (pt2.Y < Min.Y && pt1.Y < Min.Y)
+				{
+					return false;
+				}
+				if (pt2.Y > Max.Y && pt1.Y > Max.Y)
+				{
+					return false;
+				}
+				if (pt2.Z < Min.Z && pt1.Z < Min.Z)
+				{
+					return false;
+				}
+				if (pt2.Z > Max.Z && pt1.Z > Max.Z)
+				{
+					return false;
+				}
+				if ((pt1.X > Min.X && pt1.X < Max.X && pt1.Y > Min.Y && pt1.Y < Max.Y && pt1.Z > Min.Z && pt1.Z < Max.Z) ||
+					(pt2.X > Min.X && pt2.X < Max.X && pt2.Y > Min.Y && pt2.Y < Max.Y && pt2.Z > Min.Z && pt2.Z < Max.Z))
+				{
+					return true;
+				}
+
+				//check?
+
+				//eh, close enough for now
+
 				return true;
+
 			}
-
-			//check?
-
-            //eh, close enough for now
-
-			return true;
-
+			return false;
 		}
-		return false;
-	}
 
-	public BoundingBox GetXNABoundingBox()
-	{
-		return new BoundingBox(Min, Max);
-	}
+		public BoundingBox GetXNABoundingBox()
+		{
+			return new BoundingBox(Min, Max);
+		}
 
+	}
 }
