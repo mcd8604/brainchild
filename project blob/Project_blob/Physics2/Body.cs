@@ -145,9 +145,10 @@ namespace Physics2
 		public virtual void setCenter(Vector3 newCenter)
 		{
 			potentialCenter = newCenter;
+			Vector3 diff = potentialCenter - center;
 			foreach (PhysicsPoint p in points)
 			{
-				p.PotentialPosition = newCenter + (p.CurrentPosition - center);
+				p.PotentialPosition = p.CurrentPosition + diff;
 			}
 		}
 

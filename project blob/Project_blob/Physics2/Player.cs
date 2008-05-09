@@ -87,7 +87,7 @@ namespace Physics2
 
 		public float Twist = 0.2f;
 		public float AirTwist = 0.05f;
-		public float Drift = -0.0f;
+		public float Drift = -0.01f;
 		public float AirDrift = -0.1f;
 
 		/// <summary>
