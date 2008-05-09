@@ -384,7 +384,7 @@ namespace Project_blob
 
                         body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
                     }
-                    dm.SetBoundingBox(body.boundingBox.GetXNABoundingBox());
+                    dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
 
 					Material sticky = new Material(2.0f, 2.0f);
 					Material slick = new Material(0.1f, 0.1f);

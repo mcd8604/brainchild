@@ -65,6 +65,7 @@
     <Compile Include="AreaConverter.cs" />
     <Compile Include="AudioManager.cs" />
     <Compile Include="Blob.cs" />
+    <Compile Include="CameraBody.cs" />
     <Compile Include="CameraEvent.cs" />
     <Compile Include="CheckPointEvent.cs" />
     <Compile Include="ConveyerBeltStatic.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Area.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="SwitchEvent.cs" />
+    <Compile Include="TaskCamera.cs" />
     <Compile Include="TextEvent.cs" />
     <Compile Include="TransitionEvent.cs" />
     <Compile Include="TriAA.cs" />

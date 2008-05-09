@@ -88,6 +88,8 @@ namespace Project_blob.GameState
 		System.Diagnostics.Stopwatch physicsTime = new System.Diagnostics.Stopwatch();
 		System.Diagnostics.Stopwatch drawTime = new System.Diagnostics.Stopwatch();
 
+        CameraBody CameraBody;
+
 		public GameplayScreen()
 		{
 			game = this;
@@ -133,7 +135,10 @@ namespace Project_blob.GameState
 			physics.Player.PlayerBody = theBlob;
 			physics.AddBody(theBlob);
 
-			physics.Player.PlayerBody.tasks.Add(new GravityVector(10f, new Vector3(0f, -1.0f, 0f)));
+			physics.Player.PlayerBody.addTask(new GravityVector(10f, new Vector3(0f, -1.0f, 0f)));
+
+            CameraBody = new CameraBody(theBlob);
+            physics.AddBody(CameraBody);
 
 			if (currentArea != null)
 			{
@@ -768,7 +773,10 @@ namespace Project_blob.GameState
 					cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
 					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
 					//cameraPosition = theBlob.getCenter() + Offset;
-					CameraManager.getSingleton.ActiveCamera.Position = theBlob.getCenter() + Offset;
+					//CameraManager.getSingleton.ActiveCamera.Position = theBlob.getCenter() + Offset;
+
+                    CameraBody.setCameraOffset(Offset);
+                    CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
 
 					// new Vector3(10, 10, 20)
 					/*if (OrientCamera)

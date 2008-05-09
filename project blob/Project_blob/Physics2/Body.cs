@@ -7,22 +7,22 @@ namespace Physics2
 	public class Body
 	{
 
-		public IList<PhysicsPoint> points = new List<PhysicsPoint>();
-		public IList<Collidable> collidables = new List<Collidable>();
-		public IList<Spring> springs = new List<Spring>();
-		public IList<Task> tasks = new List<Task>();
+		protected internal IList<PhysicsPoint> points = new List<PhysicsPoint>();
+        protected internal IList<Collidable> collidables = new List<Collidable>();
+        protected internal IList<Spring> springs = new List<Spring>();
+        protected internal IList<Task> tasks = new List<Task>();
 
-		public Body parentBody = null;
-		public IList<Body> childBodies = new List<Body>();
+        internal Body parentBody = null;
+        internal IList<Body> childBodies = new List<Body>();
 
-		public AxisAlignedBoundingBox boundingBox = null;
+        internal AxisAlignedBoundingBox boundingBox = null;
 
-		public Vector3 center;
-		public Vector3 potentialCenter;
+        internal Vector3 center;
+        internal Vector3 potentialCenter;
 
 		protected Material material = Material.getDefaultMaterial();
 
-		internal Body() { }
+		protected internal Body() { }
 
 		public Body(Body ParentBody)
 		{
@@ -81,6 +81,11 @@ namespace Physics2
 			childBodies.Add(childBody);
 		}
 
+        public void addTask(Task t)
+        {
+            tasks.Add(t);
+        }
+
 		public virtual bool isStatic()
 		{
 			return false;
@@ -106,17 +111,17 @@ namespace Physics2
 			return potentialCenter;
 		}
 
-		public virtual IEnumerable<Collidable> getCollidables()
+		public virtual IList<Collidable> getCollidables()
 		{
 			return collidables;
 		}
 
-		public virtual IEnumerable<PhysicsPoint> getPoints()
+		public virtual IList<PhysicsPoint> getPoints()
 		{
 			return points;
 		}
 
-		public virtual IEnumerable<Spring> getSprings()
+		public virtual IList<Spring> getSprings()
 		{
 			return springs;
 		}
@@ -203,7 +208,7 @@ namespace Physics2
 
 		}
 
-		internal virtual void SolveForNextPosition(float TotalElapsedSeconds)
+		protected internal virtual void SolveForNextPosition(float TotalElapsedSeconds)
 		{
 
 			foreach (Body child in childBodies)

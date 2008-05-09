@@ -30,7 +30,7 @@ namespace Physics2
 		public Vector3 ExternalPosition = Vector3.Zero;
 		public Vector3 ExternalVelocity = Vector3.Zero;
 
-		internal Vector3 CurrentPosition = Vector3.Zero;
+		public Vector3 CurrentPosition = Vector3.Zero;
 		internal Vector3 CurrentVelocity = Vector3.Zero;
 
 		public Vector3 PotentialPosition = Vector3.Zero;
