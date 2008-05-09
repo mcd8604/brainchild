@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-    [Serializable]
+	[Serializable]
 	public class TaskKeyFrameMovement : Task
 	{
 
@@ -54,7 +54,7 @@ namespace Physics2
 			currentTime += time;
 
 			KeyFrame currentFrame = null;
-			KeyFrame targetFrame= null;
+			KeyFrame targetFrame = null;
 
 			switch (mode)
 			{
@@ -82,9 +82,9 @@ namespace Physics2
 
 			float timeDiff = Math.Abs(targetFrame.Time - currentFrame.Time);
 
-			Vector3 newPosition = Vector3.Lerp(currentFrame.Position, targetFrame.Position, MathHelper.Clamp(timeDiff / currentTime, 0, 1));
+			Vector3 newPosition = Vector3.Lerp(currentFrame.Position, targetFrame.Position, MathHelper.Clamp(currentTime / timeDiff, 0, 1));
 
-			if (timeDiff > currentTime)
+			if (currentTime > timeDiff)
 			{
 				switch (mode)
 				{
@@ -97,6 +97,10 @@ namespace Physics2
 						break;
 					case Modes.Loop:
 						++currentIndex;
+						if (frames.Count - currentIndex <= 1)
+						{
+							currentIndex = 0;
+						}
 						break;
 					case Modes.Mirror:
 						if (forward)
@@ -120,10 +124,7 @@ namespace Physics2
 				currentTime = 0f;
 			}
 
-			foreach (PhysicsPoint p in b.points)
-			{
-				p.PotentialPosition = newPosition;
-			}
+			b.setCenter(newPosition);
 		}
 
 	}
