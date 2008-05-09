@@ -73,7 +73,8 @@ namespace Physics2
 
             foreach (PhysicsPoint p in b.points)
             {
-                p.PotentialPosition = p.CurrentPosition + delta;
+                // hack
+                p.CurrentPosition = p.CurrentPosition + delta;
             }
         }
     }
