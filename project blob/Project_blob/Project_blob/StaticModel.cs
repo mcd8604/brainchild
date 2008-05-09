@@ -227,6 +227,8 @@ namespace Project_blob
             updateTransform();
 
 			Model m = ModelManager.getSingleton.GetModel(_modelName);
+
+			// Object reference not set to instance of an object.
 			ModelMesh mesh = m.Meshes[0];
 			ModelMeshPart part = mesh.MeshParts[0];
 
