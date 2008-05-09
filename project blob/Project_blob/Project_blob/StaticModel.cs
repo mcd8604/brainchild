@@ -14,63 +14,64 @@ using System.Runtime.Serialization;
 
 namespace Project_blob
 {
-    [Serializable]
-    public class StaticModel : Drawable
-    {
-        private String _modelName;
+	[Serializable]
+	public class StaticModel : Drawable
+	{
+		private String _modelName;
 
-        private String _audioName;
-        public String AudioName
-        {
-            get { return _audioName; }
-            set { _audioName = value; }
-        }
+		private String _audioName;
+		public String AudioName
+		{
+			get { return _audioName; }
+			set { _audioName = value; }
+		}
 
-        private TextureInfo m_TextureKey;
-        public TextureInfo TextureKey
-        {
-            get { return m_TextureKey; }
-            set { m_TextureKey = value; updateTextureCoords(); }
-        }
+		private TextureInfo m_TextureKey;
+		public TextureInfo TextureKey
+		{
+			get { return m_TextureKey; }
+			set { m_TextureKey = value; updateTextureCoords(); }
+		}
 
-        private bool m_RepeatingTexture = false;
-        public bool RepeatingTexture
-        {
-            get
-            {
-                return m_RepeatingTexture;
-            }
-            set
-            {
-                m_RepeatingTexture = value;
+		private bool m_RepeatingTexture = false;
+		public bool RepeatingTexture
+		{
+			get
+			{
+				return m_RepeatingTexture;
+			}
+			set
+			{
+				m_RepeatingTexture = value;
 				updateTextureCoords();
-            }
-        }
-        private float m_TextureScaleX = 1f;
-        public float TextureScaleX {
-            get
-            {
-                return m_TextureScaleX;
-            }
-            set
-            {
-                m_TextureScaleX = value;
+			}
+		}
+		private float m_TextureScaleX = 1f;
+		public float TextureScaleX
+		{
+			get
+			{
+				return m_TextureScaleX;
+			}
+			set
+			{
+				m_TextureScaleX = value;
 				updateTextureCoords();
-            }
-        }
-        private float m_TextureScaleY = 1f;
-        public float TextureScaleY
-        {
-            get
-            {
-                return m_TextureScaleY;
-            }
-            set
-            {
-                m_TextureScaleY = value;
+			}
+		}
+		private float m_TextureScaleY = 1f;
+		public float TextureScaleY
+		{
+			get
+			{
+				return m_TextureScaleY;
+			}
+			set
+			{
+				m_TextureScaleY = value;
 				updateTextureCoords();
-            }
-        }
+			}
+		}
 
 		private float m_TextureOffsetX = 0f;
 		public float TextureOffsetX
@@ -99,38 +100,38 @@ namespace Project_blob
 			}
 		}
 
-        /*public void updateVertexBuffer()
-        {
-            Model m = ModelManager.getSingleton.GetModel(_modelName);
-            if (m != null)
-            {
-                foreach (ModelMesh mesh in m.Meshes)
-                {
-                    m_VertexBuffers = new Dictionary<String, VertexBuffer>();
+		/*public void updateVertexBuffer()
+		{
+			Model m = ModelManager.getSingleton.GetModel(_modelName);
+			if (m != null)
+			{
+				foreach (ModelMesh mesh in m.Meshes)
+				{
+					m_VertexBuffers = new Dictionary<String, VertexBuffer>();
 
-                    // Vertices
-                    int numVertices = 0;
-                    foreach (ModelMeshPart part in mesh.MeshParts)
-                    {
-                        numVertices += part.NumVertices;
-                    }
+					// Vertices
+					int numVertices = 0;
+					foreach (ModelMeshPart part in mesh.MeshParts)
+					{
+						numVertices += part.NumVertices;
+					}
 
-                    VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
-                    mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+					VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[numVertices];
+					mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
-                    if (m_RepeatingTexture)
-                    {
-                        //scaleVector used to scale texture coordinates
-                        Vector3 scaleVector = Vector3.Zero;
-                        Quaternion rotVector = Quaternion.Identity;
-                        Vector3 transVector = Vector3.Zero;
-                        m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
+					if (m_RepeatingTexture)
+					{
+						//scaleVector used to scale texture coordinates
+						Vector3 scaleVector = Vector3.Zero;
+						Quaternion rotVector = Quaternion.Identity;
+						Vector3 transVector = Vector3.Zero;
+						m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
 
-                        Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+						Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
 
-                        for (int i = 0; i < vertices.Length; i++)
-                        {
-                            //scale the texture coordinates
+						for (int i = 0; i < vertices.Length; i++)
+						{
+							//scale the texture coordinates
 							if (vertices[i].Normal.Equals(Vector3.Up))
 							{
 								vertices[i].TextureCoordinate.X *= (scaleVector.X / (m_TextureScaleX * texture.Width));
@@ -161,16 +162,16 @@ namespace Project_blob
 								//vertices[i].TextureCoordinate.X *= (scaleVector.Y/ (m_TextureScaleX * texture.Width));
 								//vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (m_TextureScaleY * texture.Height));
 							}
-                        }
-                    }
-                    m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
-                    m_VertexBuffers[mesh.Name].SetData<VertexPositionNormalTexture>(vertices);
-                }
-            }
-        }*/
+						}
+					}
+					m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
+					m_VertexBuffers[mesh.Name].SetData<VertexPositionNormalTexture>(vertices);
+				}
+			}
+		}*/
 
-        private BoundingBox m_BoundingBox;
-        //private BoundingSphere m_BoundingSphere;
+		private BoundingBox m_BoundingBox;
+		//private BoundingSphere m_BoundingSphere;
 
 		public BoundingBox GetBoundingBox()
 		{
@@ -223,12 +224,12 @@ namespace Project_blob
 
 		//supports one Mesh per Model
 		public void initialize()
-        {
-            updateTransform();
+		{
+			updateTransform();
 
 			Model m = ModelManager.getSingleton.GetModel(_modelName);
 
-			// Object reference not set to instance of an object.
+			// Crash: Object reference not set to instance of an object.
 			ModelMesh mesh = m.Meshes[0];
 			ModelMeshPart part = mesh.MeshParts[0];
 
@@ -246,55 +247,55 @@ namespace Project_blob
 
 			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
 			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
-            updateVertexBuffer(vertices);
+			updateVertexBuffer(vertices);
 		}
 
 		public void updateVertexBuffer(VertexPositionNormalTexture[] vertices)
 		{
-            // Crash: Invalid Operation Exception was unhandled
+			// Crash: Invalid Operation Exception was unhandled
 			m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
-        }
+		}
 
-        public VertexPositionNormalTexture[] getVertices()
-        {
-            VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
-            if (m_VertexBuffer != null)
-            {
-                m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
-                m_VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
-            }
-            return vertices;
-        }
+		public VertexPositionNormalTexture[] getVertices()
+		{
+			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
+			if (m_VertexBuffer != null)
+			{
+				m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
+				m_VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+			}
+			return vertices;
+		}
 
 		public void updateTextureCoords()
 		{
 			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
-            Model m = ModelManager.getSingleton.GetModel(this.ModelName);
-            if (m != null)
-            {
-                m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+			Model m = ModelManager.getSingleton.GetModel(this.ModelName);
+			if (m != null)
+			{
+				m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
-                if (m_RepeatingTexture)
-                {
-                    //scaleVector used to scale texture coordinates
-                    Vector3 scaleVector = Vector3.Zero;
-                    Quaternion rotVector = Quaternion.Identity;
-                    Vector3 transVector = Vector3.Zero;
-                    m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
+				if (m_RepeatingTexture)
+				{
+					//scaleVector used to scale texture coordinates
+					Vector3 scaleVector = Vector3.Zero;
+					Quaternion rotVector = Quaternion.Identity;
+					Vector3 transVector = Vector3.Zero;
+					m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
 
-                    Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+					Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
 
-                    for (int i = 0; i < vertices.Length; i++)
-                    {
-                        //scale the texture coordinates
+					for (int i = 0; i < vertices.Length; i++)
+					{
+						//scale the texture coordinates
 						vertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
 						vertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
-                    }
-                }
-                m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
-                m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
-                m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
-            }
+					}
+				}
+				m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
+				m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+				m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
+			}
 		}
 
 		/*
@@ -421,91 +422,91 @@ namespace Project_blob
             return collidables;
         }*/
 
-        public String getName()
-        {
-            return m_Name;
-        }
+		public String getName()
+		{
+			return m_Name;
+		}
 
-        private String _textureName;
-        public String TextureName
-        {
-            get
-            {
-                return _textureName;
-            }
-            set
-            {
-                _textureName = value;
-            }
-        }
+		private String _textureName;
+		public String TextureName
+		{
+			get
+			{
+				return _textureName;
+			}
+			set
+			{
+				_textureName = value;
+			}
+		}
 
-        private String m_Name;
-        public String Name
-        {
-            get
-            {
-                return m_Name;
-            }
-            set
-            {
-                m_Name = value;
-            }
-        }
+		private String m_Name;
+		public String Name
+		{
+			get
+			{
+				return m_Name;
+			}
+			set
+			{
+				m_Name = value;
+			}
+		}
 
-        Matrix m_Position, m_Rotation, m_Scale;
+		Matrix m_Position, m_Rotation, m_Scale;
 
-        //priority for translation, rotation, and scale
-        //index 0 = translation
-        //index 1 = rotation
-        //index 2 = scale
-        int[] m_PriorityArray = new int[3];
+		//priority for translation, rotation, and scale
+		//index 0 = translation
+		//index 1 = rotation
+		//index 2 = scale
+		int[] m_PriorityArray = new int[3];
 
-        public int[] PriorityArray
-        {
-            get
-            {
-                return m_PriorityArray;
-            }
-            set
-            {
-                m_PriorityArray = value;
-            }
-        }
-        public int TranslationPriority
-        {
-            get
-            {
-                return m_PriorityArray[0];
-            }
-            set
-            {
-                m_PriorityArray[0] = value;
-            }
-        }
+		public int[] PriorityArray
+		{
+			get
+			{
+				return m_PriorityArray;
+			}
+			set
+			{
+				m_PriorityArray = value;
+			}
+		}
+		public int TranslationPriority
+		{
+			get
+			{
+				return m_PriorityArray[0];
+			}
+			set
+			{
+				m_PriorityArray[0] = value;
+			}
+		}
 
-        public int RotationPriority
-        {
-            get
-            {
-                return m_PriorityArray[1];
-            }
-            set
-            {
-                m_PriorityArray[1] = value;
-            }
-        }
+		public int RotationPriority
+		{
+			get
+			{
+				return m_PriorityArray[1];
+			}
+			set
+			{
+				m_PriorityArray[1] = value;
+			}
+		}
 
-        public int ScalePriority
-        {
-            get
-            {
-                return m_PriorityArray[2];
-            }
-            set
-            {
-                m_PriorityArray[2] = value;
-            }
-        }
+		public int ScalePriority
+		{
+			get
+			{
+				return m_PriorityArray[2];
+			}
+			set
+			{
+				m_PriorityArray[2] = value;
+			}
+		}
 
 		public Matrix Position
 		{
@@ -560,9 +561,9 @@ namespace Project_blob
 		{
 			m_Transform = Matrix.Identity;
 			Stack<Matrix> drawStack = new Stack<Matrix>();
-            for (int i = 0; i < 3; i++)
-            {
-                switch (m_PriorityArray[i])
+			for (int i = 0; i < 3; i++)
+			{
+				switch (m_PriorityArray[i])
 				{
 					case 0:
 						if (this.Position != null)
@@ -587,80 +588,80 @@ namespace Project_blob
 			}
 		}
 
-        public String ModelName
-        {
-            get
-            {
-                return _modelName;
-            }
-            set
-            {
-                _modelName = value;
-            }
-        }
-
-        bool m_ShowVertices = false;
-        public bool ShowVertices
-        {
-            get
-            {
-                return m_ShowVertices;
-            }
-            set
-            {
-                m_ShowVertices = value;
-            }
-        }
-
-		private List<short> _rooms;
-        public List<short> Rooms
+		public String ModelName
 		{
-            get { return _rooms; }
-            set { _rooms = value; }
-		}
-        public void AddRoom(short room)
-		{
-            if (_rooms == null)
-            {
-                _rooms = new List<short>();
-            }
-            if (!_rooms.Contains(room))
+			get
 			{
-                _rooms.Add(room);
+				return _modelName;
+			}
+			set
+			{
+				_modelName = value;
 			}
 		}
-        public void RemoveRoom(short room)
+
+		bool m_ShowVertices = false;
+		public bool ShowVertices
 		{
-            _rooms.Remove(room);
+			get
+			{
+				return m_ShowVertices;
+			}
+			set
+			{
+				m_ShowVertices = value;
+			}
 		}
 
-        public StaticModel() { }
+		private List<short> _rooms;
+		public List<short> Rooms
+		{
+			get { return _rooms; }
+			set { _rooms = value; }
+		}
+		public void AddRoom(short room)
+		{
+			if (_rooms == null)
+			{
+				_rooms = new List<short>();
+			}
+			if (!_rooms.Contains(room))
+			{
+				_rooms.Add(room);
+			}
+		}
+		public void RemoveRoom(short room)
+		{
+			_rooms.Remove(room);
+		}
 
-        public StaticModel(StaticModel p_Model) 
-        {
-            /*foreach (System.Reflection.PropertyInfo p in p_Model.GetType().GetProperties())
-            {
+		public StaticModel() { }
+
+		public StaticModel(StaticModel p_Model)
+		{
+			/*foreach (System.Reflection.PropertyInfo p in p_Model.GetType().GetProperties())
+			{
          
-            }*/
-            this._audioName = p_Model.AudioName;
-            this._modelName = p_Model.ModelName;
-            this.m_Name= p_Model.Name;
-            this.m_Position = p_Model.Position;
-            this.m_PriorityArray = p_Model.PriorityArray;
-            this.m_RepeatingTexture = p_Model.RepeatingTexture;
-            this._rooms = p_Model.Rooms;
-            this.m_Rotation = p_Model.Rotation;
-            this.RotationPriority = p_Model.RotationPriority;
-            this.m_Scale = p_Model.Scale;
-            this.ScalePriority = p_Model.ScalePriority;
-            this.m_ShowVertices = p_Model.ShowVertices;
-            this.m_TextureKey = p_Model.TextureKey;
-            this._textureName = p_Model.TextureName;
-            this.m_TextureScaleX = p_Model.TextureScaleX;
-            this.m_TextureScaleY = p_Model.TextureScaleY;
-            this.TranslationPriority = p_Model.TranslationPriority;
-            initialize();
-        }
+			}*/
+			this._audioName = p_Model.AudioName;
+			this._modelName = p_Model.ModelName;
+			this.m_Name = p_Model.Name;
+			this.m_Position = p_Model.Position;
+			this.m_PriorityArray = p_Model.PriorityArray;
+			this.m_RepeatingTexture = p_Model.RepeatingTexture;
+			this._rooms = p_Model.Rooms;
+			this.m_Rotation = p_Model.Rotation;
+			this.RotationPriority = p_Model.RotationPriority;
+			this.m_Scale = p_Model.Scale;
+			this.ScalePriority = p_Model.ScalePriority;
+			this.m_ShowVertices = p_Model.ShowVertices;
+			this.m_TextureKey = p_Model.TextureKey;
+			this._textureName = p_Model.TextureName;
+			this.m_TextureScaleX = p_Model.TextureScaleX;
+			this.m_TextureScaleY = p_Model.TextureScaleY;
+			this.TranslationPriority = p_Model.TranslationPriority;
+			initialize();
+		}
 
 		/// <summary>
 		/// Deserialization constructor.
@@ -672,41 +673,41 @@ namespace Project_blob
 			updateTransform();
 		}
 
-        public StaticModel(String p_Name, String fileName, String audioName, List<short> rooms)
-        {
-            m_Name = p_Name;
-            _modelName = fileName;
-            _audioName = audioName;
-            TranslationPriority = 2;
-            RotationPriority = 1;
-            ScalePriority = 0;
+		public StaticModel(String p_Name, String fileName, String audioName, List<short> rooms)
+		{
+			m_Name = p_Name;
+			_modelName = fileName;
+			_audioName = audioName;
+			TranslationPriority = 2;
+			RotationPriority = 1;
+			ScalePriority = 0;
 
-            _rooms = rooms;
+			_rooms = rooms;
 
-            m_Position = Matrix.CreateTranslation( Vector3.Zero );
-            m_Rotation = Matrix.CreateRotationZ( 0 );
-            m_Scale = Matrix.CreateScale( 1 );
+			m_Position = Matrix.CreateTranslation(Vector3.Zero);
+			m_Rotation = Matrix.CreateRotationZ(0);
+			m_Scale = Matrix.CreateScale(1);
 
-            m_TextureKey = null;
-        }
+			m_TextureKey = null;
+		}
 
-        public StaticModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms)
-        {
-            m_Name = p_Name;
-            _modelName = fileName;
-            _audioName = audioName;
-            TranslationPriority = 2;
-            RotationPriority = 1;
-            ScalePriority = 0;
+		public StaticModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms)
+		{
+			m_Name = p_Name;
+			_modelName = fileName;
+			_audioName = audioName;
+			TranslationPriority = 2;
+			RotationPriority = 1;
+			ScalePriority = 0;
 
-            _rooms = rooms;
+			_rooms = rooms;
 
-            m_Position = Matrix.CreateTranslation(Vector3.Zero);
-            m_Rotation = Matrix.CreateRotationZ(0);
-            m_Scale = Matrix.CreateScale(1);
+			m_Position = Matrix.CreateTranslation(Vector3.Zero);
+			m_Rotation = Matrix.CreateRotationZ(0);
+			m_Scale = Matrix.CreateScale(1);
 
-            m_TextureKey = p_TextureKey;
-        }
+			m_TextureKey = p_TextureKey;
+		}
 
 		public virtual void DrawMe() { }
 
@@ -766,17 +767,17 @@ namespace Project_blob
 			}
 		}*/
 
-        #region Drawable Members
+		#region Drawable Members
 
 
-        public TextureInfo GetTextureKey()
-        {
-            return m_TextureKey;
-        }
+		public TextureInfo GetTextureKey()
+		{
+			return m_TextureKey;
+		}
 
 
-        /*public BoundingBox GetBoundingBox()
-        {
+		/*public BoundingBox GetBoundingBox()
+		{
 			if (m_BoundingSphere.Radius == 0)
 			{
 				Model m = ModelManager.getSingleton.GetModel(_modelName);
@@ -790,44 +791,44 @@ namespace Project_blob
 				}
 			}
 
-            Matrix transformMatrix = Matrix.Identity;
-            Stack<Matrix> drawStack = new Stack<Matrix>();
-            for (int j = 0; j < 4; j++)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (m_PriorityArray[i] == j)
-                    {
-                        switch (i)
-                        {
-                            case 0:
-                                if (this.Position != null)
-                                    drawStack.Push(this.Position);
-                                break;
-                            case 1:
-                                if (this.Rotation != null)
-                                    drawStack.Push(this.Rotation);
-                                break;
-                            case 2:
-                                if (this.Scale != null)
-                                    drawStack.Push(this.Scale);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
-            }
+			Matrix transformMatrix = Matrix.Identity;
+			Stack<Matrix> drawStack = new Stack<Matrix>();
+			for (int j = 0; j < 4; j++)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					if (m_PriorityArray[i] == j)
+					{
+						switch (i)
+						{
+							case 0:
+								if (this.Position != null)
+									drawStack.Push(this.Position);
+								break;
+							case 1:
+								if (this.Rotation != null)
+									drawStack.Push(this.Rotation);
+								break;
+							case 2:
+								if (this.Scale != null)
+									drawStack.Push(this.Scale);
+								break;
+							default:
+								break;
+						}
+					}
+				}
+			}
 
-            while (drawStack.Count > 0)
-            {
-                transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
-            }
-            Vector3 min = m_BoundingBox.Min;
-            Vector3 max = m_BoundingBox.Max;
+			while (drawStack.Count > 0)
+			{
+				transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
+			}
+			Vector3 min = m_BoundingBox.Min;
+			Vector3 max = m_BoundingBox.Max;
 
-            min = Vector3.Transform(min, transformMatrix);
-            max = Vector3.Transform(max, transformMatrix);
+			min = Vector3.Transform(min, transformMatrix);
+			max = Vector3.Transform(max, transformMatrix);
 
 			if (min.X > max.X)
 			{
@@ -853,8 +854,8 @@ namespace Project_blob
 				throw new Exception("Min GREATER than Max!!!");
 			}
 
-            return new BoundingBox(min, max) ;
-        }*/
+			return new BoundingBox(min, max) ;
+		}*/
 
 
 		//public BoundingSphere GetBoundingSphere()
@@ -898,6 +899,6 @@ namespace Project_blob
 		//    throw new Exception("Fix This");
 		//    //return m_BoundingSphere;
 		//}
-    }
-#endregion
+	}
+		#endregion
 }

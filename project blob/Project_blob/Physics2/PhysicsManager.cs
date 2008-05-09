@@ -4,8 +4,7 @@ namespace Physics2
 {
 	public abstract class PhysicsManager
 	{
-
-        public enum ParallelSetting { Always, Automatic, Never };
+		public enum ParallelSetting { Always, Automatic, Never };
 
 		public static ParallelSetting enableParallel = ParallelSetting.Never;
 
@@ -19,53 +18,55 @@ namespace Physics2
 		/// </summary>
 		public float physicsMultiplier = 1f;
 
-        public static PhysicsManager getInstance()
-        {
-            switch (enableParallel)
-            {
-                case ParallelSetting.Always:
-                    return new PhysicsParallel();
-                case ParallelSetting.Automatic:
-                    if (System.Environment.ProcessorCount > 1)
-                    {
-                        return new PhysicsParallel();
-                    }
-                    else
-                    {
-                        return new PhysicsSeq();
-                    }
-            }
-            return new PhysicsSeq();
-        }
+		public static PhysicsManager getInstance()
+		{
+			switch (enableParallel)
+			{
+				case ParallelSetting.Always:
+					return new PhysicsParallel();
+				case ParallelSetting.Automatic:
+					if (System.Environment.ProcessorCount > 1)
+					{
+						return new PhysicsParallel();
+					}
+					else
+					{
+						return new PhysicsSeq();
+					}
+			}
+			return new PhysicsSeq();
+		}
 
-        public abstract float PWR
-        {
-            get;
-        }
+		public abstract float AirFriction
+		{
+			get;
+			set;
+		}
 
-        public abstract int DEBUG_GetNumCollidables();
+		public abstract Player Player
+		{
+			get;
+		}
 
-        public abstract float AirFriction
-        {
-            get;
-            set;
-        }
+		public abstract void AddBody(Body b);
+		public abstract void AddBodys(IEnumerable<Body> b);
 
-        public abstract Player Player
-        {
-            get;
-        }
+		/// <summary>
+		/// Request that physics move all the objects ahead by some increment of time.
+		/// </summary>
+		/// <param name="TotalElapsedSeconds">The amount of time.</param>
+		public abstract void update(float TotalElapsedSeconds);
 
-        public abstract void AddBody(Body b);
-        public abstract void AddBodys(IEnumerable<Body> b);
+		public abstract void stop();
 
-        /// <summary>
-        /// Request that physics move all the objects ahead by some increment of time.
-        /// </summary>
-        /// <param name="TotalElapsedSeconds">The amount of time.</param>
-        public abstract void update(float TotalElapsedSeconds);
+#if DEBUG
+		public abstract int DEBUG_GetNumCollidables();
 
-        public abstract void stop();
+		public abstract float PWR
+		{
+			get;
+		}
+#endif
 
 	}
 }

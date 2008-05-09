@@ -6,29 +6,29 @@ using System.Runtime.Serialization;
 
 namespace Project_blob
 {
-    [Serializable]
-    public class DynamicModel : StaticModel
-    {
-        private List<Task> m_Tasks;
-        public List<Task> Tasks
-        {
-            get
-            {
-                return m_Tasks;
-            }
-            set
-            {
-                m_Tasks = value;
-            }
-        }
+	[Serializable]
+	public class DynamicModel : StaticModel
+	{
+		private List<Task> m_Tasks;
+		public List<Task> Tasks
+		{
+			get
+			{
+				return m_Tasks;
+			}
+			set
+			{
+				m_Tasks = value;
+			}
+		}
 
-        public DynamicModel() { }
+		public DynamicModel() { }
 
-        public DynamicModel(StaticModel p_Model)
-            : base(p_Model)
-        {
-            m_Tasks = new List<Task>();
-        }
+		public DynamicModel(StaticModel p_Model)
+			: base(p_Model)
+		{
+			m_Tasks = new List<Task>();
+		}
 
 
 		/// <summary>
@@ -36,13 +36,13 @@ namespace Project_blob
 		/// </summary>
 		/// <param name="info"></param>
 		/// <param name="ctxt"></param>
-        public DynamicModel(SerializationInfo info, StreamingContext ctxt) { }
+		public DynamicModel(SerializationInfo info, StreamingContext ctxt) { }
 
-        public DynamicModel(String p_Name, String fileName, String audioName, List<short> rooms) 
-            : base(p_Name, fileName, audioName, rooms) { }
+		public DynamicModel(String p_Name, String fileName, String audioName, List<short> rooms)
+			: base(p_Name, fileName, audioName, rooms) { }
 
-        public DynamicModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms) 
-            : base(p_Name, fileName, audioName, p_TextureKey, rooms) { }
+		public DynamicModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms)
+			: base(p_Name, fileName, audioName, p_TextureKey, rooms) { }
 
-    }
+	}
 }

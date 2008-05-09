@@ -17,18 +17,18 @@ namespace Project_blob
 
 		private Dictionary<String, EventTrigger> _events;
 
-        private List<Portal> _portals = new List<Portal>();
-        public List<Portal> Portals
-        {
-            get
-            {
-                return _portals;
-            }
-            set
-            {
-                _portals = value;
-            }
-        }
+		private List<Portal> _portals = new List<Portal>();
+		public List<Portal> Portals
+		{
+			get
+			{
+				return _portals;
+			}
+			set
+			{
+				_portals = value;
+			}
+		}
 
 		public Display Display
 		{
@@ -61,7 +61,7 @@ namespace Project_blob
 			_display = new Display(worldMatrix, effectName, worldParameterName, textureParameterName, techniqueName);
 			_drawables = new Dictionary<String, Drawable>();
 			_events = new Dictionary<String, EventTrigger>();
-            _portals = new List<Portal>();
+			_portals = new List<Portal>();
 		}
 
 		public Drawable GetDrawable(String drawableName)
@@ -145,7 +145,7 @@ namespace Project_blob
 			{
 				_events.Add(eventName, eventTrigger);
 			}
-        }
+		}
 
 		[NonSerialized]
 		private List<Physics2.Body> m_Bodies = new List<Physics2.Body>();
@@ -176,8 +176,8 @@ namespace Project_blob
 
 			//load level models
 			ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
-            foreach (Drawable d in this.Drawables.Values)
-            {
+			foreach (Drawable d in this.Drawables.Values)
+			{
 				if (d is StaticModel)
 				{
 					StaticModel dm = (StaticModel)d;
@@ -282,109 +282,109 @@ namespace Project_blob
 						}
 					}
 
-                    // generate collidables & physics body
+					// generate collidables & physics body
 
-                    dm.getVertexBuffer().GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
+					dm.getVertexBuffer().GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
 
-                    VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[dm.NumVertices];
-                    dm.getVertexBuffer().GetData<VertexPositionNormalTexture>(vertices);
+					VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[dm.NumVertices];
+					dm.getVertexBuffer().GetData<VertexPositionNormalTexture>(vertices);
 
-                    for (int i = 0; i < vertices.Length; i++)
-                    {
-                        //transform points to correct position
-                        vertices[i].Position = Vector3.Transform(vertices[i].Position, dm.Transform);
-                        vertices[i].Normal = Vector3.TransformNormal(vertices[i].Normal, dm.Transform);
-                    }
+					for (int i = 0; i < vertices.Length; i++)
+					{
+						//transform points to correct position
+						vertices[i].Position = Vector3.Transform(vertices[i].Position, dm.Transform);
+						vertices[i].Normal = Vector3.TransformNormal(vertices[i].Normal, dm.Transform);
+					}
 
-                    // Indices
-                    int[] indices;
-                    if (dm.getIndexBuffer().IndexElementSize == IndexElementSize.SixteenBits)
-                    {
-                        indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
-                        short[] temp = new short[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
-                        dm.getIndexBuffer().GetData<short>(temp);
-                        for (int i = 0; i < temp.Length; i++)
-                            indices[i] = temp[i];
-                    }
-                    else
-                    {
-                        indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 32];
-                        dm.getIndexBuffer().GetData<int>(indices);
-                    }
+					// Indices
+					int[] indices;
+					if (dm.getIndexBuffer().IndexElementSize == IndexElementSize.SixteenBits)
+					{
+						indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
+						short[] temp = new short[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
+						dm.getIndexBuffer().GetData<short>(temp);
+						for (int i = 0; i < temp.Length; i++)
+							indices[i] = temp[i];
+					}
+					else
+					{
+						indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 32];
+						dm.getIndexBuffer().GetData<int>(indices);
+					}
 
-                    Physics2.Body body = null;
+					Physics2.Body body = null;
 
 					if (!(dm is DynamicModel))
-                    {
-                        // temporary
-                        bool eventtrigger = false;
-                        bool speed = false;
+					{
+						// temporary
+						bool eventtrigger = false;
+						bool speed = false;
 
-                        List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
-                        int numCol = 0;
-                        for (int i = 0; i < indices.Length; i += 3)
-                        {
-                            if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
-                            {
-                                if (dm.TextureKey.TextureName.Equals("event"))
-                                {
-                                    //collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
-                                    eventtrigger = true;
-                                }  
- 
-                                collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+						List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
+						int numCol = 0;
+						for (int i = 0; i < indices.Length; i += 3)
+						{
+							if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
+							{
+								if (dm.TextureKey.TextureName.Equals("event"))
+								{
+									//collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
+									eventtrigger = true;
+								}
 
-                                 if (dm.TextureKey.TextureName.Equals("speed"))
-                                {
-                                    speed = true;
-                                }
-                                
-                                numCol++;
-                            }
-                        }
-                        if (eventtrigger)
-                        {
-                            body = new TriggerStatic(collidables, null, Events[dm.Name]);
-                        }
-                        else if (dm is ConveyerBeltStatic)
-                        {
+								collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+
+								if (dm.TextureKey.TextureName.Equals("speed"))
+								{
+									speed = true;
+								}
+
+								numCol++;
+							}
+						}
+						if (eventtrigger)
+						{
+							body = new TriggerStatic(collidables, null, Events[dm.Name]);
+						}
+						else if (dm is ConveyerBeltStatic)
+						{
 							body = new BodyStaticConveyerBelt(collidables, null);
 							((BodyStaticConveyerBelt)body).Direction = ((ConveyerBeltStatic)dm).Direction;
 							((BodyStaticConveyerBelt)body).Speed = ((ConveyerBeltStatic)dm).Speed;
-                        }
-                            else if (speed)
-                        {
-                            body = new SpeedStatic(collidables, null);
-                        }
-                        else
-                        {
-                            body = new BodyStatic(collidables, null);
-                        }
-                    }
-                    else
-                    {
-                        DynamicModel dynModel = (DynamicModel)dm;
+						}
+						else if (speed)
+						{
+							body = new SpeedStatic(collidables, null);
+						}
+						else
+						{
+							body = new BodyStatic(collidables, null);
+						}
+					}
+					else
+					{
+						DynamicModel dynModel = (DynamicModel)dm;
 
-                        List<PhysicsPoint> points = new List<PhysicsPoint>();
-                        for (int i = 0; i < vertices.Length; i++)
-                        {
-                            points.Add(new PhysicsPoint(vertices[i].Position, null));
-                        }
+						List<PhysicsPoint> points = new List<PhysicsPoint>();
+						for (int i = 0; i < vertices.Length; i++)
+						{
+							points.Add(new PhysicsPoint(vertices[i].Position, null));
+						}
 
-                        List<Physics2.Collidable> collidables = new List<Physics2.Collidable>();
-                        int numCol = 0;
-                        for (int i = 0; i < indices.Length; i += 3)
-                        {
-                            if (points[indices[i]].ExternalPosition != points[indices[i + 1]].ExternalPosition && points[indices[i + 2]].ExternalPosition != points[indices[i]].ExternalPosition && points[indices[i + 1]].ExternalPosition != points[indices[i + 2]].ExternalPosition)
-                            {
-                                collidables.Add(new Physics2.CollidableTri(points[indices[i + 2]], points[indices[i + 1]], points[indices[i]]));
-                                numCol++;
-                            }
-                        }
+						List<Physics2.Collidable> collidables = new List<Physics2.Collidable>();
+						int numCol = 0;
+						for (int i = 0; i < indices.Length; i += 3)
+						{
+							if (points[indices[i]].ExternalPosition != points[indices[i + 1]].ExternalPosition && points[indices[i + 2]].ExternalPosition != points[indices[i]].ExternalPosition && points[indices[i + 1]].ExternalPosition != points[indices[i + 2]].ExternalPosition)
+							{
+								collidables.Add(new Physics2.CollidableTri(points[indices[i + 2]], points[indices[i + 1]], points[indices[i]]));
+								numCol++;
+							}
+						}
 
-                        body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
-                    }
-                    dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
+						body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
+					}
+					dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
 
 					Material sticky = new Material(2.0f, 2.0f);
 					Material slick = new Material(0.1f, 0.1f);
@@ -406,7 +406,7 @@ namespace Project_blob
 					}
 
 					body.setMaterial(m);
-					this.m_Bodies.Add(body); 
+					this.m_Bodies.Add(body);
 				}
 			}
 		}

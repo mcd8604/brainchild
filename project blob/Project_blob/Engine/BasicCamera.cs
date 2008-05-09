@@ -5,29 +5,29 @@ using Microsoft.Xna.Framework;
 
 namespace Engine
 {
-    public class BasicCamera : Camera
-    {        
-        public BasicCamera()
-        {
+	public class BasicCamera : Camera
+	{
+		public BasicCamera()
+		{
 
-        }
+		}
 
-        public override void Update(GameTime gameTime)
-        {
-            UpdateMatrices();
-            
-        }
+		public override void Update(GameTime gameTime)
+		{
+			UpdateMatrices();
 
-        public override void UpdateMatrices()
-        {
+		}
 
-            View = Matrix.CreateLookAt(Position, Target, Up);
+		public override void UpdateMatrices()
+		{
 
-            Projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearPlane, FarPlane);
+			View = Matrix.CreateLookAt(Position, Target, Up);
 
-            Frustum = new BoundingFrustum(Matrix.Multiply(View, Projection));
+			Projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearPlane, FarPlane);
 
-            BoundingSphere = BoundingSphere.CreateFromFrustum(Frustum);
-        }
-    }
+			Frustum = new BoundingFrustum(Matrix.Multiply(View, Projection));
+
+			BoundingSphere = BoundingSphere.CreateFromFrustum(Frustum);
+		}
+	}
 }

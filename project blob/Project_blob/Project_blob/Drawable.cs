@@ -13,11 +13,11 @@ namespace Project_blob
 
 		void DrawMe();
 
-        TextureInfo GetTextureKey();
+		TextureInfo GetTextureKey();
 
-        BoundingBox GetBoundingBox();
+		BoundingBox GetBoundingBox();
 
-        //BoundingSphere GetBoundingSphere();
+		//BoundingSphere GetBoundingSphere();
 
 	}
 }

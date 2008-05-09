@@ -6,10 +6,10 @@ using Physics2;
 
 namespace Project_blob
 {
-    class BodyStaticConveyerBelt :BodyStatic
-    {
+	class BodyStaticConveyerBelt : BodyStatic
+	{
 
-        private Vector3 m_Direction;
+		private Vector3 m_Direction;
 		public Vector3 Direction
 		{
 			get
@@ -39,15 +39,15 @@ namespace Project_blob
 
 		private Vector3 m_Velocity;
 
-        public BodyStaticConveyerBelt(IList<CollidableStatic> Collidables, Body ParentBody)
+		public BodyStaticConveyerBelt(IList<CollidableStatic> Collidables, Body ParentBody)
 			: base(Collidables, ParentBody)
 		{
 		}
 
-        public override Vector3 getRelativeVelocity(CollisionEvent e)
-        {
-            return m_Velocity;
-        }
+		public override Vector3 getRelativeVelocity(CollisionEvent e)
+		{
+			return m_Velocity;
+		}
 
-    }
+	}
 }

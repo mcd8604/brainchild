@@ -6,35 +6,35 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob
 {
-    /// <summary>
-    /// This class is intended only to update the VertexBuffer of a model.
-    /// </summary>
-    public class DrawableBody : Physics2.BodyRigid
-    {
-        private StaticModel m_DrawableModel;
-        private VertexPositionNormalTexture[] vertices;
+	/// <summary>
+	/// This class is intended only to update the VertexBuffer of a model.
+	/// </summary>
+	public class DrawableBody : Physics2.BodyRigid
+	{
+		private StaticModel m_DrawableModel;
+		private VertexPositionNormalTexture[] vertices;
 
-        public DrawableBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, StaticModel p_Model)
-			:base(ParentBody,p_points,p_collidables,p_springs,p_tasks)
-        {
-            m_DrawableModel = p_Model;
-            m_DrawableModel.updateTextureCoords();
-            vertices = m_DrawableModel.getVertices();
-        }
+		public DrawableBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, StaticModel p_Model)
+			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks)
+		{
+			m_DrawableModel = p_Model;
+			m_DrawableModel.updateTextureCoords();
+			vertices = m_DrawableModel.getVertices();
+		}
 
-        public override void update(float TotalElapsedSeconds)
-        {
-            base.update(TotalElapsedSeconds);
-            updateVertices();
-        }
+		public override void update(float TotalElapsedSeconds)
+		{
+			base.update(TotalElapsedSeconds);
+			updateVertices();
+		}
 
-        private void updateVertices()
-        {
-            for (int i = 0; i < vertices.Length; i++)
-            {
-                vertices[i].Position = points[i].ExternalPosition;
-            }
-            m_DrawableModel.updateVertexBuffer(vertices);
-        }
-    }
+		private void updateVertices()
+		{
+			for (int i = 0; i < vertices.Length; i++)
+			{
+				vertices[i].Position = points[i].ExternalPosition;
+			}
+			m_DrawableModel.updateVertexBuffer(vertices);
+		}
+	}
 }

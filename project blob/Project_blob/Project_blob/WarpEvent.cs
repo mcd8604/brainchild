@@ -23,16 +23,19 @@ namespace Project_blob
 			}
 		}
 		private Vector3 _moveToVel;
-		public Vector3 MoveToVel {
-			get{
+		public Vector3 MoveToVel
+		{
+			get
+			{
 				return _moveToVel;
 			}
-			set {
+			set
+			{
 				_moveToVel = value;
 			}
 		}
 
-        public WarpEvent() { }
+		public WarpEvent() { }
 
 		public WarpEvent(float xPos, float yPos, float zPos, float xVel, float yVel, float zVel)
 		{

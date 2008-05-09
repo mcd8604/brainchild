@@ -13,299 +13,299 @@ using Engine;
 
 namespace WorldMaker
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
-    {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        ContentManager content;
+	/// <summary>
+	/// This is the main type for your game
+	/// </summary>
+	public class Game1 : Microsoft.Xna.Framework.Game
+	{
+		GraphicsDeviceManager graphics;
+		SpriteBatch spriteBatch;
+		ContentManager content;
 
 		public bool draw = false;
 
-        Vector3 lightPos = new Vector3(0, 20, 0);
+		Vector3 lightPos = new Vector3(0, 20, 0);
 
-        private Drawable _activeDrawable;
-        public Drawable ActiveDrawable
-        {
-            get { return _activeDrawable; }
-            set
-            {
-                _activeDrawable = value;
-                modelEditor.UpdateValues();
-            }
-        }
+		private Drawable _activeDrawable;
+		public Drawable ActiveDrawable
+		{
+			get { return _activeDrawable; }
+			set
+			{
+				_activeDrawable = value;
+				modelEditor.UpdateValues();
+			}
+		}
 
-        Area _activeArea;
-        public Area ActiveArea
-        {
-            get { return _activeArea; }
-            set { _activeArea = value; }
-        }
+		Area _activeArea;
+		public Area ActiveArea
+		{
+			get { return _activeArea; }
+			set { _activeArea = value; }
+		}
 
-        public readonly String EFFECT_TYPE = "CartoonEffect";
+		public readonly String EFFECT_TYPE = "CartoonEffect";
 
-        private String _effectName;
-        public String EffectName
-        {
-            get { return _effectName; }
-            set { _effectName = value; }
-        }
+		private String _effectName;
+		public String EffectName
+		{
+			get { return _effectName; }
+			set { _effectName = value; }
+		}
 
-        //static Matrix tempView, tempProj;
+		//static Matrix tempView, tempProj;
 
-        //Effect celshader;
-        Matrix worldMatrix;
-        Matrix viewMatrix;
-        Matrix projectionMatrix;
-        public Matrix WorldMatrix
-        {
-            get { return worldMatrix; }
-        }
-        public Matrix ViewMatrix
-        {
-            get { return viewMatrix; }
-            set { viewMatrix = value; }
-        }
-        public Matrix ProjectionMatrix
-        {
-            get { return projectionMatrix; }
-        }
-        //SpriteFont font;
+		//Effect celshader;
+		Matrix worldMatrix;
+		Matrix viewMatrix;
+		Matrix projectionMatrix;
+		public Matrix WorldMatrix
+		{
+			get { return worldMatrix; }
+		}
+		public Matrix ViewMatrix
+		{
+			get { return viewMatrix; }
+			set { viewMatrix = value; }
+		}
+		public Matrix ProjectionMatrix
+		{
+			get { return projectionMatrix; }
+		}
+		//SpriteFont font;
 
-        const String POINT_TEXT = "point_text";
+		const String POINT_TEXT = "point_text";
 
-        //VertexDeclaration VertexDeclarationColor;
-        VertexDeclaration VertexDeclarationTexture;
+		//VertexDeclaration VertexDeclarationColor;
+		VertexDeclaration VertexDeclarationTexture;
 
-        public static bool cinema = false;
-        public static bool follow = true;
-        public Vector3 focusPoint = new Vector3(0, 0, 0);
-        Vector3 Up = Vector3.Up;
-        Vector3 Horizontal = new Vector3();
-        Vector3 RunVector = new Vector3();
+		public static bool cinema = false;
+		public static bool follow = true;
+		public Vector3 focusPoint = new Vector3(0, 0, 0);
+		Vector3 Up = Vector3.Up;
+		Vector3 Horizontal = new Vector3();
+		Vector3 RunVector = new Vector3();
 
-        static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
-        Vector3 cameraPosition = defaultCameraPosition;
-        Vector2 cameraAngle = new Vector2(1f, 0.4f);
-        float cameraLength = 20f;
-        float playerCamMulti = 0.1f;
+		static Vector3 defaultCameraPosition = new Vector3(0, 15, 10);
+		Vector3 cameraPosition = defaultCameraPosition;
+		Vector2 cameraAngle = new Vector2(1f, 0.4f);
+		float cameraLength = 20f;
+		float playerCamMulti = 0.1f;
 
-        static ModelEditor modelEditor;
-        static LevelEditor levelEditor;
+		static ModelEditor modelEditor;
+		static LevelEditor levelEditor;
 
-        public Game1()
-        {
-            
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            content = new ContentManager(Services);
-        }
+		public Game1()
+		{
 
-        protected override void Dispose(bool disposing)
-        {
-            if (!modelEditor.IsDisposed)
-            {
-                modelEditor.Invoke(new ModelEditor.Callback(modelEditor.Close));
-            }
-            if (!levelEditor.IsDisposed)
-            {
-                levelEditor.Invoke(new LevelEditor.Callback(levelEditor.Close));
-            }
-            base.Dispose(disposing);
-        }
+			graphics = new GraphicsDeviceManager(this);
+			Content.RootDirectory = "Content";
+			content = new ContentManager(Services);
+		}
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
-        protected override void Initialize()
-        {
-            _effectName = EFFECT_TYPE;
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+		protected override void Dispose(bool disposing)
+		{
+			if (!modelEditor.IsDisposed)
+			{
+				modelEditor.Invoke(new ModelEditor.Callback(modelEditor.Close));
+			}
+			if (!levelEditor.IsDisposed)
+			{
+				levelEditor.Invoke(new LevelEditor.Callback(levelEditor.Close));
+			}
+			base.Dispose(disposing);
+		}
 
-            GraphicsDevice.RenderState.PointSize = 5;
+		/// <summary>
+		/// Allows the game to perform any initialization it needs to before starting to run.
+		/// This is where it can query for any required services and load any non-graphic
+		/// related content.  Calling base.Initialize will enumerate through any components
+		/// and initialize them as well.
+		/// </summary>
+		protected override void Initialize()
+		{
+			_effectName = EFFECT_TYPE;
+			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            InputHandler.LoadDefaultBindings();
+			GraphicsDevice.RenderState.PointSize = 5;
 
-            //gui
-            System.Windows.Forms.Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
+			InputHandler.LoadDefaultBindings();
 
-            modelEditor = new ModelEditor(this);
-            new System.Threading.Thread(delegate()
-            {
-                System.Windows.Forms.Application.Run(modelEditor);
-            }).Start();
+			//gui
+			System.Windows.Forms.Application.EnableVisualStyles();
+			//Application.SetCompatibleTextRenderingDefault(false);
 
-            levelEditor = new LevelEditor(this);
-            new System.Threading.Thread(delegate()
-            {
-                System.Windows.Forms.Application.Run(levelEditor);
-            }).Start();
+			modelEditor = new ModelEditor(this);
+			new System.Threading.Thread(delegate()
+			{
+				System.Windows.Forms.Application.Run(modelEditor);
+			}).Start();
 
-            base.Initialize();
-        }
+			levelEditor = new LevelEditor(this);
+			new System.Threading.Thread(delegate()
+			{
+				System.Windows.Forms.Application.Run(levelEditor);
+			}).Start();
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent()
-        {
-			
+			base.Initialize();
+		}
 
-            if (EFFECT_TYPE != "basic")
-                EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
-            else
-                EffectManager.getSingleton.AddEffect(EFFECT_TYPE, new BasicEffect(GraphicsDevice, null));
+		/// <summary>
+		/// LoadContent will be called once per game and is the place to load
+		/// all of your content.
+		/// </summary>
+		protected override void LoadContent()
+		{
 
-            EffectManager.getSingleton.AddEffect("cartoonEffect", Content.Load<Effect>(@"Shaders\\CartoonEffect"));
-            EffectManager.getSingleton.AddEffect("postprocessEffect", Content.Load<Effect>(@"Shaders\\PostprocessEffect"));
-			EffectManager.getSingleton.AddEffect("distort",Content.Load<Effect>(@"Shaders\\Distort"));
-			EffectManager.getSingleton.AddEffect("distorter",Content.Load<Effect>(@"Shaders\\Distorters"));
 
-            //TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Models\\free-grass-texture"));
-            //TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
-            //TextureManager.getSingleton.AddTexture("point_text", Content.Load<Texture2D>(@"Textures\\point_text"));
+			if (EFFECT_TYPE != "basic")
+				EffectManager.getSingleton.AddEffect(EFFECT_TYPE, Content.Load<Effect>(@"Shaders\\" + EFFECT_TYPE));
+			else
+				EffectManager.getSingleton.AddEffect(EFFECT_TYPE, new BasicEffect(GraphicsDevice, null));
 
-            if (System.IO.Directory.Exists(@"Content\Textures"))
-            {
-                string[] texturePaths = System.IO.Directory.GetFiles(@"Content\Textures");
-                foreach (string s in texturePaths)
-                {
-                    string textureFile = s.Substring(s.LastIndexOf("\\") + 1);
-                    string textureName = textureFile.Remove(textureFile.LastIndexOf('.'));
-                    TextureManager.getSingleton.AddTexture(textureName, content.Load<Texture2D>(@"Content\\Textures\\" + textureName));
-                }
-            }
+			EffectManager.getSingleton.AddEffect("cartoonEffect", Content.Load<Effect>(@"Shaders\\CartoonEffect"));
+			EffectManager.getSingleton.AddEffect("postprocessEffect", Content.Load<Effect>(@"Shaders\\PostprocessEffect"));
+			EffectManager.getSingleton.AddEffect("distort", Content.Load<Effect>(@"Shaders\\Distort"));
+			EffectManager.getSingleton.AddEffect("distorter", Content.Load<Effect>(@"Shaders\\Distorters"));
 
-            //ModelManager.getSingleton.AddModel("cube", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube"));
-            //ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
-            //ModelManager.getSingleton.AddModel("ground", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ground"));
+			//TextureManager.getSingleton.AddTexture("grass", Content.Load<Texture2D>(@"Models\\free-grass-texture"));
+			//TextureManager.getSingleton.AddTexture("test", Content.Load<Texture2D>(@"Textures\\test"));
+			//TextureManager.getSingleton.AddTexture("point_text", Content.Load<Texture2D>(@"Textures\\point_text"));
 
-            if (System.IO.Directory.Exists(@"Content\Models"))
-            {
-                string[] modelPaths = System.IO.Directory.GetFiles(@"Content\Models");
-                foreach (string s in modelPaths)
-                {
-                    string modelFile = s.Substring(s.LastIndexOf("\\") + 1);
-                    if (modelFile.EndsWith(".xnb"))
-                    {
-                        string modelName = modelFile.Remove(modelFile.LastIndexOf('.'));
-                        ModelManager.getSingleton.AddModel(modelName, content.Load<Model>(@"Content\\Models\\" + modelName));
-                    }
-                }
-            }
-            graphics.GraphicsDevice.VertexDeclaration = new VertexDeclaration(
-                graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+			if (System.IO.Directory.Exists(@"Content\Textures"))
+			{
+				string[] texturePaths = System.IO.Directory.GetFiles(@"Content\Textures");
+				foreach (string s in texturePaths)
+				{
+					string textureFile = s.Substring(s.LastIndexOf("\\") + 1);
+					string textureName = textureFile.Remove(textureFile.LastIndexOf('.'));
+					TextureManager.getSingleton.AddTexture(textureName, content.Load<Texture2D>(@"Content\\Textures\\" + textureName));
+				}
+			}
 
-            worldMatrix = Matrix.Identity;
+			//ModelManager.getSingleton.AddModel("cube", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/cube"));
+			//ModelManager.getSingleton.AddModel("ball", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ball"));
+			//ModelManager.getSingleton.AddModel("ground", content.Load<Model>(System.Environment.CurrentDirectory + "/Content/Models/ground"));
 
-            viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero,
-                Vector3.Up);
+			if (System.IO.Directory.Exists(@"Content\Models"))
+			{
+				string[] modelPaths = System.IO.Directory.GetFiles(@"Content\Models");
+				foreach (string s in modelPaths)
+				{
+					string modelFile = s.Substring(s.LastIndexOf("\\") + 1);
+					if (modelFile.EndsWith(".xnb"))
+					{
+						string modelName = modelFile.Remove(modelFile.LastIndexOf('.'));
+						ModelManager.getSingleton.AddModel(modelName, content.Load<Model>(@"Content\\Models\\" + modelName));
+					}
+				}
+			}
+			graphics.GraphicsDevice.VertexDeclaration = new VertexDeclaration(
+				graphics.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.ToRadians(45),  // 45 degree angle
-                (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
-                1.0f, 1000.0f);
+			worldMatrix = Matrix.Identity;
 
-            if (EFFECT_TYPE == "basic")
-            {
-                Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix));
-            }
-            else if (EFFECT_TYPE == "effects")
-            {
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xView"].SetValue(viewMatrix);
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xProjection"].SetValue(projectionMatrix);
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xWorld"].SetValue(worldMatrix);
+			viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero,
+				Vector3.Up);
 
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(true);
-                //EffectManager.getSingleton.GetEffect(_effectName).Parameters["xShowNormals"].SetValue(true);
-                //EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightDirection"].SetValue(Vector3.Down);
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["xAmbient"].SetValue(0.5f);
+			projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
+				MathHelper.ToRadians(45),  // 45 degree angle
+				(float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height,
+				1.0f, 1000.0f);
 
-                Level.AddArea("testArea", new Area(worldMatrix, _effectName, "xWorld", "xTexture", "Textured"));
-            }
-            else if (EFFECT_TYPE == "Cel")
-            {
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"].SetValue(worldMatrix);
+			if (EFFECT_TYPE == "basic")
+			{
+				Level.AddArea("testArea", new Area(worldMatrix, viewMatrix, projectionMatrix));
+			}
+			else if (EFFECT_TYPE == "effects")
+			{
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xView"].SetValue(viewMatrix);
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xProjection"].SetValue(projectionMatrix);
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xWorld"].SetValue(worldMatrix);
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"].SetValue(projectionMatrix);
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(true);
+				//EffectManager.getSingleton.GetEffect(_effectName).Parameters["xShowNormals"].SetValue(true);
+				//EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightDirection"].SetValue(Vector3.Down);
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xAmbient"].SetValue(0.5f);
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
+				Level.AddArea("testArea", new Area(worldMatrix, _effectName, "xWorld", "xTexture", "Textured"));
+			}
+			else if (EFFECT_TYPE == "Cel")
+			{
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"].SetValue(worldMatrix);
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"].SetValue(lightPos);
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"].SetValue(projectionMatrix);
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"].SetValue(.9f);
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"].SetValue(0.15f);
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["LightPosition"].SetValue(lightPos);
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"].SetValue(0.08f);
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneSharp"].SetValue(.9f);
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"].SetValue(0.05f);
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneRough"].SetValue(0.15f);
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"].SetValue(2.0f);
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerOneContrib"].SetValue(0.08f);
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"].SetValue(0.4f);
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoSharp"].SetValue(0.05f);
 
-                if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"] != null)
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"].SetValue(0.03f);
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoRough"].SetValue(2.0f);
 
-                Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
-            }
-            else if (EFFECT_TYPE == "CartoonEffect")
-            {
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["View"].SetValue(viewMatrix);
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"].SetValue(projectionMatrix);
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"].SetValue(worldMatrix);
-                EffectManager.getSingleton.GetEffect(_effectName).Parameters["TextureEnabled"].SetValue(true);
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["LayerTwoContrib"].SetValue(0.4f);
 
-                Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
-            }
+				if (EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"] != null)
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["EdgeOffset"].SetValue(0.03f);
 
-            CinematicCamera camera = new CinematicCamera();
-            camera.FieldOfView = MathHelper.ToRadians(45.0f);
-            camera.AspectRatio = (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height;
-            camera.NearPlane = 1.0f;
-            camera.FarPlane = 1000.0f;
+				Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
+			}
+			else if (EFFECT_TYPE == "CartoonEffect")
+			{
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["View"].SetValue(viewMatrix);
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["Projection"].SetValue(projectionMatrix);
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["World"].SetValue(worldMatrix);
+				EffectManager.getSingleton.GetEffect(_effectName).Parameters["TextureEnabled"].SetValue(true);
 
-            camera.Position = new Vector3(0, 0, -10);
-            camera.Target = Vector3.Zero;
-            camera.Up = Vector3.Up;
+				Level.AddArea("testArea", new Area(worldMatrix, _effectName, "World", "NONE", null));
+			}
 
-            CameraManager.getSingleton.AddCamera("cinematic", camera);
-            CameraManager.getSingleton.SetActiveCamera("cinematic");
+			CinematicCamera camera = new CinematicCamera();
+			camera.FieldOfView = MathHelper.ToRadians(45.0f);
+			camera.AspectRatio = (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height;
+			camera.NearPlane = 1.0f;
+			camera.FarPlane = 1000.0f;
 
-            _activeArea = Level.Areas["testArea"];
-            //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-            VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+			camera.Position = new Vector3(0, 0, -10);
+			camera.Target = Vector3.Zero;
+			camera.Up = Vector3.Up;
 
-            _activeArea.Display.TextureName = POINT_TEXT;
-            _activeArea.Display.ShowAxis = true;
+			CameraManager.getSingleton.AddCamera("cinematic", camera);
+			CameraManager.getSingleton.SetActiveCamera("cinematic");
 
-			
+			_activeArea = Level.Areas["testArea"];
+			//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+			VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
-            CreateRenderTargets();
-        }
+			_activeArea.Display.TextureName = POINT_TEXT;
+			_activeArea.Display.ShowAxis = true;
 
-        public void CreateRenderTargets()
-        {
-            PresentationParameters pp = GraphicsDevice.PresentationParameters;
+
+
+			CreateRenderTargets();
+		}
+
+		public void CreateRenderTargets()
+		{
+			PresentationParameters pp = GraphicsDevice.PresentationParameters;
 
 			RenderTarget2D sceneRenderTarget = new RenderTarget2D(GraphicsDevice,
 				pp.BackBufferWidth, pp.BackBufferHeight, 1,
@@ -336,171 +336,171 @@ namespace WorldMaker
 			_activeArea.Display.Distorter = Content.Load<Effect>(@"Shaders\\Distorters");
 			_activeArea.Display.CartoonEffect = Content.Load<Effect>(@"Shaders\\CartoonEffect");
 			_activeArea.Display.PostProcessEffect = Content.Load<Effect>(@"Shaders\\PostprocessEffect");
-        }
+		}
 
-        public static void SetUpCinematicCamera(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
-        {
-            CinematicCamera cinematicCamera = (CinematicCamera)CameraManager.getSingleton.GetCamera("cinematic");
-            cinematicCamera.Ups = cameraUps;
-            cinematicCamera.Positions = cameraPos;
-            cinematicCamera.LookAts = cameraLooks;
-            cinematicCamera.Running = true;
-            CameraManager.getSingleton.SetActiveCamera("cinematic");
-            cinema = true;
-        }
+		public static void SetUpCinematicCamera(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
+		{
+			CinematicCamera cinematicCamera = (CinematicCamera)CameraManager.getSingleton.GetCamera("cinematic");
+			cinematicCamera.Ups = cameraUps;
+			cinematicCamera.Positions = cameraPos;
+			cinematicCamera.LookAts = cameraLooks;
+			cinematicCamera.Running = true;
+			CameraManager.getSingleton.SetActiveCamera("cinematic");
+			cinema = true;
+		}
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            content.Unload();
-        }
+		/// <summary>
+		/// UnloadContent will be called once per game and is the place to unload
+		/// all content.
+		/// </summary>
+		protected override void UnloadContent()
+		{
+			content.Unload();
+		}
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
-        {
-            InputHandler.Update();
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || InputHandler.IsKeyPressed(Keys.Escape))
-            {
-                this.Exit();
-            }
-            Horizontal = Vector3.Normalize(Vector3.Cross(focusPoint - cameraPosition, Up));
-            RunVector = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
+		/// <summary>
+		/// Allows the game to run logic such as updating the world,
+		/// checking for collisions, gathering input, and playing audio.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		protected override void Update(GameTime gameTime)
+		{
+			InputHandler.Update();
+			// Allows the game to exit
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || InputHandler.IsKeyPressed(Keys.Escape))
+			{
+				this.Exit();
+			}
+			Horizontal = Vector3.Normalize(Vector3.Cross(focusPoint - cameraPosition, Up));
+			RunVector = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
-            if (InputHandler.IsKeyPressed(Keys.A))
-            {
-                //strif to the left
-                this.focusPoint += Horizontal;
-            }
-            if (InputHandler.IsKeyPressed(Keys.D))
-            {
-                //strif to the right
-                this.focusPoint -= Horizontal;
-            }
-            if (InputHandler.IsKeyPressed(Keys.W))
-            {
-                //move foward
-                this.focusPoint += RunVector;
-            }
-            if (InputHandler.IsKeyPressed(Keys.S))
-            {
-                //move backwards
-                this.focusPoint -= RunVector;
-            }
+			if (InputHandler.IsKeyPressed(Keys.A))
+			{
+				//strif to the left
+				this.focusPoint += Horizontal;
+			}
+			if (InputHandler.IsKeyPressed(Keys.D))
+			{
+				//strif to the right
+				this.focusPoint -= Horizontal;
+			}
+			if (InputHandler.IsKeyPressed(Keys.W))
+			{
+				//move foward
+				this.focusPoint += RunVector;
+			}
+			if (InputHandler.IsKeyPressed(Keys.S))
+			{
+				//move backwards
+				this.focusPoint -= RunVector;
+			}
 
-            if (follow)
-            {
-                cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
-                if (cameraAngle.X < -MathHelper.Pi)
-                {
-                    cameraAngle.X += MathHelper.TwoPi;
-                }
-                else if (cameraAngle.X > MathHelper.Pi)
-                {
-                    cameraAngle.X -= MathHelper.TwoPi;
-                }
+			if (follow)
+			{
+				cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
+				if (cameraAngle.X < -MathHelper.Pi)
+				{
+					cameraAngle.X += MathHelper.TwoPi;
+				}
+				else if (cameraAngle.X > MathHelper.Pi)
+				{
+					cameraAngle.X -= MathHelper.TwoPi;
+				}
 
-                cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
+				cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
 
-                // following camera
-                cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.1f), 10, 500);
-                Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
-                cameraPosition = focusPoint + Offset;
+				// following camera
+				cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.1f), 10, 500);
+				Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
+				cameraPosition = focusPoint + Offset;
 
-                viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
+				viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
 
-                if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
-                {
-                    ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
-                }
-                else
-                {
-                    if (EFFECT_TYPE == "effects")
-                        EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
-                    else //if (EFFECT_TYPE == "Cel")
-                        EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
-                }
+				if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
+				{
+					((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
+				}
+				else
+				{
+					if (EFFECT_TYPE == "effects")
+						EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
+					else //if (EFFECT_TYPE == "Cel")
+						EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
+				}
 
-                //m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
+				//m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
 
-                //effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
+				//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
 
-                if (EFFECT_TYPE == "effects")
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                else if (EFFECT_TYPE == "Cel")
-                    EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
-            }
-            else
-            {
-                if (cinema)
-                {
-                    CameraManager.getSingleton.Update(gameTime);
-                    if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
-                    {
-                        ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = CameraManager.getSingleton.ActiveCamera.View;
-                    }
-                    else
-                    {
-                        if (EFFECT_TYPE == "effects")
-                            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                        else //if (EFFECT_TYPE == "Cel")
-                            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                    }
+				if (EFFECT_TYPE == "effects")
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+				else if (EFFECT_TYPE == "Cel")
+					EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+			}
+			else
+			{
+				if (cinema)
+				{
+					CameraManager.getSingleton.Update(gameTime);
+					if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
+					{
+						((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = CameraManager.getSingleton.ActiveCamera.View;
+					}
+					else
+					{
+						if (EFFECT_TYPE == "effects")
+							EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+						else //if (EFFECT_TYPE == "Cel")
+							EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					}
 
-                    if (EFFECT_TYPE == "effects")
-                        EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-                    else if (EFFECT_TYPE == "Cel")
-                        EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-                    if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
-                    {
-                        cinema = false;
-                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
-                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
-                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
-                        ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
-                    }
-                }
-                else
-                {
-                    if (CameraPanSetter.ViewMatrix != null)
-                    {
-                        viewMatrix = CameraPanSetter.ViewMatrix;
-                        if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
-                        {
-                            ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
-                        }
-                        else
-                        {
-                            if (EFFECT_TYPE == "effects")
-                                EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
-                            else //if (EFFECT_TYPE == "Cel")
-                                EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
-                        }
+					if (EFFECT_TYPE == "effects")
+						EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+					else if (EFFECT_TYPE == "Cel")
+						EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+					if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
+					{
+						cinema = false;
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
+					}
+				}
+				else
+				{
+					if (CameraPanSetter.ViewMatrix != null)
+					{
+						viewMatrix = CameraPanSetter.ViewMatrix;
+						if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
+						{
+							((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
+						}
+						else
+						{
+							if (EFFECT_TYPE == "effects")
+								EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
+							else //if (EFFECT_TYPE == "Cel")
+								EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
+						}
 
-                        if (EFFECT_TYPE == "effects")
-                            EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                        else if (EFFECT_TYPE == "Cel")
-                            EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
-                    }
-                }
-            }
+						if (EFFECT_TYPE == "effects")
+							EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+						else if (EFFECT_TYPE == "Cel")
+							EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+					}
+				}
+			}
 
-            base.Update(gameTime);
-        }
+			base.Update(gameTime);
+		}
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
+		/// <summary>
+		/// This is called when the game should draw itself.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		protected override void Draw(GameTime gameTime)
+		{
 			if (draw)
 			{
 				foreach (String str in LevelEditor.DrawablesToDelete)
@@ -527,6 +527,6 @@ namespace WorldMaker
 
 				base.Draw(gameTime);
 			}
-        }
-    }
+		}
+	}
 }

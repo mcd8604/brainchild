@@ -1,7 +1,7 @@
 namespace Physics2
 {
-    public class Material
-    {
+	public class Material
+	{
 
 		private float Cling = 1;
 		private float Friction = 1;
@@ -21,15 +21,15 @@ namespace Physics2
 			Friction = friction;
 		}
 
-        public float getCling()
-        {
+		public float getCling()
+		{
 			return Cling;
-        }
+		}
 
 		public float getFriction()
 		{
 			return Friction;
 		}
 
-    }
+	}
 }
