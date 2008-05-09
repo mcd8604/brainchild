@@ -30,6 +30,27 @@ namespace Project_blob
 			set { _currSector = value; }
 		}
 
+		private int _prevSector = 0;
+		public int PrevSector
+		{
+			get { return _prevSector; }
+			set { _prevSector = value; }
+		}
+
+		private int _currentRecursiveSector = 0;
+		public int CurrentRecursiveSector
+		{
+			get { return _currentRecursiveSector; }
+			set { _currentRecursiveSector = value; }
+		}
+
+		private int _previousRecursiveSector = 0;
+		public int PreviousRecursiveSector
+		{
+			get { return _previousRecursiveSector; }
+			set { _previousRecursiveSector = value; }
+		}
+
         public PortalScene()
         {
             _sectors = new SortedDictionary<int, Sector>();
@@ -126,11 +147,14 @@ namespace Project_blob
                 {
                     if (kvp.Value.ContainerBox.Contains(CameraManager.getSingleton.ActiveCamera.Position) == ContainmentType.Contains)
                     {
+						_prevSector = _currSector;
                         _currSector = kvp.Key;
                         break;
                     }
                 }
             }
+			_previousRecursiveSector = _prevSector;
+			_currentRecursiveSector = _currSector;
 			_sectors[_currSector].DrawVisible(gameTime);
         }
 
