@@ -58,10 +58,13 @@ namespace Physics2
 				c.parent = this;
 				boundingBox.expandToInclude(c.getBoundingBox());
 			}
+            center = Vector3.Zero;
 			foreach (PhysicsPoint p in points)
 			{
 				boundingBox.expandToInclude(p.CurrentPosition);
+                center += p.CurrentPosition;
 			}
+            center /= points.Count;
 		}
 
 		public virtual void addChild(Body childBody)
