@@ -80,8 +80,6 @@ namespace Project_blob
 
         public SceneManager()
         {
-            _octree = new Octree();
-            _portalScene = new PortalScene();
         }
 
         /*! Returns singleton instance of the SceneManager */
@@ -161,6 +159,9 @@ namespace Project_blob
         public void BuildPortalScene(List<Drawable> scene, List<Portal> portals)
         {
             _sceneObjectCount = scene.Count;
+
+            _octree = new Octree();
+            _portalScene = new PortalScene();
 
             if (_graphType == SceneGraphType.Portal)
             {
