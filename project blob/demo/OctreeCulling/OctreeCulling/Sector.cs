@@ -276,13 +276,39 @@ namespace OctreeCulling
             //Plane far = new Plane(new Vector4(0, 0, -1, 
             //    (CameraManager.getSingleton.GetCamera("test").Position.Z + CameraManager.getSingleton.GetCamera("test").FarPlane)));
             Plane far = CameraManager.getSingleton.GetCamera("test").Frustum.Far;
-            //float denom = Vector3.Dot(far.Normal, tr);
-            //if (denom == 0)
-            //{
-            //    throw new Exception();
-            //}
-            //float nom = Vector3.Dot(far.Normal, CameraManager.getSingleton.GetCamera("test").Position) + far.D;
-            //float t = -(nom / denom);
+            Vector3[] corners = new Vector3[8];
+            corners = CameraManager.getSingleton.GetCamera("test").Frustum.GetCorners();
+            Vector3 frustumTL, frustumTR, frustumBL, frustumBR;
+            frustumTR = Vector3.Normalize(corners[4] - corners[0]);
+            frustumTL = Vector3.Normalize(corners[5] - corners[1]);
+            frustumBL = Vector3.Normalize(corners[6] - corners[2]);
+            frustumBR = Vector3.Normalize(corners[7] - corners[3]);
+
+            float test1 = Vector3.Dot(far.Normal, frustumTR);
+            float test2 = Vector3.Dot(far.Normal, tr);
+            if (test1 > test2)
+            {
+                tr = frustumTR;
+            }
+            test1 = Vector3.Dot(far.Normal, frustumTL);
+            test2 = Vector3.Dot(far.Normal, tl);
+            if (test1 > test2)
+            {
+                tl = frustumTL;
+            }
+            test1 = Vector3.Dot(far.Normal, frustumBL);
+            test2 = Vector3.Dot(far.Normal, bl);
+            if (test1 > test2)
+            {
+                bl = frustumBL;
+            }
+            test1 = Vector3.Dot(far.Normal, frustumBR);
+            test2 = Vector3.Dot(far.Normal, br);
+            if (test1 > test2)
+            {
+                br = frustumBR;
+            }
+
 
             ftl = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(tl, FarPlaneIntersectPt(far, tl));
             ftr = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(tr, FarPlaneIntersectPt(far, tr));
