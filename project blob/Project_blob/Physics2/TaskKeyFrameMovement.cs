@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
+    [Serializable]
 	public class TaskKeyFrameMovement : Task
 	{
 

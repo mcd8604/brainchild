@@ -14,6 +14,7 @@ namespace Project_blob
 
         public void PerformEvent(PhysicsPoint point)
         {
+            // Death will occur if /anything/ touches the death event...
             GameplayScreen.CauseDeath();
         }
     }

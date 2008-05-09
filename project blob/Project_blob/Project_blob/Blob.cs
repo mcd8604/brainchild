@@ -297,39 +297,28 @@ namespace Project_blob
 			theDevice.Vertices[0].SetSource(null, 0, 0);
 		}
 
+        //public override IEnumerable<Collidable> getCollidables()
+        //{
+        //    // Disabled collision planes for softcubes until I can figure out what's wrong.
 
-		public override IEnumerable<PhysicsPoint> getPoints()
-		{
-			return points;
-		}
+        //    //List<Physics.Collidable> temp = new List<Physics.Collidable>();
+        //    //foreach ( Tri t in collidables ) 
+        //    //    temp.Add( t as Physics.Collidable );
+        //    //}
+        //    //return temp;
 
-		public override IEnumerable<Collidable> getCollidables()
-		{
-			// Disabled collision planes for softcubes until I can figure out what's wrong.
+        //    return new List<Collidable>();
+        //}
 
-			//List<Physics.Collidable> temp = new List<Physics.Collidable>();
-			//foreach ( Tri t in collidables ) 
-			//    temp.Add( t as Physics.Collidable );
-			//}
-			//return temp;
-
-			return new List<Collidable>();
-		}
-
-		public IEnumerable<Drawable> getDrawables()
-		{
-			List<Drawable> temp = new List<Drawable>();
-			foreach (Tri t in collidables)
-			{
-				temp.Add(t as Drawable);
-			}
-			return temp;
-		}
-
-		public override IEnumerable<Spring> getSprings()
-		{
-			return springs;
-		}
+        //public IEnumerable<Drawable> getDrawables()
+        //{
+        //    List<Drawable> temp = new List<Drawable>();
+        //    foreach (Tri t in collidables)
+        //    {
+        //        temp.Add(t as Drawable);
+        //    }
+        //    return temp;
+        //}
 
 		public float getOldVolume()
 		{

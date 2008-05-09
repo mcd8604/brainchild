@@ -47,7 +47,7 @@ namespace Physics2
 
 		public override void update(float TotalElapsedSeconds)		{ }
 		public override void updatePosition()		{ }
-		internal override void SolveForNextPosition(float TotalElapsedSeconds) { }
+		protected internal override void SolveForNextPosition(float TotalElapsedSeconds) { }
 
 	}
 }

@@ -201,12 +201,6 @@ namespace Project_blob
 			theDevice.DrawPrimitives(PrimitiveType.TriangleFan, 8, 6);
 		}
 
-
-		public override IEnumerable<PhysicsPoint> getPoints()
-		{
-			return points;
-		}
-
 		//public override IEnumerable<Collidable> getCollidables()
 		//{
 		//    List<Collidable> temp = new List<Collidable>();
@@ -226,11 +220,6 @@ namespace Project_blob
 		//    }
 		//    return temp;
 		//}
-
-		public override IEnumerable<Spring> getSprings()
-		{
-			return springs;
-		}
 
 		public override float getVolume()
 		{

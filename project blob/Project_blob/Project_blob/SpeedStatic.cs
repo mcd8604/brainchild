@@ -19,11 +19,12 @@ namespace Project_blob
         public override Vector3 getRelativeVelocity(CollisionEvent e)
         {
             Vector3 AvgVel = Vector3.Zero;
-            foreach ( PhysicsPoint px in e.point.ParentBody.points )
+            IList<PhysicsPoint> points = e.point.ParentBody.getPoints();
+            foreach ( PhysicsPoint px in points )
             {
                 AvgVel += px.NextVelocity;
             }
-            AvgVel /= e.point.ParentBody.points.Count;
+            AvgVel /= points.Count;
 
             AvgVel = (Vector3.Cross( e.collidable.Normal, Vector3.Cross( AvgVel, e.collidable.Normal ) ));
 
