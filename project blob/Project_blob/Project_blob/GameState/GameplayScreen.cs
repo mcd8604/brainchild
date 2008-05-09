@@ -114,8 +114,8 @@ namespace Project_blob.GameState
 			physics.Player.Traction.Maximum = 5f;
 
 			physics.Player.Cling.Minimum = 0f;
-			physics.Player.Cling.Origin = 5f;
-			physics.Player.Cling.Maximum = 10f;
+			physics.Player.Cling.Origin = 50f;
+			physics.Player.Cling.Maximum = 100f;
 
 			physics.Player.Resilience.Minimum = 20f;
 			physics.Player.Resilience.Origin = 40f;
@@ -179,7 +179,7 @@ namespace Project_blob.GameState
 			reset();
 
 			//load default level
-            Level.LoadLevel("FinalLevel", "effects");
+			Level.LoadLevel("FinalLevel", "effects");
 
 			//List of Static Drawables to add to Scene
 			//List<Drawable> staticDrawables = new List<Drawable>();
@@ -208,32 +208,32 @@ namespace Project_blob.GameState
 			//    //empty level
 			//}
 
-            //Initialize the camera
-            BasicCamera camera = new BasicCamera();
-            camera.FieldOfView = MathHelper.ToRadians(45.0f);
-            camera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
-            camera.NearPlane = 1.0f;
-            camera.FarPlane = 1000.0f;
+			//Initialize the camera
+			BasicCamera camera = new BasicCamera();
+			camera.FieldOfView = MathHelper.ToRadians(45.0f);
+			camera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
+			camera.NearPlane = 1.0f;
+			camera.FarPlane = 1000.0f;
 
-            camera.Position = new Vector3(0, 0, -10);
-            camera.Target = Vector3.Zero;
-            camera.Up = Vector3.Up;
+			camera.Position = new Vector3(0, 0, -10);
+			camera.Target = Vector3.Zero;
+			camera.Up = Vector3.Up;
 
-            CameraManager.getSingleton.AddCamera("default", camera);
-            CameraManager.getSingleton.SetActiveCamera("default");
+			CameraManager.getSingleton.AddCamera("default", camera);
+			CameraManager.getSingleton.SetActiveCamera("default");
 
-            CinematicCamera cinematicCamera = new CinematicCamera();
+			CinematicCamera cinematicCamera = new CinematicCamera();
 
-            cinematicCamera.FieldOfView = MathHelper.ToRadians(45.0f);
-            cinematicCamera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
-            cinematicCamera.NearPlane = 1.0f;
-            cinematicCamera.FarPlane = 1000.0f;
+			cinematicCamera.FieldOfView = MathHelper.ToRadians(45.0f);
+			cinematicCamera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
+			cinematicCamera.NearPlane = 1.0f;
+			cinematicCamera.FarPlane = 1000.0f;
 
-            cinematicCamera.Position = new Vector3(0, 0, -10);
-            cinematicCamera.Target = Vector3.Zero;
-            cinematicCamera.Up = Vector3.Up;
+			cinematicCamera.Position = new Vector3(0, 0, -10);
+			cinematicCamera.Target = Vector3.Zero;
+			cinematicCamera.Up = Vector3.Up;
 
-            CameraManager.getSingleton.AddCamera("cinematic", cinematicCamera);
+			CameraManager.getSingleton.AddCamera("cinematic", cinematicCamera);
 
 #if DEBUG
 			String[] tempArray = new string[Level.Areas.Keys.Count];
@@ -241,17 +241,17 @@ namespace Project_blob.GameState
 			using (SelectForm f = new SelectForm(tempArray))
 			{
 				if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                //    currentArea = Level.Areas[f.getSelected()];
-                //    currentArea.LoadAreaGameplay(ScreenManager);
-                //    currentArea.Display.EffectName = "cartoonEffect";
-                //    currentArea.Display.WorldParameterName = "World";
-                //    currentArea.Display.TextureParameterName = "Texture";
-                //    currentArea.Display.TechniqueName = "Lambert";
-                //    staticDrawables = currentArea.getDrawableList();
-                //    portals = currentArea.Portals;
-                //    physics.AddBodys(currentArea.getBodies());
-                    ChangeArea(f.getSelected(), blobStartPosition);
+				{
+					//    currentArea = Level.Areas[f.getSelected()];
+					//    currentArea.LoadAreaGameplay(ScreenManager);
+					//    currentArea.Display.EffectName = "cartoonEffect";
+					//    currentArea.Display.WorldParameterName = "World";
+					//    currentArea.Display.TextureParameterName = "Texture";
+					//    currentArea.Display.TechniqueName = "Lambert";
+					//    staticDrawables = currentArea.getDrawableList();
+					//    portals = currentArea.Portals;
+					//    physics.AddBodys(currentArea.getBodies());
+					ChangeArea(f.getSelected(), blobStartPosition);
 				}
 			}
 #endif
@@ -380,7 +380,7 @@ namespace Project_blob.GameState
 			//EffectManager.getSingleton.AddEffect("Distorter", distorterEffect);
 			//EffectManager.getSingleton.AddEffect("Distort", distortEffect);
 
-			
+
 
 			//EffectManager.getSingleton.AddEffect("DepthBuffer", depthBufferEffect);
 
@@ -428,21 +428,21 @@ namespace Project_blob.GameState
 			// TODO: Unload any non ContentManager content here
 		}
 
-        public static void CauseDeath()
-        {
-            game.reset();
-        }
+		public static void CauseDeath()
+		{
+			game.reset();
+		}
 
 		public void ChangeArea(String area, Vector3 position)
 		{
 			currentArea = Level.Areas[area];
-            currentArea.LoadAreaGameplay(ScreenManager);
+			currentArea.LoadAreaGameplay(ScreenManager);
 
-            currentArea.Display.EffectName = "cartoonEffect";
-            currentArea.Display.WorldParameterName = "World";
-            currentArea.Display.TextureParameterName = "Texture";
-            currentArea.Display.TechniqueName = "Lambert";
-            InitializeEffect();
+			currentArea.Display.EffectName = "cartoonEffect";
+			currentArea.Display.WorldParameterName = "World";
+			currentArea.Display.TextureParameterName = "Texture";
+			currentArea.Display.TechniqueName = "Lambert";
+			InitializeEffect();
 
 			blobStartPosition = position;
 
@@ -456,20 +456,20 @@ namespace Project_blob.GameState
 			}
 			SceneManager.getSingleton.BuildPortalScene(temp, portals);*/
 
-            //Add the Static Drawables to the Octree
-            List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
-            List<Portal> portals = currentArea.Portals;
-            SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
-            //SceneManager.getSingleton.BuildOctree(ref temp);
-            //SceneManager.getSingleton.BuildPortalScene(temp);
-            foreach (Portal p in portals)
-            {
-                p.CreateBoundingBox();
-            }
-            SceneManager.getSingleton.BuildPortalScene(temp, portals);
-            SceneManager.getSingleton.PortalScene.CurrSector = 1;
+			//Add the Static Drawables to the Octree
+			List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
+			List<Portal> portals = currentArea.Portals;
+			SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
+			//SceneManager.getSingleton.BuildOctree(ref temp);
+			//SceneManager.getSingleton.BuildPortalScene(temp);
+			foreach (Portal p in portals)
+			{
+				p.CreateBoundingBox();
+			}
+			SceneManager.getSingleton.BuildPortalScene(temp, portals);
+			SceneManager.getSingleton.PortalScene.CurrSector = 1;
 
-            currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
+			currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
 
 			reset();
 		}
@@ -504,7 +504,7 @@ namespace Project_blob.GameState
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
 					cartoonEffect.Parameters["blobCenter"].SetValue(theBlob.getCenter());
-                    distortEffect.Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
+					distortEffect.Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
 
 					//Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
 					//tempPos.Y += 10;
