@@ -160,6 +160,14 @@ namespace WorldMaker
             }
 		}
 
+		private void modelListBox_DoubleClick(object sender, EventArgs e)
+		{
+			if (_gameRef.ActiveDrawable is StaticModel)
+			{
+				_gameRef.focusPoint = ((StaticModel)_gameRef.ActiveDrawable).Position.Translation;
+			}
+		}
+
 		private void loadButton_Click(object sender, EventArgs e)
 		{
 			string levelDir = System.Environment.CurrentDirectory + "\\Content\\Levels";

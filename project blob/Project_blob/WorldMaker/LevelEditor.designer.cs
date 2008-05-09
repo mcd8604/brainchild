@@ -77,6 +77,7 @@ namespace WorldMaker
             this.modelListBox.Sorted = true;
             this.modelListBox.TabIndex = 1;
             this.modelListBox.SelectedIndexChanged += new System.EventHandler(this.modelListBox_SelectedIndexChanged);
+			this.modelListBox.DoubleClick += new System.EventHandler(this.modelListBox_DoubleClick);
             // 
             // nameDisplay
             // 
