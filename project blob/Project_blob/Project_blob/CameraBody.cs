@@ -6,41 +6,36 @@ using Physics2;
 
 namespace Project_blob
 {
-    class CameraBody : Body
-    {
+	class CameraBody : Body
+	{
 
-        PhysicsPoint point;
-        TaskCamera task;
+		PhysicsPoint point;
+		TaskCamera task;
 
-        public CameraBody(Body Target)
-        {
-            point = new PhysicsPoint(Vector3.Zero, this);
-            points.Add(point);
-            task = new TaskCamera(Target);
-            tasks.Add(task);
+		public CameraBody(Body Target)
+		{
+			point = new PhysicsPoint(Vector3.Zero, this);
+			points.Add(point);
+			task = new TaskCamera(Target);
+			tasks.Add(task);
 
-            initialize();
-        }
+			initialize();
+		}
 
-        // temp
-        protected override void SolveForNextPosition(float TotalElapsedSeconds) {
-            getBoundingBox().expandToInclude(point.PotentialPosition);
-        }
+		public Vector3 getCameraPosition()
+		{
+			return point.ExternalPosition;
+		}
 
-        public Vector3 getCameraPosition()
-        {
-            return point.ExternalPosition;
-        }
+		public void setCameraOffset(Vector3 Offset)
+		{
+			task.OffsetVector = Offset;
+		}
 
-        public void setCameraOffset(Vector3 Offset)
-        {
-            task.OffsetVector = Offset;
-        }
+		public void setCameraTarget(Body Target)
+		{
+			task.Target = Target;
+		}
 
-        public void setCameraTarget(Body Target)
-        {
-            task.Target = Target;
-        }
-
-    }
+	}
 }

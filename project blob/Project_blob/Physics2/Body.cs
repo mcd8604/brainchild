@@ -8,17 +8,17 @@ namespace Physics2
 	{
 
 		protected internal IList<PhysicsPoint> points = new List<PhysicsPoint>();
-        protected internal IList<Collidable> collidables = new List<Collidable>();
-        protected internal IList<Spring> springs = new List<Spring>();
-        protected internal IList<Task> tasks = new List<Task>();
+		protected internal IList<Collidable> collidables = new List<Collidable>();
+		protected internal IList<Spring> springs = new List<Spring>();
+		protected internal IList<Task> tasks = new List<Task>();
 
-        internal Body parentBody = null;
-        internal IList<Body> childBodies = new List<Body>();
+		internal Body parentBody = null;
+		internal IList<Body> childBodies = new List<Body>();
 
-        internal AxisAlignedBoundingBox boundingBox = null;
+		internal AxisAlignedBoundingBox boundingBox = null;
 
-        internal Vector3 center;
-        internal Vector3 potentialCenter;
+		internal Vector3 center;
+		internal Vector3 potentialCenter;
 
 		protected Material material = Material.getDefaultMaterial();
 
@@ -58,13 +58,13 @@ namespace Physics2
 				c.parent = this;
 				boundingBox.expandToInclude(c.getBoundingBox());
 			}
-            center = Vector3.Zero;
+			center = Vector3.Zero;
 			foreach (PhysicsPoint p in points)
 			{
 				boundingBox.expandToInclude(p.CurrentPosition);
-                center += p.CurrentPosition;
+				center += p.CurrentPosition;
 			}
-            center /= points.Count;
+			center /= points.Count;
 		}
 
 		public virtual void addChild(Body childBody)
@@ -81,10 +81,10 @@ namespace Physics2
 			childBodies.Add(childBody);
 		}
 
-        public void addTask(Task t)
-        {
-            tasks.Add(t);
-        }
+		public void addTask(Task t)
+		{
+			tasks.Add(t);
+		}
 
 		public virtual bool isStatic()
 		{
@@ -128,7 +128,7 @@ namespace Physics2
 
 		public virtual Vector3 getRelativeVelocity(CollisionEvent e)
 		{
-            // fix later
+			// fix later
 			return Vector3.Zero;
 		}
 
@@ -140,6 +140,15 @@ namespace Physics2
 		public virtual void setMaterial(Material m)
 		{
 			material = m;
+		}
+
+		public virtual void setCenter(Vector3 newCenter)
+		{
+			potentialCenter = newCenter;
+			foreach (PhysicsPoint p in points)
+			{
+				p.PotentialPosition = newCenter + (p.CurrentPosition - center);
+			}
 		}
 
 		public virtual void update(float TotalElapsedSeconds)
@@ -155,8 +164,8 @@ namespace Physics2
 			{
 				p.PotentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
 
-                // this is /probably/ not necessary
-                //boundingBox.expandToInclude(p.PotentialPosition);
+				// this is /probably/ not necessary
+				//boundingBox.expandToInclude(p.PotentialPosition);
 
 				potentialCenter += p.PotentialPosition;
 			}
@@ -218,48 +227,52 @@ namespace Physics2
 
 			foreach (PhysicsPoint p in points)
 			{
-				Vector3 Acceleration = p.AccelerationThisFrame + (p.ForceThisFrame / p.Mass);
-				p.PotentialVelocity = p.CurrentVelocity + (Acceleration * TotalElapsedSeconds);
-
-				if (p.PotentialVelocity != Vector3.Zero)
+				if (p.ForceThisFrame != Vector3.Zero || p.AccelerationThisFrame != Vector3.Zero)
 				{
-					//Vector3 DragForce = p.PotentialVelocity * airfriction;
-					Vector3 DragForce = p.PotentialVelocity * 1;
-					Vector3 AccelerationDrag = (DragForce / p.Mass);
-					Vector3 VelocityDrag = (AccelerationDrag * TotalElapsedSeconds);
+					Vector3 Acceleration = p.AccelerationThisFrame + (p.ForceThisFrame / p.Mass);
+					p.PotentialVelocity = p.CurrentVelocity + (Acceleration * TotalElapsedSeconds);
 
-					if ((p.PotentialVelocity.X > 0 && p.PotentialVelocity.X - VelocityDrag.X <= 0) ||
-						(p.PotentialVelocity.X < 0 && p.PotentialVelocity.X - VelocityDrag.X >= 0))
+					if (p.PotentialVelocity != Vector3.Zero)
 					{
-						p.PotentialVelocity.X = 0;
-						VelocityDrag.X = 0;
+						//Vector3 DragForce = p.PotentialVelocity * airfriction;
+						Vector3 DragForce = p.PotentialVelocity * 1;
+						Vector3 AccelerationDrag = (DragForce / p.Mass);
+						Vector3 VelocityDrag = (AccelerationDrag * TotalElapsedSeconds);
+
+						if ((p.PotentialVelocity.X > 0 && p.PotentialVelocity.X - VelocityDrag.X <= 0) ||
+							(p.PotentialVelocity.X < 0 && p.PotentialVelocity.X - VelocityDrag.X >= 0))
+						{
+							p.PotentialVelocity.X = 0;
+							VelocityDrag.X = 0;
+						}
+						if ((p.PotentialVelocity.Y > 0 && p.PotentialVelocity.Y - VelocityDrag.Y <= 0) ||
+							(p.PotentialVelocity.Y < 0 && p.PotentialVelocity.Y - VelocityDrag.Y >= 0))
+						{
+							p.PotentialVelocity.Y = 0;
+							VelocityDrag.Y = 0;
+						}
+						if ((p.PotentialVelocity.Z > 0 && p.PotentialVelocity.Z - VelocityDrag.Z <= 0) ||
+							(p.PotentialVelocity.Z < 0 && p.PotentialVelocity.Z - VelocityDrag.Z >= 0))
+						{
+							p.PotentialVelocity.Z = 0;
+							VelocityDrag.Z = 0;
+						}
+						p.PotentialVelocity -= VelocityDrag;
 					}
-					if ((p.PotentialVelocity.Y > 0 && p.PotentialVelocity.Y - VelocityDrag.Y <= 0) ||
-						(p.PotentialVelocity.Y < 0 && p.PotentialVelocity.Y - VelocityDrag.Y >= 0))
-					{
-						p.PotentialVelocity.Y = 0;
-						VelocityDrag.Y = 0;
-					}
-					if ((p.PotentialVelocity.Z > 0 && p.PotentialVelocity.Z - VelocityDrag.Z <= 0) ||
-						(p.PotentialVelocity.Z < 0 && p.PotentialVelocity.Z - VelocityDrag.Z >= 0))
-					{
-						p.PotentialVelocity.Z = 0;
-						VelocityDrag.Z = 0;
-					}
-					p.PotentialVelocity -= VelocityDrag;
+
+					p.PotentialPosition = p.CurrentPosition + (p.PotentialVelocity * TotalElapsedSeconds);
+
 				}
 
-				p.PotentialPosition = p.CurrentPosition + (p.PotentialVelocity * TotalElapsedSeconds);
-
-                // temp again
-                boundingBox.expandToInclude(p.PotentialPosition);
+				// temp again
+				boundingBox.expandToInclude(p.PotentialPosition);
 			}
 
 		}
 
 		internal virtual List<CollisionEvent> findCollisions(Body c)
 		{
-            // fix later
+			// fix later
 			List<CollisionEvent> events = new List<CollisionEvent>();
 
 			foreach (Body child in childBodies)
@@ -281,7 +294,7 @@ namespace Physics2
 
 		internal virtual List<CollisionEvent> findCollisionsWith(Body b)
 		{
-            // fix later
+			// fix later
 			List<CollisionEvent> events = new List<CollisionEvent>();
 
 			foreach (Body child in childBodies)
@@ -302,7 +315,7 @@ namespace Physics2
 
 		internal virtual List<CollisionEvent> findPointCollisions(Body c)
 		{
-            // fix later
+			// fix later
 			List<CollisionEvent> events = new List<CollisionEvent>();
 
 			foreach (PhysicsPoint p in points)
