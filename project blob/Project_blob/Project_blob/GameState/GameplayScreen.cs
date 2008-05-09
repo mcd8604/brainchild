@@ -1,3 +1,5 @@
+#define TIMED
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -85,10 +87,21 @@ namespace Project_blob.GameState
 
 		public static Area currentArea;
 
+#if TIMED
 		System.Diagnostics.Stopwatch physicsTime = new System.Diagnostics.Stopwatch();
 		System.Diagnostics.Stopwatch drawTime = new System.Diagnostics.Stopwatch();
+#endif
 
 		CameraBody CameraBody;
+
+		private Vector3 blobStartPosition = new Vector3(0, 10, 0);
+
+#if DEBUG && TIMED
+		float DEBUG_MaxPhys = -1;
+		float DEBUG_MinPhys = -1;
+		float DEBUG_MaxDraw = -1;
+		float DEBUG_MinDraw = -1;
+#endif
 
 		public GameplayScreen()
 		{
@@ -98,8 +111,6 @@ namespace Project_blob.GameState
 
 			lightPosition = new Vector4(5, 5, 5, 0);
 		}
-
-		private Vector3 blobStartPosition = new Vector3(0, 10, 0);
 
 		private void reset()
 		{
@@ -259,6 +270,8 @@ namespace Project_blob.GameState
 					ChangeArea(f.getSelected(), blobStartPosition);
 				}
 			}
+#else
+			// Load Default Starting Level
 #endif
 
 			ti = new TextureInfo("cloudsky", 0);
@@ -502,8 +515,10 @@ namespace Project_blob.GameState
 			currentArea.Display.AddToBeDrawn(sky);
 			if (IsActive)
 			{
+#if TIMED
 				physicsTime.Reset();
 				physicsTime.Start();
+#endif
 				if (!paused)
 				{
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
@@ -520,16 +535,14 @@ namespace Project_blob.GameState
 
 
 				}
+#if TIMED
 				physicsTime.Stop();
+#endif
 				if (step)
 				{
 					paused = true;
 					step = false;
 				}
-
-				// actually, shouldn't the skybox be centered around /the camera/ instead of the blob?
-				if (currentArea.Display.SkyBox != null)
-					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
 
 				//Update Camera
 				//camera.Update(gameTime);
@@ -542,10 +555,12 @@ namespace Project_blob.GameState
 				if (InputHandler.IsActionPressed(Actions.Reset))
 				{
 					reset();
+#if DEBUG && TIMED
 					DEBUG_MaxPhys = -1;
 					DEBUG_MinPhys = -1;
 					DEBUG_MaxDraw = -1;
 					DEBUG_MinDraw = -1;
+#endif
 				}
 
 
@@ -636,13 +651,8 @@ namespace Project_blob.GameState
 					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
 				}
 
-				//cubeVertexBuffer.SetData<VertexPositionNormalTexture>(theBlob.getTriangleVertexes());
-
-
-
-				// light
-				//effect.Parameters["xLightPos"].SetValue(lightPosition);
-
+				if (currentArea.Display.SkyBox != null)
+					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(CameraManager.getSingleton.ActiveCamera.Position);
 
 
 				//fps
@@ -653,14 +663,6 @@ namespace Project_blob.GameState
 					time = 0;
 					frames = 0;
 				}
-
-
-
-
-
-
-
-
 
 
 #if DEBUG
@@ -690,10 +692,12 @@ namespace Project_blob.GameState
 						PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
 					}
 					reset();
+#if TIMED
 					DEBUG_MaxPhys = -1;
 					DEBUG_MinPhys = -1;
 					DEBUG_MaxDraw = -1;
 					DEBUG_MinDraw = -1;
+#endif
 				}
 
 				if (InputHandler.IsKeyPressed(Keys.T))
@@ -771,14 +775,6 @@ namespace Project_blob.GameState
 				{
 					currentArea.Display.DEBUG_WireframeMode = !currentArea.Display.DEBUG_WireframeMode;
 				}
-				if (InputHandler.IsKeyPressed(Keys.O))
-				{
-					OrientCamera = !OrientCamera;
-				}
-				if (InputHandler.IsKeyPressed(Keys.OemPeriod))
-				{
-					points = !points;
-				}
 				if (InputHandler.IsKeyPressed(Keys.N))
 				{
 					Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
@@ -786,10 +782,12 @@ namespace Project_blob.GameState
 
 				if (InputHandler.IsKeyPressed(Keys.B))
 				{
+#if TIMED
 					DEBUG_MaxPhys = -1;
 					DEBUG_MinPhys = -1;
 					DEBUG_MaxDraw = -1;
 					DEBUG_MinDraw = -1;
+#endif
 				}
 
 				if (InputHandler.IsKeyPressed(Keys.OemPlus))
@@ -833,23 +831,15 @@ namespace Project_blob.GameState
 #endif
 
 
-
-
-
-
-
-
-
-
-
 			}
 		}
 
 		public override void Draw(GameTime gameTime)
 		{
+#if TIMED
 			drawTime.Reset();
 			drawTime.Start();
-
+#endif
 			//ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
 			//ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
@@ -1041,10 +1031,11 @@ namespace Project_blob.GameState
 			//cartoonEffect.End();
 
 			//currentArea.Display.ApplyPostProcessing(ScreenManager.GraphicsDevice);
+#if TIMED
 			drawTime.Stop();
+#endif
 
-
-
+#if DEBUG && TIMED
 			if (DEBUG_MaxPhys == -1)
 			{
 				DEBUG_MaxPhys = (float)physicsTime.Elapsed.TotalMilliseconds;
@@ -1077,21 +1068,23 @@ namespace Project_blob.GameState
 			{
 				DEBUG_MinDraw = Math.Min(DEBUG_MinDraw, (float)drawTime.Elapsed.TotalMilliseconds);
 			}
-
+#endif
 
 			// GUI
 			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			spriteBatch.Begin();
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
+#if TIMED
 			spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
 			spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);
-
+#if DEBUG
 			spriteBatch.DrawString(font, "Phys(Max): " + DEBUG_MaxPhys, new Vector2(0, 100), Color.White);
 			spriteBatch.DrawString(font, "Draw(Max): " + DEBUG_MaxDraw, new Vector2(0, 130), Color.White);
 
 			spriteBatch.DrawString(font, "Phys(Min): " + DEBUG_MinPhys, new Vector2(320, 100), Color.White);
 			spriteBatch.DrawString(font, "Draw(Min): " + DEBUG_MinDraw, new Vector2(320, 130), Color.White);
-
+#endif
+#endif
 			if (physics.Player != null)
 			{
 				if (physics.Player.Resilience.Target < 0.33)
@@ -1124,20 +1117,17 @@ namespace Project_blob.GameState
 			{
 				spriteBatch.DrawString(font, "Paused", new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (ScreenManager.GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
 			}
-			//spriteBatch.DrawString(font, physics.DEBUG_BumpLoops.ToString(), new Vector2(550, 0), Color.White);
+#if DEBUG
 			spriteBatch.DrawString(font, "Vol: " + theBlob.getVolume().ToString(), new Vector2(345, 30), Color.White);
 			spriteBatch.DrawString(font, "Next Vol: " + theBlob.getPotentialVolume().ToString(), new Vector2(250, 60), Color.White);
-			//spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
-#if DEBUG
+
 			spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
 			spriteBatch.DrawString(font, "PWR: " + physics.PWR, new Vector2(0, 566), Color.White);
-#endif
 
 			spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(600, 30), Color.White);
 
-
 			spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
-
+#endif
 			spriteBatch.End();
 
 			//fps
@@ -1145,10 +1135,5 @@ namespace Project_blob.GameState
 
 			//base.Draw(gameTime);
 		}
-
-		float DEBUG_MaxPhys = -1;
-		float DEBUG_MinPhys = -1;
-		float DEBUG_MaxDraw = -1;
-		float DEBUG_MinDraw = -1;
 	}
 }

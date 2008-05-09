@@ -59,7 +59,6 @@ namespace Project_blob
 					case ContainmentType.Intersects:
 						{
 							SceneManager.getSingleton.Display.AddToBeDrawn(obj);
-							SceneManager.getSingleton.Drawn += 1;
 						}
 						break;
 
@@ -125,7 +124,6 @@ namespace Project_blob
 					case ContainmentType.Intersects:
 						{
 							SceneManager.getSingleton.Display.AddToBeDrawn(obj);
-							SceneManager.getSingleton.Drawn += 1;
 						}
 						break;
 
@@ -184,7 +182,6 @@ namespace Project_blob
 			foreach (Drawable obj in _sectorObjects)
 			{
 				SceneManager.getSingleton.Display.AddToBeDrawn(obj);
-				SceneManager.getSingleton.Drawn += 1;
 			}
 		}
 

@@ -233,7 +233,6 @@ namespace Project_blob
 				AddToBeDrawn(m_skyBox);
 		}
 
-		// Why is this getting called every frame??
 		public void AddToBeDrawn(Drawable p_Drawable)
 		{
 			if (drawable_List_Drawn.Keys.Contains(p_Drawable.GetTextureKey()))
@@ -248,6 +247,9 @@ namespace Project_blob
 				temp.Add(p_Drawable);
 				drawable_List_Drawn[p_Drawable.GetTextureKey()] = temp;
 			}
+#if DEBUG
+			++SceneManager.getSingleton.Drawn;
+#endif
 		}
 
 		public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
