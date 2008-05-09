@@ -9,7 +9,7 @@ using Wintellect.PowerCollections;
 /// <summary>
 /// List of Actions to which keys may be bound and states queried.
 /// </summary>
-internal enum Actions { MenuUp, MenuDown, MenuAccept, MenuCancel, Pause, Reset, ToggleStickiness, ToggleElasticity };
+internal enum Actions { MenuUp, MenuDown, MenuAccept, MenuCancel, MoveUp, MoveDown, MoveLeft, MoveRight, Pause, Reset, ToggleStickiness, ToggleElasticity };
 internal enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
 internal enum AnalogActions { Movement, Camera };
 internal delegate Vector2 AnalogFunction();
@@ -40,11 +40,16 @@ internal static class InputHandler
 		GamePadMap.Add(Actions.ToggleElasticity, Buttons.RightShoulder);
 		GamePadMap.Add(Actions.ToggleStickiness, Buttons.LeftShoulder);
 
+		KeyboardMap.Add(Actions.MoveUp, Keys.Up);
+		KeyboardMap.Add(Actions.MoveDown, Keys.Down);
+		KeyboardMap.Add(Actions.MoveRight, Keys.Right);
+		KeyboardMap.Add(Actions.MoveLeft, Keys.Left);
+
 		AnalogMap.Add(AnalogActions.Movement, delegate { return InputHandler.thisGamePadState.ThumbSticks.Left; });
-		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsKeyDown(Keys.Up)) { return new Vector2(0, 1); } else { return Vector2.Zero; } });
-		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsKeyDown(Keys.Down)) { return new Vector2(0, -1); } else { return Vector2.Zero; } });
-		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsKeyDown(Keys.Right)) { return new Vector2(1, 0); } else { return Vector2.Zero; } });
-		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsKeyDown(Keys.Left)) { return new Vector2(-1, 0); } else { return Vector2.Zero; } });
+		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsActionDown(Actions.MoveUp)) { return new Vector2(0, 1); } else { return Vector2.Zero; } });
+		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsActionDown(Actions.MoveDown)) { return new Vector2(0, -1); } else { return Vector2.Zero; } });
+		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsActionDown(Actions.MoveRight)) { return new Vector2(1, 0); } else { return Vector2.Zero; } });
+		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsActionDown(Actions.MoveLeft)) { return new Vector2(-1, 0); } else { return Vector2.Zero; } });
 
 		AnalogMap.Add(AnalogActions.Camera, delegate { return InputHandler.thisGamePadState.ThumbSticks.Right; });
 
@@ -278,7 +283,7 @@ internal static class InputHandler
 
 	internal static Vector2 getMouseDeltaPosition()
 	{
-        return new Vector2(thisMouseState.X, thisMouseState.Y) - new Vector2(lastMouseState.X, lastMouseState.Y);
+		return new Vector2(thisMouseState.X, thisMouseState.Y) - new Vector2(lastMouseState.X, lastMouseState.Y);
 	}
 	internal static int getMouseWheelDelta()
 	{

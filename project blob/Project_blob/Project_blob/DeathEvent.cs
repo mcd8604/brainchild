@@ -7,15 +7,15 @@ using Physics2;
 
 namespace Project_blob
 {
-    [Serializable]
-    public class DeathEvent : EventTrigger
-    {
-        public DeathEvent() { }
+	[Serializable]
+	public class DeathEvent : EventTrigger
+	{
+		public DeathEvent() { }
 
-        public void PerformEvent(PhysicsPoint point)
-        {
-            // Death will occur if /anything/ touches the death event...
-            GameplayScreen.CauseDeath();
-        }
-    }
+		public void PerformEvent(PhysicsPoint point)
+		{
+			// Death will occur if /anything/ touches the death event...
+			GameplayScreen.CauseDeath();
+		}
+	}
 }

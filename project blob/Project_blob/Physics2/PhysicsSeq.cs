@@ -36,17 +36,17 @@ namespace Physics2
 		{
 			return DEBUG_NumCollidables;
 		}
+
+		public override float PWR
+		{
+			get { return 1f; }
+		}
 #endif
 
 		private Player player = new Player();
 		public override Player Player
 		{
 			get { return player; }
-		}
-
-		public override float PWR
-		{
-			get { return 1f; }
 		}
 
 		public override void stop()
@@ -265,7 +265,7 @@ namespace Physics2
 				e.point.LastCollision = e.collidable;
 			}
 
-			// check check
+			// check check?
 
 			foreach (CollisionEvent e in events)
 			{

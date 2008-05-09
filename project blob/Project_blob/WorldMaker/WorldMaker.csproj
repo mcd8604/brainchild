@@ -87,7 +87,9 @@
     <Compile Include="EventSetter.Designer.cs">
       <DependentUpon>EventSetter.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputHandler.cs" />
+    <Compile Include="InputHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LevelEditor.cs">
       <SubType>Form</SubType>
     </Compile>

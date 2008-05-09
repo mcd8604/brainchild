@@ -37,7 +37,8 @@ namespace Project_blob
 
 		public ConveyerBeltStatic() { }
 
-		public ConveyerBeltStatic(StaticModel p_Model) : base(p_Model) 
+		public ConveyerBeltStatic(StaticModel p_Model)
+			: base(p_Model)
 		{
 			m_Direction = Vector3.Forward;
 			m_Speed = 1f;
@@ -57,9 +58,9 @@ namespace Project_blob
 		public override void DrawMe(Microsoft.Xna.Framework.Graphics.GraphicsDevice graphicsDevice, Microsoft.Xna.Framework.Graphics.Effect effect, bool gameMode)
 		{
 			// nice effect, but it keeps 'moving' even when the game is paused, because it always changes every frame.
-			 this.TextureOffsetX -= this.Speed * this.TextureScaleX * (m_Direction.X + m_Direction.Z) * 0.005f;
- 			 base.DrawMe(graphicsDevice, effect, gameMode);
-		} 
+			this.TextureOffsetX -= this.Speed * this.TextureScaleX * (m_Direction.X + m_Direction.Z) * 0.005f;
+			base.DrawMe(graphicsDevice, effect, gameMode);
+		}
 
 	}
 }

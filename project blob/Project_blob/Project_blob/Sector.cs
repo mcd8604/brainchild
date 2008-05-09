@@ -8,14 +8,14 @@ using Engine;
 
 namespace Project_blob
 {
-    class Sector
-    {
-        private List<Drawable> _sectorObjects;
-        public List<Drawable> SectorObjects
-        {
-            get { return _sectorObjects; }
-            set { _sectorObjects = value; }
-        }
+	class Sector
+	{
+		private List<Drawable> _sectorObjects;
+		public List<Drawable> SectorObjects
+		{
+			get { return _sectorObjects; }
+			set { _sectorObjects = value; }
+		}
 
 		private List<Portal> _portals;
 		public List<Portal> Portals
@@ -24,206 +24,206 @@ namespace Project_blob
 			set { _portals = value; }
 		}
 
-        private BoundingBox _containerBox;
-        public BoundingBox ContainerBox
-        {
-            get { return _containerBox; }
-            set { _containerBox = value; }
-        }
+		private BoundingBox _containerBox;
+		public BoundingBox ContainerBox
+		{
+			get { return _containerBox; }
+			set { _containerBox = value; }
+		}
 
-        private int _sectorNumber;
-        public int SectorNumber
-        {
-            get { return _sectorNumber; }
-            set { _sectorNumber = value; }
-        }
+		private int _sectorNumber;
+		public int SectorNumber
+		{
+			get { return _sectorNumber; }
+			set { _sectorNumber = value; }
+		}
 
-        public Sector(int sectorNum)
-        {
-            _sectorObjects = new List<Drawable>();
-            _portals = new List<Portal>();
-            _sectorNumber = sectorNum;
-        }
+		public Sector(int sectorNum)
+		{
+			_sectorObjects = new List<Drawable>();
+			_portals = new List<Portal>();
+			_sectorNumber = sectorNum;
+		}
 
-        public void DrawVisible(GameTime gameTime)
-        {
-            BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
+		public void DrawVisible(GameTime gameTime)
+		{
+			BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
 
-            foreach (Drawable obj in _sectorObjects)
-            {
-                ContainmentType type = frustum.Contains(obj.GetBoundingBox());
+			foreach (Drawable obj in _sectorObjects)
+			{
+				ContainmentType type = frustum.Contains(obj.GetBoundingBox());
 
-                switch (type)
-                {
-                    case ContainmentType.Contains:
-                    case ContainmentType.Intersects:
-                        {
-                            SceneManager.getSingleton.Display.AddToBeDrawn(obj);
-                            SceneManager.getSingleton.Drawn += 1;
-                        }
-                        break;
+				switch (type)
+				{
+					case ContainmentType.Contains:
+					case ContainmentType.Intersects:
+						{
+							SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+							SceneManager.getSingleton.Drawn += 1;
+						}
+						break;
 
-                    case ContainmentType.Disjoint:
-                        {
-                            //Object is culled.
-                        }
-                        break;
-                }
-            }
+					case ContainmentType.Disjoint:
+						{
+							//Object is culled.
+						}
+						break;
+				}
+			}
 
-            foreach (Portal portal in _portals)
-            {
-                //ContainmentType type = frustum.Contains(portal.GetBoundingBoxTransformed());
-                ContainmentType type = frustum.Contains(portal.BoundingBox);
+			foreach (Portal portal in _portals)
+			{
+				//ContainmentType type = frustum.Contains(portal.GetBoundingBoxTransformed());
+				ContainmentType type = frustum.Contains(portal.BoundingBox);
 
-                switch (type)
-                {
-                    case ContainmentType.Contains:
-                    case ContainmentType.Intersects:
-                        {
-                            //Create new frustum from portal
+				switch (type)
+				{
+					case ContainmentType.Contains:
+					case ContainmentType.Intersects:
+						{
+							//Create new frustum from portal
 							BoundingFrustum newFrustum = CreatePortalFrustum(portal);
 							//Frustum newFrustum = CreatePortalFrustum(portal);
 
 							//drawFrustum(newFrustum);
 
-                            //Drawvisible on connected sector
-                            foreach (int sectorNum in portal.ConnectedSectors)
-                            {
-                                if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
-                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) && 
-                                    (sectorNum != _sectorNumber) && 
-									(sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
-                                {
-									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
-									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
-
-                                    SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
-                                }
-                            }
-                        }
-                        break;
-
-                    case ContainmentType.Disjoint:
-                        {
-                            //Portal is not visible.
-                        }
-                        break;
-                }
-            }
-        }
-
-		public void DrawVisible(GameTime gameTime, BoundingFrustum frustum)//Frustum frustum)
-        {
-            foreach (Drawable obj in _sectorObjects)
-            {
-                ContainmentType type = frustum.Contains(obj.GetBoundingBox());
-
-                switch (type)
-                {
-                    case ContainmentType.Contains:
-                    case ContainmentType.Intersects:
-                        {
-                            SceneManager.getSingleton.Display.AddToBeDrawn(obj);
-                            SceneManager.getSingleton.Drawn += 1;
-                        }
-                        break;
-
-                    case ContainmentType.Disjoint:
-                        {
-                            //Object is culled.
-                        }
-                        break;
-                }
-            }
-
-            foreach (Portal portal in _portals)
-            {
-                //ContainmentType type = frustum.Contains(portal.GetBoundingBoxTransformed());
-                ContainmentType type = frustum.Contains(portal.BoundingBox);
-
-                switch (type)
-                {
-                    case ContainmentType.Contains:
-                    case ContainmentType.Intersects:
-                        {
-                            //Create new frustum from portal
-							BoundingFrustum newFrustum = CreatePortalFrustum(portal);
-							//Frustum newFrustum = CreatePortalFrustum(portal);
-
-							//drawFrustum(newFrustum);
-
-                            //Drawvisible on connected sector
-                            foreach (int sectorNum in portal.ConnectedSectors)
-                            {
-                                if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
-                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) &&
+							//Drawvisible on connected sector
+							foreach (int sectorNum in portal.ConnectedSectors)
+							{
+								if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
+									(sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) &&
 									(sectorNum != _sectorNumber) &&
 									(sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
-                                {
+								{
 									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
 									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
 
-                                    SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
-                                }
-                            }
-                        }
-                        break;
+									SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
+								}
+							}
+						}
+						break;
 
-                    case ContainmentType.Disjoint:
-                        {
-                            //Portal is not visible.
-                        }
-                        break;
-                }
-            }
-        }
+					case ContainmentType.Disjoint:
+						{
+							//Portal is not visible.
+						}
+						break;
+				}
+			}
+		}
 
-        public void Draw(GameTime gameTime)
-        {
-            foreach (Drawable obj in _sectorObjects)
-            {
-                SceneManager.getSingleton.Display.AddToBeDrawn(obj);
-                SceneManager.getSingleton.Drawn += 1;
-            }
-        }
+		public void DrawVisible(GameTime gameTime, BoundingFrustum frustum)//Frustum frustum)
+		{
+			foreach (Drawable obj in _sectorObjects)
+			{
+				ContainmentType type = frustum.Contains(obj.GetBoundingBox());
 
-        public void AddObjectToSector(Drawable obj)
-        {
-            _sectorObjects.Add(obj);
+				switch (type)
+				{
+					case ContainmentType.Contains:
+					case ContainmentType.Intersects:
+						{
+							SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+							SceneManager.getSingleton.Drawn += 1;
+						}
+						break;
 
-            if (_containerBox.Min == _containerBox.Max)
-            {
-                _containerBox = obj.GetBoundingBox();
-            }
-            else
-            {
-                _containerBox = BoundingBox.CreateMerged(_containerBox, obj.GetBoundingBox());
-            }
-        }
+					case ContainmentType.Disjoint:
+						{
+							//Object is culled.
+						}
+						break;
+				}
+			}
 
-        public void AddPortalToSector(Portal portal)
-        {
-            _portals.Add(portal);
+			foreach (Portal portal in _portals)
+			{
+				//ContainmentType type = frustum.Contains(portal.GetBoundingBoxTransformed());
+				ContainmentType type = frustum.Contains(portal.BoundingBox);
 
-            //May not need to do this checking and merging if portals aren't used in the bounding boxes
-            // of the sector
-            //if (_containerBox.Min == _containerBox.Max)
-            //{
-            //    _containerBox = obj.GetBoundingBoxTransformed();
-            //}
-            //else
-            //{
-            //    _containerBox = BoundingBox.CreateMerged(_containerBox, obj.GetBoundingBoxTransformed());
-            //}
-        }
+				switch (type)
+				{
+					case ContainmentType.Contains:
+					case ContainmentType.Intersects:
+						{
+							//Create new frustum from portal
+							BoundingFrustum newFrustum = CreatePortalFrustum(portal);
+							//Frustum newFrustum = CreatePortalFrustum(portal);
+
+							//drawFrustum(newFrustum);
+
+							//Drawvisible on connected sector
+							foreach (int sectorNum in portal.ConnectedSectors)
+							{
+								if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
+									(sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) &&
+									(sectorNum != _sectorNumber) &&
+									(sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
+								{
+									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
+
+									SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
+								}
+							}
+						}
+						break;
+
+					case ContainmentType.Disjoint:
+						{
+							//Portal is not visible.
+						}
+						break;
+				}
+			}
+		}
+
+		public void Draw(GameTime gameTime)
+		{
+			foreach (Drawable obj in _sectorObjects)
+			{
+				SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+				SceneManager.getSingleton.Drawn += 1;
+			}
+		}
+
+		public void AddObjectToSector(Drawable obj)
+		{
+			_sectorObjects.Add(obj);
+
+			if (_containerBox.Min == _containerBox.Max)
+			{
+				_containerBox = obj.GetBoundingBox();
+			}
+			else
+			{
+				_containerBox = BoundingBox.CreateMerged(_containerBox, obj.GetBoundingBox());
+			}
+		}
+
+		public void AddPortalToSector(Portal portal)
+		{
+			_portals.Add(portal);
+
+			//May not need to do this checking and merging if portals aren't used in the bounding boxes
+			// of the sector
+			//if (_containerBox.Min == _containerBox.Max)
+			//{
+			//    _containerBox = obj.GetBoundingBoxTransformed();
+			//}
+			//else
+			//{
+			//    _containerBox = BoundingBox.CreateMerged(_containerBox, obj.GetBoundingBoxTransformed());
+			//}
+		}
 
 		private BoundingFrustum CreatePortalFrustum(Portal portal)
 		//private Frustum CreatePortalFrustum(Portal portal)
-        {
-            //Create new frustum from portal
-            //BoundingBox box = portal.GetBoundingBoxTransformed();
-            BoundingBox box = portal.BoundingBox;
+		{
+			//Create new frustum from portal
+			//BoundingBox box = portal.GetBoundingBoxTransformed();
+			BoundingBox box = portal.BoundingBox;
 
 			float fieldOfView, aspectRatio, nearPlane;
 			Vector3 v1, v2;
@@ -285,8 +285,8 @@ namespace Project_blob
 
 			//Frustum newFrustum = new Frustum(ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr);
 
-            return newFrustum;
-        }
+			return newFrustum;
+		}
 
 		/*TESTING METHOD
 		private void drawFrustum(BoundingFrustum frustum)
@@ -358,5 +358,5 @@ namespace Project_blob
 			//basicEffect.End();
 		}
 		 * */
-    }
+	}
 }

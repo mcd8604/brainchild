@@ -1,7 +1,7 @@
 using System;
 namespace Physics2
 {
-    [Serializable]
+	[Serializable]
 	public abstract class Task
 	{
 

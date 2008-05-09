@@ -10,36 +10,36 @@ using Physics2;
 namespace Project_blob
 {
 
-    //--------------------------------------------------------------------------------------
-    // Custom types
-    //--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	// Custom types
+	//--------------------------------------------------------------------------------------
 
-    // Vertex format for blob billboards
-    struct POINTVERTEX  
-    {
-        public Vector3 pos;
-        public float       size;
-        public Vector3 color;
-    }; 
+	// Vertex format for blob billboards
+	struct POINTVERTEX
+	{
+		public Vector3 pos;
+		public float size;
+		public Vector3 color;
+	};
 
-    // Vertex format for screen space work
-    struct SCREENVERTEX     
-    {
-        public Vector4 pos;
-        public Vector2 tCurr;
-        public Vector2 tBack;
-        public float       fSize;
-        public Vector3 vColor;
-    };
+	// Vertex format for screen space work
+	struct SCREENVERTEX
+	{
+		public Vector4 pos;
+		public Vector2 tCurr;
+		public Vector2 tBack;
+		public float fSize;
+		public Vector3 vColor;
+	};
 
 	public class Blob : BodyPressure, Drawable
 	{
 
-        public Texture2D text = null;
-        public Texture2D DisplacementText = null;
-        int NUM_Blobs;
+		public Texture2D text = null;
+		public Texture2D DisplacementText = null;
+		int NUM_Blobs;
 
-        POINTVERTEX[] g_BlobPoints;
+		POINTVERTEX[] g_BlobPoints;
 
 		public static float springVal = 62.5f;
 
@@ -69,7 +69,7 @@ namespace Project_blob
 			{
 				//s.MaximumLengthBeforeExtension += delta;
 				//s.MinimumLengthBeforeCompression += delta;
-                s.LengthOffset += delta;
+				s.LengthOffset += delta;
 			}
 
 		}
@@ -102,18 +102,18 @@ namespace Project_blob
 			// VertexBuffer
 			VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[part.NumVertices];
 			mesh.VertexBuffer.GetData<VertexPositionColorTexture>(tempVertices);
-           
+
 			vertices = new VertexPositionNormalTexture[tempVertices.Length];
-			for(int i = 0; i < tempVertices.Length; i++) 
+			for (int i = 0; i < tempVertices.Length; i++)
 			{
-				Vector3 testNorm = Vector3.Normalize(Vector3.Subtract(tempVertices[i].Position,center));
+				Vector3 testNorm = Vector3.Normalize(Vector3.Subtract(tempVertices[i].Position, center));
 				vertices[i] = new VertexPositionNormalTexture(tempVertices[i].Position, testNorm, tempVertices[i].TextureCoordinate);
 			}
 
-            /*vertices = new VertexPositionNormalTexture[part.NumVertices];
-            mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);*/
+			/*vertices = new VertexPositionNormalTexture[part.NumVertices];
+			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);*/
 
-            //Hashtable pointTable = new Hashtable(new Physics.PointComparater());
+			//Hashtable pointTable = new Hashtable(new Physics.PointComparater());
 
 			// IndexBuffer
 			if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
@@ -139,16 +139,16 @@ namespace Project_blob
 				tempList.Add(new PhysicsPoint(center + v.Position, this));
 			}
 
-            NUM_Blobs = tempList.Count;
+			NUM_Blobs = tempList.Count;
 
-            g_BlobPoints = new POINTVERTEX[NUM_Blobs];
-            // Set initial blob states
-            for (int i = 0; i < NUM_Blobs; i++)
-            {
-                g_BlobPoints[i].pos = new Vector3(0.0f, 0.0f, 0.0f);
-                g_BlobPoints[i].size = 1.0f;
-                g_BlobPoints[i].color = new Vector3(0,0.3f,0);
-            }
+			g_BlobPoints = new POINTVERTEX[NUM_Blobs];
+			// Set initial blob states
+			for (int i = 0; i < NUM_Blobs; i++)
+			{
+				g_BlobPoints[i].pos = new Vector3(0.0f, 0.0f, 0.0f);
+				g_BlobPoints[i].size = 1.0f;
+				g_BlobPoints[i].color = new Vector3(0, 0.3f, 0);
+			}
 
 			/*
 			int num_points = 0;
@@ -249,7 +249,7 @@ namespace Project_blob
 			{
 				vertices[i].Position = points[i].ExternalPosition;
 				vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter()));
-                g_BlobPoints[i].pos = vertices[i].Position;
+				g_BlobPoints[i].pos = vertices[i].Position;
 
 				//vertices[pointsToUpdate[i]].Position = points[i].CurrentPosition;
 				//vertices[pointsToUpdate[i]].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter() ));
@@ -297,28 +297,28 @@ namespace Project_blob
 			theDevice.Vertices[0].SetSource(null, 0, 0);
 		}
 
-        //public override IEnumerable<Collidable> getCollidables()
-        //{
-        //    // Disabled collision planes for softcubes until I can figure out what's wrong.
+		//public override IEnumerable<Collidable> getCollidables()
+		//{
+		//    // Disabled collision planes for softcubes until I can figure out what's wrong.
 
-        //    //List<Physics.Collidable> temp = new List<Physics.Collidable>();
-        //    //foreach ( Tri t in collidables ) 
-        //    //    temp.Add( t as Physics.Collidable );
-        //    //}
-        //    //return temp;
+		//    //List<Physics.Collidable> temp = new List<Physics.Collidable>();
+		//    //foreach ( Tri t in collidables ) 
+		//    //    temp.Add( t as Physics.Collidable );
+		//    //}
+		//    //return temp;
 
-        //    return new List<Collidable>();
-        //}
+		//    return new List<Collidable>();
+		//}
 
-        //public IEnumerable<Drawable> getDrawables()
-        //{
-        //    List<Drawable> temp = new List<Drawable>();
-        //    foreach (Tri t in collidables)
-        //    {
-        //        temp.Add(t as Drawable);
-        //    }
-        //    return temp;
-        //}
+		//public IEnumerable<Drawable> getDrawables()
+		//{
+		//    List<Drawable> temp = new List<Drawable>();
+		//    foreach (Tri t in collidables)
+		//    {
+		//        temp.Add(t as Drawable);
+		//    }
+		//    return temp;
+		//}
 
 		public float getOldVolume()
 		{
@@ -526,32 +526,32 @@ namespace Project_blob
 			return volume;
 		}
 
-        private float getPotentialFaceVolumeTest(Vector3 point1, Vector3 point2, Vector3 point3)
-        {
-            Vector3 a = point2 - point1;
-            Vector3 b = point3 - point1;
-            Vector3 c = Vector3.Cross(a, b);
+		private float getPotentialFaceVolumeTest(Vector3 point1, Vector3 point2, Vector3 point3)
+		{
+			Vector3 a = point2 - point1;
+			Vector3 b = point3 - point1;
+			Vector3 c = Vector3.Cross(a, b);
 
-            float area = .5f * c.Length();
+			float area = .5f * c.Length();
 
-            Plane facePlane = new Plane(point1, point2, point3);
-            //Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
+			Plane facePlane = new Plane(point1, point2, point3);
+			//Plane centerPlane = new Plane(facePlane.Normal,facePlane.DotNormal(getCenter()));
 
-            // float distance = Vector3.Dot(facePlane.Normal, Vector3.Subtract(getCenter(),facePlane.Normal * facePlane.D));
-            //Vector3 closestPoint = Vector3.Subtract(getCenter(), Vector3.Multiply(facePlane.Normal, distance));
-            //float height = Vector3.Distance(getCenter(), closestPoint);
+			// float distance = Vector3.Dot(facePlane.Normal, Vector3.Subtract(getCenter(),facePlane.Normal * facePlane.D));
+			//Vector3 closestPoint = Vector3.Subtract(getCenter(), Vector3.Multiply(facePlane.Normal, distance));
+			//float height = Vector3.Distance(getCenter(), closestPoint);
 
-            Vector3 center = getPotentialCenter();
-            //negation because we are drawing the planes upside down
-            float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), center);
-            float height = MathHelper.Distance(distanceToCenter, facePlane.D);
+			Vector3 center = getPotentialCenter();
+			//negation because we are drawing the planes upside down
+			float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), center);
+			float height = MathHelper.Distance(distanceToCenter, facePlane.D);
 
-            float volume = height * area * (1f / 3f);
-            if (float.IsNaN(volume))
-                throw new Exception("Not Good");
+			float volume = height * area * (1f / 3f);
+			if (float.IsNaN(volume))
+				throw new Exception("Not Good");
 
-            return volume;
-        }
+			return volume;
+		}
 
 		//public float baseVolume = 10f;
 		//public float idealVolume = 10f;
@@ -571,49 +571,49 @@ namespace Project_blob
 
 		//}
 
-        //-----------------------------------------------------------------------------
-        // Fill the vertex buffer for the blob objects
-        //-----------------------------------------------------------------------------
-        void FillBlobVB(Matrix pmatWorldView, BasicCamera g_Camera)
-        {
+		//-----------------------------------------------------------------------------
+		// Fill the vertex buffer for the blob objects
+		//-----------------------------------------------------------------------------
+		void FillBlobVB(Matrix pmatWorldView, BasicCamera g_Camera)
+		{
 
-            SCREENVERTEX[] pBlobVertex = new SCREENVERTEX[6 * NUM_Blobs];
-          
-            //V_RETURN( g_pBlobVB->Lock( 0, 0, (void**)&pBlobVertex, D3DLOCK_DISCARD ) );
-            
-            POINTVERTEX [] blobPos = new POINTVERTEX[ NUM_Blobs ];
-            
-            for( int i=0; i < NUM_Blobs; ++i )
-            {
-                // Transform point to camera space
-                Vector3 blobPosCamera;
-                blobPosCamera = Vector3.Transform(g_BlobPoints[i].pos, pmatWorldView );
-                
-                blobPos[i] = g_BlobPoints[i];
-                blobPos[i].pos.X = blobPosCamera.X;
-                blobPos[i].pos.Y = blobPosCamera.Y;
-                blobPos[i].pos.Z = blobPosCamera.Z;
-            }
+			SCREENVERTEX[] pBlobVertex = new SCREENVERTEX[6 * NUM_Blobs];
 
-            int posCount=0;
-            for( int i=0; i < NUM_Blobs; ++i )
-            {
-                Vector4 BlobscreenPos;
+			//V_RETURN( g_pBlobVB->Lock( 0, 0, (void**)&pBlobVertex, D3DLOCK_DISCARD ) );
 
-                // For calculating billboarding
-                Vector4 billOfs = new Vector4(blobPos[i].size,blobPos[i].size,blobPos[i].pos.Z,1);
-                Vector4 billOfsScreen;
+			POINTVERTEX[] blobPos = new POINTVERTEX[NUM_Blobs];
 
-                // Transform to screenspace
-                Matrix pmatProjection = g_Camera.Projection;
-                BlobscreenPos = Vector4.Transform(blobPos[i].pos, pmatProjection);
-                billOfsScreen = Vector4.Transform(billOfs, pmatProjection);
+			for (int i = 0; i < NUM_Blobs; ++i)
+			{
+				// Transform point to camera space
+				Vector3 blobPosCamera;
+				blobPosCamera = Vector3.Transform(g_BlobPoints[i].pos, pmatWorldView);
 
-                // Project
-                BlobscreenPos = Vector4.Multiply(BlobscreenPos, 1.0f / BlobscreenPos.W);
-                billOfsScreen = Vector4.Multiply(billOfsScreen, 1.0f / billOfsScreen.W);
+				blobPos[i] = g_BlobPoints[i];
+				blobPos[i].pos.X = blobPosCamera.X;
+				blobPos[i].pos.Y = blobPosCamera.Y;
+				blobPos[i].pos.Z = blobPosCamera.Z;
+			}
 
-                Vector2 [] vTexCoords = 
+			int posCount = 0;
+			for (int i = 0; i < NUM_Blobs; ++i)
+			{
+				Vector4 BlobscreenPos;
+
+				// For calculating billboarding
+				Vector4 billOfs = new Vector4(blobPos[i].size, blobPos[i].size, blobPos[i].pos.Z, 1);
+				Vector4 billOfsScreen;
+
+				// Transform to screenspace
+				Matrix pmatProjection = g_Camera.Projection;
+				BlobscreenPos = Vector4.Transform(blobPos[i].pos, pmatProjection);
+				billOfsScreen = Vector4.Transform(billOfs, pmatProjection);
+
+				// Project
+				BlobscreenPos = Vector4.Multiply(BlobscreenPos, 1.0f / BlobscreenPos.W);
+				billOfsScreen = Vector4.Multiply(billOfsScreen, 1.0f / billOfsScreen.W);
+
+				Vector2[] vTexCoords = 
                 {
                     new Vector2(0.0f,0.0f),
                     new Vector2(1.0f,0.0f),
@@ -623,7 +623,7 @@ namespace Project_blob
                     new Vector2(1.0f,1.0f),
                 };
 
-                Vector4 [] vPosOffset =
+				Vector4[] vPosOffset =
                 {
                     new Vector4(-billOfsScreen.X,-billOfsScreen.Y,0.0f,0.0f),
                     new Vector4( billOfsScreen.X,-billOfsScreen.Y,0.0f,0.0f),
@@ -631,34 +631,34 @@ namespace Project_blob
                     new Vector4( billOfsScreen.X,-billOfsScreen.Y,0.0f,0.0f),
                     new Vector4( billOfsScreen.X, billOfsScreen.Y,0.0f,0.0f),
                 };
-                
-                ResolveTexture2D backBuffer = new ResolveTexture2D(theDevice,theDevice.Viewport.Width, theDevice.Viewport.Height,0,SurfaceFormat.Color);
-                theDevice.ResolveBackBuffer(backBuffer);
-                //D3DSURFACE_DESC pBackBufferSurfaceDesc = DXUTGetD3D9BackBufferSurfaceDesc();
 
-                // Set constants across quad
-                for( int j=0; j < 6 ;++j )
-                {
-                    // Scale to pixels
-                    pBlobVertex[posCount].pos = Vector4.Add(BlobscreenPos, vPosOffset[j] );  
-                    
-                    pBlobVertex[posCount].pos.X *= backBuffer.Width;             
-                    pBlobVertex[posCount].pos.Y *= backBuffer.Height;
-                    pBlobVertex[posCount].pos.X += 0.5f * backBuffer.Width; 
-                    pBlobVertex[posCount].pos.Y += 0.5f * backBuffer.Height;
-                    
-                    pBlobVertex[posCount].tCurr = vTexCoords[j];
-                    pBlobVertex[posCount].tBack = new Vector2((0.5f+pBlobVertex[posCount].pos.X)*(1.0f/backBuffer.Width),
-                                                           (0.5f+pBlobVertex[posCount].pos.Y)*(1.0f/backBuffer.Height));
-                    pBlobVertex[posCount].fSize = blobPos[i].size;
-                    pBlobVertex[posCount].vColor = blobPos[i].color;
+				ResolveTexture2D backBuffer = new ResolveTexture2D(theDevice, theDevice.Viewport.Width, theDevice.Viewport.Height, 0, SurfaceFormat.Color);
+				theDevice.ResolveBackBuffer(backBuffer);
+				//D3DSURFACE_DESC pBackBufferSurfaceDesc = DXUTGetD3D9BackBufferSurfaceDesc();
 
-                    posCount++;
-                }
-            }
-        }      
+				// Set constants across quad
+				for (int j = 0; j < 6; ++j)
+				{
+					// Scale to pixels
+					pBlobVertex[posCount].pos = Vector4.Add(BlobscreenPos, vPosOffset[j]);
 
-	    #region Drawable Members
+					pBlobVertex[posCount].pos.X *= backBuffer.Width;
+					pBlobVertex[posCount].pos.Y *= backBuffer.Height;
+					pBlobVertex[posCount].pos.X += 0.5f * backBuffer.Width;
+					pBlobVertex[posCount].pos.Y += 0.5f * backBuffer.Height;
+
+					pBlobVertex[posCount].tCurr = vTexCoords[j];
+					pBlobVertex[posCount].tBack = new Vector2((0.5f + pBlobVertex[posCount].pos.X) * (1.0f / backBuffer.Width),
+														   (0.5f + pBlobVertex[posCount].pos.Y) * (1.0f / backBuffer.Height));
+					pBlobVertex[posCount].fSize = blobPos[i].size;
+					pBlobVertex[posCount].vColor = blobPos[i].color;
+
+					posCount++;
+				}
+			}
+		}
+
+		#region Drawable Members
 
 
 		public TextureInfo GetTextureKey()

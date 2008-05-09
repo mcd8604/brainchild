@@ -29,20 +29,20 @@ namespace Physics2
 			return CollisionMath.LineTriangleIntersect(start, end, Point1, Point2, Point3);
 		}
 
-        public override Plane Plane
-        {
-            get
-            {
-                return m_Plane;
-            }
-        }
+		public override Plane Plane
+		{
+			get
+			{
+				return m_Plane;
+			}
+		}
 
 		public override Vector3 Normal
 		{
-            get
-            {
-                return m_Plane.Normal;
-            }
+			get
+			{
+				return m_Plane.Normal;
+			}
 		}
 
 		public override void update()
@@ -60,10 +60,10 @@ namespace Physics2
 			throw new System.Exception("The method or operation is not implemented.");
 		}
 
-        public override void ImpartVelocity(Vector3 at, Vector3 vel)
-        {
-            throw new System.Exception("The method or operation is not implemented.");
-        }
+		public override void ImpartVelocity(Vector3 at, Vector3 vel)
+		{
+			throw new System.Exception("The method or operation is not implemented.");
+		}
 
 	}
 }

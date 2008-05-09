@@ -63,7 +63,7 @@ namespace Project_blob.GameState
 		bool controllermode = false;
 		bool follow = true;
 
-		bool points = false;
+		//bool points = false;
 
 		SpriteFont font;
 		//fps
@@ -81,14 +81,14 @@ namespace Project_blob.GameState
 		float cameraLength = 20f;
 		float playerCamMulti = 0.1f;
 
-		bool OrientCamera = false;
+		//bool OrientCamera = false;
 
 		public static Area currentArea;
 
 		System.Diagnostics.Stopwatch physicsTime = new System.Diagnostics.Stopwatch();
 		System.Diagnostics.Stopwatch drawTime = new System.Diagnostics.Stopwatch();
 
-        CameraBody CameraBody;
+		CameraBody CameraBody;
 
 		public GameplayScreen()
 		{
@@ -137,8 +137,8 @@ namespace Project_blob.GameState
 
 			physics.Player.PlayerBody.addTask(new GravityVector(10f, new Vector3(0f, -1.0f, 0f)));
 
-            CameraBody = new CameraBody(theBlob);
-            physics.AddBody(CameraBody);
+			CameraBody = new CameraBody(theBlob);
+			physics.AddBody(CameraBody);
 
 			if (currentArea != null)
 			{
@@ -527,6 +527,143 @@ namespace Project_blob.GameState
 					step = false;
 				}
 
+				// actually, shouldn't the skybox be centered around /the camera/ instead of the blob?
+				if (currentArea.Display.SkyBox != null)
+					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
+
+				//Update Camera
+				//camera.Update(gameTime);
+				CameraManager.getSingleton.Update(gameTime);
+
+				if (InputHandler.IsActionPressed(Actions.Pause))
+				{
+					ScreenManager.AddScreen(new PauseMenuScreen());
+				}
+				if (InputHandler.IsActionPressed(Actions.Reset))
+				{
+					reset();
+					DEBUG_MaxPhys = -1;
+					DEBUG_MinPhys = -1;
+					DEBUG_MaxDraw = -1;
+					DEBUG_MinDraw = -1;
+				}
+
+
+				// Xbox
+				if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
+				{
+					controllermode = true;
+				}
+				if (controllermode)
+				{
+					//theBlob.setSpringForce(12.5f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 80f));
+					physics.Player.Resilience.Target = GamePad.GetState(PlayerIndex.One).Triggers.Right;
+					//Physics.PhysicsManager.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
+					physics.Player.Traction.Target = GamePad.GetState(PlayerIndex.One).Triggers.Left;
+					physics.Player.Cling.Target = 0.25f + (GamePad.GetState(PlayerIndex.One).Triggers.Left * 0.5f);
+					/*float vb = MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f);
+					InputHandler.SetVibration(vb, 0f);*/
+				}
+
+				// Quick Torque
+
+				Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
+				if (move != Vector2.Zero)
+				{
+					physics.Player.move(move, CameraManager.getSingleton.ActiveCamera.Position);
+				}
+
+				if (cinema)
+				{
+					distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+					distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+					cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+					//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+					if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
+					{
+						cinema = false;
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
+					}
+				}
+				else if (follow)
+				{
+					cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
+					if (cameraAngle.X < -MathHelper.Pi)
+					{
+						cameraAngle.X += MathHelper.TwoPi;
+					}
+					else if (cameraAngle.X > MathHelper.Pi)
+					{
+						cameraAngle.X -= MathHelper.TwoPi;
+					}
+
+					cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
+
+					// following camera
+					cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
+					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
+					//cameraPosition = theBlob.getCenter() + Offset;
+					//CameraManager.getSingleton.ActiveCamera.Position = theBlob.getCenter() + Offset;
+
+					CameraBody.setCameraOffset(Offset);
+					CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
+
+					// new Vector3(10, 10, 20)
+					/*if (OrientCamera)
+					{
+						viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), physics.getUp(theBlob.getCenter()));
+					}
+					else
+					 * 
+					{*/
+					//viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), Vector3.Up);
+					//camera.View = Matrix.CreateLookAt(camera.Postiion, theBlob.getCenter(), Vector3.Up);
+					CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
+					//}
+					//effect.Parameters["xView"].SetValue(viewMatrix);
+					//celEffect.Parameters["View"].SetValue(viewMatrix);
+					//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+
+					//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
+					//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+				}
+
+				//cubeVertexBuffer.SetData<VertexPositionNormalTexture>(theBlob.getTriangleVertexes());
+
+
+
+				// light
+				//effect.Parameters["xLightPos"].SetValue(lightPosition);
+
+
+
+				//fps
+				time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+				if (time > update)
+				{
+					fps = Convert.ToInt32(frames / time).ToString();
+					time = 0;
+					frames = 0;
+				}
+
+
+
+
+
+
+
+
+
+
+#if DEBUG
 				if (InputHandler.IsKeyPressed(Keys.L))
 				{
 					step = true;
@@ -542,18 +679,6 @@ namespace Project_blob.GameState
 					physics.physicsMultiplier -= 0.1f;
 				}
 
-				// actually, shouldn't the skybox be centered around /the camera/ instead of the blob?
-				if (currentArea.Display.SkyBox != null)
-					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
-
-				//Update Camera
-				//camera.Update(gameTime);
-				CameraManager.getSingleton.Update(gameTime);
-
-				if (InputHandler.IsActionPressed(Actions.Pause))
-				{
-					ScreenManager.AddScreen(new PauseMenuScreen());
-				}
 				if (InputHandler.IsKeyPressed(Keys.OemTilde))
 				{
 					if (PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
@@ -570,14 +695,7 @@ namespace Project_blob.GameState
 					DEBUG_MaxDraw = -1;
 					DEBUG_MinDraw = -1;
 				}
-				if (InputHandler.IsActionPressed(Actions.Reset))
-				{
-					reset();
-					DEBUG_MaxPhys = -1;
-					DEBUG_MinPhys = -1;
-					DEBUG_MaxDraw = -1;
-					DEBUG_MinDraw = -1;
-				}
+
 				if (InputHandler.IsKeyPressed(Keys.T))
 				{
 					ScreenManager.ToggleFullScreen();
@@ -679,30 +797,6 @@ namespace Project_blob.GameState
 					currentArea.Display.saveOut = true;
 				}
 
-				// Xbox
-				if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
-				{
-					controllermode = true;
-				}
-				if (controllermode)
-				{
-					//theBlob.setSpringForce(12.5f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 80f));
-					physics.Player.Resilience.Target = GamePad.GetState(PlayerIndex.One).Triggers.Right;
-					//Physics.PhysicsManager.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
-					physics.Player.Traction.Target = GamePad.GetState(PlayerIndex.One).Triggers.Left;
-					physics.Player.Cling.Target = 0.25f + (GamePad.GetState(PlayerIndex.One).Triggers.Left * 0.5f);
-					/*float vb = MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f);
-					InputHandler.SetVibration(vb, 0f);*/
-				}
-
-				// Quick Torque
-
-				Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
-				if (move != Vector2.Zero)
-				{
-					physics.Player.move(move, CameraManager.getSingleton.ActiveCamera.Position);
-				}
-
 				if (InputHandler.IsKeyPressed(Keys.J) || InputHandler.IsButtonPressed(Buttons.A))
 				{
 					physics.Player.jump();
@@ -735,88 +829,19 @@ namespace Project_blob.GameState
 					//theBlob.idealVolume = theBlob.baseVolume;
 					physics.Player.Volume.Target = 0.5f;
 				}
-				//theBlob.update();
 
-				if (cinema)
-				{
-					distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-					distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
-					cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					//celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-					//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-					if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
-					{
-						cinema = false;
-						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
-						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
-						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
-						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
-					}
-				}
-				else if (follow)
-				{
-					cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
-					if (cameraAngle.X < -MathHelper.Pi)
-					{
-						cameraAngle.X += MathHelper.TwoPi;
-					}
-					else if (cameraAngle.X > MathHelper.Pi)
-					{
-						cameraAngle.X -= MathHelper.TwoPi;
-					}
-
-					cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
-
-					// following camera
-					cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
-					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
-					//cameraPosition = theBlob.getCenter() + Offset;
-					//CameraManager.getSingleton.ActiveCamera.Position = theBlob.getCenter() + Offset;
-
-                    CameraBody.setCameraOffset(Offset);
-                    CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
-
-					// new Vector3(10, 10, 20)
-					/*if (OrientCamera)
-					{
-						viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), physics.getUp(theBlob.getCenter()));
-					}
-					else
-					 * 
-					{*/
-					//viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), Vector3.Up);
-					//camera.View = Matrix.CreateLookAt(camera.Postiion, theBlob.getCenter(), Vector3.Up);
-					CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
-					//}
-					//effect.Parameters["xView"].SetValue(viewMatrix);
-					//celEffect.Parameters["View"].SetValue(viewMatrix);
-					//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-
-					//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
-					//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-				}
-
-				//cubeVertexBuffer.SetData<VertexPositionNormalTexture>(theBlob.getTriangleVertexes());
+#endif
 
 
 
-				// light
-				//effect.Parameters["xLightPos"].SetValue(lightPosition);
 
 
 
-				//fps
-				time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-				if (time > update)
-				{
-					fps = Convert.ToInt32(frames / time).ToString();
-					time = 0;
-					frames = 0;
-				}
+
+
+
+
+
 			}
 		}
 
@@ -1103,11 +1128,14 @@ namespace Project_blob.GameState
 			spriteBatch.DrawString(font, "Vol: " + theBlob.getVolume().ToString(), new Vector2(345, 30), Color.White);
 			spriteBatch.DrawString(font, "Next Vol: " + theBlob.getPotentialVolume().ToString(), new Vector2(250, 60), Color.White);
 			//spriteBatch.DrawString(font, theBlob.getNewVolume().ToString(), new Vector2(675, 0), Color.White);
+#if DEBUG
 			spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
+			spriteBatch.DrawString(font, "PWR: " + physics.PWR, new Vector2(0, 566), Color.White);
+#endif
 
 			spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(600, 30), Color.White);
 
-			spriteBatch.DrawString(font, "PWR: " + physics.PWR, new Vector2(0, 566), Color.White);
+
 			spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
 
 			spriteBatch.End();

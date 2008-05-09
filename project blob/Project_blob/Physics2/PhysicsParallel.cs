@@ -18,6 +18,12 @@ namespace Physics2
 
 		private bool run = true;
 
+#if DEBUG
+		public override int DEBUG_GetNumCollidables()
+		{
+			return physicsMain.DEBUG_GetNumCollidables();
+		}
+
 #if TIMED
 		private System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 		private float waitTimeMsec = 0;
@@ -46,6 +52,7 @@ namespace Physics2
             }
         }
 #endif
+#endif
 
 		public PhysicsParallel()
 		{
@@ -53,7 +60,7 @@ namespace Physics2
 
 			WorkerThread = new System.Threading.Thread(delegate()
 			{
-#if TIMED
+#if DEBUG && TIMED
 				timer.Start();
 #endif
 				do
@@ -66,7 +73,7 @@ namespace Physics2
 							return;
 						}
 					} while (runForTime == 0f);
-#if TIMED
+#if DEBUG && TIMED
 					timer.Stop();
 					waitTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
 					timer.Reset();
@@ -81,7 +88,7 @@ namespace Physics2
 						Console.WriteLine(ex);
 						break;
 					}
-#if TIMED
+#if DEBUG && TIMED
 					timer.Stop();
 					physicsTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
 					timer.Reset();
@@ -114,19 +121,14 @@ namespace Physics2
 			lock (this) System.Threading.Monitor.Pulse(this);
 		}
 
-		public override void stop() {
+		public override void stop()
+		{
 
 			run = false;
 			physicsMain = null;
 			lock (this) System.Threading.Monitor.Pulse(this);
 
 		}
-#if DEBUG
-		public override int DEBUG_GetNumCollidables()
-		{
-			return physicsMain.DEBUG_GetNumCollidables();
-		}
-#endif
 		public override void AddBody(Body b)
 		{
 			physicsMain.AddBody(b);
@@ -150,6 +152,6 @@ namespace Physics2
 		{
 			get { return physicsMain.Player; }
 		}
-		
+
 	}
 }
