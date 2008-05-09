@@ -251,6 +251,7 @@ namespace Project_blob
 
 		public void updateVertexBuffer(VertexPositionNormalTexture[] vertices)
 		{
+            // Crash: Invalid Operation Exception was unhandled
 			m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
         }
 
