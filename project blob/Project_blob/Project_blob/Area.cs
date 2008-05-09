@@ -175,12 +175,9 @@ namespace Project_blob
 			}
 
 			//load level models
-			IEnumerator drawablesEnum = this.Drawables.GetEnumerator();
 			ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
-			while (drawablesEnum.MoveNext())
-			{
-				KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
-				Drawable d = (Drawable)kvp.Value;
+            foreach (Drawable d in this.Drawables.Values)
+            {
 				if (d is StaticModel)
 				{
 					StaticModel dm = (StaticModel)d;
