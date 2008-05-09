@@ -18,7 +18,7 @@ namespace Project_blob
 {
 	public class ScreenManager : Game
 	{
-		GraphicsDeviceManager graphics;
+		public GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
 		List<GameScreen> screens = new List<GameScreen>();
