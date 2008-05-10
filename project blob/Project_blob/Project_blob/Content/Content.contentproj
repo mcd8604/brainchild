@@ -43,10 +43,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-    <None Include="Audio\bob.stuff">
-      <Name>bob</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Compile Include="Shaders\Blobs.fx">
       <Name>Blobs</Name>
       <Importer>EffectImporter</Importer>
@@ -389,6 +385,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Audio\blob.wav">
+      <Name>blob</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\gravelImpact.wav">
+      <Name>gravelImpact</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\metalImpact.wav">
+      <Name>metalImpact</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\speedBoost.wav">
+      <Name>speedBoost</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Textures\default.jpg">
       <Name>default</Name>
       <Importer>TextureImporter</Importer>
