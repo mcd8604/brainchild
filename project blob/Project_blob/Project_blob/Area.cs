@@ -383,7 +383,7 @@ namespace Project_blob
 							}
 						}
 
-						body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
+						body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel.AudioName, dynModel);
 					}
 					dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
 

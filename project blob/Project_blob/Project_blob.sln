@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldMaker", "WorldMaker\Wo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physics2", "Physics2\Physics2.csproj", "{1B356C34-6613-40BA-8476-29A93BFF64B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Audio", "Audio\Audio.csproj", "{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,16 @@ Global
 		{49CB52B7-0DE8-487F-969B-0AA104D011E4}.Release|Any CPU.ActiveCfg = Release|x86
 		{49CB52B7-0DE8-487F-969B-0AA104D011E4}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{49CB52B7-0DE8-487F-969B-0AA104D011E4}.Release|x86.ActiveCfg = Release|x86
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

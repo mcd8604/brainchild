@@ -369,29 +369,32 @@ namespace Project_blob
 					graphicsDevice.SetRenderTarget(0, m_NormalDepthRenderTarget);
 					graphicsDevice.RenderState.DepthBufferWriteEnable = true;
 					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["NormalDepth"];
-					foreach (TextureInfo ti in drawable_List_Drawn.Keys)
-					{
-						if (ti.SortNumber != currentTextureNumber)
-						{
-							graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-							if (m_TextureParameterName != "NONE")
-								m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                    foreach (TextureInfo ti in drawable_List_Drawn.Keys)
+                    {
+                        if (!ti.TextureName.Equals("event"))
+                        {
+                            if (ti.SortNumber != currentTextureNumber)
+                            {
+                                graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                                if (m_TextureParameterName != "NONE")
+                                    m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
 
-						}
+                            }
 
-						foreach (Drawable d in drawable_List_Drawn[ti])
-						{
-							if (d is StaticModel)
-							{
-								DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                            foreach (Drawable d in drawable_List_Drawn[ti])
+                            {
+                                if (d is StaticModel)
+                                {
+                                    DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
 
-							}
-							else
-							{
-								DrawPrimitives(d, graphicsDevice);
-							}
-						}
-					}
+                                }
+                                else
+                                {
+                                    DrawPrimitives(d, graphicsDevice);
+                                }
+                            }
+                        }
+                    }
 					if (theBlob != null)
 					{
 						//m_cartoonEffect.Begin();
@@ -475,28 +478,31 @@ namespace Project_blob
 
 				foreach (TextureInfo ti in drawable_List_Drawn.Keys)
 				{
-					if (ti.SortNumber != currentTextureNumber)
-					{
-						Texture2D tempText = TextureManager.getSingleton.GetTexture(ti.TextureName);
-						m_cartoonEffect.Parameters["Texture"].SetValue(tempText);
-						graphicsDevice.Textures[0] = tempText;
-						if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
-							m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(tempText);
+                    if (!ti.TextureName.Equals("event"))
+                    {
+                        if (ti.SortNumber != currentTextureNumber)
+                        {
+                            Texture2D tempText = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                            m_cartoonEffect.Parameters["Texture"].SetValue(tempText);
+                            graphicsDevice.Textures[0] = tempText;
+                            if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
+                                m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(tempText);
 
-					}
+                        }
 
-					foreach (Drawable d in drawable_List_Drawn[ti])
-					{
-						if (d is StaticModel)
-						{
-							DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                        foreach (Drawable d in drawable_List_Drawn[ti])
+                        {
+                            if (d is StaticModel)
+                            {
+                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
 
-						}
-						else
-						{
-							DrawPrimitives(d, graphicsDevice);
-						}
-					}
+                            }
+                            else
+                            {
+                                DrawPrimitives(d, graphicsDevice);
+                            }
+                        }
+                    }
 				}
 				if (!DEBUG_WireframeMode)
 					graphicsDevice.SetRenderTarget(0, m_distortionMap);
@@ -504,30 +510,33 @@ namespace Project_blob
 				graphicsDevice.RenderState.DepthBufferWriteEnable = true;
 				graphicsDevice.Clear(Color.Black);
 
-				foreach (TextureInfo ti in drawable_List_Drawn.Keys)
-				{
-					if (ti.SortNumber != currentTextureNumber)
-					{
-						graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-						if (m_TextureParameterName != "NONE" && _effectName == "cartoonEffect")
-							m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
+                foreach (TextureInfo ti in drawable_List_Drawn.Keys)
+                {
+                    if (!ti.TextureName.Equals("event"))
+                    {
+                        if (ti.SortNumber != currentTextureNumber)
+                        {
+                            graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+                            if (m_TextureParameterName != "NONE" && _effectName == "cartoonEffect")
+                                m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
 
-					}
+                        }
 
 
-					foreach (Drawable d in drawable_List_Drawn[ti])
-					{
-						if (d is StaticModel)
-						{
-							DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                        foreach (Drawable d in drawable_List_Drawn[ti])
+                        {
+                            if (d is StaticModel)
+                            {
+                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
 
-						}
-						else
-						{
-							DrawPrimitives(d, graphicsDevice);
-						}
-					}
-				}
+                            }
+                            else
+                            {
+                                DrawPrimitives(d, graphicsDevice);
+                            }
+                        }
+                    }
+                }
 
 				if (theBlob != null && !DEBUG_WireframeMode)
 				{
