@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Storage;
 using System.Collections;
 using Engine;
 using Physics2;
+using Audio;
 
 namespace Project_blob.GameState
 {
@@ -138,7 +139,7 @@ namespace Project_blob.GameState
 			physics.Player.Volume.Origin = 100f;
 			physics.Player.Volume.Maximum = 200f;
 
-			theBlob = new Blob(blobModel, blobStartPosition);
+			theBlob = new Blob(blobModel, blobStartPosition, "");
 			theBlob.text = blobTexture;
 			theBlob.DisplacementText = distortMapText;
 			theBlob.setGraphicsDevice(ScreenManager.GraphicsDevice);
@@ -148,7 +149,7 @@ namespace Project_blob.GameState
 
 			physics.Player.PlayerBody.addTask(new GravityVector(10f, new Vector3(0f, -1.0f, 0f)));
 
-			CameraBody = new CameraBody(theBlob);
+			CameraBody = new CameraBody(theBlob, "");
 			physics.AddBody(CameraBody);
 
 			if (currentArea != null)
@@ -185,6 +186,12 @@ namespace Project_blob.GameState
 
 			distortEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distort");
 			distorterEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distorters");
+
+            // Add soundFXs
+            AudioManager.getSingleton.addSoundFX("blob");
+            AudioManager.getSingleton.addSoundFX("gravelImpact");
+            AudioManager.getSingleton.addSoundFX("metalImpact");
+            AudioManager.getSingleton.addSoundFX("speedBoost");
 
 			//cartoonEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\DepthBuffer");
 
@@ -827,7 +834,6 @@ namespace Project_blob.GameState
 					//theBlob.idealVolume = theBlob.baseVolume;
 					physics.Player.Volume.Target = 0.5f;
 				}
-
 #endif
 
 

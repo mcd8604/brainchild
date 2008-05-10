@@ -39,8 +39,8 @@ namespace Project_blob
 
 		private Vector3 m_Velocity;
 
-		public BodyStaticConveyerBelt(IList<CollidableStatic> Collidables, Body ParentBody)
-			: base(Collidables, ParentBody)
+        public BodyStaticConveyerBelt(IList<CollidableStatic> Collidables, Body ParentBody, string p_collisionAudio)
+            : base(Collidables, ParentBody, p_collisionAudio)
 		{
 		}
 

@@ -9,8 +9,8 @@ namespace Physics2
 
 		private IList<CollidableStatic> staticCollidables = new List<CollidableStatic>();
 
-		public BodyStatic(IList<CollidableStatic> Collidables, Body ParentBody)
-			: base()
+		public BodyStatic(IList<CollidableStatic> Collidables, Body ParentBody, string p_collisionSound)
+			: base(p_collisionSound)
 		{
 			if (ParentBody != null)
 			{

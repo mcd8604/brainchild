@@ -7,7 +7,8 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Audio
 {
-    public class AudioManager {
+    public class AudioManager
+    {
 
         // Objects to ensure singleton design
         private static volatile AudioManager _instance;
@@ -25,16 +26,21 @@ namespace Audio
         /// <summary>
         /// Constructor
         /// </summary>
-        public AudioManager() {
+        public AudioManager()
+        {
             _music = new Dictionary<string, Cue>();
             _soundFXs = new Dictionary<string, Cue>();
         }
 
         //! Instance
-        public static AudioManager getSingleton {
-            get {
-                if (_instance == null) {
-                    lock (_syncRoot) {
+        public static AudioManager getSingleton
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_syncRoot)
+                    {
                         if (_instance == null)
                             _instance = new AudioManager();
                     }
@@ -47,7 +53,8 @@ namespace Audio
         /// <summary>
         /// Initial Audio Manager data
         /// </summary>
-        public void initialize() {
+        public void initialize()
+        {
             _audioEngine = new AudioEngine("Content/Audio/sound.xgs");
             _waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
             _soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
@@ -58,13 +65,17 @@ namespace Audio
         /// </summary>
         /// <param name="name">The lookup name for the cue as well as the name of the cue itself</param>
         /// <returns>The specified music cue</returns>
-        public Cue addMusic(String name) {
+        public Cue addMusic(String name)
+        {
             Cue retVal;
-            
-            if (!_music.ContainsKey(name)) {
+
+            if (!_music.ContainsKey(name))
+            {
                 retVal = _soundBank.GetCue(name);
                 _music.Add(name, retVal);
-            } else {
+            }
+            else
+            {
                 retVal = _music[name];
             }
 
@@ -76,13 +87,17 @@ namespace Audio
         /// </summary>
         /// <param name="name">The lookup name for the cue as well as the name of the cue itself</param>
         /// <returns>The specified soundFX cue</returns>
-        public Cue addSoundFX(String name) {
+        public Cue addSoundFX(String name)
+        {
             Cue retVal;
 
-            if (!_soundFXs.ContainsKey(name)) {
+            if (!_soundFXs.ContainsKey(name))
+            {
                 retVal = _soundBank.GetCue(name);
                 _soundFXs.Add(name, retVal);
-            } else {
+            }
+            else
+            {
                 retVal = _soundFXs[name];
             }
 
@@ -93,8 +108,10 @@ namespace Audio
         /// Plays the specified music
         /// </summary>
         /// <param name="name">The name of the soundFX lookup id</param>
-        public void playMusic(String name) {
-            if (_music.ContainsKey(name)) {
+        public void playMusic(String name)
+        {
+            if (_music.ContainsKey(name) && !_music[name].IsPlaying)
+            {
                 _music[name].Dispose();
                 _music[name] = _soundBank.GetCue(name);
                 _music[name].Play();
@@ -105,8 +122,10 @@ namespace Audio
         /// Plays the specified soundFX
         /// </summary>
         /// <param name="name">The name of the soundFX lookup id</param>
-        public void playSoundFXs(String name) {
-            if (_soundFXs.ContainsKey(name)) {
+        public void playSoundFXs(String name)
+        {
+            if (_soundFXs.ContainsKey(name) && !_soundFXs[name].IsPlaying)
+            {
                 _soundFXs[name].Dispose();
                 _soundFXs[name] = _soundBank.GetCue(name);
                 _soundFXs[name].Play();
@@ -118,8 +137,10 @@ namespace Audio
         /// </summary>
         /// <param name="name">The lookup name for the cue as well as the name of the cue itself</param>
         /// <returns>The specified music cue</returns>
-        public void stopMusic(String name) {
-            if (_music.ContainsKey(name)) {
+        public void stopMusic(String name)
+        {
+            if (_music.ContainsKey(name))
+            {
                 _music[name].Stop(AudioStopOptions.Immediate);
             }
         }
@@ -129,8 +150,10 @@ namespace Audio
         /// </summary>
         /// <param name="name">The lookup name for the cue as well as the name of the cue itself</param>
         /// <returns>The specified soundFX cue</returns>
-        public void stopSoundFX(String name) {
-            if (_soundFXs.ContainsKey(name)) {
+        public void stopSoundFX(String name)
+        {
+            if (_soundFXs.ContainsKey(name))
+            {
                 _soundFXs[name].Stop(AudioStopOptions.Immediate);
             }
         }
@@ -139,9 +162,12 @@ namespace Audio
         /// Pauses the specified music
         /// </summary>
         /// <param name="name">The name of the music lookup id</param>
-        public void pauseMusic(String name) {
-            if (_music.ContainsKey(name)) {
-                if (_music[name].IsPlaying) {
+        public void pauseMusic(String name)
+        {
+            if (_music.ContainsKey(name))
+            {
+                if (_music[name].IsPlaying)
+                {
                     _music[name].Pause();
                 }
             }
@@ -151,9 +177,12 @@ namespace Audio
         /// Pauses the specified soundFX
         /// </summary>
         /// <param name="name">The name of the soundFX lookup id</param>
-        public void pauseSoundFXs(String name) {
-            if (_soundFXs.ContainsKey(name)) {
-                if (_soundFXs[name].IsPlaying) {
+        public void pauseSoundFXs(String name)
+        {
+            if (_soundFXs.ContainsKey(name))
+            {
+                if (_soundFXs[name].IsPlaying)
+                {
                     _soundFXs[name].Pause();
                 }
             }
@@ -162,14 +191,19 @@ namespace Audio
         /// <summary>
         /// Pauses all sounds currently playing
         /// </summary>
-        public void pauseAll() {
-            foreach (Cue cue in _music.Values) {
-                if (cue.IsPlaying) {
+        public void pauseAll()
+        {
+            foreach (Cue cue in _music.Values)
+            {
+                if (cue.IsPlaying)
+                {
                     cue.Pause();
                 }
             }
-            foreach (Cue cue in _soundFXs.Values) {
-                if (cue.IsPlaying) {
+            foreach (Cue cue in _soundFXs.Values)
+            {
+                if (cue.IsPlaying)
+                {
                     cue.Pause();
                 }
             }
@@ -179,9 +213,12 @@ namespace Audio
         /// Resumes the specified music
         /// </summary>
         /// <param name="name">The name of the music lookup id</param>
-        public void resumeMusic(String name) {
-            if (_music.ContainsKey(name)) {
-                if (_music[name].IsPaused) {
+        public void resumeMusic(String name)
+        {
+            if (_music.ContainsKey(name))
+            {
+                if (_music[name].IsPaused)
+                {
                     _music[name].Resume();
                 }
             }
@@ -191,9 +228,12 @@ namespace Audio
         /// Resumes the specified soundFX
         /// </summary>
         /// <param name="name">The name of the soundFX lookup id</param>
-        public void resumeSoundFXs(String name) {
-            if (_soundFXs.ContainsKey(name)) {
-                if (_soundFXs[name].IsPaused) {
+        public void resumeSoundFXs(String name)
+        {
+            if (_soundFXs.ContainsKey(name))
+            {
+                if (_soundFXs[name].IsPaused)
+                {
                     _soundFXs[name].Resume();
                 }
             }
@@ -202,14 +242,19 @@ namespace Audio
         /// <summary>
         /// Resumes all sounds currently paused
         /// </summary>
-        public void resumeAll() {
-            foreach (Cue cue in _music.Values) {
-                if (cue.IsPaused) {
+        public void resumeAll()
+        {
+            foreach (Cue cue in _music.Values)
+            {
+                if (cue.IsPaused)
+                {
                     cue.Resume();
                 }
             }
-            foreach (Cue cue in _soundFXs.Values) {
-                if (cue.IsPaused) {
+            foreach (Cue cue in _soundFXs.Values)
+            {
+                if (cue.IsPaused)
+                {
                     cue.Resume();
                 }
             }
@@ -218,7 +263,8 @@ namespace Audio
         /// <summary>
         /// Updates the audio manager's engine
         /// </summary>
-        public void update() {
+        public void update()
+        {
             // Update the audio engine so that it can process audio data
             _audioEngine.Update();
         }

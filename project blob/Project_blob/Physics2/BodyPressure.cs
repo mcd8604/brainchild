@@ -7,7 +7,7 @@ namespace Physics2
 	public abstract class BodyPressure : Body
 	{
 
-		public BodyPressure() { }
+		public BodyPressure(string p_collisionSound) : base(p_collisionSound) { }
 
 		public BodyPressure(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks, string p_collisionSound)
 			:base(ParentBody, p_points, p_collidables,p_springs, p_tasks, p_collisionSound)

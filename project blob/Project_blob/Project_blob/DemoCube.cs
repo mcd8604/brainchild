@@ -27,7 +27,7 @@ namespace Project_blob
 		private Vector3 min;
 		private Vector3 max;
 		private float idealVolume;
-		public DemoCube(Vector3 center, float radius)
+		public DemoCube(Vector3 center, float radius, string p_collisionAudio) : base(p_collisionAudio)
 		{
 			initCube(center, radius);
 			initialize();
