@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Audio;
 
 namespace Physics2
 {
 	public class Body
 	{
-
+        protected internal string collisionSound = "";
 		protected internal IList<PhysicsPoint> points = new List<PhysicsPoint>();
 		protected internal IList<Collidable> collidables = new List<Collidable>();
 		protected internal IList<Spring> springs = new List<Spring>();
@@ -24,15 +25,16 @@ namespace Physics2
 
 		protected internal Body() { }
 
-		public Body(Body ParentBody)
+        public Body(Body ParentBody, string p_collisionSound)
 		{
 			if (ParentBody != null)
 			{
 				ParentBody.addChild(this);
 			}
+            collisionSound = p_collisionSound;
 		}
 
-		public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks)
+        public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks, string p_collisionSound)
 		{
 			if (ParentBody != null)
 			{
@@ -42,7 +44,7 @@ namespace Physics2
 			springs = p_springs;
 			collidables = p_collidables;
 			tasks = p_tasks;
-
+            collisionSound = p_collisionSound;
 			initialize();
 		}
 
@@ -338,7 +340,12 @@ namespace Physics2
 			return events;
 
 		}
-		public virtual void onCollision(PhysicsPoint p) { }
+		public virtual void onCollision(PhysicsPoint p) {
+            if (!collisionSound.Equals(""))
+            {
+                AudioManager.getSingleton.playSoundFXs(collisionSound);
+            }
+        }
 
 		public virtual Vector3 getVelocity()
 		{
