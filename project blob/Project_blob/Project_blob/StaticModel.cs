@@ -271,9 +271,14 @@ namespace Project_blob
 		{
 			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
 			Model m = ModelManager.getSingleton.GetModel(this.ModelName);
+
 			if (m != null)
-			{
-				m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+            {
+                m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+
+                VertexPositionNormalTexture[] myVertices = new VertexPositionNormalTexture[m_NumVertices];
+                m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
+                m_VertexBuffer.GetData<VertexPositionNormalTexture>(myVertices);
 
 				if (m_RepeatingTexture)
 				{
@@ -288,12 +293,43 @@ namespace Project_blob
 					for (int i = 0; i < vertices.Length; i++)
 					{
 						//scale the texture coordinates
-						vertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
-						vertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+                        myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+                        myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+
+                        //scale the texture coordinates
+                        /*if (vertices[i].Normal.Equals(Vector3.Up))
+                        {
+                            myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+                            myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+                        }
+                        else if (vertices[i].Normal.Equals(Vector3.Down))
+                        {
+                            myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+                            myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+                        }
+                        else if (vertices[i].Normal.Equals(Vector3.Left))
+                        {
+                            myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+                            myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+                        }
+                        else if (vertices[i].Normal.Equals(Vector3.Right))
+                        {
+                            myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+                            myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+                        }
+                        else if (vertices[i].Normal.Equals(Vector3.Forward))
+                        {
+                            myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+                            myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+                        }
+                        else if (vertices[i].Normal.Equals(Vector3.Backward))
+                        {
+                            myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+                            myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+                        }*/
 					}
 				}
-				m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
-				m_VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+                m_VertexBuffer.SetData<VertexPositionNormalTexture>(myVertices);
 				m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
 			}
 		}
