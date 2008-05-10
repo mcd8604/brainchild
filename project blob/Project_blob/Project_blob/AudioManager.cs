@@ -48,9 +48,9 @@ namespace Project_blob
         /// Initial Audio Manager data
         /// </summary>
         public void initialize() {
-            _audioEngine = new AudioEngine("assets/sound/rhodesAudio.xgs");
-            _waveBank = new WaveBank(_audioEngine, "assets/sound/Wave Bank.xwb");
-            _soundBank = new SoundBank(_audioEngine, "assets/sound/Sound Bank.xsb");
+            _audioEngine = new AudioEngine("Content/Audio/sound.xgs");
+            _waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
+            _soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
         }
 
         /// <summary>
