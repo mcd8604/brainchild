@@ -274,11 +274,11 @@ namespace Project_blob
 			drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
 			drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
 
-			m_cartoonEffect.Parameters["World"].SetValue(p_World);
+			//m_cartoonEffect.Parameters["World"].SetValue(p_World);
 			m_WorldMatrix = p_World;
 
-			m_cartoonEffect.Parameters["View"].SetValue(p_View);
-			m_cartoonEffect.Parameters["Projection"].SetValue(p_Projection);
+			//m_cartoonEffect.Parameters["View"].SetValue(p_View);
+			//m_cartoonEffect.Parameters["Projection"].SetValue(p_Projection);
 		}
 
 		public Display(Matrix p_World, String effectName, String p_WorldParameterName,

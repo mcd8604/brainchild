@@ -50,6 +50,7 @@ namespace Project_blob
 
 		public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix)
 		{
+			
 			_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			_drawables = new Dictionary<String, Drawable>();
 			_events = new Dictionary<String, EventTrigger>();
