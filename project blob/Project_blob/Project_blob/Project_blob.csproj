@@ -124,6 +124,10 @@
     <Compile Include="WarpEvent.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Audio\blob.wav" />
+    <Content Include="Content\Audio\gravelImpact.wav" />
+    <Content Include="Content\Audio\metalImpact.wav" />
+    <Content Include="Content\Audio\speedBoost.wav" />
     <Content Include="Content\blank.png" />
     <Content Include="Content\Content.contentproj.user" />
     <Content Include="Content\gradient.png" />
@@ -201,7 +205,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Audio\bob.stuff" />
     <None Include="Content\Content.contentproj" />
     <None Include="Content\Fonts\Courier New.spritefont" />
     <None Include="Content\Levels\FinalLevel.lev" />
