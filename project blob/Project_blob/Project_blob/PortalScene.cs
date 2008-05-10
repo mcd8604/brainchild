@@ -153,7 +153,7 @@ namespace Project_blob
                     }
                 }
             }
-			_previousRecursiveSector = _prevSector;
+			_previousRecursiveSector = -1;
 			_currentRecursiveSector = _currSector;
 			_sectors[_currSector].DrawVisible(gameTime);
         }
