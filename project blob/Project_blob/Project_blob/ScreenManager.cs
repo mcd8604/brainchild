@@ -62,6 +62,9 @@ namespace Project_blob
 
 		protected override void Initialize()
 		{
+            // Sets up audio
+            AudioManager.getSingleton.initialize();
+
 			InputHandler.LoadDefaultBindings();
 
 			GameScreen.ScreenManager = this;
@@ -119,6 +122,9 @@ namespace Project_blob
 
 		protected override void Update(GameTime gameTime)
 		{
+            // Updates audio info
+            AudioManager.getSingleton.update();
+
 			// Read the keyboard and gamepad.
 			InputHandler.Update();
 
