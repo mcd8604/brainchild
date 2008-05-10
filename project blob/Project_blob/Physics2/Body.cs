@@ -23,7 +23,9 @@ namespace Physics2
 
 		protected Material material = Material.getDefaultMaterial();
 
-		protected internal Body() { }
+		protected internal Body(string p_collisionSound) {
+            collisionSound = p_collisionSound;
+        }
 
         public Body(Body ParentBody, string p_collisionSound)
 		{
@@ -341,7 +343,7 @@ namespace Physics2
 
 		}
 		public virtual void onCollision(PhysicsPoint p) {
-            if (!collisionSound.Equals(""))
+            if (!collisionSound.Equals("") && !collisionSound.Equals("none"))
             {
                 AudioManager.getSingleton.playSoundFXs(collisionSound);
             }

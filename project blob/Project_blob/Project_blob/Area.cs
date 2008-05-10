@@ -345,21 +345,21 @@ namespace Project_blob
 						}
 						if (eventtrigger)
 						{
-							body = new TriggerStatic(collidables, null, Events[dm.Name]);
+							body = new TriggerStatic(collidables, null, dm.AudioName ,Events[dm.Name]);
 						}
 						else if (dm is ConveyerBeltStatic)
 						{
-							body = new BodyStaticConveyerBelt(collidables, null);
+							body = new BodyStaticConveyerBelt(collidables, null, dm.AudioName);
 							((BodyStaticConveyerBelt)body).Direction = ((ConveyerBeltStatic)dm).Direction;
 							((BodyStaticConveyerBelt)body).Speed = ((ConveyerBeltStatic)dm).Speed;
 						}
 						else if (speed)
 						{
-							body = new SpeedStatic(collidables, null);
+                            body = new SpeedStatic(collidables, null, dm.AudioName);
 						}
 						else
 						{
-							body = new BodyStatic(collidables, null);
+							body = new BodyStatic(collidables, null, dm.AudioName);
 						}
 					}
 					else

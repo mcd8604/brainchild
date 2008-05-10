@@ -11,8 +11,8 @@ namespace Project_blob
 
 		float bonus = 1;
 
-		public SpeedStatic(IList<CollidableStatic> Collidables, Body ParentBody)
-			: base(Collidables, ParentBody)
+        public SpeedStatic(IList<CollidableStatic> Collidables, Body ParentBody, string p_collisionAudio)
+			: base(Collidables, ParentBody, p_collisionAudio)
 		{
 		}
 

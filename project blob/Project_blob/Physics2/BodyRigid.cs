@@ -3,7 +3,7 @@ namespace Physics2
 {
 	public class BodyRigid : Body
 	{
-		public BodyRigid() { }
+        public BodyRigid(string p_collisionSound) : base(p_collisionSound) { }
 
         public BodyRigid(Body parentBody, string p_collisionSound) : base(parentBody, p_collisionSound) { }
 

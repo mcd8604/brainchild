@@ -13,8 +13,8 @@ namespace Project_blob
 		public float CoolDown = 1f;
 		private float Time = 0f;
 
-		public TriggerStatic(IList<CollidableStatic> Collidables, Body ParentBody, EventTrigger triggeredEvent)
-			: base(Collidables, ParentBody)
+		public TriggerStatic(IList<CollidableStatic> Collidables, Body ParentBody, string p_collisionAudio, EventTrigger triggeredEvent)
+			: base(Collidables, ParentBody, p_collisionAudio)
 		{
 			_triggeredEvent = triggeredEvent;
 		}
