@@ -50,6 +50,15 @@ namespace Project_blob
             set { _scale = value; }
         }
 
+		private Vector3 _rotation;
+		public Vector3 Rotation
+		{
+			get { return _rotation; }
+			set { _rotation = value; }
+		}
+
+		private Matrix rot;
+
         public Portal()
         {
             _name = this.GetType().Name;
@@ -72,28 +81,46 @@ namespace Project_blob
             CreateBoundingBox();
 		}
 
-        //public BoundingBox GetBoundingBoxTransformed()
-        //{
-        //    Vector3 min, max;
-        //    min = _boundingBox.Min;
-        //    max = _boundingBox.Max;
+		private void makeRot()
+		{
+			rot = Matrix.Identity;
 
-        //    min = Vector3.Transform(_boundingBox.Min, Matrix.CreateTranslation(_position));
-        //    max = Vector3.Transform(_boundingBox.Max, Matrix.CreateTranslation(_position));
+			if (_name == "portal1")
+			{
+				//rot = ;
+			}
+			else if (_name == "portal2")
+			{
+				rot = new Matrix(-0.00000004371139f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, -0.00000004371139f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+			}
+			else if (_name == "portal3")
+			{
+				rot = new Matrix(-0.00000004371139f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, -0.00000004371139f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+			}
+			else if (_name == "portal4")
+			{
+				rot = new Matrix(-0.00000004371139f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, -0.00000004371139f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+			}
+			else if (_name == "portal5")
+			{
+				//rot = ;
+			}
+			else if (_name == "portal6")
+			{
+				//rot = ;
+			}
+		}
 
-        //    return new BoundingBox(min, max);
-        //}
+		//public void CreateBoundingBox()
+		//{
+		//    Vector3 min, max;
 
-        public void CreateBoundingBox()
-        {
-            Vector3 min, max;
+		//    min = new Vector3(-1.0f, -1.0f, -1.0f) * Vector3.Divide(_scale, 2) + _position;
+		//    max = new Vector3(1.0f, 1.0f, 1.0f) * Vector3.Divide(_scale, 2) + _position;
 
-            min = new Vector3(-1.0f, -1.0f, -1.0f) * Vector3.Divide(_scale, 2) + _position;
-            max = new Vector3(1.0f, 1.0f, 1.0f) * Vector3.Divide(_scale, 2) + _position;
-
-            _boundingBox = new BoundingBox(min, max);
-            //_boundingBox = new BoundingBox(new Vector3(-1.0f, -1.0f, -1.0f) * _scale, new Vector3(1.0f, 1.0f, 1.0f) * _scale);
-        }
+		//    _boundingBox = new BoundingBox(min, max);
+		//    //_boundingBox = new BoundingBox(new Vector3(-1.0f, -1.0f, -1.0f) * _scale, new Vector3(1.0f, 1.0f, 1.0f) * _scale);
+		//}
 
         private void CreateBoundingSphere()
         {
@@ -104,5 +131,95 @@ namespace Project_blob
         {
             return _name;
         }
+
+		//
+		public void CreateBoundingBox()
+		//public BoundingBox GetBoundingBox()
+		{
+			Matrix m_position = Matrix.CreateTranslation(_position);
+			Matrix m_scale = Matrix.CreateScale(_scale);
+			////Matrix m_rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(_rotation.X))), Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(Convert.ToSingle(RotationYValue.Text))), Matrix.CreateRotationZ(MathHelper.ToRadians(Convert.ToSingle(RotationZValue.Text)))));
+			Matrix m_rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(_rotation.X)), Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(_rotation.Y)), Matrix.CreateRotationZ(MathHelper.ToRadians(_rotation.Z))));
+			Matrix transformMatrix = Matrix.Identity;
+			Stack<Matrix> drawStack = new Stack<Matrix>();
+
+			_boundingBox = new BoundingBox(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(0.5f, 0.5f, 0.5f));
+
+			//Temprorary method
+			makeRot();
+
+
+			//for (int j = 0; j < 4; j++)
+			//{
+			//    for (int i = 0; i < 3; i++)
+			//    {
+			//        if (m_PriorityArray[i] == j)
+			//        {
+			//            switch (i)
+			//            {
+			//                case 0:
+			//                    if (this.Position != null)
+			//                        drawStack.Push(this.Position);
+			//                    break;
+			//                case 1:
+			//                    if (this.Rotation != null)
+			//                        drawStack.Push(this.Rotation);
+			//                    break;
+			//                case 2:
+			//                    if (this.Scale != null)
+			//                        drawStack.Push(this.Scale);
+			//                    break;
+			//                default:
+			//                    break;
+			//            }
+			//        }
+			//    }
+			//}
+			if (m_scale != null)
+				drawStack.Push(m_scale);
+			if(m_rotation != null)
+				//drawStack.Push(m_rotation);
+				drawStack.Push(rot);
+			if (m_position != null)
+				drawStack.Push(m_position);
+
+			while (drawStack.Count > 0)
+			{
+				transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
+			}
+			Vector3 min = _boundingBox.Min;
+			Vector3 max = _boundingBox.Max;
+
+			min = Vector3.Transform(min, transformMatrix);
+			max = Vector3.Transform(max, transformMatrix);
+
+			if (min.X > max.X)
+			{
+				float temp = min.X;
+				min.X = max.X;
+				max.X = temp;
+			}
+			if (min.Y > max.Y)
+			{
+				float temp = min.Y;
+				min.Y = max.Y;
+				max.Y = temp;
+			}
+			if (min.Z > max.Z)
+			{
+				float temp = min.Z;
+				min.Z = max.Z;
+				max.Z = temp;
+			}
+
+			if (min.X > max.X || min.Y > max.Y || min.Z > max.Z)
+			{
+				throw new Exception("Min GREATER than Max!!!");
+			}
+
+			_boundingBox = new BoundingBox(min, max);
+			//return new BoundingBox(min, max) ;
+		}
+		// * */
 	}
 }
