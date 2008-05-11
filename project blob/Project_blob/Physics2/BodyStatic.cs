@@ -45,7 +45,7 @@ namespace Physics2
 			return true;
 		}
 
-		public override void update(float TotalElapsedSeconds) { }
+        public override void update(float TotalElapsedSeconds) { base.update(TotalElapsedSeconds); }
 		public override void updatePosition() { }
 		protected internal override void SolveForNextPosition(float TotalElapsedSeconds) { }
 

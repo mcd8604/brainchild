@@ -137,10 +137,10 @@ Global Settings
         Reserved = 1;
         Read Only = 0;
         Time = 0;
-        Value = 343.500000;
-        Initial Value = 343.500000;
+        Value = 50.000000;
+        Initial Value = 50.000000;
         Min = 0.000000;
-        Max = 1000000.000000;
+        Max = 50.000000;
     }
 
     Variable
@@ -208,7 +208,96 @@ Global Settings
         Value = 0.000000;
         Initial Value = 0.000000;
         Min = 0.000000;
-        Max = 1000000.000000;
+        Max = 200.000000;
+    }
+
+    RPC
+    {
+        Name = RPC Preset;
+
+        RPC Curve
+        {
+            Name = Sound::43546112-5c51-4a9c-b64b-709c384b8d8a;
+            Property = 0;
+            Sound = 1;
+            Line Color = 4294901760;
+            Viewable = 1;
+
+            Variable Entry
+            {
+                Name = Distance;
+            }
+
+            RPC Point
+            {
+                X = 1.733102;
+                Y = 600.000000;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 30.502598;
+                Y = 26.170898;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 100.866547;
+                Y = -2061.784180;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 200.000000;
+                Y = -9600.000000;
+                Curve = 0;
+            }
+        }
+
+        RPC Curve
+        {
+            Name = Sound::7584c888-7075-4b20-a56b-e063a42d55c3;
+            Property = 0;
+            Sound = 1;
+            Line Color = 4278255360;
+            Viewable = 1;
+
+            Variable Entry
+            {
+                Name = SpeedOfSound;
+            }
+
+            RPC Point
+            {
+                X = 0.000000;
+                Y = -9600.000000;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 20.017330;
+                Y = -2021.542603;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 40.034660;
+                Y = 1.783905;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 50.000000;
+                Y = 600.000000;
+                Curve = 0;
+            }
+        }
     }
 }
 
@@ -318,17 +407,24 @@ Sound Bank
     Name = Sound Bank;
     Xbox File = Xbox\Sound Bank.xsb;
     Windows File = Win\Sound Bank.xsb;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
         Name = speedBoost;
-        Volume = -1200;
+        Volume = 600;
         Pitch = 0;
         Priority = 0;
 
         Category Entry
         {
             Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = RPC Preset;
         }
 
         Track
@@ -368,13 +464,18 @@ Sound Bank
     Sound
     {
         Name = metalImpact;
-        Volume = -1200;
+        Volume = 600;
         Pitch = 0;
         Priority = 0;
 
         Category Entry
         {
             Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = RPC Preset;
         }
 
         Track
@@ -414,13 +515,18 @@ Sound Bank
     Sound
     {
         Name = gravelImpact;
-        Volume = -1200;
+        Volume = 600;
         Pitch = 0;
         Priority = 0;
 
         Category Entry
         {
             Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = RPC Preset;
         }
 
         Track
@@ -467,6 +573,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = RPC Preset;
         }
 
         Track

@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Audio;
 
 namespace Physics2
 {
 	public class Body
 	{
+        protected internal AudioEmitter audioEmitter = new AudioEmitter();
         protected internal string collisionSound = "";
 		protected internal IList<PhysicsPoint> points = new List<PhysicsPoint>();
 		protected internal IList<Collidable> collidables = new List<Collidable>();
@@ -25,6 +27,11 @@ namespace Physics2
 
 		protected internal Body(string p_collisionSound) {
             collisionSound = p_collisionSound;
+            audioEmitter.DopplerScale = 0f;
+            audioEmitter.Forward = Vector3.Forward;
+            audioEmitter.Up = Vector3.Up;
+            audioEmitter.Position = Vector3.Zero;
+            audioEmitter.Velocity = Vector3.Zero;
         }
 
         public Body(Body ParentBody, string p_collisionSound)
@@ -34,6 +41,11 @@ namespace Physics2
 				ParentBody.addChild(this);
 			}
             collisionSound = p_collisionSound;
+            audioEmitter.DopplerScale = 0f;
+            audioEmitter.Forward = Vector3.Forward;
+            audioEmitter.Up = Vector3.Up;
+            audioEmitter.Position = Vector3.Zero;
+            audioEmitter.Velocity = Vector3.One;
 		}
 
         public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks, string p_collisionSound)
@@ -47,6 +59,11 @@ namespace Physics2
 			collidables = p_collidables;
 			tasks = p_tasks;
             collisionSound = p_collisionSound;
+            audioEmitter.DopplerScale = 0f;
+            audioEmitter.Forward = Vector3.Forward;
+            audioEmitter.Up = Vector3.Up;
+            audioEmitter.Position = Vector3.Zero;
+            audioEmitter.Velocity = Vector3.One;
 			initialize();
 		}
 
@@ -192,7 +209,6 @@ namespace Physics2
 			{
 				t.update(this, TotalElapsedSeconds);
 			}
-
 		}
 
 		public virtual void updatePosition()
@@ -219,7 +235,6 @@ namespace Physics2
 				c.update();
 				boundingBox.expandToInclude(c.getBoundingBox());
 			}
-
 		}
 
 		protected internal virtual void SolveForNextPosition(float TotalElapsedSeconds)
@@ -345,7 +360,7 @@ namespace Physics2
 		public virtual void onCollision(PhysicsPoint p) {
             if (!collisionSound.Equals("") && !collisionSound.Equals("none"))
             {
-                AudioManager.getSingleton.playSoundFXs(collisionSound);
+                AudioManager.getSingleton.playSoundFXs(collisionSound, Engine.CameraManager.getSingleton.ActiveCamera.Listener, audioEmitter);
             }
         }
 
