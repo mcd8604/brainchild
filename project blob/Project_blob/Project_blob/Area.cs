@@ -48,6 +48,19 @@ namespace Project_blob
 			set { _events = value; }
 		}
 
+        private Vector3 m_CheckPoint;
+        public Vector3 CheckPoint
+        {
+            get
+            {
+                return m_CheckPoint;
+            }
+            set
+            {
+                m_CheckPoint = value;
+            }
+        }
+
 		public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix)
 		{
 			

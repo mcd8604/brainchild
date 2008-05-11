@@ -274,7 +274,7 @@ namespace Project_blob.GameState
 					//    staticDrawables = currentArea.getDrawableList();
 					//    portals = currentArea.Portals;
 					//    physics.AddBodys(currentArea.getBodies());
-					ChangeArea(f.getSelected(), blobStartPosition);
+					ChangeArea(f.getSelected());
 				}
 			}
 #else
@@ -456,7 +456,38 @@ namespace Project_blob.GameState
 		public static void CauseDeath()
 		{
 			game.reset();
-		}
+        }
+
+        public void ChangeArea(String area)
+        {
+            currentArea = Level.Areas[area];
+            currentArea.LoadAreaGameplay(ScreenManager);
+
+            currentArea.Display.EffectName = "cartoonEffect";
+            currentArea.Display.WorldParameterName = "World";
+            currentArea.Display.TextureParameterName = "Texture";
+            currentArea.Display.TechniqueName = "Lambert";
+            InitializeEffect();
+
+            blobStartPosition = currentArea.CheckPoint;
+
+            //Add the Static Drawables to the Octree
+            List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
+            List<Portal> portals = currentArea.Portals;
+            SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
+            //SceneManager.getSingleton.BuildOctree(ref temp);
+            //SceneManager.getSingleton.BuildPortalScene(temp);
+            foreach (Portal p in portals)
+            {
+                p.CreateBoundingBox();
+            }
+            SceneManager.getSingleton.BuildPortalScene(temp, portals);
+            SceneManager.getSingleton.PortalScene.CurrSector = 1;
+
+            currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
+
+            reset();
+        }
 
 		public void ChangeArea(String area, Vector3 position)
 		{
@@ -470,16 +501,6 @@ namespace Project_blob.GameState
 			InitializeEffect();
 
 			blobStartPosition = position;
-
-			/*List<Drawable> temp = currentArea.getDrawableList();
-			List<Portal> portals = currentArea.Portals;
-			//SceneManager.getSingleton.BuildOctree(ref temp);
-			//SceneManager.getSingleton.BuildPortalScene(temp);
-			foreach (Portal p in portals)
-			{
-				p.CreateBoundingBox();
-			}
-			SceneManager.getSingleton.BuildPortalScene(temp, portals);*/
 
 			//Add the Static Drawables to the Octree
 			List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
