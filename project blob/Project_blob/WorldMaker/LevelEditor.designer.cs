@@ -51,6 +51,7 @@ namespace WorldMaker
             this.RemovePortalButton = new System.Windows.Forms.Button();
             this.EditPortalButton = new System.Windows.Forms.Button();
             this.EditTasksButton = new System.Windows.Forms.Button();
+            this.EditAreaButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // areaListBox
@@ -76,8 +77,8 @@ namespace WorldMaker
             this.modelListBox.Size = new System.Drawing.Size(142, 308);
             this.modelListBox.Sorted = true;
             this.modelListBox.TabIndex = 1;
+            this.modelListBox.DoubleClick += new System.EventHandler(this.modelListBox_DoubleClick);
             this.modelListBox.SelectedIndexChanged += new System.EventHandler(this.modelListBox_SelectedIndexChanged);
-			this.modelListBox.DoubleClick += new System.EventHandler(this.modelListBox_DoubleClick);
             // 
             // nameDisplay
             // 
@@ -134,9 +135,9 @@ namespace WorldMaker
             // areaDelButton
             // 
             this.areaDelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.areaDelButton.Location = new System.Drawing.Point(156, 211);
+            this.areaDelButton.Location = new System.Drawing.Point(156, 230);
             this.areaDelButton.Name = "areaDelButton";
-            this.areaDelButton.Size = new System.Drawing.Size(125, 44);
+            this.areaDelButton.Size = new System.Drawing.Size(125, 25);
             this.areaDelButton.TabIndex = 7;
             this.areaDelButton.Text = "Delete Area";
             this.areaDelButton.UseVisualStyleBackColor = true;
@@ -147,7 +148,7 @@ namespace WorldMaker
             this.areaAddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.areaAddButton.Location = new System.Drawing.Point(156, 161);
             this.areaAddButton.Name = "areaAddButton";
-            this.areaAddButton.Size = new System.Drawing.Size(125, 44);
+            this.areaAddButton.Size = new System.Drawing.Size(125, 27);
             this.areaAddButton.TabIndex = 8;
             this.areaAddButton.Text = "Add Area";
             this.areaAddButton.UseVisualStyleBackColor = true;
@@ -303,11 +304,23 @@ namespace WorldMaker
             this.EditTasksButton.UseVisualStyleBackColor = false;
             this.EditTasksButton.Click += new System.EventHandler(this.EditTasksButton_Click);
             // 
+            // EditAreaButton
+            // 
+            this.EditAreaButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditAreaButton.Location = new System.Drawing.Point(156, 195);
+            this.EditAreaButton.Name = "EditAreaButton";
+            this.EditAreaButton.Size = new System.Drawing.Size(125, 27);
+            this.EditAreaButton.TabIndex = 24;
+            this.EditAreaButton.Text = "Edit Area";
+            this.EditAreaButton.UseVisualStyleBackColor = true;
+            this.EditAreaButton.Click += new System.EventHandler(this.EditAreaButton_Click);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(293, 711);
+            this.Controls.Add(this.EditAreaButton);
             this.Controls.Add(this.EditTasksButton);
             this.Controls.Add(this.EditPortalButton);
             this.Controls.Add(this.AddPortalButton);
@@ -363,5 +376,6 @@ namespace WorldMaker
         private System.Windows.Forms.Button RemovePortalButton;
         private System.Windows.Forms.Button EditPortalButton;
         private System.Windows.Forms.Button EditTasksButton;
+        private System.Windows.Forms.Button EditAreaButton;
 	}
 }

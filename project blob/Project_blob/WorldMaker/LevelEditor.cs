@@ -458,5 +458,14 @@ namespace WorldMaker
             }
         }
 
+        private void EditAreaButton_Click(object sender, EventArgs e)
+        {
+            if (areaListBox.SelectedIndex != -1)
+            {
+                PropertyEditor pe = new PropertyEditor(Level.GetArea(areaListBox.SelectedItem as string), true);
+                pe.ShowDialog();
+            }
+        }
+
 	}
 }
