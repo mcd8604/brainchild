@@ -26,6 +26,15 @@ namespace Engine
 {
 	public class Camera
 	{
+        /// <summary>
+        /// Represents the camera as an active listener for audio
+        /// </summary>
+        private AudioListener _listener = new AudioListener();
+        public AudioListener Listener
+        {
+            get { return _listener; }
+        }
+
 		/// <summary>
 		/// Postition of the camera.
 		/// </summary>
@@ -166,12 +175,22 @@ namespace Engine
 		/// </summary>
 		public Camera()
 		{
-
+            _listener.Forward = Vector3.Forward;
+            _listener.Up = Vector3.Up;
+            _listener.Position = Vector3.Zero;
+            _listener.Velocity = Vector3.Zero;
 		}
 
 		public virtual void Update(GameTime gameTime)
 		{
-
+            Vector3 tempVec = new Vector3();
+            tempVec.X = Target.X - Position.X;
+            tempVec.Y = Target.Y - Position.Y;
+            tempVec.Z = Target.Z - Position.Z;
+            tempVec.Normalize();
+            _listener.Forward = tempVec;
+            _listener.Up = Up;
+            _listener.Position = Position;
 		}
 
 		public virtual void UpdateMatrices()

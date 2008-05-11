@@ -14,6 +14,10 @@ namespace Audio
         private static volatile AudioManager _instance;
         private static object _syncRoot = new Object();
 
+        private AudioListener tempListen;
+        private AudioEmitter tempEmit;
+        private string tempName = "";
+
         // Our audio engine to import and run sounds
         private AudioEngine _audioEngine;
 
@@ -122,13 +126,19 @@ namespace Audio
         /// Plays the specified soundFX
         /// </summary>
         /// <param name="name">The name of the soundFX lookup id</param>
-        public void playSoundFXs(String name)
+        /// <param name="listener">The listener of the sound to be played</param>
+        /// <param name="emitter">The emitter of the sound to be played</param>
+        public void playSoundFXs(String name, AudioListener listener, AudioEmitter emitter)
         {
             if (_soundFXs.ContainsKey(name) && !_soundFXs[name].IsPlaying)
             {
                 _soundFXs[name].Dispose();
                 _soundFXs[name] = _soundBank.GetCue(name);
+                _soundFXs[name].Apply3D(listener, emitter);
                 _soundFXs[name].Play();
+                tempEmit = emitter;
+                tempListen = listener;
+                tempName = name;
             }
         }
 
@@ -265,6 +275,11 @@ namespace Audio
         /// </summary>
         public void update()
         {
+            if (!tempName.Equals(""))
+            {
+                _soundFXs[tempName].Apply3D(tempListen, tempEmit);
+            }
+
             // Update the audio engine so that it can process audio data
             _audioEngine.Update();
         }
