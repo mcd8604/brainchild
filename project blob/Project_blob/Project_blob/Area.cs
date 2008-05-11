@@ -48,16 +48,16 @@ namespace Project_blob
 			set { _events = value; }
 		}
 
-        private Vector3 m_CheckPoint;
-        public Vector3 CheckPoint
+        private Vector3 m_StartPosition;
+        public Vector3 StartPosition
         {
             get
             {
-                return m_CheckPoint;
+                return m_StartPosition;
             }
             set
             {
-                m_CheckPoint = value;
+                m_StartPosition = value;
             }
         }
 

@@ -458,6 +458,11 @@ namespace Project_blob.GameState
 			game.reset();
         }
 
+        public static void SetCheckPoint(Vector3 position)
+        {
+            game.blobStartPosition = position;
+        }
+
         public void ChangeArea(String area)
         {
             currentArea = Level.Areas[area];
@@ -469,7 +474,7 @@ namespace Project_blob.GameState
             currentArea.Display.TechniqueName = "Lambert";
             InitializeEffect();
 
-            blobStartPosition = currentArea.CheckPoint;
+            blobStartPosition = currentArea.StartPosition;
 
             //Add the Static Drawables to the Octree
             List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
