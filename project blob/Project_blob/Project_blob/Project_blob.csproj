@@ -82,6 +82,7 @@
     <Compile Include="EventDoorOpen.cs" />
     <Compile Include="EventTrigger.cs" />
     <Compile Include="Frustum.cs" />
+    <Compile Include="GameState\ControllerScreen.cs" />
     <Compile Include="GameState\GameplayScreen.cs" />
     <Compile Include="GameState\GameScreen.cs" />
     <Compile Include="GameState\LoadingScreen.cs" />
@@ -129,6 +130,7 @@
     <Content Include="Content\Audio\speedBoost.wav" />
     <Content Include="Content\blank.png" />
     <Content Include="Content\Content.contentproj.user" />
+    <Content Include="Content\Textures\control.jpg" />
     <Content Include="Content\gradient.png" />
     <Content Include="Content\obj\Content.contentproj.FileListAbsolute.txt" />
     <Content Include="Content\obj\x86\Debug\ContentPipeline.xml" />
