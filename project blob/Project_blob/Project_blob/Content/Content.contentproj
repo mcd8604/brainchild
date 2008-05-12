@@ -57,6 +57,11 @@
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\trianglePlane18.fbx">
+      <Name>trianglePlane18</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\donut.fbx">
       <Name>donut</Name>
       <Importer>FbxImporter</Importer>
