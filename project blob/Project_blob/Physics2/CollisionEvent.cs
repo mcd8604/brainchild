@@ -8,12 +8,14 @@ namespace Physics2
 		public PhysicsPoint point;
         public Collidable collidable;
 		internal float when;
+        internal Vector3 collisionPoint;
 
-		internal CollisionEvent(PhysicsPoint p, Collidable c, float u)
+		internal CollisionEvent(PhysicsPoint p, Collidable c, float u, Vector3 cp)
 		{
 			point = p;
 			collidable = c;
 			when = u;
+            collisionPoint = cp;
 		}
 
 		internal bool isStatic()
@@ -28,7 +30,7 @@ namespace Physics2
 
 		internal void trigger()
 		{
-			collidable.onCollision(point);
+			collidable.onCollision(this);
 		}
 
 		internal static int CompareEvents(CollisionEvent a, CollisionEvent b)

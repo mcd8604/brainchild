@@ -18,7 +18,7 @@ namespace Physics2
 			return boundingbox.lineIntersects(start, end);
 		}
 
-		public abstract float didIntersect(Vector3 start, Vector3 end);
+		public abstract float didIntersect(Vector3 start, Vector3 end, out Vector3 hit);
 
 		public virtual AxisAlignedBoundingBox getBoundingBox()
 		{
@@ -76,9 +76,9 @@ namespace Physics2
 			get;
 		}
 
-		public virtual void onCollision(PhysicsPoint p)
+		public virtual void onCollision(CollisionEvent e)
 		{
-			parent.onCollision(p);
+			parent.onCollision(e);
 		}
 
 		public abstract void update();
