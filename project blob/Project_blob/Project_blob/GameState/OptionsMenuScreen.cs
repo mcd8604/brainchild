@@ -33,6 +33,7 @@ namespace Project_blob.GameState
 			aliasingMenuEntry = new MenuEntry();
 			audioMenuEntry = new MenuEntry();
 			threadedMenuEntry = new MenuEntry();
+			MenuEntry controlMenuEntry = new MenuEntry("Controls");
 			MenuEntry applyMenuEntry = new MenuEntry("Apply");
 			MenuEntry backMenuEntry = new MenuEntry("Back");
 
@@ -43,6 +44,7 @@ namespace Project_blob.GameState
 			aliasingMenuEntry.Selected += aliasingSelected;
 			audioMenuEntry.Selected += audioSelected;
 			threadedMenuEntry.Selected += threadedSelected;
+			controlMenuEntry.Selected += controlSelected;
 			applyMenuEntry.Selected += apply;
 			backMenuEntry.Selected += OnCancel;
 
@@ -51,6 +53,7 @@ namespace Project_blob.GameState
 			MenuEntries.Add(aliasingMenuEntry);
 			MenuEntries.Add(audioMenuEntry);
 			MenuEntries.Add(threadedMenuEntry);
+			MenuEntries.Add(controlMenuEntry);
 			MenuEntries.Add(applyMenuEntry);
 			MenuEntries.Add(backMenuEntry);
 		}
@@ -114,6 +117,11 @@ namespace Project_blob.GameState
 			}
 
 			setMenuText();
+		}
+
+		void controlSelected(object sender, EventArgs e)
+		{
+			ScreenManager.AddScreen(new ControllerScreen());
 		}
 
 		void apply(object sender, EventArgs e)
