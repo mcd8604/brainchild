@@ -345,10 +345,11 @@ namespace Physics2
 				{
 					if (x.couldIntersect(p.CurrentPosition, p.PotentialPosition))
 					{
-						float u = x.didIntersect(p.CurrentPosition, p.PotentialPosition);
+                        Vector3 hit;
+						float u = x.didIntersect(p.CurrentPosition, p.PotentialPosition, out hit);
 						if (u > 0 && u < 1)
 						{
-							events.Add(new CollisionEvent(p, x, u));
+							events.Add(new CollisionEvent(p, x, u, hit));
 						}
 					}
 				}
@@ -357,7 +358,8 @@ namespace Physics2
 			return events;
 
 		}
-		public virtual void onCollision(PhysicsPoint p) {
+		public virtual void onCollision(CollisionEvent e) {
+            // check e.collisionPoint - just what it sounds like ~Adam
             if (!collisionSound.Equals("") && !collisionSound.Equals("none"))
             {
                 AudioManager.getSingleton.playSoundFXs(collisionSound, Engine.CameraManager.getSingleton.ActiveCamera.Listener, audioEmitter);

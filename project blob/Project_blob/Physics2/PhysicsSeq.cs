@@ -132,7 +132,7 @@ namespace Physics2
 			foreach (CollisionEvent e in events)
 			{
 
-				if (check.Contains(e.point))
+				if (check.Contains(e.point) || !e.isBlocking())
 				{
 					continue;
 				}
@@ -140,6 +140,13 @@ namespace Physics2
 
 				// handle collision, sliding;
 				Vector3 newPosition = e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when);
+
+                // Check!!
+                if (newPosition != e.collisionPoint)
+                {
+                    // if this is ever spamming, let me know! - Adam
+                    Console.WriteLine("mismatch: " + newPosition + " : " + e.collisionPoint);
+                }
 
 				// bump?
 				//while (s.DotNormal(p.NextPosition) <= 0)

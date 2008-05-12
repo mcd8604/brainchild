@@ -19,10 +19,10 @@ namespace Project_blob
 			return false;
 		}
 
-		public override void onCollision(PhysicsPoint p)
+		public override void onCollision(CollisionEvent e)
 		{
-            base.onCollision(p);
-			_triggeredEvent.PerformEvent(p);
+            base.onCollision(e);
+			_triggeredEvent.PerformEvent(e.point);
 		}
 	}
 }

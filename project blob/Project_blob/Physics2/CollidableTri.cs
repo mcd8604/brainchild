@@ -24,9 +24,9 @@ namespace Physics2
 			boundingbox.expandToInclude(Point3.CurrentPosition);
 		}
 
-		public override float didIntersect(Vector3 start, Vector3 end)
+		public override float didIntersect(Vector3 start, Vector3 end, out Vector3 hit)
 		{
-			return CollisionMath.LineTriangleIntersect(start, end, Point1, Point2, Point3);
+			return CollisionMath.LineTriangleIntersect(start, end, Point1, Point2, Point3, out hit);
 		}
 
 		public override Plane Plane

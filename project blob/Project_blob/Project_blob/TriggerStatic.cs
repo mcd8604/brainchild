@@ -30,11 +30,11 @@ namespace Project_blob
 			base.update(TotalElapsedSeconds);
 		}
 
-		public override void onCollision(PhysicsPoint p)
+        public override void onCollision(CollisionEvent e)
 		{
 			if (Time < 0)
 			{
-				_triggeredEvent.PerformEvent(p);
+				_triggeredEvent.PerformEvent(e.point);
 				Time = CoolDown;
 			}
 		}
