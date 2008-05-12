@@ -244,6 +244,8 @@ namespace Project_blob
 			fieldOfView = (float)Math.Acos(Vector3.Dot(v1, v2));
 			//fieldOfView = (float)Math.Acos(Vector3.Dot(new Vector3(box.Max.X, box.Max.Y, box.Min.Z),
 			//                                           new Vector3(box.Min.X, box.Max.Y, box.Min.Z)));
+            if (CameraManager.getSingleton.ActiveCamera.FieldOfView < fieldOfView)
+                fieldOfView = CameraManager.getSingleton.ActiveCamera.FieldOfView;
 
 			aspectRatio = (box.Max.X - box.Min.X) /
 						  (box.Max.Y - box.Min.Y);
