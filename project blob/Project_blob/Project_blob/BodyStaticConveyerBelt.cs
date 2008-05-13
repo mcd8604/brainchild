@@ -39,15 +39,26 @@ namespace Project_blob
 
 		private Vector3 m_Velocity;
 
-        public BodyStaticConveyerBelt(IList<CollidableStatic> Collidables, Body ParentBody, string p_collisionAudio)
-            : base(Collidables, ParentBody, p_collisionAudio)
-		{
+        private ConveyerBeltStatic m_StaticModel;
+
+        public BodyStaticConveyerBelt(IList<CollidableStatic> Collidables, Body ParentBody, ConveyerBeltStatic staticModel)
+            : base(Collidables, ParentBody, staticModel.AudioName)
+        {
+            m_Direction = staticModel.Direction;
+            m_Speed = staticModel.Speed;
+            m_StaticModel = staticModel;
 		}
 
 		public override Vector3 getRelativeVelocity(CollisionEvent e)
 		{
 			return m_Velocity;
 		}
+
+        public override void update(float TotalElapsedSeconds)
+        {
+            m_StaticModel.TextureOffsetX -= this.Speed * m_StaticModel.TextureScaleX * (m_Direction.X + m_Direction.Z) * 0.005f;
+            base.update(TotalElapsedSeconds);
+        }
 
 	}
 }
