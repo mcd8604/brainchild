@@ -95,7 +95,7 @@ namespace Project_blob
                 }
             }
             throw new Exception(textureName + " Texture Not Found");
-            return null;
+            //return null;
         }
 
 		public static int GetTextureID(String textureName)
@@ -111,7 +111,7 @@ namespace Project_blob
 				}
             }
             throw new Exception(textureName + " Texture Not Found");
-			return -1;
+			//return -1;
         }
 
         public static string[] GetTextureNames()
