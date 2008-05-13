@@ -93,6 +93,8 @@ namespace Project_blob.GameState
 		System.Diagnostics.Stopwatch drawTime = new System.Diagnostics.Stopwatch();
 #endif
 
+        System.Diagnostics.Stopwatch PlayTime = new System.Diagnostics.Stopwatch();
+
 		CameraBody CameraBody;
 
 		private Vector3 blobStartPosition = new Vector3(0, 10, 0);
@@ -197,6 +199,7 @@ namespace Project_blob.GameState
 
 			//load default level
 			Level.LoadLevel("FinalLevel", "effects");
+            PlayTime.Reset();
 
 			//List of Static Drawables to add to Scene
 			//List<Drawable> staticDrawables = new List<Drawable>();
@@ -399,7 +402,6 @@ namespace Project_blob.GameState
 			//EffectManager.getSingleton.AddEffect("Distort", distortEffect);
 
 
-
 			//EffectManager.getSingleton.AddEffect("DepthBuffer", depthBufferEffect);
 
 
@@ -578,6 +580,7 @@ namespace Project_blob.GameState
 				if (InputHandler.IsActionPressed(Actions.Pause))
 				{
 					ScreenManager.AddScreen(new PauseMenuScreen());
+                    //PlayTime.Stop();
 				}
 				if (InputHandler.IsActionPressed(Actions.Reset))
 				{
@@ -866,6 +869,10 @@ namespace Project_blob.GameState
 			drawTime.Reset();
 			drawTime.Start();
 #endif
+            if (!PlayTime.IsRunning)
+            {
+                PlayTime.Start();
+            }
 			//ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
 			//ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
@@ -1100,6 +1107,7 @@ namespace Project_blob.GameState
 			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			spriteBatch.Begin();
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, "Time - " + PlayTime.Elapsed.ToString().Substring(3,8), new Vector2(0, 175), Color.White);
 #if TIMED
 			spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
 			spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);
