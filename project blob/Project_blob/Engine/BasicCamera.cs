@@ -15,7 +15,7 @@ namespace Engine
 		public override void Update(GameTime gameTime)
 		{
 			UpdateMatrices();
-
+            base.Update(gameTime);
 		}
 
 		public override void UpdateMatrices()

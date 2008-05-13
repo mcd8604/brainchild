@@ -187,12 +187,6 @@ namespace Project_blob.GameState
 			distortEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distort");
 			distorterEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distorters");
 
-            // Add soundFXs
-            AudioManager.getSingleton.addSoundFX("blob");
-            AudioManager.getSingleton.addSoundFX("gravelImpact");
-            AudioManager.getSingleton.addSoundFX("metalImpact");
-            AudioManager.getSingleton.addSoundFX("speedBoost");
-
 			//cartoonEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\DepthBuffer");
 
 			//load skybox
