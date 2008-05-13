@@ -33,8 +33,6 @@ namespace Physics2
             }
         }
 
-        private float m_Speed;
-
         public TaskRotate() { }
 
         public TaskRotate( Vector3 axis, float speed )
