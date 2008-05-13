@@ -240,13 +240,6 @@ namespace Project_blob
 					VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[dm.NumVertices];
 					dm.getVertexBuffer().GetData<VertexPositionNormalTexture>(vertices);
 
-					for (int i = 0; i < vertices.Length; i++)
-					{
-						//transform points to correct position
-						vertices[i].Position = Vector3.Transform(vertices[i].Position, dm.Transform);
-						vertices[i].Normal = Vector3.TransformNormal(vertices[i].Normal, dm.Transform);
-					}
-
 					// Indices
 					int[] indices;
 					if (dm.getIndexBuffer().IndexElementSize == IndexElementSize.SixteenBits)

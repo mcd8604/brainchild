@@ -105,7 +105,7 @@ LightingVertexShaderOutput LightingVertexShader(VertexShaderInput input)
     LightingVertexShaderOutput output;
 
     // Apply camera matrices to the input position.
-    output.Position = mul(mul(mul(input.Position, World), View), Projection);
+    output.Position = mul(mul(input.Position, View), Projection);
     
     // Copy across the input texture coordinate.
     output.TextureCoordinate = input.TextureCoordinate;
