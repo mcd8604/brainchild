@@ -21,11 +21,11 @@ namespace Project_blob
             Tasks.Add(new TaskTranslate(patrolPoints, 1f));
         }
 
-        public DoorModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms)
+        /*public DoorModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms)
             :base(p_Name, fileName, audioName, p_TextureKey, rooms)
         {
             
-        }
+        }*/
 
         public void DoorOpen()
         {

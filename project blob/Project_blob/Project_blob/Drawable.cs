@@ -13,7 +13,11 @@ namespace Project_blob
 
 		void DrawMe();
 
-		TextureInfo GetTextureKey();
+		//TextureInfo GetTextureKey();
+
+		int GetTextureID();
+
+		void SetTextureID(int id);
 
 		BoundingBox GetBoundingBox();
 

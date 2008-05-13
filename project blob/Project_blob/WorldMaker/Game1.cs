@@ -179,7 +179,10 @@ namespace WorldMaker
 				{
 					string textureFile = s.Substring(s.LastIndexOf("\\") + 1);
 					string textureName = textureFile.Remove(textureFile.LastIndexOf('.'));
-					TextureManager.getSingleton.AddTexture(textureName, content.Load<Texture2D>(@"Content\\Textures\\" + textureName));
+					//TextureManager.getSingleton.AddTexture(textureName, content.Load<Texture2D>(@"Content\\Textures\\" + textureName));
+                    Texture2D t = content.Load<Texture2D>(@"Content\\Textures\\" + textureName);
+                    t.Name = textureName;
+                    TextureManager.AddTexture(t);
 				}
 			}
 
@@ -512,7 +515,7 @@ namespace WorldMaker
 
 				foreach (DrawableInfo drawableInfo in LevelEditor.DrawablesToAdd)
 				{
-					_activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureInfo, drawableInfo.drawable);
+					_activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureID, drawableInfo.drawable);
 				}
 				LevelEditor.DrawablesToAdd.Clear();
 

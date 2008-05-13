@@ -13,7 +13,6 @@ using Microsoft.Xna.Framework.Storage;
 namespace Project_blob
 {
 	//This class holds a list of VectorLists to be drawn to the screen
-	[Serializable]
 	public class Display
 	{
 		[NonSerialized]
@@ -123,8 +122,14 @@ namespace Project_blob
 		[NonSerialized]
 		//private Model _modelTemp;
 
-		SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
-		SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
+		//SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
+		//SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
+		
+        //Two dimensional list of drawables. 
+        //First dimension index is TextureID
+        //All drawables added to the second 
+        //dimension must share the same texture
+        List<List<Drawable>> m_DrawList;
 		//SortedList<short, List<Drawable>> rooms;
 
 		public bool saveOut = false;
@@ -155,7 +160,7 @@ namespace Project_blob
 			}
 		}
 
-		public SortedList<TextureInfo, List<Drawable>> DrawnList
+		/*public SortedList<TextureInfo, List<Drawable>> DrawnList
 		{
 			get
 			{
@@ -164,6 +169,18 @@ namespace Project_blob
 			set
 			{
 				drawable_List_Drawn = value;
+			}
+		}*/
+
+		public List<List<Drawable>> DrawnList
+		{
+			get
+			{
+				return m_DrawList;
+			}
+			set
+			{
+				m_DrawList = value;
 			}
 		}
 
@@ -228,14 +245,14 @@ namespace Project_blob
 
 		public void WipeDrawn()
 		{
-			drawable_List_Drawn.Clear();
+			m_DrawList.Clear();
 			if (m_skyBox != null)
 				AddToBeDrawn(m_skyBox);
 		}
 
 		public void AddToBeDrawn(Drawable p_Drawable)
 		{
-			if (drawable_List_Drawn.Keys.Contains(p_Drawable.GetTextureKey()))
+			/*if (drawable_List_Drawn.Keys.Contains(p_Drawable.GetTextureKey()))
 			{
 				List<Drawable> temp = drawable_List_Drawn[p_Drawable.GetTextureKey()];
 				temp.Add(p_Drawable);
@@ -246,16 +263,24 @@ namespace Project_blob
 				List<Drawable> temp = new List<Drawable>();
 				temp.Add(p_Drawable);
 				drawable_List_Drawn[p_Drawable.GetTextureKey()] = temp;
-			}
+			}*/
+			m_DrawList[p_Drawable.GetTextureID()].Add(p_Drawable);
 #if DEBUG
 			++SceneManager.getSingleton.Drawn;
 #endif
 		}
 
+        public Display()
+        {
+            ShowAxis = true;
+            m_WorldMatrix = Matrix.Identity;
+            initialize();
+        }
+
 		public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
 		{
-			_effectName = "basic";
-			_textureName = "point_text";
+			//_effectName = "basic";
+			//_textureName = "point_text";
 			ShowAxis = true;
 			//m_cartoonEffect.Alpha = 1.0f;
 			//m_cartoonEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
@@ -271,24 +296,26 @@ namespace Project_blob
 			//m_cartoonEffect.LightingEnabled = true;
 			//m_cartoonEffect.TextureEnabled = true;
 
-			drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
-			drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
+			//drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
+			//drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
 
 			//m_cartoonEffect.Parameters["World"].SetValue(p_World);
 			m_WorldMatrix = p_World;
 
 			//m_cartoonEffect.Parameters["View"].SetValue(p_View);
 			//m_cartoonEffect.Parameters["Projection"].SetValue(p_Projection);
+
+            initialize();
 		}
 
 		public Display(Matrix p_World, String effectName, String p_WorldParameterName,
 			String p_TextureParameterName, String p_TechniqueName)
 		{
-			drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
-			drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
+			//drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
+			//drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
 
 			_effectName = effectName;
-			_textureName = "point_text";
+			//_textureName = "point_text";
 
 			ShowAxis = true;
 
@@ -298,7 +325,26 @@ namespace Project_blob
 
 			m_TechniqueName = p_TechniqueName;
 
+            initialize();
 		}
+
+        public void initialize()
+        {
+            //initialize draw list, each texture gets a list
+            m_DrawList = new List<List<Drawable>>();
+            for (int i = 0; i < TextureManager.TextureList.Count; i++)
+            {
+                m_DrawList.Add(new List<Drawable>());
+            }
+
+            //*hardcode*
+            this.EffectName = "cartoonEffect";
+            this.WorldParameterName = "World";
+            this.TextureParameterName = "Texture";
+            this.TechniqueName = "Lambert";
+            this.TextureName = "point_text";
+            //*end hardcode*
+        }
 
 		public void Draw(GraphicsDevice graphicsDevice)
 		{
@@ -314,18 +360,18 @@ namespace Project_blob
 			renderState.AlphaTestEnable = false;
 			renderState.DepthBufferEnable = true;
 
-			if (drawable_List_Drawn.Count > 0)
+			if (m_DrawList.Count > 0)
 			{
 				if (m_TechniqueName != null)
 					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques[m_TechniqueName];
 
-				int currentTextureNumber = -1;
+				//int currentTextureNumber = -1;
 				//graphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
 
-				graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
-				if (m_TextureParameterName != "NONE")
-					m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName));
-
+				//graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
+				//if (m_TextureParameterName != "NONE")
+					//m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName));
+					m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.GetTexture(0));
 
 				if (ShowAxis)
 				{
@@ -344,7 +390,7 @@ namespace Project_blob
 					//VertexStream tempBuffer = m_VertexDeclaration.GraphicsDevice.Vertices[0];
 					graphicsDevice.Vertices[0].SetSource(vb, 0, VertexPositionNormalTexture.SizeInBytes);
 					Texture temp = graphicsDevice.Textures[0];
-					graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(TextureName);
+					graphicsDevice.Textures[0] = TextureManager.GetTexture(TextureName);
 					m_cartoonEffect.Begin();
 
 					foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes)
@@ -369,7 +415,7 @@ namespace Project_blob
 					graphicsDevice.SetRenderTarget(0, m_NormalDepthRenderTarget);
 					graphicsDevice.RenderState.DepthBufferWriteEnable = true;
 					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["NormalDepth"];
-                    foreach (TextureInfo ti in drawable_List_Drawn.Keys)
+                    /*foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                     {
                         if (!ti.TextureName.Equals("event"))
                         {
@@ -394,7 +440,31 @@ namespace Project_blob
                                 }
                             }
                         }
-                    }
+                    }*/
+					for (int i = 0; i < m_DrawList.Count; i++)
+					{
+						Texture2D t = TextureManager.TextureList[i];
+						//temporary check
+						if (!t.Name.Equals("event"))
+						{
+							//if (m_TextureParameterName != "NONE")
+								m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+
+							foreach (Drawable d in m_DrawList[i])
+							{
+								if (d is StaticModel)
+								{
+									DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+								}
+								else
+								{
+									DrawPrimitives(d, graphicsDevice);
+								}
+							}
+						}
+					}
+
+
 					if (theBlob != null)
 					{
 						//m_cartoonEffect.Begin();
@@ -473,10 +543,10 @@ namespace Project_blob
 
 				graphicsDevice.Clear(Color.CornflowerBlue);
 
-				if (_effectName == "cartoonEffect")
+				//if (_effectName == "cartoonEffect")
 					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["Lambert"];
 
-				foreach (TextureInfo ti in drawable_List_Drawn.Keys)
+				/*foreach (TextureInfo ti in drawable_List_Drawn.Keys)
 				{
                     if (!ti.TextureName.Equals("event"))
                     {
@@ -503,14 +573,42 @@ namespace Project_blob
                             }
                         }
                     }
+				}*/
+
+				for (int i = 0; i < m_DrawList.Count; i++)
+				{
+					Texture2D t = TextureManager.TextureList[i];
+					//temporary check
+					if (!t.Name.Equals("event"))
+					{
+						//if (m_TextureParameterName != "NONE")
+							m_cartoonEffect.Parameters["Texture"].SetValue(t);
+
+						//if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
+						//	m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+
+						foreach (Drawable d in m_DrawList[i])
+						{
+							if (d is StaticModel)
+							{
+								DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+							}
+							else
+							{
+								DrawPrimitives(d, graphicsDevice);
+							}
+						}
+					}
 				}
+
+
 				if (!DEBUG_WireframeMode)
 					graphicsDevice.SetRenderTarget(0, m_distortionMap);
 				graphicsDevice.RenderState.DepthBufferEnable = true;
 				graphicsDevice.RenderState.DepthBufferWriteEnable = true;
 				graphicsDevice.Clear(Color.Black);
 
-                foreach (TextureInfo ti in drawable_List_Drawn.Keys)
+                /*foreach (TextureInfo ti in drawable_List_Drawn.Keys)
                 {
                     if (!ti.TextureName.Equals("event"))
                     {
@@ -536,7 +634,33 @@ namespace Project_blob
                             }
                         }
                     }
-                }
+                }*/
+				for (int i = 0; i < m_DrawList.Count; i++)
+				{
+					Texture2D t = TextureManager.TextureList[i];
+					//temporary check
+					if (!t.Name.Equals("event"))
+					{
+						//if (m_TextureParameterName != "NONE")
+						//	m_cartoonEffect.Parameters["Texture"].SetValue(t);
+
+						//if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
+							m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+
+						foreach (Drawable d in m_DrawList[i])
+						{
+							if (d is StaticModel)
+							{
+								DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+							}
+							else
+							{
+								DrawPrimitives(d, graphicsDevice);
+							}
+						}
+					}
+				}
+
 
 				if (theBlob != null && !DEBUG_WireframeMode)
 				{

@@ -62,13 +62,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AreaConverter.cs" />
+    <Compile Include="TypeConverterArea.cs" />
     <Compile Include="Blob.cs" />
     <Compile Include="CameraBody.cs" />
     <Compile Include="CameraEvent.cs" />
     <Compile Include="CheckPointEvent.cs" />
     <Compile Include="ConveyerBeltStatic.cs" />
     <Compile Include="BodyStaticConveyerBelt.cs" />
+    <Compile Include="TypeConverterAudio.cs" />
+    <Compile Include="TypeConverterModel.cs" />
+    <Compile Include="TypeConverterTexture.cs" />
     <Compile Include="DeathEvent.cs" />
     <Compile Include="DeltaEvent.cs" />
     <Compile Include="DemoCube.cs" />
@@ -116,7 +119,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="StaticTri.cs" />
-    <Compile Include="TextureInfo.cs" />
     <Compile Include="TextureManager.cs" />
     <Compile Include="Tri.cs" />
     <Compile Include="Trigger.cs" />

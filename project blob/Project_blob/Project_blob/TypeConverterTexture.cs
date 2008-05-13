@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace Project_blob
 {
-    class AreaConverter : TypeConverter
+    class TypeConverterTexture : TypeConverter
     {
         public override bool GetStandardValuesSupported(
                            ITypeDescriptorContext context)
@@ -15,7 +15,7 @@ namespace Project_blob
         public override StandardValuesCollection
                      GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(Level.GetAreaNames());
+            return new StandardValuesCollection(TextureManager.GetTextureNames());
         } 
     }
 }

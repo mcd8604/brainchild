@@ -38,11 +38,11 @@ namespace Project_blob
 		/// <param name="ctxt"></param>
 		public DynamicModel(SerializationInfo info, StreamingContext ctxt) { }
 
-		public DynamicModel(String p_Name, String fileName, String audioName, List<short> rooms)
-			: base(p_Name, fileName, audioName, rooms) { }
+		//public DynamicModel(String p_Name, String fileName, String audioName, List<short> rooms)
+			//: base(p_Name, fileName, audioName, rooms) { }
 
-		public DynamicModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms)
-			: base(p_Name, fileName, audioName, p_TextureKey, rooms) { }
+		public DynamicModel(String p_Name, String fileName, String audioName, String p_TextureName, List<short> rooms)
+            : base(p_Name, fileName, audioName, p_TextureName, rooms) { }
 
 	}
 }

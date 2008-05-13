@@ -53,21 +53,7 @@ namespace WorldMaker
 			{
 				areaTextBox.Text = (String)areaListBox.Items[areaListBox.SelectedIndex];
 				_gameRef.ActiveArea = Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]];
-
-                foreach (Drawable d in _gameRef.ActiveArea.Drawables.Values)
-                {
-                    if (d is StaticModel)
-                    {
-                        ((StaticModel)d).initialize();
-                    }
-                }
-
-				//*hardcode*
-				_gameRef.ActiveArea.Display.EffectName = "cartoonEffect";
-				_gameRef.ActiveArea.Display.WorldParameterName = "World";
-				_gameRef.ActiveArea.Display.TextureParameterName = "Texture";
-				_gameRef.ActiveArea.Display.TechniqueName = "Lambert";
-				//*end hardcode*
+                _gameRef.ActiveArea.LoadAreaWorldMaker();
                 
                 CreateRenderTargets();
 
@@ -214,25 +200,25 @@ namespace WorldMaker
 		{
 			if (areaListBox.SelectedIndex != -1)
 			{
-				string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
+				/*string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
 				for (int i = 0; i < models.Length; i++)
 					models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
 
 				string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
 				for (int i = 0; i < textures.Length; i++)
-					textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
+					textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);*/
 
 				string[] audio = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Audio");
 				for (int i = 0; i < audio.Length; i++)
 					audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
 
-				_modelSelect = new ModelSelect(this, models, textures, audio, _gameRef, false);
+				_modelSelect = new ModelSelect(this, ModelManager.GetModelNames(), TextureManager.GetTextureNames(), audio, _gameRef, false);
 				_modelSelect.ShowDialog();
-				if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
+				if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals(""))
 				{
 					Console.WriteLine(_modelSelect.CurrentModel.Name);
 					_drawableInfo.name = _modelSelect.CurrentModel.Name;
-					_drawableInfo.textureInfo = _modelSelect.CurrentTexture;
+					_drawableInfo.textureID = _modelSelect.CurrentModel.GetTextureID();
 					_drawableInfo.drawable = _modelSelect.CurrentModel;
 					_drawablesToAdd.Add(_drawableInfo);
 					if (_modelSelect.Event != null)
@@ -318,27 +304,27 @@ namespace WorldMaker
 			{
 				StaticModel current = (StaticModel)(_gameRef.ActiveArea.GetDrawable(_gameRef.ActiveArea.Display.CurrentlySelected));
 
-				string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
+				/*string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
 				for (int i = 0; i < models.Length; i++)
 					models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
 
 				string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
 				for (int i = 0; i < textures.Length; i++)
-					textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);
+					textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);*/
 
 				string[] audio = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Audio");
 				for (int i = 0; i < audio.Length; i++)
 					audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
 
-				_modelSelect = new ModelSelect(this, models, textures, audio, _gameRef, true);
+				_modelSelect = new ModelSelect(this, ModelManager.GetModelNames(), TextureManager.GetTextureNames(), audio, _gameRef, true);
 				_modelSelect.ShowDialog();
-				if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals("") && TextureManager.getSingleton.GetTexture(_modelSelect.CurrentTexture.TextureName) != null)
+				if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals(""))
 				{
 					_drawablesToDelete.Add(_gameRef.ActiveArea.Display.CurrentlySelected);
 					Console.WriteLine(_modelSelect.CurrentModel.Name);
 					_modelSelect.CurrentModel.updateTextureCoords();
 					_drawableInfo.name = _modelSelect.CurrentModel.Name;
-					_drawableInfo.textureInfo = _modelSelect.CurrentTexture;
+					_drawableInfo.textureID = _modelSelect.CurrentModel.GetTextureID();
 					StaticModel temp = _modelSelect.CurrentModel;
 					temp.Rotation = current.Rotation;
 					temp.Position = current.Position;
@@ -355,6 +341,9 @@ namespace WorldMaker
 					modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
 					modelListBox.Update();
 				}
+
+                //PropertyEditor pe = new PropertyEditor(current);
+                //pe.ShowDialog();
 
 
 			}
