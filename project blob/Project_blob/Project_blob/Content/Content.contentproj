@@ -57,6 +57,16 @@
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\pipe10_0.6.fbx">
+      <Name>pipe10_0.6</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\pipe10_0.5.fbx">
+      <Name>pipe10_0.5</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\rampNoBot.fbx">
       <Name>rampNoBot</Name>
       <Importer>FbxImporter</Importer>
