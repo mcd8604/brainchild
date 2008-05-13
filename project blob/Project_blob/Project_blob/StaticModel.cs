@@ -250,7 +250,14 @@ namespace Project_blob
 			m_PrimitiveCount = part.PrimitiveCount;
 
 			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
-			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+            mesh.VertexBuffer.GetData<VertexPositionNormalTexture>( vertices );
+
+            //transform points
+            for ( int i = 0; i < vertices.Length; i++ )
+            {
+                vertices[i].Position = Vector3.Transform( vertices[i].Position, Transform );
+                vertices[i].Normal = Vector3.TransformNormal( vertices[i].Normal, Transform );
+            }
 			updateVertexBuffer(vertices);
 		}
 

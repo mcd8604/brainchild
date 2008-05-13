@@ -787,7 +787,7 @@ namespace Project_blob
 			}*/
 
 
-			m_cartoonEffect.Parameters[m_WorldParameterName].SetValue(d.Transform);
+			//m_cartoonEffect.Parameters[m_WorldParameterName].SetValue(d.Transform);
 
 
 			/*while (drawStack.Count > 0)
