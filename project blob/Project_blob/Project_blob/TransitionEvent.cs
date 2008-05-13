@@ -12,7 +12,7 @@ namespace Project_blob
     public class TransitionEvent : EventTrigger {
 
         private String _area;
-        [TypeConverter(typeof(AreaConverter))]
+        [TypeConverter(typeof(TypeConverterArea))]
 		public String Area
 		{
 			get

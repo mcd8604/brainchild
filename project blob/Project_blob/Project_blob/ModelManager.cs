@@ -60,5 +60,12 @@ namespace Project_blob
                 _models.Remove(modelName);
             }
         }
+
+        public static string[] GetModelNames()
+        {
+            string[] modelNames = new string[_models.Count];
+            _models.Keys.CopyTo(modelNames, 0);
+            return modelNames;
+        }
     }
 }

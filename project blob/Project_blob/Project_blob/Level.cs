@@ -86,10 +86,10 @@ namespace Project_blob
 				_areas = (Dictionary<String, Area>)bf.Deserialize(s);
 				s.Close();
 				Console.WriteLine("Level Loaded");
-				foreach (Area area in _areas.Values)
+				/*foreach (Area area in _areas.Values)
 				{
 					area.Display.EffectName = effectName;
-				}
+				}*/
 			}
 			catch (SerializationException se)
 			{

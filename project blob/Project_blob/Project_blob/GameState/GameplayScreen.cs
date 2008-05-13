@@ -25,7 +25,7 @@ namespace Project_blob.GameState
 		//Model skyBox;
 
 		//Texture2D skyTexture;
-		TextureInfo ti;
+		//TextureInfo ti;
 		StaticModel sky;
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
@@ -275,10 +275,9 @@ namespace Project_blob.GameState
 			// Load Default Starting Level
 #endif
 
-			ti = new TextureInfo("cloudsky", 0);
-			sky = new StaticModel("sky", "skyBox", "none", ti, new List<short>());
+			//ti = new TextureInfo("cloudsky", 0);
+            sky = new StaticModel("sky", "skyBox", "none", "cloudsky", new List<short>());
 			sky.initialize();
-			sky.TextureName = "cloudsky";
 			sky.Scale = Matrix.CreateScale(750f);
 
 			//theDisplay = new Display(worldMatrix, viewMatrix, projectionMatrix);
@@ -462,10 +461,11 @@ namespace Project_blob.GameState
             currentArea = Level.Areas[area];
             currentArea.LoadAreaGameplay(ScreenManager);
 
-            currentArea.Display.EffectName = "cartoonEffect";
-            currentArea.Display.WorldParameterName = "World";
-            currentArea.Display.TextureParameterName = "Texture";
-            currentArea.Display.TechniqueName = "Lambert";
+            //moved hardcode to Display class
+            //currentArea.Display.EffectName = "cartoonEffect";
+            //currentArea.Display.WorldParameterName = "World";
+            //currentArea.Display.TextureParameterName = "Texture";
+            //currentArea.Display.TechniqueName = "Lambert";
             InitializeEffect();
 
             blobStartPosition = currentArea.StartPosition;
@@ -963,9 +963,9 @@ namespace Project_blob.GameState
 			}*/
 
 			//Octree Cull the Static Drawables
-			foreach (TextureInfo info in currentArea.Display.DrawnList.Keys)
+			foreach (List<Drawable> drawables in currentArea.Display.DrawnList)
 			{
-				currentArea.Display.DrawnList[info].Clear();
+				drawables.Clear();
 			}
 			if (currentArea.Display.SkyBox != null)
 				currentArea.Display.AddToBeDrawn(currentArea.Display.SkyBox);

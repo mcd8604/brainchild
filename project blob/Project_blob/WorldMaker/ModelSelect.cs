@@ -39,7 +39,7 @@ namespace WorldMaker
             }
         }
 
-        TextureInfo m_CurrentTexture;
+        /*TextureInfo m_CurrentTexture;
         public TextureInfo CurrentTexture
         {
             get
@@ -50,11 +50,11 @@ namespace WorldMaker
             {
                 m_CurrentTexture = value;
             }
-        }
+        }*/
 
         private String originalModel;
         private String originalTextureName;
-        private int originalTextureSort;
+        //private int originalTextureSort;
 
         LevelEditor levelEditor;
         Game1 _gameRef;
@@ -95,14 +95,17 @@ namespace WorldMaker
             }
             else
             {
-                string modelName = ((string)(modelBox.Items[0])).Substring(0, ((String)(modelBox.Items[0])).LastIndexOf("."));
-                m_CurrentModel = new StaticModel("New Model", modelName, "none", new List<short>());
+                //string modelName = ((string)(modelBox.Items[0])).Substring(0, ((String)(modelBox.Items[0])).LastIndexOf("."));
+                string modelName = (string)modelBox.Items[0];
+                //string textureName = ((string)(textureBox.Items[0])).Substring(0, ((String)(textureBox.Items[0])).LastIndexOf("."));
+                string textureName = (string)textureBox.Items[0];
+                m_CurrentModel = new StaticModel("", modelName, "none", textureName, new List<short>());
                 m_CurrentModel.initialize();
             }
 
             originalModel = m_CurrentModel.ModelName;
 
-            if (m_CurrentModel.TextureKey == null)
+            /*if (m_CurrentModel.TextureKey == null)
             {
                 m_CurrentTexture = new TextureInfo();
                 m_CurrentModel.TextureKey = m_CurrentTexture;
@@ -110,13 +113,13 @@ namespace WorldMaker
             else
             {
                 m_CurrentTexture = m_CurrentModel.TextureKey;
-            }
+            }*/
 
-            originalTextureName = m_CurrentTexture.TextureName;
-            originalTextureSort = m_CurrentTexture.SortNumber;
+            originalTextureName = m_CurrentModel.TextureName;
+            //originalTextureSort = m_CurrentTexture.SortNumber;
 
-            modelBox.SelectedItem = m_CurrentModel.ModelName + ".xnb";
-            textureBox.SelectedItem = m_CurrentTexture.TextureName + ".xnb";
+            modelBox.SelectedItem = m_CurrentModel.ModelName;// +".xnb";
+            textureBox.SelectedItem = m_CurrentModel.TextureName;// +".xnb";
             ModelType.SelectedItem = m_CurrentModel.GetType();
 
             ModelName.Text = m_CurrentModel.Name;
@@ -126,7 +129,8 @@ namespace WorldMaker
         {
             if (modelBox.SelectedIndex != -1)
             {
-                m_CurrentModel.ModelName = ((String)(modelBox.Items[modelBox.SelectedIndex])).Substring(0, ((String)(modelBox.Items[modelBox.SelectedIndex])).LastIndexOf("."));
+                //m_CurrentModel.ModelName = ((String)(modelBox.Items[modelBox.SelectedIndex])).Substring(0, ((String)(modelBox.Items[modelBox.SelectedIndex])).LastIndexOf("."));
+                m_CurrentModel.ModelName = (String)modelBox.SelectedItem;
                 m_CurrentModel.initialize();
             }
 
@@ -134,15 +138,16 @@ namespace WorldMaker
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
-            if (!m_CurrentModel.ModelName.Equals("none") && !m_CurrentTexture.TextureName.Equals("none") && !m_CurrentModel.Name.Equals(""))
+            if (!m_CurrentModel.ModelName.Equals("none") && !m_CurrentModel.TextureName.Equals("none") && !m_CurrentModel.Name.Equals(""))
             {
-                Console.WriteLine(m_CurrentTexture.TextureName);
-                if (m_CurrentTexture.TextureName.Equals("event"))
+                //Console.WriteLine(m_CurrentModel.TextureName);
+                if (m_CurrentModel.TextureName.Equals("event"))
                 {
                     _events = new EventSelector();
                     _events.ShowDialog();
                 }
-                if( !m_CurrentTexture.TextureName.Equals("event") || _events.DialogResult != DialogResult.Cancel ) {
+                if (!m_CurrentModel.TextureName.Equals("event") || _events.DialogResult != DialogResult.Cancel)
+                {
                     this.DialogResult = DialogResult.OK;
                     this.Close( );
                 }
@@ -152,8 +157,8 @@ namespace WorldMaker
         private void closeButton_Click(object sender, EventArgs e)
         {
             m_CurrentModel.ModelName = originalModel;
-            m_CurrentModel.TextureKey.TextureName = originalTextureName;
-            m_CurrentModel.TextureKey.SortNumber = originalTextureSort;
+            //m_CurrentModel.TextureKey.TextureName = originalTextureName;
+            //m_CurrentModel.TextureKey.SortNumber = originalTextureSort;
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
@@ -162,8 +167,9 @@ namespace WorldMaker
         {
             if (textureBox.SelectedIndex != -1)
             {
-                m_CurrentTexture.TextureName = ((String)(textureBox.Items[textureBox.SelectedIndex])).Substring(0, ((String)(textureBox.Items[textureBox.SelectedIndex])).LastIndexOf("."));
-                m_CurrentModel.TextureKey = m_CurrentTexture;
+                //m_CurrentModel.TextureName = ((String)(textureBox.Items[textureBox.SelectedIndex])).Substring(0, ((String)(textureBox.Items[textureBox.SelectedIndex])).LastIndexOf("."));
+                m_CurrentModel.TextureName = (String)textureBox.SelectedItem;
+                //m_CurrentModel.TextureKey = m_CurrentTexture;
             }
         }
 

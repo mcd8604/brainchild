@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using Physics2;
 using System.Runtime.Serialization;
+using System.ComponentModel;
 
 namespace Project_blob
 {
@@ -19,19 +20,20 @@ namespace Project_blob
 	{
 		private String _modelName;
 
-		private String _audioName;
+        private String _audioName;
+        [TypeConverter(typeof(TypeConverterAudio))]
 		public String AudioName
 		{
 			get { return _audioName; }
 			set { _audioName = value; }
 		}
 
-		private TextureInfo m_TextureKey;
+		/*private TextureInfo m_TextureKey;
 		public TextureInfo TextureKey
 		{
 			get { return m_TextureKey; }
 			set { m_TextureKey = value; updateTextureCoords(); }
-		}
+		}*/
 
 		private bool m_RepeatingTexture = false;
 		public bool RepeatingTexture
@@ -227,6 +229,8 @@ namespace Project_blob
 		{
 			updateTransform();
 
+			m_TextureID = TextureManager.GetTextureID(_textureName);
+
 			Model m = ModelManager.getSingleton.GetModel(_modelName);
 
 			// Crash: Object reference not set to instance of an object.
@@ -288,7 +292,8 @@ namespace Project_blob
 					Vector3 transVector = Vector3.Zero;
 					m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
 
-					Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+					//Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+					Texture2D texture = TextureManager.GetTexture(m_TextureID);
 
 					for (int i = 0; i < vertices.Length; i++)
 					{
@@ -463,7 +468,8 @@ namespace Project_blob
 			return m_Name;
 		}
 
-		private String _textureName;
+        private String _textureName;
+        [TypeConverter(typeof(TypeConverterTexture))]
 		public String TextureName
 		{
 			get
@@ -473,6 +479,7 @@ namespace Project_blob
 			set
 			{
 				_textureName = value;
+                m_TextureID = TextureManager.GetTextureID(value);
 			}
 		}
 
@@ -624,6 +631,7 @@ namespace Project_blob
 			}
 		}
 
+        [TypeConverter(typeof(TypeConverterModel))]
 		public String ModelName
 		{
 			get
@@ -691,7 +699,7 @@ namespace Project_blob
 			this.m_Scale = p_Model.Scale;
 			this.ScalePriority = p_Model.ScalePriority;
 			this.m_ShowVertices = p_Model.ShowVertices;
-			this.m_TextureKey = p_Model.TextureKey;
+			//this.m_TextureKey = p_Model.TextureKey;
 			this._textureName = p_Model.TextureName;
 			this.m_TextureScaleX = p_Model.TextureScaleX;
 			this.m_TextureScaleY = p_Model.TextureScaleY;
@@ -709,7 +717,7 @@ namespace Project_blob
 			updateTransform();
 		}
 
-		public StaticModel(String p_Name, String fileName, String audioName, List<short> rooms)
+		/*public StaticModel(String p_Name, String fileName, String audioName, List<short> rooms)
 		{
 			m_Name = p_Name;
 			_modelName = fileName;
@@ -724,14 +732,15 @@ namespace Project_blob
 			m_Rotation = Matrix.CreateRotationZ(0);
 			m_Scale = Matrix.CreateScale(1);
 
-			m_TextureKey = null;
-		}
+			//m_TextureKey = null;
+		}*/
 
-		public StaticModel(String p_Name, String fileName, String audioName, TextureInfo p_TextureKey, List<short> rooms)
+		public StaticModel(String p_Name, String fileName, String audioName, String p_TextureName, List<short> rooms)
 		{
 			m_Name = p_Name;
 			_modelName = fileName;
 			_audioName = audioName;
+            _textureName = p_TextureName;
 			TranslationPriority = 2;
 			RotationPriority = 1;
 			ScalePriority = 0;
@@ -742,7 +751,7 @@ namespace Project_blob
 			m_Rotation = Matrix.CreateRotationZ(0);
 			m_Scale = Matrix.CreateScale(1);
 
-			m_TextureKey = p_TextureKey;
+			//m_TextureKey = p_TextureKey;
 		}
 
 		public virtual void DrawMe() { }
@@ -764,7 +773,7 @@ namespace Project_blob
 				if (this.ShowVertices && !gameMode)
 				{
 					Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
-					graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture("point_text");
+					graphicsDevice.Textures[0] = TextureManager.GetTexture("point_text");
 					graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, m_NumVertices);
 					graphicsDevice.Textures[0] = temp;
 				}
@@ -806,11 +815,21 @@ namespace Project_blob
 		#region Drawable Members
 
 
-		public TextureInfo GetTextureKey()
+		/*public TextureInfo GetTextureKey()
 		{
 			return m_TextureKey;
-		}
+		}*/
 
+		[NonSerialized]
+		private int m_TextureID;
+		public int GetTextureID()
+		{
+			return m_TextureID;
+		}
+		public void SetTextureID(int id)
+		{
+			m_TextureID = id;
+		}
 
 		/*public BoundingBox GetBoundingBox()
 		{
