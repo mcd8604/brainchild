@@ -83,6 +83,7 @@ namespace Project_blob
 							//Create new frustum from portal
 							BoundingFrustum newFrustum = CreatePortalFrustum(portal);
 							//Frustum newFrustum = CreatePortalFrustum(portal);
+							//BoundingFrustum newFrustum = CameraManager.getSingleton.ActiveCamera.Frustum;
 
 							//drawFrustum(newFrustum);
 
@@ -148,6 +149,7 @@ namespace Project_blob
 							//Create new frustum from portal
 							BoundingFrustum newFrustum = CreatePortalFrustum(portal);
 							//Frustum newFrustum = CreatePortalFrustum(portal);
+							//BoundingFrustum newFrustum = CameraManager.getSingleton.ActiveCamera.Frustum;
 
 							//drawFrustum(newFrustum);
 
@@ -218,6 +220,7 @@ namespace Project_blob
 		private BoundingFrustum CreatePortalFrustum(Portal portal)
 		//private Frustum CreatePortalFrustum(Portal portal)
 		{
+			
 			//Create new frustum from portal
 			//BoundingBox box = portal.GetBoundingBoxTransformed();
 			BoundingBox box = portal.BoundingBox;
@@ -250,9 +253,12 @@ namespace Project_blob
 			aspectRatio = (box.Max.X - box.Min.X) /
 						  (box.Max.Y - box.Min.Y);
 
+			if (fieldOfView <= 0.005) //fieldOfView >= -0.005 && 
+				fieldOfView = 0.01f;
+
 			Matrix projection = Matrix.CreatePerspectiveFieldOfView(fieldOfView,
 				aspectRatio,
-				nearPlane,
+				CameraManager.getSingleton.ActiveCamera.NearPlane, //nearPlane,
 				CameraManager.getSingleton.ActiveCamera.FarPlane);
 
 			//Vector3 target = (((box.Max - box.Min) / 2) + box.Min) - CameraManager.getSingleton.GetCamera("test").Position;
@@ -263,7 +269,9 @@ namespace Project_blob
 
 			// Crash: StackOverflowException
 			BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
+			
 
+			/*
 			//Vector3 tl, tr, bl, br;
 			//Vector3 ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr;
 			//Vector3 offset = new Vector3(0.0f, 0.0f, 0.1f);
@@ -283,6 +291,7 @@ namespace Project_blob
 			//fbr = offset + CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(br, CameraManager.getSingleton.ActiveCamera.FarPlane);
 
 			//Frustum newFrustum = new Frustum(ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr);
+			*/
 
 			return newFrustum;
 		}
