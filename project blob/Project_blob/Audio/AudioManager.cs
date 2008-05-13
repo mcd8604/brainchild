@@ -110,12 +110,16 @@ namespace Audio
         /// <param name="soundName">The name of the soundFX lookup id</param>
         /// <param name="listener">The listener of the sound to be played</param>
         /// <param name="emitter">The emitter of the sound to be played</param>
-        public void playSoundFXs(ref Cue soundFX, string soundName, AudioListener listener, AudioEmitter emitter)
+        public void playSoundFXs(ref Cue soundFX, string soundName, float volumeLevel, AudioListener listener, AudioEmitter emitter)
         {
-            soundFX.Dispose();
-            soundFX = _soundBank.GetCue(soundName);
-            soundFX.Apply3D(listener, emitter);
-            soundFX.Play();
+            if (volumeLevel >= 0)
+            {
+                soundFX.Dispose();
+                soundFX = _soundBank.GetCue(soundName);
+                soundFX.Apply3D(listener, emitter);
+                soundFX.SetVariable("Distance",  soundFX.GetVariable("Distance") / volumeLevel);
+                soundFX.Play();
+            }
         }
 
         /// <summary>

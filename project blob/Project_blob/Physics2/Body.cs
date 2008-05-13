@@ -373,13 +373,17 @@ namespace Physics2
 
 		}
 		public virtual void onCollision(CollisionEvent e) {
+            Vector3 tempVec = new Vector3(e.point.CurrentVelocity.X * e.collidable.Normal.X, 
+                e.point.CurrentVelocity.Y * e.collidable.Normal.Y, e.point.CurrentVelocity.Z * e.collidable.Normal.Z);
+            float volumeLevel = (float)Math.Log((double)tempVec.Length());
             if (parentBody != null)
             {
                 if (!parentBody.playingSound && collisionSound != null)
                 {
                     parentBody.playingSound = true;
                     audioEmitter.Position = e.collisionPoint;
-                    AudioManager.getSingleton.playSoundFXs(ref collisionSound, soundName, Engine.CameraManager.getSingleton.ActiveCamera.Listener, audioEmitter);
+                    AudioManager.getSingleton.playSoundFXs(ref collisionSound, soundName, volumeLevel, 
+                        Engine.CameraManager.getSingleton.ActiveCamera.Listener, audioEmitter);
                 }
             }
             else
@@ -388,7 +392,8 @@ namespace Physics2
                 {
                     playingSound = true;
                     audioEmitter.Position = e.collisionPoint;
-                    AudioManager.getSingleton.playSoundFXs(ref collisionSound, soundName, Engine.CameraManager.getSingleton.ActiveCamera.Listener, audioEmitter);
+                    AudioManager.getSingleton.playSoundFXs(ref collisionSound, soundName, volumeLevel, 
+                        Engine.CameraManager.getSingleton.ActiveCamera.Listener, audioEmitter);
                 }
             }
             if (playingSound && !collisionSound.IsPlaying)

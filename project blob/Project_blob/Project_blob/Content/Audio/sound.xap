@@ -1,8 +1,12 @@
 Signature = XACT2;
-Version = 13;
+Version = 16;
+Content Version = 43;
+Release = August 2007;
 
 Options
 {
+    Verbose Report = 0;
+    Generate C/C++ Headers = 1;
 }
 
 Global Settings
@@ -157,7 +161,7 @@ Global Settings
         Value = 0.000000;
         Initial Value = 0.000000;
         Min = 0.000000;
-        Max = 15.000000;
+        Max = 15.000001;
     }
 
     Variable
@@ -174,7 +178,7 @@ Global Settings
         Value = 0.000000;
         Initial Value = 0.000000;
         Min = 0.000000;
-        Max = 15.000000;
+        Max = 15.000001;
     }
 
     Variable
@@ -217,7 +221,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::43546112-5c51-4a9c-b64b-709c384b8d8a;
+            Name = Sound::140e2e6d-88e4-47a1-9734-3fc8e2cb617e;
             Property = 0;
             Sound = 1;
             Line Color = 4294901760;
@@ -230,28 +234,28 @@ Global Settings
 
             RPC Point
             {
-                X = 1.733102;
+                X = 0.000000;
                 Y = 600.000000;
-                Curve = 0;
+                Curve = 2;
             }
 
             RPC Point
             {
-                X = 30.502598;
-                Y = 26.170898;
-                Curve = 0;
+                X = 15.000000;
+                Y = 100.000000;
+                Curve = 2;
             }
 
             RPC Point
             {
-                X = 100.866547;
-                Y = -2061.784180;
-                Curve = 0;
+                X = 35.000000;
+                Y = -4000.000000;
+                Curve = 2;
             }
 
             RPC Point
             {
-                X = 200.000000;
+                X = 50.000000;
                 Y = -9600.000000;
                 Curve = 0;
             }
@@ -259,7 +263,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::7584c888-7075-4b20-a56b-e063a42d55c3;
+            Name = Sound::529d6b96-2215-48be-8cf6-12931985ebf7;
             Property = 0;
             Sound = 1;
             Line Color = 4278255360;
@@ -306,8 +310,18 @@ Wave Bank
     Name = Wave Bank;
     Xbox File = Xbox\Wave Bank.xwb;
     Windows File = Win\Wave Bank.xwb;
+    Xbox Bank Path Edited = 1;
+    Windows Bank Path Edited = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 0;
+    Bank Last Revised High = 0;
 
     Wave
     {
@@ -407,6 +421,8 @@ Sound Bank
     Name = Sound Bank;
     Xbox File = Xbox\Sound Bank.xsb;
     Windows File = Win\Sound Bank.xsb;
+    Xbox Bank Path Edited = 1;
+    Windows Bank Path Edited = 1;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
