@@ -12,7 +12,13 @@ namespace Project_blob
         Sticky
     }
 
-    public class MaterialFactory
+    public struct MaterialInfo
+    {
+        public float Cling;
+        public float Friction;
+    }
+
+    public static class MaterialFactory
     {
         private const float CLING_SLICK = 0.1f;
         private const float FRICTION_SLICK = 0.1f;
@@ -20,11 +26,16 @@ namespace Project_blob
         private const float CLING_STICKY = 2.0f;
         private const float FRICTION_STICKY = 2.0f;
 
-        protected MaterialFactory() { }
+        private static Dictionary<MaterialType, Material> m_Materials = new Dictionary<MaterialType, Material>();
 
         public static Material GetPhysicsMaterial(MaterialType m)
         {
             Material material = Material.getDefaultMaterial();
+
+            if ( m_Materials.ContainsKey( m ) )
+            {
+                return m_Materials[m];
+            }
 
             if ( m == MaterialType.Slick )
             {
@@ -34,6 +45,8 @@ namespace Project_blob
             {
                 material = new Material( CLING_STICKY, FRICTION_STICKY );
             }
+
+            m_Materials.Add( m, material );
 
             return material;
         }
