@@ -57,6 +57,11 @@
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\chair.fbx">
+      <Name>chair</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\pipe10_0.6.fbx">
       <Name>pipe10_0.6</Name>
       <Importer>FbxImporter</Importer>
