@@ -7,6 +7,8 @@ namespace Physics2
 	internal class PhysicsSeq : PhysicsManager
 	{
 
+		float time;
+
 		internal List<Body> bodies = new List<Body>();
 		public override void AddBody(Body b)
 		{
@@ -51,6 +53,14 @@ namespace Physics2
 
 		public override void stop()
 		{ }
+
+		public override float Time
+		{
+			get
+			{
+				return time;
+			}
+		}
 
 		public override void update(float TotalElapsedSeconds)
 		{
@@ -278,6 +288,9 @@ namespace Physics2
 			{
 				e.trigger();
 			}
+
+			time += TotalElapsedSeconds;
+
 		}
 
 	}

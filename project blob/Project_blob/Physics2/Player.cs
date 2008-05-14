@@ -74,6 +74,8 @@ namespace Physics2
 			}
 		}
 
+		public bool DEBUG_MoveModeFlag = false;
+
 		public void move(Vector2 input, Vector3 reference)
 		{
 			moveInput = input;
@@ -145,15 +147,19 @@ namespace Physics2
 				moveflag = false;
 				Vector3 CurrentPlayerCenter = playerBody.getCenter();
 
-				Vector3 Up;
-				/*if (OrientCamera)
+				Vector3 Up = Vector3.Up;
+				if (DEBUG_MoveModeFlag)
 				{
-					Up = physics.getUp(theBlob.getCenter());
+					foreach (PhysicsPoint p in playerBody.points)
+					{
+						if (p.LastCollision != null)
+						{
+							Up = p.LastCollision.Normal;
+							break;
+						}
+					}
 				}
-				else
-				{*/
-				Up = Vector3.Up;
-				//}
+
 				//Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - cameraPosition, Up));
 				Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(CurrentPlayerCenter - refPos, Up));
 				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
