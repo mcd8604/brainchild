@@ -35,6 +35,20 @@ namespace OctreeCulling
 			set { _currSector = value; }
 		}
 
+        private int _currentRecursiveSector = 0;
+        public int CurrentRecursiveSector
+        {
+            get { return _currentRecursiveSector; }
+            set { _currentRecursiveSector = value; }
+        }
+
+        private int _previousRecursiveSector = 0;
+        public int PreviousRecursiveSector
+        {
+            get { return _previousRecursiveSector; }
+            set { _previousRecursiveSector = value; }
+        }
+
         public PortalScene()
         {
             _sectors = new SortedDictionary<int, Sector>();
@@ -105,9 +119,12 @@ namespace OctreeCulling
                     if (kvp.Value.ContainerBox.Contains(CameraManager.getSingleton.GetCamera("test").Position) == ContainmentType.Contains)
                     {
                         _currSector = kvp.Key;
+                        break;
                     }
                 }
             }
+            _previousRecursiveSector = -1;
+            _currentRecursiveSector = _currSector;
 			_sectors[_currSector].DrawVisible(gameTime);
         }
 

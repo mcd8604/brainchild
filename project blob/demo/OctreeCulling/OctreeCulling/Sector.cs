@@ -54,6 +54,8 @@ namespace OctreeCulling
             set { _drawPortal = value; }
         }
 
+        private int drawingPortal;
+
         public void DrawVisible(GameTime gameTime)
         {
             //BoundingFrustum frustum = CameraManager.getSingleton.ActiveCamera.Frustum;
@@ -89,21 +91,30 @@ namespace OctreeCulling
                     case ContainmentType.Contains:
                     case ContainmentType.Intersects:
                         {
-                            //Create new frustum from portal
-							//BoundingFrustum newFrustum = CreatePortalFrustum(portal);
-							Frustum newFrustum = CreatePortalFrustum(portal);
-
-                            drawFrustum(newFrustum);
-                            _drawPortal = true;
-
                             //Drawvisible on connected sector
                             foreach (int sectorNum in portal.ConnectedSectors)
                             {
                                 if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
-                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) && 
-                                    (sectorNum != _sectorNumber))
+                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) &&
+                                    (sectorNum != _sectorNumber) &&
+                                    (sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
                                 {
+                                    //Create new frustum from portal
+                                    BoundingFrustum newFrustum = CreatePortalFrustum(portal);
+                                    //Frustum newFrustum = CreatePortalFrustum(portal);
+
+                                    drawingPortal = sectorNum;
+                                    drawFrustum(newFrustum);
+                                    _drawPortal = true;
+
+                                    SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+                                    SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
+
                                     SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
+
+                                    int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+                                    SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+                                    SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
                                 }
                             }
                         }
@@ -119,8 +130,8 @@ namespace OctreeCulling
             }
         }
 
-		//public void DrawVisible(GameTime gameTime, BoundingFrustum frustum)
-		public void DrawVisible(GameTime gameTime, Frustum frustum)
+        public void DrawVisible(GameTime gameTime, BoundingFrustum frustum)
+        //public void DrawVisible(GameTime gameTime, Frustum frustum)
         {
             foreach (SceneObject obj in _sectorObjects)
             {
@@ -152,21 +163,30 @@ namespace OctreeCulling
                     case ContainmentType.Contains:
                     case ContainmentType.Intersects:
                         {
-                            //Create new frustum from portal
-							//BoundingFrustum newFrustum = CreatePortalFrustum(portal);
-							Frustum newFrustum = CreatePortalFrustum(portal);
-
-                            drawFrustum(newFrustum);
-                            _drawPortal = true;
-
                             //Drawvisible on connected sector
                             foreach (int sectorNum in portal.ConnectedSectors)
                             {
                                 if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
-                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) && 
-                                    (sectorNum != _sectorNumber))
+                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) &&
+                                    (sectorNum != SceneManager.getSingleton.PortalScene.CurrentRecursiveSector) &&//_sectorNumber) &&
+                                    (sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
                                 {
+                                    //Create new frustum from portal
+                                    BoundingFrustum newFrustum = CreatePortalFrustum(portal);
+                                    //Frustum newFrustum = CreatePortalFrustum(portal);
+
+                                    drawingPortal = sectorNum;
+                                    drawFrustum(newFrustum);
+                                    _drawPortal = true;
+
+                                    SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+                                    SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
+
                                     SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
+
+                                    int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+                                    SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+                                    SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
                                 }
                             }
                         }
@@ -220,23 +240,40 @@ namespace OctreeCulling
             //}
         }
 
-		//private BoundingFrustum CreatePortalFrustum(Portal portal)
-		private Frustum CreatePortalFrustum(Portal portal)
+		private BoundingFrustum CreatePortalFrustum(Portal portal)
+        //private Frustum CreatePortalFrustum(Portal portal)
         {
 			////Create new frustum from portal
 			BoundingBox box = portal.GetBoundingBoxTransformed();
 
-			float fieldOfView, aspectRatio, nearPlane;
-			Vector3 v1, v2;
+			float fieldOfView, aspectRatio;//, nearPlane;
+            Vector3 v1, v2;
+            bool rotate = false;
 
-			//v1 = box.Max - CameraManager.getSingleton.GetCamera("test").Position;
-			//v2 = box.Min - CameraManager.getSingleton.GetCamera("test").Position;
+            float test1 = box.Max.X - box.Min.X;
+            float test2 = box.Max.Z - box.Min.Z;
 
-			v1 = (new Vector3(box.Max.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.GetCamera("test").Position;
-			v2 = (new Vector3(box.Min.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.GetCamera("test").Position;
+            if (test2 > test1)
+            {
+                v1 = new Vector3(box.Min.X, box.Max.Y, box.Max.Z);
+                v2 = new Vector3(box.Min.X, box.Max.Y, box.Min.Z);
+                rotate = true;
+            }
+            else
+            {
+                v1 = new Vector3(box.Max.X, box.Max.Y, box.Min.Z);
+                v2 = new Vector3(box.Min.X, box.Max.Y, box.Min.Z);
+            }
 
-			Vector3 temp = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
-			nearPlane = temp.Length();
+            v1 = v1 - CameraManager.getSingleton.GetCamera("test").Position;
+            v2 = v2 - CameraManager.getSingleton.GetCamera("test").Position;
+
+            //v1 = (new Vector3(box.Max.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.GetCamera("test").Position;
+            //v2 = (new Vector3(box.Min.X, box.Max.Y, box.Min.Z)) - CameraManager.getSingleton.GetCamera("test").Position;
+
+            //Vector3 temp = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
+            //nearPlane = temp.Length();
+
 			//if (v1.Length() < v2.Length())
 			//    nearPlane = v1.Length();
 			//else
@@ -249,12 +286,29 @@ namespace OctreeCulling
 			//fieldOfView = (float)Math.Acos(Vector3.Dot(new Vector3(box.Max.X, box.Max.Y, box.Min.Z),
 			//                                           new Vector3(box.Min.X, box.Max.Y, box.Min.Z)));
 
-			aspectRatio = (box.Max.X - box.Min.X) /
-						  (box.Max.Y - box.Min.Y);
+            //if (CameraManager.getSingleton.GetCamera("test").FieldOfView < fieldOfView)
+            //    fieldOfView = CameraManager.getSingleton.GetCamera("test").FieldOfView;
+
+            if (fieldOfView < 0.005)
+                fieldOfView = 0.01f;
+
+            if (rotate)
+            {
+                aspectRatio = (box.Max.Z - box.Min.Z) /
+                              (box.Max.Y - box.Min.Y);
+            }
+            else
+            {
+                aspectRatio = (box.Max.X - box.Min.X) /
+                              (box.Max.Y - box.Min.Y);
+            }
+
+            //aspectRatio = (box.Max.X - box.Min.X) /
+            //              (box.Max.Y - box.Min.Y);
 
 			Matrix projection = Matrix.CreatePerspectiveFieldOfView(fieldOfView,
 				aspectRatio,
-				nearPlane,
+				CameraManager.getSingleton.GetCamera("test").NearPlane,//nearPlane,
 				CameraManager.getSingleton.GetCamera("test").FarPlane);
 
 			//Vector3 target = (((box.Max - box.Min) / 2) + box.Min) - CameraManager.getSingleton.GetCamera("test").Position;
@@ -263,8 +317,10 @@ namespace OctreeCulling
 			Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
 				target, Vector3.Up);
 
-			BoundingFrustum newFrustumTest = new BoundingFrustum(Matrix.Multiply(view, projection));
+			BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
 
+
+            /*
 			Vector3 tl, tr, bl, br;
 			Vector3 ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr;
 
@@ -327,6 +383,7 @@ namespace OctreeCulling
             
 
 			Frustum newFrustum = new Frustum(ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr);
+            */
 
             return newFrustum;
         }
@@ -341,22 +398,34 @@ namespace OctreeCulling
             return t;
         }
 
-		//private void drawFrustum(BoundingFrustum frustum)
-		private void drawFrustum(Frustum frustum)
+        private void drawFrustum(BoundingFrustum frustum)
+        //private void drawFrustum(Frustum frustum)
         {
             Vector3[] frustumPoints = new Vector3[8];
             frustumPoints = frustum.GetCorners();
 
+            Color color;
+            if (drawingPortal == 1)
+                color = Color.Blue;
+            else if (drawingPortal == 2)
+                color = Color.Green;
+            else if (drawingPortal == 3)
+                color = Color.Brown;
+            else if (drawingPortal == 4)
+                color = Color.Orange;
+            else
+                color = Color.Black;
+
             BoundingFrustumDrawData = new VertexPositionColor[8]
             {
-                new VertexPositionColor(frustumPoints[0], Color.Blue),
-                new VertexPositionColor(frustumPoints[1], Color.Blue),
-                new VertexPositionColor(frustumPoints[2], Color.Blue),
-                new VertexPositionColor(frustumPoints[3], Color.Blue),
-                new VertexPositionColor(frustumPoints[4], Color.Blue),
-                new VertexPositionColor(frustumPoints[5], Color.Blue),
-                new VertexPositionColor(frustumPoints[6], Color.Blue),
-                new VertexPositionColor(frustumPoints[7], Color.Blue),
+                new VertexPositionColor(frustumPoints[0], color),// Color.Blue),
+                new VertexPositionColor(frustumPoints[1], color),// Color.Blue),
+                new VertexPositionColor(frustumPoints[2], color),// Color.Blue),
+                new VertexPositionColor(frustumPoints[3], color),// Color.Blue),
+                new VertexPositionColor(frustumPoints[4], color),// Color.Blue),
+                new VertexPositionColor(frustumPoints[5], color),// Color.Blue),
+                new VertexPositionColor(frustumPoints[6], color),// Color.Blue),
+                new VertexPositionColor(frustumPoints[7], color),// Color.Blue),
             };
 
             BoundingFrustumIndex = new int[24];
@@ -388,32 +457,32 @@ namespace OctreeCulling
             BoundingFrustumIndex[23] = 7;
 
             ////Draw temporary frustum
-            //BasicEffect basicEffect = SceneManager.getSingleton.PortalScene.Sectors[1]._sectorObjects[0].Effect;
-            //GraphicsDeviceManager graphics = SceneManager.getSingleton.PortalScene.Sectors[1]._sectorObjects[0].Graphics;
+            BasicEffect basicEffect = SceneManager.getSingleton.PortalScene.Sectors[1]._sectorObjects[0].Effect;
+            GraphicsDeviceManager graphics = SceneManager.getSingleton.PortalScene.Sectors[1]._sectorObjects[0].Graphics;
 
-            //basicEffect.World = Matrix.Identity;
-            //basicEffect.View = CameraManager.getSingleton.ActiveCamera.View;
-            //basicEffect.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
-            //basicEffect.VertexColorEnabled = true;
+            basicEffect.World = Matrix.Identity;
+            basicEffect.View = CameraManager.getSingleton.ActiveCamera.View;
+            basicEffect.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
+            basicEffect.VertexColorEnabled = true;
 
-            //basicEffect.Begin();
-            //foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-            //{
-            //    // Begin the current pass
-            //    pass.Begin();
+            basicEffect.Begin();
+            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+            {
+                // Begin the current pass
+                pass.Begin();
 
-            //    graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
-            //        PrimitiveType.LineList, CameraManager.getSingleton.GetCamera("test").BoundingFrustumDrawData,
-            //        0, 8, CameraManager.getSingleton.GetCamera("test").BoundingFrustumIndex, 0, 12);
+                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                    PrimitiveType.LineList, BoundingFrustumDrawData,
+                    0, 8, BoundingFrustumIndex, 0, 12);
 
-            //    //graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
-            //    //    PrimitiveType.LineList, CameraManager.getSingleton.ActiveCamera.BoundingFrustumDrawData,
-            //    //    0, 8, CameraManager.getSingleton.ActiveCamera.BoundingFrustumIndex, 0, 12);
+                //graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                //    PrimitiveType.LineList, CameraManager.getSingleton.ActiveCamera.BoundingFrustumDrawData,
+                //    0, 8, CameraManager.getSingleton.ActiveCamera.BoundingFrustumIndex, 0, 12);
 
-            //    // End the current pass
-            //    pass.End();
-            //}
-            //basicEffect.End(); 
+                // End the current pass
+                pass.End();
+            }
+            basicEffect.End(); 
         }
     }
 }
