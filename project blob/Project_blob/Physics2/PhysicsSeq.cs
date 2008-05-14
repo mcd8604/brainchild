@@ -132,7 +132,7 @@ namespace Physics2
 				}
 			}
 
-
+			Console.WriteLine( "DEBUG: Collisions: " + events.Count );
 
 			// Evaluate collsion list, call onCollsion, set NextPosition
 			events.Sort(CollisionEvent.CompareEvents);
