@@ -52,6 +52,7 @@ namespace Audio
         /// </summary>
         public void initialize()
         {
+			// Crash: System Invalid Operation Exception
             _audioEngine = new AudioEngine("Content/Audio/sound.xgs");
             _waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
             _soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
