@@ -61,7 +61,7 @@ namespace Engine
             get { return desiredPositionOffset; }
             set { desiredPositionOffset = value; }
         }
-        private float desiredPositionOffset = 30f;
+        private float desiredPositionOffset = 10f;
 
         /// <summary>
         /// Desired camera position in world space.
@@ -222,6 +222,7 @@ namespace Engine
             //UpdateWorldPositions();
 
             desiredPosition = ChasePosition - (Vector3.Normalize(chaseDirection) * DesiredPositionOffset);
+            desiredPosition.Y += 5f;
             lookAt = ChasePosition;
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
