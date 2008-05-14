@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MaterialFactory.cs" />
     <Compile Include="TypeConverterArea.cs" />
     <Compile Include="Blob.cs" />
     <Compile Include="CameraBody.cs" />

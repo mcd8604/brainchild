@@ -328,26 +328,26 @@ namespace Project_blob
 					}
 					dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
 
-					Material sticky = new Material(2.0f, 2.0f);
-					Material slick = new Material(0.1f, 0.1f);
-					Material def = Material.getDefaultMaterial();
+                    /*Material sticky = new Material(2.0f, 2.0f);
+                    Material slick = new Material(0.1f, 0.1f);
+                    Material def = Material.getDefaultMaterial();
 
-					//temporary material stuff
-					Material m;
-					if (dm.TextureName.Equals("sticky"))
-					{
-						m = sticky;
-					}
-					else if (dm.TextureName.Equals("slick"))
-					{
-						m = slick;
-					}
-					else
-					{
-						m = def;
-					}
+                    //temporary material stuff
+                    Material m;
+                    if (dm.TextureName.Equals("sticky"))
+                    {
+                        m = sticky;
+                    }
+                    else if (dm.TextureName.Equals("slick"))
+                    {
+                        m = slick;
+                    }
+                    else
+                    {
+                        m = def;
+                    }*/
 
-					body.setMaterial(m);
+                    body.setMaterial(MaterialFactory.GetPhysicsMaterial(dm.MyMaterialType));
 					this.m_Bodies.Add(body);
 				}
 			}

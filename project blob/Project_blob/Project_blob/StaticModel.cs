@@ -102,6 +102,19 @@ namespace Project_blob
 			}
 		}
 
+        private MaterialType m_MaterialType = MaterialType.Default;
+        public MaterialType MyMaterialType
+        {
+            get
+            {
+                return m_MaterialType;
+            }
+            set
+            {
+                m_MaterialType = value;
+            }
+        }
+
 		/*public void updateVertexBuffer()
 		{
 			Model m = ModelManager.getSingleton.GetModel(_modelName);
