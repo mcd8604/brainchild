@@ -509,7 +509,7 @@ namespace WorldMaker
 				foreach (String str in LevelEditor.DrawablesToDelete)
 				{
 					_activeArea.RemoveDrawable(str);
-					_activeArea.RemoveEvent(str);
+					//_activeArea.RemoveEvent(str);
 				}
 				LevelEditor.DrawablesToDelete.Clear();
 
