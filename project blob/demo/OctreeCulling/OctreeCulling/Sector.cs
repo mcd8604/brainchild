@@ -243,6 +243,8 @@ namespace OctreeCulling
 		private BoundingFrustum CreatePortalFrustum(Portal portal)
         //private Frustum CreatePortalFrustum(Portal portal)
         {
+            #region nonused code
+            /*
 			////Create new frustum from portal
 			BoundingBox box = portal.GetBoundingBoxTransformed();
 
@@ -298,22 +300,36 @@ namespace OctreeCulling
 
             if (test2 > test1)
             {
-                v1 = new Vector3(box.Min.X, portal.Position.Y, box.Max.Z) - CameraManager.getSingleton.GetCamera("test").Position;//CameraManager.getSingleton.GetCamera("test").Position.Y
-                v2 = new Vector3(box.Min.X, portal.Position.Y, box.Min.Z) - CameraManager.getSingleton.GetCamera("test").Position;
+                v1 = new Vector3(portal.Position.X, portal.Position.Y, box.Max.Z) - CameraManager.getSingleton.GetCamera("test").Position;//CameraManager.getSingleton.GetCamera("test").Position.Y
+                v2 = new Vector3(portal.Position.X, portal.Position.Y, box.Min.Z) - CameraManager.getSingleton.GetCamera("test").Position;
             }
             else
             {
-                v1 = new Vector3(box.Max.X, portal.Position.Y, box.Min.Z) - CameraManager.getSingleton.GetCamera("test").Position;
-                v2 = new Vector3(box.Min.X, portal.Position.Y, box.Min.Z) - CameraManager.getSingleton.GetCamera("test").Position;
+                v1 = new Vector3(box.Max.X, portal.Position.Y, portal.Position.Z) - CameraManager.getSingleton.GetCamera("test").Position;
+                v2 = new Vector3(box.Min.X, portal.Position.Y, portal.Position.Z) - CameraManager.getSingleton.GetCamera("test").Position;
             }
             v1 = Vector3.Normalize(v1);
             v2 = Vector3.Normalize(v2);
 
-            v3 = new Vector3(CameraManager.getSingleton.GetCamera("test").Position.X, box.Max.Y, box.Min.Z) - CameraManager.getSingleton.GetCamera("test").Position;
-            v4 = new Vector3(CameraManager.getSingleton.GetCamera("test").Position.X, box.Min.Y, box.Min.Z) - CameraManager.getSingleton.GetCamera("test").Position;
+            v3 = new Vector3(portal.Position.X, box.Max.Y, portal.Position.Z) - CameraManager.getSingleton.GetCamera("test").Position;
+            v4 = new Vector3(portal.Position.X, box.Min.Y, portal.Position.Z) - CameraManager.getSingleton.GetCamera("test").Position;
             v3 = Vector3.Normalize(v3);
             v4 = Vector3.Normalize(v4);
             Plane near = CameraManager.getSingleton.GetCamera("test").Frustum.Near;
+            Vector3 pt1, pt2, pt3;
+            if (test2 > test1)
+            {
+                pt1 = box.Min;
+                pt2 = new Vector3(box.Min.X, box.Min.Y, box.Max.Z);
+                pt3 = new Vector3(box.Min.X, box.Max.Y, box.Max.Z);
+            }
+            else
+            {
+                pt1 = box.Min;
+                pt2 = new Vector3(box.Max.X, box.Min.Y, box.Min.Z);
+                pt3 = new Vector3(box.Max.X, box.Max.Y, box.Min.Z);
+            }
+            near = new Plane(pt1, pt2, pt3);
             Vector3 top, bottom, left, right;
             top = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(v3, PlaneIntersectPt(near, v3));
             bottom = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(v4, PlaneIntersectPt(near, v4));
@@ -333,25 +349,53 @@ namespace OctreeCulling
 
             //aspectRatio = (box.Max.X - box.Min.X) /
             //              (box.Max.Y - box.Min.Y);
+            float leftX, rightX;
+            if (test2 > test1)
+            {
+                leftX = left.Z;
+                rightX = right.Z;
+            }
+            else
+            {
+                leftX = left.X;
+                rightX = right.X;
+            }
+             * */
+            #endregion
 
-            Matrix projection = Matrix.CreatePerspectiveOffCenter(left.X, right.X, bottom.Y, top.Y,//v2.X, v1.X, v4.Y, v3.Y,
-                CameraManager.getSingleton.GetCamera("test").NearPlane,
+            Vector3 nearDistance = portal.Position - CameraManager.getSingleton.GetCamera("test").Position; 
+
+            float minScaleX, maxScaleX;
+            if (portal.Scale.Z > portal.Scale.X)
+            {
+                minScaleX = -portal.Scale.Z;
+                maxScaleX = portal.Scale.Z;
+            }
+            else
+            {
+                minScaleX = -portal.Scale.X;
+                maxScaleX = portal.Scale.X;
+            }
+            Matrix projection = Matrix.CreatePerspectiveOffCenter(minScaleX, maxScaleX, -portal.Scale.Y, portal.Scale.Y,//v2.X, v1.X, v4.Y, v3.Y,
+                nearDistance.Length(),//CameraManager.getSingleton.GetCamera("test").NearPlane,
                 CameraManager.getSingleton.GetCamera("test").FarPlane);
+            //Matrix projection = Matrix.CreatePerspectiveOffCenter(leftX, rightX, bottom.Y, top.Y,//v2.X, v1.X, v4.Y, v3.Y,
+            //    nearDistance.Length(),//CameraManager.getSingleton.GetCamera("test").NearPlane,
+            //    CameraManager.getSingleton.GetCamera("test").FarPlane);
 
             //Matrix projection = Matrix.CreatePerspectiveFieldOfView(fieldOfView,
             //    aspectRatio,
             //    CameraManager.getSingleton.GetCamera("test").NearPlane,//nearPlane,
             //    CameraManager.getSingleton.GetCamera("test").FarPlane);
 
-			//Vector3 target = (((box.Max - box.Min) / 2) + box.Min) - CameraManager.getSingleton.GetCamera("test").Position;
-			Vector3 target = portal.Position;// -CameraManager.getSingleton.GetCamera("test").Position;
+            //Vector3 target = portal.Position;// -CameraManager.getSingleton.GetCamera("test").Position;
 
 			Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
-				target, Vector3.Up);
+				portal.Position, Vector3.Up);
 
 			BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
 
-
+            #region nonused code
             /*
 			Vector3 tl, tr, bl, br;
 			Vector3 ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr;
@@ -412,10 +456,9 @@ namespace OctreeCulling
             //fbl = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(bl, CameraManager.getSingleton.GetCamera("test").FarPlane);
             //fbr = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(br, CameraManager.getSingleton.GetCamera("test").FarPlane);
 
-            
-
 			Frustum newFrustum = new Frustum(ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr);
             */
+            #endregion
 
             return newFrustum;
         }
