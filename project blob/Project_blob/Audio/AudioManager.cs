@@ -21,6 +21,9 @@ namespace Audio
         private SoundBank _soundBank;
         private Dictionary<String, Cue> _music;
 
+        // Bool for if we should not apply 3D effects
+        private bool mono = false;
+
 		private static bool enabled = true;
 		public static bool Enabled
 		{
@@ -151,8 +154,21 @@ namespace Audio
             {
                 soundFX.Dispose();
                 soundFX = _soundBank.GetCue(soundName);
-                soundFX.Apply3D(listener, emitter);
-                soundFX.SetVariable("Distance",  soundFX.GetVariable("Distance") / volumeLevel);
+                if (!mono)
+                {
+                    try
+                    {
+                        soundFX.Apply3D(listener, emitter);
+                        soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Audio Manager Exception:");
+                        Console.WriteLine(e);
+                        Console.WriteLine("The above Exception was handled.");
+                        mono = true;
+                    }
+                }
                 soundFX.Play();
             }
         }

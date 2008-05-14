@@ -1,12 +1,8 @@
 Signature = XACT2;
-Version = 16;
-Content Version = 43;
-Release = August 2007;
+Version = 13;
 
 Options
 {
-    Verbose Report = 0;
-    Generate C/C++ Headers = 1;
 }
 
 Global Settings
@@ -141,10 +137,10 @@ Global Settings
         Reserved = 1;
         Read Only = 0;
         Time = 0;
-        Value = 50.000000;
-        Initial Value = 50.000000;
+        Value = 343.500000;
+        Initial Value = 343.500000;
         Min = 0.000000;
-        Max = 50.000000;
+        Max = 1000000.000000;
     }
 
     Variable
@@ -161,7 +157,7 @@ Global Settings
         Value = 0.000000;
         Initial Value = 0.000000;
         Min = 0.000000;
-        Max = 15.000001;
+        Max = 15.000000;
     }
 
     Variable
@@ -178,7 +174,7 @@ Global Settings
         Value = 0.000000;
         Initial Value = 0.000000;
         Min = 0.000000;
-        Max = 15.000001;
+        Max = 15.000000;
     }
 
     Variable
@@ -212,7 +208,7 @@ Global Settings
         Value = 0.000000;
         Initial Value = 0.000000;
         Min = 0.000000;
-        Max = 200.000000;
+        Max = 10000.000000;
     }
 
     RPC
@@ -221,10 +217,9 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::140e2e6d-88e4-47a1-9734-3fc8e2cb617e;
+            Name = Sound::abbbd8a8-1579-4f32-b4a5-c6b2b3320687;
             Property = 0;
             Sound = 1;
-            Line Color = 4294901760;
             Viewable = 1;
 
             Variable Entry
@@ -234,71 +229,29 @@ Global Settings
 
             RPC Point
             {
-                X = 0.000000;
+                X = 0.519931;
                 Y = 600.000000;
-                Curve = 2;
+                Curve = 0;
             }
 
             RPC Point
             {
-                X = 15.000000;
-                Y = 100.000000;
-                Curve = 2;
+                X = 9.705372;
+                Y = -527.537720;
+                Curve = 0;
             }
 
             RPC Point
             {
-                X = 35.000000;
-                Y = -4000.000000;
-                Curve = 2;
+                X = 29.636047;
+                Y = -2574.789063;
+                Curve = 0;
             }
 
             RPC Point
             {
-                X = 50.000000;
+                X = 50.086655;
                 Y = -9600.000000;
-                Curve = 0;
-            }
-        }
-
-        RPC Curve
-        {
-            Name = Sound::529d6b96-2215-48be-8cf6-12931985ebf7;
-            Property = 0;
-            Sound = 1;
-            Line Color = 4278255360;
-            Viewable = 1;
-
-            Variable Entry
-            {
-                Name = SpeedOfSound;
-            }
-
-            RPC Point
-            {
-                X = 0.000000;
-                Y = -9600.000000;
-                Curve = 0;
-            }
-
-            RPC Point
-            {
-                X = 20.017330;
-                Y = -2021.542603;
-                Curve = 0;
-            }
-
-            RPC Point
-            {
-                X = 40.034660;
-                Y = 1.783905;
-                Curve = 0;
-            }
-
-            RPC Point
-            {
-                X = 50.000000;
-                Y = 600.000000;
                 Curve = 0;
             }
         }
@@ -310,8 +263,6 @@ Wave Bank
     Name = Wave Bank;
     Xbox File = Xbox\Wave Bank.xwb;
     Windows File = Win\Wave Bank.xwb;
-    Xbox Bank Path Edited = 1;
-    Windows Bank Path Edited = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
@@ -320,38 +271,13 @@ Wave Bank
     PC Bank Last Modified High = 0;
     Header Last Modified Low = 0;
     Header Last Modified High = 0;
-    Bank Last Revised Low = 0;
-    Bank Last Revised High = 0;
-
-    Wave
-    {
-        Name = blob;
-        File = blob.wav;
-        Build Settings Last Modified Low = 4132858822;
-        Build Settings Last Modified High = 29930188;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 1;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 44;
-            Play Region Length = 57116;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 1365183206;
-            Last Modified High = 29930187;
-        }
-    }
 
     Wave
     {
         Name = gravelImpact;
         File = gravelImpact.wav;
-        Build Settings Last Modified Low = 4132858822;
-        Build Settings Last Modified High = 29930188;
+        Build Settings Last Modified Low = 380362635;
+        Build Settings Last Modified High = 29930990;
 
         Cache
         {
@@ -364,8 +290,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1365183206;
-            Last Modified High = 29930187;
+            Last Modified Low = 2840529947;
+            Last Modified High = 29930988;
         }
     }
 
@@ -373,8 +299,8 @@ Wave Bank
     {
         Name = metalImpact;
         File = metalImpact.wav;
-        Build Settings Last Modified Low = 4132858822;
-        Build Settings Last Modified High = 29930188;
+        Build Settings Last Modified Low = 380362635;
+        Build Settings Last Modified High = 29930990;
 
         Cache
         {
@@ -387,8 +313,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1365183206;
-            Last Modified High = 29930187;
+            Last Modified Low = 2840529947;
+            Last Modified High = 29930988;
         }
     }
 
@@ -396,8 +322,8 @@ Wave Bank
     {
         Name = speedBoost;
         File = speedBoost.wav;
-        Build Settings Last Modified Low = 4132858822;
-        Build Settings Last Modified High = 29930188;
+        Build Settings Last Modified Low = 380362635;
+        Build Settings Last Modified High = 29930990;
 
         Cache
         {
@@ -410,8 +336,31 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1365183206;
-            Last Modified High = 29930187;
+            Last Modified Low = 2840373687;
+            Last Modified High = 29930988;
+        }
+    }
+
+    Wave
+    {
+        Name = blob;
+        File = blob.wav;
+        Build Settings Last Modified Low = 380362635;
+        Build Settings Last Modified High = 29930990;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 57116;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2840373687;
+            Last Modified High = 29930988;
         }
     }
 }
@@ -421,163 +370,10 @@ Sound Bank
     Name = Sound Bank;
     Xbox File = Xbox\Sound Bank.xsb;
     Windows File = Win\Sound Bank.xsb;
-    Xbox Bank Path Edited = 1;
-    Windows Bank Path Edited = 1;
+    Bank Last Modified Low = 0;
+    Bank Last Modified High = 0;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
-
-    Sound
-    {
-        Name = speedBoost;
-        Volume = 600;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        RPC Entry
-        {
-            RPC Name = RPC Preset;
-        }
-
-        Track
-        {
-            Volume = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaer Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = Wave Bank;
-                    Bank Index = 0;
-                    Entry Name = speedBoost;
-                    Entry Index = 3;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = metalImpact;
-        Volume = 600;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        RPC Entry
-        {
-            RPC Name = RPC Preset;
-        }
-
-        Track
-        {
-            Volume = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaer Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = Wave Bank;
-                    Bank Index = 0;
-                    Entry Name = metalImpact;
-                    Entry Index = 2;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = gravelImpact;
-        Volume = 600;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        RPC Entry
-        {
-            RPC Name = RPC Preset;
-        }
-
-        Track
-        {
-            Volume = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaer Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = Wave Bank;
-                    Bank Index = 0;
-                    Entry Name = gravelImpact;
-                    Entry Index = 1;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
 
     Sound
     {
@@ -622,11 +418,184 @@ Sound Bank
                     Bank Name = Wave Bank;
                     Bank Index = 0;
                     Entry Name = blob;
+                    Entry Index = 3;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = speedBoost;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = RPC Preset;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = speedBoost;
+                    Entry Index = 2;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = metalImpact;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = RPC Preset;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = metalImpact;
+                    Entry Index = 1;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = gravelImpact;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = RPC Preset;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = gravelImpact;
                     Entry Index = 0;
                     Weight = 255;
                     Weight Min = 0;
                 }
             }
+        }
+    }
+
+    Cue
+    {
+        Name = blob;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = blob;
+            Index = 0;
+            Weight Min = 0;
+            Weight Max = 255;
         }
     }
 
@@ -644,7 +613,7 @@ Sound Bank
         Sound Entry
         {
             Name = speedBoost;
-            Index = 0;
+            Index = 1;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -664,7 +633,7 @@ Sound Bank
         Sound Entry
         {
             Name = metalImpact;
-            Index = 1;
+            Index = 2;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -684,26 +653,6 @@ Sound Bank
         Sound Entry
         {
             Name = gravelImpact;
-            Index = 2;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
-        Name = blob;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = blob;
             Index = 3;
             Weight Min = 0;
             Weight Max = 255;
