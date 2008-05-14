@@ -102,7 +102,7 @@ namespace OctreeCulling
         /// <summary>
         /// Distance to the near clipping plane.
         /// </summary>
-        private float _nearPlane = 0.1f;
+        private float _nearPlane = 1.0f;
         public float NearPlane
         {
             get { return _nearPlane; }

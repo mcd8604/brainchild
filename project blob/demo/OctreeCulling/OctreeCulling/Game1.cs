@@ -199,11 +199,11 @@ namespace OctreeCulling
             cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(6, 0, 17), basicEffect, graphics, tempList3);
             _objects.Add(cube);
 
-            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, 6, 17), basicEffect, graphics, tempList3);
-            _objects.Add(cube);
+            //cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, 6, 17), basicEffect, graphics, tempList3);
+            //_objects.Add(cube);
 
-            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, -6, 17), basicEffect, graphics, tempList3);
-            _objects.Add(cube);
+            //cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, -6, 17), basicEffect, graphics, tempList3);
+            //_objects.Add(cube);
             #endregion
             #region room2
             //Near wall
@@ -300,8 +300,8 @@ namespace OctreeCulling
             #endregion
 
             //Doorway cube object (will become a portal)
-            //cube = new Cube(new Vector3(2f, 2f, 0.3f), new Vector3(0, 0, 17), basicEffect, graphics, tempList1);
-            //_objects.Add(cube);
+            cube = new Cube(new Vector3(2f, 2f, 0.3f), new Vector3(0, 0, 17), basicEffect, graphics, tempList1);
+            _objects.Add(cube);
 
             //cube = new Cube(new Vector3(2f, 2f, 0.3f), new Vector3(0, 0, 37), basicEffect, graphics, tempList4);
             //_objects.Add(cube);
@@ -309,7 +309,7 @@ namespace OctreeCulling
             //cube = new Cube(new Vector3(0.3f, 2f, 2f), new Vector3(0, 0, 27), basicEffect, graphics, tempList6);
             //_objects.Add(cube);
 
-            Portal portal = new Portal(new Vector3(2f, 2f, 0f), new Vector3(0, 0, 17));
+            Portal portal = new Portal(new Vector3(2f, 10f, 0f), new Vector3(0, 0, 17));
             //portal.Position = new Vector3(0, 0, 17);
             //portal.Scale = new Vector3(2f, 2f, 0.3f);
             portal.ConnectedSectors.Add(1);//SceneManager.getSingleton.PortalScene.Sectors[1]);
