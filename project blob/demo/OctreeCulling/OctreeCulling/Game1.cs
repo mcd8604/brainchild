@@ -127,10 +127,20 @@ namespace OctreeCulling
             List<int> tempList1 = new List<int>();
             List<int> tempList2 = new List<int>();
             List<int> tempList3 = new List<int>();
+            List<int> tempList4 = new List<int>();
+            List<int> tempList5 = new List<int>();
+            List<int> tempList6 = new List<int>();
+            List<int> tempList7 = new List<int>();
             tempList1.Add(1);
             tempList2.Add(2);
             tempList3.Add(1);
             tempList3.Add(2);
+            tempList4.Add(3);
+            tempList5.Add(2);
+            tempList5.Add(3);
+            tempList6.Add(4);
+            tempList7.Add(2);
+            tempList7.Add(4);
 
             //Load all objects
             for (int i = 0; i < 2; ++i)//30
@@ -145,13 +155,16 @@ namespace OctreeCulling
                         //_objects.Add(cube);
                         ////_objects.Add(pyramid);
 
-						cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics, tempList1);
-						//cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k), basicEffect, graphics, 1);
+                        cube = new Cube(Vector3.One, new Vector3(5 * i - 1, 5 * j - 1, 5 * k), basicEffect, graphics, tempList1);
                         _objects.Add(cube);
 
-						cube = new Cube(Vector3.One, new Vector3(5 * i, 5 * j, 5 * k + 20), basicEffect, graphics, tempList2);
-						//cube = new Cube(Vector3.One, new Vector3(5 * i + 25, 5 * j + 25, 5 * k + 25), basicEffect, graphics, 2);
-                        
+                        cube = new Cube(Vector3.One, new Vector3(5 * i - 1, 5 * j - 1, 5 * k + 20), basicEffect, graphics, tempList2);
+                        _objects.Add(cube);
+
+                        cube = new Cube(Vector3.One, new Vector3(5 * i - 1, 5 * j - 1, 5 * k + 40), basicEffect, graphics, tempList4);
+                        _objects.Add(cube);
+
+                        cube = new Cube(Vector3.One, new Vector3(5 * i + 13, 5 * j - 1, 5 * k + 25), basicEffect, graphics, tempList6);
                         _objects.Add(cube);
                     }
                     
@@ -180,24 +193,16 @@ namespace OctreeCulling
             _objects.Add(cube);
 
             //Far wall pieces (in rooms 1 and 2)
-            //cube = new Cube(new Vector3(10f, 10f, 0.3f), new Vector3(0, 0, 17), basicEffect, graphics, tempList1);
-            //cube.SectorNums.Add(2);
-            //_objects.Add(cube);
-
             cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(-6, 0, 17), basicEffect, graphics, tempList3);
-            //cube.SectorNums.Add(2);
             _objects.Add(cube);
 
             cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(6, 0, 17), basicEffect, graphics, tempList3);
-            //cube.SectorNums.Add(2);
             _objects.Add(cube);
 
             cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, 6, 17), basicEffect, graphics, tempList3);
-            //cube.SectorNums.Add(2);
             _objects.Add(cube);
 
             cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, -6, 17), basicEffect, graphics, tempList3);
-            //cube.SectorNums.Add(2);
             _objects.Add(cube);
             #endregion
             #region room2
@@ -206,16 +211,16 @@ namespace OctreeCulling
             //_objects.Add(cube);
 
             //Left wall
-            cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(10, 0, 27), basicEffect, graphics, tempList2);
-            _objects.Add(cube);
+            //cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(10, 0, 27), basicEffect, graphics, tempList2);
+            //_objects.Add(cube);
 
             //Right wall
             cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(-10, 0, 27), basicEffect, graphics, tempList2);
             _objects.Add(cube);
 
             //Far wall
-            cube = new Cube(new Vector3(10f, 10f, 0.3f), new Vector3(0, 0, 37), basicEffect, graphics, tempList2);
-            _objects.Add(cube);
+            //cube = new Cube(new Vector3(10f, 10f, 0.3f), new Vector3(0, 0, 37), basicEffect, graphics, tempList2);
+            //_objects.Add(cube);
 
             //Ceiling
             cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(0, -10, 27), basicEffect, graphics, tempList2);
@@ -225,10 +230,83 @@ namespace OctreeCulling
             cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(0, 10, 27), basicEffect, graphics, tempList2);
             _objects.Add(cube);
             #endregion
+            #region room3
+            //Far wall
+            cube = new Cube(new Vector3(10f, 10f, 0.3f), new Vector3(0, 0, 57), basicEffect, graphics, tempList4);
+            _objects.Add(cube);
+
+            //Left wall
+            cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(10, 0, 47), basicEffect, graphics, tempList4);
+            _objects.Add(cube);
+
+            //Right wall
+            cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(-10, 0, 47), basicEffect, graphics, tempList4);
+            _objects.Add(cube);
+
+            //Ceiling
+            cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(0, -10, 47), basicEffect, graphics, tempList4);
+            _objects.Add(cube);
+
+            //Floor
+            cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(0, 10, 47), basicEffect, graphics, tempList4);
+            _objects.Add(cube);
+
+            //Near wall pieces (in rooms 2 and 3)
+            cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(-6, 0, 37), basicEffect, graphics, tempList5);
+            _objects.Add(cube);
+
+            cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(6, 0, 37), basicEffect, graphics, tempList5);
+            _objects.Add(cube);
+
+            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, 6, 37), basicEffect, graphics, tempList5);
+            _objects.Add(cube);
+
+            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, -6, 37), basicEffect, graphics, tempList5);
+            _objects.Add(cube);
+            #endregion
+            #region room4
+            //Far wall
+            cube = new Cube(new Vector3(10f, 10f, 0.3f), new Vector3(20, 0, 37), basicEffect, graphics, tempList6);
+            _objects.Add(cube);
+
+            //Left wall
+            cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(30, 0, 27), basicEffect, graphics, tempList6);
+            _objects.Add(cube);
+
+            //Right wall
+            //cube = new Cube(new Vector3(0.3f, 10f, 10f), new Vector3(10, 0, 27), basicEffect, graphics, tempList6);
+            //_objects.Add(cube);
+
+            //Ceiling
+            cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(20, -10, 27), basicEffect, graphics, tempList6);
+            _objects.Add(cube);
+
+            //Floor
+            cube = new Cube(new Vector3(10f, 0.3f, 10f), new Vector3(20, 10, 27), basicEffect, graphics, tempList6);
+            _objects.Add(cube);
+
+            //Right wall pieces (in rooms 2 and 4)
+            cube = new Cube(new Vector3(0.3f, 10f, 4f), new Vector3(10, 0, 21), basicEffect, graphics, tempList7);
+            _objects.Add(cube);
+
+            cube = new Cube(new Vector3(0.3f, 10f, 4f), new Vector3(10, 0, 33), basicEffect, graphics, tempList7);
+            _objects.Add(cube);
+
+            cube = new Cube(new Vector3(0.3f, 4f, 2f), new Vector3(10, 6, 27), basicEffect, graphics, tempList7);
+            _objects.Add(cube);
+
+            cube = new Cube(new Vector3(0.3f, 4f, 2f), new Vector3(10, -6, 27), basicEffect, graphics, tempList7);
+            _objects.Add(cube);
+            #endregion
 
             //Doorway cube object (will become a portal)
             //cube = new Cube(new Vector3(2f, 2f, 0.3f), new Vector3(0, 0, 17), basicEffect, graphics, tempList1);
-            //cube.SectorNums.Add(2);
+            //_objects.Add(cube);
+
+            //cube = new Cube(new Vector3(2f, 2f, 0.3f), new Vector3(0, 0, 37), basicEffect, graphics, tempList4);
+            //_objects.Add(cube);
+
+            //cube = new Cube(new Vector3(0.3f, 2f, 2f), new Vector3(0, 0, 27), basicEffect, graphics, tempList6);
             //_objects.Add(cube);
 
             Portal portal = new Portal(new Vector3(2f, 2f, 0f), new Vector3(0, 0, 17));
@@ -236,6 +314,16 @@ namespace OctreeCulling
             //portal.Scale = new Vector3(2f, 2f, 0.3f);
             portal.ConnectedSectors.Add(1);//SceneManager.getSingleton.PortalScene.Sectors[1]);
             portal.ConnectedSectors.Add(2);//SceneManager.getSingleton.PortalScene.Sectors[2]);
+            _portalObjects.Add(portal);
+
+            portal = new Portal(new Vector3(2f, 2f, 0f), new Vector3(0, 0, 37));
+            portal.ConnectedSectors.Add(2);
+            portal.ConnectedSectors.Add(3);
+            _portalObjects.Add(portal);
+
+            portal = new Portal(new Vector3(0f, 2f, 2f), new Vector3(10, 0, 27));
+            portal.ConnectedSectors.Add(2);
+            portal.ConnectedSectors.Add(4);
             _portalObjects.Add(portal);
 
             _listGraphObjects = new List<SceneObject>(_objects);
