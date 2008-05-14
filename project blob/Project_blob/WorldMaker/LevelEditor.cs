@@ -24,10 +24,10 @@ namespace WorldMaker
 		private static List<String> _drawablesToDelete = new List<String>();
 		private static List<DrawableInfo> _drawablesToAdd = new List<DrawableInfo>();
 
-		public static List<EventInfo> EventsToAdd
+		/*public static List<EventInfo> EventsToAdd
 		{
 			get { return _eventsToAdd; }
-		}
+		}*/
 
 		public static List<String> DrawablesToDelete
 		{
@@ -121,7 +121,8 @@ namespace WorldMaker
                     _gameRef.ActiveArea.Display.CurrentlySelected = ((StaticModel)_gameRef.ActiveDrawable).Name;
 
                     EventButton.Enabled = true;
-                    if (_gameRef.ActiveArea.Events.ContainsKey(((StaticModel)_gameRef.ActiveDrawable).Name))
+                    //if (_gameRef.ActiveArea.Events.ContainsKey(((StaticModel)_gameRef.ActiveDrawable).Name))
+                    if(((StaticModel)_gameRef.ActiveDrawable).Event != null)
                     {
                         EventButton.Text = "Edit Event";
                     }
@@ -221,12 +222,12 @@ namespace WorldMaker
 					_drawableInfo.textureID = _modelSelect.CurrentModel.GetTextureID();
 					_drawableInfo.drawable = _modelSelect.CurrentModel;
 					_drawablesToAdd.Add(_drawableInfo);
-					if (_modelSelect.Event != null)
+					/*if (_modelSelect.Event != null)
 					{
 						_eventInfo.eventTrigger = _modelSelect.Event;
 						_eventInfo.name = _modelSelect.CurrentModel.Name;
 						_eventsToAdd.Add(_eventInfo);
-					}
+					}*/
 					modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
 					modelListBox.Update();
 				}
@@ -331,12 +332,12 @@ namespace WorldMaker
 					temp.Scale = current.Scale;
 					_drawableInfo.drawable = temp;
 					_drawablesToAdd.Add(_drawableInfo);
-					if (_modelSelect.Event != null)
+					/*if (_modelSelect.Event != null)
 					{
 						_eventInfo.eventTrigger = _modelSelect.Event;
 						_eventInfo.name = _modelSelect.CurrentModel.Name;
 						_eventsToAdd.Add(_eventInfo);
-					}
+					}*/
 					modelListBox.Items.Add(_modelSelect.CurrentModel.Name);
 					modelListBox.Items.RemoveAt(modelListBox.SelectedIndex);
 					modelListBox.Update();
@@ -361,13 +362,14 @@ namespace WorldMaker
 
 		private void EventButton_Click(object sender, EventArgs e)
 		{
-            if (_gameRef.ActiveDrawable != null)
+            if (_gameRef.ActiveDrawable != null && _gameRef.ActiveDrawable is StaticModel)
             {
-                EventTrigger existingEvent = null;
+                /*EventTrigger existingEvent = null;
                 if (_gameRef.ActiveArea.Events.ContainsKey(((StaticModel)_gameRef.ActiveDrawable).Name))
                 {
                     existingEvent = _gameRef.ActiveArea.Events[((StaticModel)_gameRef.ActiveDrawable).Name];
-                }
+                }*/
+                EventTrigger existingEvent = ((StaticModel)_gameRef.ActiveDrawable).Event;
 
                 if (existingEvent == null)
                 {
@@ -375,11 +377,12 @@ namespace WorldMaker
                     selector.ShowDialog();
                     if (selector.EventTrigger != null)
                     {
-                        EventInfo newEvent = new EventInfo();
+                        /*EventInfo newEvent = new EventInfo();
                         newEvent.eventTrigger = selector.EventTrigger;
                         newEvent.name = ((StaticModel)_gameRef.ActiveDrawable).Name;
                         existingEvent = newEvent.eventTrigger;
-                        _eventsToAdd.Add(newEvent);
+                        _eventsToAdd.Add(newEvent);*/
+                        ((StaticModel)_gameRef.ActiveDrawable).Event = selector.EventTrigger;
                     }
                 }
 

@@ -445,8 +445,8 @@ namespace Project_blob
 					{
 						Texture2D t = TextureManager.TextureList[i];
 						//temporary check
-						if (!t.Name.Equals("event"))
-						{
+						//if (!t.Name.Equals("event"))
+						//{
 							//if (m_TextureParameterName != "NONE")
 								m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
 
@@ -461,7 +461,7 @@ namespace Project_blob
 									DrawPrimitives(d, graphicsDevice);
 								}
 							}
-						}
+						//}
 					}
 
 
@@ -579,8 +579,8 @@ namespace Project_blob
 				{
 					Texture2D t = TextureManager.TextureList[i];
 					//temporary check
-					if (!t.Name.Equals("event"))
-					{
+					//if (!t.Name.Equals("event"))
+					//{
 						//if (m_TextureParameterName != "NONE")
 							m_cartoonEffect.Parameters["Texture"].SetValue(t);
 
@@ -598,7 +598,7 @@ namespace Project_blob
 								DrawPrimitives(d, graphicsDevice);
 							}
 						}
-					}
+					//}
 				}
 
 
@@ -639,8 +639,8 @@ namespace Project_blob
 				{
 					Texture2D t = TextureManager.TextureList[i];
 					//temporary check
-					if (!t.Name.Equals("event"))
-					{
+					//if (!t.Name.Equals("event"))
+					//{
 						//if (m_TextureParameterName != "NONE")
 						//	m_cartoonEffect.Parameters["Texture"].SetValue(t);
 
@@ -658,7 +658,7 @@ namespace Project_blob
 								DrawPrimitives(d, graphicsDevice);
 							}
 						}
-					}
+					//}
 				}
 
 
