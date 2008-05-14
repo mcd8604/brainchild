@@ -13,11 +13,8 @@ namespace Project_blob
 		public DeathEvent() { }
 
 		public void PerformEvent(PhysicsPoint point)
-		{
-            if (point.ParentBody is Blob)
-            {
-                GameplayScreen.CauseDeath();
-            }
+        {
+            GameplayScreen.CauseDeath(point.ParentBody);
 		}
 	}
 }
