@@ -122,11 +122,24 @@ namespace Physics2
 			tasks.Add(t);
 		}
 
+		/// <summary>
+		/// Can this body collide with other bodies?
+		/// </summary>
+		/// <returns></returns>
+		public virtual bool canCollide()
+		{
+			return true;
+		}
+
 		public virtual bool isStatic()
 		{
 			return false;
 		}
 
+		/// <summary>
+		/// Does this body block the movement of another body on collision?
+		/// </summary>
+		/// <returns></returns>
 		public virtual bool isSolid()
 		{
 			return true;
