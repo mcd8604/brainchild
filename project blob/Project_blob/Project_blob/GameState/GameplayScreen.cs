@@ -396,9 +396,12 @@ namespace Project_blob.GameState
 			// TODO: Unload any non ContentManager content here
 		}
 
-		public static void CauseDeath()
+		public static void CauseDeath(Body body)
 		{
-			game.reset();
+            if (body != null && body.Equals(game.theBlob))
+            {
+                game.reset();
+            }
 		}
 
 		public static void SetCheckPoint(Vector3 position)
