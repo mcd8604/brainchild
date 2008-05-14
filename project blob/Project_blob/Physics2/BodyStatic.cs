@@ -40,6 +40,11 @@ namespace Physics2
 			base.addChild(childBody);
 		}
 
+		public override bool canCollide()
+		{
+			return false;
+		}
+
 		public override bool isStatic()
 		{
 			return true;

@@ -109,7 +109,7 @@ namespace Physics2
 
 			foreach (Body b in bodies)
 			{
-				if (!(b is BodyStatic))
+				if (b.canCollide())
 				{
 					AxisAlignedBoundingBox box = b.getBoundingBox();
 					foreach (Body c in bodies)
@@ -132,7 +132,7 @@ namespace Physics2
 				}
 			}
 
-			Console.WriteLine( "DEBUG: Collisions: " + events.Count );
+			//Console.WriteLine( "DEBUG: Collisions: " + events.Count );
 
 			// Evaluate collsion list, call onCollsion, set NextPosition
 			events.Sort(CollisionEvent.CompareEvents);
