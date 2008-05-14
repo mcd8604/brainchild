@@ -8,10 +8,10 @@ namespace Physics2
 {
 	public class Body
 	{
-        protected internal AudioEmitter audioEmitter = new AudioEmitter();
-        protected internal Cue collisionSound;
-        protected internal string soundName;
-        protected internal bool playingSound = false;
+		protected internal AudioEmitter audioEmitter = new AudioEmitter();
+		protected internal Cue collisionSound;
+		protected internal string soundName;
+		protected internal bool playingSound = false;
 		protected internal IList<PhysicsPoint> points = new List<PhysicsPoint>();
 		protected internal IList<Collidable> collidables = new List<Collidable>();
 		protected internal IList<Spring> springs = new List<Spring>();
@@ -27,38 +27,39 @@ namespace Physics2
 
 		protected Material material = Material.getDefaultMaterial();
 
-		protected internal Body(string p_collisionSound) {
-            soundName = p_collisionSound;
-            if (!soundName.Equals("") && !soundName.Equals("none"))
-            {
-                collisionSound = AudioManager.getSingleton.getSoundFX(soundName);
-            }
-            audioEmitter.DopplerScale = 0f;
-            audioEmitter.Forward = Vector3.Forward;
-            audioEmitter.Up = Vector3.Up;
-            audioEmitter.Position = Vector3.Zero;
-            audioEmitter.Velocity = Vector3.Zero;
-        }
+		protected internal Body(string p_collisionSound)
+		{
+			soundName = p_collisionSound;
+			if (!soundName.Equals("") && !soundName.Equals("none"))
+			{
+				collisionSound = AudioManager.getSingleton.getSoundFX(soundName);
+			}
+			audioEmitter.DopplerScale = 0f;
+			audioEmitter.Forward = Vector3.Forward;
+			audioEmitter.Up = Vector3.Up;
+			audioEmitter.Position = Vector3.Zero;
+			audioEmitter.Velocity = Vector3.Zero;
+		}
 
-        public Body(Body ParentBody, string p_collisionSound)
+		public Body(Body ParentBody, string p_collisionSound)
 		{
 			if (ParentBody != null)
 			{
 				ParentBody.addChild(this);
 			}
-            soundName = p_collisionSound;
-            if (!soundName.Equals("") && !soundName.Equals("none"))
-            {
-                collisionSound = AudioManager.getSingleton.getSoundFX(soundName);
-            }
-            audioEmitter.DopplerScale = 0f;
-            audioEmitter.Forward = Vector3.Forward;
-            audioEmitter.Up = Vector3.Up;
-            audioEmitter.Position = Vector3.Zero;
-            audioEmitter.Velocity = Vector3.One;
+			soundName = p_collisionSound;
+			if (!soundName.Equals("") && !soundName.Equals("none"))
+			{
+				collisionSound = AudioManager.getSingleton.getSoundFX(soundName);
+			}
+			audioEmitter.DopplerScale = 0f;
+			audioEmitter.Forward = Vector3.Forward;
+			audioEmitter.Up = Vector3.Up;
+			audioEmitter.Position = Vector3.Zero;
+			audioEmitter.Velocity = Vector3.One;
 		}
 
-        public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks, string p_collisionSound)
+		public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks, string p_collisionSound)
 		{
 			if (ParentBody != null)
 			{
@@ -68,16 +69,16 @@ namespace Physics2
 			springs = p_springs;
 			collidables = p_collidables;
 			tasks = p_tasks;
-            soundName = p_collisionSound;
-            if (!soundName.Equals("") && !soundName.Equals("none"))
-            {
-                collisionSound = AudioManager.getSingleton.getSoundFX(soundName);
-            }
-            audioEmitter.DopplerScale = 0f;
-            audioEmitter.Forward = Vector3.Forward;
-            audioEmitter.Up = Vector3.Up;
-            audioEmitter.Position = Vector3.Zero;
-            audioEmitter.Velocity = Vector3.One;
+			soundName = p_collisionSound;
+			if (!soundName.Equals("") && !soundName.Equals("none"))
+			{
+				collisionSound = AudioManager.getSingleton.getSoundFX(soundName);
+			}
+			audioEmitter.DopplerScale = 0f;
+			audioEmitter.Forward = Vector3.Forward;
+			audioEmitter.Up = Vector3.Up;
+			audioEmitter.Position = Vector3.Zero;
+			audioEmitter.Velocity = Vector3.One;
 			initialize();
 		}
 
@@ -134,6 +135,16 @@ namespace Physics2
 		public virtual AxisAlignedBoundingBox getBoundingBox()
 		{
 			return boundingBox;
+		}
+
+		public virtual Vector3 getAverageVelocity()
+		{
+			Vector3 AvgVel = Vector3.Zero;
+			foreach (PhysicsPoint px in points)
+			{
+				AvgVel += px.NextVelocity;
+			}
+			return AvgVel / points.Count;
 		}
 
 		public virtual Vector3 getCenter()
@@ -359,7 +370,7 @@ namespace Physics2
 				{
 					if (x.couldIntersect(p.CurrentPosition, p.PotentialPosition))
 					{
-                        Vector3 hit;
+						Vector3 hit;
 						float u = x.didIntersect(p.CurrentPosition, p.PotentialPosition, out hit);
 						if (u > 0 && u < 1)
 						{
@@ -372,7 +383,8 @@ namespace Physics2
 			return events;
 
 		}
-		public virtual void onCollision(CollisionEvent e) {
+		public virtual void onCollision(CollisionEvent e)
+		{
 
 			// Put this in a 'sound' object?
 			Vector3 tempVec = new Vector3(e.point.CurrentVelocity.X * e.collidable.Normal.X,
@@ -407,7 +419,7 @@ namespace Physics2
 				}
 			}
 
-        }
+		}
 
 		public virtual Vector3 getVelocity()
 		{
