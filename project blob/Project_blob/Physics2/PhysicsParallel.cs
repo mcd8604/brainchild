@@ -85,7 +85,9 @@ namespace Physics2
 					}
 					catch (Exception ex)
 					{
+						Console.WriteLine("Internal Physics Exception:");
 						Console.WriteLine(ex);
+						Console.WriteLine("-> Someone broke physics <-  See exception above:");
 						break;
 					}
 #if DEBUG && TIMED

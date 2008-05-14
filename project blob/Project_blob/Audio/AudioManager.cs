@@ -78,7 +78,9 @@ namespace Audio
 			}
 			catch (Exception e)
 			{
+				Console.WriteLine("Audio Manager Exception:");
 				Console.WriteLine(e);
+				Console.WriteLine("The above Exception was handled.");
 				enabled = false;
 			}
         }
