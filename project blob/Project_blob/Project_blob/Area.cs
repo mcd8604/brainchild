@@ -159,28 +159,28 @@ namespace Project_blob
 			return null;
 		}*/
 
-		public void RemoveEvent(String eventName)
-		{
-            /*if (_events.ContainsKey(eventName))
-			{
-				EventTrigger tempEvent;
-				tempEvent = _events[eventName];
-				_events.Remove(eventName);
-			}*/
-		}
+        /*public void RemoveEvent(String eventName)
+        {
+            if (_events.ContainsKey(eventName))
+            {
+                EventTrigger tempEvent;
+                tempEvent = _events[eventName];
+                _events.Remove(eventName);
+            }
+        }*/
 
-		public void AddEvent(String eventName, EventTrigger eventTrigger)
+        /*public void AddEvent(String eventName, EventTrigger eventTrigger)
 		{
-			/*if (_events == null)
+			if (_events == null)
 			{
 				_events = new Dictionary<string, EventTrigger>();
 			}
 			if (!_events.ContainsKey(eventName))
 			{
 				_events.Add(eventName, eventTrigger);
-			}*/
+			}
 
-		}
+		}*/
 
 		[NonSerialized]
 		private List<Physics2.Body> m_Bodies = new List<Physics2.Body>();
