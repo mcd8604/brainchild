@@ -60,11 +60,20 @@ namespace Project_blob.GameState
 
 		PhysicsManager physics;
 
-		bool cinema = false;
+        private enum CameraType
+        {
+            follow,
+            cinema,
+            chase
+        }
+
+        private CameraType CurCamera = CameraType.follow;
+		//bool cinema = false;
 		bool paused = false;
 		bool step = false;
 		bool controllermode = false;
-		bool follow = true;
+		//bool follow = true;
+        //bool chase = false;
 
 		//bool points = false;
 
@@ -255,6 +264,24 @@ namespace Project_blob.GameState
 
 			CameraManager.getSingleton.AddCamera("cinematic", cinematicCamera);
 
+            ChaseCamera chaseCamera = new ChaseCamera();
+            chaseCamera.FieldOfView = MathHelper.ToRadians(45.0f);
+            chaseCamera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
+            chaseCamera.NearPlane = 1.0f;
+            chaseCamera.FarPlane = 1000.0f;
+
+            chaseCamera.Target = Vector3.Zero;
+            chaseCamera.Up = Vector3.Up;
+
+            chaseCamera.ChasePosition = theBlob.getCenter();
+            chaseCamera.ChaseDirection = theBlob.getPotentialCenter() - theBlob.getCenter();
+
+            chaseCamera.Reset();
+
+            CameraManager.getSingleton.AddCamera("chase", chaseCamera);
+            //CameraManager.getSingleton.SetActiveCamera("chase");
+
+
 #if DEBUG
 			String[] tempArray = new string[Level.Areas.Keys.Count];
 			Level.Areas.Keys.CopyTo(tempArray, 0);
@@ -303,81 +330,10 @@ namespace Project_blob.GameState
 		{
 			worldMatrix = Matrix.Identity;
 
-			//viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -10), new Vector3(0, 0, 0), Vector3.Up);
-			//camera.View = Matrix.CreateLookAt(new Vector3(0, 0, -10), new Vector3(0, 0, 0), Vector3.Up);
-
-			//projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
-			//    MathHelper.ToRadians(45),  // 45 degree angle
-			//    (float)GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height,
-			//    1.0f, 1000.0f);
-			//camera.Projection = Matrix.CreatePerspectiveFieldOfView(camera.FieldOfView,  // 45 degree angle
-			//    camera.AspectRatio, camera.NearPlane, camera.FarPlane);
-
 			VertexDeclarationTexture = new VertexDeclaration(ScreenManager.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
 			VertexDeclarationColor = new VertexDeclaration(ScreenManager.GraphicsDevice, VertexPositionColor.VertexElements);
 
-			//effect = ScreenManager.Content.Load<Effect>("Shaders\\effects");
-
-			////effect.Parameters["xView"].SetValue(viewMatrix);
-			////effect.Parameters["xProjection"].SetValue(projectionMatrix);
-			//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-			//effect.Parameters["xProjection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
-			//effect.Parameters["xWorld"].SetValue(worldMatrix);
-
-			//effect.Parameters["xTexture"].SetValue(blobTexture);
-			//effect.Parameters["xEnableLighting"].SetValue(true);
-			////effect.Parameters["xShowNormals"].SetValue(true);
-			////effect.Parameters["xLightDirection"].SetValue(Vector3.Down);
-			//effect.Parameters["xLightPos"].SetValue(new Vector4(0, 5, 0, 0));
-			//effect.Parameters["xAmbient"].SetValue(0.25f);
-
-			//effect.Parameters["xCameraPos"].SetValue(new Vector4(0, 0, -5, 0));
-
-			//EffectManager.getSingleton.AddEffect("effects", effect);
-
-			//celEffect.Parameters["World"].SetValue(worldMatrix);
-			////celEffect.Parameters["View"].SetValue(viewMatrix);
-			////celEffect.Parameters["Projection"].SetValue(projectionMatrix);
-			//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-			//celEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
-
-			//celEffect.Parameters["DiffuseLightColor"].SetValue(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
-			//celEffect.Parameters["LightPosition"].SetValue(new Vector3(1.0f, 600.0f, 600.0f));
-			//celEffect.Parameters["LayerOneSharp"].SetValue(.3f);
-			//celEffect.Parameters["LayerOneRough"].SetValue(10.0f);
-			//celEffect.Parameters["LayerOneContrib"].SetValue(0.08f);
-			//celEffect.Parameters["LayerTwoSharp"].SetValue(0.10f);
-			//celEffect.Parameters["LayerTwoRough"].SetValue(1.0f);
-			//celEffect.Parameters["LayerTwoContrib"].SetValue(0.2f);
-			//celEffect.Parameters["EdgeOffset"].SetValue(0.009f);
-
-			//celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-			//celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-
-			//EffectManager.getSingleton.AddEffect("celEffect", celEffect);
-
-			//BasicEffect be = new BasicEffect(ScreenManager.GraphicsDevice, null);
-
-			//be.Alpha = 1.0f;
-			//be.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
-			//be.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
-			//be.SpecularPower = 5.0f;
-			//be.AmbientLightColor = new Vector3(0.75f, 0.75f, 0.75f);
-
-			//be.DirectionalLight0.Enabled = true;
-			//be.DirectionalLight0.DiffuseColor = Vector3.One;
-			//be.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(1.0f, -1.0f, -1.0f));
-			//be.DirectionalLight0.SpecularColor = Vector3.One;
-
-			//be.LightingEnabled = true;
-			//be.TextureEnabled = true;
-
-			//be.World = worldMatrix;
-			////be.View = viewMatrix;
-			////be.Projection = projectionMatrix;
-			//be.View = CameraManager.getSingleton.ActiveCamera.View;
-			//be.Projection = CameraManager.getSingleton.ActiveCamera.Projection;
 
 			cartoonEffect.Parameters["World"].SetValue(worldMatrix);
 			cartoonEffect.Parameters["Projection"].SetValue(CameraManager.getSingleton.ActiveCamera.Projection);
@@ -393,17 +349,9 @@ namespace Project_blob.GameState
 			CreateRenderTargets();
 
 			currentArea.Display.PostProcessEffect = postprocessEffect;
-			//EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
-			//EffectManager.getSingleton.AddEffect("cartoonEffect", cartoonEffect);
 
 			currentArea.Display.Distort = distortEffect;
 			currentArea.Display.Distorter = distorterEffect;
-			//EffectManager.getSingleton.AddEffect("Distorter", distorterEffect);
-			//EffectManager.getSingleton.AddEffect("Distort", distortEffect);
-
-
-			//EffectManager.getSingleton.AddEffect("DepthBuffer", depthBufferEffect);
-
 
 		}
 
@@ -529,7 +477,8 @@ namespace Project_blob.GameState
 			cinematicCamera.LookAts = cameraLooks;
 			cinematicCamera.Running = true;
 			CameraManager.getSingleton.SetActiveCamera("cinematic");
-			cinema = true;
+			//cinema = true;
+            CurCamera = CameraType.cinema;
 		}
 
 		/// <summary>
@@ -618,7 +567,7 @@ namespace Project_blob.GameState
 					physics.Player.move(move, CameraManager.getSingleton.ActiveCamera.Position);
 				}
 
-				if (cinema)
+				if (CurCamera == CameraType.cinema)
 				{
 					distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
 					distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
@@ -629,14 +578,14 @@ namespace Project_blob.GameState
 					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
 					if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
 					{
-						cinema = false;
+						CurCamera = CameraType.cinema;
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
 					}
 				}
-				else if (follow)
+				else if (CurCamera == CameraType.follow)
 				{
 					cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
 					if (cameraAngle.X < -MathHelper.Pi)
@@ -653,33 +602,28 @@ namespace Project_blob.GameState
 					// following camera
 					cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
 					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
-					//cameraPosition = theBlob.getCenter() + Offset;
-					//CameraManager.getSingleton.ActiveCamera.Position = theBlob.getCenter() + Offset;
 
 					CameraBody.setCameraOffset(Offset);
 					CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
 
-					// new Vector3(10, 10, 20)
-					/*if (OrientCamera)
-					{
-						viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), physics.getUp(theBlob.getCenter()));
-					}
-					else
-					 * 
-					{*/
-					//viewMatrix = Matrix.CreateLookAt(cameraPosition, theBlob.getCenter(), Vector3.Up);
-					//camera.View = Matrix.CreateLookAt(camera.Postiion, theBlob.getCenter(), Vector3.Up);
 					CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
-					//}
-					//effect.Parameters["xView"].SetValue(viewMatrix);
-					//celEffect.Parameters["View"].SetValue(viewMatrix);
-					//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-
-					//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
-					//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+		
 				}
+                else if (CurCamera == CameraType.chase)
+                {
+                    //Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
+                    //CameraBody.setCameraOffset(Offset);
+                    //CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
+                    Vector3 tempVect = Vector3.Normalize(theBlob.getPotentialCenter() - theBlob.getCenter());
+                    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = new Vector3(tempVect.X, MathHelper.Clamp(tempVect.Y,-60,60),tempVect.Z);
+                    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
+                    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
+
+                    //distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+                    //distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+                    //cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                }
+                
 
 				if (currentArea.Display.SkyBox != null)
 					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(CameraManager.getSingleton.ActiveCamera.Position);
@@ -738,35 +682,35 @@ namespace Project_blob.GameState
 				{
 					paused = !paused;
 				}
-				if (InputHandler.IsKeyPressed(Keys.F))
-				{
-					follow = !follow;
-					//camera follow
-					if (!follow)
-					{
-						//cameraPosition = defaultCameraPosition;
-						CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
-						//viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
-						//effect.Parameters["xView"].SetValue(viewMatrix);
-						//camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
-						CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
-						CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
+                //if (InputHandler.IsKeyPressed(Keys.F))
+                //{
+                //    follow = !follow;
+                //    //camera follow
+                //    if (!follow)
+                //    {
+                //        //cameraPosition = defaultCameraPosition;
+                //        CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
+                //        //viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
+                //        //effect.Parameters["xView"].SetValue(viewMatrix);
+                //        //camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
+                //        CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
+                //        CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
 
 
-						cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-						distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-						distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+                //        cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                //        distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+                //        distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
-						//effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                //        //effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
-						//celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-						//celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-						//celEffect.Parameters["View"].SetValue(viewMatrix);
-						//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-						//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-						//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-					}
-				}
+                //        //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
+                //        //celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+                //        //celEffect.Parameters["View"].SetValue(viewMatrix);
+                //        //celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+                //        //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+                //        //effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+                //    }
+                //}
 
 				if (InputHandler.IsKeyPressed(Keys.S))
 				{
