@@ -19,7 +19,7 @@ namespace Project_blob
 			set
 			{
 				m_Direction = value;
-				m_Velocity = Vector3.Multiply(Direction, Speed);
+				m_Velocity = m_Direction * m_Speed;
 			}
 		}
 
@@ -32,8 +32,8 @@ namespace Project_blob
 			}
 			set
 			{
-				m_Speed = value;
-				m_Velocity = Vector3.Multiply(Direction, Speed);
+                m_Speed = value;
+                m_Velocity = m_Direction * m_Speed;
 			}
 		}
 
@@ -46,6 +46,7 @@ namespace Project_blob
         {
             m_Direction = staticModel.Direction;
             m_Speed = staticModel.Speed;
+            m_Velocity = m_Direction * m_Speed;
             m_StaticModel = staticModel;
 		}
 
