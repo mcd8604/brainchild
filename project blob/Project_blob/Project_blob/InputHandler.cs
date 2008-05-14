@@ -333,6 +333,11 @@ internal static class InputHandler
 	}
 
 
+	internal static bool IsButtonDown(Buttons button)
+	{
+		return thisGamePadState.IsButtonDown(button);
+	}
+
     internal static bool IsButtonPressed(Buttons button)
     {
         return lastGamePadState.IsButtonUp(button) && thisGamePadState.IsButtonDown(button);

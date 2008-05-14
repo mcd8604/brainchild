@@ -274,8 +274,8 @@ namespace Project_blob.GameState
 			chaseCamera.Up = Vector3.Up;
 
 			chaseCamera.ChasePosition = theBlob.getCenter();
-            
-		    chaseCamera.ChaseDirection = Vector3.Forward;
+
+			chaseCamera.ChaseDirection = Vector3.Forward;
 
 			chaseCamera.Reset();
 
@@ -399,10 +399,10 @@ namespace Project_blob.GameState
 
 		public static void CauseDeath(Body body)
 		{
-            if (body != null && body.Equals(game.theBlob))
-            {
-                game.reset();
-            }
+			if (body != null && body.Equals(game.theBlob))
+			{
+				game.reset();
+			}
 		}
 
 		public static void SetCheckPoint(Vector3 position)
@@ -604,7 +604,19 @@ namespace Project_blob.GameState
 					cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
 
 					// following camera
-					cameraLength = MathHelper.Clamp(cameraLength + (InputHandler.getMouseWheelDelta() * -0.01f), 10, 40);
+					cameraLength += (InputHandler.getMouseWheelDelta() * -0.01f);
+
+					if (InputHandler.IsButtonDown(Buttons.DPadUp))
+					{
+						cameraLength += 1;
+					}
+					else if (InputHandler.IsButtonDown(Buttons.DPadUp))
+					{
+						cameraLength -= 1;
+					}
+
+					cameraLength = MathHelper.Clamp(cameraLength, 10, 40);
+
 					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
 
 					CameraBody.setCameraOffset(Offset);
@@ -632,7 +644,7 @@ namespace Project_blob.GameState
 					//CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
 					//Vector3 tempVect = Vector3.Normalize(theBlob.getPotentialCenter() - theBlob.getCenter());
 					if (theBlob.getAverageVelocity().LengthSquared() > 1f)
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = theBlob.getAverageVelocity();
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = theBlob.getAverageVelocity();
 
 					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
 					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
