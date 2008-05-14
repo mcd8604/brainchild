@@ -219,8 +219,9 @@ namespace Project_blob
 
 		private BoundingFrustum CreatePortalFrustum(Portal portal)
 		//private Frustum CreatePortalFrustum(Portal portal)
-		{
-			
+        {
+            #region old code
+            /*
 			//Create new frustum from portal
 			//BoundingBox box = portal.GetBoundingBoxTransformed();
 			BoundingBox box = portal.BoundingBox;
@@ -269,31 +270,54 @@ namespace Project_blob
 
 			// Crash: StackOverflowException
 			BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
-			
-
-			/*
-			//Vector3 tl, tr, bl, br;
-			//Vector3 ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr;
-			//Vector3 offset = new Vector3(0.0f, 0.0f, 0.1f);
-
-			//tr = Vector3.Normalize(new Vector3(box.Max.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
-			//br = Vector3.Normalize(new Vector3(box.Max.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
-			//bl = Vector3.Normalize(new Vector3(box.Min.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
-			//tl = Vector3.Normalize(new Vector3(box.Min.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
-
-			//ntl = offset + CameraManager.getSingleton.ActiveCamera.Position + (new Vector3(box.Min.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
-			//ntr = offset + CameraManager.getSingleton.ActiveCamera.Position + (new Vector3(box.Max.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
-			//nbl = offset + CameraManager.getSingleton.ActiveCamera.Position + (new Vector3(box.Min.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
-			//nbr = offset + CameraManager.getSingleton.ActiveCamera.Position + (new Vector3(box.Max.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
-			//ftl = offset + CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(tl, CameraManager.getSingleton.ActiveCamera.FarPlane);
-			//ftr = offset + CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(tr, CameraManager.getSingleton.ActiveCamera.FarPlane);
-			//fbl = offset + CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(bl, CameraManager.getSingleton.ActiveCamera.FarPlane);
-			//fbr = offset + CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(br, CameraManager.getSingleton.ActiveCamera.FarPlane);
-
-			//Frustum newFrustum = new Frustum(ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr);
 			*/
 
-			return newFrustum;
+            /*
+            //Vector3 tl, tr, bl, br;
+            //Vector3 ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr;
+            //Vector3 offset = new Vector3(0.0f, 0.0f, 0.1f);
+
+            //tr = Vector3.Normalize(new Vector3(box.Max.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
+            //br = Vector3.Normalize(new Vector3(box.Max.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
+            //bl = Vector3.Normalize(new Vector3(box.Min.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
+            //tl = Vector3.Normalize(new Vector3(box.Min.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
+
+            //ntl = offset + CameraManager.getSingleton.ActiveCamera.Position + (new Vector3(box.Min.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
+            //ntr = offset + CameraManager.getSingleton.ActiveCamera.Position + (new Vector3(box.Max.X, box.Max.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
+            //nbl = offset + CameraManager.getSingleton.ActiveCamera.Position + (new Vector3(box.Min.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
+            //nbr = offset + CameraManager.getSingleton.ActiveCamera.Position + (new Vector3(box.Max.X, box.Min.Y, box.Max.Z) - CameraManager.getSingleton.ActiveCamera.Position);
+            //ftl = offset + CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(tl, CameraManager.getSingleton.ActiveCamera.FarPlane);
+            //ftr = offset + CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(tr, CameraManager.getSingleton.ActiveCamera.FarPlane);
+            //fbl = offset + CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(bl, CameraManager.getSingleton.ActiveCamera.FarPlane);
+            //fbr = offset + CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(br, CameraManager.getSingleton.ActiveCamera.FarPlane);
+
+            //Frustum newFrustum = new Frustum(ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr);
+            */
+            #endregion
+
+            Vector3 nearDistance = portal.Position - CameraManager.getSingleton.ActiveCamera.Position;
+
+            float minScaleX, maxScaleX;
+            if (portal.Scale.Z > portal.Scale.X)
+            {
+                minScaleX = -portal.Scale.Z;
+                maxScaleX = portal.Scale.Z;
+            }
+            else
+            {
+                minScaleX = -portal.Scale.X;
+                maxScaleX = portal.Scale.X;
+            }
+            Matrix projection = Matrix.CreatePerspectiveOffCenter(minScaleX, maxScaleX, -portal.Scale.Y, portal.Scale.Y,
+                nearDistance.Length(),
+                CameraManager.getSingleton.ActiveCamera.FarPlane);
+
+            Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.ActiveCamera.Position,
+                portal.Position, Vector3.Up);
+
+            BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
+
+            return newFrustum;
 		}
 
 		/*TESTING METHOD

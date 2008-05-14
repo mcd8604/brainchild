@@ -60,7 +60,7 @@ namespace Project_blob
         {
             foreach (StaticModel obj in scene)
             {
-				if (false)//(obj.Rooms != null
+                if (false)//(obj.Rooms != null)
                 {
                     if (obj.Rooms.Count != 0)
                     {
