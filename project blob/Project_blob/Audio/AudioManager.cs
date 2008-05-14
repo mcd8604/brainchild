@@ -114,7 +114,14 @@ namespace Audio
         /// <returns>The specified soundFX cue</returns>
         public Cue getSoundFX(string name)
         {
-            return _soundBank.GetCue(name);
+			if (enabled)
+			{
+				return _soundBank.GetCue(name);
+			}
+			else
+			{
+				return null;
+			}
         }
 
         /// <summary>
