@@ -51,6 +51,11 @@ namespace Physics2
 		public abstract void AddBody(Body b);
 		public abstract void AddBodys(IEnumerable<Body> b);
 
+		public abstract float Time
+		{
+			get;
+		}
+
 		/// <summary>
 		/// Request that physics move all the objects ahead by some increment of time.
 		/// </summary>

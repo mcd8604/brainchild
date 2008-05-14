@@ -153,5 +153,12 @@ namespace Physics2
 			get { return physicsMain.Player; }
 		}
 
+		public override float Time
+		{
+			get
+			{
+				return physicsMain.Time;
+			}
+		}
 	}
 }

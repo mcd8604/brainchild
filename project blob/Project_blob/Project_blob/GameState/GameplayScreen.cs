@@ -640,6 +640,12 @@ namespace Project_blob.GameState
 
 
 #if DEBUG
+
+				if (InputHandler.IsKeyPressed(Keys.M))
+				{
+					physics.Player.DEBUG_MoveModeFlag = !physics.Player.DEBUG_MoveModeFlag;
+				}
+
 				if (InputHandler.IsKeyPressed(Keys.L))
 				{
 					step = true;
@@ -1052,6 +1058,7 @@ namespace Project_blob.GameState
 			spriteBatch.Begin();
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
             spriteBatch.DrawString(font, "Time - " + PlayTime.Elapsed.ToString().Substring(3,8), new Vector2(0, 175), Color.White);
+			spriteBatch.DrawString(font, "PTime - " + physics.Time, new Vector2(0, 200), Color.White);
 #if TIMED
 			spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
 			spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);

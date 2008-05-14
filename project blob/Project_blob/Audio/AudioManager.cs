@@ -21,6 +21,23 @@ namespace Audio
         private SoundBank _soundBank;
         private Dictionary<String, Cue> _music;
 
+		private static bool enabled = true;
+		public static bool Enabled
+		{
+			get
+			{
+				return enabled;
+			}
+			set
+			{
+				enabled = value;
+				if (enabled)
+				{
+					_instance.initialize();
+				}
+			}
+		}
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -53,9 +70,17 @@ namespace Audio
         public void initialize()
         {
 			// Crash: System Invalid Operation Exception
-            _audioEngine = new AudioEngine("Content/Audio/sound.xgs");
-            _waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
-            _soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
+			try
+			{
+				_audioEngine = new AudioEngine("Content/Audio/sound.xgs");
+				_waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
+				_soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				enabled = false;
+			}
         }
 
         /// <summary>
@@ -205,7 +230,10 @@ namespace Audio
         public void update()
         {
             // Update the audio engine so that it can process audio data
-            _audioEngine.Update();
+			if (enabled)
+			{
+				_audioEngine.Update();
+			}
         }
 
     }

@@ -16,7 +16,7 @@ namespace Project_blob.GameState
 
 		bool Fullscreen = ScreenManager.IsFullScreen;
 		bool AntiAliasing = ScreenManager.IsAntiAliasing;
-        bool audio = true;
+		bool audio = Audio.AudioManager.Enabled;
 		PhysicsManager.ParallelSetting Threading = PhysicsManager.enableParallel;
 		Resolution resolution = ScreenManager.CurrentResolution;
 
@@ -87,16 +87,7 @@ namespace Project_blob.GameState
 
 		void audioSelected(object sender, EventArgs e)
 		{
-            /*Probably won't work, last time it was more complex
-            if (audio)
-            {
-                AudioManager.pauseAll();
-            }
-            else
-            {
-                AudioManager.resumeAll();
-            }
-            audio = !audio;*/
+            audio = !audio;
 			setMenuText();
 		}
 
@@ -139,7 +130,11 @@ namespace Project_blob.GameState
 				ScreenManager.ToggleAntiAliasing();
 			}
 
+			Audio.AudioManager.Enabled = audio;
+
 			PhysicsManager.enableParallel = Threading;
+
+			setMenuText();
 		}
 
 		public override void Draw(GameTime gameTime)
