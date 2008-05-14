@@ -274,7 +274,8 @@ namespace Project_blob.GameState
 			chaseCamera.Up = Vector3.Up;
 
 			chaseCamera.ChasePosition = theBlob.getCenter();
-			chaseCamera.ChaseDirection = theBlob.getPotentialCenter() - theBlob.getCenter();
+            
+		    chaseCamera.ChaseDirection = Vector3.Forward;
 
 			chaseCamera.Reset();
 
@@ -629,8 +630,10 @@ namespace Project_blob.GameState
 					//Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
 					//CameraBody.setCameraOffset(Offset);
 					//CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
-					Vector3 tempVect = Vector3.Normalize(theBlob.getPotentialCenter() - theBlob.getCenter());
-					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = new Vector3(tempVect.X, MathHelper.Clamp(tempVect.Y, -60, 60), tempVect.Z);
+					//Vector3 tempVect = Vector3.Normalize(theBlob.getPotentialCenter() - theBlob.getCenter());
+					if (theBlob.getAverageVelocity().LengthSquared() > 1f)
+                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = theBlob.getAverageVelocity();
+
 					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
 					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
 
@@ -638,8 +641,6 @@ namespace Project_blob.GameState
 					//distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 					//cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 				}
-
-
 				if (currentArea.Display.SkyBox != null)
 					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(CameraManager.getSingleton.ActiveCamera.Position);
 
