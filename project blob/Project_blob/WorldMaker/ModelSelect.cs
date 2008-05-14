@@ -141,7 +141,7 @@ namespace WorldMaker
             if (!m_CurrentModel.ModelName.Equals("none") && !m_CurrentModel.TextureName.Equals("none") && !m_CurrentModel.Name.Equals(""))
             {
                 //Console.WriteLine(m_CurrentModel.TextureName);
-                if (m_CurrentModel.TextureName.Equals("event"))
+                /*if (m_CurrentModel.TextureName.Equals("event"))
                 {
                     _events = new EventSelector();
                     _events.ShowDialog();
@@ -150,7 +150,9 @@ namespace WorldMaker
                 {
                     this.DialogResult = DialogResult.OK;
                     this.Close( );
-                }
+                }*/
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
 
