@@ -16,7 +16,8 @@ namespace Project_blob
 
 		private Dictionary<String, Drawable> _drawables;
 
-		private Dictionary<String, EventTrigger> _events;
+        //old events - delete these
+		//private Dictionary<String, EventTrigger> _events;
 
 		private List<Portal> _portals = new List<Portal>();
 		public List<Portal> Portals
@@ -43,11 +44,11 @@ namespace Project_blob
 			set { _drawables = value; }
 		}
 
-		public Dictionary<String, EventTrigger> Events
+		/*public Dictionary<String, EventTrigger> Events
 		{
 			get { return _events; }
 			set { _events = value; }
-		}
+		}*/
 
         private Vector3 m_StartPosition;
         public Vector3 StartPosition
@@ -67,7 +68,7 @@ namespace Project_blob
 			
 			_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			_drawables = new Dictionary<String, Drawable>();
-			_events = new Dictionary<String, EventTrigger>();
+			//_events = new Dictionary<String, EventTrigger>();
 			_portals = new List<Portal>();
 		}
 
@@ -75,7 +76,7 @@ namespace Project_blob
 		{
 			_display = new Display(worldMatrix, effectName, worldParameterName, textureParameterName, techniqueName);
 			_drawables = new Dictionary<String, Drawable>();
-			_events = new Dictionary<String, EventTrigger>();
+			//_events = new Dictionary<String, EventTrigger>();
 			_portals = new List<Portal>();
 		}
 
@@ -91,12 +92,22 @@ namespace Project_blob
 		public List<Drawable> getDrawableList()
 		{
 			List<Drawable> drawableList = new List<Drawable>();
-			IEnumerator drawablesEnum = this.Drawables.GetEnumerator();
+			/*IEnumerator drawablesEnum = this.Drawables.GetEnumerator();
 			while (drawablesEnum.MoveNext())
 			{
 				KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
 				drawableList.Add((Drawable)kvp.Value);
-			}
+			}*/
+            foreach (Drawable d in this.Drawables.Values)
+            {
+                if (d is StaticModel)
+                {
+                    if (((StaticModel)d).Visible)
+                    {
+                        drawableList.Add(d);
+                    }
+                }
+            }
 			return drawableList;
 		}
 
@@ -139,35 +150,36 @@ namespace Project_blob
 			}
 		}
 
-		public EventTrigger GetEvent(String eventName)
+		/*public EventTrigger GetEvent(String eventName)
 		{
 			if (_events.ContainsKey(eventName))
 			{
 				return _events[eventName];
 			}
 			return null;
-		}
+		}*/
 
 		public void RemoveEvent(String eventName)
 		{
-            if (_events.ContainsKey(eventName))
+            /*if (_events.ContainsKey(eventName))
 			{
 				EventTrigger tempEvent;
 				tempEvent = _events[eventName];
 				_events.Remove(eventName);
-			}
+			}*/
 		}
 
 		public void AddEvent(String eventName, EventTrigger eventTrigger)
 		{
-			if (_events == null)
+			/*if (_events == null)
 			{
 				_events = new Dictionary<string, EventTrigger>();
 			}
 			if (!_events.ContainsKey(eventName))
 			{
 				_events.Add(eventName, eventTrigger);
-			}
+			}*/
+
 		}
 
 		[NonSerialized]
@@ -188,9 +200,30 @@ namespace Project_blob
                 if (d is StaticModel)
                 {
                     ((StaticModel)d).initialize();
+                    //((StaticModel)d).Visible = true;
                 }
                 this.Display.AddToBeDrawn(d);
             }
+
+            //move events into their respective models
+            /*IEnumerator eventsEnum = this._events.GetEnumerator();
+            while (eventsEnum.MoveNext())
+            {
+                //KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)eventsEnum.Current;
+                drawableList.Add((Drawable)kvp.Value);
+                    ((StaticModel)d).Visible = true;
+
+            }*/
+
+            /*foreach (KeyValuePair<String, EventTrigger> kvp in this._events)
+            {
+                if (this._drawables[kvp.Key] is StaticModel)
+                {
+                    //((StaticModel)this._drawables[kvp.Key]).Visible = false;
+                    //((StaticModel)this._drawables[kvp.Key]).Event = kvp.Value;
+                }
+            }*/
+            //this._events = null;
         }
 
 		public void LoadAreaGameplay(Game game)
@@ -270,11 +303,11 @@ namespace Project_blob
 						{
 							if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
 							{
-								if (dm.TextureName.Equals("event"))
+								/*if (dm.TextureName.Equals("event"))
 								{
 									//collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
 									eventtrigger = true;
-								}
+								}*/
 
 								collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
 
@@ -285,10 +318,10 @@ namespace Project_blob
 
 								numCol++;
 							}
-						}
-						if (eventtrigger)
-						{
-							body = new TriggerStatic(collidables, null, dm.AudioName ,Events[dm.Name]);
+                        }
+                        if (dm.Event != null)
+                        {
+							body = new TriggerStatic(collidables, null, dm.AudioName ,dm.Event);
 						}
 						else if (dm is ConveyerBeltStatic)
 						{
@@ -358,7 +391,7 @@ namespace Project_blob
 
             //Give the SceneManager a reference to the display
             SceneManager.getSingleton.Display = this._display;
-		}
+        }
 	}
 }
 

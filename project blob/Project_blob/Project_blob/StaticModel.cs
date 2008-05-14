@@ -115,6 +115,32 @@ namespace Project_blob
             }
         }
 
+        private EventTrigger m_Event;
+        public EventTrigger Event
+        {
+            get
+            {
+                return m_Event;
+            }
+            set
+            {
+                m_Event = value;
+            }
+        }
+
+        private bool m_Visible = true;
+        public bool Visible
+        {
+            get
+            {
+                return m_Visible;
+            }
+            set
+            {
+                m_Visible = value;
+            }
+        }
+
 		/*public void updateVertexBuffer()
 		{
 			Model m = ModelManager.getSingleton.GetModel(_modelName);

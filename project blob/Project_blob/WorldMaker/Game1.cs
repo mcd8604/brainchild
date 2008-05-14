@@ -519,11 +519,11 @@ namespace WorldMaker
 				}
 				LevelEditor.DrawablesToAdd.Clear();
 
-				foreach (EventInfo eventInfo in LevelEditor.EventsToAdd)
+				/*foreach (EventInfo eventInfo in LevelEditor.EventsToAdd)
 				{
 					_activeArea.AddEvent(eventInfo.name, eventInfo.eventTrigger);
 				}
-				LevelEditor.EventsToAdd.Clear();
+				LevelEditor.EventsToAdd.Clear();*/
 
 				graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 				_activeArea.Display.Draw(graphics.GraphicsDevice);
