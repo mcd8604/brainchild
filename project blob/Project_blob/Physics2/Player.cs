@@ -99,8 +99,8 @@ namespace Physics2
 
 		private bool jumpflag = false;
 
-		public float JumpWork = 10;
-		public float AirJumpWork = 5;
+		public float JumpWork = 15;
+		public float AirJumpWork = 0;
 
 		Vector3 jumpVector;
 
