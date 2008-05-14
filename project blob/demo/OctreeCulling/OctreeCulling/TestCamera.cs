@@ -14,7 +14,7 @@ namespace OctreeCulling
         public TestCamera(Viewport viewport)
         {
             Position = Vector3.Zero;
-            NearPlane = 1.0f;
+            NearPlane = 0.1f;
             FarPlane = 2000.0f;
             AspectRatio = viewport.AspectRatio;
             RotationSpeed = 0.05f;
