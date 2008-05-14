@@ -15,6 +15,13 @@ using System.ComponentModel;
 
 namespace Project_blob
 {
+    public enum CollisionTypes
+    {
+        None,
+        BoundingBox,
+        Body
+    }
+
 	[Serializable]
 	public class StaticModel : Drawable
 	{
@@ -138,6 +145,19 @@ namespace Project_blob
             set
             {
                 m_Visible = value;
+            }
+        }
+
+        private CollisionTypes m_CollisionType = CollisionTypes.Body;
+        public CollisionTypes CollisionType
+        {
+            get
+            {
+                return m_CollisionType;
+            }
+            set
+            {
+                m_CollisionType = value;
             }
         }
 

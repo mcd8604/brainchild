@@ -296,28 +296,53 @@ namespace Project_blob
 						// temporary
 						bool eventtrigger = false;
 						bool speed = false;
-
+                        
 						List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
-						int numCol = 0;
-						for (int i = 0; i < indices.Length; i += 3)
-						{
-							if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
-							{
-								/*if (dm.TextureName.Equals("event"))
-								{
-									//collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
-									eventtrigger = true;
-								}*/
 
-								collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+                        if (dm.CollisionType == CollisionTypes.Body)
+                        {
+                            int numCol = 0;
+                            for (int i = 0; i < indices.Length; i += 3)
+                            {
+                                if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
+                                {
+                                    /*if (dm.TextureName.Equals("event"))
+                                    {
+                                        //collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
+                                        eventtrigger = true;
+                                    }*/
 
-                                if (dm.TextureName.Equals("speed"))
-								{
-									speed = true;
-								}
+                                    collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
 
-								numCol++;
-							}
+                                    if (dm.TextureName.Equals("speed"))
+                                    {
+                                        speed = true;
+                                    }
+
+                                    numCol++;
+                                }
+                            }
+                        }
+                        else if (dm.CollisionType == CollisionTypes.BoundingBox)
+                        {
+                            AxisAlignedBoundingBox b = new AxisAlignedBoundingBox();
+                            foreach (VertexPositionNormalTexture v in vertices)
+                            {
+                                b.expandToInclude(v.Position);
+                            }
+                            /*collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());
+                            collidables.Add(new Physics2.CollidableStaticTri());*/
+
                         }
                         if (dm.Event != null)
                         {
