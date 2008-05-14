@@ -60,20 +60,20 @@ namespace Project_blob.GameState
 
 		PhysicsManager physics;
 
-        private enum CameraType
-        {
-            follow,
-            cinema,
-            chase
-        }
+		private enum CameraType
+		{
+			follow,
+			cinema,
+			chase
+		}
 
-        private CameraType CurCamera = CameraType.follow;
+		private CameraType CurCamera = CameraType.follow;
 		//bool cinema = false;
 		bool paused = false;
 		bool step = false;
 		bool controllermode = false;
 		//bool follow = true;
-        //bool chase = false;
+		//bool chase = false;
 
 		//bool points = false;
 
@@ -93,7 +93,7 @@ namespace Project_blob.GameState
 		float cameraLength = 20f;
 		float playerCamMulti = 0.1f;
 
-		//bool OrientCamera = false;
+		bool OrientCamera = false;
 
 		public static Area currentArea;
 
@@ -102,7 +102,7 @@ namespace Project_blob.GameState
 		System.Diagnostics.Stopwatch drawTime = new System.Diagnostics.Stopwatch();
 #endif
 
-        System.Diagnostics.Stopwatch PlayTime = new System.Diagnostics.Stopwatch();
+		System.Diagnostics.Stopwatch PlayTime = new System.Diagnostics.Stopwatch();
 
 		CameraBody CameraBody;
 
@@ -208,7 +208,7 @@ namespace Project_blob.GameState
 
 			//load default level
 			Level.LoadLevel("FinalLevel", "effects");
-            PlayTime.Reset();
+			PlayTime.Reset();
 
 			//List of Static Drawables to add to Scene
 			//List<Drawable> staticDrawables = new List<Drawable>();
@@ -264,22 +264,22 @@ namespace Project_blob.GameState
 
 			CameraManager.getSingleton.AddCamera("cinematic", cinematicCamera);
 
-            ChaseCamera chaseCamera = new ChaseCamera();
-            chaseCamera.FieldOfView = MathHelper.ToRadians(45.0f);
-            chaseCamera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
-            chaseCamera.NearPlane = 1.0f;
-            chaseCamera.FarPlane = 1000.0f;
+			ChaseCamera chaseCamera = new ChaseCamera();
+			chaseCamera.FieldOfView = MathHelper.ToRadians(45.0f);
+			chaseCamera.AspectRatio = (float)ScreenManager.GraphicsDevice.Viewport.Width / (float)ScreenManager.GraphicsDevice.Viewport.Height;
+			chaseCamera.NearPlane = 1.0f;
+			chaseCamera.FarPlane = 1000.0f;
 
-            chaseCamera.Target = Vector3.Zero;
-            chaseCamera.Up = Vector3.Up;
+			chaseCamera.Target = Vector3.Zero;
+			chaseCamera.Up = Vector3.Up;
 
-            chaseCamera.ChasePosition = theBlob.getCenter();
-            chaseCamera.ChaseDirection = theBlob.getPotentialCenter() - theBlob.getCenter();
+			chaseCamera.ChasePosition = theBlob.getCenter();
+			chaseCamera.ChaseDirection = theBlob.getPotentialCenter() - theBlob.getCenter();
 
-            chaseCamera.Reset();
+			chaseCamera.Reset();
 
-            CameraManager.getSingleton.AddCamera("chase", chaseCamera);
-            //CameraManager.getSingleton.SetActiveCamera("chase");
+			CameraManager.getSingleton.AddCamera("chase", chaseCamera);
+			//CameraManager.getSingleton.SetActiveCamera("chase");
 
 
 #if DEBUG
@@ -306,7 +306,7 @@ namespace Project_blob.GameState
 #endif
 
 			//ti = new TextureInfo("cloudsky", 0);
-            sky = new StaticModel("sky", "skyBox", "none", "cloudsky", new List<short>());
+			sky = new StaticModel("sky", "skyBox", "none", "cloudsky", new List<short>());
 			sky.initialize();
 			sky.Scale = Matrix.CreateScale(750f);
 
@@ -399,44 +399,44 @@ namespace Project_blob.GameState
 		public static void CauseDeath()
 		{
 			game.reset();
-        }
+		}
 
-        public static void SetCheckPoint(Vector3 position)
-        {
-            game.blobStartPosition = position;
-        }
+		public static void SetCheckPoint(Vector3 position)
+		{
+			game.blobStartPosition = position;
+		}
 
-        public void ChangeArea(String area)
-        {
-            currentArea = Level.Areas[area];
-            currentArea.LoadAreaGameplay(ScreenManager);
+		public void ChangeArea(String area)
+		{
+			currentArea = Level.Areas[area];
+			currentArea.LoadAreaGameplay(ScreenManager);
 
-            //moved hardcode to Display class
-            //currentArea.Display.EffectName = "cartoonEffect";
-            //currentArea.Display.WorldParameterName = "World";
-            //currentArea.Display.TextureParameterName = "Texture";
-            //currentArea.Display.TechniqueName = "Lambert";
-            InitializeEffect();
+			//moved hardcode to Display class
+			//currentArea.Display.EffectName = "cartoonEffect";
+			//currentArea.Display.WorldParameterName = "World";
+			//currentArea.Display.TextureParameterName = "Texture";
+			//currentArea.Display.TechniqueName = "Lambert";
+			InitializeEffect();
 
-            blobStartPosition = currentArea.StartPosition;
+			blobStartPosition = currentArea.StartPosition;
 
-            //Add the Static Drawables to the Octree
-            List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
-            List<Portal> portals = currentArea.Portals;
-            SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
-            //SceneManager.getSingleton.BuildOctree(ref temp);
-            //SceneManager.getSingleton.BuildPortalScene(temp);
-            foreach (Portal p in portals)
-            {
-                p.CreateBoundingBox();
-            }
-            SceneManager.getSingleton.BuildPortalScene(temp, portals);
-            SceneManager.getSingleton.PortalScene.CurrSector = 1;
+			//Add the Static Drawables to the Octree
+			List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
+			List<Portal> portals = currentArea.Portals;
+			SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
+			//SceneManager.getSingleton.BuildOctree(ref temp);
+			//SceneManager.getSingleton.BuildPortalScene(temp);
+			foreach (Portal p in portals)
+			{
+				p.CreateBoundingBox();
+			}
+			SceneManager.getSingleton.BuildPortalScene(temp, portals);
+			SceneManager.getSingleton.PortalScene.CurrSector = 1;
 
-            currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
+			currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
 
-            reset();
-        }
+			reset();
+		}
 
 		public void ChangeArea(String area, Vector3 position)
 		{
@@ -478,7 +478,7 @@ namespace Project_blob.GameState
 			cinematicCamera.Running = true;
 			CameraManager.getSingleton.SetActiveCamera("cinematic");
 			//cinema = true;
-            CurCamera = CameraType.cinema;
+			CurCamera = CameraType.cinema;
 		}
 
 		/// <summary>
@@ -529,7 +529,7 @@ namespace Project_blob.GameState
 				if (InputHandler.IsActionPressed(Actions.Pause))
 				{
 					ScreenManager.AddScreen(new PauseMenuScreen());
-                    //PlayTime.Stop();
+					//PlayTime.Stop();
 				}
 				if (InputHandler.IsActionPressed(Actions.Reset))
 				{
@@ -579,9 +579,9 @@ namespace Project_blob.GameState
 					if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
 					{
 						CurCamera = CameraType.cinema;
-						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Position = new Vector3(0, 0, -10);
-						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Target = Vector3.Zero;
-						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).Up = Vector3.Up;
+						CameraManager.getSingleton.ActiveCamera.Position = new Vector3(0, 0, -10);
+						CameraManager.getSingleton.ActiveCamera.Target = Vector3.Zero;
+						CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
 					}
 				}
@@ -607,23 +607,35 @@ namespace Project_blob.GameState
 					CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
 
 					CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
-		
-				}
-                else if (CurCamera == CameraType.chase)
-                {
-                    //Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
-                    //CameraBody.setCameraOffset(Offset);
-                    //CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
-                    Vector3 tempVect = Vector3.Normalize(theBlob.getPotentialCenter() - theBlob.getCenter());
-                    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = new Vector3(tempVect.X, MathHelper.Clamp(tempVect.Y,-60,60),tempVect.Z);
-                    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
-                    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
 
-                    //distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-                    //distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
-                    //cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                }
-                
+					if (OrientCamera)
+					{
+						foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
+						{
+							if (p.LastCollision != null)
+							{
+								CameraManager.getSingleton.ActiveCamera.Up = p.LastCollision.Normal;
+								break;
+							}
+						}
+					}
+
+				}
+				else if (CurCamera == CameraType.chase)
+				{
+					//Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
+					//CameraBody.setCameraOffset(Offset);
+					//CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
+					Vector3 tempVect = Vector3.Normalize(theBlob.getPotentialCenter() - theBlob.getCenter());
+					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = new Vector3(tempVect.X, MathHelper.Clamp(tempVect.Y, -60, 60), tempVect.Z);
+					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
+					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
+
+					//distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+					//distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+					//cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+				}
+
 
 				if (currentArea.Display.SkyBox != null)
 					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(CameraManager.getSingleton.ActiveCamera.Position);
@@ -644,6 +656,11 @@ namespace Project_blob.GameState
 				if (InputHandler.IsKeyPressed(Keys.M))
 				{
 					physics.Player.DEBUG_MoveModeFlag = !physics.Player.DEBUG_MoveModeFlag;
+				}
+
+				if (InputHandler.IsKeyPressed(Keys.N))
+				{
+					OrientCamera = !OrientCamera;
 				}
 
 				if (InputHandler.IsKeyPressed(Keys.L))
@@ -688,35 +705,35 @@ namespace Project_blob.GameState
 				{
 					paused = !paused;
 				}
-                //if (InputHandler.IsKeyPressed(Keys.F))
-                //{
-                //    follow = !follow;
-                //    //camera follow
-                //    if (!follow)
-                //    {
-                //        //cameraPosition = defaultCameraPosition;
-                //        CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
-                //        //viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
-                //        //effect.Parameters["xView"].SetValue(viewMatrix);
-                //        //camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
-                //        CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
-                //        CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
+				//if (InputHandler.IsKeyPressed(Keys.F))
+				//{
+				//    follow = !follow;
+				//    //camera follow
+				//    if (!follow)
+				//    {
+				//        //cameraPosition = defaultCameraPosition;
+				//        CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
+				//        //viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
+				//        //effect.Parameters["xView"].SetValue(viewMatrix);
+				//        //camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
+				//        CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
+				//        CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
 
 
-                //        cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                //        distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-                //        distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+				//        cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+				//        distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+				//        distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
-                //        //effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+				//        //effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
-                //        //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-                //        //celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-                //        //celEffect.Parameters["View"].SetValue(viewMatrix);
-                //        //celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                //        //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                //        //effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-                //    }
-                //}
+				//        //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
+				//        //celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+				//        //celEffect.Parameters["View"].SetValue(viewMatrix);
+				//        //celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+				//        //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+				//        //effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+				//    }
+				//}
 
 				if (InputHandler.IsKeyPressed(Keys.S))
 				{
@@ -755,7 +772,7 @@ namespace Project_blob.GameState
 				{
 					currentArea.Display.DEBUG_WireframeMode = !currentArea.Display.DEBUG_WireframeMode;
 				}
-				if (InputHandler.IsKeyPressed(Keys.N))
+				if (InputHandler.IsKeyPressed(Keys.OemComma))
 				{
 					Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
 				}
@@ -819,10 +836,10 @@ namespace Project_blob.GameState
 			drawTime.Reset();
 			drawTime.Start();
 #endif
-            if (!PlayTime.IsRunning)
-            {
-                PlayTime.Start();
-            }
+			if (!PlayTime.IsRunning)
+			{
+				PlayTime.Start();
+			}
 			//ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
 			//ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
@@ -1057,7 +1074,7 @@ namespace Project_blob.GameState
 			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			spriteBatch.Begin();
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
-            spriteBatch.DrawString(font, "Time - " + PlayTime.Elapsed.ToString().Substring(3,8), new Vector2(0, 175), Color.White);
+			spriteBatch.DrawString(font, "Time - " + PlayTime.Elapsed.ToString().Substring(3, 8), new Vector2(0, 175), Color.White);
 			spriteBatch.DrawString(font, "PTime - " + physics.Time, new Vector2(0, 200), Color.White);
 #if TIMED
 			spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
