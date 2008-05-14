@@ -14,9 +14,9 @@ namespace WorldMaker
 {
     public partial class ModelSelect : Form
     {
-        private EventSelector _events;
+        //private EventSelector _events;
 
-        public EventTrigger Event {
+        /*public EventTrigger Event {
             get {
                 if(_events != null) {
                     return _events.EventTrigger;
@@ -24,7 +24,7 @@ namespace WorldMaker
                     return null;
                 }
             }
-        }
+        }*/
 
         StaticModel m_CurrentModel;
         public StaticModel CurrentModel

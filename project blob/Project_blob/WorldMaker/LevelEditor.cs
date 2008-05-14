@@ -15,7 +15,7 @@ namespace WorldMaker
 		public delegate void Callback();
 
 		private DrawableInfo _drawableInfo;
-		private EventInfo _eventInfo;
+		//private EventInfo _eventInfo;
 		private Game1 _gameRef;
 		private ModelSelect _modelSelect;
 		private LevelSelect _levelSelect;
