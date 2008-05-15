@@ -12,9 +12,9 @@ namespace Project_blob
 	{
 		public DeathEvent() { }
 
-		public void PerformEvent(PhysicsPoint point)
+        public bool PerformEvent( PhysicsPoint point )
         {
-            GameplayScreen.CauseDeath(point.ParentBody);
+            return GameplayScreen.CauseDeath(point.ParentBody);
 		}
 	}
 }

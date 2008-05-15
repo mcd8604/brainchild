@@ -34,8 +34,10 @@ namespace Project_blob
 		{
 			if (Time < 0)
 			{
-				_triggeredEvent.PerformEvent(e.point);
-				Time = CoolDown;
+                if ( _triggeredEvent.PerformEvent( e.point ) )
+                {
+                    Time = CoolDown;
+                }
 			}
 		}
     }

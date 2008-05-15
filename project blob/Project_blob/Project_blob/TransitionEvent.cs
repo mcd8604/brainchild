@@ -52,9 +52,10 @@ namespace Project_blob
             _position = new Vector3(xPos, yPos, zPos);
         }
 
-        public void PerformEvent(PhysicsPoint p)
+        public bool PerformEvent( PhysicsPoint p )
         {
             GameplayScreen.game.ChangeArea(_area, _position);
+            return true;
         }
     }
 }

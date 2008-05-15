@@ -30,9 +30,10 @@ namespace Project_blob
             m_CheckPoint = p_CheckPoint;
         }
 
-        public void PerformEvent(PhysicsPoint point)
+        public bool PerformEvent(PhysicsPoint point)
         {
-            GameplayScreen.SetCheckPoint(m_CheckPoint);
+            GameplayScreen.SetCheckPoint( m_CheckPoint );
+            return true;
         }
     }
 }

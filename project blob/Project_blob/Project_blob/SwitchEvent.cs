@@ -17,12 +17,17 @@ namespace Project_blob
             m_Events = p_Events;
         }
 
-        public void PerformEvent(PhysicsPoint point)
+        public bool PerformEvent( PhysicsPoint point )
         {
+            bool partialSuccess = false;
             foreach (EventTrigger e in m_Events)
             {
-                e.PerformEvent(point);
+                if ( e.PerformEvent( point ) )
+                {
+                    partialSuccess = true;
+                }
             }
+            return partialSuccess;
         }
     }
 }

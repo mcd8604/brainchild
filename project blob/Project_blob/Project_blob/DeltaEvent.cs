@@ -69,7 +69,7 @@ namespace Project_blob
 			DeltaPosition = Position;
 		}
 
-		public void PerformEvent(PhysicsPoint point)
+        public bool PerformEvent( PhysicsPoint point )
 		{
 			foreach (PhysicsPoint p in point.ParentBody.getPoints())
 			{
@@ -77,6 +77,7 @@ namespace Project_blob
 				p.NextVelocity += DeltaVelocity;
 				p.ForceNextFrame += DeltaForce;
 			}
+            return true;
 		}
 	}
 }
