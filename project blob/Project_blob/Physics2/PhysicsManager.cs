@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 namespace Physics2
 {
+
 	public abstract class PhysicsManager
 	{
 		public enum ParallelSetting { Always, Automatic, Never };

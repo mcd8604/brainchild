@@ -6,7 +6,7 @@ namespace Physics2
 	{
 
 		private float Magnitude = 9.8f;
-		private Vector3 Origin = Vector3.Zero;
+		private Vector3 Origin = Util.Zero;
 
 		public GravityPoint() { }
 		public GravityPoint(float p_Magnitude)

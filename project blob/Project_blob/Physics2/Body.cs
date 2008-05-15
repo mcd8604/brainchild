@@ -63,7 +63,7 @@ namespace Physics2
 				c.parent = this;
 				boundingBox.expandToInclude(c.getBoundingBox());
 			}
-			center = Vector3.Zero;
+			center = Util.Zero;
 			foreach (PhysicsPoint p in points)
 			{
 				boundingBox.expandToInclude(p.CurrentPosition);
@@ -123,10 +123,10 @@ namespace Physics2
 		{
 			if (points.Count == 0)
 			{
-				return Vector3.Zero;
+				return Util.Zero;
 			}
 
-			Vector3 AvgVel = Vector3.Zero;
+			Vector3 AvgVel = Util.Zero;
 			foreach (PhysicsPoint px in points)
 			{
 				AvgVel += px.NextVelocity;
@@ -192,7 +192,7 @@ namespace Physics2
 			}
 
 			// Predict potential position
-			potentialCenter = Vector3.Zero;
+			potentialCenter = Util.Zero;
 			foreach (PhysicsPoint p in points)
 			{
 				p.PotentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
@@ -232,7 +232,7 @@ namespace Physics2
 				boundingBox.expandToInclude(child.getBoundingBox());
 			}
 
-			center = Vector3.Zero;
+			center = Util.Zero;
 			foreach (PhysicsPoint p in points)
 			{
 				p.updatePosition();
@@ -258,12 +258,12 @@ namespace Physics2
 
 			foreach (PhysicsPoint p in points)
 			{
-				if (p.ForceThisFrame != Vector3.Zero || p.AccelerationThisFrame != Vector3.Zero)
+				if (p.ForceThisFrame != Util.Zero || p.AccelerationThisFrame != Util.Zero)
 				{
 					Vector3 Acceleration = p.AccelerationThisFrame + (p.ForceThisFrame / p.Mass);
 					p.PotentialVelocity = p.CurrentVelocity + (Acceleration * TotalElapsedSeconds);
 
-					if (p.PotentialVelocity != Vector3.Zero)
+					if (p.PotentialVelocity != Util.Zero)
 					{
 						//Vector3 DragForce = p.PotentialVelocity * airfriction;
 						Vector3 DragForce = p.PotentialVelocity * 1;
@@ -380,7 +380,7 @@ namespace Physics2
 		public virtual Vector3 getVelocity()
 		{
 			// TODO - for task velocity
-			return Vector3.Zero;
+			return Util.Zero;
 		}
 
 	}

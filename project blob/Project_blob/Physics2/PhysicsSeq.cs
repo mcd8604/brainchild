@@ -196,8 +196,8 @@ namespace Physics2
 				// stop point velocity in the direction of the collidable
 				Vector3 CollidableNormal = Vector3.Normalize(e.collidable.Normal);
 
-				Vector3 VelocityTransfer = Vector3.Zero;
-				Vector3 newVelocity = Vector3.Zero;
+				Vector3 VelocityTransfer = Util.Zero;
+				Vector3 newVelocity = Util.Zero;
 
 				if (Vector3.Dot(e.point.PotentialVelocity, CollidableNormal) < 0)
 				{
@@ -210,8 +210,8 @@ namespace Physics2
 				}
 
 				// normal force
-				Vector3 NormalForce = Vector3.Zero;
-				Vector3 newForce = Vector3.Zero;
+				Vector3 NormalForce = Util.Zero;
+				Vector3 newForce = Util.Zero;
 
 				if (Vector3.Dot(e.point.ForceThisFrame, CollidableNormal) < 0)
 				{

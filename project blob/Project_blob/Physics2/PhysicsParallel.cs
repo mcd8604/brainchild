@@ -67,7 +67,11 @@ namespace Physics2
 				{
 					do
 					{
-						lock (this) System.Threading.Monitor.Wait(this);
+						lock (this)
+						{
+							System.Threading.Monitor.Pulse(this);
+							System.Threading.Monitor.Wait(this);
+						}
 						if (!run)
 						{
 							return;
@@ -97,6 +101,7 @@ namespace Physics2
 					timer.Start();
 #endif
 					runForTime = 0f;
+					lock (this) System.Threading.Monitor.Pulse(this);
 				} while (run);
 
 			});
@@ -112,6 +117,15 @@ namespace Physics2
 			if (TotalElapsedSeconds == 0f)
 			{
 				return;
+			}
+
+			while (runForTime != 0f)
+			{
+				lock (this)
+				{
+					System.Threading.Monitor.Pulse(this);
+					System.Threading.Monitor.Wait(this);
+				}
 			}
 
 			foreach (Body b in physicsMain.bodies)

@@ -14,7 +14,7 @@ namespace Physics2
 
 		public override Vector3 getVelocity()
 		{
-			return Vector3.Zero;
+			return Util.Zero;
 		}
 
 		public override void ApplyForce(Vector3 at, Vector3 f) { }

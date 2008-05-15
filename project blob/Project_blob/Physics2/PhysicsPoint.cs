@@ -27,24 +27,27 @@ namespace Physics2
 
 		internal bool relativelyStatic = false;
 
-		public Vector3 ExternalPosition = Vector3.Zero;
-		public Vector3 ExternalVelocity = Vector3.Zero;
+		public Vector3 ExternalPosition = Util.Zero;
+		public Vector3 ExternalVelocity = Util.Zero;
 
-		public Vector3 CurrentPosition = Vector3.Zero;
-		internal Vector3 CurrentVelocity = Vector3.Zero;
+		public Vector3 CurrentPosition = Util.Zero;
+		internal Vector3 CurrentVelocity = Util.Zero;
 
-		public Vector3 PotentialPosition = Vector3.Zero;
-		internal Vector3 PotentialVelocity = Vector3.Zero;
+		public Vector3 PotentialPosition = Util.Zero;
+		internal Vector3 PotentialVelocity = Util.Zero;
 
-		public Vector3 NextPosition = Vector3.Zero;
-		public Vector3 NextVelocity = Vector3.Zero;
+		public Vector3 NextPosition = Util.Zero;
+		public Vector3 NextVelocity = Util.Zero;
 
+		/// <summary>
+		/// Null, or the last collidable this point hit
+		/// </summary>
 		public Collidable LastCollision = null;
 
-		public Vector3 ForceThisFrame = Vector3.Zero;
-		public Vector3 ForceNextFrame = Vector3.Zero;
+		public Vector3 ForceThisFrame = Util.Zero;
+		public Vector3 ForceNextFrame = Util.Zero;
 
-		public Vector3 AccelerationThisFrame = Vector3.Zero;
+		public Vector3 AccelerationThisFrame = Util.Zero;
 
 		public float Mass = 1f;
 
