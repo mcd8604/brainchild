@@ -63,6 +63,19 @@ namespace Project_blob
             }
         }
 
+        private string m_SkyTexture;
+        public string SkyTexture
+        {
+            get
+            {
+                return m_SkyTexture;
+            }
+            set
+            {
+                m_SkyTexture = value;
+            }
+        }
+
 		public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix)
 		{
 			
