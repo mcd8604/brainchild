@@ -24,25 +24,33 @@ namespace Audio
 
 		public void play(Vector3 SoundLocation, AudioListener Listener, float Magnitude)
 		{
-			float volumeLevel = (float)Math.Log(Magnitude);
 
-			if (playingSound)
-			{
-				if (!collisionSound.IsPlaying)
-				{
-					playingSound = false;
-				}
-			}
-			else
-			{
-				if (collisionSound != null)
-				{
-					playingSound = true;
-					audioEmitter.Position = SoundLocation;
-					AudioManager.playSoundFXs(ref collisionSound, volumeLevel, Listener, audioEmitter);
-				}
-			}
+            if (Magnitude == 0f)
+            {
+                return;
+            }
 
+			float volumeLevel = (float)Math.Log(Magnitude / 500);
+
+            if (volumeLevel > 0)
+            {
+                if (playingSound)
+                {
+                    if (!collisionSound.IsPlaying)
+                    {
+                        playingSound = false;
+                    }
+                }
+                else
+                {
+                    if (collisionSound != null)
+                    {
+                        playingSound = true;
+                        audioEmitter.Position = SoundLocation;
+                        AudioManager.playSoundFXs(ref collisionSound, volumeLevel, Listener, audioEmitter);
+                    }
+                }
+            }
 		}
 	}
 }
