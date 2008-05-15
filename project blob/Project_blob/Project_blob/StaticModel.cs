@@ -190,7 +190,7 @@ namespace Project_blob
 
 						Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
 
-						for (int i = 0; i < vertices.Length; i++)
+						for (int i = 0; i < vertices.Length; ++i)
 						{
 							//scale the texture coordinates
 							if (vertices[i].Normal.Equals(Vector3.Up))
@@ -326,7 +326,7 @@ namespace Project_blob
             mesh.VertexBuffer.GetData<VertexPositionNormalTexture>( m_Vertices );
 
             //transform points
-            for ( int i = 0; i < m_Vertices.Length; i++ )
+            for ( int i = 0; i < m_Vertices.Length; ++i )
             {
                 m_Vertices[i].Position = Vector3.Transform( m_Vertices[i].Position, Transform );
                 m_Vertices[i].Normal = Vector3.TransformNormal( m_Vertices[i].Normal, Transform );
@@ -380,7 +380,7 @@ namespace Project_blob
 					//Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
 					Texture2D texture = TextureManager.GetTexture(m_TextureID);
 
-					for (int i = 0; i < vertices.Length; i++)
+					for (int i = 0; i < vertices.Length; ++i)
 					{
 						//scale the texture coordinates
                         m_Vertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
@@ -459,7 +459,7 @@ namespace Project_blob
 
                     Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
 
-                    for (int i = 0; i < vertices.Length; i++)
+                    for (int i = 0; i < vertices.Length; ++i)
                     {
                         //scale the texture coordinates
                         vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width / 2f));
@@ -473,9 +473,9 @@ namespace Project_blob
 
                 Matrix transformMatrix = Matrix.Identity;
                 Stack<Matrix> drawStack = new Stack<Matrix>();
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 4; ++j)
                 {
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < 3; ++i)
                     {
                         if (m_PriorityArray[i] == j)
                         {
@@ -505,7 +505,7 @@ namespace Project_blob
                     transformMatrix = Matrix.Multiply(drawStack.Pop(), transformMatrix);
                 }
 
-                for (int i = 0; i < vertices.Length; i++)
+                for (int i = 0; i < vertices.Length; ++i)
                 {
                     //transform points to correct position
                     vertices[i].Position = Vector3.Transform(vertices[i].Position, transformMatrix);
@@ -519,7 +519,7 @@ namespace Project_blob
                     indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
                     short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
                     mesh.IndexBuffer.GetData<short>(temp);
-                    for (int i = 0; i < temp.Length; i++)
+                    for (int i = 0; i < temp.Length; ++i)
                         indices[i] = temp[i];
                 }
                 else
@@ -541,7 +541,7 @@ namespace Project_blob
                             } else {
                                 collidables.Add(new CollidableTri(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]]));
                             }
-                            numCol++;
+                            ++numCol;
                         }
                     }
                 }
@@ -690,7 +690,7 @@ namespace Project_blob
 		{
 			m_Transform = Matrix.Identity;
 			Stack<Matrix> drawStack = new Stack<Matrix>();
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 3; ++i)
 			{
 				switch (m_PriorityArray[i])
 				{
@@ -935,9 +935,9 @@ namespace Project_blob
 
 			Matrix transformMatrix = Matrix.Identity;
 			Stack<Matrix> drawStack = new Stack<Matrix>();
-			for (int j = 0; j < 4; j++)
+			for (int j = 0; j < 4; ++j)
 			{
-				for (int i = 0; i < 3; i++)
+				for (int i = 0; i < 3; ++i)
 				{
 					if (m_PriorityArray[i] == j)
 					{
@@ -1004,9 +1004,9 @@ namespace Project_blob
 		//{
 		//    Matrix transformMatrix = Matrix.Identity;
 		//    Stack<Matrix> drawStack = new Stack<Matrix>();
-		//    for (int j = 0; j < 4; j++)
+		//    for (int j = 0; j < 4; ++j)
 		//    {
-		//        for (int i = 0; i < 3; i++)
+		//        for (int i = 0; i < 3; ++i)
 		//        {
 		//            if (m_PriorityArray[i] == j)
 		//            {

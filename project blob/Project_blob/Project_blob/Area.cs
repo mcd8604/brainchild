@@ -280,7 +280,7 @@ namespace Project_blob
 						indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
 						short[] temp = new short[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
 						dm.getIndexBuffer().GetData<short>(temp);
-						for (int i = 0; i < temp.Length; i++)
+						for (int i = 0; i < temp.Length; ++i)
 							indices[i] = temp[i];
 					}
 					else
@@ -319,7 +319,7 @@ namespace Project_blob
                                         speed = true;
                                     }*/
 
-                                    numCol++;
+                                    ++numCol;
                                 }
                             }
                         }
@@ -366,7 +366,7 @@ namespace Project_blob
 						DynamicModel dynModel = (DynamicModel)dm;
 
 						List<PhysicsPoint> points = new List<PhysicsPoint>();
-						for (int i = 0; i < vertices.Length; i++)
+						for (int i = 0; i < vertices.Length; ++i)
 						{
 							points.Add(new PhysicsPoint(vertices[i].Position, null));
 						}
@@ -378,7 +378,7 @@ namespace Project_blob
 							if (points[indices[i]].ExternalPosition != points[indices[i + 1]].ExternalPosition && points[indices[i + 2]].ExternalPosition != points[indices[i]].ExternalPosition && points[indices[i + 1]].ExternalPosition != points[indices[i + 2]].ExternalPosition)
 							{
 								collidables.Add(new Physics2.CollidableTri(points[indices[i + 2]], points[indices[i + 1]], points[indices[i]]));
-								numCol++;
+								++numCol;
 							}
 						}
 
@@ -448,7 +448,7 @@ namespace Project_blob
 //            indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
 //            short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
 //            mesh.IndexBuffer.GetData<short>(temp);
-//            for (int i = 0; i < temp.Length; i++)
+//            for (int i = 0; i < temp.Length; ++i)
 //                indices[i] = temp[i];
 //        }
 //        else
@@ -492,13 +492,13 @@ namespace Project_blob
 //        }*/
 
 //        /*Vector3[] points = new Vector3[numVertices];
-//        for (int i = 0; i < vertices.Length; i++)
+//        for (int i = 0; i < vertices.Length; ++i)
 //        {
 //            points[i] = vertices[i].Position;
 //        }
 //        BoundingBox boundingBox = BoundingBox.CreateFromPoints(points);*/
 
-//        /*for (int i = 0; i < vertices.Length; i++)
+//        /*for (int i = 0; i < vertices.Length; ++i)
 //        {
 //            Vector3 scaleVector = Vector3.Zero;
 //            Quaternion rotVector = Quaternion.Identity;

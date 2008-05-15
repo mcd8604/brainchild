@@ -21,7 +21,7 @@ namespace WorldMaker
         {
             InitializeComponent();
 
-            for (int i = 0; i < levels.Length; i++)
+            for (int i = 0; i < levels.Length; ++i)
             {
                 levelListBox.Items.Add(levels[i]);
             }

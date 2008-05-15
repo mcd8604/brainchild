@@ -66,13 +66,13 @@ namespace WorldMaker
 
             levelEditor = p_LE;
 
-            for (int i = 0; i < models.Length; i++)
+            for (int i = 0; i < models.Length; ++i)
                 modelBox.Items.Add(models[i]);
 
-            for (int i = 0; i < textures.Length; i++)
+            for (int i = 0; i < textures.Length; ++i)
                 textureBox.Items.Add(textures[i]);
 
-            for (int i = 0; i < audio.Length; i++)
+            for (int i = 0; i < audio.Length; ++i)
                 audioBox.Items.Add(audio[i]);
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.LoadFrom("Project_blob.exe");

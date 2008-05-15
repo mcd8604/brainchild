@@ -586,9 +586,9 @@ namespace WorldMaker
 
 						Matrix transformMatrix = Matrix.Identity;
 						Stack<Matrix> drawStack = new Stack<Matrix>();
-						for (int j = 0; j < 4; j++)
+						for (int j = 0; j < 4; ++j)
 						{
-							for (int i = 0; i < 3; i++)
+							for (int i = 0; i < 3; ++i)
 							{
 								if (m.PriorityArray[i] == j)
 								{

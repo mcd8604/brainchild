@@ -27,7 +27,7 @@ namespace Project_blob
 
 		private void updateVertices()
 		{
-            for ( int i = 0; i < m_DrawableModel.Vertices.Length; i++ )
+            for ( int i = 0; i < m_DrawableModel.Vertices.Length; ++i )
 			{
                 m_DrawableModel.Vertices[i].Position = points[i].ExternalPosition;
 			}

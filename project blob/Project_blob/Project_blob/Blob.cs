@@ -104,7 +104,7 @@ namespace Project_blob
 			mesh.VertexBuffer.GetData<VertexPositionColorTexture>(tempVertices);
 
 			vertices = new VertexPositionNormalTexture[tempVertices.Length];
-			for (int i = 0; i < tempVertices.Length; i++)
+			for (int i = 0; i < tempVertices.Length; ++i)
 			{
 				Vector3 testNorm = Vector3.Normalize(Vector3.Subtract(tempVertices[i].Position, center));
 				vertices[i] = new VertexPositionNormalTexture(tempVertices[i].Position, testNorm, tempVertices[i].TextureCoordinate);
@@ -121,7 +121,7 @@ namespace Project_blob
 				indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
 				short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
 				mesh.IndexBuffer.GetData<short>(temp);
-				for (int i = 0; i < temp.Length; i++)
+				for (int i = 0; i < temp.Length; ++i)
 					indices[i] = temp[i];
 			}
 			else
@@ -143,7 +143,7 @@ namespace Project_blob
 
 			g_BlobPoints = new POINTVERTEX[NUM_Blobs];
 			// Set initial blob states
-			for (int i = 0; i < NUM_Blobs; i++)
+			for (int i = 0; i < NUM_Blobs; ++i)
 			{
 				g_BlobPoints[i].pos = new Vector3(0.0f, 0.0f, 0.0f);
 				g_BlobPoints[i].size = 1.0f;
@@ -154,13 +154,13 @@ namespace Project_blob
 			int num_points = 0;
 			int repeated_points = 0;
 			int iter = 0;
-			for(int i = 0; i < vertices.Length; i++)
+			for(int i = 0; i < vertices.Length; ++i)
 			{
 				Physics.Point temp = new Physics.Point(center + new Vector3(vertices[i].Position.X, vertices[i].Position.Y, vertices[i].Position.Z));
 				if (pointTable.ContainsKey(temp))
 				{
 					((List<int>)pointTable[temp]).Add(i);
-					repeated_points++;
+					++repeated_points;
 				}
 				else
 				{
@@ -169,9 +169,9 @@ namespace Project_blob
 					pointTable[temp] = tableList;
 					tempList.Add(temp);
 					pointsToUpdate.Add(iter);
-					num_points++;
+					++num_points;
 				}
-				iter++;
+				++iter;
 			}
             
 			//int check = vertices.Length;
@@ -179,7 +179,7 @@ namespace Project_blob
             
 
 			//change indices
-			for (int i = 0; i < indices.Length; i++)
+			for (int i = 0; i < indices.Length; ++i)
 			{
 				Physics.Point tempPoint = new Physics.Point(center + vertices[indices[i]].Position);
 				if (((List<int>)pointTable[tempPoint]).Count > 1)
@@ -195,7 +195,7 @@ namespace Project_blob
 			//foreach (Physics.Point p in pointTable.Keys)
 			//{
 			//    tempArray[it] = vertices[((List<int>)pointTable[p])[0]];
-			//    for (int i = 0; i < indices.Length; i++)
+			//    for (int i = 0; i < indices.Length; ++i)
 			//    {
 			//        if (indices[i] == ((List<int>)pointTable[p])[0])
 			//        {
@@ -204,7 +204,7 @@ namespace Project_blob
 			//                throw new Exception("Stop");
 			//        }
 			//    }
-			//    it++;
+			//    ++it;
 			//}
 			//vertices = tempArray;
 			// Physics Springs
@@ -227,7 +227,7 @@ namespace Project_blob
 
 
 			// Collidables
-			//for (int i = 0; i < part.PrimitiveCount; i++)
+			//for (int i = 0; i < part.PrimitiveCount; ++i)
 			//{
 			//    //collidables.Add(new Tri(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]], Color.White));
 			//}
@@ -245,7 +245,7 @@ namespace Project_blob
 		private void updateVertices()
 		{
 			//update points
-			for (int i = 0; i < vertices.Length/*pointsToUpdate.Count*/; i++)
+			for (int i = 0; i < vertices.Length/*pointsToUpdate.Count*/; ++i)
 			{
 				vertices[i].Position = points[i].ExternalPosition;
 				vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter()));
@@ -354,7 +354,7 @@ namespace Project_blob
 
 
 			/*
-			for (int i = 0; i < vertices.Length - 2; i++)
+			for (int i = 0; i < vertices.Length - 2; ++i)
 			{
 
 				totalVolume += getFaceVolume(vertices[i].Position, vertices[i + 1].Position, vertices[i + 2].Position);
@@ -367,7 +367,7 @@ namespace Project_blob
 			max = getCenter();
 
 
-			for (int i = 0; i < vertices.Length; i++)
+			for (int i = 0; i < vertices.Length; ++i)
 			{
 
 				if (vertices[i].Position.X < min.X)
@@ -427,7 +427,7 @@ namespace Project_blob
 				Vector3 p1 = new Vector3();
 				Vector3 p2 = new Vector3();
 				Vector3 p3 = new Vector3();
-				for (int j = 0; j < pointsToUpdate.Count; j++)
+				for (int j = 0; j < pointsToUpdate.Count; ++j)
 				{
 
 					if (pointsToUpdate[j] == indices[i])
@@ -458,7 +458,7 @@ namespace Project_blob
 				Vector3 p1 = new Vector3();
 				Vector3 p2 = new Vector3();
 				Vector3 p3 = new Vector3();
-				for (int j = 0; j < pointsToUpdate.Count; j++)
+				for (int j = 0; j < pointsToUpdate.Count; ++j)
 				{
 
 					if (pointsToUpdate[j] == indices[i])
@@ -653,7 +653,7 @@ namespace Project_blob
 					pBlobVertex[posCount].fSize = blobPos[i].size;
 					pBlobVertex[posCount].vColor = blobPos[i].color;
 
-					posCount++;
+					++posCount;
 				}
 			}
 		}

@@ -59,7 +59,7 @@ float4 Distort_PixelShader(float2 TexCoord : TEXCOORD0,
 			
 			
             // Combine a number of weighted displaced-image filter taps
-            for (int i = 0; i < SAMPLE_COUNT; i++)
+            for (int i = 0; i < SAMPLE_COUNT; ++i)
             {
                finalColor += tex2D(SceneTexture, TexCoord.xy + displacement + SampleOffsets[i]) * SampleWeights[i] ;
                finalColor = (finalColor * .95) + (displacementSum  *  .05);
