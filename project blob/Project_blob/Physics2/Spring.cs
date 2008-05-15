@@ -39,8 +39,16 @@ namespace Physics2
 #endif
 			float test = Length - LengthOffset;
 
-			float dist = Vector3.Distance(A.CurrentPosition, B.CurrentPosition);
-			float next_dist = Vector3.Distance(A.PotentialPosition, B.PotentialPosition);
+			float cdx = A.CurrentPosition.X - B.CurrentPosition.X;
+			float cdy = A.CurrentPosition.Y - B.CurrentPosition.Y;
+			float cdz = A.CurrentPosition.Z - B.CurrentPosition.Z;
+
+			float ndx = A.PotentialPosition.X - B.PotentialPosition.X;
+			float ndy = A.PotentialPosition.Y - B.PotentialPosition.Y;
+			float ndz = A.PotentialPosition.Z - B.PotentialPosition.Z;
+
+			float dist = (float)Math.Sqrt((cdx * cdx) + (cdy * cdy) + (cdz * cdz));
+			float next_dist = (float)Math.Sqrt((ndx*ndx) + (ndy*ndy) + (ndz*ndz));
 
 			float X = 0;
 			float Y = 0;
