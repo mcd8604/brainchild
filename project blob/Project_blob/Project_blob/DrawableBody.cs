@@ -32,5 +32,12 @@ namespace Project_blob
 				m_DrawableModel.Vertices[i].Position = points[i].ExternalPosition;
 			}
 		}
+
+		// temporary, until this can be configured properly
+		public override bool canCollide()
+		{
+			return false;
+		}
+
 	}
 }

@@ -24,10 +24,7 @@ namespace Physics2
 		//temp:
 		public Audio.Sound collisionSound;
 
-		protected internal Body()
-		{
-
-		}
+		protected internal Body() { }
 
 		public Body(Body ParentBody)
 		{
@@ -380,7 +377,7 @@ namespace Physics2
 		public virtual Vector3 getVelocity()
 		{
 			// TODO - for task velocity
-			return Util.Zero;
+			return getAverageVelocity();
 		}
 
 	}
