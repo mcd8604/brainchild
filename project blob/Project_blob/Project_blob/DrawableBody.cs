@@ -12,14 +12,11 @@ namespace Project_blob
 	public class DrawableBody : Physics2.BodyRigid
 	{
 		private StaticModel m_DrawableModel;
-		private VertexPositionNormalTexture[] vertices;
 
 		public DrawableBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, String p_collisionSound, StaticModel p_Model)
             : base(ParentBody, p_points, p_collidables, p_springs, p_tasks, p_collisionSound)
 		{
 			m_DrawableModel = p_Model;
-			m_DrawableModel.updateTextureCoords();
-			vertices = m_DrawableModel.getVertices();
 		}
 
 		public override void update(float TotalElapsedSeconds)
@@ -30,11 +27,10 @@ namespace Project_blob
 
 		private void updateVertices()
 		{
-			for (int i = 0; i < vertices.Length; i++)
+            for ( int i = 0; i < m_DrawableModel.Vertices.Length; i++ )
 			{
-				vertices[i].Position = points[i].ExternalPosition;
+                m_DrawableModel.Vertices[i].Position = points[i].ExternalPosition;
 			}
-			m_DrawableModel.updateVertexBuffer(vertices);
 		}
 	}
 }
