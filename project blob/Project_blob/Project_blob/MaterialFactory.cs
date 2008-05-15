@@ -20,11 +20,11 @@ namespace Project_blob
 
     public static class MaterialFactory
     {
-        private const float CLING_SLICK = 0.1f;
-        private const float FRICTION_SLICK = 0.1f;
+        public const float CLING_SLICK = 0.1f;
+        public const float FRICTION_SLICK = 0.1f;
 
-        private const float CLING_STICKY = 2.0f;
-        private const float FRICTION_STICKY = 2.0f;
+        public const float CLING_STICKY = 2.0f;
+        public const float FRICTION_STICKY = 2.0f;
 
         private static Dictionary<MaterialType, Material> m_Materials = new Dictionary<MaterialType, Material>();
 

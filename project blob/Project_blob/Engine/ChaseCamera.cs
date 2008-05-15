@@ -49,6 +49,14 @@ namespace Engine
         }
         private Vector3 up = Vector3.Up;
 
+        public bool ClimbMode = false;
+
+        private Vector3 m_ClimbNormal;
+        public Vector3 ClimbNormal
+        {
+            set { m_ClimbNormal = value; }
+        }
+
         #endregion
 
         #region Desired camera positioning (set when creating camera or changing view)
@@ -221,9 +229,27 @@ namespace Engine
 
             //UpdateWorldPositions();
 
-            desiredPosition = ChasePosition - (Vector3.Normalize(chaseDirection) * DesiredPositionOffset);
-            desiredPosition.Y += 5f;
+            if (ClimbMode)
+            {
+                desiredPosition = chasePosition + (m_ClimbNormal * desiredPositionOffset*2);
+                desiredPosition.Y -= 5f;
+            }
+            else
+            {
+
+                desiredPosition = ChasePosition - (Vector3.Normalize(chaseDirection) * DesiredPositionOffset);
+                desiredPosition.Y += 5f;
+            }
             lookAt = ChasePosition;
+
+            //if(Vector3.Dot(lookAt - desiredPosition,Vector3.Up) < 35)
+            //{
+            //    desiredPosition.Y = ChasePosition.Y + 5;
+            //}
+            //if (Vector3.Dot(lookAt - desiredPosition, Vector3.Down) < 35)
+            //{
+            //    desiredPosition.Y = ChasePosition.Y - 5;
+            //}
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -237,6 +263,7 @@ namespace Engine
 
             // Apply velocity
             Position += velocity * elapsed;
+            
 
             UpdateMatrices();
             base.Update(gameTime);
