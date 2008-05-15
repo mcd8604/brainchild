@@ -22,6 +22,7 @@ namespace Project_blob
 			set
 			{
 				_area = value;
+                _position = Level.GetArea(value).StartPosition;
 			}
 		}
         private Vector3 _position;
@@ -39,6 +40,11 @@ namespace Project_blob
     
 
         public TransitionEvent() { }
+
+        public TransitionEvent(String area) 
+        {
+            _area = area;
+        }
     
         public TransitionEvent(String area, float xPos, float yPos, float zPos)
         {
