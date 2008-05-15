@@ -290,21 +290,19 @@ namespace Project_blob.GameState
 			{
 				if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
-					//    currentArea = Level.Areas[f.getSelected()];
-					//    currentArea.LoadAreaGameplay(ScreenManager);
-					//    currentArea.Display.EffectName = "cartoonEffect";
-					//    currentArea.Display.WorldParameterName = "World";
-					//    currentArea.Display.TextureParameterName = "Texture";
-					//    currentArea.Display.TechniqueName = "Lambert";
-					//    staticDrawables = currentArea.getDrawableList();
-					//    portals = currentArea.Portals;
-					//    physics.AddBodys(currentArea.getBodies());
 					ChangeArea(f.getSelected());
 				}
-			}
-#else
-			// Load Default Starting Level
+				else
+				{
 #endif
+					ChangeArea("HubWorld");
+#if DEBUG
+				}
+			}
+#endif
+			
+
+
 
 			//theDisplay = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			//theDisplay.DrawnList.Add(

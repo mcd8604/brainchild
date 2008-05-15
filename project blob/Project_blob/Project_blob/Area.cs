@@ -388,7 +388,7 @@ namespace Project_blob
 						}
 						else
 						{
-							body = new BodyStatic(collidables, null);
+							body = new Body(collidables, null);
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
 					}
