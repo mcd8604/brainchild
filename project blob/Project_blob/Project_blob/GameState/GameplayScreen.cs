@@ -306,11 +306,6 @@ namespace Project_blob.GameState
 			// Load Default Starting Level
 #endif
 
-			//ti = new TextureInfo("cloudsky", 0);
-			sky = new StaticModel("sky", "skyBox", "none", "cloudsky", new List<short>());
-			sky.initialize();
-			sky.Scale = Matrix.CreateScale(750f);
-
 			//theDisplay = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			//theDisplay.DrawnList.Add(
 
@@ -415,14 +410,19 @@ namespace Project_blob.GameState
 		public void ChangeArea(String area)
 		{
 			currentArea = Level.Areas[area];
-			currentArea.LoadAreaGameplay(ScreenManager);
+            currentArea.LoadAreaGameplay( ScreenManager );
+
+            // load skybox
+            sky = new StaticModel( "sky", "skyBox", "none", "cloudsky", new List<short>() );
+            sky.initialize();
+            sky.Scale = Matrix.CreateScale( 750f );
 
 			//moved hardcode to Display class
 			//currentArea.Display.EffectName = "cartoonEffect";
 			//currentArea.Display.WorldParameterName = "World";
 			//currentArea.Display.TextureParameterName = "Texture";
 			//currentArea.Display.TechniqueName = "Lambert";
-			InitializeEffect();
+            InitializeEffect();
 
 			blobStartPosition = currentArea.StartPosition;
 
@@ -447,15 +447,25 @@ namespace Project_blob.GameState
 		public void ChangeArea(String area, Vector3 position)
 		{
 			currentArea = Level.Areas[area];
-			currentArea.LoadAreaGameplay(ScreenManager);
+            currentArea.LoadAreaGameplay( ScreenManager );
+
+            // load skybox
+            if ( currentArea.SkyTexture != null && currentArea.SkyTexture.Length > 0 )
+            {
+                //TextureManager.AddTexture(this.con
+                sky = new StaticModel( "sky", "skyBox", "none", "cloudsky", new List<short>() );
+                sky.initialize();
+                sky.Scale = Matrix.CreateScale( 750f );
+                currentArea.Display.AddToBeDrawn( sky );
+            }
 
 			currentArea.Display.EffectName = "cartoonEffect";
 			currentArea.Display.WorldParameterName = "World";
 			currentArea.Display.TextureParameterName = "Texture";
 			currentArea.Display.TechniqueName = "Lambert";
-			InitializeEffect();
+            InitializeEffect();
 
-			blobStartPosition = position;
+            blobStartPosition = position;
 
 			//Add the Static Drawables to the Octree
 			List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
@@ -494,7 +504,6 @@ namespace Project_blob.GameState
 													   bool coveredByOtherScreen)
 		{
 			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
-			currentArea.Display.AddToBeDrawn(sky);
 			if (IsActive)
 			{
 #if TIMED
@@ -605,7 +614,7 @@ namespace Project_blob.GameState
 
 					// following camera
 					cameraLength += (InputHandler.getMouseWheelDelta() * -0.01f);
-
+#if DEBUG
 					if (InputHandler.IsButtonDown(Buttons.DPadDown))
 					{
 						cameraLength += 1;
@@ -614,7 +623,7 @@ namespace Project_blob.GameState
 					{
 						cameraLength -= 1;
 					}
-
+#endif
 					cameraLength = MathHelper.Clamp(cameraLength, 10, 40);
 
 					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
