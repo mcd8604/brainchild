@@ -421,7 +421,7 @@ namespace Project_blob
 
 			Vector3 center = getCenter();
 
-			for (int i = 0; i < indices.Length - 3; i = i + 3)
+			for (int i = 0; i < indices.Length - 3; i += 3)
 			{
 				/*
 				Vector3 p1 = new Vector3();
@@ -452,7 +452,7 @@ namespace Project_blob
 
 			Vector3 center = getCenter();
 
-			for (int i = 0; i < indices.Length - 3; i = i + 3)
+			for (int i = 0; i < indices.Length - 3; i += 3)
 			{
 				/*
 				Vector3 p1 = new Vector3();
