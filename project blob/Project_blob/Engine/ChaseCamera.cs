@@ -61,6 +61,13 @@ namespace Engine
 
         #region Desired camera positioning (set when creating camera or changing view)
 
+        private bool m_Climbing = false;
+        public bool Climbing
+        {
+            get { return m_Climbing; }
+            set { m_Climbing = value; }
+        }
+
         /// <summary>
         /// Desired camera position in the chased object's coordinate system.
         /// </summary>
@@ -228,18 +235,17 @@ namespace Engine
                 throw new ArgumentNullException("gameTime");
 
             //UpdateWorldPositions();
-
-            if (ClimbMode)
+            if (Climbing)
             {
-                desiredPosition = chasePosition + (m_ClimbNormal * desiredPositionOffset*2);
+                desiredPosition = chasePosition + (m_ClimbNormal * desiredPositionOffset * 2);
                 desiredPosition.Y -= 5f;
             }
             else
             {
-
                 desiredPosition = ChasePosition - (Vector3.Normalize(chaseDirection) * DesiredPositionOffset);
                 desiredPosition.Y += 5f;
             }
+
             lookAt = ChasePosition;
 
             //if(Vector3.Dot(lookAt - desiredPosition,Vector3.Up) < 35)
