@@ -245,26 +245,38 @@ namespace Project_blob
 
 			//load level textures
 			//TextureManager.getSingleton.AddTexture("cloudsky", game.Content.Load<Texture2D>(@"Textures\\cloudsky"));
-            TextureManager.ClearTextures();
-            Texture2D skyTex = game.Content.Load<Texture2D>(@"Textures\\cloudsky");
-            skyTex.Name = "cloudsky";
-            TextureManager.AddTexture(skyTex);
 
 			/*foreach (TextureInfo ti in this.Display.DrawnList.Keys)
 			{
 				TextureManager.getSingleton.AddTexture(ti.TextureName, game.Content.Load<Texture2D>(@"Textures\\" + ti.TextureName));
 			}*/
 
+            //create new display 
+            this._display = new Display();
+            this._display.ShowAxis = false;
+            this._display.GameMode = true;
+
+            // load skybox
+            if (this.m_SkyTexture != null && this.m_SkyTexture.Length > 0)
+            {
+                Texture2D skyTex = game.Content.Load<Texture2D>(@"Textures\\" + this.m_SkyTexture);
+                skyTex.Name = this.m_SkyTexture;
+                TextureManager.AddTexture(skyTex);
+                ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
+                this._display.SkyBox = new StaticModel("sky", "skyBox", "none", this.m_SkyTexture, new List<short>());
+                this._display.SkyBox.Scale = Matrix.CreateScale(750f);
+                this._display.SkyBox.initialize();
+            }
+
             this.m_Bodies = new List<Physics2.Body>();
 
-			//load level models
-			ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
+            //load level models
 			foreach (Drawable d in this.Drawables.Values)
 			{
 				if (d is StaticModel)
 				{
 					StaticModel dm = (StaticModel)d;
-					Model model = game.Content.Load<Model>(@"Models\\" + dm.ModelName);
+                    Model model = game.Content.Load<Model>(@"Models\\" + dm.ModelName);
                     ModelManager.getSingleton.AddModel(dm.ModelName, model);
                     Texture2D t = game.Content.Load<Texture2D>(@"Textures\\" + dm.TextureName);
                     t.Name = dm.TextureName;
@@ -422,13 +434,10 @@ namespace Project_blob
 					this.m_Bodies.Add(body);
 				}
 			}
-
-            this._display = new Display();
-            this._display.ShowAxis = false;
-            this._display.GameMode = true;
-
-            //Give the SceneManager a reference to the display
-            SceneManager.getSingleton.Display = this._display;
+            foreach (Texture2D t in TextureManager.TextureList)
+            {
+                this._display.DrawnList.Add(new List<Drawable>());
+            }
         }
 	}
 }
