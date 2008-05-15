@@ -435,6 +435,8 @@ namespace Project_blob.GameState
 
 			currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
 
+            AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
+
 			reset();
 		}
 
@@ -466,6 +468,8 @@ namespace Project_blob.GameState
 			SceneManager.getSingleton.PortalScene.CurrSector = 1;
 
 			currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
+
+            AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
 
 			reset();
 		}
