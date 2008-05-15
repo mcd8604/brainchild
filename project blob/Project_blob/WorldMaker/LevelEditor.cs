@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Project_blob;
 using Microsoft.Xna.Framework.Graphics;
+using Audio;
 
 namespace WorldMaker
 {
@@ -421,10 +422,6 @@ namespace WorldMaker
             }
         }
 
-        private void portalList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         private void updatePortalList()
         {
             if (_gameRef.ActiveArea.Portals == null)
@@ -437,6 +434,17 @@ namespace WorldMaker
                 portalList.Items.Add(p);
             }
             portalList.Update();
+        }
+
+        private void updateAmbienceList() {
+            if (_gameRef.ActiveArea.AmbientSounds == null) {
+                _gameRef.ActiveArea.AmbientSounds = new List<AmbientSoundInfo>();
+            }
+            ambienceListBox.Items.Clear();
+            foreach (AmbientSoundInfo sound in _gameRef.ActiveArea.AmbientSounds) {
+                ambienceListBox.Items.Add(sound);
+            }
+            ambienceListBox.Update();
         }
 
         private void EditTasksButton_Click(object sender, EventArgs e)
@@ -456,6 +464,26 @@ namespace WorldMaker
             {
                 PropertyEditor pe = new PropertyEditor(Level.GetArea(areaListBox.SelectedItem as string), true);
                 pe.ShowDialog();
+            }
+        }
+
+        private void addSoundButton_Click(object sender, EventArgs e) {
+            _gameRef.ActiveArea.AmbientSounds.Add(new AmbientSoundInfo());
+            updateAmbienceList();
+        }
+
+        private void editSoundButton_Click(object sender, EventArgs e) {
+            if (ambienceListBox.SelectedIndex != -1) {
+                PropertyEditor pe = new PropertyEditor(ambienceListBox.SelectedItem);
+                pe.ShowDialog();
+                updateAmbienceList();
+            }
+        }
+
+        private void deleteSoundButton_Click(object sender, EventArgs e) {
+            if (ambienceListBox.SelectedIndex != -1) {
+                _gameRef.ActiveArea.AmbientSounds.Remove(ambienceListBox.SelectedItem as AmbientSoundInfo);
+                updateAmbienceList();
             }
         }
 

@@ -206,6 +206,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Audio\Audio.csproj">
+      <Project>{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}</Project>
+      <Name>Audio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
       <Project>{65494539-D8B5-4A17-9FD4-49E5D5A2949C}</Project>
       <Name>Engine</Name>

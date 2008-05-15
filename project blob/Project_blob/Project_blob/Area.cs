@@ -5,9 +5,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
 using Physics2;
+using Audio;
 
 namespace Project_blob
 {
+    
+
 	[Serializable]
 	public class Area
 	{
@@ -16,8 +19,15 @@ namespace Project_blob
 
 		private Dictionary<String, Drawable> _drawables;
 
-		//old events - delete these
-		//private Dictionary<String, EventTrigger> _events;
+        private List<AmbientSoundInfo> _ambientSounds = new List<AmbientSoundInfo>();
+        public List<AmbientSoundInfo> AmbientSounds {
+            get {
+                return _ambientSounds;
+            }
+            set {
+                _ambientSounds = value;
+            }
+        }
 
 		private List<Portal> _portals = new List<Portal>();
 		public List<Portal> Portals
@@ -43,12 +53,6 @@ namespace Project_blob
 			get { return _drawables; }
 			set { _drawables = value; }
 		}
-
-		/*public Dictionary<String, EventTrigger> Events
-		{
-			get { return _events; }
-			set { _events = value; }
-		}*/
 
 		private Vector3 m_StartPosition;
 		public Vector3 StartPosition
@@ -81,7 +85,6 @@ namespace Project_blob
 
 			_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			_drawables = new Dictionary<String, Drawable>();
-			//_events = new Dictionary<String, EventTrigger>();
 			_portals = new List<Portal>();
 		}
 
@@ -89,7 +92,6 @@ namespace Project_blob
 		{
 			_display = new Display(worldMatrix, effectName, worldParameterName, textureParameterName, techniqueName);
 			_drawables = new Dictionary<String, Drawable>();
-			//_events = new Dictionary<String, EventTrigger>();
 			_portals = new List<Portal>();
 		}
 
@@ -162,38 +164,6 @@ namespace Project_blob
 				_display.DrawnList[textureID].Add(drawable);
 			}
 		}
-
-		/*public EventTrigger GetEvent(String eventName)
-		{
-			if (_events.ContainsKey(eventName))
-			{
-				return _events[eventName];
-			}
-			return null;
-		}*/
-
-		/*public void RemoveEvent(String eventName)
-		{
-			if (_events.ContainsKey(eventName))
-			{
-				EventTrigger tempEvent;
-				tempEvent = _events[eventName];
-				_events.Remove(eventName);
-			}
-		}*/
-
-		/*public void AddEvent(String eventName, EventTrigger eventTrigger)
-		{
-			if (_events == null)
-			{
-				_events = new Dictionary<string, EventTrigger>();
-			}
-			if (!_events.ContainsKey(eventName))
-			{
-				_events.Add(eventName, eventTrigger);
-			}
-
-		}*/
 
 		[NonSerialized]
 		private List<Physics2.Body> m_Bodies = new List<Physics2.Body>();
@@ -318,9 +288,6 @@ namespace Project_blob
 
 					if (!(dm is DynamicModel))
 					{
-						// temporary
-						//bool eventtrigger = false;
-						//bool speed = false;
 
 						List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
 
@@ -329,21 +296,12 @@ namespace Project_blob
 							int numCol = 0;
 							for (int i = 0; i < indices.Length; i += 3)
 							{
-								if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
+								if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && 
+                                    vertices[indices[i + 2]].Position != vertices[indices[i]].Position && 
+                                    vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
 								{
-									/*if (dm.TextureName.Equals("event"))
-									{
-										//collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
-										eventtrigger = true;
-									}*/
-
-									collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
-
-									/*if (dm.TextureName.Equals("speed"))
-									{
-										speed = true;
-									}*/
-
+									collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, 
+                                        vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
 									++numCol;
 								}
 							}
@@ -355,18 +313,6 @@ namespace Project_blob
 							{
 								b.expandToInclude(v.Position);
 							}
-							/*collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());
-							collidables.Add(new Physics2.CollidableStaticTri());*/
 
 						}
 						// this is called
@@ -417,25 +363,6 @@ namespace Project_blob
 						body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
 					}
 					dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
-
-					/*Material sticky = new Material(2.0f, 2.0f);
-					Material slick = new Material(0.1f, 0.1f);
-					Material def = Material.getDefaultMaterial();
-
-					//temporary material stuff
-					Material m;
-					if (dm.TextureName.Equals("sticky"))
-					{
-						m = sticky;
-					}
-					else if (dm.TextureName.Equals("slick"))
-					{
-						m = slick;
-					}
-					else
-					{
-						m = def;
-					}*/
 
 					body.setMaterial(MaterialFactory.GetPhysicsMaterial(dm.MyMaterialType));
 					this.m_Bodies.Add(body);
