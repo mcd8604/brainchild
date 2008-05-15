@@ -93,6 +93,19 @@ namespace Engine
         }
         private Vector3 desiredPosition;
 
+        public Vector2 UserOffset
+        {
+            get
+            {
+                return m_UserOffset;
+            }
+            set
+            {
+                m_UserOffset = value;
+            }
+        }
+        private Vector2 m_UserOffset;
+
         /// <summary>
         /// Look at point in the chased object's coordinate system.
         /// </summary>
@@ -247,6 +260,12 @@ namespace Engine
             }
 
             lookAt = ChasePosition;
+            Console.WriteLine("user input vector: " + m_UserOffset);
+            Vector3 rightVector = Vector3.Cross(desiredPosition - chasePosition, Vector3.Up);
+            desiredPosition += rightVector * m_UserOffset.X;
+            desiredPosition.Y += m_UserOffset.Y;
+
+            //m_UserOffset = Vector2.Multiply(m_UserOffset,.9f);
 
             //if(Vector3.Dot(lookAt - desiredPosition,Vector3.Up) < 35)
             //{

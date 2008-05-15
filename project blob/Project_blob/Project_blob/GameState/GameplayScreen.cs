@@ -60,6 +60,8 @@ namespace Project_blob.GameState
 
 		PhysicsManager physics;
 
+        Vector2 cameraOffset = new Vector2();
+
 		private enum CameraType
 		{
 			follow,
@@ -641,6 +643,9 @@ namespace Project_blob.GameState
 					//CameraBody.setCameraOffset(Offset);
 					//CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
 					//Vector3 tempVect = Vector3.Normalize(theBlob.getPotentialCenter() - theBlob.getCenter());
+                    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).UserOffset = InputHandler.GetAnalogAction(AnalogActions.Camera) * 10;
+
+
                     bool climbing = false;
                     Vector3 climbNormal = new Vector3();
                     foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
