@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MaterialFactory.cs" />
+    <Compile Include="StaticModelSpeed.cs" />
     <Compile Include="TypeConverterArea.cs" />
     <Compile Include="Blob.cs" />
     <Compile Include="CameraBody.cs" />

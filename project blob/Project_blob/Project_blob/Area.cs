@@ -294,8 +294,8 @@ namespace Project_blob
 					if (!(dm is DynamicModel))
 					{
 						// temporary
-						bool eventtrigger = false;
-						bool speed = false;
+						//bool eventtrigger = false;
+						//bool speed = false;
                         
 						List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
 
@@ -314,10 +314,10 @@ namespace Project_blob
 
                                     collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
 
-                                    if (dm.TextureName.Equals("speed"))
+                                    /*if (dm.TextureName.Equals("speed"))
                                     {
                                         speed = true;
-                                    }
+                                    }*/
 
                                     numCol++;
                                 }
@@ -352,9 +352,9 @@ namespace Project_blob
 						{
 							body = new BodyStaticConveyerBelt(collidables, null, dm as ConveyerBeltStatic);
 						}
-						else if (speed)
+                        else if ( dm is StaticModelSpeed )
 						{
-                            body = new SpeedStatic(collidables, null, dm.AudioName);
+                            body = new SpeedStatic(collidables, null, dm.AudioName, ((StaticModelSpeed)dm).Speed);
 						}
 						else
 						{

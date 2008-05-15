@@ -11,10 +11,11 @@ namespace Project_blob
 
 		float bonus = 1;
 
-		public SpeedStatic(IList<CollidableStatic> Collidables, Body ParentBody, string p_collisionAudio)
-			: base(Collidables, ParentBody, p_collisionAudio)
-		{
-		}
+        public SpeedStatic( IList<CollidableStatic> Collidables, Body ParentBody, string p_collisionAudio, float p_Speed )
+            : base( Collidables, ParentBody, p_collisionAudio )
+        {
+            bonus = p_Speed;
+        }
 
 		public override Vector3 getRelativeVelocity(CollisionEvent e)
 		{
