@@ -86,11 +86,29 @@ namespace Project_blob
 				_areas = (Dictionary<String, Area>)bf.Deserialize(s);
 				s.Close();
 				Console.WriteLine("Level Loaded");
-				/*foreach (Area area in _areas.Values)
+				
+                // Conversion Loop
+                /*foreach (Area area in _areas.Values)
 				{
-					area.Display.EffectName = effectName;
+                    Dictionary<String, Drawable> temp = new Dictionary<string, Drawable>();
+                    foreach ( String key in area.Drawables.Keys )
+                    {
+                        Drawable d = area.Drawables[key];
+                        if ( d is StaticModel )
+                        {
+                            StaticModel sm = d as StaticModel;
+                            if ( sm.TextureName.Equals( "speed" ) )
+                            {
+                                temp[key] = new StaticModelSpeed( sm ); ;
+                            }
+                        }
+                    }
+                    foreach ( String key in temp.Keys )
+                    {
+                        area.Drawables[key] = temp[key];
+                    }
 				}*/
-			}
+            }
 			catch (SerializationException se)
 			{
 				string msg = "Could not deserialize: " + levelName + " : " + se;
