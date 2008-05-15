@@ -63,12 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CameraPanSetter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CameraPanSetter.Designer.cs">
-      <DependentUpon>CameraPanSetter.cs</DependentUpon>
-    </Compile>
     <Compile Include="DeltaSetter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,10 +156,6 @@
     </NestedContentProject>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CameraPanSetter.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>CameraPanSetter.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DeltaSetter.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DeltaSetter.cs</DependentUpon>
