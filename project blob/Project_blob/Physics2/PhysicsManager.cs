@@ -7,7 +7,7 @@ namespace Physics2
 	{
 		public enum ParallelSetting { Always, Automatic, Never };
 
-		public static ParallelSetting enableParallel = ParallelSetting.Never;
+		public static ParallelSetting enableParallel = ParallelSetting.Always;
 
 		/// <summary>
 		/// A multiplier for physics time.
