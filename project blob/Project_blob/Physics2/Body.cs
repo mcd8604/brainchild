@@ -152,6 +152,11 @@ namespace Physics2
 
 		public virtual Vector3 getAverageVelocity()
 		{
+			if (points.Count == 0 )
+			{
+				return Vector3.Zero;
+			}
+
 			Vector3 AvgVel = Vector3.Zero;
 			foreach (PhysicsPoint px in points)
 			{
@@ -187,8 +192,7 @@ namespace Physics2
 
 		public virtual Vector3 getRelativeVelocity(CollisionEvent e)
 		{
-			// fix later
-			return Vector3.Zero;
+			return getAverageVelocity();
 		}
 
 		public virtual Material getMaterial()

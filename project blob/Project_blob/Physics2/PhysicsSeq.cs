@@ -238,7 +238,7 @@ namespace Physics2
 				{
 					Vector3 FrictionForce = Vector3.Normalize(relativeVelocity) * (TotalNormalForce.Length() * (player.Traction.value * e.collidable.getMaterial().getFriction()));
 
-					// This is the maximum amount of force to stop the point - will need tweaking for conveyor belts
+					// This is the maximum amount of force to stop the point
 					Vector3 MaxFriction = ((relativeVelocity / (TotalElapsedSeconds * (1 - e.when))) * e.point.Mass) + Vector3.Negate(newForce);
 
 					if (FrictionForce.LengthSquared() > MaxFriction.LengthSquared())
