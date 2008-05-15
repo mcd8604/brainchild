@@ -80,13 +80,6 @@ namespace Project_blob
 					case ContainmentType.Contains:
 					case ContainmentType.Intersects:
 						{
-							//Create new frustum from portal
-							BoundingFrustum newFrustum = CreatePortalFrustum(portal);
-							//Frustum newFrustum = CreatePortalFrustum(portal);
-							//BoundingFrustum newFrustum = CameraManager.getSingleton.ActiveCamera.Frustum;
-
-							//drawFrustum(newFrustum);
-
 							//Drawvisible on connected sector
 							foreach (int sectorNum in portal.ConnectedSectors)
 							{
@@ -95,12 +88,24 @@ namespace Project_blob
 									(sectorNum != SceneManager.getSingleton.PortalScene.CurrentRecursiveSector) && //_sectorNumber
 									(sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
 								{
+									//Create new frustum from portal
+									BoundingFrustum newFrustum = CreatePortalFrustum(portal);
+									//Frustum newFrustum = CreatePortalFrustum(portal);
+									//BoundingFrustum newFrustum = CameraManager.getSingleton.ActiveCamera.Frustum;
+
+									//drawFrustum(newFrustum);
+
+									int prev = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+									int curr = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+
 									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
 									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
 
 									SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
 
 									//TEST THIS
+									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = curr;
+									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = prev;
 									//int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
 									//SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
 									//SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
@@ -151,13 +156,6 @@ namespace Project_blob
 					case ContainmentType.Contains:
 					case ContainmentType.Intersects:
 						{
-							//Create new frustum from portal
-							BoundingFrustum newFrustum = CreatePortalFrustum(portal);
-							//Frustum newFrustum = CreatePortalFrustum(portal);
-							//BoundingFrustum newFrustum = CameraManager.getSingleton.ActiveCamera.Frustum;
-
-							//drawFrustum(newFrustum);
-
 							//Drawvisible on connected sector
 							foreach (int sectorNum in portal.ConnectedSectors)
 							{
@@ -166,12 +164,24 @@ namespace Project_blob
 									(sectorNum != SceneManager.getSingleton.PortalScene.CurrentRecursiveSector) &&//_sectorNumber
 									(sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
 								{
+									//Create new frustum from portal
+									BoundingFrustum newFrustum = CreatePortalFrustum(portal);
+									//Frustum newFrustum = CreatePortalFrustum(portal);
+									//BoundingFrustum newFrustum = CameraManager.getSingleton.ActiveCamera.Frustum;
+
+									//drawFrustum(newFrustum);
+
+									int prev = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+									int curr = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+
 									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
 									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
 
 									SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
 
 									//TEST THIS
+									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = curr;
+									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = prev;
 									//int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
 									//SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
 									//SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
