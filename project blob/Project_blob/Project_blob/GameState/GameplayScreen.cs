@@ -473,12 +473,10 @@ namespace Project_blob.GameState
 			reset();
 		}
 
-		public void SetUpCinematicCamera(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
+		public void SetUpCinematicCamera(List<CameraFrame> cameraFrames)
 		{
 			CinematicCamera cinematicCamera = (CinematicCamera)CameraManager.getSingleton.GetCamera("cinematic");
-			cinematicCamera.Ups = cameraUps;
-			cinematicCamera.Positions = cameraPos;
-			cinematicCamera.LookAts = cameraLooks;
+			cinematicCamera.Frames = cameraFrames;
 			cinematicCamera.Running = true;
 			CameraManager.getSingleton.SetActiveCamera("cinematic");
 			//cinema = true;

@@ -5,102 +5,99 @@ using Microsoft.Xna.Framework;
 
 namespace Engine
 {
-    public class CinematicCamera : Camera
-    {
-        private bool _running = false;
-        public bool Running
-        {
-            get { return _running; }
-            set { _running = value; }
-        }
+	public class CinematicCamera : Camera
+	{
+		public bool Running = false;
 
-        private List<Vector3> _lookAts;
-        public List<Vector3> LookAts
-        {
-            get { return _lookAts; }
-            set { _lookAts = value; }
-        }
+		private List<CameraFrame> frames = new List<CameraFrame>();
+		public List<CameraFrame> Frames
+		{
+			get { return frames; }
+			set { frames = value; }
+		}
 
-        private List<Vector3> _positions;
-        public List<Vector3> Positions
-        {
-            get { return _positions; }
-            set { _positions = value; }
-        }
+		private int currentIndex = 0;
+		private float currentTime = 0;
 
-        private List<Vector3> _ups;
-        public List<Vector3> Ups
-        {
-            get { return _ups; }
-            set { _ups = value; }
-        }
+		public bool FinishedCinematics = false;
 
-        private int _currentIndex = 0;
+		public override void Update(GameTime gameTime)
+		{
+			if (!Running)
+			{
+				return;
+			}
 
-        private float _lerpAmt = 0.0f;
+			currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-        private float _lerpSpeed = 0.01f;
-        public float LerpSpeed
-        {
-            get { return _lerpSpeed; }
-            set { _lerpSpeed = value; }
-        }
+			CameraFrame currentFrame = frames[currentIndex];
+			CameraFrame nextFrame = frames[currentIndex + 1];
 
-        private bool _finishedCinematics = false;
-        public bool FinishedCinematics
-        {
-            get { return _finishedCinematics; }
-            set { _finishedCinematics = value; }
-        }
+			float timeDiff = Math.Abs(nextFrame.Time - currentFrame.Time);
 
-        public CinematicCamera()
-        {
-            _positions = new List<Vector3>();
-            _lookAts = new List<Vector3>();
-            _ups = new List<Vector3>();
-        }
+			float lerpAmount = MathHelper.Clamp(currentTime / timeDiff, 0, 1);
 
-        public override void Update(GameTime gameTime)
-        {
-            //base.Update(gameTime);
+			//Run cinematics
+			Position = Vector3.Lerp(currentFrame.Position, nextFrame.Position, lerpAmount);
+			Target = Vector3.Lerp(currentFrame.LookAt, nextFrame.LookAt, lerpAmount);
+			Up = Vector3.Lerp(currentFrame.Up, nextFrame.Up, lerpAmount);
 
-            if (_running)// && (_currentIndex < _positions.Count - 1))
-            {
-                if (_currentIndex < _positions.Count - 1)
-                {
-                    //Run cinematics
-                    Position = Vector3.Lerp(_positions[_currentIndex], _positions[_currentIndex + 1], _lerpAmt);
-                    Target = Vector3.Lerp(_lookAts[_currentIndex], _lookAts[_currentIndex + 1], _lerpAmt);
-                    Up = Vector3.Lerp(_ups[_currentIndex], _ups[_currentIndex + 1], _lerpAmt);
+			UpdateMatrices();
 
-                    UpdateMatrices();
+			if (currentTime > timeDiff)
+			{
+				++currentIndex;
+				currentTime = 0f;
+				if ((frames.Count - currentIndex) - 1 == 0)
+				{
+					currentIndex = 0;
+					Running = false;
+					FinishedCinematics = true;
+				}
+			}
+		}
 
-                    _lerpAmt += _lerpSpeed;
+		public override void UpdateMatrices()
+		{
+			//base.UpdateMatrices();
 
-                    if (_lerpAmt >= 1.0f)
-                    {
-                        ++_currentIndex;
-                        _lerpAmt = 0.0f;
-                    }
-                }
-                else
-                {
-                    _currentIndex = 0;
-                    _running = false;
-                    _finishedCinematics = true;
-                }
-            }
-        }
+			View = Matrix.CreateLookAt(Position, Target, Up);
 
-        public override void UpdateMatrices()
-        {
-            //base.UpdateMatrices();
+			Projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearPlane, FarPlane);
 
-            View = Matrix.CreateLookAt(Position, Target, Up);
+			Frustum = new BoundingFrustum(Matrix.Multiply(View, Projection));
+		}
+	}
 
-            Projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearPlane, FarPlane);
+	[Serializable]
+	public class CameraFrame
+	{
+		private Vector3 position;
+		public Vector3 Position
+		{
+			get { return position; }
+			set { position = value; }
+		}
 
-            Frustum = new BoundingFrustum(Matrix.Multiply(View, Projection));
-        }
-    }
+		private Vector3 lookAt;
+		public Vector3 LookAt
+		{
+			get { return lookAt; }
+			set { lookAt = value; }
+		}
+
+		private Vector3 up;
+		public Vector3 Up
+		{
+			get { return up; }
+			set { up = value; }
+		}
+
+		private float time;
+		public float Time
+		{
+			get { return time; }
+			set { time = value; }
+		}
+	}
 }

@@ -341,12 +341,10 @@ namespace WorldMaker
 			_activeArea.Display.PostProcessEffect = Content.Load<Effect>(@"Shaders\\PostprocessEffect");
 		}
 
-		public static void SetUpCinematicCamera(List<Vector3> cameraPos, List<Vector3> cameraLooks, List<Vector3> cameraUps)
+		public static void SetUpCinematicCamera(List<CameraFrame> cameraFrames)
 		{
 			CinematicCamera cinematicCamera = (CinematicCamera)CameraManager.getSingleton.GetCamera("cinematic");
-			cinematicCamera.Ups = cameraUps;
-			cinematicCamera.Positions = cameraPos;
-			cinematicCamera.LookAts = cameraLooks;
+			cinematicCamera.Frames = cameraFrames;
 			cinematicCamera.Running = true;
 			CameraManager.getSingleton.SetActiveCamera("cinematic");
 			cinema = true;
@@ -472,26 +470,26 @@ namespace WorldMaker
 				}
 				else
 				{
-					if (CameraPanSetter.ViewMatrix != null)
-					{
-						viewMatrix = CameraPanSetter.ViewMatrix;
-						if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
-						{
-							((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
-						}
-						else
-						{
-							if (EFFECT_TYPE == "effects")
-								EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
-							else //if (EFFECT_TYPE == "Cel")
-								EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
-						}
+					//if (CameraPanSetter.ViewMatrix != null)
+					//{
+					//    viewMatrix = CameraPanSetter.ViewMatrix;
+					//    if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
+					//    {
+					//        ((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
+					//    }
+					//    else
+					//    {
+					//        if (EFFECT_TYPE == "effects")
+					//            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
+					//        else //if (EFFECT_TYPE == "Cel")
+					//            EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
+					//    }
 
-						if (EFFECT_TYPE == "effects")
-							EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-						else if (EFFECT_TYPE == "Cel")
-							EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
-					}
+					//    if (EFFECT_TYPE == "effects")
+					//        EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+					//    else if (EFFECT_TYPE == "Cel")
+					//        EffectManager.getSingleton.GetEffect(_effectName).Parameters["EyePosition"].SetValue(new Vector3(cameraPosition.X, cameraPosition.Y, cameraPosition.Z));
+					//}
 				}
 			}
 
