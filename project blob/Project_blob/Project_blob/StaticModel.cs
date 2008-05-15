@@ -421,7 +421,9 @@ namespace Project_blob
 				}
 				//m_VertexBuffer.SetData<VertexPositionNormalTexture>( m_Vertices );
 				//m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
-				updateVertexBuffer();
+
+                // Disabled to stop crashing:
+				//updateVertexBuffer();
 			}
 		}
 
