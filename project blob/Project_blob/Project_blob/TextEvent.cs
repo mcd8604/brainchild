@@ -12,9 +12,9 @@ namespace Project_blob
     {
         public TextEvent() { }
 
-        public void PerformEvent(PhysicsPoint point)
+        public bool PerformEvent( PhysicsPoint point )
         {
-            
+            return true;
         }
     }
 }

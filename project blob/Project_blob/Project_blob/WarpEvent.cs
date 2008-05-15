@@ -43,7 +43,7 @@ namespace Project_blob
 			_moveToVel = new Vector3(xVel, yVel, zVel);
 		}
 
-		public void PerformEvent(PhysicsPoint point)
+		public bool PerformEvent(PhysicsPoint point)
 		{
 			Vector3 diff = _moveToPos - point.ParentBody.getCenter();
 
@@ -52,6 +52,8 @@ namespace Project_blob
 				p.NextPosition = p.ExternalPosition + diff;
 				p.NextVelocity = _moveToVel;
 			}
+
+            return true;
 		}
 	}
 }

@@ -56,9 +56,10 @@ namespace Project_blob
             _cameraUps = cameraUps;
         }
 
-        public void PerformEvent(PhysicsPoint p)
+        public bool PerformEvent( PhysicsPoint p )
         {
 			GameplayScreen.game.SetUpCinematicCamera(_cameraPos, _cameraLooks, _cameraUps);
+            return true;
         }
     }
 }
