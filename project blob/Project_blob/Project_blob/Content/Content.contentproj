@@ -61,6 +61,11 @@
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\chairBox.fbx">
+      <Name>chairBox</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\chair.fbx">
       <Name>chair</Name>
       <Importer>FbxImporter</Importer>
