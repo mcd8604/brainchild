@@ -151,12 +151,12 @@ namespace Physics2
 				// handle collision, sliding;
 				Vector3 newPosition = e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when);
 
-                // Check!!
-                if (newPosition != e.collisionPoint)
-                {
-                    // if this is ever spamming, let me know! - Adam
-                    Console.WriteLine("mismatch: " + newPosition + " : " + e.collisionPoint);
-                }
+				// Check!!
+				if (newPosition != e.collisionPoint)
+				{
+					// if this is ever spamming, let me know! - Adam
+					Console.WriteLine("mismatch: " + newPosition + " : " + e.collisionPoint);
+				}
 
 				// bump?
 				//while (s.DotNormal(p.NextPosition) <= 0)
@@ -224,6 +224,8 @@ namespace Physics2
 				}
 
 				Vector3 TotalNormalForce = (VelocityTransfer / (TotalElapsedSeconds * (1 - e.when)) * e.point.Mass) + NormalForce;
+
+				e.impact = TotalNormalForce.Length();
 
 				// relative velocity
 				Vector3 relativeVelocity = e.collidable.getRelativeVelocity(e) - newVelocity;

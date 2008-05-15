@@ -55,16 +55,16 @@ namespace Project_blob
 			graphics.PreferMultiSampling = true;
 			Content.RootDirectory = "Content";
 
-            //graphics.SynchronizeWithVerticalRetrace = false;
-            //IsFixedTimeStep = false;
+			//graphics.SynchronizeWithVerticalRetrace = false;
+			//IsFixedTimeStep = false;
 
 			AddScreen(new MainMenuScreen());
 		}
 
 		protected override void Initialize()
 		{
-            // Sets up audio
-            AudioManager.getSingleton.initialize();
+			// Sets up audio
+			AudioManager.initialize();
 
 			InputHandler.LoadDefaultBindings();
 
@@ -123,8 +123,8 @@ namespace Project_blob
 
 		protected override void Update(GameTime gameTime)
 		{
-            // Updates audio info
-            AudioManager.getSingleton.update();
+			// Updates audio info
+			AudioManager.update();
 
 			// Read the keyboard and gamepad.
 			InputHandler.Update();
@@ -274,9 +274,9 @@ namespace Project_blob
 			graphics.PreferredBackBufferWidth = r.Width;
 			graphics.ApplyChanges();
 
-            foreach (GameScreen gs in GetScreens())
-                if (gs is GameplayScreen)
-                    ((GameplayScreen)gs).CreateRenderTargets();
+			foreach (GameScreen gs in GetScreens())
+				if (gs is GameplayScreen)
+					((GameplayScreen)gs).CreateRenderTargets();
 		}
 
 		public Resolution CurrentResolution;

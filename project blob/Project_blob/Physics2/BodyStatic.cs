@@ -9,8 +9,8 @@ namespace Physics2
 
 		private IList<CollidableStatic> staticCollidables = new List<CollidableStatic>();
 
-		public BodyStatic(IList<CollidableStatic> Collidables, Body ParentBody, string p_collisionSound)
-			: base(p_collisionSound)
+		public BodyStatic(IList<CollidableStatic> Collidables, Body ParentBody)
+			: base()
 		{
 			if (ParentBody != null)
 			{
@@ -50,9 +50,8 @@ namespace Physics2
 			return true;
 		}
 
-        public override void update(float TotalElapsedSeconds) { base.update(TotalElapsedSeconds); }
+		public override void update(float TotalElapsedSeconds) { base.update(TotalElapsedSeconds); }
 		public override void updatePosition() { }
 		protected internal override void SolveForNextPosition(float TotalElapsedSeconds) { }
-
 	}
 }

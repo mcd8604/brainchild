@@ -74,13 +74,13 @@ namespace Project_blob
 
 		}
 
-		public Blob(Model aModel, string p_collisionAudio) : base(p_collisionAudio)
+		public Blob(Model aModel)
 		{
 			initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center);
 			initialize();
 		}
 
-		public Blob(Model aModel, Vector3 startPos, string p_collisionAudio) : base(p_collisionAudio)
+		public Blob(Model aModel, Vector3 startPos)
 		{
 			initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center + startPos);
 			initialize();

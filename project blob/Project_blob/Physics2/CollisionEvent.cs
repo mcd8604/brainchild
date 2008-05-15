@@ -6,16 +6,17 @@ namespace Physics2
 	{
 
 		public PhysicsPoint point;
-        public Collidable collidable;
+		public Collidable collidable;
 		internal float when;
-        internal Vector3 collisionPoint;
+		internal Vector3 collisionPoint;
+		internal float impact;
 
 		internal CollisionEvent(PhysicsPoint p, Collidable c, float u, Vector3 cp)
 		{
 			point = p;
 			collidable = c;
 			when = u;
-            collisionPoint = cp;
+			collisionPoint = cp;
 		}
 
 		internal bool isStatic()
