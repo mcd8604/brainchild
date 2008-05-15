@@ -43,28 +43,24 @@ namespace Physics2
 
 			Vector3 force = Util.Zero;
 
-			// use spring displacement vector to avoid check?
-			if (dist > MaximumLengthBeforeExtension)
-			{
-				force += Vector3.Normalize(B.CurrentPosition - A.CurrentPosition) * (Force * (dist - Length));
-
-			}
-			else if (dist < MinimumLengthBeforeCompression)
+			if (dist > MaximumLengthBeforeExtension || dist < MinimumLengthBeforeCompression)
 			{
 				force += Vector3.Normalize(A.CurrentPosition - B.CurrentPosition) * (Force * (Length - dist));
 			}
 
-			if (next_dist > MaximumLengthBeforeExtension)
-			{
-				force += Vector3.Normalize(B.PotentialPosition - A.PotentialPosition) * (Force * (dist - Length));
-			}
-			else if (next_dist < MinimumLengthBeforeCompression)
+			if (next_dist > MaximumLengthBeforeExtension || next_dist < MinimumLengthBeforeCompression)
 			{
 				force += Vector3.Normalize(A.PotentialPosition - B.PotentialPosition) * (Force * (Length - dist));
-
 			}
-			A.ForceThisFrame += (force * 0.5f);
-			B.ForceThisFrame += (force * -0.5f);
+
+			Vector3 val = (force * 0.5f);
+
+			A.ForceThisFrame.X += val.X;
+			A.ForceThisFrame.Y += val.Y;
+			A.ForceThisFrame.Z += val.Z;
+			B.ForceThisFrame.X -= val.X;
+			B.ForceThisFrame.Y -= val.Y;
+			B.ForceThisFrame.Z -= val.Z;
 
 		}
 
