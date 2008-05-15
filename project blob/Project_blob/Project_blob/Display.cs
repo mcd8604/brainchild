@@ -543,6 +543,14 @@ namespace Project_blob
 
 				graphicsDevice.Clear(Color.CornflowerBlue);
 
+                // draw skybox
+                if (m_skyBox != null)
+                {
+                    m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["SkyBox"];
+                    m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.GetTexture(m_skyBox.GetTextureID()));
+                    DrawModel(m_WorldMatrix, m_skyBox, graphicsDevice);
+                }
+
 				//if (_effectName == "cartoonEffect")
 					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["Lambert"];
 
@@ -740,16 +748,16 @@ namespace Project_blob
 			Stack<Matrix> drawStack = new Stack<Matrix>();
 			Matrix currentWorld = p_CurrentWorld;
 
-			if (_effectName == "cartoonEffect" && m_cartoonEffect.CurrentTechnique != m_cartoonEffect.Techniques["ShadowMap"] &&
-				m_cartoonEffect.CurrentTechnique != m_cartoonEffect.Techniques["ShadowedScene"])
-			{
-				if (d.Name == "sky")
-					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["SkyBox"];
-				else
-					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["Lambert"];
-			}
+            /*if (_effectName == "cartoonEffect" && m_cartoonEffect.CurrentTechnique != m_cartoonEffect.Techniques["ShadowMap"] &&
+                m_cartoonEffect.CurrentTechnique != m_cartoonEffect.Techniques["ShadowedScene"])
+            {
+                if (d.Name == "sky")
+                    m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["SkyBox"];
+                else
+                    m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["Lambert"];
+            }*/
 
-			if (d.Name == CurrentlySelected)
+            if (d.Name == CurrentlySelected)
 			{
 				d.ShowVertices = true;
 				//d.TextureName = TextureName;

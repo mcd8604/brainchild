@@ -26,7 +26,7 @@ namespace Project_blob.GameState
 
 		//Texture2D skyTexture;
 		//TextureInfo ti;
-		StaticModel sky;
+		//StaticModel sky;
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
 
@@ -60,7 +60,7 @@ namespace Project_blob.GameState
 
 		PhysicsManager physics;
 
-        Vector2 cameraOffset = new Vector2();
+        //Vector2 cameraOffset = new Vector2();
 
 		private enum CameraType
 		{
@@ -409,19 +409,14 @@ namespace Project_blob.GameState
 
 		public void ChangeArea(String area)
 		{
+            TextureManager.ClearTextures();
+
 			currentArea = Level.Areas[area];
-            currentArea.LoadAreaGameplay( ScreenManager );
+            currentArea.LoadAreaGameplay(ScreenManager);
 
-            // load skybox
-            sky = new StaticModel( "sky", "skyBox", "none", "cloudsky", new List<short>() );
-            sky.initialize();
-            sky.Scale = Matrix.CreateScale( 750f );
+            //Give the SceneManager a reference to the display
+            SceneManager.getSingleton.Display = currentArea.Display;
 
-			//moved hardcode to Display class
-			//currentArea.Display.EffectName = "cartoonEffect";
-			//currentArea.Display.WorldParameterName = "World";
-			//currentArea.Display.TextureParameterName = "Texture";
-			//currentArea.Display.TechniqueName = "Lambert";
             InitializeEffect();
 
 			blobStartPosition = currentArea.StartPosition;
@@ -445,24 +440,15 @@ namespace Project_blob.GameState
 		}
 
 		public void ChangeArea(String area, Vector3 position)
-		{
+        {
+            TextureManager.ClearTextures();
+
 			currentArea = Level.Areas[area];
             currentArea.LoadAreaGameplay( ScreenManager );
 
-            // load skybox
-            if ( currentArea.SkyTexture != null && currentArea.SkyTexture.Length > 0 )
-            {
-                //TextureManager.AddTexture(this.con
-                sky = new StaticModel( "sky", "skyBox", "none", "cloudsky", new List<short>() );
-                sky.initialize();
-                sky.Scale = Matrix.CreateScale( 750f );
-                currentArea.Display.AddToBeDrawn( sky );
-            }
+            //Give the SceneManager a reference to the display
+            SceneManager.getSingleton.Display = currentArea.Display;
 
-			currentArea.Display.EffectName = "cartoonEffect";
-			currentArea.Display.WorldParameterName = "World";
-			currentArea.Display.TextureParameterName = "Texture";
-			currentArea.Display.TechniqueName = "Lambert";
             InitializeEffect();
 
             blobStartPosition = position;
@@ -692,7 +678,7 @@ namespace Project_blob.GameState
 					//cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 				}
 				if (currentArea.Display.SkyBox != null)
-					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(CameraManager.getSingleton.ActiveCamera.Position);
+					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
 
 
 				//fps
@@ -1007,8 +993,8 @@ namespace Project_blob.GameState
 			{
 				drawables.Clear();
 			}
-			if (currentArea.Display.SkyBox != null)
-				currentArea.Display.AddToBeDrawn(currentArea.Display.SkyBox);
+			//if (currentArea.Display.SkyBox != null)
+			//	currentArea.Display.AddToBeDrawn(currentArea.Display.SkyBox);
 
 			SceneManager.getSingleton.UpdateVisibleDrawables(gameTime);
 
