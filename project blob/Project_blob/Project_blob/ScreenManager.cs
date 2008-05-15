@@ -63,7 +63,6 @@ namespace Project_blob
 
 		protected override void Initialize()
 		{
-			// Sets up audio
 			AudioManager.initialize();
 
 			InputHandler.LoadDefaultBindings();

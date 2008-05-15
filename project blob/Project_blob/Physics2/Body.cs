@@ -373,7 +373,7 @@ namespace Physics2
 		{
 			if (collisionSound != null)
 			{
-				collisionSound.play(e.collisionPoint, Engine.CameraManager.getSingleton.ActiveCamera.Listener, e.impact);
+				collisionSound.play(e.collisionPoint, e.impact);
 			}
 		}
 

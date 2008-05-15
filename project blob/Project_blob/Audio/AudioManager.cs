@@ -17,6 +17,15 @@ namespace Audio
 		private static WaveBank _waveBank;
 		private static SoundBank _soundBank;
 		private static Dictionary<String, Cue> _music = new Dictionary<string, Cue>();
+        private static List<Sound> _ambientSounds = new List<Sound>();
+
+        private static System.Threading.Thread _ambientSoundThread;
+        private static bool _runAmbience = true;
+
+        private static AudioListener _audioListener;
+        public static AudioListener Listener {
+            set { _audioListener = value; }
+        }
 
 		// Bool for if we should not apply 3D effects
 		private static bool mono = false;
@@ -48,6 +57,25 @@ namespace Audio
 				_audioEngine = new AudioEngine("Content/Audio/sound.xgs");
 				_waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
 				_soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
+                _ambientSoundThread = new System.Threading.Thread(delegate() 
+                {
+                    for (int i = 0; i < _ambientSounds.Count; i++) {
+                        _ambientSounds[i].startSound();
+                    }
+                    do {
+                        for (int i = 0; i < _ambientSounds.Count; i++) {
+                            if (_audioListener != null && !mono) {
+                                _ambientSounds[i].updateAmbient3D(_audioListener);
+                                update();
+                            }
+                        }
+                        System.Threading.Thread.Sleep(5);
+                    } while (_runAmbience);
+                });
+                _ambientSoundThread.IsBackground = true;
+                _ambientSoundThread.Name = "Ambient Sound Thread";
+                _ambientSoundThread.Priority = System.Threading.ThreadPriority.Normal;
+                _ambientSoundThread.Start();
 			}
 			catch (Exception e)
 			{
@@ -58,7 +86,27 @@ namespace Audio
 			}
 		}
 
-		public static Sound getSound(string soundName)
+        /// <summary>
+        /// Loads in a new set of ambient sounds for a level given a list of sound names and their respective positions
+        /// </summary>
+        /// <param name="soundNames">The list of names of all the ambient sounds</param>
+        /// <param name="positions">The list of positions of all the ambient sounds</param>
+        public static void LoadAmbientSounds(List<String> soundNames, List<Vector3> positions) {
+            _ambientSounds.Clear();
+            Sound ambientSound;
+            for (int i = 0; i < soundNames.Count; i++) {
+                ambientSound = new Sound(soundNames[i], positions[i]);
+                _ambientSounds.Add(ambientSound);
+            }
+            
+        }
+
+        /// <summary>
+        /// Constructs a sound object that can utilize 3D sound from the given sound name
+        /// </summary>
+        /// <param name="soundName">The name of the sound file</param>
+        /// <returns>If the name of the sound name is a sound file, the sound object of the given sound file</returns>
+        public static Sound getSound(string soundName)
 		{
 			if (!soundName.Equals("") && !soundName.Equals("none"))
 			{
@@ -127,17 +175,17 @@ namespace Audio
 		/// <param name="soundName">The name of the soundFX lookup id</param>
 		/// <param name="listener">The listener of the sound to be played</param>
 		/// <param name="emitter">The emitter of the sound to be played</param>
-		public static void playSoundFXs(ref Cue soundFX, float volumeLevel, AudioListener listener, AudioEmitter emitter)
+		public static void playSoundFXs(ref Cue soundFX, float volumeLevel, AudioEmitter emitter)
 		{
 			if (volumeLevel >= 0)
 			{
 				soundFX.Dispose();
 				soundFX = _soundBank.GetCue(soundFX.Name);
-				if (!mono)
+                if (_audioListener != null && !mono)
 				{
 					try
 					{
-						soundFX.Apply3D(listener, emitter);
+						soundFX.Apply3D(_audioListener, emitter);
 						soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
 					}
 					catch (Exception e)
