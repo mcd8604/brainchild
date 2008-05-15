@@ -5,7 +5,7 @@ using Physics2;
 
 namespace Project_blob
 {
-	class TriggerStatic : BodyStatic
+	class TriggerStatic : Body
 	{
 		private EventTrigger _triggeredEvent;
 		public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }
@@ -13,7 +13,7 @@ namespace Project_blob
 		public float CoolDown = 1f;
 		private float Time = 0f;
 
-		public TriggerStatic(IList<CollidableStatic> Collidables, Body ParentBody, EventTrigger triggeredEvent)
+		public TriggerStatic(List<CollidableStatic> Collidables, Body ParentBody, EventTrigger triggeredEvent)
 			: base(Collidables, ParentBody)
 		{
 			_triggeredEvent = triggeredEvent;

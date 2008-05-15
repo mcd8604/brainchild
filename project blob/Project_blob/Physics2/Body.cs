@@ -21,6 +21,8 @@ namespace Physics2
 
 		protected Material material = Material.getDefaultMaterial();
 
+		private readonly bool Static = false;
+
 		//temp:
 		public Audio.Sound collisionSound;
 
@@ -32,7 +34,31 @@ namespace Physics2
 			{
 				ParentBody.addChild(this);
 			}
+		}
 
+		public Body(Body ParentBody, bool isStatic)
+		{
+			if (ParentBody != null)
+			{
+				ParentBody.addChild(this);
+			}
+			Static = isStatic;
+		}
+
+		/// <summary>
+		/// Replaces the old BodyStatic constructor
+		/// </summary>
+		/// <param name="p_collidables"></param>
+		/// <param name="ParentBody"></param>
+		public Body(List<CollidableStatic> p_collidables, Body ParentBody)
+		{
+			if (ParentBody != null)
+			{
+				ParentBody.addChild(this);
+			}
+			collidables = p_collidables.ConvertAll<Collidable>(new System.Converter<CollidableStatic, Collidable>(delegate(CollidableStatic c) { return (Collidable)c; }));
+			Static = true;
+			initializeStatic();
 		}
 
 		public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks)
@@ -46,6 +72,28 @@ namespace Physics2
 			collidables = p_collidables;
 			tasks = p_tasks;
 			initialize();
+		}
+
+		public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks, bool isStatic)
+		{
+			if (ParentBody != null)
+			{
+				ParentBody.addChild(this);
+			}
+			Static = isStatic;
+			if (!Static)
+			{
+				points = p_points;
+				springs = p_springs;
+				collidables = p_collidables;
+				tasks = p_tasks;
+				initialize();
+			}
+			else
+			{
+				collidables = p_collidables;
+				initializeStatic();
+			}
 		}
 
 		public virtual void initialize()
@@ -69,8 +117,34 @@ namespace Physics2
 			center /= points.Count;
 		}
 
+		public virtual void initializeStatic()
+		{
+			foreach (Collidable c in collidables)
+			{
+				if (!(c is CollidableStatic))
+				{
+					throw new Exception();
+				}
+			}
+
+			boundingBox = new AxisAlignedBoundingBox();
+			foreach (Collidable c in collidables)
+			{
+				if (c.parent != null && c.parent != this)
+				{
+					throw new Exception();
+				}
+				c.parent = this;
+				boundingBox.expandToInclude(c.getBoundingBox());
+			}
+		}
+
 		public virtual void addChild(Body childBody)
 		{
+			if (Static && !(childBody.Static))
+			{
+				throw new Exception("BodyStatic child must also be static");
+			}
 			if (childBody.parentBody != null)
 			{
 				throw new Exception();
@@ -94,12 +168,12 @@ namespace Physics2
 		/// <returns></returns>
 		public virtual bool canCollide()
 		{
-			return true;
+			return !Static;
 		}
 
 		public virtual bool isStatic()
 		{
-			return false;
+			return Static;
 		}
 
 		/// <summary>
@@ -183,6 +257,11 @@ namespace Physics2
 
 		public virtual void update(float TotalElapsedSeconds)
 		{
+			if (Static)
+			{
+				return;
+			}
+
 			foreach (Body b in childBodies)
 			{
 				b.update(TotalElapsedSeconds);
@@ -221,6 +300,10 @@ namespace Physics2
 
 		public virtual void updatePosition()
 		{
+			if (Static)
+			{
+				return;
+			}
 
 			boundingBox.clear();
 			foreach (Body child in childBodies)
@@ -247,6 +330,10 @@ namespace Physics2
 
 		protected internal virtual void SolveForNextPosition(float TotalElapsedSeconds)
 		{
+			if (Static)
+			{
+				return;
+			}
 
 			foreach (Body child in childBodies)
 			{

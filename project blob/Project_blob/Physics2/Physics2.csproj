@@ -58,7 +58,6 @@
     <Compile Include="Body.cs" />
     <Compile Include="BodyPressure.cs" />
     <Compile Include="BodyRigid.cs" />
-    <Compile Include="BodyStatic.cs" />
     <Compile Include="BoundingFrustum.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="CollidableStatic.cs" />

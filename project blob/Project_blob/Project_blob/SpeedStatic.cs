@@ -6,12 +6,12 @@ using Physics2;
 
 namespace Project_blob
 {
-	class SpeedStatic : BodyStatic
+	class SpeedStatic : Body
 	{
 
 		float bonus = 1;
 
-		public SpeedStatic(IList<CollidableStatic> Collidables, Body ParentBody, float p_Speed)
+		public SpeedStatic(List<CollidableStatic> Collidables, Body ParentBody, float p_Speed)
 			: base(Collidables, ParentBody)
 		{
 			bonus = p_Speed;

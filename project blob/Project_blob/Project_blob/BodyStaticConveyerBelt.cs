@@ -6,7 +6,7 @@ using Physics2;
 
 namespace Project_blob
 {
-	class BodyStaticConveyerBelt : BodyStatic
+	class BodyStaticConveyerBelt : Body
 	{
 
 		private Vector3 m_Direction;
@@ -41,7 +41,7 @@ namespace Project_blob
 
         private ConveyerBeltStatic m_StaticModel;
 
-        public BodyStaticConveyerBelt(IList<CollidableStatic> Collidables, Body ParentBody, ConveyerBeltStatic staticModel)
+        public BodyStaticConveyerBelt(List<CollidableStatic> Collidables, Body ParentBody, ConveyerBeltStatic staticModel)
             : base(Collidables, ParentBody)
         {
             m_Direction = staticModel.Direction;

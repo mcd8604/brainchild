@@ -37,9 +37,10 @@ namespace Physics2
 				throw new Exception("Invalid Spring State");
 			}
 #endif
+			float test = Length - LengthOffset;
 
-			float dist = Vector3.Distance(A.CurrentPosition, B.CurrentPosition) + LengthOffset;
-			float next_dist = Vector3.Distance(A.PotentialPosition, B.PotentialPosition) + LengthOffset;
+			float dist = Vector3.Distance(A.CurrentPosition, B.CurrentPosition);
+			float next_dist = Vector3.Distance(A.PotentialPosition, B.PotentialPosition);
 
 			float X = 0;
 			float Y = 0;
@@ -47,8 +48,8 @@ namespace Physics2
 
 			if (dist > MaximumLengthBeforeExtension || dist < MinimumLengthBeforeCompression)
 			{
-				Vector3 temp = Vector3.Normalize(A.CurrentPosition - B.CurrentPosition);
-				float mult = Force * (Length - dist);
+				Vector3 temp = A.CurrentPosition - B.CurrentPosition;
+				float mult = Force * (test - dist) / dist;
 
 				X += temp.X * mult;
 				Y += temp.Y * mult;
@@ -57,8 +58,8 @@ namespace Physics2
 
 			if (next_dist > MaximumLengthBeforeExtension || next_dist < MinimumLengthBeforeCompression)
 			{
-				Vector3 temp = Vector3.Normalize(A.PotentialPosition - B.PotentialPosition);
-				float mult = Force * (Length - next_dist);
+				Vector3 temp = A.PotentialPosition - B.PotentialPosition;
+				float mult = Force * (test - next_dist) / next_dist;
 
 				X += temp.X * mult;
 				Y += temp.Y * mult;
