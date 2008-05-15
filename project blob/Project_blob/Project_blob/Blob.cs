@@ -520,8 +520,10 @@ namespace Project_blob
 			float height = MathHelper.Distance(distanceToCenter, facePlane.D);
 
 			float volume = height * area * (1f / 3f);
+#if DEBUG
 			if (float.IsNaN(volume))
 				throw new Exception("Not Good");
+#endif
 
 			return volume;
 		}
@@ -547,8 +549,10 @@ namespace Project_blob
 			float height = MathHelper.Distance(distanceToCenter, facePlane.D);
 
 			float volume = height * area * (1f / 3f);
+#if DEBUG
 			if (float.IsNaN(volume))
 				throw new Exception("Not Good");
+#endif
 
 			return volume;
 		}

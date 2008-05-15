@@ -1,5 +1,27 @@
 Adam's Profiling Results!
 
+Methods using strings:
+
+Area.LoadAreaGameplay
+GameplayScreen.Draw
+LeveL.LoadLevel
+TextureManager.GetTextureID
+AudioManager.getSound
+
+
+What we need to care about:
+
+Spring.update
+Body.update
+PhysicsSeq.doPhysics
+Vector3.Multiply
+CollidableStaticTri.update
+Vecto3.Normalize
+Vector3.Add
+Vector3.Distance
+AABB.lineIntersects
+Body.findPointcollisions
+
 Latest Test:
 
 Full profiling, 5,472 methods were profiled.
