@@ -300,6 +300,7 @@ namespace WorldMaker
 			if (m_Game.ActiveDrawable is StaticModel)
 			{
 				((StaticModel)m_Game.ActiveDrawable).Scale = Matrix.CreateScale(Convert.ToSingle(ScaleXValue.Text), Convert.ToSingle(ScaleYValue.Text), Convert.ToSingle(ScaleZValue.Text));
+				((StaticModel)m_Game.ActiveDrawable).initialize();
 			}
 		}
 
@@ -477,6 +478,7 @@ namespace WorldMaker
 			if (m_Game.ActiveDrawable is StaticModel)
 			{
 				((StaticModel)m_Game.ActiveDrawable).Rotation = Matrix.Multiply(Matrix.CreateRotationX(MathHelper.ToRadians(Convert.ToSingle(RotationXValue.Text))), Matrix.Multiply(Matrix.CreateRotationY(MathHelper.ToRadians(Convert.ToSingle(RotationYValue.Text))), Matrix.CreateRotationZ(MathHelper.ToRadians(Convert.ToSingle(RotationZValue.Text)))));
+				((StaticModel)m_Game.ActiveDrawable).initialize();
 			}
 		}
 		#endregion
@@ -492,6 +494,7 @@ namespace WorldMaker
 				if (m_Game.ActiveDrawable is StaticModel)
 				{
 					((StaticModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
+					((StaticModel)m_Game.ActiveDrawable).initialize();
 				}
 				PositionX.ForeColor = Color.Black;
 			}
@@ -514,6 +517,7 @@ namespace WorldMaker
 				if (m_Game.ActiveDrawable is StaticModel)
 				{
 					((StaticModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
+					((StaticModel)m_Game.ActiveDrawable).initialize();
 				}
 				PositionY.ForeColor = Color.Black;
 			}
@@ -536,6 +540,7 @@ namespace WorldMaker
 				if (m_Game.ActiveDrawable is StaticModel)
 				{
 					((StaticModel)m_Game.ActiveDrawable).Position = Matrix.CreateTranslation((float)Convert.ToSingle(PositionX.Text), (float)Convert.ToSingle(PositionY.Text), (float)Convert.ToSingle(PositionZ.Text));
+					((StaticModel)m_Game.ActiveDrawable).initialize();
 				}
 				PositionZ.ForeColor = Color.Black;
 			}
@@ -557,6 +562,7 @@ namespace WorldMaker
 			if (m_Game.ActiveDrawable is StaticModel)
 			{
 				m_Game.focusPoint = ((StaticModel)m_Game.ActiveDrawable).Position.Translation;
+				((StaticModel)m_Game.ActiveDrawable).initialize();
 			}
 		}
 
@@ -670,6 +676,7 @@ namespace WorldMaker
 			if (m_Game.ActiveDrawable is StaticModel)
 			{
 				((StaticModel)m_Game.ActiveDrawable).RepeatingTexture = repeatTexture_cb.Checked;
+				((StaticModel)m_Game.ActiveDrawable).initialize();
 			}
 		}
 
