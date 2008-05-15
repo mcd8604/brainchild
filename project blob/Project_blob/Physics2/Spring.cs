@@ -41,26 +41,40 @@ namespace Physics2
 			float dist = Vector3.Distance(A.CurrentPosition, B.CurrentPosition) + LengthOffset;
 			float next_dist = Vector3.Distance(A.PotentialPosition, B.PotentialPosition) + LengthOffset;
 
-			Vector3 force = Util.Zero;
+			float X = 0;
+			float Y = 0;
+			float Z = 0;
 
 			if (dist > MaximumLengthBeforeExtension || dist < MinimumLengthBeforeCompression)
 			{
-				force += Vector3.Normalize(A.CurrentPosition - B.CurrentPosition) * (Force * (Length - dist));
+				Vector3 temp = Vector3.Normalize(A.CurrentPosition - B.CurrentPosition);
+				float mult = Force * (Length - dist);
+
+				X += temp.X * mult;
+				Y += temp.Y * mult;
+				Z += temp.Z * mult;
 			}
 
 			if (next_dist > MaximumLengthBeforeExtension || next_dist < MinimumLengthBeforeCompression)
 			{
-				force += Vector3.Normalize(A.PotentialPosition - B.PotentialPosition) * (Force * (Length - dist));
+				Vector3 temp = Vector3.Normalize(A.PotentialPosition - B.PotentialPosition);
+				float mult = Force * (Length - next_dist);
+
+				X += temp.X * mult;
+				Y += temp.Y * mult;
+				Z += temp.Z * mult;
 			}
 
-			Vector3 val = (force * 0.5f);
+			X *= 0.5f;
+			Y *= 0.5f;
+			Z *= 0.5f;
 
-			A.ForceThisFrame.X += val.X;
-			A.ForceThisFrame.Y += val.Y;
-			A.ForceThisFrame.Z += val.Z;
-			B.ForceThisFrame.X -= val.X;
-			B.ForceThisFrame.Y -= val.Y;
-			B.ForceThisFrame.Z -= val.Z;
+			A.ForceThisFrame.X += X;
+			A.ForceThisFrame.Y += Y;
+			A.ForceThisFrame.Z += Z;
+			B.ForceThisFrame.X -= X;
+			B.ForceThisFrame.Y -= Y;
+			B.ForceThisFrame.Z -= Z;
 
 		}
 
