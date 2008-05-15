@@ -106,7 +106,7 @@ namespace Physics2
 						if (forward)
 						{
 							++currentIndex;
-							if (frames.Count - currentIndex == 0)
+							if (frames.Count - currentIndex <= 1)
 							{
 								forward = false;
 							}
