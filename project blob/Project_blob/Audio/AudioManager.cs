@@ -91,14 +91,15 @@ namespace Audio
         /// </summary>
         /// <param name="soundNames">The list of names of all the ambient sounds</param>
         /// <param name="positions">The list of positions of all the ambient sounds</param>
-        public static void LoadAmbientSounds(List<String> soundNames, List<Vector3> positions) {
-            _ambientSounds.Clear();
-            Sound ambientSound;
-            for (int i = 0; i < soundNames.Count; i++) {
-                ambientSound = new Sound(soundNames[i], positions[i]);
-                _ambientSounds.Add(ambientSound);
+        public static void LoadAmbientSounds(List<AmbientSoundInfo> ambientSounds) {
+            if (ambientSounds != null) {
+                _ambientSounds.Clear();
+                Sound ambientSound;
+                for (int i = 0; i < ambientSounds.Count; i++) {
+                    ambientSound = new Sound(ambientSounds[i].Name, ambientSounds[i].Position);
+                    _ambientSounds.Add(ambientSound);
+                }
             }
-            
         }
 
         /// <summary>
