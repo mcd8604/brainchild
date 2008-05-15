@@ -10,13 +10,13 @@ namespace Project_blob
 {
 	[Serializable]
 	public class Area
-    {
-        [NonSerialized]
+	{
+		[NonSerialized]
 		private Display _display;
 
 		private Dictionary<String, Drawable> _drawables;
 
-        //old events - delete these
+		//old events - delete these
 		//private Dictionary<String, EventTrigger> _events;
 
 		private List<Portal> _portals = new List<Portal>();
@@ -50,35 +50,35 @@ namespace Project_blob
 			set { _events = value; }
 		}*/
 
-        private Vector3 m_StartPosition;
-        public Vector3 StartPosition
-        {
-            get
-            {
-                return m_StartPosition;
-            }
-            set
-            {
-                m_StartPosition = value;
-            }
-        }
+		private Vector3 m_StartPosition;
+		public Vector3 StartPosition
+		{
+			get
+			{
+				return m_StartPosition;
+			}
+			set
+			{
+				m_StartPosition = value;
+			}
+		}
 
-        private string m_SkyTexture;
-        public string SkyTexture
-        {
-            get
-            {
-                return m_SkyTexture;
-            }
-            set
-            {
-                m_SkyTexture = value;
-            }
-        }
+		private string m_SkyTexture;
+		public string SkyTexture
+		{
+			get
+			{
+				return m_SkyTexture;
+			}
+			set
+			{
+				m_SkyTexture = value;
+			}
+		}
 
 		public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix)
 		{
-			
+
 			_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			_drawables = new Dictionary<String, Drawable>();
 			//_events = new Dictionary<String, EventTrigger>();
@@ -111,16 +111,16 @@ namespace Project_blob
 				KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
 				drawableList.Add((Drawable)kvp.Value);
 			}*/
-            foreach (Drawable d in this.Drawables.Values)
-            {
-                if (d is StaticModel)
-                {
-                    if (((StaticModel)d).Visible)
-                    {
-                        drawableList.Add(d);
-                    }
-                }
-            }
+			foreach (Drawable d in this.Drawables.Values)
+			{
+				if (d is StaticModel)
+				{
+					if (((StaticModel)d).Visible)
+					{
+						drawableList.Add(d);
+					}
+				}
+			}
 			return drawableList;
 		}
 
@@ -139,14 +139,14 @@ namespace Project_blob
 						return;
 					}
                 }*/
-                foreach (List<Drawable> drawables in _display.DrawnList)
-                {
-                    if (drawables.Contains(tempDrawable))
-                    {
-                        drawables.Remove(tempDrawable);
-                        return;
-                    }
-                }
+				foreach (List<Drawable> drawables in _display.DrawnList)
+				{
+					if (drawables.Contains(tempDrawable))
+					{
+						drawables.Remove(tempDrawable);
+						return;
+					}
+				}
 			}
 		}
 
@@ -172,17 +172,17 @@ namespace Project_blob
 			return null;
 		}*/
 
-        /*public void RemoveEvent(String eventName)
-        {
-            if (_events.ContainsKey(eventName))
-            {
-                EventTrigger tempEvent;
-                tempEvent = _events[eventName];
-                _events.Remove(eventName);
-            }
-        }*/
+		/*public void RemoveEvent(String eventName)
+		{
+			if (_events.ContainsKey(eventName))
+			{
+				EventTrigger tempEvent;
+				tempEvent = _events[eventName];
+				_events.Remove(eventName);
+			}
+		}*/
 
-        /*public void AddEvent(String eventName, EventTrigger eventTrigger)
+		/*public void AddEvent(String eventName, EventTrigger eventTrigger)
 		{
 			if (_events == null)
 			{
@@ -202,42 +202,42 @@ namespace Project_blob
 			return this.m_Bodies;
 		}
 
-        public void LoadAreaWorldMaker()
-        {
-            //create new display 
-            this.Display = new Display();
+		public void LoadAreaWorldMaker()
+		{
+			//create new display 
+			this.Display = new Display();
 
-            //initialize drawables and populate draw list
-            foreach (Drawable d in this.Drawables.Values)
-            {
-                if (d is StaticModel)
-                {
-                    ((StaticModel)d).initialize();
-                    //((StaticModel)d).Visible = true;
-                }
-                this.Display.AddToBeDrawn(d);
-            }
+			//initialize drawables and populate draw list
+			foreach (Drawable d in this.Drawables.Values)
+			{
+				if (d is StaticModel)
+				{
+					((StaticModel)d).initialize();
+					//((StaticModel)d).Visible = true;
+				}
+				this.Display.AddToBeDrawn(d);
+			}
 
-            //move events into their respective models
-            /*IEnumerator eventsEnum = this._events.GetEnumerator();
-            while (eventsEnum.MoveNext())
-            {
-                //KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)eventsEnum.Current;
-                drawableList.Add((Drawable)kvp.Value);
-                    ((StaticModel)d).Visible = true;
+			//move events into their respective models
+			/*IEnumerator eventsEnum = this._events.GetEnumerator();
+			while (eventsEnum.MoveNext())
+			{
+				//KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)eventsEnum.Current;
+				drawableList.Add((Drawable)kvp.Value);
+					((StaticModel)d).Visible = true;
 
-            }*/
+			}*/
 
-            /*foreach (KeyValuePair<String, EventTrigger> kvp in this._events)
-            {
-                if (this._drawables[kvp.Key] is StaticModel)
-                {
-                    //((StaticModel)this._drawables[kvp.Key]).Visible = false;
-                    //((StaticModel)this._drawables[kvp.Key]).Event = kvp.Value;
-                }
-            }*/
-            //this._events = null;
-        }
+			/*foreach (KeyValuePair<String, EventTrigger> kvp in this._events)
+			{
+				if (this._drawables[kvp.Key] is StaticModel)
+				{
+					//((StaticModel)this._drawables[kvp.Key]).Visible = false;
+					//((StaticModel)this._drawables[kvp.Key]).Event = kvp.Value;
+				}
+			}*/
+			//this._events = null;
+		}
 
 		public void LoadAreaGameplay(Game game)
 		{
@@ -251,36 +251,36 @@ namespace Project_blob
 				TextureManager.getSingleton.AddTexture(ti.TextureName, game.Content.Load<Texture2D>(@"Textures\\" + ti.TextureName));
 			}*/
 
-            //create new display 
-            this._display = new Display();
-            this._display.ShowAxis = false;
-            this._display.GameMode = true;
+			//create new display 
+			this._display = new Display();
+			this._display.ShowAxis = false;
+			this._display.GameMode = true;
 
-            // load skybox
-            if (this.m_SkyTexture != null && this.m_SkyTexture.Length > 0)
-            {
-                Texture2D skyTex = game.Content.Load<Texture2D>(@"Textures\\" + this.m_SkyTexture);
-                skyTex.Name = this.m_SkyTexture;
-                TextureManager.AddTexture(skyTex);
-                ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
-                this._display.SkyBox = new StaticModel("sky", "skyBox", "none", this.m_SkyTexture, new List<short>());
-                this._display.SkyBox.Scale = Matrix.CreateScale(750f);
-                this._display.SkyBox.initialize();
-            }
+			// load skybox
+			if (this.m_SkyTexture != null && this.m_SkyTexture.Length > 0)
+			{
+				Texture2D skyTex = game.Content.Load<Texture2D>(@"Textures\\" + this.m_SkyTexture);
+				skyTex.Name = this.m_SkyTexture;
+				TextureManager.AddTexture(skyTex);
+				ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
+				this._display.SkyBox = new StaticModel("sky", "skyBox", "none", this.m_SkyTexture, new List<short>());
+				this._display.SkyBox.Scale = Matrix.CreateScale(750f);
+				this._display.SkyBox.initialize();
+			}
 
-            this.m_Bodies = new List<Physics2.Body>();
+			this.m_Bodies = new List<Physics2.Body>();
 
-            //load level models
+			//load level models
 			foreach (Drawable d in this.Drawables.Values)
 			{
 				if (d is StaticModel)
 				{
 					StaticModel dm = (StaticModel)d;
-                    Model model = game.Content.Load<Model>(@"Models\\" + dm.ModelName);
-                    ModelManager.getSingleton.AddModel(dm.ModelName, model);
-                    Texture2D t = game.Content.Load<Texture2D>(@"Textures\\" + dm.TextureName);
-                    t.Name = dm.TextureName;
-                    TextureManager.AddTexture(t);
+					Model model = game.Content.Load<Model>(@"Models\\" + dm.ModelName);
+					ModelManager.getSingleton.AddModel(dm.ModelName, model);
+					Texture2D t = game.Content.Load<Texture2D>(@"Textures\\" + dm.TextureName);
+					t.Name = dm.TextureName;
+					TextureManager.AddTexture(t);
 					dm.initialize();
 
 					/*foreach (TextureInfo info in this.Display.DrawnList.Keys)
@@ -321,69 +321,75 @@ namespace Project_blob
 						// temporary
 						//bool eventtrigger = false;
 						//bool speed = false;
-                        
+
 						List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
 
-                        if (dm.CollisionType == CollisionTypes.Body)
-                        {
-                            int numCol = 0;
-                            for (int i = 0; i < indices.Length; i += 3)
-                            {
-                                if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
-                                {
-                                    /*if (dm.TextureName.Equals("event"))
-                                    {
-                                        //collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
-                                        eventtrigger = true;
-                                    }*/
+						if (dm.CollisionType == CollisionTypes.Body)
+						{
+							int numCol = 0;
+							for (int i = 0; i < indices.Length; i += 3)
+							{
+								if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && vertices[indices[i + 2]].Position != vertices[indices[i]].Position && vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
+								{
+									/*if (dm.TextureName.Equals("event"))
+									{
+										//collidables.Add(new Trigger(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]], areaRef.Events[Name]));
+										eventtrigger = true;
+									}*/
 
-                                    collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+									collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
 
-                                    /*if (dm.TextureName.Equals("speed"))
-                                    {
-                                        speed = true;
-                                    }*/
+									/*if (dm.TextureName.Equals("speed"))
+									{
+										speed = true;
+									}*/
 
-                                    ++numCol;
-                                }
-                            }
-                        }
-                        else if (dm.CollisionType == CollisionTypes.BoundingBox)
-                        {
-                            AxisAlignedBoundingBox b = new AxisAlignedBoundingBox();
-                            foreach (VertexPositionNormalTexture v in vertices)
-                            {
-                                b.expandToInclude(v.Position);
-                            }
-                            /*collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());
-                            collidables.Add(new Physics2.CollidableStaticTri());*/
+									++numCol;
+								}
+							}
+						}
+						else if (dm.CollisionType == CollisionTypes.BoundingBox)
+						{
+							AxisAlignedBoundingBox b = new AxisAlignedBoundingBox();
+							foreach (VertexPositionNormalTexture v in vertices)
+							{
+								b.expandToInclude(v.Position);
+							}
+							/*collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());
+							collidables.Add(new Physics2.CollidableStaticTri());*/
 
-                        }
-                        if (dm.Event != null)
-                        {
-							body = new TriggerStatic(collidables, null, dm.AudioName ,dm.Event);
+						}
+						// this is called
+						if (dm.Event != null)
+						{
+
+							body = new TriggerStatic(collidables, null, dm.Event);
+							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
 						else if (dm is ConveyerBeltStatic)
 						{
 							body = new BodyStaticConveyerBelt(collidables, null, dm as ConveyerBeltStatic);
+							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
-                        else if ( dm is StaticModelSpeed )
+						else if (dm is StaticModelSpeed)
 						{
-                            body = new SpeedStatic(collidables, null, dm.AudioName, ((StaticModelSpeed)dm).Speed);
+							body = new SpeedStatic(collidables, null, ((StaticModelSpeed)dm).Speed);
+							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
 						else
 						{
-							body = new BodyStatic(collidables, null, dm.AudioName);
+							body = new BodyStatic(collidables, null);
+							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
 					}
 					else
@@ -407,38 +413,40 @@ namespace Project_blob
 							}
 						}
 
-						body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel.AudioName, dynModel);
+						body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
+						body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
 					}
 					dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
 
-                    /*Material sticky = new Material(2.0f, 2.0f);
-                    Material slick = new Material(0.1f, 0.1f);
-                    Material def = Material.getDefaultMaterial();
+					/*Material sticky = new Material(2.0f, 2.0f);
+					Material slick = new Material(0.1f, 0.1f);
+					Material def = Material.getDefaultMaterial();
 
-                    //temporary material stuff
-                    Material m;
-                    if (dm.TextureName.Equals("sticky"))
-                    {
-                        m = sticky;
-                    }
-                    else if (dm.TextureName.Equals("slick"))
-                    {
-                        m = slick;
-                    }
-                    else
-                    {
-                        m = def;
-                    }*/
+					//temporary material stuff
+					Material m;
+					if (dm.TextureName.Equals("sticky"))
+					{
+						m = sticky;
+					}
+					else if (dm.TextureName.Equals("slick"))
+					{
+						m = slick;
+					}
+					else
+					{
+						m = def;
+					}*/
 
-                    body.setMaterial(MaterialFactory.GetPhysicsMaterial(dm.MyMaterialType));
+					body.setMaterial(MaterialFactory.GetPhysicsMaterial(dm.MyMaterialType));
 					this.m_Bodies.Add(body);
 				}
 			}
-            foreach (Texture2D t in TextureManager.TextureList)
-            {
-                this._display.DrawnList.Add(new List<Drawable>());
-            }
-        }
+
+			foreach (Texture2D t in TextureManager.TextureList)
+			{
+				this._display.DrawnList.Add(new List<Drawable>());
+			}
+		}
 	}
 }
 

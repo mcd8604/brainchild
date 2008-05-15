@@ -1,17 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Audio;
 
 namespace Physics2
 {
 	public class Body
 	{
-		protected internal AudioEmitter audioEmitter = new AudioEmitter();
-		protected internal Cue collisionSound;
-		protected internal string soundName;
-		protected internal bool playingSound = false;
 		protected internal IList<PhysicsPoint> points = new List<PhysicsPoint>();
 		protected internal IList<Collidable> collidables = new List<Collidable>();
 		protected internal IList<Spring> springs = new List<Spring>();
@@ -27,39 +21,24 @@ namespace Physics2
 
 		protected Material material = Material.getDefaultMaterial();
 
-		protected internal Body(string p_collisionSound)
+		//temp:
+		public Audio.Sound collisionSound;
+
+		protected internal Body()
 		{
-			soundName = p_collisionSound;
-			if (!soundName.Equals("") && !soundName.Equals("none"))
-			{
-				collisionSound = AudioManager.getSingleton.getSoundFX(soundName);
-			}
-			audioEmitter.DopplerScale = 0f;
-			audioEmitter.Forward = Vector3.Forward;
-			audioEmitter.Up = Vector3.Up;
-			audioEmitter.Position = Vector3.Zero;
-			audioEmitter.Velocity = Vector3.Zero;
+
 		}
 
-		public Body(Body ParentBody, string p_collisionSound)
+		public Body(Body ParentBody)
 		{
 			if (ParentBody != null)
 			{
 				ParentBody.addChild(this);
 			}
-			soundName = p_collisionSound;
-			if (!soundName.Equals("") && !soundName.Equals("none"))
-			{
-				collisionSound = AudioManager.getSingleton.getSoundFX(soundName);
-			}
-			audioEmitter.DopplerScale = 0f;
-			audioEmitter.Forward = Vector3.Forward;
-			audioEmitter.Up = Vector3.Up;
-			audioEmitter.Position = Vector3.Zero;
-			audioEmitter.Velocity = Vector3.One;
+
 		}
 
-		public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks, string p_collisionSound)
+		public Body(Body ParentBody, IList<PhysicsPoint> p_points, IList<Collidable> p_collidables, IList<Spring> p_springs, IList<Task> p_tasks)
 		{
 			if (ParentBody != null)
 			{
@@ -69,16 +48,6 @@ namespace Physics2
 			springs = p_springs;
 			collidables = p_collidables;
 			tasks = p_tasks;
-			soundName = p_collisionSound;
-			if (!soundName.Equals("") && !soundName.Equals("none"))
-			{
-				collisionSound = AudioManager.getSingleton.getSoundFX(soundName);
-			}
-			audioEmitter.DopplerScale = 0f;
-			audioEmitter.Forward = Vector3.Forward;
-			audioEmitter.Up = Vector3.Up;
-			audioEmitter.Position = Vector3.Zero;
-			audioEmitter.Velocity = Vector3.One;
 			initialize();
 		}
 
@@ -152,7 +121,7 @@ namespace Physics2
 
 		public virtual Vector3 getAverageVelocity()
 		{
-			if (points.Count == 0 )
+			if (points.Count == 0)
 			{
 				return Vector3.Zero;
 			}
@@ -402,45 +371,15 @@ namespace Physics2
 		}
 		public virtual void onCollision(CollisionEvent e)
 		{
-
-			// Put this in a 'sound' object?
-			Vector3 tempVec = new Vector3(e.point.CurrentVelocity.X * e.collidable.Normal.X,
-				e.point.CurrentVelocity.Y * e.collidable.Normal.Y, e.point.CurrentVelocity.Z * e.collidable.Normal.Z);
-			float volumeLevel = (float)Math.Log((double)tempVec.Length());
-			if (parentBody != null)
+			if (collisionSound != null)
 			{
-				if (!parentBody.playingSound && collisionSound != null)
-				{
-					parentBody.playingSound = true;
-					audioEmitter.Position = e.collisionPoint;
-					AudioManager.getSingleton.playSoundFXs(ref collisionSound, soundName, volumeLevel,
-						Engine.CameraManager.getSingleton.ActiveCamera.Listener, audioEmitter);
-				}
+				collisionSound.play(e.collisionPoint, Engine.CameraManager.getSingleton.ActiveCamera.Listener, e.impact);
 			}
-			else
-			{
-				if (!playingSound && collisionSound != null)
-				{
-					playingSound = true;
-					audioEmitter.Position = e.collisionPoint;
-					AudioManager.getSingleton.playSoundFXs(ref collisionSound, soundName, volumeLevel,
-						Engine.CameraManager.getSingleton.ActiveCamera.Listener, audioEmitter);
-				}
-			}
-			if (playingSound && !collisionSound.IsPlaying)
-			{
-				playingSound = false;
-				if (parentBody != null)
-				{
-					parentBody.playingSound = false;
-				}
-			}
-
 		}
 
 		public virtual Vector3 getVelocity()
 		{
-			// TODO
+			// TODO - for task velocity
 			return Vector3.Zero;
 		}
 

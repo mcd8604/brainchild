@@ -5,16 +5,16 @@ using Physics2;
 
 namespace Project_blob
 {
-    class TriggerStatic : BodyStatic
-    {
-        private EventTrigger _triggeredEvent;
+	class TriggerStatic : BodyStatic
+	{
+		private EventTrigger _triggeredEvent;
 		public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }
 
 		public float CoolDown = 1f;
 		private float Time = 0f;
 
-		public TriggerStatic(IList<CollidableStatic> Collidables, Body ParentBody, string p_collisionAudio, EventTrigger triggeredEvent)
-			: base(Collidables, ParentBody, p_collisionAudio)
+		public TriggerStatic(IList<CollidableStatic> Collidables, Body ParentBody, EventTrigger triggeredEvent)
+			: base(Collidables, ParentBody)
 		{
 			_triggeredEvent = triggeredEvent;
 		}
@@ -30,15 +30,15 @@ namespace Project_blob
 			base.update(TotalElapsedSeconds);
 		}
 
-        public override void onCollision(CollisionEvent e)
+		public override void onCollision(CollisionEvent e)
 		{
 			if (Time < 0)
 			{
-                if ( _triggeredEvent.PerformEvent( e.point ) )
-                {
-                    Time = CoolDown;
-                }
+				if (_triggeredEvent.PerformEvent(e.point))
+				{
+					Time = CoolDown;
+				}
 			}
 		}
-    }
+	}
 }

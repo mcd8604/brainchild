@@ -12,7 +12,7 @@ namespace Project_blob
 		PhysicsPoint point;
 		TaskCamera task;
 
-		public CameraBody(Body Target, string p_collisionAudio) : base(p_collisionAudio)
+		public CameraBody(Body Target)
 		{
 			point = new PhysicsPoint(Vector3.Zero, this);
 			points.Add(point);

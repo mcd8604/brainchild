@@ -60,7 +60,7 @@ namespace Project_blob.GameState
 
 		PhysicsManager physics;
 
-        //Vector2 cameraOffset = new Vector2();
+		//Vector2 cameraOffset = new Vector2();
 
 		private enum CameraType
 		{
@@ -152,7 +152,7 @@ namespace Project_blob.GameState
 			physics.Player.Volume.Origin = 100f;
 			physics.Player.Volume.Maximum = 200f;
 
-			theBlob = new Blob(blobModel, blobStartPosition, "");
+			theBlob = new Blob(blobModel, blobStartPosition);
 			theBlob.text = blobTexture;
 			theBlob.DisplacementText = distortMapText;
 			theBlob.setGraphicsDevice(ScreenManager.GraphicsDevice);
@@ -162,7 +162,7 @@ namespace Project_blob.GameState
 
 			physics.Player.PlayerBody.addTask(new GravityVector(10f, new Vector3(0f, -1.0f, 0f)));
 
-			CameraBody = new CameraBody(theBlob, "");
+			CameraBody = new CameraBody(theBlob);
 			physics.AddBody(CameraBody);
 
 			if (currentArea != null)
@@ -397,9 +397,9 @@ namespace Project_blob.GameState
 			if (body != null && body.Equals(game.theBlob))
 			{
 				game.reset();
-                return true;
+				return true;
 			}
-            return false;
+			return false;
 		}
 
 		public static void SetCheckPoint(Vector3 position)
@@ -409,15 +409,16 @@ namespace Project_blob.GameState
 
 		public void ChangeArea(String area)
 		{
-            TextureManager.ClearTextures();
+			TextureManager.ClearTextures();
 
 			currentArea = Level.Areas[area];
-            currentArea.LoadAreaGameplay(ScreenManager);
 
-            //Give the SceneManager a reference to the display
-            SceneManager.getSingleton.Display = currentArea.Display;
+			currentArea.LoadAreaGameplay(ScreenManager);
 
-            InitializeEffect();
+			//Give the SceneManager a reference to the display
+			SceneManager.getSingleton.Display = currentArea.Display;
+
+			InitializeEffect();
 
 			blobStartPosition = currentArea.StartPosition;
 
@@ -440,18 +441,18 @@ namespace Project_blob.GameState
 		}
 
 		public void ChangeArea(String area, Vector3 position)
-        {
-            TextureManager.ClearTextures();
+		{
+			TextureManager.ClearTextures();
 
 			currentArea = Level.Areas[area];
-            currentArea.LoadAreaGameplay( ScreenManager );
+			currentArea.LoadAreaGameplay(ScreenManager);
 
-            //Give the SceneManager a reference to the display
-            SceneManager.getSingleton.Display = currentArea.Display;
+			//Give the SceneManager a reference to the display
+			SceneManager.getSingleton.Display = currentArea.Display;
 
-            InitializeEffect();
+			InitializeEffect();
 
-            blobStartPosition = position;
+			blobStartPosition = position;
 
 			//Add the Static Drawables to the Octree
 			List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
@@ -638,40 +639,40 @@ namespace Project_blob.GameState
 					//CameraBody.setCameraOffset(Offset);
 					//CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
 					//Vector3 tempVect = Vector3.Normalize(theBlob.getPotentialCenter() - theBlob.getCenter());
-                    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).UserOffset = InputHandler.GetAnalogAction(AnalogActions.Camera) * 10;
+					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).UserOffset = InputHandler.GetAnalogAction(AnalogActions.Camera) * 10;
 
 
-                    bool climbing = false;
-                    Vector3 climbNormal = new Vector3();
-                    foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
-                    {
-                        if(p.LastCollision != null)
-                        {
-                            if (p.LastCollision.getMaterial().getFriction() == MaterialFactory.CLING_STICKY)
-                            {
-                                climbing = true;
-                                climbNormal = p.LastCollision.Normal;
-                            }
+					bool climbing = false;
+					Vector3 climbNormal = new Vector3();
+					foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
+					{
+						if (p.LastCollision != null)
+						{
+							if (p.LastCollision.getMaterial().getFriction() == MaterialFactory.CLING_STICKY)
+							{
+								climbing = true;
+								climbNormal = p.LastCollision.Normal;
+							}
 
-                        }
-                    }
+						}
+					}
 
-                    if (climbing)
-                    {
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = climbNormal;
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
-                    }
-                    else
-                    {
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
-                        if (theBlob.getAverageVelocity().LengthSquared() > 1f)
-                            ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = theBlob.getAverageVelocity();
+					if (climbing)
+					{
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = climbNormal;
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
+					}
+					else
+					{
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
+						if (theBlob.getAverageVelocity().LengthSquared() > 1f)
+							((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = theBlob.getAverageVelocity();
 
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
-                    }
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
+					}
 
 					//distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
 					//distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
@@ -745,47 +746,47 @@ namespace Project_blob.GameState
 				{
 					paused = !paused;
 				}
-                if (InputHandler.IsKeyPressed(Keys.F))
-                {
-                    //follow = !follow;
-                    ////camera follow
-                    //if (!follow)
-                    //{
-                    //    //cameraPosition = defaultCameraPosition;
-                    //    CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
-                    //    //viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
-                    //    //effect.Parameters["xView"].SetValue(viewMatrix);
-                    //    //camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
-                    //    CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
-                    //    CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
+				if (InputHandler.IsKeyPressed(Keys.F))
+				{
+					//follow = !follow;
+					////camera follow
+					//if (!follow)
+					//{
+					//    //cameraPosition = defaultCameraPosition;
+					//    CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
+					//    //viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
+					//    //effect.Parameters["xView"].SetValue(viewMatrix);
+					//    //camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
+					//    CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
+					//    CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
 
 
-                    //    cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                    //    distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-                    //    distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+					//    cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//    distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+					//    distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
-                    //    //effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//    //effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
-                    //    //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-                    //    //celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-                    //    //celEffect.Parameters["View"].SetValue(viewMatrix);
-                    //    //celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-                    //    //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-                    //    //effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-                    //}
-                    if( CurCamera == CameraType.follow)
-                    {
-                        CurCamera = CameraType.chase;
-                        CameraManager.getSingleton.SetActiveCamera("chase");
-                    }
-                    else
-                    {
-                        CurCamera = CameraType.follow;
-                        CameraManager.getSingleton.SetActiveCamera("default");
-                    }
+					//    //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
+					//    //celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+					//    //celEffect.Parameters["View"].SetValue(viewMatrix);
+					//    //celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+					//    //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+					//    //effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+					//}
+					if (CurCamera == CameraType.follow)
+					{
+						CurCamera = CameraType.chase;
+						CameraManager.getSingleton.SetActiveCamera("chase");
+					}
+					else
+					{
+						CurCamera = CameraType.follow;
+						CameraManager.getSingleton.SetActiveCamera("default");
+					}
 
 
-                }
+				}
 
 				if (InputHandler.IsKeyPressed(Keys.S))
 				{

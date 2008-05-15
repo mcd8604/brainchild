@@ -13,8 +13,8 @@ namespace Project_blob
 	{
 		private StaticModel m_DrawableModel;
 
-		public DrawableBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, String p_collisionSound, StaticModel p_Model)
-            : base(ParentBody, p_points, p_collidables, p_springs, p_tasks, p_collisionSound)
+		public DrawableBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, StaticModel p_Model)
+			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks)
 		{
 			m_DrawableModel = p_Model;
 		}
@@ -27,9 +27,9 @@ namespace Project_blob
 
 		private void updateVertices()
 		{
-            for ( int i = 0; i < m_DrawableModel.Vertices.Length; ++i )
+			for (int i = 0; i < m_DrawableModel.Vertices.Length; ++i)
 			{
-                m_DrawableModel.Vertices[i].Position = points[i].ExternalPosition;
+				m_DrawableModel.Vertices[i].Position = points[i].ExternalPosition;
 			}
 		}
 	}

@@ -42,7 +42,7 @@ namespace Project_blob
         private ConveyerBeltStatic m_StaticModel;
 
         public BodyStaticConveyerBelt(IList<CollidableStatic> Collidables, Body ParentBody, ConveyerBeltStatic staticModel)
-            : base(Collidables, ParentBody, staticModel.AudioName)
+            : base(Collidables, ParentBody)
         {
             m_Direction = staticModel.Direction;
             m_Speed = staticModel.Speed;
