@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Audio;
 
 namespace Engine
 {
@@ -59,8 +58,8 @@ namespace Engine
 		{
 			if (_cameras.ContainsKey(cameraName))
 			{
-				_activeCamera = _cameras[cameraName];
-                AudioManager.Listener = ActiveCamera.Listener;
+				_activeCamera = _cameras[cameraName];             
+				Audio.AudioManager.Listener = ActiveCamera.Listener;
 			}
 		}
 

@@ -94,10 +94,6 @@
       <Project>{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}</Project>
       <Name>Audio</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{65494539-D8B5-4A17-9FD4-49E5D5A2949C}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.Common.targets" />
