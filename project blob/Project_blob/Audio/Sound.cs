@@ -21,15 +21,30 @@ namespace Audio
 			audioEmitter.Velocity = Vector3.Zero;
 		}
 
+        internal Sound(string soundName, Vector3 position) {
+            collisionSound = AudioManager.getSoundFX(soundName);
+            audioEmitter.DopplerScale = 0f;
+            audioEmitter.Forward = Vector3.Forward;
+            audioEmitter.Up = Vector3.Up;
+            audioEmitter.Position = Vector3.Zero;
+            audioEmitter.Velocity = Vector3.Zero;
+        }
 
-		public void play(Vector3 SoundLocation, AudioListener Listener, float Magnitude)
+        public void updateAmbient3D(AudioListener Listener) {
+            collisionSound.Apply3D(Listener, audioEmitter);
+        }
+
+        public void startSound() {
+            AudioManager.playSoundFXs(ref collisionSound, 1.0f, audioEmitter);
+        }
+
+
+		public void play(Vector3 SoundLocation, float Magnitude)
 		{
-
             if (Magnitude == 0f)
             {
                 return;
             }
-
 			float volumeLevel = (float)Math.Log(Magnitude / 500);
 
             if (volumeLevel > 0)
@@ -47,7 +62,7 @@ namespace Audio
                     {
                         playingSound = true;
                         audioEmitter.Position = SoundLocation;
-                        AudioManager.playSoundFXs(ref collisionSound, volumeLevel, Listener, audioEmitter);
+                        AudioManager.playSoundFXs(ref collisionSound, volumeLevel, audioEmitter);
                     }
                 }
             }
