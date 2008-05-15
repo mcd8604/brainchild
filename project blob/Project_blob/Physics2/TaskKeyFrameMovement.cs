@@ -90,14 +90,14 @@ namespace Physics2
 				{
 					case Modes.Once:
 						++currentIndex;
-						if (frames.Count - currentIndex <= 1)
+						if (frames.Count - currentIndex == 0)
 						{
 							run = false;
 						}
 						break;
 					case Modes.Loop:
 						++currentIndex;
-						if (frames.Count - currentIndex <= 1)
+						if (frames.Count - currentIndex == 0)
 						{
 							currentIndex = 0;
 						}
@@ -106,7 +106,7 @@ namespace Physics2
 						if (forward)
 						{
 							++currentIndex;
-							if (frames.Count - currentIndex <= 1)
+							if (frames.Count - currentIndex == 0)
 							{
 								forward = false;
 							}
@@ -122,6 +122,13 @@ namespace Physics2
 						break;
 				}
 				currentTime = 0f;
+			}
+
+			Vector3 delta = (newPosition - b.getCenter()) / time;
+
+			foreach (PhysicsPoint p in b.points)
+			{
+				p.PotentialVelocity = delta;
 			}
 
 			b.setCenter(newPosition);

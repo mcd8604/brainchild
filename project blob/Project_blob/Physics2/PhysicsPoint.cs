@@ -72,9 +72,14 @@ namespace Physics2
 			ExternalVelocity = CurrentVelocity;
 
 			ForceThisFrame = ForceNextFrame;
-			ForceNextFrame = Vector3.Zero;
 
-			AccelerationThisFrame = Vector3.Zero;
+			ForceNextFrame.X = 0;
+			ForceNextFrame.Y = 0;
+			ForceNextFrame.Z = 0;
+
+			AccelerationThisFrame.X = 0;
+			AccelerationThisFrame.Y = 0;
+			AccelerationThisFrame.Z = 0;
 		}
 
 	}
