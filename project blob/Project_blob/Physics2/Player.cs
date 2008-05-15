@@ -112,7 +112,7 @@ namespace Physics2
 			update(volume, time);
 
 			#region Calculate Jump Vector
-			jumpVector = Vector3.Zero;
+			jumpVector = Util.Zero;
 
 			foreach (PhysicsPoint p in PlayerBody.points)
 			{
@@ -122,7 +122,7 @@ namespace Physics2
 				}
 			}
 
-			if (jumpVector != Vector3.Zero)
+			if (jumpVector != Util.Zero)
 			{
 				jumpVector = Vector3.Normalize(jumpVector);
 			}
@@ -172,7 +172,7 @@ namespace Physics2
 
 				float force = m / time;
 
-				if (jumpVector != Vector3.Zero) // touching something
+				if (jumpVector != Util.Zero) // touching something
 				{
 					foreach (PhysicsPoint p in playerBody.getPoints())
 					{

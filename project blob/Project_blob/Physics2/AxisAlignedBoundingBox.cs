@@ -10,7 +10,7 @@ namespace Physics2
 
 		public AxisAlignedBoundingBox()
 		{
-			Min = Max = Vector3.Zero;
+			Min = Max = Util.Zero;
 			Valid = false;
 		}
 
@@ -30,7 +30,7 @@ namespace Physics2
 
 		public void clear()
 		{
-			Min = Max = Vector3.Zero;
+			Min = Max = Util.Zero;
 			Valid = false;
 		}
 

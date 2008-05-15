@@ -41,7 +41,7 @@ namespace Physics2
 			float dist = Vector3.Distance(A.CurrentPosition, B.CurrentPosition) + LengthOffset;
 			float next_dist = Vector3.Distance(A.PotentialPosition, B.PotentialPosition) + LengthOffset;
 
-			Vector3 force = Vector3.Zero;
+			Vector3 force = Util.Zero;
 
 			// use spring displacement vector to avoid check?
 			if (dist > MaximumLengthBeforeExtension)

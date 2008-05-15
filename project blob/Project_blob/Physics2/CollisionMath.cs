@@ -11,7 +11,7 @@ namespace Physics2
 		public static float LineStaticTriangleIntersect(Vector3 p0, Vector3 p1, Vector3 v0, Vector3 v1, Vector3 v2, out Vector3 i)
 		{
 
-			i = Vector3.Zero;
+			i = Util.Zero;
 
 			Vector3 u = v1 - v0;
 			Vector3 v = v2 - v0;
@@ -259,7 +259,7 @@ namespace Physics2
 		public static float PointTriangleIntersect(PhysicsPoint p, PhysicsPoint v0, PhysicsPoint v1, PhysicsPoint v2, out Vector3 i)
 		{
 
-			i = Vector3.Zero;
+			i = Util.Zero;
 
 			Vector3 c_u = v1.CurrentPosition - v0.CurrentPosition;
 			Vector3 c_v = v2.CurrentPosition - v0.CurrentPosition;
@@ -341,7 +341,7 @@ namespace Physics2
         public static float LineTriangleIntersect(Vector3 start, Vector3 end, PhysicsPoint v0, PhysicsPoint v1, PhysicsPoint v2, out Vector3 i)
         {
 
-            i = Vector3.Zero;
+			i = Util.Zero;
 
             Vector3 c_u = v1.CurrentPosition - v0.CurrentPosition;
             Vector3 c_v = v2.CurrentPosition - v0.CurrentPosition;
