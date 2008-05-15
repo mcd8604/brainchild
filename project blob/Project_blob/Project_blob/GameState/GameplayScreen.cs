@@ -604,7 +604,7 @@ namespace Project_blob.GameState
 					// following camera
 					cameraLength += (InputHandler.getMouseWheelDelta() * -0.01f);
 
-					if (InputHandler.IsButtonDown(Buttons.DPadUp))
+					if (InputHandler.IsButtonDown(Buttons.DPadDown))
 					{
 						cameraLength += 1;
 					}
