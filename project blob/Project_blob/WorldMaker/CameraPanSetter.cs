@@ -118,7 +118,7 @@ namespace WorldMaker
                 pointBox.Items.Add("Camera Point " + _cameraPointCount);
                 pointBox.Update();
 
-                _cameraPointCount++;
+                ++_cameraPointCount;
             }
             catch (Exception)
             {

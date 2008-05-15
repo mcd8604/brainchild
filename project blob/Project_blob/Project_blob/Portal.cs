@@ -149,9 +149,9 @@ namespace Project_blob
 			makeRot();
 
 
-			//for (int j = 0; j < 4; j++)
+			//for (int j = 0; j < 4; ++j)
 			//{
-			//    for (int i = 0; i < 3; i++)
+			//    for (int i = 0; i < 3; ++i)
 			//    {
 			//        if (m_PriorityArray[i] == j)
 			//        {

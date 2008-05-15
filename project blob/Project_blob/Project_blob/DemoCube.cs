@@ -228,7 +228,7 @@ namespace Project_blob
 			min = centerOfCube;
 			max = centerOfCube;
 
-			for (int i = 0; i < vertices.Length; i++)
+			for (int i = 0; i < vertices.Length; ++i)
 			{
 
 				if (vertices[i].Position.X < min.X)

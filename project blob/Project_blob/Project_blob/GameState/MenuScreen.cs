@@ -40,7 +40,7 @@ namespace Project_blob.GameState
 			// Move to the next menu entry?
 			if (InputHandler.IsActionPressed(Actions.MenuDown))
 			{
-				selectedEntry++;
+				++selectedEntry;
 
 				if (selectedEntry >= menuEntries.Count)
 					selectedEntry = 0;
@@ -78,7 +78,7 @@ namespace Project_blob.GameState
 			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
 			// Update each nested MenuEntry object.
-			for (int i = 0; i < menuEntries.Count; i++)
+			for (int i = 0; i < menuEntries.Count; ++i)
 			{
 				bool isSelected = IsActive && (i == selectedEntry);
 
@@ -106,7 +106,7 @@ namespace Project_blob.GameState
 			spriteBatch.Begin();
 
 			// Draw each menu entry in turn.
-			for (int i = 0; i < menuEntries.Count; i++)
+			for (int i = 0; i < menuEntries.Count; ++i)
 			{
 				MenuEntry menuEntry = menuEntries[i];
 

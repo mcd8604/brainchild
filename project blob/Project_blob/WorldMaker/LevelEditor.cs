@@ -163,7 +163,7 @@ namespace WorldMaker
 				System.IO.Directory.CreateDirectory(levelDir);
 			}
 			string[] levels = System.IO.Directory.GetFiles(levelDir);
-			for (int i = 0; i < levels.Length; i++)
+			for (int i = 0; i < levels.Length; ++i)
 			{
 				levels[i] = levels[i].Substring(levels[i].LastIndexOf("\\") + 1);
 			}
@@ -202,15 +202,15 @@ namespace WorldMaker
 			if (areaListBox.SelectedIndex != -1)
 			{
 				/*string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
-				for (int i = 0; i < models.Length; i++)
+				for (int i = 0; i < models.Length; ++i)
 					models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
 
 				string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
-				for (int i = 0; i < textures.Length; i++)
+				for (int i = 0; i < textures.Length; ++i)
 					textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);*/
 
 				string[] audio = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Audio");
-				for (int i = 0; i < audio.Length; i++)
+				for (int i = 0; i < audio.Length; ++i)
 					audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
 
 				_modelSelect = new ModelSelect(this, ModelManager.GetModelNames(), TextureManager.GetTextureNames(), audio, _gameRef, false);
@@ -306,15 +306,15 @@ namespace WorldMaker
 				StaticModel current = (StaticModel)(_gameRef.ActiveArea.GetDrawable(_gameRef.ActiveArea.Display.CurrentlySelected));
 
 				/*string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
-				for (int i = 0; i < models.Length; i++)
+				for (int i = 0; i < models.Length; ++i)
 					models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
 
 				string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
-				for (int i = 0; i < textures.Length; i++)
+				for (int i = 0; i < textures.Length; ++i)
 					textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);*/
 
 				string[] audio = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Audio");
-				for (int i = 0; i < audio.Length; i++)
+				for (int i = 0; i < audio.Length; ++i)
 					audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
 
 				_modelSelect = new ModelSelect(this, ModelManager.GetModelNames(), TextureManager.GetTextureNames(), audio, _gameRef, true);

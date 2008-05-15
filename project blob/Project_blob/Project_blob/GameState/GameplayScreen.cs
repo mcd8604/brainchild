@@ -1027,7 +1027,7 @@ namespace Project_blob.GameState
 			//    // Velocity Vectors			
 			//    VertexPositionColor[] vectorVertices = new VertexPositionColor[theBlob.points.Count * 2];
 
-			//    for (int i = 0; i < theBlob.points.Count; i++)
+			//    for (int i = 0; i < theBlob.points.Count; ++i)
 			//    {
 			//        vectorVertices[i * 2] = (new VertexPositionColor(theBlob.points[i].ExternalPosition, Color.Red));
 			//        vectorVertices[(i * 2) + 1] = (new VertexPositionColor(theBlob.points[i].ExternalPosition + theBlob.points[i].ExternalVelocity, Color.Pink));

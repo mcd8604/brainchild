@@ -332,7 +332,7 @@ namespace Project_blob
         {
             //initialize draw list, each texture gets a list
             m_DrawList = new List<List<Drawable>>();
-            for (int i = 0; i < TextureManager.TextureList.Count; i++)
+            for (int i = 0; i < TextureManager.TextureList.Count; ++i)
             {
                 m_DrawList.Add(new List<Drawable>());
             }
@@ -441,7 +441,7 @@ namespace Project_blob
                             }
                         }
                     }*/
-					for (int i = 0; i < m_DrawList.Count; i++)
+					for (int i = 0; i < m_DrawList.Count; ++i)
 					{
 						Texture2D t = TextureManager.TextureList[i];
 						//temporary check
@@ -575,7 +575,7 @@ namespace Project_blob
                     }
 				}*/
 
-				for (int i = 0; i < m_DrawList.Count; i++)
+				for (int i = 0; i < m_DrawList.Count; ++i)
 				{
 					Texture2D t = TextureManager.TextureList[i];
 					//temporary check
@@ -635,7 +635,7 @@ namespace Project_blob
                         }
                     }
                 }*/
-				for (int i = 0; i < m_DrawList.Count; i++)
+				for (int i = 0; i < m_DrawList.Count; ++i)
 				{
 					Texture2D t = TextureManager.TextureList[i];
 					//temporary check
@@ -759,9 +759,9 @@ namespace Project_blob
 				d.ShowVertices = false;
 			}
 
-			/*for (int j = 0; j < 4; j++)
+			/*for (int j = 0; j < 4; ++j)
 			{
-				for (int i = 0; i < 3; i++)
+				for (int i = 0; i < 3; ++i)
 				{
 					if (d.PriorityArray[i] == j)
 					{
@@ -922,7 +922,7 @@ namespace Project_blob
 
 			// Add pairs of additional sample taps, positioned
 			// along a line in both directions from the center.
-			for (int i = 0; i < sampleCount / 2; i++)
+			for (int i = 0; i < sampleCount / 2; ++i)
 			{
 				// Store weights for the positive and negative taps.
 				float weight = ComputeGaussian(i + 1);
@@ -950,7 +950,7 @@ namespace Project_blob
 			}
 
 			// Normalize the list of sample weightings, so they will always sum to one.
-			for (int i = 0; i < sampleWeights.Length; i++)
+			for (int i = 0; i < sampleWeights.Length; ++i)
 			{
 				sampleWeights[i] /= totalWeights;
 			}

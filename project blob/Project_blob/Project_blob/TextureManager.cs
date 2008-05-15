@@ -117,7 +117,7 @@ namespace Project_blob
         public static string[] GetTextureNames()
         {
             string[] textureNames = new string[m_TextureList.Count];
-            for(int i = 0; i < m_TextureList.Count; i++) 
+            for(int i = 0; i < m_TextureList.Count; ++i) 
             {
                 textureNames[i] = m_TextureList[i].Name;
             }
