@@ -92,13 +92,18 @@ namespace Project_blob
 							{
 								if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
 									(sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) &&
-									(sectorNum != _sectorNumber) &&
+									(sectorNum != SceneManager.getSingleton.PortalScene.CurrentRecursiveSector) && //_sectorNumber
 									(sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
 								{
 									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
 									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
 
 									SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
+
+									//TEST THIS
+									//int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+									//SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+									//SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
 								}
 							}
 						}
@@ -158,13 +163,18 @@ namespace Project_blob
 							{
 								if (SceneManager.getSingleton.PortalScene.Sectors.ContainsKey(sectorNum) &&
 									(sectorNum != SceneManager.getSingleton.PortalScene.CurrSector) &&
-									(sectorNum != _sectorNumber) &&
+									(sectorNum != SceneManager.getSingleton.PortalScene.CurrentRecursiveSector) &&//_sectorNumber
 									(sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
 								{
 									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
 									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
 
 									SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
+
+									//TEST THIS
+									//int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+									//SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+									//SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
 								}
 							}
 						}
