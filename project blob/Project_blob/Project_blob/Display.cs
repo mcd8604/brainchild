@@ -353,7 +353,6 @@ namespace Project_blob
 
 		public void Draw(GraphicsDevice graphicsDevice, Blob theBlob)
 		{
-
 			RenderState renderState = graphicsDevice.RenderState;
 
 			renderState.AlphaBlendEnable = false;
@@ -441,6 +440,7 @@ namespace Project_blob
                             }
                         }
                     }*/
+					graphicsDevice.Vertices[0].SetSource(null, 0, 0);
 					for (int i = 0; i < m_DrawList.Count; ++i)
 					{
 						Texture2D t = TextureManager.TextureList[i];
@@ -582,7 +582,7 @@ namespace Project_blob
                         }
                     }
 				}*/
-
+				graphicsDevice.Vertices[0].SetSource(null, 0, 0);
 				for (int i = 0; i < m_DrawList.Count; ++i)
 				{
 					Texture2D t = TextureManager.TextureList[i];
@@ -643,6 +643,7 @@ namespace Project_blob
                         }
                     }
                 }*/
+				graphicsDevice.Vertices[0].SetSource(null, 0, 0);
 				for (int i = 0; i < m_DrawList.Count; ++i)
 				{
 					Texture2D t = TextureManager.TextureList[i];
@@ -748,65 +749,15 @@ namespace Project_blob
 			Stack<Matrix> drawStack = new Stack<Matrix>();
 			Matrix currentWorld = p_CurrentWorld;
 
-            /*if (_effectName == "cartoonEffect" && m_cartoonEffect.CurrentTechnique != m_cartoonEffect.Techniques["ShadowMap"] &&
-                m_cartoonEffect.CurrentTechnique != m_cartoonEffect.Techniques["ShadowedScene"])
-            {
-                if (d.Name == "sky")
-                    m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["SkyBox"];
-                else
-                    m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["Lambert"];
-            }*/
-
             if (d.Name == CurrentlySelected)
 			{
 				d.ShowVertices = true;
-				//d.TextureName = TextureName;
 			}
 			else
 			{
 				d.ShowVertices = false;
 			}
 
-			/*for (int j = 0; j < 4; ++j)
-			{
-				for (int i = 0; i < 3; ++i)
-				{
-					if (d.PriorityArray[i] == j)
-					{
-						switch (i)
-						{
-							case 0:
-								if(d.Position != null)
-									drawStack.Push(d.Position);
-								break;
-							case 1:
-								if(d.Rotation != null)
-									drawStack.Push(d.Rotation);
-								break;
-							case 2:
-								if(d.Scale != null)
-									drawStack.Push(d.Scale);
-								break;
-							default:
-								break;
-						}
-					}
-				}
-			}*/
-
-
-			//m_cartoonEffect.Parameters[m_WorldParameterName].SetValue(d.Transform);
-
-
-			/*while (drawStack.Count > 0)
-			{
-				if (EffectManager.getSingleton.GetEffect(_effectName) is BasicEffect)
-					cartoonEffect.World = Matrix.Multiply(drawStack.Pop(), cartoonEffect.World);
-				else
-				{
-					EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].SetValue(Matrix.Multiply(drawStack.Pop(), EffectManager.getSingleton.GetEffect(_effectName).Parameters[m_WorldParameterName].GetValueMatrix()));
-				}
-			}*/
 			d.DrawMe(graphicsDevice, m_cartoonEffect, m_GameMode);
 			m_cartoonEffect.Parameters[m_WorldParameterName].SetValue(currentWorld);
 		}

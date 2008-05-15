@@ -52,7 +52,7 @@ namespace Project_blob
 			set
 			{
 				m_RepeatingTexture = value;
-				//updateTextureCoords();
+				updateTextureCoords();
 			}
 		}
 		private float m_TextureScaleX = 1f;
@@ -65,7 +65,7 @@ namespace Project_blob
 			set
 			{
 				m_TextureScaleX = value;
-				//updateTextureCoords();
+				updateTextureCoords();
 			}
 		}
 		private float m_TextureScaleY = 1f;
@@ -78,7 +78,7 @@ namespace Project_blob
 			set
 			{
 				m_TextureScaleY = value;
-				//updateTextureCoords();
+				updateTextureCoords();
 			}
 		}
 
@@ -92,7 +92,7 @@ namespace Project_blob
 			set
 			{
 				m_TextureOffsetX = value;
-				//updateTextureCoords();
+				updateTextureCoords();
 			}
 		}
 		private float m_TextureOffsetY = 0f;
@@ -105,7 +105,7 @@ namespace Project_blob
 			set
 			{
 				m_TextureOffsetY = value;
-				//updateTextureCoords();
+				updateTextureCoords();
 			}
 		}
 
@@ -421,9 +421,6 @@ namespace Project_blob
 				}
 				//m_VertexBuffer.SetData<VertexPositionNormalTexture>( m_Vertices );
 				//m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
-
-                // Disabled to stop crashing:
-				//updateVertexBuffer();
 			}
 		}
 
@@ -846,6 +843,7 @@ namespace Project_blob
 
 		public virtual void DrawMe(GraphicsDevice graphicsDevice, Effect effect, bool gameMode)
 		{
+			updateVertexBuffer();
 			graphicsDevice.Indices = m_IndexBuffer;
 			effect.Begin();
 
@@ -854,7 +852,6 @@ namespace Project_blob
 			{
 				pass.Begin();
 				// Change the device settings for each part to be rendered
-				updateTextureCoords();
 				graphicsDevice.VertexDeclaration = m_VertexDeclaration;
 				graphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
 				// Finally draw the actual triangles on the screen
