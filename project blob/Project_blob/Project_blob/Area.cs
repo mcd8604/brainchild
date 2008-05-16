@@ -177,6 +177,10 @@ namespace Project_blob
 			//create new display 
 			this.Display = new Display(new SpriteBatch(gd));
 
+			this.Display.TextureName = "point_text";
+			this.Display.ShowAxis = true;
+			this._display.GameMode = false;
+
 			//initialize drawables and populate draw list
 			foreach (Drawable d in this.Drawables.Values)
 			{
