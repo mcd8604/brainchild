@@ -39,7 +39,7 @@ namespace Project_blob
             get { return _sceneObjectCount; }
         }
 
-        private bool _cull = true;
+        private bool _cull = false;
         public bool Cull
         {
             get { return _cull; }
