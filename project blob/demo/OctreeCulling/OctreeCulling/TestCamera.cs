@@ -100,9 +100,10 @@ namespace OctreeCulling
             Matrix rotationMatrix = Matrix.CreateRotationY(_yaw);
             Matrix pitchMatrix = Matrix.Multiply(Matrix.CreateRotationX(_pitch), rotationMatrix);
             Vector3 transformedReference = Vector3.Transform(CameraReference, pitchMatrix);
-            Vector3 cameraLookat = cameraPosition + transformedReference;
+			//Vector3 cameraLookat = cameraPosition + transformedReference;
+			LookAt = cameraPosition + transformedReference;
 
-            View = Matrix.CreateLookAt(cameraPosition, cameraLookat, Vector3.Up);
+			View = Matrix.CreateLookAt(cameraPosition, LookAt, Vector3.Up);//cameraLookat
 
             Projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearPlane, FarPlane);
 
