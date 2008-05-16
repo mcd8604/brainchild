@@ -5,49 +5,51 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
+	[Serializable]
     class TaskRotate : Task
     {
-        private Vector3 m_Axis;
+        private Vector3 axis = Vector3.Up;
         public Vector3 Axis
         {
             get
             {
-                return m_Axis;
+                return axis;
             }
             set
             {
-                m_Axis = value;
+                axis = value;
             }
         }
 
-        private float m_Speed;
-        public float Speed
+        private float angle = MathHelper.ToRadians(1f);
+        public float Degrees
         {
             get
             {
-                return m_Speed;
+				return MathHelper.ToDegrees(angle);
             }
             set
-            {
-                m_Speed = value;
+			{
+				angle = MathHelper.ToRadians(value);
             }
         }
 
-        public TaskRotate() { }
+		private Quaternion rotate;
 
-        public TaskRotate( Vector3 axis, float speed )
+		public TaskRotate() { }
+
+        public TaskRotate( Vector3 rotateAxis, float rotateDegrees )
         {
-            m_Axis = axis;
-            m_Speed = speed;
+			axis = rotateAxis;
+            angle = MathHelper.ToRadians(rotateDegrees);
         }
 
         public override void update( Body b, float time )
         {
-            Vector3 BodyCenter = b.getCenter();
+			rotate = Quaternion.CreateFromAxisAngle(b.getCenter() + axis, angle * time);
             foreach ( PhysicsPoint p in b.getPoints() )
             {
-                float dist = Vector3.Distance( BodyCenter, p.CurrentPosition );
-
+				p.PotentialPosition = Vector3.Transform(p.CurrentPosition, rotate);
             }
         }
     }
