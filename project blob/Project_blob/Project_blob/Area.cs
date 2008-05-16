@@ -83,14 +83,14 @@ namespace Project_blob
 		public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix)
 		{
 
-			_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
+			//_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
 			_drawables = new Dictionary<String, Drawable>();
 			_portals = new List<Portal>();
 		}
 
 		public Area(Matrix worldMatrix, String effectName, String worldParameterName, String textureParameterName, String techniqueName)
 		{
-			_display = new Display(worldMatrix, effectName, worldParameterName, textureParameterName, techniqueName);
+			//_display = new Display(worldMatrix, effectName, worldParameterName, textureParameterName, techniqueName);
 			_drawables = new Dictionary<String, Drawable>();
 			_portals = new List<Portal>();
 		}
@@ -172,10 +172,10 @@ namespace Project_blob
 			return this.m_Bodies;
 		}
 
-		public void LoadAreaWorldMaker()
+		public void LoadAreaWorldMaker(GraphicsDevice gd)
 		{
 			//create new display 
-			this.Display = new Display();
+			this.Display = new Display(new SpriteBatch(gd));
 
 			//initialize drawables and populate draw list
 			foreach (Drawable d in this.Drawables.Values)
@@ -222,7 +222,7 @@ namespace Project_blob
 			}*/
 
 			//create new display 
-			this._display = new Display();
+			this._display = new Display(new SpriteBatch(game.GraphicsDevice));
 			this._display.ShowAxis = false;
 			this._display.GameMode = true;
 
