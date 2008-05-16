@@ -413,7 +413,7 @@ namespace WorldMaker
 
 				viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
 
-				if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
+				/*if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
 				{
 					((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
 				}
@@ -423,7 +423,8 @@ namespace WorldMaker
 						EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
 					else //if (EFFECT_TYPE == "Cel")
 						EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
-				}
+				}*/
+				EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
 
 				//m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
 
