@@ -25,7 +25,7 @@ namespace Project_blob
 		}
 
         List<EventTrigger> m_Events = new List<EventTrigger>();
-		[Editor(typeof(EventCollectionEditor), typeof(UITypeEditor))]
+		[Editor(typeof(MultiTypeCollectionEditor), typeof(UITypeEditor))]
 		public List<EventTrigger> Events
 		{
 			get
