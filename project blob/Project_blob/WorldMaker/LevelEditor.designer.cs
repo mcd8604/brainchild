@@ -326,7 +326,7 @@ namespace WorldMaker
             this.ambienceListBox.ItemHeight = 16;
             this.ambienceListBox.Location = new System.Drawing.Point(291, 214);
             this.ambienceListBox.Name = "ambienceListBox";
-            this.ambienceListBox.Size = new System.Drawing.Size(121, 132);
+            this.ambienceListBox.Size = new System.Drawing.Size(121, 148);
             this.ambienceListBox.TabIndex = 25;
             // 
             // ambienceLabel

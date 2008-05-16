@@ -69,6 +69,7 @@ namespace WorldMaker
 				modelListBox.Update();
 
                 updatePortalList();
+                updateAmbienceList();
 			}
         }
 
@@ -468,6 +469,9 @@ namespace WorldMaker
         }
 
         private void addSoundButton_Click(object sender, EventArgs e) {
+            if (_gameRef.ActiveArea.AmbientSounds == null) {
+                _gameRef.ActiveArea.AmbientSounds = new List<AmbientSoundInfo>();
+            }
             _gameRef.ActiveArea.AmbientSounds.Add(new AmbientSoundInfo());
             updateAmbienceList();
         }

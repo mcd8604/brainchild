@@ -81,7 +81,6 @@
     <Compile Include="CheckPointEvent.cs" />
     <Compile Include="ConveyerBeltStatic.cs" />
     <Compile Include="BodyStaticConveyerBelt.cs" />
-    <Compile Include="TypeConverterAudio.cs" />
     <Compile Include="TypeConverterModel.cs" />
     <Compile Include="TypeConverterTexture.cs" />
     <Compile Include="DeathEvent.cs" />
