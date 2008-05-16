@@ -73,7 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventCollectionEditor.cs" />
+    <Compile Include="MultiTypeCollectionEditor.cs" />
     <Compile Include="MaterialFactory.cs" />
     <Compile Include="StaticModelSpeed.cs" />
     <Compile Include="TypeConverterArea.cs" />
