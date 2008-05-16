@@ -29,28 +29,23 @@ namespace Physics2
 		private float waitTimeMsec = 0;
 		private float physicsTimeMsec = 0;
 
-        public override float PWR
-        {
-            get
-            {
-                if ((waitTimeMsec + physicsTimeMsec) == 0)
-                {
-                    return 0;
-                }
-                else
-                {
-                    float pwr = physicsTimeMsec / (waitTimeMsec + physicsTimeMsec);
-                    //if (physicsTimeMsec > 1000 || waitTimeMsec > 1000)
-                    //{
-                    //	physicsTimeMsec = 0;
-                    //	waitTimeMsec = 0;
-                    //}
-                    physicsTimeMsec *= 0.5f;
-                    waitTimeMsec *= 0.5f;
-                    return pwr;
-                }
-            }
-        }
+		public override float PWR
+		{
+			get
+			{
+				if ((waitTimeMsec + physicsTimeMsec) == 0)
+				{
+					return 0;
+				}
+				else
+				{
+					float pwr = physicsTimeMsec / (waitTimeMsec + physicsTimeMsec);
+					physicsTimeMsec *= 0.5f;
+					waitTimeMsec *= 0.5f;
+					return pwr;
+				}
+			}
+		}
 #endif
 #endif
 
@@ -58,13 +53,32 @@ namespace Physics2
 		{
 			physicsMain = new PhysicsSeq();
 
-			WorkerThread = new System.Threading.Thread(delegate()
+			WorkerThread = new System.Threading.Thread(PhysicsBackgroundThread);
+			WorkerThread.IsBackground = true;
+			WorkerThread.Name = "Physics Thread";
+			WorkerThread.Priority = System.Threading.ThreadPriority.Normal;
+			WorkerThread.Start();
+		}
+
+		private void PhysicsBackgroundThread()
+		{
+			try
 			{
-#if DEBUG && TIMED
-				timer.Start();
-#endif
 				do
 				{
+#if DEBUG && TIMED
+					timer.Start();
+#endif
+
+					physicsMain.doPhysics(runForTime * physicsMultiplier);
+
+#if DEBUG && TIMED
+					timer.Stop();
+					physicsTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
+					timer.Reset();
+					timer.Start();
+#endif
+					runForTime = 0f;
 					do
 					{
 						lock (this)
@@ -81,34 +95,19 @@ namespace Physics2
 					timer.Stop();
 					waitTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
 					timer.Reset();
-					timer.Start();
 #endif
-					try
-					{
-						physicsMain.doPhysics(runForTime * physicsMultiplier);
-					}
-					catch (Exception ex)
-					{
-						Console.WriteLine("Internal Physics Exception:");
-						Console.WriteLine(ex);
-						Console.WriteLine("-> Someone broke physics <-  See exception above:");
-						break;
-					}
-#if DEBUG && TIMED
-					timer.Stop();
-					physicsTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
-					timer.Reset();
-					timer.Start();
-#endif
-					runForTime = 0f;
-					lock (this) System.Threading.Monitor.Pulse(this);
 				} while (run);
-
-			});
-			WorkerThread.IsBackground = true;
-			WorkerThread.Name = "Physics Thread";
-			WorkerThread.Priority = System.Threading.ThreadPriority.AboveNormal;
-			WorkerThread.Start();
+			}
+			catch (Exception ex)
+			{
+#if DEBUG
+				Console.WriteLine("Internal Physics Exception:");
+#endif
+				Console.WriteLine(ex);
+#if DEBUG
+				Console.WriteLine("-> Someone broke physics <-  See exception above:");
+#endif
+			}
 		}
 
 		public override void update(float TotalElapsedSeconds)
