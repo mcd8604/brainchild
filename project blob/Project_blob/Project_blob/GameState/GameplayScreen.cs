@@ -75,7 +75,6 @@ namespace Project_blob.GameState
 		//bool cinema = false;
 		bool paused = false;
 		bool step = false;
-		bool controllermode = false;
 		//bool follow = true;
 		//bool chase = false;
 
@@ -150,7 +149,7 @@ namespace Project_blob.GameState
 
 			physics.Player.Resilience.Minimum = 20f;
 			physics.Player.Resilience.Origin = 40f;
-			physics.Player.Resilience.Maximum = 50f;
+			physics.Player.Resilience.Maximum = 80f;
 
 			physics.Player.Volume.Minimum = 50f;
 			physics.Player.Volume.Origin = 100f;
@@ -306,7 +305,7 @@ namespace Project_blob.GameState
 				}
 			}
 #endif
-			
+
 
 
 
@@ -552,19 +551,38 @@ namespace Project_blob.GameState
 
 
 				// Xbox
-				if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
+				if (InputHandler.HasRightTriggerMoved())
 				{
-					controllermode = true;
+					physics.Player.Resilience.Target = physics.Player.Volume.Target = InputHandler.RightTriggerValue;
 				}
-				if (controllermode)
+				if (InputHandler.HasLeftTriggerMoved())
 				{
-					//theBlob.setSpringForce(12.5f + (GamePad.GetState(PlayerIndex.One).Triggers.Right * 80f));
-					physics.Player.Resilience.Target = GamePad.GetState(PlayerIndex.One).Triggers.Right;
-					//Physics.PhysicsManager.TEMP_SurfaceFriction = GamePad.GetState(PlayerIndex.One).Triggers.Left * 24f;
-					physics.Player.Traction.Target = GamePad.GetState(PlayerIndex.One).Triggers.Left;
-					physics.Player.Cling.Target = 0.25f + (GamePad.GetState(PlayerIndex.One).Triggers.Left * 0.5f);
-					/*float vb = MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f);
-					InputHandler.SetVibration(vb, 0f);*/
+					physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;
+				}
+
+				//InputHandler.SetVibration(MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f), 0f);
+
+				if (InputHandler.IsActionPressed(Actions.ToggleElasticity))
+				{
+					if (physics.Player.Resilience.Target <= 0.5f)
+					{
+						physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
+					}
+					else
+					{
+						physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
+					}
+				}
+				if (InputHandler.IsActionPressed(Actions.ToggleStickiness))
+				{
+					if (physics.Player.Cling.Target <= 0.5f)
+					{
+						physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
+					}
+					else
+					{
+						physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
+					}
 				}
 
 				// Quick Torque
@@ -710,6 +728,29 @@ namespace Project_blob.GameState
 
 #if DEBUG
 
+				if (InputHandler.IsKeyPressed(Keys.R))
+				{
+					if (physics.Player.Resilience.Target <= 0.5f)
+					{
+						physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
+					}
+					else
+					{
+						physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
+					}
+				}
+				if (InputHandler.IsKeyPressed(Keys.T))
+				{
+					if (physics.Player.Cling.Target <= 0.5f)
+					{
+						physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
+					}
+					else
+					{
+						physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
+					}
+				}
+
 				if (InputHandler.IsKeyPressed(Keys.H))
 				{
 					SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
@@ -759,10 +800,6 @@ namespace Project_blob.GameState
 #endif
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.T))
-				{
-					ScreenManager.ToggleFullScreen();
-				}
 				if (InputHandler.IsKeyPressed(Keys.P))
 				{
 					paused = !paused;
@@ -875,17 +912,23 @@ namespace Project_blob.GameState
 
 				if (InputHandler.IsKeyDown(Keys.Home))
 				{
-					theBlob.setSpringLength(-0.001f);
-					physics.Player.Volume.Minimum += 1;
-					physics.Player.Volume.Origin += 1;
-					physics.Player.Volume.Maximum += 1;
+					foreach (Spring s in theBlob.getSprings())
+					{
+						s.Length *= 1.001f;
+					}
+					physics.Player.Volume.Minimum *= 1.001f;
+					physics.Player.Volume.Origin *= 1.001f;
+					physics.Player.Volume.Maximum *= 1.001f;
 				}
 				else if (InputHandler.IsKeyDown(Keys.End))
 				{
-					theBlob.setSpringLength(0.001f);
-					physics.Player.Volume.Minimum -= 1;
-					physics.Player.Volume.Origin -= 1;
-					physics.Player.Volume.Maximum -= 1;
+					foreach (Spring s in theBlob.getSprings())
+					{
+						s.Length *= 0.999f;
+					}
+					physics.Player.Volume.Minimum *= 0.999f;
+					physics.Player.Volume.Origin *= 0.999f;
+					physics.Player.Volume.Maximum *= 0.999f;
 				}
 
 

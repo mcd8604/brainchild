@@ -24,7 +24,9 @@ namespace Physics2
 		{
 			foreach (PhysicsPoint p in b.getPoints())
 			{
-				p.AccelerationThisFrame += Gravity;
+				p.AccelerationThisFrame.X += Gravity.X;
+				p.AccelerationThisFrame.Y += Gravity.Y;
+				p.AccelerationThisFrame.Z += Gravity.Z;
 			}
 		}
 

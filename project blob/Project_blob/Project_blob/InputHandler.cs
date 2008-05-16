@@ -258,6 +258,29 @@ internal static class InputHandler
 		}
 	}
 
+	internal static bool HasLeftTriggerMoved()
+	{
+		return thisGamePadState.Triggers.Left != lastGamePadState.Triggers.Left;
+	}
+	internal static float LeftTriggerValue
+	{
+		get
+		{
+			return thisGamePadState.Triggers.Left;
+		}
+	}
+	internal static bool HasRightTriggerMoved()
+	{
+		return thisGamePadState.Triggers.Right != lastGamePadState.Triggers.Right;
+	}
+	internal static float RightTriggerValue
+	{
+		get
+		{
+			return thisGamePadState.Triggers.Right;
+		}
+	}
+
 	internal static void SetVibration(float low, float high)
 	{
 		GamePad.SetVibration(PlayerIndex.One, low, high);

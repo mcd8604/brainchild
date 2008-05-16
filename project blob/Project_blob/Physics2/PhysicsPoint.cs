@@ -15,10 +15,12 @@ namespace Physics2
 			}
 			set
 			{
+#if DEBUG
 				if (parent != null && parent != value)
 				{
 					throw new Exception("Point Can't be in two bodys");
 				}
+#endif
 				parent = value;
 			}
 		}
