@@ -26,7 +26,7 @@ namespace Audio
             audioEmitter.DopplerScale = 0f;
             audioEmitter.Forward = Vector3.Forward;
             audioEmitter.Up = Vector3.Up;
-            audioEmitter.Position = Vector3.Zero;
+            audioEmitter.Position = position;
             audioEmitter.Velocity = Vector3.Zero;
         }
 
@@ -35,7 +35,9 @@ namespace Audio
         }
 
         public void startSound() {
-            AudioManager.playSoundFXs(ref collisionSound, 1.0f, audioEmitter);
+            if( !collisionSound.IsPlaying ) {
+                AudioManager.playSoundFXs( ref collisionSound, 1.0f, audioEmitter );
+            }
         }
 
 
