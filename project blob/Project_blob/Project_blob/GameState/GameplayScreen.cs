@@ -855,12 +855,16 @@ namespace Project_blob.GameState
 				if (InputHandler.IsKeyDown(Keys.Home))
 				{
 					theBlob.setSpringLength(-0.001f);
-					//cameraLengthMulti *= 1.015f;
+					physics.Player.Volume.Minimum += 1;
+					physics.Player.Volume.Origin += 1;
+					physics.Player.Volume.Maximum += 1;
 				}
 				else if (InputHandler.IsKeyDown(Keys.End))
 				{
 					theBlob.setSpringLength(0.001f);
-					//cameraLengthMulti *= 0.985f;
+					physics.Player.Volume.Minimum -= 1;
+					physics.Player.Volume.Origin -= 1;
+					physics.Player.Volume.Maximum -= 1;
 				}
 
 
