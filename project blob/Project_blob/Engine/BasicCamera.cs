@@ -7,20 +7,16 @@ namespace Engine
 {
 	public class BasicCamera : Camera
 	{
-		public BasicCamera()
-		{
-
-		}
+		public BasicCamera() { }
 
 		public override void Update(GameTime gameTime)
 		{
 			UpdateMatrices();
-            base.Update(gameTime);
+			base.Update(gameTime);
 		}
 
 		public override void UpdateMatrices()
 		{
-
 			View = Matrix.CreateLookAt(Position, Target, Up);
 
 			Projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearPlane, FarPlane);

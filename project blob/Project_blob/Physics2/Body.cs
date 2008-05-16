@@ -385,57 +385,43 @@ namespace Physics2
 
 		}
 
-		internal virtual List<CollisionEvent> findCollisions(Body c)
+		internal void findCollisions(Body c, ref List<CollisionEvent> events)
 		{
-			// fix later
-			List<CollisionEvent> events = new List<CollisionEvent>();
-
 			foreach (Body child in childBodies)
 			{
 				if (child.getBoundingBox().intersects(c.getBoundingBox()))
 				{
-					events.AddRange(child.findCollisions(c));
+					child.findCollisions(c, ref events);
 				}
 			}
 
 			if (points.Count > 0)
 			{
-				events.AddRange(c.findCollisionsWith(this));
+				c.findCollisionsWith(this, ref events);
 
 			}
-
-			return events;
 		}
 
-		internal virtual List<CollisionEvent> findCollisionsWith(Body b)
+		internal void findCollisionsWith(Body b, ref List<CollisionEvent> events)
 		{
-			// fix later
-			List<CollisionEvent> events = new List<CollisionEvent>();
-
 			foreach (Body child in childBodies)
 			{
 				if (child.getBoundingBox().intersects(b.getBoundingBox()))
 				{
-					events.AddRange(child.findCollisionsWith(b));
+					child.findCollisionsWith(b, ref events);
 				}
 			}
 
 			if (collidables.Count > 0)
 			{
-				events.AddRange(b.findPointCollisions(this));
+				b.findPointCollisions(this, ref events);
 			}
-
-			return events;
 		}
 
-		internal virtual List<CollisionEvent> findPointCollisions(Body c)
+		internal void findPointCollisions(Body c, ref List<CollisionEvent> events)
 		{
-			// fix later
-			List<CollisionEvent> events = new List<CollisionEvent>();
-
 			foreach (PhysicsPoint p in points)
 			{
-
 				foreach (Collidable x in c.collidables)
 				{
 					if (x.couldIntersect(p.CurrentPosition, p.PotentialPosition))
@@ -449,9 +435,6 @@ namespace Physics2
 					}
 				}
 			}
-
-			return events;
-
 		}
 		public virtual void onCollision(CollisionEvent e)
 		{

@@ -26,6 +26,7 @@ namespace Physics2
 
 		public override float didIntersect(Vector3 start, Vector3 end, out Vector3 hit)
 		{
+			// Should be using the non-static method, but that seems to be broken currently.
 			//return CollisionMath.LineTriangleIntersect(start, end, Point1, Point2, Point3, out hit);
 			return CollisionMath.LineStaticTriangleIntersect(start, end, Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition, out hit);
 		}
@@ -58,11 +59,13 @@ namespace Physics2
 
 		public override void ApplyForce(Vector3 at, Vector3 f)
 		{
+			// TODO
 			//throw new System.Exception("The method or operation is not implemented.");
 		}
 
 		public override void ImpartVelocity(Vector3 at, Vector3 vel)
 		{
+			// TODO
 			//throw new System.Exception("The method or operation is not implemented.");
 		}
 

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	internal class PhysicsSeq : PhysicsManager
+	internal sealed class PhysicsSeq : PhysicsManager
 	{
 
 		float time;
@@ -118,7 +118,7 @@ namespace Physics2
 						{
 							if (box.intersects(c.getBoundingBox()))
 							{
-								events.AddRange(b.findCollisions(c));
+								b.findCollisions(c, ref events);
 							}
 						}
 					}
