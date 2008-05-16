@@ -1174,8 +1174,8 @@ namespace Project_blob.GameState
 				spriteBatch.DrawString(font, "Paused", new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (ScreenManager.GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
 			}
 #if DEBUG
-			spriteBatch.DrawString(font, "Vol: " + theBlob.getVolume().ToString(), new Vector2(345, 30), Color.White);
-			spriteBatch.DrawString(font, "Next Vol: " + theBlob.getPotentialVolume().ToString(), new Vector2(250, 60), Color.White);
+			spriteBatch.DrawString(font, "Vol: " + theBlob.Volume.ToString(), new Vector2(345, 30), Color.White);
+			spriteBatch.DrawString(font, "Next Vol: " + theBlob.PotentialVolume.ToString(), new Vector2(250, 60), Color.White);
 
 			spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
 			spriteBatch.DrawString(font, "PWR: " + physics.PWR, new Vector2(0, 566), Color.White);

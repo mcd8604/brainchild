@@ -214,7 +214,7 @@ namespace Physics2
 
 			if (volume.changed && playerBody is BodyPressure)
 			{
-				((BodyPressure)playerBody).setIdealVolume(volume.value);
+				((BodyPressure)playerBody).IdealVolume = volume.value;
 			}
 		}
 

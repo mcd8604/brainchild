@@ -297,207 +297,88 @@ namespace Project_blob
 			theDevice.Vertices[0].SetSource(null, 0, 0);
 		}
 
-		//public override IEnumerable<Collidable> getCollidables()
-		//{
-		//    // Disabled collision planes for softcubes until I can figure out what's wrong.
-
-		//    //List<Physics.Collidable> temp = new List<Physics.Collidable>();
-		//    //foreach ( Tri t in collidables ) 
-		//    //    temp.Add( t as Physics.Collidable );
-		//    //}
-		//    //return temp;
-
-		//    return new List<Collidable>();
-		//}
-
-		//public IEnumerable<Drawable> getDrawables()
-		//{
-		//    List<Drawable> temp = new List<Drawable>();
-		//    foreach (Tri t in collidables)
-		//    {
-		//        temp.Add(t as Drawable);
-		//    }
-		//    return temp;
-		//}
-
-		public float getOldVolume()
-		{
-			// TODO
-
-			// 1/3 * area of base ( face ) * height ( center of face to center of cube )
-
-			float totalVolume = 0;
-
-			Vector3 centerOfCube = getCenter();
-
-			/*
-            for (int i = 1; i < 7; ++i)
-            {
-
-                totalVolume += getFaceVolume(vertices[0].Position, vertices[i].Position, vertices[i + 1].Position);
-
-            }
-
-            totalVolume += getFaceVolume(vertices[0].Position, vertices[7].Position, vertices[1].Position);
-
-            for (int i = 9; i < 15; ++i)
-            {
-
-                totalVolume += getFaceVolume(vertices[8].Position, vertices[i].Position, vertices[i + 1].Position);
-
-            }
-
-            totalVolume += getFaceVolume(vertices[8].Position, vertices[15].Position, vertices[9].Position);
-			*/
-
-			// really really rough appoximation for a blob
-
-
-			/*
-			for (int i = 0; i < vertices.Length - 2; ++i)
-			{
-
-				totalVolume += getFaceVolume(vertices[i].Position, vertices[i + 1].Position, vertices[i + 2].Position);
-
-			}
-			 */
-
-
-			min = getCenter();
-			max = getCenter();
-
-
-			for (int i = 0; i < vertices.Length; ++i)
-			{
-
-				if (vertices[i].Position.X < min.X)
-				{
-					min.X = vertices[i].Position.X;
-				}
-				if (vertices[i].Position.Y < min.Y)
-				{
-					min.Y = vertices[i].Position.Y;
-				}
-				if (vertices[i].Position.Z < min.Z)
-				{
-					min.Z = vertices[i].Position.Z;
-				}
-
-				if (vertices[i].Position.X > max.X)
-				{
-					max.X = vertices[i].Position.X;
-				}
-				if (vertices[i].Position.Y > max.Y)
-				{
-					max.Y = vertices[i].Position.Y;
-				}
-				if (vertices[i].Position.Z > max.Z)
-				{
-					max.Z = vertices[i].Position.Z;
-				}
-
-			}
-
-
-			totalVolume = (max.X - min.X) * (max.Y - min.Y) * (max.Z - min.Z);
-
-			//Console.WriteLine("Original Volume Estimate: " + totalVolume);
-			return totalVolume;
-		}
-
 		private float idealVolume = 10;
-		public override float getIdealVolume()
+		public override float IdealVolume
 		{
-			return idealVolume;
-		}
-		public override void setIdealVolume(float volume)
-		{
-			idealVolume = volume;
-		}
-
-		public override float getPotentialVolume()
-		{
-			float totalVolume = 0;
-
-			Vector3 center = getCenter();
-
-			for (int i = 0; i < indices.Length - 3; i += 3)
+			get
 			{
-				/*
-				Vector3 p1 = new Vector3();
-				Vector3 p2 = new Vector3();
-				Vector3 p3 = new Vector3();
-				for (int j = 0; j < pointsToUpdate.Count; ++j)
-				{
-
-					if (pointsToUpdate[j] == indices[i])
-						p1 = points[j].potentialPosition;
-					if (pointsToUpdate[j] == indices[i+1])
-						p2 = points[j].potentialPosition;
-					if (pointsToUpdate[j] == indices[i + 2])
-						p3 = points[j].potentialPosition;
-				}
-				*/
-				totalVolume += getPotentialFaceVolumeTest(points[indices[i]].PotentialPosition, points[indices[i + 1]].PotentialPosition, points[indices[i + 2]].PotentialPosition);
-				//totalVolume += getFaceVolumeTest(p1, p2, p3);
+				return idealVolume;
 			}
-
-			//Console.WriteLine("Next Volume Estimate: " + totalVolume);
-			return totalVolume;
-		}
-
-		public override float getVolume()
-		{
-			float totalVolume = 0;
-
-			Vector3 center = getCenter();
-
-			for (int i = 0; i < indices.Length - 3; i += 3)
+			set
 			{
-				/*
-				Vector3 p1 = new Vector3();
-				Vector3 p2 = new Vector3();
-				Vector3 p3 = new Vector3();
-				for (int j = 0; j < pointsToUpdate.Count; ++j)
-				{
-
-					if (pointsToUpdate[j] == indices[i])
-						p1 = points[j].CurrentPosition;
-					if (pointsToUpdate[j] == indices[i + 1])
-						p2 = points[j].CurrentPosition;
-					if (pointsToUpdate[j] == indices[i + 2])
-						p3 = points[j].CurrentPosition;
-				}
-				totalVolume += getFaceVolumeTest(p1, p2, p3);
-				*/
-				totalVolume += getFaceVolumeTest(points[indices[i]].ExternalPosition, points[indices[i + 1]].ExternalPosition, points[indices[i + 2]].ExternalPosition);
+				idealVolume = value;
 			}
-
-			//Console.WriteLine("Volume Estimate: " + totalVolume);
-			return totalVolume;
-
 		}
 
-		private float getFaceVolume(Vector3 point1, Vector3 point2, Vector3 point3)
+		public override float PotentialVolume
 		{
+			get
+			{
+				float totalVolume = 0;
 
-			Vector3 a = point2 - point1;
-			Vector3 b = point3 - point1;
-			Vector3 c = Vector3.Cross(a, b);
+				Vector3 center = getCenter();
 
-			float area = 0.5f * c.Length();
+				for (int i = 0; i < indices.Length - 3; i += 3)
+				{
+					/*
+					Vector3 p1 = new Vector3();
+					Vector3 p2 = new Vector3();
+					Vector3 p3 = new Vector3();
+					for (int j = 0; j < pointsToUpdate.Count; ++j)
+					{
 
-			// not correct, need length along perpendicular vector
-			Vector3 center = (point1 + point2 + point3) / 3f;
+						if (pointsToUpdate[j] == indices[i])
+							p1 = points[j].potentialPosition;
+						if (pointsToUpdate[j] == indices[i+1])
+							p2 = points[j].potentialPosition;
+						if (pointsToUpdate[j] == indices[i + 2])
+							p3 = points[j].potentialPosition;
+					}
+					*/
+					totalVolume += getPotentialFaceVolumeTest(points[indices[i]].PotentialPosition, points[indices[i + 1]].PotentialPosition, points[indices[i + 2]].PotentialPosition);
+					//totalVolume += getFaceVolumeTest(p1, p2, p3);
+				}
 
-			float height = Vector3.Distance(getCenter(), center);
-
-			float volume = height * area * (1f / 3f);
-
-
-			return volume;
-
+				//Console.WriteLine("Next Volume Estimate: " + totalVolume);
+				return totalVolume;
+			}
 		}
+
+		public override float Volume
+		{
+			get
+			{
+				float totalVolume = 0;
+
+				Vector3 center = getCenter();
+
+				for (int i = 0; i < indices.Length - 3; i += 3)
+				{
+					/*
+					Vector3 p1 = new Vector3();
+					Vector3 p2 = new Vector3();
+					Vector3 p3 = new Vector3();
+					for (int j = 0; j < pointsToUpdate.Count; ++j)
+					{
+
+						if (pointsToUpdate[j] == indices[i])
+							p1 = points[j].CurrentPosition;
+						if (pointsToUpdate[j] == indices[i + 1])
+							p2 = points[j].CurrentPosition;
+						if (pointsToUpdate[j] == indices[i + 2])
+							p3 = points[j].CurrentPosition;
+					}
+					totalVolume += getFaceVolumeTest(p1, p2, p3);
+					*/
+					totalVolume += getFaceVolumeTest(points[indices[i]].ExternalPosition, points[indices[i + 1]].ExternalPosition, points[indices[i + 2]].ExternalPosition);
+				}
+
+				//Console.WriteLine("Volume Estimate: " + totalVolume);
+				return totalVolume;
+			}
+		}
+
+		private const float onethird = (1f / 3f);
 
 		private float getFaceVolumeTest(Vector3 point1, Vector3 point2, Vector3 point3)
 		{
@@ -519,7 +400,7 @@ namespace Project_blob
 			float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), center);
 			float height = MathHelper.Distance(distanceToCenter, facePlane.D);
 
-			float volume = height * area * (1f / 3f);
+			float volume = height * area * onethird;
 #if DEBUG
 			if (float.IsNaN(volume))
 				throw new Exception("Not Good");
@@ -548,7 +429,7 @@ namespace Project_blob
 			float distanceToCenter = Vector3.Dot(Vector3.Negate(Vector3.Normalize(facePlane.Normal)), center);
 			float height = MathHelper.Distance(distanceToCenter, facePlane.D);
 
-			float volume = height * area * (1f / 3f);
+			float volume = height * area * onethird;
 #if DEBUG
 			if (float.IsNaN(volume))
 				throw new Exception("Not Good");
@@ -556,24 +437,6 @@ namespace Project_blob
 
 			return volume;
 		}
-
-		//public float baseVolume = 10f;
-		//public float idealVolume = 10f;
-
-		//public void update()
-		//{
-
-		//    Vector3 center = getCenter();
-		//    float volume = getVolume();
-
-		//    foreach (Physics.Point p in points)
-		//    {
-
-		//        p.CurrentForce += (center - p.Position) * (volume - idealVolume) * (1f);
-
-		//    }
-
-		//}
 
 		//-----------------------------------------------------------------------------
 		// Fill the vertex buffer for the blob objects
