@@ -626,11 +626,9 @@ namespace Project_blob.GameState
 					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
 					if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
 					{
-						CurCamera = CameraType.cinema;
-						CameraManager.getSingleton.ActiveCamera.Position = new Vector3(0, 0, -10);
-						CameraManager.getSingleton.ActiveCamera.Target = Vector3.Zero;
-						CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
+						CurCamera = CameraType.follow;
+						CameraManager.getSingleton.SetActiveCamera("default");
 					}
 				}
 				else if (CurCamera == CameraType.follow)
