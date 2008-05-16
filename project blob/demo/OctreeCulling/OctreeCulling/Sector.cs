@@ -99,22 +99,36 @@ namespace OctreeCulling
                                     (sectorNum != _sectorNumber) &&
                                     (sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
                                 {
+									BoundingFrustum newFrustum;
+
                                     //Create new frustum from portal
-                                    BoundingFrustum newFrustum = CreatePortalFrustum(portal);
-                                    //Frustum newFrustum = CreatePortalFrustum(portal);
+									if (type == ContainmentType.Contains)
+									{
+										newFrustum = CreatePortalFrustum(portal);
+										//Frustum newFrustum = CreatePortalFrustum(portal);
+									}
+									else
+									{
+										newFrustum = CreateClippedPortalFrustum(portal);
+									}
 
                                     drawingPortal = sectorNum;
                                     drawFrustum(newFrustum);
                                     _drawPortal = true;
+
+									int prev = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+									int curr = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
 
                                     SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
                                     SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
 
                                     SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
 
-                                    int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
-                                    SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
-                                    SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
+									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = curr;
+									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = prev;
+									//int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+									//SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+									//SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
                                 }
                             }
                         }
@@ -171,22 +185,35 @@ namespace OctreeCulling
                                     (sectorNum != SceneManager.getSingleton.PortalScene.CurrentRecursiveSector) &&//_sectorNumber) &&
                                     (sectorNum != SceneManager.getSingleton.PortalScene.PreviousRecursiveSector))
                                 {
-                                    //Create new frustum from portal
-                                    BoundingFrustum newFrustum = CreatePortalFrustum(portal);
-                                    //Frustum newFrustum = CreatePortalFrustum(portal);
+									BoundingFrustum newFrustum;
+									if (type == ContainmentType.Contains)
+									{
+										//Create new frustum from portal
+										newFrustum = CreatePortalFrustum(portal);
+										//Frustum newFrustum = CreatePortalFrustum(portal);
+									}
+									else
+									{
+										newFrustum = CreateClippedPortalFrustum(portal);
+									}
 
                                     drawingPortal = sectorNum;
                                     drawFrustum(newFrustum);
                                     _drawPortal = true;
+
+									int prev = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+									int curr = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
 
                                     SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
                                     SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = sectorNum;
 
                                     SceneManager.getSingleton.PortalScene.Sectors[sectorNum].DrawVisible(gameTime, newFrustum);
 
-                                    int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
-                                    SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
-                                    SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
+									SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = curr;
+									SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = prev;
+									//int temp = SceneManager.getSingleton.PortalScene.PreviousRecursiveSector;
+									//SceneManager.getSingleton.PortalScene.PreviousRecursiveSector = SceneManager.getSingleton.PortalScene.CurrentRecursiveSector;
+									//SceneManager.getSingleton.PortalScene.CurrentRecursiveSector = temp;
                                 }
                             }
                         }
@@ -463,14 +490,195 @@ namespace OctreeCulling
             return newFrustum;
         }
 
+		private BoundingFrustum CreateClippedPortalFrustum(Portal portal)
+		{
+			BoundingBox box = portal.GetBoundingBoxTransformed();
+			Vector3 min = Vector3.Transform(box.Min, CameraManager.getSingleton.GetCamera("test").View);
+			Vector3 max = Vector3.Transform(box.Max, CameraManager.getSingleton.GetCamera("test").View);
+
+			return CameraManager.getSingleton.GetCamera("test").Frustum;
+
+
+			//Vector3 nearDistance = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
+
+			//float minScaleX, maxScaleX;
+			//if (portal.Scale.Z > portal.Scale.X)
+			//{
+			//    minScaleX = -portal.Scale.Z;
+			//    maxScaleX = portal.Scale.Z;
+			//}
+			//else
+			//{
+			//    minScaleX = -portal.Scale.X;
+			//    maxScaleX = portal.Scale.X;
+			//}
+			//Matrix projection = Matrix.CreatePerspectiveOffCenter(minScaleX, maxScaleX, -portal.Scale.Y, portal.Scale.Y,
+			//    nearDistance.Length(),
+			//    CameraManager.getSingleton.GetCamera("test").FarPlane);
+
+			//Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
+			//    portal.Position, Vector3.Up);
+
+			//BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
+			/*
+			Vector3 nearDistance = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
+			float test1, test2;
+			Plane portalPlane;
+			Vector3[] corners = new Vector3[8];
+			Vector3 pt1, pt2, pt3;
+			BoundingBox box = portal.GetBoundingBoxTransformed();
+			test1 = box.Max.X - box.Min.X;
+			test2 = box.Max.Z - box.Min.Z;
+			
+			if(test1 > test2)
+			{
+				pt1 = new Vector3(box.Min.X, box.Min.Y, box.Min.Z);
+				pt2 = new Vector3(box.Max.X, box.Min.Y, box.Min.Z);
+				pt3 = new Vector3(box.Max.X, box.Max.Y, box.Min.Z);
+			}
+			else
+			{
+				pt1 = new Vector3(box.Min.X, box.Min.Y, box.Min.Z);
+				pt2 = new Vector3(box.Min.X, box.Min.Y, box.Max.Z);
+				pt3 = new Vector3(box.Min.X, box.Max.Y, box.Max.Z);
+			}
+			portalPlane = new Plane(pt1, pt2, pt3);
+			
+			corners = CameraManager.getSingleton.GetCamera("test").Frustum.GetCorners();
+			Vector3 frustumTL, frustumTR, frustumBL, frustumBR;
+			frustumTR = Vector3.Normalize(corners[4] - corners[0]);
+			frustumTL = Vector3.Normalize(corners[5] - corners[1]);
+			frustumBL = Vector3.Normalize(corners[6] - corners[2]);
+			frustumBR = Vector3.Normalize(corners[7] - corners[3]);
+
+			float tlIntersect, trIntersect, blIntersect, brIntersect;
+			
+			tlIntersect = PlaneIntersectPt(portalPlane, frustumTL);
+			trIntersect = PlaneIntersectPt(portalPlane, frustumTR);
+			blIntersect = PlaneIntersectPt(portalPlane, frustumBL);
+			brIntersect = PlaneIntersectPt(portalPlane, frustumBR);
+
+			if (tlIntersect < 0 || trIntersect < 0 || blIntersect < 0 || brIntersect < 0)
+			{
+				return CameraManager.getSingleton.GetCamera("test").Frustum;
+			}
+			else
+			{
+				Vector3 tlIntersectPt, trIntersectPt, blIntersectPt, brIntersectPt;
+				tlIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumTL, tlIntersect);
+				trIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumTR, trIntersect);
+				blIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumBL, blIntersect);
+				brIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumBR, brIntersect);
+
+				float minX, maxX, minY, maxY;
+				if (nearDistance.Z < 0)
+				{
+					if (tlIntersectPt.X < box.Max.X)
+					{
+						maxX = tlIntersectPt.X;
+					}
+					else
+					{
+						maxX = box.Max.X;
+					}
+
+					if (trIntersectPt.X > box.Min.X)
+					{
+						minX = trIntersectPt.X;
+					}
+					else
+					{
+						minX = box.Min.X;
+					}
+				}
+				else
+				{
+					if (trIntersectPt.X < box.Max.X)
+					{
+						maxX = trIntersectPt.X;
+					}
+					else
+					{
+						maxX = box.Max.X;
+					}
+
+					if (tlIntersectPt.X > box.Min.X)
+					{
+						minX = tlIntersectPt.X;
+					}
+					else
+					{
+						minX = box.Min.X;
+					}
+				}
+
+				if (trIntersectPt.Y < box.Max.Y)
+				{
+					maxY = trIntersectPt.Y;
+				}
+				else
+				{
+					maxY = box.Max.Y;
+				}
+
+				if (brIntersectPt.Y > box.Min.Y)
+				{
+					minY = brIntersectPt.Y;
+				}
+				else
+				{
+					minY = box.Min.Y;
+				}
+
+				Vector3 min, max;
+
+				min = new Vector3(minX, minY, pt1.Z);
+				max = new Vector3(maxX, maxY, pt1.Z);
+
+				Vector3 centerPt = Vector3.Divide((max - min), 2);
+				centerPt = min + centerPt;
+				//nearDistance = centerPt - CameraManager.getSingleton.GetCamera("test").Position;
+
+				float minScaleX, maxScaleX, minScaleY, maxScaleY;
+				maxScaleX = (max.X - min.X) / 2;
+				minScaleX = -maxScaleX;
+				maxScaleY = (max.Y - min.Y) / 2;
+				minScaleY = -maxScaleY;
+
+				Matrix projection = Matrix.CreatePerspectiveOffCenter(minScaleX, maxScaleX, minScaleY, maxScaleY,
+					nearDistance.Length(), //centerPt.Length(),
+					CameraManager.getSingleton.GetCamera("test").FarPlane);
+
+				Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
+					centerPt, Vector3.Up);
+
+				BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
+
+				return newFrustum;
+			}
+			 * */
+		}
+
         private float PlaneIntersectPt(Plane p, Vector3 ray)
         {
             float denom = Vector3.Dot(p.Normal, ray);
-            if (denom == 0)
-                denom = 0.01f;
-            float nom = Vector3.Dot(p.Normal, CameraManager.getSingleton.GetCamera("test").Position) + p.D;
-            float t = -(nom / denom);
-            return t;
+			if (denom == 0)
+			{
+				return -1;
+			}
+			else
+			{
+				float nom = Vector3.Dot(p.Normal, CameraManager.getSingleton.GetCamera("test").Position) + p.D;
+				float t = -(nom / denom);
+				if (t >= 0)
+				{
+					return t;
+				}
+				else
+				{
+					return -1;
+				}
+			}
         }
 
         private void drawFrustum(BoundingFrustum frustum)

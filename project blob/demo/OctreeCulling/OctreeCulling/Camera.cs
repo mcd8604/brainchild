@@ -195,12 +195,12 @@ namespace OctreeCulling
         /// <summary>
         /// Camera's look at point in world space.
         /// </summary>
-        //private Vector3 _lookAt;
-        //public Vector3 LookAt
-        //{
-        //    get { return _lookAt; }
-        //    set { _lookAt = value; }
-        //}
+		private Vector3 _lookAt;
+		public Vector3 LookAt
+		{
+			get { return _lookAt; }
+			set { _lookAt = value; }
+		}
 
         /// <summary>
         /// The spot in 3d space where the camera is looking.
