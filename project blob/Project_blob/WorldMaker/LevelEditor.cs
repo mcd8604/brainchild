@@ -54,7 +54,7 @@ namespace WorldMaker
 			{
 				areaTextBox.Text = (String)areaListBox.Items[areaListBox.SelectedIndex];
 				_gameRef.ActiveArea = Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]];
-                _gameRef.ActiveArea.LoadAreaWorldMaker();
+				_gameRef.ActiveArea.LoadAreaWorldMaker(_gameRef.GraphicsDevice);
                 
                 CreateRenderTargets();
 
