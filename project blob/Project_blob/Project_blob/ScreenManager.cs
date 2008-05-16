@@ -211,6 +211,18 @@ namespace Project_blob
 			GraphicsDevice.RenderState.MultiSampleAntiAlias = !GraphicsDevice.RenderState.MultiSampleAntiAlias;
 		}
 
+		public bool VSync
+		{
+			get
+			{
+				return graphics.SynchronizeWithVerticalRetrace;
+			}
+			set
+			{
+				graphics.SynchronizeWithVerticalRetrace = value;
+			}
+		}
+
 		public void AddScreen(GameScreen screen)
 		{
 			screen.IsExiting = false;

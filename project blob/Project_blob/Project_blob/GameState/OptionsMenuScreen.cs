@@ -13,12 +13,14 @@ namespace Project_blob.GameState
 		MenuEntry aliasingMenuEntry;
 		MenuEntry audioMenuEntry;
 		MenuEntry threadedMenuEntry;
+		MenuEntry vsyncMenuEntry;
 
 		bool Fullscreen = ScreenManager.IsFullScreen;
 		bool AntiAliasing = ScreenManager.IsAntiAliasing;
 		bool audio = Audio.AudioManager.Enabled;
 		PhysicsManager.ParallelSetting Threading = PhysicsManager.enableParallel;
 		Resolution resolution = ScreenManager.CurrentResolution;
+		bool vsync = ScreenManager.VSync;
 
 		public OptionsMenuScreen(Boolean popup)
 			: base("Options")
@@ -33,6 +35,7 @@ namespace Project_blob.GameState
 			aliasingMenuEntry = new MenuEntry();
 			audioMenuEntry = new MenuEntry();
 			threadedMenuEntry = new MenuEntry();
+			vsyncMenuEntry = new MenuEntry();
 			MenuEntry controlMenuEntry = new MenuEntry("Controls");
 			MenuEntry applyMenuEntry = new MenuEntry("Apply");
 			MenuEntry backMenuEntry = new MenuEntry("Back");
@@ -44,6 +47,7 @@ namespace Project_blob.GameState
 			aliasingMenuEntry.Selected += aliasingSelected;
 			audioMenuEntry.Selected += audioSelected;
 			threadedMenuEntry.Selected += threadedSelected;
+			vsyncMenuEntry.Selected += vsyncSelected;
 			controlMenuEntry.Selected += controlSelected;
 			applyMenuEntry.Selected += apply;
 			backMenuEntry.Selected += OnCancel;
@@ -53,6 +57,7 @@ namespace Project_blob.GameState
 			MenuEntries.Add(aliasingMenuEntry);
 			MenuEntries.Add(audioMenuEntry);
 			MenuEntries.Add(threadedMenuEntry);
+			MenuEntries.Add(vsyncMenuEntry);
 			MenuEntries.Add(controlMenuEntry);
 			MenuEntries.Add(applyMenuEntry);
 			MenuEntries.Add(backMenuEntry);
@@ -65,6 +70,7 @@ namespace Project_blob.GameState
 			aliasingMenuEntry.Text = "Anti-Aliasing: " + (AntiAliasing ? "On" : "Off");
 			audioMenuEntry.Text = "Audio: " + (audio ? "On" : "Off");
 			threadedMenuEntry.Text = "Multithreading: " + Threading;
+			vsyncMenuEntry.Text = "VSync: " + (vsync ? "On" : "Off");
 		}
 
 		void resolutionSelected(object sender, EventArgs e)
@@ -110,6 +116,12 @@ namespace Project_blob.GameState
 			setMenuText();
 		}
 
+		void vsyncSelected(object sender, EventArgs e)
+		{
+			vsync = !vsync;
+			setMenuText();
+		}
+
 		void controlSelected(object sender, EventArgs e)
 		{
 			ScreenManager.AddScreen(new ControllerScreen());
@@ -133,6 +145,8 @@ namespace Project_blob.GameState
 			Audio.AudioManager.Enabled = audio;
 
 			PhysicsManager.enableParallel = Threading;
+
+			ScreenManager.VSync = vsync;
 
 			setMenuText();
 		}
