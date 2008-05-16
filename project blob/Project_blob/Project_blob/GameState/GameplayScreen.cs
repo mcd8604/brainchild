@@ -30,6 +30,10 @@ namespace Project_blob.GameState
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
 
+		private const float TEXT_EVENT_TIME = 5.0f;
+
+		public static bool TextEventHit = false;
+
 		Texture2D blobTexture;
 		Texture2D distortMapText;
 
@@ -71,6 +75,15 @@ namespace Project_blob.GameState
 			chase
 		}
 
+		private static string m_TextEventString = "";
+		public static string TextEvent
+		{
+			get { return m_TextEventString; }
+			set { m_TextEventString = value; }
+		}
+
+		public static float m_lastTextEvent = 0;
+
 		public static CameraType CurCamera = CameraType.follow;
 		//bool cinema = false;
 		bool paused = false;
@@ -80,7 +93,7 @@ namespace Project_blob.GameState
 
 		//bool points = false;
 
-		SpriteFont font;
+		public SpriteFont font;
 		//fps
 		float time = 0f;
 		float update = 1f;
@@ -510,6 +523,15 @@ namespace Project_blob.GameState
 
 					cartoonEffect.Parameters["blobCenter"].SetValue(theBlob.getCenter());
 					distortEffect.Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
+
+					if (TextEventHit)
+					{
+						TextEventHit = false;
+						m_lastTextEvent = gameTime.TotalGameTime.Seconds;
+					}
+
+					if (gameTime.TotalGameTime.Seconds - m_lastTextEvent > TEXT_EVENT_TIME)
+						m_TextEventString = "";
 
 					//Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
 					//tempPos.Y += 10;
@@ -962,23 +984,7 @@ namespace Project_blob.GameState
 			{
 				PlayTime.Start();
 			}
-			//ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
-			//ScreenManager.GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
-			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
-			ScreenManager.GraphicsDevice.RenderState.DepthBufferEnable = true;
-			ScreenManager.GraphicsDevice.RenderState.AlphaBlendEnable = false;
-			ScreenManager.GraphicsDevice.RenderState.AlphaTestEnable = false;
-
-			//effect.CurrentTechnique = effect.Techniques["Textured"];
-			//ScreenManager.GraphicsDevice.Textures[0] = blobTexture;
-
-			//blobEffect.CurrentTechnique = blobEffect.Techniques["BlobBlendTwoPasses"];
-
-			//cartoonEffect.Parameters["Texture"].SetValue(blobTexture);
-
-			// Set suitable renderstates for drawing a 3D model.
-			//RenderState renderState = ScreenManager.GraphicsDevice.RenderState;
 
 			cartoonEffect.Parameters["World"].SetValue(worldMatrix);
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
@@ -987,172 +993,18 @@ namespace Project_blob.GameState
 			distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
 			distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
-
-			//renderState.CullMode = CullMode.CullCounterClockwiseFace;
-
-			//ScreenManager.GraphicsDevice.SetRenderTarget(0, normalDepthRenderTarget);
-			//ScreenManager.GraphicsDevice.Clear(Color.Black);
-			//cartoonEffect.CurrentTechnique = cartoonEffect.Techniques["NormalDepth"];
-			//cartoonEffect.Begin();
-			//foreach (EffectPass pass in cartoonEffect.CurrentTechnique.Passes)
-			//{
-			//    pass.Begin();
-			//    theBlob.DrawMe();
-			//    pass.End();
-			//}
-			//cartoonEffect.End();
-
-
-
-			//ScreenManager.GraphicsDevice.SetRenderTarget(0, null);
-			//ScreenManager.GraphicsDevice.SetRenderTarget(0, null);
-			//Vector2 resolution = new Vector2(sceneRenderTarget.Width,
-			//                                     sceneRenderTarget.Height);
-
-			//Texture2D normalDepthTexture = normalDepthRenderTarget.GetTexture();
-
-			//EffectParameterCollection parameters = postprocessEffect.Parameters;
-			//parameters["EdgeWidth"].SetValue(1.0f);
-			//parameters["EdgeIntensity"].SetValue(1.0f);
-			//parameters["ScreenResolution"].SetValue(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width,ScreenManager.GraphicsDevice.Viewport.Height));
-			//parameters["NormalDepthTexture"].SetValue(normalDepthTexture);
-
-			//postprocessEffect.CurrentTechnique = postprocessEffect.Techniques["EdgeDetect"];
-
-			//// Draw a fullscreen sprite to apply the postprocessing effect.
-			//SpriteBatch spriteBatch = new SpriteBatch(ScreenManager.GraphicsDevice);
-			//spriteBatch.Begin(SpriteBlendMode.None,
-			//                  SpriteSortMode.Immediate,
-			//                  SaveStateMode.None);
-
-			//postprocessEffect.Begin();
-			//postprocessEffect.CurrentTechnique.Passes[0].Begin();
-
-			////spriteBatch.Draw(sceneRenderTarget.GetTexture(), Vector2.Zero, Color.White);
-
-			//spriteBatch.End();
-
-			//postprocessEffect.CurrentTechnique.Passes[0].End();
-			//postprocessEffect.End();
-
-			//renderState.CullMode = CullMode.CullClockwiseFace;
-
-			// Collision Tris
-			/*effect.CurrentTechnique = effect.Techniques["Colored"];
-			GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
-			GraphicsDevice.Indices = null;
-			foreach (Drawable d in drawables)
-			{
-				//VertexPositionColor[] temp = d.getTriangleVertexes();
-				//VertexBuffer tempVertexBuffer = new VertexBuffer(GraphicsDevice, VertexPositionColor.SizeInBytes * temp.Length, BufferUsage.None);
-				//tempVertexBuffer.SetData<VertexPositionColor>(temp);
-				//GraphicsDevice.Vertices[0].SetSource(tempVertexBuffer, 0, VertexPositionColor.SizeInBytes);
-				GraphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
-				effect.Begin();
-				foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-				{
-					pass.Begin();
-					d.DrawMe();
-					pass.End();
-				}
-				effect.End();
-			}*/
-
 			//Octree Cull the Static Drawables
 			foreach (List<Drawable> drawables in currentArea.Display.DrawnList)
 			{
 				drawables.Clear();
 			}
-			//if (currentArea.Display.SkyBox != null)
-			//	currentArea.Display.AddToBeDrawn(currentArea.Display.SkyBox);
 
 			SceneManager.getSingleton.UpdateVisibleDrawables(gameTime);
 
 			//Level Models
 			currentArea.Display.Draw(ScreenManager.GraphicsDevice, theBlob);
 
-			//if (points)
-			//{
-			//    // Corner Dots -
-			//    cartoonEffect.CurrentTechnique = effect.Techniques["Colored"];
-			//    ScreenManager.GraphicsDevice.VertexDeclaration = VertexDeclarationColor;
-			//    ScreenManager.GraphicsDevice.RenderState.DepthBufferEnable = false;
-			//    VertexPositionColor[] dotVertices = new VertexPositionColor[theBlob.points.Count];
-			//    for (int i = 0; i < theBlob.points.Count; ++i)
-			//    {
-			//        dotVertices[i] = new VertexPositionColor(theBlob.points[i].ExternalPosition, Color.Black);
-			//    }
-			//    VertexBuffer dotvertexBuffer = new VertexBuffer(ScreenManager.GraphicsDevice, VertexPositionColor.SizeInBytes * theBlob.points.Count, BufferUsage.None);
-			//    dotvertexBuffer.SetData<VertexPositionColor>(dotVertices);
-			//    ScreenManager.GraphicsDevice.Vertices[0].SetSource(dotvertexBuffer, 0, VertexPositionColor.SizeInBytes);
-			//    effect.Begin();
-			//    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-			//    {
-			//        pass.Begin();
-			//        ScreenManager.GraphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, theBlob.points.Count);
-			//        pass.End();
-			//    }
-			//    effect.End();
-
-			//    // Velocity Vectors			
-			//    VertexPositionColor[] vectorVertices = new VertexPositionColor[theBlob.points.Count * 2];
-
-			//    for (int i = 0; i < theBlob.points.Count; ++i)
-			//    {
-			//        vectorVertices[i * 2] = (new VertexPositionColor(theBlob.points[i].ExternalPosition, Color.Red));
-			//        vectorVertices[(i * 2) + 1] = (new VertexPositionColor(theBlob.points[i].ExternalPosition + theBlob.points[i].ExternalVelocity, Color.Pink));
-			//    }
-			//    VertexBuffer vectorVertexBuffer = new VertexBuffer(ScreenManager.GraphicsDevice, VertexPositionColor.SizeInBytes * vectorVertices.Length, BufferUsage.None);
-			//    vectorVertexBuffer.SetData<VertexPositionColor>(vectorVertices);
-
-			//    ScreenManager.GraphicsDevice.Vertices[0].SetSource(vectorVertexBuffer, 0, VertexPositionColor.SizeInBytes * vectorVertices.Length);
-
-			//    effect.Begin();
-			//    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-			//    {
-			//        pass.Begin();
-			//        ScreenManager.GraphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, theBlob.points.Count);
-			//        pass.End();
-			//    }
-			//    effect.End();
-
-			//}
-
-			//ScreenManager.GraphicsDevice.SetRenderTarget(0, normalDepthRenderTarget);
-
-			//renderState.AlphaBlendEnable = false;
-			//renderState.AlphaTestEnable = false;
-			//renderState.DepthBufferEnable = true;
-
-			//cartoonEffect.CurrentTechnique = cartoonEffect.Techniques["NormalDepth"];
-
-			//cartoonEffect.Begin();
-			//foreach (EffectPass pass in cartoonEffect.CurrentTechnique.Passes)
-			//{
-			//    pass.Begin();
-			//    theBlob.DrawMe();
-			//    pass.End();
-			//}
-			//cartoonEffect.End();
-
-			//ScreenManager.GraphicsDevice.SetRenderTarget(0, sceneRenderTarget);
-
-			//renderState.AlphaBlendEnable = false;
-			//renderState.AlphaTestEnable = false;
-			//renderState.DepthBufferEnable = true;
-
-			//cartoonEffect.CurrentTechnique = cartoonEffect.Techniques["Toon"];
-
-			//cartoonEffect.Begin();
-			//foreach (EffectPass pass in cartoonEffect.CurrentTechnique.Passes)
-			//{
-			//    pass.Begin();
-			//    theBlob.DrawMe();
-			//    pass.End();
-			//}
-			//cartoonEffect.End();
-
-			//currentArea.Display.ApplyPostProcessing(ScreenManager.GraphicsDevice);
+			
 #if TIMED
 			drawTime.Stop();
 #endif
@@ -1251,6 +1103,8 @@ namespace Project_blob.GameState
 			spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(600, 30), Color.White);
 
 			spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
+
+			spriteBatch.DrawString(font, m_TextEventString, new Vector2(0, 0), Color.Black);
 #endif
 			spriteBatch.End();
 

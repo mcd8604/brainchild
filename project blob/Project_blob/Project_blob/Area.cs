@@ -322,7 +322,6 @@ namespace Project_blob
 						// this is called
 						if (dm.Event != null)
 						{
-
 							body = new TriggerStatic(collidables, null, dm.Event);
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
