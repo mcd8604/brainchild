@@ -8,49 +8,75 @@ using System.Text;
 
 namespace Project_blob.GameState
 {
-	class ControllerScreen : MenuScreen
-	{
-		Texture2D controlTexture;
+    class ControllerScreen : MenuScreen
+    {
+        Texture2D controlTexture;
 
-		public ControllerScreen() : base("Controller")
-		{
-			IsPopup = true;
-		}
+        MenuEntry invertedMenuEntry;
 
-		public override void LoadContent()
-		{
-			controlTexture = ScreenManager.Content.Load<Texture2D>("blank");
-		}
-		
-		public override void HandleInput()
-		{
-			if (InputHandler.IsActionPressed(Actions.MenuAccept))
-			{
-				OnCancel();
-			}
-		}
+        bool viewInvert = true;
 
-		public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-													   bool coveredByOtherScreen)
-		{
-			base.Update(gameTime, otherScreenHasFocus, false);
-		}
+        public ControllerScreen()
+            : base("Controller")
+        {
+            IsPopup = true;
 
-		public override void Draw(GameTime gameTime)
-		{
-			ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
+            invertedMenuEntry = new MenuEntry();
+            MenuEntry applyMenuEntry = new MenuEntry("Apply");
+            MenuEntry backMenuEntry = new MenuEntry("Back");
 
-			SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-			Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-			Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
-			byte fade = TransitionAlpha;
+            setMenuText();
 
-			spriteBatch.Begin(SpriteBlendMode.None);
+            invertedMenuEntry.Selected += invertedSelected;
+            applyMenuEntry.Selected += apply;
+            backMenuEntry.Selected += OnCancel;
 
-			spriteBatch.Draw(controlTexture, fullscreen,
-							 new Color(fade, fade, fade));
+            MenuEntries.Add(invertedMenuEntry);
+            MenuEntries.Add(applyMenuEntry);
+            MenuEntries.Add(backMenuEntry);
+        }
 
-			spriteBatch.End();
-		}
-	}
+        void setMenuText()
+        {
+            invertedMenuEntry.Text = "Camera Inverted: " + (viewInvert ? "On" : "Off");
+        }
+
+        void invertedSelected(object sender, EventArgs e)
+        {
+            viewInvert = !viewInvert;
+            setMenuText();
+        }
+
+        void apply(object sender, EventArgs e)
+        {
+            viewInvert = !viewInvert;
+            setMenuText();
+        }
+
+        public override void LoadContent()
+        {
+            controlTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\controltexture");
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            ScreenManager.FadeBackBufferToBlack(TransitionAlpha);
+
+            base.Draw(gameTime);
+
+            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
+            int wide = viewport.Width / 2;
+            int tall = viewport.Height / 2;
+            Rectangle fullscreen = new Rectangle(wide + (wide - tall), tall, tall, tall);
+            byte fade = TransitionAlpha;
+
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(controlTexture, fullscreen,
+                             new Color(fade, fade, fade));
+
+            spriteBatch.End();
+        }
+    }
 }

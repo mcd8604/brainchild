@@ -444,6 +444,11 @@
       <Name>speedBoost</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Textures\controltexture.jpg">
+      <Name>controltexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Textures\finish.jpg">
       <Name>finish</Name>
       <Importer>TextureImporter</Importer>
