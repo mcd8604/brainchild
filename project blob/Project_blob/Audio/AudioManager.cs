@@ -115,6 +115,7 @@ namespace Audio
 					foreach (Sound sound in _ambientSounds)
 					{
 						sound.updateAmbient3D(_audioListener);
+                        sound.startSound( );
 						update();
 					}
 				}
