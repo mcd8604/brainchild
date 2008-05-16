@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
+	[Obsolete]
 	public class BodyStatic : Body
 	{
 
