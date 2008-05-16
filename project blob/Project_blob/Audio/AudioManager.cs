@@ -17,15 +17,16 @@ namespace Audio
 		private static WaveBank _waveBank;
 		private static SoundBank _soundBank;
 		private static Dictionary<String, Cue> _music = new Dictionary<string, Cue>();
-        private static List<Sound> _ambientSounds = new List<Sound>();
+		private static List<Sound> _ambientSounds = new List<Sound>();
 
-        private static System.Threading.Thread _ambientSoundThread;
-        private static bool _runAmbience = true;
+		private static System.Threading.Thread _ambientSoundThread;
+		private static bool _runAmbience = true;
 
-        private static AudioListener _audioListener;
-        public static AudioListener Listener {
-            set { _audioListener = value; }
-        }
+		private static AudioListener _audioListener;
+		public static AudioListener Listener
+		{
+			set { _audioListener = value; }
+		}
 
 		// Bool for if we should not apply 3D effects
 		private static bool mono = false;
@@ -57,7 +58,7 @@ namespace Audio
 				_audioEngine = new AudioEngine("Content/Audio/sound.xgs");
 				_waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
 				_soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
-                initializeAmbience();
+				initializeAmbience();
 			}
 			catch (Exception e)
 			{
@@ -68,61 +69,79 @@ namespace Audio
 			}
 		}
 
-        private static void initializeAmbience() {
-            if (_ambientSoundThread != null) {
-                _runAmbience = false;
-                System.Threading.Thread.Sleep(50);
-            }
-            try {
-                _ambientSoundThread = new System.Threading.Thread(delegate() {
-                    foreach (Sound sound in _ambientSounds) {
-                        sound.startSound();
-                    }
-                    do {
-                        for (int i = 0; i < _ambientSounds.Count; i++) {
-                            if (_audioListener != null && !mono) {
-                                _ambientSounds[i].updateAmbient3D(_audioListener);
-                                update();
-                            }
-                        }
-                        System.Threading.Thread.Sleep(50);
-                    } while (_runAmbience);
-                });
-                _ambientSoundThread.IsBackground = true;
-                _ambientSoundThread.Name = "Ambient Sound Thread";
-                _ambientSoundThread.Priority = System.Threading.ThreadPriority.Normal;
-                _runAmbience = true;
-                _ambientSoundThread.Start();
-            } catch (Exception e) {
-                Console.WriteLine("Audio Manager Exception:");
-                Console.WriteLine(e);
-                Console.WriteLine("The above Exception was handled.");
-                enabled = false;
-            }
-        }
+		private static void initializeAmbience()
+		{
+			if (_ambientSoundThread != null)
+			{
+				_runAmbience = false;
+				System.Threading.Thread.Sleep(50);
+			}
+			try
+			{
+				foreach (Sound sound in _ambientSounds)
+				{
+					sound.startSound();
+				}
+				_ambientSoundThread = new System.Threading.Thread(AudioBackgroundThread);
+				_ambientSoundThread.IsBackground = true;
+				_ambientSoundThread.Name = "Ambient Sound Thread";
+				_ambientSoundThread.Priority = System.Threading.ThreadPriority.Normal;
+				_runAmbience = true;
+				_ambientSoundThread.Start();
+			}
+			catch (Exception e)
+			{
+#if DEBUG
+				Console.WriteLine("Audio Manager Exception:");
+#endif
+				Console.WriteLine(e);
+#if DEBUG
+				Console.WriteLine("The above Exception was handled.");
+#endif
+				enabled = false;
+			}
+		}
 
-        /// <summary>
-        /// Loads in a new set of ambient sounds for a level given a list of sound names and their respective positions
-        /// </summary>
-        /// <param name="soundNames">The list of names of all the ambient sounds</param>
-        /// <param name="positions">The list of positions of all the ambient sounds</param>
-        public static void LoadAmbientSounds(List<AmbientSoundInfo> ambientSounds) {
-            if (ambientSounds != null) {
-                _ambientSounds.Clear();
+		private static void AudioBackgroundThread()
+		{
+			do
+			{
+				if (!mono && _audioListener != null)
+				{
+					foreach (Sound sound in _ambientSounds)
+					{
+						sound.updateAmbient3D(_audioListener);
+						update();
+					}
+				}
+				System.Threading.Thread.Sleep(50);
+			} while (_runAmbience);
+		}
+
+		/// <summary>
+		/// Loads in a new set of ambient sounds for a level given a list of sound names and their respective positions
+		/// </summary>
+		/// <param name="soundNames">The list of names of all the ambient sounds</param>
+		/// <param name="positions">The list of positions of all the ambient sounds</param>
+		public static void LoadAmbientSounds(List<AmbientSoundInfo> ambientSounds)
+		{
+			if (ambientSounds != null)
+			{
+				_ambientSounds.Clear();
 				foreach (AmbientSoundInfo info in ambientSounds)
 				{
 					_ambientSounds.Add(new Sound(info.Name, info.Position));
 				}
-                initializeAmbience();
-            }
-        }
+				initializeAmbience();
+			}
+		}
 
-        /// <summary>
-        /// Constructs a sound object that can utilize 3D sound from the given sound name
-        /// </summary>
-        /// <param name="soundName">The name of the sound file</param>
-        /// <returns>If the name of the sound name is a sound file, the sound object of the given sound file</returns>
-        public static Sound getSound(string soundName)
+		/// <summary>
+		/// Constructs a sound object that can utilize 3D sound from the given sound name
+		/// </summary>
+		/// <param name="soundName">The name of the sound file</param>
+		/// <returns>If the name of the sound name is a sound file, the sound object of the given sound file</returns>
+		public static Sound getSound(string soundName)
 		{
 			if (!soundName.Equals("") && !soundName.Equals("none"))
 			{
@@ -197,7 +216,7 @@ namespace Audio
 			{
 				soundFX.Dispose();
 				soundFX = _soundBank.GetCue(soundFX.Name);
-                if (_audioListener != null && !mono)
+				if (_audioListener != null && !mono)
 				{
 					try
 					{
