@@ -7,20 +7,12 @@ namespace Physics2
 {
 	class BoundingFrustum
 	{
-		private Plane[] planes;
-		private Vector3[] corners;
+		private readonly Plane[] planes;
+		private readonly Vector3[] corners;
 
 		/// <summary>
 		/// No Error checking, no guarantees.
 		/// </summary>
-		/// <param name="NearTopLeft"></param>
-		/// <param name="NearTopRight"></param>
-		/// <param name="NearBottomLeft"></param>
-		/// <param name="NearBottomRight"></param>
-		/// <param name="FarTopLeft"></param>
-		/// <param name="FarTopRight"></param>
-		/// <param name="FarBottomLeft"></param>
-		/// <param name="FarBottomRight"></param>
 		public BoundingFrustum(Vector3 NearTopLeft, Vector3 NearTopRight, Vector3 NearBottomRight, Vector3 NearBottomLeft, Vector3 FarTopLeft, Vector3 FarTopRight, Vector3 FarBottomRight, Vector3 FarBottomLeft)
 		{
 			planes = new Plane[6];
@@ -100,7 +92,7 @@ namespace Physics2
 
 		public Vector3[] GetCorners()
 		{
-			return (Vector3[])corners.Clone();
+			return corners;
 		}
 
 		public Plane Bottom

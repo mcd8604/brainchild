@@ -13,9 +13,15 @@ namespace Physics2
 			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks)
 		{ }
 
-		public abstract float Volume
+		private float volume;
+		private float potentialVolume;
+
+		public float Volume
 		{
-			get;
+			get
+			{
+				return volume;
+			}
 		}
 
 		public abstract float IdealVolume
@@ -24,10 +30,15 @@ namespace Physics2
 			set;
 		}
 
-		public abstract float PotentialVolume
+		public float PotentialVolume
 		{
-			get;
+			get {
+				return potentialVolume;
+			}
 		}
+
+		protected abstract float getVolume();
+		protected abstract float getPotentialVolume();
 
 		public override void update(float TotalElapsedSeconds)
 		{
@@ -36,12 +47,12 @@ namespace Physics2
 			// Volumes
 			Vector3 currentCenter = getCenter();
 			Vector3 nextCenter = getPotentialCenter();
-			float currentVolume = Volume;
-			float nextVolume = PotentialVolume;
+			volume = getVolume();
+			potentialVolume = getPotentialVolume();
 			float idealVolume = IdealVolume;
 			foreach (PhysicsPoint p in getPoints())
 			{
-				p.ForceThisFrame += ((Vector3.Normalize(currentCenter - p.CurrentPosition) * (currentVolume - idealVolume)) + (Vector3.Normalize(currentCenter - p.PotentialPosition) * (nextVolume - idealVolume)) * 0.5f);
+				p.ForceThisFrame += ((Vector3.Normalize(currentCenter - p.CurrentPosition) * (volume - idealVolume)) + (Vector3.Normalize(currentCenter - p.PotentialPosition) * (potentialVolume - idealVolume)) * 0.5f);
 			}
 		}
 	}

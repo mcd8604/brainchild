@@ -57,7 +57,7 @@ namespace Project_blob
 
         public override void update(float TotalElapsedSeconds)
         {
-            m_StaticModel.TextureOffsetX -= this.Speed * m_StaticModel.TextureScaleX * (m_Direction.X + m_Direction.Z) * 0.005f;
+			m_StaticModel.Dist += TotalElapsedSeconds;
             base.update(TotalElapsedSeconds);
         }
 

@@ -238,7 +238,7 @@ namespace Physics2
 				// surface friction !  F = uN
 				if (relativeVelocity.LengthSquared() > 0)
 				{
-					Vector3 FrictionForce = Vector3.Normalize(relativeVelocity) * (TotalNormalForce.Length() * (player.Traction.value * e.collidable.getMaterial().getFriction()));
+					Vector3 FrictionForce = Vector3.Normalize(relativeVelocity) * (TotalNormalForce.Length() * (player.Traction.value * e.collidable.getMaterial().Friction));
 
 					// This is the maximum amount of force to stop the point
 					Vector3 MaxFriction = ((relativeVelocity / (TotalElapsedSeconds * (1 - e.when))) * e.point.Mass) + Vector3.Negate(newForce);
