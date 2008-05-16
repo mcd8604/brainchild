@@ -10,6 +10,19 @@ namespace Project_blob
 	public class DeltaEvent : EventTrigger
 	{
 
+		private bool m_Solid = false;
+		public bool Solid
+		{
+			get
+			{
+				return m_Solid;
+			}
+			set
+			{
+				m_Solid = value;
+			}
+		}
+
 		private Vector3 deltaPosition;
 		public Vector3 DeltaPosition
 		{

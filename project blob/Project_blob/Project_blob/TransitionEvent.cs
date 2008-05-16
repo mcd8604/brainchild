@@ -11,6 +11,19 @@ namespace Project_blob
     [Serializable]
     public class TransitionEvent : EventTrigger {
 
+		private bool m_Solid = false;
+		public bool Solid
+		{
+			get
+			{
+				return m_Solid;
+			}
+			set
+			{
+				m_Solid = value;
+			}
+		}
+
         private String _area;
         [TypeConverter(typeof(TypeConverterArea))]
 		public String Area

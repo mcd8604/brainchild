@@ -9,7 +9,21 @@ namespace Project_blob
 {
     [Serializable]
     public class CameraEvent : EventTrigger
-    {
+	{
+
+		private bool m_Solid = false;
+		public bool Solid
+		{
+			get
+			{
+				return m_Solid;
+			}
+			set
+			{
+				m_Solid = value;
+			}
+		}
+
         private List<Engine.CameraFrame> cameraFrames = new List<Engine.CameraFrame>();
 		public List<Engine.CameraFrame> CameraFrames
 		{
@@ -34,6 +48,6 @@ namespace Project_blob
         {
 			GameplayScreen.game.SetUpCinematicCamera(cameraFrames);
             return true;
-        }
-    }
+		}
+	}
 }

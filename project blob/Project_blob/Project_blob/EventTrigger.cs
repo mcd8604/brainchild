@@ -8,6 +8,12 @@ namespace Project_blob
 {
     public interface EventTrigger
     {
-        bool PerformEvent(PhysicsPoint p);
+		bool PerformEvent(PhysicsPoint p);
+
+		bool Solid
+		{
+			get;
+			set;
+		}
     }
 }
