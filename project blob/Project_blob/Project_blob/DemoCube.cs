@@ -221,61 +221,69 @@ namespace Project_blob
 		//    return temp;
 		//}
 
-		public override float getVolume()
+		public override float Volume
 		{
-			float totalVolume = 0;
-			Vector3 centerOfCube = getCenter();
-			min = centerOfCube;
-			max = centerOfCube;
-
-			for (int i = 0; i < vertices.Length; ++i)
+			get
 			{
+				float totalVolume = 0;
+				Vector3 centerOfCube = getCenter();
+				min = centerOfCube;
+				max = centerOfCube;
 
-				if (vertices[i].Position.X < min.X)
+				for (int i = 0; i < vertices.Length; ++i)
 				{
-					min.X = vertices[i].Position.X;
-				}
-				if (vertices[i].Position.Y < min.Y)
-				{
-					min.Y = vertices[i].Position.Y;
-				}
-				if (vertices[i].Position.Z < min.Z)
-				{
-					min.Z = vertices[i].Position.Z;
+
+					if (vertices[i].Position.X < min.X)
+					{
+						min.X = vertices[i].Position.X;
+					}
+					if (vertices[i].Position.Y < min.Y)
+					{
+						min.Y = vertices[i].Position.Y;
+					}
+					if (vertices[i].Position.Z < min.Z)
+					{
+						min.Z = vertices[i].Position.Z;
+					}
+
+					if (vertices[i].Position.X > max.X)
+					{
+						max.X = vertices[i].Position.X;
+					}
+					if (vertices[i].Position.Y > max.Y)
+					{
+						max.Y = vertices[i].Position.Y;
+					}
+					if (vertices[i].Position.Z > max.Z)
+					{
+						max.Z = vertices[i].Position.Z;
+					}
+
 				}
 
-				if (vertices[i].Position.X > max.X)
-				{
-					max.X = vertices[i].Position.X;
-				}
-				if (vertices[i].Position.Y > max.Y)
-				{
-					max.Y = vertices[i].Position.Y;
-				}
-				if (vertices[i].Position.Z > max.Z)
-				{
-					max.Z = vertices[i].Position.Z;
-				}
+				totalVolume = (max.X - min.X) * (max.Y - min.Y) * (max.Z - min.Z);
 
+				return totalVolume;
 			}
-
-			totalVolume = (max.X - min.X) * (max.Y - min.Y) * (max.Z - min.Z);
-
-			return totalVolume;
 		}
 
-		public override float getPotentialVolume()
+		public override float PotentialVolume
 		{
-			return 0;
+			get
+			{
+				return Volume;
+			}
 		}
 
-		public override float getIdealVolume()
-		{
-			return idealVolume;
-		}
-		public override void setIdealVolume(float v)
-		{
-			idealVolume = v;
+		public override float IdealVolume {
+			get
+			{
+				return idealVolume;
+			}
+			set
+			{
+				idealVolume = value;
+			}
 		}
 
 		#region Drawable Members
