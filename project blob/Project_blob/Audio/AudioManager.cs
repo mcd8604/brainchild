@@ -57,28 +57,7 @@ namespace Audio
 				_audioEngine = new AudioEngine("Content/Audio/sound.xgs");
 				_waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
 				_soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
-                _ambientSoundThread = new System.Threading.Thread(delegate() 
-                {
-					foreach (Sound sound in _ambientSounds)
-					{
-						sound.startSound();
-					}
-                    do {
-						if (!mono && _audioListener != null)
-						{
-							foreach (Sound sound in _ambientSounds)
-							{
-								sound.updateAmbient3D(_audioListener);
-								update();
-							}
-						}
-                        System.Threading.Thread.Sleep(50);
-                    } while (_runAmbience);
-                });
-                _ambientSoundThread.IsBackground = true;
-                _ambientSoundThread.Name = "Ambient Sound Thread";
-                _ambientSoundThread.Priority = System.Threading.ThreadPriority.BelowNormal;
-                _ambientSoundThread.Start();
+                initializeAmbience();
 			}
 			catch (Exception e)
 			{
@@ -88,6 +67,39 @@ namespace Audio
 				enabled = false;
 			}
 		}
+
+        private static void initializeAmbience() {
+            if (_ambientSoundThread != null) {
+                _runAmbience = false;
+                System.Threading.Thread.Sleep(50);
+            }
+            try {
+                _ambientSoundThread = new System.Threading.Thread(delegate() {
+                    foreach (Sound sound in _ambientSounds) {
+                        sound.startSound();
+                    }
+                    do {
+                        for (int i = 0; i < _ambientSounds.Count; i++) {
+                            if (_audioListener != null && !mono) {
+                                _ambientSounds[i].updateAmbient3D(_audioListener);
+                                update();
+                            }
+                        }
+                        System.Threading.Thread.Sleep(50);
+                    } while (_runAmbience);
+                });
+                _ambientSoundThread.IsBackground = true;
+                _ambientSoundThread.Name = "Ambient Sound Thread";
+                _ambientSoundThread.Priority = System.Threading.ThreadPriority.Normal;
+                _runAmbience = true;
+                _ambientSoundThread.Start();
+            } catch (Exception e) {
+                Console.WriteLine("Audio Manager Exception:");
+                Console.WriteLine(e);
+                Console.WriteLine("The above Exception was handled.");
+                enabled = false;
+            }
+        }
 
         /// <summary>
         /// Loads in a new set of ambient sounds for a level given a list of sound names and their respective positions
@@ -101,6 +113,7 @@ namespace Audio
 				{
 					_ambientSounds.Add(new Sound(info.Name, info.Position));
 				}
+                initializeAmbience();
             }
         }
 

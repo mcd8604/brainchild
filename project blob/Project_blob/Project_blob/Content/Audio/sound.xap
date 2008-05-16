@@ -217,7 +217,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::ed8f2d39-f5f5-49e1-9ec4-b6ace76759f5;
+            Name = Sound::7aea3f01-08ff-4469-ac50-130391a05630;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -265,6 +265,12 @@ Wave Bank
     Windows File = Win\Wave Bank.xwb;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
 
     Wave
     {
@@ -387,6 +393,8 @@ Sound Bank
     Name = Sound Bank;
     Xbox File = Xbox\Sound Bank.xsb;
     Windows File = Win\Sound Bank.xsb;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -595,7 +603,7 @@ Sound Bank
     Sound
     {
         Name = lavaAmbience;
-        Volume = -1200;
+        Volume = 0;
         Pitch = 0;
         Priority = 0;
 
@@ -615,8 +623,9 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
-                Use Speaker Position = 0;
+                Use Speaker Position = 1;
                 Use Center Speaker = 1;
                 New Speaker Position On Loop = 1;
                 Speaker Position Angle = 0.000000;
@@ -628,6 +637,22 @@ Sound Bank
                     Relative = 0;
                     Random Recurrence = 0;
                     Random Offset = 0;
+                }
+
+                Pitch Variation
+                {
+                    Min = -1000;
+                    Max = 1000;
+                    Operator = 0;
+                    New Variation On Loop = 1;
+                }
+
+                Volume Variation
+                {
+                    Min = -1000;
+                    Max = 1000;
+                    Volume = 0;
+                    New Variation On Loop = 1;
                 }
 
                 Wave Entry

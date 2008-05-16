@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using System.ComponentModel;
 
 namespace Audio {
 
@@ -7,6 +8,7 @@ namespace Audio {
     public class AmbientSoundInfo {
 
         private string name;
+        [TypeConverter(typeof(TypeConverterAudio))]
         public string Name {
             get { return name; }
             set { name = value; }
