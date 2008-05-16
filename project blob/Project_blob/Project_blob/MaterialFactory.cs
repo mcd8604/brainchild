@@ -9,7 +9,8 @@ namespace Project_blob
     {
         Default,
         Slick, 
-        Sticky
+        Sticky,
+        SuperSticky
     }
 
     public struct MaterialInfo
@@ -25,6 +26,9 @@ namespace Project_blob
 
         public const float CLING_STICKY = 2.0f;
         public const float FRICTION_STICKY = 2.0f;
+
+        public const float CLING_SUPER_STICKY = 7.0f;
+        public const float FRICTION_SUPER_STICKY = 7.0f;
 
         private static Dictionary<MaterialType, Material> m_Materials = new Dictionary<MaterialType, Material>();
 
@@ -44,6 +48,10 @@ namespace Project_blob
             else if ( m == MaterialType.Sticky )
             {
                 material = new Material( CLING_STICKY, FRICTION_STICKY );
+            }
+            else if (m == MaterialType.SuperSticky)
+            {
+                material = new Material(CLING_SUPER_STICKY, FRICTION_SUPER_STICKY);
             }
 
             m_Materials.Add( m, material );
