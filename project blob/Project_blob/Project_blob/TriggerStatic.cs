@@ -21,7 +21,7 @@ namespace Project_blob
 
 		public override bool isSolid()
 		{
-			return false;
+			return _triggeredEvent.Solid;
 		}
 
 		public override void update(float TotalElapsedSeconds)

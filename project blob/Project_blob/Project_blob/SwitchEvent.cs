@@ -7,7 +7,21 @@ using Physics2;
 namespace Project_blob
 {
     public class SwitchEvent : EventTrigger
-    {
+	{
+
+		private bool m_Solid = false;
+		public bool Solid
+		{
+			get
+			{
+				return m_Solid;
+			}
+			set
+			{
+				m_Solid = value;
+			}
+		}
+
         List<EventTrigger> m_Events = new List<EventTrigger>();
 
         public SwitchEvent() { }

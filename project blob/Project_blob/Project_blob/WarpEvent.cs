@@ -10,6 +10,20 @@ namespace Project_blob
 	[Serializable]
 	public class WarpEvent : EventTrigger
 	{
+
+		private bool m_Solid = false;
+		public bool Solid
+		{
+			get
+			{
+				return m_Solid;
+			}
+			set
+			{
+				m_Solid = value;
+			}
+		}
+
 		private Vector3 _moveToPos;
 		public Vector3 MoveToPos
 		{
