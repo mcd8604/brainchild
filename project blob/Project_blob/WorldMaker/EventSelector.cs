@@ -27,7 +27,7 @@ namespace WorldMaker {
 			eventBox.Items.Clear();
 			foreach (Type t in asm.GetTypes())
 			{
-				if(typeof(Project_blob.EventTrigger).IsAssignableFrom(t))
+				if(typeof(Project_blob.EventTrigger).IsAssignableFrom(t) && !t.IsInterface)
 				{
 					eventBox.Items.Add(t);
 				}
