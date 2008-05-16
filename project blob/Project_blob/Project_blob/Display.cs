@@ -23,8 +23,17 @@ namespace Project_blob
 		public RenderTarget2D SceneRanderTarget
 		{
 			get { return m_SceneRenderTarget; }
-			set { m_SceneRenderTarget = value; }
+            set
+            {
+                m_SceneRenderTarget = value; 
+                resolution = new Vector2(m_SceneRenderTarget.Width, m_SceneRenderTarget.Height);
+            }
 		}
+
+        private Vector2 resolution = Vector2.Zero;
+
+        Texture2D normalDepthTexture = null;
+
 		[NonSerialized]
 		private RenderTarget2D m_NormalDepthRenderTarget = null;
 		public RenderTarget2D NormalDepthRenderTarget
@@ -116,6 +125,9 @@ namespace Project_blob
 			get { return m_distorter; }
 			set { m_distorter = value; }
 		}
+
+        [NonSerialized]
+        private SpriteBatch m_SpriteBatch;
 
 		public bool DEBUG_WireframeMode = false;
 
@@ -270,10 +282,11 @@ namespace Project_blob
 #endif
 		}
 
-        public Display()
+        public Display(SpriteBatch spriteBatch)
         {
             ShowAxis = true;
             m_WorldMatrix = Matrix.Identity;
+            m_SpriteBatch = spriteBatch;
             initialize();
         }
 
@@ -766,25 +779,19 @@ namespace Project_blob
 		{
 			graphicsDevice.SetRenderTarget(0, null);
 
-			// Draw a fullscreen sprite to apply the postprocessing effect.
-			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
-
-
-
-
 			if (!blob)
 			{
 				m_cartoonEffect.Begin();
 				m_cartoonEffect.CurrentTechnique.Passes[0].Begin();
 
-				spriteBatch.Begin(SpriteBlendMode.None,
+				m_SpriteBatch.Begin(SpriteBlendMode.None,
 							  SpriteSortMode.Immediate,
 							  SaveStateMode.None);
 
 
-				spriteBatch.Draw(m_SceneRenderTarget.GetTexture(), Vector2.Zero, Color.White);
+				m_SpriteBatch.Draw(m_SceneRenderTarget.GetTexture(), Vector2.Zero, Color.White);
 
-				spriteBatch.End();
+				m_SpriteBatch.End();
 
 				m_cartoonEffect.CurrentTechnique.Passes[0].End();
 				m_cartoonEffect.End();
@@ -794,11 +801,9 @@ namespace Project_blob
 			{
 
 				graphicsDevice.SetRenderTarget(0, null);
-				Vector2 resolution = new Vector2(m_SceneRenderTarget.Width,
-												m_SceneRenderTarget.Height);
 
 				// Crash: Invalid Operation Exception: The render target must not be set on the device when calling GetTexture.
-				Texture2D normalDepthTexture = m_NormalDepthRenderTarget.GetTexture();
+				normalDepthTexture = m_NormalDepthRenderTarget.GetTexture();
 
 				m_postProcessEffect.Parameters["EdgeWidth"].SetValue(1.0f);
 				m_postProcessEffect.Parameters["EdgeIntensity"].SetValue(1.0f);
@@ -809,16 +814,16 @@ namespace Project_blob
 				m_postProcessEffect.CurrentTechnique = m_postProcessEffect.Techniques["EdgeDetect"];
 
 
-				spriteBatch.Begin(SpriteBlendMode.None,
+				m_SpriteBatch.Begin(SpriteBlendMode.None,
 								  SpriteSortMode.Immediate,
 								  SaveStateMode.None);
 
 				m_postProcessEffect.Begin();
 				m_postProcessEffect.CurrentTechnique.Passes[0].Begin();
 
-				spriteBatch.Draw(m_SceneRenderTarget.GetTexture(), Vector2.Zero, Color.White);
+				m_SpriteBatch.Draw(m_SceneRenderTarget.GetTexture(), Vector2.Zero, Color.White);
 
-				spriteBatch.End();
+				m_SpriteBatch.End();
 
 				m_postProcessEffect.CurrentTechnique.Passes[0].End();
 				m_postProcessEffect.End();
@@ -832,16 +837,16 @@ namespace Project_blob
 				m_distort.CurrentTechnique =
 					m_distort.Techniques["DistortBlur"];
 
-				spriteBatch.Begin(SpriteBlendMode.None,
+				m_SpriteBatch.Begin(SpriteBlendMode.None,
 							  SpriteSortMode.Immediate,
 							  SaveStateMode.None);
 
 				m_distort.Begin();
 				m_distort.CurrentTechnique.Passes[0].Begin();
 
-				spriteBatch.Draw(m_tempTarget, Vector2.Zero, Color.White);
+				m_SpriteBatch.Draw(m_tempTarget, Vector2.Zero, Color.White);
 
-				spriteBatch.End();
+				m_SpriteBatch.End();
 				m_distort.CurrentTechnique.Passes[0].End();
 				m_distort.End();
 			}
@@ -849,6 +854,23 @@ namespace Project_blob
 		}
 
 		#region Blur Calculation
+
+        // Look up the sample weight and offset effect parameters.
+        EffectParameter weightsParameter, offsetsParameter;
+
+        int sampleCount;
+
+        float[] sampleWeights;
+        Vector2[] sampleOffsets;
+
+        float totalWeights;
+
+        float weight;
+
+        float sampleOffset;
+
+        Vector2 delta;
+
 		/// <summary>
 		/// Computes sample weightings and texture coordinate offsets
 		/// for one pass of a separable gaussian blur filter.
@@ -859,32 +881,29 @@ namespace Project_blob
 		/// </remarks>
 		public void SetBlurEffectParameters(float dx, float dy)
 		{
-			// Look up the sample weight and offset effect parameters.
-			EffectParameter weightsParameter, offsetsParameter;
-
 			weightsParameter = m_distort.Parameters["SampleWeights"];
 			offsetsParameter = m_distort.Parameters["SampleOffsets"];
 
 			// Look up how many samples our gaussian blur effect supports.
-			int sampleCount = weightsParameter.Elements.Count;
+			sampleCount = weightsParameter.Elements.Count;
 
 			// Create temporary arrays for computing our filter settings.
-			float[] sampleWeights = new float[sampleCount];
-			Vector2[] sampleOffsets = new Vector2[sampleCount];
+			sampleWeights = new float[sampleCount];
+			sampleOffsets = new Vector2[sampleCount];
 
 			// The first sample always has a zero offset.
 			sampleWeights[0] = ComputeGaussian(0);
 			sampleOffsets[0] = new Vector2(0);
 
 			// Maintain a sum of all the weighting values.
-			float totalWeights = sampleWeights[0];
+			totalWeights = sampleWeights[0];
 
 			// Add pairs of additional sample taps, positioned
 			// along a line in both directions from the center.
 			for (int i = 0; i < sampleCount / 2; ++i)
 			{
 				// Store weights for the positive and negative taps.
-				float weight = ComputeGaussian(i + 1);
+				weight = ComputeGaussian(i + 1);
 
 				sampleWeights[i * 2 + 1] = weight;
 				sampleWeights[i * 2 + 2] = weight;
@@ -899,9 +918,9 @@ namespace Project_blob
 				// This allows us to step in units of two texels per sample, rather
 				// than just one at a time. The 1.5 offset kicks things off by
 				// positioning us nicely in between two texels.
-				float sampleOffset = i * 2 + 1.5f;
+				sampleOffset = i * 2 + 1.5f;
 
-				Vector2 delta = new Vector2(dx, dy) * sampleOffset;
+				delta = new Vector2(dx, dy) * sampleOffset;
 
 				// Store texture coordinate offsets for the positive and negative taps.
 				sampleOffsets[i * 2 + 1] = delta;
