@@ -43,20 +43,21 @@ namespace Project_blob
 
             if ( m == MaterialType.Slick )
             {
-                material = new Material( CLING_SLICK, FRICTION_SLICK );
+                material = Material.getMaterial( CLING_SLICK, FRICTION_SLICK );
             }
             else if ( m == MaterialType.Sticky )
             {
-                material = new Material( CLING_STICKY, FRICTION_STICKY );
+				material = Material.getMaterial(CLING_STICKY, FRICTION_STICKY);
             }
             else if (m == MaterialType.SuperSticky)
             {
-                material = new Material(CLING_SUPER_STICKY, FRICTION_SUPER_STICKY);
+				material = Material.getMaterial(CLING_SUPER_STICKY, FRICTION_SUPER_STICKY);
             }
 
             m_Materials.Add( m, material );
 
             return material;
         }
+
     }
 }

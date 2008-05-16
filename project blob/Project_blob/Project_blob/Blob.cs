@@ -59,8 +59,8 @@ namespace Project_blob
 		//private int myStartIndex;
 		private int myPrimitiveCount;
 
-		private Vector3 min;
-		private Vector3 max;
+		//private Vector3 min;
+		//private Vector3 max;
 
 		public void setSpringLength(float delta)
 		{
@@ -310,72 +310,66 @@ namespace Project_blob
 			}
 		}
 
-		public override float PotentialVolume
+		protected override float getPotentialVolume()
 		{
-			get
+			float totalVolume = 0;
+
+			Vector3 center = getCenter();
+
+			for (int i = 0; i < indices.Length - 3; i += 3)
 			{
-				float totalVolume = 0;
-
-				Vector3 center = getCenter();
-
-				for (int i = 0; i < indices.Length - 3; i += 3)
+				/*
+				Vector3 p1 = new Vector3();
+				Vector3 p2 = new Vector3();
+				Vector3 p3 = new Vector3();
+				for (int j = 0; j < pointsToUpdate.Count; ++j)
 				{
-					/*
-					Vector3 p1 = new Vector3();
-					Vector3 p2 = new Vector3();
-					Vector3 p3 = new Vector3();
-					for (int j = 0; j < pointsToUpdate.Count; ++j)
-					{
 
-						if (pointsToUpdate[j] == indices[i])
-							p1 = points[j].potentialPosition;
-						if (pointsToUpdate[j] == indices[i+1])
-							p2 = points[j].potentialPosition;
-						if (pointsToUpdate[j] == indices[i + 2])
-							p3 = points[j].potentialPosition;
-					}
-					*/
-					totalVolume += getPotentialFaceVolumeTest(points[indices[i]].PotentialPosition, points[indices[i + 1]].PotentialPosition, points[indices[i + 2]].PotentialPosition);
-					//totalVolume += getFaceVolumeTest(p1, p2, p3);
+					if (pointsToUpdate[j] == indices[i])
+						p1 = points[j].potentialPosition;
+					if (pointsToUpdate[j] == indices[i+1])
+						p2 = points[j].potentialPosition;
+					if (pointsToUpdate[j] == indices[i + 2])
+						p3 = points[j].potentialPosition;
 				}
-
-				//Console.WriteLine("Next Volume Estimate: " + totalVolume);
-				return totalVolume;
+				*/
+				totalVolume += getPotentialFaceVolumeTest(points[indices[i]].PotentialPosition, points[indices[i + 1]].PotentialPosition, points[indices[i + 2]].PotentialPosition);
+				//totalVolume += getFaceVolumeTest(p1, p2, p3);
 			}
+
+			//Console.WriteLine("Next Volume Estimate: " + totalVolume);
+			return totalVolume;
 		}
 
-		public override float Volume
+		protected override float getVolume()
 		{
-			get
+			float totalVolume = 0;
+
+			Vector3 center = getCenter();
+
+			for (int i = 0; i < indices.Length - 3; i += 3)
 			{
-				float totalVolume = 0;
-
-				Vector3 center = getCenter();
-
-				for (int i = 0; i < indices.Length - 3; i += 3)
+				/*
+				Vector3 p1 = new Vector3();
+				Vector3 p2 = new Vector3();
+				Vector3 p3 = new Vector3();
+				for (int j = 0; j < pointsToUpdate.Count; ++j)
 				{
-					/*
-					Vector3 p1 = new Vector3();
-					Vector3 p2 = new Vector3();
-					Vector3 p3 = new Vector3();
-					for (int j = 0; j < pointsToUpdate.Count; ++j)
-					{
 
-						if (pointsToUpdate[j] == indices[i])
-							p1 = points[j].CurrentPosition;
-						if (pointsToUpdate[j] == indices[i + 1])
-							p2 = points[j].CurrentPosition;
-						if (pointsToUpdate[j] == indices[i + 2])
-							p3 = points[j].CurrentPosition;
-					}
-					totalVolume += getFaceVolumeTest(p1, p2, p3);
-					*/
-					totalVolume += getFaceVolumeTest(points[indices[i]].ExternalPosition, points[indices[i + 1]].ExternalPosition, points[indices[i + 2]].ExternalPosition);
+					if (pointsToUpdate[j] == indices[i])
+						p1 = points[j].CurrentPosition;
+					if (pointsToUpdate[j] == indices[i + 1])
+						p2 = points[j].CurrentPosition;
+					if (pointsToUpdate[j] == indices[i + 2])
+						p3 = points[j].CurrentPosition;
 				}
-
-				//Console.WriteLine("Volume Estimate: " + totalVolume);
-				return totalVolume;
+				totalVolume += getFaceVolumeTest(p1, p2, p3);
+				*/
+				totalVolume += getFaceVolumeTest(points[indices[i]].ExternalPosition, points[indices[i + 1]].ExternalPosition, points[indices[i + 2]].ExternalPosition);
 			}
+
+			//Console.WriteLine("Volume Estimate: " + totalVolume);
+			return totalVolume;
 		}
 
 		private const float onethird = (1f / 3f);

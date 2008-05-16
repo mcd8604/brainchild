@@ -35,6 +35,8 @@ namespace Project_blob
 			}
 		}
 
+		internal float Dist = 0;
+
 		public ConveyerBeltStatic() { }
 
 		public ConveyerBeltStatic(StaticModel p_Model)
@@ -58,6 +60,7 @@ namespace Project_blob
 
 		public override void DrawMe(Microsoft.Xna.Framework.Graphics.GraphicsDevice graphicsDevice, Microsoft.Xna.Framework.Graphics.Effect effect, bool gameMode)
 		{
+			TextureOffsetX = -1 * this.Speed * TextureScaleX * (m_Direction.X + m_Direction.Z) * Dist;
 			base.DrawMe(graphicsDevice, effect, gameMode);
 		}
 

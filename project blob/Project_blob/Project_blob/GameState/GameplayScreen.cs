@@ -130,6 +130,8 @@ namespace Project_blob.GameState
 
 		private void reset()
 		{
+			ResetFlag = false;
+
 			if (physics != null)
 			{
 				physics.stop();
@@ -394,11 +396,13 @@ namespace Project_blob.GameState
 			// TODO: Unload any non ContentManager content here
 		}
 
+		private bool ResetFlag = false;
+
 		public static bool CauseDeath(Body body)
 		{
 			if (body != null && body.Equals(game.theBlob))
 			{
-				game.reset();
+				game.ResetFlag = true;
 				return true;
 			}
 			return false;
@@ -483,6 +487,11 @@ namespace Project_blob.GameState
 		public override void Update(GameTime gameTime, bool otherScreenHasFocus,
 													   bool coveredByOtherScreen)
 		{
+
+			if (ResetFlag)
+			{
+				reset();
+			}
 
 			if (ChangeAreaFlag)
 			{
@@ -647,7 +656,7 @@ namespace Project_blob.GameState
 					{
 						if (p.LastCollision != null)
 						{
-							if (p.LastCollision.getMaterial().getFriction() == MaterialFactory.CLING_STICKY)
+							if (p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
 							{
 								climbing = true;
 								climbNormal = p.LastCollision.Normal;

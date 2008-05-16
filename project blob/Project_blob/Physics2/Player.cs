@@ -128,6 +128,11 @@ namespace Physics2
 			}
 			#endregion
 
+			if (playerBody is BodyPressure)
+			{
+				JumpWork = MathHelper.Clamp(20 - ((BodyPressure)playerBody).Volume, 0, 20);
+			}
+
 			#region Jump
 			if (jumpflag)
 			{
@@ -198,7 +203,7 @@ namespace Physics2
 				{
 					if (p.LastCollision != null)
 					{
-						p.ForceThisFrame -= p.LastCollision.Normal * (cling.value * p.LastCollision.getMaterial().getCling());
+						p.ForceThisFrame -= p.LastCollision.Normal * (cling.value * p.LastCollision.getMaterial().Cling);
 						p.LastCollision = null;
 					}
 				}

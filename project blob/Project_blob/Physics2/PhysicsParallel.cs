@@ -139,11 +139,9 @@ namespace Physics2
 
 		public override void stop()
 		{
-
 			run = false;
 			physicsMain = null;
 			lock (this) System.Threading.Monitor.Pulse(this);
-
 		}
 		public override void AddBody(Body b)
 		{

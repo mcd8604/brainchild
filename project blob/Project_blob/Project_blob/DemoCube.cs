@@ -6,6 +6,7 @@ using Physics2;
 
 namespace Project_blob
 {
+	[Obsolete]
 	class DemoCube : BodyPressure, Drawable
 	{
 
@@ -221,10 +222,8 @@ namespace Project_blob
 		//    return temp;
 		//}
 
-		public override float Volume
+		protected override float getVolume()
 		{
-			get
-			{
 				float totalVolume = 0;
 				Vector3 centerOfCube = getCenter();
 				min = centerOfCube;
@@ -264,15 +263,14 @@ namespace Project_blob
 				totalVolume = (max.X - min.X) * (max.Y - min.Y) * (max.Z - min.Z);
 
 				return totalVolume;
-			}
+			
 		}
 
-		public override float PotentialVolume
+		protected override float getPotentialVolume()
 		{
-			get
-			{
+
 				return Volume;
-			}
+
 		}
 
 		public override float IdealVolume {

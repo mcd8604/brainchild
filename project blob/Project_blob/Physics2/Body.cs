@@ -149,10 +149,6 @@ namespace Physics2
 			{
 				throw new Exception();
 			}
-			if (childBodies == null)
-			{
-				childBodies = new List<Body>();
-			}
 			childBody.parentBody = this;
 			childBodies.Add(childBody);
 		}
@@ -262,10 +258,10 @@ namespace Physics2
 				return;
 			}
 
-			foreach (Body b in childBodies)
-			{
-				b.update(TotalElapsedSeconds);
-			}
+				foreach (Body b in childBodies)
+				{
+					b.update(TotalElapsedSeconds);
+				}
 
 			// Predict potential position
 			potentialCenter = Util.Zero;
