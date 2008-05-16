@@ -701,6 +701,11 @@ namespace Project_blob.GameState
 
 #if DEBUG
 
+				if (InputHandler.IsKeyPressed(Keys.H))
+				{
+					SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
+				}
+
 				if (InputHandler.IsKeyPressed(Keys.M))
 				{
 					physics.Player.DEBUG_MoveModeFlag = !physics.Player.DEBUG_MoveModeFlag;

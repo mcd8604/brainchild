@@ -8,7 +8,9 @@ namespace Project_blob
     [Serializable]
 	public class Portal
 	{
+		// Is this necessary?
         private String _name;
+		[Obsolete]
         public String Name
         {
             get { return _name; }
@@ -23,6 +25,7 @@ namespace Project_blob
 		}
 
         private BoundingSphere _boundingSphere;
+		[Obsolete]
         public BoundingSphere BoundingSphere
         {
             get { return _boundingSphere; }
@@ -110,17 +113,6 @@ namespace Project_blob
 				//rot = ;
 			}
 		}
-
-		//public void CreateBoundingBox()
-		//{
-		//    Vector3 min, max;
-
-		//    min = new Vector3(-1.0f, -1.0f, -1.0f) * Vector3.Divide(_scale, 2) + _position;
-		//    max = new Vector3(1.0f, 1.0f, 1.0f) * Vector3.Divide(_scale, 2) + _position;
-
-		//    _boundingBox = new BoundingBox(min, max);
-		//    //_boundingBox = new BoundingBox(new Vector3(-1.0f, -1.0f, -1.0f) * _scale, new Vector3(1.0f, 1.0f, 1.0f) * _scale);
-		//}
 
         private void CreateBoundingSphere()
         {
@@ -220,6 +212,5 @@ namespace Project_blob
 			_boundingBox = new BoundingBox(min, max);
 			//return new BoundingBox(min, max) ;
 		}
-		// * */
 	}
 }
