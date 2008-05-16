@@ -290,12 +290,14 @@ namespace Project_blob.GameState
 			{
 				if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
-					ChangeArea(f.getSelected());
+					nextAreaName = f.getSelected();
+					ChangeArea();
 				}
 				else
 				{
 #endif
-					ChangeArea("HubWorld");
+					nextAreaName = "HubWorld";
+					ChangeArea();
 #if DEBUG
 				}
 			}
@@ -405,54 +407,41 @@ namespace Project_blob.GameState
 			game.blobStartPosition = position;
 		}
 
-		public void ChangeArea(String area)
+		public void SetChangeArea(String area, Vector3 position)
 		{
-			TextureManager.ClearTextures();
-
-			currentArea = Level.Areas[area];
-
-			currentArea.LoadAreaGameplay(ScreenManager);
-
-			//Give the SceneManager a reference to the display
-			SceneManager.getSingleton.Display = currentArea.Display;
-
-			InitializeEffect();
-
-			blobStartPosition = currentArea.StartPosition;
-
-			//Add the Static Drawables to the Octree
-			List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
-			List<Portal> portals = currentArea.Portals;
-			SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
-			//SceneManager.getSingleton.BuildOctree(ref temp);
-			//SceneManager.getSingleton.BuildPortalScene(temp);
-			foreach (Portal p in portals)
-			{
-				p.CreateBoundingBox();
-			}
-			SceneManager.getSingleton.BuildPortalScene(temp, portals);
-			SceneManager.getSingleton.PortalScene.CurrSector = 1;
-
-			currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
-
-            AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
-
-			reset();
+			nextAreaName = area;
+			nextAreaPosition = position;
+			ChangeAreaFlag = true;
 		}
 
-		public void ChangeArea(String area, Vector3 position)
+		private bool ChangeAreaFlag = false;
+		private string nextAreaName;
+		private Vector3 nextAreaPosition = Vector3.Zero;
+
+		private void ChangeArea()
 		{
+			ChangeAreaFlag = false;
+
+			currentArea = Level.Areas[nextAreaName];
+
+			if (nextAreaPosition == Vector3.Zero)
+			{
+				blobStartPosition = currentArea.StartPosition;
+			}
+			else
+			{
+				blobStartPosition = nextAreaPosition;
+			}
+			nextAreaPosition = Vector3.Zero;
+
 			TextureManager.ClearTextures();
 
-			currentArea = Level.Areas[area];
 			currentArea.LoadAreaGameplay(ScreenManager);
 
 			//Give the SceneManager a reference to the display
 			SceneManager.getSingleton.Display = currentArea.Display;
 
 			InitializeEffect();
-
-			blobStartPosition = position;
 
 			//Add the Static Drawables to the Octree
 			List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
@@ -469,7 +458,7 @@ namespace Project_blob.GameState
 
 			currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
 
-            AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
+			AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
 
 			reset();
 		}
@@ -492,6 +481,12 @@ namespace Project_blob.GameState
 		public override void Update(GameTime gameTime, bool otherScreenHasFocus,
 													   bool coveredByOtherScreen)
 		{
+
+			if (ChangeAreaFlag)
+			{
+				ChangeArea();
+			}
+
 			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 			if (IsActive)
 			{
