@@ -89,6 +89,7 @@
     <Compile Include="Spring.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskKeyFrameMovement.cs" />
+    <Compile Include="TaskRotate.cs" />
     <Compile Include="TaskTranslate.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
