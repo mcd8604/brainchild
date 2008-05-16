@@ -130,7 +130,7 @@ namespace Physics2
 
 			if (playerBody is BodyPressure)
 			{
-				JumpWork = MathHelper.Clamp(20 - ((BodyPressure)playerBody).Volume, 0, 20);
+				JumpWork = MathHelper.Clamp(20 - ((BodyPressure)playerBody).Volume, 10, 20);
 			}
 
 			#region Jump

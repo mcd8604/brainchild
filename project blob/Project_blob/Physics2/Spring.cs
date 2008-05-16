@@ -6,10 +6,10 @@ namespace Physics2
 	public class Spring
 	{
 
+		public float Length = 1;
+
 		private float MinimumLengthBeforeCompression = 1;
-		private float Length = 1;
 		private float MaximumLengthBeforeExtension = 1;
-		public float LengthOffset = 0;
 
 		internal float Force = 10;
 
@@ -20,9 +20,9 @@ namespace Physics2
 		{
 			A = one;
 			B = two;
-			MinimumLengthBeforeCompression = Length;
 			Length = theLength;
-			MaximumLengthBeforeExtension = Length;
+			MinimumLengthBeforeCompression = theLength;
+			MaximumLengthBeforeExtension = theLength;
 			Force = ForceConstant;
 		}
 
@@ -30,14 +30,13 @@ namespace Physics2
 		{
 			// A spring where both ends are at the same location is invalid
 			// therefore, by the Ostrich algorithm, I throw an exception
-			// let me know if you get this.
 #if DEBUG
 			if (A.CurrentPosition == B.CurrentPosition || A.PotentialPosition == B.PotentialPosition)
 			{
 				throw new Exception("Invalid Spring State");
 			}
 #endif
-			float test = Length - LengthOffset;
+			float test = Length;
 
 			float cdx = A.CurrentPosition.X - B.CurrentPosition.X;
 			float cdy = A.CurrentPosition.Y - B.CurrentPosition.Y;

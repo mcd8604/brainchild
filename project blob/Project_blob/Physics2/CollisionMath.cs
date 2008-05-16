@@ -290,7 +290,6 @@ namespace Physics2
 			if (c_r > 0 && n_r < 0)
 			{
 				// collidable passed through point
-				//throw new Exception();
 
 				p.CurrentPosition += (v0.PotentialPosition - v0.CurrentPosition);
 			}
@@ -330,7 +329,6 @@ namespace Physics2
 			if (c_r > 0 && n_r < 0)
 			{
 				// collidable passed through point
-				//throw new Exception();
 
 				p.CurrentPosition += (v0.PotentialPosition - v0.CurrentPosition);
 			}
@@ -374,7 +372,6 @@ namespace Physics2
             if (c_r > 0 && n_r < 0)
             {
                 // collidable passed through point
-                //throw new Exception();
 
                 start += (v0.PotentialPosition - v0.CurrentPosition);
             }
@@ -414,7 +411,6 @@ namespace Physics2
 			if (c_r > 0 && n_r < 0)
 			{
 				// collidable passed through point
-				//throw new Exception();
 
 				start += (v0.PotentialPosition - v0.CurrentPosition);
 			}

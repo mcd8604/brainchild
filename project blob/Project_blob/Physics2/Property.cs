@@ -83,10 +83,12 @@ namespace Physics2
 			}
 			set
 			{
+#if DEBUG
 				if (value < 0f || value > 1f)
 				{
 					throw new ArgumentOutOfRangeException("Target must be between 0 and 1, given " + value);
 				}
+#endif
 				target = value;
 			}
 		}

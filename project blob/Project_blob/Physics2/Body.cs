@@ -26,6 +26,8 @@ namespace Physics2
 		//temp:
 		public Audio.Sound collisionSound;
 
+		private static System.Converter<CollidableStatic, Collidable> converter = new System.Converter<CollidableStatic, Collidable>(delegate(CollidableStatic c) { return (Collidable)c; });
+
 		protected internal Body() { }
 
 		public Body(Body ParentBody)
@@ -56,7 +58,7 @@ namespace Physics2
 			{
 				ParentBody.addChild(this);
 			}
-			collidables = p_collidables.ConvertAll<Collidable>(new System.Converter<CollidableStatic, Collidable>(delegate(CollidableStatic c) { return (Collidable)c; }));
+			collidables = p_collidables.ConvertAll<Collidable>(converter);
 			Static = true;
 			initializeStatic();
 		}
@@ -98,13 +100,20 @@ namespace Physics2
 
 		public virtual void initialize()
 		{
+#if DEBUG
+			if ( boundingBox != null ) {
+				throw new Exception("A Body should not be initiallized twice.");
+			}
+#endif
 			boundingBox = new AxisAlignedBoundingBox();
 			foreach (Collidable c in collidables)
 			{
+#if DEBUG
 				if (c.parent != null && c.parent != this)
 				{
-					throw new Exception();
+					throw new Exception("A collidable cannot belong to two bodies.");
 				}
+#endif
 				c.parent = this;
 				boundingBox.expandToInclude(c.getBoundingBox());
 			}
@@ -119,21 +128,29 @@ namespace Physics2
 
 		public virtual void initializeStatic()
 		{
+#if DEBUG
 			foreach (Collidable c in collidables)
 			{
 				if (!(c is CollidableStatic))
 				{
-					throw new Exception();
+					throw new Exception("A Static Body must have only Static Collidables.");
 				}
 			}
-
+#endif
+#if DEBUG
+			if ( boundingBox != null ) {
+				throw new Exception("A Body should not be initiallized twice.");
+			}
+#endif
 			boundingBox = new AxisAlignedBoundingBox();
 			foreach (Collidable c in collidables)
 			{
+#if DEBUG
 				if (c.parent != null && c.parent != this)
 				{
-					throw new Exception();
+					throw new Exception("A collidable cannot belong to two bodies.");
 				}
+#endif
 				c.parent = this;
 				boundingBox.expandToInclude(c.getBoundingBox());
 			}
@@ -141,14 +158,16 @@ namespace Physics2
 
 		public virtual void addChild(Body childBody)
 		{
+#if DEBUG
 			if (Static && !(childBody.Static))
 			{
 				throw new Exception("BodyStatic child must also be static");
 			}
 			if (childBody.parentBody != null)
 			{
-				throw new Exception();
+				throw new Exception("A Body cannot have more than one parent.");
 			}
+#endif
 			childBody.parentBody = this;
 			childBodies.Add(childBody);
 		}
@@ -241,9 +260,9 @@ namespace Physics2
 			material = m;
 		}
 
-		public virtual void setCenter(Vector3 newCenter)
+		public virtual void setCenter(Vector3 nCenter)
 		{
-			potentialCenter = newCenter;
+			potentialCenter = nCenter;
 			Vector3 diff = potentialCenter - center;
 			foreach (PhysicsPoint p in points)
 			{
@@ -258,23 +277,26 @@ namespace Physics2
 				return;
 			}
 
-				foreach (Body b in childBodies)
-				{
-					b.update(TotalElapsedSeconds);
-				}
+			foreach (Body b in childBodies)
+			{
+				b.update(TotalElapsedSeconds);
+			}
 
 			// Predict potential position
 			potentialCenter = Util.Zero;
 			foreach (PhysicsPoint p in points)
 			{
-				p.PotentialPosition = p.CurrentPosition + (p.CurrentVelocity * TotalElapsedSeconds);
+				p.PotentialPosition.X = p.CurrentPosition.X + (p.CurrentVelocity.X * TotalElapsedSeconds);
+				p.PotentialPosition.Y = p.CurrentPosition.Y + (p.CurrentVelocity.Y * TotalElapsedSeconds);
+				p.PotentialPosition.Z = p.CurrentPosition.Z + (p.CurrentVelocity.Z * TotalElapsedSeconds);
 
-				// this is /probably/ not necessary
-				//boundingBox.expandToInclude(p.PotentialPosition);
-
-				potentialCenter += p.PotentialPosition;
+				potentialCenter.X += p.PotentialPosition.X;
+				potentialCenter.Y += p.PotentialPosition.Y;
+				potentialCenter.Z += p.PotentialPosition.Z;
 			}
-			potentialCenter /= points.Count;
+			potentialCenter.X /= points.Count;
+			potentialCenter.Y /= points.Count;
+			potentialCenter.Z /= points.Count;
 
 			foreach (Collidable c in collidables)
 			{
@@ -398,7 +420,7 @@ namespace Physics2
 			}
 		}
 
-		internal void findCollisionsWith(Body b, ref List<CollisionEvent> events)
+		private void findCollisionsWith(Body b, ref List<CollisionEvent> events)
 		{
 			foreach (Body child in childBodies)
 			{
@@ -410,28 +432,24 @@ namespace Physics2
 
 			if (collidables.Count > 0)
 			{
-				b.findPointCollisions(this, ref events);
-			}
-		}
-
-		internal void findPointCollisions(Body c, ref List<CollisionEvent> events)
-		{
-			foreach (PhysicsPoint p in points)
-			{
-				foreach (Collidable x in c.collidables)
+				foreach (PhysicsPoint p in b.points)
 				{
-					if (x.couldIntersect(p.CurrentPosition, p.PotentialPosition))
+					foreach (Collidable x in collidables)
 					{
-						Vector3 hit;
-						float u = x.didIntersect(p.CurrentPosition, p.PotentialPosition, out hit);
-						if (u > 0 && u < 1)
+						if (x.couldIntersect(p.CurrentPosition, p.PotentialPosition))
 						{
-							events.Add(new CollisionEvent(p, x, u, hit));
+							Vector3 hit;
+							float u = x.didIntersect(p.CurrentPosition, p.PotentialPosition, out hit);
+							if (u > 0 && u < 1)
+							{
+								events.Add(new CollisionEvent(p, x, u, hit));
+							}
 						}
 					}
 				}
 			}
 		}
+
 		public virtual void onCollision(CollisionEvent e)
 		{
 			if (collisionSound != null)

@@ -106,6 +106,7 @@
     <Compile Include="GameState\MenuScreen.cs" />
     <Compile Include="GameState\PauseMenuScreen.cs" />
     <Compile Include="SelectForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Octree.cs" />
     <Compile Include="OctreeLeaf.cs" />

@@ -62,18 +62,6 @@ namespace Project_blob
 		//private Vector3 min;
 		//private Vector3 max;
 
-		public void setSpringLength(float delta)
-		{
-
-			foreach (Spring s in springs)
-			{
-				//s.MaximumLengthBeforeExtension += delta;
-				//s.MinimumLengthBeforeCompression += delta;
-				s.LengthOffset += delta;
-			}
-
-		}
-
 		public Blob(Model aModel)
 		{
 			initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center);
