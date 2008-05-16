@@ -23,7 +23,7 @@ namespace Project_blob.GameState
         PhysicsManager.ParallelSetting Threading = PhysicsManager.enableParallel;
         Resolution resolution = ScreenManager.CurrentResolution;
         bool vsync = ScreenManager.VSync;
-        GameplayScreen.CameraType cam = GameplayScreen.CurCamera;
+        public GameplayScreen.CameraType cam = GameplayScreen.CurCamera;
 
         public OptionsMenuScreen(Boolean popup)
             : base("Options")
