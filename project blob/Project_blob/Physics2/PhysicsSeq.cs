@@ -132,8 +132,6 @@ namespace Physics2
 				}
 			}
 
-			//Console.WriteLine( "DEBUG: Collisions: " + events.Count );
-
 			// Evaluate collsion list, call onCollsion, set NextPosition
 			events.Sort(CollisionEvent.CompareEvents);
 
@@ -149,14 +147,16 @@ namespace Physics2
 				check.Add(e.point);
 
 				// handle collision, sliding;
-				Vector3 newPosition = e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when);
+				Vector3 newPosition = e.collisionPoint;
 
+#if DEBUG
 				// Check!!
-				if (newPosition != e.collisionPoint)
+				if (newPosition != e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when))
 				{
 					// if this is ever spamming, let me know! - Adam
-					Console.WriteLine("mismatch: " + newPosition + " : " + e.collisionPoint);
+					Log.Out.WriteLine("mismatch: " + newPosition + " : " + e.collisionPoint);
 				}
+#endif
 
 				// bump?
 				//while (s.DotNormal(p.NextPosition) <= 0)
@@ -176,7 +176,6 @@ namespace Physics2
 				//float d2 = Vector3.Dot(e.collidable.Normal, newPosition);
 
 
-				//Console.WriteLine(d - d2);
 				//if ((d > 0 && d2 < 0) || (d < 0 && d2 > 0))
 				//{
 				//    int i = 0;
@@ -189,7 +188,6 @@ namespace Physics2
 				{
 					newPosition += Vector3.Normalize(e.collidable.Normal) * 0.001f;
 					d2 = Vector3.Dot(e.collidable.Normal, newPosition);
-					//Console.WriteLine("Bump1");
 				}
 
 

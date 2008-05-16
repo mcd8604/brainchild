@@ -39,8 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Final|x86' ">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>FINAL</DefineConstants>
     <Optimize>true</Optimize>
     <NoStdLib>true</NoStdLib>
     <DebugType>none</DebugType>
@@ -232,6 +231,10 @@
     <ProjectReference Include="..\Project_blob\Project_blob.csproj">
       <Project>{076BE12C-2B3B-423C-BB37-A05F5381A54A}</Project>
       <Name>Project_blob</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{3B4B46B9-5F85-410E-A790-149CA71F2B8C}</Project>
+      <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

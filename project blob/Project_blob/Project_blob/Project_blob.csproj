@@ -39,8 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Final|x86' ">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>FINAL</DefineConstants>
     <Optimize>true</Optimize>
     <NoStdLib>true</NoStdLib>
     <DebugType>none</DebugType>
@@ -222,6 +221,10 @@
     <ProjectReference Include="..\Physics2\Physics2.csproj">
       <Project>{1B356C34-6613-40BA-8476-29A93BFF64B6}</Project>
       <Name>Physics2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{3B4B46B9-5F85-410E-A790-149CA71F2B8C}</Project>
+      <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

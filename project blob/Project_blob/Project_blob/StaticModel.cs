@@ -893,7 +893,7 @@ namespace Project_blob
 				}
 				catch (KeyNotFoundException knfe)
 				{
-					Console.WriteLine("KEY NOT FOUND IN STATIC MODEL: " + this.Name);
+					Log.Out.WriteLine("KEY NOT FOUND IN STATIC MODEL: " + this.Name);
 				}
 			}
 		}*/

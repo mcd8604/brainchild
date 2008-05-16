@@ -261,7 +261,7 @@ namespace Engine
             }
 
             lookAt = ChasePosition;
-            Console.WriteLine("user input vector: " + m_UserOffset);
+
             Vector3 rightVector = Vector3.Cross(desiredPosition - chasePosition, Vector3.Up);
             desiredPosition += rightVector * m_UserOffset.X;
             desiredPosition.Y += (m_UserOffset.Y*2);

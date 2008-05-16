@@ -14,7 +14,6 @@ namespace WorldMaker
 		public EventSetter(EventTrigger e)
 		{
 			InitializeComponent();
-			Console.WriteLine("Event Setter called with: " + e);
 			properties.SelectedObject = e;
 		}
 	}

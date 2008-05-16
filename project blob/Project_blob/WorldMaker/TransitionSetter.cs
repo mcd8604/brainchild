@@ -28,7 +28,8 @@ namespace WorldMaker
                     _transition = new TransitionEvent((string)areaBox.Items[areaBox.SelectedIndex], float.Parse(xPosText.Text),
                         float.Parse(yPosText.Text), float.Parse(zPosText.Text));
                     this.Close();
-                } catch(Exception) {
+                } catch(Exception ex) {
+					Log.Out.WriteLine(ex);
                 }
             }
         }
