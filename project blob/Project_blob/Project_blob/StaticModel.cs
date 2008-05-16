@@ -844,7 +844,6 @@ namespace Project_blob
 
 		public virtual void DrawMe(GraphicsDevice graphicsDevice, Effect effect, bool gameMode)
 		{
-			updateVertexBuffer();
 			graphicsDevice.Indices = m_IndexBuffer;
 			effect.Begin();
 

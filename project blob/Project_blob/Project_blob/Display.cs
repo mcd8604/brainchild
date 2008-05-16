@@ -422,6 +422,18 @@ namespace Project_blob
 					renderState.DepthBufferEnable = false;
 				}
 
+				graphicsDevice.Vertices[0].SetSource(null, 0, 0);
+				for (int i = 0; i < m_DrawList.Count; ++i)
+				{
+					foreach (Drawable d in m_DrawList[i])
+					{
+						if (d is StaticModel)
+						{
+							((StaticModel)d).updateVertexBuffer();
+						}
+					}
+				}
+
 				if (m_NormalDepthRenderTarget != null)
 				{
 					graphicsDevice.SetRenderTarget(0, m_NormalDepthRenderTarget);
@@ -453,7 +465,7 @@ namespace Project_blob
                             }
                         }
                     }*/
-					graphicsDevice.Vertices[0].SetSource(null, 0, 0);
+
 					for (int i = 0; i < m_DrawList.Count; ++i)
 					{
 						Texture2D t = TextureManager.TextureList[i];
@@ -595,7 +607,7 @@ namespace Project_blob
                         }
                     }
 				}*/
-				graphicsDevice.Vertices[0].SetSource(null, 0, 0);
+
 				for (int i = 0; i < m_DrawList.Count; ++i)
 				{
 					Texture2D t = TextureManager.TextureList[i];
@@ -656,7 +668,7 @@ namespace Project_blob
                         }
                     }
                 }*/
-				graphicsDevice.Vertices[0].SetSource(null, 0, 0);
+
 				for (int i = 0; i < m_DrawList.Count; ++i)
 				{
 					Texture2D t = TextureManager.TextureList[i];
