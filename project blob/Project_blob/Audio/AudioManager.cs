@@ -59,22 +59,25 @@ namespace Audio
 				_soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
                 _ambientSoundThread = new System.Threading.Thread(delegate() 
                 {
-                    for (int i = 0; i < _ambientSounds.Count; i++) {
-                        _ambientSounds[i].startSound();
-                    }
+					foreach (Sound sound in _ambientSounds)
+					{
+						sound.startSound();
+					}
                     do {
-                        for (int i = 0; i < _ambientSounds.Count; i++) {
-                            if (_audioListener != null && !mono) {
-                                _ambientSounds[i].updateAmbient3D(_audioListener);
-                                update();
-                            }
-                        }
-                        System.Threading.Thread.Sleep(5);
+						if (!mono && _audioListener != null)
+						{
+							foreach (Sound sound in _ambientSounds)
+							{
+								sound.updateAmbient3D(_audioListener);
+								update();
+							}
+						}
+                        System.Threading.Thread.Sleep(50);
                     } while (_runAmbience);
                 });
                 _ambientSoundThread.IsBackground = true;
                 _ambientSoundThread.Name = "Ambient Sound Thread";
-                _ambientSoundThread.Priority = System.Threading.ThreadPriority.Normal;
+                _ambientSoundThread.Priority = System.Threading.ThreadPriority.BelowNormal;
                 _ambientSoundThread.Start();
 			}
 			catch (Exception e)
@@ -94,11 +97,10 @@ namespace Audio
         public static void LoadAmbientSounds(List<AmbientSoundInfo> ambientSounds) {
             if (ambientSounds != null) {
                 _ambientSounds.Clear();
-                Sound ambientSound;
-                for (int i = 0; i < ambientSounds.Count; i++) {
-                    ambientSound = new Sound(ambientSounds[i].Name, ambientSounds[i].Position);
-                    _ambientSounds.Add(ambientSound);
-                }
+				foreach (AmbientSoundInfo info in ambientSounds)
+				{
+					_ambientSounds.Add(new Sound(info.Name, info.Position));
+				}
             }
         }
 
