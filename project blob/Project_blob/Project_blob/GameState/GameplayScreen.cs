@@ -693,7 +693,6 @@ namespace Project_blob.GameState
 					else
 					{
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
-						//Console.WriteLine("Blob average velocity: " + theBlob.getAverageVelocity());
 						Vector3 blobVelocity = theBlob.getAverageVelocity();
 						if ((blobVelocity.Y < 1f && blobVelocity.Y > -1) && (Math.Abs(blobVelocity.X) > 1 || Math.Abs(blobVelocity.Z) > 1))
 							startCameraFollow = true;

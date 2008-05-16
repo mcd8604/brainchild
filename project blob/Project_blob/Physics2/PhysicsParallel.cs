@@ -66,6 +66,17 @@ namespace Physics2
 			{
 				do
 				{
+					lock (this)
+					{
+						System.Threading.Monitor.Wait(this);
+					}
+					if (!run)
+					{
+						return;
+					}
+				} while (runForTime == 0f);
+				do
+				{
 #if DEBUG && TIMED
 					timer.Start();
 #endif
@@ -100,18 +111,24 @@ namespace Physics2
 			}
 			catch (Exception ex)
 			{
+				run = false;
 #if DEBUG
-				Console.WriteLine("Internal Physics Exception:");
+				Log.Out.WriteLine("Internal Physics Exception:");
 #endif
-				Console.WriteLine(ex);
+				Log.Out.WriteLine(ex);
 #if DEBUG
-				Console.WriteLine("-> Someone broke physics <-  See exception above:");
+				Log.Out.WriteLine("-> Someone broke physics <-  See exception above:");
 #endif
 			}
 		}
 
 		public override void update(float TotalElapsedSeconds)
 		{
+
+			if (!run)
+			{
+				throw new Exception("Update called on Dead Physics");
+			}
 
 			if (TotalElapsedSeconds == 0f)
 			{

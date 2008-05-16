@@ -29,7 +29,6 @@ namespace WorldMaker {
 			{
 				if(typeof(Project_blob.EventTrigger).IsAssignableFrom(t))
 				{
-					Console.WriteLine(t + " is a Event Type.");
 					eventBox.Items.Add(t);
 				}
 			}

@@ -205,10 +205,12 @@ namespace Project_blob
 					{
 						springs.Add(new Spring(t, p, Vector3.Distance(t.ExternalPosition, p.ExternalPosition), springVal * 100));
 					}
+#if DEBUG
 					else
 					{
-						Console.WriteLine("Warning! Duplicate Point!");
+						Log.Out.WriteLine("Warning! Duplicate Point!");
 					}
+#endif
 				}
 				points.Add(t);
 			}
@@ -325,7 +327,6 @@ namespace Project_blob
 				//totalVolume += getFaceVolumeTest(p1, p2, p3);
 			}
 
-			//Console.WriteLine("Next Volume Estimate: " + totalVolume);
 			return totalVolume;
 		}
 
@@ -356,7 +357,6 @@ namespace Project_blob
 				totalVolume += getFaceVolumeTest(points[indices[i]].ExternalPosition, points[indices[i + 1]].ExternalPosition, points[indices[i + 2]].ExternalPosition);
 			}
 
-			//Console.WriteLine("Volume Estimate: " + totalVolume);
 			return totalVolume;
 		}
 

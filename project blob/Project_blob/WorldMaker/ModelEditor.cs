@@ -55,7 +55,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -74,7 +74,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -93,7 +93,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -119,7 +119,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -138,7 +138,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -157,7 +157,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -208,7 +208,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 				catch (Exception)
 				{
@@ -219,7 +219,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -241,7 +241,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 				catch (Exception)
 				{
@@ -252,7 +252,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -274,7 +274,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 				catch (Exception)
 				{
@@ -286,7 +286,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -324,11 +324,12 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
 #endif
+				RotationXValue.ForeColor = Color.Red;
 			}
 		}
 
@@ -343,11 +344,12 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
 #endif
+				RotationYValue.ForeColor = Color.Red;
 			}
 		}
 
@@ -362,11 +364,12 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
 #endif
+				RotationZValue.ForeColor = Color.Red;
 			}
 		}
 		#endregion
@@ -384,9 +387,9 @@ namespace WorldMaker
 					RotationXValue.ForeColor = Color.Black;
 				}
 #if VERBOSE
-			catch (Exception ex)
-			{
-                Console.WriteLine(ex);
+				catch (Exception ex)
+				{
+					Log.Out.WriteLine(ex);
 #else
 				catch (Exception)
 				{
@@ -397,7 +400,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -417,9 +420,9 @@ namespace WorldMaker
 					RotationYValue.ForeColor = Color.Black;
 				}
 #if VERBOSE
-			catch (Exception ex)
-			{
-                Console.WriteLine(ex);
+				catch (Exception ex)
+				{
+					Log.Out.WriteLine(ex);
 #else
 				catch (Exception)
 				{
@@ -430,7 +433,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -450,9 +453,9 @@ namespace WorldMaker
 					RotationZValue.ForeColor = Color.Black;
 				}
 #if VERBOSE
-			catch (Exception ex)
-			{
-                Console.WriteLine(ex);
+				catch (Exception ex)
+				{
+					Log.Out.WriteLine(ex);
 #else
 				catch (Exception)
 				{
@@ -463,7 +466,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -501,7 +504,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -524,7 +527,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -547,7 +550,7 @@ namespace WorldMaker
 #if VERBOSE
 			catch (Exception ex)
 			{
-                Console.WriteLine(ex);
+                Log.Out.WriteLine(ex);
 #else
 			catch (Exception)
 			{
@@ -645,7 +648,7 @@ namespace WorldMaker
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine(ex);
+					Log.Out.WriteLine(ex);
 					System.Windows.Forms.MessageBox.Show(ex.ToString());
 				}
 			}
@@ -654,10 +657,10 @@ namespace WorldMaker
 		private void updateRoomList()
 		{
 			roomList.Items.Clear();
-            if (((StaticModel)m_Game.ActiveDrawable).Rooms == null)
-            {
-                ((StaticModel)m_Game.ActiveDrawable).Rooms = new List<short>();
-            }
+			if (((StaticModel)m_Game.ActiveDrawable).Rooms == null)
+			{
+				((StaticModel)m_Game.ActiveDrawable).Rooms = new List<short>();
+			}
 			foreach (short s in ((StaticModel)m_Game.ActiveDrawable).Rooms)
 			{
 				roomList.Items.Add(s);
@@ -710,28 +713,28 @@ namespace WorldMaker
 
 		}
 
-        private void addRoom_Click_1(object sender, EventArgs e)
-        {
-            string text = roomTextBox.Text;
-            if (m_Game.ActiveDrawable != null && !text.Equals(String.Empty))
-            {
-                short roomNum;
-                if (short.TryParse(text, out roomNum))
-                {
-                    ((StaticModel)m_Game.ActiveDrawable).AddRoom(roomNum);
-                    updateRoomList();
-                }
-            }
-        }
+		private void addRoom_Click_1(object sender, EventArgs e)
+		{
+			string text = roomTextBox.Text;
+			if (m_Game.ActiveDrawable != null && !text.Equals(String.Empty))
+			{
+				short roomNum;
+				if (short.TryParse(text, out roomNum))
+				{
+					((StaticModel)m_Game.ActiveDrawable).AddRoom(roomNum);
+					updateRoomList();
+				}
+			}
+		}
 
-        private void removeRoom_Click_1(object sender, EventArgs e)
-        {
-            if (roomList.SelectedIndex != -1)
-            {
-                ((StaticModel)m_Game.ActiveDrawable).RemoveRoom((short)roomList.SelectedItem);
-                updateRoomList();
-            }
-        }
+		private void removeRoom_Click_1(object sender, EventArgs e)
+		{
+			if (roomList.SelectedIndex != -1)
+			{
+				((StaticModel)m_Game.ActiveDrawable).RemoveRoom((short)roomList.SelectedItem);
+				updateRoomList();
+			}
+		}
 
 	}
 }

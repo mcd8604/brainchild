@@ -64,7 +64,6 @@ namespace WorldMaker
 				foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
 				{
 					modelListBox.Items.Add(str);
-					Console.WriteLine(str + " loaded");
 				}
 				modelListBox.Update();
 
@@ -185,7 +184,6 @@ namespace WorldMaker
 				foreach (String str in Level.Areas.Keys)
 				{
 					areaListBox.Items.Add(str);
-					Console.WriteLine(str + " loaded");
 				}
 				areaListBox.Update();
 			}
@@ -219,7 +217,6 @@ namespace WorldMaker
 				_modelSelect.ShowDialog();
 				if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals(""))
 				{
-					Console.WriteLine(_modelSelect.CurrentModel.Name);
 					_drawableInfo.name = _modelSelect.CurrentModel.Name;
 					_drawableInfo.textureID = _modelSelect.CurrentModel.GetTextureID();
 					_drawableInfo.drawable = _modelSelect.CurrentModel;
@@ -324,7 +321,6 @@ namespace WorldMaker
 				if (_modelSelect.DialogResult == DialogResult.OK && !_modelSelect.CurrentModel.ModelName.Equals(""))
 				{
 					_drawablesToDelete.Add(_gameRef.ActiveArea.Display.CurrentlySelected);
-					Console.WriteLine(_modelSelect.CurrentModel.Name);
 					//_modelSelect.CurrentModel.updateTextureCoords();
 					_drawableInfo.name = _modelSelect.CurrentModel.Name;
 					_drawableInfo.textureID = _modelSelect.CurrentModel.GetTextureID();

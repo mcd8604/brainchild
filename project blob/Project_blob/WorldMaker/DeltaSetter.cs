@@ -29,8 +29,9 @@ namespace WorldMaker
                     _delta = new DeltaEvent(new Vector3(float.Parse(xVelText.Text), float.Parse(yVelText.Text), float.Parse(zVelText.Text)));
                     this.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+					Log.Out.WriteLine(ex);
                 }
             }
         }

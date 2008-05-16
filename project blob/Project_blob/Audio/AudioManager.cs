@@ -62,9 +62,13 @@ namespace Audio
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine("Audio Manager Exception:");
-				Console.WriteLine(e);
-				Console.WriteLine("The above Exception was handled.");
+#if DEBUG
+				Log.Out.WriteLine("Audio Manager Exception:");
+#endif
+				Log.Out.WriteLine(e);
+#if DEBUG
+				Log.Out.WriteLine("The above Exception was handled.");
+#endif
 				enabled = false;
 			}
 		}
@@ -92,11 +96,11 @@ namespace Audio
 			catch (Exception e)
 			{
 #if DEBUG
-				Console.WriteLine("Audio Manager Exception:");
+				Log.Out.WriteLine("Audio Manager Exception:");
 #endif
-				Console.WriteLine(e);
+				Log.Out.WriteLine(e);
 #if DEBUG
-				Console.WriteLine("The above Exception was handled.");
+				Log.Out.WriteLine("The above Exception was handled.");
 #endif
 				enabled = false;
 			}
@@ -225,9 +229,13 @@ namespace Audio
 					}
 					catch (Exception e)
 					{
-						Console.WriteLine("Audio Manager Exception:");
-						Console.WriteLine(e);
-						Console.WriteLine("The above Exception was handled.");
+#if DEBUG
+						Log.Out.WriteLine("Audio Manager Exception:");
+#endif
+						Log.Out.WriteLine(e);
+#if DEBUG
+						Log.Out.WriteLine("The above Exception was handled.");
+#endif
 						mono = true;
 					}
 				}

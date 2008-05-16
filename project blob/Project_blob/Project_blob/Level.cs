@@ -63,14 +63,14 @@ namespace Project_blob
 			BinaryFormatter bf = new BinaryFormatter();
 			bf.Serialize(s, _areas);
 			s.Close();
-			Console.WriteLine("Level Saved");
+			Log.Out.WriteLine("Level Saved");
 
 #if DEBUG
 			Stream s2 = File.Create(System.Environment.CurrentDirectory + "\\..\\..\\..\\..\\Project_blob\\Content\\Levels\\" + levelName + ".lev");
 			BinaryFormatter bf2 = new BinaryFormatter();
 			bf2.Serialize(s2, _areas);
 			s2.Close();
-            Console.WriteLine("Level Saved");
+			Log.Out.WriteLine("Level Saved");
 #endif
 		}
 
@@ -85,7 +85,7 @@ namespace Project_blob
 				bf = new BinaryFormatter();
 				_areas = (Dictionary<String, Area>)bf.Deserialize(s);
 				s.Close();
-				Console.WriteLine("Level Loaded");
+				Log.Out.WriteLine("Level Loaded");
 				
                 // Conversion Loop
                 /*foreach (Area area in _areas.Values)
@@ -112,7 +112,7 @@ namespace Project_blob
 			catch (SerializationException se)
 			{
 				string msg = "Could not deserialize: " + levelName + " : " + se;
-				Console.WriteLine(msg);
+				Log.Out.WriteLine(msg);
 				System.Windows.Forms.MessageBox.Show(msg);
 			}
 		}

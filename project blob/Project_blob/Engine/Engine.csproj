@@ -37,8 +37,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Final|x86' ">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>FINAL</DefineConstants>
     <Optimize>true</Optimize>
     <NoStdLib>true</NoStdLib>
     <DebugType>none</DebugType>
@@ -86,6 +85,10 @@
     <ProjectReference Include="..\Audio\Audio.csproj">
       <Project>{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}</Project>
       <Name>Audio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{3B4B46B9-5F85-410E-A790-149CA71F2B8C}</Project>
+      <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
