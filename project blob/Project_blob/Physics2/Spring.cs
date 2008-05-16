@@ -48,35 +48,14 @@ namespace Physics2
 			float ndz = A.PotentialPosition.Z - B.PotentialPosition.Z;
 
 			float dist = (float)Math.Sqrt((cdx * cdx) + (cdy * cdy) + (cdz * cdz));
-			float next_dist = (float)Math.Sqrt((ndx*ndx) + (ndy*ndy) + (ndz*ndz));
+			float next_dist = (float)Math.Sqrt((ndx * ndx) + (ndy * ndy) + (ndz * ndz));
 
-			float X = 0;
-			float Y = 0;
-			float Z = 0;
+			float mult = Force * (test - dist) / dist;
+			float nmult = Force * (test - next_dist) / next_dist;
 
-			if (dist > MaximumLengthBeforeExtension || dist < MinimumLengthBeforeCompression)
-			{
-				Vector3 temp = A.CurrentPosition - B.CurrentPosition;
-				float mult = Force * (test - dist) / dist;
-
-				X += temp.X * mult;
-				Y += temp.Y * mult;
-				Z += temp.Z * mult;
-			}
-
-			if (next_dist > MaximumLengthBeforeExtension || next_dist < MinimumLengthBeforeCompression)
-			{
-				Vector3 temp = A.PotentialPosition - B.PotentialPosition;
-				float mult = Force * (test - next_dist) / next_dist;
-
-				X += temp.X * mult;
-				Y += temp.Y * mult;
-				Z += temp.Z * mult;
-			}
-
-			X *= 0.5f;
-			Y *= 0.5f;
-			Z *= 0.5f;
+			float X = ((cdx * mult) + (ndx * nmult)) * 0.5f;
+			float Y = ((cdy * mult) + (ndy * nmult)) * 0.5f;
+			float Z = ((cdz * mult) + (ndz * nmult)) * 0.5f;
 
 			A.ForceThisFrame.X += X;
 			A.ForceThisFrame.Y += Y;
@@ -84,8 +63,6 @@ namespace Physics2
 			B.ForceThisFrame.X -= X;
 			B.ForceThisFrame.Y -= Y;
 			B.ForceThisFrame.Z -= Z;
-
 		}
-
 	}
 }
