@@ -64,14 +64,14 @@ namespace Project_blob.GameState
 
 		//Vector2 cameraOffset = new Vector2();
 
-		private enum CameraType
+		public enum CameraType
 		{
 			follow,
 			cinema,
 			chase
 		}
 
-		private CameraType CurCamera = CameraType.follow;
+		public static CameraType CurCamera = CameraType.follow;
 		//bool cinema = false;
 		bool paused = false;
 		bool step = false;
