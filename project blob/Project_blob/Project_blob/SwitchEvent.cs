@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Project_blob.GameState;
 using Physics2;
+using System.ComponentModel;
+using System.Drawing.Design;
 
 namespace Project_blob
 {
@@ -23,6 +25,18 @@ namespace Project_blob
 		}
 
         List<EventTrigger> m_Events = new List<EventTrigger>();
+		[Editor(typeof(EventCollectionEditor), typeof(UITypeEditor))]
+		public List<EventTrigger> Events
+		{
+			get
+			{
+				return m_Events;
+			}
+			set
+			{
+				m_Events = value;
+			}
+		}
 
         public SwitchEvent() { }
 
