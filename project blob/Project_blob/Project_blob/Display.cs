@@ -377,13 +377,7 @@ namespace Project_blob
 				if (m_TechniqueName != null)
 					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques[m_TechniqueName];
 
-				//int currentTextureNumber = -1;
-				//graphicsDevice.Textures[0] = vertexBuffer_List_Drawn.Keys[0].TextureObject;
-
-				//graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName);
-				//if (m_TextureParameterName != "NONE")
-					//m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(drawable_List_Drawn.Keys[0].TextureName));
-					m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.GetTexture(0));
+				m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.GetTexture(0));
 
 				if (ShowAxis)
 				{

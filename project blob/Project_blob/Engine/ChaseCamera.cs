@@ -255,7 +255,8 @@ namespace Engine
             }
             else
             {
-                desiredPosition = ChasePosition - (Vector3.Normalize(chaseDirection) * DesiredPositionOffset);
+				
+                desiredPosition = chasePosition - (Vector3.Normalize(chaseDirection) * DesiredPositionOffset);
                 desiredPosition.Y += 5f;
             }
 
@@ -263,7 +264,7 @@ namespace Engine
             Console.WriteLine("user input vector: " + m_UserOffset);
             Vector3 rightVector = Vector3.Cross(desiredPosition - chasePosition, Vector3.Up);
             desiredPosition += rightVector * m_UserOffset.X;
-            desiredPosition.Y += m_UserOffset.Y;
+            desiredPosition.Y += (m_UserOffset.Y*2);
 
             //m_UserOffset = Vector2.Multiply(m_UserOffset,.9f);
 

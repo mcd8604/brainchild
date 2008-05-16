@@ -41,6 +41,8 @@ namespace Project_blob.GameState
 		Effect distortEffect;
 		Effect distorterEffect;
 
+		bool startCameraFollow = false;
+
 		RenderTarget2D sceneRenderTarget;
 		RenderTarget2D normalDepthRenderTarget;
 		RenderTarget2D distortionMap;
@@ -636,7 +638,7 @@ namespace Project_blob.GameState
 					//CameraBody.setCameraOffset(Offset);
 					//CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
 					//Vector3 tempVect = Vector3.Normalize(theBlob.getPotentialCenter() - theBlob.getCenter());
-					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).UserOffset = InputHandler.GetAnalogAction(AnalogActions.Camera) * 10;
+					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).UserOffset = InputHandler.GetAnalogAction(AnalogActions.Camera);
 
 
 					bool climbing = false;
@@ -664,11 +666,19 @@ namespace Project_blob.GameState
 					else
 					{
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
-						if (theBlob.getAverageVelocity().LengthSquared() > 1f)
-							((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = theBlob.getAverageVelocity();
+						//Console.WriteLine("Blob average velocity: " + theBlob.getAverageVelocity());
+						Vector3 blobVelocity = theBlob.getAverageVelocity();
+						if ((blobVelocity.Y < 1f && blobVelocity.Y > -1) && (Math.Abs(blobVelocity.X) > 1 || Math.Abs(blobVelocity.Z) > 1))
+							startCameraFollow = true;
 
-						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
-						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
+						if (startCameraFollow)
+						{
+							if (blobVelocity.LengthSquared() > 5f)
+								((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = blobVelocity;
+
+							((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
+							((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
+						}
 					}
 
 					//distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
@@ -775,6 +785,8 @@ namespace Project_blob.GameState
 					{
 						CurCamera = CameraType.chase;
 						CameraManager.getSingleton.SetActiveCamera("chase");
+						((ChaseCamera)CameraManager.getSingleton.ActiveCamera).ChasePosition = theBlob.getCenter();
+						((ChaseCamera)CameraManager.getSingleton.ActiveCamera).Reset();
 					}
 					else
 					{
