@@ -134,8 +134,7 @@
     <Compile Include="StaticTri.cs" />
     <Compile Include="TextureManager.cs" />
     <Compile Include="Tri.cs" />
-    <Compile Include="Trigger.cs" />
-    <Compile Include="TriggerStatic.cs" />
+    <Compile Include="TriggerBody.cs" />
     <Compile Include="WarpEvent.cs" />
   </ItemGroup>
   <ItemGroup>
