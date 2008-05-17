@@ -227,8 +227,7 @@ namespace WorldMaker
 				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xWorld"].SetValue(worldMatrix);
 
 				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xEnableLighting"].SetValue(true);
-				//EffectManager.getSingleton.GetEffect(_effectName).Parameters["xShowNormals"].SetValue(true);
-				//EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightDirection"].SetValue(Vector3.Down);
+
 				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xLightPos"].SetValue(new Vector4(5, 5, 5, 0));
 				EffectManager.getSingleton.GetEffect(_effectName).Parameters["xAmbient"].SetValue(0.5f);
 
@@ -413,22 +412,7 @@ namespace WorldMaker
 
 				viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
 
-				/*if (EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName) is BasicEffect)
-				{
-					((BasicEffect)EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName)).View = viewMatrix;
-				}
-				else
-				{
-					if (EFFECT_TYPE == "effects")
-						EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["xView"].SetValue(viewMatrix);
-					else //if (EFFECT_TYPE == "Cel")
-						EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
-				}*/
 				EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
-
-				//m_Display.TestEffect.Parameters["xView"].SetValue(viewMatrix);
-
-				//effect.Parameters["xLightPos"].SetValue(new Vector4(cameraPosition.X * 0.5f, cameraPosition.Y * 0.5f, cameraPosition.Z * 0.5f, 0));
 
 				if (EFFECT_TYPE == "effects")
 					EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
