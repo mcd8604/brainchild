@@ -557,7 +557,10 @@ namespace Project_blob.GameState
 
 				if (InputHandler.IsActionPressed(Actions.Pause))
 				{
-					ScreenManager.AddScreen(new PauseMenuScreen());
+					PauseMenuScreen pauseMenu = new PauseMenuScreen();
+					ScreenManager.AddScreen(pauseMenu);
+					pauseMenu.LoadMenuSprites();
+
 					//PlayTime.Stop();
 				}
 				if (InputHandler.IsActionPressed(Actions.Reset))
