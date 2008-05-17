@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob.GameState
 {
@@ -14,20 +15,7 @@ namespace Project_blob.GameState
 			// off when the pause menu is on top of it.
 			IsPopup = true;
 
-			// Create our menu entries.
-			MenuEntry resumeGameMenuEntry = new MenuEntry("Resume Game");
-			MenuEntry optionsEntry = new MenuEntry("Options");
-			MenuEntry quitGameMenuEntry = new MenuEntry("Quit Game");
-
-			// Hook up menu event handlers.
-			resumeGameMenuEntry.Selected += OnCancel;
-			optionsEntry.Selected += OptionsMenuEntrySelected;
-			quitGameMenuEntry.Selected += QuitGameMenuEntrySelected;
-
-			// Add entries to the menu.
-			MenuEntries.Add(resumeGameMenuEntry);
-			MenuEntries.Add(optionsEntry);
-			MenuEntries.Add(quitGameMenuEntry);
+			
 		}
 
 
@@ -48,6 +36,24 @@ namespace Project_blob.GameState
 			ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
 
 			base.Draw(gameTime);
+		}
+
+		public void LoadMenuSprites()
+		{
+			// Create our menu entries.
+			MenuEntry resumeGameMenuEntry = new MenuEntry(ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\Resume"));
+			MenuEntry optionsEntry = new MenuEntry(ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\Options"));
+			MenuEntry quitGameMenuEntry = new MenuEntry(ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\Exit"));
+
+			// Hook up menu event handlers.
+			resumeGameMenuEntry.Selected += OnCancel;
+			optionsEntry.Selected += OptionsMenuEntrySelected;
+			quitGameMenuEntry.Selected += QuitGameMenuEntrySelected;
+
+			// Add entries to the menu.
+			MenuEntries.Add(resumeGameMenuEntry);
+			MenuEntries.Add(optionsEntry);
+			MenuEntries.Add(quitGameMenuEntry);
 		}
 	}
 }
