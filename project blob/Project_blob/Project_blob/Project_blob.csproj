@@ -73,6 +73,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BodyDynamicConveyorBelt.cs" />
+    <Compile Include="BodyStaticConveyerBelt.cs" />
+    <Compile Include="ConveyerBeltStatic.cs" />
+    <Compile Include="ConveyorBeltDynamic.cs" />
     <Compile Include="MultiTypeCollectionEditor.cs" />
     <Compile Include="MaterialFactory.cs" />
     <Compile Include="StaticModelSpeed.cs" />
@@ -81,8 +85,6 @@
     <Compile Include="CameraBody.cs" />
     <Compile Include="CameraEvent.cs" />
     <Compile Include="CheckPointEvent.cs" />
-    <Compile Include="ConveyerBeltStatic.cs" />
-    <Compile Include="BodyStaticConveyerBelt.cs" />
     <Compile Include="TypeConverterModel.cs" />
     <Compile Include="TypeConverterTexture.cs" />
     <Compile Include="DeathEvent.cs" />

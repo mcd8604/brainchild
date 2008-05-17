@@ -367,6 +367,11 @@ namespace Project_blob
 							body = new TriggerBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel.Event);
 							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
 						}
+						else if (dm is ConveyerBeltStatic)
+						{
+							body = new BodyDynamicConveyorBelt(null, points, collidables, new List<Spring>(), dynModel.Tasks, dm as ConveyerBeltDynamic);
+							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
+						}
 						else
 						{
 							body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
