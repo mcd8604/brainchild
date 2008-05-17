@@ -114,7 +114,7 @@ namespace Project_blob.GameState
 
 				menuEntry.Draw(this, position, isSelected, gameTime);
 
-				position.Y += menuEntry.GetHeight(this);
+				position.Y += menuEntry.GetHeight(this)+ 20;
 			}
 
 			// Draw the menu title.
