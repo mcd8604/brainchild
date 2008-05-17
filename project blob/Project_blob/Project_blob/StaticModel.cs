@@ -1040,6 +1040,11 @@ namespace Project_blob
 		//    throw new Exception("Fix This");
 		//    //return m_BoundingSphere;
 		//}
-	}
 		#endregion
+
+		public override string ToString()
+		{
+			return m_Name;
+		}
+	}
 }

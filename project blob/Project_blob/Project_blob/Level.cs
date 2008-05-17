@@ -12,6 +12,8 @@ namespace Project_blob
 		private static Dictionary<String, Area> _areas = new Dictionary<string, Area>();
 		private static String _name = "";
 
+		public static Area CurrentArea;
+
 		public static Dictionary<String, Area> Areas
 		{
 			get { return _areas; }

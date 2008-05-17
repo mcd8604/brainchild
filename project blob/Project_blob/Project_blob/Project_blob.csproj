@@ -77,6 +77,13 @@
     <Compile Include="BodyStaticConveyerBelt.cs" />
     <Compile Include="ConveyerBeltStatic.cs" />
     <Compile Include="ConveyorBeltDynamic.cs" />
+    <Compile Include="ModelSelectionEditor.cs" />
+    <Compile Include="ModelSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModelSelector.Designer.cs">
+      <DependentUpon>ModelSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="MultiTypeCollectionEditor.cs" />
     <Compile Include="MaterialFactory.cs" />
     <Compile Include="StaticModelSpeed.cs" />
@@ -166,6 +173,12 @@
       <Project>{3B4B46B9-5F85-410E-A790-149CA71F2B8C}</Project>
       <Name>Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ModelSelector.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ModelSelector.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.Common.targets" />

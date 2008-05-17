@@ -9,8 +9,7 @@ using System.Drawing.Design;
 namespace Project_blob
 {
 	/// <summary>
-	/// Event that applies a Task to a list
-	/// of Bodies when triggered
+	/// Event that sets body tasks to run when triggered
 	/// </summary>
 	[Serializable]
     public class SwitchEvent : EventTrigger
@@ -29,6 +28,9 @@ namespace Project_blob
 			}
 		}
 
+		/// <summary>
+		/// List of events performed after tasks are set to run
+		/// </summary>
         List<EventTrigger> m_Events = new List<EventTrigger>();
 		[Editor(typeof(MultiTypeCollectionEditor), typeof(UITypeEditor))]
 		public List<EventTrigger> Events
@@ -43,8 +45,11 @@ namespace Project_blob
 			}
 		}
 
+		/// <summary>
+		/// List of models set in worldmaker, used to find bodies
+		/// </summary>
 		List<DynamicModel> m_Models = new List<DynamicModel>();
-		[Editor(typeof(MultiTypeCollectionEditor), typeof(UITypeEditor))]
+		[Editor(typeof(ModelSelectionEditor), typeof(UITypeEditor))]
 		public List<DynamicModel> Models
 		{
 			get
@@ -57,9 +62,11 @@ namespace Project_blob
 			}
 		}
 
+		/// <summary>
+		/// List of bodies to run tasks on
+		/// </summary>
 		[NonSerialized]
 		List<Body> m_Bodies = new List<Body>();
-		[Editor(typeof(MultiTypeCollectionEditor), typeof(UITypeEditor))]
 		public List<Body> Bodies
 		{
 			get
