@@ -5,7 +5,7 @@ using Physics2;
 
 namespace Project_blob
 {
-	class TriggerStatic : Body
+	class TriggerBody : Body
 	{
 		private EventTrigger _triggeredEvent;
 		public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }
@@ -13,8 +13,16 @@ namespace Project_blob
 		public float CoolDown = 1f;
 		private float Time = 0f;
 
-		public TriggerStatic(List<CollidableStatic> Collidables, Body ParentBody, EventTrigger triggeredEvent)
+		//static constructor
+		public TriggerBody(List<CollidableStatic> Collidables, Body ParentBody, EventTrigger triggeredEvent)
 			: base(Collidables, ParentBody)
+		{
+			_triggeredEvent = triggeredEvent;
+		}
+
+		//"dynamic" constructor
+		public TriggerBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, EventTrigger triggeredEvent)
+			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks, false)
 		{
 			_triggeredEvent = triggeredEvent;
 		}

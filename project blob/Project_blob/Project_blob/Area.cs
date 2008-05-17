@@ -322,7 +322,7 @@ namespace Project_blob
 						// this is called
 						if (dm.Event != null)
 						{
-							body = new TriggerStatic(collidables, null, dm.Event);
+							body = new TriggerBody(collidables, null, dm.Event);
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
 						else if (dm is ConveyerBeltStatic)
@@ -362,8 +362,16 @@ namespace Project_blob
 							}
 						}
 
-						body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
-						body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
+						if (dm.Event != null)
+						{
+							body = new TriggerBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel.Event);
+							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
+						}
+						else
+						{
+							body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
+							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
+						}
 					}
 					dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
 
