@@ -232,9 +232,9 @@ namespace Project_blob
 			se.Models = new List<DynamicModel>();
 			DynamicModel cauldron2 = (DynamicModel)this.Drawables["cauldron2"];
 			cauldron2.Tasks[0].run = false;
-			se.Models.Add(cauldron2);*/
+			se.Models.Add(cauldron2);
 
-			((StaticModel)button1).Event = se;
+			((StaticModel)button1).Event = se;*/
 
 			//create new display 
 			this._display = new Display(new SpriteBatch(game.GraphicsDevice));
