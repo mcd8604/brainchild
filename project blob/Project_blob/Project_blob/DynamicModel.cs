@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using Physics2;
 using System.Runtime.Serialization;
+using System.ComponentModel;
+using System.Drawing.Design;
 
 namespace Project_blob
 {
 	[Serializable]
 	public class DynamicModel : StaticModel
 	{
+
 		private List<Task> m_Tasks;
+		[Editor(typeof(MultiTypeCollectionEditor), typeof(UITypeEditor))]
 		public List<Task> Tasks
 		{
 			get
