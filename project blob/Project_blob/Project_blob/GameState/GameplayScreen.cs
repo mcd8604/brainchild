@@ -21,6 +21,8 @@ namespace Project_blob.GameState
 	{
 		SpriteBatch spriteBatch;
 
+		float lastClimbCollision = 0;
+
 		Model blobModel;
 		//Model skyBox;
 
@@ -29,6 +31,8 @@ namespace Project_blob.GameState
 		//StaticModel sky;
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
+
+		bool climbing = false;
 
 		private const float TEXT_EVENT_TIME = 5.0f;
 
@@ -107,7 +111,7 @@ namespace Project_blob.GameState
 		Vector2 cameraAngle = new Vector2(1f, 0.4f);
 		float cameraLengthMulti = 1f;
 		float cameraLength = 20f;
-		float playerCamMulti = 0.1f;
+		float playerCamMulti = 0.05f;
 
 		bool OrientCamera = false;
 
@@ -445,11 +449,13 @@ namespace Project_blob.GameState
 			if (nextAreaPosition == Vector3.Zero)
 			{
 				blobStartPosition = currentArea.StartPosition;
+				
 			}
 			else
 			{
 				blobStartPosition = nextAreaPosition;
 			}
+			CameraManager.getSingleton.ActiveCamera.Position = currentArea.CameraSpawnPosition;
 			nextAreaPosition = Vector3.Zero;
 
 			TextureManager.ClearTextures();
@@ -691,19 +697,26 @@ namespace Project_blob.GameState
 					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).UserOffset = InputHandler.GetAnalogAction(AnalogActions.Camera);
 
 
-					bool climbing = false;
+					
 					Vector3 climbNormal = new Vector3();
+				
 					foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
 					{
 						if (p.LastCollision != null)
 						{
 							if (p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
 							{
+								lastClimbCollision = gameTime.TotalGameTime.Seconds;
 								climbing = true;
 								climbNormal = p.LastCollision.Normal;
 							}
 
 						}
+					}
+
+					if (gameTime.TotalGameTime.Seconds - lastClimbCollision > 1.5)
+					{
+						climbing = false;
 					}
 
 					if (climbing)
