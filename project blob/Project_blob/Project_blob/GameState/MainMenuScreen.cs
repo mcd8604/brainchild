@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob.GameState
 {
@@ -8,20 +9,7 @@ namespace Project_blob.GameState
     {
         public MainMenuScreen() : base("Main Menu")
         {
-            // Create our menu entries.
-            MenuEntry startMenuEntry = new MenuEntry("Start");
-            MenuEntry optionsMenuEntry = new MenuEntry("Options");
-            MenuEntry exitMenuEntry = new MenuEntry("Exit");
-
-            // Hook up menu event handlers.
-            startMenuEntry.Selected += startMenuEntrySelected;
-            optionsMenuEntry.Selected += OptionsMenuEntrySelected;
-            exitMenuEntry.Selected += OnCancel;
-
-            // Add entries to the menu.
-            MenuEntries.Add(startMenuEntry);
-            MenuEntries.Add(optionsMenuEntry);
-            MenuEntries.Add(exitMenuEntry);
+            
         }
 
         void startMenuEntrySelected(object sender, EventArgs e)
@@ -38,5 +26,23 @@ namespace Project_blob.GameState
         {
             ScreenManager.Exit();
         }
+
+		public void LoadMenuSprites()
+		{
+			// Create our menu entries.
+			MenuEntry startMenuEntry = new MenuEntry(ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\Start"));
+			MenuEntry optionsMenuEntry = new MenuEntry(ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\Options"));
+			MenuEntry exitMenuEntry = new MenuEntry(ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\Exit"));
+
+			// Hook up menu event handlers.
+			startMenuEntry.Selected += startMenuEntrySelected;
+			optionsMenuEntry.Selected += OptionsMenuEntrySelected;
+			exitMenuEntry.Selected += OnCancel;
+
+			// Add entries to the menu.
+			MenuEntries.Add(startMenuEntry);
+			MenuEntries.Add(optionsMenuEntry);
+			MenuEntries.Add(exitMenuEntry);
+		}
     }
 }

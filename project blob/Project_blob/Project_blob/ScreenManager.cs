@@ -28,6 +28,8 @@ namespace Project_blob
 		SpriteFont font;
 		Texture2D blankTexture;
 
+		MainMenuScreen mainMenu;
+
 		bool isInitialized;
 
 		bool traceEnabled;
@@ -58,7 +60,9 @@ namespace Project_blob
 			//graphics.SynchronizeWithVerticalRetrace = false;
 			//IsFixedTimeStep = false;
 
-			AddScreen(new MainMenuScreen());
+			mainMenu = new MainMenuScreen();
+
+			AddScreen(mainMenu);
 		}
 
 		protected override void Initialize()
@@ -93,6 +97,8 @@ namespace Project_blob
 			base.Initialize();
 
 			isInitialized = true;
+
+			mainMenu.LoadMenuSprites();
 		}
 
 		protected override void LoadContent()
