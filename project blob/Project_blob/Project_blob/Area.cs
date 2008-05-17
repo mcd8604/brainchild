@@ -29,6 +29,13 @@ namespace Project_blob
             }
         }
 
+		private Vector3 m_CameraSpawnPosition = new Vector3();
+		public Vector3 CameraSpawnPosition
+		{
+			get { return m_CameraSpawnPosition; }
+			set { m_CameraSpawnPosition = value; }
+		}
+
 		private List<Portal> _portals = new List<Portal>();
 		public List<Portal> Portals
 		{
