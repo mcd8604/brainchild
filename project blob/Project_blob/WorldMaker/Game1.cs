@@ -411,8 +411,11 @@ namespace WorldMaker
 				cameraPosition = focusPoint + Offset;
 
 				viewMatrix = Matrix.CreateLookAt(cameraPosition, focusPoint, Vector3.Up);
-
-				EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
+				try
+				{
+					EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
+				}
+				catch (Exception) { }
 
 				if (EFFECT_TYPE == "effects")
 					EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));

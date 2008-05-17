@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 namespace Project_blob
 {
 	[Serializable]
-	class ConveyerBeltDynamic : StaticModel
+	class ConveyerBeltDynamic : DynamicModel
 	{
 		private Vector3 m_Direction;
 		public Vector3 Direction

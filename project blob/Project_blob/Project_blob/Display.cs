@@ -375,8 +375,11 @@ namespace Project_blob
 			if (m_DrawList.Count > 0)
 			{
 				if (m_TechniqueName != null)
-					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques[m_TechniqueName];
-
+					try
+					{
+						m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques[m_TechniqueName];
+					}
+					catch (Exception) { }
 				m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.GetTexture(0));
 
 				if (ShowAxis)
