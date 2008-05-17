@@ -192,6 +192,7 @@ namespace Project_blob
 				this.Display.AddToBeDrawn(d);
 			}
 
+
 			//move events into their respective models
 			/*IEnumerator eventsEnum = this._events.GetEnumerator();
 			while (eventsEnum.MoveNext())
@@ -225,6 +226,16 @@ namespace Project_blob
 				TextureManager.getSingleton.AddTexture(ti.TextureName, game.Content.Load<Texture2D>(@"Textures\\" + ti.TextureName));
 			}*/
 
+			//temp code - adds SwitchEvent to button1
+			/*StaticModel button1 = (StaticModel)this.Drawables["button1"];
+			SwitchEvent se = new SwitchEvent();
+			se.Models = new List<DynamicModel>();
+			DynamicModel cauldron2 = (DynamicModel)this.Drawables["cauldron2"];
+			cauldron2.Tasks[0].run = false;
+			se.Models.Add(cauldron2);*/
+
+			((StaticModel)button1).Event = se;
+
 			//create new display 
 			this._display = new Display(new SpriteBatch(game.GraphicsDevice));
 			this._display.ShowAxis = false;
@@ -243,6 +254,8 @@ namespace Project_blob
 			}
 
 			this.m_Bodies = new List<Physics2.Body>();
+
+			List<TriggerBody> switches = new List<TriggerBody>();
 
 			//load level models
 			foreach (Drawable d in this.Drawables.Values)
@@ -323,6 +336,10 @@ namespace Project_blob
 						if (dm.Event != null)
 						{
 							body = new TriggerBody(collidables, null, dm.Event);
+							if (((TriggerBody)body).TriggeredEvent is SwitchEvent)
+							{
+								switches.Add((TriggerBody)body);
+							}
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
 						else if (dm is ConveyerBeltStatic)
@@ -365,6 +382,10 @@ namespace Project_blob
 						if (dm.Event != null)
 						{
 							body = new TriggerBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel.Event);
+							if (((TriggerBody)body).TriggeredEvent is SwitchEvent)
+							{
+								switches.Add((TriggerBody)body);
+							}
 							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
 						}
 						else if (dm is ConveyerBeltStatic)
@@ -382,6 +403,29 @@ namespace Project_blob
 
 					body.setMaterial(MaterialFactory.GetPhysicsMaterial(dm.MyMaterialType));
 					this.m_Bodies.Add(body);
+				}
+			}
+
+			// These loops associate bodies with the SwitchEvent 
+			// The bodies are needed to run their tasks when 
+			// the switch is triggered.
+			//
+			// (I don't think we have enough loops) /sarcasm
+			foreach (TriggerBody t in switches)
+			{
+				foreach(DynamicModel d in ((SwitchEvent)t.TriggeredEvent).Models) 
+				{
+					foreach(Body b in m_Bodies) 
+					{
+						if (b is DrawableBody)
+						{
+							//optimizer this later
+							if(((DrawableBody)b).getModel().Equals(d))
+							{
+								((SwitchEvent)t.TriggeredEvent).Bodies.Add(b);
+							}
+						}
+					}
 				}
 			}
 

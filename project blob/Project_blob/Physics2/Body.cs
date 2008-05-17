@@ -464,5 +464,10 @@ namespace Physics2
 			return getAverageVelocity();
 		}
 
+		public IList<Task> getTasks()
+		{
+			return tasks;
+		}
+
 	}
 }
