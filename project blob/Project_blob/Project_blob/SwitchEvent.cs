@@ -102,11 +102,14 @@ namespace Project_blob
 
         public bool PerformEvent( PhysicsPoint point )
         {
-			foreach (Body b in m_Bodies)
+			if (m_Bodies != null)
 			{
-				foreach (Task t in b.getTasks())
+				foreach (Body b in m_Bodies)
 				{
-					t.run = true;
+					foreach (Task t in b.getTasks())
+					{
+						t.run = true;
+					}
 				}
 			}
 			bool partialSuccess = false;
@@ -117,7 +120,7 @@ namespace Project_blob
                     partialSuccess = true;
                 }
             }
-			return true;
+			return partialSuccess;
         }
     }
 }

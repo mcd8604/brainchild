@@ -420,6 +420,7 @@ namespace Project_blob
 			// (I don't think we have enough loops) /sarcasm
 			foreach (TriggerBody t in switches)
 			{
+				((SwitchEvent)t.TriggeredEvent).Bodies = new List<Body>();
 				foreach(DynamicModel d in ((SwitchEvent)t.TriggeredEvent).Models) 
 				{
 					foreach(Body b in m_Bodies) 
