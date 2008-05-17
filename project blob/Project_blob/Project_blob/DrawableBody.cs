@@ -33,6 +33,11 @@ namespace Project_blob
 			}
 		}
 
+		public StaticModel getModel()
+		{
+			return m_DrawableModel;
+		}
+
 		// temporary, until this can be configured properly
 		public override bool canCollide()
 		{

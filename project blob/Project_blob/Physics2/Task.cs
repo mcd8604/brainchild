@@ -7,5 +7,7 @@ namespace Physics2
 
 		public abstract void update(Body b, float time);
 
+		public bool run = true;
+
 	}
 }

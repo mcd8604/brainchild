@@ -40,12 +40,10 @@ namespace Physics2
 		private int currentIndex = 0;
 		private float currentTime = 0;
 		private bool forward = true;
-		public bool run = true;
 
 		public override void update(Body b, float time)
 		{
 			// optimize this later..
-
 			if (!run)
 			{
 				return;
