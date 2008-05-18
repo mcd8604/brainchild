@@ -7,11 +7,11 @@ namespace Physics2
 
 		public abstract void update(Body b, float time);
 
-		public bool run = true;
-		public bool Run
+		protected bool active = false;
+		public bool Active
 		{
-			get { return run; }
-			set { run = value; }
+			get { return active; }
+			set { active = value; }
 		}
 
 	}

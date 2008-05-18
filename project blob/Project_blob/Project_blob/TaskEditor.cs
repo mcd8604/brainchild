@@ -5,9 +5,9 @@ using System.Windows.Forms;
 using Physics2;
 using System.ComponentModel.Design;
 
-namespace WorldMaker
+namespace Project_blob
 {
-    class TaskEditor : Form
+    public class TaskEditor : Form
     {
         private PropertyGrid propertyGrid1;
         private Button AddButton;
@@ -16,6 +16,13 @@ namespace WorldMaker
         private ComboBox TaskTypeCB;
 
         private IList<Task> m_Tasks;
+		public IList<Task> Tasks
+		{
+			get
+			{
+				return m_Tasks;
+			}
+		}
 
         public TaskEditor() { }
 
