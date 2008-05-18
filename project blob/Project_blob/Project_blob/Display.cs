@@ -282,15 +282,15 @@ namespace Project_blob
 #endif
 		}
 
-        public Display(SpriteBatch spriteBatch)
+        public Display(GraphicsDevice gd)
         {
             ShowAxis = true;
             m_WorldMatrix = Matrix.Identity;
-            m_SpriteBatch = spriteBatch;
-            initialize();
+            m_SpriteBatch = new SpriteBatch(gd);
+            initialize(gd);
         }
 
-		public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
+		/*public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
 		{
 			//_effectName = "basic";
 			//_textureName = "point_text";
@@ -319,9 +319,9 @@ namespace Project_blob
 			//m_cartoonEffect.Parameters["Projection"].SetValue(p_Projection);
 
             initialize();
-		}
+		}*/
 
-		public Display(Matrix p_World, String effectName, String p_WorldParameterName,
+		/*public Display(Matrix p_World, String effectName, String p_WorldParameterName,
 			String p_TextureParameterName, String p_TechniqueName)
 		{
 			//drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
@@ -339,9 +339,9 @@ namespace Project_blob
 			m_TechniqueName = p_TechniqueName;
 
             initialize();
-		}
+		}*/
 
-        public void initialize()
+        public void initialize(GraphicsDevice gd)
         {
             //initialize draw list, each texture gets a list
             m_DrawList = new List<List<Drawable>>();
@@ -357,7 +357,38 @@ namespace Project_blob
             this.TechniqueName = "Lambert";
             this.TextureName = "point_text";
             //*end hardcode*
+
+			createRenderTargets(gd);
         }
+
+		private void createRenderTargets(GraphicsDevice gd)
+		{
+			this.Distort = EffectManager.getSingleton.GetEffect("distort");
+			this.Distorter = EffectManager.getSingleton.GetEffect("distorter");
+			this.CartoonEffect = EffectManager.getSingleton.GetEffect("cartoonEffect");
+			this.PostProcessEffect = EffectManager.getSingleton.GetEffect("postprocessEffect");
+
+			PresentationParameters pp = gd.PresentationParameters;
+
+			this.m_SceneRenderTarget= new RenderTarget2D(gd,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+			this.m_NormalDepthRenderTarget = new RenderTarget2D(gd,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+			this.m_distortionMap = new RenderTarget2D(gd,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+
+			this.m_tempTarget = new ResolveTexture2D(gd, pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat);
+
+			this.m_DepthMapRenderTarget = new RenderTarget2D(gd,
+				pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+		}
 
 		public void Draw(GraphicsDevice graphicsDevice)
 		{

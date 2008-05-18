@@ -52,29 +52,12 @@ namespace WorldMaker
 		{
 			if (areaListBox.SelectedIndex != -1)
 			{
-				areaTextBox.Text = (String)areaListBox.Items[areaListBox.SelectedIndex];
-				_gameRef.ActiveArea = Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]];
-				Level.CurrentArea = Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]];
-				_gameRef.ActiveArea.LoadAreaWorldMaker(_gameRef.GraphicsDevice);
-
-                
-                CreateRenderTargets();
-
-                EventButton.Enabled = false;
-
-				modelListBox.Items.Clear();
-				foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
-				{
-					modelListBox.Items.Add(str);
-				}
-				modelListBox.Update();
-
-                updatePortalList();
-                updateAmbienceList();
+				_gameRef.nextArea = Level.Areas[(String)areaListBox.Items[areaListBox.SelectedIndex]];
+				EventButton.Enabled = false;
 			}
-        }
+		}
 
-        public void CreateRenderTargets()
+		/*public void CreateRenderTargets()
         {
 			_gameRef.draw = false; 
 
@@ -112,7 +95,7 @@ namespace WorldMaker
 
 			_gameRef.draw = true;
 
-        }
+        }*/
 
 		private void modelListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -444,7 +427,17 @@ namespace WorldMaker
                 ambienceListBox.Items.Add(sound);
             }
             ambienceListBox.Update();
-        }
+		}
+
+		private void updateModelList()
+		{
+			modelListBox.Items.Clear();
+			foreach (String str in _gameRef.ActiveArea.Drawables.Keys)
+			{
+				modelListBox.Items.Add(str);
+			}
+			modelListBox.Update();
+		}
 
         private void EditTasksButton_Click(object sender, EventArgs e)
         {
@@ -489,5 +482,11 @@ namespace WorldMaker
             }
         }
 
+		public void UpdateLists()
+		{
+			updateModelList();
+			updatePortalList();
+			updateAmbienceList();
+		}
 	}
 }
