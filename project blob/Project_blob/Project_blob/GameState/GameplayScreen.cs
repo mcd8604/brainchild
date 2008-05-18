@@ -32,6 +32,12 @@ namespace Project_blob.GameState
 		private Blob theBlob;
 		public Blob Player { get { return theBlob; } }
 
+		float rightTriggerValue = 0;
+		float leftTriggerValue = 0;
+
+		Texture2D firm, soft, slick, sticky;
+
+
 		bool climbing = false;
 
 		bool default_sticky = false;
@@ -43,6 +49,9 @@ namespace Project_blob.GameState
 
 		Texture2D blobTexture;
 		Texture2D distortMapText;
+
+		Texture2D gaugeLine;
+		Texture2D gaugeMark;
 
 		//Effect effect;
 		//Effect celEffect;
@@ -200,6 +209,15 @@ namespace Project_blob.GameState
 		/// </summary>
 		public override void LoadContent()
 		{
+			gaugeLine = ScreenManager.Content.Load<Texture2D>(@"UI Sprites\\GaugeLine");
+			gaugeMark = ScreenManager.Content.Load<Texture2D>(@"UI Sprites\\GaugeMark");
+
+			firm = ScreenManager.Content.Load<Texture2D>(@"UI Sprites\\Firm");
+			soft = ScreenManager.Content.Load<Texture2D>(@"UI Sprites\\Soft");
+
+			slick = ScreenManager.Content.Load<Texture2D>(@"UI Sprites\\SlickWord");
+			sticky = ScreenManager.Content.Load<Texture2D>(@"UI Sprites\\Sticky");
+
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(ScreenManager.GraphicsDevice);
 
@@ -584,8 +602,6 @@ namespace Project_blob.GameState
 
 
 				// Xbox
-				float rightTriggerValue = 0;
-				float leftTriggerValue = 0;
 				//if (InputHandler.HasRightTriggerMoved())
 				//{
 					rightTriggerValue = InputHandler.RightTriggerValue;
@@ -1146,6 +1162,42 @@ namespace Project_blob.GameState
 			spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
 
 			spriteBatch.DrawString(font, m_TextEventString, new Vector2(0, 0), Color.Black);
+
+			spriteBatch.Draw(gaugeLine, new Rectangle(20,75,gaugeLine.Width, 400), Color.White);
+
+			spriteBatch.Draw(gaugeLine, new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 30, 75, gaugeLine.Width, 400), Color.White);
+
+			spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + (leftTriggerValue * 375)), Color.White);
+
+			spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + (rightTriggerValue * 375)), Color.White);
+
+			Rectangle topRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 125, 10, 125, 75);
+			Rectangle bottomRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 75, 475, 75, 50);
+			if (default_firm)
+			{
+				spriteBatch.Draw(firm, topRight, Color.White);
+				spriteBatch.Draw(soft, bottomRight, Color.White);
+			}
+			else
+			{
+				spriteBatch.Draw(soft, topRight, Color.White);
+				spriteBatch.Draw(firm, bottomRight, Color.White);
+			}
+
+			
+			Rectangle topleft = new Rectangle(0, 10, 125, 75);
+			Rectangle bottomLeft = new Rectangle(0, 475, 75, 50);
+			if (default_sticky)
+			{
+				spriteBatch.Draw(sticky, topleft, Color.White);
+				spriteBatch.Draw(slick, bottomLeft, Color.White);
+			}
+			else
+			{
+				spriteBatch.Draw(slick, topleft, Color.White);
+				spriteBatch.Draw(sticky, bottomLeft, Color.White);
+			}
+			
 #endif
 			spriteBatch.End();
 

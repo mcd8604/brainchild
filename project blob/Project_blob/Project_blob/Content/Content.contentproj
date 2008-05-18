@@ -443,6 +443,36 @@
       <Name>speedBoost</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="UI Sprites\Slick.png">
+      <Name>SlickWord</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="UI Sprites\Sticky.png">
+      <Name>Sticky</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="UI Sprites\Firm.png">
+      <Name>Firm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="UI Sprites\Soft.png">
+      <Name>Soft</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="UI Sprites\GaugeLine.png">
+      <Name>GaugeLine</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="UI Sprites\GaugeMark.png">
+      <Name>GaugeMark</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="MenuSprites\Pause.png">
       <Name>Pause</Name>
       <Importer>TextureImporter</Importer>
