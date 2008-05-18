@@ -83,7 +83,8 @@ namespace Physics2
 					}
 					else
 					{
-						run = false;
+						//don't set run to false since we need to reactivate tasks
+						//run = false;
 						active = false;
 					}
 					break;
