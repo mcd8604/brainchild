@@ -443,6 +443,16 @@
       <Name>speedBoost</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Textures\brick.jpg">
+      <Name>brick</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\factory_sign.jpg">
+      <Name>factory_sign</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Textures\sand.jpg">
       <Name>sand</Name>
       <Importer>TextureImporter</Importer>
