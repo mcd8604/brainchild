@@ -231,11 +231,16 @@ namespace Project_blob.GameState
 			//blobEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Blobs");
 
 			cartoonEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\CartoonEffect");
+			EffectManager.getSingleton.AddEffect("cartoonEffect", cartoonEffect);
 
 			postprocessEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\PostprocessEffect");
+			EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
 
 			distortEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distort");
+			EffectManager.getSingleton.AddEffect("distort", distortEffect);
+
 			distorterEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distorters");
+			EffectManager.getSingleton.AddEffect("distorter", distorterEffect);
 
 			//cartoonEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\DepthBuffer");
 
