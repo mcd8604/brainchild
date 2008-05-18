@@ -1175,13 +1175,13 @@ namespace Project_blob.GameState
 			Rectangle bottomRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 75, 475, 75, 50);
 			if (default_firm)
 			{
-				spriteBatch.Draw(firm, topRight, Color.White);
-				spriteBatch.Draw(soft, bottomRight, Color.White);
+				spriteBatch.Draw(soft, topRight, Color.White);
+				spriteBatch.Draw(firm, bottomRight, Color.White);
 			}
 			else
 			{
-				spriteBatch.Draw(soft, topRight, Color.White);
-				spriteBatch.Draw(firm, bottomRight, Color.White);
+				spriteBatch.Draw(firm, topRight, Color.White);
+				spriteBatch.Draw(soft, bottomRight, Color.White);
 			}
 
 			
@@ -1189,13 +1189,13 @@ namespace Project_blob.GameState
 			Rectangle bottomLeft = new Rectangle(0, 475, 75, 50);
 			if (default_sticky)
 			{
-				spriteBatch.Draw(sticky, topleft, Color.White);
-				spriteBatch.Draw(slick, bottomLeft, Color.White);
+				spriteBatch.Draw(slick, topleft, Color.White);
+				spriteBatch.Draw(sticky, bottomLeft, Color.White);
 			}
 			else
 			{
-				spriteBatch.Draw(slick, topleft, Color.White);
-				spriteBatch.Draw(sticky, bottomLeft, Color.White);
+				spriteBatch.Draw(sticky, topleft, Color.White);
+				spriteBatch.Draw(slick, bottomLeft, Color.White);
 			}
 			
 #endif
