@@ -630,7 +630,19 @@ namespace Project_blob.GameState
 					//    physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
 					//}
 				}
-
+				if (InputHandler.IsActionPressed(Actions.ChangeCamera))
+				{
+					if (CurCamera == CameraType.chase)
+					{
+						CurCamera = CameraType.follow;
+						CameraManager.getSingleton.SetActiveCamera("default");
+					}
+					else if (CurCamera == CameraType.follow)
+					{
+						CurCamera = CameraType.chase;
+						CameraManager.getSingleton.SetActiveCamera("chase");
+					}
+				}
 				// Quick Torque
 
 				Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
