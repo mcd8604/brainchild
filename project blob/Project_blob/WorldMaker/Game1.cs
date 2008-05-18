@@ -44,6 +44,8 @@ namespace WorldMaker
 			set { _activeArea = value; }
 		}
 
+		public Area nextArea = null;
+
 		public readonly String EFFECT_TYPE = "CartoonEffect";
 
 		private String _effectName;
@@ -486,7 +488,16 @@ namespace WorldMaker
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			if (draw)
+			if (nextArea != null)
+			{
+				_activeArea = nextArea;
+				_activeArea.LoadAreaWorldMaker(this.GraphicsDevice);
+				Level.CurrentArea = _activeArea;
+				nextArea = null;
+				levelEditor.Invoke(new LevelEditor.Callback(levelEditor.UpdateLists));
+			} 
+			else 
+			//if (draw)
 			{
 				foreach (String str in LevelEditor.DrawablesToDelete)
 				{
