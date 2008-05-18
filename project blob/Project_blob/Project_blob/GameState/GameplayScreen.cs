@@ -745,7 +745,7 @@ namespace Project_blob.GameState
 				
 					foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
 					{
-						if (p.LastCollision != null)
+						if (p.LastCollision != null && p.LastCollision.getMaterial() != null)
 						{
 							if (p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
 							{
