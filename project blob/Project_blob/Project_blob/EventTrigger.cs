@@ -10,6 +10,12 @@ namespace Project_blob
     {
 		bool PerformEvent(PhysicsPoint p);
 
+		int NumTriggers
+		{
+			get;
+			set;
+		}
+
 		bool Solid
 		{
 			get;
