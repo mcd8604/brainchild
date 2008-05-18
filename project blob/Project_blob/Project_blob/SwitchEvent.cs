@@ -15,6 +15,19 @@ namespace Project_blob
     public class SwitchEvent : EventTrigger
 	{
 
+		private int m_NumTriggers = -1;
+		public int NumTriggers
+		{
+			get
+			{
+				return m_NumTriggers;
+			}
+			set
+			{
+				m_NumTriggers = value;
+			}
+		}
+
 		private bool m_Solid = false;
 		public bool Solid
 		{

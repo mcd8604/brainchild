@@ -13,6 +13,8 @@ namespace Project_blob
 		public float CoolDown = 1f;
 		private float Time = 0f;
 
+		private int Count = 0;
+
 		//static constructor
 		public TriggerBody(List<CollidableStatic> Collidables, Body ParentBody, EventTrigger triggeredEvent)
 			: base(Collidables, ParentBody)
@@ -40,11 +42,12 @@ namespace Project_blob
 
 		public override void onCollision(CollisionEvent e)
 		{
-			if (Time < 0)
+			if (Time < 0 && (_triggeredEvent.NumTriggers <= 0 || Count < _triggeredEvent.NumTriggers))
 			{
 				if (_triggeredEvent.PerformEvent(e.point))
 				{
 					Time = CoolDown;
+					Count++;
 				}
 			}
 		}
