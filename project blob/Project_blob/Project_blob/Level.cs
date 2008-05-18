@@ -87,7 +87,9 @@ namespace Project_blob
 				bf = new BinaryFormatter();
 				_areas = (Dictionary<String, Area>)bf.Deserialize(s);
 				s.Close();
+#if DEBUG
 				Log.Out.WriteLine("Level Loaded");
+#endif
 				
                 // Conversion Loop
                 /*foreach (Area area in _areas.Values)

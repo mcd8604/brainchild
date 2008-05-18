@@ -1,6 +1,3 @@
-
-#define TIMED
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,7 +21,6 @@ namespace Physics2
 			return physicsMain.DEBUG_GetNumCollidables();
 		}
 
-#if TIMED
 		private System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 		private float waitTimeMsec = 0;
 		private float physicsTimeMsec = 0;
@@ -46,7 +42,6 @@ namespace Physics2
 				}
 			}
 		}
-#endif
 #endif
 
 		public PhysicsParallel()
@@ -77,13 +72,13 @@ namespace Physics2
 				} while (runForTime == 0f);
 				do
 				{
-#if DEBUG && TIMED
+#if DEBUG
 					timer.Start();
 #endif
 
 					physicsMain.doPhysics(runForTime * physicsMultiplier);
 
-#if DEBUG && TIMED
+#if DEBUG
 					timer.Stop();
 					physicsTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
 					timer.Reset();
@@ -102,7 +97,7 @@ namespace Physics2
 							return;
 						}
 					} while (runForTime == 0f);
-#if DEBUG && TIMED
+#if DEBUG
 					timer.Stop();
 					waitTimeMsec += (float)timer.Elapsed.TotalMilliseconds;
 					timer.Reset();
@@ -166,17 +161,6 @@ namespace Physics2
 		public override void AddBodys(IEnumerable<Body> b)
 		{
 			physicsMain.AddBodys(b);
-		}
-		public override float AirFriction
-		{
-			get
-			{
-				return physicsMain.AirFriction;
-			}
-			set
-			{
-				physicsMain.AirFriction = value;
-			}
 		}
 		public override Player Player
 		{

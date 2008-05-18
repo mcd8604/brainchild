@@ -410,7 +410,9 @@ namespace Project_blob
 					{
 						m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques[m_TechniqueName];
 					}
-					catch (Exception) { }
+					catch (Exception e) {
+					Log.Out.WriteLine(e);
+					}
 				m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.GetTexture(0));
 
 				if (ShowAxis)

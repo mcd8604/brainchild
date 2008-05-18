@@ -82,6 +82,7 @@ namespace Audio
 			}
 			try
 			{
+				_runAmbience = true;
 				foreach (Sound sound in _ambientSounds)
 				{
 					sound.startSound();
@@ -90,7 +91,6 @@ namespace Audio
 				_ambientSoundThread.IsBackground = true;
 				_ambientSoundThread.Name = "Ambient Sound Thread";
 				_ambientSoundThread.Priority = System.Threading.ThreadPriority.Normal;
-				_runAmbience = true;
 				_ambientSoundThread.Start();
 			}
 			catch (Exception e)
@@ -115,7 +115,7 @@ namespace Audio
 					foreach (Sound sound in _ambientSounds)
 					{
 						sound.updateAmbient3D(_audioListener);
-                        sound.startSound( );
+						sound.startSound();
 						update();
 					}
 				}
