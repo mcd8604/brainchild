@@ -300,8 +300,8 @@ namespace OctreeCulling
             #endregion
 
             //Doorway cube object (will become a portal)
-			//cube = new Cube(new Vector3(2f, 10f, 0.3f), new Vector3(0, 0, 17), basicEffect, graphics, tempList1);
-			//_objects.Add(cube);
+            //cube = new Cube(new Vector3(2f, 10f, 0.3f), new Vector3(0, 0, 17), basicEffect, graphics, tempList1);
+            //_objects.Add(cube);
 
             //cube = new Cube(new Vector3(2f, 2f, 0.3f), new Vector3(0, 0, 37), basicEffect, graphics, tempList4);
             //_objects.Add(cube);
@@ -610,12 +610,12 @@ namespace OctreeCulling
                 //    PrimitiveType.LineList, CameraManager.getSingleton.ActiveCamera.BoundingFrustumDrawData,
                 //    0, 8, CameraManager.getSingleton.ActiveCamera.BoundingFrustumIndex, 0, 12);
 
-				//if (SceneManager.getSingleton.PortalScene.Sectors[SceneManager.getSingleton.PortalScene.CurrSector].DrawPortal)
-				//{
-				//    graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
-				//        PrimitiveType.LineList, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumDrawData,
-				//        0, 8, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumIndex, 0, 12);
-				//}
+                //if (SceneManager.getSingleton.PortalScene.Sectors[SceneManager.getSingleton.PortalScene.CurrSector].DrawPortal)
+                //{
+                //    graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                //        PrimitiveType.LineList, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumDrawData,
+                //        0, 8, SceneManager.getSingleton.PortalScene.Sectors[1].BoundingFrustumIndex, 0, 12);
+                //}
 
                 // End the current pass
                 pass.End();
