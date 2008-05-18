@@ -616,11 +616,11 @@ namespace Project_blob.GameState
 				{
 					if (default_sticky)
 					{
-						physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.RightTriggerValue;
+						physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;
 					}
 					else
 					{
-						physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.RightTriggerValue;
+						physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.LeftTriggerValue;
 					}
 				}
 
@@ -632,6 +632,14 @@ namespace Project_blob.GameState
 				if (InputHandler.IsActionPressed(Actions.ToggleElasticity))
 				{
 					default_firm = !default_firm;
+                    if (default_firm)
+                    {
+                        physics.Player.Resilience.Target = physics.Player.Volume.Target = InputHandler.RightTriggerValue;
+                    }
+                    else
+                    {
+                        physics.Player.Resilience.Target = physics.Player.Volume.Target = 1 - InputHandler.RightTriggerValue;
+                    }
 					//if (physics.Player.Resilience.Target <= 0.5f)
 					//{
 					//    physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
@@ -644,6 +652,14 @@ namespace Project_blob.GameState
 				if (InputHandler.IsActionPressed(Actions.ToggleStickiness))
 				{
 					default_sticky = !default_sticky;
+                    if (default_sticky)
+                    {
+                        physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;
+                    }
+                    else
+                    {
+                        physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.LeftTriggerValue;
+                    }
 					//if (physics.Player.Cling.Target <= 0.5f)
 					//{
 					//    physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
@@ -1165,10 +1181,16 @@ namespace Project_blob.GameState
 
 			spriteBatch.Draw(gaugeLine, new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 30, 75, gaugeLine.Width, 400), Color.White);
 
-			spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + (physics.Player.Traction.Target * 375)), Color.White);
+            if (default_sticky)
+                spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + (physics.Player.Traction.Target * 375)), Color.White);
+            else
+                spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + ((1 - physics.Player.Traction.Target) * 375)), Color.White);
 
-			spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + (physics.Player.Resilience.Target * 375)), Color.White);
-
+            if(default_firm)
+			    spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + (physics.Player.Resilience.Target * 375)), Color.White);
+            else
+                spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + ((1 - physics.Player.Resilience.Target) * 375)), Color.White);
+            
 			Rectangle topRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 125, 10, 125, 75);
 			Rectangle bottomRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 75, 475, 75, 50);
 			if (default_firm)
