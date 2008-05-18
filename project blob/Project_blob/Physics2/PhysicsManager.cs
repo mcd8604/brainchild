@@ -38,11 +38,7 @@ namespace Physics2
 			return new PhysicsSeq();
 		}
 
-		public abstract float AirFriction
-		{
-			get;
-			set;
-		}
+		public static float AirFriction = 1f;
 
 		public abstract Player Player
 		{

@@ -367,8 +367,7 @@ namespace Physics2
 
 					if (p.PotentialVelocity != Util.Zero)
 					{
-						//Vector3 DragForce = p.PotentialVelocity * airfriction;
-						Vector3 DragForce = p.PotentialVelocity * 1;
+						Vector3 DragForce = p.PotentialVelocity * PhysicsManager.AirFriction;
 						Vector3 AccelerationDrag = (DragForce / p.Mass);
 						Vector3 VelocityDrag = (AccelerationDrag * TotalElapsedSeconds);
 

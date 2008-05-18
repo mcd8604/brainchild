@@ -417,7 +417,9 @@ namespace WorldMaker
 				{
 					EffectManager.getSingleton.GetEffect(_activeArea.Display.EffectName).Parameters["View"].SetValue(viewMatrix);
 				}
-				catch (Exception) { }
+				catch (Exception e) {
+					Log.Out.WriteLine(e);
+				}
 
 				if (EFFECT_TYPE == "effects")
 					EffectManager.getSingleton.GetEffect(_effectName).Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));

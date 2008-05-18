@@ -22,7 +22,6 @@ namespace Physics2
 			}
 		}
 
-		// Cling
 		Property cling = new Property();
 		/// <summary>
 		/// The ability to stick to surfaces.
@@ -35,7 +34,6 @@ namespace Physics2
 			}
 		}
 
-		// Traction
 		Property traction = new Property();
 		/// <summary>
 		/// The friction opposing sliding along a surface.
@@ -48,7 +46,6 @@ namespace Physics2
 			}
 		}
 
-		// Resilience
 		Property resilience = new Property();
 		/// <summary>
 		/// The resistance to deformation.
@@ -61,7 +58,6 @@ namespace Physics2
 			}
 		}
 
-		// Volume
 		Property volume = new Property();
 		/// <summary>
 		/// The internal pressure.
@@ -74,7 +70,9 @@ namespace Physics2
 			}
 		}
 
+#if DEBUG
 		public bool DEBUG_MoveModeFlag = false;
+#endif
 
 		public void move(Vector2 input, Vector3 reference)
 		{
@@ -87,10 +85,81 @@ namespace Physics2
 		private Vector2 moveInput;
 		private Vector3 refPos;
 
-		public float Twist = 0.2f;
-		public float AirTwist = 0.05f;
-		public float Drift = -0.01f;
-		public float AirDrift = -0.1f;
+		private float twist;
+		/// <summary>
+		/// The force applied to rotate the blob by the player's input on the ground.
+		/// </summary>
+		public float Twist
+		{
+			get
+			{
+				return twist;
+			}
+			set
+			{
+				twist = value;
+			}
+		}
+
+		private float airTwist;
+		/// <summary>
+		/// The force applied to rotate the blob by the player's input while in the air.
+		/// </summary>
+		public float AirTwist
+		{
+			get
+			{
+				return airTwist;
+			}
+			set
+			{
+				airTwist = value;
+			}
+		}
+
+		private float drift;
+		/// <summary>
+		/// The force applied to drift the blob by the player's input while on the ground.
+		/// </summary>
+		public float Drift
+		{
+			get
+			{
+				return -drift;
+			}
+			set
+			{
+				drift = -value;
+			}
+		}
+
+		private float airDrift;
+		/// <summary>
+		/// The force applied to rotate the blob by the player's input while in the air.
+		/// </summary>
+		public float AirDrift
+		{
+			get
+			{
+				return -airDrift;
+			}
+			set
+			{
+				airDrift = -value;
+			}
+		}
+
+		private bool touching = false;
+		/// <summary>
+		/// Is the blob touching something?
+		/// </summary>
+		public bool Touching
+		{
+			get
+			{
+				return touching;
+			}
+		}
 
 		/// <summary>
 		/// fake jump trigger
@@ -99,10 +168,47 @@ namespace Physics2
 
 		private bool jumpflag = false;
 
-		public float JumpWork = 15;
-		public float AirJumpWork = 0;
+		private float maxJumpWork;
+		/// <summary>
+		/// Maximum force to apply when jumping off of something.
+		/// </summary>
+		public float MaxJumpWork
+		{
+			get
+			{
+				return maxJumpWork;
+			}
+			set
+			{
+				maxJumpWork = value;
+			}
+		}
 
-		Vector3 jumpVector;
+		private float airJumpWork;
+		/// <summary>
+		/// Force to apply when jumping in mid air.
+		/// </summary>
+		public float AirJumpWork
+		{
+			get
+			{
+				return airJumpWork;
+			}
+			set
+			{
+				airJumpWork = value;
+			}
+		}
+
+		private Vector3 jumpVector;
+
+		public Vector3 Normal
+		{
+			get
+			{
+				return jumpVector;
+			}
+		}
 
 		internal void update(float time)
 		{
@@ -111,9 +217,8 @@ namespace Physics2
 			update(resilience, time);
 			update(volume, time);
 
-			#region Calculate Jump Vector
+			#region Jump
 			jumpVector = Util.Zero;
-
 			foreach (PhysicsPoint p in PlayerBody.points)
 			{
 				if (p.LastCollision != null)
@@ -124,24 +229,36 @@ namespace Physics2
 
 			if (jumpVector != Util.Zero)
 			{
+				touching = true;
 				jumpVector = Vector3.Normalize(jumpVector);
 			}
-			#endregion
-
-			if (playerBody is BodyPressure)
+			else
 			{
-				JumpWork = MathHelper.Clamp(20 - ((BodyPressure)playerBody).Volume, 10, 20);
+				touching = false;
 			}
 
-			#region Jump
 			if (jumpflag)
 			{
 				jumpflag = false;
+
+				Vector3 JumpForce = Vector3.Up * (airJumpWork / time);
+
+				if (touching)
+				{
+					if (playerBody is BodyPressure)
+					{
+						JumpForce += jumpVector * (MathHelper.Clamp(maxJumpWork - ((BodyPressure)playerBody).Volume, maxJumpWork * 0.5f, maxJumpWork) / time);
+					}
+					else
+					{
+						JumpForce += jumpVector * (maxJumpWork / time);
+					}
+				}
+
 				// Fake Fake Jump:
 				foreach (PhysicsPoint p in playerBody.getPoints())
 				{
-					p.ForceThisFrame += Vector3.Up * (AirJumpWork / time);
-					p.ForceThisFrame += jumpVector * (JumpWork / time);
+					p.ForceThisFrame += JumpForce;
 				}
 			}
 			#endregion
@@ -177,20 +294,22 @@ namespace Physics2
 
 				float force = m / time;
 
-				if (jumpVector != Util.Zero) // touching something
+				if (touching)
 				{
+					Vector3 currentDrift = n2 * (force * drift);
+					float twistMult = (force * twist * ClingEffect);
 					foreach (PhysicsPoint p in playerBody.getPoints())
 					{
-						p.ForceThisFrame += Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, n)) * (force * Twist * ClingEffect);
-						p.ForceThisFrame += n2 * (force * Drift);
+						p.ForceThisFrame += currentDrift + Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, n)) * twistMult;
 					}
 				}
 				else
 				{
+					Vector3 currentDrift = n2 * (force * airDrift);
+					float twistMult = (force * airTwist * ClingEffect);
 					foreach (PhysicsPoint p in playerBody.getPoints())
 					{
-						p.ForceThisFrame += Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, n)) * (force * AirTwist * ClingEffect);
-						p.ForceThisFrame += n2 * (force * AirDrift);
+						p.ForceThisFrame += currentDrift + Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, n)) * twistMult;
 					}
 
 				}

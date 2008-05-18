@@ -160,7 +160,10 @@ namespace Project_blob.GameState
 			}
 			physics = PhysicsManager.getInstance();
 
-			physics.AirFriction = 1f;
+			// Configurable physics parameters:
+			// All of these are more or less arbitrary, and can be tweaked within reason for different effects.
+
+			PhysicsManager.AirFriction = 1f;
 
 			physics.Player.Traction.Minimum = 0.1f;
 			physics.Player.Traction.Origin = 1f;
@@ -177,6 +180,16 @@ namespace Project_blob.GameState
 			physics.Player.Volume.Minimum = 60f;
 			physics.Player.Volume.Origin = 80f;
 			physics.Player.Volume.Maximum = 120f;
+
+			physics.Player.Twist = 0.2f;
+			physics.Player.AirTwist = 0.05f;
+			physics.Player.Drift = 0.01f;
+			physics.Player.AirDrift = 0.1f;
+
+			physics.Player.MaxJumpWork = 20;
+			physics.Player.AirJumpWork = 0;
+
+			// --------------------
 
 			theBlob = new Blob(blobModel, blobStartPosition);
 			theBlob.text = blobTexture;
@@ -600,6 +613,31 @@ namespace Project_blob.GameState
 				}
 
 
+				if (InputHandler.IsActionPressed(Actions.ToggleElasticity))
+				{
+					default_firm = !default_firm;
+					if (physics.Player.Resilience.Target <= 0.5f)
+					{
+						physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
+					}
+					else
+					{
+						physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
+					}
+				}
+				if (InputHandler.IsActionPressed(Actions.ToggleStickiness))
+				{
+					default_sticky = !default_sticky;
+					if (physics.Player.Cling.Target <= 0.5f)
+					{
+						physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
+					}
+					else
+					{
+						physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
+					}
+				}
+
 				// Xbox
 				if (InputHandler.HasRightTriggerMoved())
 				{
@@ -623,52 +661,9 @@ namespace Project_blob.GameState
 						physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.LeftTriggerValue;
 					}
 				}
-
-				
-
 				
 				//InputHandler.SetVibration(MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f), 0f);
 
-				if (InputHandler.IsActionPressed(Actions.ToggleElasticity))
-				{
-					default_firm = !default_firm;
-                    if (default_firm)
-                    {
-                        physics.Player.Resilience.Target = physics.Player.Volume.Target = InputHandler.RightTriggerValue;
-                    }
-                    else
-                    {
-                        physics.Player.Resilience.Target = physics.Player.Volume.Target = 1 - InputHandler.RightTriggerValue;
-                    }
-					//if (physics.Player.Resilience.Target <= 0.5f)
-					//{
-					//    physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
-					//}
-					//else
-					//{
-					//    physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
-					//}
-				}
-				if (InputHandler.IsActionPressed(Actions.ToggleStickiness))
-				{
-					default_sticky = !default_sticky;
-                    if (default_sticky)
-                    {
-                        physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;
-                    }
-                    else
-                    {
-                        physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.LeftTriggerValue;
-                    }
-					//if (physics.Player.Cling.Target <= 0.5f)
-					//{
-					//    physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
-					//}
-					//else
-					//{
-					//    physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
-					//}
-				}
 				if (InputHandler.IsActionPressed(Actions.ChangeCamera))
 				{
 					if (CurCamera == CameraType.chase)
@@ -741,16 +736,9 @@ namespace Project_blob.GameState
 
 					CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
 
-					if (OrientCamera)
+					if (OrientCamera && physics.Player.Touching)
 					{
-						foreach (PhysicsPoint p in physics.Player.PlayerBody.getPoints())
-						{
-							if (p.LastCollision != null)
-							{
-								CameraManager.getSingleton.ActiveCamera.Up = p.LastCollision.Normal;
-								break;
-							}
-						}
+						CameraManager.getSingleton.ActiveCamera.Up = physics.Player.Normal;
 					}
 
 				}
@@ -763,38 +751,38 @@ namespace Project_blob.GameState
 					((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).UserOffset = InputHandler.GetAnalogAction(AnalogActions.Camera);
 
 
-					
-					Vector3 climbNormal = new Vector3();
-				
-					foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
+
+					Vector3 climbNormal = Vector3.Zero;
+
+					if (physics.Player.Touching)
 					{
-						if (p.LastCollision != null && p.LastCollision.getMaterial() != null)
+						foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
 						{
-							if (p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
+							if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
 							{
 								lastClimbCollision = gameTime.TotalGameTime.Seconds;
 								climbing = true;
+								((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
 								climbNormal = p.LastCollision.Normal;
+								break;
 							}
-
 						}
 					}
 
 					if (gameTime.TotalGameTime.Seconds - lastClimbCollision > 1.5)
 					{
 						climbing = false;
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
 					}
 
 					if (climbing)
 					{
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = climbNormal;
-						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
 					}
 					else
 					{
-						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
 						Vector3 blobVelocity = theBlob.getAverageVelocity();
 						if ((blobVelocity.Y < 1f && blobVelocity.Y > -1) && (Math.Abs(blobVelocity.X) > 1 || Math.Abs(blobVelocity.Z) > 1))
 							startCameraFollow = true;

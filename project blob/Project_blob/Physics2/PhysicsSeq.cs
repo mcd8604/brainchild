@@ -19,19 +19,6 @@ namespace Physics2
 			bodies.AddRange(b);
 		}
 
-		private float airFriction = 1f;
-		public override float AirFriction
-		{
-			get
-			{
-				return airFriction;
-			}
-			set
-			{
-				airFriction = value;
-			}
-		}
-
 #if DEBUG
 		private int DEBUG_NumCollidables = 0;
 		public override int DEBUG_GetNumCollidables()

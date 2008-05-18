@@ -67,8 +67,9 @@ namespace Project_blob
 				GameplayScreen.TextEventHit = true;
 				
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				Log.Out.WriteLine(e);
 				return false;
 			}
 			return true;
