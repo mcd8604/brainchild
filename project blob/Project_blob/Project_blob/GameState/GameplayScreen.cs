@@ -34,6 +34,9 @@ namespace Project_blob.GameState
 
 		bool climbing = false;
 
+		bool default_sticky = false;
+		bool default_firm = false;
+
 		private const float TEXT_EVENT_TIME = 5.0f;
 
 		public static bool TextEventHit = false;
@@ -581,38 +584,51 @@ namespace Project_blob.GameState
 
 
 				// Xbox
-				if (InputHandler.HasRightTriggerMoved())
-				{
-					physics.Player.Resilience.Target = physics.Player.Volume.Target = InputHandler.RightTriggerValue;
-				}
-				if (InputHandler.HasLeftTriggerMoved())
-				{
-					physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;
-				}
+				float rightTriggerValue = 0;
+				float leftTriggerValue = 0;
+				//if (InputHandler.HasRightTriggerMoved())
+				//{
+					rightTriggerValue = InputHandler.RightTriggerValue;
+				//}
+				//if (InputHandler.HasLeftTriggerMoved())
+				//{
+					leftTriggerValue = InputHandler.LeftTriggerValue;
+				//}
 
+				if (default_firm)
+					physics.Player.Resilience.Target = physics.Player.Volume.Target = InputHandler.RightTriggerValue;
+				else
+					physics.Player.Resilience.Target = physics.Player.Volume.Target = 1 - InputHandler.RightTriggerValue;
+
+				if (default_sticky)
+					physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;
+				else
+					physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.LeftTriggerValue;
 				//InputHandler.SetVibration(MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f), 0f);
 
 				if (InputHandler.IsActionPressed(Actions.ToggleElasticity))
 				{
-					if (physics.Player.Resilience.Target <= 0.5f)
-					{
-						physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
-					}
-					else
-					{
-						physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
-					}
+					default_firm = !default_firm;
+					//if (physics.Player.Resilience.Target <= 0.5f)
+					//{
+					//    physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
+					//}
+					//else
+					//{
+					//    physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
+					//}
 				}
 				if (InputHandler.IsActionPressed(Actions.ToggleStickiness))
 				{
-					if (physics.Player.Cling.Target <= 0.5f)
-					{
-						physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
-					}
-					else
-					{
-						physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
-					}
+					default_sticky = !default_sticky;
+					//if (physics.Player.Cling.Target <= 0.5f)
+					//{
+					//    physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
+					//}
+					//else
+					//{
+					//    physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
+					//}
 				}
 
 				// Quick Torque
