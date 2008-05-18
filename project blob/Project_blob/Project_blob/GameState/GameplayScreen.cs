@@ -154,15 +154,13 @@ namespace Project_blob.GameState
 
 		private void reset()
 		{
-			ResetFlag = false;
-
 			if (physics != null)
 			{
 				physics.stop();
 			}
 			physics = PhysicsManager.getInstance();
 
-			physics.AirFriction = 1f;
+			PhysicsManager.AirFriction = 1f;
 
 			physics.Player.Traction.Minimum = 0.1f;
 			physics.Player.Traction.Origin = 1f;
@@ -176,9 +174,9 @@ namespace Project_blob.GameState
 			physics.Player.Resilience.Origin = 40f;
 			physics.Player.Resilience.Maximum = 80f;
 
-			physics.Player.Volume.Minimum = 50f;
-			physics.Player.Volume.Origin = 100f;
-			physics.Player.Volume.Maximum = 200f;
+			physics.Player.Volume.Minimum = 60f;
+			physics.Player.Volume.Origin = 80f;
+			physics.Player.Volume.Maximum = 120f;
 
 			theBlob = new Blob(blobModel, blobStartPosition);
 			theBlob.text = blobTexture;
@@ -464,8 +462,6 @@ namespace Project_blob.GameState
 
 		private void ChangeArea()
 		{
-			ChangeAreaFlag = false;
-
 			currentArea = Level.Areas[nextAreaName];
 
 			if (nextAreaPosition == Vector3.Zero)
@@ -530,11 +526,13 @@ namespace Project_blob.GameState
 
 			if (ResetFlag)
 			{
+				ResetFlag = false;
 				reset();
 			}
 
 			if (ChangeAreaFlag)
 			{
+				ChangeAreaFlag = false;
 				ChangeArea();
 			}
 
