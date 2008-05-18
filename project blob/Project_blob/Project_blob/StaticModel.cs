@@ -298,6 +298,9 @@ namespace Project_blob
 		[NonSerialized]
 		private int m_PrimitiveCount;
 
+		[NonSerialized]
+		private VertexPositionNormalTexture[] origVertices;
+
 		//supports one Mesh per Model
 		public void initialize()
 		{
@@ -323,6 +326,8 @@ namespace Project_blob
 			m_StartIndex = part.StartIndex;
 			m_PrimitiveCount = part.PrimitiveCount;
 
+			origVertices = new VertexPositionNormalTexture[m_NumVertices];
+			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(origVertices);
 			m_Vertices = new VertexPositionNormalTexture[m_NumVertices];
 			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(m_Vertices);
 
@@ -332,6 +337,7 @@ namespace Project_blob
 				m_Vertices[i].Position = Vector3.Transform(m_Vertices[i].Position, Transform);
 				m_Vertices[i].Normal = Vector3.TransformNormal(m_Vertices[i].Normal, Transform);
 			}
+			updateTextureCoords();
 			updateVertexBuffer();
 		}
 
@@ -359,12 +365,12 @@ namespace Project_blob
 
 		public void updateTextureCoords()
 		{
-			VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
-			Model m = ModelManager.getSingleton.GetModel(this.ModelName);
+			//VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
+			//Model m = ModelManager.getSingleton.GetModel(_modelName);
 
-			if (m != null)
-			{
-				m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+			//if (m != null)
+			//{
+				//m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
 				//VertexPositionNormalTexture[] myVertices = new VertexPositionNormalTexture[m_NumVertices];
 				//m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
@@ -381,11 +387,11 @@ namespace Project_blob
 					//Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
 					Texture2D texture = TextureManager.GetTexture(m_TextureID);
 
-					for (int i = 0; i < vertices.Length; ++i)
+					for (int i = 0; i < origVertices.Length; ++i)
 					{
 						//scale the texture coordinates
-						m_Vertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
-						m_Vertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+						m_Vertices[i].TextureCoordinate.X = (origVertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+						m_Vertices[i].TextureCoordinate.Y = (origVertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
 
 						//scale the texture coordinates
 						/*if (vertices[i].Normal.Equals(Vector3.Up))
@@ -422,7 +428,7 @@ namespace Project_blob
 				}
 				//m_VertexBuffer.SetData<VertexPositionNormalTexture>( m_Vertices );
 				//m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
-			}
+			//}
 		}
 
 		/*
