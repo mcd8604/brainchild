@@ -133,9 +133,6 @@
     <Compile Include="SwitchSetter.Designer.cs">
       <DependentUpon>SwitchSetter.cs</DependentUpon>
     </Compile>
-    <Compile Include="TaskEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="TransitionSetter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,10 +194,6 @@
     <EmbeddedResource Include="PropertyEditor.resx">
       <SubType>Designer</SubType>
       <DependentUpon>PropertyEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TaskEditor.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TaskEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransitionSetter.resx">
       <SubType>Designer</SubType>

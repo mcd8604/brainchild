@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing.Design;
 using System.Windows.Forms;
+using Physics2;
 
 namespace Project_blob
 {
-	public class ModelSelectionEditor : UITypeEditor
+	public class TaskTypeEditor : UITypeEditor
 	{
 
-		public ModelSelectionEditor() { }
+		public TaskTypeEditor() { }
 
 		public override UITypeEditorEditStyle GetEditStyle(System.ComponentModel.ITypeDescriptorContext context)
 		{
@@ -18,24 +19,20 @@ namespace Project_blob
 
 		public override object EditValue(System.ComponentModel.ITypeDescriptorContext context, IServiceProvider provider, object value)
 		{
-			ModelSelector selector;
-			if (value is List<DynamicModel>)
+			TaskEditor editor;
+			if (value == null)
 			{
-				selector = new ModelSelector(value as List<DynamicModel>);
+				value = new List<Task>();
 			}
-			else
-			{
-				selector = new ModelSelector();
-			}
-			selector.ShowDialog();
-			if (context.Instance is SwitchEvent)
-			{
-				foreach (DynamicModel d in selector.getModels())
+			editor = new TaskEditor(value as List<Task>);
+			editor.ShowDialog();
+			if(context.Instance is SwitchEvent) {
+				foreach (DynamicModel d in ((SwitchEvent)context.Instance).Models)
 				{
-					d.Tasks = ((SwitchEvent)context.Instance).Tasks;
+					d.Tasks = new List<Task>(editor.Tasks);
 				}
 			}
-			return selector.getModels();
+			return new List<Task>(editor.Tasks);
 		}
 	}
 }

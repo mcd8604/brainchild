@@ -79,19 +79,19 @@ namespace Project_blob
 			}
 		}
 
-		/*private Task m_Task;
-		public Task Task
+		private List<Task> m_Tasks = new List<Task>();
+		[Editor(typeof(TaskTypeEditor), typeof(UITypeEditor))]
+		public List<Task> Tasks
 		{
 			get
 			{
-				return m_Task;
+				return m_Tasks;
 			}
 			set
 			{
-				m_Task = value;
-				m_Task.run = false;
+				m_Tasks = value;
 			}
-		}*/
+		}
 
         public SwitchEvent() { }
 
@@ -108,7 +108,7 @@ namespace Project_blob
 				{
 					foreach (Task t in b.getTasks())
 					{
-						t.run = true;
+						t.Active = true;
 					}
 				}
 			}
