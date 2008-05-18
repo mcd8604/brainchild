@@ -15,31 +15,6 @@ namespace Project_blob.GameState
 			// off when the pause menu is on top of it.
 			IsPopup = true;
 
-			
-		}
-
-
-		void OptionsMenuEntrySelected(object sender, EventArgs e)
-		{
-			ScreenManager.AddScreen(new OptionsMenuScreen(true));
-		}
-
-
-		void QuitGameMenuEntrySelected(object sender, EventArgs e)
-		{
-			LoadingScreen.Load(ScreenManager, false, new MainMenuScreen());
-
-		}
-
-		public override void Draw(GameTime gameTime)
-		{
-			ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
-
-			base.Draw(gameTime);
-		}
-
-		public void LoadMenuSprites()
-		{
 			// Create our menu entries.
 			MenuEntry resumeGameMenuEntry = new MenuEntry(ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\Resume"));
 			MenuEntry optionsEntry = new MenuEntry(ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\Options"));
@@ -54,6 +29,29 @@ namespace Project_blob.GameState
 			MenuEntries.Add(resumeGameMenuEntry);
 			MenuEntries.Add(optionsEntry);
 			MenuEntries.Add(quitGameMenuEntry);
+		}
+
+
+		void OptionsMenuEntrySelected(object sender, EventArgs e)
+		{
+			ScreenManager.AddScreen(new OptionsMenuScreen(true));
+		}
+
+
+		void QuitGameMenuEntrySelected(object sender, EventArgs e)
+		{
+			MainMenuScreen mainMenu = new MainMenuScreen();
+			LoadingScreen.Load(ScreenManager, false, mainMenu);
+			mainMenu.LoadMenuSprites();
+
+
+		}
+
+		public override void Draw(GameTime gameTime)
+		{
+			ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
+
+			base.Draw(gameTime);
 		}
 	}
 }

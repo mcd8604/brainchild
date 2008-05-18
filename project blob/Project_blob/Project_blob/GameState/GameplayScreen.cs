@@ -565,7 +565,6 @@ namespace Project_blob.GameState
 				{
 					PauseMenuScreen pauseMenu = new PauseMenuScreen();
 					ScreenManager.AddScreen(pauseMenu);
-					pauseMenu.LoadMenuSprites();
 
 					//PlayTime.Stop();
 				}
