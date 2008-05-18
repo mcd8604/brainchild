@@ -160,7 +160,7 @@ namespace Project_blob.GameState
 			}
 			physics = PhysicsManager.getInstance();
 
-			PhysicsManager.AirFriction = 1f;
+			physics.AirFriction = 1f;
 
 			physics.Player.Traction.Minimum = 0.1f;
 			physics.Player.Traction.Origin = 1f;
