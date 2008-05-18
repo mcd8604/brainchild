@@ -338,7 +338,15 @@ namespace Project_blob
 				m_Vertices[i].Normal = Vector3.TransformNormal(m_Vertices[i].Normal, Transform);
 			}
 			updateTextureCoords();
-			updateVertexBuffer();
+			try
+			{
+				updateVertexBuffer();
+			}
+			catch (InvalidOperationException) 
+			{
+				m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
+				updateVertexBuffer();
+			}
 		}
 
 		public void updateVertexBuffer()

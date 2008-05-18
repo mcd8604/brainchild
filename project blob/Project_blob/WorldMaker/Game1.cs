@@ -508,7 +508,10 @@ namespace WorldMaker
 				LevelEditor.EventsToAdd.Clear();*/
 
 				graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-				_activeArea.Display.Draw(graphics.GraphicsDevice);
+				if (_activeArea.Display.CartoonEffect != null)
+				{
+					_activeArea.Display.Draw(graphics.GraphicsDevice);
+				}
 
 				base.Draw(gameTime);
 			}
