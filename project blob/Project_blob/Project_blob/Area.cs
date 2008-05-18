@@ -182,7 +182,7 @@ namespace Project_blob
 		public void LoadAreaWorldMaker(GraphicsDevice gd)
 		{
 			//create new display 
-			this.Display = new Display(new SpriteBatch(gd));
+			this.Display = new Display(gd);
 
 			this.Display.TextureName = "point_text";
 			this.Display.ShowAxis = true;
@@ -244,7 +244,7 @@ namespace Project_blob
 			((StaticModel)button1).Event = se;*/
 
 			//create new display 
-			this._display = new Display(new SpriteBatch(game.GraphicsDevice));
+			this._display = new Display(game.GraphicsDevice);
 			this._display.ShowAxis = false;
 			this._display.GameMode = true;
 
