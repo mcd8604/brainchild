@@ -30,20 +30,20 @@ namespace Physics2
 			return CollisionMath.LineStaticTriangleIntersect(start, end, Point1, Point2, Point3, out hit);
 		}
 
-        public override Plane Plane
-        {
-            get
-            {
-                return m_Plane;
-            }
-        }
+		public override Plane Plane
+		{
+			get
+			{
+				return m_Plane;
+			}
+		}
 
 		public override Vector3 Normal
 		{
-            get
-            {
-                return m_Plane.Normal;
-            }
+			get
+			{
+				return m_Plane.Normal;
+			}
 		}
 
 		public override void update() { }

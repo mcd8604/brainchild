@@ -5,7 +5,7 @@ namespace Physics2
 	public abstract class CollidableStatic : Collidable
 	{
 
-		public CollidableStatic(){ }
+		public CollidableStatic() { }
 
 		public override bool isStatic()
 		{

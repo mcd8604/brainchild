@@ -58,7 +58,7 @@ namespace Engine
 		{
 			if (_cameras.ContainsKey(cameraName))
 			{
-				_activeCamera = _cameras[cameraName];             
+				_activeCamera = _cameras[cameraName];
 				Audio.AudioManager.Listener = ActiveCamera.Listener;
 			}
 		}

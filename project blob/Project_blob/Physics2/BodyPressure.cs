@@ -32,7 +32,8 @@ namespace Physics2
 
 		public float PotentialVolume
 		{
-			get {
+			get
+			{
 				return potentialVolume;
 			}
 		}
@@ -50,7 +51,7 @@ namespace Physics2
 			volume = getVolume();
 			potentialVolume = getPotentialVolume();
 			float idealVolume = IdealVolume;
-			foreach (PhysicsPoint p in getPoints())
+			foreach (PhysicsPoint p in points)
 			{
 				p.ForceThisFrame += ((Vector3.Normalize(currentCenter - p.CurrentPosition) * (volume - idealVolume)) + (Vector3.Normalize(currentCenter - p.PotentialPosition) * (potentialVolume - idealVolume)) * 0.5f);
 			}

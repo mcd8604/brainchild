@@ -336,48 +336,48 @@ namespace Physics2
 			return 0;
 		}
 
-        public static float LineTriangleIntersect(Vector3 start, Vector3 end, PhysicsPoint v0, PhysicsPoint v1, PhysicsPoint v2, out Vector3 i)
-        {
+		public static float LineTriangleIntersect(Vector3 start, Vector3 end, PhysicsPoint v0, PhysicsPoint v1, PhysicsPoint v2, out Vector3 i)
+		{
 
 			i = Util.Zero;
 
-            Vector3 c_u = v1.CurrentPosition - v0.CurrentPosition;
-            Vector3 c_v = v2.CurrentPosition - v0.CurrentPosition;
-            Vector3 c_n = Vector3.Cross(c_u, c_v);
-            Vector3 n_u = v1.PotentialPosition - v0.PotentialPosition;
-            Vector3 n_v = v2.PotentialPosition - v0.PotentialPosition;
-            Vector3 n_n = Vector3.Cross(n_u, n_v);
-            if (c_n.LengthSquared() == 0 && n_n.LengthSquared() == 0) // degenerate triangle
-            {
-                return -1;
-            }
+			Vector3 c_u = v1.CurrentPosition - v0.CurrentPosition;
+			Vector3 c_v = v2.CurrentPosition - v0.CurrentPosition;
+			Vector3 c_n = Vector3.Cross(c_u, c_v);
+			Vector3 n_u = v1.PotentialPosition - v0.PotentialPosition;
+			Vector3 n_v = v2.PotentialPosition - v0.PotentialPosition;
+			Vector3 n_n = Vector3.Cross(n_u, n_v);
+			if (c_n.LengthSquared() == 0 && n_n.LengthSquared() == 0) // degenerate triangle
+			{
+				return -1;
+			}
 
-            Vector3 dir = end - start;
-            Vector3 c_w0 = start - v0.CurrentPosition;
-            float c_a = -Vector3.Dot(c_n, c_w0);
-            float c_b = Vector3.Dot(c_n, dir);
-            Vector3 n_w0 = start - v0.PotentialPosition;
-            float n_a = -Vector3.Dot(n_n, n_w0);
-            float n_b = Vector3.Dot(n_n, dir);
-            if (Math.Abs(c_b) <= Small_num && Math.Abs(c_b) <= Small_num) // parallel to plane
-            {
-                return -1;
-            }
+			Vector3 dir = end - start;
+			Vector3 c_w0 = start - v0.CurrentPosition;
+			float c_a = -Vector3.Dot(c_n, c_w0);
+			float c_b = Vector3.Dot(c_n, dir);
+			Vector3 n_w0 = start - v0.PotentialPosition;
+			float n_a = -Vector3.Dot(n_n, n_w0);
+			float n_b = Vector3.Dot(n_n, dir);
+			if (Math.Abs(c_b) <= Small_num && Math.Abs(c_b) <= Small_num) // parallel to plane
+			{
+				return -1;
+			}
 
-            float c_r = c_a / c_b;
-            float n_r = n_a / n_b;
+			float c_r = c_a / c_b;
+			float n_r = n_a / n_b;
 
-            i = start + (dir * c_r);
+			i = start + (dir * c_r);
 
-            if (c_r > 0 && n_r < 0)
-            {
-                // collidable passed through point
+			if (c_r > 0 && n_r < 0)
+			{
+				// collidable passed through point
 
-                start += (v0.PotentialPosition - v0.CurrentPosition);
-            }
+				start += (v0.PotentialPosition - v0.CurrentPosition);
+			}
 
-            return 0;
-        }
+			return 0;
+		}
 
 		public static float LineTriangleIntersect(Vector3 start, Vector3 end, PhysicsPoint v0, PhysicsPoint v1, PhysicsPoint v2)
 		{

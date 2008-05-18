@@ -4,7 +4,6 @@ namespace Physics2
 {
 	public abstract class Collidable
 	{
-
 		public Body parent;
 
 		protected AxisAlignedBoundingBox boundingbox = new AxisAlignedBoundingBox();

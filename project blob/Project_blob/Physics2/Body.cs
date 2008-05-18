@@ -101,7 +101,8 @@ namespace Physics2
 		public virtual void initialize()
 		{
 #if DEBUG
-			if ( boundingBox != null ) {
+			if (boundingBox != null)
+			{
 				throw new Exception("A Body should not be initiallized twice.");
 			}
 #endif
@@ -138,7 +139,8 @@ namespace Physics2
 			}
 #endif
 #if DEBUG
-			if ( boundingBox != null ) {
+			if (boundingBox != null)
+			{
 				throw new Exception("A Body should not be initiallized twice.");
 			}
 #endif
