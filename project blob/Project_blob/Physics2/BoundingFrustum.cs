@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Physics2
 {
-	class BoundingFrustum
+	public class BoundingFrustum
 	{
 		private readonly Plane[] planes;
 		private readonly Vector3[] corners;

@@ -22,7 +22,7 @@ namespace Physics2
 			}
 		}
 
-		Property cling = new Property();
+		private Property cling = new Property();
 		/// <summary>
 		/// The ability to stick to surfaces.
 		/// </summary>
@@ -34,7 +34,7 @@ namespace Physics2
 			}
 		}
 
-		Property traction = new Property();
+		private Property traction = new Property();
 		/// <summary>
 		/// The friction opposing sliding along a surface.
 		/// </summary>
@@ -46,7 +46,7 @@ namespace Physics2
 			}
 		}
 
-		Property resilience = new Property();
+		private Property resilience = new Property();
 		/// <summary>
 		/// The resistance to deformation.
 		/// </summary>
@@ -58,7 +58,7 @@ namespace Physics2
 			}
 		}
 
-		Property volume = new Property();
+		private Property volume = new Property();
 		/// <summary>
 		/// The internal pressure.
 		/// </summary>
@@ -256,7 +256,7 @@ namespace Physics2
 				}
 
 				// Fake Fake Jump:
-				foreach (PhysicsPoint p in playerBody.getPoints())
+				foreach (PhysicsPoint p in playerBody.points)
 				{
 					p.ForceThisFrame += JumpForce;
 				}
@@ -270,19 +270,11 @@ namespace Physics2
 				Vector3 CurrentPlayerCenter = playerBody.getCenter();
 
 				Vector3 Up = Vector3.Up;
-				if (DEBUG_MoveModeFlag)
+				if (DEBUG_MoveModeFlag && jumpVector != Util.Zero)
 				{
-					foreach (PhysicsPoint p in playerBody.points)
-					{
-						if (p.LastCollision != null)
-						{
-							Up = p.LastCollision.Normal;
-							break;
-						}
-					}
+					Up = jumpVector;
 				}
 
-				//Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(theBlob.getCenter() - cameraPosition, Up));
 				Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(CurrentPlayerCenter - refPos, Up));
 				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
@@ -298,7 +290,7 @@ namespace Physics2
 				{
 					Vector3 currentDrift = n2 * (force * drift);
 					float twistMult = (force * twist * ClingEffect);
-					foreach (PhysicsPoint p in playerBody.getPoints())
+					foreach (PhysicsPoint p in playerBody.points)
 					{
 						p.ForceThisFrame += currentDrift + Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, n)) * twistMult;
 					}
@@ -307,7 +299,7 @@ namespace Physics2
 				{
 					Vector3 currentDrift = n2 * (force * airDrift);
 					float twistMult = (force * airTwist * ClingEffect);
-					foreach (PhysicsPoint p in playerBody.getPoints())
+					foreach (PhysicsPoint p in playerBody.points)
 					{
 						p.ForceThisFrame += currentDrift + Vector3.Normalize(Vector3.Cross(p.CurrentPosition - CurrentPlayerCenter, n)) * twistMult;
 					}

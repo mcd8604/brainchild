@@ -21,7 +21,7 @@ namespace Physics2
 
 		public override void update(Body b, float time)
 		{
-			foreach (PhysicsPoint p in b.getPoints())
+			foreach (PhysicsPoint p in b.points)
 			{
 				p.AccelerationThisFrame += Vector3.Normalize(Origin - p.CurrentPosition) * Magnitude;
 			}
