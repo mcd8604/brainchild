@@ -24,12 +24,22 @@ namespace Project_blob
 			}
 		}
 
-        public TaskEditor() { }
+		public TaskEditor()
+		{
+			m_Tasks = new List<Task>();
+			InitializeComponent();
+			initTasks();
+		}
 
         public TaskEditor(IList<Task> tasks)
         {
             m_Tasks = tasks;
             InitializeComponent();
+			initTasks();
+        }
+
+		private void initTasks()
+		{
             UpdateTaskList();
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.LoadFrom("Physics2.dll");
@@ -40,7 +50,8 @@ namespace Project_blob
                     TaskTypeCB.Items.Add(t);
                 }
             }
-        }
+
+		}
 
         private void InitializeComponent()
         {

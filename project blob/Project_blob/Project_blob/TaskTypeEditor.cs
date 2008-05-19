@@ -26,10 +26,21 @@ namespace Project_blob
 			}
 			editor = new TaskEditor(value as List<Task>);
 			editor.ShowDialog();
+
+			//Copy TaskKeyFrameMovements to each model
 			if(context.Instance is SwitchEvent) {
 				foreach (DynamicModel d in ((SwitchEvent)context.Instance).Models)
 				{
-					d.Tasks = new List<Task>(editor.Tasks);
+					if(d.Tasks == null) {
+						d.Tasks = new List<Task>();
+					}
+					foreach (Task t in editor.Tasks)
+					{
+						if (t is TaskKeyFrameMovement)
+						{
+							d.Tasks.Add(new TaskKeyFrameMovement(t as TaskKeyFrameMovement));
+						}
+					}
 				}
 			}
 			return new List<Task>(editor.Tasks);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing.Design;
 using System.Windows.Forms;
+using Physics2;
 
 namespace Project_blob
 {
@@ -28,11 +29,23 @@ namespace Project_blob
 				selector = new ModelSelector();
 			}
 			selector.ShowDialog();
+
+			//Copy TaskKeyFrameMovements to each model
 			if (context.Instance is SwitchEvent)
 			{
 				foreach (DynamicModel d in selector.getModels())
 				{
-					d.Tasks = ((SwitchEvent)context.Instance).Tasks;
+					//if (d.Tasks == null)
+					//{
+						d.Tasks = new List<Task>();
+					//}
+					foreach (Task t in ((SwitchEvent)context.Instance).Tasks)
+					{
+						if (t is TaskKeyFrameMovement)
+						{
+							d.Tasks.Add(new TaskKeyFrameMovement(t as TaskKeyFrameMovement));
+						}
+					}
 				}
 			}
 			return selector.getModels();

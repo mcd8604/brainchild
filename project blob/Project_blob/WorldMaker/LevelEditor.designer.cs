@@ -57,6 +57,7 @@ namespace WorldMaker
 			this.addSoundButton = new System.Windows.Forms.Button();
 			this.editSoundButton = new System.Windows.Forms.Button();
 			this.deleteSoundButton = new System.Windows.Forms.Button();
+			this.copyButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// areaListBox
@@ -79,6 +80,7 @@ namespace WorldMaker
 			this.modelListBox.ItemHeight = 16;
 			this.modelListBox.Location = new System.Drawing.Point(12, 214);
 			this.modelListBox.Name = "modelListBox";
+			this.modelListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
 			this.modelListBox.Size = new System.Drawing.Size(142, 276);
 			this.modelListBox.Sorted = true;
 			this.modelListBox.TabIndex = 1;
@@ -372,11 +374,23 @@ namespace WorldMaker
 			this.deleteSoundButton.UseVisualStyleBackColor = true;
 			this.deleteSoundButton.Click += new System.EventHandler(this.deleteSoundButton_Click);
 			// 
+			// copyButton
+			// 
+			this.copyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.copyButton.Location = new System.Drawing.Point(375, 418);
+			this.copyButton.Name = "copyButton";
+			this.copyButton.Size = new System.Drawing.Size(121, 44);
+			this.copyButton.TabIndex = 30;
+			this.copyButton.Text = "Copy Button";
+			this.copyButton.UseVisualStyleBackColor = true;
+			this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
+			// 
 			// LevelEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(548, 499);
+			this.Controls.Add(this.copyButton);
 			this.Controls.Add(this.deleteSoundButton);
 			this.Controls.Add(this.editSoundButton);
 			this.Controls.Add(this.addSoundButton);
@@ -444,5 +458,6 @@ namespace WorldMaker
         private System.Windows.Forms.Button addSoundButton;
         private System.Windows.Forms.Button editSoundButton;
         private System.Windows.Forms.Button deleteSoundButton;
+		private System.Windows.Forms.Button copyButton;
 	}
 }

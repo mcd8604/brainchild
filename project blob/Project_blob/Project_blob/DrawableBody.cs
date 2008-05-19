@@ -9,12 +9,12 @@ namespace Project_blob
 	/// <summary>
 	/// This class is intended only to update the VertexBuffer of a model.
 	/// </summary>
-	public class DrawableBody : Physics2.BodyRigid
+	public class DrawableBody : Body
 	{
 		private StaticModel m_DrawableModel;
 
 		public DrawableBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, StaticModel p_Model)
-			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks)
+			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks, false)
 		{
 			m_DrawableModel = p_Model;
 		}
