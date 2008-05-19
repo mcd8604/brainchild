@@ -36,11 +36,19 @@ namespace Audio
 			collisionSound.Apply3D(Listener, audioEmitter);
 		}
 
+        /// <summary>
+        /// Stops the sound file
+        /// </summary>
+        public void stop()
+        {
+            collisionSound.Stop(AudioStopOptions.Immediate);
+        }
+
 		public void startSound()
 		{
 			if (!collisionSound.IsPlaying)
 			{
-				AudioManager.playSoundFXs(ref collisionSound, 1.0f, audioEmitter);
+				AudioManager.playSoundFXs(ref collisionSound, 5.0f, audioEmitter);
 			}
 		}
 

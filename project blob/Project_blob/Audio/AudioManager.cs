@@ -19,6 +19,22 @@ namespace Audio
 		private static Dictionary<String, Cue> _music = new Dictionary<string, Cue>();
 		private static List<Sound> _ambientSounds = new List<Sound>();
 
+        // Use for adjusting music volume from menu
+        private static float musicVolume = 100.0f;
+        public static float MusicVolume
+        {
+            get { return musicVolume; }
+            set { musicVolume = value; }
+        }
+
+        // Use for adjusting soundFX volume from menu
+        private static float soundFXVolume = 100.0f;
+        public static float SoundFXVolume
+        {
+            get { return soundFXVolume; }
+            set { soundFXVolume = value; }
+        }
+
 		private static System.Threading.Thread _ambientSoundThread;
 		private static bool _runAmbience = true;
 
@@ -110,15 +126,28 @@ namespace Audio
 		{
 			do
 			{
-				if (!mono && _audioListener != null)
-				{
-					foreach (Sound sound in _ambientSounds)
-					{
-						sound.updateAmbient3D(_audioListener);
-						sound.startSound();
-						update();
-					}
-				}
+                if (!mono && _audioListener != null)
+                {
+                    for (int i = 0; i < _ambientSounds.Count; i++)
+                    {
+                        try
+                        {
+                            _ambientSounds[i].updateAmbient3D(_audioListener);
+                        }
+                        catch (Exception e)
+                        {
+#if DEBUG
+                            Log.Out.WriteLine("Audio Manager Exception:");
+#endif
+                            Log.Out.WriteLine(e);
+#if DEBUG
+                            Log.Out.WriteLine("The above Exception was handled.");
+#endif
+                        }
+                        _ambientSounds[i].startSound();
+                        update();
+                    }
+                }
 				System.Threading.Thread.Sleep(50);
 			} while (_runAmbience);
 		}
@@ -140,6 +169,18 @@ namespace Audio
 				initializeAmbience();
 			}
 		}
+
+        /// <summary>
+        /// Clears all ambient sounds taht are currently stored
+        /// </summary>
+        public static void ClearAmientSounds()
+        {
+            foreach (Sound ambientSound in _ambientSounds)
+            {
+                ambientSound.stop();
+            }
+            _ambientSounds.Clear();
+        }
 
 		/// <summary>
 		/// Constructs a sound object that can utilize 3D sound from the given sound name
@@ -204,6 +245,7 @@ namespace Audio
 			{
 				_music[name].Dispose();
 				_music[name] = _soundBank.GetCue(name);
+                _music[name].SetVariable("Volume", musicVolume);
 				_music[name].Play();
 			}
 		}
@@ -217,31 +259,36 @@ namespace Audio
 		/// <param name="emitter">The emitter of the sound to be played</param>
 		public static void playSoundFXs(ref Cue soundFX, float volumeLevel, AudioEmitter emitter)
 		{
-			if (volumeLevel >= 0)
-			{
-				soundFX.Dispose();
-				soundFX = _soundBank.GetCue(soundFX.Name);
-				if (_audioListener != null && !mono)
-				{
-					try
-					{
-						soundFX.Apply3D(_audioListener, emitter);
-						soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
-					}
-					catch (Exception e)
-					{
+            if (volumeLevel >= 0)
+            {
+                soundFX.Dispose();
+                soundFX = _soundBank.GetCue(soundFX.Name);
+                if (_audioListener != null && !mono)
+                {
+                    try
+                    {
+                        soundFX.Apply3D(_audioListener, emitter);
+                        soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
+                    }
+                    catch (Exception e)
+                    {
 #if DEBUG
-						Log.Out.WriteLine("Audio Manager Exception:");
+                        Log.Out.WriteLine("Audio Manager Exception:");
 #endif
-						Log.Out.WriteLine(e);
+                        Log.Out.WriteLine(e);
 #if DEBUG
-						Log.Out.WriteLine("The above Exception was handled.");
+                        Log.Out.WriteLine("The above Exception was handled.");
 #endif
-						mono = true;
-					}
-				}
-				soundFX.Play();
-			}
+                        mono = true;
+                    }
+                }
+                if (mono)
+                {
+                    soundFX.SetVariable("Distance", (float)Math.Pow(50, 1 / volumeLevel));
+                }
+                soundFX.SetVariable("Volume", soundFXVolume);
+                soundFX.Play();
+            }
 		}
 
 		/// <summary>
