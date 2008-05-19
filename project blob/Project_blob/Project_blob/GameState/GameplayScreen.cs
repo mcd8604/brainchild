@@ -1220,6 +1220,12 @@ namespace Project_blob.GameState
 
 			spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
 
+			
+
+			
+
+			spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
+#endif
 			int screenWidth = ScreenManager.graphics.GraphicsDevice.Viewport.Width;
 			if ((m_TextEventString.Length * 20) > screenWidth)
 			{
@@ -1250,11 +1256,6 @@ namespace Project_blob.GameState
 			{
 				spriteBatch.DrawString(font, m_TextEventString, new Vector2(0, 0), Color.Black);
 			}
-
-			
-
-			spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
-#endif
 			spriteBatch.Draw(gaugeLine, new Rectangle(20, 75, gaugeLine.Width, 400), Color.White);
 
 			spriteBatch.Draw(gaugeLine, new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 30, 75, gaugeLine.Width, 400), Color.White);
