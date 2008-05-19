@@ -14,7 +14,7 @@ namespace Project_blob.GameState
 
         MenuEntry invertedMenuEntry;
 
-        bool viewInvert = true;
+        bool viewInvert = GameplayScreen.cameraInvert;
 
         public ControllerScreen()
             : base("Controller")
@@ -38,7 +38,7 @@ namespace Project_blob.GameState
 
         void setMenuText()
         {
-            invertedMenuEntry.Text = "Camera Inverted: " + (viewInvert ? "On" : "Off");
+            invertedMenuEntry.Text = "Camera: " + (viewInvert ? "Inverted" : "Normal");
         }
 
         void invertedSelected(object sender, EventArgs e)
@@ -49,7 +49,14 @@ namespace Project_blob.GameState
 
         void apply(object sender, EventArgs e)
         {
-            viewInvert = !viewInvert;
+            if (viewInvert)
+            {
+                GameplayScreen.cameraInvert = true;
+            } 
+            else
+            {
+                GameplayScreen.cameraInvert = false;
+            }
             setMenuText();
         }
 
