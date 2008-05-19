@@ -21,7 +21,7 @@ namespace Project_blob.GameState
 	{
 		SpriteBatch spriteBatch;
 
-		float lastClimbCollision = 0;
+		//float lastClimbCollision = 0;
 
 		Model blobModel;
 		//Model skyBox;
@@ -34,7 +34,7 @@ namespace Project_blob.GameState
 
 		Texture2D firm, soft, slick, sticky;
 
-		bool climbing = false;
+		//bool climbing = false;
 
 		bool default_sticky = false;
 		bool default_firm = false;
@@ -73,11 +73,14 @@ namespace Project_blob.GameState
 		VertexDeclaration VertexDeclarationColor;
 		VertexDeclaration VertexDeclarationTexture;
 
+		private float deadTimer = 0f;
+		public static bool deadSet = false;
+
 		List<Drawable> drawables = new List<Drawable>();
 
 		Vector4 lightPosition;
 
-		PhysicsManager physics;
+		public static PhysicsManager physics;
 
 		//Vector2 cameraOffset = new Vector2();
 
@@ -579,6 +582,26 @@ namespace Project_blob.GameState
 				if (!paused)
 				{
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+
+					if (currentArea.TimeLimit > 0 && currentArea.TimeLimit < physics.Time)
+					{
+						physics.Player.Dead = true;
+					}
+
+					if (physics.Player.Dead)
+					{
+						if (deadSet)
+						{
+							if (deadTimer + 1.5 < gameTime.TotalGameTime.Seconds)
+								ScreenManager.AddScreen(new DeathScreen());
+						}
+						else
+						{
+							deadTimer = gameTime.TotalGameTime.Seconds;
+							deadSet = true;
+						}
+						
+					}
 
 					cartoonEffect.Parameters["blobCenter"].SetValue(theBlob.getCenter());
 					distortEffect.Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
@@ -1086,7 +1109,12 @@ namespace Project_blob.GameState
 				}
 #endif
 
-
+#if !DEBUG
+				if (InputHandler.IsButtonPressed(Buttons.A))
+				{
+					physics.Player.jump();
+				}
+#endif
 			}
 		}
 
