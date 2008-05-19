@@ -51,14 +51,35 @@ namespace Physics2
 		}
 
 		public bool run = true;
+
+		//Bodies cannot share this task because 
+		//currentIndex and currentTime will be 
+		//shared and updated by each body
 		private int currentIndex = 0;
 		private float currentTime = 0;
 		private bool forward = true;
 
+		public TaskKeyFrameMovement() { }
+
+		/// <summary>
+		/// Copy Constructor
+		/// </summary>
+		/// <param name="t"></param>
+		public TaskKeyFrameMovement(TaskKeyFrameMovement t)
+		{
+			active = t.Active;
+			useRelativePoints = t.UseRelativePoints;
+			foreach (KeyFrame k in t.Frames)
+			{
+				frames.Add(new KeyFrame(k));
+			}
+			mode = t.Mode;			
+		}
+
 		public override void update(Body b, float time)
 		{
 			// optimize this later..
-			if (!run || !active)
+			if (!active)
 			{
 				return;
 			}
@@ -76,17 +97,7 @@ namespace Physics2
 					break;
 				case Modes.Once:
 					currentFrame = frames[currentIndex];
-					int targetIndex = (int)MathHelper.Clamp(currentIndex + 1, 0, frames.Count);
-					if (targetIndex < frames.Count)
-					{
-						targetFrame = frames[targetIndex];
-					}
-					else
-					{
-						//don't set run to false since we need to reactivate tasks
-						//run = false;
-						active = false;
-					}
+					targetFrame = frames[currentIndex + 1];
 					break;
 				case Modes.Mirror:
 					if (forward)
@@ -131,14 +142,15 @@ namespace Physics2
 					{
 						case Modes.Once:
 							++currentIndex;
-							if (frames.Count - currentIndex == 0)
+							if (frames.Count - currentIndex <= 1)
 							{
-								run = false;
+								active = false;
+								currentIndex = 0;
 							}
 							break;
 						case Modes.Loop:
 							++currentIndex;
-							if (frames.Count - currentIndex == 0)
+							if (frames.Count - currentIndex <= 1)
 							{
 								currentIndex = 0;
 							}
@@ -165,7 +177,16 @@ namespace Physics2
 					currentTime = 0f;
 				}
 
-				Vector3 delta = (newPosition - b.getCenter()) / time;
+				Vector3 delta;
+
+				if (active)
+				{
+					delta = (newPosition - b.getCenter()) / time;
+				}
+				else
+				{
+					delta = Vector3.Zero;
+				}
 
 				foreach (PhysicsPoint p in b.points)
 				{

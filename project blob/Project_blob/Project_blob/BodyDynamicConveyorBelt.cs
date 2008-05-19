@@ -6,7 +6,7 @@ using Physics2;
 
 namespace Project_blob
 {
-	class BodyDynamicConveyorBelt : Body
+	class BodyDynamicConveyorBelt : DrawableBody
 	{
 
 		private Vector3 m_Direction;
@@ -43,7 +43,7 @@ namespace Project_blob
 
 		//dynamic constructor
 		public BodyDynamicConveyorBelt(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, ConveyerBeltDynamic p_ConveyorBelt)
-			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks, false)
+			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks, p_ConveyorBelt)
 		{
 			m_Direction = p_ConveyorBelt.Direction;
 			m_Speed = p_ConveyorBelt.Speed;
@@ -60,13 +60,6 @@ namespace Project_blob
         {
 			m_ConveyorBelt.Dist += TotalElapsedSeconds;
 			base.update(TotalElapsedSeconds);
-			if (!isStatic())
-			{
-				for (int i = 0; i < m_ConveyorBelt.Vertices.Length; ++i)
-				{
-					m_ConveyorBelt.Vertices[i].Position = points[i].ExternalPosition;
-				}
-			}
         }
 
 	}

@@ -395,7 +395,7 @@ namespace Project_blob
 							}
 							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
 						}
-						else if (dm is ConveyerBeltStatic)
+						else if (dm is ConveyerBeltDynamic)
 						{
 							body = new BodyDynamicConveyorBelt(null, points, collidables, new List<Spring>(), dynModel.Tasks, dm as ConveyerBeltDynamic);
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
@@ -423,11 +423,10 @@ namespace Project_blob
 				((SwitchEvent)t.TriggeredEvent).Bodies = new List<Body>();
 				foreach(DynamicModel d in ((SwitchEvent)t.TriggeredEvent).Models) 
 				{
-					foreach(Body b in m_Bodies) 
+					foreach(Body b in m_Bodies)
 					{
 						if (b is DrawableBody)
 						{
-							//optimizer this later
 							if(((DrawableBody)b).getModel().Equals(d))
 							{
 								((SwitchEvent)t.TriggeredEvent).Bodies.Add(b);

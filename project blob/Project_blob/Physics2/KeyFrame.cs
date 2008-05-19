@@ -33,5 +33,13 @@ namespace Physics2
 				time = value;
 			}
 		}
+
+		public KeyFrame() { }
+
+		public KeyFrame(KeyFrame k)
+		{
+			position = k.Position;
+			time = k.Time;
+		}
 	}
 }

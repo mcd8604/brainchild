@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using Project_blob;
 using Microsoft.Xna.Framework.Graphics;
 using Audio;
+using Physics2;
+using Microsoft.Xna.Framework;
 
 namespace WorldMaker
 {
@@ -487,6 +489,99 @@ namespace WorldMaker
 			updateModelList();
 			updatePortalList();
 			updateAmbienceList();
+		}
+
+		/// <summary>
+		/// Temporary button for rapid level editing
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void copyButton_Click(object sender, EventArgs e)
+		{
+			//removeTasks();
+			//addTaskToModels();
+			//editPositionsRelative();
+		}
+
+		/// <summary>
+		/// Temporary function for rapid level editing
+		/// </summary>
+		private void editPositionsRelative()
+		{
+			foreach (object o in modelListBox.SelectedItems)
+			{
+				float deltaX = 0;
+				float deltaY = -14;
+				float deltaZ = 0;
+				StaticModel s = (StaticModel)_gameRef.ActiveArea.Drawables[o as string];
+				Vector3 theTranslation;
+				Quaternion theRotation;
+				Vector3 theScale;
+				s.Transform.Decompose(out theScale, out theRotation, out theTranslation);
+				theTranslation.X += deltaX;
+				theTranslation.Y += deltaY;
+				theTranslation.Z += deltaZ;
+				s.Position = Matrix.CreateTranslation(theTranslation);
+			}
+		}
+
+		/// <summary>
+		/// Temporary function for rapid level editing
+		/// </summary>
+		private void removeTasks()
+		{
+			foreach (object o in modelListBox.SelectedItems)
+			{
+				Drawable d = _gameRef.ActiveArea.Drawables[o as string];
+				if (d is DynamicModel)
+				{
+					((DynamicModel)d).Tasks = new List<Task>();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Temporary function for rapid level editing
+		/// </summary>
+		private void convertToDynamic()
+		{
+			foreach (object o in modelListBox.SelectedItems)
+			{
+				Drawable d = _gameRef.ActiveArea.Drawables[o as string];
+				if (!d.GetType().IsSubclassOf(typeof(StaticModel)) && d is StaticModel)
+				{
+					_gameRef.ActiveArea.Drawables[o as string] = new DynamicModel(d as StaticModel);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Temporary function for rapid level editing
+		/// -Currently only works for TaskKeyFrameMovement
+		/// </summary>
+		private void addTaskToModels()
+		{
+			TaskEditor te = new TaskEditor();
+			te.ShowDialog();
+			foreach (object o in modelListBox.SelectedItems)
+			{
+				Drawable d = _gameRef.ActiveArea.Drawables[o as string];
+				if (d is DynamicModel)
+				{
+					DynamicModel y = d as DynamicModel;
+					if (y.Tasks == null)
+					{
+						y.Tasks = new List<Task>();
+					}
+					foreach (Task t in te.Tasks)
+					{
+						if (t is TaskKeyFrameMovement)
+						{
+							y.Tasks.Add(new TaskKeyFrameMovement(t as TaskKeyFrameMovement));
+						}
+					}
+				}
+			}
 		}
 	}
 }
