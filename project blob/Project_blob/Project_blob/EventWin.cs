@@ -51,7 +51,6 @@ namespace Project_blob
 			try
 			{
 				GameState.GameScreen.ScreenManager.AddScreen(new WinScreen());
-
 			}
 			catch (Exception e)
 			{

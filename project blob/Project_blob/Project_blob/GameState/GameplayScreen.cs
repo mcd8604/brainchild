@@ -164,7 +164,7 @@ namespace Project_blob.GameState
 			// Configurable physics parameters:
 			// All of these are more or less arbitrary, and can be tweaked within reason for different effects.
 
-			PhysicsManager.AirFriction = 1f;
+			PhysicsManager.AirFriction = 0.95f;
 
 			physics.Player.Traction.Minimum = 0.1f;
 			physics.Player.Traction.Origin = 1f;
@@ -860,6 +860,11 @@ namespace Project_blob.GameState
 
 
 #if DEBUG
+
+                if (InputHandler.IsKeyPressed(Keys.U))
+                {
+                    physics.Player.Dead = true;
+                }
 
 				if (InputHandler.IsKeyPressed(Keys.R))
 				{
