@@ -29,7 +29,6 @@ namespace Project_blob.GameState
 		{
 			GameplayScreen.game.SetChangeArea(Level.GetAreaName(GameplayScreen.currentArea));
 			OnCancel();
-
 		}
 
 		public override void Draw(GameTime gameTime)
