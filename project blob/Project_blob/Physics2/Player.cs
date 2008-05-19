@@ -210,51 +210,51 @@ namespace Physics2
 			}
 		}
 
-        private bool dead = false;
-        private bool deathDone = false;
+		private bool dead = false;
+		private bool deathDone = false;
 
-        public bool Dead
-        {
-            get
-            {
-                return dead;
-            }
-            set
-            {
-                dead = value;
-                deathDone = !dead;
-            }
-        }
+		public bool Dead
+		{
+			get
+			{
+				return dead;
+			}
+			set
+			{
+				dead = value;
+				deathDone = !dead;
+			}
+		}
 
 		internal void update(float time)
-        {
-            #region death
-            if (dead)
-            {
-                foreach (Spring s in playerBody.springs)
-                {
-                    s.Force = 0;
-                }
-                if (deathDone)
-                {
-                    ((BodyPressure)playerBody).IdealVolume = ((BodyPressure)playerBody).Volume;
-                }
-                else
-                {
-                    if (((BodyPressure)playerBody).IdealVolume > ((BodyPressure)playerBody).Volume && ((BodyPressure)playerBody).IdealVolume > 10f)
-                    {
-                        ((BodyPressure)playerBody).IdealVolume -= 10f;
-                    }
-                    else
-                    {
-                        deathDone = true;
-                    }
-                }
-                return;
-            }
-            #endregion
+		{
+			#region death
+			if (dead)
+			{
+				foreach (Spring s in playerBody.springs)
+				{
+					s.Force = 0;
+				}
+				if (deathDone)
+				{
+					((BodyPressure)playerBody).IdealVolume = ((BodyPressure)playerBody).Volume;
+				}
+				else
+				{
+					if (((BodyPressure)playerBody).IdealVolume > ((BodyPressure)playerBody).Volume && ((BodyPressure)playerBody).IdealVolume > 10f)
+					{
+						((BodyPressure)playerBody).IdealVolume -= 10f;
+					}
+					else
+					{
+						deathDone = true;
+					}
+				}
+				return;
+			}
+			#endregion
 
-            update(cling, time);
+			update(cling, time);
 			update(traction, time);
 			update(resilience, time);
 			update(volume, time);
@@ -314,14 +314,14 @@ namespace Physics2
 				Vector3 Up = Vector3.Up;
 
 #if DEBUG
-		        if (DEBUG_MoveModeFlag && jumpVector != Util.Zero)
+				if (DEBUG_MoveModeFlag && jumpVector != Util.Zero)
 				{
 					Up = jumpVector;
 				}
 #endif
 
 
-                Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(CurrentPlayerCenter - refPos, Up));
+				Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(CurrentPlayerCenter - refPos, Up));
 				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
 				Vector3 n = Vector3.Normalize((Horizontal * moveInput.Y) + (Run * moveInput.X));
@@ -361,7 +361,7 @@ namespace Physics2
 					if (p.LastCollision != null)
 					{
 						p.ForceThisFrame -= p.LastCollision.Normal * (cling.value * p.LastCollision.getMaterial().Cling);
-						p.LastCollision = null;
+						//p.LastCollision = null;
 					}
 				}
 			}

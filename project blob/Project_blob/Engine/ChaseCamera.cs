@@ -39,21 +39,11 @@ namespace Engine
 		}
 		private Vector3 chaseDirection;
 
-		/// <summary>
-		/// Chased object's Up vector.
-		/// </summary>
-		public Vector3 Up
-		{
-			get { return up; }
-			set { up = value; }
-		}
-		private Vector3 up = Vector3.Up;
-
 		private Vector3 m_ClimbNormal;
 		public Vector3 ClimbNormal
 		{
 			set { m_ClimbNormal = value; }
-            get { return m_ClimbNormal; }
+			get { return m_ClimbNormal; }
 		}
 
 		#endregion
@@ -90,10 +80,10 @@ namespace Engine
 				return desiredPosition;
 			}
 
-            set
-            {
-                desiredPosition = value;
-            }
+			set
+			{
+				desiredPosition = value;
+			}
 
 		}
 		private Vector3 desiredPosition;
@@ -255,10 +245,10 @@ namespace Engine
 			//UpdateWorldPositions();
 			if (Climbing)
 			{
-                if (m_ClimbNormal == Vector3.Zero)
-                {
-                    m_ClimbNormal = Vector3.Normalize(Vector3.Negate(chaseDirection));
-                }
+				if (m_ClimbNormal == Vector3.Zero)
+				{
+					m_ClimbNormal = Vector3.Normalize(Vector3.Negate(chaseDirection));
+				}
 
 				desiredPosition = chasePosition + (m_ClimbNormal * desiredPositionOffset * 2);
 				desiredPosition.Y -= 5f;
@@ -268,7 +258,7 @@ namespace Engine
 
 				desiredPosition = chasePosition - (Vector3.Normalize(chaseDirection) * DesiredPositionOffset);
 				desiredPosition.Y += 5f;
-				Vector3 rightVector = Vector3.Cross(desiredPosition - chasePosition, Vector3.Up);
+				Vector3 rightVector = Vector3.Cross(desiredPosition - chasePosition, Up);
 				desiredPosition += rightVector * m_UserOffset.X;
 				desiredPosition.Y += (m_UserOffset.Y * 2);
 			}
