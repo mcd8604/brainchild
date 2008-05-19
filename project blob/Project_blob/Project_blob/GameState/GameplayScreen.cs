@@ -1220,7 +1220,36 @@ namespace Project_blob.GameState
 
 			spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
 
-			spriteBatch.DrawString(font, m_TextEventString, new Vector2(0, 0), Color.Black);
+			int screenWidth = ScreenManager.graphics.GraphicsDevice.Viewport.Width;
+			if ((m_TextEventString.Length * 20) > screenWidth)
+			{
+				string temp = "";
+				int lineNum = 0;
+				for (int i = 0; i < m_TextEventString.Length; )
+				{
+					int tempInt = (m_TextEventString.Substring(i, (int)MathHelper.Clamp(screenWidth / 20 - i, 0, m_TextEventString.Length - 1))).LastIndexOf(' ');
+
+					if (tempInt != 0)
+					{
+						temp = m_TextEventString.Substring(i, tempInt - i);
+						i = tempInt;
+					}
+					else
+					{
+						temp = m_TextEventString.Substring(i, m_TextEventString.Length - (i + 1));
+						i = m_TextEventString.Length;
+					}
+
+					//temp = m_TextEventString.Substring(i, //temp = m_TextEventString.Substring(nextSpace+1, (int)(MathHelper.Clamp(i+screenWidth / 20,0,m_TextEventString.Length - 1))-(nextSpace+1));
+					spriteBatch.DrawString(font, temp, new Vector2(0, lineNum * 20), Color.Black);
+					lineNum++;
+				}
+
+			}
+			else
+			{
+				spriteBatch.DrawString(font, m_TextEventString, new Vector2(0, 0), Color.Black);
+			}
 
 			spriteBatch.Draw(gaugeLine, new Rectangle(20, 75, gaugeLine.Width, 400), Color.White);
 
