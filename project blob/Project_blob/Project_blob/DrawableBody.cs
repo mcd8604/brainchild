@@ -29,7 +29,7 @@ namespace Project_blob
 		{
 			try
 			{
-				for (int i = m_DrawableModel.Vertices.Length; i > 0; --i)
+				for (int i = m_DrawableModel.Vertices.Length - 1; i > 0; --i)
 				{
 					m_DrawableModel.Vertices[i].Position = points[i].ExternalPosition;
 				}
