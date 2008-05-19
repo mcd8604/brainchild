@@ -1251,6 +1251,10 @@ namespace Project_blob.GameState
 				spriteBatch.DrawString(font, m_TextEventString, new Vector2(0, 0), Color.Black);
 			}
 
+			
+
+			spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
+#endif
 			spriteBatch.Draw(gaugeLine, new Rectangle(20, 75, gaugeLine.Width, 400), Color.White);
 
 			spriteBatch.Draw(gaugeLine, new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 30, 75, gaugeLine.Width, 400), Color.White);
@@ -1292,8 +1296,6 @@ namespace Project_blob.GameState
 				spriteBatch.Draw(slick, bottomLeft, Color.White);
 			}
 
-			spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
-#endif
 			spriteBatch.End();
 
 			//fps
