@@ -57,6 +57,7 @@ namespace Project_blob.GameState
 		Effect distortEffect;
 		Effect distorterEffect;
 
+        public bool blob_Climbing = false;
 		bool startCameraFollow = false;
 
 		RenderTarget2D sceneRenderTarget;
@@ -208,6 +209,12 @@ namespace Project_blob.GameState
 			{
 				physics.AddBodys(currentArea.getBodies());
 			}
+            if (CameraManager.getSingleton.ActiveCamera is ChaseCamera)
+            {
+                ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
+                ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).DesiredPosition = theBlob.getCenter();
+                ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Reset();
+            }
 		}
 
 		/// <summary>
@@ -685,6 +692,9 @@ namespace Project_blob.GameState
 					{
 						CurCamera = CameraType.chase;
 						CameraManager.getSingleton.SetActiveCamera("chase");
+                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).DesiredPosition = theBlob.getCenter();
+                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
+                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Reset();
 					}
 				}
 				// Quick Torque
@@ -762,37 +772,56 @@ namespace Project_blob.GameState
 
 
 
-					Vector3 climbNormal = Vector3.Zero;
+					
 
-					if (physics.Player.Touching)
-					{
-						foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
-						{
-							if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
-							{
-								lastClimbCollision = gameTime.TotalGameTime.Seconds;
-								climbing = true;
-								((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
-								climbNormal = p.LastCollision.Normal;
-								break;
-							}
-						}
-					}
+                    //Replaced with Smart camera event triggers, as LastCollision.getMaterial is unreliable
+                    //if (physics.Player.Touching)
+                    //{
+                    //    lock (theBlob)
+                    //    {
+                    //        foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
+                    //        {
+                    //            if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
+                    //            {
+                    //                lastClimbCollision = gameTime.TotalGameTime.Seconds;
+                    //                climbing = true;
+                    //                ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
+                    //                climbNormal = p.LastCollision.Normal;
+                    //                break;
+                    //            }
+                    //        }
+                    //    }
+                    //}
 
-					if (gameTime.TotalGameTime.Seconds - lastClimbCollision > 1.5)
+                    //if (gameTime.TotalGameTime.Seconds - lastClimbCollision > 1.5)
+                    //{
+                    //    climbing = false;
+                    //    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
+                    //}
+                  
+					if (blob_Climbing)
 					{
-						climbing = false;
-						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
-					}
-
-					if (climbing)
-					{
-						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = climbNormal;
+                        lock (theBlob)
+                        {
+                            foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
+                            {
+                                if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
+                                {
+                                    if(((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal != p.LastCollision.Normal)
+                                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = p.LastCollision.Normal;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
 					}
 					else
 					{
+                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = Vector3.Zero;
+                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
 						Vector3 blobVelocity = theBlob.getAverageVelocity();
 						if ((blobVelocity.Y < 1f && blobVelocity.Y > -1) && (Math.Abs(blobVelocity.X) > 1 || Math.Abs(blobVelocity.Z) > 1))
 							startCameraFollow = true;
