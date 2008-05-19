@@ -1249,7 +1249,8 @@ namespace Project_blob.GameState
 				spriteBatch.Draw(sticky, topleft, Color.White);
 				spriteBatch.Draw(slick, bottomLeft, Color.White);
 			}
-			
+
+            spriteBatch.DrawString(font, (end - DateTime.Now).ToString() , new Vector2(500, 566), Color.White);
 #endif
 			spriteBatch.End();
 
@@ -1258,5 +1259,9 @@ namespace Project_blob.GameState
 
 			//base.Draw(gameTime);
 		}
+
+#if DEBUG
+        private readonly DateTime end = new DateTime(2008, 5, 21, 20, 0, 0);
+#endif
 	}
 }
