@@ -122,6 +122,7 @@ namespace Project_blob.GameState
 		float cameraLength = 20f;
 		float playerCamMulti = 0.05f;
 
+        public static bool cameraInvert = false;
 		bool OrientCamera = false;
 
 		public static Area currentArea;
@@ -725,7 +726,14 @@ namespace Project_blob.GameState
 				}
 				else if (CurCamera == CameraType.follow)
 				{
-					cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
+                    if (cameraInvert) 
+                    {
+                        cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti * -1;
+                    } 
+                    else 
+                    {
+                        cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
+                    }
 					if (cameraAngle.X < -MathHelper.Pi)
 					{
 						cameraAngle.X += MathHelper.TwoPi;
