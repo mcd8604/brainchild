@@ -462,32 +462,41 @@ namespace Project_blob.GameState
 			game.blobStartPosition = position;
 		}
 
+		public void SetChangeArea(String area)
+		{
+			nextAreaName = area;
+			UseDefaultAreaPos = true;
+			ChangeAreaFlag = true;
+		}
+
 		public void SetChangeArea(String area, Vector3 position)
 		{
 			nextAreaName = area;
 			nextAreaPosition = position;
 			ChangeAreaFlag = true;
+			UseDefaultAreaPos = false;
 		}
 
 		private bool ChangeAreaFlag = false;
 		private string nextAreaName;
 		private Vector3 nextAreaPosition = Vector3.Zero;
+		private bool UseDefaultAreaPos = false;
 
 		private void ChangeArea()
 		{
 			currentArea = Level.Areas[nextAreaName];
 
-			if (nextAreaPosition == Vector3.Zero)
+
+			if (UseDefaultAreaPos)
 			{
 				blobStartPosition = currentArea.StartPosition;
-				
 			}
 			else
 			{
 				blobStartPosition = nextAreaPosition;
+				nextAreaPosition = Vector3.Zero;
 			}
 			CameraManager.getSingleton.ActiveCamera.Position = currentArea.CameraSpawnPosition;
-			nextAreaPosition = Vector3.Zero;
 
 			TextureManager.ClearTextures();
 
