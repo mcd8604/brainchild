@@ -27,16 +27,9 @@ namespace Project_blob
 
 		private void updateVertices()
 		{
-			try
+			for (int i = 0; i < m_DrawableModel.Vertices.Length; ++i)
 			{
-				for (int i = m_DrawableModel.Vertices.Length - 1; i > 0; --i)
-				{
-					m_DrawableModel.Vertices[i].Position = points[i].ExternalPosition;
-				}
-			}
-			catch (IndexOutOfRangeException )
-			{
-	
+				m_DrawableModel.Vertices[i].Position = points[i].ExternalPosition;
 			}
 		}
 
