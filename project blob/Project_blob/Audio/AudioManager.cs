@@ -173,7 +173,7 @@ namespace Audio
         /// <summary>
         /// Clears all ambient sounds taht are currently stored
         /// </summary>
-        public static void ClearAmientSounds()
+        public static void ClearAmbientSounds()
         {
             foreach (Sound ambientSound in _ambientSounds)
             {
