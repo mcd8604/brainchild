@@ -100,6 +100,10 @@ namespace Physics2
 					targetFrame = frames[currentIndex + 1];
 					break;
 				case Modes.Mirror:
+					if (useRelativePoints)
+					{
+						int i = 0;
+					}
 					if (forward)
 					{
 						currentFrame = frames[currentIndex];
@@ -113,88 +117,80 @@ namespace Physics2
 					break;
 			}
 
-			if (targetFrame != null)
+			float timeDiff = Math.Abs(targetFrame.Time - currentFrame.Time);
+
+			Vector3 newPosition;
+
+			if (useRelativePoints)
 			{
-
-				float timeDiff = Math.Abs(targetFrame.Time - currentFrame.Time);
-
-				Vector3 newPosition;
-
-				if (useRelativePoints)
-				{
-					if (forward)
-					{
-						newPosition = Vector3.Lerp(currentFrame.Position, targetFrame.Position, MathHelper.Clamp(time / timeDiff, 0, 1)) + b.getCenter();
-					}
-					else
-					{
-						newPosition = b.getCenter() - Vector3.Lerp(targetFrame.Position, currentFrame.Position, MathHelper.Clamp(time / timeDiff, 0, 1));
-					}
-				}
-				else
-				{
-					newPosition = Vector3.Lerp(currentFrame.Position, targetFrame.Position, MathHelper.Clamp(currentTime / timeDiff, 0, 1));
-				}
-
-				if (currentTime > timeDiff)
-				{
-					switch (mode)
-					{
-						case Modes.Once:
-							++currentIndex;
-							if (frames.Count - currentIndex <= 1)
-							{
-								active = false;
-								currentIndex = 0;
-							}
-							break;
-						case Modes.Loop:
-							++currentIndex;
-							if (frames.Count - currentIndex <= 1)
-							{
-								currentIndex = 0;
-							}
-							break;
-						case Modes.Mirror:
-							if (forward)
-							{
-								++currentIndex;
-								if (frames.Count - currentIndex <= 1)
-								{
-									forward = false;
-								}
-							}
-							else
-							{
-								--currentIndex;
-								if (currentIndex == 0)
-								{
-									forward = true;
-								}
-							}
-							break;
-					}
-					currentTime = 0f;
-				}
-
-				Vector3 delta;
-
-				if (active)
-				{
-					delta = (newPosition - b.getCenter()) / time;
-				}
-				else
-				{
-					delta = Vector3.Zero;
-				}
-
-				foreach (PhysicsPoint p in b.points)
-				{
-					p.PotentialVelocity = delta;
-				}
-
-				b.setCenter(newPosition);
+				newPosition = ((targetFrame.Position - currentFrame.Position) * MathHelper.Clamp(time / timeDiff, 0, 1)) + b.getCenter();					
 			}
+			else
+			{
+				newPosition = Vector3.Lerp(currentFrame.Position, targetFrame.Position, MathHelper.Clamp(currentTime / timeDiff, 0, 1));
+			}
+
+			if (currentTime > timeDiff)
+			{
+				switch (mode)
+				{
+					case Modes.Once:
+						++currentIndex;
+						if (frames.Count - currentIndex <= 1)
+						{
+							active = false;
+							currentIndex = 0;
+						}
+						break;
+					case Modes.Loop:
+						if(useRelativePoints) {
+							int i = 0;
+						}
+						++currentIndex;
+						if (frames.Count - currentIndex == 0)
+						{
+							currentIndex = 0;
+						}
+						break;
+					case Modes.Mirror:
+						if (forward)
+						{
+							++currentIndex;
+							if (frames.Count - currentIndex <= 1)
+							{
+								forward = false;
+							}
+						}
+						else
+						{
+							--currentIndex;
+							if (currentIndex == 0)
+							{
+								forward = true;
+							}
+						}
+						break;
+				}
+				currentTime = 0f;
+			}
+
+			Vector3 delta;
+
+			if (active)
+			{
+				delta = (newPosition - b.getCenter()) / time;
+			}
+			else
+			{
+				delta = Vector3.Zero;
+			}
+
+			foreach (PhysicsPoint p in b.points)
+			{
+				p.PotentialVelocity = delta;
+			}
+
+			b.setCenter(newPosition);
 		}
 	}
 }
