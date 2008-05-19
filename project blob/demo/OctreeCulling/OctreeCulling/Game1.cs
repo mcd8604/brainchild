@@ -258,11 +258,11 @@ namespace OctreeCulling
             cube = new Cube(new Vector3(4f, 10f, 0.3f), new Vector3(6, 0, 37), basicEffect, graphics, tempList5);
             _objects.Add(cube);
 
-            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, 6, 37), basicEffect, graphics, tempList5);
-            _objects.Add(cube);
+            //cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, 6, 37), basicEffect, graphics, tempList5);
+            //_objects.Add(cube);
 
-            cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, -6, 37), basicEffect, graphics, tempList5);
-            _objects.Add(cube);
+            //cube = new Cube(new Vector3(2f, 4f, 0.3f), new Vector3(0, -6, 37), basicEffect, graphics, tempList5);
+            //_objects.Add(cube);
             #endregion
             #region room4
             //Far wall
@@ -292,11 +292,11 @@ namespace OctreeCulling
             cube = new Cube(new Vector3(0.3f, 10f, 4f), new Vector3(10, 0, 33), basicEffect, graphics, tempList7);
             _objects.Add(cube);
 
-            cube = new Cube(new Vector3(0.3f, 4f, 2f), new Vector3(10, 6, 27), basicEffect, graphics, tempList7);
-            _objects.Add(cube);
+            //cube = new Cube(new Vector3(0.3f, 4f, 2f), new Vector3(10, 6, 27), basicEffect, graphics, tempList7);
+            //_objects.Add(cube);
 
-            cube = new Cube(new Vector3(0.3f, 4f, 2f), new Vector3(10, -6, 27), basicEffect, graphics, tempList7);
-            _objects.Add(cube);
+            //cube = new Cube(new Vector3(0.3f, 4f, 2f), new Vector3(10, -6, 27), basicEffect, graphics, tempList7);
+            //_objects.Add(cube);
             #endregion
 
             //Doorway cube object (will become a portal)
@@ -316,12 +316,12 @@ namespace OctreeCulling
             portal.ConnectedSectors.Add(2);//SceneManager.getSingleton.PortalScene.Sectors[2]);
             _portalObjects.Add(portal);
 
-            portal = new Portal(new Vector3(2f, 2f, 0f), new Vector3(0, 0, 37));
+            portal = new Portal(new Vector3(2f, 10f, 0f), new Vector3(0, 0, 37));
             portal.ConnectedSectors.Add(2);
             portal.ConnectedSectors.Add(3);
             _portalObjects.Add(portal);
 
-            portal = new Portal(new Vector3(0f, 2f, 2f), new Vector3(10, 0, 27));
+            portal = new Portal(new Vector3(0f, 10f, 2f), new Vector3(10, 0, 27));
             portal.ConnectedSectors.Add(2);
             portal.ConnectedSectors.Add(4);
             _portalObjects.Add(portal);
