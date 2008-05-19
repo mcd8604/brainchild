@@ -344,6 +344,7 @@ namespace Project_blob.GameState
 				if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
 					nextAreaName = f.getSelected();
+			
 					ChangeArea();
 				}
 				else
@@ -480,7 +481,7 @@ namespace Project_blob.GameState
 		private bool ChangeAreaFlag = false;
 		private string nextAreaName;
 		private Vector3 nextAreaPosition = Vector3.Zero;
-		private bool UseDefaultAreaPos = false;
+		private bool UseDefaultAreaPos = true;
 
 		private void ChangeArea()
 		{
@@ -811,7 +812,10 @@ namespace Project_blob.GameState
 					//cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 				}
 				if (currentArea.Display.SkyBox != null)
-					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(theBlob.getCenter());
+				{
+					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(CameraManager.getSingleton.ActiveCamera.Position);
+					currentArea.Display.SkyBox.updateVertexBuffer();
+				}
 
 
 				//fps

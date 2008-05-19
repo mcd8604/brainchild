@@ -729,6 +729,15 @@ namespace Project_blob
 			{
 				m_Transform = Matrix.Multiply(drawStack.Pop(), m_Transform);
 			}
+			if (m_Vertices != null)
+			{
+				//transform points
+				for (int i = 0; i < m_Vertices.Length; ++i)
+				{
+					m_Vertices[i].Position = Vector3.Transform(origVertices[i].Position, Transform);
+					m_Vertices[i].Normal = Vector3.TransformNormal(origVertices[i].Normal, Transform);
+				}
+			}
 		}
 
 		[TypeConverter(typeof(TypeConverterModel))]
