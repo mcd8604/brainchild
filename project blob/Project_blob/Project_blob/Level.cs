@@ -35,6 +35,16 @@ namespace Project_blob
 			return null;
 		}
 
+		public static string GetAreaName(Area p_Area)
+		{
+			foreach (string s in _areas.Keys)
+			{
+				if (_areas[s] == p_Area)
+					return s;
+			}
+			return null;
+		}
+
 		public static string[] GetAreaNames()
 		{
 			string[] areaNames = new string[_areas.Count];
