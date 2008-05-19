@@ -10,6 +10,7 @@ namespace Project_blob
     {
 		/// <summary>
 		/// This method must not do anything world altering or performance intensive.
+		/// What is 'anything world altering'?
 		/// </summary>
 		bool PerformEvent(PhysicsPoint p);
 
