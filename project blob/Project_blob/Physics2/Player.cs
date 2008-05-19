@@ -270,12 +270,16 @@ namespace Physics2
 				Vector3 CurrentPlayerCenter = playerBody.getCenter();
 
 				Vector3 Up = Vector3.Up;
-				if (DEBUG_MoveModeFlag && jumpVector != Util.Zero)
+
+#if DEBUG
+		        if (DEBUG_MoveModeFlag && jumpVector != Util.Zero)
 				{
 					Up = jumpVector;
 				}
+#endif
 
-				Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(CurrentPlayerCenter - refPos, Up));
+
+                Vector3 Horizontal = Vector3.Normalize(Vector3.Cross(CurrentPlayerCenter - refPos, Up));
 				Vector3 Run = Vector3.Normalize(Vector3.Cross(Horizontal, Up));
 
 				Vector3 n = Vector3.Normalize((Horizontal * moveInput.Y) + (Run * moveInput.X));

@@ -43,7 +43,7 @@ namespace Project_blob.GameState
 			MainMenuScreen mainMenu = new MainMenuScreen();
 			LoadingScreen.Load(ScreenManager, false, mainMenu);
 			mainMenu.LoadMenuSprites();
-
+            Audio.AudioManager.ClearAmientSounds();
 
 		}
 
