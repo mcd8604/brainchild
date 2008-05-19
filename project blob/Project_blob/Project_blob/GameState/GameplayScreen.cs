@@ -475,6 +475,7 @@ namespace Project_blob.GameState
 			nextAreaName = area;
 			UseDefaultAreaPos = true;
 			ChangeAreaFlag = true;
+            Audio.AudioManager.ClearAmbientSounds();
 		}
 
 		public void SetChangeArea(String area, Vector3 position)
@@ -483,6 +484,7 @@ namespace Project_blob.GameState
 			nextAreaPosition = position;
 			ChangeAreaFlag = true;
 			UseDefaultAreaPos = false;
+            Audio.AudioManager.ClearAmbientSounds();
 		}
 
 		private bool ChangeAreaFlag = false;
