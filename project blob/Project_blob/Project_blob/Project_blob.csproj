@@ -77,6 +77,8 @@
     <Compile Include="BodyStaticConveyerBelt.cs" />
     <Compile Include="ConveyerBeltStatic.cs" />
     <Compile Include="ConveyorBeltDynamic.cs" />
+    <Compile Include="EventCameraClimb.cs" />
+    <Compile Include="EventCameraClimbOff.cs" />
     <Compile Include="EventWin.cs" />
     <Compile Include="GameState\WinScreen.cs" />
     <Compile Include="TaskTypeEditor.cs" />

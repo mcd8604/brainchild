@@ -49,12 +49,11 @@ namespace Engine
 		}
 		private Vector3 up = Vector3.Up;
 
-		public bool ClimbMode = false;
-
 		private Vector3 m_ClimbNormal;
 		public Vector3 ClimbNormal
 		{
 			set { m_ClimbNormal = value; }
+            get { return m_ClimbNormal; }
 		}
 
 		#endregion
@@ -90,6 +89,12 @@ namespace Engine
 
 				return desiredPosition;
 			}
+
+            set
+            {
+                desiredPosition = value;
+            }
+
 		}
 		private Vector3 desiredPosition;
 
@@ -250,6 +255,11 @@ namespace Engine
 			//UpdateWorldPositions();
 			if (Climbing)
 			{
+                if (m_ClimbNormal == Vector3.Zero)
+                {
+                    m_ClimbNormal = Vector3.Normalize(Vector3.Negate(chaseDirection));
+                }
+
 				desiredPosition = chasePosition + (m_ClimbNormal * desiredPositionOffset * 2);
 				desiredPosition.Y -= 5f;
 			}
