@@ -117,7 +117,15 @@ namespace Physics2
 					break;
 			}
 
-			float timeDiff = Math.Abs(targetFrame.Time - currentFrame.Time);
+			float timeDiff;
+			if (forward)
+			{
+				timeDiff = targetFrame.Time - currentFrame.Time;
+			}
+			else
+			{
+				timeDiff = currentFrame.Time - targetFrame.Time;
+			}
 
 			Vector3 newPosition;
 

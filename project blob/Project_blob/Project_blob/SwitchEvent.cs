@@ -125,13 +125,10 @@ namespace Project_blob
 					}
 				}
 			}
-			bool partialSuccess = false;
+			bool partialSuccess = true;
             foreach (EventTrigger e in m_Events)
             {
-                if ( e.PerformEvent( point ) )
-                {
-                    partialSuccess = true;
-                }
+                partialSuccess = partialSuccess && e.PerformEvent( point );
             }
 			return partialSuccess;
         }
