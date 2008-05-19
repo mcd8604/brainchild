@@ -70,6 +70,28 @@ namespace Physics2
 
 			player.update(TotalElapsedSeconds);
 
+			// not really helping
+			foreach (Body b in bodies)
+			{
+				foreach (PhysicsPoint p in b.points)
+				{
+					if (p.LastCollision != null)
+					{
+
+						float d = p.LastCollision.Plane.D;
+						float d2 = Vector3.Dot(p.LastCollision.Normal, p.CurrentPosition);
+						while ((d + d2) <= 0)
+						{
+							p.CurrentPosition += Vector3.Normalize(p.LastCollision.Normal) * 0.01f;
+							d2 = Vector3.Dot(p.LastCollision.Normal, p.CurrentPosition);
+						}
+
+						p.LastCollision = null;
+
+					}
+				}
+			}
+
 			// Predict potential position
 #if DEBUG
 			int CollidableCount = 0;
@@ -173,7 +195,7 @@ namespace Physics2
 				float d2 = Vector3.Dot(e.collidable.Normal, newPosition);
 				while ((d + d2) <= 0)
 				{
-					newPosition += Vector3.Normalize(e.collidable.Normal) * 0.001f;
+					newPosition += Vector3.Normalize(e.collidable.Normal) * 0.01f;
 					d2 = Vector3.Dot(e.collidable.Normal, newPosition);
 				}
 
@@ -257,11 +279,12 @@ namespace Physics2
 				Vector3 Position = newPosition + (Velocity * (TotalElapsedSeconds * (1 - e.when)));
 
 				//bump (this may or may not be neccessary)
-				float d22 = Vector3.Dot(e.collidable.Normal, Position);
-				while ((d + d22) <= 0)
+				float dn = e.collidable.NextPlane.D;
+				float d22 = Vector3.Dot(e.collidable.NextNormal, Position);
+				while ((dn + d22) <= 0)
 				{
-					Position += Vector3.Normalize(e.collidable.Normal) * 0.001f;
-					d22 = Vector3.Dot(e.collidable.Normal, Position);
+					Position += Vector3.Normalize(e.collidable.Normal) * 0.01f;
+					d22 = Vector3.Dot(e.collidable.NextNormal, Position);
 				}
 
 				e.point.NextVelocity = Velocity;

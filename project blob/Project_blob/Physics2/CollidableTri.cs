@@ -26,9 +26,7 @@ namespace Physics2
 
 		public override float didIntersect(Vector3 start, Vector3 end, out Vector3 hit)
 		{
-			// Should be using the non-static method, but that seems to be broken currently.
-			//return CollisionMath.LineTriangleIntersect(start, end, Point1, Point2, Point3, out hit);
-			return CollisionMath.LineStaticTriangleIntersect(start, end, Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition, out hit);
+			return CollisionMath.LineTriangleIntersect(start, end, Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition, Point1.PotentialPosition, Point2.PotentialPosition, Point3.PotentialPosition, out hit);
 		}
 
 		public override Plane Plane
@@ -39,11 +37,29 @@ namespace Physics2
 			}
 		}
 
+		// temporary?
+		public override Plane NextPlane
+		{
+			get
+			{
+				return new Plane(Point1.NextPosition, Point2.NextPosition, Point3.NextPosition);
+			}
+		}
+
 		public override Vector3 Normal
 		{
 			get
 			{
 				return m_Plane.Normal;
+			}
+		}
+
+		// temporary?
+		public override Vector3 NextNormal
+		{
+			get
+			{
+				return new Plane(Point1.NextPosition, Point2.NextPosition, Point3.NextPosition).Normal;
 			}
 		}
 
@@ -60,13 +76,17 @@ namespace Physics2
 		public override void ApplyForce(Vector3 at, Vector3 f)
 		{
 			// TODO
-			//throw new System.Exception("The method or operation is not implemented.");
+			//Point1.ForceNextFrame += f / 3f;
+			//Point2.ForceNextFrame += f / 3f;
+			//Point3.ForceNextFrame += f / 3f;
 		}
 
 		public override void ImpartVelocity(Vector3 at, Vector3 vel)
 		{
 			// TODO
-			//throw new System.Exception("The method or operation is not implemented.");
+			//Point1.NextVelocity += vel / 3f;
+			//Point2.NextVelocity += vel / 3f;
+			//Point3.NextVelocity += vel / 3f;
 		}
 
 	}

@@ -57,7 +57,7 @@ namespace Project_blob.GameState
 		Effect distortEffect;
 		Effect distorterEffect;
 
-        public bool blob_Climbing = false;
+		public bool blob_Climbing = false;
 		bool startCameraFollow = false;
 
 		RenderTarget2D sceneRenderTarget;
@@ -209,12 +209,12 @@ namespace Project_blob.GameState
 			{
 				physics.AddBodys(currentArea.getBodies());
 			}
-            if (CameraManager.getSingleton.ActiveCamera is ChaseCamera)
-            {
-                ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
-                ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).DesiredPosition = theBlob.getCenter();
-                ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Reset();
-            }
+			if (CameraManager.getSingleton.ActiveCamera is ChaseCamera)
+			{
+				((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
+				((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).DesiredPosition = theBlob.getCenter();
+				((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Reset();
+			}
 		}
 
 		/// <summary>
@@ -351,7 +351,7 @@ namespace Project_blob.GameState
 				if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
 					nextAreaName = f.getSelected();
-			
+
 					ChangeArea();
 				}
 				else
@@ -475,7 +475,7 @@ namespace Project_blob.GameState
 			nextAreaName = area;
 			UseDefaultAreaPos = true;
 			ChangeAreaFlag = true;
-            Audio.AudioManager.ClearAmbientSounds();
+			Audio.AudioManager.ClearAmbientSounds();
 		}
 
 		public void SetChangeArea(String area, Vector3 position)
@@ -484,7 +484,7 @@ namespace Project_blob.GameState
 			nextAreaPosition = position;
 			ChangeAreaFlag = true;
 			UseDefaultAreaPos = false;
-            Audio.AudioManager.ClearAmbientSounds();
+			Audio.AudioManager.ClearAmbientSounds();
 		}
 
 		private bool ChangeAreaFlag = false;
@@ -680,7 +680,7 @@ namespace Project_blob.GameState
 						physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.LeftTriggerValue;
 					}
 				}
-				
+
 				//InputHandler.SetVibration(MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f), 0f);
 
 				if (InputHandler.IsActionPressed(Actions.ChangeCamera))
@@ -694,9 +694,9 @@ namespace Project_blob.GameState
 					{
 						CurCamera = CameraType.chase;
 						CameraManager.getSingleton.SetActiveCamera("chase");
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).DesiredPosition = theBlob.getCenter();
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Reset();
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).DesiredPosition = theBlob.getCenter();
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Reset();
 					}
 				}
 				// Quick Torque
@@ -757,12 +757,6 @@ namespace Project_blob.GameState
 					CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
 
 					CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
-
-					if (OrientCamera && physics.Player.Touching)
-					{
-						CameraManager.getSingleton.ActiveCamera.Up = physics.Player.Normal;
-					}
-
 				}
 				else if (CurCamera == CameraType.chase)
 				{
@@ -774,56 +768,56 @@ namespace Project_blob.GameState
 
 
 
-					
 
-                    //Replaced with Smart camera event triggers, as LastCollision.getMaterial is unreliable
-                    //if (physics.Player.Touching)
-                    //{
-                    //    lock (theBlob)
-                    //    {
-                    //        foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
-                    //        {
-                    //            if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
-                    //            {
-                    //                lastClimbCollision = gameTime.TotalGameTime.Seconds;
-                    //                climbing = true;
-                    //                ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
-                    //                climbNormal = p.LastCollision.Normal;
-                    //                break;
-                    //            }
-                    //        }
-                    //    }
-                    //}
 
-                    //if (gameTime.TotalGameTime.Seconds - lastClimbCollision > 1.5)
-                    //{
-                    //    climbing = false;
-                    //    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
-                    //}
-                  
+					//Replaced with Smart camera event triggers, as LastCollision.getMaterial is unreliable
+					//if (physics.Player.Touching)
+					//{
+					//    lock (theBlob)
+					//    {
+					//        foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
+					//        {
+					//            if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
+					//            {
+					//                lastClimbCollision = gameTime.TotalGameTime.Seconds;
+					//                climbing = true;
+					//                ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
+					//                climbNormal = p.LastCollision.Normal;
+					//                break;
+					//            }
+					//        }
+					//    }
+					//}
+
+					//if (gameTime.TotalGameTime.Seconds - lastClimbCollision > 1.5)
+					//{
+					//    climbing = false;
+					//    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
+					//}
+
 					if (blob_Climbing)
 					{
-                        lock (theBlob)
-                        {
-                            foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
-                            {
-                                if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
-                                {
-                                    if(((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal != p.LastCollision.Normal)
-                                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = p.LastCollision.Normal;
-                                    break;
-                                }
-                            }
-                        }
-                        
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
+						lock (theBlob)
+						{
+							foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
+							{
+								if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
+								{
+									if (((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal != p.LastCollision.Normal)
+										((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = p.LastCollision.Normal;
+									break;
+								}
+							}
+						}
+
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
-						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
+						//((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
 					}
 					else
 					{
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = Vector3.Zero;
-                        ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = Vector3.Zero;
+						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
 						Vector3 blobVelocity = theBlob.getAverageVelocity();
 						if ((blobVelocity.Y < 1f && blobVelocity.Y > -1) && (Math.Abs(blobVelocity.X) > 1 || Math.Abs(blobVelocity.Z) > 1))
 							startCameraFollow = true;
@@ -834,7 +828,7 @@ namespace Project_blob.GameState
 								((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = blobVelocity;
 
 							((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
-							((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
+							//((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
 						}
 					}
 
@@ -842,6 +836,12 @@ namespace Project_blob.GameState
 					//distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 					//cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 				}
+
+				if (OrientCamera && physics.Player.Touching)
+				{
+					CameraManager.getSingleton.ActiveCamera.Up = physics.Player.Normal;
+				}
+
 				if (currentArea.Display.SkyBox != null)
 				{
 					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(CameraManager.getSingleton.ActiveCamera.Position);
@@ -861,10 +861,10 @@ namespace Project_blob.GameState
 
 #if DEBUG
 
-                if (InputHandler.IsKeyPressed(Keys.U))
-                {
-                    physics.Player.Dead = true;
-                }
+				if (InputHandler.IsKeyPressed(Keys.U))
+				{
+					physics.Player.Dead = true;
+				}
 
 				if (InputHandler.IsKeyPressed(Keys.R))
 				{
@@ -1112,7 +1112,7 @@ namespace Project_blob.GameState
 			//Level Models
 			currentArea.Display.Draw(ScreenManager.GraphicsDevice, theBlob);
 
-			
+
 #if TIMED
 			drawTime.Stop();
 #endif
@@ -1214,20 +1214,20 @@ namespace Project_blob.GameState
 
 			spriteBatch.DrawString(font, m_TextEventString, new Vector2(0, 0), Color.Black);
 
-			spriteBatch.Draw(gaugeLine, new Rectangle(20,75,gaugeLine.Width, 400), Color.White);
+			spriteBatch.Draw(gaugeLine, new Rectangle(20, 75, gaugeLine.Width, 400), Color.White);
 
 			spriteBatch.Draw(gaugeLine, new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 30, 75, gaugeLine.Width, 400), Color.White);
 
-            if (default_sticky)
-                spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + (physics.Player.Traction.Target * 375)), Color.White);
-            else
-                spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + ((1 - physics.Player.Traction.Target) * 375)), Color.White);
+			if (default_sticky)
+				spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + (physics.Player.Traction.Target * 375)), Color.White);
+			else
+				spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + ((1 - physics.Player.Traction.Target) * 375)), Color.White);
 
-            if(default_firm)
-			    spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + (physics.Player.Resilience.Target * 375)), Color.White);
-            else
-                spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + ((1 - physics.Player.Resilience.Target) * 375)), Color.White);
-            
+			if (default_firm)
+				spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + (physics.Player.Resilience.Target * 375)), Color.White);
+			else
+				spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + ((1 - physics.Player.Resilience.Target) * 375)), Color.White);
+
 			Rectangle topRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 125, 10, 125, 75);
 			Rectangle bottomRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 75, 475, 75, 50);
 			if (default_firm)
@@ -1241,7 +1241,7 @@ namespace Project_blob.GameState
 				spriteBatch.Draw(soft, bottomRight, Color.White);
 			}
 
-			
+
 			Rectangle topleft = new Rectangle(0, 10, 125, 75);
 			Rectangle bottomLeft = new Rectangle(0, 475, 75, 50);
 			if (default_sticky)
@@ -1255,7 +1255,7 @@ namespace Project_blob.GameState
 				spriteBatch.Draw(slick, bottomLeft, Color.White);
 			}
 
-            spriteBatch.DrawString(font, (end - DateTime.Now).ToString() , new Vector2(500, 566), Color.White);
+			spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
 #endif
 			spriteBatch.End();
 
@@ -1266,7 +1266,7 @@ namespace Project_blob.GameState
 		}
 
 #if DEBUG
-        private readonly DateTime end = new DateTime(2008, 5, 21, 20, 0, 0);
+		private readonly DateTime end = new DateTime(2008, 5, 21, 20, 0, 0);
 #endif
 	}
 }
