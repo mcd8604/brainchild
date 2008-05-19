@@ -104,7 +104,8 @@ namespace OctreeCulling
                                     //Create new frustum from portal
 									if (type == ContainmentType.Contains)
 									{
-										newFrustum = CreatePortalFrustum(portal);
+                                        newFrustum = CreateClippedPortalFrustum(portal);
+                                        //newFrustum = CreatePortalFrustum(portal);
 										//Frustum newFrustum = CreatePortalFrustum(portal);
 									}
 									else
@@ -188,8 +189,9 @@ namespace OctreeCulling
 									BoundingFrustum newFrustum;
 									if (type == ContainmentType.Contains)
 									{
+                                        newFrustum = CreateClippedPortalFrustum(portal);
 										//Create new frustum from portal
-										newFrustum = CreatePortalFrustum(portal);
+                                        //newFrustum = CreatePortalFrustum(portal);
 										//Frustum newFrustum = CreatePortalFrustum(portal);
 									}
 									else
@@ -492,11 +494,32 @@ namespace OctreeCulling
 
 		private BoundingFrustum CreateClippedPortalFrustum(Portal portal)
 		{
+            Vector3 nearDistance = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
 			BoundingBox box = portal.GetBoundingBoxTransformed();
 			Vector3 min = Vector3.Transform(box.Min, CameraManager.getSingleton.GetCamera("test").View);
 			Vector3 max = Vector3.Transform(box.Max, CameraManager.getSingleton.GetCamera("test").View);
 
-			return CameraManager.getSingleton.GetCamera("test").Frustum;
+            if(min.X > max.X)
+            {
+                float temp = max.X;
+                max.X = min.X;
+                min.X = temp;
+            }
+
+            float scaleX = (max.X - min.X) / 2;
+            float scaleY = (max.Y - min.Y) / 2;
+
+            Matrix projection = Matrix.CreatePerspectiveOffCenter(-scaleX, scaleX, -scaleY, scaleY,
+                nearDistance.Length(),
+                CameraManager.getSingleton.GetCamera("test").FarPlane);
+
+            Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
+                portal.Position, Vector3.Up);
+
+            BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
+
+            return newFrustum;
+            //return CameraManager.getSingleton.GetCamera("test").Frustum;
 
 
 			//Vector3 nearDistance = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
