@@ -1175,8 +1175,7 @@ namespace Project_blob.GameState
 
 			spriteBatch.DrawString(font, "Phys(Min): " + DEBUG_MinPhys, new Vector2(320, 100), Color.White);
 			spriteBatch.DrawString(font, "Draw(Min): " + DEBUG_MinDraw, new Vector2(320, 130), Color.White);
-#endif
-#endif
+
 			if (physics.Player != null)
 			{
 				if (physics.Player.Resilience.Target < 0.33)
@@ -1204,6 +1203,9 @@ namespace Project_blob.GameState
 					spriteBatch.DrawString(font, "Normal", new Vector2(350, 0), Color.White);
 				}
 			}
+#endif
+#endif
+
 
 			if (paused)
 			{
@@ -1233,12 +1235,12 @@ namespace Project_blob.GameState
 				int lineNum = 0;
 				for (int i = 0; i < m_TextEventString.Length; )
 				{
-					int tempInt = (m_TextEventString.Substring(i, (int)MathHelper.Clamp(screenWidth / 20 - i, 0, m_TextEventString.Length - 1))).LastIndexOf(' ');
+					int tempInt = (m_TextEventString.Substring(i, (int)MathHelper.Clamp(i + screenWidth / 20, 0, m_TextEventString.Length - 1) - i)).LastIndexOf(' ');
 
 					if (tempInt != 0)
 					{
-						temp = m_TextEventString.Substring(i, tempInt - i);
-						i = tempInt;
+						temp = m_TextEventString.Substring(i, tempInt);
+						i += tempInt;
 					}
 					else
 					{
@@ -1247,7 +1249,7 @@ namespace Project_blob.GameState
 					}
 
 					//temp = m_TextEventString.Substring(i, //temp = m_TextEventString.Substring(nextSpace+1, (int)(MathHelper.Clamp(i+screenWidth / 20,0,m_TextEventString.Length - 1))-(nextSpace+1));
-					spriteBatch.DrawString(font, temp, new Vector2(0, lineNum * 20), Color.Black);
+					spriteBatch.DrawString(font, temp, new Vector2(0, lineNum * 30), Color.Black);
 					lineNum++;
 				}
 
@@ -1256,22 +1258,22 @@ namespace Project_blob.GameState
 			{
 				spriteBatch.DrawString(font, m_TextEventString, new Vector2(0, 0), Color.Black);
 			}
-			spriteBatch.Draw(gaugeLine, new Rectangle(20, 75, gaugeLine.Width, 400), Color.White);
+			spriteBatch.Draw(gaugeLine, new Rectangle(20, 105, gaugeLine.Width, 400), Color.White);
 
-			spriteBatch.Draw(gaugeLine, new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 30, 75, gaugeLine.Width, 400), Color.White);
+			spriteBatch.Draw(gaugeLine, new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 30, 105, gaugeLine.Width, 400), Color.White);
 
 			if (default_sticky)
-				spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + (physics.Player.Traction.Target * 375)), Color.White);
+				spriteBatch.Draw(gaugeMark, new Vector2(13, 110 + (physics.Player.Traction.Target * 375)), Color.White);
 			else
-				spriteBatch.Draw(gaugeMark, new Vector2(13, 80 + ((1 - physics.Player.Traction.Target) * 375)), Color.White);
+				spriteBatch.Draw(gaugeMark, new Vector2(13, 110 + ((1 - physics.Player.Traction.Target) * 375)), Color.White);
 
 			if (default_firm)
-				spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + (physics.Player.Resilience.Target * 375)), Color.White);
+				spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 110 + (physics.Player.Resilience.Target * 375)), Color.White);
 			else
-				spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 80 + ((1 - physics.Player.Resilience.Target) * 375)), Color.White);
+				spriteBatch.Draw(gaugeMark, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 40, 110 + ((1 - physics.Player.Resilience.Target) * 375)), Color.White);
 
-			Rectangle topRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 125, 10, 125, 75);
-			Rectangle bottomRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 75, 475, 75, 50);
+			Rectangle topRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 125, 40, 125, 75);
+			Rectangle bottomRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 75, 505, 75, 50);
 			if (default_firm)
 			{
 				spriteBatch.Draw(soft, topRight, Color.White);
@@ -1284,8 +1286,8 @@ namespace Project_blob.GameState
 			}
 
 
-			Rectangle topleft = new Rectangle(0, 10, 125, 75);
-			Rectangle bottomLeft = new Rectangle(0, 475, 75, 50);
+			Rectangle topleft = new Rectangle(0, 40, 125, 75);
+			Rectangle bottomLeft = new Rectangle(0, 505, 75, 50);
 			if (default_sticky)
 			{
 				spriteBatch.Draw(slick, topleft, Color.White);
