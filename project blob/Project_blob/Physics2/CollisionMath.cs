@@ -103,25 +103,25 @@ namespace Physics2
 			//}
 
 
-			/*
-			Vector3 q = i - v2;
-			float qu = Vector3.Dot(q, u);
-			float qv = Vector3.Dot(q, v);
+			
+            //Vector3 q = i - v2;
+            //float qu = Vector3.Dot(q, u);
+            //float qv = Vector3.Dot(q, v);
 
-			//float d = (uv * uv) - (uu * vv);
+            ////float d = (uv * uv) - (uu * vv);
 
-			float sq = ((uv * qv) - (vv * qu)) / d;
+            //float sq = ((uv * qv) - (vv * qu)) / d;
 
-			if (sq < 0f || sq > 1f)
-			{
-				return -1;
-			}
-			float tq = ((uv * qu) - (uu * qv)) / d;
-			if (tq < 0f || tq > 1f)
-			{
-				return -1;
-			}
-			 */
+            //if (sq < 0f || sq > 1f)
+            //{
+            //    return -1;
+            //}
+            //float tq = ((uv * qu) - (uu * qv)) / d;
+            //if (tq < 0f || tq > 1f)
+            //{
+            //    return -1;
+            //}
+			
 
 
 			//if (t > 0.5 || s > 0.5)
@@ -226,25 +226,25 @@ namespace Physics2
 			//}
 
 
-			/*
-			Vector3 q = i - v2;
-			float qu = Vector3.Dot(q, u);
-			float qv = Vector3.Dot(q, v);
+			
+            //Vector3 q = i - v2;
+            //float qu = Vector3.Dot(q, u);
+            //float qv = Vector3.Dot(q, v);
 
-			//float d = (uv * uv) - (uu * vv);
+            ////float d = (uv * uv) - (uu * vv);
 
-			float sq = ((uv * qv) - (vv * qu)) / d;
+            //float sq = ((uv * qv) - (vv * qu)) / d;
 
-			if (sq < 0f || sq > 1f)
-			{
-				return -1;
-			}
-			float tq = ((uv * qu) - (uu * qv)) / d;
-			if (tq < 0f || tq > 1f)
-			{
-				return -1;
-			}
-			 */
+            //if (sq < 0f || sq > 1f)
+            //{
+            //    return -1;
+            //}
+            //float tq = ((uv * qu) - (uu * qv)) / d;
+            //if (tq < 0f || tq > 1f)
+            //{
+            //    return -1;
+            //}
+			
 
 
 			//if (t > 0.5 || s > 0.5)
