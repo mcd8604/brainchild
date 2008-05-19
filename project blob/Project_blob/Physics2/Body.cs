@@ -451,6 +451,11 @@ namespace Physics2
 			}
 		}
 
+		/// <summary>
+		/// This method will be called by physics when something collides with this object.
+		/// This method should not do anything world altering or performance intensive.
+		/// </summary>
+		/// <param name="e"></param>
 		public virtual void onCollision(CollisionEvent e)
 		{
 			if (collisionSound != null)

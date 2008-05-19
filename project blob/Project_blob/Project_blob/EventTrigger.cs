@@ -8,6 +8,9 @@ namespace Project_blob
 {
     public interface EventTrigger
     {
+		/// <summary>
+		/// This method must not do anything world altering or performance intensive.
+		/// </summary>
 		bool PerformEvent(PhysicsPoint p);
 
 		int NumTriggers
