@@ -71,10 +71,6 @@ namespace Physics2
 			switch (mode)
 			{
 				case Modes.Loop:
-					if (useRelativePoints)
-					{
-						int a = 0;
-					}
 					currentFrame = frames[currentIndex];
 					targetFrame = frames[(currentIndex + 1) % frames.Count];
 					break;
@@ -141,10 +137,6 @@ namespace Physics2
 							}
 							break;
 						case Modes.Loop:
-							if (useRelativePoints)
-							{
-								int a = 0;
-							}
 							++currentIndex;
 							if (frames.Count - currentIndex == 0)
 							{
