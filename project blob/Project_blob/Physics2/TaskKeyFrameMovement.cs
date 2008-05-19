@@ -71,6 +71,10 @@ namespace Physics2
 			switch (mode)
 			{
 				case Modes.Loop:
+					if (useRelativePoints)
+					{
+						int a = 0;
+					}
 					currentFrame = frames[currentIndex];
 					targetFrame = frames[(currentIndex + 1) % frames.Count];
 					break;
@@ -107,7 +111,23 @@ namespace Physics2
 
 				float timeDiff = Math.Abs(targetFrame.Time - currentFrame.Time);
 
-				Vector3 newPosition = Vector3.Lerp(currentFrame.Position, targetFrame.Position, MathHelper.Clamp(currentTime / timeDiff, 0, 1));
+				Vector3 newPosition;
+
+				if (useRelativePoints)
+				{
+					if (forward)
+					{
+						newPosition = Vector3.Lerp(currentFrame.Position, targetFrame.Position, MathHelper.Clamp(time / timeDiff, 0, 1)) + b.getCenter();
+					}
+					else
+					{
+						newPosition = b.getCenter() - Vector3.Lerp(targetFrame.Position, currentFrame.Position, MathHelper.Clamp(time / timeDiff, 0, 1));
+					}
+				}
+				else
+				{
+					newPosition = Vector3.Lerp(currentFrame.Position, targetFrame.Position, MathHelper.Clamp(currentTime / timeDiff, 0, 1));
+				}
 
 				if (currentTime > timeDiff)
 				{
@@ -121,6 +141,10 @@ namespace Physics2
 							}
 							break;
 						case Modes.Loop:
+							if (useRelativePoints)
+							{
+								int a = 0;
+							}
 							++currentIndex;
 							if (frames.Count - currentIndex == 0)
 							{
