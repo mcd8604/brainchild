@@ -64,7 +64,7 @@ namespace Physics2
 			}
 		}
 
-		public override void update() { }
+		public override void updatePosition() { }
 
 	}
 }

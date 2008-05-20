@@ -319,10 +319,10 @@ namespace Physics2
 			potentialCenter.Y /= points.Count;
 			potentialCenter.Z /= points.Count;
 
-			foreach (Collidable c in collidables)
-			{
-				c.update();
-			}
+			//foreach (Collidable c in collidables)
+			//{
+			//	c.updatePosition();
+			//}
 
 			// Springs
 			foreach (Spring s in springs)
@@ -362,7 +362,7 @@ namespace Physics2
 
 			foreach (Collidable c in collidables)
 			{
-				c.update();
+				c.updatePosition();
 				boundingBox.expandToInclude(c.getBoundingBox());
 			}
 		}

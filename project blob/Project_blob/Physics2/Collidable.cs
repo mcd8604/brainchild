@@ -92,7 +92,7 @@ namespace Physics2
 			parent.onCollision(e);
 		}
 
-		public abstract void update();
+		public abstract void updatePosition();
 
 	}
 }
