@@ -13,7 +13,7 @@ namespace Audio
 		}
 		public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
 		{
-			string[] audio = System.IO.Directory.GetFiles(@"\\Content\\Audio");
+			string[] audio = System.IO.Directory.GetFiles(@"Content\\Audio");
 			for (int i = audio.Length - 1; i > 0; --i)
 			{
 				audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
