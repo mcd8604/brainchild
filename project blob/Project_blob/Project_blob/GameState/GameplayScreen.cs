@@ -777,12 +777,27 @@ namespace Project_blob.GameState {
 
 					if (blob_Climbing) {
 						lock (theBlob) {
-							foreach (Physics2.PhysicsPoint p in theBlob.getPoints()) {
-								if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY) {
-									if (((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal != p.LastCollision.Normal)
-										((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = p.LastCollision.Normal;
-									break;
+							try
+							{
+								foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
+								{
+									if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
+									{
+										if (((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal != p.LastCollision.Normal)
+											((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = p.LastCollision.Normal;
+										break;
+									}
 								}
+							}
+							catch (Exception e)
+							{
+#if DEBUG
+								Log.Out.WriteLine("Gameplay Screen Exception:");
+#endif
+								Log.Out.WriteLine(e);
+#if DEBUG
+								Log.Out.WriteLine("The above Exception was handled.");
+#endif
 							}
 						}
 

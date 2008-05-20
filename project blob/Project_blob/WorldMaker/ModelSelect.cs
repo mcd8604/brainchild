@@ -24,15 +24,20 @@ namespace WorldMaker {
 			}
 		}*/
 
-		StaticModel m_CurrentModel;
-		public StaticModel CurrentModel {
-			get {
-				return m_CurrentModel;
-			}
-			set {
-				m_CurrentModel = value;
-			}
-		}
+		private bool _editMode;
+
+        StaticModel m_CurrentModel;
+        public StaticModel CurrentModel
+        {
+            get
+            {
+                return m_CurrentModel;
+            }
+            set
+            {
+                m_CurrentModel = value;
+            }
+        }
 
 		/*TextureInfo m_CurrentTexture;
 		public TextureInfo CurrentTexture
@@ -47,9 +52,11 @@ namespace WorldMaker {
 			}
 		}*/
 
-		private string originalModel;
-		private string originalTextureName;
-		//private int originalTextureSort;
+        private StaticModel originalModel;
+        //private string originalTextureName;
+        //private int originalTextureSort;
+
+
 
 		LevelEditor levelEditor;
 		Game1 _gameRef;
@@ -59,6 +66,8 @@ namespace WorldMaker {
 			_gameRef = game;
 
 			levelEditor = p_LE;
+
+			_editMode = editMode;
 
 			modelBox.Items.AddRange(models);
 			textureBox.Items.AddRange(textures);
@@ -86,7 +95,26 @@ namespace WorldMaker {
 				m_CurrentModel.initialize();
 			}
 
-			originalModel = m_CurrentModel.ModelName;
+            if (editMode && _gameRef.ActiveDrawable is StaticModel)
+            {
+                m_CurrentModel = (StaticModel)_gameRef.ActiveDrawable;
+                
+                if (m_CurrentModel.AudioName != null && !m_CurrentModel.AudioName.Equals("none"))
+                {
+                    audioBox.SelectedItem = m_CurrentModel.AudioName;
+                }
+            }
+            else
+            {
+                //string modelName = ((string)(modelBox.Items[0])).Substring(0, ((string)(modelBox.Items[0])).LastIndexOf("."));
+                string modelName = (string)modelBox.Items[0];
+                //string textureName = ((string)(textureBox.Items[0])).Substring(0, ((string)(textureBox.Items[0])).LastIndexOf("."));
+                string textureName = (string)textureBox.Items[0];
+                m_CurrentModel = new StaticModel(string.Empty, modelName, "none", textureName, new List<short>());
+                m_CurrentModel.initialize();
+            }
+
+            originalModel = m_CurrentModel;
 
 			/*if (m_CurrentModel.TextureKey == null)
 			{
@@ -98,13 +126,12 @@ namespace WorldMaker {
 				m_CurrentTexture = m_CurrentModel.TextureKey;
 			}*/
 
-			originalTextureName = m_CurrentModel.TextureName;
-			//originalTextureSort = m_CurrentTexture.SortNumber;
+            //originalTextureName = m_CurrentModel.TextureName;
+            //originalTextureSort = m_CurrentTexture.SortNumber;
 
-			modelBox.SelectedItem = m_CurrentModel.ModelName;// +".xnb";
-			textureBox.SelectedItem = m_CurrentModel.TextureName;// +".xnb";
-			ModelType.SelectedItem = m_CurrentModel.GetType();
-
+            modelBox.SelectedItem = m_CurrentModel.ModelName;
+            textureBox.SelectedItem = m_CurrentModel.TextureName;
+            ModelType.SelectedItem = m_CurrentModel.GetType();
 			ModelName.Text = m_CurrentModel.Name;
 		}
 
@@ -118,6 +145,12 @@ namespace WorldMaker {
 		}
 
 		private void LoadButton_Click(object sender, EventArgs e) {
+			m_CurrentModel.Name = ModelName.Text;
+			if (!_editMode && _gameRef.ActiveArea.Drawables.ContainsKey(m_CurrentModel.Name))
+			{
+				m_CurrentModel.Name = string.Empty;
+				ModelName.Text = string.Empty;
+			}
 			if (!string.IsNullOrEmpty(m_CurrentModel.Name) && !m_CurrentModel.ModelName.Equals("none") && !m_CurrentModel.TextureName.Equals("none")) {
 				/*if (m_CurrentModel.TextureName.Equals("event"))
 				{
@@ -134,8 +167,9 @@ namespace WorldMaker {
 			}
 		}
 
-		private void closeButton_Click(object sender, EventArgs e) {
-			m_CurrentModel.ModelName = originalModel;
+		private void closeButton_Click(object sender, EventArgs e)
+		{
+			m_CurrentModel = originalModel;
 			//m_CurrentModel.TextureKey.TextureName = originalTextureName;
 			//m_CurrentModel.TextureKey.SortNumber = originalTextureSort;
 			this.DialogResult = DialogResult.Cancel;
@@ -150,12 +184,13 @@ namespace WorldMaker {
 			}
 		}
 
-		private void ModelName_TextChanged(object sender, EventArgs e) {
-			m_CurrentModel.Name = ModelName.Text;
-			if (_gameRef.ActiveArea.Drawables.ContainsKey(m_CurrentModel.ModelName)) {
-				m_CurrentModel.ModelName = string.Empty;
-			}
-		}
+        private void ModelName_TextChanged(object sender, EventArgs e)
+        {
+            m_CurrentModel.Name = ModelName.Text;
+            if(!_editMode && _gameRef.ActiveArea.Drawables.ContainsKey(m_CurrentModel.Name)) {
+                m_CurrentModel.Name = string.Empty;
+            }
+        }
 
 		private void audioBox_SelectedIndexChanged(object sender, EventArgs e) {
 			if (!string.IsNullOrEmpty((string)audioBox.SelectedItem)) {
