@@ -37,6 +37,13 @@ namespace Physics2
 			}
 		}
 
+		// temporary??
+		public override Plane PotentialPlane {
+			get {
+				return new Plane(Point1.PotentialPosition, Point2.PotentialPosition, Point3.PotentialPosition);
+			}
+		}
+
 		// temporary?
 		public override Plane NextPlane
 		{
@@ -54,6 +61,13 @@ namespace Physics2
 			}
 		}
 
+		// temporary??
+		public override Vector3 PotentialNormal {
+			get {
+				return new Plane(Point1.PotentialPosition, Point2.PotentialPosition, Point3.PotentialPosition).Normal;
+			}
+		}
+
 		// temporary?
 		public override Vector3 NextNormal
 		{
@@ -61,6 +75,12 @@ namespace Physics2
 			{
 				return new Plane(Point1.NextPosition, Point2.NextPosition, Point3.NextPosition).Normal;
 			}
+		}
+
+		public override void update() {
+			boundingbox.expandToInclude(Point1.PotentialPosition);
+			boundingbox.expandToInclude(Point2.PotentialPosition);
+			boundingbox.expandToInclude(Point3.PotentialPosition);
 		}
 
 		public override void updatePosition()

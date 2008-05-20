@@ -73,30 +73,7 @@ namespace Physics2
 
 		internal void doPhysics(float TotalElapsedSeconds)
 		{
-
 			player.update(TotalElapsedSeconds);
-
-			// not really helping
-			foreach (Body b in bodies)
-			{
-				foreach (PhysicsPoint p in b.points)
-				{
-					if (p.LastCollision != null)
-					{
-
-						float d = p.LastCollision.Plane.D;
-						float d2 = Vector3.Dot(p.LastCollision.Normal, p.CurrentPosition);
-						while ((d + d2) <= 0)
-						{
-							p.CurrentPosition += Vector3.Normalize(p.LastCollision.Normal) * 0.01f;
-							d2 = Vector3.Dot(p.LastCollision.Normal, p.CurrentPosition);
-						}
-
-						p.LastCollision = null;
-
-					}
-				}
-			}
 
 			// Predict potential position
 #if DEBUG
@@ -119,11 +96,59 @@ namespace Physics2
 			DEBUG_NumPoints = PointCount;
 #endif
 
+			// not really helping
+			foreach (Body b in bodies) {
+				foreach (PhysicsPoint p in b.points) {
+					if (p.LastCollision != null) {
+
+						float d = p.LastCollision.PotentialPlane.D;
+						float d2 = Vector3.Dot(p.LastCollision.PotentialNormal, p.CurrentPosition);
+						while ((d + d2) <= 0) {
+							p.CurrentPosition += Vector3.Normalize(p.LastCollision.PotentialNormal) * 0.01f;
+							p.PotentialPosition += Vector3.Normalize(p.LastCollision.PotentialNormal) * 0.01f;
+							d2 = Vector3.Dot(p.LastCollision.PotentialNormal, p.CurrentPosition);
+							//Console.WriteLine("PreBump");
+						}
+
+						//p.LastCollision = null;
+
+					}
+				}
+			}
+
 			// Solve for the 'Actual' potential positions based on force and acceleration
 			foreach (Body b in bodies)
 			{
 				b.SolveForNextPosition(TotalElapsedSeconds);
 			}
+
+			// debug
+			//float debug_dynamicY = 0;
+			//float debug_dynamicY2 = 0;
+			//foreach (Body b in bodies) {
+			//    if (b.collidables.Count > 0 && b.collidables[0] is CollidableTri) {
+			//        debug_dynamicY = b.getCenter().Y;
+			//        debug_dynamicY2 = b.getPotentialCenter().Y;
+			//    }
+			//}
+
+			//int debug_count = 0;
+			//foreach (Body b in bodies) {
+			//    if (b.canCollide()) {
+			//        foreach (PhysicsPoint p in b.points) {
+			//            if (p.PotentialPosition.Y <= debug_dynamicY2) {
+			//                debug_count++;
+			//                if (p.LastCollision != null) {
+			//                    int i = 0;
+			//                }
+			//            }
+			//        }
+			//    }
+			//}
+
+			//if ( debug_count > 0 ) {
+			//    int i = 0;
+			//}
 
 			// Check BoundingBoxes, Find collisions, add to collision list
 			List<CollisionEvent> events = new List<CollisionEvent>();
@@ -170,14 +195,14 @@ namespace Physics2
 				// handle collision, sliding;
 				Vector3 newPosition = e.collisionPoint;
 
-#if DEBUG
-				// Check!!
-				if (newPosition != e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when))
-				{
-					// if this is ever spamming, let me know! - Adam
-					Log.Out.WriteLine("mismatch: " + newPosition + " : " + e.collisionPoint);
-				}
-#endif
+//#if DEBUG
+//                // Check!!
+//                if (newPosition != e.point.CurrentPosition + ((e.point.PotentialPosition - e.point.CurrentPosition) * e.when))
+//                {
+//                    // if this is ever spamming, let me know! - Adam
+//                    Log.Out.WriteLine("mismatch: " + newPosition + " : " + e.collisionPoint);
+//                }
+//#endif
 
 				// bump?
 				//while (s.DotNormal(p.NextPosition) <= 0)
@@ -209,11 +234,14 @@ namespace Physics2
 				{
 					newPosition += Vector3.Normalize(e.collidable.Normal) * 0.01f;
 					d2 = Vector3.Dot(e.collidable.Normal, newPosition);
+					//Console.WriteLine("Bump1");
 				}
 
 
 				// stop point velocity in the direction of the collidable
 				Vector3 CollidableNormal = Vector3.Normalize(e.collidable.Normal);
+
+				//Console.WriteLine(CollidableNormal);
 
 				Vector3 VelocityTransfer = Util.Zero;
 				Vector3 newVelocity = Util.Zero;
@@ -251,7 +279,7 @@ namespace Physics2
 
 				// fix relative velocity to be along surface
 				relativeVelocity = (Vector3.Cross(CollidableNormal, Vector3.Cross(relativeVelocity, CollidableNormal)));
-				// give it a little bump to keep from falling through
+				// give it a little (big) bump to keep from falling through
 				relativeVelocity += CollidableNormal;
 
 				// surface friction !  F = uN
@@ -297,6 +325,7 @@ namespace Physics2
 				{
 					Position += Vector3.Normalize(e.collidable.Normal) * 0.01f;
 					d22 = Vector3.Dot(e.collidable.NextNormal, Position);
+					//Console.WriteLine("Bump2");
 				}
 
 				e.point.NextVelocity = Velocity;
