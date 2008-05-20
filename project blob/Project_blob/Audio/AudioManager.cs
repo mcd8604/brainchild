@@ -287,7 +287,19 @@ namespace Audio
                     soundFX.SetVariable("Distance", (float)Math.Pow(50, 1 / volumeLevel));
                 }
                 soundFX.SetVariable("Volume", soundFXVolume);
-                soundFX.Play();
+                try {
+                    soundFX.Play();
+                } 
+                catch (Exception e) 
+                {
+#if DEBUG
+                    Log.Out.WriteLine("Audio Manager Exception:");
+#endif
+                    Log.Out.WriteLine(e);
+#if DEBUG
+                    Log.Out.WriteLine("The above Exception was handled.");
+#endif
+                }
             }
 		}
 
