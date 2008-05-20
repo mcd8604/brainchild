@@ -1366,7 +1366,7 @@ namespace Project_blob.GameState
 				if (nextString != null)
 				{
 					Vector2 newCenter = center;
-					newCenter.Y += (int)(font.MeasureString(text).Y * 0.5f);
+					newCenter.Y += (int)(font.MeasureString(text).Y * 0.6f);
 					displayText(nextString, newCenter, spriteBatch);
 				}
 				TextMax = Vector2.Max(TextMax, center + font.MeasureString(text) * 0.5f);
