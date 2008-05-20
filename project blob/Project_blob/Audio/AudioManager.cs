@@ -25,7 +25,7 @@ namespace Audio {
 		}
 
 		// Use for adjusting soundFX volume from menu
-		private static float soundFXVolume = 0.0f;
+		private static float soundFXVolume = 100.0f;
 		public static float SoundFXVolume {
 			get { return soundFXVolume; }
 			set { soundFXVolume = value; }

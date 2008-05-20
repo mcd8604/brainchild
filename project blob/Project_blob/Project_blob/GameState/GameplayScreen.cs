@@ -763,7 +763,7 @@ namespace Project_blob.GameState {
 					cam.Position = CameraBody.getCameraPosition();
 
 					cam.Target = theBlob.getCenter();
-				} else if (CurCamera == CameraType.chase) {
+				} else if (cam is ChaseCamera) {
 
 					ChaseCamera chaseCam = ((ChaseCamera)cam) as ChaseCamera;
 
