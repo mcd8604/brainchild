@@ -1258,7 +1258,9 @@ namespace Project_blob.GameState
 			spriteBatch.DrawString(font, "Collidables: " + physics.DEBUG_GetNumCollidables(), new Vector2(500, 0), Color.White);
 			spriteBatch.DrawString(font, "PWR: " + physics.PWR, new Vector2(0, 566), Color.White);
 
-			spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(600, 30), Color.White);
+			spriteBatch.DrawString(font, "Points: " + physics.DEBUG_GetNumPoints(), new Vector2(592, 30), Color.White);
+
+			spriteBatch.DrawString(font, "Drawn: " + SceneManager.getSingleton.Drawn, new Vector2(600, 60), Color.White);
 
 			spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
 

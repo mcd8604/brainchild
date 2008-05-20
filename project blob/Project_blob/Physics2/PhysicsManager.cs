@@ -64,6 +64,8 @@ namespace Physics2
 #if DEBUG
 		public abstract int DEBUG_GetNumCollidables();
 
+		public abstract int DEBUG_GetNumPoints();
+
 		public abstract float PWR
 		{
 			get;
