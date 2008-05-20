@@ -76,6 +76,8 @@ internal static class InputHandler
 		GamePadMap.Add(Actions.MenuAccept, Buttons.A);
 		GamePadMap.Add(Actions.MenuCancel, Buttons.Back);
 		GamePadMap.Add(Actions.MenuCancel, Buttons.B);
+		GamePadMap.Add(Actions.ZoomIn, Buttons.DPadUp);
+		GamePadMap.Add(Actions.ZoomOut, Buttons.DPadDown);
 
 		GamePadMap.Add(Actions.Pause, Buttons.Start);
 	}
