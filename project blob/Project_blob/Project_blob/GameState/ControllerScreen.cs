@@ -49,14 +49,7 @@ namespace Project_blob.GameState
 
         void apply(object sender, EventArgs e)
         {
-            if (viewInvert)
-            {
-                GameplayScreen.cameraInvert = true;
-            } 
-            else
-            {
-                GameplayScreen.cameraInvert = false;
-            }
+            GameplayScreen.cameraInvert = viewInvert;
             setMenuText();
         }
 
