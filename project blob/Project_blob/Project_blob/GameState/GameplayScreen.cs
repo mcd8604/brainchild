@@ -445,11 +445,9 @@ namespace Project_blob.GameState {
 			// TODO: Unload any non ContentManager content here
 		}
 
-		private bool ResetFlag = false;
-
-		public static bool CauseDeath(Body body) {
+        public static bool CauseDeath(Body body) {
 			if (body != null && body.Equals(game.theBlob)) {
-				game.ResetFlag = true;
+                physics.Player.Dead = true;
 				return true;
 			}
 			return false;
@@ -463,7 +461,6 @@ namespace Project_blob.GameState {
 			nextAreaName = area;
 			UseDefaultAreaPos = true;
 			ChangeAreaFlag = true;
-			Audio.AudioManager.ClearAmbientSounds();
 		}
 
 		public void SetChangeArea(string area, Vector3 position) {
@@ -471,15 +468,30 @@ namespace Project_blob.GameState {
 			nextAreaPosition = position;
 			ChangeAreaFlag = true;
 			UseDefaultAreaPos = false;
-			Audio.AudioManager.ClearAmbientSounds();
 		}
 
+        public void SetResetArea()
+        {
+            nextAreaName = Level.GetAreaName(currentArea);
+            ChangeAreaFlag = true;
+            UseDefaultAreaPos = true;
+        }
+
+        public void SetLoadCheckpoint()
+        {
+            LoadCheckpoint = true;
+        }
+
+        private bool LoadCheckpoint = false;
 		private bool ChangeAreaFlag = false;
 		private string nextAreaName;
 		private Vector3 nextAreaPosition = Vector3.Zero;
 		private bool UseDefaultAreaPos = true;
 
-		private void ChangeArea() {
+        private void ChangeArea()
+        {
+            Audio.AudioManager.ClearAmbientSounds();
+
 			currentArea = Level.Areas[nextAreaName];
 
 
@@ -542,8 +554,8 @@ namespace Project_blob.GameState {
 		public override void Update(GameTime gameTime, bool otherScreenHasFocus,
 													   bool coveredByOtherScreen) {
 
-			if (ResetFlag) {
-				ResetFlag = false;
+			if (LoadCheckpoint) {
+				LoadCheckpoint = false;
 				reset();
 			}
 
@@ -567,8 +579,11 @@ namespace Project_blob.GameState {
 
 					if (physics.Player.Dead) {
 						if (deadSet) {
-							if (deadTimer + 1.5 < gameTime.TotalGameTime.Seconds)
-								ScreenManager.AddScreen(new DeathScreen());
+                            if (deadTimer + 1.5 < gameTime.TotalGameTime.Seconds)
+                            {
+                                ScreenManager.AddScreen(new DeathScreen());
+                                deadSet = false;
+                            }
 						} else {
 							deadTimer = gameTime.TotalGameTime.Seconds;
 							deadSet = true;

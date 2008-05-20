@@ -54,7 +54,7 @@ namespace Project_blob
 
         public bool PerformEvent( PhysicsPoint point )
         {
-			return GameplayScreen.physics.Player.Dead = true;
+            return GameplayScreen.CauseDeath(point.ParentBody);
 		}
 	}
 }
