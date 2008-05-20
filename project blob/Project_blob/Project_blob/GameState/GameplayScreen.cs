@@ -58,7 +58,7 @@ namespace Project_blob.GameState {
 		Effect distorterEffect;
 
 		public bool blob_Climbing = false;
-		bool startCameraFollow = false;
+		//bool startCameraFollow = false;
 
 		RenderTarget2D sceneRenderTarget;
 		RenderTarget2D normalDepthRenderTarget;

@@ -319,10 +319,10 @@ namespace Physics2
 			potentialCenter.Y /= points.Count;
 			potentialCenter.Z /= points.Count;
 
-			//foreach (Collidable c in collidables)
-			//{
-			//	c.updatePosition();
-			//}
+			foreach (Collidable c in collidables)
+			{
+				c.update();
+			}
 
 			// Springs
 			foreach (Spring s in springs)
@@ -436,7 +436,6 @@ namespace Physics2
 			if (points.Count > 0)
 			{
 				c.findCollisionsWith(this, ref events);
-
 			}
 		}
 
@@ -460,10 +459,27 @@ namespace Physics2
 						{
 							Vector3 hit;
 							float u = x.didIntersect(p.CurrentPosition, p.PotentialPosition, out hit);
-							if (u > 0 && u < 1)
-							{
+							if (u > 0 && u < 1) {
 								events.Add(new CollisionEvent(p, x, u, hit));
+							} else {
+
+								float d = x.Plane.D;
+								float d2 = Vector3.Dot(x.Normal, p.CurrentPosition);
+
+								float pd = x.PotentialPlane.D;
+								float pd2 = Vector3.Dot(x.PotentialNormal, p.PotentialPosition);
+
+								if (d + d2 > 0 && pd + pd2 <= 0) {
+									//int i = 0;
+									float u2 = x.didIntersect(p.PotentialPosition + x.getVelocity(), p.PotentialPosition - (x.getVelocity() * 0.001f), out hit);
+									if (u2 > 0 && u2 < 1) {
+										events.Add(new CollisionEvent(p, x, u2, hit));
+									} else {
+										//Console.WriteLine(p.PotentialPosition + " " + x.PotentialPlane);
+									}
+								}
 							}
+
 						}
 					}
 				}
@@ -486,7 +502,16 @@ namespace Physics2
 		public virtual Vector3 getVelocity()
 		{
 			// TODO - for task velocity
-			return getAverageVelocity();
+			if (points.Count == 0) {
+				return Util.Zero;
+			}
+
+			Vector3 AvgVel = Util.Zero;
+			foreach (PhysicsPoint px in points) {
+				AvgVel += px.PotentialVelocity;
+			}
+			return AvgVel / points.Count;
+		
 		}
 
 		public IList<Task> getTasks()

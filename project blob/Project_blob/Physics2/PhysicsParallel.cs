@@ -55,7 +55,9 @@ namespace Physics2
 
 			WorkerThread = new System.Threading.Thread(PhysicsBackgroundThread);
 			WorkerThread.IsBackground = true;
+#if DEBUG
 			WorkerThread.Name = "Physics Thread";
+#endif
 			WorkerThread.Priority = System.Threading.ThreadPriority.Normal;
 			WorkerThread.Start();
 		}
@@ -125,22 +127,8 @@ namespace Physics2
 		public override void update(float TotalElapsedSeconds)
 		{
 
-			if (!run)
-			{
-				try
-				{
-					throw new Exception("Update called on Dead Physics");
-				}
-				catch (Exception e)
-				{
-#if DEBUG
-					Log.Out.WriteLine("Physics Exception:");
-#endif
-					Log.Out.WriteLine(e);
-#if DEBUG
-					Log.Out.WriteLine("The above Exception was handled.");
-#endif
-				}
+			if (!run) {
+				throw new Exception("Update called on Dead Physics");
 			}
 
 			if (TotalElapsedSeconds == 0f)
