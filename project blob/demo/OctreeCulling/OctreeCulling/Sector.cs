@@ -494,10 +494,14 @@ namespace OctreeCulling
 
 		private BoundingFrustum CreateClippedPortalFrustum(Portal portal)
 		{
+            /*
             Vector3 nearDistance = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
 			BoundingBox box = portal.GetBoundingBoxTransformed();
 			Vector3 min = Vector3.Transform(box.Min, CameraManager.getSingleton.GetCamera("test").View);
 			Vector3 max = Vector3.Transform(box.Max, CameraManager.getSingleton.GetCamera("test").View);
+            Vector3[] corners = new Vector3[8];
+            Vector3 pt1, pt2, pt3;
+            Plane portalPlane;
 
             if(min.X > max.X)
             {
@@ -506,19 +510,84 @@ namespace OctreeCulling
                 min.X = temp;
             }
 
-            float scaleX = (max.X - min.X) / 2;
-            float scaleY = (max.Y - min.Y) / 2;
+            pt1 = new Vector3(box.Min.X, box.Min.Y, box.Min.Z);
+            pt2 = new Vector3(box.Max.X, box.Min.Y, box.Min.Z);
+            pt3 = new Vector3(box.Max.X, box.Max.Y, box.Min.Z);
+            portalPlane = new Plane(pt1, pt2, pt3);
 
-            Matrix projection = Matrix.CreatePerspectiveOffCenter(-scaleX, scaleX, -scaleY, scaleY,
-                nearDistance.Length(),
-                CameraManager.getSingleton.GetCamera("test").FarPlane);
+            corners = CameraManager.getSingleton.GetCamera("test").Frustum.GetCorners();
+			Vector3 frustumTL, frustumTR, frustumBL, frustumBR;
+			frustumTR = Vector3.Normalize(corners[4] - corners[0]);
+			frustumTL = Vector3.Normalize(corners[5] - corners[1]);
+			frustumBL = Vector3.Normalize(corners[6] - corners[2]);
+			frustumBR = Vector3.Normalize(corners[7] - corners[3]);
 
-            Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
-                portal.Position, Vector3.Up);
+			float tlIntersect, trIntersect, blIntersect, brIntersect;
+			
+			tlIntersect = PlaneIntersectPt(portalPlane, frustumTL);
+			trIntersect = PlaneIntersectPt(portalPlane, frustumTR);
+			blIntersect = PlaneIntersectPt(portalPlane, frustumBL);
+			brIntersect = PlaneIntersectPt(portalPlane, frustumBR);
 
-            BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
+            if (tlIntersect < 0 || trIntersect < 0 || blIntersect < 0 || brIntersect < 0) 
+            {
+                return CameraManager.getSingleton.GetCamera("test").Frustum;
+            } 
+            else 
+            {
+                Vector3 tlIntersectPt, trIntersectPt, blIntersectPt, brIntersectPt;
+                tlIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumTL, tlIntersect);
+                trIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumTR, trIntersect);
+                blIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumBL, blIntersect);
+                brIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumBR, brIntersect);
 
-            return newFrustum;
+                float minX, maxX, minY, maxY;
+                if (trIntersectPt.X < box.Max.X) {
+                    maxX = trIntersectPt.X;
+                } else {
+                    maxX = box.Max.X;
+                }
+
+                if (tlIntersectPt.X > box.Min.X) {
+                    minX = tlIntersectPt.X;
+                } else {
+                    minX = box.Min.X;
+                }
+                if (trIntersectPt.Y < box.Max.Y) {
+                    maxY = trIntersectPt.Y;
+                } else {
+                    maxY = box.Max.Y;
+                }
+
+                if (brIntersectPt.Y > box.Min.Y) {
+                    minY = brIntersectPt.Y;
+                } else {
+                    minY = box.Min.Y;
+                }
+
+                min = new Vector3(minX, minY, pt1.Z);
+                max = new Vector3(maxX, maxY, pt1.Z);
+
+                Vector3 centerPt = Vector3.Divide((max - min), 2);
+                centerPt = min + centerPt;
+
+                float scaleX = (max.X - min.X) / 2;
+                float scaleY = (max.Y - min.Y) / 2;
+
+                Matrix projection = Matrix.CreatePerspectiveOffCenter(-scaleX, scaleX, -scaleY, scaleY,
+                    nearDistance.Length(),
+                    CameraManager.getSingleton.GetCamera("test").FarPlane);
+
+                Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
+                    centerPt, Vector3.Up);
+
+                BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
+
+                return newFrustum;
+            }
+            */
+
+            
             //return CameraManager.getSingleton.GetCamera("test").Frustum;
 
 
@@ -543,7 +612,7 @@ namespace OctreeCulling
 			//    portal.Position, Vector3.Up);
 
 			//BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
-			/*
+			//*
 			Vector3 nearDistance = portal.Position - CameraManager.getSingleton.GetCamera("test").Position;
 			float test1, test2;
 			Plane portalPlane;
@@ -552,18 +621,25 @@ namespace OctreeCulling
 			BoundingBox box = portal.GetBoundingBoxTransformed();
 			test1 = box.Max.X - box.Min.X;
 			test2 = box.Max.Z - box.Min.Z;
+            bool flip = false;
+            bool xAxis = false;
 			
 			if(test1 > test2)
 			{
 				pt1 = new Vector3(box.Min.X, box.Min.Y, box.Min.Z);
 				pt2 = new Vector3(box.Max.X, box.Min.Y, box.Min.Z);
 				pt3 = new Vector3(box.Max.X, box.Max.Y, box.Min.Z);
+                if (nearDistance.Z < 0)
+                    flip = true;
 			}
 			else
 			{
+                xAxis = true;
 				pt1 = new Vector3(box.Min.X, box.Min.Y, box.Min.Z);
 				pt2 = new Vector3(box.Min.X, box.Min.Y, box.Max.Z);
 				pt3 = new Vector3(box.Min.X, box.Max.Y, box.Max.Z);
+                if (nearDistance.X > 0)
+                    flip = true;
 			}
 			portalPlane = new Plane(pt1, pt2, pt3);
 			
@@ -581,10 +657,9 @@ namespace OctreeCulling
 			blIntersect = PlaneIntersectPt(portalPlane, frustumBL);
 			brIntersect = PlaneIntersectPt(portalPlane, frustumBR);
 
-			if (tlIntersect < 0 || trIntersect < 0 || blIntersect < 0 || brIntersect < 0)
-			{
-				return CameraManager.getSingleton.GetCamera("test").Frustum;
-			}
+            if (tlIntersect < 0 || trIntersect < 0 || blIntersect < 0 || brIntersect < 0) {
+                return CameraManager.getSingleton.GetCamera("test").Frustum;
+            }
 			else
 			{
 				Vector3 tlIntersectPt, trIntersectPt, blIntersectPt, brIntersectPt;
@@ -593,6 +668,85 @@ namespace OctreeCulling
 				blIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumBL, blIntersect);
 				brIntersectPt = CameraManager.getSingleton.GetCamera("test").Position + Vector3.Multiply(frustumBR, brIntersect);
 
+                if (flip) 
+                {
+                    Vector3 temp = tlIntersectPt;
+                    tlIntersectPt = trIntersectPt;
+                    trIntersectPt = temp;
+                    temp = blIntersectPt;
+                    blIntersectPt = brIntersectPt;
+                    brIntersectPt = temp;
+                }
+                float minX, maxX, minY, maxY;
+                Vector3 min, max;
+                float scaleX, scaleY;
+                if (xAxis) {
+                    if (trIntersectPt.Z < box.Max.Z) {
+                        maxX = trIntersectPt.Z;
+                    } else {
+                        maxX = box.Max.Z;
+                    }
+
+                    if (tlIntersectPt.Z > box.Min.Z) {
+                        minX = tlIntersectPt.Z;
+                    } else {
+                        minX = box.Min.Z;
+                    }
+                    
+                    max.X = trIntersectPt.X;
+                    max.Z = maxX;
+                    min.X = trIntersectPt.X;
+                    min.Z = minX;
+
+                    scaleX = (max.Z - min.Z) / 2;
+                    
+                } else {
+                    if (trIntersectPt.X < box.Max.X) {
+                        maxX = trIntersectPt.X;
+                    } else {
+                        maxX = box.Max.X;
+                    }
+
+                    if (tlIntersectPt.X > box.Min.X) {
+                        minX = tlIntersectPt.X;
+                    } else {
+                        minX = box.Min.X;
+                    }
+
+                    max.X = maxX;
+                    max.Z = trIntersectPt.Z;
+                    min.X = minX;
+                    min.Z = trIntersectPt.Z;
+
+                    scaleX = (max.X - min.X) / 2;
+                }
+
+                if (trIntersectPt.Y < box.Max.Y || tlIntersectPt.Y < box.Max.Y) {
+                    if (tlIntersectPt.Y < trIntersectPt.Y) {
+                        maxY = tlIntersectPt.Y;
+                    } else {
+                        maxY = trIntersectPt.Y;
+                    }
+                } else {
+                    maxY = box.Max.Y;
+                }
+
+                if (brIntersectPt.Y > box.Min.Y || blIntersectPt.Y > box.Min.Y) {
+                    if (blIntersectPt.Y > brIntersectPt.Y) {
+                        minY = blIntersectPt.Y;
+                    } else {
+                        minY = brIntersectPt.Y;
+                    }
+                } else {
+                    minY = box.Min.Y;
+                }
+
+                max.Y = maxY;
+                min.Y = minY;
+
+                scaleY = (max.Y - min.Y) / 2;
+
+                /*
 				float minX, maxX, minY, maxY;
 				if (nearDistance.Z < 0)
 				{
@@ -652,25 +806,26 @@ namespace OctreeCulling
 				{
 					minY = box.Min.Y;
 				}
-
-				Vector3 min, max;
-
-				min = new Vector3(minX, minY, pt1.Z);
-				max = new Vector3(maxX, maxY, pt1.Z);
+                 * */
+                //min = new Vector3(minX, minY, pt1.Z);
+                //max = new Vector3(maxX, maxY, pt1.Z);
 
 				Vector3 centerPt = Vector3.Divide((max - min), 2);
 				centerPt = min + centerPt;
 				//nearDistance = centerPt - CameraManager.getSingleton.GetCamera("test").Position;
 
-				float minScaleX, maxScaleX, minScaleY, maxScaleY;
-				maxScaleX = (max.X - min.X) / 2;
-				minScaleX = -maxScaleX;
-				maxScaleY = (max.Y - min.Y) / 2;
-				minScaleY = -maxScaleY;
+				
+                //maxScaleX = (max.X - min.X) / 2;
+                //minScaleX = -maxScaleX;
+                //maxScaleY = (max.Y - min.Y) / 2;
+                //minScaleY = -maxScaleY;
 
-				Matrix projection = Matrix.CreatePerspectiveOffCenter(minScaleX, maxScaleX, minScaleY, maxScaleY,
+				Matrix projection = Matrix.CreatePerspectiveOffCenter(-scaleX, scaleX, -scaleY, scaleY,
 					nearDistance.Length(), //centerPt.Length(),
 					CameraManager.getSingleton.GetCamera("test").FarPlane);
+                //Matrix projection = Matrix.CreatePerspectiveOffCenter(minScaleX, maxScaleX, minScaleY, maxScaleY,
+                //    nearDistance.Length(), //centerPt.Length(),
+                //    CameraManager.getSingleton.GetCamera("test").FarPlane);
 
 				Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.GetCamera("test").Position,
 					centerPt, Vector3.Up);
@@ -679,7 +834,7 @@ namespace OctreeCulling
 
 				return newFrustum;
 			}
-			 * */
+			 //* */
 		}
 
         private float PlaneIntersectPt(Plane p, Vector3 ray)
