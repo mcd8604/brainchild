@@ -21,6 +21,8 @@ namespace Project_blob.GameState
 	{
 		SpriteBatch spriteBatch;
 
+		public bool WinFlag = false;
+
 		//float lastClimbCollision = 0;
 
 		Model blobModel;
@@ -83,6 +85,8 @@ namespace Project_blob.GameState
 		Vector4 lightPosition;
 
 		public static PhysicsManager physics;
+
+		internal static HighScores HighScoreManager = new HighScores();
 
 		//Vector2 cameraOffset = new Vector2();
 
@@ -766,6 +770,7 @@ namespace Project_blob.GameState
 					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
 					if (CameraManager.getSingleton.ActiveCamera is CinematicCamera && ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
 					{
+						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).currentIndex = 0;
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
 						CurCamera = CameraType.follow;
 						CameraManager.getSingleton.SetActiveCamera("default");
@@ -1132,7 +1137,14 @@ namespace Project_blob.GameState
 					physics.Player.Volume.Target = 0.5f;
 				}
 #endif
-
+				if (WinFlag)
+				{
+					float playerTime = GameplayScreen.physics.Time;
+					WinScreen tempWin = new WinScreen(GameplayScreen.physics.Time);
+					GameState.GameScreen.ScreenManager.AddScreen(tempWin);
+					tempWin.CheckForNewHighScore();
+					WinFlag = false;
+				}
 
 			}
 		}

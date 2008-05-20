@@ -276,6 +276,7 @@ namespace Project_blob
 				temp.Add(p_Drawable);
 				drawable_List_Drawn[p_Drawable.GetTextureKey()] = temp;
 			}*/
+
             if (!m_DrawList[p_Drawable.GetTextureID()].Contains(p_Drawable))
                 m_DrawList[p_Drawable.GetTextureID()].Add(p_Drawable);
 #if DEBUG

@@ -82,6 +82,7 @@
     <Compile Include="EventWin.cs" />
     <Compile Include="GameState\DeathScreen.cs" />
     <Compile Include="GameState\EndScreen.cs" />
+    <Compile Include="GameState\NewHighScoreScreen.cs" />
     <Compile Include="HighScores.cs" />
     <Compile Include="TaskTypeEditor.cs" />
     <Compile Include="ModelSelectionEditor.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Tri.cs" />
     <Compile Include="TriggerBody.cs" />
     <Compile Include="WarpEvent.cs" />
+    <Compile Include="WinScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

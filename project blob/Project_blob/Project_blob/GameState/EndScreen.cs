@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob.GameState
 {
 	class EndScreen : MenuScreen
 	{
+
 		public EndScreen(String p_message)
 			: base(p_message)
 		{
@@ -15,7 +17,7 @@ namespace Project_blob.GameState
 			// Create our menu entries.
 			MenuEntry ReplayLevel = new MenuEntry("Replay Level");
 			MenuEntry Continue = new MenuEntry("Continue");
-
+			
 			// Hook up menu event handlers.
 			ReplayLevel.Selected += ReplayLevelSelected;
 			Continue.Selected += OnCancel;
@@ -36,7 +38,6 @@ namespace Project_blob.GameState
 		public override void Draw(GameTime gameTime)
 		{
 			ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
-
 			base.Draw(gameTime);
 		}
 	}

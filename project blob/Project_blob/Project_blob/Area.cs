@@ -29,6 +29,8 @@ namespace Project_blob
             }
         }
 
+		public string[] BestTimes = new string[10];
+
 		private float m_TimeLimit = -1f;
 		public float TimeLimit
 		{

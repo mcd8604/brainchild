@@ -180,12 +180,13 @@ namespace Project_blob
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			foreach (GameScreen screen in screens)
+			//foreach (GameScreen screen in screens)
+			for(int i = 0; i < screens.Count; i++)
 			{
-				if (screen.ScreenState == ScreenState.Hidden)
+				if (screens[i].ScreenState == ScreenState.Hidden)
 					continue;
 
-				screen.Draw(gameTime);
+				screens[i].Draw(gameTime);
 			}
 
 			base.Draw(gameTime);
