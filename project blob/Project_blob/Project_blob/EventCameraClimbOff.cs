@@ -11,7 +11,7 @@ namespace Project_blob
 
         public bool PerformEvent(Physics2.PhysicsPoint p)
         {
-            GameState.GameplayScreen.game.blob_Climbing = false;
+            //GameState.GameplayScreen.game.blob_Climbing = false;
             return true;
         }
 
