@@ -637,72 +637,89 @@ namespace Project_blob.GameState
 				//camera.Update(gameTime);
 				CameraManager.getSingleton.Update(gameTime);
 
-				if (InputHandler.IsActionPressed(Actions.Pause))
+				if (!(CameraManager.getSingleton.ActiveCamera is CinematicCamera))
 				{
-					PauseMenuScreen pauseMenu = new PauseMenuScreen();
-					ScreenManager.AddScreen(pauseMenu);
+					if (InputHandler.IsActionPressed(Actions.Pause))
+					{
+						PauseMenuScreen pauseMenu = new PauseMenuScreen();
+						ScreenManager.AddScreen(pauseMenu);
 
-					//PlayTime.Stop();
-				}
-				if (InputHandler.IsActionPressed(Actions.Reset))
-				{
-					reset();
+						//PlayTime.Stop();
+					}
+					if (InputHandler.IsActionPressed(Actions.Reset))
+					{
+						reset();
 #if DEBUG && TIMED
-					DEBUG_MaxPhys = -1;
-					DEBUG_MinPhys = -1;
-					DEBUG_MaxDraw = -1;
-					DEBUG_MinDraw = -1;
+						DEBUG_MaxPhys = -1;
+						DEBUG_MinPhys = -1;
+						DEBUG_MaxDraw = -1;
+						DEBUG_MinDraw = -1;
+#endif
+					}
+
+
+					if (InputHandler.IsActionPressed(Actions.ToggleElasticity))
+					{
+						default_firm = !default_firm;
+						if (physics.Player.Resilience.Target <= 0.5f)
+						{
+							physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
+						}
+						else
+						{
+							physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
+						}
+					}
+					if (InputHandler.IsActionPressed(Actions.ToggleStickiness))
+					{
+						default_sticky = !default_sticky;
+						if (physics.Player.Cling.Target <= 0.5f)
+						{
+							physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
+						}
+						else
+						{
+							physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
+						}
+					}
+
+					// Xbox Specific Controls:
+					if (InputHandler.ControllerConnected())
+					{
+						if (default_firm)
+						{
+							physics.Player.Resilience.Target = physics.Player.Volume.Target = InputHandler.RightTriggerValue;
+						}
+						else
+						{
+							physics.Player.Resilience.Target = physics.Player.Volume.Target = 1 - InputHandler.RightTriggerValue;
+						}
+						if (default_sticky)
+						{
+							physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;
+						}
+						else
+						{
+							physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.LeftTriggerValue;
+						}
+					}
+
+					//InputHandler.SetVibration(MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f), 0f);
+					// Quick Torque
+
+					Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
+					if (move != Vector2.Zero)
+					{
+						physics.Player.move(move, CameraManager.getSingleton.ActiveCamera.Position);
+					}
+					
+#if !DEBUG
+					if (InputHandler.IsActionPressed(Actions.Jump))
+					{
+						physics.Player.jump();
+					}
 #endif
 				}
-
-
-				if (InputHandler.IsActionPressed(Actions.ToggleElasticity))
-				{
-					default_firm = !default_firm;
-					if (physics.Player.Resilience.Target <= 0.5f)
-					{
-						physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
-					}
-					else
-					{
-						physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
-					}
-				}
-				if (InputHandler.IsActionPressed(Actions.ToggleStickiness))
-				{
-					default_sticky = !default_sticky;
-					if (physics.Player.Cling.Target <= 0.5f)
-					{
-						physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
-					}
-					else
-					{
-						physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
-					}
-				}
-
-				// Xbox Specific Controls:
-				if (InputHandler.ControllerConnected())
-				{
-					if (default_firm)
-					{
-						physics.Player.Resilience.Target = physics.Player.Volume.Target = InputHandler.RightTriggerValue;
-					}
-					else
-					{
-						physics.Player.Resilience.Target = physics.Player.Volume.Target = 1 - InputHandler.RightTriggerValue;
-					}
-					if (default_sticky)
-					{
-						physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;
-					}
-					else
-					{
-						physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.LeftTriggerValue;
-					}
-				}
-
-				//InputHandler.SetVibration(MathHelper.Clamp(physics.ImpactThisFrame - 0.1f, 0f, 1f), 0f);
 
 				if (InputHandler.IsActionPressed(Actions.ChangeCamera))
 				{
@@ -724,13 +741,8 @@ namespace Project_blob.GameState
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Reset();
 					}
 				}
-				// Quick Torque
 
-				Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
-				if (move != Vector2.Zero)
-				{
-					physics.Player.move(move, CameraManager.getSingleton.ActiveCamera.Position);
-				}
+				
 
 				if (CurCamera == CameraType.cinema)
 				{
@@ -1110,12 +1122,7 @@ namespace Project_blob.GameState
 				}
 #endif
 
-#if !DEBUG
-				if (InputHandler.IsActionPressed(Actions.Jump))
-				{
-					physics.Player.jump();
-				}
-#endif
+
 			}
 		}
 
