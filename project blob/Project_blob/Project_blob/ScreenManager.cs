@@ -17,7 +17,7 @@ using Audio;
 
 namespace Project_blob
 {
-	public class ScreenManager : Game
+	internal class ScreenManager : Game
 	{
 		public GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;

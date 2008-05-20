@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob {
+
 	public class EffectManager {
 		// Objects to ensure singleton design
 		private static volatile EffectManager _instance;

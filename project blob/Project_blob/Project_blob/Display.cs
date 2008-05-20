@@ -351,7 +351,7 @@ namespace Project_blob {
 			Draw(graphicsDevice, null);
 		}
 
-		public void Draw(GraphicsDevice graphicsDevice, Blob theBlob) {
+		internal void Draw(GraphicsDevice graphicsDevice, Blob theBlob) {
 			RenderState renderState = graphicsDevice.RenderState;
 
 			renderState.AlphaBlendEnable = false;

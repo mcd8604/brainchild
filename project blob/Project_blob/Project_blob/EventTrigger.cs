@@ -10,7 +10,7 @@ namespace Project_blob
     {
 		/// <summary>
 		/// This method must not do anything world altering or performance intensive.
-		/// What is 'anything world altering'?
+		/// Any events queued up after this will still fire, and will be expected the world not to be destroyed.
 		/// </summary>
 		bool PerformEvent(PhysicsPoint p);
 
