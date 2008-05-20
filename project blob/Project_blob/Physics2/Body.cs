@@ -14,7 +14,7 @@ namespace Physics2
 		internal Body parentBody = null;
 		internal IList<Body> childBodies = new List<Body>();
 
-		internal AxisAlignedBoundingBox boundingBox = null;
+		protected internal AxisAlignedBoundingBox boundingBox = null;
 
 		internal Vector3 center;
 		internal Vector3 potentialCenter;
