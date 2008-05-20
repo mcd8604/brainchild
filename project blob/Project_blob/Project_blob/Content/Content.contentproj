@@ -478,6 +478,11 @@
       <Name>woodCollision</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="MenuSprites\Credits.png">
+      <Name>Credits</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Textures\backdrop.png">
       <Name>backdrop</Name>
       <Importer>TextureImporter</Importer>
