@@ -348,7 +348,7 @@ namespace Project_blob
 							}
                             //TODO: create 12 collidables from b 
                         }
-                        else if (dm.CollisionType == CollisionTypes.BoundingBox)
+                        else if (dm.CollisionType == CollisionTypes.None)
                         {
                             AxisAlignedBoundingBox b = new AxisAlignedBoundingBox();
                             foreach (VertexPositionNormalTexture v in vertices)
