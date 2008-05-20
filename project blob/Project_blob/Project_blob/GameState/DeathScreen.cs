@@ -30,13 +30,18 @@ namespace Project_blob.GameState
 			GameplayScreen.game.SetChangeArea(Level.GetAreaName(GameplayScreen.currentArea));
 			//GameplayScreen.physics.Player.Dead = false;
 			GameplayScreen.deadSet = false;
-			OnCancel();
+			base.OnCancel();
 		}
 
 		void ExitToHubSelected(object sender, EventArgs e)
 		{
-			GameplayScreen.game.SetChangeArea("HubWorld");
 			OnCancel();
+		}
+
+		protected override void OnCancel()
+		{
+			GameplayScreen.game.SetChangeArea("HubWorld");
+			base.OnCancel();
 		}
 
 		public override void Draw(GameTime gameTime)
