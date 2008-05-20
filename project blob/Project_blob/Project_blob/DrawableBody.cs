@@ -9,7 +9,7 @@ namespace Project_blob
 	/// <summary>
 	/// This class is intended only to update the VertexBuffer of a model.
 	/// </summary>
-	internal class DrawableBody : Body
+	public class DrawableBody : Body
 	{
 		private StaticModel m_DrawableModel;
 

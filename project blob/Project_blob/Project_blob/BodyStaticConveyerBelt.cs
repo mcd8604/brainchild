@@ -6,7 +6,7 @@ using Physics2;
 
 namespace Project_blob
 {
-	internal class BodyStaticConveyerBelt : Body
+	class BodyStaticConveyerBelt : Body
 	{
 
 		private Vector3 m_Direction;

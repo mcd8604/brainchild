@@ -12,7 +12,7 @@ using Engine;
 
 namespace Project_blob
 {
-    internal class SceneManager
+    public class SceneManager
     {
         private static volatile SceneManager _instance;
         private static object _syncRoot = new Object();
@@ -47,7 +47,7 @@ namespace Project_blob
         }
 
         private Octree _octree;
-        internal Octree Octree
+        public Octree Octree
         {
             get { return _octree; }
             set { _octree = value; }
@@ -67,14 +67,14 @@ namespace Project_blob
         }
 
         private Display _display = null;
-        internal Display Display
+        public Display Display
         {
             get { return _display; }
             set { _display = value; }
         }
 
         private PortalScene _portalScene;
-        internal PortalScene PortalScene
+        public PortalScene PortalScene
         {
             get { return _portalScene; }
             set { _portalScene = value; }

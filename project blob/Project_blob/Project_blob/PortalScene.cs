@@ -7,7 +7,7 @@ using Engine;
 
 namespace Project_blob
 {
-    internal class PortalScene
+    public class PortalScene
     {
         private SortedDictionary<int, Sector> _sectors;
         public SortedDictionary<int, Sector> Sectors

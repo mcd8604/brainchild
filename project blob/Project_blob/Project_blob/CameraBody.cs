@@ -5,8 +5,7 @@ using Microsoft.Xna.Framework;
 using Physics2;
 
 namespace Project_blob {
-
-	internal class CameraBody : Body {
+	class CameraBody : Body {
 
 		PhysicsPoint point;
 		TaskCamera task;

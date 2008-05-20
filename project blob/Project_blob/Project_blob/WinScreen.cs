@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_blob.GameState {
-	internal class WinScreen : EndScreen {
+	class WinScreen : EndScreen {
 
 		float m_Time;
 		bool addedScore = false;
