@@ -63,12 +63,13 @@ namespace Physics2
 			}
 		}
 
-		public override void update()
+		public override void updatePosition()
 		{
 			boundingbox.clear();
 			boundingbox.expandToInclude(Point1.CurrentPosition);
 			boundingbox.expandToInclude(Point2.CurrentPosition);
 			boundingbox.expandToInclude(Point3.CurrentPosition);
+
 
 			m_Plane = new Plane(Point1.CurrentPosition, Point2.CurrentPosition, Point3.CurrentPosition);
 		}
