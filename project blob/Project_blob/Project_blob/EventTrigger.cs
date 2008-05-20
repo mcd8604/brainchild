@@ -25,5 +25,11 @@ namespace Project_blob
 			get;
 			set;
 		}
+
+        float CoolDown
+        {
+            get;
+            set;
+        }
     }
 }

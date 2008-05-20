@@ -41,6 +41,19 @@ namespace Project_blob
             }
         }
 
+        private float m_CoolDown = 1f;
+        public float CoolDown
+        {
+            get
+            {
+                return m_CoolDown;
+            }
+            set
+            {
+                m_CoolDown = value;
+            }
+        }
+
         #endregion
     }
 }

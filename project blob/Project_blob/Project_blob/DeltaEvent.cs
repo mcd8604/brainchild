@@ -34,7 +34,20 @@ namespace Project_blob
 			{
 				m_Solid = value;
 			}
-		}
+        }
+
+        private float m_CoolDown = 1f;
+        public float CoolDown
+        {
+            get
+            {
+                return m_CoolDown;
+            }
+            set
+            {
+                m_CoolDown = value;
+            }
+        }
 
 		private Vector3 deltaPosition;
 		public Vector3 DeltaPosition
