@@ -61,6 +61,16 @@
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\stamp4x2high.fbx">
+      <Name>stamp4x2high</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\stamp4x4high.fbx">
+      <Name>stamp4x4high</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\chairBox.fbx">
       <Name>chairBox</Name>
       <Importer>FbxImporter</Importer>
