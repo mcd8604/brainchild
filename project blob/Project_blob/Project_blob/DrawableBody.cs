@@ -13,10 +13,13 @@ namespace Project_blob
 	{
 		private StaticModel m_DrawableModel;
 
-		public DrawableBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, StaticModel p_Model)
+        private Dictionary<int, PhysicsPoint> pointMap;
+
+        public DrawableBody(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, StaticModel p_Model, Dictionary<int, PhysicsPoint> p_pointMap)
 			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks, false)
 		{
 			m_DrawableModel = p_Model;
+            pointMap = p_pointMap;
 		}
 
 		public override void update(float TotalElapsedSeconds)
@@ -29,7 +32,7 @@ namespace Project_blob
 		{
 			for (int i = 0; i < m_DrawableModel.Vertices.Length; ++i)
 			{
-				m_DrawableModel.Vertices[i].Position = points[i].ExternalPosition;
+				m_DrawableModel.Vertices[i].Position = pointMap[i].ExternalPosition;
 			}
 		}
 
