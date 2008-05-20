@@ -188,19 +188,7 @@ namespace WorldMaker
 		{
 			if (areaListBox.SelectedIndex != -1)
 			{
-				/*string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
-				for (int i = 0; i < models.Length; ++i)
-					models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
-
-				string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
-				for (int i = 0; i < textures.Length; ++i)
-					textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);*/
-
-				string[] audio = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Audio");
-				for (int i = 0; i < audio.Length; ++i)
-					audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
-
-				_modelSelect = new ModelSelect(this, ModelManager.GetModelNames(), TextureManager.GetTextureNames(), audio, _gameRef, false);
+				_modelSelect = new ModelSelect(this, ModelManager.GetModelNames(), TextureManager.GetTextureNames(), Audio.AudioManager.getAudioFilenames().ToArray(), _gameRef, false);
 				_modelSelect.ShowDialog();
 				if (_modelSelect.DialogResult == DialogResult.OK && !string.IsNullOrEmpty(_modelSelect.CurrentModel.ModelName))
 				{
@@ -291,19 +279,7 @@ namespace WorldMaker
 			{
 				StaticModel current = (StaticModel)(_gameRef.ActiveArea.GetDrawable(_gameRef.ActiveArea.Display.CurrentlySelected));
 
-				/*string[] models = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Models");
-				for (int i = 0; i < models.Length; ++i)
-					models[i] = models[i].Substring(models[i].LastIndexOf("\\") + 1);
-
-				string[] textures = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Textures");
-				for (int i = 0; i < textures.Length; ++i)
-					textures[i] = textures[i].Substring(textures[i].LastIndexOf("\\") + 1);*/
-
-				string[] audio = System.IO.Directory.GetFiles(System.Environment.CurrentDirectory + "\\Content\\Audio");
-				for (int i = 0; i < audio.Length; ++i)
-					audio[i] = audio[i].Substring(audio[i].LastIndexOf("\\") + 1);
-
-				_modelSelect = new ModelSelect(this, ModelManager.GetModelNames(), TextureManager.GetTextureNames(), audio, _gameRef, true);
+				_modelSelect = new ModelSelect(this, ModelManager.GetModelNames(), TextureManager.GetTextureNames(), Audio.AudioManager.getAudioFilenames().ToArray(), _gameRef, true);
 				_modelSelect.ShowDialog();
 				if (_modelSelect.DialogResult == DialogResult.OK && !string.IsNullOrEmpty(_modelSelect.CurrentModel.ModelName))
 				{
