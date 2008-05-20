@@ -8,7 +8,7 @@ namespace Project_blob
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-		static void Main(string[] args)
+		internal static void Main(string[] args)
 		{
 #if FINAL
 			using ( new Log() )

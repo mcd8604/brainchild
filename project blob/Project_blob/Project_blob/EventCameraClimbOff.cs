@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Project_blob
 {
-    [Serializable]
-    class OffCameraClimbEvent : EventTrigger
+    [Obsolete]
+    internal class OffCameraClimbEvent : EventTrigger
     {
         #region EventTrigger Members
 

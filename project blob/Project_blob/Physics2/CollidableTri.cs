@@ -96,18 +96,22 @@ namespace Physics2
 
 		public override void ApplyForce(Vector3 at, Vector3 f)
 		{
-			// TODO
-			//Point1.ForceNextFrame += f / 3f;
-			//Point2.ForceNextFrame += f / 3f;
-			//Point3.ForceNextFrame += f / 3f;
+			if (parent.affectedByCollisions()) {
+				// TODO
+				Point1.ForceNextFrame += f / 3f;
+				Point2.ForceNextFrame += f / 3f;
+				Point3.ForceNextFrame += f / 3f;
+			}
 		}
 
 		public override void ImpartVelocity(Vector3 at, Vector3 vel)
 		{
-			// TODO
-			//Point1.NextVelocity += vel / 3f;
-			//Point2.NextVelocity += vel / 3f;
-			//Point3.NextVelocity += vel / 3f;
+			if (parent.affectedByCollisions()) {
+				// TODO
+				Point1.NextVelocity += vel / 3f;
+				Point2.NextVelocity += vel / 3f;
+				Point3.NextVelocity += vel / 3f;
+			}
 		}
 
 	}

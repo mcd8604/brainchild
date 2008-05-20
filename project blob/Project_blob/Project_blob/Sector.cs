@@ -8,7 +8,7 @@ using Engine;
 
 namespace Project_blob
 {
-	public class Sector
+	internal class Sector
 	{
 		private List<Drawable> _sectorObjects;
 		public List<Drawable> SectorObjects

@@ -77,8 +77,6 @@
     <Compile Include="BodyStaticConveyerBelt.cs" />
     <Compile Include="ConveyerBeltStatic.cs" />
     <Compile Include="ConveyorBeltDynamic.cs" />
-    <Compile Include="EventCameraClimb.cs" />
-    <Compile Include="EventCameraClimbOff.cs" />
     <Compile Include="EventWin.cs" />
     <Compile Include="GameState\AudioMenuScreen.cs" />
     <Compile Include="GameState\CreditScreen.cs" />
@@ -110,7 +108,6 @@
     <Compile Include="TypeConverterTexture.cs" />
     <Compile Include="DeathEvent.cs" />
     <Compile Include="DeltaEvent.cs" />
-    <Compile Include="DemoCube.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="DoorModel.cs" />
     <Compile Include="Drawable.cs" />
@@ -119,7 +116,6 @@
     <Compile Include="DynamicModel.cs" />
     <Compile Include="EventInfo.cs" />
     <Compile Include="EventTrigger.cs" />
-    <Compile Include="Frustum.cs" />
     <Compile Include="GameState\ControllerScreen.cs" />
     <Compile Include="GameState\GameplayScreen.cs" />
     <Compile Include="GameState\GameScreen.cs" />
@@ -149,13 +145,10 @@
     <Compile Include="TaskCamera.cs" />
     <Compile Include="TextEvent.cs" />
     <Compile Include="TransitionEvent.cs" />
-    <Compile Include="TriAA.cs" />
     <Compile Include="ModelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="StaticTri.cs" />
     <Compile Include="TextureManager.cs" />
-    <Compile Include="Tri.cs" />
     <Compile Include="TriggerBody.cs" />
     <Compile Include="WarpEvent.cs" />
     <Compile Include="WinScreen.cs" />
