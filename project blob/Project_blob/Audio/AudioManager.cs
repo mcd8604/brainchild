@@ -25,7 +25,7 @@ namespace Audio {
 		}
 
 		// Use for adjusting soundFX volume from menu
-		private static float soundFXVolume = 100.0f;
+		private static float soundFXVolume = 0.0f;
 		public static float SoundFXVolume {
 			get { return soundFXVolume; }
 			set { soundFXVolume = value; }
@@ -83,9 +83,6 @@ namespace Audio {
 			}
 			try {
 				_runAmbience = true;
-				foreach (Sound sound in _ambientSounds) {
-					sound.startSound();
-				}
 				_ambientSoundThread = new System.Threading.Thread(AudioBackgroundThread);
 				_ambientSoundThread.IsBackground = true;
 				_ambientSoundThread.Name = "Ambient Sound Thread";
@@ -108,7 +105,10 @@ namespace Audio {
 				if (!mono && _audioListener != null) {
 					for (int i = 0; i < _ambientSounds.Count; i++) {
 						try {
+							_ambientSounds[i].ensureExistance();
 							_ambientSounds[i].updateAmbient3D(_audioListener);
+							_ambientSounds[i].startSound();
+							_ambientSounds[i].applyVolume(soundFXVolume);
 						} catch (Exception e) {
 #if DEBUG
 							Log.Out.WriteLine("Audio Manager Exception:");
@@ -118,10 +118,10 @@ namespace Audio {
 							Log.Out.WriteLine("The above Exception was handled.");
 #endif
 						}
-						_ambientSounds[i].startSound();
-						update();
+						
 					}
 				}
+				update();
 				System.Threading.Thread.Sleep(50);
 			} while (_runAmbience);
 		}
@@ -220,6 +220,7 @@ namespace Audio {
 				soundFX = _soundBank.GetCue(soundFX.Name);
 				if (_audioListener != null && !mono) {
 					try {
+						
 						soundFX.Apply3D(_audioListener, emitter);
 						soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
 					} catch (Exception e) {
