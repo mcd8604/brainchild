@@ -1362,7 +1362,7 @@ namespace Project_blob.GameState
 			}
 			catch (Exception e)
 			{
-				Log.Out(e);
+				Log.Out.WriteLine(e);
 			}
 		}
 
