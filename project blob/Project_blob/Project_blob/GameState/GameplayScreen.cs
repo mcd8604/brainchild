@@ -15,10 +15,8 @@ using Engine;
 using Physics2;
 using Audio;
 
-namespace Project_blob.GameState
-{
-	public class GameplayScreen : GameScreen
-	{
+namespace Project_blob.GameState {
+	public class GameplayScreen : GameScreen {
 		SpriteBatch spriteBatch;
 
 		public bool WinFlag = false;
@@ -90,16 +88,14 @@ namespace Project_blob.GameState
 
 		//Vector2 cameraOffset = new Vector2();
 
-		public enum CameraType
-		{
+		public enum CameraType {
 			follow,
 			cinema,
 			chase
 		}
 
 		private static string m_TextEventString = "";
-		public static string TextEvent
-		{
+		public static string TextEvent {
 			get { return m_TextEventString; }
 			set { m_TextEventString = value; }
 		}
@@ -131,7 +127,7 @@ namespace Project_blob.GameState
 		float cameraLength = 20f;
 		float playerCamMulti = 0.05f;
 
-        public static bool cameraInvert = false;
+		public static bool cameraInvert = false;
 		bool OrientCamera = false;
 
 		public static Area currentArea;
@@ -140,8 +136,6 @@ namespace Project_blob.GameState
 		System.Diagnostics.Stopwatch physicsTime = new System.Diagnostics.Stopwatch();
 		System.Diagnostics.Stopwatch drawTime = new System.Diagnostics.Stopwatch();
 #endif
-
-		System.Diagnostics.Stopwatch PlayTime = new System.Diagnostics.Stopwatch();
 
 		CameraBody CameraBody;
 
@@ -154,8 +148,7 @@ namespace Project_blob.GameState
 		float DEBUG_MinDraw = -1;
 #endif
 
-		public GameplayScreen()
-		{
+		public GameplayScreen() {
 			game = this;
 			TransitionOnTime = TimeSpan.FromSeconds(1.5);
 			TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -163,10 +156,8 @@ namespace Project_blob.GameState
 			lightPosition = new Vector4(5, 5, 5, 0);
 		}
 
-		private void reset()
-		{
-			if (physics != null)
-			{
+		private void reset() {
+			if (physics != null) {
 				physics.stop();
 			}
 			physics = PhysicsManager.getInstance();
@@ -198,7 +189,7 @@ namespace Project_blob.GameState
 			physics.Player.AirDrift = 0.1f;
 
 			physics.Player.MaxJumpWork = 20;
-			physics.Player.AirJumpWork = 0;
+			physics.Player.AirJumpWork = 20;
 
 			// --------------------
 
@@ -215,12 +206,10 @@ namespace Project_blob.GameState
 			CameraBody = new CameraBody(theBlob);
 			physics.AddBody(CameraBody);
 
-			if (currentArea != null)
-			{
+			if (currentArea != null) {
 				physics.AddBodys(currentArea.getBodies());
 			}
-			if (CameraManager.getSingleton.ActiveCamera is ChaseCamera)
-			{
+			if (CameraManager.getSingleton.ActiveCamera is ChaseCamera) {
 				((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
 				((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).DesiredPosition = theBlob.getCenter();
 				((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Reset();
@@ -231,8 +220,7 @@ namespace Project_blob.GameState
 		/// LoadContent will be called once per game and is the place to load
 		/// all of your content.
 		/// </summary>
-		public override void LoadContent()
-		{
+		public override void LoadContent() {
 			backdrop = ScreenManager.Content.Load<Texture2D>(@"Textures\\backdrop");
 
 			gaugeLine = ScreenManager.Content.Load<Texture2D>(@"UI Sprites\\GaugeLine");
@@ -282,7 +270,6 @@ namespace Project_blob.GameState
 
 			//load default level
 			Level.LoadLevel("FinalLevel", "effects");
-			PlayTime.Reset();
 
 			//List of Static Drawables to add to Scene
 			//List<Drawable> staticDrawables = new List<Drawable>();
@@ -358,16 +345,12 @@ namespace Project_blob.GameState
 #if DEBUG
 			String[] tempArray = new string[Level.Areas.Keys.Count];
 			Level.Areas.Keys.CopyTo(tempArray, 0);
-			using (SelectForm f = new SelectForm(tempArray))
-			{
-				if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-				{
+			using (SelectForm f = new SelectForm(tempArray)) {
+				if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
 					nextAreaName = f.getSelected();
 
 					ChangeArea();
-				}
-				else
-				{
+				} else {
 #endif
 					nextAreaName = "HubWorld";
 					ChangeArea();
@@ -395,8 +378,7 @@ namespace Project_blob.GameState
 		/// Initializes the basic effect (parameter setting and technique selection)
 		/// used for the 3D model.
 		/// </summary>
-		private void InitializeEffect()
-		{
+		private void InitializeEffect() {
 			worldMatrix = Matrix.Identity;
 
 			VertexDeclarationTexture = new VertexDeclaration(ScreenManager.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
@@ -424,8 +406,7 @@ namespace Project_blob.GameState
 
 		}
 
-		public void CreateRenderTargets()
-		{
+		public void CreateRenderTargets() {
 			PresentationParameters pp = ScreenManager.GraphicsDevice.PresentationParameters;
 
 			sceneRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
@@ -460,38 +441,32 @@ namespace Project_blob.GameState
 		/// UnloadContent will be called once per game and is the place to unload
 		/// all content.
 		/// </summary>
-		public override void UnloadContent()
-		{
+		public override void UnloadContent() {
 			// TODO: Unload any non ContentManager content here
 		}
 
 		private bool ResetFlag = false;
 
-		public static bool CauseDeath(Body body)
-		{
-			if (body != null && body.Equals(game.theBlob))
-			{
+		public static bool CauseDeath(Body body) {
+			if (body != null && body.Equals(game.theBlob)) {
 				game.ResetFlag = true;
 				return true;
 			}
 			return false;
 		}
 
-		public static void SetCheckPoint(Vector3 position)
-		{
+		public static void SetCheckPoint(Vector3 position) {
 			game.blobStartPosition = position;
 		}
 
-		public void SetChangeArea(String area)
-		{
+		public void SetChangeArea(String area) {
 			nextAreaName = area;
 			UseDefaultAreaPos = true;
 			ChangeAreaFlag = true;
 			Audio.AudioManager.ClearAmbientSounds();
 		}
 
-		public void SetChangeArea(String area, Vector3 position)
-		{
+		public void SetChangeArea(String area, Vector3 position) {
 			nextAreaName = area;
 			nextAreaPosition = position;
 			ChangeAreaFlag = true;
@@ -504,17 +479,13 @@ namespace Project_blob.GameState
 		private Vector3 nextAreaPosition = Vector3.Zero;
 		private bool UseDefaultAreaPos = true;
 
-		private void ChangeArea()
-		{
+		private void ChangeArea() {
 			currentArea = Level.Areas[nextAreaName];
 
 
-			if (UseDefaultAreaPos)
-			{
+			if (UseDefaultAreaPos) {
 				blobStartPosition = currentArea.StartPosition;
-			}
-			else
-			{
+			} else {
 				blobStartPosition = nextAreaPosition;
 				nextAreaPosition = Vector3.Zero;
 			}
@@ -529,23 +500,23 @@ namespace Project_blob.GameState
 
 			InitializeEffect();
 
-            if (currentArea.CullingStructure == SceneManager.SceneGraphType.Portal) {
-                //Add the Static Drawables to the Octree
-                List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
-                List<Portal> portals = currentArea.Portals;
-                SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
-                //SceneManager.getSingleton.BuildOctree(ref temp);
-                //SceneManager.getSingleton.BuildPortalScene(temp);
-                foreach (Portal p in portals) {
-                    p.CreateBoundingBox();
-                }
-                SceneManager.getSingleton.BuildPortalScene(temp, portals);
-                SceneManager.getSingleton.PortalScene.CurrSector = 1;
-            } else {
-                List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
-                SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Octree;
-                SceneManager.getSingleton.BuildOctree(ref temp);
-            }
+			if (currentArea.CullingStructure == SceneManager.SceneGraphType.Portal) {
+				//Add the Static Drawables to the Octree
+				List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
+				List<Portal> portals = currentArea.Portals;
+				SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
+				//SceneManager.getSingleton.BuildOctree(ref temp);
+				//SceneManager.getSingleton.BuildPortalScene(temp);
+				foreach (Portal p in portals) {
+					p.CreateBoundingBox();
+				}
+				SceneManager.getSingleton.BuildPortalScene(temp, portals);
+				SceneManager.getSingleton.PortalScene.CurrSector = 1;
+			} else {
+				List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
+				SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Octree;
+				SceneManager.getSingleton.BuildOctree(ref temp);
+			}
 
 			currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
 
@@ -554,8 +525,7 @@ namespace Project_blob.GameState
 			reset();
 		}
 
-		public void SetUpCinematicCamera(List<CameraFrame> cameraFrames)
-		{
+		public void SetUpCinematicCamera(List<CameraFrame> cameraFrames) {
 			CinematicCamera cinematicCamera = (CinematicCamera)CameraManager.getSingleton.GetCamera("cinematic");
 			cinematicCamera.Frames = cameraFrames;
 			cinematicCamera.Running = true;
@@ -570,57 +540,46 @@ namespace Project_blob.GameState
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-													   bool coveredByOtherScreen)
-		{
+													   bool coveredByOtherScreen) {
 
-			if (ResetFlag)
-			{
+			if (ResetFlag) {
 				ResetFlag = false;
 				reset();
 			}
 
-			if (ChangeAreaFlag)
-			{
+			if (ChangeAreaFlag) {
 				ChangeAreaFlag = false;
 				ChangeArea();
 			}
 
 			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
-			if (IsActive)
-			{
+			if (IsActive) {
 #if TIMED
 				physicsTime.Reset();
 				physicsTime.Start();
 #endif
-				if (!paused)
-				{
+				if (!paused) {
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
-					if (currentArea.TimeLimit > 0 && currentArea.TimeLimit < physics.Time)
-					{
+					if (currentArea.TimeLimit > 0 && currentArea.TimeLimit < physics.Time) {
 						physics.Player.Dead = true;
 					}
 
-					if (physics.Player.Dead)
-					{
-						if (deadSet)
-						{
+					if (physics.Player.Dead) {
+						if (deadSet) {
 							if (deadTimer + 1.5 < gameTime.TotalGameTime.Seconds)
 								ScreenManager.AddScreen(new DeathScreen());
-						}
-						else
-						{
+						} else {
 							deadTimer = gameTime.TotalGameTime.Seconds;
 							deadSet = true;
 						}
-						
+
 					}
 
 					cartoonEffect.Parameters["blobCenter"].SetValue(theBlob.getCenter());
 					distortEffect.Parameters["blobCenter"].SetValue(new Vector2(theBlob.getCenter().X, theBlob.getCenter().Y));
 
-					if (TextEventHit)
-					{
+					if (TextEventHit) {
 						TextEventHit = false;
 						m_lastTextEvent = gameTime.TotalGameTime.Seconds;
 					}
@@ -640,8 +599,7 @@ namespace Project_blob.GameState
 #if TIMED
 				physicsTime.Stop();
 #endif
-				if (step)
-				{
+				if (step) {
 					paused = true;
 					step = false;
 				}
@@ -650,11 +608,9 @@ namespace Project_blob.GameState
 				//camera.Update(gameTime);
 				CameraManager.getSingleton.Update(gameTime);
 
-				if (!(CameraManager.getSingleton.ActiveCamera is CinematicCamera))
-				{
-					
-					if (InputHandler.IsActionPressed(Actions.Reset))
-					{
+				if (!(CameraManager.getSingleton.ActiveCamera is CinematicCamera)) {
+
+					if (InputHandler.IsActionPressed(Actions.Reset)) {
 						reset();
 #if DEBUG && TIMED
 						DEBUG_MaxPhys = -1;
@@ -665,48 +621,33 @@ namespace Project_blob.GameState
 					}
 
 
-					if (InputHandler.IsActionPressed(Actions.ToggleElasticity))
-					{
+					if (InputHandler.IsActionPressed(Actions.ToggleElasticity)) {
 						default_firm = !default_firm;
-						if (physics.Player.Resilience.Target <= 0.5f)
-						{
+						if (physics.Player.Resilience.Target <= 0.5f) {
 							physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
-						}
-						else
-						{
+						} else {
 							physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
 						}
 					}
-					if (InputHandler.IsActionPressed(Actions.ToggleStickiness))
-					{
+					if (InputHandler.IsActionPressed(Actions.ToggleStickiness)) {
 						default_sticky = !default_sticky;
-						if (physics.Player.Cling.Target <= 0.5f)
-						{
+						if (physics.Player.Cling.Target <= 0.5f) {
 							physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
-						}
-						else
-						{
+						} else {
 							physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
 						}
 					}
 
 					// Xbox Specific Controls:
-					if (InputHandler.ControllerConnected())
-					{
-						if (default_firm)
-						{
+					if (InputHandler.ControllerConnected()) {
+						if (default_firm) {
 							physics.Player.Resilience.Target = physics.Player.Volume.Target = InputHandler.RightTriggerValue;
-						}
-						else
-						{
+						} else {
 							physics.Player.Resilience.Target = physics.Player.Volume.Target = 1 - InputHandler.RightTriggerValue;
 						}
-						if (default_sticky)
-						{
+						if (default_sticky) {
 							physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;
-						}
-						else
-						{
+						} else {
 							physics.Player.Cling.Target = physics.Player.Traction.Target = 1 - InputHandler.LeftTriggerValue;
 						}
 					}
@@ -715,11 +656,10 @@ namespace Project_blob.GameState
 					// Quick Torque
 
 					Vector2 move = InputHandler.GetAnalogAction(AnalogActions.Movement);
-					if (move != Vector2.Zero)
-					{
+					if (move != Vector2.Zero) {
 						physics.Player.move(move, CameraManager.getSingleton.ActiveCamera.Position);
 					}
-					
+
 #if !DEBUG
 					if (InputHandler.IsActionPressed(Actions.Jump))
 					{
@@ -728,27 +668,21 @@ namespace Project_blob.GameState
 #endif
 				}
 
-				if (InputHandler.IsActionPressed(Actions.Pause))
-				{
+				if (InputHandler.IsActionPressed(Actions.Pause)) {
 					PauseMenuScreen pauseMenu = new PauseMenuScreen();
 					ScreenManager.AddScreen(pauseMenu);
 
 					//PlayTime.Stop();
 				}
 
-				if (InputHandler.IsActionPressed(Actions.ChangeCamera))
-				{
-					if (CurCamera == CameraType.cinema)
-					{
+				if (InputHandler.IsActionPressed(Actions.ChangeCamera)) {
+					if (CurCamera == CameraType.cinema) {
 						((CinematicCamera)(CameraManager.getSingleton.ActiveCamera)).FinishedCinematics = true;
 					}
-					if (CurCamera == CameraType.chase)
-					{
+					if (CurCamera == CameraType.chase) {
 						CurCamera = CameraType.follow;
 						CameraManager.getSingleton.SetActiveCamera("default");
-					}
-					else if (CurCamera == CameraType.follow)
-					{
+					} else if (CurCamera == CameraType.follow) {
 						CurCamera = CameraType.chase;
 						CameraManager.getSingleton.SetActiveCamera("chase");
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).DesiredPosition = theBlob.getCenter();
@@ -757,10 +691,9 @@ namespace Project_blob.GameState
 					}
 				}
 
-				
 
-				if (CurCamera == CameraType.cinema)
-				{
+
+				if (CurCamera == CameraType.cinema) {
 					distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
 					distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 					cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
@@ -768,30 +701,21 @@ namespace Project_blob.GameState
 					//celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
 					//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-					if (CameraManager.getSingleton.ActiveCamera is CinematicCamera && ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
-					{
+					if (CameraManager.getSingleton.ActiveCamera is CinematicCamera && ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics) {
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).currentIndex = 0;
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
 						CurCamera = CameraType.follow;
 						CameraManager.getSingleton.SetActiveCamera("default");
 					}
-				}
-				else if (CurCamera == CameraType.follow)
-				{
-                    if (cameraInvert) 
-                    {
-                        cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti * -1;
-                    } 
-                    else 
-                    {
-                        cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
-                    }
-					if (cameraAngle.X < -MathHelper.Pi)
-					{
-						cameraAngle.X += MathHelper.TwoPi;
+				} else if (CurCamera == CameraType.follow) {
+					if (cameraInvert) {
+						cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti * -1;
+					} else {
+						cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
 					}
-					else if (cameraAngle.X > MathHelper.Pi)
-					{
+					if (cameraAngle.X < -MathHelper.Pi) {
+						cameraAngle.X += MathHelper.TwoPi;
+					} else if (cameraAngle.X > MathHelper.Pi) {
 						cameraAngle.X -= MathHelper.TwoPi;
 					}
 
@@ -800,12 +724,9 @@ namespace Project_blob.GameState
 					// following camera
 					cameraLength += (InputHandler.getMouseWheelDelta() * -0.01f);
 
-					if (InputHandler.IsActionDown(Actions.ZoomOut))
-					{
+					if (InputHandler.IsActionDown(Actions.ZoomOut)) {
 						cameraLength += 1;
-					}
-					else if (InputHandler.IsActionDown(Actions.ZoomIn))
-					{
+					} else if (InputHandler.IsActionDown(Actions.ZoomIn)) {
 						cameraLength -= 1;
 					}
 
@@ -817,9 +738,7 @@ namespace Project_blob.GameState
 					CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
 
 					CameraManager.getSingleton.ActiveCamera.Target = theBlob.getCenter();
-				}
-				else if (CurCamera == CameraType.chase)
-				{
+				} else if (CurCamera == CameraType.chase) {
 					//Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
 					//CameraBody.setCameraOffset(Offset);
 					//CameraManager.getSingleton.ActiveCamera.Position = CameraBody.getCameraPosition();
@@ -855,14 +774,10 @@ namespace Project_blob.GameState
 					//    ((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
 					//}
 
-					if (blob_Climbing)
-					{
-						lock (theBlob)
-						{
-							foreach (Physics2.PhysicsPoint p in theBlob.getPoints())
-							{
-								if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY)
-								{
+					if (blob_Climbing) {
+						lock (theBlob) {
+							foreach (Physics2.PhysicsPoint p in theBlob.getPoints()) {
+								if (p.LastCollision != null && p.LastCollision.getMaterial().Friction == MaterialFactory.CLING_STICKY) {
 									if (((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal != p.LastCollision.Normal)
 										((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = p.LastCollision.Normal;
 									break;
@@ -873,17 +788,14 @@ namespace Project_blob.GameState
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = true;
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChasePosition = theBlob.getCenter();
 						//((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Up = Vector3.Up;
-					}
-					else
-					{
+					} else {
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ClimbNormal = Vector3.Zero;
 						((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).Climbing = false;
 						Vector3 blobVelocity = theBlob.getAverageVelocity();
 						if ((blobVelocity.Y < 1f && blobVelocity.Y > -1) && (Math.Abs(blobVelocity.X) > 1 || Math.Abs(blobVelocity.Z) > 1))
 							startCameraFollow = true;
 
-						if (startCameraFollow)
-						{
+						if (startCameraFollow) {
 							if (blobVelocity.LengthSquared() > 5f)
 								((ChaseCamera)(CameraManager.getSingleton.ActiveCamera)).ChaseDirection = blobVelocity;
 
@@ -897,13 +809,11 @@ namespace Project_blob.GameState
 					//cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 				}
 
-				if (OrientCamera && physics.Player.Touching)
-				{
+				if (OrientCamera && physics.Player.Touching) {
 					CameraManager.getSingleton.ActiveCamera.Up = physics.Player.Normal;
 				}
 
-				if (currentArea.Display.SkyBox != null)
-				{
+				if (currentArea.Display.SkyBox != null) {
 					currentArea.Display.SkyBox.Position = Matrix.CreateTranslation(CameraManager.getSingleton.ActiveCamera.Position);
 					currentArea.Display.SkyBox.updateVertexBuffer();
 				}
@@ -911,8 +821,7 @@ namespace Project_blob.GameState
 
 				//fps
 				time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-				if (time > update)
-				{
+				if (time > update) {
 					fps = Convert.ToInt32(frames / time).ToString();
 					time = 0;
 					frames = 0;
@@ -921,72 +830,52 @@ namespace Project_blob.GameState
 
 #if DEBUG
 
-				if (InputHandler.IsKeyPressed(Keys.U))
-				{
+				if (InputHandler.IsKeyPressed(Keys.U)) {
 					physics.Player.Dead = true;
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.R))
-				{
-					if (physics.Player.Resilience.Target <= 0.5f)
-					{
+				if (InputHandler.IsKeyPressed(Keys.R)) {
+					if (physics.Player.Resilience.Target <= 0.5f) {
 						physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
-					}
-					else
-					{
+					} else {
 						physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
 					}
 				}
-				if (InputHandler.IsKeyPressed(Keys.T))
-				{
-					if (physics.Player.Cling.Target <= 0.5f)
-					{
+				if (InputHandler.IsKeyPressed(Keys.T)) {
+					if (physics.Player.Cling.Target <= 0.5f) {
 						physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
-					}
-					else
-					{
+					} else {
 						physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
 					}
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.H))
-				{
+				if (InputHandler.IsKeyPressed(Keys.H)) {
 					SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.M))
-				{
+				if (InputHandler.IsKeyPressed(Keys.M)) {
 					physics.Player.DEBUG_MoveModeFlag = !physics.Player.DEBUG_MoveModeFlag;
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.N))
-				{
+				if (InputHandler.IsKeyPressed(Keys.N)) {
 					OrientCamera = !OrientCamera;
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.L))
-				{
+				if (InputHandler.IsKeyPressed(Keys.L)) {
 					step = true;
 					paused = false;
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.PageUp))
-				{
+				if (InputHandler.IsKeyPressed(Keys.PageUp)) {
 					physics.physicsMultiplier += 0.1f;
-				}
-				else if (InputHandler.IsKeyPressed(Keys.PageDown))
-				{
+				} else if (InputHandler.IsKeyPressed(Keys.PageDown)) {
 					physics.physicsMultiplier -= 0.1f;
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.OemTilde))
-				{
-					if (PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never)
-					{
+				if (InputHandler.IsKeyPressed(Keys.OemTilde)) {
+					if (PhysicsManager.enableParallel != PhysicsManager.ParallelSetting.Never) {
 						PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Never;
-					}
-					else
-					{
+					} else {
 						PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
 					}
 					reset();
@@ -998,12 +887,10 @@ namespace Project_blob.GameState
 #endif
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.P))
-				{
+				if (InputHandler.IsKeyPressed(Keys.P)) {
 					paused = !paused;
 				}
-				if (InputHandler.IsKeyPressed(Keys.F))
-				{
+				if (InputHandler.IsKeyPressed(Keys.F)) {
 					//follow = !follow;
 					////camera follow
 					//if (!follow)
@@ -1030,15 +917,12 @@ namespace Project_blob.GameState
 					//    //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 					//    //effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
 					//}
-					if (CurCamera == CameraType.follow)
-					{
+					if (CurCamera == CameraType.follow) {
 						CurCamera = CameraType.chase;
 						CameraManager.getSingleton.SetActiveCamera("chase");
 						((ChaseCamera)CameraManager.getSingleton.ActiveCamera).ChasePosition = theBlob.getCenter();
 						((ChaseCamera)CameraManager.getSingleton.ActiveCamera).Reset();
-					}
-					else
-					{
+					} else {
 						CurCamera = CameraType.follow;
 						CameraManager.getSingleton.SetActiveCamera("default");
 					}
@@ -1046,44 +930,35 @@ namespace Project_blob.GameState
 
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.S))
-				{
+				if (InputHandler.IsKeyPressed(Keys.S)) {
 					physics.Player.Resilience.Target = 1f;
 				}
-				if (InputHandler.IsKeyPressed(Keys.D))
-				{
+				if (InputHandler.IsKeyPressed(Keys.D)) {
 					physics.Player.Resilience.Target = 0.5f;
 				}
-				if (InputHandler.IsKeyPressed(Keys.W))
-				{
+				if (InputHandler.IsKeyPressed(Keys.W)) {
 					physics.Player.Resilience.Target = 0f;
 				}
-				if (InputHandler.IsKeyPressed(Keys.Q))
-				{
+				if (InputHandler.IsKeyPressed(Keys.Q)) {
 					physics.Player.Traction.Target = 1f;
 					physics.Player.Cling.Target = 1f;
 				}
-				if (InputHandler.IsKeyPressed(Keys.E))
-				{
+				if (InputHandler.IsKeyPressed(Keys.E)) {
 					physics.Player.Traction.Target = 0f;
 					physics.Player.Cling.Target = 0f;
 				}
-				if (InputHandler.IsKeyPressed(Keys.A))
-				{
+				if (InputHandler.IsKeyPressed(Keys.A)) {
 					physics.Player.Traction.Target = 0.5f;
 					physics.Player.Cling.Target = 0.5f;
 				}
-				if (InputHandler.IsKeyPressed(Keys.Z))
-				{
+				if (InputHandler.IsKeyPressed(Keys.Z)) {
 					currentArea.Display.DEBUG_WireframeMode = !currentArea.Display.DEBUG_WireframeMode;
 				}
-				if (InputHandler.IsKeyPressed(Keys.OemComma))
-				{
+				if (InputHandler.IsKeyPressed(Keys.OemComma)) {
 					Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.B))
-				{
+				if (InputHandler.IsKeyPressed(Keys.B)) {
 #if TIMED
 					DEBUG_MaxPhys = -1;
 					DEBUG_MinPhys = -1;
@@ -1092,30 +967,23 @@ namespace Project_blob.GameState
 #endif
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.OemPlus))
-				{
+				if (InputHandler.IsKeyPressed(Keys.OemPlus)) {
 					currentArea.Display.saveOut = true;
 				}
 
-				if (InputHandler.IsKeyPressed(Keys.J) || InputHandler.IsButtonPressed(Buttons.A))
-				{
+				if (InputHandler.IsKeyPressed(Keys.J) || InputHandler.IsButtonPressed(Buttons.A)) {
 					physics.Player.jump();
 				}
 
-				if (InputHandler.IsKeyDown(Keys.Home))
-				{
-					foreach (Spring s in theBlob.getSprings())
-					{
+				if (InputHandler.IsKeyDown(Keys.Home)) {
+					foreach (Spring s in theBlob.getSprings()) {
 						s.Length *= 1.001f;
 					}
 					physics.Player.Volume.Minimum *= 1.001f;
 					physics.Player.Volume.Origin *= 1.001f;
 					physics.Player.Volume.Maximum *= 1.001f;
-				}
-				else if (InputHandler.IsKeyDown(Keys.End))
-				{
-					foreach (Spring s in theBlob.getSprings())
-					{
+				} else if (InputHandler.IsKeyDown(Keys.End)) {
+					foreach (Spring s in theBlob.getSprings()) {
 						s.Length *= 0.999f;
 					}
 					physics.Player.Volume.Minimum *= 0.999f;
@@ -1124,21 +992,15 @@ namespace Project_blob.GameState
 				}
 
 
-				if (InputHandler.IsKeyDown(Keys.X))
-				{
+				if (InputHandler.IsKeyDown(Keys.X)) {
 					physics.Player.Volume.Target = 1f;
-				}
-				else if (InputHandler.IsKeyDown(Keys.C))
-				{
+				} else if (InputHandler.IsKeyDown(Keys.C)) {
 					physics.Player.Volume.Target = 0f;
-				}
-				else if (InputHandler.IsKeyDown(Keys.V))
-				{
+				} else if (InputHandler.IsKeyDown(Keys.V)) {
 					physics.Player.Volume.Target = 0.5f;
 				}
 #endif
-				if (WinFlag)
-				{
+				if (WinFlag) {
 					float playerTime = GameplayScreen.physics.Time;
 					WinScreen tempWin = new WinScreen(GameplayScreen.physics.Time);
 					GameState.GameScreen.ScreenManager.AddScreen(tempWin);
@@ -1149,17 +1011,11 @@ namespace Project_blob.GameState
 			}
 		}
 
-		public override void Draw(GameTime gameTime)
-		{
+		public override void Draw(GameTime gameTime) {
 #if TIMED
 			drawTime.Reset();
 			drawTime.Start();
 #endif
-			if (!PlayTime.IsRunning)
-			{
-				PlayTime.Start();
-			}
-
 
 			cartoonEffect.Parameters["World"].SetValue(worldMatrix);
 			cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
@@ -1169,8 +1025,7 @@ namespace Project_blob.GameState
 			distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
 			//Octree Cull the Static Drawables
-			foreach (List<Drawable> drawables in currentArea.Display.DrawnList)
-			{
+			foreach (List<Drawable> drawables in currentArea.Display.DrawnList) {
 				drawables.Clear();
 			}
 
@@ -1185,36 +1040,24 @@ namespace Project_blob.GameState
 #endif
 
 #if DEBUG && TIMED
-			if (DEBUG_MaxPhys == -1)
-			{
+			if (DEBUG_MaxPhys == -1) {
 				DEBUG_MaxPhys = (float)physicsTime.Elapsed.TotalMilliseconds;
-			}
-			else
-			{
+			} else {
 				DEBUG_MaxPhys = Math.Max(DEBUG_MaxPhys, (float)physicsTime.Elapsed.TotalMilliseconds);
 			}
-			if (DEBUG_MinPhys == -1)
-			{
+			if (DEBUG_MinPhys == -1) {
 				DEBUG_MinPhys = (float)physicsTime.Elapsed.TotalMilliseconds;
-			}
-			else
-			{
+			} else {
 				DEBUG_MinPhys = Math.Min(DEBUG_MinPhys, (float)physicsTime.Elapsed.TotalMilliseconds);
 			}
-			if (DEBUG_MaxDraw == -1)
-			{
+			if (DEBUG_MaxDraw == -1) {
 				DEBUG_MaxDraw = (float)drawTime.Elapsed.TotalMilliseconds;
-			}
-			else
-			{
+			} else {
 				DEBUG_MaxDraw = Math.Max(DEBUG_MaxDraw, (float)drawTime.Elapsed.TotalMilliseconds);
 			}
-			if (DEBUG_MinDraw == -1)
-			{
+			if (DEBUG_MinDraw == -1) {
 				DEBUG_MinDraw = (float)drawTime.Elapsed.TotalMilliseconds;
-			}
-			else
-			{
+			} else {
 				DEBUG_MinDraw = Math.Min(DEBUG_MinDraw, (float)drawTime.Elapsed.TotalMilliseconds);
 			}
 #endif
@@ -1239,8 +1082,8 @@ namespace Project_blob.GameState
             }
 			
 #else
-			spriteBatch.DrawString(font, "Time - " + PlayTime.Elapsed.ToString().Substring(3, 8), new Vector2(0, 175), Color.White);
-            
+			spriteBatch.DrawString(font, "Time - " + physics.Time.ToString(), new Vector2(0, 175), Color.White);
+
 #if TIMED
 			spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
 			spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);
@@ -1251,30 +1094,19 @@ namespace Project_blob.GameState
 			spriteBatch.DrawString(font, "Phys(Min): " + DEBUG_MinPhys, new Vector2(320, 100), Color.White);
 			spriteBatch.DrawString(font, "Draw(Min): " + DEBUG_MinDraw, new Vector2(320, 130), Color.White);
 
-			if (physics.Player != null)
-			{
-				if (physics.Player.Resilience.Target < 0.33)
-				{
+			if (physics.Player != null) {
+				if (physics.Player.Resilience.Target < 0.33) {
 					spriteBatch.DrawString(font, "Soft", new Vector2(150, 0), Color.White);
-				}
-				else if (physics.Player.Resilience.Target > 0.66)
-				{
+				} else if (physics.Player.Resilience.Target > 0.66) {
 					spriteBatch.DrawString(font, "Firm", new Vector2(150, 0), Color.White);
-				}
-				else
-				{
+				} else {
 					spriteBatch.DrawString(font, "Normal", new Vector2(150, 0), Color.White);
 				}
-				if (physics.Player.Traction.Target < 0.33)
-				{
+				if (physics.Player.Traction.Target < 0.33) {
 					spriteBatch.DrawString(font, "Slick", new Vector2(350, 0), Color.White);
-				}
-				else if (physics.Player.Traction.Target > 0.66)
-				{
+				} else if (physics.Player.Traction.Target > 0.66) {
 					spriteBatch.DrawString(font, "Sticky", new Vector2(350, 0), Color.White);
-				}
-				else
-				{
+				} else {
 					spriteBatch.DrawString(font, "Normal", new Vector2(350, 0), Color.White);
 				}
 			}
@@ -1282,8 +1114,7 @@ namespace Project_blob.GameState
 #endif
 
 
-			if (paused)
-			{
+			if (paused) {
 				spriteBatch.DrawString(font, "Paused", new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (ScreenManager.GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
 			}
 #if DEBUG
@@ -1299,14 +1130,13 @@ namespace Project_blob.GameState
 
 			spriteBatch.DrawString(font, "PM: " + physics.physicsMultiplier, new Vector2(300, 566), Color.White);
 
-			
 
-			
+
+
 
 			spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
 #endif
-			if (TextMin != TextMax)
-			{
+			if (TextMin != TextMax) {
 				spriteBatch.Draw(backdrop, new Rectangle((int)(TextMin.X - 10), (int)(TextMin.Y - 5), (int)((TextMax.X - TextMin.X) + 20), (int)((TextMax.Y - TextMin.Y) + 10)), Color.White);
 			}
 			displayText(m_TextEventString, new Vector2((int)(ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.5f), (int)(ScreenManager.graphics.GraphicsDevice.Viewport.Height * 0.2f)), spriteBatch);
@@ -1328,13 +1158,10 @@ namespace Project_blob.GameState
 
 			Rectangle topRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 125, 40, 125, 75);
 			Rectangle bottomRight = new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 75, 505, 75, 50);
-			if (default_firm)
-			{
+			if (default_firm) {
 				spriteBatch.Draw(soft, topRight, Color.White);
 				spriteBatch.Draw(firm, bottomRight, Color.White);
-			}
-			else
-			{
+			} else {
 				spriteBatch.Draw(firm, topRight, Color.White);
 				spriteBatch.Draw(soft, bottomRight, Color.White);
 			}
@@ -1342,13 +1169,10 @@ namespace Project_blob.GameState
 
 			Rectangle topleft = new Rectangle(0, 40, 125, 75);
 			Rectangle bottomLeft = new Rectangle(0, 505, 75, 50);
-			if (default_sticky)
-			{
+			if (default_sticky) {
 				spriteBatch.Draw(slick, topleft, Color.White);
 				spriteBatch.Draw(sticky, bottomLeft, Color.White);
-			}
-			else
-			{
+			} else {
 				spriteBatch.Draw(sticky, topleft, Color.White);
 				spriteBatch.Draw(slick, bottomLeft, Color.White);
 			}
@@ -1361,24 +1185,19 @@ namespace Project_blob.GameState
 			//base.Draw(gameTime);
 		}
 
-		private void displayText(string text, Vector2 center, SpriteBatch spriteBatch)
-		{
+		private void displayText(string text, Vector2 center, SpriteBatch spriteBatch) {
 			TextMin = center;
 			TextMax = center;
-			try
-			{
+			try {
 				float usableScreenWidth = ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.6f;
 				string nextString = null;
-				if (font.MeasureString(text).X > usableScreenWidth)
-				{
+				if (font.MeasureString(text).X > usableScreenWidth) {
 					nextString = String.Empty;
-					do
-					{
+					do {
 						nextString = nextString.Insert(0, text.Substring(text.Length - 1));
 						text = text.Remove(text.Length - 1);
 					} while (font.MeasureString(text).X > usableScreenWidth);
-					while (!text.EndsWith(" "))
-					{
+					while (!text.EndsWith(" ")) {
 						nextString = nextString.Insert(0, text.Substring(text.Length - 1));
 						text = text.Remove(text.Length - 1);
 					}
@@ -1387,17 +1206,14 @@ namespace Project_blob.GameState
 
 				spriteBatch.DrawString(font, text, center, Color.White, 0f, font.MeasureString(text) * 0.5f, 1f, SpriteEffects.None, 0f);
 
-				if (nextString != null)
-				{
+				if (nextString != null) {
 					Vector2 newCenter = center;
 					newCenter.Y += (int)(font.MeasureString(text).Y * 0.6f);
 					displayText(nextString, newCenter, spriteBatch);
 				}
 				TextMax = Vector2.Max(TextMax, center + font.MeasureString(text) * 0.5f);
 				TextMin = Vector2.Min(TextMin, center - font.MeasureString(text) * 0.5f);
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				Log.Out.WriteLine(e);
 			}
 		}

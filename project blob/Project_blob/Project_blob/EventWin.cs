@@ -6,68 +6,50 @@ using Microsoft.Xna.Framework.Graphics;
 using Project_blob.GameState;
 using Physics2;
 
-namespace Project_blob
-{
+namespace Project_blob {
 	[Serializable]
-	public class EventWin : EventTrigger
-	{
+	public class EventWin : EventTrigger {
 
 		private int m_NumTriggers = -1;
-		public int NumTriggers
-		{
-			get
-			{
+		public int NumTriggers {
+			get {
 				return m_NumTriggers;
 			}
-			set
-			{
+			set {
 				m_NumTriggers = value;
 			}
 		}
 
 		private bool m_Solid = false;
-		public bool Solid
-		{
-			get
-			{
+		public bool Solid {
+			get {
 				return m_Solid;
 			}
-			set
-			{
+			set {
 				m_Solid = value;
 			}
-        }
+		}
 
-        private float m_CoolDown = 1f;
-        public float CoolDown
-        {
-            get
-            {
-                return m_CoolDown;
-            }
-            set
-            {
-                m_CoolDown = value;
-            }
-        }
+		private float m_CoolDown = 1f;
+		public float CoolDown {
+			get {
+				return m_CoolDown;
+			}
+			set {
+				m_CoolDown = value;
+			}
+		}
 
 
-		public EventWin()
-		{
-			
+		public EventWin() {
 		}
 
 		#region EventTrigger Members
 
-		public bool PerformEvent(PhysicsPoint p)
-		{
-			try
-			{
+		public bool PerformEvent(PhysicsPoint p) {
+			try {
 				GameplayScreen.game.WinFlag = true;
-				
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				Log.Out.WriteLine(e);
 				return false;
 			}
