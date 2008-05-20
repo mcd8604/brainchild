@@ -639,13 +639,7 @@ namespace Project_blob.GameState
 
 				if (!(CameraManager.getSingleton.ActiveCamera is CinematicCamera))
 				{
-					if (InputHandler.IsActionPressed(Actions.Pause))
-					{
-						PauseMenuScreen pauseMenu = new PauseMenuScreen();
-						ScreenManager.AddScreen(pauseMenu);
-
-						//PlayTime.Stop();
-					}
+					
 					if (InputHandler.IsActionPressed(Actions.Reset))
 					{
 						reset();
@@ -721,6 +715,14 @@ namespace Project_blob.GameState
 #endif
 				}
 
+				if (InputHandler.IsActionPressed(Actions.Pause))
+				{
+					PauseMenuScreen pauseMenu = new PauseMenuScreen();
+					ScreenManager.AddScreen(pauseMenu);
+
+					//PlayTime.Stop();
+				}
+
 				if (InputHandler.IsActionPressed(Actions.ChangeCamera))
 				{
 					if (CurCamera == CameraType.cinema)
@@ -783,16 +785,16 @@ namespace Project_blob.GameState
 
 					// following camera
 					cameraLength += (InputHandler.getMouseWheelDelta() * -0.01f);
-#if DEBUG
-					if (InputHandler.IsButtonDown(Buttons.DPadDown))
+
+					if (InputHandler.IsActionDown(Actions.ZoomOut))
 					{
 						cameraLength += 1;
 					}
-					else if (InputHandler.IsButtonDown(Buttons.DPadUp))
+					else if (InputHandler.IsActionDown(Actions.ZoomIn))
 					{
 						cameraLength -= 1;
 					}
-#endif
+
 					cameraLength = MathHelper.Clamp(cameraLength, 10, 40);
 
 					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.Y) * cameraLength * cameraLengthMulti, (float)Math.Sin(cameraAngle.X) * cameraLength * cameraLengthMulti);
