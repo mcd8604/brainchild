@@ -56,8 +56,16 @@ namespace Project_blob.GameState
 			for (int i = 0; i < areaScores.Length; i++)
 			{
                 if (areaScores[i] != null) {
+                    //char[] blank = "----------------".ToCharArray();
+                    string filler = string.Empty;
                     string t = String.Format("{0:0}", (areaScores[i].Time / 60)) + ":" + String.Format("{0:0.0}", areaScores[i].Time % 60);
-                    m_SpriteBatch.DrawString(font, (i+1) + ". " + areaScores[i].Name + "........." + t, new Vector2(100, 265 + (30 * i)), Color.White);
+
+                    while (525 - (100 + font.MeasureString(areaScores[i].Name).X) > font.MeasureString(filler).X)
+                        filler += ".";
+
+                    //areaScores[i].Name.CopyTo(0, blank, 0, areaScores[i].Name.Length);
+                    m_SpriteBatch.DrawString(font, (i+1) + ". " + areaScores[i].Name + filler, new Vector2(100, 265 + (30 * i)), Color.White);
+                    m_SpriteBatch.DrawString(font, t, new Vector2(600, 265 + (30 * i)), Color.White);
                 }
 			}
 
