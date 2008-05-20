@@ -42,8 +42,8 @@ namespace Project_blob
         private ConveyerBeltDynamic m_ConveyorBelt;
 
 		//dynamic constructor
-		public BodyDynamicConveyorBelt(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, ConveyerBeltDynamic p_ConveyorBelt)
-			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks, p_ConveyorBelt)
+        public BodyDynamicConveyorBelt(Body ParentBody, List<PhysicsPoint> p_points, List<Collidable> p_collidables, List<Spring> p_springs, List<Task> p_tasks, ConveyerBeltDynamic p_ConveyorBelt, Dictionary<int, PhysicsPoint> p_pointMap)
+			: base(ParentBody, p_points, p_collidables, p_springs, p_tasks, p_ConveyorBelt, p_pointMap)
 		{
 			m_Direction = p_ConveyorBelt.Direction;
 			m_Speed = p_ConveyorBelt.Speed;

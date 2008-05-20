@@ -395,20 +395,47 @@ namespace Project_blob
 						DynamicModel dynModel = (DynamicModel)dm;
 
 						List<PhysicsPoint> points = new List<PhysicsPoint>();
+                        Dictionary<int, PhysicsPoint> pointMap = new Dictionary<int, PhysicsPoint>();
 						for (int i = 0; i < vertices.Length; ++i)
 						{
-							points.Add(new PhysicsPoint(vertices[i].Position, null));
+                            PhysicsPoint newPoint = new PhysicsPoint(vertices[i].Position, null);
+                            PhysicsPoint mapPoint = null;
+                            bool exists = false;
+                            foreach(PhysicsPoint p in points) 
+                            {
+                                if (p.ExternalPosition == newPoint.ExternalPosition)
+                                {
+                                    exists = true;
+                                    mapPoint = p;
+                                    break;
+                                }
+                            }
+                            if (exists)
+                            {
+                                pointMap[i] = mapPoint;
+                            }
+                            else
+                            {
+                                points.Add(newPoint);
+                                pointMap[i] = newPoint;
+                            }
 						}
 
 						List<Physics2.Collidable> collidables = new List<Physics2.Collidable>();
 						int numCol = 0;
 						for (int i = 0; i < indices.Length; i += 3)
 						{
-							if (points[indices[i]].ExternalPosition != points[indices[i + 1]].ExternalPosition && points[indices[i + 2]].ExternalPosition != points[indices[i]].ExternalPosition && points[indices[i + 1]].ExternalPosition != points[indices[i + 2]].ExternalPosition)
-							{
-								collidables.Add(new Physics2.CollidableTri(points[indices[i + 2]], points[indices[i + 1]], points[indices[i]]));
+							//if (points[indices[i]].ExternalPosition != points[indices[i + 1]].ExternalPosition && points[indices[i + 2]].ExternalPosition != points[indices[i]].ExternalPosition && points[indices[i + 1]].ExternalPosition != points[indices[i + 2]].ExternalPosition)
+							//{
+                            PhysicsPoint p1 = pointMap[indices[i + 2]];
+                            PhysicsPoint p2 = pointMap[indices[i + 1]];
+                            PhysicsPoint p3 = pointMap[indices[i]];
+                            if(p1 == null || p2 == null || p3 == null) {
+                                Console.WriteLine("OOPS");
+                            }
+                            collidables.Add(new Physics2.CollidableTri(p1, p2, p3));
 								++numCol;
-							}
+							//}
 						}
 
 						if (dm.Event != null)
@@ -422,12 +449,12 @@ namespace Project_blob
 						}
 						else if (dm is ConveyerBeltDynamic)
 						{
-							body = new BodyDynamicConveyorBelt(null, points, collidables, new List<Spring>(), dynModel.Tasks, dm as ConveyerBeltDynamic);
+							body = new BodyDynamicConveyorBelt(null, points, collidables, new List<Spring>(), dynModel.Tasks, dm as ConveyerBeltDynamic, pointMap);
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
 						else
 						{
-							body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel);
+							body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel, pointMap);
 							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
 						}
 					}
