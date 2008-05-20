@@ -425,17 +425,8 @@ namespace Project_blob
 						int numCol = 0;
 						for (int i = 0; i < indices.Length; i += 3)
 						{
-							//if (points[indices[i]].ExternalPosition != points[indices[i + 1]].ExternalPosition && points[indices[i + 2]].ExternalPosition != points[indices[i]].ExternalPosition && points[indices[i + 1]].ExternalPosition != points[indices[i + 2]].ExternalPosition)
-							//{
-                            PhysicsPoint p1 = pointMap[indices[i + 2]];
-                            PhysicsPoint p2 = pointMap[indices[i + 1]];
-                            PhysicsPoint p3 = pointMap[indices[i]];
-                            if(p1 == null || p2 == null || p3 == null) {
-                                Console.WriteLine("OOPS");
-                            }
-                            collidables.Add(new Physics2.CollidableTri(p1, p2, p3));
+                            collidables.Add(new Physics2.CollidableTri(pointMap[indices[i + 2]], pointMap[indices[i + 1]], pointMap[indices[i]]));
 								++numCol;
-							//}
 						}
 
 						if (dm.Event != null)
