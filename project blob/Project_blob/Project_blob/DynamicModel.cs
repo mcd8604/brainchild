@@ -26,6 +26,19 @@ namespace Project_blob
 			}
 		}
 
+        private bool m_HasSprings = false;
+        public bool HasSprings
+        {
+            get
+            {
+                return m_HasSprings;
+            }
+            set
+            {
+                m_HasSprings = value;
+            }
+        }
+
 		public DynamicModel() { }
 
 		public DynamicModel(StaticModel p_Model)
