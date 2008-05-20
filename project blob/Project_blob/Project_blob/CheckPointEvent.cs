@@ -73,6 +73,8 @@ namespace Project_blob
         public bool PerformEvent(PhysicsPoint point)
         {
             GameplayScreen.SetCheckPoint( m_CheckPoint );
+			GameplayScreen.TextEvent = "CheckPoint";
+			GameplayScreen.TextEventHit = true;
             return true;
         }
     }
