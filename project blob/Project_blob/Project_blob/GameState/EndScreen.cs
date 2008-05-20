@@ -25,7 +25,7 @@ namespace Project_blob.GameState {
 		}
 
 		void ReplayLevelSelected(object sender, EventArgs e) {
-			GameplayScreen.game.SetChangeArea(Level.GetAreaName(GameplayScreen.currentArea));
+			GameplayScreen.SetChangeArea(Level.GetAreaName(GameplayScreen.currentArea));
 			//GameplayScreen.physics.Player.Dead = false;
 			GameplayScreen.deadSet = false;
 			OnCancel();

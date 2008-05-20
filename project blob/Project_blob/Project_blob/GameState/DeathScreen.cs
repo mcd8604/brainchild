@@ -8,35 +8,47 @@ namespace Project_blob.GameState
 	class DeathScreen : MenuScreen
 	{
 		public DeathScreen()
-			: base("You Lose!")
+			: base("You Died!")
 		{
 			IsPopup = true;
 
 			// Create our menu entries.
-            MenuEntry CheckPoint = new MenuEntry("Start From Checkpoint");
-            MenuEntry RestartLevel = new MenuEntry("Restart Level");
+
+            MenuEntry CheckPoint;
+            if (GameplayScreen.GetCheckpoint() != GameplayScreen.currentArea.StartPosition)
+            {
+                
+                CheckPoint = new MenuEntry("Start From Last Checkpoint");
+
+                MenuEntry RestartLevel = new MenuEntry("Restart Level");
+                RestartLevel.Selected += RestartLevelSelected;
+                MenuEntries.Add(RestartLevel);
+            }
+            else
+            {
+                CheckPoint = new MenuEntry("Try Again");
+            }
+
 			MenuEntry ExitToHub = new MenuEntry("Exit To Hub");
 
             // Hook up menu event handlers.
             CheckPoint.Selected += CheckPointSelected;
-            RestartLevel.Selected += RestartLevelSelected;
-			ExitToHub.Selected += ExitToHubSelected;
+            ExitToHub.Selected += ExitToHubSelected;
 
-			// Add entries to the menu.
+            // Add entries to the menu.
             MenuEntries.Add(CheckPoint);
-            MenuEntries.Add(RestartLevel);
-			MenuEntries.Add(ExitToHub);
+            MenuEntries.Add(ExitToHub);
         }
 
         void CheckPointSelected(object sender, EventArgs e)
         {
-            GameplayScreen.game.SetLoadCheckpoint();
+            GameplayScreen.SetLoadCheckpoint();
             base.OnCancel();
         }
 
 		void RestartLevelSelected(object sender, EventArgs e)
 		{
-            GameplayScreen.game.SetResetArea();
+            GameplayScreen.SetResetArea();
 			base.OnCancel();
 		}
 
@@ -47,7 +59,7 @@ namespace Project_blob.GameState
 
 		protected override void OnCancel()
 		{
-			GameplayScreen.game.SetChangeArea("HubWorld");
+			GameplayScreen.SetChangeArea("HubWorld");
 			base.OnCancel();
 		}
 
