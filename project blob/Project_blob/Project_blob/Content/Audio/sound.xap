@@ -234,7 +234,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::7b1336f9-fdc2-43b9-be00-a28cd14fc675;
+            Name = Sound::7e130399-9f2b-49d3-9776-af95bf2ca3bd;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -275,7 +275,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::095a8d70-4526-4e68-89eb-fcaaf5089c7d;
+            Name = Sound::3a0f560e-1798-4bef-888a-a52d3dad97b8;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -307,7 +307,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::ab4ee2b4-7774-4ec2-81f2-93d0a5fd311a;
+            Name = Sound::1d3905af-eb9b-42c6-b268-aa918a8c43d7;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -355,12 +355,6 @@ Wave Bank
     Windows File = Win\Wave Bank.xwb;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 0;
-    PC Bank Last Modified High = 0;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
 
     Wave
     {
@@ -476,6 +470,75 @@ Wave Bank
             Last Modified High = 29931191;
         }
     }
+
+    Wave
+    {
+        Name = grassCollision;
+        File = grassCollision.wav;
+        Build Settings Last Modified Low = 2645145760;
+        Build Settings Last Modified High = 29932180;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 95526;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 4177804188;
+            Last Modified High = 29932178;
+        }
+    }
+
+    Wave
+    {
+        Name = metalCollision;
+        File = metalCollision.wav;
+        Build Settings Last Modified Low = 2645145760;
+        Build Settings Last Modified High = 29932180;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 93404;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3783160544;
+            Last Modified High = 29932178;
+        }
+    }
+
+    Wave
+    {
+        Name = windAmbience;
+        File = windAmbience.wav;
+        Build Settings Last Modified Low = 2645145760;
+        Build Settings Last Modified High = 29932180;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 474446;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2749072576;
+            Last Modified High = 29932178;
+        }
+    }
 }
 
 Sound Bank
@@ -483,10 +546,6 @@ Sound Bank
     Name = Sound Bank;
     Xbox File = Xbox\Sound Bank.xsb;
     Windows File = Win\Sound Bank.xsb;
-    Bank Last Modified Low = 0;
-    Bank Last Modified High = 0;
-    Header Last Modified High = 0;
-    Header Last Modified Low = 0;
 
     Sound
     {
@@ -744,6 +803,159 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = windAmbience;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = Ambience RPC;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = windAmbience;
+                    Entry Index = 7;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = metalCollision;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = Collision RPC;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = metalCollision;
+                    Entry Index = 6;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = grassCollision;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = Collision RPC;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = grassCollision;
+                    Entry Index = 5;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = blob;
@@ -839,6 +1051,66 @@ Sound Bank
         {
             Name = lavaAmbience;
             Index = 4;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = windAmbience;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = windAmbience;
+            Index = 5;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = metalCollision;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = metalCollision;
+            Index = 6;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = grassCollision;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = grassCollision;
+            Index = 7;
             Weight Min = 0;
             Weight Max = 255;
         }
