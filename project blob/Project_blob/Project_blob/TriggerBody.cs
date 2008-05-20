@@ -10,7 +10,6 @@ namespace Project_blob
 		private EventTrigger _triggeredEvent;
 		public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }
 
-		public float CoolDown = 1f;
 		private float Time = 0f;
 
 		private int Count = 0;
@@ -47,7 +46,7 @@ namespace Project_blob
 			{
 				if (_triggeredEvent.PerformEvent(e.point))
 				{
-					Time = CoolDown;
+					Time = _triggeredEvent.CoolDown;
 					Count++;
 				}
 			}
