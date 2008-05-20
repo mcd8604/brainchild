@@ -706,6 +706,10 @@ namespace Project_blob.GameState
 
 				if (InputHandler.IsActionPressed(Actions.ChangeCamera))
 				{
+					if (CurCamera == CameraType.cinema)
+					{
+						((CinematicCamera)(CameraManager.getSingleton.ActiveCamera)).FinishedCinematics = true;
+					}
 					if (CurCamera == CameraType.chase)
 					{
 						CurCamera = CameraType.follow;
@@ -737,7 +741,7 @@ namespace Project_blob.GameState
 					//celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
 					//celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 					//effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-					if (((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
+					if (CameraManager.getSingleton.ActiveCamera is CinematicCamera && ((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics)
 					{
 						((CinematicCamera)CameraManager.getSingleton.ActiveCamera).FinishedCinematics = false;
 						CurCamera = CameraType.follow;
