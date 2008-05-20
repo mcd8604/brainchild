@@ -85,7 +85,7 @@ namespace Project_blob {
 		}
 
 		private SceneManager.SceneGraphType _cullingStructure;
-		internal SceneManager.SceneGraphType CullingStructure {
+		public SceneManager.SceneGraphType CullingStructure {
 			get { return _cullingStructure; }
 			set { _cullingStructure = value; }
 		}

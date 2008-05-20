@@ -6,7 +6,7 @@ using Physics2;
 
 namespace Project_blob
 {
-	internal class SpeedStatic : Body
+	class SpeedStatic : Body
 	{
 
 		float bonus = 1;

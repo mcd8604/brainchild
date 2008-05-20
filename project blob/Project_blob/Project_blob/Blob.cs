@@ -15,7 +15,7 @@ namespace Project_blob
 	//--------------------------------------------------------------------------------------
 
 	// Vertex format for blob billboards
-	internal struct POINTVERTEX
+	struct POINTVERTEX
 	{
 		public Vector3 pos;
 		public float size;
@@ -23,7 +23,7 @@ namespace Project_blob
 	};
 
 	// Vertex format for screen space work
-	internal struct SCREENVERTEX
+	struct SCREENVERTEX
 	{
 		public Vector4 pos;
 		public Vector2 tCurr;
@@ -32,7 +32,7 @@ namespace Project_blob
 		public Vector3 vColor;
 	};
 
-	internal class Blob : BodyPressure, Drawable
+	public class Blob : BodyPressure, Drawable
 	{
 
 		public Texture2D text = null;
@@ -77,7 +77,7 @@ namespace Project_blob
             setCenter(startPos);
 		}
 
-		//public Collidable bottom;
+		public Collidable bottom;
 
 		private void initBlob(Model blobModel)
 		{

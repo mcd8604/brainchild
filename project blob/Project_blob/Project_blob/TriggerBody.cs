@@ -5,7 +5,7 @@ using Physics2;
 
 namespace Project_blob
 {
-	internal class TriggerBody : Body
+	class TriggerBody : Body
 	{
 		private EventTrigger _triggeredEvent;
 		public EventTrigger TriggeredEvent { get { return _triggeredEvent; } }

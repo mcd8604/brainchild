@@ -13,7 +13,7 @@ using Engine;
 
 namespace Project_blob
 {
-    internal class OctreeLeaf
+    public class OctreeLeaf
     {
         private const int _maxobjects = 10;
 

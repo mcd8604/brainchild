@@ -30,7 +30,7 @@ namespace Project_blob.GameState {
 		//TextureInfo ti;
 		//StaticModel sky;
 		private Blob theBlob;
-		internal Blob Player { get { return theBlob; } }
+		public Blob Player { get { return theBlob; } }
 
 		Texture2D firm, soft, slick, sticky;
 
@@ -939,9 +939,9 @@ namespace Project_blob.GameState {
 				if (InputHandler.IsKeyPressed(Keys.Z)) {
 					currentArea.Display.DEBUG_WireframeMode = !currentArea.Display.DEBUG_WireframeMode;
 				}
-				//if (InputHandler.IsKeyPressed(Keys.OemComma)) {
-				//    Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
-				//}
+				if (InputHandler.IsKeyPressed(Keys.OemComma)) {
+					Tri.DEBUG_DrawNormal = !Tri.DEBUG_DrawNormal;
+				}
 
 				if (InputHandler.IsKeyPressed(Keys.B)) {
 #if TIMED
