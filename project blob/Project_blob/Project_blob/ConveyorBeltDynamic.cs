@@ -5,8 +5,8 @@ using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 
 namespace Project_blob {
-	
-	internal class ConveyerBeltDynamic : DynamicModel {
+	[Serializable]
+	class ConveyerBeltDynamic : DynamicModel {
 		private Vector3 m_Direction;
 		public Vector3 Direction {
 			get {
