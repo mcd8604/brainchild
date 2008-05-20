@@ -253,7 +253,7 @@ namespace Project_blob.GameState
 			//load shaders
 			//celEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Cel");
 
-			blobModel = ScreenManager.Content.Load<Model>(@"Models\\soccerball");
+			blobModel = ScreenManager.Content.Load<Model>(@"Models\\blob");
 
 			blobTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\transparancy_png");
 			distortMapText = ScreenManager.Content.Load<Texture2D>(@"Textures\\PrivacyGlass");

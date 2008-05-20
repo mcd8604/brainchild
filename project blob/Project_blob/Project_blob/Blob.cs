@@ -59,24 +59,27 @@ namespace Project_blob
 		//private int myStartIndex;
 		private int myPrimitiveCount;
 
+        private Dictionary<int, PhysicsPoint> pointMap;
+
 		//private Vector3 min;
 		//private Vector3 max;
 
 		public Blob(Model aModel)
 		{
-			initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center);
-			initialize();
+			initBlob(aModel);
+            initialize();
 		}
 
 		public Blob(Model aModel, Vector3 startPos)
 		{
-			initBlob(aModel, aModel.Meshes[0].BoundingSphere.Center + startPos);
-			initialize();
+			initBlob(aModel );
+            initialize();
+            setCenter(startPos);
 		}
 
 		public Collidable bottom;
 
-		private void initBlob(Model blobModel, Vector3 center)
+		private void initBlob(Model blobModel)
 		{
 			ModelMesh mesh = blobModel.Meshes[0];
 			ModelMeshPart part = mesh.MeshParts[0];
@@ -88,7 +91,9 @@ namespace Project_blob
 
 
 			// VertexBuffer
-			VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[part.NumVertices];
+
+            //SOCCERBALL MODEL
+			/*VertexPositionColorTexture[] tempVertices = new VertexPositionColorTexture[part.NumVertices];
 			mesh.VertexBuffer.GetData<VertexPositionColorTexture>(tempVertices);
 
 			vertices = new VertexPositionNormalTexture[tempVertices.Length];
@@ -96,12 +101,11 @@ namespace Project_blob
 			{
 				Vector3 testNorm = Vector3.Normalize(Vector3.Subtract(tempVertices[i].Position, center));
 				vertices[i] = new VertexPositionNormalTexture(tempVertices[i].Position, testNorm, tempVertices[i].TextureCoordinate);
-			}
+			}*/
 
-			/*vertices = new VertexPositionNormalTexture[part.NumVertices];
-			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);*/
-
-			//Hashtable pointTable = new Hashtable(new Physics.PointComparater());
+            //BLOB MODEL
+			vertices = new VertexPositionNormalTexture[part.NumVertices];
+			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
 			// IndexBuffer
 			if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
@@ -120,14 +124,39 @@ namespace Project_blob
 			myIndexBuffer = mesh.IndexBuffer;
 
 			// Physics Points
-			List<PhysicsPoint> tempList = new List<PhysicsPoint>();
+            List<PhysicsPoint> tempList = new List<PhysicsPoint>();
+            pointMap = new Dictionary<int, PhysicsPoint>();
 
-			foreach (VertexPositionNormalTexture v in vertices)
+			/*foreach (VertexPositionNormalTexture v in vertices)
 			{
 				tempList.Add(new PhysicsPoint(center + v.Position, this));
-			}
+            }*/
+            for (int i = 0; i < vertices.Length; ++i)
+            {
+                PhysicsPoint newPoint = new PhysicsPoint(vertices[i].Position, null);
+                PhysicsPoint mapPoint = null;
+                bool exists = false;
+                foreach (PhysicsPoint p in tempList)
+                {
+                    if (p.ExternalPosition == newPoint.ExternalPosition)
+                    {
+                        exists = true;
+                        mapPoint = p;
+                        break;
+                    }
+                }
+                if (exists)
+                {
+                    pointMap[i] = mapPoint;
+                }
+                else
+                {
+                    tempList.Add(newPoint);
+                    pointMap[i] = newPoint;
+                }
+            }
 
-			NUM_Blobs = tempList.Count;
+			NUM_Blobs = vertices.Length;
 
 			g_BlobPoints = new POINTVERTEX[NUM_Blobs];
 			// Set initial blob states
@@ -220,7 +249,11 @@ namespace Project_blob
 			//for (int i = 0; i < part.PrimitiveCount; ++i)
 			//{
 			//    //collidables.Add(new Tri(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]], Color.White));
-			//}
+            //}
+            for (int i = 0; i < indices.Length; i += 3)
+            {
+                collidables.Add(new Physics2.CollidableTri(pointMap[indices[i + 2]], pointMap[indices[i + 1]], pointMap[indices[i]]));
+            }
 
 
 
@@ -229,7 +262,6 @@ namespace Project_blob
 			myNumVertices = vertices.Length;
 			//myStartIndex = 0;
 			myPrimitiveCount = part.PrimitiveCount;
-
 		}
 
 		private void updateVertices()
@@ -237,7 +269,7 @@ namespace Project_blob
 			//update points
 			for (int i = 0; i < vertices.Length/*pointsToUpdate.Count*/; ++i)
 			{
-				vertices[i].Position = points[i].ExternalPosition;
+				vertices[i].Position = pointMap[i].ExternalPosition;
 				vertices[i].Normal = Vector3.Normalize(Vector3.Subtract(vertices[i].Position, getCenter()));
 				g_BlobPoints[i].pos = vertices[i].Position;
 
@@ -323,7 +355,7 @@ namespace Project_blob
 						p3 = points[j].potentialPosition;
 				}
 				*/
-				totalVolume += getPotentialFaceVolumeTest(points[indices[i]].PotentialPosition, points[indices[i + 1]].PotentialPosition, points[indices[i + 2]].PotentialPosition);
+                totalVolume += getPotentialFaceVolumeTest(pointMap[indices[i]].PotentialPosition, pointMap[indices[i + 1]].PotentialPosition, pointMap[indices[i + 2]].PotentialPosition);
 				//totalVolume += getFaceVolumeTest(p1, p2, p3);
 			}
 
@@ -354,7 +386,7 @@ namespace Project_blob
 				}
 				totalVolume += getFaceVolumeTest(p1, p2, p3);
 				*/
-				totalVolume += getFaceVolumeTest(points[indices[i]].ExternalPosition, points[indices[i + 1]].ExternalPosition, points[indices[i + 2]].ExternalPosition);
+                totalVolume += getFaceVolumeTest(pointMap[indices[i]].ExternalPosition, pointMap[indices[i + 1]].ExternalPosition, pointMap[indices[i + 2]].ExternalPosition);
 			}
 
 			return totalVolume;

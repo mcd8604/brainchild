@@ -61,6 +61,11 @@
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\blob.FBX">
+      <Name>blob</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\stamp4x2high.fbx">
       <Name>stamp4x2high</Name>
       <Importer>FbxImporter</Importer>
