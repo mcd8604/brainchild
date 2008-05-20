@@ -184,9 +184,9 @@ namespace Project_blob.GameState
 			physics.Player.Cling.Origin = 50f;
 			physics.Player.Cling.Maximum = 100f;
 
-			physics.Player.Resilience.Minimum = 20f;
-			physics.Player.Resilience.Origin = 40f;
-			physics.Player.Resilience.Maximum = 80f;
+			physics.Player.Resilience.Minimum = 10f;
+			physics.Player.Resilience.Origin = 20f;
+			physics.Player.Resilience.Maximum = 40f;
 
 			physics.Player.Volume.Minimum = 60f;
 			physics.Player.Volume.Origin = 80f;
