@@ -17,8 +17,9 @@ namespace Project_blob.GameState
             MenuEntry CheckPoint;
             if (GameplayScreen.GetCheckpoint() != GameplayScreen.currentArea.StartPosition)
             {
-                
+
                 CheckPoint = new MenuEntry("Start From Last Checkpoint");
+                MenuEntries.Add(CheckPoint);
 
                 MenuEntry RestartLevel = new MenuEntry("Restart Level");
                 RestartLevel.Selected += RestartLevelSelected;
@@ -27,6 +28,7 @@ namespace Project_blob.GameState
             else
             {
                 CheckPoint = new MenuEntry("Try Again");
+                MenuEntries.Add(CheckPoint);
             }
 
 			MenuEntry ExitToHub = new MenuEntry("Exit To Hub");
@@ -36,7 +38,6 @@ namespace Project_blob.GameState
             ExitToHub.Selected += ExitToHubSelected;
 
             // Add entries to the menu.
-            MenuEntries.Add(CheckPoint);
             MenuEntries.Add(ExitToHub);
         }
 
