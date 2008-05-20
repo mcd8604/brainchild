@@ -131,7 +131,7 @@ namespace Project_blob.GameState
 
         void cameraSelected(object sender, EventArgs e)
         {
-            if (GameplayScreen.CurCamera == GameplayScreen.CameraType.follow)
+            if (cam == GameplayScreen.CameraType.follow)
             {
                 cam = GameplayScreen.CameraType.chase;
             }
