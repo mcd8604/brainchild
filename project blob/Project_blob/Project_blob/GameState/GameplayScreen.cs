@@ -1193,12 +1193,16 @@ namespace Project_blob.GameState
 			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			spriteBatch.Begin();
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
+#if !DEBUG
+			string t = physics.Time.ToString();
+			spriteBatch.DrawString(font, t, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 150, 0), Color.White);
+#else
 			spriteBatch.DrawString(font, "Time - " + PlayTime.Elapsed.ToString().Substring(3, 8), new Vector2(0, 175), Color.White);
 			spriteBatch.DrawString(font, "PTime - " + physics.Time, new Vector2(0, 200), Color.White);
 #if TIMED
 			spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
 			spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);
-#if DEBUG
+
 			spriteBatch.DrawString(font, "Phys(Max): " + DEBUG_MaxPhys, new Vector2(0, 100), Color.White);
 			spriteBatch.DrawString(font, "Draw(Max): " + DEBUG_MaxDraw, new Vector2(0, 130), Color.White);
 
