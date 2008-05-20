@@ -56,8 +56,8 @@ internal static class InputHandler
 
 		KeyboardMap.Add(Actions.MenuUp, Keys.Up);
 		KeyboardMap.Add(Actions.MenuDown, Keys.Down);
-		KeyboardMap.Add(Actions.MoveLeft, Keys.Left);
-		KeyboardMap.Add(Actions.MoveRight, Keys.Right);
+		KeyboardMap.Add(Actions.MenuLeft, Keys.Left);
+		KeyboardMap.Add(Actions.MenuRight, Keys.Right);
 
 		KeyboardMap.Add(Actions.MenuAccept, Keys.Enter);
 		KeyboardMap.Add(Actions.MenuCancel, Keys.Escape);
@@ -75,8 +75,8 @@ internal static class InputHandler
 
 		GamePadMap.Add(Actions.MenuUp, Buttons.DPadUp);
 		GamePadMap.Add(Actions.MenuDown, Buttons.DPadDown);
-		GamePadMap.Add(Actions.MoveLeft, Buttons.DPadLeft);
-		GamePadMap.Add(Actions.MoveRight, Buttons.DPadRight);
+		GamePadMap.Add(Actions.MenuLeft, Buttons.DPadLeft);
+		GamePadMap.Add(Actions.MenuRight, Buttons.DPadRight);
 
 		GamePadMap.Add(Actions.MenuAccept, Buttons.Start);
 		GamePadMap.Add(Actions.MenuAccept, Buttons.A);
