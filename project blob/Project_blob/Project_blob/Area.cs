@@ -94,6 +94,13 @@ namespace Project_blob
 			}
 		}
 
+        private SceneManager.SceneGraphType _cullingStructure;
+        public SceneManager.SceneGraphType CullingStructure 
+        {
+            get { return _cullingStructure; }
+            set { _cullingStructure = value; }
+        }
+
 		public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix)
 		{
 

@@ -13,9 +13,9 @@ using Engine;
 
 namespace Project_blob
 {
-    class OctreeLeaf
+    public class OctreeLeaf
     {
-        private const int _maxobjects = 4;
+        private const int _maxobjects = 10;
 
         private List<Drawable> _containedObjects;
         public List<Drawable> ContainedObjects
@@ -58,7 +58,7 @@ namespace Project_blob
             Vector3 half = (ContainerBox.Max - ContainerBox.Min) / 2;
 
 			if ( half == Vector3.Zero ) {
-				throw new Exception();
+				throw new Exception("Container box is Zero");
 			}
 
             Vector3 halfx = Vector3.UnitX * half;
@@ -86,6 +86,10 @@ namespace Project_blob
                     for (int i = ContainedObjects.Count - 1; i >= 0; --i)
                     {
 						BoundingBox box = _containedObjects[i].GetBoundingBox();
+
+                        if (box.Max == box.Min) {
+                            throw new Exception("Invalid Bounding Box");
+                        }
 
                         if (leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains)
                         //if ((leaf.ContainerBox.Contains(_containedObjects[i].GetBoundingBox()) == ContainmentType.Contains) ||
