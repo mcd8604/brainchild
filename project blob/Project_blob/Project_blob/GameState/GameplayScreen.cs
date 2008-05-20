@@ -457,29 +457,34 @@ namespace Project_blob.GameState {
 			game.blobStartPosition = position;
 		}
 
-		public void SetChangeArea(string area) {
-			nextAreaName = area;
-			UseDefaultAreaPos = true;
-			ChangeAreaFlag = true;
-		}
-
-		public void SetChangeArea(string area, Vector3 position) {
-			nextAreaName = area;
-			nextAreaPosition = position;
-			ChangeAreaFlag = true;
-			UseDefaultAreaPos = false;
-		}
-
-        public void SetResetArea()
+        public static Vector3 GetCheckpoint()
         {
-            nextAreaName = Level.GetAreaName(currentArea);
-            ChangeAreaFlag = true;
-            UseDefaultAreaPos = true;
+            return game.blobStartPosition;
         }
 
-        public void SetLoadCheckpoint()
+		public static void SetChangeArea(string area) {
+            game.nextAreaName = area;
+            game.UseDefaultAreaPos = true;
+            game.ChangeAreaFlag = true;
+		}
+
+		public static void SetChangeArea(string area, Vector3 position) {
+            game.nextAreaName = area;
+            game.nextAreaPosition = position;
+            game.ChangeAreaFlag = true;
+            game.UseDefaultAreaPos = false;
+		}
+
+        public static void SetResetArea()
         {
-            LoadCheckpoint = true;
+            game.nextAreaName = Level.GetAreaName(currentArea);
+            game.ChangeAreaFlag = true;
+            game.UseDefaultAreaPos = true;
+        }
+
+        public static void SetLoadCheckpoint()
+        {
+            game.LoadCheckpoint = true;
         }
 
         private bool LoadCheckpoint = false;

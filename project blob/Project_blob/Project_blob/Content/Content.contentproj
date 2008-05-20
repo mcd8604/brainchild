@@ -442,12 +442,6 @@
       <Name>blob</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Audio\1dontuseme.ahh">
-      <Name>1dontuseme</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Audio\grassCollision.wav">
       <Name>grassCollision</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

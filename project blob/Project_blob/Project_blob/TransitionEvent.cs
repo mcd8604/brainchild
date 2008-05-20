@@ -74,7 +74,7 @@ namespace Project_blob {
 		}
 
 		public bool PerformEvent(PhysicsPoint p) {
-			GameplayScreen.game.SetChangeArea(_area, _position);
+			GameplayScreen.SetChangeArea(_area, _position);
 			return true;
 		}
 	}
