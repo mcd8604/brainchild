@@ -499,9 +499,25 @@ namespace WorldMaker
 		private void copyButton_Click(object sender, EventArgs e)
 		{
 			//removeTasks();
+            //convertToDynamic();
 			//addTaskToModels();
 			//editPositionsRelative();
+            //DEV_setEventCoolDowns();
 		}
+		/// <summary>
+		/// Temporary function for rapid level editing
+		/// </summary>
+        private void DEV_setEventCoolDowns()
+        {
+            foreach (object o in modelListBox.SelectedItems)
+            {
+                StaticModel s = (StaticModel)_gameRef.ActiveArea.Drawables[o as string];
+                if (s.Event != null)
+                {
+                    s.Event.CoolDown = 1;
+                }
+            }
+        }
 
 		/// <summary>
 		/// Temporary function for rapid level editing
