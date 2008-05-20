@@ -9,7 +9,7 @@ using Wintellect.PowerCollections;
 /// <summary>
 /// List of Actions to which keys may be bound and states queried.
 /// </summary>
-internal enum Actions { ZoomIn, ZoomOut, Jump, MenuUp, MenuDown, MenuAccept, MenuCancel, MoveUp, MoveDown, MoveLeft, MoveRight, Pause, Reset, ToggleStickiness, ToggleElasticity, ChangeCamera };
+internal enum Actions { ZoomIn, ZoomOut, Jump, MenuUp, MenuDown, MenuRight, MenuLeft, MenuAccept, MenuCancel, MoveUp, MoveDown, MoveLeft, MoveRight, Pause, Reset, ToggleStickiness, ToggleElasticity, ChangeCamera };
 internal enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
 internal enum AnalogActions { Movement, Camera };
 internal delegate Vector2 AnalogFunction();
@@ -56,6 +56,9 @@ internal static class InputHandler
 
 		KeyboardMap.Add(Actions.MenuUp, Keys.Up);
 		KeyboardMap.Add(Actions.MenuDown, Keys.Down);
+		KeyboardMap.Add(Actions.MoveLeft, Keys.Left);
+		KeyboardMap.Add(Actions.MoveRight, Keys.Right);
+
 		KeyboardMap.Add(Actions.MenuAccept, Keys.Enter);
 		KeyboardMap.Add(Actions.MenuCancel, Keys.Escape);
 
@@ -72,6 +75,9 @@ internal static class InputHandler
 
 		GamePadMap.Add(Actions.MenuUp, Buttons.DPadUp);
 		GamePadMap.Add(Actions.MenuDown, Buttons.DPadDown);
+		GamePadMap.Add(Actions.MoveLeft, Buttons.DPadLeft);
+		GamePadMap.Add(Actions.MoveRight, Buttons.DPadRight);
+
 		GamePadMap.Add(Actions.MenuAccept, Buttons.Start);
 		GamePadMap.Add(Actions.MenuAccept, Buttons.A);
 		GamePadMap.Add(Actions.MenuCancel, Buttons.Back);
