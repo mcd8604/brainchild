@@ -442,6 +442,10 @@
       <Name>blob</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Audio\grassCollision.wav">
+      <Name>grassCollision</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Audio\gravelImpact.wav">
       <Name>gravelImpact</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -450,12 +454,20 @@
       <Name>lavaAmbience</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Audio\metalCollision.wav">
+      <Name>metalCollision</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Audio\metalImpact.wav">
       <Name>metalImpact</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Audio\speedBoost.wav">
       <Name>speedBoost</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\windAmbience.wav">
+      <Name>windAmbience</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Compile Include="Textures\backdrop.png">
