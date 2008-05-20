@@ -7,7 +7,7 @@ using Physics2;
 namespace Project_blob
 {
 	[Obsolete]
-	class DemoCube : BodyPressure, Drawable
+	internal class DemoCube : BodyPressure, Drawable
 	{
 
 		PhysicsPoint ftr;

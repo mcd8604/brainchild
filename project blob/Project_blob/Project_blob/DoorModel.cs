@@ -5,8 +5,8 @@ using Physics2;
 using Microsoft.Xna.Framework;
 
 namespace Project_blob {
-	[Serializable]
-	class DoorModel : DynamicModel {
+	
+	internal class DoorModel : DynamicModel {
 
 		public DoorModel() { }
 

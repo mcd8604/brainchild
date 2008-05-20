@@ -84,10 +84,10 @@ namespace Project_blob.GameState
         bool otherScreenHasFocus;
 
         private static ScreenManager screenManager;
-        public static ScreenManager ScreenManager
+        internal static ScreenManager ScreenManager
         {
             get { return screenManager; }
-            internal set { screenManager = value; }
+            set { screenManager = value; }
         }
 
         public virtual void LoadContent() { }

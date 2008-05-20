@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Project_blob {
-	[Serializable]
-	class StaticModelSpeed : StaticModel {
+	
+	internal class StaticModelSpeed : StaticModel {
 		private float m_Speed = 1.0f;
 		public float Speed {
 			get {

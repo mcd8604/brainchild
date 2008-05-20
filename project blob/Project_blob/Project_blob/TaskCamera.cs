@@ -6,7 +6,7 @@ using Physics2;
 
 namespace Project_blob
 {
-	class TaskCamera : Task
+	internal class TaskCamera : Task
 	{
 		public Vector3 OffsetVector = Vector3.Zero;
 		public Body Target;
