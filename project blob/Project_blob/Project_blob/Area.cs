@@ -29,6 +29,13 @@ namespace Project_blob
             }
         }
 
+		private float m_TimeLimit = -1f;
+		public float TimeLimit
+		{
+			get { return m_TimeLimit; }
+			set { m_TimeLimit = value; }
+		}
+
 		private Vector3 m_CameraSpawnPosition = new Vector3();
 		public Vector3 CameraSpawnPosition
 		{

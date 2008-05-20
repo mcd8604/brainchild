@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework;
 
 namespace Project_blob.GameState
 {
-	class WinScreen : MenuScreen
+	class EndScreen : MenuScreen
 	{
-		public WinScreen()
-			: base("You Win!")
+		public EndScreen(String p_message)
+			: base(p_message)
 		{
 			IsPopup = true;
 
@@ -28,6 +28,8 @@ namespace Project_blob.GameState
 		void ReplayLevelSelected(object sender, EventArgs e)
 		{
 			GameplayScreen.game.SetChangeArea(Level.GetAreaName(GameplayScreen.currentArea));
+			GameplayScreen.physics.Player.Dead = false;
+			GameplayScreen.deadSet = false;
 			OnCancel();
 		}
 
