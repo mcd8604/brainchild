@@ -4,16 +4,13 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Physics2;
 
-namespace Project_blob
-{
-	class CameraBody : Body
-	{
+namespace Project_blob {
+	class CameraBody : Body {
 
 		PhysicsPoint point;
 		TaskCamera task;
 
-		public CameraBody(Body Target)
-		{
+		public CameraBody(Body Target) {
 			point = new PhysicsPoint(Vector3.Zero, this);
 			points.Add(point);
 			task = new TaskCamera(Target);
@@ -22,18 +19,26 @@ namespace Project_blob
 			initialize();
 		}
 
-		public Vector3 getCameraPosition()
-		{
+		public Vector3 getCameraPosition() {
 			return point.ExternalPosition;
 		}
 
-		public void setCameraOffset(Vector3 Offset)
-		{
+		public override void update(float TotalElapsedSeconds) {
+			task.update(this, TotalElapsedSeconds);
+			boundingBox.clear();
+			boundingBox.expandToInclude(point.CurrentPosition);
+			boundingBox.expandToInclude(point.PotentialPosition);
+		}
+
+		public override void updatePosition() {
+			point.updatePosition();
+		}
+
+		public void setCameraOffset(Vector3 Offset) {
 			task.OffsetVector = Offset;
 		}
 
-		public void setCameraTarget(Body Target)
-		{
+		public void setCameraTarget(Body Target) {
 			task.Target = Target;
 		}
 
