@@ -33,19 +33,7 @@ internal static class InputHandler
 
 	internal static void LoadDefaultBindings()
 	{
-
-		KeyboardMap.Add(Actions.Reset, Keys.Space);
-		GamePadMap.Add(Actions.Reset, Buttons.X);
-
-		GamePadMap.Add(Actions.ToggleElasticity, Buttons.RightShoulder);
-		GamePadMap.Add(Actions.ToggleStickiness, Buttons.LeftShoulder);
-		GamePadMap.Add(Actions.ChangeCamera, Buttons.Back);
-		GamePadMap.Add(Actions.Jump, Buttons.A);
-
-		KeyboardMap.Add(Actions.MoveUp, Keys.Up);
-		KeyboardMap.Add(Actions.MoveDown, Keys.Down);
-		KeyboardMap.Add(Actions.MoveRight, Keys.Right);
-		KeyboardMap.Add(Actions.MoveLeft, Keys.Left);
+		// Analog
 
 		AnalogMap.Add(AnalogActions.Movement, delegate { return InputHandler.thisGamePadState.ThumbSticks.Left; });
 		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsActionDown(Actions.MoveUp)) { return new Vector2(0, 1); } else { return Vector2.Zero; } });
@@ -57,10 +45,30 @@ internal static class InputHandler
 
 		AnalogMap.Add(AnalogActions.Camera, delegate { return InputHandler.getMouseDeltaPosition() * 0.05f; });
 
+		// Keyboard
+
+		KeyboardMap.Add(Actions.Reset, Keys.Space);
+
+		KeyboardMap.Add(Actions.MoveUp, Keys.Up);
+		KeyboardMap.Add(Actions.MoveDown, Keys.Down);
+		KeyboardMap.Add(Actions.MoveRight, Keys.Right);
+		KeyboardMap.Add(Actions.MoveLeft, Keys.Left);
+
 		KeyboardMap.Add(Actions.MenuUp, Keys.Up);
 		KeyboardMap.Add(Actions.MenuDown, Keys.Down);
 		KeyboardMap.Add(Actions.MenuAccept, Keys.Enter);
 		KeyboardMap.Add(Actions.MenuCancel, Keys.Escape);
+
+		KeyboardMap.Add(Actions.Pause, Keys.Escape);
+
+		// Gamepad 
+
+		GamePadMap.Add(Actions.Reset, Buttons.X);
+
+		GamePadMap.Add(Actions.ToggleElasticity, Buttons.RightShoulder);
+		GamePadMap.Add(Actions.ToggleStickiness, Buttons.LeftShoulder);
+		GamePadMap.Add(Actions.ChangeCamera, Buttons.Back);
+		GamePadMap.Add(Actions.Jump, Buttons.A);
 
 		GamePadMap.Add(Actions.MenuUp, Buttons.DPadUp);
 		GamePadMap.Add(Actions.MenuDown, Buttons.DPadDown);
@@ -69,10 +77,7 @@ internal static class InputHandler
 		GamePadMap.Add(Actions.MenuCancel, Buttons.Back);
 		GamePadMap.Add(Actions.MenuCancel, Buttons.B);
 
-		KeyboardMap.Add(Actions.Pause, Keys.Escape);
 		GamePadMap.Add(Actions.Pause, Buttons.Start);
-
-
 	}
 
 	internal static Vector2 GetAnalogAction(AnalogActions action)

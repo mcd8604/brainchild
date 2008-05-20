@@ -19,7 +19,7 @@ public class Log : IDisposable
 	public Log()
 	{
 #if FINAL
-		writer = new System.IO.StreamWriter(outfilename);
+		writer = new System.IO.StreamWriter(outfilename, true);
 #endif
 	}
 
