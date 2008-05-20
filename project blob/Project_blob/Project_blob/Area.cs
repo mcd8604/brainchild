@@ -401,14 +401,14 @@ namespace Project_blob
 					{
 						DynamicModel dynModel = (DynamicModel)dm;
 
-						List<PhysicsPoint> points = new List<PhysicsPoint>();
+						List<PhysicsPoint> tempList = new List<PhysicsPoint>();
                         Dictionary<int, PhysicsPoint> pointMap = new Dictionary<int, PhysicsPoint>();
 						for (int i = 0; i < vertices.Length; ++i)
 						{
                             PhysicsPoint newPoint = new PhysicsPoint(vertices[i].Position, null);
                             PhysicsPoint mapPoint = null;
                             bool exists = false;
-                            foreach(PhysicsPoint p in points) 
+                            foreach (PhysicsPoint p in tempList) 
                             {
                                 if (p.ExternalPosition == newPoint.ExternalPosition)
                                 {
@@ -423,10 +423,33 @@ namespace Project_blob
                             }
                             else
                             {
-                                points.Add(newPoint);
+                                tempList.Add(newPoint);
                                 pointMap[i] = newPoint;
                             }
 						}
+
+                        List<Spring> springs = new List<Spring>();
+                        List<PhysicsPoint> points = new List<PhysicsPoint>();
+
+                        if (dynModel.HasSprings)
+                        {
+                            foreach (PhysicsPoint tPoint in tempList)
+                            {
+                                foreach (PhysicsPoint p in points)
+                                {
+                                    float springDist = Vector3.Distance(tPoint.ExternalPosition, p.ExternalPosition);
+                                    if (springDist > 0)
+                                    {
+                                        springs.Add(new Spring(tPoint, p, Vector3.Distance(tPoint.ExternalPosition, p.ExternalPosition), 1f));
+                                    }
+                                }
+                                points.Add(tPoint);
+                            }
+                        }
+                        else
+                        {
+                            points = new List<PhysicsPoint>(tempList);
+                        }
 
 						List<Physics2.Collidable> collidables = new List<Physics2.Collidable>();
 						int numCol = 0;
@@ -452,7 +475,7 @@ namespace Project_blob
 						}
 						else
 						{
-							body = new DrawableBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel, pointMap);
+							body = new DrawableBody(null, points, collidables, springs, dynModel.Tasks, dynModel, pointMap);
 							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
 						}
 					}
