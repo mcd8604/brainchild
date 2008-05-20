@@ -442,6 +442,10 @@
       <Name>blob</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Audio\doorCollision.wav">
+      <Name>doorCollision</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Audio\grassCollision.wav">
       <Name>grassCollision</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -468,6 +472,10 @@
     </Content>
     <Content Include="Audio\windAmbience.wav">
       <Name>windAmbience</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\woodCollision.wav">
+      <Name>woodCollision</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Compile Include="Textures\backdrop.png">
