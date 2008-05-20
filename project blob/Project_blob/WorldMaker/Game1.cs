@@ -46,10 +46,10 @@ namespace WorldMaker
 
 		public Area nextArea = null;
 
-		public readonly String EFFECT_TYPE = "CartoonEffect";
+		public readonly string EFFECT_TYPE = "CartoonEffect";
 
-		private String _effectName;
-		public String EffectName
+		private string _effectName;
+		public string EffectName
 		{
 			get { return _effectName; }
 			set { _effectName = value; }
@@ -76,7 +76,7 @@ namespace WorldMaker
 		}
 		//SpriteFont font;
 
-		const String POINT_TEXT = "point_text";
+		const string POINT_TEXT = "point_text";
 
 		//VertexDeclaration VertexDeclarationColor;
 		VertexDeclaration VertexDeclarationTexture;
@@ -501,7 +501,7 @@ namespace WorldMaker
 			else 
 			//if (draw)
 			{
-				foreach (String str in LevelEditor.DrawablesToDelete)
+				foreach (string str in LevelEditor.DrawablesToDelete)
 				{
 					_activeArea.RemoveDrawable(str);
 					//_activeArea.RemoveEvent(str);

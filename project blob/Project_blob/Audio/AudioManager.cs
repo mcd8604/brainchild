@@ -5,42 +5,37 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Storage;
 
-namespace Audio
-{
-	// The sound card and speakers are static, so why not have the AudioManager be static too
-	public static class AudioManager
-	{
+namespace Audio {
+
+	public static class AudioManager {
 		// Our audio engine to import and run sounds
 		private static AudioEngine _audioEngine;
 
 		// Sound stuff 
 		private static WaveBank _waveBank;
 		private static SoundBank _soundBank;
-		private static Dictionary<String, Cue> _music = new Dictionary<string, Cue>();
+		private static Dictionary<string, Cue> _music = new Dictionary<string, Cue>();
 		private static List<Sound> _ambientSounds = new List<Sound>();
 
-        // Use for adjusting music volume from menu
-        private static float musicVolume = 100.0f;
-        public static float MusicVolume
-        {
-            get { return musicVolume; }
-            set { musicVolume = value; }
-        }
+		// Use for adjusting music volume from menu
+		private static float musicVolume = 100.0f;
+		public static float MusicVolume {
+			get { return musicVolume; }
+			set { musicVolume = value; }
+		}
 
-        // Use for adjusting soundFX volume from menu
-        private static float soundFXVolume = 100.0f;
-        public static float SoundFXVolume
-        {
-            get { return soundFXVolume; }
-            set { soundFXVolume = value; }
-        }
+		// Use for adjusting soundFX volume from menu
+		private static float soundFXVolume = 100.0f;
+		public static float SoundFXVolume {
+			get { return soundFXVolume; }
+			set { soundFXVolume = value; }
+		}
 
 		private static System.Threading.Thread _ambientSoundThread;
 		private static bool _runAmbience = true;
 
 		private static AudioListener _audioListener;
-		public static AudioListener Listener
-		{
+		public static AudioListener Listener {
 			set { _audioListener = value; }
 		}
 
@@ -48,17 +43,13 @@ namespace Audio
 		private static bool mono = false;
 
 		private static bool enabled = true;
-		public static bool Enabled
-		{
-			get
-			{
+		public static bool Enabled {
+			get {
 				return enabled;
 			}
-			set
-			{
+			set {
 				enabled = value;
-				if (enabled)
-				{
+				if (enabled) {
 					initialize();
 				}
 			}
@@ -67,17 +58,13 @@ namespace Audio
 		/// <summary>
 		/// Initial Audio Manager data
 		/// </summary>
-		public static void initialize()
-		{
-			try
-			{
+		public static void initialize() {
+			try {
 				_audioEngine = new AudioEngine("Content/Audio/sound.xgs");
 				_waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
 				_soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
 				initializeAmbience();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 #if DEBUG
 				Log.Out.WriteLine("Audio Manager Exception:");
 #endif
@@ -89,18 +76,14 @@ namespace Audio
 			}
 		}
 
-		private static void initializeAmbience()
-		{
-			if (_ambientSoundThread != null)
-			{
+		private static void initializeAmbience() {
+			if (_ambientSoundThread != null) {
 				_runAmbience = false;
 				System.Threading.Thread.Sleep(50);
 			}
-			try
-			{
+			try {
 				_runAmbience = true;
-				foreach (Sound sound in _ambientSounds)
-				{
+				foreach (Sound sound in _ambientSounds) {
 					sound.startSound();
 				}
 				_ambientSoundThread = new System.Threading.Thread(AudioBackgroundThread);
@@ -108,9 +91,7 @@ namespace Audio
 				_ambientSoundThread.Name = "Ambient Sound Thread";
 				_ambientSoundThread.Priority = System.Threading.ThreadPriority.Normal;
 				_ambientSoundThread.Start();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 #if DEBUG
 				Log.Out.WriteLine("Audio Manager Exception:");
 #endif
@@ -122,32 +103,25 @@ namespace Audio
 			}
 		}
 
-		private static void AudioBackgroundThread()
-		{
-			do
-			{
-                if (!mono && _audioListener != null)
-                {
-                    for (int i = 0; i < _ambientSounds.Count; i++)
-                    {
-                        try
-                        {
-                            _ambientSounds[i].updateAmbient3D(_audioListener);
-                        }
-                        catch (Exception e)
-                        {
+		private static void AudioBackgroundThread() {
+			do {
+				if (!mono && _audioListener != null) {
+					for (int i = 0; i < _ambientSounds.Count; i++) {
+						try {
+							_ambientSounds[i].updateAmbient3D(_audioListener);
+						} catch (Exception e) {
 #if DEBUG
-                            Log.Out.WriteLine("Audio Manager Exception:");
+							Log.Out.WriteLine("Audio Manager Exception:");
 #endif
-                            Log.Out.WriteLine(e);
+							Log.Out.WriteLine(e);
 #if DEBUG
-                            Log.Out.WriteLine("The above Exception was handled.");
+							Log.Out.WriteLine("The above Exception was handled.");
 #endif
-                        }
-                        _ambientSounds[i].startSound();
-                        update();
-                    }
-                }
+						}
+						_ambientSounds[i].startSound();
+						update();
+					}
+				}
 				System.Threading.Thread.Sleep(50);
 			} while (_runAmbience);
 		}
@@ -157,40 +131,33 @@ namespace Audio
 		/// </summary>
 		/// <param name="soundNames">The list of names of all the ambient sounds</param>
 		/// <param name="positions">The list of positions of all the ambient sounds</param>
-		public static void LoadAmbientSounds(List<AmbientSoundInfo> ambientSounds)
-		{
-			if (ambientSounds != null)
-			{
+		public static void LoadAmbientSounds(List<AmbientSoundInfo> ambientSounds) {
+			if (ambientSounds != null) {
 				_ambientSounds.Clear();
-				foreach (AmbientSoundInfo info in ambientSounds)
-				{
+				foreach (AmbientSoundInfo info in ambientSounds) {
 					_ambientSounds.Add(new Sound(info.Name, info.Position));
 				}
 				initializeAmbience();
 			}
 		}
 
-        /// <summary>
-        /// Clears all ambient sounds taht are currently stored
-        /// </summary>
-        public static void ClearAmbientSounds()
-        {
-            foreach (Sound ambientSound in _ambientSounds)
-            {
-                ambientSound.stop();
-            }
-            _ambientSounds.Clear();
-        }
+		/// <summary>
+		/// Clears all ambient sounds taht are currently stored
+		/// </summary>
+		public static void ClearAmbientSounds() {
+			foreach (Sound ambientSound in _ambientSounds) {
+				ambientSound.stop();
+			}
+			_ambientSounds.Clear();
+		}
 
 		/// <summary>
 		/// Constructs a sound object that can utilize 3D sound from the given sound name
 		/// </summary>
 		/// <param name="soundName">The name of the sound file</param>
 		/// <returns>If the name of the sound name is a sound file, the sound object of the given sound file</returns>
-		public static Sound getSound(string soundName)
-		{
-			if (!soundName.Equals("") && !soundName.Equals("none"))
-			{
+		public static Sound getSound(string soundName) {
+			if (!string.IsNullOrEmpty(soundName) && soundName != "none") {
 				return new Sound(soundName);
 			}
 			return null;
@@ -201,17 +168,13 @@ namespace Audio
 		/// </summary>
 		/// <param name="name">The lookup name for the cue as well as the name of the cue itself</param>
 		/// <returns>The specified music cue</returns>
-		public static Cue addMusic(string name)
-		{
+		public static Cue addMusic(string name) {
 			Cue retVal;
 
-			if (!_music.ContainsKey(name))
-			{
+			if (!_music.ContainsKey(name)) {
 				retVal = _soundBank.GetCue(name);
 				_music.Add(name, retVal);
-			}
-			else
-			{
+			} else {
 				retVal = _music[name];
 			}
 
@@ -223,14 +186,10 @@ namespace Audio
 		/// </summary>
 		/// <param name="name">The name of the soundFX cue</param>
 		/// <returns>The specified soundFX cue</returns>
-		public static Cue getSoundFX(string name)
-		{
-			if (enabled)
-			{
+		public static Cue getSoundFX(string name) {
+			if (enabled) {
 				return _soundBank.GetCue(name);
-			}
-			else
-			{
+			} else {
 				return null;
 			}
 		}
@@ -239,13 +198,11 @@ namespace Audio
 		/// Plays the specified music
 		/// </summary>
 		/// <param name="name">The name of the soundFX lookup id</param>
-		public static void playMusic(string name)
-		{
-			if (_music.ContainsKey(name) && !_music[name].IsPlaying)
-			{
+		public static void playMusic(string name) {
+			if (_music.ContainsKey(name) && !_music[name].IsPlaying) {
 				_music[name].Dispose();
 				_music[name] = _soundBank.GetCue(name);
-                _music[name].SetVariable("Volume", musicVolume);
+				_music[name].SetVariable("Volume", musicVolume);
 				_music[name].Play();
 			}
 		}
@@ -257,60 +214,49 @@ namespace Audio
 		/// <param name="soundName">The name of the soundFX lookup id</param>
 		/// <param name="listener">The listener of the sound to be played</param>
 		/// <param name="emitter">The emitter of the sound to be played</param>
-		public static void playSoundFXs(ref Cue soundFX, float volumeLevel, AudioEmitter emitter)
-		{
-            if (volumeLevel >= 0)
-            {
-                soundFX.Dispose();
-                soundFX = _soundBank.GetCue(soundFX.Name);
-                if (_audioListener != null && !mono)
-                {
-                    try
-                    {
-                        soundFX.Apply3D(_audioListener, emitter);
-                        soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
-                    }
-                    catch (Exception e)
-                    {
+		public static void playSoundFXs(ref Cue soundFX, float volumeLevel, AudioEmitter emitter) {
+			if (volumeLevel >= 0) {
+				soundFX.Dispose();
+				soundFX = _soundBank.GetCue(soundFX.Name);
+				if (_audioListener != null && !mono) {
+					try {
+						soundFX.Apply3D(_audioListener, emitter);
+						soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
+					} catch (Exception e) {
 #if DEBUG
-                        Log.Out.WriteLine("Audio Manager Exception:");
+						Log.Out.WriteLine("Audio Manager Exception:");
 #endif
-                        Log.Out.WriteLine(e);
+						Log.Out.WriteLine(e);
 #if DEBUG
-                        Log.Out.WriteLine("The above Exception was handled.");
+						Log.Out.WriteLine("The above Exception was handled.");
 #endif
-                        mono = true;
-                    }
-                }
-                if (mono)
-                {
-                    soundFX.SetVariable("Distance", (float)Math.Pow(50, 1 / volumeLevel));
-                }
-                soundFX.SetVariable("Volume", soundFXVolume);
-                try {
-                    soundFX.Play();
-                } 
-                catch (Exception e) 
-                {
+						mono = true;
+					}
+				}
+				if (mono) {
+					soundFX.SetVariable("Distance", (float)Math.Pow(50, 1 / volumeLevel));
+				}
+				soundFX.SetVariable("Volume", soundFXVolume);
+				try {
+					soundFX.Play();
+				} catch (Exception e) {
 #if DEBUG
-                    Log.Out.WriteLine("Audio Manager Exception:");
+					Log.Out.WriteLine("Audio Manager Exception:");
 #endif
-                    Log.Out.WriteLine(e);
+					Log.Out.WriteLine(e);
 #if DEBUG
-                    Log.Out.WriteLine("The above Exception was handled.");
+					Log.Out.WriteLine("The above Exception was handled.");
 #endif
-                }
-            }
+				}
+			}
 		}
 
 		/// <summary>
 		/// Stops a cue in the music dictionary
 		/// </summary>
 		/// <param name="name">The lookup name for the cue as well as the name of the cue itself</param>
-		public static void stopMusic(String name)
-		{
-			if (_music.ContainsKey(name))
-			{
+		public static void stopMusic(string name) {
+			if (_music.ContainsKey(name)) {
 				_music[name].Stop(AudioStopOptions.Immediate);
 			}
 		}
@@ -319,8 +265,7 @@ namespace Audio
 		/// Stops the cue of the given soundFX
 		/// </summary>
 		/// <param name="soundFX">The cue of the given soundFX<</param>
-		public static void stopSoundFX(Cue soundFX)
-		{
+		public static void stopSoundFX(Cue soundFX) {
 			soundFX.Stop(AudioStopOptions.Immediate);
 		}
 
@@ -328,12 +273,9 @@ namespace Audio
 		/// Pauses the specified music
 		/// </summary>
 		/// <param name="name">The name of the music lookup id</param>
-		public static void pauseMusic(String name)
-		{
-			if (_music.ContainsKey(name))
-			{
-				if (_music[name].IsPlaying)
-				{
+		public static void pauseMusic(string name) {
+			if (_music.ContainsKey(name)) {
+				if (_music[name].IsPlaying) {
 					_music[name].Pause();
 				}
 			}
@@ -343,10 +285,8 @@ namespace Audio
 		/// Pauses the specified soundFX
 		/// </summary>
 		/// <param name="soundFX">The cue of the given soundFX</param>
-		public static void pauseSoundFX(Cue soundFX)
-		{
-			if (soundFX.IsPlaying)
-			{
+		public static void pauseSoundFX(Cue soundFX) {
+			if (soundFX.IsPlaying) {
 				soundFX.Pause();
 			}
 		}
@@ -356,12 +296,9 @@ namespace Audio
 		/// Resumes the specified music
 		/// </summary>
 		/// <param name="name">The name of the music lookup id</param>
-		public static void resumeMusic(String name)
-		{
-			if (_music.ContainsKey(name))
-			{
-				if (_music[name].IsPaused)
-				{
+		public static void resumeMusic(string name) {
+			if (_music.ContainsKey(name)) {
+				if (_music[name].IsPaused) {
 					_music[name].Resume();
 				}
 			}
@@ -371,10 +308,8 @@ namespace Audio
 		/// Resumes the specified soundFX
 		/// </summary>
 		/// <param name="name">The The cue of the given soundFX</param>
-		public static void resumeSoundFX(Cue soundFX)
-		{
-			if (soundFX.IsPaused)
-			{
+		public static void resumeSoundFX(Cue soundFX) {
+			if (soundFX.IsPaused) {
 				soundFX.Resume();
 			}
 		}
@@ -382,11 +317,9 @@ namespace Audio
 		/// <summary>
 		/// Updates the audio manager's engine
 		/// </summary>
-		public static void update()
-		{
+		public static void update() {
 			// Update the audio engine so that it can process audio data
-			if (enabled)
-			{
+			if (enabled) {
 				_audioEngine.Update();
 			}
 		}

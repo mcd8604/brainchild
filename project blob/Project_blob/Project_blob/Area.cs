@@ -7,146 +7,120 @@ using System.Collections;
 using Physics2;
 using Audio;
 
-namespace Project_blob
-{
-    
+namespace Project_blob {
 
 	[Serializable]
-	public class Area
-	{
+	public class Area {
 		[NonSerialized]
 		private Display _display;
 
-		private Dictionary<String, Drawable> _drawables;
+		private Dictionary<string, Drawable> _drawables;
 
-        private List<AmbientSoundInfo> _ambientSounds = new List<AmbientSoundInfo>();
-        public List<AmbientSoundInfo> AmbientSounds {
-            get {
-                return _ambientSounds;
-            }
-            set {
-                _ambientSounds = value;
-            }
-        }
+		private List<AmbientSoundInfo> _ambientSounds = new List<AmbientSoundInfo>();
+		public List<AmbientSoundInfo> AmbientSounds {
+			get {
+				return _ambientSounds;
+			}
+			set {
+				_ambientSounds = value;
+			}
+		}
 
 		private float m_TimeLimit = -1f;
-		public float TimeLimit
-		{
+		public float TimeLimit {
 			get { return m_TimeLimit; }
 			set { m_TimeLimit = value; }
 		}
 
 		private Vector3 m_CameraSpawnPosition = new Vector3();
-		public Vector3 CameraSpawnPosition
-		{
+		public Vector3 CameraSpawnPosition {
 			get { return m_CameraSpawnPosition; }
 			set { m_CameraSpawnPosition = value; }
 		}
 
 		private List<Portal> _portals = new List<Portal>();
-		public List<Portal> Portals
-		{
-			get
-			{
+		public List<Portal> Portals {
+			get {
 				return _portals;
 			}
-			set
-			{
+			set {
 				_portals = value;
 			}
 		}
 
-        private bool m_ShowTime = true;
-        public bool ShowTime 
-        {
-            get { return m_ShowTime; }
-            set { m_ShowTime = value; }
-        }
+		private bool m_ShowTime = true;
+		public bool ShowTime {
+			get { return m_ShowTime; }
+			set { m_ShowTime = value; }
+		}
 
-		public Display Display
-		{
+		public Display Display {
 			get { return _display; }
 			set { _display = value; }
 		}
 
-		public Dictionary<String, Drawable> Drawables
-		{
+		public Dictionary<string, Drawable> Drawables {
 			get { return _drawables; }
 			set { _drawables = value; }
 		}
 
 		private Vector3 m_StartPosition;
-		public Vector3 StartPosition
-		{
-			get
-			{
+		public Vector3 StartPosition {
+			get {
 				return m_StartPosition;
 			}
-			set
-			{
+			set {
 				m_StartPosition = value;
 			}
 		}
 
 		private string m_SkyTexture;
-		public string SkyTexture
-		{
-			get
-			{
+		public string SkyTexture {
+			get {
 				return m_SkyTexture;
 			}
-			set
-			{
+			set {
 				m_SkyTexture = value;
 			}
 		}
 
-        private SceneManager.SceneGraphType _cullingStructure;
-        public SceneManager.SceneGraphType CullingStructure 
-        {
-            get { return _cullingStructure; }
-            set { _cullingStructure = value; }
-        }
+		private SceneManager.SceneGraphType _cullingStructure;
+		public SceneManager.SceneGraphType CullingStructure {
+			get { return _cullingStructure; }
+			set { _cullingStructure = value; }
+		}
 
-		public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix)
-		{
+		public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix) {
 
 			//_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
-			_drawables = new Dictionary<String, Drawable>();
+			_drawables = new Dictionary<string, Drawable>();
 			_portals = new List<Portal>();
 		}
 
-		public Area(Matrix worldMatrix, String effectName, String worldParameterName, String textureParameterName, String techniqueName)
-		{
+		public Area(Matrix worldMatrix, string effectName, string worldParameterName, string textureParameterName, string techniqueName) {
 			//_display = new Display(worldMatrix, effectName, worldParameterName, textureParameterName, techniqueName);
-			_drawables = new Dictionary<String, Drawable>();
+			_drawables = new Dictionary<string, Drawable>();
 			_portals = new List<Portal>();
 		}
 
-		public Drawable GetDrawable(String drawableName)
-		{
-			if (_drawables.ContainsKey(drawableName))
-			{
+		public Drawable GetDrawable(string drawableName) {
+			if (_drawables.ContainsKey(drawableName)) {
 				return _drawables[drawableName];
 			}
 			return null;
 		}
 
-		public List<Drawable> getDrawableList()
-		{
+		public List<Drawable> getDrawableList() {
 			List<Drawable> drawableList = new List<Drawable>();
 			/*IEnumerator drawablesEnum = this.Drawables.GetEnumerator();
 			while (drawablesEnum.MoveNext())
 			{
-				KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)drawablesEnum.Current;
+				KeyValuePair<string, Drawable> kvp = (KeyValuePair<string, Drawable>)drawablesEnum.Current;
 				drawableList.Add((Drawable)kvp.Value);
 			}*/
-			foreach (Drawable d in this.Drawables.Values)
-			{
-				if (d is StaticModel)
-				{
-					if (((StaticModel)d).Visible)
-					{
+			foreach (Drawable d in this.Drawables.Values) {
+				if (d is StaticModel) {
+					if (((StaticModel)d).Visible) {
 						drawableList.Add(d);
 					}
 				}
@@ -154,10 +128,8 @@ namespace Project_blob
 			return drawableList;
 		}
 
-		public void RemoveDrawable(String drawableName)
-		{
-			if (_drawables.ContainsKey(drawableName))
-			{
+		public void RemoveDrawable(string drawableName) {
+			if (_drawables.ContainsKey(drawableName)) {
 				Drawable tempDrawable;
 				tempDrawable = _drawables[drawableName];
 				_drawables.Remove(drawableName);
@@ -169,10 +141,8 @@ namespace Project_blob
 						return;
 					}
                 }*/
-				foreach (List<Drawable> drawables in _display.DrawnList)
-				{
-					if (drawables.Contains(tempDrawable))
-					{
+				foreach (List<Drawable> drawables in _display.DrawnList) {
+					if (drawables.Contains(tempDrawable)) {
 						drawables.Remove(tempDrawable);
 						return;
 					}
@@ -180,10 +150,8 @@ namespace Project_blob
 			}
 		}
 
-		public void AddDrawable(String drawableName, int textureID, Drawable drawable)
-		{
-			if (!_drawables.ContainsKey(drawableName))
-			{
+		public void AddDrawable(string drawableName, int textureID, Drawable drawable) {
+			if (!_drawables.ContainsKey(drawableName)) {
 				_drawables.Add(drawableName, drawable);
 				/*if (!_display.DrawnList.ContainsKey(textureInfo))
 				{
@@ -195,13 +163,11 @@ namespace Project_blob
 
 		[NonSerialized]
 		private List<Physics2.Body> m_Bodies = new List<Physics2.Body>();
-		public List<Physics2.Body> getBodies()
-		{
+		public List<Physics2.Body> getBodies() {
 			return this.m_Bodies;
 		}
 
-		public void LoadAreaWorldMaker(GraphicsDevice gd)
-		{
+		public void LoadAreaWorldMaker(GraphicsDevice gd) {
 			//create new display 
 			this.Display = new Display(gd);
 
@@ -210,10 +176,8 @@ namespace Project_blob
 			this._display.GameMode = false;
 
 			//initialize drawables and populate draw list
-			foreach (Drawable d in this.Drawables.Values)
-			{
-				if (d is StaticModel)
-				{
+			foreach (Drawable d in this.Drawables.Values) {
+				if (d is StaticModel) {
 					((StaticModel)d).initialize();
 					//((StaticModel)d).Visible = true;
 				}
@@ -225,13 +189,13 @@ namespace Project_blob
 			/*IEnumerator eventsEnum = this._events.GetEnumerator();
 			while (eventsEnum.MoveNext())
 			{
-				//KeyValuePair<String, Drawable> kvp = (KeyValuePair<String, Drawable>)eventsEnum.Current;
+				//KeyValuePair<string, Drawable> kvp = (KeyValuePair<string, Drawable>)eventsEnum.Current;
 				drawableList.Add((Drawable)kvp.Value);
 					((StaticModel)d).Visible = true;
 
 			}*/
 
-			/*foreach (KeyValuePair<String, EventTrigger> kvp in this._events)
+			/*foreach (KeyValuePair<string, EventTrigger> kvp in this._events)
 			{
 				if (this._drawables[kvp.Key] is StaticModel)
 				{
@@ -242,8 +206,7 @@ namespace Project_blob
 			//this._events = null;
 		}
 
-		public void LoadAreaGameplay(Game game)
-		{
+		public void LoadAreaGameplay(Game game) {
 			//List<TextureInfo> textureInfos = new List<TextureInfo>();
 
 			//load level textures
@@ -270,8 +233,7 @@ namespace Project_blob
 			this._display.GameMode = true;
 
 			// load skybox
-			if (this.m_SkyTexture != null && this.m_SkyTexture.Length > 0)
-			{
+			if (this.m_SkyTexture != null && this.m_SkyTexture.Length > 0) {
 				Texture2D skyTex = game.Content.Load<Texture2D>(@"Textures\\" + this.m_SkyTexture);
 				skyTex.Name = this.m_SkyTexture;
 				TextureManager.AddTexture(skyTex);
@@ -286,10 +248,8 @@ namespace Project_blob
 			List<TriggerBody> switches = new List<TriggerBody>();
 
 			//load level models
-			foreach (Drawable d in this.Drawables.Values)
-			{
-				if (d is StaticModel)
-				{
+			foreach (Drawable d in this.Drawables.Values) {
+				if (d is StaticModel) {
 					StaticModel dm = (StaticModel)d;
 					Model model = game.Content.Load<Model>(@"Models\\" + dm.ModelName);
 					ModelManager.getSingleton.AddModel(dm.ModelName, model);
@@ -315,179 +275,134 @@ namespace Project_blob
 
 					// Indices
 					int[] indices;
-					if (dm.getIndexBuffer().IndexElementSize == IndexElementSize.SixteenBits)
-					{
+					if (dm.getIndexBuffer().IndexElementSize == IndexElementSize.SixteenBits) {
 						indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
 						short[] temp = new short[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
 						dm.getIndexBuffer().GetData<short>(temp);
 						for (int i = 0; i < temp.Length; ++i)
 							indices[i] = temp[i];
-					}
-					else
-					{
+					} else {
 						indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 32];
 						dm.getIndexBuffer().GetData<int>(indices);
 					}
 
 					Physics2.Body body = null;
 
-                    BoundingBox boundingBox = new BoundingBox(Vector3.Zero, Vector3.Zero);
+					BoundingBox boundingBox = new BoundingBox(Vector3.Zero, Vector3.Zero);
 
-					if (!(dm is DynamicModel))
-					{
+					if (!(dm is DynamicModel)) {
 
 						List<Physics2.CollidableStatic> collidables = new List<Physics2.CollidableStatic>();
 
-						if (dm.CollisionType == CollisionTypes.Body)
-						{
+						if (dm.CollisionType == CollisionTypes.Body) {
 							int numCol = 0;
-							for (int i = 0; i < indices.Length; i += 3)
-							{
-								if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position && 
-                                    vertices[indices[i + 2]].Position != vertices[indices[i]].Position && 
-                                    vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position)
-								{
-									collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position, 
-                                        vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
+							for (int i = 0; i < indices.Length; i += 3) {
+								if (vertices[indices[i]].Position != vertices[indices[i + 1]].Position &&
+									vertices[indices[i + 2]].Position != vertices[indices[i]].Position &&
+									vertices[indices[i + 1]].Position != vertices[indices[i + 2]].Position) {
+									collidables.Add(new Physics2.CollidableStaticTri(vertices[indices[i + 2]].Position,
+										vertices[indices[i + 1]].Position, vertices[indices[i]].Position));
 									++numCol;
 								}
 							}
-						}
-						else if (dm.CollisionType == CollisionTypes.BoundingBox)
-						{
+						} else if (dm.CollisionType == CollisionTypes.BoundingBox) {
 							AxisAlignedBoundingBox b = new AxisAlignedBoundingBox();
-							foreach (VertexPositionNormalTexture v in vertices)
-							{
+							foreach (VertexPositionNormalTexture v in vertices) {
 								b.expandToInclude(v.Position);
 							}
-                            //TODO: create 12 collidables from b 
-                        }
-                        else if (dm.CollisionType == CollisionTypes.None)
-                        {
-                            AxisAlignedBoundingBox b = new AxisAlignedBoundingBox();
-                            foreach (VertexPositionNormalTexture v in vertices)
-                            {
-                                b.expandToInclude(v.Position);
-                            }
-                            boundingBox = b.GetXNABoundingBox();
-                        }
+							//TODO: create 12 collidables from b 
+						} else if (dm.CollisionType == CollisionTypes.None) {
+							AxisAlignedBoundingBox b = new AxisAlignedBoundingBox();
+							foreach (VertexPositionNormalTexture v in vertices) {
+								b.expandToInclude(v.Position);
+							}
+							boundingBox = b.GetXNABoundingBox();
+						}
 
-						if (dm.Event != null)
-						{
+						if (dm.Event != null) {
 							body = new TriggerBody(collidables, null, dm.Event);
-							if (((TriggerBody)body).TriggeredEvent is SwitchEvent)
-							{
+							if (((TriggerBody)body).TriggeredEvent is SwitchEvent) {
 								switches.Add((TriggerBody)body);
 							}
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
-						}
-						else if (dm is ConveyerBeltStatic)
-						{
+						} else if (dm is ConveyerBeltStatic) {
 							body = new BodyStaticConveyerBelt(collidables, null, dm as ConveyerBeltStatic);
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
-						}
-						else if (dm is StaticModelSpeed)
-						{
+						} else if (dm is StaticModelSpeed) {
 							body = new SpeedStatic(collidables, null, ((StaticModelSpeed)dm).Speed);
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
-						}
-						else
-						{
+						} else {
 							body = new Body(collidables, null);
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
 						}
-					}
-					else
-					{
+					} else {
 						DynamicModel dynModel = (DynamicModel)dm;
 
 						List<PhysicsPoint> tempList = new List<PhysicsPoint>();
-                        Dictionary<int, PhysicsPoint> pointMap = new Dictionary<int, PhysicsPoint>();
-						for (int i = 0; i < vertices.Length; ++i)
-						{
-                            PhysicsPoint newPoint = new PhysicsPoint(vertices[i].Position, null);
-                            PhysicsPoint mapPoint = null;
-                            bool exists = false;
-                            foreach (PhysicsPoint p in tempList) 
-                            {
-                                if (p.ExternalPosition == newPoint.ExternalPosition)
-                                {
-                                    exists = true;
-                                    mapPoint = p;
-                                    break;
-                                }
-                            }
-                            if (exists)
-                            {
-                                pointMap[i] = mapPoint;
-                            }
-                            else
-                            {
-                                tempList.Add(newPoint);
-                                pointMap[i] = newPoint;
-                            }
+						Dictionary<int, PhysicsPoint> pointMap = new Dictionary<int, PhysicsPoint>();
+						for (int i = 0; i < vertices.Length; ++i) {
+							PhysicsPoint newPoint = new PhysicsPoint(vertices[i].Position, null);
+							PhysicsPoint mapPoint = null;
+							bool exists = false;
+							foreach (PhysicsPoint p in tempList) {
+								if (p.ExternalPosition == newPoint.ExternalPosition) {
+									exists = true;
+									mapPoint = p;
+									break;
+								}
+							}
+							if (exists) {
+								pointMap[i] = mapPoint;
+							} else {
+								tempList.Add(newPoint);
+								pointMap[i] = newPoint;
+							}
 						}
 
-                        List<Spring> springs = new List<Spring>();
-                        List<PhysicsPoint> points = new List<PhysicsPoint>();
+						List<Spring> springs = new List<Spring>();
+						List<PhysicsPoint> points = new List<PhysicsPoint>();
 
-                        if (dynModel.HasSprings)
-                        {
-                            foreach (PhysicsPoint tPoint in tempList)
-                            {
-                                foreach (PhysicsPoint p in points)
-                                {
-                                    float springDist = Vector3.Distance(tPoint.ExternalPosition, p.ExternalPosition);
-                                    if (springDist > 0)
-                                    {
-                                        springs.Add(new Spring(tPoint, p, Vector3.Distance(tPoint.ExternalPosition, p.ExternalPosition), 1f));
-                                    }
-                                }
-                                points.Add(tPoint);
-                            }
-                        }
-                        else
-                        {
-                            points = new List<PhysicsPoint>(tempList);
-                        }
+						if (dynModel.HasSprings) {
+							foreach (PhysicsPoint tPoint in tempList) {
+								foreach (PhysicsPoint p in points) {
+									float springDist = Vector3.Distance(tPoint.ExternalPosition, p.ExternalPosition);
+									if (springDist > 0) {
+										springs.Add(new Spring(tPoint, p, Vector3.Distance(tPoint.ExternalPosition, p.ExternalPosition), 1f));
+									}
+								}
+								points.Add(tPoint);
+							}
+						} else {
+							points = new List<PhysicsPoint>(tempList);
+						}
 
 						List<Physics2.Collidable> collidables = new List<Physics2.Collidable>();
 						int numCol = 0;
-						for (int i = 0; i < indices.Length; i += 3)
-						{
-                            collidables.Add(new Physics2.CollidableTri(pointMap[indices[i + 2]], pointMap[indices[i + 1]], pointMap[indices[i]]));
-								++numCol;
+						for (int i = 0; i < indices.Length; i += 3) {
+							collidables.Add(new Physics2.CollidableTri(pointMap[indices[i + 2]], pointMap[indices[i + 1]], pointMap[indices[i]]));
+							++numCol;
 						}
 
-						if (dm.Event != null)
-						{
+						if (dm.Event != null) {
 							body = new TriggerBody(null, points, collidables, new List<Spring>(), dynModel.Tasks, dynModel.Event);
-							if (((TriggerBody)body).TriggeredEvent is SwitchEvent)
-							{
+							if (((TriggerBody)body).TriggeredEvent is SwitchEvent) {
 								switches.Add((TriggerBody)body);
 							}
 							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
-						}
-						else if (dm is ConveyerBeltDynamic)
-						{
+						} else if (dm is ConveyerBeltDynamic) {
 							body = new BodyDynamicConveyorBelt(null, points, collidables, new List<Spring>(), dynModel.Tasks, dm as ConveyerBeltDynamic, pointMap);
 							body.collisionSound = Audio.AudioManager.getSound(dm.AudioName);
-						}
-						else
-						{
+						} else {
 							body = new DrawableBody(null, points, collidables, springs, dynModel.Tasks, dynModel, pointMap);
 							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
 						}
 					}
 
-                    if (boundingBox.Min == Vector3.Zero && boundingBox.Max == Vector3.Zero)
-                    {
-                        dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
-                    }
-                    else
-                    {
-                        dm.SetBoundingBox(boundingBox);
-                    }
+					if (boundingBox.Min == Vector3.Zero && boundingBox.Max == Vector3.Zero) {
+						dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
+					} else {
+						dm.SetBoundingBox(boundingBox);
+					}
 
 					body.setMaterial(MaterialFactory.GetPhysicsMaterial(dm.MyMaterialType));
 					this.m_Bodies.Add(body);
@@ -499,17 +414,12 @@ namespace Project_blob
 			// the switch is triggered.
 			//
 			// (I don't think we have enough loops) /sarcasm
-			foreach (TriggerBody t in switches)
-			{
+			foreach (TriggerBody t in switches) {
 				((SwitchEvent)t.TriggeredEvent).Bodies = new List<Body>();
-				foreach(DynamicModel d in ((SwitchEvent)t.TriggeredEvent).Models) 
-				{
-					foreach(Body b in m_Bodies)
-					{
-						if (b is DrawableBody)
-						{
-							if(((DrawableBody)b).getModel().Equals(d))
-							{
+				foreach (DynamicModel d in ((SwitchEvent)t.TriggeredEvent).Models) {
+					foreach (Body b in m_Bodies) {
+						if (b is DrawableBody) {
+							if (((DrawableBody)b).getModel().Equals(d)) {
 								((SwitchEvent)t.TriggeredEvent).Bodies.Add(b);
 							}
 						}
@@ -517,8 +427,7 @@ namespace Project_blob
 				}
 			}
 
-			foreach (Texture2D t in TextureManager.TextureList)
-			{
+			foreach (Texture2D t in TextureManager.TextureList) {
 				this._display.DrawnList.Add(new List<Drawable>());
 			}
 		}

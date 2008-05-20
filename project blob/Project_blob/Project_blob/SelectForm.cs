@@ -4,10 +4,8 @@ using System.Collections.Generic;
 
 using System.Windows.Forms;
 
-namespace Project_blob
-{
-	internal partial class SelectForm : Form
-	{
+namespace Project_blob {
+	internal partial class SelectForm : Form {
 
 		private System.Windows.Forms.Button OK;
 		private System.Windows.Forms.Button Cancel;
@@ -15,13 +13,11 @@ namespace Project_blob
 
 		private System.ComponentModel.IContainer components = null;
 
-		internal SelectForm(String[] options)
-		{
+		internal SelectForm(string[] options) {
 			InitializeComponent(options);
 		}
 
-		internal string getSelected()
-		{
+		internal string getSelected() {
 			return this.List.SelectedItem.ToString();
 		}
 
@@ -29,10 +25,8 @@ namespace Project_blob
 		/// Clean up any resources being used.
 		/// </summary>
 		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
+		protected override void Dispose(bool disposing) {
+			if (disposing && (components != null)) {
 				components.Dispose();
 			}
 			base.Dispose(disposing);
@@ -42,8 +36,7 @@ namespace Project_blob
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		private void InitializeComponent(String[] options)
-		{
+		private void InitializeComponent(string[] options) {
 			this.OK = new System.Windows.Forms.Button();
 			this.Cancel = new System.Windows.Forms.Button();
 			this.List = new System.Windows.Forms.ComboBox();

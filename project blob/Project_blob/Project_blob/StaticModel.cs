@@ -14,24 +14,20 @@ using Audio;
 using System.Runtime.Serialization;
 using System.ComponentModel;
 
-namespace Project_blob
-{
-	public enum CollisionTypes
-	{
+namespace Project_blob {
+	public enum CollisionTypes {
 		None,
 		BoundingBox,
 		Body
 	}
 
 	[Serializable]
-	public class StaticModel : Drawable
-	{
-		private String _modelName;
+	public class StaticModel : Drawable {
+		private string _modelName;
 
-		private String _audioName;
+		private string _audioName;
 		[TypeConverter(typeof(TypeConverterAudio))]
-		public String AudioName
-		{
+		public string AudioName {
 			get { return _audioName; }
 			set { _audioName = value; }
 		}
@@ -44,120 +40,93 @@ namespace Project_blob
 		}*/
 
 		private bool m_RepeatingTexture = false;
-		public bool RepeatingTexture
-		{
-			get
-			{
+		public bool RepeatingTexture {
+			get {
 				return m_RepeatingTexture;
 			}
-			set
-			{
+			set {
 				m_RepeatingTexture = value;
 				updateTextureCoords();
 			}
 		}
 		private float m_TextureScaleX = 1f;
-		public float TextureScaleX
-		{
-			get
-			{
+		public float TextureScaleX {
+			get {
 				return m_TextureScaleX;
 			}
-			set
-			{
+			set {
 				m_TextureScaleX = value;
 				updateTextureCoords();
 			}
 		}
 		private float m_TextureScaleY = 1f;
-		public float TextureScaleY
-		{
-			get
-			{
+		public float TextureScaleY {
+			get {
 				return m_TextureScaleY;
 			}
-			set
-			{
+			set {
 				m_TextureScaleY = value;
 				updateTextureCoords();
 			}
 		}
 
 		private float m_TextureOffsetX = 0f;
-		public float TextureOffsetX
-		{
-			get
-			{
+		public float TextureOffsetX {
+			get {
 				return m_TextureOffsetX;
 			}
-			set
-			{
+			set {
 				m_TextureOffsetX = value;
 				updateTextureCoords();
 			}
 		}
 		private float m_TextureOffsetY = 0f;
-		public float TextureOffsetY
-		{
-			get
-			{
+		public float TextureOffsetY {
+			get {
 				return m_TextureOffsetY;
 			}
-			set
-			{
+			set {
 				m_TextureOffsetY = value;
 				updateTextureCoords();
 			}
 		}
 
 		private MaterialType m_MaterialType = MaterialType.Default;
-		public MaterialType MyMaterialType
-		{
-			get
-			{
+		public MaterialType MyMaterialType {
+			get {
 				return m_MaterialType;
 			}
-			set
-			{
+			set {
 				m_MaterialType = value;
 			}
 		}
 
 		private EventTrigger m_Event;
-		public EventTrigger Event
-		{
-			get
-			{
+		public EventTrigger Event {
+			get {
 				return m_Event;
 			}
-			set
-			{
+			set {
 				m_Event = value;
 			}
 		}
 
 		private bool m_Visible = true;
-		public bool Visible
-		{
-			get
-			{
+		public bool Visible {
+			get {
 				return m_Visible;
 			}
-			set
-			{
+			set {
 				m_Visible = value;
 			}
 		}
 
 		private CollisionTypes m_CollisionType = CollisionTypes.Body;
-		public CollisionTypes CollisionType
-		{
-			get
-			{
+		public CollisionTypes CollisionType {
+			get {
 				return m_CollisionType;
 			}
-			set
-			{
+			set {
 				m_CollisionType = value;
 			}
 		}
@@ -169,7 +138,7 @@ namespace Project_blob
 			{
 				foreach (ModelMesh mesh in m.Meshes)
 				{
-					m_VertexBuffers = new Dictionary<String, VertexBuffer>();
+					m_VertexBuffers = new Dictionary<string, VertexBuffer>();
 
 					// Vertices
 					int numVertices = 0;
@@ -235,45 +204,37 @@ namespace Project_blob
 		private BoundingBox m_BoundingBox;
 		//private BoundingSphere m_BoundingSphere;
 
-		public BoundingBox GetBoundingBox()
-		{
+		public BoundingBox GetBoundingBox() {
 			return m_BoundingBox;
 		}
-		public void SetBoundingBox(BoundingBox bb)
-		{
+		public void SetBoundingBox(BoundingBox bb) {
 			m_BoundingBox = bb;
 		}
 
 		[NonSerialized]
 		private VertexPositionNormalTexture[] m_Vertices;
-		public VertexPositionNormalTexture[] Vertices
-		{
-			get
-			{
+		public VertexPositionNormalTexture[] Vertices {
+			get {
 				return m_Vertices;
 			}
-			set
-			{
+			set {
 				m_Vertices = value;
 			}
 		}
 
 		[NonSerialized]
 		private VertexBuffer m_VertexBuffer;
-		public VertexBuffer getVertexBuffer()
-		{
+		public VertexBuffer getVertexBuffer() {
 			return m_VertexBuffer;
 		}
 		[NonSerialized]
 		private IndexBuffer m_IndexBuffer;
-		public IndexBuffer getIndexBuffer()
-		{
+		public IndexBuffer getIndexBuffer() {
 			return m_IndexBuffer;
 		}
 		[NonSerialized]
 		private VertexDeclaration m_VertexDeclaration;
-		public int getVertexStride()
-		{
+		public int getVertexStride() {
 			return m_VertexStride;
 		}
 		[NonSerialized]
@@ -286,10 +247,8 @@ namespace Project_blob
 		private int m_MinVertexIndex;
 		[NonSerialized]
 		private int m_NumVertices;
-		public int NumVertices
-		{
-			get
-			{
+		public int NumVertices {
+			get {
 				return m_NumVertices;
 			}
 		}
@@ -302,8 +261,7 @@ namespace Project_blob
 		private VertexPositionNormalTexture[] origVertices;
 
 		//supports one Mesh per Model
-		public void initialize()
-		{
+		public void initialize() {
 			updateTransform();
 
 			m_TextureID = TextureManager.GetTextureID(_textureName);
@@ -332,25 +290,20 @@ namespace Project_blob
 			mesh.VertexBuffer.GetData<VertexPositionNormalTexture>(m_Vertices);
 
 			//transform points
-			for (int i = 0; i < m_Vertices.Length; ++i)
-			{
+			for (int i = 0; i < m_Vertices.Length; ++i) {
 				m_Vertices[i].Position = Vector3.Transform(m_Vertices[i].Position, Transform);
 				m_Vertices[i].Normal = Vector3.TransformNormal(m_Vertices[i].Normal, Transform);
 			}
 			updateTextureCoords();
-			try
-			{
+			try {
 				updateVertexBuffer();
-			}
-			catch (InvalidOperationException) 
-			{
+			} catch (InvalidOperationException) {
 				m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
 				updateVertexBuffer();
 			}
 		}
 
-		public void updateVertexBuffer()
-		{
+		public void updateVertexBuffer() {
 			m_VertexBuffer.SetData<VertexPositionNormalTexture>(m_Vertices);
 		}
 
@@ -371,77 +324,74 @@ namespace Project_blob
 			return vertices;
 		}*/
 
-		public void updateTextureCoords()
-		{
+		public void updateTextureCoords() {
 			//VertexPositionNormalTexture[] vertices = new VertexPositionNormalTexture[m_NumVertices];
 			//Model m = ModelManager.getSingleton.GetModel(_modelName);
 
 			//if (m != null)
 			//{
-				//m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
+			//m.Meshes[0].VertexBuffer.GetData<VertexPositionNormalTexture>(vertices);
 
-				//VertexPositionNormalTexture[] myVertices = new VertexPositionNormalTexture[m_NumVertices];
-				//m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
-				//m_VertexBuffer.GetData<VertexPositionNormalTexture>(myVertices);
+			//VertexPositionNormalTexture[] myVertices = new VertexPositionNormalTexture[m_NumVertices];
+			//m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(null, 0, 0);
+			//m_VertexBuffer.GetData<VertexPositionNormalTexture>(myVertices);
 
-				if (m_RepeatingTexture)
-				{
-					//scaleVector used to scale texture coordinates
-					Vector3 scaleVector = Vector3.Zero;
-					Quaternion rotVector = Quaternion.Identity;
-					Vector3 transVector = Vector3.Zero;
-					m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
+			if (m_RepeatingTexture) {
+				//scaleVector used to scale texture coordinates
+				Vector3 scaleVector = Vector3.Zero;
+				Quaternion rotVector = Quaternion.Identity;
+				Vector3 transVector = Vector3.Zero;
+				m_Scale.Decompose(out scaleVector, out rotVector, out transVector);
 
-					//Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
-					Texture2D texture = TextureManager.GetTexture(m_TextureID);
+				//Texture2D texture = TextureManager.getSingleton.GetTexture(TextureKey.TextureName);
+				Texture2D texture = TextureManager.GetTexture(m_TextureID);
 
-					for (int i = 0; i < origVertices.Length; ++i)
+				for (int i = 0; i < origVertices.Length; ++i) {
+					//scale the texture coordinates
+					m_Vertices[i].TextureCoordinate.X = (origVertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+					m_Vertices[i].TextureCoordinate.Y = (origVertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+
+					//scale the texture coordinates
+					/*if (vertices[i].Normal.Equals(Vector3.Up))
 					{
-						//scale the texture coordinates
-						m_Vertices[i].TextureCoordinate.X = (origVertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
-						m_Vertices[i].TextureCoordinate.Y = (origVertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
-
-						//scale the texture coordinates
-						/*if (vertices[i].Normal.Equals(Vector3.Up))
-						{
-							myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
-							myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
-						}
-						else if (vertices[i].Normal.Equals(Vector3.Down))
-						{
-							myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
-							myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
-						}
-						else if (vertices[i].Normal.Equals(Vector3.Left))
-						{
-							myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
-							myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
-						}
-						else if (vertices[i].Normal.Equals(Vector3.Right))
-						{
-							myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
-							myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
-						}
-						else if (vertices[i].Normal.Equals(Vector3.Forward))
-						{
-							myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
-							myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
-						}
-						else if (vertices[i].Normal.Equals(Vector3.Backward))
-						{
-							myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
-							myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
-						}*/
+						myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+						myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
 					}
+					else if (vertices[i].Normal.Equals(Vector3.Down))
+					{
+						myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+						myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+					}
+					else if (vertices[i].Normal.Equals(Vector3.Left))
+					{
+						myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+						myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+					}
+					else if (vertices[i].Normal.Equals(Vector3.Right))
+					{
+						myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+						myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+					}
+					else if (vertices[i].Normal.Equals(Vector3.Forward))
+					{
+						myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+						myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+					}
+					else if (vertices[i].Normal.Equals(Vector3.Backward))
+					{
+						myVertices[i].TextureCoordinate.X = (vertices[i].TextureCoordinate.X * (scaleVector.X / (m_TextureScaleX * texture.Width))) + TextureOffsetX;
+						myVertices[i].TextureCoordinate.Y = (vertices[i].TextureCoordinate.Y * (scaleVector.Z / (m_TextureScaleY * texture.Height))) + TextureOffsetY;
+					}*/
 				}
-				//m_VertexBuffer.SetData<VertexPositionNormalTexture>( m_Vertices );
-				//m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
+			}
+			//m_VertexBuffer.SetData<VertexPositionNormalTexture>( m_Vertices );
+			//m_VertexBuffer.GraphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
 			//}
 		}
 
 		/*
         [NonSerialized]
-        private Dictionary<String, VertexBuffer> m_VertexBuffers;
+        private Dictionary<string, VertexBuffer> m_VertexBuffers;
         
         //[NonSerialized]
         //private List<Physics.Collidable> m_collidables;
@@ -463,7 +413,7 @@ namespace Project_blob
                 //-------------------------------------------
                 if (_modelName.Equals("plane"))
                 {
-                    m_VertexBuffers = new Dictionary<String, VertexBuffer>();
+                    m_VertexBuffers = new Dictionary<string, VertexBuffer>();
 
                     //scaleVector used to scale texture coordinates
                     Vector3 scaleVector = Vector3.Zero;
@@ -563,35 +513,28 @@ namespace Project_blob
             return collidables;
         }*/
 
-		public String getName()
-		{
+		public string getName() {
 			return m_Name;
 		}
 
-		private String _textureName;
+		private string _textureName;
 		[TypeConverter(typeof(TypeConverterTexture))]
-		public String TextureName
-		{
-			get
-			{
+		public string TextureName {
+			get {
 				return _textureName;
 			}
-			set
-			{
+			set {
 				_textureName = value;
 				m_TextureID = TextureManager.GetTextureID(value);
 			}
 		}
 
-		private String m_Name;
-		public String Name
-		{
-			get
-			{
+		private string m_Name;
+		public string Name {
+			get {
 				return m_Name;
 			}
-			set
-			{
+			set {
 				m_Name = value;
 			}
 		}
@@ -604,87 +547,66 @@ namespace Project_blob
 		//index 2 = scale
 		int[] m_PriorityArray = new int[3];
 
-		public int[] PriorityArray
-		{
-			get
-			{
+		public int[] PriorityArray {
+			get {
 				return m_PriorityArray;
 			}
-			set
-			{
+			set {
 				m_PriorityArray = value;
 			}
 		}
-		public int TranslationPriority
-		{
-			get
-			{
+		public int TranslationPriority {
+			get {
 				return m_PriorityArray[0];
 			}
-			set
-			{
+			set {
 				m_PriorityArray[0] = value;
 			}
 		}
 
-		public int RotationPriority
-		{
-			get
-			{
+		public int RotationPriority {
+			get {
 				return m_PriorityArray[1];
 			}
-			set
-			{
+			set {
 				m_PriorityArray[1] = value;
 			}
 		}
 
-		public int ScalePriority
-		{
-			get
-			{
+		public int ScalePriority {
+			get {
 				return m_PriorityArray[2];
 			}
-			set
-			{
+			set {
 				m_PriorityArray[2] = value;
 			}
 		}
 
-		public Matrix Position
-		{
-			get
-			{
+		public Matrix Position {
+			get {
 				return m_Position;
 			}
-			set
-			{
+			set {
 				m_Position = value;
 				updateTransform();
 			}
 		}
 
-		public Matrix Rotation
-		{
-			get
-			{
+		public Matrix Rotation {
+			get {
 				return m_Rotation;
 			}
-			set
-			{
+			set {
 				m_Rotation = value;
 				updateTransform();
 			}
 		}
 
-		public Matrix Scale
-		{
-			get
-			{
+		public Matrix Scale {
+			get {
 				return m_Scale;
 			}
-			set
-			{
+			set {
 				m_Scale = value;
 				updateTransform();
 				//updateTextureCoords();
@@ -692,22 +614,17 @@ namespace Project_blob
 		}
 
 		private Matrix m_Transform;
-		public Matrix Transform
-		{
-			get
-			{
+		public Matrix Transform {
+			get {
 				return m_Transform;
 			}
 		}
 
-		private void updateTransform()
-		{
+		private void updateTransform() {
 			m_Transform = Matrix.Identity;
 			Stack<Matrix> drawStack = new Stack<Matrix>();
-			for (int i = 0; i < 3; ++i)
-			{
-				switch (m_PriorityArray[i])
-				{
+			for (int i = 0; i < 3; ++i) {
+				switch (m_PriorityArray[i]) {
 					case 0:
 						if (this.Position != null)
 							drawStack.Push(this.Position);
@@ -725,15 +642,12 @@ namespace Project_blob
 				}
 			}
 
-			while (drawStack.Count > 0)
-			{
+			while (drawStack.Count > 0) {
 				m_Transform = Matrix.Multiply(drawStack.Pop(), m_Transform);
 			}
-			if (m_Vertices != null)
-			{
+			if (m_Vertices != null) {
 				//transform points
-				for (int i = 0; i < m_Vertices.Length; ++i)
-				{
+				for (int i = 0; i < m_Vertices.Length; ++i) {
 					m_Vertices[i].Position = Vector3.Transform(origVertices[i].Position, Transform);
 					m_Vertices[i].Normal = Vector3.TransformNormal(origVertices[i].Normal, Transform);
 				}
@@ -741,57 +655,45 @@ namespace Project_blob
 		}
 
 		[TypeConverter(typeof(TypeConverterModel))]
-		public String ModelName
-		{
-			get
-			{
+		public string ModelName {
+			get {
 				return _modelName;
 			}
-			set
-			{
+			set {
 				_modelName = value;
 			}
 		}
 
 		bool m_ShowVertices = false;
-		public bool ShowVertices
-		{
-			get
-			{
+		public bool ShowVertices {
+			get {
 				return m_ShowVertices;
 			}
-			set
-			{
+			set {
 				m_ShowVertices = value;
 			}
 		}
 
 		private List<short> _rooms;
-		public List<short> Rooms
-		{
+		public List<short> Rooms {
 			get { return _rooms; }
 			set { _rooms = value; }
 		}
-		public void AddRoom(short room)
-		{
-			if (_rooms == null)
-			{
+		public void AddRoom(short room) {
+			if (_rooms == null) {
 				_rooms = new List<short>();
 			}
-			if (!_rooms.Contains(room))
-			{
+			if (!_rooms.Contains(room)) {
 				_rooms.Add(room);
 			}
 		}
-		public void RemoveRoom(short room)
-		{
+		public void RemoveRoom(short room) {
 			_rooms.Remove(room);
 		}
 
 		public StaticModel() { }
 
-		public StaticModel(StaticModel p_Model)
-		{
+		public StaticModel(StaticModel p_Model) {
 			/*foreach (System.Reflection.PropertyInfo p in p_Model.GetType().GetProperties())
 			{
          
@@ -821,12 +723,11 @@ namespace Project_blob
 		/// </summary>
 		/// <param name="info"></param>
 		/// <param name="ctxt"></param>
-		public StaticModel(SerializationInfo info, StreamingContext ctxt)
-		{
+		public StaticModel(SerializationInfo info, StreamingContext ctxt) {
 			updateTransform();
 		}
 
-		/*public StaticModel(String p_Name, String fileName, String audioName, List<short> rooms)
+		/*public StaticModel(string p_Name, string fileName, string audioName, List<short> rooms)
 		{
 			m_Name = p_Name;
 			_modelName = fileName;
@@ -844,8 +745,7 @@ namespace Project_blob
 			//m_TextureKey = null;
 		}*/
 
-		public StaticModel(String p_Name, String fileName, String audioName, String p_TextureName, List<short> rooms)
-		{
+		public StaticModel(string p_Name, string fileName, string audioName, string p_TextureName, List<short> rooms) {
 			m_Name = p_Name;
 			_modelName = fileName;
 			_audioName = audioName;
@@ -865,22 +765,19 @@ namespace Project_blob
 
 		public virtual void DrawMe() { }
 
-		public virtual void DrawMe(GraphicsDevice graphicsDevice, Effect effect, bool gameMode)
-		{
+		public virtual void DrawMe(GraphicsDevice graphicsDevice, Effect effect, bool gameMode) {
 			graphicsDevice.Indices = m_IndexBuffer;
 			effect.Begin();
 
 			// Loop through each pass in the effect like we do elsewhere
-			foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-			{
+			foreach (EffectPass pass in effect.CurrentTechnique.Passes) {
 				pass.Begin();
 				// Change the device settings for each part to be rendered
 				graphicsDevice.VertexDeclaration = m_VertexDeclaration;
 				graphicsDevice.Vertices[0].SetSource(m_VertexBuffer, m_StreamOffset, m_VertexStride);
 				// Finally draw the actual triangles on the screen
 				graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, m_BaseVertex, m_MinVertexIndex, m_NumVertices, m_StartIndex, m_PrimitiveCount);
-				if (this.ShowVertices && !gameMode)
-				{
+				if (this.ShowVertices && !gameMode) {
 					Texture2D temp = (Texture2D)graphicsDevice.Textures[0];
 					graphicsDevice.Textures[0] = TextureManager.GetTexture("point_text");
 					graphicsDevice.DrawPrimitives(PrimitiveType.PointList, 0, m_NumVertices);
@@ -931,12 +828,10 @@ namespace Project_blob
 
 		[NonSerialized]
 		private int m_TextureID;
-		public int GetTextureID()
-		{
+		public int GetTextureID() {
 			return m_TextureID;
 		}
-		public void SetTextureID(int id)
-		{
+		public void SetTextureID(int id) {
 			m_TextureID = id;
 		}
 
@@ -1065,8 +960,7 @@ namespace Project_blob
 		//}
 		#endregion
 
-		public override string ToString()
-		{
+		public override string ToString() {
 			return m_Name;
 		}
 	}

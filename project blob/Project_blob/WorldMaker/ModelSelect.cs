@@ -52,8 +52,8 @@ namespace WorldMaker
             }
         }*/
 
-        private String originalModel;
-        private String originalTextureName;
+        private string originalModel;
+        private string originalTextureName;
         //private int originalTextureSort;
 
         LevelEditor levelEditor;
@@ -95,11 +95,11 @@ namespace WorldMaker
             }
             else
             {
-                //string modelName = ((string)(modelBox.Items[0])).Substring(0, ((String)(modelBox.Items[0])).LastIndexOf("."));
+                //string modelName = ((string)(modelBox.Items[0])).Substring(0, ((string)(modelBox.Items[0])).LastIndexOf("."));
                 string modelName = (string)modelBox.Items[0];
-                //string textureName = ((string)(textureBox.Items[0])).Substring(0, ((String)(textureBox.Items[0])).LastIndexOf("."));
+                //string textureName = ((string)(textureBox.Items[0])).Substring(0, ((string)(textureBox.Items[0])).LastIndexOf("."));
                 string textureName = (string)textureBox.Items[0];
-                m_CurrentModel = new StaticModel("", modelName, "none", textureName, new List<short>());
+                m_CurrentModel = new StaticModel(string.Empty, modelName, "none", textureName, new List<short>());
                 m_CurrentModel.initialize();
             }
 
@@ -129,8 +129,8 @@ namespace WorldMaker
         {
             if (modelBox.SelectedIndex != -1)
             {
-                //m_CurrentModel.ModelName = ((String)(modelBox.Items[modelBox.SelectedIndex])).Substring(0, ((String)(modelBox.Items[modelBox.SelectedIndex])).LastIndexOf("."));
-                m_CurrentModel.ModelName = (String)modelBox.SelectedItem;
+                //m_CurrentModel.ModelName = ((string)(modelBox.Items[modelBox.SelectedIndex])).Substring(0, ((string)(modelBox.Items[modelBox.SelectedIndex])).LastIndexOf("."));
+                m_CurrentModel.ModelName = (string)modelBox.SelectedItem;
                 m_CurrentModel.initialize();
             }
 
@@ -138,7 +138,7 @@ namespace WorldMaker
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
-            if (!m_CurrentModel.ModelName.Equals("none") && !m_CurrentModel.TextureName.Equals("none") && !m_CurrentModel.Name.Equals(""))
+            if (!string.IsNullOrEmpty(m_CurrentModel.Name) && !m_CurrentModel.ModelName.Equals("none") && !m_CurrentModel.TextureName.Equals("none"))
             {
                 /*if (m_CurrentModel.TextureName.Equals("event"))
                 {
@@ -168,8 +168,8 @@ namespace WorldMaker
         {
             if (textureBox.SelectedIndex != -1)
             {
-                //m_CurrentModel.TextureName = ((String)(textureBox.Items[textureBox.SelectedIndex])).Substring(0, ((String)(textureBox.Items[textureBox.SelectedIndex])).LastIndexOf("."));
-                m_CurrentModel.TextureName = (String)textureBox.SelectedItem;
+                //m_CurrentModel.TextureName = ((string)(textureBox.Items[textureBox.SelectedIndex])).Substring(0, ((string)(textureBox.Items[textureBox.SelectedIndex])).LastIndexOf("."));
+                m_CurrentModel.TextureName = (string)textureBox.SelectedItem;
                 //m_CurrentModel.TextureKey = m_CurrentTexture;
             }
         }
@@ -178,7 +178,7 @@ namespace WorldMaker
         {
             m_CurrentModel.Name = ModelName.Text;
             if(_gameRef.ActiveArea.Drawables.ContainsKey(m_CurrentModel.ModelName)) {
-                m_CurrentModel.ModelName = "";
+                m_CurrentModel.ModelName = string.Empty;
             }
         }
 
@@ -186,7 +186,7 @@ namespace WorldMaker
         {
             if (audioBox.SelectedIndex != -1)
             {
-                m_CurrentModel.AudioName = ((String)(audioBox.Items[audioBox.SelectedIndex])).Substring(0, ((String)(audioBox.Items[audioBox.SelectedIndex])).LastIndexOf("."));
+                m_CurrentModel.AudioName = ((string)(audioBox.Items[audioBox.SelectedIndex])).Substring(0, ((string)(audioBox.Items[audioBox.SelectedIndex])).LastIndexOf("."));
             }
         }
 

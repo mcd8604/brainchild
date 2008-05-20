@@ -4,33 +4,25 @@ using System.Text;
 using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 
-namespace Project_blob
-{
+namespace Project_blob {
 	[Serializable]
-	class ConveyerBeltStatic : StaticModel
-	{
+	class ConveyerBeltStatic : StaticModel {
 		private Vector3 m_Direction;
-		public Vector3 Direction
-		{
-			get
-			{
+		public Vector3 Direction {
+			get {
 				return m_Direction;
 			}
-			set
-			{
+			set {
 				m_Direction = value;
 			}
 		}
 
 		private float m_Speed;
-		public float Speed
-		{
-			get
-			{
+		public float Speed {
+			get {
 				return m_Speed;
 			}
-			set
-			{
+			set {
 				m_Speed = value;
 			}
 		}
@@ -40,8 +32,7 @@ namespace Project_blob
 		public ConveyerBeltStatic() { }
 
 		public ConveyerBeltStatic(StaticModel p_Model)
-			: base(p_Model)
-		{
+			: base(p_Model) {
 			m_Direction = Vector3.Forward;
 			m_Speed = 1f;
 		}
@@ -53,13 +44,12 @@ namespace Project_blob
 		/// <param name="ctxt"></param>
 		public ConveyerBeltStatic(SerializationInfo info, StreamingContext ctxt) { }
 
-		//public ConveyerBeltStatic(String p_Name, String fileName, String audioName, List<short> rooms) : base(p_Name, fileName, audioName, rooms) { }
+		//public ConveyerBeltStatic(string p_Name, string fileName, string audioName, List<short> rooms) : base(p_Name, fileName, audioName, rooms) { }
 
-		public ConveyerBeltStatic(String p_Name, String fileName, String audioName, String p_TextureName, List<short> rooms)
-            : base(p_Name, fileName, audioName, p_TextureName, rooms) { }
+		public ConveyerBeltStatic(string p_Name, string fileName, string audioName, string p_TextureName, List<short> rooms)
+			: base(p_Name, fileName, audioName, p_TextureName, rooms) { }
 
-		public override void DrawMe(Microsoft.Xna.Framework.Graphics.GraphicsDevice graphicsDevice, Microsoft.Xna.Framework.Graphics.Effect effect, bool gameMode)
-		{
+		public override void DrawMe(Microsoft.Xna.Framework.Graphics.GraphicsDevice graphicsDevice, Microsoft.Xna.Framework.Graphics.Effect effect, bool gameMode) {
 			TextureOffsetX = -1 * this.Speed * TextureScaleX * (m_Direction.X + m_Direction.Z) * Dist;
 			base.DrawMe(graphicsDevice, effect, gameMode);
 		}
