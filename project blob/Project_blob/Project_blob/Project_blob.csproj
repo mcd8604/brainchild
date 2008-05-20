@@ -80,9 +80,11 @@
     <Compile Include="EventCameraClimb.cs" />
     <Compile Include="EventCameraClimbOff.cs" />
     <Compile Include="EventWin.cs" />
+    <Compile Include="GameState\AudioMenuScreen.cs" />
     <Compile Include="GameState\DeathScreen.cs" />
     <Compile Include="GameState\EndScreen.cs" />
     <Compile Include="GameState\NewHighScoreScreen.cs" />
+    <Compile Include="GameState\VideoMenuScreen.cs" />
     <Compile Include="HighScores.cs" />
     <Compile Include="TaskTypeEditor.cs" />
     <Compile Include="ModelSelectionEditor.cs" />
