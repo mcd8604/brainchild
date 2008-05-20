@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Physics2
@@ -161,6 +162,18 @@ namespace Physics2
 			}
 		}
 
+		private List<Collidable> wasTouching = new List<Collidable>();
+		/// <summary>
+		/// What was the blob touching?
+		/// </summary>
+		public List<Collidable> WasTouching
+		{
+			get
+			{
+				return wasTouching;
+			}
+		}
+
 		/// <summary>
 		/// fake jump trigger
 		/// </summary>
@@ -261,11 +274,16 @@ namespace Physics2
 
 			#region Jump
 			jumpVector = Util.Zero;
+			wasTouching.Clear();
 			foreach (PhysicsPoint p in PlayerBody.points)
 			{
 				if (p.LastCollision != null)
 				{
 					jumpVector += p.LastCollision.Normal;
+					if (!wasTouching.Contains(p.LastCollision))
+					{
+						wasTouching.Add(p.LastCollision);
+					}
 				}
 			}
 
