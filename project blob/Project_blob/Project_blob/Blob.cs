@@ -250,10 +250,10 @@ namespace Project_blob
 			//{
 			//    //collidables.Add(new Tri(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]], Color.White));
             //}
-            for (int i = 0; i < indices.Length; i += 3)
+            /*for (int i = 0; i < indices.Length; i += 3)
             {
                 collidables.Add(new Physics2.CollidableTri(pointMap[indices[i + 2]], pointMap[indices[i + 1]], pointMap[indices[i]]));
-            }
+            }*/
 
 
 
