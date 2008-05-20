@@ -189,7 +189,7 @@ namespace Project_blob.GameState {
 			physics.Player.AirDrift = 0.1f;
 
 			physics.Player.MaxJumpWork = 20;
-			physics.Player.AirJumpWork = 20;
+			physics.Player.AirJumpWork = 0;
 
 			// --------------------
 
