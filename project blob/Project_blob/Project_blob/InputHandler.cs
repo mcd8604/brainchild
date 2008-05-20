@@ -34,20 +34,6 @@ internal static class InputHandler
 	internal static void LoadDefaultBindings()
 	{
 		// Analog
-		KeyboardMap.Add(Actions.Reset, Keys.Space);
-		GamePadMap.Add(Actions.Reset, Buttons.X);
-
-		GamePadMap.Add(Actions.ToggleElasticity, Buttons.RightShoulder);
-		GamePadMap.Add(Actions.ToggleStickiness, Buttons.LeftShoulder);
-		GamePadMap.Add(Actions.ChangeCamera, Buttons.Back);
-		GamePadMap.Add(Actions.Jump, Buttons.A);
-		GamePadMap.Add(Actions.ZoomIn, Buttons.DPadUp);
-		GamePadMap.Add(Actions.ZoomOut, Buttons.DPadDown);
-
-		KeyboardMap.Add(Actions.MoveUp, Keys.Up);
-		KeyboardMap.Add(Actions.MoveDown, Keys.Down);
-		KeyboardMap.Add(Actions.MoveRight, Keys.Right);
-		KeyboardMap.Add(Actions.MoveLeft, Keys.Left);
 
 		AnalogMap.Add(AnalogActions.Movement, delegate { return InputHandler.thisGamePadState.ThumbSticks.Left; });
 		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsActionDown(Actions.MoveUp)) { return new Vector2(0, 1); } else { return Vector2.Zero; } });
