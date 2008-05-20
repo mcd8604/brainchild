@@ -28,6 +28,7 @@ namespace Project_blob.GameState
 
 		public override void HandleInput()
 		{
+			
 			// Move to the previous menu entry?
 			if (InputHandler.IsActionPressed(Actions.MenuUp))
 			{
@@ -55,6 +56,7 @@ namespace Project_blob.GameState
 			{
 				OnCancel();
 			}
+			
 		}
 
 		protected virtual void OnSelectEntry(int entryIndex)

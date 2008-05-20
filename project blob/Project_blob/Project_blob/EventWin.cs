@@ -63,7 +63,8 @@ namespace Project_blob
 		{
 			try
 			{
-				GameState.GameScreen.ScreenManager.AddScreen(new EndScreen("You Win!"));
+				GameplayScreen.game.WinFlag = true;
+				
 			}
 			catch (Exception e)
 			{
