@@ -6,96 +6,76 @@ using Project_blob.GameState;
 using Physics2;
 using System.ComponentModel;
 
-namespace Project_blob
-{
-    [Serializable]
-	public class TransitionEvent : EventTrigger
-	{
+namespace Project_blob {
+	[Serializable]
+	public class TransitionEvent : EventTrigger {
 
 		private int m_NumTriggers = -1;
-		public int NumTriggers
-		{
-			get
-			{
+		public int NumTriggers {
+			get {
 				return m_NumTriggers;
 			}
-			set
-			{
+			set {
 				m_NumTriggers = value;
 			}
 		}
 
 		private bool m_Solid = false;
-		public bool Solid
-		{
-			get
-			{
+		public bool Solid {
+			get {
 				return m_Solid;
 			}
-			set
-			{
+			set {
 				m_Solid = value;
 			}
-        }
+		}
 
-        private float m_CoolDown = 1f;
-        public float CoolDown
-        {
-            get
-            {
-                return m_CoolDown;
-            }
-            set
-            {
-                m_CoolDown = value;
-            }
-        }
-
-        private String _area;
-        [TypeConverter(typeof(TypeConverterArea))]
-		public String Area
-		{
-			get
-			{
-				return _area;
+		private float m_CoolDown = 1f;
+		public float CoolDown {
+			get {
+				return m_CoolDown;
 			}
-			set
-			{
-				_area = value;
-                _position = Level.GetArea(value).StartPosition;
+			set {
+				m_CoolDown = value;
 			}
 		}
-        private Vector3 _position;
-		public Vector3 Position
-		{
-			get
-			{
+
+		private string _area;
+		[TypeConverter(typeof(TypeConverterArea))]
+		public string Area {
+			get {
+				return _area;
+			}
+			set {
+				_area = value;
+				_position = Level.GetArea(value).StartPosition;
+			}
+		}
+		private Vector3 _position;
+		public Vector3 Position {
+			get {
 				return _position;
 			}
-			set
-			{
+			set {
 				_position = value;
 			}
 		}
-    
 
-        public TransitionEvent() { }
 
-        public TransitionEvent(String area) 
-        {
-            _area = area;
-        }
-    
-        public TransitionEvent(String area, float xPos, float yPos, float zPos)
-        {
-            _area = area;
-            _position = new Vector3(xPos, yPos, zPos);
-        }
+		public TransitionEvent() { }
 
-        public bool PerformEvent( PhysicsPoint p )
-        {
-            GameplayScreen.game.SetChangeArea(_area, _position);
-            return true;
-        }
-    }
+		public TransitionEvent(string area) {
+			_area = area;
+		}
+
+		public TransitionEvent(string area, float xPos, float yPos, float zPos) {
+			_area = area;
+			_position = new Vector3(xPos, yPos, zPos);
+		}
+
+		public bool PerformEvent(PhysicsPoint p) {
+			GameplayScreen.game.SetChangeArea(_area, _position);
+			return true;
+		}
+	}
 }

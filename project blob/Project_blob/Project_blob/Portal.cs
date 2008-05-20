@@ -7,9 +7,9 @@ namespace Project_blob {
 	[Serializable]
 	public class Portal {
 		// Is this necessary?
-		private String _name;
+		private string _name;
 		[Obsolete]
-		public String Name {
+		public string Name {
 			get { return _name; }
 			set { _name = value; }
 		}

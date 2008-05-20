@@ -10,124 +10,107 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace Project_blob
-{
+namespace Project_blob {
 	//This class holds a list of VectorLists to be drawn to the screen
-	public class Display
-	{
+	public class Display {
 		[NonSerialized]
 		private const float blurAmount = 2f;
 
 		[NonSerialized]
 		private RenderTarget2D m_SceneRenderTarget = null;
-		public RenderTarget2D SceneRanderTarget
-		{
+		public RenderTarget2D SceneRanderTarget {
 			get { return m_SceneRenderTarget; }
-            set
-            {
-                m_SceneRenderTarget = value; 
-                resolution = new Vector2(m_SceneRenderTarget.Width, m_SceneRenderTarget.Height);
-            }
+			set {
+				m_SceneRenderTarget = value;
+				resolution = new Vector2(m_SceneRenderTarget.Width, m_SceneRenderTarget.Height);
+			}
 		}
 
-        private Vector2 resolution = Vector2.Zero;
+		private Vector2 resolution = Vector2.Zero;
 
-        Texture2D normalDepthTexture = null;
+		Texture2D normalDepthTexture = null;
 
 		[NonSerialized]
 		private RenderTarget2D m_NormalDepthRenderTarget = null;
-		public RenderTarget2D NormalDepthRenderTarget
-		{
+		public RenderTarget2D NormalDepthRenderTarget {
 			get { return m_NormalDepthRenderTarget; }
 			set { m_NormalDepthRenderTarget = value; }
 		}
 
 		[NonSerialized]
 		private RenderTarget2D m_distortionMap = null;
-		public RenderTarget2D DistortionMap
-		{
+		public RenderTarget2D DistortionMap {
 			get { return m_distortionMap; }
 			set { m_distortionMap = value; }
 		}
 
 		[NonSerialized]
 		private ResolveTexture2D m_tempTarget = null;
-		public ResolveTexture2D TempRenderTarget
-		{
+		public ResolveTexture2D TempRenderTarget {
 			get { return m_tempTarget; }
 			set { m_tempTarget = value; }
 		}
 
 		[NonSerialized]
 		private RenderTarget2D m_DepthMapRenderTarget = null;
-		public RenderTarget2D DepthMapRenderTarget
-		{
+		public RenderTarget2D DepthMapRenderTarget {
 			get { return m_DepthMapRenderTarget; }
 			set { m_DepthMapRenderTarget = value; }
 		}
 
 
 		private bool m_GameMode = false;
-		public bool GameMode
-		{
+		public bool GameMode {
 			get { return m_GameMode; }
 			set { m_GameMode = value; }
 		}
 
-		private String _textureName;
-		public String TextureName
-		{
+		private string _textureName;
+		public string TextureName {
 			get { return _textureName; }
 			set { _textureName = value; }
 		}
 
-		private String _effectName;
-		public String EffectName
-		{
-			get
-			{
+		private string _effectName;
+		public string EffectName {
+			get {
 				return _effectName;
 			}
-			set
-			{
+			set {
 				_effectName = value;
 			}
 		}
 
 		[NonSerialized]
 		Effect m_cartoonEffect;
-		public Effect CartoonEffect
-		{
+		public Effect CartoonEffect {
 			get { return m_cartoonEffect; }
 			set { m_cartoonEffect = value; }
 		}
 
 		[NonSerialized]
 		Effect m_postProcessEffect;
-		public Effect PostProcessEffect
-		{
+		public Effect PostProcessEffect {
 			get { return m_postProcessEffect; }
 			set { m_postProcessEffect = value; }
 		}
 
 		[NonSerialized]
 		Effect m_distort;
-		public Effect Distort
-		{
+		public Effect Distort {
 			get { return m_distort; }
 			set { m_distort = value; }
 		}
 
 		[NonSerialized]
 		Effect m_distorter;
-		public Effect Distorter
-		{
+		public Effect Distorter {
 			get { return m_distorter; }
 			set { m_distorter = value; }
 		}
 
-        [NonSerialized]
-        private SpriteBatch m_SpriteBatch;
+		[NonSerialized]
+		private SpriteBatch m_SpriteBatch;
 
 		public bool DEBUG_WireframeMode = false;
 
@@ -136,38 +119,32 @@ namespace Project_blob
 
 		//SortedList<TextureInfo, List<Drawable>> drawable_List_Level;
 		//SortedList<TextureInfo, List<Drawable>> drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>();
-		
-        //Two dimensional list of drawables. 
-        //First dimension index is TextureID
-        //All drawables added to the second 
-        //dimension must share the same texture
-        List<List<Drawable>> m_DrawList;
+
+		//Two dimensional list of drawables. 
+		//First dimension index is TextureID
+		//All drawables added to the second 
+		//dimension must share the same texture
+		List<List<Drawable>> m_DrawList;
 		//SortedList<short, List<Drawable>> rooms;
 
 		public bool saveOut = false;
 
 		bool m_ShowAxis = false;
-		public bool ShowAxis
-		{
-			get
-			{
+		public bool ShowAxis {
+			get {
 				return m_ShowAxis;
 			}
-			set
-			{
+			set {
 				m_ShowAxis = value;
 			}
 		}
 
-		String m_CurrentlySelected = "";
-		public String CurrentlySelected
-		{
-			get
-			{
+		string m_CurrentlySelected = string.Empty;
+		public string CurrentlySelected {
+			get {
 				return m_CurrentlySelected;
 			}
-			set
-			{
+			set {
 				m_CurrentlySelected = value;
 			}
 		}
@@ -184,86 +161,68 @@ namespace Project_blob
 			}
 		}*/
 
-		public List<List<Drawable>> DrawnList
-		{
-			get
-			{
+		public List<List<Drawable>> DrawnList {
+			get {
 				return m_DrawList;
 			}
-			set
-			{
+			set {
 				m_DrawList = value;
 			}
 		}
 
-		String m_TextureParameterName = "";
-		public String TextureParameterName
-		{
-			get
-			{
+		string m_TextureParameterName = string.Empty;
+		public string TextureParameterName {
+			get {
 				return m_TextureParameterName;
 			}
-			set
-			{
+			set {
 				m_TextureParameterName = value;
 			}
 		}
 
-		String m_WorldParameterName = "";
-		public String WorldParameterName
-		{
-			get
-			{
+		string m_WorldParameterName = string.Empty;
+		public string WorldParameterName {
+			get {
 				return m_WorldParameterName;
 			}
-			set
-			{
+			set {
 				m_WorldParameterName = value;
 			}
 		}
 
 		Matrix m_WorldMatrix;
-		public Matrix WorldMatrix
-		{
-			get
-			{
+		public Matrix WorldMatrix {
+			get {
 				return m_WorldMatrix;
 			}
-			set
-			{
+			set {
 				m_WorldMatrix = value;
 			}
 		}
 
-		String m_TechniqueName = null;
-		public String TechniqueName
-		{
-			get
-			{
+		string m_TechniqueName = null;
+		public string TechniqueName {
+			get {
 				return m_TechniqueName;
 			}
-			set
-			{
+			set {
 				m_TechniqueName = value;
 			}
 		}
 
 		private StaticModel m_skyBox;
-		public StaticModel SkyBox
-		{
+		public StaticModel SkyBox {
 			get { return m_skyBox; }
 			set { m_skyBox = value; }
 		}
 
-		public void WipeDrawn()
-		{
+		public void WipeDrawn() {
 			m_DrawList.Clear();
 			if (m_skyBox != null)
 				AddToBeDrawn(m_skyBox);
 		}
 
-		public void AddToBeDrawn(Drawable p_Drawable)
-		{
+		public void AddToBeDrawn(Drawable p_Drawable) {
 			/*if (drawable_List_Drawn.Keys.Contains(p_Drawable.GetTextureKey()))
 			{
 				List<Drawable> temp = drawable_List_Drawn[p_Drawable.GetTextureKey()];
@@ -277,20 +236,19 @@ namespace Project_blob
 				drawable_List_Drawn[p_Drawable.GetTextureKey()] = temp;
 			}*/
 
-            if (!m_DrawList[p_Drawable.GetTextureID()].Contains(p_Drawable))
-                m_DrawList[p_Drawable.GetTextureID()].Add(p_Drawable);
+			if (!m_DrawList[p_Drawable.GetTextureID()].Contains(p_Drawable))
+				m_DrawList[p_Drawable.GetTextureID()].Add(p_Drawable);
 #if DEBUG
 			++SceneManager.getSingleton.Drawn;
 #endif
 		}
 
-        public Display(GraphicsDevice gd)
-        {
-            ShowAxis = true;
-            m_WorldMatrix = Matrix.Identity;
-            m_SpriteBatch = new SpriteBatch(gd);
-            initialize(gd);
-        }
+		public Display(GraphicsDevice gd) {
+			ShowAxis = true;
+			m_WorldMatrix = Matrix.Identity;
+			m_SpriteBatch = new SpriteBatch(gd);
+			initialize(gd);
+		}
 
 		/*public Display(Matrix p_World, Matrix p_View, Matrix p_Projection)
 		{
@@ -323,8 +281,8 @@ namespace Project_blob
             initialize();
 		}*/
 
-		/*public Display(Matrix p_World, String effectName, String p_WorldParameterName,
-			String p_TextureParameterName, String p_TechniqueName)
+		/*public Display(Matrix p_World, string effectName, string p_WorldParameterName,
+			string p_TextureParameterName, string p_TechniqueName)
 		{
 			//drawable_List_Level = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
 			//drawable_List_Drawn = new SortedList<TextureInfo, List<Drawable>>(new TextureInfoComparer());
@@ -343,28 +301,25 @@ namespace Project_blob
             initialize();
 		}*/
 
-        public void initialize(GraphicsDevice gd)
-        {
-            //initialize draw list, each texture gets a list
-            m_DrawList = new List<List<Drawable>>();
-            for (int i = 0; i < TextureManager.TextureList.Count; ++i)
-            {
-                m_DrawList.Add(new List<Drawable>());
-            }
+		public void initialize(GraphicsDevice gd) {
+			//initialize draw list, each texture gets a list
+			m_DrawList = new List<List<Drawable>>();
+			for (int i = 0; i < TextureManager.TextureList.Count; ++i) {
+				m_DrawList.Add(new List<Drawable>());
+			}
 
-            //*hardcode*
-            this.EffectName = "cartoonEffect";
-            this.WorldParameterName = "World";
-            this.TextureParameterName = "Texture";
-            this.TechniqueName = "Lambert";
-            this.TextureName = "point_text";
-            //*end hardcode*
+			//*hardcode*
+			this.EffectName = "cartoonEffect";
+			this.WorldParameterName = "World";
+			this.TextureParameterName = "Texture";
+			this.TechniqueName = "Lambert";
+			this.TextureName = "point_text";
+			//*end hardcode*
 
 			createRenderTargets(gd);
-        }
+		}
 
-		private void createRenderTargets(GraphicsDevice gd)
-		{
+		private void createRenderTargets(GraphicsDevice gd) {
 			this.Distort = EffectManager.getSingleton.GetEffect("distort");
 			this.Distorter = EffectManager.getSingleton.GetEffect("distorter");
 			this.CartoonEffect = EffectManager.getSingleton.GetEffect("cartoonEffect");
@@ -372,7 +327,7 @@ namespace Project_blob
 
 			PresentationParameters pp = gd.PresentationParameters;
 
-			this.m_SceneRenderTarget= new RenderTarget2D(gd,
+			this.m_SceneRenderTarget = new RenderTarget2D(gd,
 				pp.BackBufferWidth, pp.BackBufferHeight, 1,
 				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
@@ -392,33 +347,27 @@ namespace Project_blob
 				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 		}
 
-		public void Draw(GraphicsDevice graphicsDevice)
-		{
+		public void Draw(GraphicsDevice graphicsDevice) {
 			Draw(graphicsDevice, null);
 		}
 
-		public void Draw(GraphicsDevice graphicsDevice, Blob theBlob)
-		{
+		public void Draw(GraphicsDevice graphicsDevice, Blob theBlob) {
 			RenderState renderState = graphicsDevice.RenderState;
 
 			renderState.AlphaBlendEnable = false;
 			renderState.AlphaTestEnable = false;
 			renderState.DepthBufferEnable = true;
 
-			if (m_DrawList.Count > 0)
-			{
+			if (m_DrawList.Count > 0) {
 				if (m_TechniqueName != null)
-					try
-					{
+					try {
 						m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques[m_TechniqueName];
-					}
-					catch (Exception e) {
-					Log.Out.WriteLine(e);
+					} catch (Exception e) {
+						Log.Out.WriteLine(e);
 					}
 				m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.GetTexture(0));
 
-				if (ShowAxis)
-				{
+				if (ShowAxis) {
 					VertexPositionNormalTexture[] axisVertices = new VertexPositionNormalTexture[6];
 
 					axisVertices[0] = new VertexPositionNormalTexture(new Vector3(-2, 0, 0), Vector3.Zero, Vector2.Zero);
@@ -437,8 +386,7 @@ namespace Project_blob
 					graphicsDevice.Textures[0] = TextureManager.GetTexture(TextureName);
 					m_cartoonEffect.Begin();
 
-					foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes)
-					{
+					foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes) {
 						pass.Begin();
 						graphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, 6);
 						pass.End();
@@ -447,83 +395,72 @@ namespace Project_blob
 					graphicsDevice.Textures[0] = temp;
 					//graphicsDevice.Vertices[0].SetSource(tempBuffer.VertexBuffer,0,tempBuffer.VertexStride);
 				}
-				if (DEBUG_WireframeMode)
-				{
+				if (DEBUG_WireframeMode) {
 					renderState.CullMode = CullMode.None;
 					renderState.FillMode = FillMode.WireFrame;
 					renderState.DepthBufferEnable = false;
 				}
 
 				graphicsDevice.Vertices[0].SetSource(null, 0, 0);
-				for (int i = 0; i < m_DrawList.Count; ++i)
-				{
-					foreach (Drawable d in m_DrawList[i])
-					{
-						if (d is StaticModel)
-						{
+				for (int i = 0; i < m_DrawList.Count; ++i) {
+					foreach (Drawable d in m_DrawList[i]) {
+						if (d is StaticModel) {
 							((StaticModel)d).updateVertexBuffer();
 						}
 					}
 				}
 
-				if (m_NormalDepthRenderTarget != null)
-				{
+				if (m_NormalDepthRenderTarget != null) {
 					graphicsDevice.SetRenderTarget(0, m_NormalDepthRenderTarget);
 					graphicsDevice.RenderState.DepthBufferWriteEnable = true;
 					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["NormalDepth"];
-                    /*foreach (TextureInfo ti in drawable_List_Drawn.Keys)
-                    {
-                        if (!ti.TextureName.Equals("event"))
-                        {
-                            if (ti.SortNumber != currentTextureNumber)
-                            {
-                                graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                                if (m_TextureParameterName != "NONE")
-                                    m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-
-                            }
-
-                            foreach (Drawable d in drawable_List_Drawn[ti])
-                            {
-                                if (d is StaticModel)
-                                {
-                                    DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
-
-                                }
-                                else
-                                {
-                                    DrawPrimitives(d, graphicsDevice);
-                                }
-                            }
-                        }
-                    }*/
-
-					for (int i = 0; i < m_DrawList.Count; ++i)
+					/*foreach (TextureInfo ti in drawable_List_Drawn.Keys)
 					{
-						Texture2D t = TextureManager.TextureList[i];
-						//temporary check
-						//if (!t.Name.Equals("event"))
-						//{
-							//if (m_TextureParameterName != "NONE")
-								m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+						if (!ti.TextureName.Equals("event"))
+						{
+							if (ti.SortNumber != currentTextureNumber)
+							{
+								graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+								if (m_TextureParameterName != "NONE")
+									m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
 
-							foreach (Drawable d in m_DrawList[i])
+							}
+
+							foreach (Drawable d in drawable_List_Drawn[ti])
 							{
 								if (d is StaticModel)
 								{
 									DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+
 								}
 								else
 								{
 									DrawPrimitives(d, graphicsDevice);
 								}
 							}
+						}
+					}*/
+
+					for (int i = 0; i < m_DrawList.Count; ++i) {
+						Texture2D t = TextureManager.TextureList[i];
+						//temporary check
+						//if (!t.Name.Equals("event"))
+						//{
+						//if (m_TextureParameterName != "NONE")
+						m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+
+						foreach (Drawable d in m_DrawList[i]) {
+							if (d is StaticModel) {
+								DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+							} else {
+								DrawPrimitives(d, graphicsDevice);
+							}
+						}
 						//}
 					}
 
 
-					if (theBlob != null)
-					{
+					if (theBlob != null) {
 						//m_cartoonEffect.Begin();
 						//foreach (EffectPass pass in EffectManager.getSingleton.GetEffect("cartoonEffect").CurrentTechnique.Passes)
 						//{
@@ -600,16 +537,15 @@ namespace Project_blob
 
 				graphicsDevice.Clear(Color.CornflowerBlue);
 
-                // draw skybox
-                if (m_skyBox != null)
-                {
-                    m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["SkyBox"];
-                    m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.GetTexture(m_skyBox.GetTextureID()));
-                    DrawModel(m_WorldMatrix, m_skyBox, graphicsDevice);
-                }
+				// draw skybox
+				if (m_skyBox != null) {
+					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["SkyBox"];
+					m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.GetTexture(m_skyBox.GetTextureID()));
+					DrawModel(m_WorldMatrix, m_skyBox, graphicsDevice);
+				}
 
 				//if (_effectName == "cartoonEffect")
-					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["Lambert"];
+				m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["Lambert"];
 
 				/*foreach (TextureInfo ti in drawable_List_Drawn.Keys)
 				{
@@ -640,29 +576,24 @@ namespace Project_blob
                     }
 				}*/
 
-				for (int i = 0; i < m_DrawList.Count; ++i)
-				{
+				for (int i = 0; i < m_DrawList.Count; ++i) {
 					Texture2D t = TextureManager.TextureList[i];
 					//temporary check
 					//if (!t.Name.Equals("event"))
 					//{
-						//if (m_TextureParameterName != "NONE")
-							m_cartoonEffect.Parameters["Texture"].SetValue(t);
+					//if (m_TextureParameterName != "NONE")
+					m_cartoonEffect.Parameters["Texture"].SetValue(t);
 
-						//if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
-						//	m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+					//if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
+					//	m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
 
-						foreach (Drawable d in m_DrawList[i])
-						{
-							if (d is StaticModel)
-							{
-								DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
-							}
-							else
-							{
-								DrawPrimitives(d, graphicsDevice);
-							}
+					foreach (Drawable d in m_DrawList[i]) {
+						if (d is StaticModel) {
+							DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+						} else {
+							DrawPrimitives(d, graphicsDevice);
 						}
+					}
 					//}
 				}
 
@@ -673,67 +604,60 @@ namespace Project_blob
 				graphicsDevice.RenderState.DepthBufferWriteEnable = true;
 				graphicsDevice.Clear(Color.Black);
 
-                /*foreach (TextureInfo ti in drawable_List_Drawn.Keys)
-                {
-                    if (!ti.TextureName.Equals("event"))
-                    {
-                        if (ti.SortNumber != currentTextureNumber)
-                        {
-                            graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
-                            if (m_TextureParameterName != "NONE" && _effectName == "cartoonEffect")
-                                m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
-
-                        }
-
-
-                        foreach (Drawable d in drawable_List_Drawn[ti])
-                        {
-                            if (d is StaticModel)
-                            {
-                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
-
-                            }
-                            else
-                            {
-                                DrawPrimitives(d, graphicsDevice);
-                            }
-                        }
-                    }
-                }*/
-
-				for (int i = 0; i < m_DrawList.Count; ++i)
+				/*foreach (TextureInfo ti in drawable_List_Drawn.Keys)
 				{
-					Texture2D t = TextureManager.TextureList[i];
-					//temporary check
-					//if (!t.Name.Equals("event"))
-					//{
-						//if (m_TextureParameterName != "NONE")
-						//	m_cartoonEffect.Parameters["Texture"].SetValue(t);
+					if (!ti.TextureName.Equals("event"))
+					{
+						if (ti.SortNumber != currentTextureNumber)
+						{
+							graphicsDevice.Textures[0] = TextureManager.getSingleton.GetTexture(ti.TextureName);
+							if (m_TextureParameterName != "NONE" && _effectName == "cartoonEffect")
+								m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(TextureManager.getSingleton.GetTexture(ti.TextureName));
 
-						//if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
-							m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+						}
 
-						foreach (Drawable d in m_DrawList[i])
+
+						foreach (Drawable d in drawable_List_Drawn[ti])
 						{
 							if (d is StaticModel)
 							{
 								DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+
 							}
 							else
 							{
 								DrawPrimitives(d, graphicsDevice);
 							}
 						}
+					}
+				}*/
+
+				for (int i = 0; i < m_DrawList.Count; ++i) {
+					Texture2D t = TextureManager.TextureList[i];
+					//temporary check
+					//if (!t.Name.Equals("event"))
+					//{
+					//if (m_TextureParameterName != "NONE")
+					//	m_cartoonEffect.Parameters["Texture"].SetValue(t);
+
+					//if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
+					m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+
+					foreach (Drawable d in m_DrawList[i]) {
+						if (d is StaticModel) {
+							DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+						} else {
+							DrawPrimitives(d, graphicsDevice);
+						}
+					}
 					//}
 				}
 
 
-				if (theBlob != null && !DEBUG_WireframeMode)
-				{
+				if (theBlob != null && !DEBUG_WireframeMode) {
 					//graphicsDevice.RenderState.SourceBlend = Blend.SourceAlpha;
 
-					if (m_distorter != null && m_distortionMap != null)
-					{
+					if (m_distorter != null && m_distortionMap != null) {
 
 						m_distorter.CurrentTechnique =
 								m_distorter.Techniques["PullIn"];
@@ -748,8 +672,7 @@ namespace Project_blob
 						//graphicsDevice.Textures[0] = theBlob.DisplacementText;
 
 						m_distorter.Begin();
-						foreach (EffectPass pass in m_distorter.CurrentTechnique.Passes)
-						{
+						foreach (EffectPass pass in m_distorter.CurrentTechnique.Passes) {
 							pass.Begin();
 							theBlob.DrawMe();
 							pass.End();
@@ -764,13 +687,11 @@ namespace Project_blob
 
 				graphicsDevice.RenderState.AlphaBlendEnable = true;
 
-				if (theBlob != null && DEBUG_WireframeMode)
-				{
+				if (theBlob != null && DEBUG_WireframeMode) {
 					m_cartoonEffect.CurrentTechnique = m_cartoonEffect.Techniques["LambertOnBlob"];
 					m_cartoonEffect.Parameters["Texture"].SetValue(theBlob.text);
 					m_cartoonEffect.Begin();
-					foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes)
-					{
+					foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes) {
 						pass.Begin();
 						theBlob.DrawMe();
 						pass.End();
@@ -778,8 +699,7 @@ namespace Project_blob
 					m_cartoonEffect.End();
 				}
 
-				if (DEBUG_WireframeMode)
-				{
+				if (DEBUG_WireframeMode) {
 					renderState.CullMode = CullMode.CullClockwiseFace;
 					renderState.FillMode = FillMode.Solid;
 					renderState.DepthBufferEnable = true;
@@ -787,13 +707,11 @@ namespace Project_blob
 			}
 		}
 
-		public void DrawPrimitives(Drawable d, GraphicsDevice graphicsDevice)
-		{
+		public void DrawPrimitives(Drawable d, GraphicsDevice graphicsDevice) {
 			graphicsDevice.Vertices[0].SetSource(d.getVertexBuffer(), 0, d.getVertexStride());
 
 			m_cartoonEffect.Begin();
-			foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes)
-			{
+			foreach (EffectPass pass in m_cartoonEffect.CurrentTechnique.Passes) {
 				pass.Begin();
 				d.DrawMe();
 				pass.End();
@@ -801,17 +719,13 @@ namespace Project_blob
 			m_cartoonEffect.End();
 		}
 
-		public void DrawModel(Matrix p_CurrentWorld, StaticModel d, GraphicsDevice graphicsDevice)
-		{
+		public void DrawModel(Matrix p_CurrentWorld, StaticModel d, GraphicsDevice graphicsDevice) {
 			Stack<Matrix> drawStack = new Stack<Matrix>();
 			Matrix currentWorld = p_CurrentWorld;
 
-            if (d.Name == CurrentlySelected)
-			{
+			if (d.Name == CurrentlySelected) {
 				d.ShowVertices = true;
-			}
-			else
-			{
+			} else {
 				d.ShowVertices = false;
 			}
 
@@ -819,12 +733,10 @@ namespace Project_blob
 			m_cartoonEffect.Parameters[m_WorldParameterName].SetValue(currentWorld);
 		}
 
-		public void ApplyPostProcessing(GraphicsDevice graphicsDevice, bool blob)
-		{
+		public void ApplyPostProcessing(GraphicsDevice graphicsDevice, bool blob) {
 			graphicsDevice.SetRenderTarget(0, null);
 
-			if (!blob)
-			{
+			if (!blob) {
 				m_cartoonEffect.Begin();
 				m_cartoonEffect.CurrentTechnique.Passes[0].Begin();
 
@@ -841,8 +753,7 @@ namespace Project_blob
 				m_cartoonEffect.End();
 			}
 
-			if (m_postProcessEffect != null && m_tempTarget != null)
-			{
+			if (m_postProcessEffect != null && m_tempTarget != null) {
 
 				graphicsDevice.SetRenderTarget(0, null);
 
@@ -873,8 +784,7 @@ namespace Project_blob
 				m_postProcessEffect.End();
 			}
 
-			if (m_distortionMap != null && blob)
-			{
+			if (m_distortionMap != null && blob) {
 				graphicsDevice.ResolveBackBuffer(m_tempTarget);
 				graphicsDevice.Textures[1] = m_distortionMap.GetTexture();
 				//graphicsDevice.Textures[0] = m_tempTarget;
@@ -899,21 +809,21 @@ namespace Project_blob
 
 		#region Blur Calculation
 
-        // Look up the sample weight and offset effect parameters.
-        EffectParameter weightsParameter, offsetsParameter;
+		// Look up the sample weight and offset effect parameters.
+		EffectParameter weightsParameter, offsetsParameter;
 
-        int sampleCount;
+		int sampleCount;
 
-        float[] sampleWeights;
-        Vector2[] sampleOffsets;
+		float[] sampleWeights;
+		Vector2[] sampleOffsets;
 
-        float totalWeights;
+		float totalWeights;
 
-        float weight;
+		float weight;
 
-        float sampleOffset;
+		float sampleOffset;
 
-        Vector2 delta;
+		Vector2 delta;
 
 		/// <summary>
 		/// Computes sample weightings and texture coordinate offsets
@@ -923,8 +833,7 @@ namespace Project_blob
 		/// This function was originally provided in the BloomComponent class in the 
 		/// Bloom Postprocess sample.
 		/// </remarks>
-		public void SetBlurEffectParameters(float dx, float dy)
-		{
+		public void SetBlurEffectParameters(float dx, float dy) {
 			weightsParameter = m_distort.Parameters["SampleWeights"];
 			offsetsParameter = m_distort.Parameters["SampleOffsets"];
 
@@ -944,8 +853,7 @@ namespace Project_blob
 
 			// Add pairs of additional sample taps, positioned
 			// along a line in both directions from the center.
-			for (int i = 0; i < sampleCount / 2; ++i)
-			{
+			for (int i = 0; i < sampleCount / 2; ++i) {
 				// Store weights for the positive and negative taps.
 				weight = ComputeGaussian(i + 1);
 
@@ -972,8 +880,7 @@ namespace Project_blob
 			}
 
 			// Normalize the list of sample weightings, so they will always sum to one.
-			for (int i = 0; i < sampleWeights.Length; ++i)
-			{
+			for (int i = 0; i < sampleWeights.Length; ++i) {
 				sampleWeights[i] /= totalWeights;
 			}
 
@@ -990,8 +897,7 @@ namespace Project_blob
 		/// This function was originally provided in the BloomComponent class in the 
 		/// Bloom Postprocess sample.
 		/// </remarks>
-		private static float ComputeGaussian(float n)
-		{
+		private static float ComputeGaussian(float n) {
 			return (float)((1.0 / Math.Sqrt(2 * Math.PI * blurAmount)) *
 						   Math.Exp(-(n * n) / (2 * blurAmount * blurAmount)));
 		}

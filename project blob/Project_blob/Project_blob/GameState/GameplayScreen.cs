@@ -94,10 +94,10 @@ namespace Project_blob.GameState {
 			chase
 		}
 
-		private static string m_TextEventString = "";
+		private static string m_TextEventstring = string.Empty;
 		public static string TextEvent {
-			get { return m_TextEventString; }
-			set { m_TextEventString = value; }
+			get { return m_TextEventstring; }
+			set { m_TextEventstring = value; }
 		}
 
 		public static float m_lastTextEvent = 0;
@@ -116,7 +116,7 @@ namespace Project_blob.GameState {
 		float time = 0f;
 		float update = 1f;
 		int frames = 0;
-		string fps = "";
+		string fps = string.Empty;
 
 		public static GameplayScreen game;
 
@@ -343,7 +343,7 @@ namespace Project_blob.GameState {
 
 
 #if DEBUG
-			String[] tempArray = new string[Level.Areas.Keys.Count];
+			string[] tempArray = new string[Level.Areas.Keys.Count];
 			Level.Areas.Keys.CopyTo(tempArray, 0);
 			using (SelectForm f = new SelectForm(tempArray)) {
 				if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
@@ -459,14 +459,14 @@ namespace Project_blob.GameState {
 			game.blobStartPosition = position;
 		}
 
-		public void SetChangeArea(String area) {
+		public void SetChangeArea(string area) {
 			nextAreaName = area;
 			UseDefaultAreaPos = true;
 			ChangeAreaFlag = true;
 			Audio.AudioManager.ClearAmbientSounds();
 		}
 
-		public void SetChangeArea(String area, Vector3 position) {
+		public void SetChangeArea(string area, Vector3 position) {
 			nextAreaName = area;
 			nextAreaPosition = position;
 			ChangeAreaFlag = true;
@@ -584,8 +584,9 @@ namespace Project_blob.GameState {
 						m_lastTextEvent = gameTime.TotalGameTime.Seconds;
 					}
 
-					if (gameTime.TotalGameTime.Seconds - m_lastTextEvent > TEXT_EVENT_TIME)
-						m_TextEventString = "";
+					if (gameTime.TotalGameTime.Seconds - m_lastTextEvent > TEXT_EVENT_TIME) {
+						m_TextEventstring = string.Empty;
+					}
 
 					//Vector4 tempPos = new Vector4(theBlob.getCenter(), 0);
 					//tempPos.Y += 10;
@@ -1068,21 +1069,21 @@ namespace Project_blob.GameState {
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
 #if !DEBUG
             if (currentArea.ShowTime) {
-                string t = "Time - " + String.Format("{0:0}", (physics.Time * sixtieth)) + ":" + String.Format("{0:0.0}", physics.Time % 60);
+                string t = "Time - " + string.Format("{0:0}", (physics.Time * sixtieth)) + ":" + string.Format("{0:0.0}", physics.Time % 60);
                 spriteBatch.DrawString(font, t, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - (font.MeasureString(t).X + 10), 0), Color.White);
-                //spriteBatch.DrawString(font, "Time - " + String.Format("{0:0}", (physics.Time / 60)) + ":" + String.Format("{0:0.0}", physics.Time % 60), new Vector2(0, 200), Color.White);
+                //spriteBatch.DrawString(font, "Time - " + string.Format("{0:0}", (physics.Time / 60)) + ":" + string.Format("{0:0.0}", physics.Time % 60), new Vector2(0, 200), Color.White);
             }
 
             if (currentArea.TimeLimit > 0) 
             {
-                string t = "Time Limit - " + String.Format("{0:0} Min", (currentArea.TimeLimit * sixtieth));
+                string t = "Time Limit - " + string.Format("{0:0} Min", (currentArea.TimeLimit * sixtieth));
                 if(currentArea.TimeLimit % 60 > 0)
-                    t += ", " + String.Format("{0:0} Secs", currentArea.TimeLimit % 60);
+                    t += ", " + string.Format("{0:0} Secs", currentArea.TimeLimit % 60);
                 spriteBatch.DrawString(font, t, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - (font.MeasureString(t).X + 10), 30), Color.White);
             }
 			
 #else
-			spriteBatch.DrawString(font, "Time - " + String.Format("{0:0}", (physics.Time * sixtieth)) + ":" + String.Format("{0:0.0}", physics.Time % 60), new Vector2(0, 175), Color.White);
+			spriteBatch.DrawString(font, "Time - " + string.Format("{0:0}", (physics.Time * sixtieth)) + ":" + string.Format("{0:0.0}", physics.Time % 60), new Vector2(0, 175), Color.White);
 
 #if TIMED
 			spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
@@ -1139,7 +1140,7 @@ namespace Project_blob.GameState {
 			if (TextMin != TextMax) {
 				spriteBatch.Draw(backdrop, new Rectangle((int)(TextMin.X - 10), (int)(TextMin.Y - 5), (int)((TextMax.X - TextMin.X) + 20), (int)((TextMax.Y - TextMin.Y) + 10)), Color.White);
 			}
-			displayText(m_TextEventString, new Vector2((int)(ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.5f), (int)(ScreenManager.graphics.GraphicsDevice.Viewport.Height * 0.2f)), spriteBatch);
+			displayText(m_TextEventstring, new Vector2((int)(ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.5f), (int)(ScreenManager.graphics.GraphicsDevice.Viewport.Height * 0.2f)), spriteBatch);
 
 
 			spriteBatch.Draw(gaugeLine, new Rectangle(20, 105, gaugeLine.Width, 400), Color.White);
@@ -1190,15 +1191,15 @@ namespace Project_blob.GameState {
 			TextMax = center;
 			try {
 				float usableScreenWidth = ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.6f;
-				string nextString = null;
+				string nextstring = null;
 				if (font.MeasureString(text).X > usableScreenWidth) {
-					nextString = String.Empty;
+					nextstring = string.Empty;
 					do {
-						nextString = nextString.Insert(0, text.Substring(text.Length - 1));
+						nextstring = nextstring.Insert(0, text.Substring(text.Length - 1));
 						text = text.Remove(text.Length - 1);
 					} while (font.MeasureString(text).X > usableScreenWidth);
 					while (!text.EndsWith(" ")) {
-						nextString = nextString.Insert(0, text.Substring(text.Length - 1));
+						nextstring = nextstring.Insert(0, text.Substring(text.Length - 1));
 						text = text.Remove(text.Length - 1);
 					}
 					text = text.Remove(text.Length - 1);
@@ -1206,10 +1207,10 @@ namespace Project_blob.GameState {
 
 				spriteBatch.DrawString(font, text, center, Color.White, 0f, font.MeasureString(text) * 0.5f, 1f, SpriteEffects.None, 0f);
 
-				if (nextString != null) {
+				if (nextstring != null) {
 					Vector2 newCenter = center;
 					newCenter.Y += (int)(font.MeasureString(text).Y * 0.6f);
-					displayText(nextString, newCenter, spriteBatch);
+					displayText(nextstring, newCenter, spriteBatch);
 				}
 				TextMax = Vector2.Max(TextMax, center + font.MeasureString(text) * 0.5f);
 				TextMin = Vector2.Min(TextMin, center - font.MeasureString(text) * 0.5f);

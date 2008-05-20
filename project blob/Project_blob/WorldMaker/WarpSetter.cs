@@ -21,8 +21,8 @@ namespace WorldMaker
 
 		private void okButton_Click(object sender, EventArgs e)
 		{
-			if (!xPosText.Text.Equals("") && !yPosText.Text.Equals("") && !zPosText.Text.Equals("") &&
-				!xVelText.Text.Equals("") && !yVelText.Text.Equals("") && !zVelText.Text.Equals(""))
+			if (!string.IsNullOrEmpty(xPosText.Text) && !string.IsNullOrEmpty(yPosText.Text) && !string.IsNullOrEmpty(zPosText.Text) &&
+				!string.IsNullOrEmpty(xVelText.Text) && !string.IsNullOrEmpty(yVelText.Text) && !string.IsNullOrEmpty(zVelText.Text))
 			{
 				try
 				{

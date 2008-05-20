@@ -22,7 +22,7 @@ namespace WorldMaker
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            if (!xVelText.Text.Equals("") && !yVelText.Text.Equals("") && !zVelText.Text.Equals(""))
+            if (!string.IsNullOrEmpty(xVelText.Text) && !string.IsNullOrEmpty(yVelText.Text) && !string.IsNullOrEmpty(zVelText.Text))
             {
                 try
                 {

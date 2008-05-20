@@ -10,9 +10,9 @@ namespace WorldMaker
 {
     public partial class LevelSelect : Form
     {
-        private String _levelName = "";
+        private string _levelName = string.Empty;
 
-        public String LevelName
+        public string LevelName
         {
             get { return _levelName; }
         }
@@ -32,7 +32,7 @@ namespace WorldMaker
             if (levelListBox.SelectedIndex != -1)
             {
                 this.DialogResult = DialogResult.OK;
-                _levelName = (String)levelListBox.Items[levelListBox.SelectedIndex];
+                _levelName = (string)levelListBox.Items[levelListBox.SelectedIndex];
                 this.Close();
             }
         }

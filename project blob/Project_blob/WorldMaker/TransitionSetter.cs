@@ -23,7 +23,7 @@ namespace WorldMaker
         }
 
         private void okButton_Click(object sender, EventArgs e) {
-            if(areaBox.SelectedIndex != -1 && !xPosText.Text.Equals("") && !yPosText.Text.Equals("") && !zPosText.Text.Equals("")) {
+            if(areaBox.SelectedIndex != -1 && !string.IsNullOrEmpty(xPosText.Text) && !string.IsNullOrEmpty(yPosText.Text) && !string.IsNullOrEmpty(zPosText.Text)) {
                 try {
                     _transition = new TransitionEvent((string)areaBox.Items[areaBox.SelectedIndex], float.Parse(xPosText.Text),
                         float.Parse(yPosText.Text), float.Parse(zPosText.Text));

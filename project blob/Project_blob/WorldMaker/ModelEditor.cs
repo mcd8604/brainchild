@@ -716,7 +716,7 @@ namespace WorldMaker
 		private void addRoom_Click_1(object sender, EventArgs e)
 		{
 			string text = roomTextBox.Text;
-			if (m_Game.ActiveDrawable != null && !text.Equals(String.Empty))
+			if (m_Game.ActiveDrawable != null && !text.Equals(string.Empty))
 			{
 				short roomNum;
 				if (short.TryParse(text, out roomNum))
