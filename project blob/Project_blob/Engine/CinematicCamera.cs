@@ -16,7 +16,7 @@ namespace Engine
 			set { frames = value; }
 		}
 
-		private int currentIndex = 0;
+		public int currentIndex = 0;
 		private float currentTime = 0;
 
 		public bool FinishedCinematics = false;
