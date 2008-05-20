@@ -24,16 +24,17 @@ namespace Project_blob
 
 		public override void update(float TotalElapsedSeconds)
 		{
-			base.update(TotalElapsedSeconds);
-			updateVertices();
-		}
+            base.update(TotalElapsedSeconds);
 
-		private void updateVertices()
-		{
-			for (int i = 0; i < m_DrawableModel.Vertices.Length; ++i)
-			{
-				m_DrawableModel.Vertices[i].Position = pointMap[i].ExternalPosition;
-			}
+            //update vertices
+            for (int i = 0; i < m_DrawableModel.Vertices.Length; ++i)
+            {
+                m_DrawableModel.Vertices[i].Position = pointMap[i].ExternalPosition;
+            }
+
+            //update bounding box
+            m_DrawableModel.SetBoundingBox(getBoundingBox().GetXNABoundingBox());
+            
 		}
 
 		public StaticModel getModel()
