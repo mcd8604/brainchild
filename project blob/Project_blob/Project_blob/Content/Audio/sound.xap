@@ -234,7 +234,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::7e130399-9f2b-49d3-9776-af95bf2ca3bd;
+            Name = Sound::7c0720e1-c682-4445-8b25-0058445e8218;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -275,7 +275,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::3a0f560e-1798-4bef-888a-a52d3dad97b8;
+            Name = Sound::6b283f17-0190-46b2-a1e0-81722185c95c;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -307,7 +307,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::1d3905af-eb9b-42c6-b268-aa918a8c43d7;
+            Name = Sound::46b7ca9d-fd4d-42b8-9326-4733ccad0e78;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -537,6 +537,52 @@ Wave Bank
             File Type = 1;
             Last Modified Low = 2749072576;
             Last Modified High = 29932178;
+        }
+    }
+
+    Wave
+    {
+        Name = doorCollision;
+        File = doorCollision.wav;
+        Build Settings Last Modified Low = 2000158622;
+        Build Settings Last Modified High = 29932212;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 1024;
+            Play Region Length = 33280;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 798000002;
+            Last Modified High = 29932212;
+        }
+    }
+
+    Wave
+    {
+        Name = woodCollision;
+        File = woodCollision.wav;
+        Build Settings Last Modified Low = 2000158622;
+        Build Settings Last Modified High = 29932212;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 1024;
+            Play Region Length = 9216;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 857718128;
+            Last Modified High = 29932212;
         }
     }
 }
@@ -956,6 +1002,108 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = woodCollision;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = Collision RPC;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = woodCollision;
+                    Entry Index = 9;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = doorCollision;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = Collision RPC;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = doorCollision;
+                    Entry Index = 8;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = blob;
@@ -1111,6 +1259,46 @@ Sound Bank
         {
             Name = grassCollision;
             Index = 7;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = woodCollision;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = woodCollision;
+            Index = 8;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = doorCollision;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = doorCollision;
+            Index = 9;
             Weight Min = 0;
             Weight Max = 255;
         }
