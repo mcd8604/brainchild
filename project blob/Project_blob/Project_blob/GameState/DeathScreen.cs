@@ -35,12 +35,15 @@ namespace Project_blob.GameState
 
 		void ExitToHubSelected(object sender, EventArgs e)
 		{
+			GameplayScreen.game.SetChangeArea("HubWorld");
+			GameplayScreen.deadSet = false;
 			OnCancel();
 		}
 
 		protected override void OnCancel()
 		{
 			GameplayScreen.game.SetChangeArea("HubWorld");
+			GameplayScreen.deadSet = false;
 			base.OnCancel();
 		}
 
