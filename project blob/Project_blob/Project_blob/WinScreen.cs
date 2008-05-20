@@ -50,11 +50,15 @@ namespace Project_blob.GameState
 			Score[] areaScores = GameplayScreen.HighScoreManager.getScores(Level.GetAreaName(GameplayScreen.currentArea));
 
 			m_SpriteBatch.Begin();
+            String temp = "Best Times";
+            m_SpriteBatch.DrawString(font, temp, new Vector2((ScreenManager.graphics.GraphicsDevice.Viewport.Width / 2) - (font.MeasureString(temp).X/2), 220), Color.White);
 
 			for (int i = 0; i < areaScores.Length; i++)
 			{
-				if (areaScores[i] != null)
-					m_SpriteBatch.DrawString(font, areaScores[i].Name + "........." + areaScores[i].Time, new Vector2(100, 250 + (30 * i)), Color.White);
+                if (areaScores[i] != null) {
+                    string t = String.Format("{0:0}", (areaScores[i].Time / 60)) + ":" + String.Format("{0:0.0}", areaScores[i].Time % 60);
+                    m_SpriteBatch.DrawString(font, (i+1) + ". " + areaScores[i].Name + "........." + t, new Vector2(100, 265 + (30 * i)), Color.White);
+                }
 			}
 
 			m_SpriteBatch.End();

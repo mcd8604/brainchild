@@ -59,19 +59,6 @@ namespace Project_blob.GameState
 			
 		}
 
-		
-
-		public void CheckForNewHighScore()
-		{
-			Score[] areaScores = GameplayScreen.HighScoreManager.getScores(Level.GetAreaName(GameplayScreen.currentArea));
-			
-			if (areaScores[9] == null || m_Time < areaScores[9].Time)
-			{
-				ScreenManager.AddScreen(new EndScreen("New High Score"));
-				GameplayScreen.HighScoreManager.addScore(Level.GetAreaName(GameplayScreen.currentArea), "Unknown", m_Time);
-			}
-		}
-
 		public override void Draw(GameTime gameTime)
 		{
 			ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
@@ -81,7 +68,8 @@ namespace Project_blob.GameState
 			SpriteFont font = ScreenManager.Font;
 			m_SpriteBatch.Begin();
 
-			m_SpriteBatch.DrawString(font, "Your Time: " + m_Time, new Vector2(100, 200), Color.White);
+            string t = "Time - " + String.Format("{0:0}", (m_Time / 60)) + ":" + String.Format("{0:0.0}", m_Time % 60);
+			m_SpriteBatch.DrawString(font, "Your Time: " + t, new Vector2(100, 200), Color.White);
 
 			m_SpriteBatch.DrawString(font, cur_input, new Vector2(100, 400), Color.White);
 
