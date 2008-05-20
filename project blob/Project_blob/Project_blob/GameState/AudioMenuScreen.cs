@@ -99,15 +99,14 @@ namespace Project_blob.GameState
 		void apply(object sender, EventArgs e)
 		{
 			Audio.AudioManager.Enabled = audio;
-
+			Audio.AudioManager.MusicVolume = music;
+			Audio.AudioManager.SoundFXVolume = sfx;
 			setMenuText();
 		}
 
 		public override void Draw(GameTime gameTime)
 		{
 			ScreenManager.FadeBackBufferToBlack(TransitionAlpha);
-			Audio.AudioManager.MusicVolume = music;
-			Audio.AudioManager.SoundFXVolume = sfx;
 			base.Draw(gameTime);
 		}
 	}
