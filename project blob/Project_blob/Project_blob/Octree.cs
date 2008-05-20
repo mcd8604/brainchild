@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 
 namespace Project_blob
 {
-    public class Octree : OctreeLeaf
+    internal class Octree : OctreeLeaf
     {
         public Octree()
             : base(new BoundingBox())

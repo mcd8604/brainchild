@@ -198,6 +198,10 @@ namespace Physics2
 			tasks.Add(t);
 		}
 
+		public virtual bool affectedByCollisions() {
+			return false;
+		}
+
 		/// <summary>
 		/// Can this body collide with other bodies?
 		/// </summary>
