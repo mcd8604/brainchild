@@ -1068,21 +1068,21 @@ namespace Project_blob.GameState {
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
 #if !DEBUG
             if (currentArea.ShowTime) {
-                string t = "Time - " + String.Format("{0:0}", (physics.Time / 60)) + ":" + String.Format("{0:0.0}", physics.Time % 60);
+                string t = "Time - " + String.Format("{0:0}", (physics.Time * sixtieth)) + ":" + String.Format("{0:0.0}", physics.Time % 60);
                 spriteBatch.DrawString(font, t, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - (font.MeasureString(t).X + 10), 0), Color.White);
                 //spriteBatch.DrawString(font, "Time - " + String.Format("{0:0}", (physics.Time / 60)) + ":" + String.Format("{0:0.0}", physics.Time % 60), new Vector2(0, 200), Color.White);
             }
 
             if (currentArea.TimeLimit > 0) 
             {
-                string t = "Time Limit - " + String.Format("{0:0} Min", (currentArea.TimeLimit / 60));
+                string t = "Time Limit - " + String.Format("{0:0} Min", (currentArea.TimeLimit * sixtieth));
                 if(currentArea.TimeLimit % 60 > 0)
                     t += ", " + String.Format("{0:0} Secs", currentArea.TimeLimit % 60);
                 spriteBatch.DrawString(font, t, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - (font.MeasureString(t).X + 10), 30), Color.White);
             }
 			
 #else
-			spriteBatch.DrawString(font, "Time - " + physics.Time.ToString(), new Vector2(0, 175), Color.White);
+			spriteBatch.DrawString(font, "Time - " + String.Format("{0:0}", (physics.Time * sixtieth)) + ":" + String.Format("{0:0.0}", physics.Time % 60), new Vector2(0, 175), Color.White);
 
 #if TIMED
 			spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
@@ -1220,6 +1220,8 @@ namespace Project_blob.GameState {
 
 		private Vector2 TextMin;
 		private Vector2 TextMax;
+
+		private const float sixtieth = 1f / 60f;
 
 #if DEBUG
 		private readonly DateTime end = new DateTime(2008, 5, 21, 20, 0, 0);
