@@ -49,6 +49,8 @@ namespace Project_blob.GameState
 		Texture2D gaugeLine;
 		Texture2D gaugeMark;
 
+		Texture2D backdrop;
+
 		//Effect effect;
 		//Effect celEffect;
 		//Effect blobEffect;
@@ -227,6 +229,8 @@ namespace Project_blob.GameState
 		/// </summary>
 		public override void LoadContent()
 		{
+			backdrop = ScreenManager.Content.Load<Texture2D>(@"Textures\\backdrop");
+
 			gaugeLine = ScreenManager.Content.Load<Texture2D>(@"UI Sprites\\GaugeLine");
 			gaugeMark = ScreenManager.Content.Load<Texture2D>(@"UI Sprites\\GaugeMark");
 
@@ -1205,7 +1209,7 @@ namespace Project_blob.GameState
 
 			// GUI
 			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
-			spriteBatch.Begin();
+			spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
 #if !DEBUG
 			string t = physics.Time.ToString();
@@ -1277,8 +1281,12 @@ namespace Project_blob.GameState
 
 			spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
 #endif
-
+			if (TextMin != TextMax)
+			{
+				spriteBatch.Draw(backdrop, new Rectangle((int)(TextMin.X - 10), (int)(TextMin.Y - 5), (int)((TextMax.X - TextMin.X) + 20), (int)((TextMax.Y - TextMin.Y) + 10)), Color.White);
+			}
 			displayText(m_TextEventString, new Vector2((int)(ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.5f), (int)(ScreenManager.graphics.GraphicsDevice.Viewport.Height * 0.2f)), spriteBatch);
+
 
 			spriteBatch.Draw(gaugeLine, new Rectangle(20, 105, gaugeLine.Width, 400), Color.White);
 
@@ -1331,6 +1339,8 @@ namespace Project_blob.GameState
 
 		private void displayText(string text, Vector2 center, SpriteBatch spriteBatch)
 		{
+			TextMin = center;
+			TextMax = center;
 			try
 			{
 				float usableScreenWidth = ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.6f;
@@ -1359,12 +1369,17 @@ namespace Project_blob.GameState
 					newCenter.Y += (int)(font.MeasureString(text).Y * 0.5f);
 					displayText(nextString, newCenter, spriteBatch);
 				}
+				TextMax = Vector2.Max(TextMax, center + font.MeasureString(text) * 0.5f);
+				TextMin = Vector2.Min(TextMin, center - font.MeasureString(text) * 0.5f);
 			}
 			catch (Exception e)
 			{
 				Log.Out.WriteLine(e);
 			}
 		}
+
+		private Vector2 TextMin;
+		private Vector2 TextMax;
 
 #if DEBUG
 		private readonly DateTime end = new DateTime(2008, 5, 21, 20, 0, 0);

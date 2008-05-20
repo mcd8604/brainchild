@@ -453,6 +453,11 @@
       <Name>speedBoost</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Textures\backdrop.png">
+      <Name>backdrop</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Textures\speed_sign.png">
       <Name>speed_sign</Name>
       <Importer>TextureImporter</Importer>
