@@ -681,8 +681,8 @@ namespace Project_blob.GameState
 					}
 				}
 
-				// Xbox
-				if (InputHandler.HasRightTriggerMoved())
+				// Xbox Specific Controls:
+				if (InputHandler.ControllerConnected())
 				{
 					if (default_firm)
 					{
@@ -692,9 +692,6 @@ namespace Project_blob.GameState
 					{
 						physics.Player.Resilience.Target = physics.Player.Volume.Target = 1 - InputHandler.RightTriggerValue;
 					}
-				}
-				if (InputHandler.HasLeftTriggerMoved())
-				{
 					if (default_sticky)
 					{
 						physics.Player.Cling.Target = physics.Player.Traction.Target = InputHandler.LeftTriggerValue;

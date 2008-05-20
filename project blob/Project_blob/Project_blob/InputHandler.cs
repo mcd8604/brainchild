@@ -315,6 +315,11 @@ internal static class InputHandler
 		return thisMouseState.ScrollWheelValue - lastMouseState.ScrollWheelValue;
 	}
 
+	internal static bool ControllerConnected()
+	{
+		return thisGamePadState.IsConnected;
+	}
+
 #if DEBUG
 
 	/// <summary>
