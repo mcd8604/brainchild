@@ -11,15 +11,7 @@ namespace Project_blob
 
 		private static readonly System.Runtime.Serialization.Formatters.Binary.BinaryFormatter b = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-		private Score[] List = new Score[count];
-
-		internal Score[] Scores
-		{
-			get
-			{
-				return List;
-			}
-		}
+		private Dictionary<string, Score[]> Map = new Dictionary<string, Score[]>();
 
 		internal HighScores()
 		{
@@ -35,15 +27,15 @@ namespace Project_blob
 					Log.Out.WriteLine("Error loading from High Score file: " + e);
 				}
 			}
-
-			for (int i = 0; i < count; ++i)
-			{
-				List[i] = new Score("Nobody", i * 1000f);
-			}
 		}
 
-		internal void addScore(string name, float time)
+		internal void addScore(string area, string name, float time)
 		{
+			if (!Map.ContainsKey(area))
+			{
+				fill(area);
+			}
+			Score[] List = Map[area];
 			Score toAdd = new Score(name, time);
 			Score temp;
 			bool changed = false;
@@ -65,19 +57,37 @@ namespace Project_blob
 			}
 		}
 
-		internal void load()
+		internal Score[] getScores(string area)
 		{
-			using (System.IO.FileStream input = System.IO.File.OpenRead(filename))
+			if (!Map.ContainsKey(area))
 			{
-				List = (Score[])b.Deserialize(input);
+				fill(area);
+			}
+			return Map[area];
+		}
+
+		private void fill(string NewArea)
+		{
+			Map[NewArea] = new Score[count];
+			for (int i = 0; i < count; ++i)
+			{
+				Map[NewArea][i] = new Score("Nobody", (i+1) * 1000f);
 			}
 		}
 
-		internal void save()
+		private void load()
 		{
-			using ( System.IO.FileStream output = System.IO.File.OpenWrite(filename) )
+			using (System.IO.FileStream input = System.IO.File.OpenRead(filename))
 			{
-				b.Serialize(output, List);
+				Map = (Dictionary<string, Score[]>)b.Deserialize(input);
+			}
+		}
+
+		private void save()
+		{
+			using (System.IO.FileStream output = System.IO.File.OpenWrite(filename))
+			{
+				b.Serialize(output, Map);
 			}
 		}
 	}
