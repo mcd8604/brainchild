@@ -1110,7 +1110,7 @@ namespace Project_blob.GameState
 #endif
 
 #if !DEBUG
-				if (InputHandler.IsButtonPressed(Buttons.A))
+				if (InputHandler.IsActionPressed(Actions.Jump))
 				{
 					physics.Player.jump();
 				}
