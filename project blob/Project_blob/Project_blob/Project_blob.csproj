@@ -81,6 +81,7 @@
     <Compile Include="EventCameraClimbOff.cs" />
     <Compile Include="EventWin.cs" />
     <Compile Include="GameState\AudioMenuScreen.cs" />
+    <Compile Include="GameState\CreditScreen.cs" />
     <Compile Include="GameState\DeathScreen.cs" />
     <Compile Include="GameState\EndScreen.cs" />
     <Compile Include="GameState\NewHighScoreScreen.cs" />

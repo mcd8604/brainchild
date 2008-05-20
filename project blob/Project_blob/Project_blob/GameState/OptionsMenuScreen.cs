@@ -58,12 +58,11 @@ namespace Project_blob.GameState
 
         void threadedSelected(object sender, EventArgs e)
         {
-
-            if (PhysicsManager.enableParallel == PhysicsManager.ParallelSetting.Automatic)
+            if (Threading == PhysicsManager.ParallelSetting.Automatic)
             {
                 Threading = PhysicsManager.ParallelSetting.Always;
             }
-            else if (PhysicsManager.enableParallel == PhysicsManager.ParallelSetting.Always)
+            else if (Threading == PhysicsManager.ParallelSetting.Always)
             {
                 Threading = PhysicsManager.ParallelSetting.Never;
             }
@@ -71,7 +70,6 @@ namespace Project_blob.GameState
             {
                 Threading = PhysicsManager.ParallelSetting.Automatic;
             }
-
             setMenuText();
         }
 
