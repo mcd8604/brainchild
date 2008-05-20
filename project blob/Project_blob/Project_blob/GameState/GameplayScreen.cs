@@ -1277,36 +1277,9 @@ namespace Project_blob.GameState
 
 			spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
 #endif
-			int screenWidth = ScreenManager.graphics.GraphicsDevice.Viewport.Width;
-			if ((m_TextEventString.Length * 20) > screenWidth)
-			{
-				string temp = "";
-				int lineNum = 0;
-				for (int i = 0; i < m_TextEventString.Length; )
-				{
-					int tempInt = (m_TextEventString.Substring(i, (int)MathHelper.Clamp(i + screenWidth / 20, 0, m_TextEventString.Length - 1) - i)).LastIndexOf(' ');
 
-					if (tempInt != 0)
-					{
-						temp = m_TextEventString.Substring(i, tempInt);
-						i += tempInt;
-					}
-					else
-					{
-						temp = m_TextEventString.Substring(i, m_TextEventString.Length - (i + 1));
-						i = m_TextEventString.Length;
-					}
+			displayText(m_TextEventString, new Vector2((int)(ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.5f), (int)(ScreenManager.graphics.GraphicsDevice.Viewport.Height * 0.2f)), spriteBatch);
 
-					//temp = m_TextEventString.Substring(i, //temp = m_TextEventString.Substring(nextSpace+1, (int)(MathHelper.Clamp(i+screenWidth / 20,0,m_TextEventString.Length - 1))-(nextSpace+1));
-					spriteBatch.DrawString(font, temp, new Vector2(0, lineNum * 30), Color.Black);
-					lineNum++;
-				}
-
-			}
-			else
-			{
-				spriteBatch.DrawString(font, m_TextEventString, new Vector2(0, 0), Color.Black);
-			}
 			spriteBatch.Draw(gaugeLine, new Rectangle(20, 105, gaugeLine.Width, 400), Color.White);
 
 			spriteBatch.Draw(gaugeLine, new Rectangle(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 30, 105, gaugeLine.Width, 400), Color.White);
@@ -1354,6 +1327,43 @@ namespace Project_blob.GameState
 			++frames;
 
 			//base.Draw(gameTime);
+		}
+
+		private void displayText(string text, Vector2 center, SpriteBatch spriteBatch)
+		{
+			try
+			{
+				float usableScreenWidth = ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.6f;
+				string nextString = null;
+				if (font.MeasureString(text).X > usableScreenWidth)
+				{
+					nextString = String.Empty;
+					do
+					{
+						nextString = nextString.Insert(0, text.Substring(text.Length - 1));
+						text = text.Remove(text.Length - 1);
+					} while (font.MeasureString(text).X > usableScreenWidth);
+					while (!text.EndsWith(" "))
+					{
+						nextString = nextString.Insert(0, text.Substring(text.Length - 1));
+						text = text.Remove(text.Length - 1);
+					}
+					text = text.Remove(text.Length - 1);
+				}
+
+				spriteBatch.DrawString(font, text, center, Color.White, 0f, font.MeasureString(text) * 0.5f, 1f, SpriteEffects.None, 0f);
+
+				if (nextString != null)
+				{
+					Vector2 newCenter = center;
+					newCenter.Y += (int)(font.MeasureString(text).Y * 0.5f);
+					displayText(nextString, newCenter, spriteBatch);
+				}
+			}
+			catch (Exception e)
+			{
+				Log.Out(e);
+			}
 		}
 
 #if DEBUG
