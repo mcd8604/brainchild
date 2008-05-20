@@ -245,17 +245,11 @@ namespace Engine
 			//UpdateWorldPositions();
 			if (Climbing)
 			{
-				if (m_ClimbNormal == Vector3.Zero)
-				{
-					m_ClimbNormal = Vector3.Normalize(Vector3.Negate(chaseDirection));
-				}
-
 				desiredPosition = chasePosition + (m_ClimbNormal * desiredPositionOffset * 2);
-				desiredPosition.Y -= 5f;
+				desiredPosition -= chaseDirection;
 			}
 			else
 			{
-
 				desiredPosition = chasePosition - (Vector3.Normalize(chaseDirection) * DesiredPositionOffset);
 				desiredPosition.Y += 5f;
 				Vector3 rightVector = Vector3.Cross(desiredPosition - chasePosition, Up);

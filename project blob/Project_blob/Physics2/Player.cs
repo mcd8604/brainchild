@@ -274,18 +274,19 @@ namespace Physics2
 
 			#region Jump
 			jumpVector = Util.Zero;
-			wasTouching.Clear();
+			List<Collidable> tempList = new List<Collidable>();
 			foreach (PhysicsPoint p in PlayerBody.points)
 			{
 				if (p.LastCollision != null)
 				{
 					jumpVector += p.LastCollision.Normal;
-					if (!wasTouching.Contains(p.LastCollision))
+					if (!tempList.Contains(p.LastCollision))
 					{
-						wasTouching.Add(p.LastCollision);
+						tempList.Add(p.LastCollision);
 					}
 				}
 			}
+			wasTouching = tempList;
 
 			if (jumpVector != Util.Zero)
 			{
