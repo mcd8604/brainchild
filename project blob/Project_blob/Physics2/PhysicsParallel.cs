@@ -127,7 +127,20 @@ namespace Physics2
 
 			if (!run)
 			{
-				throw new Exception("Update called on Dead Physics");
+				try
+				{
+					throw new Exception("Update called on Dead Physics");
+				}
+				catch (Exception e)
+				{
+#if DEBUG
+					Log.Out.WriteLine("Physics Exception:");
+#endif
+					Log.Out.WriteLine(e);
+#if DEBUG
+					Log.Out.WriteLine("The above Exception was handled.");
+#endif
+				}
 			}
 
 			if (TotalElapsedSeconds == 0f)
