@@ -114,6 +114,10 @@ namespace Physics2
 				{
 					throw new Exception("A collidable cannot belong to two bodies.");
 				}
+				//if (c.parent == null)
+				//{
+				//    Log.Out.WriteLine("Physics Body Initialize Fixing collidable Parent");
+				//}
 #endif
 				c.parent = this;
 				boundingBox.expandToInclude(c.getBoundingBox());
@@ -121,6 +125,17 @@ namespace Physics2
 			center = Util.Zero;
 			foreach (PhysicsPoint p in points)
 			{
+#if DEBUG
+				if (p.ParentBody != null && p.ParentBody != this)
+				{
+					throw new Exception("A point cannot belong to two bodies.");
+				}
+				//if (p.ParentBody == null)
+				//{
+				//    Log.Out.WriteLine("Physics Body Initialize Fixing point Parent");
+				//}
+#endif
+				p.ParentBody = this;
 				boundingBox.expandToInclude(p.CurrentPosition);
 				center += p.CurrentPosition;
 			}
@@ -152,6 +167,10 @@ namespace Physics2
 				{
 					throw new Exception("A collidable cannot belong to two bodies.");
 				}
+				//if (c.parent == null)
+				//{
+				//    Log.Out.WriteLine("Physics Body Initialize Fixing collidable Parent");
+				//}
 #endif
 				c.parent = this;
 				boundingBox.expandToInclude(c.getBoundingBox());

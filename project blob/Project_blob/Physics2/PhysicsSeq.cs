@@ -26,6 +26,12 @@ namespace Physics2
 			return DEBUG_NumCollidables;
 		}
 
+		private int DEBUG_NumPoints = 0;
+		public override int DEBUG_GetNumPoints()
+		{
+			return DEBUG_NumPoints;
+		}
+
 		public override float PWR
 		{
 			get { return 1f; }
@@ -95,16 +101,22 @@ namespace Physics2
 			// Predict potential position
 #if DEBUG
 			int CollidableCount = 0;
+			int PointCount = 0;
 #endif
 			foreach (Body b in bodies)
 			{
 #if DEBUG
 				CollidableCount += b.collidables.Count;
+				if (b.canCollide())
+				{
+					PointCount += b.points.Count;
+				}
 #endif
 				b.update(TotalElapsedSeconds);
 			}
 #if DEBUG
 			DEBUG_NumCollidables = CollidableCount;
+			DEBUG_NumPoints = PointCount;
 #endif
 
 			// Solve for the 'Actual' potential positions based on force and acceleration

@@ -21,6 +21,11 @@ namespace Physics2
 			return physicsMain.DEBUG_GetNumCollidables();
 		}
 
+		public override int DEBUG_GetNumPoints()
+		{
+			return physicsMain.DEBUG_GetNumPoints();
+		}
+
 		private System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 		private float waitTimeMsec = 0;
 		private float physicsTimeMsec = 0;
