@@ -100,10 +100,6 @@ namespace Physics2
 					targetFrame = frames[currentIndex + 1];
 					break;
 				case Modes.Mirror:
-					if (useRelativePoints)
-					{
-						int i = 0;
-					}
 					if (forward)
 					{
 						currentFrame = frames[currentIndex];
@@ -151,9 +147,6 @@ namespace Physics2
 						}
 						break;
 					case Modes.Loop:
-						if(useRelativePoints) {
-							int i = 0;
-						}
 						++currentIndex;
 						if (frames.Count - currentIndex == 0)
 						{
