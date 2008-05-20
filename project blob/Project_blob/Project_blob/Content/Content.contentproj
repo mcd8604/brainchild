@@ -438,46 +438,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Audio\blob.wav">
-      <Name>blob</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Audio\doorCollision.wav">
-      <Name>doorCollision</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Audio\grassCollision.wav">
-      <Name>grassCollision</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Audio\gravelImpact.wav">
-      <Name>gravelImpact</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Audio\lavaAmbience.wav">
-      <Name>lavaAmbience</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Audio\metalCollision.wav">
-      <Name>metalCollision</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Audio\metalImpact.wav">
-      <Name>metalImpact</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Audio\speedBoost.wav">
-      <Name>speedBoost</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Audio\windAmbience.wav">
-      <Name>windAmbience</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Audio\woodCollision.wav">
-      <Name>woodCollision</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Compile Include="MenuSprites\Credits.png">
       <Name>Credits</Name>
       <Importer>TextureImporter</Importer>
@@ -603,6 +563,48 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Audio\blob.wav">
+      <Name>blob</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Audio\doorCollision.wav">
+      <Name>doorCollision</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Audio\grassCollision.wav">
+      <Name>grassCollision</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Audio\gravelImpact.wav">
+      <Name>gravelImpact</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Audio\lavaAmbience.wav">
+      <Name>lavaAmbience</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Audio\metalCollision.wav">
+      <Name>metalCollision</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Audio\metalImpact.wav">
+      <Name>metalImpact</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Audio\speedBoost.wav">
+      <Name>speedBoost</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Audio\windAmbience.wav">
+      <Name>windAmbience</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Audio\woodCollision.wav">
+      <Name>woodCollision</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
