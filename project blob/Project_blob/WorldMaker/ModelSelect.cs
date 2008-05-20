@@ -63,9 +63,6 @@ namespace WorldMaker {
 			modelBox.Items.AddRange(models);
 			textureBox.Items.AddRange(textures);
 			audioBox.Items.AddRange(audio);
-			foreach (string s in audio) {
-				Console.WriteLine(s);
-			}
 
 			System.Reflection.Assembly asm = System.Reflection.Assembly.LoadFrom("Project_blob.exe");
 			foreach (Type t in asm.GetTypes()) {
