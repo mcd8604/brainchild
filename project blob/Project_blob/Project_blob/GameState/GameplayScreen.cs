@@ -1224,11 +1224,23 @@ namespace Project_blob.GameState
 			spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
 			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
 #if !DEBUG
-			string t = physics.Time.ToString();
-			spriteBatch.DrawString(font, t, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - 150, 0), Color.White);
+            if (currentArea.ShowTime) {
+                string t = "Time - " + String.Format("{0:0}", (physics.Time / 60)) + ":" + String.Format("{0:0.0}", physics.Time % 60);
+                spriteBatch.DrawString(font, t, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - (font.MeasureString(t).X + 10), 0), Color.White);
+                //spriteBatch.DrawString(font, "Time - " + String.Format("{0:0}", (physics.Time / 60)) + ":" + String.Format("{0:0.0}", physics.Time % 60), new Vector2(0, 200), Color.White);
+            }
+
+            if (currentArea.TimeLimit > 0) 
+            {
+                string t = "Time Limit - " + String.Format("{0:0} Min", (currentArea.TimeLimit / 60));
+                if(currentArea.TimeLimit % 60 > 0)
+                    t += ", " + String.Format("{0:0} Secs", currentArea.TimeLimit % 60);
+                spriteBatch.DrawString(font, t, new Vector2(ScreenManager.graphics.GraphicsDevice.Viewport.Width - (font.MeasureString(t).X + 10), 30), Color.White);
+            }
+			
 #else
 			spriteBatch.DrawString(font, "Time - " + PlayTime.Elapsed.ToString().Substring(3, 8), new Vector2(0, 175), Color.White);
-			spriteBatch.DrawString(font, "PTime - " + physics.Time, new Vector2(0, 200), Color.White);
+            
 #if TIMED
 			spriteBatch.DrawString(font, "Phys: " + physicsTime.Elapsed.TotalMilliseconds, new Vector2(0, 30), Color.White);
 			spriteBatch.DrawString(font, "Draw: " + drawTime.Elapsed.TotalMilliseconds, new Vector2(0, 60), Color.White);

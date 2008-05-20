@@ -56,6 +56,13 @@ namespace Project_blob
 			}
 		}
 
+        private bool m_ShowTime = true;
+        public bool ShowTime 
+        {
+            get { return m_ShowTime; }
+            set { m_ShowTime = value; }
+        }
+
 		public Display Display
 		{
 			get { return _display; }
