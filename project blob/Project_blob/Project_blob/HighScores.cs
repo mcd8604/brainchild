@@ -42,6 +42,12 @@ namespace Project_blob
 
 			for (int i = 0; i < count; ++i)
 			{
+				if (List[i] == null)
+				{
+					List[i] = toAdd;
+					changed = true;
+					break;
+				}
 				if (toAdd.Time < List[i].Time)
 				{
 					temp = List[i];
@@ -71,7 +77,7 @@ namespace Project_blob
 			Map[NewArea] = new Score[count];
 			for (int i = 0; i < count; ++i)
 			{
-				Map[NewArea][i] = new Score("Nobody", (i+1) * 1000f);
+				Map[NewArea][i] = null;
 			}
 		}
 
@@ -101,6 +107,10 @@ namespace Project_blob
 		{
 			Name = name;
 			Time = time;
+		}
+		public override string ToString()
+		{
+			return Name + ": " + Time;
 		}
 	}
 }
