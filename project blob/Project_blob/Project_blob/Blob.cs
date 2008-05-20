@@ -250,10 +250,16 @@ namespace Project_blob
 			//{
 			//    //collidables.Add(new Tri(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]], Color.White));
             //}
+<<<<<<< .mine
+			for (int i = 0; i < indices.Length; i += 3) {
+				collidables.Add(new Physics2.CollidableTri(pointMap[indices[i + 2]], pointMap[indices[i + 1]], pointMap[indices[i]]));
+			}
+=======
             /*for (int i = 0; i < indices.Length; i += 3)
             {
                 collidables.Add(new Physics2.CollidableTri(pointMap[indices[i + 2]], pointMap[indices[i + 1]], pointMap[indices[i]]));
             }*/
+>>>>>>> .r2000
 
 
 
@@ -417,7 +423,7 @@ namespace Project_blob
 			float volume = height * area * onethird;
 #if DEBUG
 			if (float.IsNaN(volume))
-				throw new Exception("Not Good");
+				throw new Exception("Not Good: " + point1 + ", " + point2 + ", " + point3);
 #endif
 
 			return volume;
@@ -446,7 +452,7 @@ namespace Project_blob
 			float volume = height * area * onethird;
 #if DEBUG
 			if (float.IsNaN(volume))
-				throw new Exception("Not Good");
+				throw new Exception("Not Good: " + point1 + ", " + point2 + ", " + point3);
 #endif
 
 			return volume;
