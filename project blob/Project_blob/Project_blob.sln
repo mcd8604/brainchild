@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual C# Express 2005
+# Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_blob", "Project_blob\Project_blob.csproj", "{076BE12C-2B3B-423C-BB37-A05F5381A54A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{65494539-D8B5-4A17-9FD4-49E5D5A2949C}"

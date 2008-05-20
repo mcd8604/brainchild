@@ -521,18 +521,23 @@ namespace Project_blob.GameState
 
 			InitializeEffect();
 
-			//Add the Static Drawables to the Octree
-			List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
-			List<Portal> portals = currentArea.Portals;
-			SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
-			//SceneManager.getSingleton.BuildOctree(ref temp);
-			//SceneManager.getSingleton.BuildPortalScene(temp);
-			foreach (Portal p in portals)
-			{
-				p.CreateBoundingBox();
-			}
-			SceneManager.getSingleton.BuildPortalScene(temp, portals);
-			SceneManager.getSingleton.PortalScene.CurrSector = 1;
+            if (currentArea.CullingStructure == SceneManager.SceneGraphType.Portal) {
+                //Add the Static Drawables to the Octree
+                List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
+                List<Portal> portals = currentArea.Portals;
+                SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
+                //SceneManager.getSingleton.BuildOctree(ref temp);
+                //SceneManager.getSingleton.BuildPortalScene(temp);
+                foreach (Portal p in portals) {
+                    p.CreateBoundingBox();
+                }
+                SceneManager.getSingleton.BuildPortalScene(temp, portals);
+                SceneManager.getSingleton.PortalScene.CurrSector = 1;
+            } else {
+                List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
+                SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Octree;
+                SceneManager.getSingleton.BuildOctree(ref temp);
+            }
 
 			currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
 

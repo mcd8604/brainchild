@@ -8,7 +8,7 @@ using Engine;
 
 namespace Project_blob
 {
-	class Sector
+	public class Sector
 	{
 		private List<Drawable> _sectorObjects;
 		public List<Drawable> SectorObjects
@@ -236,14 +236,19 @@ namespace Project_blob
 		public void AddObjectToSector(Drawable obj)
 		{
 			_sectorObjects.Add(obj);
+            BoundingBox box = obj.GetBoundingBox();
+
+            if (box.Max == box.Min) {
+                throw new Exception("Invalid Bounding Box");
+            }
 
 			if (_containerBox.Min == _containerBox.Max)
 			{
-				_containerBox = obj.GetBoundingBox();
+				_containerBox = box;
 			}
 			else
 			{
-				_containerBox = BoundingBox.CreateMerged(_containerBox, obj.GetBoundingBox());
+				_containerBox = BoundingBox.CreateMerged(_containerBox, box);
 			}
 		}
 
@@ -366,15 +371,156 @@ namespace Project_blob
             return newFrustum;
 		}
 
-        private BoundingFrustum CreateClippedPortalFrustum(Portal portal)
-        {
-            //BoundingBox box = portal.BoundingBox;
-            //Vector3 min = Vector3.Transform(box.Min, CameraManager.getSingleton.ActiveCamera.View);
-            //Vector3 max = Vector3.Transform(box.Max, CameraManager.getSingleton.ActiveCamera.View);
+        private BoundingFrustum CreateClippedPortalFrustum(Portal portal) {
+            #region not fully functional code
+            /*
+            Vector3 nearDistance = portal.Position - CameraManager.getSingleton.ActiveCamera.Position;
+            float test1, test2;
+            Plane portalPlane;
+            Vector3[] corners = new Vector3[8];
+            Vector3 pt1, pt2, pt3;
+            BoundingBox box = portal.BoundingBox;
+            test1 = box.Max.X - box.Min.X;
+            test2 = box.Max.Z - box.Min.Z;
+            bool flip = false;
+            bool xAxis = false;
+
+            if (test1 > test2) {
+                pt1 = new Vector3(box.Min.X, box.Min.Y, box.Min.Z);
+                pt2 = new Vector3(box.Max.X, box.Min.Y, box.Min.Z);
+                pt3 = new Vector3(box.Max.X, box.Max.Y, box.Min.Z);
+                if (nearDistance.Z < 0)
+                    flip = true;
+            } else {
+                xAxis = true;
+                pt1 = new Vector3(box.Min.X, box.Min.Y, box.Min.Z);
+                pt2 = new Vector3(box.Min.X, box.Min.Y, box.Max.Z);
+                pt3 = new Vector3(box.Min.X, box.Max.Y, box.Max.Z);
+                if (nearDistance.X > 0)
+                    flip = true;
+            }
+            portalPlane = new Plane(pt1, pt2, pt3);
+
+            corners = CameraManager.getSingleton.ActiveCamera.Frustum.GetCorners();
+            Vector3 frustumTL, frustumTR, frustumBL, frustumBR;
+            frustumTR = Vector3.Normalize(corners[4] - corners[0]);
+            frustumTL = Vector3.Normalize(corners[5] - corners[1]);
+            frustumBL = Vector3.Normalize(corners[6] - corners[2]);
+            frustumBR = Vector3.Normalize(corners[7] - corners[3]);
+
+            float tlIntersect, trIntersect, blIntersect, brIntersect;
+
+            tlIntersect = PlaneIntersectPt(portalPlane, frustumTL);
+            trIntersect = PlaneIntersectPt(portalPlane, frustumTR);
+            blIntersect = PlaneIntersectPt(portalPlane, frustumBL);
+            brIntersect = PlaneIntersectPt(portalPlane, frustumBR);
+
+            if (tlIntersect < 0 || trIntersect < 0 || blIntersect < 0 || brIntersect < 0) {
+                return CameraManager.getSingleton.ActiveCamera.Frustum;
+            } else {
+                Vector3 tlIntersectPt, trIntersectPt, blIntersectPt, brIntersectPt;
+                tlIntersectPt = CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(frustumTL, tlIntersect);
+                trIntersectPt = CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(frustumTR, trIntersect);
+                blIntersectPt = CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(frustumBL, blIntersect);
+                brIntersectPt = CameraManager.getSingleton.ActiveCamera.Position + Vector3.Multiply(frustumBR, brIntersect);
+
+                if (flip) {
+                    Vector3 temp = tlIntersectPt;
+                    tlIntersectPt = trIntersectPt;
+                    trIntersectPt = temp;
+                    temp = blIntersectPt;
+                    blIntersectPt = brIntersectPt;
+                    brIntersectPt = temp;
+                }
+                float minX, maxX, minY, maxY;
+                Vector3 min, max;
+                float scaleX, scaleY;
+                if (xAxis) {
+                    if (trIntersectPt.Z < box.Max.Z) {
+                        maxX = trIntersectPt.Z;
+                    } else {
+                        maxX = box.Max.Z;
+                    }
+
+                    if (tlIntersectPt.Z > box.Min.Z) {
+                        minX = tlIntersectPt.Z;
+                    } else {
+                        minX = box.Min.Z;
+                    }
+
+                    max.X = trIntersectPt.X;
+                    max.Z = maxX;
+                    min.X = trIntersectPt.X;
+                    min.Z = minX;
+
+                    scaleX = (max.Z - min.Z) / 2;
+
+                } else {
+                    if (trIntersectPt.X < box.Max.X) {
+                        maxX = trIntersectPt.X;
+                    } else {
+                        maxX = box.Max.X;
+                    }
+
+                    if (tlIntersectPt.X > box.Min.X) {
+                        minX = tlIntersectPt.X;
+                    } else {
+                        minX = box.Min.X;
+                    }
+
+                    max.X = maxX;
+                    max.Z = trIntersectPt.Z;
+                    min.X = minX;
+                    min.Z = trIntersectPt.Z;
+
+                    scaleX = (max.X - min.X) / 2;
+                }
+
+                if (trIntersectPt.Y < box.Max.Y || tlIntersectPt.Y < box.Max.Y) {
+                    if (tlIntersectPt.Y < trIntersectPt.Y) {
+                        maxY = tlIntersectPt.Y;
+                    } else {
+                        maxY = trIntersectPt.Y;
+                    }
+                } else {
+                    maxY = box.Max.Y;
+                }
+
+                if (brIntersectPt.Y > box.Min.Y || blIntersectPt.Y > box.Min.Y) {
+                    if (blIntersectPt.Y > brIntersectPt.Y) {
+                        minY = blIntersectPt.Y;
+                    } else {
+                        minY = brIntersectPt.Y;
+                    }
+                } else {
+                    minY = box.Min.Y;
+                }
+
+                max.Y = maxY;
+                min.Y = minY;
+
+                scaleY = (max.Y - min.Y) / 2;
+
+                Vector3 centerPt = Vector3.Divide((max - min), 2);
+                centerPt = min + centerPt;
+                float offset = 0.5f;
+                Matrix projection = Matrix.CreatePerspectiveOffCenter(-scaleX - offset, scaleX + offset, -scaleY - offset, scaleY + offset,
+                    nearDistance.Length(),
+                    CameraManager.getSingleton.ActiveCamera.FarPlane);
+
+                Matrix view = Matrix.CreateLookAt(CameraManager.getSingleton.ActiveCamera.Position,
+                    centerPt, Vector3.Up);
+
+                BoundingFrustum newFrustum = new BoundingFrustum(Matrix.Multiply(view, projection));
+
+                return newFrustum;
+            }
+            */
+            #endregion
 
             return CameraManager.getSingleton.ActiveCamera.Frustum;
 
-
+            #region old code
             /*
             Vector3 nearDistance = portal.Position - CameraManager.getSingleton.ActiveCamera.Position;
             float test1, test2;
@@ -512,6 +658,7 @@ namespace Project_blob
                 return newFrustum;
             }
              * * */
+            #endregion
         }
 
         private float PlaneIntersectPt(Plane p, Vector3 ray)

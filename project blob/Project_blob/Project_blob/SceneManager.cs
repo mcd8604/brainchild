@@ -12,7 +12,7 @@ using Engine;
 
 namespace Project_blob
 {
-    class SceneManager
+    public class SceneManager
     {
         private static volatile SceneManager _instance;
         private static object _syncRoot = new Object();
@@ -144,6 +144,8 @@ namespace Project_blob
         {
             _sceneObjectCount = scene.Count;
 
+            _octree = new Octree();
+
             if (_graphType == SceneGraphType.Octree)
             {
                 _octree.Distribute(ref scene);
@@ -163,8 +165,7 @@ namespace Project_blob
         public void BuildPortalScene(List<Drawable> scene, List<Portal> portals)
         {
             _sceneObjectCount = scene.Count;
-
-            _octree = new Octree();
+            
             _portalScene = new PortalScene();
 
             if (_graphType == SceneGraphType.Portal)
