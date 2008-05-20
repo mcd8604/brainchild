@@ -13,22 +13,30 @@ namespace Project_blob.GameState
 			IsPopup = true;
 
 			// Create our menu entries.
-			MenuEntry ReplayLevel = new MenuEntry("Replay Level");
+            MenuEntry CheckPoint = new MenuEntry("Start From Checkpoint");
+            MenuEntry RestartLevel = new MenuEntry("Restart Level");
 			MenuEntry ExitToHub = new MenuEntry("Exit To Hub");
 
-			// Hook up menu event handlers.
-			ReplayLevel.Selected += ReplayLevelSelected;
+            // Hook up menu event handlers.
+            CheckPoint.Selected += CheckPointSelected;
+            RestartLevel.Selected += RestartLevelSelected;
 			ExitToHub.Selected += ExitToHubSelected;
 
 			// Add entries to the menu.
-			MenuEntries.Add(ReplayLevel);
+            MenuEntries.Add(CheckPoint);
+            MenuEntries.Add(RestartLevel);
 			MenuEntries.Add(ExitToHub);
-		}
+        }
 
-		void ReplayLevelSelected(object sender, EventArgs e)
+        void CheckPointSelected(object sender, EventArgs e)
+        {
+            GameplayScreen.game.SetLoadCheckpoint();
+            base.OnCancel();
+        }
+
+		void RestartLevelSelected(object sender, EventArgs e)
 		{
-			GameplayScreen.game.SetChangeArea(Level.GetAreaName(GameplayScreen.currentArea));
-			GameplayScreen.deadSet = false;
+            GameplayScreen.game.SetResetArea();
 			base.OnCancel();
 		}
 
@@ -40,7 +48,6 @@ namespace Project_blob.GameState
 		protected override void OnCancel()
 		{
 			GameplayScreen.game.SetChangeArea("HubWorld");
-			GameplayScreen.deadSet = false;
 			base.OnCancel();
 		}
 
