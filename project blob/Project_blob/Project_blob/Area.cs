@@ -317,6 +317,8 @@ namespace Project_blob
 
 					Physics2.Body body = null;
 
+                    BoundingBox boundingBox = new BoundingBox(Vector3.Zero, Vector3.Zero);
+
 					if (!(dm is DynamicModel))
 					{
 
@@ -344,9 +346,18 @@ namespace Project_blob
 							{
 								b.expandToInclude(v.Position);
 							}
+                            //TODO: create 12 collidables from b 
+                        }
+                        else if (dm.CollisionType == CollisionTypes.BoundingBox)
+                        {
+                            AxisAlignedBoundingBox b = new AxisAlignedBoundingBox();
+                            foreach (VertexPositionNormalTexture v in vertices)
+                            {
+                                b.expandToInclude(v.Position);
+                            }
+                            boundingBox = b.GetXNABoundingBox();
+                        }
 
-						}
-						// this is called
 						if (dm.Event != null)
 						{
 							body = new TriggerBody(collidables, null, dm.Event);
@@ -413,7 +424,15 @@ namespace Project_blob
 							body.collisionSound = Audio.AudioManager.getSound(dynModel.AudioName);
 						}
 					}
-					dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
+
+                    if (boundingBox.Min == Vector3.Zero && boundingBox.Max == Vector3.Zero)
+                    {
+                        dm.SetBoundingBox(body.getBoundingBox().GetXNABoundingBox());
+                    }
+                    else
+                    {
+                        dm.SetBoundingBox(boundingBox);
+                    }
 
 					body.setMaterial(MaterialFactory.GetPhysicsMaterial(dm.MyMaterialType));
 					this.m_Bodies.Add(body);
