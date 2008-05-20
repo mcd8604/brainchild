@@ -9,7 +9,7 @@ using Wintellect.PowerCollections;
 /// <summary>
 /// List of Actions to which keys may be bound and states queried.
 /// </summary>
-internal enum Actions { Jump, MenuUp, MenuDown, MenuAccept, MenuCancel, MoveUp, MoveDown, MoveLeft, MoveRight, Pause, Reset, ToggleStickiness, ToggleElasticity, ChangeCamera };
+internal enum Actions { ZoomIn, ZoomOut, Jump, MenuUp, MenuDown, MenuAccept, MenuCancel, MoveUp, MoveDown, MoveLeft, MoveRight, Pause, Reset, ToggleStickiness, ToggleElasticity, ChangeCamera };
 internal enum MouseButtons { Left, Middle, Right, XButton1, XButton2 };
 internal enum AnalogActions { Movement, Camera };
 internal delegate Vector2 AnalogFunction();
@@ -34,6 +34,20 @@ internal static class InputHandler
 	internal static void LoadDefaultBindings()
 	{
 		// Analog
+		KeyboardMap.Add(Actions.Reset, Keys.Space);
+		GamePadMap.Add(Actions.Reset, Buttons.X);
+
+		GamePadMap.Add(Actions.ToggleElasticity, Buttons.RightShoulder);
+		GamePadMap.Add(Actions.ToggleStickiness, Buttons.LeftShoulder);
+		GamePadMap.Add(Actions.ChangeCamera, Buttons.Back);
+		GamePadMap.Add(Actions.Jump, Buttons.A);
+		GamePadMap.Add(Actions.ZoomIn, Buttons.DPadUp);
+		GamePadMap.Add(Actions.ZoomOut, Buttons.DPadDown);
+
+		KeyboardMap.Add(Actions.MoveUp, Keys.Up);
+		KeyboardMap.Add(Actions.MoveDown, Keys.Down);
+		KeyboardMap.Add(Actions.MoveRight, Keys.Right);
+		KeyboardMap.Add(Actions.MoveLeft, Keys.Left);
 
 		AnalogMap.Add(AnalogActions.Movement, delegate { return InputHandler.thisGamePadState.ThumbSticks.Left; });
 		AnalogMap.Add(AnalogActions.Movement, delegate { if (InputHandler.IsActionDown(Actions.MoveUp)) { return new Vector2(0, 1); } else { return Vector2.Zero; } });
