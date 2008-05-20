@@ -125,6 +125,7 @@ namespace Project_blob.GameState {
 		float playerCamMulti = 0.05f;
 
 		public static bool cameraInvert = false;
+		int invertVert = 1;
 		bool OrientCamera = false;
 
 		public static Area currentArea;
@@ -737,11 +738,7 @@ namespace Project_blob.GameState {
 						CameraManager.getSingleton.SetActiveCamera("default");
 					}
 				} else if (CurCamera == CameraType.follow) {
-					if (cameraInvert) {
-						cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti * -1;
-					} else {
-						cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
-					}
+					cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
 					if (cameraAngle.X < -MathHelper.Pi) {
 						cameraAngle.X += MathHelper.TwoPi;
 					} else if (cameraAngle.X > MathHelper.Pi) {
@@ -751,8 +748,16 @@ namespace Project_blob.GameState {
 					cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
 
 					// following camera
+					if (cameraInvert)
+					{
+						invertVert = -1;
+					}
+					else
+					{
+						invertVert = 1;
+					}
 
-					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength, (float)Math.Sin(cameraAngle.X) * cameraLength);
+					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength * invertVert, (float)Math.Sin(cameraAngle.X) * cameraLength);
 
 					CameraBody.setCameraOffset(Offset);
 					cam.Position = CameraBody.getCameraPosition();
