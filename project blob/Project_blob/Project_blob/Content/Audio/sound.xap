@@ -222,7 +222,7 @@ Global Settings
         Reserved = 0;
         Read Only = 0;
         Time = 0;
-        Value = 100.000000;
+        Value = 0.000000;
         Initial Value = 100.000000;
         Min = 0.000000;
         Max = 100.000000;
@@ -382,10 +382,6 @@ Wave Bank
     Windows File = Win\Wave Bank.xwb;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 0;
-    PC Bank Last Modified High = 0;
     Header Last Modified Low = 0;
     Header Last Modified High = 0;
 
@@ -625,10 +621,6 @@ Sound Bank
     Name = Sound Bank;
     Xbox File = Xbox\Sound Bank.xsb;
     Windows File = Win\Sound Bank.xsb;
-    Bank Last Modified Low = 0;
-    Bank Last Modified High = 0;
-    Header Last Modified High = 0;
-    Header Last Modified Low = 0;
 
     Sound
     {
@@ -666,6 +658,22 @@ Sound Bank
                     Relative = 0;
                     Random Recurrence = 0;
                     Random Offset = 0;
+                }
+
+                Pitch Variation
+                {
+                    Min = 0;
+                    Max = 0;
+                    Operator = 0;
+                    New Variation On Loop = 0;
+                }
+
+                Volume Variation
+                {
+                    Min = 0;
+                    Max = 0;
+                    Volume = 0;
+                    New Variation On Loop = 0;
                 }
 
                 Wave Entry
@@ -719,6 +727,22 @@ Sound Bank
                     Random Offset = 0;
                 }
 
+                Pitch Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Operator = 0;
+                    New Variation On Loop = 0;
+                }
+
+                Volume Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Volume = 0;
+                    New Variation On Loop = 0;
+                }
+
                 Wave Entry
                 {
                     Bank Name = Wave Bank;
@@ -768,6 +792,22 @@ Sound Bank
                     Relative = 0;
                     Random Recurrence = 0;
                     Random Offset = 0;
+                }
+
+                Pitch Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Operator = 0;
+                    New Variation On Loop = 0;
+                }
+
+                Volume Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Volume = 0;
+                    New Variation On Loop = 0;
                 }
 
                 Wave Entry
@@ -821,6 +861,22 @@ Sound Bank
                     Random Offset = 0;
                 }
 
+                Pitch Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Operator = 0;
+                    New Variation On Loop = 0;
+                }
+
+                Volume Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Volume = 0;
+                    New Variation On Loop = 0;
+                }
+
                 Wave Entry
                 {
                     Bank Name = Wave Bank;
@@ -853,7 +909,7 @@ Sound Bank
 
         Track
         {
-            Volume = -1200;
+            Volume = 0;
 
             Play Wave Event
             {
@@ -873,6 +929,22 @@ Sound Bank
                     Random Offset = 0;
                 }
 
+                Pitch Variation
+                {
+                    Min = -100;
+                    Max = 100;
+                    Operator = 0;
+                    New Variation On Loop = 1;
+                }
+
+                Volume Variation
+                {
+                    Min = -100;
+                    Max = 100;
+                    Volume = 0;
+                    New Variation On Loop = 1;
+                }
+
                 Wave Entry
                 {
                     Bank Name = Wave Bank;
@@ -889,7 +961,7 @@ Sound Bank
     Sound
     {
         Name = windAmbience;
-        Volume = -1200;
+        Volume = 0;
         Pitch = 0;
         Priority = 0;
 
@@ -922,6 +994,22 @@ Sound Bank
                     Relative = 0;
                     Random Recurrence = 0;
                     Random Offset = 0;
+                }
+
+                Pitch Variation
+                {
+                    Min = -100;
+                    Max = 100;
+                    Operator = 0;
+                    New Variation On Loop = 1;
+                }
+
+                Volume Variation
+                {
+                    Min = -100;
+                    Max = 100;
+                    Volume = 0;
+                    New Variation On Loop = 1;
                 }
 
                 Wave Entry
@@ -975,6 +1063,22 @@ Sound Bank
                     Random Offset = 0;
                 }
 
+                Pitch Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Operator = 0;
+                    New Variation On Loop = 0;
+                }
+
+                Volume Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Volume = 0;
+                    New Variation On Loop = 0;
+                }
+
                 Wave Entry
                 {
                     Bank Name = Wave Bank;
@@ -1026,6 +1130,22 @@ Sound Bank
                     Random Offset = 0;
                 }
 
+                Pitch Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Operator = 0;
+                    New Variation On Loop = 0;
+                }
+
+                Volume Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Volume = 0;
+                    New Variation On Loop = 0;
+                }
+
                 Wave Entry
                 {
                     Bank Name = Wave Bank;
@@ -1075,6 +1195,22 @@ Sound Bank
                     Relative = 0;
                     Random Recurrence = 0;
                     Random Offset = 0;
+                }
+
+                Pitch Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Operator = 0;
+                    New Variation On Loop = 0;
+                }
+
+                Volume Variation
+                {
+                    Min = -200;
+                    Max = 200;
+                    Volume = 0;
+                    New Variation On Loop = 0;
                 }
 
                 Wave Entry
