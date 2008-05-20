@@ -5,8 +5,8 @@ using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 
 namespace Project_blob {
-
-	internal class ConveyerBeltStatic : StaticModel {
+	[Serializable]
+	class ConveyerBeltStatic : StaticModel {
 		private Vector3 m_Direction;
 		public Vector3 Direction {
 			get {
