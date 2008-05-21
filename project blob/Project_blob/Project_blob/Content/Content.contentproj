@@ -110,6 +110,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Textures\speed.jpg">
+      <Name>speed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Textures\spring.JPG">
       <Name>spring</Name>
       <Importer>TextureImporter</Importer>
@@ -702,8 +709,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\speed.jpg">
-      <Name>speed</Name>
+    <Compile Include="Textures\door.jpg">
+      <Name>door</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
