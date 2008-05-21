@@ -41,7 +41,7 @@ namespace Project_blob
 
 		public override void onCollision(CollisionEvent e)
 		{
-			if ((Time < 0 && (_triggeredEvent.NumTriggers <= 0 || Count <= _triggeredEvent.NumTriggers)) && e.point.ParentBody is Blob)
+			if ((Time < 0 && (_triggeredEvent.NumTriggers < 0 || Count < _triggeredEvent.NumTriggers)) && e.point.ParentBody is Blob)
 			{
 				if (_triggeredEvent.PerformEvent(e.point))
 				{
