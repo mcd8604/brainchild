@@ -633,7 +633,7 @@ namespace Project_blob.GameState {
 				if (!(cam is CinematicCamera)) {
 
 					if (InputHandler.IsActionPressed(Actions.Reset)) {
-						SetResetArea()
+						SetResetArea();
 #if DEBUG && TIMED
 						DEBUG_MaxPhys = -1;
 						DEBUG_MinPhys = -1;
@@ -861,7 +861,7 @@ namespace Project_blob.GameState {
 					} else {
 						PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
 					}
-					SetResetArea()
+					SetResetArea();
 #if TIMED
 					DEBUG_MaxPhys = -1;
 					DEBUG_MinPhys = -1;
@@ -909,9 +909,7 @@ namespace Project_blob.GameState {
 				//        CurCamera = CameraType.Follow;
 				//        CameraManager.getSingleton.SetActiveCamera("default");
 				//    }
-
-
-				}
+				//}
 
 				if (InputHandler.IsKeyPressed(Keys.S)) {
 					physics.Player.Resilience.Target = 1f;
