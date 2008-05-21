@@ -188,7 +188,8 @@ namespace Engine
 			tempVec.Y = Target.Y - Position.Y;
 			tempVec.Z = Target.Z - Position.Z;
 #if DEBUG
-			if (tempVec == Vector3.Zero) {
+			if (tempVec == Vector3.Zero || float.IsNaN(tempVec.X) || float.IsNaN(tempVec.Y) || float.IsNaN(tempVec.Z))
+			{
 				throw new Exception("Invalid Camera State");
 			}
 #endif
