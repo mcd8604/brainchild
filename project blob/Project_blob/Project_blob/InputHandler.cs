@@ -64,6 +64,8 @@ internal static class InputHandler
 
 		KeyboardMap.Add(Actions.Pause, Keys.Escape);
 
+		KeyboardMap.Add(Actions.ChangeCamera, Keys.F);
+
 		// Gamepad 
 
 		GamePadMap.Add(Actions.Reset, Buttons.X);
