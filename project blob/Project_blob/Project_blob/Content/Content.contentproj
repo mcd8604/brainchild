@@ -471,6 +471,11 @@
       <Name>blobCollision</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\blob.FBX">
+      <Name>blob</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\wholePipeWalled.fbx">
       <Name>wholePipeWalled</Name>
       <Importer>FbxImporter</Importer>

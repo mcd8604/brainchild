@@ -11,10 +11,11 @@ namespace Audio {
 		// Our audio engine to import and run sounds
 		private static AudioEngine _audioEngine;
 
+		private static Cue curMusic;
+
 		// Sound stuff 
 		private static WaveBank _waveBank;
 		private static SoundBank _soundBank;
-		private static Dictionary<string, Cue> _music = new Dictionary<string, Cue>();
 		private static List<Sound> _ambientSounds = new List<Sound>();
 
 		// Use for adjusting music volume from menu
@@ -167,21 +168,11 @@ namespace Audio {
 		}
 
 		/// <summary>
-		/// Adds a cue into the music dictionary
+		/// Gets a cue into the music dictionary
 		/// </summary>
-		/// <param name="name">The lookup name for the cue as well as the name of the cue itself</param>
-		/// <returns>The specified music cue</returns>
-		public static Cue addMusic(string name) {
-			Cue retVal;
-
-			if (!_music.ContainsKey(name)) {
-				retVal = _soundBank.GetCue(name);
-				_music.Add(name, retVal);
-			} else {
-				retVal = _music[name];
-			}
-
-			return retVal;
+		/// <param name="name">The name of the cue</param>
+		public static void getMusic(string name) {
+			curMusic = _soundBank.GetCue(name);
 		}
 
 		/// <summary>
@@ -202,11 +193,11 @@ namespace Audio {
 		/// </summary>
 		/// <param name="name">The name of the soundFX lookup id</param>
 		public static void playMusic(string name) {
-			if (_music.ContainsKey(name) && !_music[name].IsPlaying) {
-				_music[name].Dispose();
-				_music[name] = _soundBank.GetCue(name);
-				_music[name].SetVariable("Volume", musicVolume);
-				_music[name].Play();
+			if (curMusic != null && !curMusic.IsPlaying) {
+				curMusic.Dispose();
+				curMusic = _soundBank.GetCue(curMusic.Name);
+				curMusic.SetVariable("Volume", musicVolume);
+				curMusic.Play();
 			}
 		}
 
@@ -301,9 +292,9 @@ namespace Audio {
 		/// Stops a cue in the music dictionary
 		/// </summary>
 		/// <param name="name">The lookup name for the cue as well as the name of the cue itself</param>
-		public static void stopMusic(string name) {
-			if (_music.ContainsKey(name)) {
-				_music[name].Stop(AudioStopOptions.Immediate);
+		public static void stopMusic() {
+			if (curMusic != null) {
+				curMusic.Stop(AudioStopOptions.Immediate);
 			}
 		}
 
@@ -320,9 +311,11 @@ namespace Audio {
 		/// </summary>
 		/// <param name="name">The name of the music lookup id</param>
 		public static void pauseMusic(string name) {
-			if (_music.ContainsKey(name)) {
-				if (_music[name].IsPlaying) {
-					_music[name].Pause();
+			if (curMusic != null)
+			{
+				if (curMusic.IsPlaying)
+				{
+					curMusic.Pause();
 				}
 			}
 		}
@@ -343,9 +336,11 @@ namespace Audio {
 		/// </summary>
 		/// <param name="name">The name of the music lookup id</param>
 		public static void resumeMusic(string name) {
-			if (_music.ContainsKey(name)) {
-				if (_music[name].IsPaused) {
-					_music[name].Resume();
+			if (curMusic != null)
+			{
+				if (curMusic.IsPaused)
+				{
+					curMusic.Resume();
 				}
 			}
 		}
@@ -366,6 +361,10 @@ namespace Audio {
 		public static void update() {
 			// Update the audio engine so that it can process audio data
 			if (enabled) {
+				if (curMusic != null && curMusic.GetVariable("Volume") != musicVolume)
+				{
+					curMusic.SetVariable("Volume", musicVolume);
+				}
 				_audioEngine.Update();
 			}
 		}
