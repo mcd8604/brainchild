@@ -64,7 +64,9 @@ internal static class InputHandler
 
 		KeyboardMap.Add(Actions.Pause, Keys.Escape);
 
+#if DEBUG
 		KeyboardMap.Add(Actions.ChangeCamera, Keys.F);
+#endif
 
 		// Gamepad 
 
