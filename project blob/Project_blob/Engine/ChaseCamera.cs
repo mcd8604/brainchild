@@ -35,9 +35,13 @@ namespace Engine
 		public Vector3 ChaseDirection
 		{
 			get { return chaseDirection; }
-			set { chaseDirection = value; }
+            set
+            {
+                if (chaseDirection != Vector3.Zero)
+                    chaseDirection = value;
+            }
 		}
-		private Vector3 chaseDirection;
+		private Vector3 chaseDirection = Vector3.Forward;
 
 		private Vector3 m_ClimbNormal;
 		public Vector3 ClimbNormal
@@ -229,6 +233,8 @@ namespace Engine
 			// Force desired position
 			Position = desiredPosition;
 
+            chaseDirection = Vector3.Forward;
+
 			UpdateMatrices();
 		}
 
@@ -239,6 +245,10 @@ namespace Engine
 		/// </summary>
 		public override void Update(GameTime gameTime)
 		{
+            if (chaseDirection == Vector3.Zero)
+            {
+                throw new Exception("Chase Direction set to Vector3.Zero. This should never happen and will break physics.");
+            }
 			if (gameTime == null)
 				throw new ArgumentNullException("gameTime");
 
