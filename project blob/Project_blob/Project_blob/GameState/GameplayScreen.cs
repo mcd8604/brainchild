@@ -1061,12 +1061,12 @@ namespace Project_blob.GameState {
 			distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * cam.View);
 
 			//Octree Cull the Static Drawables
-			foreach (List<Drawable> drawables in currentArea.Display.DrawnList) {
-                foreach (Drawable d in drawables)
+			//foreach (List<Drawable> drawables in ) {
+                foreach (Drawable d in currentArea.getDrawableList())
                 {
                     d.Drawn = false;
                 }
-			}
+			//}
 
 			SceneManager.getSingleton.UpdateVisibleDrawables(gameTime);
 
