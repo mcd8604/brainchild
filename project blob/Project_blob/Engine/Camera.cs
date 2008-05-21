@@ -187,6 +187,11 @@ namespace Engine
 			tempVec.X = Target.X - Position.X;
 			tempVec.Y = Target.Y - Position.Y;
 			tempVec.Z = Target.Z - Position.Z;
+#if DEBUG
+			if (tempVec == Vector3.Zero) {
+				throw new Exception("Invalid Camera State");
+			}
+#endif
 			tempVec.Normalize();
 			_listener.Forward = tempVec;
 			_listener.Up = Up;
