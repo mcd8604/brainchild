@@ -97,9 +97,9 @@ namespace Project_blob.GameState {
 		private static bool DEBUG_GodMode = false;
 #endif
 #if DEBUG
-		private bool FPS = true;
+		internal static bool FPS = true;
 #else
-		private bool FPS = false;
+		internal static bool FPS = false;
 #endif
 
 		public enum CameraType {
