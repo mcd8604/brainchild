@@ -319,12 +319,12 @@ namespace Physics2
 				Vector3 Position = newPosition + (Velocity * (TotalElapsedSeconds * (1 - e.when)));
 
 				//bump (this may or may not be neccessary)
-				float dn = e.collidable.NextPlane.D;
-				float d22 = Vector3.Dot(e.collidable.NextNormal, Position);
+				float dn = e.collidable.PotentialPlane.D;
+				float d22 = Vector3.Dot(e.collidable.PotentialNormal, Position);
 				while ((dn + d22) <= 0)
 				{
-					Position += Vector3.Normalize(e.collidable.Normal) * 0.01f;
-					d22 = Vector3.Dot(e.collidable.NextNormal, Position);
+					Position += Vector3.Normalize(e.collidable.PotentialNormal) * 0.01f;
+					d22 = Vector3.Dot(e.collidable.PotentialNormal, Position);
 					//Console.WriteLine("Bump2");
 				}
 
