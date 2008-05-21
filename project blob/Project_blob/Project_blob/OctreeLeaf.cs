@@ -127,7 +127,7 @@ namespace Project_blob
                             break;
                         }
                     case ContainmentType.Disjoint:
-                        obj.Drawn = false;
+                        //obj.Drawn = false;
                         break;
 
                 }

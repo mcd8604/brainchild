@@ -66,7 +66,7 @@ namespace Project_blob
 					case ContainmentType.Disjoint:
 						{
 							//Object is culled.
-                            obj.Drawn = false;
+                            //obj.Drawn = false;
 						}
 						break;
 				}
@@ -157,7 +157,7 @@ namespace Project_blob
 					case ContainmentType.Disjoint:
 						{
 							//Object is culled.
-                            obj.Drawn = false;
+                            //obj.Drawn = false;
 						}
 						break;
 				}
