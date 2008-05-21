@@ -814,7 +814,7 @@ namespace Project_blob.GameState {
 					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength * invertVert, (float)Math.Sin(cameraAngle.X) * cameraLength);
 
 					CameraBody.setCameraOffset(Offset);
-					cam.Position = CameraBody.getCameraPosition();
+					cam.Position = (cam.Position + CameraBody.getCameraPosition()) * 0.5f;
 
 					cam.Target = theBlob.getCenter();
 				} else if (cam is ChaseCamera) {
