@@ -218,6 +218,13 @@ namespace Audio {
 				soundFX.Dispose();
 				soundFX = _soundBank.GetCue(soundFX.Name);
 				if (_audioListener != null && !mono) {
+
+#if DEBUG
+					if (float.IsNaN(_audioListener.Position.X) || float.IsNaN(_audioListener.Position.Y) || float.IsNaN(_audioListener.Position.Z)) {
+						throw new Exception("Invalid listener position");
+					}
+#endif
+
 					try {
 						if (float.IsNaN(_audioListener.Position.Length()))
 						{
