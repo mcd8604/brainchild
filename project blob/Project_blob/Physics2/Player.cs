@@ -308,11 +308,11 @@ namespace Physics2
 				{
 					if (playerBody is BodyPressure)
 					{
-						JumpForce += jumpVector * (MathHelper.Clamp(maxJumpWork - ((BodyPressure)playerBody).Volume, maxJumpWork * 0.5f, maxJumpWork) / time);
+						JumpForce = jumpVector * (MathHelper.Clamp(maxJumpWork - ((BodyPressure)playerBody).Volume, maxJumpWork * 0.5f, maxJumpWork) / time);
 					}
 					else
 					{
-						JumpForce += jumpVector * (maxJumpWork / time);
+						JumpForce = jumpVector * (maxJumpWork / time);
 					}
 				}
 
@@ -336,6 +336,10 @@ namespace Physics2
 				if (DEBUG_MoveModeFlag && jumpVector != Util.Zero)
 				{
 					Up = jumpVector;
+				}
+
+				if (refPos == CurrentPlayerCenter || float.IsNaN(refPos.X) || float.IsNaN(refPos.Y) || float.IsNaN(refPos.Z)) {
+					throw new Exception("Invalid camera position");
 				}
 #endif
 
