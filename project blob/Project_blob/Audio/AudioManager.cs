@@ -168,11 +168,16 @@ namespace Audio {
 		}
 
 		/// <summary>
-		/// Gets a cue into the music dictionary
+		/// Sets a cue into the current music holder
 		/// </summary>
 		/// <param name="name">The name of the cue</param>
-		public static void getMusic(string name) {
+		public static void setMusic(string name) {
+			if (curMusic != null)
+			{
+				curMusic.Dispose();
+			}
 			curMusic = _soundBank.GetCue(name);
+			curMusic.Play();
 		}
 
 		/// <summary>
