@@ -513,6 +513,7 @@ namespace Project_blob.GameState {
 			game.nextAreaName = area;
 			game.UseDefaultAreaPos = true;
 			game.ChangeAreaFlag = true;
+			//AudioManager.setMusic(Level.GetArea(area).MusicName);
 		}
 
 		public static void SetChangeArea(string area, Vector3 position) {
@@ -520,6 +521,7 @@ namespace Project_blob.GameState {
 			game.nextAreaPosition = position;
 			game.ChangeAreaFlag = true;
 			game.UseDefaultAreaPos = false;
+			//AudioManager.setMusic(Level.GetArea(area).MusicName);
 		}
 
 		public static void SetResetArea() {
@@ -540,7 +542,7 @@ namespace Project_blob.GameState {
 
 		private void ChangeArea() {
 			currentArea = Level.Areas[nextAreaName];
-
+			AudioManager.setMusic(currentArea.MusicName);
 			if (UseDefaultAreaPos) {
 				blobStartPosition = currentArea.StartPosition;
 			} else {
