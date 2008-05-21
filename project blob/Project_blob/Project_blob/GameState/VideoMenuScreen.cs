@@ -11,11 +11,13 @@ namespace Project_blob.GameState
 		MenuEntry fullscreenMenuEntry;
 		MenuEntry aliasingMenuEntry;
 		MenuEntry vsyncMenuEntry;
+		MenuEntry fpsMenuEntry;
 
 		Resolution resolution = ScreenManager.CurrentResolution;
 		bool Fullscreen = ScreenManager.IsFullScreen;
 		bool AntiAliasing = ScreenManager.IsAntiAliasing;
 		bool vsync = ScreenManager.VSync;
+		bool showFPS = GameplayScreen.FPS;
 
 		public VideoMenuScreen()
 			: base("Video Options")
@@ -26,6 +28,7 @@ namespace Project_blob.GameState
 			fullscreenMenuEntry = new MenuEntry();
 			aliasingMenuEntry = new MenuEntry();
 			vsyncMenuEntry = new MenuEntry();
+			fpsMenuEntry = new MenuEntry();
 			MenuEntry applyMenuEntry = new MenuEntry("Apply");
 			MenuEntry backMenuEntry = new MenuEntry("Back");
 
@@ -35,6 +38,7 @@ namespace Project_blob.GameState
 			fullscreenMenuEntry.Selected += fullscreenSelected;
 			aliasingMenuEntry.Selected += aliasingSelected;
 			vsyncMenuEntry.Selected += vsyncSelected;
+			fpsMenuEntry.Selected += fpsSelected;
 			applyMenuEntry.Selected += apply;
 			backMenuEntry.Selected += OnCancel;
 
@@ -42,6 +46,7 @@ namespace Project_blob.GameState
 			MenuEntries.Add(fullscreenMenuEntry);
 			MenuEntries.Add(aliasingMenuEntry);
 			MenuEntries.Add(vsyncMenuEntry);
+			MenuEntries.Add(fpsMenuEntry);
 			MenuEntries.Add(applyMenuEntry);
 			MenuEntries.Add(backMenuEntry);
 		}
@@ -52,6 +57,7 @@ namespace Project_blob.GameState
 			fullscreenMenuEntry.Text = "Fullscreen: " + (Fullscreen ? "On" : "Off");
 			aliasingMenuEntry.Text = "Anti-Aliasing: " + (AntiAliasing ? "On" : "Off");
 			vsyncMenuEntry.Text = "VSync: " + (vsync ? "On" : "Off");
+			fpsMenuEntry.Text = "Show FPS: " + (showFPS ? "On" : "Off");
 		}
 
 		void resolutionSelected(object sender, EventArgs e)
@@ -78,6 +84,12 @@ namespace Project_blob.GameState
 			setMenuText();
 		}
 
+		void fpsSelected(object sender, EventArgs e)
+		{
+			showFPS = !showFPS;
+			setMenuText();
+		}
+
 		void apply(object sender, EventArgs e)
 		{
 			ScreenManager.setResolution(resolution);
@@ -93,6 +105,8 @@ namespace Project_blob.GameState
 			}
 
 			ScreenManager.VSync = vsync;
+
+			GameplayScreen.FPS = showFPS;
 
 			setMenuText();
 		}
