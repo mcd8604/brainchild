@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
 using Physics2;
@@ -25,6 +26,8 @@ namespace Project_blob {
 				_ambientSounds = value;
 			}
 		}
+
+		private string _musicName = string.Empty;
 
 		private float m_TimeLimit = -1f;
 		public float TimeLimit {
