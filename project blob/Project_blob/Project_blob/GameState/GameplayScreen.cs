@@ -873,42 +873,42 @@ namespace Project_blob.GameState {
 				if (InputHandler.IsKeyPressed(Keys.P)) {
 					paused = !paused;
 				}
-				if (InputHandler.IsKeyPressed(Keys.F)) {
-					//follow = !follow;
-					////camera follow
-					//if (!follow)
-					//{
-					//    //cameraPosition = defaultCameraPosition;
-					//    CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
-					//    //viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
-					//    //effect.Parameters["xView"].SetValue(viewMatrix);
-					//    //camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
-					//    CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
-					//    CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
+				//if (InputHandler.IsKeyPressed(Keys.F)) {
+				//    //follow = !follow;
+				//    ////camera follow
+				//    //if (!follow)
+				//    //{
+				//    //    //cameraPosition = defaultCameraPosition;
+				//    //    CameraManager.getSingleton.ActiveCamera.Position = defaultCameraPosition;
+				//    //    //viewMatrix = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 4, 0), Vector3.Up);
+				//    //    //effect.Parameters["xView"].SetValue(viewMatrix);
+				//    //    //camera.View = Matrix.CreateLookAt(camera.Postiion, new Vector3(0, 4, 0), Vector3.Up);
+				//    //    CameraManager.getSingleton.ActiveCamera.Target = new Vector3(0, 4, 0);
+				//    //    CameraManager.getSingleton.ActiveCamera.Up = Vector3.Up;
 
 
-					//    cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					//    distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
-					//    distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
+				//    //    cartoonEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+				//    //    distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View * CameraManager.getSingleton.ActiveCamera.Projection);
+				//    //    distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * CameraManager.getSingleton.ActiveCamera.View);
 
-					//    //effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+				//    //    //effect.Parameters["xView"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
 
-					//    //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
-					//    //celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
-					//    //celEffect.Parameters["View"].SetValue(viewMatrix);
-					//    //celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
-					//    //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
-					//    //effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
-					//}
-					if (CurCamera == CameraType.Follow) {
-						CurCamera = CameraType.Chase;
-						CameraManager.getSingleton.SetActiveCamera("chase");
-						((ChaseCamera)CameraManager.getSingleton.ActiveCamera).ChasePosition = theBlob.getCenter();
-						((ChaseCamera)CameraManager.getSingleton.ActiveCamera).Reset();
-					} else {
-						CurCamera = CameraType.Follow;
-						CameraManager.getSingleton.SetActiveCamera("default");
-					}
+				//    //    //celEffect.Parameters["EyePosition"].SetValue(cameraPosition);
+				//    //    //celEffect.Parameters["EyePosition"].SetValue(CameraManager.getSingleton.ActiveCamera.Position);
+				//    //    //celEffect.Parameters["View"].SetValue(viewMatrix);
+				//    //    //celEffect.Parameters["View"].SetValue(CameraManager.getSingleton.ActiveCamera.View);
+				//    //    //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
+				//    //    //effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
+				//    //}
+				//    if (CurCamera == CameraType.Follow) {
+				//        CurCamera = CameraType.Chase;
+				//        CameraManager.getSingleton.SetActiveCamera("chase");
+				//        ((ChaseCamera)CameraManager.getSingleton.ActiveCamera).ChasePosition = theBlob.getCenter();
+				//        ((ChaseCamera)CameraManager.getSingleton.ActiveCamera).Reset();
+				//    } else {
+				//        CurCamera = CameraType.Follow;
+				//        CameraManager.getSingleton.SetActiveCamera("default");
+				//    }
 
 
 				}
