@@ -31,6 +31,9 @@ namespace Audio {
 			set { soundFXVolume = value; }
 		}
 
+		// Hard-coded sound cue for blob
+		private static Cue blobSound;
+
 		private static System.Threading.Thread _ambientSoundThread;
 		private static bool _runAmbience = true;
 
@@ -64,6 +67,7 @@ namespace Audio {
 				_waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
 				_soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
 				initializeAmbience();
+				blobSound = getSoundFX("blobCollision");
 			} catch (Exception e) {
 #if DEBUG
 				Log.Out.WriteLine("Audio Manager Exception:");
@@ -217,6 +221,11 @@ namespace Audio {
 			if (volumeLevel >= 0) {
 				soundFX.Dispose();
 				soundFX = _soundBank.GetCue(soundFX.Name);
+				if (!blobSound.IsPlaying)
+				{
+					blobSound.Dispose();
+					blobSound = _soundBank.GetCue(blobSound.Name);
+				}
 				if (_audioListener != null && !mono) {
 
 #if DEBUG
@@ -236,6 +245,11 @@ namespace Audio {
 						}
 						soundFX.Apply3D(_audioListener, emitter);
 						soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
+						if (!blobSound.IsPlaying)
+						{
+							blobSound.Apply3D(_audioListener, emitter);
+							blobSound.SetVariable("Distance", blobSound.GetVariable("Distance") / volumeLevel);
+						}
 					}
 					catch (InvalidOperationException ioe)
 					{
@@ -263,6 +277,11 @@ namespace Audio {
 				}
 				soundFX.SetVariable("Volume", soundFXVolume);
 				soundFX.Play();
+				if (!blobSound.IsPlaying)
+				{
+					blobSound.SetVariable("Volume", soundFXVolume);
+					blobSound.Play();
+				}
 			}
 		}
 

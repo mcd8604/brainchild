@@ -601,7 +601,6 @@ namespace Project_blob.GameState {
 					if (physics.Player.Dead) {
 						if (deadSet) {
 							if (deadTimer + 1.5f <= (float)gameTime.TotalGameTime.TotalSeconds) {
-								AudioManager.ClearAmbientSounds();
 								ScreenManager.AddScreen(new DeathScreen());
 								deadSet = false;
 							}
