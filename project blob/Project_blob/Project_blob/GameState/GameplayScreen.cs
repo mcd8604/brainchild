@@ -187,7 +187,10 @@ namespace Project_blob.GameState {
 			// Configurable physics parameters:
 			// All of these are more or less arbitrary, and can be tweaked within reason for different effects.
 
-			PhysicsManager.AirFriction = 0.95f;
+			if (currentArea != null)
+			{
+				PhysicsManager.AirFriction = currentArea.AirFriction ?? PhysicsManager.AirFriction;
+			}
 
 			physics.Player.Traction.Minimum = 0.1f;
 			physics.Player.Traction.Origin = 1f;

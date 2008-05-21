@@ -21,8 +21,8 @@ namespace Project_blob
 
     public static class MaterialFactory
     {
-        public const float CLING_SLICK = 0.1f;
-        public const float FRICTION_SLICK = 0.1f;
+        public const float CLING_SLICK = 0f;
+        public const float FRICTION_SLICK = 0f;
 
         public const float CLING_STICKY = 2.0f;
         public const float FRICTION_STICKY = 2.0f;
