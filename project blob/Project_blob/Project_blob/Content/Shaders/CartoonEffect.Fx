@@ -48,6 +48,8 @@ sampler ShadowMapSampler = sampler_state { texture = <ShadowMap> ; magfilter = L
 // The main texture applied to the object, and a sampler for reading it.
 texture Texture;
 
+float MaxShadowSize = 20.0;
+
 sampler Sampler = sampler_state
 {
     Texture = (Texture);
@@ -149,7 +151,7 @@ float4 LambertPixelShader(LightingPixelShaderInput input, uniform bool onBlob) :
     
 	color.rgb *= saturate(input.LightAmount) * DiffuseLight + AmbientLight;
 	
-	if( !onBlob && input.Position3D.y < blobCenter.y && distance(xyCoord,blobCenterVector) < ( 20.0f - distance(blobCenter.y ,input.Position3D.y) ) * 0.05f )
+	if( !onBlob && input.Position3D.y < blobCenter.y && distance(xyCoord,blobCenterVector) < ( MaxShadowSize - distance(blobCenter.y ,input.Position3D.y) ) * 0.05f )
     {
 		color.rgb *= 0.3f;
     }
