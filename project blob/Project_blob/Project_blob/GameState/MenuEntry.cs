@@ -72,7 +72,7 @@ namespace Project_blob.GameState
 			{
 				// Draw text, centered on the middle of each line.
 				SpriteFont font = screenManager.Font;
-				Vector2 origin = new Vector2(0, font.LineSpacing / 2);
+				Vector2 origin = new Vector2(0, font.LineSpacing * 0.5f);
 				// Draw the selected entry in yellow, otherwise white.
 				Color color = isSelected ? Color.Yellow : Color.White;
 

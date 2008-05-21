@@ -67,7 +67,7 @@ namespace Project_blob.GameState
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             float x = (viewport.Width - controlTexture.Width);
-            float y = (viewport.Height - controlTexture.Height) / 2;
+			float y = (viewport.Height - controlTexture.Height) * 0.5f;
             Rectangle fullscreen = new Rectangle((int)x, (int)y, (int)controlTexture.Width, (int)controlTexture.Height);
             byte fade = TransitionAlpha;
 

@@ -55,7 +55,7 @@ namespace Project_blob
 
         protected void Split()
         {
-            Vector3 half = (ContainerBox.Max - ContainerBox.Min) / 2;
+            Vector3 half = (ContainerBox.Max - ContainerBox.Min) * 0.5f;
 
 			if ( half == Vector3.Zero ) {
 				throw new Exception("Container box is Zero");

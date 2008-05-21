@@ -276,13 +276,13 @@ namespace Project_blob {
 					// Indices
 					int[] indices;
 					if (dm.getIndexBuffer().IndexElementSize == IndexElementSize.SixteenBits) {
-						indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
-						short[] temp = new short[(dm.getIndexBuffer().SizeInBytes) * 8 / 16];
+						indices = new int[(dm.getIndexBuffer().SizeInBytes) >> 1];
+						short[] temp = new short[(dm.getIndexBuffer().SizeInBytes) >> 1];
 						dm.getIndexBuffer().GetData<short>(temp);
 						for (int i = 0; i < temp.Length; ++i)
 							indices[i] = temp[i];
 					} else {
-						indices = new int[(dm.getIndexBuffer().SizeInBytes) * 8 / 32];
+						indices = new int[(dm.getIndexBuffer().SizeInBytes) >> 2];
 						dm.getIndexBuffer().GetData<int>(indices);
 					}
 
@@ -459,15 +459,15 @@ namespace Project_blob {
 //        /*int[] indices;
 //        if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
 //        {
-//            indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-//            short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+//            indices = new int[(mesh.IndexBuffer.SizeInBytes) >> 1];
+//            short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) >> 1];
 //            mesh.IndexBuffer.GetData<short>(temp);
 //            for (int i = 0; i < temp.Length; ++i)
 //                indices[i] = temp[i];
 //        }
 //        else
 //        {
-//            indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
+//            indices = new int[(mesh.IndexBuffer.SizeInBytes) >> 2];
 //            mesh.IndexBuffer.GetData<int>(indices);
 //        }*/
 
@@ -487,20 +487,20 @@ namespace Project_blob {
 //            float distTrans2 = Vector3.Distance(vertices[indices[i]].Position * scaleVector, vertices[indices[i + 2]].Position * scaleVector);
 //            //float distTrans3 = Vector3.Distance(vertices[indices[i + 2]].Position * scaleVector, vertices[indices[i]].Position * scaleVector);
 
-//            //vertices[indices[i]].TextureCoordinate.X *= ((distTrans1 / distOriginal1) / (texture.Width / 2f));
-//            //vertices[indices[i]].TextureCoordinate.Y *= ((distTrans1 / distOriginal1) / (texture.Height / 2f));
+//            //vertices[indices[i]].TextureCoordinate.X *= ((distTrans1 / distOriginal1) / (texture.Width * 0.5f));
+//            //vertices[indices[i]].TextureCoordinate.Y *= ((distTrans1 / distOriginal1) / (texture.Height * 0.5f));
 
 //            if(!transTextCord.Contains(indices[i + 1]))
 //            {
-//                vertices[indices[i + 1]].TextureCoordinate.X *= ((distTrans1 / distOriginal1));// / (texture.Width / 2f));
-//                vertices[indices[i + 1]].TextureCoordinate.Y *= ((distTrans1 / distOriginal1));// / (texture.Height / 2f));
+//                vertices[indices[i + 1]].TextureCoordinate.X *= ((distTrans1 / distOriginal1));// / (texture.Width * 0.5f));
+//                vertices[indices[i + 1]].TextureCoordinate.Y *= ((distTrans1 / distOriginal1));// / (texture.Height * 0.5f));
 //                transTextCord.Add(indices[i + 1]);
 //            }
 
 //            if(!transTextCord.Contains(indices[i + 2]))
 //            {
-//                vertices[indices[i + 2]].TextureCoordinate.X *= ((distTrans2 / distOriginal2));// / (texture.Width / 2f));
-//                vertices[indices[i + 2]].TextureCoordinate.Y *= ((distTrans2 / distOriginal2));// / (texture.Height / 2f));
+//                vertices[indices[i + 2]].TextureCoordinate.X *= ((distTrans2 / distOriginal2));// / (texture.Width * 0.5f));
+//                vertices[indices[i + 2]].TextureCoordinate.Y *= ((distTrans2 / distOriginal2));// / (texture.Height * 0.5f));
 //                transTextCord.Add(indices[i + 2]);
 //            }
 //        }*/
@@ -518,8 +518,8 @@ namespace Project_blob {
 //            Quaternion rotVector = Quaternion.Identity;
 //            Vector3 transVector = Vector3.Zero;
 //            dm.Scale.Decompose(out scaleVector, out rotVector, out transVector);
-//            vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width / 2f));
-//            vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height / 2f));
+//            vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width * 0.5f));
+//            vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height * 0.5f));
 //        }*/
 //        mesh.VertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
 //    //}

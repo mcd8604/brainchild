@@ -45,18 +45,25 @@ namespace Project_blob.GameState {
 			string temp = "Best Times";
 			m_SpriteBatch.DrawString(font, temp, new Vector2((ScreenManager.graphics.GraphicsDevice.Viewport.Width / 2) - (font.MeasureString(temp).X / 2), 220), Color.White);
 
-			for (int i = 0; i < areaScores.Length; i++) {
-				if (areaScores[i] != null) {
-					//char[] blank = "----------------".ToCharArray();
-					string filler = string.Empty;
-					string t = string.Format("{0:0}", (areaScores[i].Time / 60)) + ":" + string.Format("{0:0.0}", areaScores[i].Time % 60);
+			float maxLength = 0;
+			foreach (Score s in areaScores) {
+				if (s != null) {
+					maxLength = Math.Max(maxLength, font.MeasureString(s.Name).X + font.MeasureString(Format.Time(s.Time)).X + 50);
+				}
+			}
 
-					while (525 - (100 + font.MeasureString(areaScores[i].Name).X) > font.MeasureString(filler).X)
-						filler += ".";
+			float offset = maxLength * 0.5f;
+			float middle = ScreenManager.graphics.GraphicsDevice.Viewport.Width * 0.5f;
 
-					//areaScores[i].Name.CopyTo(0, blank, 0, areaScores[i].Name.Length);
-					m_SpriteBatch.DrawString(font, (i + 1) + ". " + areaScores[i].Name + filler, new Vector2(100, 265 + (30 * i)), Color.White);
-					m_SpriteBatch.DrawString(font, t, new Vector2(600, 265 + (30 * i)), Color.White);
+			int y = 235;
+			int i = 0;
+
+			foreach (Score s in areaScores) {
+				if (s != null) {
+					y += 30;
+					string t = Format.Time(s.Time);
+					m_SpriteBatch.DrawString(font, ++i + ". " + s.Name, new Vector2(middle - offset, y), Color.White);
+					m_SpriteBatch.DrawString(font, t, new Vector2(middle + offset - font.MeasureString(t).X, y), Color.White);
 				}
 			}
 

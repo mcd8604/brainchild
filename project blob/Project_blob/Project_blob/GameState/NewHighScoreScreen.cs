@@ -57,7 +57,7 @@ namespace Project_blob.GameState {
 			SpriteFont font = ScreenManager.Font;
 			m_SpriteBatch.Begin();
 
-			string t = "Time - " + string.Format("{0:0}", (m_Time / 60)) + ":" + string.Format("{0:0.0}", m_Time % 60);
+			string t = "Time - " + Format.Time(m_Time);
 			m_SpriteBatch.DrawString(font, "Your Time: " + t, new Vector2(100, 200), Color.White);
 
 			m_SpriteBatch.DrawString(font, cur_input, new Vector2(100, 400), Color.White);

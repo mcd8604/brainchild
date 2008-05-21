@@ -663,7 +663,7 @@ namespace Project_blob {
 								m_distorter.Techniques["PullIn"];
 						m_distorter.Parameters["DistortionScale"].SetValue(0.1f);
 						Random r = new Random();
-						m_distorter.Parameters["Time"].SetValue(r.Next() / 10.0f);
+						m_distorter.Parameters["Time"].SetValue(r.Next() * 0.1f);
 						//EffectManager.getSingleton.GetEffect("Distorter").Parameters["Time"].SetValue(r.NextDouble() * 30.0);
 
 						//graphicsDevice.SetRenderTarget(0, m_distortionMap);
