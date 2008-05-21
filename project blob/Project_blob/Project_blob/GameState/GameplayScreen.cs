@@ -633,7 +633,7 @@ namespace Project_blob.GameState {
 				if (!(cam is CinematicCamera)) {
 
 					if (InputHandler.IsActionPressed(Actions.Reset)) {
-						reset();
+						SetResetArea()
 #if DEBUG && TIMED
 						DEBUG_MaxPhys = -1;
 						DEBUG_MinPhys = -1;
@@ -861,7 +861,7 @@ namespace Project_blob.GameState {
 					} else {
 						PhysicsManager.enableParallel = PhysicsManager.ParallelSetting.Always;
 					}
-					reset();
+					SetResetArea()
 #if TIMED
 					DEBUG_MaxPhys = -1;
 					DEBUG_MinPhys = -1;
