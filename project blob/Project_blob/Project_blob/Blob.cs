@@ -110,15 +110,15 @@ namespace Project_blob
 			// IndexBuffer
 			if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
 			{
-				indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-				short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+				indices = new int[(mesh.IndexBuffer.SizeInBytes) >> 1];
+				short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) >> 1];
 				mesh.IndexBuffer.GetData<short>(temp);
 				for (int i = 0; i < temp.Length; ++i)
 					indices[i] = temp[i];
 			}
 			else
 			{
-				indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
+				indices = new int[(mesh.IndexBuffer.SizeInBytes) >> 2];
 				mesh.IndexBuffer.GetData<int>(indices);
 			}
 			myIndexBuffer = mesh.IndexBuffer;
@@ -528,8 +528,8 @@ namespace Project_blob
 					pBlobVertex[posCount].pos.Y += 0.5f * backBuffer.Height;
 
 					pBlobVertex[posCount].tCurr = vTexCoords[j];
-					pBlobVertex[posCount].tBack = new Vector2((0.5f + pBlobVertex[posCount].pos.X) * (1.0f / backBuffer.Width),
-														   (0.5f + pBlobVertex[posCount].pos.Y) * (1.0f / backBuffer.Height));
+					pBlobVertex[posCount].tBack = new Vector2((0.5f + pBlobVertex[posCount].pos.X) / backBuffer.Width,
+														   (0.5f + pBlobVertex[posCount].pos.Y) / backBuffer.Height);
 					pBlobVertex[posCount].fSize = blobPos[i].size;
 					pBlobVertex[posCount].vColor = blobPos[i].color;
 

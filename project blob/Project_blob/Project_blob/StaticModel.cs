@@ -426,8 +426,8 @@ namespace Project_blob {
                     for (int i = 0; i < vertices.Length; ++i)
                     {
                         //scale the texture coordinates
-                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width / 2f));
-                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height / 2f));
+                        vertices[i].TextureCoordinate.X *= (scaleVector.X / (texture.Width * 0.5f));
+                        vertices[i].TextureCoordinate.Y *= (scaleVector.Z / (texture.Height * 0.5f));
                     }
 
                     m_VertexBuffers[mesh.Name] = new VertexBuffer(mesh.VertexBuffer.GraphicsDevice, mesh.VertexBuffer.SizeInBytes, mesh.VertexBuffer.BufferUsage);
@@ -480,15 +480,15 @@ namespace Project_blob {
                 int[] indices;
                 if (mesh.IndexBuffer.IndexElementSize == IndexElementSize.SixteenBits)
                 {
-                    indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
-                    short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) * 8 / 16];
+                    indices = new int[(mesh.IndexBuffer.SizeInBytes) >> 1];
+                    short[] temp = new short[(mesh.IndexBuffer.SizeInBytes) >> 1];
                     mesh.IndexBuffer.GetData<short>(temp);
                     for (int i = 0; i < temp.Length; ++i)
                         indices[i] = temp[i];
                 }
                 else
                 {
-                    indices = new int[(mesh.IndexBuffer.SizeInBytes) * 8 / 32];
+                    indices = new int[(mesh.IndexBuffer.SizeInBytes) >> 2];
                     mesh.IndexBuffer.GetData<int>(indices);
                 }
 

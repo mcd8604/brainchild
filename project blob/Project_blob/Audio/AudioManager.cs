@@ -226,7 +226,7 @@ namespace Audio {
 					catch (InvalidOperationException ioe)
 					{
 #if DEBUG
-						Log.Out.WriteLine("Audio Manager Exception:");
+						Log.Out.WriteLine("Audio Manager InvalidOperationException:");
 #endif
 						Log.Out.WriteLine(ioe);
 #if DEBUG

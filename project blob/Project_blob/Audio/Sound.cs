@@ -69,7 +69,7 @@ namespace Audio {
 			if (Magnitude == 0f) {
 				return;
 			}
-			float volumeLevel = (float)Math.Log(Magnitude / 500);
+			float volumeLevel = (float)Math.Log(Magnitude * 0.002f);
 
 			if (volumeLevel > 0) {
 				try

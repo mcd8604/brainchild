@@ -453,7 +453,7 @@ namespace Project_blob
                     min.X = trIntersectPt.X;
                     min.Z = minX;
 
-                    scaleX = (max.Z - min.Z) / 2;
+                    scaleX = (max.Z - min.Z) * 0.5f;
 
                 } else {
                     if (trIntersectPt.X < box.Max.X) {
@@ -473,7 +473,7 @@ namespace Project_blob
                     min.X = minX;
                     min.Z = trIntersectPt.Z;
 
-                    scaleX = (max.X - min.X) / 2;
+                    scaleX = (max.X - min.X) * 0.5f;
                 }
 
                 if (trIntersectPt.Y < box.Max.Y || tlIntersectPt.Y < box.Max.Y) {
@@ -499,7 +499,7 @@ namespace Project_blob
                 max.Y = maxY;
                 min.Y = minY;
 
-                scaleY = (max.Y - min.Y) / 2;
+                scaleY = (max.Y - min.Y) * 0.5f;
 
                 Vector3 centerPt = Vector3.Divide((max - min), 2);
                 centerPt = min + centerPt;
@@ -641,9 +641,9 @@ namespace Project_blob
                 //nearDistance = centerPt - CameraManager.getSingleton.GetCamera("test").Position;
 
                 float minScaleX, maxScaleX, minScaleY, maxScaleY;
-                maxScaleX = (max.X - min.X) / 2;
+                maxScaleX = (max.X - min.X) * 0.5f;
                 minScaleX = -maxScaleX;
-                maxScaleY = (max.Y - min.Y) / 2;
+                maxScaleY = (max.Y - min.Y) * 0.5f;
                 minScaleY = -maxScaleY;
 
                 Matrix projection = Matrix.CreatePerspectiveOffCenter(minScaleX, maxScaleX, minScaleY, maxScaleY,
