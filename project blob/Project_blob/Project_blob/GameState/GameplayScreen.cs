@@ -586,14 +586,14 @@ namespace Project_blob.GameState {
 
 					if (physics.Player.Dead) {
 						if (deadSet) {
-                            if (deadTimer + 1.5 <= gameTime.TotalGameTime.TotalSeconds)
+                            if (deadTimer + 1.5f <= (float)gameTime.TotalGameTime.TotalSeconds)
                             {
 								AudioManager.ClearAmbientSounds();
                                 ScreenManager.AddScreen(new DeathScreen());
                                 deadSet = false;
                             }
 						} else {
-							deadTimer = gameTime.TotalGameTime.TotalSeconds;
+							deadTimer = (float)gameTime.TotalGameTime.TotalSeconds;
 							deadSet = true;
 						}
 

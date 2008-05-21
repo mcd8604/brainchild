@@ -36,6 +36,11 @@ namespace Audio {
 		public void updateAmbient3D(AudioListener Listener) {
 			if (collisionSound.IsPlaying)
 			{
+#if DEBUG
+				if (float.IsNaN(Listener.Position.X) || float.IsNaN(Listener.Position.Y) || float.IsNaN(Listener.Position.Z)) {
+					throw new Exception("Invalid listener position");
+				}
+#endif
 				collisionSound.Apply3D(Listener, audioEmitter);
 			}
 		}
