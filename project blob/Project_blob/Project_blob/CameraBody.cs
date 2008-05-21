@@ -12,7 +12,7 @@ namespace Project_blob {
 		TaskCamera task;
 
 		public CameraBody(Body Target) {
-			point = new PhysicsPoint(Vector3.Zero, this);
+			point = new PhysicsPoint(Vector3.Zero);
 			points.Add(point);
 			task = new TaskCamera(Target);
 			tasks.Add(task);

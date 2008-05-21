@@ -341,7 +341,7 @@ namespace Project_blob {
 						List<PhysicsPoint> tempList = new List<PhysicsPoint>();
 						Dictionary<int, PhysicsPoint> pointMap = new Dictionary<int, PhysicsPoint>();
 						for (int i = 0; i < vertices.Length; ++i) {
-							PhysicsPoint newPoint = new PhysicsPoint(vertices[i].Position, null);
+							PhysicsPoint newPoint = new PhysicsPoint(vertices[i].Position);
 							PhysicsPoint mapPoint = null;
 							bool exists = false;
 							foreach (PhysicsPoint p in tempList) {

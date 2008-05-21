@@ -53,13 +53,12 @@ namespace Physics2
 
 		public float Mass = 1f;
 
-		public PhysicsPoint(Vector3 startPosition, Body ParentBody)
+		public PhysicsPoint(Vector3 startPosition)
 		{
 			ExternalPosition = startPosition;
 			CurrentPosition = startPosition;
 			PotentialPosition = startPosition;
 			NextPosition = startPosition;
-			parent = ParentBody;
 		}
 
 		public void updatePosition()
