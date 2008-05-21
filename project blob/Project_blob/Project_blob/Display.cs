@@ -347,24 +347,36 @@ namespace Project_blob {
 
 			PresentationParameters pp = gd.PresentationParameters;
 
-            if(this.m_SceneRenderTarget == null)
-			    this.m_SceneRenderTarget = new RenderTarget2D(gd,
-				    pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            if (this.m_SceneRenderTarget == null || this.m_SceneRenderTarget.Width != pp.BackBufferWidth
+                || this.m_SceneRenderTarget.Height != pp.BackBufferHeight)
+            {
+                this.m_SceneRenderTarget = new RenderTarget2D(gd,
+                    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            }
 
-            if(this.m_NormalDepthRenderTarget == null)
-			    this.m_NormalDepthRenderTarget = new RenderTarget2D(gd,
-				    pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            if (this.m_NormalDepthRenderTarget == null || this.m_NormalDepthRenderTarget.Width != pp.BackBufferWidth
+                || this.m_NormalDepthRenderTarget.Height != pp.BackBufferHeight)
+            {
+                this.m_NormalDepthRenderTarget = new RenderTarget2D(gd,
+                    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            }
 
-            if(this.m_distortionMap == null)
-			    this.m_distortionMap = new RenderTarget2D(gd,
-				    pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            if (this.m_distortionMap == null || this.m_distortionMap.Width != pp.BackBufferWidth
+                || this.m_distortionMap.Height != pp.BackBufferHeight)
+            {
+                this.m_distortionMap = new RenderTarget2D(gd,
+                    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+                    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            }
 
-            if(this.m_tempTarget == null)
+            if(this.m_tempTarget == null || this.m_tempTarget.Width != pp.BackBufferWidth
+                || this.m_tempTarget.Height != pp.BackBufferHeight)
+            {
 			    this.m_tempTarget = new ResolveTexture2D(gd, pp.BackBufferWidth, pp.BackBufferHeight, 1,
 				    pp.BackBufferFormat);
+            }
 
             //this.m_DepthMapRenderTarget = new RenderTarget2D(gd,
             //    pp.BackBufferWidth, pp.BackBufferHeight, 1,
