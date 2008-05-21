@@ -86,6 +86,10 @@ namespace Project_blob.GameState {
 
 		//Vector2 cameraOffset = new Vector2();
 
+#if DEBUG
+		private static bool DEBUG_GodMode = false;
+#endif
+
 		public enum CameraType {
 			Follow,
 			Cinema,
@@ -102,8 +106,10 @@ namespace Project_blob.GameState {
 
 		public static CameraType CurCamera = CameraType.Follow;
 		//bool cinema = false;
+#if DEBUG
 		bool paused = false;
 		bool step = false;
+#endif
 		//bool follow = true;
 		//bool chase = false;
 
@@ -450,9 +456,15 @@ namespace Project_blob.GameState {
 			// TODO: Unload any non ContentManager content here
 		}
 
-        public static bool CauseDeath(Body body) {
+		public static bool CauseDeath(Body body) {
 			if (body != null && body.Equals(game.theBlob)) {
-                physics.Player.Dead = true;
+#if DEBUG
+				if (!DEBUG_GodMode) {
+#endif
+					physics.Player.Dead = true;
+#if DEBUG
+				}
+#endif
 				return true;
 			}
 			return false;
@@ -462,44 +474,40 @@ namespace Project_blob.GameState {
 			game.blobStartPosition = position;
 		}
 
-        public static Vector3 GetCheckpoint()
-        {
-            return game.blobStartPosition;
-        }
+		public static Vector3 GetCheckpoint() {
+			return game.blobStartPosition;
+		}
 
 		public static void SetChangeArea(string area) {
-            game.nextAreaName = area;
-            game.UseDefaultAreaPos = true;
-            game.ChangeAreaFlag = true;
+			game.nextAreaName = area;
+			game.UseDefaultAreaPos = true;
+			game.ChangeAreaFlag = true;
 		}
 
 		public static void SetChangeArea(string area, Vector3 position) {
-            game.nextAreaName = area;
-            game.nextAreaPosition = position;
-            game.ChangeAreaFlag = true;
-            game.UseDefaultAreaPos = false;
+			game.nextAreaName = area;
+			game.nextAreaPosition = position;
+			game.ChangeAreaFlag = true;
+			game.UseDefaultAreaPos = false;
 		}
 
-        public static void SetResetArea()
-        {
-            game.nextAreaName = Level.GetAreaName(currentArea);
-            game.ChangeAreaFlag = true;
-            game.UseDefaultAreaPos = true;
-        }
+		public static void SetResetArea() {
+			game.nextAreaName = Level.GetAreaName(currentArea);
+			game.ChangeAreaFlag = true;
+			game.UseDefaultAreaPos = true;
+		}
 
-        public static void SetLoadCheckpoint()
-        {
-            game.LoadCheckpoint = true;
-        }
+		public static void SetLoadCheckpoint() {
+			game.LoadCheckpoint = true;
+		}
 
-        private bool LoadCheckpoint = false;
+		private bool LoadCheckpoint = false;
 		private bool ChangeAreaFlag = false;
 		private string nextAreaName;
 		private Vector3 nextAreaPosition = Vector3.Zero;
 		private bool UseDefaultAreaPos = true;
 
-        private void ChangeArea()
-        {
+		private void ChangeArea() {
 			currentArea = Level.Areas[nextAreaName];
 
 			if (UseDefaultAreaPos) {
@@ -577,7 +585,9 @@ namespace Project_blob.GameState {
 				physicsTime.Reset();
 				physicsTime.Start();
 #endif
+#if DEBUG
 				if (!paused) {
+#endif
 					physics.update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
 					if (currentArea.TimeLimit > 0 && currentArea.TimeLimit < physics.Time) {
@@ -586,12 +596,11 @@ namespace Project_blob.GameState {
 
 					if (physics.Player.Dead) {
 						if (deadSet) {
-                            if (deadTimer + 1.5f <= (float)gameTime.TotalGameTime.TotalSeconds)
-                            {
+							if (deadTimer + 1.5f <= (float)gameTime.TotalGameTime.TotalSeconds) {
 								AudioManager.ClearAmbientSounds();
-                                ScreenManager.AddScreen(new DeathScreen());
-                                deadSet = false;
-                            }
+								ScreenManager.AddScreen(new DeathScreen());
+								deadSet = false;
+							}
 						} else {
 							deadTimer = (float)gameTime.TotalGameTime.TotalSeconds;
 							deadSet = true;
@@ -618,15 +627,18 @@ namespace Project_blob.GameState {
 					//    Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, (float)ScreenManager.CurrentResolution.Width / (float)ScreenManager.CurrentResolution.Height, CameraManager.getSingleton.ActiveCamera.NearPlane, CameraManager.getSingleton.ActiveCamera.FarPlane);
 					//cartoonEffect.Parameters["LightWorldViewProjection"].SetValue(worldMatrix * lightViewProjectionMatrix);
 
-
+#if DEBUG
 				}
+#endif
 #if TIMED
 				physicsTime.Stop();
 #endif
+#if DEBUG
 				if (step) {
 					paused = true;
 					step = false;
 				}
+#endif
 
 				//Update Camera
 				//camera.Update(gameTime);
@@ -712,8 +724,7 @@ namespace Project_blob.GameState {
 						CurCamera = CameraType.Chase;
 						CameraManager.getSingleton.SetActiveCamera("chase");
 						ChaseCamera chaseCam = cam as ChaseCamera;
-						if (chaseCam != null)
-						{
+						if (chaseCam != null) {
 							chaseCam.DesiredPosition = theBlob.getCenter();
 							chaseCam.ChasePosition = theBlob.getCenter();
 							chaseCam.Reset();
@@ -753,12 +764,9 @@ namespace Project_blob.GameState {
 					cameraAngle = Vector2.Clamp(cameraAngle, new Vector2(-MathHelper.TwoPi, -MathHelper.PiOver2), new Vector2(MathHelper.TwoPi, MathHelper.PiOver2));
 
 					// following camera
-					if (cameraInvert)
-					{
+					if (cameraInvert) {
 						invertVert = -1;
-					}
-					else
-					{
+					} else {
 						invertVert = 1;
 					}
 
@@ -793,8 +801,8 @@ namespace Project_blob.GameState {
 						chaseCam.Climbing = false;
 					}
 
-                    if(theBlob.getAverageVelocity() != Vector3.Zero)
-					    chaseCam.ChaseDirection = theBlob.getAverageVelocity();
+					if (theBlob.getAverageVelocity() != Vector3.Zero)
+						chaseCam.ChaseDirection = theBlob.getAverageVelocity();
 
 					chaseCam.ChasePosition = theBlob.getCenter();
 					chaseCam.DesiredPositionOffset = cameraLength * 0.5f;
@@ -843,6 +851,10 @@ namespace Project_blob.GameState {
 
 				if (InputHandler.IsKeyPressed(Keys.H)) {
 					SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
+				}
+
+				if (InputHandler.IsKeyPressed(Keys.G)) {
+					DEBUG_GodMode = !DEBUG_GodMode;
 				}
 
 				if (InputHandler.IsKeyPressed(Keys.M)) {
@@ -1102,11 +1114,15 @@ namespace Project_blob.GameState {
 #endif
 #endif
 
-
+#if DEBUG
 			if (paused) {
 				spriteBatch.DrawString(font, "Paused", new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (ScreenManager.GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.5f), Color.White);
 			}
-#if DEBUG
+
+			if (DEBUG_GodMode) {
+				spriteBatch.DrawString(font, "GOD MODE", new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - font.MeasureString("Paused").X) * 0.5f, (ScreenManager.GraphicsDevice.Viewport.Height - font.MeasureString("Paused").Y) * 0.6f), Color.Yellow);
+			}
+
 			spriteBatch.DrawString(font, "Vol: " + theBlob.Volume.ToString(), new Vector2(345, 30), Color.White);
 			spriteBatch.DrawString(font, "Next Vol: " + theBlob.PotentialVolume.ToString(), new Vector2(250, 60), Color.White);
 
@@ -1203,7 +1219,7 @@ namespace Project_blob.GameState {
 				TextMax = Vector2.Max(TextMax, center + font.MeasureString(text) * 0.5f);
 				TextMin = Vector2.Min(TextMin, center - font.MeasureString(text) * 0.5f);
 			} catch (Exception e) {
-				Log.Out.WriteLine(e );
+				Log.Out.WriteLine(e);
 			}
 		}
 
