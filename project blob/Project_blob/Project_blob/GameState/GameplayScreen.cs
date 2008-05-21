@@ -543,7 +543,7 @@ namespace Project_blob.GameState {
 				nextAreaPosition = Vector3.Zero;
 			}
 			CameraManager.getSingleton.ActiveCamera.Position = currentArea.CameraSpawnPosition;
-			CameraManager.getSingleton.ActiveCamera.Target = currentArea.StartPosition;
+			CameraManager.getSingleton.ActiveCamera.Target = blobStartPosition;
 
 			TextureManager.ClearTextures();
 
