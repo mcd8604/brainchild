@@ -1969,7 +1969,7 @@ Sound Bank
 
         Track
         {
-            Volume = 0;
+            Volume = -800;
 
             Play Wave Event
             {
@@ -2021,7 +2021,7 @@ Sound Bank
 
         Track
         {
-            Volume = 0;
+            Volume = -800;
 
             Play Wave Event
             {
@@ -2073,7 +2073,7 @@ Sound Bank
 
         Track
         {
-            Volume = 0;
+            Volume = -800;
 
             Play Wave Event
             {
@@ -2125,7 +2125,7 @@ Sound Bank
 
         Track
         {
-            Volume = 0;
+            Volume = 600;
 
             Play Wave Event
             {

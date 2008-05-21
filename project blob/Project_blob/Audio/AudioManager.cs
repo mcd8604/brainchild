@@ -13,6 +13,8 @@ namespace Audio {
 
 		private static Cue curMusic;
 
+		private static bool _musicVolChanged = false;
+
 		// Sound stuff 
 		private static WaveBank _waveBank;
 		private static SoundBank _soundBank;
@@ -20,9 +22,14 @@ namespace Audio {
 
 		// Use for adjusting music volume from menu
 		private static float musicVolume = 100.0f;
-		public static float MusicVolume {
+		public static float MusicVolume
+		{
 			get { return musicVolume; }
-			set { musicVolume = value; }
+			set
+			{
+				musicVolume = value;
+				_musicVolChanged = true;
+			}
 		}
 
 		// Use for adjusting soundFX volume from menu
@@ -136,8 +143,8 @@ namespace Audio {
 		/// <param name="soundNames">The list of names of all the ambient sounds</param>
 		/// <param name="positions">The list of positions of all the ambient sounds</param>
 		public static void LoadAmbientSounds(List<AmbientSoundInfo> ambientSounds) {
+			_ambientSounds.Clear();
 			if (ambientSounds != null) {
-				_ambientSounds.Clear();
 				foreach (AmbientSoundInfo info in ambientSounds) {
 					_ambientSounds.Add(new Sound(info.Name, info.Position));
 				}
@@ -174,9 +181,11 @@ namespace Audio {
 		public static void setMusic(string name) {
 			if (curMusic != null)
 			{
+				curMusic.Stop(AudioStopOptions.Immediate);
 				curMusic.Dispose();
 			}
 			curMusic = _soundBank.GetCue(name);
+			curMusic.SetVariable("Volume", musicVolume);
 			curMusic.Play();
 		}
 
@@ -192,20 +201,6 @@ namespace Audio {
 				return null;
 			}
 		}
-
-		/// <summary>
-		/// Plays the specified music
-		/// </summary>
-		/// <param name="name">The name of the soundFX lookup id</param>
-		public static void playMusic(string name) {
-			if (curMusic != null && !curMusic.IsPlaying) {
-				curMusic.Dispose();
-				curMusic = _soundBank.GetCue(curMusic.Name);
-				curMusic.SetVariable("Volume", musicVolume);
-				curMusic.Play();
-			}
-		}
-
 
 		/// <summary>
 		/// Playing of sounds primarily meant for menu soundFXs
@@ -363,16 +358,20 @@ namespace Audio {
 		/// <summary>
 		/// Updates the audio manager's engine
 		/// </summary>
-		public static void update() {
+		public static void update()
+		{
 			// Update the audio engine so that it can process audio data
-			if (enabled) {
-				if (curMusic != null && curMusic.GetVariable("Volume") != musicVolume)
+			if (enabled)
+			{
+				if (curMusic != null && _musicVolChanged)
 				{
-					curMusic.SetVariable("Volume", musicVolume);
+					_musicVolChanged = false;
+					setMusic(curMusic.Name);
 				}
 				_audioEngine.Update();
 			}
 		}
+		
 
 		public static List<string> getAudioFilenames() {
 			string[] audio = System.IO.Directory.GetFiles(@"Content\\Audio");
