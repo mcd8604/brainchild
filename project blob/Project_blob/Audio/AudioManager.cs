@@ -210,6 +210,18 @@ namespace Audio {
 			}
 		}
 
+
+		/// <summary>
+		/// Playing of sounds primarily meant for menu soundFXs
+		/// </summary>
+		/// <param name="soundFX">Cue of the sound effect to play</param>
+		public static void playSoundFX(ref Cue soundFX) {
+			soundFX.Dispose();
+			soundFX = _soundBank.GetCue(soundFX.Name);
+			soundFX.SetVariable("Volume", soundFXVolume);
+			soundFX.Play();
+		}
+
 		/// <summary>
 		/// Plays the specified soundFX
 		/// </summary>

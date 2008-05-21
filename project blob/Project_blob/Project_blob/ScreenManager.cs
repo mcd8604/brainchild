@@ -51,6 +51,9 @@ namespace Project_blob
 			set { traceEnabled = value; }
 		}
 
+		// Cues for menu soundFXs
+		public Cue _accept, _cancel, _select;
+
 		public ScreenManager()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -68,6 +71,10 @@ namespace Project_blob
 		protected override void Initialize()
 		{
 			AudioManager.initialize();
+
+			_accept = Audio.AudioManager.getSoundFX("accept");
+			_cancel = Audio.AudioManager.getSoundFX("cancel");
+			_select = Audio.AudioManager.getSoundFX("select");
 
 			InputHandler.LoadDefaultBindings();
 
