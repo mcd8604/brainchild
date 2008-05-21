@@ -837,7 +837,6 @@ namespace Project_blob.GameState {
 								lastClimbCollision = physics.Time;
 								chaseCam.Climbing = true;
 								AvgNormal += c.Normal;
-								break;
 							}
 						}
 						if (AvgNormal != Vector3.Zero) {
