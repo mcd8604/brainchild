@@ -63,7 +63,7 @@ namespace Audio {
 				_audioEngine = new AudioEngine("Content/Audio/sound.xgs");
 				_waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
 				_soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
-				//initializeAmbience();
+				initializeAmbience();
 			} catch (Exception e) {
 #if DEBUG
 				Log.Out.WriteLine("Audio Manager Exception:");
@@ -96,7 +96,6 @@ namespace Audio {
 #if DEBUG
 				Log.Out.WriteLine("The above Exception was handled.");
 #endif
-				enabled = false;
 			}
 		}
 
@@ -220,6 +219,14 @@ namespace Audio {
 				soundFX = _soundBank.GetCue(soundFX.Name);
 				if (_audioListener != null && !mono) {
 					try {
+						if (float.IsNaN(_audioListener.Position.Length()))
+						{
+							_audioListener.Position = Vector3.Zero;
+						}
+						if (float.IsNaN(_audioListener.Velocity.Length()))
+						{
+							_audioListener.Velocity = Vector3.Zero;
+						}
 						soundFX.Apply3D(_audioListener, emitter);
 						soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
 					}

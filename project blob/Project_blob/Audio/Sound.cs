@@ -5,12 +5,6 @@ using Microsoft.Xna.Framework.Audio;
 namespace Audio {
 	public class Sound {
 
-		private float prevDopple;
-		private float prevPos;
-		private float prevUp;
-		private float prevForward;
-		private float prevVel;
-
 		private AudioEmitter audioEmitter = new AudioEmitter();
 		private Cue collisionSound;
 		private bool playingSound = false;

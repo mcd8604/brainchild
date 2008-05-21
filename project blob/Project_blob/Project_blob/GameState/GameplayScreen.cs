@@ -496,10 +496,7 @@ namespace Project_blob.GameState {
 
         private void ChangeArea()
         {
-            Audio.AudioManager.ClearAmbientSounds();
-
 			currentArea = Level.Areas[nextAreaName];
-
 
 			if (UseDefaultAreaPos) {
 				blobStartPosition = currentArea.StartPosition;
@@ -538,9 +535,9 @@ namespace Project_blob.GameState {
 
 			currentArea.Display.SetBlurEffectParameters(1f / (float)ScreenManager.GraphicsDevice.Viewport.Width, 1f / (float)ScreenManager.GraphicsDevice.Viewport.Height);
 
-			AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
-
 			reset();
+
+			AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
 		}
 
 		public void SetUpCinematicCamera(List<CameraFrame> cameraFrames) {
@@ -587,6 +584,7 @@ namespace Project_blob.GameState {
 						if (deadSet) {
                             if (deadTimer + 1.5 < gameTime.TotalGameTime.Seconds)
                             {
+								AudioManager.ClearAmbientSounds();
                                 ScreenManager.AddScreen(new DeathScreen());
                                 deadSet = false;
                             }
