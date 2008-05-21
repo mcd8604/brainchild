@@ -93,6 +93,23 @@ namespace Project_blob {
 			set { _cullingStructure = value; }
 		}
 
+		/// <summary>
+		/// The Air Friction in this area.
+		/// null = Don't change
+		/// </summary>
+		private float? m_AirFriction = null;
+		public float? AirFriction
+		{
+			get
+			{
+				return m_AirFriction;
+			}
+			set
+			{
+				m_AirFriction = value;
+			}
+		}
+
 		public Area(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix) {
 
 			//_display = new Display(worldMatrix, viewMatrix, projectionMatrix);
