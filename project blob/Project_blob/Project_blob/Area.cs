@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.ComponentModel;
 using System.Collections;
 using Physics2;
 using Audio;
@@ -28,6 +29,12 @@ namespace Project_blob {
 		}
 
 		private string _musicName = string.Empty;
+		[TypeConverter(typeof(TypeConverterAudio))]
+		public string MusicName
+		{
+			get { return _musicName; }
+			set { _musicName = value; }
+		}
 
 		private float m_TimeLimit = -1f;
 		public float TimeLimit {
