@@ -38,7 +38,7 @@ namespace Project_blob.GameState
 
         void setMenuText()
         {
-            invertedMenuEntry.Text = "Vertical Camera: " + (viewInvert ? "Normal" : "Inverted");
+            invertedMenuEntry.Text = "Camera: " + (viewInvert ? "Normal" : "Inverted");
         }
 
         void invertedSelected(object sender, EventArgs e)
@@ -55,7 +55,7 @@ namespace Project_blob.GameState
 
         public override void LoadContent()
         {
-            controlTexture = ScreenManager.Content.Load<Texture2D>(@"Textures\\controltexture");
+            controlTexture = ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\controller");
         }
 
         public override void Draw(GameTime gameTime)
@@ -66,9 +66,9 @@ namespace Project_blob.GameState
 
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            int wide = viewport.Width / 2;
-            int tall = viewport.Height / 2;
-            Rectangle fullscreen = new Rectangle(wide + (wide - tall), tall, tall, tall);
+            float x = (viewport.Width - controlTexture.Width);
+            float y = (viewport.Height - controlTexture.Height) / 2;
+            Rectangle fullscreen = new Rectangle((int)x, (int)y, (int)controlTexture.Width, (int)controlTexture.Height);
             byte fade = TransitionAlpha;
 
             spriteBatch.Begin();

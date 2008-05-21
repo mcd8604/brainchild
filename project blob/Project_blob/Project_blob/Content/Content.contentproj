@@ -438,6 +438,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MenuSprites\controller.png">
+      <Name>controller</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\boost.png">
+      <Name>boost</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\translucent.png">
+      <Name>translucent</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="MenuSprites\Credits.png">
       <Name>Credits</Name>
       <Importer>TextureImporter</Importer>
@@ -540,11 +555,6 @@
     </Compile>
     <Compile Include="MenuSprites\Start_selected.png">
       <Name>Start_selected</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\controltexture.jpg">
-      <Name>controltexture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
