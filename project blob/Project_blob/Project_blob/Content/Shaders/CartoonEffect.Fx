@@ -301,9 +301,6 @@ technique Lambert
 	
     pass P0
     {
-		AlphaBlendEnable = true;
-        SrcBlend = SrcAlpha;
-        DestBlend = InvSrcAlpha;
         VertexShader = compile vs_1_1 LightingVertexShader();
         PixelShader = compile ps_2_0 LambertPixelShader(false);
     }
