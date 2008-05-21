@@ -544,6 +544,7 @@ namespace Project_blob.GameState {
 			}
 			CameraManager.getSingleton.ActiveCamera.Position = currentArea.CameraSpawnPosition;
 			CameraManager.getSingleton.ActiveCamera.Target = blobStartPosition;
+            CameraManager.getSingleton.ActiveCamera.Target = blobStartPosition;
 
 			TextureManager.ClearTextures();
 
@@ -554,11 +555,11 @@ namespace Project_blob.GameState {
 
 			InitializeEffect();
 
-			if (currentArea.CullingStructure == SceneManager.SceneGraphType.Portal) {
+			if (currentArea.CullingStructure == SceneGraphType.Portal) {
 				//Add the Static Drawables to the Octree
 				List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
 				List<Portal> portals = currentArea.Portals;
-				SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Portal;
+				SceneManager.getSingleton.GraphType = SceneGraphType.Portal;
 				//SceneManager.getSingleton.BuildOctree(ref temp);
 				//SceneManager.getSingleton.BuildPortalScene(temp);
 				foreach (Portal p in portals) {
@@ -568,7 +569,7 @@ namespace Project_blob.GameState {
 				SceneManager.getSingleton.PortalScene.CurrSector = 1;
 			} else {
 				List<Drawable> temp = new List<Drawable>(currentArea.getDrawableList());
-				SceneManager.getSingleton.GraphType = SceneManager.SceneGraphType.Octree;
+				SceneManager.getSingleton.GraphType = SceneGraphType.Octree;
 				SceneManager.getSingleton.BuildOctree(ref temp);
 			}
 
@@ -884,6 +885,7 @@ namespace Project_blob.GameState {
 
 				if (InputHandler.IsKeyPressed(Keys.H)) {
 					SceneManager.getSingleton.Cull = !SceneManager.getSingleton.Cull;
+                    Console.WriteLine(SceneManager.getSingleton.Cull);
 				}
 
 				if (InputHandler.IsKeyPressed(Keys.G)) {

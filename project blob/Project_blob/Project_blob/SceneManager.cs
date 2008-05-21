@@ -12,6 +12,12 @@ using Engine;
 
 namespace Project_blob
 {
+    public enum SceneGraphType
+    {
+        Octree = 0,
+        Portal = 1
+    }
+
     internal class SceneManager
     {
         private static volatile SceneManager _instance;
@@ -51,12 +57,6 @@ namespace Project_blob
         {
             get { return _octree; }
             set { _octree = value; }
-        }
-
-        public enum SceneGraphType
-        {
-            Octree = 0,
-            Portal = 1
         }
 
         private SceneGraphType _graphType = 0;

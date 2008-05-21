@@ -60,13 +60,16 @@ namespace Project_blob
 						{
 							//SceneManager.getSingleton.Display.SetDrawn(obj);
                             obj.Drawn = true;
+#if DEBUG
+                            ++SceneManager.getSingleton.Drawn;
+#endif
 						}
 						break;
 
 					case ContainmentType.Disjoint:
 						{
 							//Object is culled.
-                            //obj.Drawn = false;
+                            //obj.Drawn = true;
 						}
 						break;
 				}
@@ -151,6 +154,9 @@ namespace Project_blob
 						{
 							//SceneManager.getSingleton.Display.SetDrawn(obj);
                             obj.Drawn = true;
+#if DEBUG
+                            ++SceneManager.getSingleton.Drawn;
+#endif
 						}
 						break;
 
@@ -235,6 +241,9 @@ namespace Project_blob
 			{
 				//SceneManager.getSingleton.Display.SetDrawn(obj);
                 obj.Drawn = true;
+#if DEBUG
+                ++SceneManager.getSingleton.Drawn;
+#endif
 			}
 		}
 
