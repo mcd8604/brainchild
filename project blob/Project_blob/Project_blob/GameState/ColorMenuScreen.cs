@@ -14,8 +14,6 @@ namespace Project_blob.GameState
 
 		MyColor color = ScreenManager.CurrentColor;
 
-        bool viewInvert = GameplayScreen.cameraInvert;
-
 		public ColorMenuScreen()
             : base("Color Changer")
         {
