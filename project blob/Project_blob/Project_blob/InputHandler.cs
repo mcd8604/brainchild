@@ -47,8 +47,6 @@ internal static class InputHandler
 
 		// Keyboard
 
-		KeyboardMap.Add(Actions.Reset, Keys.Space);
-
 		KeyboardMap.Add(Actions.MoveUp, Keys.Up);
 		KeyboardMap.Add(Actions.MoveDown, Keys.Down);
 		KeyboardMap.Add(Actions.MoveRight, Keys.Right);
@@ -65,7 +63,11 @@ internal static class InputHandler
 		KeyboardMap.Add(Actions.Pause, Keys.Escape);
 
 #if DEBUG
+		KeyboardMap.Add(Actions.Reset, Keys.Space);
 		KeyboardMap.Add(Actions.ChangeCamera, Keys.F);
+#else
+		KeyboardMap.Add(Actions.Jump, Keys.Space);
+		KeyboardMap.Add(Actions.ChangeCamera, Keys.RightAlt);
 #endif
 
 		// Gamepad 
@@ -74,10 +76,10 @@ internal static class InputHandler
 		GamePadMap.Add(Actions.Reset, Buttons.X);
 #endif
 
-		GamePadMap.Add(Actions.ToggleElasticity, Buttons.RightShoulder);
-		GamePadMap.Add(Actions.ToggleStickiness, Buttons.LeftShoulder);
-		GamePadMap.Add(Actions.ChangeCamera, Buttons.Back);
-		GamePadMap.Add(Actions.Jump, Buttons.A);
+		//GamePadMap.Add(Actions.MoveUp, Buttons.DPadUp);
+		//GamePadMap.Add(Actions.MoveDown, Buttons.DPadDown);
+		//GamePadMap.Add(Actions.MoveRight, Buttons.DPadRight);
+		//GamePadMap.Add(Actions.MoveLeft, Buttons.DPadLeft);
 
 		GamePadMap.Add(Actions.MenuUp, Buttons.DPadUp);
 		GamePadMap.Add(Actions.MenuDown, Buttons.DPadDown);
@@ -88,10 +90,17 @@ internal static class InputHandler
 		GamePadMap.Add(Actions.MenuAccept, Buttons.A);
 		GamePadMap.Add(Actions.MenuCancel, Buttons.Back);
 		GamePadMap.Add(Actions.MenuCancel, Buttons.B);
+
+		GamePadMap.Add(Actions.Pause, Buttons.Start);
+
+		GamePadMap.Add(Actions.ToggleElasticity, Buttons.RightShoulder);
+		GamePadMap.Add(Actions.ToggleStickiness, Buttons.LeftShoulder);
+		GamePadMap.Add(Actions.ChangeCamera, Buttons.Back);
+		GamePadMap.Add(Actions.Jump, Buttons.A);
 		GamePadMap.Add(Actions.ZoomIn, Buttons.DPadUp);
 		GamePadMap.Add(Actions.ZoomOut, Buttons.DPadDown);
 
-		GamePadMap.Add(Actions.Pause, Buttons.Start);
+
 	}
 
 	internal static Vector2 GetAnalogAction(AnalogActions action)
