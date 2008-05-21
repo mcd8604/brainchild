@@ -138,20 +138,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="blank.png">
-      <Name>blank</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="gradient.png">
-      <Name>gradient</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\cube.png">
       <Name>cube</Name>
       <Importer>TextureImporter</Importer>
@@ -660,6 +646,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="blank.png">
+      <Name>blank</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Textures\rusty.png">
       <Name>rusty</Name>
       <Importer>TextureImporter</Importer>
