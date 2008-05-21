@@ -102,6 +102,8 @@ namespace Project_blob.GameState {
 		internal static bool FPS = false;
 #endif
 
+		private Vector3 lastCameraPos = Vector3.Zero;
+
 		public enum CameraType {
 			Follow,
 			Cinema,
@@ -814,7 +816,12 @@ namespace Project_blob.GameState {
 					Vector3 Offset = new Vector3((float)Math.Cos(cameraAngle.X) * cameraLength, (float)Math.Sin(cameraAngle.Y) * cameraLength * invertVert, (float)Math.Sin(cameraAngle.X) * cameraLength);
 
 					CameraBody.setCameraOffset(Offset);
-					cam.Position = (cam.Position + CameraBody.getCameraPosition()) * 0.5f;
+
+					Vector3 newPos = (lastCameraPos + CameraBody.getCameraPosition()) * 0.5f;
+
+					cam.Position = (cam.Position + newPos) * 0.5f;
+
+					lastCameraPos = newPos;
 
 					cam.Target = theBlob.getCenter();
 				} else if (cam is ChaseCamera) {
