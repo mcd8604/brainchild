@@ -63,7 +63,7 @@ namespace Audio {
 				_audioEngine = new AudioEngine("Content/Audio/sound.xgs");
 				_waveBank = new WaveBank(_audioEngine, "Content/Audio/Wave Bank.xwb");
 				_soundBank = new SoundBank(_audioEngine, "Content/Audio/Sound Bank.xsb");
-				initializeAmbience();
+				//initializeAmbience();
 			} catch (Exception e) {
 #if DEBUG
 				Log.Out.WriteLine("Audio Manager Exception:");
@@ -220,10 +220,20 @@ namespace Audio {
 				soundFX = _soundBank.GetCue(soundFX.Name);
 				if (_audioListener != null && !mono) {
 					try {
-						
 						soundFX.Apply3D(_audioListener, emitter);
 						soundFX.SetVariable("Distance", soundFX.GetVariable("Distance") / volumeLevel);
-					} catch (Exception e) {
+					}
+					catch (InvalidOperationException ioe)
+					{
+#if DEBUG
+						Log.Out.WriteLine("Audio Manager Exception:");
+#endif
+						Log.Out.WriteLine(ioe);
+#if DEBUG
+						Log.Out.WriteLine("The above Exception was handled.");
+#endif
+					}
+					catch (Exception e) {
 #if DEBUG
 						Log.Out.WriteLine("Audio Manager Exception:");
 #endif
@@ -238,17 +248,7 @@ namespace Audio {
 					soundFX.SetVariable("Distance", (float)Math.Pow(50, 1 / volumeLevel));
 				}
 				soundFX.SetVariable("Volume", soundFXVolume);
-				try {
-					soundFX.Play();
-				} catch (Exception e) {
-#if DEBUG
-					Log.Out.WriteLine("Audio Manager Exception:");
-#endif
-					Log.Out.WriteLine(e);
-#if DEBUG
-					Log.Out.WriteLine("The above Exception was handled.");
-#endif
-				}
+				soundFX.Play();
 			}
 		}
 
