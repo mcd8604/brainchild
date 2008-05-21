@@ -708,9 +708,12 @@ namespace Project_blob.GameState {
 						CurCamera = CameraType.Chase;
 						CameraManager.getSingleton.SetActiveCamera("chase");
 						ChaseCamera chaseCam = cam as ChaseCamera;
-						chaseCam.DesiredPosition = theBlob.getCenter();
-						chaseCam.ChasePosition = theBlob.getCenter();
-						chaseCam.Reset();
+						if (chaseCam != null)
+						{
+							chaseCam.DesiredPosition = theBlob.getCenter();
+							chaseCam.ChasePosition = theBlob.getCenter();
+							chaseCam.Reset();
+						}
 					}
 				}
 
