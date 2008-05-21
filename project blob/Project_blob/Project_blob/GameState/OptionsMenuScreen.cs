@@ -53,7 +53,7 @@ namespace Project_blob.GameState
         void setMenuText()
         {
             threadedMenuEntry.Text = "Multithreading: " + Threading;
-            cameraMenuEntry.Text = "Camera Type: " + cam;
+            cameraMenuEntry.Text = "Camera Mode: " + cam;
         }
 
         void threadedSelected(object sender, EventArgs e)
@@ -75,13 +75,13 @@ namespace Project_blob.GameState
 
         void cameraSelected(object sender, EventArgs e)
         {
-            if (cam == GameplayScreen.CameraType.follow)
+            if (cam == GameplayScreen.CameraType.Follow)
             {
-                cam = GameplayScreen.CameraType.chase;
+                cam = GameplayScreen.CameraType.Chase;
             }
             else
             {
-                cam = GameplayScreen.CameraType.follow;
+                cam = GameplayScreen.CameraType.Follow;
             }
             setMenuText();
         }
@@ -108,7 +108,7 @@ namespace Project_blob.GameState
             if (IsPopup)
             {
                 GameplayScreen.CurCamera = cam;
-                if (cam == GameplayScreen.CameraType.chase)
+                if (cam == GameplayScreen.CameraType.Chase)
                 {
                     CameraManager.getSingleton.SetActiveCamera("chase");
                     //((ChaseCamera)CameraManager.getSingleton.ActiveCamera).ChasePosition = GameplayScreen.theBlob.getCenter();

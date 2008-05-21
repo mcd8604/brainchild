@@ -87,9 +87,9 @@ namespace Project_blob.GameState {
 		//Vector2 cameraOffset = new Vector2();
 
 		public enum CameraType {
-			follow,
-			cinema,
-			chase
+			Follow,
+			Cinema,
+			Chase
 		}
 
 		private static string m_TextEventstring = string.Empty;
@@ -100,7 +100,7 @@ namespace Project_blob.GameState {
 
 		public static float m_lastTextEvent = 0;
 
-		public static CameraType CurCamera = CameraType.follow;
+		public static CameraType CurCamera = CameraType.Follow;
 		//bool cinema = false;
 		bool paused = false;
 		bool step = false;
@@ -549,7 +549,7 @@ namespace Project_blob.GameState {
 			cinematicCamera.Running = true;
 			CameraManager.getSingleton.SetActiveCamera("cinematic");
 			//cinema = true;
-			CurCamera = CameraType.cinema;
+			CurCamera = CameraType.Cinema;
 		}
 
 		/// <summary>
@@ -700,14 +700,14 @@ namespace Project_blob.GameState {
 				}
 
 				if (InputHandler.IsActionPressed(Actions.ChangeCamera)) {
-					if (CurCamera == CameraType.cinema) {
+					if (CurCamera == CameraType.Cinema) {
 						((CinematicCamera)(cam)).FinishedCinematics = true;
 					}
-					if (CurCamera == CameraType.chase) {
-						CurCamera = CameraType.follow;
+					if (CurCamera == CameraType.Chase) {
+						CurCamera = CameraType.Follow;
 						CameraManager.getSingleton.SetActiveCamera("default");
-					} else if (CurCamera == CameraType.follow) {
-						CurCamera = CameraType.chase;
+					} else if (CurCamera == CameraType.Follow) {
+						CurCamera = CameraType.Chase;
 						CameraManager.getSingleton.SetActiveCamera("chase");
 						ChaseCamera chaseCam = cam as ChaseCamera;
 						chaseCam.DesiredPosition = theBlob.getCenter();
@@ -726,7 +726,7 @@ namespace Project_blob.GameState {
 
 				cameraLength = MathHelper.Clamp(cameraLength, 10, 40);
 
-				if (CurCamera == CameraType.cinema) {
+				if (CurCamera == CameraType.Cinema) {
 					distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * cam.View * cam.Projection);
 					distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * cam.View);
 					cartoonEffect.Parameters["View"].SetValue(cam.View);
@@ -734,10 +734,10 @@ namespace Project_blob.GameState {
 					if (cam is CinematicCamera && ((CinematicCamera)cam).FinishedCinematics) {
 						((CinematicCamera)cam).currentIndex = 0;
 						((CinematicCamera)cam).FinishedCinematics = false;
-						CurCamera = CameraType.follow;
+						CurCamera = CameraType.Follow;
 						CameraManager.getSingleton.SetActiveCamera("default");
 					}
-				} else if (CurCamera == CameraType.follow) {
+				} else if (CurCamera == CameraType.Follow) {
 					cameraAngle += InputHandler.GetAnalogAction(AnalogActions.Camera) * playerCamMulti;
 					if (cameraAngle.X < -MathHelper.Pi) {
 						cameraAngle.X += MathHelper.TwoPi;
@@ -902,13 +902,13 @@ namespace Project_blob.GameState {
 					//    //effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 					//    //effect.Parameters["xCameraPos"].SetValue(new Vector4(CameraManager.getSingleton.ActiveCamera.Position, 0));
 					//}
-					if (CurCamera == CameraType.follow) {
-						CurCamera = CameraType.chase;
+					if (CurCamera == CameraType.Follow) {
+						CurCamera = CameraType.Chase;
 						CameraManager.getSingleton.SetActiveCamera("chase");
 						((ChaseCamera)CameraManager.getSingleton.ActiveCamera).ChasePosition = theBlob.getCenter();
 						((ChaseCamera)CameraManager.getSingleton.ActiveCamera).Reset();
 					} else {
-						CurCamera = CameraType.follow;
+						CurCamera = CameraType.Follow;
 						CameraManager.getSingleton.SetActiveCamera("default");
 					}
 
