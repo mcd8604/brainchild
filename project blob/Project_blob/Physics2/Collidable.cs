@@ -75,12 +75,6 @@ namespace Physics2
 			get;
 		}
 
-		// temporary?
-		public abstract Plane NextPlane
-		{
-			get;
-		}
-
 		public abstract Vector3 Normal
 		{
 			get;
@@ -88,12 +82,6 @@ namespace Physics2
 
 		// temporary??
 		public abstract Vector3 PotentialNormal {
-			get;
-		}
-
-		// temporary?
-		public abstract Vector3 NextNormal
-		{
 			get;
 		}
 

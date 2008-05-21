@@ -39,13 +39,6 @@ namespace Physics2 {
 			}
 		}
 
-		// temporary?
-		public override Plane NextPlane {
-			get {
-				return m_Plane;
-			}
-		}
-
 		public override Vector3 Normal {
 			get {
 				return m_Plane.Normal;
@@ -54,13 +47,6 @@ namespace Physics2 {
 
 		// temporary??
 		public override Vector3 PotentialNormal {
-			get {
-				return m_Plane.Normal;
-			}
-		}
-
-		// temporary?
-		public override Vector3 NextNormal {
 			get {
 				return m_Plane.Normal;
 			}

@@ -68,7 +68,9 @@ internal static class InputHandler
 
 		// Gamepad 
 
+#if DEBUG
 		GamePadMap.Add(Actions.Reset, Buttons.X);
+#endif
 
 		GamePadMap.Add(Actions.ToggleElasticity, Buttons.RightShoulder);
 		GamePadMap.Add(Actions.ToggleStickiness, Buttons.LeftShoulder);
