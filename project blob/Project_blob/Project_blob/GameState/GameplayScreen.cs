@@ -73,7 +73,7 @@ namespace Project_blob.GameState {
 		VertexDeclaration VertexDeclarationColor;
 		VertexDeclaration VertexDeclarationTexture;
 
-		private float deadTimer = 0f;
+		private double deadTimer = 0f;
 		public static bool deadSet = false;
 
 		List<Drawable> drawables = new List<Drawable>();
@@ -582,14 +582,14 @@ namespace Project_blob.GameState {
 
 					if (physics.Player.Dead) {
 						if (deadSet) {
-                            if (deadTimer + 1.5 < gameTime.TotalGameTime.Seconds)
+                            if (deadTimer + 1.5 < gameTime.TotalGameTime.TotalSeconds)
                             {
 								AudioManager.ClearAmbientSounds();
                                 ScreenManager.AddScreen(new DeathScreen());
                                 deadSet = false;
                             }
 						} else {
-							deadTimer = gameTime.TotalGameTime.Seconds;
+							deadTimer = gameTime.TotalGameTime.TotalSeconds;
 							deadSet = true;
 						}
 
