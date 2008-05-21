@@ -793,7 +793,9 @@ namespace Project_blob.GameState {
 						chaseCam.Climbing = false;
 					}
 
-					chaseCam.ChaseDirection = theBlob.getAverageVelocity();
+                    if(theBlob.getAverageVelocity() != Vector3.Zero)
+					    chaseCam.ChaseDirection = theBlob.getAverageVelocity();
+
 					chaseCam.ChasePosition = theBlob.getCenter();
 					chaseCam.DesiredPositionOffset = cameraLength * 0.5f;
 
