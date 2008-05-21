@@ -1040,7 +1040,7 @@ Sound Bank
     Sound
     {
         Name = lavaAmbience;
-        Volume = -400;
+        Volume = -800;
         Pitch = 0;
         Priority = 0;
 
@@ -1056,7 +1056,7 @@ Sound Bank
 
         Track
         {
-            Volume = 0;
+            Volume = -800;
 
             Play Wave Event
             {
