@@ -781,7 +781,7 @@ namespace Project_blob.GameState {
 					cameraLength -= 1;
 				}
 
-				cameraLength = MathHelper.Clamp(cameraLength, 10, 40);
+				cameraLength = MathHelper.Clamp(cameraLength, 1, 40);
 
 				if (CurCamera == CameraType.Cinema) {
 					distorterEffect.Parameters["WorldViewProjection"].SetValue(worldMatrix * cam.View * cam.Projection);
