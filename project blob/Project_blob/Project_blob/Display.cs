@@ -446,11 +446,17 @@ namespace Project_blob {
 					    m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
 
 					    foreach (Drawable d in m_DrawList[i]) {
-						    if (d is StaticModel) {
-							    DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
-						    } else {
-							    DrawPrimitives(d, graphicsDevice);
-						    }
+                            if (d.Drawn)
+                            {
+                                if (d is StaticModel)
+                                {
+                                    DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                                }
+                                else
+                                {
+                                    DrawPrimitives(d, graphicsDevice);
+                                }
+                            }
 					    }
                     }
 
