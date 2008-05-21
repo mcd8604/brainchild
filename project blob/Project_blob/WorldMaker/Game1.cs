@@ -300,43 +300,43 @@ namespace WorldMaker
 			//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 			VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
-			CreateRenderTargets();
+			_activeArea.Display.createRenderTargets(GraphicsDevice);
 		}
 
-		public void CreateRenderTargets()
-		{
-			PresentationParameters pp = GraphicsDevice.PresentationParameters;
+        //public void CreateRenderTargets()
+        //{
+        //    PresentationParameters pp = GraphicsDevice.PresentationParameters;
 
-			RenderTarget2D sceneRenderTarget = new RenderTarget2D(GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+        //    RenderTarget2D sceneRenderTarget = new RenderTarget2D(GraphicsDevice,
+        //        pp.BackBufferWidth, pp.BackBufferHeight, 1,
+        //        pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			RenderTarget2D normalDepthRenderTarget = new RenderTarget2D(GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+        //    RenderTarget2D normalDepthRenderTarget = new RenderTarget2D(GraphicsDevice,
+        //        pp.BackBufferWidth, pp.BackBufferHeight, 1,
+        //        pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			RenderTarget2D distortionMap = new RenderTarget2D(GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+        //    RenderTarget2D distortionMap = new RenderTarget2D(GraphicsDevice,
+        //        pp.BackBufferWidth, pp.BackBufferHeight, 1,
+        //        pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			ResolveTexture2D tempRenderTarget = new ResolveTexture2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat);
+        //    ResolveTexture2D tempRenderTarget = new ResolveTexture2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
+        //        pp.BackBufferFormat);
 
-			RenderTarget2D depthBufferRenderTarget = new RenderTarget2D(GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+        //    RenderTarget2D depthBufferRenderTarget = new RenderTarget2D(GraphicsDevice,
+        //        pp.BackBufferWidth, pp.BackBufferHeight, 1,
+        //        pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			_activeArea.Display.SceneRanderTarget = sceneRenderTarget;
-			_activeArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
-			_activeArea.Display.DistortionMap = distortionMap;
-			_activeArea.Display.TempRenderTarget = tempRenderTarget;
-			_activeArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
+        //    _activeArea.Display.SceneRanderTarget = sceneRenderTarget;
+        //    _activeArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
+        //    _activeArea.Display.DistortionMap = distortionMap;
+        //    _activeArea.Display.TempRenderTarget = tempRenderTarget;
+        //    _activeArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
 
-			_activeArea.Display.Distort = Content.Load<Effect>(@"Shaders\\Distort");
-			_activeArea.Display.Distorter = Content.Load<Effect>(@"Shaders\\Distorters");
-			_activeArea.Display.CartoonEffect = Content.Load<Effect>(@"Shaders\\CartoonEffect");
-			_activeArea.Display.PostProcessEffect = Content.Load<Effect>(@"Shaders\\PostprocessEffect");
-		}
+        //    _activeArea.Display.Distort = Content.Load<Effect>(@"Shaders\\Distort");
+        //    _activeArea.Display.Distorter = Content.Load<Effect>(@"Shaders\\Distorters");
+        //    _activeArea.Display.CartoonEffect = Content.Load<Effect>(@"Shaders\\CartoonEffect");
+        //    _activeArea.Display.PostProcessEffect = Content.Load<Effect>(@"Shaders\\PostprocessEffect");
+        //}
 
 		public static void SetUpCinematicCamera(List<CameraFrame> cameraFrames)
 		{

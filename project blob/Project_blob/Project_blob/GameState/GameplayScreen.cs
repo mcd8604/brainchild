@@ -420,31 +420,35 @@ namespace Project_blob.GameState {
 		public void CreateRenderTargets() {
 			PresentationParameters pp = ScreenManager.GraphicsDevice.PresentationParameters;
 
-			sceneRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            if(sceneRenderTarget == null)
+			    sceneRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+				    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			normalDepthRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            if(normalDepthRenderTarget == null)
+			    normalDepthRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+				    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			distortionMap = new RenderTarget2D(ScreenManager.GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            if(distortionMap == null)
+			    distortionMap = new RenderTarget2D(ScreenManager.GraphicsDevice,
+				    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			tempRenderTarget = new ResolveTexture2D(ScreenManager.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat);
+            if(tempRenderTarget == null)
+			    tempRenderTarget = new ResolveTexture2D(ScreenManager.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				    pp.BackBufferFormat);
 
-			depthBufferRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            //depthBufferRenderTarget = new RenderTarget2D(ScreenManager.GraphicsDevice,
+            //    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+            //    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
 
 			currentArea.Display.SceneRanderTarget = sceneRenderTarget;
 			currentArea.Display.NormalDepthRenderTarget = normalDepthRenderTarget;
 			currentArea.Display.DistortionMap = distortionMap;
 			currentArea.Display.TempRenderTarget = tempRenderTarget;
-			currentArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
+			//currentArea.Display.DepthMapRenderTarget = depthBufferRenderTarget;
 
 		}
 
