@@ -73,7 +73,7 @@ namespace Project_blob.GameState {
 		VertexDeclaration VertexDeclarationColor;
 		VertexDeclaration VertexDeclarationTexture;
 
-		private double deadTimer = 0f;
+		private float deadTimer = 0f;
 		public static bool deadSet = false;
 
 		List<Drawable> drawables = new List<Drawable>();
@@ -188,6 +188,10 @@ namespace Project_blob.GameState {
 
 			physics.Player.MaxJumpWork = 20;
 			physics.Player.AirJumpWork = 0;
+
+#if DEBUG
+			physics.Player.AirJumpWork = 5;
+#endif
 
 			// --------------------
 
@@ -582,7 +586,7 @@ namespace Project_blob.GameState {
 
 					if (physics.Player.Dead) {
 						if (deadSet) {
-                            if (deadTimer + 1.5 < gameTime.TotalGameTime.TotalSeconds)
+                            if (deadTimer + 1.5 <= gameTime.TotalGameTime.TotalSeconds)
                             {
 								AudioManager.ClearAmbientSounds();
                                 ScreenManager.AddScreen(new DeathScreen());
