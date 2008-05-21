@@ -642,9 +642,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\blobCollision.wav">
+    <None Include="Audio\blobCollision.wav">
       <Name>blobCollision</Name>
-    </Compile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

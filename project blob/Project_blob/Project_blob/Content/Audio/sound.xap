@@ -1040,7 +1040,7 @@ Sound Bank
     Sound
     {
         Name = lavaAmbience;
-        Volume = 0;
+        Volume = -400;
         Pitch = 0;
         Priority = 0;
 
@@ -1616,7 +1616,7 @@ Sound Bank
     Sound
     {
         Name = blobCollision;
-        Volume = -1200;
+        Volume = -1600;
         Pitch = 0;
         Priority = 0;
 
@@ -1625,9 +1625,14 @@ Sound Bank
             Name = Default;
         }
 
+        RPC Entry
+        {
+            RPC Name = Collision RPC;
+        }
+
         Track
         {
-            Volume = 0;
+            Volume = -400;
 
             Play Wave Event
             {
