@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Project_blob.GameState
 {
     class MainMenuScreen : MenuScreen
-    {
-        public MainMenuScreen() : base("Main Menu")
+	{
+		Texture2D titleTexture;
+
+        public MainMenuScreen() : base("")
         {
             
         }
@@ -15,7 +18,13 @@ namespace Project_blob.GameState
         void startMenuEntrySelected(object sender, EventArgs e)
         {
             LoadingScreen.Load(ScreenManager, true, new GameplayScreen());
-        }
+		}
+
+		public override void LoadContent()
+		{
+			base.LoadContent();
+			titleTexture = ScreenManager.Content.Load<Texture2D>(@"MenuSprites\\title");
+		}
 
         void OptionsMenuEntrySelected(object sender, EventArgs e)
         {
@@ -51,6 +60,18 @@ namespace Project_blob.GameState
 			MenuEntries.Add(optionsMenuEntry);
 			MenuEntries.Add(creditsMenuEntry);
 			MenuEntries.Add(exitMenuEntry);
+		}
+
+		public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
+		{
+			// Draw the menu title.
+			//Vector2 vSize = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
+			//Vector2 titleSize = new Vector2(titleTexture.Width, titleTexture.Height);
+			Vector2 titlePosition = new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - titleTexture.Width) / 2, 10);
+			ScreenManager.SpriteBatch.Begin();
+			ScreenManager.SpriteBatch.Draw(titleTexture, titlePosition, Color.White);
+			ScreenManager.SpriteBatch.End();
+			base.Draw(gameTime);
 		}
     }
 }
