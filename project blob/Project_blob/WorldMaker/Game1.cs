@@ -510,6 +510,7 @@ namespace WorldMaker
 
 				foreach (DrawableInfo drawableInfo in LevelEditor.DrawablesToAdd)
 				{
+                    drawableInfo.drawable.Drawn = true;
 					_activeArea.AddDrawable(drawableInfo.name, drawableInfo.textureID, drawableInfo.drawable);
 				}
 				LevelEditor.DrawablesToAdd.Clear();
