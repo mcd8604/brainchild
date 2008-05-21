@@ -295,7 +295,7 @@ Global Settings
             RPC Point
             {
                 X = 100.000000;
-                Y = 0.000000;
+                Y = 600.000000;
                 Curve = 0;
             }
         }
@@ -303,7 +303,7 @@ Global Settings
 
     RPC
     {
-        Name = Ambience RPC;
+        Name = LavaAmbience RPC;
 
         RPC Curve
         {
@@ -368,7 +368,74 @@ Global Settings
             RPC Point
             {
                 X = 100.000000;
-                Y = 1.783905;
+                Y = 600.000000;
+                Curve = 0;
+            }
+        }
+    }
+
+    RPC
+    {
+        Name = WindAmbience RPC;
+
+        RPC Curve
+        {
+            Name = Sound::da5d8177-6f28-41d5-9089-662b8f86ba14;
+            Property = 0;
+            Sound = 1;
+            Viewable = 1;
+
+            Variable Entry
+            {
+                Name = Distance;
+            }
+
+            RPC Point
+            {
+                X = 0.000000;
+                Y = 306.211060;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 242.634308;
+                Y = -1026.904419;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 502.600647;
+                Y = -9600.000000;
+                Curve = 0;
+            }
+        }
+
+        RPC Curve
+        {
+            Name = Sound::08323736-71a7-4035-8f4a-142685e29bf9;
+            Property = 0;
+            Sound = 1;
+            Line Color = 4294901760;
+            Viewable = 1;
+
+            Variable Entry
+            {
+                Name = Volume;
+            }
+
+            RPC Point
+            {
+                X = 0.000000;
+                Y = -9600.000000;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 100.000000;
+                Y = 600.000000;
                 Curve = 0;
             }
         }
@@ -910,7 +977,7 @@ Sound Bank
 
         RPC Entry
         {
-            RPC Name = Ambience RPC;
+            RPC Name = LavaAmbience RPC;
         }
 
         Track
@@ -967,7 +1034,7 @@ Sound Bank
     Sound
     {
         Name = windAmbience;
-        Volume = -400;
+        Volume = 0;
         Pitch = 0;
         Priority = 0;
 
@@ -978,12 +1045,12 @@ Sound Bank
 
         RPC Entry
         {
-            RPC Name = Ambience RPC;
+            RPC Name = WindAmbience RPC;
         }
 
         Track
         {
-            Volume = -400;
+            Volume = 0;
 
             Play Wave Event
             {
