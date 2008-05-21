@@ -646,6 +646,11 @@
       <Name>blobCollision</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Models\wholePipe.fbx">
+      <Name>wholePipe</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\quarterPipe.fbx">
       <Name>quarterPipe</Name>
       <Importer>FbxImporter</Importer>
