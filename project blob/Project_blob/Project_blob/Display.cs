@@ -234,6 +234,7 @@ namespace Project_blob {
 			set { m_skyBox = value; }
 		}
 
+        [Obsolete]
 		public void SetDrawn(Drawable p_Drawable) {
 			/*if (drawable_List_Drawn.Keys.Contains(p_Drawable.GetTextureKey()))
 			{

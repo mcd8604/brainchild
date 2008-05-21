@@ -124,6 +124,9 @@ namespace Project_blob
                         {
                             //SceneManager.getSingleton.Display.SetDrawn(obj);
                             obj.Drawn = true;
+#if DEBUG
+                            ++SceneManager.getSingleton.Drawn;
+#endif
                             break;
                         }
                     case ContainmentType.Disjoint:
@@ -211,6 +214,9 @@ namespace Project_blob
                 //obj.Draw(gameTime);
                 //SceneManager.getSingleton.Display.SetDrawn(obj);
                 obj.Drawn = true;
+#if DEBUG
+                ++SceneManager.getSingleton.Drawn;
+#endif
             }
             foreach (OctreeLeaf leaf in ChildLeaves)
             {
