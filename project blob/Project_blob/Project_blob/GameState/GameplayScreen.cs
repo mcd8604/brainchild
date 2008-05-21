@@ -96,6 +96,11 @@ namespace Project_blob.GameState {
 #if DEBUG
 		private static bool DEBUG_GodMode = false;
 #endif
+#if DEBUG
+		private bool FPS = true;
+#else
+		private bool FPS = false;
+#endif
 
 		public enum CameraType {
 			Follow,
@@ -135,10 +140,10 @@ namespace Project_blob.GameState {
 
 		public SpriteFont font;
 		//fps
-		float time = 0f;
-		float update = 1f;
-		int frames = 0;
-		string fps = string.Empty;
+		private float time = 0f;
+		private const float update = 1f;
+		private int frames = 0;
+		private string fps = string.Empty;
 
 		public static GameplayScreen game;
 
@@ -854,13 +859,16 @@ namespace Project_blob.GameState {
 
 
 				//fps
-				time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-				if (time > update) {
-					fps = Convert.ToInt32(frames / time).ToString();
-					time = 0;
-					frames = 0;
+				if (FPS)
+				{
+					time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+					if (time > update)
+					{
+						fps = Convert.ToInt32(frames / time).ToString();
+						time = 0;
+						frames = 0;
+					}
 				}
-
 
 #if DEBUG
 
@@ -1069,7 +1077,10 @@ namespace Project_blob.GameState {
 			// GUI
 			ScreenManager.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
 			spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
-			spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
+			if (FPS)
+			{
+				spriteBatch.DrawString(font, fps, Vector2.Zero, Color.White);
+			}
 #if !DEBUG
             if (currentArea.ShowTime) {
                 string t = "Time - " + Format.Time(physics.Time);
@@ -1138,8 +1149,10 @@ namespace Project_blob.GameState {
 
 
 
-
-			spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
+			if (end > DateTime.Now)
+			{
+				spriteBatch.DrawString(font, (end - DateTime.Now).ToString(), new Vector2(500, 566), Color.White);
+			}
 #endif
 			if (TextMin != TextMax) {
 				spriteBatch.Draw(backdrop, new Rectangle((int)(TextMin.X - 10), (int)(TextMin.Y - 5), (int)((TextMax.X - TextMin.X) + 20), (int)((TextMax.Y - TextMin.Y) + 10)), Color.White);
@@ -1185,7 +1198,10 @@ namespace Project_blob.GameState {
 			spriteBatch.End();
 
 			//fps
-			++frames;
+			if (FPS)
+			{
+				++frames;
+			}
 
 			//base.Draw(gameTime);
 		}
