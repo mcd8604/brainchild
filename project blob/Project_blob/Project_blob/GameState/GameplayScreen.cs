@@ -64,7 +64,6 @@ namespace Project_blob.GameState {
 		RenderTarget2D normalDepthRenderTarget;
 		RenderTarget2D distortionMap;
 		ResolveTexture2D tempRenderTarget;
-		RenderTarget2D depthBufferRenderTarget;
 
 		Matrix worldMatrix;
 		//Matrix viewMatrix;
@@ -79,6 +78,12 @@ namespace Project_blob.GameState {
 		List<Drawable> drawables = new List<Drawable>();
 
 		Vector4 lightPosition;
+        private static Color m_BlobColor = Color.AliceBlue;
+        public static Color BlobColor
+        {
+            get { return m_BlobColor; }
+            set { m_BlobColor = value; }
+        }
 
 		public static PhysicsManager physics;
 
@@ -276,6 +281,7 @@ namespace Project_blob.GameState {
 			EffectManager.getSingleton.AddEffect("postprocessEffect", postprocessEffect);
 
 			distortEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distort");
+            distortEffect.Parameters["blobColor"].SetValue(m_BlobColor.ToVector4());
 			EffectManager.getSingleton.AddEffect("distort", distortEffect);
 
 			distorterEffect = ScreenManager.Content.Load<Effect>(@"Shaders\\Distorters");

@@ -20,6 +20,8 @@ float3 LightDirection = normalize(float3(1, 1, 1));
 
 float2 blobCenter;
 
+float4 blobColor = 0;
+
 // The Distortion map represents zero displacement as 0.5, but in an 8 bit color
 // channel there is no exact value for 0.5. ZeroOffset adjusts for this error.
 const float ZeroOffset = 0.5f / 255.0f;
@@ -30,8 +32,7 @@ float4 Distort_PixelShader(float2 TexCoord : TEXCOORD0,
 {
     // Look up the displacement
     float2 displacement = tex2D(DistortionMap, TexCoord).rg;
-    float4 green = 0;
-    green.g = .5;
+    //blobColor.g = .5;
     
     
     
@@ -50,7 +51,7 @@ float4 Distort_PixelShader(float2 TexCoord : TEXCOORD0,
         // .5 is excluded by adjustment for zero
         displacement -= .5 + ZeroOffset;
         float4 displacementSum = .7;
-		displacementSum = (displacementSum - ((abs(displacement.r) + abs(displacement.g)) * 20)) + green;
+		displacementSum = (displacementSum - ((abs(displacement.r) + abs(displacement.g)) * 20)) + blobColor;
         clamp(displacementSum,0,1);
         
         if (distortionBlur)
