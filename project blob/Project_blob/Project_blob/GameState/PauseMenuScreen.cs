@@ -40,11 +40,10 @@ namespace Project_blob.GameState
 
 		void QuitGameMenuEntrySelected(object sender, EventArgs e)
 		{
+			Audio.AudioManager.ClearAmbientSounds();
 			MainMenuScreen mainMenu = new MainMenuScreen();
 			LoadingScreen.Load(ScreenManager, false, mainMenu);
 			mainMenu.LoadMenuSprites();
-            Audio.AudioManager.ClearAmbientSounds();
-
 		}
 
 		public override void Draw(GameTime gameTime)
