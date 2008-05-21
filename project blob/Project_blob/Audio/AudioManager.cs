@@ -155,11 +155,11 @@ namespace Audio {
 		}
 
 		/// <summary>
-		/// Clears all ambient sounds taht are currently stored
+		/// Clears all ambient sounds that are currently stored
 		/// </summary>
 		public static void ClearAmbientSounds() {
-			foreach (Sound ambientSound in _ambientSounds) {
-				ambientSound.stop();
+			for (int i = 0; i < _ambientSounds.Count; i++) {
+				_ambientSounds[i].stop();
 			}
 			_ambientSounds.Clear();
 		}
