@@ -52,6 +52,7 @@ namespace Audio {
 			if (!collisionSound.IsDisposed)
 			{
 				collisionSound.Stop(AudioStopOptions.Immediate);
+				collisionSound.Dispose();
 			}
 		}
 

@@ -552,7 +552,6 @@ namespace Project_blob.GameState
 			game.nextAreaName = Level.GetAreaName(currentArea);
 			game.ChangeAreaFlag = true;
 			game.UseDefaultAreaPos = true;
-			AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
 		}
 
 		public static void SetLoadCheckpoint()
