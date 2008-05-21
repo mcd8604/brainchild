@@ -133,7 +133,7 @@ namespace Project_blob
             }*/
             for (int i = 0; i < vertices.Length; ++i)
             {
-                PhysicsPoint newPoint = new PhysicsPoint(vertices[i].Position, null);
+                PhysicsPoint newPoint = new PhysicsPoint(vertices[i].Position);
                 PhysicsPoint mapPoint = null;
                 bool exists = false;
                 foreach (PhysicsPoint p in tempList)
