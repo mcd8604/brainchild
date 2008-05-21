@@ -43,7 +43,7 @@ namespace Project_blob.GameState
 
 		private const float TEXT_EVENT_TIME = 5.0f;
 
-		private const float DEATH_EVENT_TIME = 1.5f;
+		private const float DEATH_EVENT_TIME = 2.0f;
 
 		public static bool TextEventHit = false;
 
@@ -236,6 +236,8 @@ namespace Project_blob.GameState
 #if DEBUG
 			physics.Player.AirJumpWork = 5;
 #endif
+
+			cartoonEffect.Parameters["MaxShadowSize"].SetValue(20.0f);
 
 			// --------------------
 
