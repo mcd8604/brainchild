@@ -1505,6 +1505,11 @@ Sound Bank
             Name = Default;
         }
 
+        RPC Entry
+        {
+            RPC Name = Collision RPC;
+        }
+
         Track
         {
             Volume = 0;
