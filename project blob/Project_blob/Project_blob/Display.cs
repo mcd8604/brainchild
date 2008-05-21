@@ -51,12 +51,12 @@ namespace Project_blob {
 			set { m_tempTarget = value; }
 		}
 
-		[NonSerialized]
-		private RenderTarget2D m_DepthMapRenderTarget = null;
-		public RenderTarget2D DepthMapRenderTarget {
-			get { return m_DepthMapRenderTarget; }
-			set { m_DepthMapRenderTarget = value; }
-		}
+        //[NonSerialized]
+        //private RenderTarget2D m_DepthMapRenderTarget = null;
+        //public RenderTarget2D DepthMapRenderTarget {
+        //    get { return m_DepthMapRenderTarget; }
+        //    set { m_DepthMapRenderTarget = value; }
+        //}
 
 
 		private bool m_GameMode = false;
@@ -327,7 +327,7 @@ namespace Project_blob {
 			createRenderTargets(gd);
 		}
 
-		private void createRenderTargets(GraphicsDevice gd) {
+		public void createRenderTargets(GraphicsDevice gd) {
 			this.Distort = EffectManager.getSingleton.GetEffect("distort");
 			this.Distorter = EffectManager.getSingleton.GetEffect("distorter");
 			this.CartoonEffect = EffectManager.getSingleton.GetEffect("cartoonEffect");
@@ -335,24 +335,28 @@ namespace Project_blob {
 
 			PresentationParameters pp = gd.PresentationParameters;
 
-			this.m_SceneRenderTarget = new RenderTarget2D(gd,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            if(this.m_SceneRenderTarget == null)
+			    this.m_SceneRenderTarget = new RenderTarget2D(gd,
+				    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			this.m_NormalDepthRenderTarget = new RenderTarget2D(gd,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            if(this.m_NormalDepthRenderTarget == null)
+			    this.m_NormalDepthRenderTarget = new RenderTarget2D(gd,
+				    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			this.m_distortionMap = new RenderTarget2D(gd,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            if(this.m_distortionMap == null)
+			    this.m_distortionMap = new RenderTarget2D(gd,
+				    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 
-			this.m_tempTarget = new ResolveTexture2D(gd, pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat);
+            if(this.m_tempTarget == null)
+			    this.m_tempTarget = new ResolveTexture2D(gd, pp.BackBufferWidth, pp.BackBufferHeight, 1,
+				    pp.BackBufferFormat);
 
-			this.m_DepthMapRenderTarget = new RenderTarget2D(gd,
-				pp.BackBufferWidth, pp.BackBufferHeight, 1,
-				pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
+            //this.m_DepthMapRenderTarget = new RenderTarget2D(gd,
+            //    pp.BackBufferWidth, pp.BackBufferHeight, 1,
+            //    pp.BackBufferFormat, pp.MultiSampleType, pp.MultiSampleQuality);
 		}
 
 		public void Draw(GraphicsDevice graphicsDevice) {
@@ -362,9 +366,9 @@ namespace Project_blob {
 		internal void Draw(GraphicsDevice graphicsDevice, Blob theBlob) {
 			RenderState renderState = graphicsDevice.RenderState;
 
-			renderState.AlphaBlendEnable = false;
-			renderState.AlphaTestEnable = false;
-			renderState.DepthBufferEnable = true;
+            renderState.AlphaBlendEnable = false;
+            renderState.AlphaTestEnable = false;
+            renderState.DepthBufferEnable = true;
 
 			if (m_DrawList.Count > 0) {
 				if (m_TechniqueName != null)
@@ -574,6 +578,9 @@ namespace Project_blob {
                     }
 				}*/
 
+                //graphicsDevice.RenderState.AlphaBlendEnable = true;
+                //graphicsDevice.RenderState.SourceBlend = Blend.One;
+                //graphicsDevice.RenderState.DestinationBlend = Blend.One;
 				for (int i = 0; i < m_DrawList.Count; ++i) {
 					Texture2D t = TextureManager.TextureList[i];
 					//temporary check
