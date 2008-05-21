@@ -28,6 +28,7 @@ namespace Project_blob.GameState
 			MenuEntry videoMenuEntry = new MenuEntry("Video");
 			MenuEntry audioMenuEntry = new MenuEntry("Audio");
             MenuEntry controlMenuEntry = new MenuEntry("Controls");
+			MenuEntry colorMenueEntry = new MenuEntry("Color");
             MenuEntry applyMenuEntry = new MenuEntry("Apply");
             MenuEntry backMenuEntry = new MenuEntry("Back");
 
@@ -38,6 +39,7 @@ namespace Project_blob.GameState
 			videoMenuEntry.Selected += videoSelected;
 			audioMenuEntry.Selected += audioSelected;
             controlMenuEntry.Selected += controlSelected;
+			colorMenueEntry.Selected += colorSelected;
             applyMenuEntry.Selected += apply;
             backMenuEntry.Selected += OnCancel;
 
@@ -46,6 +48,7 @@ namespace Project_blob.GameState
 			MenuEntries.Add(videoMenuEntry);
 			MenuEntries.Add(audioMenuEntry);
             MenuEntries.Add(controlMenuEntry);
+			MenuEntries.Add(colorMenueEntry);
             MenuEntries.Add(applyMenuEntry);
             MenuEntries.Add(backMenuEntry);
         }
@@ -100,6 +103,11 @@ namespace Project_blob.GameState
         {
             ScreenManager.AddScreen(new ControllerScreen());
         }
+
+		void colorSelected(object sender, EventArgs e)
+		{
+			ScreenManager.AddScreen(new ColorMenuScreen());
+		}
 
         void apply(object sender, EventArgs e)
         {
