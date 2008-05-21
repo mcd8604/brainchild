@@ -234,7 +234,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::9b963922-ee5f-41c3-8e0c-b82246884207;
+            Name = Sound::1ac5beb3-f598-4f03-a7ea-3ef3a128c05e;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -261,7 +261,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::fec12f82-1d5c-44e9-a655-191fab8e72d3;
+            Name = Sound::8f08b508-9d3f-4fd0-9621-2448180cdbb4;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -293,7 +293,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::5b3dce36-5d7d-4d0f-89d4-cccded2252ba;
+            Name = Sound::b422b9c4-068c-4365-8858-e7b6cd279d11;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -327,7 +327,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::cff95c9d-0cc7-4303-88f2-0b22aa8e63d3;
+            Name = Sound::476621c4-7395-4eb1-a76a-de08d493cd82;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -359,7 +359,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::7bd3bce1-f20a-4c02-88d0-76898c904fa5;
+            Name = Sound::40529e8c-c2ca-4373-b9ea-550e13744b8e;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -386,7 +386,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::a0a9da72-68ec-4f20-bdc8-edfd3d18e65a;
+            Name = Sound::1827c893-4ab6-4497-805d-504990ef475e;
             Property = 0;
             Sound = 1;
             Line Color = 4294901760;
@@ -741,6 +741,29 @@ Wave Bank
             File Type = 1;
             Last Modified Low = 583419613;
             Last Modified High = 29932291;
+        }
+    }
+
+    Wave
+    {
+        Name = blobCollision;
+        File = blobCollision.wav;
+        Build Settings Last Modified Low = 168761522;
+        Build Settings Last Modified High = 29932301;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 47106;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3854252770;
+            Last Modified High = 29932300;
         }
     }
 }
@@ -1590,6 +1613,52 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = blobCollision;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = blobCollision;
+                    Entry Index = 14;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = blob;
@@ -1865,6 +1934,26 @@ Sound Bank
         {
             Name = accept;
             Index = 13;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = blobCollision;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = blobCollision;
+            Index = 14;
             Weight Min = 0;
             Weight Max = 255;
         }
