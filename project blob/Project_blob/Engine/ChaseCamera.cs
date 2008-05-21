@@ -245,12 +245,14 @@ namespace Engine
 		/// </summary>
 		public override void Update(GameTime gameTime)
 		{
+#if DEBUG
             if (chaseDirection == Vector3.Zero)
             {
                 throw new Exception("Chase Direction set to Vector3.Zero. This should never happen and will break physics.");
             }
 			if (gameTime == null)
 				throw new ArgumentNullException("gameTime");
+#endif
 
 			//UpdateWorldPositions();
 			if (Climbing)
