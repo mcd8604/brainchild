@@ -94,6 +94,14 @@ namespace Project_blob
 				addResolution(d);
 			}
 
+			CurrentColor = new MyColor("Green", new Vector4(0, 0.5f, 0, 0));
+
+			Colors.Add(new MyColor("Green", new Vector4(0, 0.5f, 0, 0)));
+			Colors.Add(new MyColor("Gold", Color.Gold.ToVector4()));
+			Colors.Add(new MyColor("Red", Color.Red.ToVector4()));
+			Colors.Add(new MyColor("Blue", Color.Blue.ToVector4()));
+			Colors.Add(new MyColor("Black", Color.Black.ToVector4()));
+			
 			Resolutions.Sort(Resolution.comparison);
 
 			graphics.PreferredBackBufferHeight = CurrentResolution.Height;
@@ -306,11 +314,13 @@ namespace Project_blob
 
 		public Resolution CurrentResolution;
 		public List<Resolution> Resolutions = new List<Resolution>();
+
+		public MyColor CurrentColor;
+		public List<MyColor> Colors = new List<MyColor>();
 	}
 
 	public struct Resolution
 	{
-
 		public int Height;
 		public int Width;
 
@@ -341,6 +351,24 @@ namespace Project_blob
 				return x.Height - y.Height;
 			}
 		}
+	}
 
+	public struct MyColor
+	{
+		public String Name;
+		public Vector4 Rgba;
+		public bool Active;
+
+		public MyColor(String name, Vector4 rgba)
+		{
+			Name = name;
+			Rgba = rgba;
+			Active = true;
+		}
+
+		public override string ToString()
+		{
+			return Name;
+		}
 	}
 }

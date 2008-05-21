@@ -78,7 +78,9 @@ namespace Project_blob.GameState {
 		List<Drawable> drawables = new List<Drawable>();
 
 		Vector4 lightPosition;
-        private static Color m_BlobColor = Color.AliceBlue;
+
+		public static bool ChangeBlobColor = false;
+		private static Color m_BlobColor = new Color(new Vector3(0, 0.5f, 0));
         public static Color BlobColor
         {
             get { return m_BlobColor; }
@@ -588,7 +590,14 @@ namespace Project_blob.GameState {
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-													   bool coveredByOtherScreen) {
+													   bool coveredByOtherScreen)
+		{
+														   
+			if (ChangeBlobColor)
+			{
+				currentArea.Display.Distort.Parameters["blobColor"].SetValue(m_BlobColor.ToVector4());
+				ChangeBlobColor = false;
+			}
 
 			if (LoadCheckpoint) {
 				LoadCheckpoint = false;
