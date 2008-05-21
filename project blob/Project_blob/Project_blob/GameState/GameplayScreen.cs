@@ -39,6 +39,8 @@ namespace Project_blob.GameState {
 
 		private const float TEXT_EVENT_TIME = 5.0f;
 
+		private const float DEATH_EVENT_TIME = 1.5f;
+
 		public static bool TextEventHit = false;
 
 		Texture2D blobTexture;
@@ -640,7 +642,7 @@ namespace Project_blob.GameState {
 
 					if (physics.Player.Dead) {
 						if (deadSet) {
-							if (deadTimer + 1.5f <= (float)gameTime.TotalGameTime.TotalSeconds) {
+							if (deadTimer + DEATH_EVENT_TIME <= (float)gameTime.TotalGameTime.TotalSeconds) {
 								ScreenManager.AddScreen(new DeathScreen());
 								deadSet = false;
 							}
@@ -656,10 +658,11 @@ namespace Project_blob.GameState {
 
 					if (TextEventHit) {
 						TextEventHit = false;
-						m_lastTextEvent = gameTime.TotalGameTime.Seconds;
+						m_lastTextEvent = (float)gameTime.TotalGameTime.TotalSeconds;
 					}
 
-					if (gameTime.TotalGameTime.Seconds - m_lastTextEvent > TEXT_EVENT_TIME) {
+					if (gameTime.TotalGameTime.TotalSeconds - m_lastTextEvent > TEXT_EVENT_TIME)
+					{
 						m_TextEventstring = string.Empty;
 					}
 
