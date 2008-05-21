@@ -259,7 +259,7 @@ namespace Audio {
 					}
 				}
 				if (mono) {
-					soundFX.SetVariable("Distance", (float)Math.Pow(50, 1 / volumeLevel));
+					soundFX.SetVariable("Distance", (float)Math.Pow(300, 1 / (volumeLevel * volumeLevel)));
 				}
 				soundFX.SetVariable("Volume", soundFXVolume);
 				soundFX.Play();

@@ -55,6 +55,7 @@ namespace Engine
 					FinishedCinematics = true;
 				}
 			}
+			base.Update(gameTime);
 		}
 
 		public override void UpdateMatrices()
