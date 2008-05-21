@@ -186,9 +186,26 @@ namespace Audio {
 				curMusic.Stop(AudioStopOptions.Immediate);
 				curMusic.Dispose();
 			}
-			curMusic = _soundBank.GetCue(name);
-			curMusic.SetVariable("Volume", musicVolume);
-			curMusic.Play();
+			try
+			{
+				if (enabled)
+				{
+					curMusic = _soundBank.GetCue(name);
+					curMusic.SetVariable("Volume", musicVolume);
+					curMusic.Play();
+				}
+			}
+			catch (Exception e)
+			{
+#if DEBUG
+				Log.Out.WriteLine("Audio Manager Exception:");
+#endif
+				Log.Out.WriteLine(e);
+#if DEBUG
+				Log.Out.WriteLine("The above Exception was handled.");
+#endif
+			}
+			
 		}
 
 		/// <summary>
@@ -197,11 +214,24 @@ namespace Audio {
 		/// <param name="name">The name of the soundFX cue</param>
 		/// <returns>The specified soundFX cue</returns>
 		public static Cue getSoundFX(string name) {
-			if (enabled) {
-				return _soundBank.GetCue(name);
-			} else {
-				return null;
+			try
+			{
+				if (enabled)
+				{
+					return _soundBank.GetCue(name);
+				}
 			}
+			catch (Exception e)
+			{
+#if DEBUG
+				Log.Out.WriteLine("Audio Manager Exception:");
+#endif
+				Log.Out.WriteLine(e);
+#if DEBUG
+				Log.Out.WriteLine("The above Exception was handled.");
+#endif
+			}
+			return null;
 		}
 
 		/// <summary>
