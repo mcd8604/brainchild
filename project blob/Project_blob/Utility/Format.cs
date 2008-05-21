@@ -9,9 +9,9 @@ public class Format {
 	}
 	public static string TimeNamed(float time) {
 		if (time % 60 == 0) {
-			return string.Format("{0:0} Min", (time * sixtieth)) + ", " + string.Format("{00.0} Secs", time % 60); 
-		} else {
 			return string.Format("{0:0} Min", (time * sixtieth));
+		} else {
+			return string.Format("{0:0} Min", (time * sixtieth)) + ", " + string.Format("{0:0.0} Secs", time % 60); 
 		}
 	}
 }
