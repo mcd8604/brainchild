@@ -234,7 +234,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::1581dd62-3702-43c6-9b12-f9e30a275fbf;
+            Name = Sound::e72b5f01-11e1-479d-a350-bd6107eed0f2;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -275,7 +275,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::692cebc8-3270-4068-b173-3a9a9d86d7e2;
+            Name = Sound::96df5953-9732-4144-baff-c4cc95a73c12;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -307,7 +307,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::dc67dc33-e9c7-494b-aaf4-ff6714bff48d;
+            Name = Sound::f515a0e1-1777-402d-a97e-1477922a26ea;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -348,7 +348,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::5b5523d9-1ad7-4ace-a12c-9b535cd57ba7;
+            Name = Sound::a983bfd9-d58f-4c3d-94c2-1c2efe53e675;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -382,6 +382,10 @@ Wave Bank
     Windows File = Win\Wave Bank.xwb;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
     Header Last Modified Low = 0;
     Header Last Modified High = 0;
 
@@ -621,6 +625,8 @@ Sound Bank
     Name = Sound Bank;
     Xbox File = Xbox\Sound Bank.xsb;
     Windows File = Win\Sound Bank.xsb;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -961,7 +967,7 @@ Sound Bank
     Sound
     {
         Name = windAmbience;
-        Volume = 0;
+        Volume = -400;
         Pitch = 0;
         Priority = 0;
 
@@ -977,7 +983,7 @@ Sound Bank
 
         Track
         {
-            Volume = 0;
+            Volume = -400;
 
             Play Wave Event
             {

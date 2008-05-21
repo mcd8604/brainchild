@@ -5,18 +5,24 @@ using Microsoft.Xna.Framework.Audio;
 namespace Audio {
 	public class Sound {
 
+		private float prevDopple;
+		private float prevPos;
+		private float prevUp;
+		private float prevForward;
+		private float prevVel;
+
 		private AudioEmitter audioEmitter = new AudioEmitter();
 		private Cue collisionSound;
 		private bool playingSound = false;
 
 		internal Sound(string soundName) {
 			collisionSound = AudioManager.getSoundFX(soundName);
-			audioEmitter.DopplerScale = 0f;
+			audioEmitter.DopplerScale = 1f;
 		}
 
 		internal Sound(string soundName, Vector3 position) {
 			collisionSound = AudioManager.getSoundFX(soundName);
-			audioEmitter.DopplerScale = 0f;
+			audioEmitter.DopplerScale = 1f;
 			audioEmitter.Position = position;
 		}
 
@@ -34,14 +40,20 @@ namespace Audio {
 		}
 
 		public void updateAmbient3D(AudioListener Listener) {
-			collisionSound.Apply3D(Listener, audioEmitter);
+			if (collisionSound.IsPlaying)
+			{
+				collisionSound.Apply3D(Listener, audioEmitter);
+			}
 		}
 
 		/// <summary>
 		/// Stops the sound file
 		/// </summary>
 		public void stop() {
-			collisionSound.Stop(AudioStopOptions.Immediate);
+			if (!collisionSound.IsDisposed)
+			{
+				collisionSound.Stop(AudioStopOptions.Immediate);
+			}
 		}
 
 		public void startSound()
