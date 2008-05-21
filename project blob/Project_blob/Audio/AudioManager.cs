@@ -89,10 +89,6 @@ namespace Audio {
 		}
 
 		private static void initializeAmbience() {
-			if (_ambientSoundThread != null) {
-				_runAmbience = false;
-				System.Threading.Thread.Sleep(50);
-			}
 			try {
 				_runAmbience = true;
 				_ambientSoundThread = new System.Threading.Thread(AudioBackgroundThread);
@@ -135,6 +131,8 @@ namespace Audio {
 				update();
 				System.Threading.Thread.Sleep(50);
 			} while (_runAmbience);
+			ClearAmbientSounds();
+			
 		}
 
 		/// <summary>
@@ -143,13 +141,17 @@ namespace Audio {
 		/// <param name="soundNames">The list of names of all the ambient sounds</param>
 		/// <param name="positions">The list of positions of all the ambient sounds</param>
 		public static void LoadAmbientSounds(List<AmbientSoundInfo> ambientSounds) {
-			_ambientSounds.Clear();
+			if (_ambientSoundThread != null)
+			{
+				_runAmbience = false;
+				System.Threading.Thread.Sleep(100);
+			}
 			if (ambientSounds != null) {
 				foreach (AmbientSoundInfo info in ambientSounds) {
 					_ambientSounds.Add(new Sound(info.Name, info.Position));
 				}
-				initializeAmbience();
 			}
+			initializeAmbience();
 		}
 
 		/// <summary>
