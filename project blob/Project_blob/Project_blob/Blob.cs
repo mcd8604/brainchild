@@ -538,34 +538,63 @@ namespace Project_blob
 			}
 		}
 
-		#region Drawable Members
 
+        #region Drawable Members
 
-		public BoundingBox GetBoundingBox()
-		{
-			throw new Exception("The method or operation is not implemented.");
-		}
+        BlendModes Drawable.BlendMode
+        {
+            get
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
+            set
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
+        }
 
-		public BoundingSphere GetBoundingSphere()
-		{
-			throw new Exception("The method or operation is not implemented.");
-		}
+        VertexBuffer Drawable.getVertexBuffer()
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
 
-		#endregion
+        int Drawable.getVertexStride()
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
 
-		#region Drawable Members
+        void Drawable.DrawMe()
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
 
+        int Drawable.GetTextureID()
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
 
-		public int GetTextureID()
-		{
-			throw new Exception("The method or operation is not implemented.");
-		}
+        void Drawable.SetTextureID(int id)
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
 
-		public void SetTextureID(int id)
-		{
-			throw new Exception("The method or operation is not implemented.");
-		}
+        BoundingBox Drawable.GetBoundingBox()
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
 
-		#endregion
-	}
+        bool Drawable.Drawn
+        {
+            get
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
+            set
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
+        }
+
+        #endregion
+    }
 }

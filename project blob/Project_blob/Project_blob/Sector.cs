@@ -58,13 +58,15 @@ namespace Project_blob
 					case ContainmentType.Contains:
 					case ContainmentType.Intersects:
 						{
-							SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+							//SceneManager.getSingleton.Display.SetDrawn(obj);
+                            obj.Drawn = true;
 						}
 						break;
 
 					case ContainmentType.Disjoint:
 						{
 							//Object is culled.
+                            obj.Drawn = false;
 						}
 						break;
 				}
@@ -147,13 +149,15 @@ namespace Project_blob
 					case ContainmentType.Contains:
 					case ContainmentType.Intersects:
 						{
-							SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+							//SceneManager.getSingleton.Display.SetDrawn(obj);
+                            obj.Drawn = true;
 						}
 						break;
 
 					case ContainmentType.Disjoint:
 						{
 							//Object is culled.
+                            obj.Drawn = false;
 						}
 						break;
 				}
@@ -229,7 +233,8 @@ namespace Project_blob
 		{
 			foreach (Drawable obj in _sectorObjects)
 			{
-				SceneManager.getSingleton.Display.AddToBeDrawn(obj);
+				//SceneManager.getSingleton.Display.SetDrawn(obj);
+                obj.Drawn = true;
 			}
 		}
 

@@ -108,6 +108,17 @@ namespace Project_blob.GameState {
 		//bool cinema = false;
 #if DEBUG
 		bool paused = false;
+        public bool Paused
+        {
+            get
+            {
+                return paused;
+            }
+            set
+            {
+                paused = value;
+            }
+        }
 		bool step = false;
 #endif
 		//bool follow = true;
@@ -1032,9 +1043,9 @@ namespace Project_blob.GameState {
 			distorterEffect.Parameters["WorldView"].SetValue(worldMatrix * cam.View);
 
 			//Octree Cull the Static Drawables
-			foreach (List<Drawable> drawables in currentArea.Display.DrawnList) {
+			/*foreach (List<Drawable> drawables in currentArea.Display.DrawnList) {
 				drawables.Clear();
-			}
+			}*/
 
 			SceneManager.getSingleton.UpdateVisibleDrawables(gameTime);
 

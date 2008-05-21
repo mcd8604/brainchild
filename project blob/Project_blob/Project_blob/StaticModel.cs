@@ -119,7 +119,34 @@ namespace Project_blob {
 			set {
 				m_Visible = value;
 			}
-		}
+        }
+
+        private BlendModes m_BlendMode = BlendModes.None;
+        public BlendModes BlendMode
+        {
+            get
+            {
+                return m_BlendMode;
+            }
+            set
+            {
+                m_BlendMode = value;
+            }
+        }
+
+        [NonSerialized]
+        private bool m_Drawn = false;
+        public bool Drawn
+        {
+            get
+            {
+                return m_Drawn;
+            }
+            set
+            {
+                m_Drawn = value;
+            }
+        }
 
 		private CollisionTypes m_CollisionType = CollisionTypes.Body;
 		public CollisionTypes CollisionType {
