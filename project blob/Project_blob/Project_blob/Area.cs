@@ -146,7 +146,23 @@ namespace Project_blob {
 						drawables.Remove(tempDrawable);
 						return;
 					}
-				}
+                }
+                foreach (List<Drawable> drawables in _display.AlphaDrawnList)
+                {
+                    if (drawables.Contains(tempDrawable))
+                    {
+                        drawables.Remove(tempDrawable);
+                        return;
+                    }
+                }
+                foreach (List<Drawable> drawables in _display.AdditiveDrawnList)
+                {
+                    if (drawables.Contains(tempDrawable))
+                    {
+                        drawables.Remove(tempDrawable);
+                        return;
+                    }
+                }
 			}
 		}
 
@@ -157,9 +173,25 @@ namespace Project_blob {
 				{
 					_display.DrawnList.Add(textureInfo, new List<Drawable>());
 				}*/
-				_display.DrawnList[textureID].Add(drawable);
+                AddDrawableToDisplay(drawable);
 			}
 		}
+
+        private void AddDrawableToDisplay(Drawable d)
+        {
+            switch (d.BlendMode)
+            {
+                case BlendModes.Additive:
+                    this.Display.AdditiveDrawnList[d.GetTextureID()].Add(d);
+                    break;
+                case BlendModes.Alpha:
+                    this.Display.AlphaDrawnList[d.GetTextureID()].Add(d);
+                    break;
+                case BlendModes.None:
+                    this.Display.DrawnList[d.GetTextureID()].Add(d);
+                    break;
+            }
+        }
 
 		[NonSerialized]
 		private List<Physics2.Body> m_Bodies = new List<Physics2.Body>();
@@ -167,9 +199,9 @@ namespace Project_blob {
 			return this.m_Bodies;
 		}
 
-		public void LoadAreaWorldMaker(GraphicsDevice gd) {
+		public void LoadAreaWorldMaker(Game game) {
 			//create new display 
-			this.Display = new Display(gd);
+			this.Display = new Display(game.GraphicsDevice);
 
 			this.Display.TextureName = "point_text";
 			this.Display.ShowAxis = true;
@@ -180,9 +212,23 @@ namespace Project_blob {
 				if (d is StaticModel) {
 					((StaticModel)d).initialize();
 					//((StaticModel)d).Visible = true;
-				}
-				this.Display.AddToBeDrawn(d);
-			}
+                }
+                d.Drawn = true;
+                AddDrawableToDisplay(d);
+            }
+
+            // load skybox
+            if (this.m_SkyTexture != null && this.m_SkyTexture.Length > 0)
+            {
+                Texture2D skyTex = game.Content.Load<Texture2D>(@"Textures\\" + this.m_SkyTexture);
+                skyTex.Name = this.m_SkyTexture;
+                TextureManager.AddTexture(skyTex);
+                ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
+                this._display.SkyBox = new StaticModel("sky", "skyBox", "none", this.m_SkyTexture, new List<short>());
+                this._display.SkyBox.Scale = Matrix.CreateScale(750f);
+                this._display.SkyBox.initialize();
+            }
+
 
 
 			//move events into their respective models
@@ -226,22 +272,6 @@ namespace Project_blob {
 			se.Models.Add(cauldron2);
 
 			((StaticModel)button1).Event = se;*/
-
-			//create new display 
-			this._display = new Display(game.GraphicsDevice);
-			this._display.ShowAxis = false;
-			this._display.GameMode = true;
-
-			// load skybox
-			if (this.m_SkyTexture != null && this.m_SkyTexture.Length > 0) {
-				Texture2D skyTex = game.Content.Load<Texture2D>(@"Textures\\" + this.m_SkyTexture);
-				skyTex.Name = this.m_SkyTexture;
-				TextureManager.AddTexture(skyTex);
-				ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
-				this._display.SkyBox = new StaticModel("sky", "skyBox", "none", this.m_SkyTexture, new List<short>());
-				this._display.SkyBox.Scale = Matrix.CreateScale(750f);
-				this._display.SkyBox.initialize();
-			}
 
 			this.m_Bodies = new List<Physics2.Body>();
 
@@ -406,8 +436,36 @@ namespace Project_blob {
 
 					body.setMaterial(MaterialFactory.GetPhysicsMaterial(dm.MyMaterialType));
 					this.m_Bodies.Add(body);
-				}
-			}
+                }
+            }
+            //create new display 
+            this._display = new Display(game.GraphicsDevice);
+            this._display.ShowAxis = false;
+            this._display.GameMode = true;
+
+            // load skybox
+            if (this.m_SkyTexture != null && this.m_SkyTexture.Length > 0)
+            {
+                Texture2D skyTex = game.Content.Load<Texture2D>(@"Textures\\" + this.m_SkyTexture);
+                skyTex.Name = this.m_SkyTexture;
+                TextureManager.AddTexture(skyTex);
+                ModelManager.getSingleton.AddModel("skyBox", game.Content.Load<Model>(@"Models\\skySphere"));
+                this._display.SkyBox = new StaticModel("sky", "skyBox", "none", this.m_SkyTexture, new List<short>());
+                this._display.SkyBox.Scale = Matrix.CreateScale(750f);
+                this._display.SkyBox.initialize();
+            }
+
+            foreach (Drawable d in this._drawables.Values)
+            {
+                if (!(d is StaticModel))
+                {
+                    AddDrawableToDisplay(d);
+                }
+                if (d is StaticModel && ((StaticModel)d).Visible)
+                {
+                    AddDrawableToDisplay(d);
+                }
+            }
 
 			// These loops associate bodies with the SwitchEvent 
 			// The bodies are needed to run their tasks when 
@@ -425,10 +483,6 @@ namespace Project_blob {
 						}
 					}
 				}
-			}
-
-			foreach (Texture2D t in TextureManager.TextureList) {
-				this._display.DrawnList.Add(new List<Drawable>());
 			}
 		}
 	}

@@ -124,13 +124,33 @@ namespace Project_blob {
 		//First dimension index is TextureID
 		//All drawables added to the second 
 		//dimension must share the same texture
-		List<List<Drawable>> m_DrawList;
-
-        List<List<Drawable>> m_AlphaDrawList;
-        public List<List<Drawable>> AlphaDrawList
+        List<List<Drawable>> m_DrawList;
+        public List<List<Drawable>> DrawnList
         {
-            get { return m_AlphaDrawList; }
-            set { m_AlphaDrawList = value; }
+            get
+            {
+                return m_DrawList;
+            }
+            set
+            {
+                m_DrawList = value;
+            }
+        }
+
+        [NonSerialized]
+        List<List<Drawable>> m_AlphaDrawnList;
+        public List<List<Drawable>> AlphaDrawnList
+        {
+            get { return m_AlphaDrawnList; }
+            set { m_AlphaDrawnList = value; }
+        }
+
+        [NonSerialized]
+        List<List<Drawable>> m_AdditiveDrawnList;
+        public List<List<Drawable>> AdditiveDrawnList
+        {
+            get { return m_AdditiveDrawnList; }
+            set { m_AdditiveDrawnList = value; }
         }
 		//SortedList<short, List<Drawable>> rooms;
 
@@ -167,15 +187,6 @@ namespace Project_blob {
 				drawable_List_Drawn = value;
 			}
 		}*/
-
-		public List<List<Drawable>> DrawnList {
-			get {
-				return m_DrawList;
-			}
-			set {
-				m_DrawList = value;
-			}
-		}
 
 		string m_TextureParameterName = string.Empty;
 		public string TextureParameterName {
@@ -223,13 +234,7 @@ namespace Project_blob {
 			set { m_skyBox = value; }
 		}
 
-		public void WipeDrawn() {
-			m_DrawList.Clear();
-			if (m_skyBox != null)
-				AddToBeDrawn(m_skyBox);
-		}
-
-		public void AddToBeDrawn(Drawable p_Drawable) {
+		public void SetDrawn(Drawable p_Drawable) {
 			/*if (drawable_List_Drawn.Keys.Contains(p_Drawable.GetTextureKey()))
 			{
 				List<Drawable> temp = drawable_List_Drawn[p_Drawable.GetTextureKey()];
@@ -243,8 +248,11 @@ namespace Project_blob {
 				drawable_List_Drawn[p_Drawable.GetTextureKey()] = temp;
 			}*/
 
-			if (!m_DrawList[p_Drawable.GetTextureID()].Contains(p_Drawable))
-				m_DrawList[p_Drawable.GetTextureID()].Add(p_Drawable);
+			//if (!m_DrawList[p_Drawable.GetTextureID()].Contains(p_Drawable))
+			//	m_DrawList[p_Drawable.GetTextureID()].Add(p_Drawable);
+
+            //simply set the visible property to save time
+            p_Drawable.Drawn = true;
 #if DEBUG
 			++SceneManager.getSingleton.Drawn;
 #endif
@@ -311,9 +319,12 @@ namespace Project_blob {
 		public void initialize(GraphicsDevice gd) {
 			//initialize draw list, each texture gets a list
 			m_DrawList = new List<List<Drawable>>();
-            m_AlphaDrawList = new List<List<Drawable>>();
+            m_AlphaDrawnList = new List<List<Drawable>>();
+            m_AdditiveDrawnList = new List<List<Drawable>>();
 			for (int i = 0; i < TextureManager.TextureList.Count; ++i) {
-				m_DrawList.Add(new List<Drawable>());
+                m_DrawList.Add(new List<Drawable>());
+                m_AlphaDrawnList.Add(new List<Drawable>());
+                m_AdditiveDrawnList.Add(new List<Drawable>());
 			}
 
 			//*hardcode*
@@ -441,23 +452,48 @@ namespace Project_blob {
 							    DrawPrimitives(d, graphicsDevice);
 						    }
 					    }
-					}
+                    }
 
-                    for (int i = 0; i < m_AlphaDrawList.Count; ++i)
+                    /*for (int i = 0; i < m_AdditiveDrawnList.Count; ++i)
                     {
                         Texture2D t = TextureManager.TextureList[i];
 
                         m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
 
-                        foreach (Drawable d in m_AlphaDrawList[i])
+                        foreach (Drawable d in m_AdditiveDrawnList[i])
                         {
-                            if (d is StaticModel)
+                            if (d.Drawn)
                             {
-                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                                if (d is StaticModel)
+                                {
+                                    DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                                }
+                                else
+                                {
+                                    DrawPrimitives(d, graphicsDevice);
+                                }
                             }
-                            else
+                        }
+                    }*/
+
+                    for (int i = 0; i < m_AlphaDrawnList.Count; ++i)
+                    {
+                        Texture2D t = TextureManager.TextureList[i];
+
+                        m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+
+                        foreach (Drawable d in m_AlphaDrawnList[i])
+                        {
+                            if (d.Drawn)
                             {
-                                DrawPrimitives(d, graphicsDevice);
+                                if (d is StaticModel)
+                                {
+                                    DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                                }
+                                else
+                                {
+                                    DrawPrimitives(d, graphicsDevice);
+                                }
                             }
                         }
                     }
@@ -577,7 +613,8 @@ namespace Project_blob {
                         }
                     }
 				}*/
-
+                
+                // No Blend Mode
                 //graphicsDevice.RenderState.AlphaBlendEnable = true;
                 //graphicsDevice.RenderState.SourceBlend = Blend.One;
                 //graphicsDevice.RenderState.DestinationBlend = Blend.One;
@@ -592,31 +629,76 @@ namespace Project_blob {
 					//if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
 					//	m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
 
-					foreach (Drawable d in m_DrawList[i]) {
-						if (d is StaticModel) {
-							DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
-						} else {
-							DrawPrimitives(d, graphicsDevice);
-						}
+					foreach (Drawable d in m_DrawList[i]) 
+                    {
+                        if (d.Drawn)
+                        {
+                            if (d is StaticModel)
+                            {
+                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                            }
+                            else
+                            {
+                                DrawPrimitives(d, graphicsDevice);
+                            }
+                        }
 					}
 					//}
 				}
 
+                //Additive Blend Mode
                 graphicsDevice.RenderState.AlphaBlendEnable = true;
-                for (int i = 0; i < m_AlphaDrawList.Count; ++i)
+                graphicsDevice.RenderState.SourceBlend = Blend.One;
+                graphicsDevice.RenderState.DestinationBlend = Blend.One; 
+                for (int i = 0; i < m_AdditiveDrawnList.Count; ++i)
+                {
+                    Texture2D t = TextureManager.TextureList[i];
+                    //temporary check
+                    //if (!t.Name.Equals("event"))
+                    //{
+                    //if (m_TextureParameterName != "NONE")
+                    m_cartoonEffect.Parameters["Texture"].SetValue(t);
+
+                    //if (m_TextureParameterName != "NONE" && _effectName == "m_cartoonEffect")
+                    //	m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
+
+                    foreach (Drawable d in m_AdditiveDrawnList[i])
+                    {
+                        if (d.Drawn)
+                        {
+                            if (d is StaticModel)
+                            {
+                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                            }
+                            else
+                            {
+                                DrawPrimitives(d, graphicsDevice);
+                            }
+                        }
+                    }
+                    //}
+                }
+
+                //Alpha Blend Mode
+                graphicsDevice.RenderState.SourceBlend = Blend.One;
+                graphicsDevice.RenderState.DestinationBlend = Blend.Zero;
+                for (int i = 0; i < m_AlphaDrawnList.Count; ++i)
                 {
                     Texture2D t = TextureManager.TextureList[i];
                     m_cartoonEffect.Parameters["Texture"].SetValue(t);
 
-                    foreach (Drawable d in m_AlphaDrawList[i])
+                    foreach (Drawable d in m_AlphaDrawnList[i])
                     {
-                        if (d is StaticModel)
+                        if (d.Drawn)
                         {
-                            DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
-                        }
-                        else
-                        {
-                            DrawPrimitives(d, graphicsDevice);
+                            if (d is StaticModel)
+                            {
+                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                            }
+                            else
+                            {
+                                DrawPrimitives(d, graphicsDevice);
+                            }
                         }
                     }
                 }
@@ -668,11 +750,17 @@ namespace Project_blob {
 					m_cartoonEffect.Parameters[m_TextureParameterName].SetValue(t);
 
 					foreach (Drawable d in m_DrawList[i]) {
-						if (d is StaticModel) {
-							DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
-						} else {
-							DrawPrimitives(d, graphicsDevice);
-						}
+                        if (d.Drawn)
+                        {
+                            if (d is StaticModel)
+                            {
+                                DrawModel(m_WorldMatrix, (StaticModel)d, graphicsDevice);
+                            }
+                            else
+                            {
+                                DrawPrimitives(d, graphicsDevice);
+                            }
+                        }
 					}
 					//}
 				}

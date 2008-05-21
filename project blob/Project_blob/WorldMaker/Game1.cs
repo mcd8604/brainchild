@@ -296,7 +296,7 @@ namespace WorldMaker
 			CameraManager.getSingleton.SetActiveCamera("cinematic");
 
 			_activeArea = Level.Areas["testArea"];
-			_activeArea.LoadAreaWorldMaker(this.GraphicsDevice);
+			_activeArea.LoadAreaWorldMaker(this);
 			//effect.Parameters["xCameraPos"].SetValue(new Vector4(cameraPosition.X, cameraPosition.Y, cameraPosition.Z, 0));
 			VertexDeclarationTexture = new VertexDeclaration(GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
@@ -493,7 +493,7 @@ namespace WorldMaker
 			if (nextArea != null)
 			{
 				_activeArea = nextArea;
-				_activeArea.LoadAreaWorldMaker(this.GraphicsDevice);
+				_activeArea.LoadAreaWorldMaker(this);
 				Level.CurrentArea = _activeArea;
 				nextArea = null;
 				levelEditor.Invoke(new LevelEditor.Callback(levelEditor.UpdateLists));

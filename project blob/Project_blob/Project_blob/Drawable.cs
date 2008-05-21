@@ -4,8 +4,22 @@ using System;
 
 namespace Project_blob
 {
+    public enum BlendModes
+    {
+        None,
+        Alpha,
+        Additive
+    }
+
 	public interface Drawable
 	{
+
+        BlendModes BlendMode
+        {
+            get;
+            set;
+        }
+
 		//VertexPositionColor[] getTriangleVertexes();
 		VertexBuffer getVertexBuffer();
 
@@ -21,7 +35,13 @@ namespace Project_blob
 
 		BoundingBox GetBoundingBox();
 
-		//BoundingSphere GetBoundingSphere();
+        //BoundingSphere GetBoundingSphere();
+
+        bool Drawn
+        {
+            get;
+            set;
+        }
 
 	}
 }
