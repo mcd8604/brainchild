@@ -234,7 +234,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::dd0a40ad-5f62-4da2-9162-d6541884459e;
+            Name = Sound::8ff84af8-57cd-42c2-9872-88eba568d33d;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -261,7 +261,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::69841afe-950e-40cc-8700-54eac377795a;
+            Name = Sound::b0dda189-bf9e-41e8-98bd-2ba103444825;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -293,7 +293,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::73eb0686-fb91-4bd4-896f-80040f92db0d;
+            Name = Sound::6de64ad8-aeb3-46f1-95c4-bb6c71562354;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -327,7 +327,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::d3079891-bb53-4a52-8f44-cd31ebfd5af1;
+            Name = Sound::79a5df44-8497-4b01-861b-e4840a566521;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -359,7 +359,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::16db3ef3-e541-4bf5-adec-0420e082f399;
+            Name = Sound::80fdebe5-31f1-4209-8b9c-a92bd6c06eb8;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -386,7 +386,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::5fa164c1-1f38-43cb-b359-ad7146f2ddf8;
+            Name = Sound::e9984f64-0b34-41c5-907a-e906185205c0;
             Property = 0;
             Sound = 1;
             Line Color = 4294901760;
@@ -419,7 +419,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::fa060357-ea5d-47c1-b08c-51d46ad237b0;
+            Name = Sound::df48ad1c-a848-4d45-a31d-c19d6a7ccabf;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -451,7 +451,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::28f6b250-35b3-4c7f-a853-d2cc3e0d6a8c;
+            Name = Sound::fe5d2e6c-75bb-4eee-b628-676d98e5fc6d;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -483,7 +483,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::d2bf09a3-051a-4c16-a376-4e4261490671;
+            Name = Sound::667cc9ec-a151-48b9-99f3-225a88711e7c;
             Property = 0;
             Sound = 1;
             Viewable = 1;
@@ -510,7 +510,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::21954c48-0a5c-452a-8a1f-a702f02ddd3a;
+            Name = Sound::19cff4b1-9ffe-42d9-a83d-4dfc35ec2d92;
             Property = 0;
             Sound = 1;
             Line Color = 4294901760;
@@ -1287,7 +1287,7 @@ Sound Bank
     Sound
     {
         Name = lavaAmbience;
-        Volume = -1200;
+        Volume = -1600;
         Pitch = 0;
         Priority = 0;
 
@@ -1303,7 +1303,7 @@ Sound Bank
 
         Track
         {
-            Volume = -1200;
+            Volume = -1600;
 
             Play Wave Event
             {
@@ -1371,7 +1371,7 @@ Sound Bank
 
         Track
         {
-            Volume = 0;
+            Volume = -400;
 
             Play Wave Event
             {
@@ -1674,7 +1674,7 @@ Sound Bank
     Sound
     {
         Name = select;
-        Volume = -1200;
+        Volume = 0;
         Pitch = 0;
         Priority = 0;
 
@@ -1690,7 +1690,7 @@ Sound Bank
 
         Track
         {
-            Volume = 600;
+            Volume = 0;
 
             Play Wave Event
             {
@@ -1733,7 +1733,7 @@ Sound Bank
     Sound
     {
         Name = cancel;
-        Volume = -1200;
+        Volume = 0;
         Pitch = 0;
         Priority = 0;
 
@@ -1749,7 +1749,7 @@ Sound Bank
 
         Track
         {
-            Volume = 600;
+            Volume = 0;
 
             Play Wave Event
             {
@@ -1843,7 +1843,7 @@ Sound Bank
     Sound
     {
         Name = accept;
-        Volume = -1200;
+        Volume = 0;
         Pitch = 0;
         Priority = 0;
 
@@ -1859,7 +1859,7 @@ Sound Bank
 
         Track
         {
-            Volume = 600;
+            Volume = 0;
 
             Play Wave Event
             {
@@ -1969,7 +1969,7 @@ Sound Bank
 
         Track
         {
-            Volume = -800;
+            Volume = -1200;
 
             Play Wave Event
             {
@@ -2073,7 +2073,7 @@ Sound Bank
 
         Track
         {
-            Volume = -800;
+            Volume = -1600;
 
             Play Wave Event
             {
@@ -2125,7 +2125,7 @@ Sound Bank
 
         Track
         {
-            Volume = 600;
+            Volume = 0;
 
             Play Wave Event
             {
