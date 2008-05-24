@@ -52,11 +52,6 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <Compile Include="Audio\sound.xap">
-      <Name>sound</Name>
-      <Importer>XactImporter</Importer>
-      <Processor>XactProcessor</Processor>
-    </Compile>
     <None Include="Levels\FinalLevel.lev">
       <Name>FinalLevel</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -386,70 +381,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Audio\blob.wav">
-      <Name>blob</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\doorCollision.wav">
-      <Name>doorCollision</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\grassCollision.wav">
-      <Name>grassCollision</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\gravelImpact.wav">
-      <Name>gravelImpact</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\lavaAmbience.wav">
-      <Name>lavaAmbience</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\metalCollision.wav">
-      <Name>metalCollision</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\metalImpact.wav">
-      <Name>metalImpact</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\speedBoost.wav">
-      <Name>speedBoost</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\windAmbience.wav">
-      <Name>windAmbience</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\woodCollision.wav">
-      <Name>woodCollision</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Audio\accept.wav">
-      <Name>accept</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\buttonCollision.wav">
-      <Name>buttonCollision</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\cancel.wav">
-      <Name>cancel</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Audio\select.wav">
-      <Name>select</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Audio\blobCollision.wav">
-      <Name>blobCollision</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Compile Include="Models\blob.FBX">
       <Name>blob</Name>
       <Importer>FbxImporter</Importer>
@@ -651,30 +582,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Audio\bar.wav">
-      <Name>bar</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Audio\factory.wav">
-      <Name>factory</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Audio\hub.wav">
-      <Name>hub</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Audio\speedway.wav">
-      <Name>speedway</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\red.jpg">
       <Name>red</Name>
       <Importer>TextureImporter</Importer>
@@ -687,12 +594,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Audio\birdAmbience.wav">
-      <Name>birdAmbience</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\blue.png">
@@ -735,6 +636,9 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Audio\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
