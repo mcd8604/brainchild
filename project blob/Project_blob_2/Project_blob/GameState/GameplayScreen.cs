@@ -571,9 +571,9 @@ namespace Project_blob.GameState
 		{
 			initialMove = false;
 			currentArea = Level.Areas[nextAreaName];
-			AudioManager.setMusic(currentArea.MusicName);
+			//AudioManager.setMusic(currentArea.MusicName);
 
-			AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
+			//AudioManager.LoadAmbientSounds(currentArea.AmbientSounds);
 			if (UseDefaultAreaPos) {
 				blobStartPosition = currentArea.StartPosition;
 			}

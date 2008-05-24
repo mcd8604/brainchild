@@ -70,7 +70,7 @@ namespace Project_blob
 
 		protected override void Initialize()
 		{
-			AudioManager.initialize();
+			//AudioManager.initialize();
 
 			_accept = Audio.AudioManager.getSoundFX("accept");
 			_cancel = Audio.AudioManager.getSoundFX("cancel");
@@ -144,7 +144,7 @@ namespace Project_blob
 		protected override void Update(GameTime gameTime)
 		{
 			// Updates audio info
-			AudioManager.update();
+			//AudioManager.update();
 
 			// Read the keyboard and gamepad.
 			InputHandler.Update();

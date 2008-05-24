@@ -32,7 +32,7 @@ namespace Project_blob.GameState
 			// Move to the previous menu entry?
 			if (InputHandler.IsActionPressed(Actions.MenuUp))
 			{
-				Audio.AudioManager.playSoundFX(ref ScreenManager._select);
+				//Audio.AudioManager.playSoundFX(ref ScreenManager._select);
 				selectedEntry--;
 
 				if (selectedEntry < 0)
@@ -42,7 +42,7 @@ namespace Project_blob.GameState
 			// Move to the next menu entry?
 			if (InputHandler.IsActionPressed(Actions.MenuDown))
 			{
-				Audio.AudioManager.playSoundFX(ref ScreenManager._select);
+				//Audio.AudioManager.playSoundFX(ref ScreenManager._select);
 				++selectedEntry;
 
 				if (selectedEntry >= menuEntries.Count)
@@ -54,17 +54,17 @@ namespace Project_blob.GameState
 			{
 				if (selectedEntry == menuEntries.Count - 1)
 				{
-					Audio.AudioManager.playSoundFX(ref ScreenManager._cancel);
+					//Audio.AudioManager.playSoundFX(ref ScreenManager._cancel);
 				}
 				else
 				{
-					Audio.AudioManager.playSoundFX(ref ScreenManager._accept);
+					//Audio.AudioManager.playSoundFX(ref ScreenManager._accept);
 				}
 				OnSelectEntry(selectedEntry);
 			}
 			else if (InputHandler.IsActionPressed(Actions.MenuCancel))
 			{
-				Audio.AudioManager.playSoundFX(ref ScreenManager._cancel);
+				//Audio.AudioManager.playSoundFX(ref ScreenManager._cancel);
 				OnCancel();
 			}
 			
