@@ -1,0 +1,6 @@
+namespace Physics
+{
+    interface Actor
+    {
+    }
+}

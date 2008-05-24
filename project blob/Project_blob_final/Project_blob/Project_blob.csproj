@@ -1,0 +1,211 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{076BE12C-2B3B-423C-BB37-A05F5381A54A}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Project_blob</RootNamespace>
+    <AssemblyName>Project_blob</AssemblyName>
+    <XnaFrameworkVersion>v2.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <XnaCrossPlatformGroupID>42bbed13-e470-4309-a3c3-a35037996362</XnaCrossPlatformGroupID>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Final|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>FINAL</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
+      <Private>False</Private>
+      <SpecificVersion>True</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <SpecificVersion>True</SpecificVersion>
+    </Reference>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PowerCollections, Version=1.0.2141.24679, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\PowerCollections.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BodyDynamicConveyorBelt.cs" />
+    <Compile Include="BodyStaticConveyerBelt.cs" />
+    <Compile Include="ConveyerBeltStatic.cs" />
+    <Compile Include="ConveyorBeltDynamic.cs" />
+    <Compile Include="EventCameraClimb.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EventCameraClimbOff.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EventWin.cs" />
+    <Compile Include="GameState\AudioMenuScreen.cs" />
+    <Compile Include="GameState\ColorMenuScreen.cs" />
+    <Compile Include="GameState\CreditScreen.cs" />
+    <Compile Include="GameState\DeathScreen.cs" />
+    <Compile Include="GameState\EndScreen.cs" />
+    <Compile Include="GameState\NewHighScoreScreen.cs" />
+    <Compile Include="GameState\VideoMenuScreen.cs" />
+    <Compile Include="HighScores.cs" />
+    <Compile Include="TaskTypeEditor.cs" />
+    <Compile Include="ModelSelectionEditor.cs" />
+    <Compile Include="ModelSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModelSelector.Designer.cs">
+      <DependentUpon>ModelSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiTypeCollectionEditor.cs" />
+    <Compile Include="MaterialFactory.cs" />
+    <Compile Include="StaticModelSpeed.cs" />
+    <Compile Include="TaskEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TypeConverterArea.cs" />
+    <Compile Include="Blob.cs" />
+    <Compile Include="CameraBody.cs" />
+    <Compile Include="CameraEvent.cs" />
+    <Compile Include="CheckPointEvent.cs" />
+    <Compile Include="TypeConverterModel.cs" />
+    <Compile Include="TypeConverterTexture.cs" />
+    <Compile Include="DeathEvent.cs" />
+    <Compile Include="DeltaEvent.cs" />
+    <Compile Include="Display.cs" />
+    <Compile Include="DoorModel.cs" />
+    <Compile Include="Drawable.cs" />
+    <Compile Include="DrawableBody.cs" />
+    <Compile Include="DrawableInfo.cs" />
+    <Compile Include="DynamicModel.cs" />
+    <Compile Include="EventInfo.cs" />
+    <Compile Include="EventTrigger.cs" />
+    <Compile Include="GameState\ControllerScreen.cs" />
+    <Compile Include="GameState\GameplayScreen.cs" />
+    <Compile Include="GameState\GameScreen.cs" />
+    <Compile Include="GameState\LoadingScreen.cs" />
+    <Compile Include="GameState\MainMenuScreen.cs" />
+    <Compile Include="GameState\MenuEntry.cs" />
+    <Compile Include="GameState\MenuScreen.cs" />
+    <Compile Include="GameState\PauseMenuScreen.cs" />
+    <Compile Include="SelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Octree.cs" />
+    <Compile Include="OctreeLeaf.cs" />
+    <Compile Include="GameState\OptionsMenuScreen.cs" />
+    <Compile Include="Portal.cs" />
+    <Compile Include="PortalScene.cs" />
+    <Compile Include="SceneManager.cs" />
+    <Compile Include="ScreenManager.cs" />
+    <Compile Include="Sector.cs" />
+    <Compile Include="SpeedStatic.cs" />
+    <Compile Include="StaticModel.cs" />
+    <Compile Include="EffectManager.cs" />
+    <Compile Include="InputHandler.cs" />
+    <Compile Include="Area.cs" />
+    <Compile Include="Level.cs" />
+    <Compile Include="SwitchEvent.cs" />
+    <Compile Include="TaskCamera.cs" />
+    <Compile Include="TextEvent.cs" />
+    <Compile Include="TransitionEvent.cs" />
+    <Compile Include="ModelManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="TextureManager.cs" />
+    <Compile Include="TriggerBody.cs" />
+    <Compile Include="WarpEvent.cs" />
+    <Compile Include="WinScreen.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <NestedContentProject Include="Content\Content.contentproj">
+      <Project>a638f06a-94f3-4ee1-8d8c-e2434ceff1e9</Project>
+      <Visible>False</Visible>
+    </NestedContentProject>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Audio\Audio.csproj">
+      <Project>{D79DD5E6-3E22-4F3D-A3FB-6766B6BD6ED3}</Project>
+      <Name>Audio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{65494539-D8B5-4A17-9FD4-49E5D5A2949C}</Project>
+      <Name>Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Physics2\Physics2.csproj">
+      <Project>{1B356C34-6613-40BA-8476-29A93BFF64B6}</Project>
+      <Name>Physics2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{3B4B46B9-5F85-410E-A790-149CA71F2B8C}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ModelSelector.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ModelSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskEditor.resx">
+      <DependentUpon>TaskEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.Common.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.NestedContent.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
