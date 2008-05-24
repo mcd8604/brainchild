@@ -1,0 +1,85 @@
+Adam's Profiling Results!
+
+Methods using strings:
+
+Area.LoadAreaGameplay
+GameplayScreen.Draw
+LeveL.LoadLevel
+TextureManager.GetTextureID
+AudioManager.getSound
+
+
+What we need to care about:
+
+Spring.update
+Body.update
+PhysicsSeq.doPhysics
+Vector3.Multiply
+CollidableStaticTri.update
+Vecto3.Normalize
+Vector3.Add
+Vector3.Distance
+AABB.lineIntersects
+Body.findPointcollisions
+
+Latest Test:
+
+Full profiling, 5,472 methods were profiled.
+
+67 frames were drawn.
+
+In project blob, by order of time spent:
+
+TextureInfo.get_SortNumber	called 1322654 times
+TextureInfoComparer.Compare	called 407859 times
+TextureManager.getTexture	called 48110 times
+TextureManager.get_getSingleton	called 48253 times
+TextureInfo.get_TextureName	called 55932 times
+Area.get_Display		called 30010 times
+
+
+System methods that are getting called too much:
+
+Collection.get_Item(string)	called 40645 times
+String.Equals			called 1638607 times
+Vector3.Normalize		called 580545 times
+
+
+Physics related:
+
+Blob.getFaceVolumeTest		called 135240 times
+Blob.getPotentialFaceVolumeTest	called 135240 times
+
+
+Physics:
+
+Spring.update			called 1962930 times
+Body.update			called 1109 times
+AABB.lineIntersects		called 1238993 times
+Body.findPointcollisions	called 668 times
+Player.update			called 1109 times
+
+
+
+
+
+Just a quick test, I ran the game for 60 seconds with light profiling embedded, in that time, 69 frames were rendered...
+
+Here's the results:
+
+
+Physics spent most of it's time doing spring math, which I would not have predicted, but on reflection the blob does contain a freaking crapload of them, so that's understandable. I'll look at that and optimize it later.
+
+
+Drawing, on the other hand, was more spread out:
+
+The single most costly method in Drawing was EffectManager.GetEffect. Hmm.. looking up an entry in a string dictionary... who would have every thought that would be slow... Note though, that we spent so much time in there because the rest of the drawing code called that method 168668 times during the profiling....
+
+Apart from StaticModel.DrawMe, which obviously ranking highly, the next was Display.ApplyPostProcessing, which is probably not much more surprising.
+
+
+So, in conclusion, the top (and only) two methods on our collective optimization hit-list are:
+
+Spring.update -> Assigned to Adam
+
+EffectManager.getEffect -> Assigned to Mike
