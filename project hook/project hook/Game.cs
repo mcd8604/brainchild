@@ -121,16 +121,10 @@ namespace project_hook
 		/// load ResourceManagementMode.Manual content.
 		/// </summary>
 		/// <param name="loadAllContent">Which type of content to load.</param>
-		protected override void LoadGraphicsContent(bool loadAllContent)
+		protected override void LoadContent()
 		{
-			if (loadAllContent)
-			{
 				TextureLibrary.reloadAll();
 				m_SpriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-			}
-
-
-			// TODO: Load any ResourceManagementMode.Manual content
 		}
 
 
@@ -141,17 +135,10 @@ namespace project_hook
 		/// Disposed by the GraphicsDevice during a Reset.
 		/// </summary>
 		/// <param name="unloadAllContent">Which type of content to unload.</param>
-		protected override void UnloadGraphicsContent(bool unloadAllContent)
+		protected override void UnloadContent()
 		{
-			if (unloadAllContent)
-			{
-				// TODO: Unload any ResourceManagementMode.Automatic content
 				content.Unload();
-			}
-
-			// TODO: Unload any ResourceManagementMode.Manual content
 		}
-
 
 		/// <summary>
 		/// Allows the game to run logic such as updating the world,
