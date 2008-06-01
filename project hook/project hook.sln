@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual C# Express 2005
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project hook", "project hook\project hook.csproj", "{D4D326B7-9AFF-4EC5-970B-AD612AAF5014}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project hook", "..\..\My Documents\Visual Studio 2005\Projects\UpgradedGame1\UpgradedGame1\project hook.csproj", "{ECA52877-247A-45B4-91A4-F68F32DDC0E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4D326B7-9AFF-4EC5-970B-AD612AAF5014}.Debug|x86.ActiveCfg = Debug|x86
-		{D4D326B7-9AFF-4EC5-970B-AD612AAF5014}.Debug|x86.Build.0 = Debug|x86
-		{D4D326B7-9AFF-4EC5-970B-AD612AAF5014}.Final Release with XBOX controller|x86.ActiveCfg = Final Release with XBOX controller|x86
-		{D4D326B7-9AFF-4EC5-970B-AD612AAF5014}.Final Release with XBOX controller|x86.Build.0 = Final Release with XBOX controller|x86
-		{D4D326B7-9AFF-4EC5-970B-AD612AAF5014}.Final Release|x86.ActiveCfg = Final Release|x86
-		{D4D326B7-9AFF-4EC5-970B-AD612AAF5014}.Final Release|x86.Build.0 = Final Release|x86
-		{D4D326B7-9AFF-4EC5-970B-AD612AAF5014}.Release|x86.ActiveCfg = Release|x86
-		{D4D326B7-9AFF-4EC5-970B-AD612AAF5014}.Release|x86.Build.0 = Release|x86
+		{ECA52877-247A-45B4-91A4-F68F32DDC0E9}.Debug|x86.ActiveCfg = Debug|x86
+		{ECA52877-247A-45B4-91A4-F68F32DDC0E9}.Debug|x86.Build.0 = Debug|x86
+		{ECA52877-247A-45B4-91A4-F68F32DDC0E9}.Final Release with XBOX controller|x86.ActiveCfg = Final Release with XBOX controller|x86
+		{ECA52877-247A-45B4-91A4-F68F32DDC0E9}.Final Release with XBOX controller|x86.Build.0 = Final Release with XBOX controller|x86
+		{ECA52877-247A-45B4-91A4-F68F32DDC0E9}.Final Release|x86.ActiveCfg = Final Release|x86
+		{ECA52877-247A-45B4-91A4-F68F32DDC0E9}.Final Release|x86.Build.0 = Final Release|x86
+		{ECA52877-247A-45B4-91A4-F68F32DDC0E9}.Release|x86.ActiveCfg = Release|x86
+		{ECA52877-247A-45B4-91A4-F68F32DDC0E9}.Release|x86.Build.0 = Release|x86
+		{9F3192F8-7C3E-49C8-B3DD-570995F19569}.Debug|x86.ActiveCfg = Debug|x86
+		{9F3192F8-7C3E-49C8-B3DD-570995F19569}.Final Release with XBOX controller|x86.ActiveCfg = Release|x86
+		{9F3192F8-7C3E-49C8-B3DD-570995F19569}.Final Release|x86.ActiveCfg = Release|x86
+		{9F3192F8-7C3E-49C8-B3DD-570995F19569}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
