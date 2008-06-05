@@ -18,18 +18,18 @@ namespace Project_blob.GameState {
 		public override void HandleInput() {
 			// Move to the previous menu entry?
 			if (InputHandler.IsActionPressed(Actions.MenuUp)) {
-				if ((int)inputChar == 90)
-					inputChar = (char)65;
-				else
-					inputChar++;
-			}
-
-			// Move to the next menu entry?
-			if (InputHandler.IsActionPressed(Actions.MenuDown)) {
 				if ((int)inputChar == 65)
 					inputChar = (char)90;
 				else
 					inputChar--;
+			}
+
+			// Move to the next menu entry?
+			if (InputHandler.IsActionPressed(Actions.MenuDown)) {
+				if ((int)inputChar == 90)
+					inputChar = (char)65;
+				else
+					inputChar++;
 			}
 
 			if (InputHandler.IsActionPressed(Actions.MenuAccept)) {

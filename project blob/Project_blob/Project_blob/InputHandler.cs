@@ -43,7 +43,7 @@ internal static class InputHandler
 
 		AnalogMap.Add(AnalogActions.Camera, delegate { return InputHandler.thisGamePadState.ThumbSticks.Right; });
 
-		AnalogMap.Add(AnalogActions.Camera, delegate { return InputHandler.getMouseDeltaPosition() * 0.05f; });
+		AnalogMap.Add(AnalogActions.Camera, delegate { return InputHandler.getMouseDeltaPosition() * 0.125f; });
 
 		// Keyboard
 
@@ -67,7 +67,14 @@ internal static class InputHandler
 		KeyboardMap.Add(Actions.ChangeCamera, Keys.F);
 #else
 		KeyboardMap.Add(Actions.Jump, Keys.Space);
+		KeyboardMap.Add(Actions.Jump, Keys.RightControl);
 		KeyboardMap.Add(Actions.ChangeCamera, Keys.RightAlt);
+		KeyboardMap.Add(Actions.ToggleElasticity, Keys.M);
+		KeyboardMap.Add(Actions.ToggleStickiness, Keys.N);
+
+		MouseMap.Add(Actions.ChangeCamera, MouseButtons.Middle);
+		MouseMap.Add(Actions.ToggleStickiness, MouseButtons.Left);
+		MouseMap.Add(Actions.ToggleElasticity, MouseButtons.Right);
 #endif
 
 		// Gamepad 

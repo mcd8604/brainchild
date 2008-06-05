@@ -716,13 +716,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\door.jpg">
-      <Name>door</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="MenuSprites\title.png">
       <Name>title</Name>
       <Importer>TextureImporter</Importer>
