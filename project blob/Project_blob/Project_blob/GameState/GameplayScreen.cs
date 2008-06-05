@@ -36,8 +36,8 @@ namespace Project_blob.GameState
 
 		Texture2D firm, soft, slick, sticky;
 
-		bool default_sticky = false;
-		bool default_firm = false;
+		bool default_sticky = true;
+		bool default_firm = true;
 
 		bool initialMove = false;
 
@@ -66,10 +66,10 @@ namespace Project_blob.GameState
 		public bool blob_Climbing = false;
 		//bool startCameraFollow = false;
 
-		RenderTarget2D sceneRenderTarget;
-		RenderTarget2D normalDepthRenderTarget;
-		RenderTarget2D distortionMap;
-		ResolveTexture2D tempRenderTarget;
+		//RenderTarget2D sceneRenderTarget;
+		//RenderTarget2D normalDepthRenderTarget;
+		//RenderTarget2D distortionMap;
+		//ResolveTexture2D tempRenderTarget;
 
 		Matrix worldMatrix;
 		//Matrix viewMatrix;
@@ -195,8 +195,13 @@ namespace Project_blob.GameState
 
 		private void reset()
 		{
+			float grip = 0.5f;
+			float firm = 0.5f;
+
 			if (physics != null)
 			{
+				grip = physics.Player.Traction.Target;
+				firm = physics.Player.Resilience.Target;
 				physics.stop();
 			}
 			physics = PhysicsManager.getInstance();
@@ -250,6 +255,9 @@ namespace Project_blob.GameState
 			physics.AddBody(theBlob);
 
 			physics.Player.PlayerBody.addTask(new GravityVector(10f, new Vector3(0f, -1.0f, 0f)));
+
+			physics.Player.Traction.Target = grip;
+			physics.Player.Resilience.Target = firm;
 
 			CameraBody = new CameraBody(theBlob);
 			physics.AddBody(CameraBody);
@@ -759,25 +767,25 @@ namespace Project_blob.GameState
 					if (InputHandler.IsActionPressed(Actions.ToggleElasticity))
 					{
 						default_firm = !default_firm;
-						if (physics.Player.Resilience.Target <= 0.5f)
+						if (default_firm)
 						{
-							physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
+							physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
 						}
 						else
 						{
-							physics.Player.Resilience.Target = physics.Player.Volume.Target = 0f;
+							physics.Player.Resilience.Target = physics.Player.Volume.Target = 1f;
 						}
 					}
 					if (InputHandler.IsActionPressed(Actions.ToggleStickiness))
 					{
 						default_sticky = !default_sticky;
-						if (physics.Player.Cling.Target <= 0.5f)
+						if (default_sticky)
 						{
-							physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
+							physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
 						}
 						else
 						{
-							physics.Player.Cling.Target = physics.Player.Traction.Target = 0f;
+							physics.Player.Cling.Target = physics.Player.Traction.Target = 1f;
 						}
 					}
 
